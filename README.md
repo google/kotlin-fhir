@@ -1,11 +1,10 @@
-# KMP FHIR
+# Kotlin FHIR
 
 [![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#alpha) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-KMP FHIR is a lean and fast implementation of
-the [HL7® FHIR®](https://www.hl7.org/fhir/overview.html)
-data model
-on [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html).
+Kotlin FHIR is a lean and fast implementation of the
+[HL7® FHIR®](https://www.hl7.org/fhir/overview.html) data model on
+[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html).
 
 **Warning:** The library is in alpha and subject to change. Use at your own risk.
 
@@ -30,6 +29,7 @@ dependencies. Only essential Kotlin Multiplatform dependencies are included, e.g
 [^3]: It is also possible to serialize to other formats
 [`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) supports, such as
 [protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of Jan
+
 2025.
 
 ## Implementation
@@ -47,7 +47,8 @@ graph LR
     C -- compiler --> F[js target]
 ```
 
-The KMP FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code directly
+The Kotlin FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code
+directly
 from FHIR specification. This plugin uses [
 `kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) library to parse and load
 FHIR resource `StructureDefinition`s into an in-memory representation, and then
@@ -80,9 +81,9 @@ Kotlin code is generated for StructureDefinitions in the following FHIR packages
 In FHIR, primitive data types (e.g. in [R4](https://hl7.org/fhir/R4/datatypes.html)) are defined
 using StructureDefinitions[^4]. For instance, the `date` type is defined in
 `StructureDefinition-date.json`. While primitive, these types may include an `id` and `extension`s,
-preventing direct mapping to Kotlin's primitive types. To resolve this issue, the KMP FHIR library
-generates a distinct Kotlin class for each FHIR primitive data type, for example, the `Date` class
-in `Date.kt` file for the `date` type.
+preventing direct mapping to Kotlin's primitive types. To resolve this issue, the library generates
+a distinct Kotlin class for each FHIR primitive data type, for example, the `Date` class in`Date.kt`
+file for the `date` type.
 
 [^4]: A "JSON Definition" link to the StructureDefinition is now included for each FHIR primitive
 data type in the [Data Types](https://build.fhir.org/datatypes.html) page in FHIR CI-BUILD.
@@ -121,7 +122,7 @@ represent the data in Kotlin. These exceptions are listed below:
 ### Mapping FHIR data structure to Kotlin
 
 Similarly, for more complex data structures in FHIR such as complex data types and FHIR resources,
-the KMP FHIR library maps each StructureDefinition JSON file to a dedicated Kotlin `.kt` file, each
+the library maps each StructureDefinition JSON file to a dedicated Kotlin `.kt` file, each
 containing a Kotlin class representing the StructureDefinition. BackboneElements in FHIR are
 represented as nested classes since they are never reused outside of the StructureDefinition. For
 each occurrence of a choice type (e.g. in [R4](https://hl7.org/fhir/R4/formats.html#choice)), a
@@ -175,7 +176,7 @@ types are represented by two JSON properties (e.g.
 in [R4](https://hl7.org/fhir/R4/json.html#primitive)). As a result, the Kotlin data class of any
 FHIR resource or element containing primitive data types cannot be directly mapped to JSON.
 
-To address this issue, the KMP FHIR library generates
+To address this issue, the library generates
 [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate)
 classes (e.g. `PatientSurrogate` in `Patient.kt`) for data classes containing primitive data types,
 mapping each primitive data type to two JSON properties . It also generates custom serializers (e.g.
@@ -322,8 +323,8 @@ In the example above, the type parameter `Patient` specified in the deserializat
 to use.
 
 In practice, however, the resource type is not always known prior to deserialization. To resolve
-this, the KMP FHIR library leverages `kotlinx.serialization`'s polymorphic deserialization support
-by marking the `resourceType` JSON property as a
+this, the library leverages `kotlinx.serialization`'s polymorphic deserialization support by marking
+the `resourceType` JSON property as a
 [JsonClassDiscriminator](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-class-discriminator/).
 This allows kotlinx.serialization to dynamically select the correct resource subclass to instantiate
 based on the JSON content at runtime.
@@ -348,8 +349,8 @@ fun main() {
 
 ## Testing
 
-The KMP FHIR library includes comprehensive **serialization round-trip tests** for examples
-published in the following packages:
+The library includes comprehensive **serialization round-trip tests** for examples published in the
+following packages:
 
 - [hl7.fhir.r4.examples](https://simplifier.net/packages/hl7.fhir.r4.examples) (5309 examples)
 - [hl7.fhir.r4b.examples](https://simplifier.net/packages/hl7.fhir.r4b.examples) (2840 examples)
