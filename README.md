@@ -1,13 +1,13 @@
 # KMP FHIR
 
-[![stability-wip](https://img.shields.io/badge/stability-wip-lightgrey.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#work-in-progress) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#alpha) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 KMP FHIR is a lean and fast implementation of
 the [HL7® FHIR®](https://www.hl7.org/fhir/overview.html)
 data model
 on [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html).
 
-**Warning:** The library is work-in-progress and subject to change. Use at your own risk.
+**Warning:** The library is in alpha and subject to change. Use at your own risk.
 
 ## Key features
 
@@ -29,7 +29,8 @@ dependencies. Only essential Kotlin Multiplatform dependencies are included, e.g
 
 [^3]: It is also possible to serialize to other formats
 [`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) supports, such as
-[protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of Jan 2025.
+[protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of Jan
+2025.
 
 ## Implementation
 
@@ -369,3 +370,8 @@ use of `+00:00` instead of `Z` for zero UTC offset, and large numbers represente
 notation instead of scientific notation (e.g. 1000000000000000000 instead of 1E18). The
 serialization process normalizes these variations, resulting in potentially different JSON output.
 However, in all of these cases, semantic equivalence is maintained.
+
+## Acknowledgements
+
+Thanks to [Yigit Boyar](https://github.com/yigit) for helping bootstrap this project and generously
+sharing his expertise in Kotlin Multiplatform and Gradle. 
