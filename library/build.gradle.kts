@@ -127,62 +127,19 @@ publishing {
         }
     }
 }
-
-tasks.register("prepareX20Zips", PrepareForX20::class) {
-    this.outputDir.set(project.layout.buildDirectory.dir("x20zips"))
-    this.publishOutputDir.set(tasks.named("publish").map { _ ->
+val deleteRepoTask = tasks.register<Delete>("deleteLocalRepo") {
+    description = "Deletes the local repository to get rid of stale artifacts before local publishing"
+    this.delete(localRepo)
+}
+tasks.named("publishAllPublicationsToMavenRepository").configure {
+    dependsOn(deleteRepoTask)
+}
+tasks.register("zipRepo", Zip::class) {
+    description = "Create a zip of the maven repository"
+    this.destinationDirectory.set(project.layout.buildDirectory.dir("repoZip"))
+    archiveBaseName.set("kmp-fhir")
+    this.from(tasks.named("publish").map { _ ->
         // mapping from publish task to establish dependency.
         localRepo
     })
-}
-
-/**
- * Creates a separate zip file for each artifact that we want to publish.
- */
-@DisableCachingByDefault(because = "zip tasks are not worth caching")
-abstract class PrepareForX20: DefaultTask() {
-    @get:OutputDirectory
-    abstract val outputDir: DirectoryProperty
-    @get:InputDirectory
-    abstract val publishOutputDir: DirectoryProperty
-
-    @TaskAction
-    fun createZips() {
-        outputDir.get().asFile.run {
-            mkdirs()
-            // delete everything inside
-            listFiles().forEach {
-                it.deleteRecursively()
-            }
-        }
-        publishOutputDir.get().asFile.walkTopDown().filter { file ->
-            file.isFile && file.extension == "pom"
-        }.map { pomFile ->
-            pomFile.parentFile.parentFile
-        }.forEach { artifact ->
-            zipArtifact(artifact)
-        }
-    }
-
-    private fun zipArtifact(input: File) {
-        val output = outputDir.get().asFile.resolve("${input.name}.zip")
-        check(!output.exists()) {
-            "$output already exists"
-        }
-        ZipOutputStream(FileOutputStream(output)).use { zipOut ->
-            input.walkTopDown().forEach { fileOrDir ->
-                val relativePath = fileOrDir.relativeTo(input).invariantSeparatorsPath
-                val entryName =
-                    relativePath + if (fileOrDir.isDirectory) "/" else ""
-
-                zipOut.putNextEntry(
-                    ZipEntry(entryName)
-                )
-                if (fileOrDir.isFile) {
-                    fileOrDir.inputStream().use { it.copyTo(zipOut) }
-                }
-                zipOut.closeEntry()
-            }
-        }
-    }
 }

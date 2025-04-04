@@ -377,9 +377,9 @@ To create a maven repository from the project, run:
 
 `./gradlew :library:publish`
 
-Which will create a maven repository in the `library/build/repo` folder.
+This will create a maven repository in the `library/build/repo` directory.
 
-There is also a `prepareX20Zips` task that will zip each artifact separately into the `library/build/x20zips` folder.
+There is also a `zipRepo` task that will zip the repository into the `library/build/repoZip` directory.
 
 ## Acknowledgements
 
