@@ -1,7 +1,9 @@
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import java.io.FileOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 plugins {
     alias(libs.plugins.android.library)
@@ -9,8 +11,11 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.maven.publish)
     id("fhir-codegen")
+    `maven-publish`
 }
 
+group = "com.google.fhir"
+version = "1.0.0-alpha01"
 val codegenTaskR4 = fhirCodegenExtension.newTask("r4") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4.core/package").listFiles()
@@ -111,4 +116,73 @@ android {
 tasks.withType<Test>().configureEach {
     // Allow tests to access third_party
     systemProperty("projectRootDir", project.rootDir.absolutePath)
+}
+
+// publishing prep
+val localRepo = project.layout.buildDirectory.get().dir("repo")
+publishing {
+    repositories {
+        maven {
+            url = localRepo.asFile.toURI()
+        }
+    }
+}
+
+tasks.register("prepareX20Zips", PrepareForX20::class) {
+    this.outputDir.set(project.layout.buildDirectory.dir("x20zips"))
+    this.publishOutputDir.set(tasks.named("publish").map { _ ->
+        // mapping from publish task to establish dependency.
+        localRepo
+    })
+}
+
+/**
+ * Creates a separate zip file for each artifact that we want to publish.
+ */
+@DisableCachingByDefault(because = "zip tasks are not worth caching")
+abstract class PrepareForX20: DefaultTask() {
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+    @get:InputDirectory
+    abstract val publishOutputDir: DirectoryProperty
+
+    @TaskAction
+    fun createZips() {
+        outputDir.get().asFile.run {
+            mkdirs()
+            // delete everything inside
+            listFiles().forEach {
+                it.deleteRecursively()
+            }
+        }
+        publishOutputDir.get().asFile.walkTopDown().filter { file ->
+            file.isFile && file.extension == "pom"
+        }.map { pomFile ->
+            pomFile.parentFile.parentFile
+        }.forEach { artifact ->
+            zipArtifact(artifact)
+        }
+    }
+
+    private fun zipArtifact(input: File) {
+        val output = outputDir.get().asFile.resolve("${input.name}.zip")
+        check(!output.exists()) {
+            "$output already exists"
+        }
+        ZipOutputStream(FileOutputStream(output)).use { zipOut ->
+            input.walkTopDown().forEach { fileOrDir ->
+                val relativePath = fileOrDir.relativeTo(input).invariantSeparatorsPath
+                val entryName =
+                    relativePath + if (fileOrDir.isDirectory) "/" else ""
+
+                zipOut.putNextEntry(
+                    ZipEntry(entryName)
+                )
+                if (fileOrDir.isFile) {
+                    fileOrDir.inputStream().use { it.copyTo(zipOut) }
+                }
+                zipOut.closeEntry()
+            }
+        }
+    }
 }

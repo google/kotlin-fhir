@@ -372,6 +372,15 @@ notation instead of scientific notation (e.g. 1000000000000000000 instead of 1E1
 serialization process normalizes these variations, resulting in potentially different JSON output.
 However, in all of these cases, semantic equivalence is maintained.
 
+## Publishing
+To create a maven repository from the project, run:
+
+`./gradlew :library:publish`
+
+Which will create a maven repository in the `library/build/repo` folder.
+
+There is also a `prepareX20Zips` task that will zip each artifact separately into the `library/build/x20zips` folder.
+
 ## Acknowledgements
 
 Thanks to [Yigit Boyar](https://github.com/yigit) for helping bootstrap this project and generously
