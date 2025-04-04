@@ -137,7 +137,7 @@ tasks.named("publishAllPublicationsToMavenRepository").configure {
 tasks.register("zipRepo", Zip::class) {
     description = "Create a zip of the maven repository"
     this.destinationDirectory.set(project.layout.buildDirectory.dir("repoZip"))
-    archiveBaseName.set("kmp-fhir")
+    archiveBaseName.set("kotlin-fhir")
     this.from(tasks.named("publish").map { _ ->
         // mapping from publish task to establish dependency.
         localRepo
