@@ -39,8 +39,6 @@ val exclusionListR4 =
 
     // Time with :00
     "MedicationRequest-medrx0335.json",
-    "HealthcareService-example.json",
-    "PractitionerRole-example.json",
 
     // Pattern in ElementDefinition
     "StructureDefinition-example-section-library.json",
@@ -59,8 +57,6 @@ val exclusionListR4B =
 
     // Time with :00
     "MedicationRequest-medrx0335.json",
-    "PractitionerRole-example.json",
-    "HealthcareService-example.json",
 
     // Pattern
     "StructureDefinition-example-section-library.json",
@@ -80,9 +76,6 @@ val exclusionsListR5 =
 
     // Time with :00
     "MedicationRequest-medrx0335.json",
-    "Organization-hl7.json",
-    "PractitionerRole-example.json",
-    "HealthcareService-example.json",
 
     // Trailing 0 in milliseconds
     "ArtifactAssessment-example-certainty-rating.json",

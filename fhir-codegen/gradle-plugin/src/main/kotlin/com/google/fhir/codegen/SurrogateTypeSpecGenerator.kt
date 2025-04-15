@@ -75,16 +75,28 @@ object SurrogateTypeSpecGenerator {
                 PropertySpec.builder(it.key, it.value)
                   .initializer(it.key)
                   .apply {
-                    // Serialize Double with a custom serializer
-                    if (it.value is ClassName && (it.value as ClassName).simpleName == "Double") {
-                      addAnnotation(
-                        AnnotationSpec.builder(Serializable::class)
-                          .addMember(
-                            "with = %T::class",
-                            ClassName(modelClassName.packageName, "DoubleSerializer"),
+                    // Serialize types with custom serializers
+                    if (it.value is ClassName) {
+                      when ((it.value as ClassName).simpleName) {
+                        "Double" ->
+                          addAnnotation(
+                            AnnotationSpec.builder(Serializable::class)
+                              .addMember(
+                                "with = %T::class",
+                                ClassName(modelClassName.packageName, "DoubleSerializer"),
+                              )
+                              .build()
                           )
-                          .build()
-                      )
+                        "LocalTime" ->
+                          addAnnotation(
+                            AnnotationSpec.builder(Serializable::class)
+                              .addMember(
+                                "with = %T::class",
+                                ClassName(modelClassName.packageName, "LocalTimeSerializer"),
+                              )
+                              .build()
+                          )
+                      }
                     }
                   }
                   .mutable()

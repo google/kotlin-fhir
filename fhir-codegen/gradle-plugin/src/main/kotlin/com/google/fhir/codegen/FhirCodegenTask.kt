@@ -19,6 +19,7 @@ package com.google.fhir.codegen
 import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
+import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
@@ -33,6 +34,8 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.configurationcache.extensions.capitalized
+
+const val SERIALIZERS_DIR = "/serializers"
 
 @CacheableTask
 abstract class FhirCodegenTask : DefaultTask() {
@@ -110,5 +113,6 @@ abstract class FhirCodegenTask : DefaultTask() {
     FhirDateTimeTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
     FhirDateTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
     DoubleSerializerTypeSpecGenerator.generate(this.packageName.get()).writeTo(outputDir)
+    LocalTimeSerializerTypeSpecGenerator.generate(this.packageName.get()).writeTo(outputDir)
   }
 }
