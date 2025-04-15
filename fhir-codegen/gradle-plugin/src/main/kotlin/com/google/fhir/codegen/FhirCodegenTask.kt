@@ -35,8 +35,6 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.configurationcache.extensions.capitalized
 
-const val SERIALIZERS_DIR = "/serializers"
-
 @CacheableTask
 abstract class FhirCodegenTask : DefaultTask() {
   @get:InputFiles
