@@ -22,7 +22,6 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
 import com.google.fhir.codegen.schema.getTypeName
-import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -72,35 +71,7 @@ object SurrogateTypeSpecGenerator {
           val properties =
             filteredElements.flatMap { element ->
               (element.getSurrogatePropertyNamesAndTypes(modelClassName)).map {
-                PropertySpec.builder(it.key, it.value)
-                  .initializer(it.key)
-                  .apply {
-                    // Serialize types with custom serializers
-                    if (it.value is ClassName) {
-                      when ((it.value as ClassName).simpleName) {
-                        "Double" ->
-                          addAnnotation(
-                            AnnotationSpec.builder(Serializable::class)
-                              .addMember(
-                                "with = %T::class",
-                                ClassName(modelClassName.packageName, "DoubleSerializer"),
-                              )
-                              .build()
-                          )
-                        "LocalTime" ->
-                          addAnnotation(
-                            AnnotationSpec.builder(Serializable::class)
-                              .addMember(
-                                "with = %T::class",
-                                ClassName(modelClassName.packageName, "LocalTimeSerializer"),
-                              )
-                              .build()
-                          )
-                      }
-                    }
-                  }
-                  .mutable()
-                  .build()
+                PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
               }
             }
           addProperties(properties)
