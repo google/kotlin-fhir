@@ -37,6 +37,10 @@ object LocalTimeSerializerTypeSpecGenerator {
     return FileSpec.builder(packageName, "LocalTimeSerializer")
       .addType(
         TypeSpec.objectBuilder("LocalTimeSerializer")
+          .addKdoc(
+            "A Serializer for `LocalTime` that always include seconds, even if they are zero.\n"
+          )
+          .addKdoc("Fractional parts of the second are included if non-zero.")
           .addSuperinterface(
             ClassName("kotlinx.serialization", "KSerializer")
               .parameterizedBy(LocalTime::class.asClassName())

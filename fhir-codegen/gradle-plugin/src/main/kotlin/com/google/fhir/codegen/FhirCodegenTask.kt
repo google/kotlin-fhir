@@ -112,7 +112,7 @@ abstract class FhirCodegenTask : DefaultTask() {
     FhirDateTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
 
     // Generate custom serializers
-    val serializersPackageName = this.packageName.get() + ".serializers"
+    val serializersPackageName = "${this.packageName.get()}.serializers"
     DoubleSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
     LocalTimeSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
   }
