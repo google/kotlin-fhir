@@ -216,17 +216,17 @@ binary plugin generates three classes for each FHIR resource type:
   serializer package e.g. `com.google.fhir.r4.serializers`,
 
 using
-`[ModelTypeSpecGenerator](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt)`,
-`SurrogateTypeSpecGenerator(fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt)`,
+[`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
+[`SurrogateTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt),
 and
-`SerializerTypeSpecGenerator(fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt)`,
+[`SerializerTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt),
 respectively.
 
 Additionally,
-the `[schema](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/schema)` package in
+the [`schema`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/schema) package in
 the FHIR codegen contains the schema for structure definitions and helper functions for processing
 them, and the
-`[primitives](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/primitives)`
+[`primitives`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/primitives)
 package contains code to generate special data classes and serializers for primitive data types as
 mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
