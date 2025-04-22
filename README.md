@@ -28,9 +28,8 @@ dependencies. Only essential Kotlin Multiplatform dependencies are included, e.g
 
 [^3]: It is also possible to serialize to other formats
 [`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) supports, such as
-[protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of Jan
-
-2025.
+[protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of
+Jan 2025.
 
 ## Implementation
 
@@ -178,10 +177,58 @@ FHIR resource or element containing primitive data types cannot be directly mapp
 
 To address this issue, the library generates
 [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate)
-classes (e.g. `PatientSurrogate` in `Patient.kt`) for data classes containing primitive data types,
-mapping each primitive data type to two JSON properties . It also generates custom serializers (e.g.
-`PatienetSerializer` in `Patient.kt`) that delegate the serialization/deserialization process to the
-corresponding surrogate classes and translate between the data classes and surrogate classes.
+classes (e.g. `PatientSurrogate`) for data classes containing primitive data types, mapping each
+primitive data type to two JSON properties . It also generates custom serializers (e.g.
+`PatienetSerializer`) that delegate the serialization/deserialization process to the corresponding
+surrogate classes and translate between the data classes and surrogate classes.
+
+### FHIR codegen
+
+```mermaid
+graph LR
+    subgraph FHIR codegen
+        A[FhirCodegen]
+        B[ModelTypeSpecGenerator]
+        C[SurrogateTypeSpecGenerator]
+        D[SerializerTypeSpecGenerator]
+    end
+    subgraph Generated code
+        E[Patient]
+        F[PatientSurrogate]
+        G[PatientSerializer]
+    end
+    A --> B
+    A --> C
+    A --> D
+    B --> E
+    C --> F
+    D --> G
+```
+
+To put all this together, the
+[FHIR codegen](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen) in the Gradle
+binary plugin generates three classes for each FHIR resource type:
+
+- the model class (the most important class) in the root package e.g. `com.google.fhir.r4`,
+- the surrogate class (for mapping primitive data types to JSON properties) in the surrogate package
+  e.g. `com.google.fhir.r4.surrogates`, and
+- the serializer class (to delegate serialization/deserialization to the surrogate class) in the
+  serializer package e.g. `com.google.fhir.r4.serializers`,
+
+using
+`[ModelTypeSpecGenerator](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt)`,
+`SurrogateTypeSpecGenerator(fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt)`,
+and
+`SerializerTypeSpecGenerator(fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt)`,
+respectively.
+
+Additionally,
+the `[schema](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/schema)` package in
+the FHIR codegen contains the schema for structure definitions and helper functions for processing
+them, and the
+`[primitives](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/primitives)`
+package contains code to generate special data classes and serializers for primitive data types as
+mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
 ## User Guide
 

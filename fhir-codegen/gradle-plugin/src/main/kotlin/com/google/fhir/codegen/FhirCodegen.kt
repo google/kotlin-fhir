@@ -56,7 +56,7 @@ object FhirCodegen {
 
     modelFileSpec
       .addType(
-        TypeSpecGenerator.generate(
+        ModelTypeSpecGenerator.generate(
           modelClassName,
           structureDefinition,
           isBaseClass,
