@@ -19,6 +19,7 @@ package com.google.fhir.codegen
 import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
+import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
@@ -109,6 +110,10 @@ abstract class FhirCodegenTask : DefaultTask() {
 
     FhirDateTimeTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
     FhirDateTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
-    DoubleSerializerTypeSpecGenerator.generate(this.packageName.get()).writeTo(outputDir)
+
+    // Generate custom serializers
+    val serializersPackageName = "${this.packageName.get()}.serializers"
+    DoubleSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
+    LocalTimeSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
   }
 }

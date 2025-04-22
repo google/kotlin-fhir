@@ -22,7 +22,6 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
 import com.google.fhir.codegen.schema.getTypeName
-import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -72,23 +71,7 @@ object SurrogateTypeSpecGenerator {
           val properties =
             filteredElements.flatMap { element ->
               (element.getSurrogatePropertyNamesAndTypes(modelClassName)).map {
-                PropertySpec.builder(it.key, it.value)
-                  .initializer(it.key)
-                  .apply {
-                    // Serialize Double with a custom serializer
-                    if (it.value is ClassName && (it.value as ClassName).simpleName == "Double") {
-                      addAnnotation(
-                        AnnotationSpec.builder(Serializable::class)
-                          .addMember(
-                            "with = %T::class",
-                            ClassName(modelClassName.packageName, "DoubleSerializer"),
-                          )
-                          .build()
-                      )
-                    }
-                  }
-                  .mutable()
-                  .build()
+                PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
               }
             }
           addProperties(properties)

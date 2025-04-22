@@ -37,11 +37,6 @@ val exclusionListR4 =
     // Instant with trailing 0s
     "ValueSet-v3-hl7PublishingSubSection.json",
 
-    // Time with :00
-    "MedicationRequest-medrx0335.json",
-    "HealthcareService-example.json",
-    "PractitionerRole-example.json",
-
     // Pattern in ElementDefinition
     "StructureDefinition-example-section-library.json",
     "StructureDefinition-triglyceride.json",
@@ -56,11 +51,6 @@ val exclusionListR4B =
   listOf(
     // Java heap space
     "Bundle-resources.json",
-
-    // Time with :00
-    "MedicationRequest-medrx0335.json",
-    "PractitionerRole-example.json",
-    "HealthcareService-example.json",
 
     // Pattern
     "StructureDefinition-example-section-library.json",
@@ -77,12 +67,6 @@ val exclusionsListR5 =
   listOf(
     // Java heap space
     "Bundle-resources.json",
-
-    // Time with :00
-    "MedicationRequest-medrx0335.json",
-    "Organization-hl7.json",
-    "PractitionerRole-example.json",
-    "HealthcareService-example.json",
 
     // Trailing 0 in milliseconds
     "ArtifactAssessment-example-certainty-rating.json",

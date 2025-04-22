@@ -21,6 +21,7 @@ import com.google.fhir.codegen.schema.rootElements
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
+import kotlinx.serialization.UseSerializers
 import org.gradle.configurationcache.extensions.capitalized
 
 /**
@@ -74,6 +75,7 @@ object FhirCodegen {
     ) {
       // TODO: Handle cases where the class does not need the surrogate class and the
       //  custom serializer since it does not have any primitive fields.
+      val serializersPackageName = "${modelClassName.packageName}.serializers"
       surrogateFileSpec
         .addType(
           SurrogateTypeSpecGenerator.generate(
@@ -81,7 +83,14 @@ object FhirCodegen {
             structureDefinition.rootElements,
           )
         )
+        .addAnnotation(
+          AnnotationSpec.builder(UseSerializers::class)
+            .addMember("%T::class", ClassName(serializersPackageName, "DoubleSerializer"))
+            .addMember("%T::class", ClassName(serializersPackageName, "LocalTimeSerializer"))
+            .build()
+        )
         .addSuppressAnnotation()
+
       serializerFileSpec
         .addType(
           SerializerTypeSpecGenerator.generate(ClassName(packageName, structureDefinition.name))
