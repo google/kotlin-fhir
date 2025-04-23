@@ -179,7 +179,7 @@ To address this issue, the library generates
 [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate)
 classes (e.g. `PatientSurrogate`) for data classes containing primitive data types, mapping each
 primitive data type to two JSON properties . It also generates custom serializers (e.g.
-`PatienetSerializer`) that delegate the serialization/deserialization process to the corresponding
+`PatientSerializer`) that delegate the serialization/deserialization process to the corresponding
 surrogate classes and translate between the data classes and surrogate classes.
 
 ### FHIR codegen
