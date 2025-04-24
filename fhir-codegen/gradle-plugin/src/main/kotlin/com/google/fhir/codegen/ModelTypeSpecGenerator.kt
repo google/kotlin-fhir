@@ -41,7 +41,7 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
-object TypeSpecGenerator {
+object ModelTypeSpecGenerator {
   fun generate(
     modelClassName: ClassName,
     structureDefinition: StructureDefinition,
