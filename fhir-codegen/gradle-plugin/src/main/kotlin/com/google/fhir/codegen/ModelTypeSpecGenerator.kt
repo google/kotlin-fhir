@@ -16,24 +16,8 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.schema.Element
-import com.google.fhir.codegen.schema.StructureDefinition
-import com.google.fhir.codegen.schema.backboneElements
-import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getElements
-import com.google.fhir.codegen.schema.getTypeName
-import com.google.fhir.codegen.schema.rootElements
-import com.squareup.kotlinpoet.AnnotationSpec
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.CodeBlock
-import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.ParameterSpec
-import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.TypeName
-import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.asTypeName
+import com.google.fhir.codegen.schema.*
+import com.squareup.kotlinpoet.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -42,12 +26,23 @@ import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
 object ModelTypeSpecGenerator {
+  // These ValueSets are to be excluded, they reference CodeSystem used to create ResourceType enum
+  // Class that is generated in a separate external file
+  val excludeValueSet =
+    listOf(
+      "http://hl7.org/fhir/ValueSet/subject-type",
+      "http://hl7.org/fhir/ValueSet/resource-types",
+    )
+
   fun generate(
     modelClassName: ClassName,
     structureDefinition: StructureDefinition,
     isBaseClass: Boolean,
     surrogateFileSpec: FileSpec.Builder,
     serializerFileSpec: FileSpec.Builder,
+    valueSetMap: Map<String, ValueSet>,
+    codeSystemMap: Map<String, CodeSystem>,
+    nonCommonBindingValueSetIds: HashSet<String>,
   ): TypeSpec {
     val typeSpec =
       TypeSpec.classBuilder(modelClassName)
@@ -149,6 +144,14 @@ object ModelTypeSpecGenerator {
 
           addSealedInterfaces(modelClassName, structureDefinition.rootElements)
 
+          addEnumClasses(
+            modelClassName = modelClassName,
+            rootElements = structureDefinition.rootElements,
+            valueSetMap = valueSetMap,
+            codeSystemMap = codeSystemMap,
+            nonCommonBindingValueSetIds = nonCommonBindingValueSetIds,
+          )
+
           if (structureDefinition.kind == StructureDefinition.Kind.PRIMITIVE_TYPE) {
             addToElementFunction(
               modelClassName.packageName,
@@ -166,6 +169,36 @@ object ModelTypeSpecGenerator {
         }
         .build()
     return typeSpec
+  }
+
+  private fun TypeSpec.Builder.addEnumClasses(
+    modelClassName: ClassName,
+    rootElements: List<Element>,
+    valueSetMap: Map<String, ValueSet>,
+    codeSystemMap: Map<String, CodeSystem>,
+    nonCommonBindingValueSetIds: HashSet<String>,
+  ) {
+    rootElements.forEach {
+      val bindingExtension = it.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+      val bindingName = it.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+      if (bindingName != null && bindingExtension?.isCommonBinding() != true) {
+
+        // Some valueSet have versions e.g. http://hl7.org/fhir/ValueSet/task-status|4.3.0,
+        // Only the URL part is used as the key in the map
+        val bindingValueSetUrl = it.binding!!.valueSet?.substringBeforeLast("|")
+        val valueSet = valueSetMap[bindingValueSetUrl]
+
+        if (valueSet != null && !excludeValueSet.any { url -> url == valueSet.url }) {
+          val mergedCodeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
+          mergedCodeSystem?.let { codeSystem ->
+            val enumClassName = codeSystem.getCodeSystemName()
+            modelClassName.nestedClass(enumClassName)
+            addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem)).build()
+            nonCommonBindingValueSetIds.add(valueSet.id)
+          }
+        }
+      }
+    }
   }
 }
 
@@ -468,13 +501,4 @@ private fun TypeSpec.Builder.addOfFunction(className: ClassName, primitiveTypeNa
       )
       .build()
   )
-}
-
-/**
- * Sanitizes the string for KDoc, replacing character sequences that could break the comment block.
- *
- * See also: https://github.com/square/kotlinpoet/issues/887.
- */
-private fun String.sanitizeKDoc(): String {
-  return this.replace("/*", "&#47;*")
 }
