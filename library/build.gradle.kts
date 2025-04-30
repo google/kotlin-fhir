@@ -1,4 +1,3 @@
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
@@ -9,8 +8,11 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.maven.publish)
     id("fhir-codegen")
+    `maven-publish`
 }
 
+group = "com.google.fhir"
+version = "1.0.0-alpha01"
 val codegenTaskR4 = fhirCodegenExtension.newTask("r4") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4.core/package").listFiles()
@@ -111,4 +113,30 @@ android {
 tasks.withType<Test>().configureEach {
     // Allow tests to access third_party
     systemProperty("projectRootDir", project.rootDir.absolutePath)
+}
+
+// publishing prep
+val localRepo = project.layout.buildDirectory.get().dir("repo")
+publishing {
+    repositories {
+        maven {
+            url = localRepo.asFile.toURI()
+        }
+    }
+}
+val deleteRepoTask = tasks.register<Delete>("deleteLocalRepo") {
+    description = "Deletes the local repository to get rid of stale artifacts before local publishing"
+    this.delete(localRepo)
+}
+tasks.named("publishAllPublicationsToMavenRepository").configure {
+    dependsOn(deleteRepoTask)
+}
+tasks.register("zipRepo", Zip::class) {
+    description = "Create a zip of the maven repository"
+    this.destinationDirectory.set(project.layout.buildDirectory.dir("repoZip"))
+    archiveBaseName.set("kotlin-fhir")
+    this.from(tasks.named("publish").map { _ ->
+        // mapping from publish task to establish dependency.
+        localRepo
+    })
 }
