@@ -20,14 +20,24 @@ import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
-import com.google.fhir.codegen.schema.*
+import com.google.fhir.codegen.schema.CodeSystem
+import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.getCodeSystemName
+import com.google.fhir.codegen.schema.getMergedCodeSystem
 import com.squareup.kotlinpoet.FileSpec
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskAction
 import org.gradle.configurationcache.extensions.capitalized
 
 @CacheableTask

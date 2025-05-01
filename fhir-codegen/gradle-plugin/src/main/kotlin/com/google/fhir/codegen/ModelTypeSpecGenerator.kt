@@ -16,8 +16,33 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.schema.*
-import com.squareup.kotlinpoet.*
+import com.google.fhir.codegen.schema.CodeSystem
+import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
+import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
+import com.google.fhir.codegen.schema.Element
+import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.backboneElements
+import com.google.fhir.codegen.schema.getCodeSystemName
+import com.google.fhir.codegen.schema.getElementName
+import com.google.fhir.codegen.schema.getElements
+import com.google.fhir.codegen.schema.getExtension
+import com.google.fhir.codegen.schema.getMergedCodeSystem
+import com.google.fhir.codegen.schema.getTypeName
+import com.google.fhir.codegen.schema.isCommonBinding
+import com.google.fhir.codegen.schema.rootElements
+import com.google.fhir.codegen.schema.sanitizeKDoc
+import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

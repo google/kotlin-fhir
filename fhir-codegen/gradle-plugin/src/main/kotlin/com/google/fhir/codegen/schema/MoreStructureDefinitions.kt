@@ -21,7 +21,6 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asTypeName
-import kotlin.collections.get
 import org.gradle.configurationcache.extensions.capitalized
 
 const val ELEMENT_IS_COMMON_BINDING_EXTENSION_URL =

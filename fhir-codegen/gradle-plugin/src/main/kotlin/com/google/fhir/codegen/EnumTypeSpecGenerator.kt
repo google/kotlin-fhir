@@ -18,7 +18,10 @@ package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.sanitizeKDoc
-import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.configurationcache.extensions.capitalized
 
 object EnumTypeSpecGenerator {
@@ -97,6 +100,7 @@ object EnumTypeSpecGenerator {
       "<=" -> "LessOrEquals"
       "<>",
       "!=" -> "NotEquals"
+
       "=" -> "Equals"
       "*" -> "Multiply"
       "+" -> "Plus"
