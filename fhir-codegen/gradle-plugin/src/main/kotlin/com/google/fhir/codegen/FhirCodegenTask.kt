@@ -72,11 +72,7 @@ abstract class FhirCodegenTask : DefaultTask() {
         .asSequence()
         .filter { it.name.startsWith("ValueSet", ignoreCase = true) }
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
-        .filter {
-          // !it.extension.isNullOrEmpty() && it.extension.any { ext -> ext.valueCode ==
-          // NORMATIVE }
-          it.id != "FHIR-version"
-        }
+        .filter { it.id != "FHIR-version" }
         .groupBy { it.url }
         .mapValues { it.value.first() }
 
