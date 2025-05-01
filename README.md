@@ -44,8 +44,8 @@ The library supports the following
 | Kotlin/JS                          | `js`            | `-js`           | ✅       |
 | Android applications and libraries | `androidTarget` | `-android`      | ✅       |
 
-and some
-[tier 1 Kotlin/Native targets](https://kotlinlang.org/docs/native-target-support.html#tier-1):
+as well as a subset of
+[tier 1 Kotlin/Native targets](https://kotlinlang.org/docs/native-target-support.html#tier-1), detailed below:
 
 | Gradle target name | Artifact suffix      | Support |
 |:-------------------|:---------------------|:--------|
@@ -53,7 +53,7 @@ and some
 | macosArm64         | `-macosarm64`        | ⛔       |
 | iosSimulatorArm64  | `-iossimulatorarm64` | ✅       |
 | iosX64             | `-iosx64`            | ✅       |
-| iosArm64           | `-iosarm64`️         | ✅       |
+| iosArm64           | `-iosarm64`         | ✅       |
 
 The library does not support `macos` targets in the tier 1 list, or any
 [tier2](https://kotlinlang.org/docs/native-target-support.html#tier-2) and
@@ -246,13 +246,10 @@ binary plugin generates three classes for each FHIR resource type:
   serializer package e.g. `com.google.fhir.r4.serializers`,
 
 using
-[
-`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
-[
-`SurrogateTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt),
+[`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
+[`SurrogateTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt),
 and
-[
-`SerializerTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt),
+[`SerializerTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt),
 respectively.
 
 Additionally,
