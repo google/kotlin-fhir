@@ -31,6 +31,36 @@ dependencies. Only essential Kotlin Multiplatform dependencies are included, e.g
 [protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of
 Jan 2025.
 
+## Supported platforms
+
+The library supports the following
+[target platforms](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets):
+
+| Target platform                    | Target          | Artifact suffix | Support |
+|:-----------------------------------|:----------------|:----------------|:--------|
+| Kotlin/JVM                         | `jvm`           | `-jvm`          | ✅       |
+| Kotlin/Wasm                        | `wasmJs`        | `-wasm-js`      | ✅       |
+| Kotlin/Wasm                        | `wasmWasi`      | `-wasm-wasi`    | ✅       |
+| Kotlin/JS                          | `js`            | `-js`           | ✅       |
+| Android applications and libraries | `androidTarget` | `-android`      | ✅       |
+
+and some
+[tier 1 Kotlin/Native targets](https://kotlinlang.org/docs/native-target-support.html#tier-1):
+
+| Gradle target name | Artifact suffix      | Support |
+|:-------------------|:---------------------|:--------|
+| macosX64           | `-macosx64`          | ⛔       |
+| macosArm64         | `-macosarm64`        | ⛔       |
+| iosSimulatorArm64  | `-iossimulatorarm64` | ✅       |
+| iosX64             | `-iosx64`            | ✅       |
+| iosArm64           | `-iosarm64`️         | ✅       |
+
+The library does not support `macos` targets in the tier 1 list, or any
+[tier2](https://kotlinlang.org/docs/native-target-support.html#tier-2) and
+[tier3](https://kotlinlang.org/docs/native-target-support.html#tier-3) Kotlin/Native targets. This
+reflects their limited usage currently rather than technical difficulty. Please contact the team if
+you require support for these platforms.
+
 ## Implementation
 
 ### Overview
@@ -216,10 +246,13 @@ binary plugin generates three classes for each FHIR resource type:
   serializer package e.g. `com.google.fhir.r4.serializers`,
 
 using
-[`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
-[`SurrogateTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt),
+[
+`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
+[
+`SurrogateTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SurrogateTypeSpecGenerator.kt),
 and
-[`SerializerTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt),
+[
+`SerializerTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/SerializerTypeSpecGenerator.kt),
 respectively.
 
 Additionally,
@@ -232,7 +265,7 @@ mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
 ## User Guide
 
-### Running the codegen
+### Running the codegen locally
 
 You can manually run the code generator (codegen) to inspect the generated code or, as an
 alternative to using the library as a dependency, copy the generated code into your project for
@@ -251,7 +284,7 @@ For example, to generate code for FHIR R4:
 ./gradlew r4
 ```
 
-The generated code will be located in the `library/build/generated/<FHIR_VERSION>` subdirectory.
+The generated code will be located in the `models/build/generated/<FHIR_VERSION>` subdirectory.
 
 > **Note:** The library is designed for use as a dependency. Directly copying generated code into
 > your project is generally discouraged as it can lead to maintenance issues and conflicts with
@@ -420,13 +453,15 @@ serialization process normalizes these variations, resulting in potentially diff
 However, in all of these cases, semantic equivalence is maintained.
 
 ## Publishing
+
 To create a maven repository from the project, run:
 
-`./gradlew :library:publish`
+`./gradlew :models:publish`
 
-This will create a maven repository in the `library/build/repo` directory.
+This will create a maven repository in the `models/build/repo` directory.
 
-There is also a `zipRepo` task that will zip the repository into the `library/build/repoZip` directory.
+There is also a `zipRepo` task that will zip the repository into the `models/build/repoZip`
+directory.
 
 ## Acknowledgements
 
