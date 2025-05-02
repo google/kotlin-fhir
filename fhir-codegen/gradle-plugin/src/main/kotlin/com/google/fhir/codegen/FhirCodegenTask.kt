@@ -17,6 +17,7 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
+import com.google.fhir.codegen.primitives.EnumerationTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
@@ -125,10 +126,11 @@ abstract class FhirCodegenTask : DefaultTask() {
         }
         .distinct()
 
+    val packageName = this.packageName.get()
     structureDefinitions
       .flatMap { structureDefinition ->
         FhirCodegen.generateFileSpecs(
-          packageName = this.packageName.get(),
+          packageName = packageName,
           structureDefinition = structureDefinition,
           isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
           valueSetMap = valueSetMap,
@@ -145,18 +147,22 @@ abstract class FhirCodegenTask : DefaultTask() {
         val codeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
         if (codeSystem != null) {
           val enumClassName = codeSystem.getCodeSystemName()
-          FileSpec.builder(packageName = "${packageName.get()}.enums", fileName = enumClassName)
+          FileSpec.builder(packageName = "$packageName.enums", fileName = enumClassName)
             .addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem))
             .build()
             .writeTo(outputDir)
         }
       }
 
-    FhirDateTimeTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
-    FhirDateTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
+    FhirDateTimeTypeGenerator.generate(packageName).writeTo(outputDir)
+    FhirDateTypeGenerator.generate(packageName).writeTo(outputDir)
+
+    // Generate an extension to the primitive type - "code", to be used where code is tied to an
+    // enumerated list of possible values. FHIR has no primitive type for enums.
+    EnumerationTypeGenerator.generate(packageName).writeTo(outputDir)
 
     // Generate custom serializers
-    val serializersPackageName = "${this.packageName.get()}.serializers"
+    val serializersPackageName = "$packageName.serializers"
     DoubleSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
     LocalTimeSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
   }

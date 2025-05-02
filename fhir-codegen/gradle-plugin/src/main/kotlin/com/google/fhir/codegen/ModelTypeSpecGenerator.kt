@@ -16,6 +16,7 @@
 
 package com.google.fhir.codegen
 
+import com.google.fhir.codegen.ModelTypeSpecGenerator.excludeValueSet
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
 import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
@@ -171,7 +172,7 @@ object ModelTypeSpecGenerator {
 
           addEnumClasses(
             modelClassName = modelClassName,
-            rootElements = structureDefinition.rootElements,
+            elements = structureDefinition.rootElements,
             valueSetMap = valueSetMap,
             codeSystemMap = codeSystemMap,
             nonCommonBindingValueSetIds = nonCommonBindingValueSetIds,
@@ -195,32 +196,32 @@ object ModelTypeSpecGenerator {
         .build()
     return typeSpec
   }
+}
 
-  private fun TypeSpec.Builder.addEnumClasses(
-    modelClassName: ClassName,
-    rootElements: List<Element>,
-    valueSetMap: Map<String, ValueSet>,
-    codeSystemMap: Map<String, CodeSystem>,
-    nonCommonBindingValueSetIds: HashSet<String>,
-  ) {
-    rootElements.forEach {
-      val bindingExtension = it.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
-      val bindingName = it.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-      if (bindingName != null && bindingExtension?.isCommonBinding() != true) {
+private fun TypeSpec.Builder.addEnumClasses(
+  modelClassName: ClassName,
+  elements: List<Element>,
+  valueSetMap: Map<String, ValueSet>,
+  codeSystemMap: Map<String, CodeSystem>,
+  nonCommonBindingValueSetIds: HashSet<String>,
+) {
+  elements.forEach {
+    val bindingExtension = it.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+    val bindingName = it.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+    if (bindingName != null && bindingExtension?.isCommonBinding() != true) {
 
-        // Some valueSet have versions e.g. http://hl7.org/fhir/ValueSet/task-status|4.3.0,
-        // Only the URL part is used as the key in the map
-        val bindingValueSetUrl = it.binding!!.valueSet?.substringBeforeLast("|")
-        val valueSet = valueSetMap[bindingValueSetUrl]
+      // Some valueSet have versions e.g. http://hl7.org/fhir/ValueSet/task-status|4.3.0,
+      // Only the URL part is used as the key in the map
+      val bindingValueSetUrl = it.binding!!.valueSet?.substringBeforeLast("|")
+      val valueSet = valueSetMap[bindingValueSetUrl]
 
-        if (valueSet != null && !excludeValueSet.any { url -> url == valueSet.url }) {
-          val mergedCodeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
-          mergedCodeSystem?.let { codeSystem ->
-            val enumClassName = codeSystem.getCodeSystemName()
-            modelClassName.nestedClass(enumClassName)
-            addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem)).build()
-            nonCommonBindingValueSetIds.add(valueSet.id)
-          }
+      if (valueSet != null && !excludeValueSet.any { url -> url == valueSet.url }) {
+        val mergedCodeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
+        mergedCodeSystem?.let { codeSystem ->
+          val enumClassName = codeSystem.getCodeSystemName()
+          modelClassName.nestedClass(enumClassName)
+          addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem)).build()
+          nonCommonBindingValueSetIds.add(valueSet.id)
         }
       }
     }
