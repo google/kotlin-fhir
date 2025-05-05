@@ -101,17 +101,30 @@ fun Extension.isCommonBinding(): Boolean =
   url == ELEMENT_IS_COMMON_BINDING_EXTENSION_URL && valueBoolean == true
 
 /**
- * Get the [CodeSystem.name] and replace all non-alphanumeric-characters with an empty string and
+ * Retrieve the [ValueSet.url] from the [Element]. Extract the URI part from the set url excluding
+ * the FHIR versions E.g. http://hl7.org/fhir/ValueSet/task-status|4.3.0, will return
+ * "http://hl7.org/fhir/ValueSet/task-status"
+ */
+fun Element.getValueSetUrl() = this.binding?.valueSet?.substringBeforeLast("|")
+
+/**
+ * Format the string by replacing all non-alphanumeric-characters with an empty string and
  * capitalize the first character. Example: v3.ObservationInterpretation ->
  * V3ObservationInterpretation
  */
-fun CodeSystem.getCodeSystemName(): String =
-  name.replace("[^a-zA-Z0-9]+".toRegex(), "").capitalized()
+fun String.kebabToPascalCase(): String {
+  return split("-")
+    .joinToString("") {
+      it.replaceFirstChar { char -> if (char.isLowerCase()) char.titlecase() else char.toString() }
+    }
+    .replace("[^a-zA-Z0-9]+".toRegex(), "")
+    .capitalized()
+}
 
 /**
  * Retrieve and merge [CodeSystem] referenced in the [ValueSet] from the provided map. A ValueSet
  * can reference multiple [CodeSystem]s, with several [CodeSystem.concept] required as constants for
- * the generated enum class constant. Concepts for SNOMED CodeSystem are not included.
+ * the generated enum class constant. Concepts for SNOMED [CodeSystem] are not included.
  */
 fun ValueSet.getMergedCodeSystem(codeSystemMap: Map<String, CodeSystem>): CodeSystem? {
   if (this.compose?.include.isNullOrEmpty()) return null

@@ -24,13 +24,14 @@ import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.backboneElements
-import com.google.fhir.codegen.schema.getCodeSystemName
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getExtension
 import com.google.fhir.codegen.schema.getMergedCodeSystem
 import com.google.fhir.codegen.schema.getTypeName
+import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.isCommonBinding
+import com.google.fhir.codegen.schema.kebabToPascalCase
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.sanitizeKDoc
 import com.squareup.kotlinpoet.AnnotationSpec
@@ -40,6 +41,7 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
@@ -52,12 +54,13 @@ import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
 object ModelTypeSpecGenerator {
-  // These ValueSets are to be excluded, they reference CodeSystem used to create ResourceType enum
-  // Class that is generated in a separate external file
+  // These ValueSets are to be excluded, they reference CodeSystem used to create external enums
   val excludeValueSet =
-    listOf(
-      "http://hl7.org/fhir/ValueSet/subject-type",
-      "http://hl7.org/fhir/ValueSet/resource-types",
+    setOf(
+      "http://hl7.org/fhir/ValueSet/subject-type", // Will re-use  ResourceType enum
+      "http://hl7.org/fhir/ValueSet/resource-types", // Will re-use ResourceType enum
+      "http://hl7.org/fhir/ValueSet/administrative-gender",
+      "http://hl7.org/fhir/ValueSet/legal-status-of-supply",
     )
 
   fun generate(
@@ -68,8 +71,12 @@ object ModelTypeSpecGenerator {
     serializerFileSpec: FileSpec.Builder,
     valueSetMap: Map<String, ValueSet>,
     codeSystemMap: Map<String, CodeSystem>,
-    nonCommonBindingValueSetIds: HashSet<String>,
+    nonCommonBindingValueSetUrls: MutableSet<String>,
+    excludedCommonBindingValueSets: Set<String>,
   ): TypeSpec {
+    // Local enum classes that are non-binding should be stored in the enclosing closing class.
+    // This ensures re-use of enum classes by the nested classes
+    val enumClassesMap = mutableMapOf<String, TypeSpec>()
     val typeSpec =
       TypeSpec.classBuilder(modelClassName)
         .apply {
@@ -157,25 +164,35 @@ object ModelTypeSpecGenerator {
             )
           }
 
-          buildProperties(modelClassName, structureDefinition.rootElements, isBaseClass)
+          buildProperties(
+            modelClassName,
+            structureDefinition.rootElements,
+            isBaseClass,
+            excludedCommonBindingValueSets,
+          )
 
           addBackboneElement(
-            structureDefinitionName,
-            modelClassName,
-            structureDefinition.backboneElements,
-            structureDefinition,
-            surrogateFileSpec,
-            serializerFileSpec,
+            path = structureDefinitionName,
+            enclosingModelClassName = modelClassName,
+            backboneElements = structureDefinition.backboneElements,
+            structureDefinition = structureDefinition,
+            surrogateTypeSpec = surrogateFileSpec,
+            serializerTypeSpec = serializerFileSpec,
+            valueSetMap = valueSetMap,
+            codeSystemMap = codeSystemMap,
+            nonCommonBindingValueSetUrls = nonCommonBindingValueSetUrls,
+            excludedCommonBindingValueSets = excludedCommonBindingValueSets,
+            enumClassesMap = enumClassesMap,
           )
 
           addSealedInterfaces(modelClassName, structureDefinition.rootElements)
 
-          addEnumClasses(
-            modelClassName = modelClassName,
+          generateEnumClasses(
             elements = structureDefinition.rootElements,
             valueSetMap = valueSetMap,
             codeSystemMap = codeSystemMap,
-            nonCommonBindingValueSetIds = nonCommonBindingValueSetIds,
+            nonCommonBindingValueSetUrls = nonCommonBindingValueSetUrls,
+            enumClassesMap = enumClassesMap,
           )
 
           if (structureDefinition.kind == StructureDefinition.Kind.PRIMITIVE_TYPE) {
@@ -192,51 +209,79 @@ object ModelTypeSpecGenerator {
             )
             addOfFunction(modelClassName, propertySpecs.single { it.name == "value" }.type)
           }
+
+          enumClassesMap.forEach {
+            // In some cases the model may share name with enum class
+            val enumClassName =
+              if (modelClassName.simpleNames.any { name -> name == it.key }) "${it.key}Enum"
+              else it.key
+            modelClassName.nestedClass(enumClassName)
+            addType(it.value)
+          }
         }
         .build()
     return typeSpec
   }
 }
 
-private fun TypeSpec.Builder.addEnumClasses(
-  modelClassName: ClassName,
+private fun TypeSpec.Builder.generateEnumClasses(
   elements: List<Element>,
   valueSetMap: Map<String, ValueSet>,
   codeSystemMap: Map<String, CodeSystem>,
-  nonCommonBindingValueSetIds: HashSet<String>,
-) {
-  elements.forEach {
-    val bindingExtension = it.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
-    val bindingName = it.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-    if (bindingName != null && bindingExtension?.isCommonBinding() != true) {
+  nonCommonBindingValueSetUrls: MutableSet<String>,
+  enumClassesMap: MutableMap<String, TypeSpec>,
+): TypeSpec.Builder {
+  elements.forEach { element ->
+    val commonBindingExt = element.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+    val bindingNameExt = element.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
 
-      // Some valueSet have versions e.g. http://hl7.org/fhir/ValueSet/task-status|4.3.0,
-      // Only the URL part is used as the key in the map
-      val bindingValueSetUrl = it.binding!!.valueSet?.substringBeforeLast("|")
-      val valueSet = valueSetMap[bindingValueSetUrl]
-
-      if (valueSet != null && !excludeValueSet.any { url -> url == valueSet.url }) {
-        val mergedCodeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
-        mergedCodeSystem?.let { codeSystem ->
-          val enumClassName = codeSystem.getCodeSystemName()
-          modelClassName.nestedClass(enumClassName)
-          addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem)).build()
-          nonCommonBindingValueSetIds.add(valueSet.id)
+    val enumClassName = bindingNameExt?.valueString?.kebabToPascalCase()
+    if (commonBindingExt?.isCommonBinding() != true && !enumClassName.isNullOrBlank()) {
+      val valueSet = valueSetMap[element.getValueSetUrl()]
+      if (!excludeValueSet.contains(valueSet?.url)) {
+        val mergedCodeSystem = valueSet?.getMergedCodeSystem(codeSystemMap)
+        if (!mergedCodeSystem?.concept.isNullOrEmpty()) {
+          val typeSpec = EnumTypeSpecGenerator.generate(enumClassName, mergedCodeSystem)
+          enumClassesMap.putIfAbsent(enumClassName, typeSpec)
+          nonCommonBindingValueSetUrls.add(valueSet.url)
         }
       }
     }
   }
+  return this
 }
 
 private fun TypeSpec.Builder.buildProperties(
   modelClassName: ClassName,
   elements: List<Element>,
   isBaseClass: Boolean,
+  excludedCommonBindingValueSets: Set<String>,
 ): TypeSpec.Builder {
   val properties =
     elements.map { element ->
       val name = element.getElementName()
-      PropertySpec.builder(name, element.getTypeName(modelClassName))
+      val elementValueSetUrl = element.getValueSetUrl()
+      val type =
+        when {
+          !excludedCommonBindingValueSets.contains(elementValueSetUrl) &&
+            element.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
+            !element
+              .getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+              ?.valueString
+              .isNullOrBlank() -> {
+            if (
+              element.base?.path == null ||
+                (element.path == element.base.path &&
+                  modelClassName.simpleName !in
+                    setOf("Resource", "DomainResource", "BackboneElement"))
+            ) {
+              getEnumerationTypeName(element, modelClassName)
+            } else element.getTypeName(modelClassName)
+          }
+          else -> element.getTypeName(modelClassName)
+        }
+
+      PropertySpec.builder(name, type)
         .mutable()
         .apply {
           initializer(name)
@@ -294,6 +339,36 @@ private fun TypeSpec.Builder.buildProperties(
   return this
 }
 
+/**
+ * Substitute the primitive type of code with an `Enumeration` type if the values for the code are
+ * constrained to a set of values. The implementation checks if there exists a [Element] has a
+ * binding extension, otherwise returns the type for the primitive type `code`.
+ */
+private fun getEnumerationTypeName(element: Element, modelClassName: ClassName): TypeName {
+  val bindingNameExt = element.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+  val commonBindingExt = element.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+  val enumClassPackageName =
+    if (commonBindingExt?.isCommonBinding() == true) "${modelClassName.packageName}.enums" else ""
+
+  val enumClassName = bindingNameExt?.valueString?.kebabToPascalCase()
+  if (!enumClassName.isNullOrBlank()) {
+    // Handle special cases FHIRResourceType and FHIRDefinedType namee, both refer to the same
+    // ResourceType enum
+    val isResourceType =
+      "FHIRResourceType".equals(enumClassName, ignoreCase = true) ||
+        "FHIRDefinedType".equals(enumClassName, ignoreCase = true)
+    val enumClass =
+      ClassName(
+        if (isResourceType) "${modelClassName.packageName}.enums" else enumClassPackageName,
+        if (isResourceType) "ResourceType" else enumClassName,
+      )
+    val enumerationClassName = ClassName(modelClassName.packageName, "Enumeration")
+    return enumerationClassName.parameterizedBy(enumClass).copy(nullable = true)
+  } else {
+    return element.getTypeName(modelClassName)
+  }
+}
+
 /** Adds a nested class for each BackboneElement in the [StructureDefinition]. */
 private fun TypeSpec.Builder.addBackboneElement(
   path: String,
@@ -302,6 +377,11 @@ private fun TypeSpec.Builder.addBackboneElement(
   structureDefinition: StructureDefinition,
   surrogateTypeSpec: FileSpec.Builder,
   serializerTypeSpec: FileSpec.Builder,
+  valueSetMap: Map<String, ValueSet>,
+  codeSystemMap: Map<String, CodeSystem>,
+  nonCommonBindingValueSetUrls: MutableSet<String>,
+  excludedCommonBindingValueSets: Set<String>,
+  enumClassesMap: MutableMap<String, TypeSpec>,
 ): TypeSpec.Builder {
   backboneElements
     .filter { (backboneElement, _) ->
@@ -319,7 +399,12 @@ private fun TypeSpec.Builder.addBackboneElement(
           )
           .apply { addKdoc(backboneElement.definition.sanitizeKDoc()) }
           .superclass(ClassName(enclosingModelClassName.packageName, "BackboneElement"))
-          .buildProperties(backboneElementClassName, elements, false)
+          .buildProperties(
+            backboneElementClassName,
+            elements,
+            false,
+            excludedCommonBindingValueSets,
+          )
           .addBackboneElement(
             backboneElement.path,
             enclosingModelClassName.nestedClass(name),
@@ -327,6 +412,18 @@ private fun TypeSpec.Builder.addBackboneElement(
             structureDefinition,
             surrogateTypeSpec,
             serializerTypeSpec,
+            valueSetMap,
+            codeSystemMap,
+            nonCommonBindingValueSetUrls,
+            excludedCommonBindingValueSets,
+            enumClassesMap,
+          )
+          .generateEnumClasses(
+            elements = backboneElements.values.flatten(),
+            valueSetMap = valueSetMap,
+            codeSystemMap = codeSystemMap,
+            nonCommonBindingValueSetUrls = nonCommonBindingValueSetUrls,
+            enumClassesMap = enumClassesMap,
           )
           .addSealedInterfaces(
             backboneElementClassName,

@@ -24,8 +24,8 @@ import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.ValueSet
-import com.google.fhir.codegen.schema.getCodeSystemName
 import com.google.fhir.codegen.schema.getMergedCodeSystem
+import com.google.fhir.codegen.schema.kebabToPascalCase
 import com.squareup.kotlinpoet.FileSpec
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
@@ -56,7 +56,19 @@ abstract class FhirCodegenTask : DefaultTask() {
     prettyPrint = true
   }
 
-  private val nonCommonBindingValueSetIds = hashSetOf<String>()
+  private val nonCommonBindingValueSetUrls = mutableSetOf<String>()
+
+  private val excludedCommonBindingValueSets =
+    setOf(
+      // Reason: AbstractType, DataType, ResourceType enums are generated separately
+      "http://hl7.org/fhir/ValueSet/all-types",
+      // Reason: enum class name 'VersionAlgorithm' conflicts with nested class
+      "http://hl7.org/fhir/version-algorithm",
+      // Reason: unsupported ValueSet.compose system ('urn:ietf:bcp:13')
+      "http://hl7.org/fhir/ValueSet/mimetypes",
+      // Reason: unsupported ValueSet.compose system ('urn:ietf:bcp:47')
+      "http://hl7.org/fhir/ValueSet/languages",
+    )
 
   @TaskAction
   fun generateCode() {
@@ -83,7 +95,7 @@ abstract class FhirCodegenTask : DefaultTask() {
         .asSequence()
         .filter { it.name.startsWith("ValueSet", ignoreCase = true) }
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
-        .filter { it.id != "FHIR-version" }
+        .filter { it.url !in excludedCommonBindingValueSets }
         .groupBy { it.url }
         .mapValues { it.value.first() }
 
@@ -135,22 +147,25 @@ abstract class FhirCodegenTask : DefaultTask() {
           isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
           valueSetMap = valueSetMap,
           codeSystemMap = codeSystemMap,
-          nonCommonBindingValueSetIds = nonCommonBindingValueSetIds,
+          nonCommonBindingValueSetUrls = nonCommonBindingValueSetUrls,
+          excludedCommonBindingValueSets = excludedCommonBindingValueSets,
         )
       }
       .forEach { it.writeTo(outputDir) }
 
-    // Generate enum classes, exclude those generated from StructureDefinitions
+    // Generate shared enum classes, exclude the ones generated from StructureDefinitions
     valueSetMap.values
-      .filterNot { nonCommonBindingValueSetIds.contains(it.id) }
+      .filterNot { nonCommonBindingValueSetUrls.contains(it.url) }
       .forEach { valueSet ->
         val codeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
-        if (codeSystem != null) {
-          val enumClassName = codeSystem.getCodeSystemName()
-          FileSpec.builder(packageName = "$packageName.enums", fileName = enumClassName)
-            .addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem))
-            .build()
-            .writeTo(outputDir)
+        if (!codeSystem?.concept.isNullOrEmpty()) {
+          val enumClassName = codeSystem.name.kebabToPascalCase()
+          if (enumClassName.isNotBlank()) {
+            FileSpec.builder(packageName = "$packageName.enums", fileName = enumClassName)
+              .addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem))
+              .build()
+              .writeTo(outputDir)
+          }
         }
       }
 

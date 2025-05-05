@@ -36,8 +36,14 @@ object EnumTypeSpecGenerator {
         while (arrayDeque.isNotEmpty()) {
           val concept = arrayDeque.removeFirst()
           if (concept.code.isNotBlank()) {
+            // NOTE: FHIRVersions are special, append v to denote version, transform 4.0.1 to v4_0_1
+            // For the rest of the constants, the underscore will be replaced with an empty string.
+            val constantName =
+              if (codeSystem.url == "http://hl7.org/fhir/FHIR-version")
+                "v${concept.code.replace(".", "_")}"
+              else concept.code.formatEnumConstantName()
             addEnumConstant(
-                concept.code.formatEnumConstantName(),
+                constantName,
                 TypeSpec.anonymousClassBuilder()
                   .apply {
                     if (!concept.definition.isNullOrBlank())
@@ -100,7 +106,6 @@ object EnumTypeSpecGenerator {
       "<=" -> "LessOrEquals"
       "<>",
       "!=" -> "NotEquals"
-
       "=" -> "Equals"
       "*" -> "Multiply"
       "+" -> "Plus"

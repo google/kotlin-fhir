@@ -52,7 +52,8 @@ object FhirCodegen {
     isBaseClass: Boolean,
     valueSetMap: Map<String, ValueSet>,
     codeSystemMap: Map<String, CodeSystem>,
-    nonCommonBindingValueSetIds: HashSet<String>,
+    nonCommonBindingValueSetUrls: MutableSet<String>,
+    excludedCommonBindingValueSets: Set<String>,
   ): List<FileSpec> {
     val modelClassName = ClassName(packageName, structureDefinition.name.capitalized())
     val modelFileSpec = FileSpec.builder(modelClassName)
@@ -69,7 +70,8 @@ object FhirCodegen {
           serializerFileSpec = serializerFileSpec,
           valueSetMap = valueSetMap,
           codeSystemMap = codeSystemMap,
-          nonCommonBindingValueSetIds = nonCommonBindingValueSetIds,
+          nonCommonBindingValueSetUrls = nonCommonBindingValueSetUrls,
+          excludedCommonBindingValueSets = excludedCommonBindingValueSets,
         )
       )
       .addSuppressAnnotation()
