@@ -239,11 +239,11 @@ To put all this together, the
 [FHIR codegen](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen) in the Gradle
 binary plugin generates three classes for each FHIR resource type:
 
-- the model class (the most important class) in the root package e.g. `com.google.fhir.r4`,
+- the model class (the most important class) in the root package e.g. `com.google.fhir.model.r4`,
 - the surrogate class (for mapping primitive data types to JSON properties) in the surrogate package
-  e.g. `com.google.fhir.r4.surrogates`, and
+  e.g. `com.google.fhir.model.r4.surrogates`, and
 - the serializer class (to delegate serialization/deserialization to the surrogate class) in the
-  serializer package e.g. `com.google.fhir.r4.serializers`,
+  serializer package e.g. `com.google.fhir.model.r4.serializers`,
 
 using
 [`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
@@ -281,7 +281,7 @@ For example, to generate code for FHIR R4:
 ./gradlew r4
 ```
 
-The generated code will be located in the `model/build/generated/<FHIR_VERSION>` subdirectory.
+The generated code will be located in the `fhir-model/build/generated/<FHIR_VERSION>` subdirectory.
 
 > **Note:** The library is designed for use as a dependency. Directly copying generated code into
 > your project is generally discouraged as it can lead to maintenance issues and conflicts with
@@ -453,11 +453,11 @@ However, in all of these cases, semantic equivalence is maintained.
 
 To create a maven repository from the project, run:
 
-`./gradlew :model:publish`
+`./gradlew :fhir-model:publish`
 
-This will create a maven repository in the `model/build/repo` directory.
+This will create a maven repository in the `fhir-model/build/repo` directory.
 
-There is also a `zipRepo` task that will zip the repository into the `model/build/repoZip`
+There is also a `zipRepo` task that will zip the repository into the `fhir-model/build/repoZip`
 directory.
 
 ## Acknowledgements
