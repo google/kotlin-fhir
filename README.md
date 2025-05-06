@@ -281,7 +281,7 @@ For example, to generate code for FHIR R4:
 ./gradlew r4
 ```
 
-The generated code will be located in the `models/build/generated/<FHIR_VERSION>` subdirectory.
+The generated code will be located in the `model/build/generated/<FHIR_VERSION>` subdirectory.
 
 > **Note:** The library is designed for use as a dependency. Directly copying generated code into
 > your project is generally discouraged as it can lead to maintenance issues and conflicts with
@@ -316,9 +316,9 @@ Kotlin's [named arguments](https://kotlinlang.org/docs/functions.html#named-argu
 improved code readability and to avoid errors caused by incorrect parameter order. For example:
 
 ```kotlin
-import com.google.fhir.r4.Address
-import com.google.fhir.r4.Patient
-import com.google.fhir.r4.HumanName
+import com.google.fhir.model.r4.Address
+import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.HumanName
 
 fun main() {
     val patient = Patient(
@@ -343,9 +343,9 @@ Alternatively, use Kotlin's `apply` function whilst creating new FHIR resources 
 flexibility:
 
 ```kotlin
-import com.google.fhir.r4.Address
-import com.google.fhir.r4.Patient
-import com.google.fhir.r4.HumanName
+import com.google.fhir.model.r4.Address
+import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.HumanName
 
 fun main() {
     val patient = Patient().apply {
@@ -377,7 +377,7 @@ and deserialization. For more information, see the
 This is an example of serializing and deserializing the FHIR Patient resource created previously:
 
 ```kotlin
-import com.google.fhir.r4.Patient
+import com.google.fhir.model.r4.Patient
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -410,8 +410,8 @@ To use polymorphic deserialization, use the base type `Resource` as the type par
 deserialization:
 
 ```kotlin
-import com.google.fhir.r4.Patient
-import com.google.fhir.r4.Resource
+import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.Resource
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -453,11 +453,11 @@ However, in all of these cases, semantic equivalence is maintained.
 
 To create a maven repository from the project, run:
 
-`./gradlew :models:publish`
+`./gradlew :model:publish`
 
-This will create a maven repository in the `models/build/repo` directory.
+This will create a maven repository in the `model/build/repo` directory.
 
-There is also a `zipRepo` task that will zip the repository into the `models/build/repoZip`
+There is also a `zipRepo` task that will zip the repository into the `model/build/repoZip`
 directory.
 
 ## Acknowledgements

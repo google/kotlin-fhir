@@ -18,21 +18,21 @@ val codegenTaskR4 = fhirCodegenExtension.newTask("r4") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4.core/package").listFiles()
     )
-    this.packageName.set("com.google.fhir.r4")
+    this.packageName.set("com.google.fhir.model.r4")
 }
 
 val codegenTaskR4B = fhirCodegenExtension.newTask("r4b") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4b.core/package").listFiles()
     )
-    this.packageName.set("com.google.fhir.r4b")
+    this.packageName.set("com.google.fhir.model.r4b")
 }
 
 val codegenTaskR5 = fhirCodegenExtension.newTask("r5") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r5.core/package").listFiles()
     )
-    this.packageName.set("com.google.fhir.r5")
+    this.packageName.set("com.google.fhir.model.r5")
 }
 
 kotlin {
