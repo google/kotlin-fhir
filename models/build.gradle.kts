@@ -54,11 +54,11 @@ kotlin {
     }
     @OptIn(ExperimentalWasmDsl::class) wasmWasi {
         nodejs()
-        binaries.executable()
+        binaries.library()
     }
     js {
         browser()
-        binaries.executable()
+        binaries.library()
     }
     androidTarget {
         compilerOptions {
