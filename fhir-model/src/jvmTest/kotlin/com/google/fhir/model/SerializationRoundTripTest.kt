@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir
+package com.google.fhir.model
 
 import java.io.File
 import kotlin.test.Test
@@ -144,8 +144,8 @@ class SerializationRoundTripTest {
       ?.filterNot { exclusionListR4.contains(it.name) }
       ?.forEach { file ->
         val exampleJson = prettyPrintJson(file.readText())
-        val domainResource: com.google.fhir.r4.Resource =
-          Json.decodeFromString<com.google.fhir.r4.Resource>(exampleJson)
+        val domainResource: com.google.fhir.model.r4.Resource =
+          Json.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
         val reserializedString = json.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
@@ -164,8 +164,8 @@ class SerializationRoundTripTest {
       ?.filterNot { exclusionListR4B.contains(it.name) }
       ?.forEach { file ->
         val exampleJson = prettyPrintJson(file.readText())
-        val domainResource: com.google.fhir.r4b.Resource =
-          Json.decodeFromString<com.google.fhir.r4b.Resource>(exampleJson)
+        val domainResource: com.google.fhir.model.r4b.Resource =
+          Json.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
         val reserializedString = json.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
@@ -184,8 +184,8 @@ class SerializationRoundTripTest {
       ?.filterNot { exclusionsListR5.contains(it.name) }
       ?.forEach { file ->
         val exampleJson = prettyPrintJson(file.readText())
-        val domainResource: com.google.fhir.r5.Resource =
-          Json.decodeFromString<com.google.fhir.r5.Resource>(exampleJson)
+        val domainResource: com.google.fhir.model.r5.Resource =
+          Json.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
         val reserializedString = json.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
