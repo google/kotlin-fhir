@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "kmp-fhir"
-include(":library")
+rootProject.name = "kotlin-fhir"
+include(":fhir-model")
 includeBuild("fhir-codegen")

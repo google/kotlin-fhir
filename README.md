@@ -31,6 +31,36 @@ dependencies. Only essential Kotlin Multiplatform dependencies are included, e.g
 [protocol buffers](https://protobuf.dev/). However, there is no XML or Turtle support as of
 Jan 2025.
 
+## Supported platforms
+
+The library supports the following
+[target platforms](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets):
+
+| Target platform                    | Target          | Artifact suffix | Support |
+|:-----------------------------------|:----------------|:----------------|:--------|
+| Kotlin/JVM                         | `jvm`           | `-jvm`          | ✅       |
+| Kotlin/Wasm                        | `wasmJs`        | `-wasm-js`      | ✅       |
+| Kotlin/Wasm                        | `wasmWasi`      | `-wasm-wasi`    | ✅       |
+| Kotlin/JS                          | `js`            | `-js`           | ✅       |
+| Android applications and libraries | `androidTarget` | `-android`      | ✅       |
+
+as well as a subset of
+[tier 1 Kotlin/Native targets](https://kotlinlang.org/docs/native-target-support.html#tier-1), detailed below:
+
+| Gradle target name | Artifact suffix      | Support |
+|:-------------------|:---------------------|:--------|
+| macosX64           | `-macosx64`          | ⛔       |
+| macosArm64         | `-macosarm64`        | ⛔       |
+| iosSimulatorArm64  | `-iossimulatorarm64` | ✅       |
+| iosX64             | `-iosx64`            | ✅       |
+| iosArm64           | `-iosarm64`         | ✅       |
+
+The library does not support `macos` targets in the tier 1 list, or any
+[tier2](https://kotlinlang.org/docs/native-target-support.html#tier-2) and
+[tier3](https://kotlinlang.org/docs/native-target-support.html#tier-3) Kotlin/Native targets. This
+reflects their limited usage currently rather than technical difficulty. Please contact the team if
+you require support for these platforms.
+
 ## Implementation
 
 ### Overview
@@ -209,11 +239,11 @@ To put all this together, the
 [FHIR codegen](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen) in the Gradle
 binary plugin generates three classes for each FHIR resource type:
 
-- the model class (the most important class) in the root package e.g. `com.google.fhir.r4`,
+- the model class (the most important class) in the root package e.g. `com.google.fhir.model.r4`,
 - the surrogate class (for mapping primitive data types to JSON properties) in the surrogate package
-  e.g. `com.google.fhir.r4.surrogates`, and
+  e.g. `com.google.fhir.model.r4.surrogates`, and
 - the serializer class (to delegate serialization/deserialization to the surrogate class) in the
-  serializer package e.g. `com.google.fhir.r4.serializers`,
+  serializer package e.g. `com.google.fhir.model.r4.serializers`,
 
 using
 [`ModelTypeSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen/ModelTypeSpecGenerator.kt),
@@ -232,7 +262,7 @@ mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
 ## User Guide
 
-### Running the codegen
+### Running the codegen locally
 
 You can manually run the code generator (codegen) to inspect the generated code or, as an
 alternative to using the library as a dependency, copy the generated code into your project for
@@ -251,7 +281,7 @@ For example, to generate code for FHIR R4:
 ./gradlew r4
 ```
 
-The generated code will be located in the `library/build/generated/<FHIR_VERSION>` subdirectory.
+The generated code will be located in the `fhir-model/build/generated/<FHIR_VERSION>` subdirectory.
 
 > **Note:** The library is designed for use as a dependency. Directly copying generated code into
 > your project is generally discouraged as it can lead to maintenance issues and conflicts with
@@ -286,9 +316,9 @@ Kotlin's [named arguments](https://kotlinlang.org/docs/functions.html#named-argu
 improved code readability and to avoid errors caused by incorrect parameter order. For example:
 
 ```kotlin
-import com.google.fhir.r4.Address
-import com.google.fhir.r4.Patient
-import com.google.fhir.r4.HumanName
+import com.google.fhir.model.r4.Address
+import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.HumanName
 
 fun main() {
     val patient = Patient(
@@ -313,9 +343,9 @@ Alternatively, use Kotlin's `apply` function whilst creating new FHIR resources 
 flexibility:
 
 ```kotlin
-import com.google.fhir.r4.Address
-import com.google.fhir.r4.Patient
-import com.google.fhir.r4.HumanName
+import com.google.fhir.model.r4.Address
+import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.HumanName
 
 fun main() {
     val patient = Patient().apply {
@@ -347,7 +377,7 @@ and deserialization. For more information, see the
 This is an example of serializing and deserializing the FHIR Patient resource created previously:
 
 ```kotlin
-import com.google.fhir.r4.Patient
+import com.google.fhir.model.r4.Patient
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -380,8 +410,8 @@ To use polymorphic deserialization, use the base type `Resource` as the type par
 deserialization:
 
 ```kotlin
-import com.google.fhir.r4.Patient
-import com.google.fhir.r4.Resource
+import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.Resource
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -420,13 +450,15 @@ serialization process normalizes these variations, resulting in potentially diff
 However, in all of these cases, semantic equivalence is maintained.
 
 ## Publishing
+
 To create a maven repository from the project, run:
 
-`./gradlew :library:publish`
+`./gradlew :fhir-model:publish`
 
-This will create a maven repository in the `library/build/repo` directory.
+This will create a maven repository in the `fhir-model/build/repo` directory.
 
-There is also a `zipRepo` task that will zip the repository into the `library/build/repoZip` directory.
+There is also a `zipRepo` task that will zip the repository into the `fhir-model/build/repoZip`
+directory.
 
 ## Acknowledgements
 
