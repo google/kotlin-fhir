@@ -19,23 +19,9 @@ package com.google.fhir.codegen.schema
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ValueSet(
-  val resourceType: String,
-  val id: String,
-  val extension: List<Extension>? = null,
-  val url: String,
-  val version: String? = null,
-  val name: String,
-  val title: String? = null,
-  val status: String? = null,
-  val experimental: Boolean? = null,
-  val date: String? = null,
-  val publisher: String? = null,
-  val description: String? = null,
-  val immutable: Boolean? = null,
-  val compose: Compose? = null,
+data class Concept(
+  val code: String,
+  val display: String? = null,
+  val definition: String? = null,
+  val concept: List<Concept>? = null,
 )
-
-@Serializable data class Compose(val include: List<Include>)
-
-@Serializable data class Include(val system: String? = null, val concept: List<Concept>? = null)

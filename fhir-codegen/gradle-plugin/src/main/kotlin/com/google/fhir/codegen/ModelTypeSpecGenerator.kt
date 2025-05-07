@@ -16,7 +16,7 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.ModelTypeSpecGenerator.excludeValueSet
+import com.google.fhir.codegen.ModelTypeSpecGenerator.excludeNonCommonBindingValueSetUrls
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
 import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
@@ -54,13 +54,18 @@ import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
 object ModelTypeSpecGenerator {
-  // These ValueSets are to be excluded, they reference CodeSystem used to create external enums
-  val excludeValueSet =
+  val excludeNonCommonBindingValueSetUrls =
     setOf(
-      "http://hl7.org/fhir/ValueSet/subject-type", // Will re-use  ResourceType enum
-      "http://hl7.org/fhir/ValueSet/resource-types", // Will re-use ResourceType enum
+      // Reason: Should use ResourceType enum
+      "http://hl7.org/fhir/ValueSet/subject-type",
+      // Reason: Should use ResourceType enum
+      "http://hl7.org/fhir/ValueSet/resource-types",
+      // Reason: Should use AdministrativeGender enum
       "http://hl7.org/fhir/ValueSet/administrative-gender",
+      // Reason: Conflicting declarations with sealed class LegalStatusSupply
       "http://hl7.org/fhir/ValueSet/legal-status-of-supply",
+      // Reason: ValueSet references no CodeSystem
+      "http://hl7.org/fhir/ValueSet/units-of-time",
     )
 
   fun generate(
@@ -237,13 +242,16 @@ private fun TypeSpec.Builder.generateEnumClasses(
 
     val enumClassName = bindingNameExt?.valueString?.kebabToPascalCase()
     if (commonBindingExt?.isCommonBinding() != true && !enumClassName.isNullOrBlank()) {
-      val valueSet = valueSetMap[element.getValueSetUrl()]
-      if (!excludeValueSet.contains(valueSet?.url)) {
+      val valueSetUrl = element.getValueSetUrl()
+      val valueSet = valueSetMap[valueSetUrl]
+      if (
+        !valueSetUrl.isNullOrBlank() && !excludeNonCommonBindingValueSetUrls.contains(valueSetUrl)
+      ) {
         val mergedCodeSystem = valueSet?.getMergedCodeSystem(codeSystemMap)
         if (!mergedCodeSystem?.concept.isNullOrEmpty()) {
           val typeSpec = EnumTypeSpecGenerator.generate(enumClassName, mergedCodeSystem)
           enumClassesMap.putIfAbsent(enumClassName, typeSpec)
-          nonCommonBindingValueSetUrls.add(valueSet.url)
+          nonCommonBindingValueSetUrls.add(valueSetUrl)
         }
       }
     }
@@ -262,23 +270,14 @@ private fun TypeSpec.Builder.buildProperties(
       val name = element.getElementName()
       val elementValueSetUrl = element.getValueSetUrl()
       val type =
-        when {
-          !excludedCommonBindingValueSets.contains(elementValueSetUrl) &&
-            element.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
-            !element
-              .getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-              ?.valueString
-              .isNullOrBlank() -> {
-            if (
-              element.base?.path == null ||
-                (element.path == element.base.path &&
-                  modelClassName.simpleName !in
-                    setOf("Resource", "DomainResource", "BackboneElement"))
-            ) {
-              getEnumerationTypeName(element, modelClassName)
-            } else element.getTypeName(modelClassName)
-          }
-          else -> element.getTypeName(modelClassName)
+        if (
+          modelClassName.simpleName !in setOf("Resource", "DomainResource", "BackboneElement") &&
+            !excludedCommonBindingValueSets.contains(elementValueSetUrl) &&
+            element.typeIsCodeAndHasBindingNameExtension()
+        ) {
+          getEnumerationTypeName(element, modelClassName)
+        } else {
+          element.getTypeName(modelClassName)
         }
 
       PropertySpec.builder(name, type)
@@ -341,22 +340,38 @@ private fun TypeSpec.Builder.buildProperties(
 
 /**
  * Substitute the primitive type of code with an `Enumeration` type if the values for the code are
- * constrained to a set of values. The implementation checks if there exists a [Element] has a
- * binding extension, otherwise returns the type for the primitive type `code`.
+ * constrained to a set of values.
  */
 private fun getEnumerationTypeName(element: Element, modelClassName: ClassName): TypeName {
+  // Ignore all base.path beginning with "Resource", present in r5 absent in r4s
+  // For elements with inheritance e.g. Patient.language has base path Resource.language
+  val elementBasePath = element.base?.path
+  if (!elementBasePath.isNullOrBlank() && elementBasePath.startsWith("Resource.")) {
+    return element.getTypeName(modelClassName)
+  }
+
   val bindingNameExt = element.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
   val commonBindingExt = element.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
-  val enumClassPackageName =
-    if (commonBindingExt?.isCommonBinding() == true) "${modelClassName.packageName}.enums" else ""
+  // Append the base class name to the enum used in the subclass otherwise default to
+  // the name defined in bindingName valueString. E.g. "Quantity.QuantityComparator"
+  val bindingNameString = bindingNameExt?.valueString?.kebabToPascalCase()
+  val enumClassName =
+    if (element.path != elementBasePath && !elementBasePath.isNullOrBlank())
+      "${elementBasePath.substringBefore(".")}.$bindingNameString"
+    else bindingNameString
 
-  val enumClassName = bindingNameExt?.valueString?.kebabToPascalCase()
   if (!enumClassName.isNullOrBlank()) {
-    // Handle special cases FHIRResourceType and FHIRDefinedType namee, both refer to the same
-    // ResourceType enum
     val isResourceType =
       "FHIRResourceType".equals(enumClassName, ignoreCase = true) ||
         "FHIRDefinedType".equals(enumClassName, ignoreCase = true)
+
+    val enumClassPackageName =
+      when {
+        commonBindingExt?.isCommonBinding() == true -> "${modelClassName.packageName}.enums"
+        enumClassName.contains(".") -> modelClassName.packageName
+        else -> ""
+      }
+
     val enumClass =
       ClassName(
         if (isResourceType) "${modelClassName.packageName}.enums" else enumClassPackageName,
@@ -625,3 +640,11 @@ private fun TypeSpec.Builder.addOfFunction(className: ClassName, primitiveTypeNa
       .build()
   )
 }
+
+/**
+ * Check if [Element]'s type is `code` and it has an extension with url
+ * `http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName` with a valueString
+ */
+private fun Element.typeIsCodeAndHasBindingNameExtension() =
+  this.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
+    !this.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)?.valueString.isNullOrBlank()

@@ -68,6 +68,14 @@ abstract class FhirCodegenTask : DefaultTask() {
       "http://hl7.org/fhir/ValueSet/mimetypes",
       // Reason: unsupported ValueSet.compose system ('urn:ietf:bcp:47')
       "http://hl7.org/fhir/ValueSet/languages",
+      // Reason: unsupported ValueSet.compose system ('urn:iso:std:iso:4217')
+      "http://hl7.org/fhir/ValueSet/currencies",
+      // Reason: unsupported yet, ValueSet not linked to CodeSystem
+      "http://hl7.org/fhir/ValueSet/units-of-time",
+      // Reason: Conflicting commonBinding extensions. The Element extension is present
+      // in StructureDefinition-PaymentReconciliation.json and absent in
+      // StructureDefinition-ClaimReconciliation.json in r4
+      "http://hl7.org/fhir/ValueSet/remittance-outcome",
     )
 
   @TaskAction
@@ -96,7 +104,7 @@ abstract class FhirCodegenTask : DefaultTask() {
         .filter { it.name.startsWith("ValueSet", ignoreCase = true) }
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
         .filter { it.url !in excludedCommonBindingValueSets }
-        .groupBy { it.url }
+        .groupBy { it.url.substringBeforeLast("|") }
         .mapValues { it.value.first() }
 
     val codeSystemMap =
@@ -153,9 +161,8 @@ abstract class FhirCodegenTask : DefaultTask() {
       }
       .forEach { it.writeTo(outputDir) }
 
-    // Generate shared enum classes, exclude the ones generated from StructureDefinitions
     valueSetMap.values
-      .filterNot { nonCommonBindingValueSetUrls.contains(it.url) }
+      .filterNot { nonCommonBindingValueSetUrls.contains(it.url.substringBeforeLast("|")) }
       .forEach { valueSet ->
         val codeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
         if (!codeSystem?.concept.isNullOrEmpty()) {

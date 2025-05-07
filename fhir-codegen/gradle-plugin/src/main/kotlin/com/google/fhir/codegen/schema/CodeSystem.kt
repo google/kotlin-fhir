@@ -20,7 +20,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CodeSystem(
-  val resourceType: String,
   val id: String,
   val extension: List<Extension>? = null,
   val url: String,
@@ -31,14 +30,5 @@ data class CodeSystem(
   val experimental: Boolean? = null,
   val date: String? = null,
   val description: String? = null,
-  val content: String,
-  val concept: List<Concept>? = null,
-)
-
-@Serializable
-data class Concept(
-  val code: String,
-  val display: String? = null,
-  val definition: String? = null,
   val concept: List<Concept>? = null,
 )
