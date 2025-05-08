@@ -50,6 +50,12 @@ object EnumerationTypeGenerator {
     val enumType = ClassName("kotlin", "Enum").parameterizedBy(STAR)
     val typeVariable = TypeVariableName("T", enumType)
 
+    val elementClassName = ClassName(packageName, "Element")
+
+    val toElementFunction = createToElementFunction(elementClassName)
+    val ofFunction = createOfFunction(elementClassName, typeVariable)
+    val companionObject = createCompanionObject(ofFunction)
+
     val enumClass =
       TypeSpec.classBuilder("Enumeration")
         .addModifiers(KModifier.PUBLIC, KModifier.DATA)
@@ -119,6 +125,8 @@ object EnumerationTypeGenerator {
             .mutable(true)
             .build()
         )
+        .addFunction(toElementFunction)
+        .addType(companionObject)
         .addKdoc(
           """
             A FHIR Enumeration type bound to a specific set of codes. It represents a constrained code 
@@ -130,5 +138,39 @@ object EnumerationTypeGenerator {
         .build()
 
     return FileSpec.builder(packageName, "Enumeration").addType(enumClass).build()
+  }
+
+  private fun createToElementFunction(elementClassName: ClassName): FunSpec {
+    return FunSpec.builder("toElement")
+      .addModifiers(KModifier.PUBLIC)
+      .returns(elementClassName.copy(nullable = true))
+      .addStatement("if (id != null || extension != null) { return Element(id, extension) }")
+      .addStatement("return null")
+      .build()
+  }
+
+  private fun createOfFunction(
+    elementClassName: ClassName,
+    typeVariable: TypeVariableName,
+  ): FunSpec {
+    return FunSpec.builder("of")
+      .addModifiers(KModifier.PUBLIC)
+      .addTypeVariable(typeVariable)
+      .addParameter(ParameterSpec.builder("value", typeVariable.copy(nullable = true)).build())
+      .addParameter(
+        ParameterSpec.builder("element", elementClassName.copy(nullable = true)).build()
+      )
+      .returns(ClassName("", "Enumeration").parameterizedBy(typeVariable).copy(nullable = true))
+      .addStatement(
+        "return if (value == null && element == null) { null } else { Enumeration(element?.id, element?.extension, value = value) }"
+      )
+      .build()
+  }
+
+  private fun createCompanionObject(ofFunction: FunSpec): TypeSpec {
+    return TypeSpec.companionObjectBuilder()
+      .addModifiers(KModifier.PUBLIC)
+      .addFunction(ofFunction)
+      .build()
   }
 }
