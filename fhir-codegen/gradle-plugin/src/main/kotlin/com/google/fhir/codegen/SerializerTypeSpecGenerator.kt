@@ -49,7 +49,12 @@ object SerializerTypeSpecGenerator {
   /** @param className the class the serializer is for */
   fun generate(className: ClassName): TypeSpec =
     TypeSpec.classBuilder(className.toSerializerClassName())
-      .addModifiers(KModifier.INTERNAL)
+      .apply {
+        // Mark serializers for backbone elements (e.g. Patient.contact) internal
+        if (className.simpleNames.size > 1) {
+          addModifiers(KModifier.INTERNAL)
+        }
+      }
       .addSuperinterface(KSerializer::class.asClassName().parameterizedBy(className))
       .addSurrogateSerializerProperty(className)
       .addDescriptorProperty(className)
@@ -67,6 +72,7 @@ private fun TypeSpec.Builder.addSurrogateSerializerProperty(
         "surrogateSerializer",
         KSerializer::class.asClassName().parameterizedBy(className.toSurrogateClassName()),
       )
+      .addModifiers(KModifier.INTERNAL)
       .getter(
         FunSpec.getterBuilder()
           .addStatement("return %T.serializer()", className.toSurrogateClassName())
