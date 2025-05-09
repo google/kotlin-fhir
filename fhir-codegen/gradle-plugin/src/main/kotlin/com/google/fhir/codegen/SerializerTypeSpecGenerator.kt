@@ -50,7 +50,9 @@ object SerializerTypeSpecGenerator {
   fun generate(className: ClassName): TypeSpec =
     TypeSpec.classBuilder(className.toSerializerClassName())
       .apply {
-        // Mark serializers for backbone elements (e.g. Patient.contact) internal
+        // Mark serializers for backbone elements (e.g. Patient.contact) internal whilst keeping
+        // serializers for resources (e.g. Patient) public, with the assumption that class names
+        // with more than one single name are backbone elements.
         if (className.simpleNames.size > 1) {
           addModifiers(KModifier.INTERNAL)
         }
