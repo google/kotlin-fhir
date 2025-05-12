@@ -13,34 +13,30 @@ plugins {
 
 group = "com.google.fhir"
 version = "1.0.0-alpha01"
+
 val codegenTaskR4 = fhirCodegenExtension.newTask("r4") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4.core/package").listFiles()
     )
-    this.packageName.set("com.google.fhir.r4")
+    this.packageName.set("com.google.fhir.model.r4")
 }
 
 val codegenTaskR4B = fhirCodegenExtension.newTask("r4b") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4b.core/package").listFiles()
     )
-    this.packageName.set("com.google.fhir.r4b")
+    this.packageName.set("com.google.fhir.model.r4b")
 }
 
 val codegenTaskR5 = fhirCodegenExtension.newTask("r5") {
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r5.core/package").listFiles()
     )
-    this.packageName.set("com.google.fhir.r5")
+    this.packageName.set("com.google.fhir.model.r5")
 }
 
 kotlin {
     jvm()
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_1_8)
-        }
-    }
     @OptIn(ExperimentalWasmDsl::class) wasmJs {
         browser {
             val rootDirPath = project.rootDir.path
@@ -56,14 +52,23 @@ kotlin {
             }
         }
     }
-    js() {
+    @OptIn(ExperimentalWasmDsl::class) wasmWasi {
+        nodejs()
+        binaries.library()
+    }
+    js {
         browser()
-        binaries.executable()
+        binaries.library()
+    }
+    androidTarget {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_1_8)
+        }
     }
     iosX64 {
         binaries {
             framework {
-                baseName = "KmpFhir" // Set the name of your framework
+                baseName = "KotlinFhir" // Set the name of your framework
 
                 // EXPORT DEPENDENCIES FOR OBJC INTEROP
                 // If you are using other Kotlin modules as dependencies, you may need
@@ -77,7 +82,6 @@ kotlin {
     }
     iosArm64()
     iosSimulatorArm64()
-    linuxX64()
 
     sourceSets {
         val commonMain by getting {
@@ -116,16 +120,29 @@ tasks.withType<Test>().configureEach {
 }
 
 // publishing prep
-val localRepo = project.layout.buildDirectory.get().dir("repo")
+val localRepo: Directory = project.layout.buildDirectory.get().dir("repo")
 publishing {
     repositories {
         maven {
             url = localRepo.asFile.toURI()
         }
     }
+    publications {
+        withType<MavenPublication> {
+            pom {
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+            }
+        }
+    }
 }
 val deleteRepoTask = tasks.register<Delete>("deleteLocalRepo") {
-    description = "Deletes the local repository to get rid of stale artifacts before local publishing"
+    description =
+        "Deletes the local repository to get rid of stale artifacts before local publishing"
     this.delete(localRepo)
 }
 tasks.named("publishAllPublicationsToMavenRepository").configure {
@@ -135,8 +152,10 @@ tasks.register("zipRepo", Zip::class) {
     description = "Create a zip of the maven repository"
     this.destinationDirectory.set(project.layout.buildDirectory.dir("repoZip"))
     archiveBaseName.set("kotlin-fhir")
+
+    // Hint to gradle that the repo files are produced by the publish task. This establishes a
+    // dependency from the zipRepo task to the publish task.
     this.from(tasks.named("publish").map { _ ->
-        // mapping from publish task to establish dependency.
         localRepo
     })
 }
