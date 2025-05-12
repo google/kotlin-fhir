@@ -29,6 +29,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 
 object EnumTypeSpecGenerator {
 
@@ -83,6 +84,44 @@ object EnumTypeSpecGenerator {
             FunSpec.builder("getSystem")
               .addStatement("return %S", fhirEnum.getSystem() ?: "")
               .returns(String::class)
+              .build()
+          )
+
+          // Add getDisplay function
+          addFunction(
+            FunSpec.builder("getDisplay")
+              .addModifiers(KModifier.PUBLIC)
+              .returns(String::class.asTypeName().copy(nullable = true))
+              .apply {
+                beginControlFlow("return when (this)")
+                fhirEnum.constants.forEach { constant ->
+                  if (constant.display != null) {
+                    addStatement("%L -> %S", constant.name, constant.display)
+                  } else {
+                    addStatement("%L -> null", constant.name)
+                  }
+                }
+                endControlFlow()
+              }
+              .build()
+          )
+
+          // Add getDefinition function
+          addFunction(
+            FunSpec.builder("getDefinition")
+              .addModifiers(KModifier.PUBLIC)
+              .returns(String::class.asTypeName().copy(nullable = true))
+              .apply {
+                beginControlFlow("return when (this)")
+                fhirEnum.constants.forEach { constant ->
+                  if (constant.definition != null) {
+                    addStatement("%L -> %S", constant.name, constant.definition)
+                  } else {
+                    addStatement("%L -> null", constant.name)
+                  }
+                }
+                endControlFlow()
+              }
               .build()
           )
 
