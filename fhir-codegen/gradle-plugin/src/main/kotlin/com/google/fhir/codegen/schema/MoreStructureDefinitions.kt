@@ -37,11 +37,13 @@ val StructureDefinition.rootElements
 val ValueSet.urlPart
   get() = url.substringBeforeLast("|")
 
-// TODO research how to include/use these CodeSystems
+// TODO Fix conflicting commonBinding name "PublicationStatus" used in
+//  Declared in StructureDefinition-specimen
+//  and present in http://hl7.org/fhir/ValueSet/publication-status in r5
 fun Include.isValueSystemSupported(): Boolean =
   !system.isNullOrBlank() &&
     !system.startsWith("urn", ignoreCase = true) &&
-    !system.equals("http://unitsofmeasure.org", true)
+    system !in setOf("http://hl7.org/fhir/specimen-combined", "http://unitsofmeasure.org", true)
 
 /**
  * Returns [Element]s from the [StructureDefinition] representing data members of the specified

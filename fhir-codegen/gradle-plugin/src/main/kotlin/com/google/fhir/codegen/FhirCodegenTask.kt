@@ -158,16 +158,12 @@ abstract class FhirCodegenTask : DefaultTask() {
             }
           }
         } else {
-          // This enum is not used anywhere and conflicts with DataType model, do not create.
-          val dataTypeValueSet = "http://hl7.org/fhir/ValueSet/data-types"
-          if (valueSet.urlPart != dataTypeValueSet) {
-            val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet, codeSystemMap)
-            if (enumTypeSpec != null) {
-              FileSpec.builder(packageName = "$packageName", fileName = valueSetName)
-                .addType(enumTypeSpec)
-                .build()
-                .writeTo(outputDir)
-            }
+          val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet, codeSystemMap)
+          if (enumTypeSpec != null) {
+            FileSpec.builder(packageName = "$packageName", fileName = valueSetName)
+              .addType(enumTypeSpec)
+              .build()
+              .writeTo(outputDir)
           }
         }
       }
