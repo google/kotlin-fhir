@@ -29,12 +29,19 @@ const val ELEMENT_IS_COMMON_BINDING_EXTENSION_URL =
 const val ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL =
   "http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName"
 
-const val SNOMED_SYSTEM_URL = "http://snomed.info/sct"
-
 val StructureDefinition.rootElements
   get() =
     snapshot?.element?.filter { it.id.matches("$name\\.[A-Za-z0-9]+(\\[x])?".toRegex()) }
       ?: emptyList()
+
+val ValueSet.urlPart
+  get() = url.substringBeforeLast("|")
+
+// TODO research how to include/use these CodeSystems
+fun Include.isValueSystemSupported(): Boolean =
+  !system.isNullOrBlank() &&
+    !system.startsWith("urn", ignoreCase = true) &&
+    !system.equals("http://unitsofmeasure.org", true)
 
 /**
  * Returns [Element]s from the [StructureDefinition] representing data members of the specified
@@ -108,34 +115,52 @@ fun Extension.isCommonBinding(): Boolean =
 fun Element.getValueSetUrl() = this.binding?.valueSet?.substringBeforeLast("|")
 
 /**
+ * Check if [Element]'s type is `code` and it has an extension with url
+ * `http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName`, and the [Element.base]'
+ * path does not start with a "Resource." and name (in PascalCase) is not blank. Some names in FHIR
+ * are have symbols e.g. Element id "Requirements.statement.conformance" of
+ * StructureDefinition-Requirements, the binding name is "??". It returns true if the enumeration
+ * was/is to be generated from a ValueSet with systems that are supported. ValueSets with systems
+ * beginning with "urn" are currently excluded.
+ */
+fun Element.typeIsEnumeratedCode(valueSetMap: Map<String, ValueSet>): Boolean {
+  val valueSet = valueSetMap[getValueSetUrl()]
+  if (valueSet == null) return false
+  val isValidValueSet = valueSet.compose?.include?.all { it.isValueSystemSupported() }
+  return isValidValueSet == true &&
+    base?.path?.startsWith("Resource.") != true &&
+    base?.path?.startsWith("CanonicalResource.") != true &&
+    this.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
+    !this.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+      ?.valueString
+      ?.toPascalCase()
+      .isNullOrBlank()
+}
+
+/**
  * Format the string by replacing all non-alphanumeric-characters with an empty string and
  * capitalize the first character. Example: v3.ObservationInterpretation ->
  * V3ObservationInterpretation
  */
-fun String.kebabToPascalCase(): String {
-  return split("-")
-    .joinToString("") {
-      it.replaceFirstChar { char -> if (char.isLowerCase()) char.titlecase() else char.toString() }
-    }
-    .replace("[^a-zA-Z0-9]+".toRegex(), "")
-    .capitalized()
-}
-
-/**
- * Retrieve and merge [CodeSystem] referenced in the [ValueSet] from the provided map. A ValueSet
- * can reference multiple [CodeSystem]s, with several [CodeSystem.concept] required as constants for
- * the generated enum class constant. Concepts for SNOMED [CodeSystem] are not included.
- */
-fun ValueSet.getMergedCodeSystem(codeSystemMap: Map<String, CodeSystem>): CodeSystem? {
-  if (this.compose?.include.isNullOrEmpty()) return null
-  val codeSystems =
-    this.compose.include
-      .filter { it.system != SNOMED_SYSTEM_URL }
-      .mapNotNull { include -> codeSystemMap[include.system] }
-      .ifEmpty {
-        return null
+fun String.toPascalCase(): String {
+  val camelCaseString =
+    split("-").joinToString("") { it ->
+      it.replaceFirstChar { char ->
+        if (it.indexOf(char) == 0) {
+          char.uppercaseChar()
+        } else {
+          char
+        }
       }
-  return codeSystems.first().copy(concept = codeSystems.flatMap { it.concept ?: emptyList() })
+    }
+
+  // For consistency convert all uppercase word to lowercase then capitalize
+  val formattedString =
+    if (camelCaseString.all { it.isUpperCase() }) camelCaseString.lowercase().capitalized()
+    else camelCaseString
+
+  val alphanumericString = formattedString.replace(Regex("[^a-zA-Z0-9]+"), "")
+  return alphanumericString
 }
 
 fun Element.getElementName() = path.substringAfterLast('.').removeSuffix("[x]")

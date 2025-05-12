@@ -17,11 +17,18 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.primitives.FhirPathType
+import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
+import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.Type
+import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.getElementName
+import com.google.fhir.codegen.schema.getExtension
 import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
 import com.google.fhir.codegen.schema.getTypeName
+import com.google.fhir.codegen.schema.isCommonBinding
+import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -43,7 +50,12 @@ import org.gradle.configurationcache.extensions.capitalized
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
 object SurrogateTypeSpecGenerator {
-  fun generate(modelClassName: ClassName, elements: List<Element>): TypeSpec {
+
+  fun generate(
+    modelClassName: ClassName,
+    elements: List<Element>,
+    valueSetMap: Map<String, ValueSet>,
+  ): TypeSpec {
     val typeSpec =
       TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
         .apply {
@@ -89,8 +101,8 @@ object SurrogateTypeSpecGenerator {
               .build()
           )
 
-          addConverterToDataClass(modelClassName, filteredElements)
-          addConverterFromDataClass(modelClassName, filteredElements)
+          addConverterToDataClass(modelClassName, filteredElements, valueSetMap)
+          addConverterFromDataClass(modelClassName, filteredElements, valueSetMap)
         }
         .build()
     return typeSpec
@@ -104,6 +116,7 @@ object SurrogateTypeSpecGenerator {
 private fun TypeSpec.Builder.addConverterToDataClass(
   modelClassName: ClassName,
   elements: List<Element>,
+  valueSetMap: Map<String, ValueSet>,
 ) {
   addFunction(
     FunSpec.builder("to${modelClassName.simpleName.capitalized()}")
@@ -115,7 +128,12 @@ private fun TypeSpec.Builder.addConverterToDataClass(
             indent()
             elements.forEach { element ->
               add("%N = ", element.getElementName())
-              addCodeToBuildProperty(modelClassName, modelClassName.toSurrogateClassName(), element)
+              addCodeToBuildProperty(
+                modelClassName,
+                modelClassName.toSurrogateClassName(),
+                element,
+                valueSetMap,
+              )
               add("\n")
             }
             unindent()
@@ -134,6 +152,7 @@ private fun TypeSpec.Builder.addConverterToDataClass(
 private fun TypeSpec.Builder.addConverterFromDataClass(
   modelClassName: ClassName,
   elements: List<Element>,
+  valueSetMap: Map<String, ValueSet>,
 ) {
   // The object name needs to be unique to avoid conflicts with element names which can be the
   // same as the enclosing class name (e.g. element `Account.coverage.coverage` inside the
@@ -154,7 +173,7 @@ private fun TypeSpec.Builder.addConverterFromDataClass(
               .apply {
                 indent()
                 elements.forEach { element ->
-                  addCodeToBuiltPropertiesInSurrogate(modelClassName, element)
+                  addCodeToBuildPropertiesInSurrogate(modelClassName, element, valueSetMap)
                 }
                 unindent()
               }
@@ -203,13 +222,20 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
   modelClassName: ClassName,
   surrogateClassName: ClassName,
   element: Element,
+  valueSetMap: Map<String, ValueSet>,
 ) {
   val propertyName = element.getElementName()
   if (element.type != null && element.type.size > 1) {
     // A single property (sealed interface) constructed from a choice of types
     add("%T.from(", element.getTypeName(modelClassName))
     for (type in element.type) {
-      addCodeToBuildChoiceTypeProperty(modelClassName, surrogateClassName, element, type)
+      addCodeToBuildChoiceTypeProperty(
+        modelClassName,
+        surrogateClassName,
+        element,
+        type,
+        valueSetMap,
+      )
       add(", ")
     }
     add(")")
@@ -218,7 +244,27 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
       // A list of primitive type
       val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+
+      if (element.typeIsEnumeratedCode(valueSetMap)) {
+        val enumClass = element.getEnumClass(modelClassName)
+        add(
+          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value?.let { %L.valueOf(it) }, element) } }",
+          surrogateClassName,
+          propertyName,
+          surrogateClassName,
+          "_$propertyName",
+          surrogateClassName,
+          propertyName,
+          surrogateClassName,
+          "_$propertyName",
+          surrogateClassName,
+          "_$propertyName",
+          surrogateClassName,
+          propertyName,
+          ClassName(modelClassName.packageName, "Enumeration"),
+          enumClass,
+        )
+      } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add(
           "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value, element) } }",
           surrogateClassName,
@@ -266,6 +312,8 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
       surrogateClassName,
       propertyName,
       element.type?.singleOrNull(),
+      element,
+      valueSetMap,
     )
   }
 }
@@ -300,8 +348,22 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
   surrogateClassName: ClassName,
   propertyName: String,
   type: Type?,
+  element: Element,
+  valueSetMap: Map<String, ValueSet>,
 ) {
-  if (type != null && FhirPathType.containsFhirTypeCode(type.code)) {
+
+  if (element.typeIsEnumeratedCode(valueSetMap)) {
+    val enumClass = element.getEnumClass(modelClassName)
+    add(
+      "%T.of(this@%T.%N?.let { %L.valueOf(it) }, this@%T.%N)",
+      ClassName(modelClassName.packageName, "Enumeration"),
+      surrogateClassName,
+      propertyName,
+      enumClass,
+      surrogateClassName,
+      "_$propertyName",
+    )
+  } else if (type != null && FhirPathType.containsFhirTypeCode(type.code)) {
     val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
     val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
     if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
@@ -330,6 +392,26 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
   }
 }
 
+private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
+  val elementBasePath: String? = base?.path
+  val bindingNameExt = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+  val commonBindingExt = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+  val bindingNameString = bindingNameExt?.valueString?.toPascalCase()
+  val enumClassName =
+    if (path != elementBasePath && !elementBasePath.isNullOrBlank())
+      "${elementBasePath.substringBefore(".")}.$bindingNameString"
+    else bindingNameString
+  val enumClassPackageName =
+    if (commonBindingExt?.isCommonBinding() == true || enumClassName?.contains(".") == true) {
+      modelClassName.packageName
+    } else {
+      // Use qualified import
+      modelClassName.packageName + "." + modelClassName.simpleNames.first()
+    }
+  val enumClass = ClassName(enumClassPackageName, enumClassName!!)
+  return enumClass
+}
+
 /**
  * Adds code to build a property in the data class of [type] from a choice of data types in the
  * surrogate class.
@@ -355,11 +437,19 @@ private fun CodeBlock.Builder.addCodeToBuildChoiceTypeProperty(
   surrogateClassName: ClassName,
   element: Element,
   type: Type,
+  valueSetMap: Map<String, ValueSet>,
 ) {
   // The property name in the surrogate class is the element name concatenated with the type code
   // e.g. `Patient.deceasedBoolean`
   val propertyName = "${element.getElementName()}${type.code.capitalized()}"
-  addCodeToBuildProperty(modelClassName, surrogateClassName, propertyName, type)
+  addCodeToBuildProperty(
+    modelClassName,
+    surrogateClassName,
+    propertyName,
+    type,
+    element,
+    valueSetMap,
+  )
 }
 
 /**
@@ -396,9 +486,10 @@ private fun CodeBlock.Builder.addCodeToBuildChoiceTypeProperty(
  * - **Complex type:** Complex types can be directly assigned since the data types in the data class
  *   and the surrogate class are the same. The generated code simply includes the property name.
  */
-private fun CodeBlock.Builder.addCodeToBuiltPropertiesInSurrogate(
+private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
   modelClassName: ClassName,
   element: Element,
+  valueSetMap: Map<String, ValueSet>,
 ) {
   val propertyName = element.getElementName()
   if (element.type != null && element.type.size > 1) {
@@ -415,7 +506,13 @@ private fun CodeBlock.Builder.addCodeToBuiltPropertiesInSurrogate(
       // A list of primitive type is deconstructed into two lists
       val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+      if (element.typeIsEnumeratedCode(valueSetMap)) {
+        add(
+          "%N = this@with.%N?.map{ it?.value?.getCode() }?.takeUnless { it.all { it == null } }\n",
+          propertyName,
+          propertyName,
+        )
+      } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add(
           "%N = this@with.%N?.map{ it?.value }?.takeUnless { it.all { it == null } }\n",
           propertyName,
@@ -443,7 +540,11 @@ private fun CodeBlock.Builder.addCodeToBuiltPropertiesInSurrogate(
       // A single primitive value is deconstructed into two properties
       val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+
+      if (element.typeIsEnumeratedCode(valueSetMap)) {
+        // Call getCode() if the type of the property is an enum type
+        add("%N = this@with.%N?.value?.getCode()\n", propertyName, propertyName)
+      } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add("%N = this@with.%N?.value\n", propertyName, propertyName)
       } else {
         // Call FhirDateTime.toString

@@ -24,8 +24,8 @@ import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.ValueSet
-import com.google.fhir.codegen.schema.getMergedCodeSystem
-import com.google.fhir.codegen.schema.kebabToPascalCase
+import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.urlPart
 import com.squareup.kotlinpoet.FileSpec
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
@@ -56,27 +56,8 @@ abstract class FhirCodegenTask : DefaultTask() {
     prettyPrint = true
   }
 
-  private val nonCommonBindingValueSetUrls = mutableSetOf<String>()
-
-  private val excludedCommonBindingValueSets =
-    setOf(
-      // Reason: AbstractType, DataType, ResourceType enums are generated separately
-      "http://hl7.org/fhir/ValueSet/all-types",
-      // Reason: enum class name 'VersionAlgorithm' conflicts with nested class
-      "http://hl7.org/fhir/version-algorithm",
-      // Reason: unsupported ValueSet.compose system ('urn:ietf:bcp:13')
-      "http://hl7.org/fhir/ValueSet/mimetypes",
-      // Reason: unsupported ValueSet.compose system ('urn:ietf:bcp:47')
-      "http://hl7.org/fhir/ValueSet/languages",
-      // Reason: unsupported ValueSet.compose system ('urn:iso:std:iso:4217')
-      "http://hl7.org/fhir/ValueSet/currencies",
-      // Reason: unsupported yet, ValueSet not linked to CodeSystem
-      "http://hl7.org/fhir/ValueSet/units-of-time",
-      // Reason: Conflicting commonBinding extensions. The Element extension is present
-      // in StructureDefinition-PaymentReconciliation.json and absent in
-      // StructureDefinition-ClaimReconciliation.json in r4
-      "http://hl7.org/fhir/ValueSet/remittance-outcome",
-    )
+  private val structureDefinitionValueSetUrls =
+    Pair(mutableMapOf<String, HashSet<String>>(), hashSetOf<String>())
 
   @TaskAction
   fun generateCode() {
@@ -103,8 +84,7 @@ abstract class FhirCodegenTask : DefaultTask() {
         .asSequence()
         .filter { it.name.startsWith("ValueSet", ignoreCase = true) }
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
-        .filter { it.url !in excludedCommonBindingValueSets }
-        .groupBy { it.url.substringBeforeLast("|") }
+        .groupBy { it.urlPart }
         .mapValues { it.value.first() }
 
     val codeSystemMap =
@@ -155,23 +135,43 @@ abstract class FhirCodegenTask : DefaultTask() {
           isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
           valueSetMap = valueSetMap,
           codeSystemMap = codeSystemMap,
-          nonCommonBindingValueSetUrls = nonCommonBindingValueSetUrls,
-          excludedCommonBindingValueSets = excludedCommonBindingValueSets,
+          structureDefinitionValueSetUrls = structureDefinitionValueSetUrls,
         )
       }
       .forEach { it.writeTo(outputDir) }
 
+    val (commonBindingValuesMap, nonCommonBindingValueSetUrls) = structureDefinitionValueSetUrls
     valueSetMap.values
-      .filterNot { nonCommonBindingValueSetUrls.contains(it.url.substringBeforeLast("|")) }
+      .filter {
+        commonBindingValuesMap.containsKey(it.urlPart) ||
+          !nonCommonBindingValueSetUrls.contains(it.urlPart)
+      }
       .forEach { valueSet ->
-        val codeSystem = valueSet.getMergedCodeSystem(codeSystemMap)
-        if (!codeSystem?.concept.isNullOrEmpty()) {
-          val enumClassName = codeSystem.name.kebabToPascalCase()
-          if (enumClassName.isNotBlank()) {
-            FileSpec.builder(packageName = "$packageName.enums", fileName = enumClassName)
-              .addType(EnumTypeSpecGenerator.generate(enumClassName, codeSystem))
-              .build()
-              .writeTo(outputDir)
+        val valueSetName = valueSet.name.toPascalCase()
+        val commonBindingNames = commonBindingValuesMap[valueSet.urlPart]
+
+        // Create enums for a ValueSet that's used by several common binding names
+        if (commonBindingNames != null) {
+          commonBindingNames.forEach { name ->
+            val enumTypeSpec = EnumTypeSpecGenerator.generate(name, valueSet, codeSystemMap)
+            if (enumTypeSpec != null) {
+              FileSpec.builder(packageName = "$packageName", fileName = name)
+                .addType(enumTypeSpec)
+                .build()
+                .writeTo(outputDir)
+            }
+          }
+        } else {
+          // This enum is not used anywhere and conflicts with DataType model, do not create.
+          val dataTypeValueSet = "http://hl7.org/fhir/ValueSet/data-types"
+          if (valueSet.urlPart != dataTypeValueSet) {
+            val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet, codeSystemMap)
+            if (enumTypeSpec != null) {
+              FileSpec.builder(packageName = "$packageName", fileName = valueSetName)
+                .addType(enumTypeSpec)
+                .build()
+                .writeTo(outputDir)
+            }
           }
         }
       }
