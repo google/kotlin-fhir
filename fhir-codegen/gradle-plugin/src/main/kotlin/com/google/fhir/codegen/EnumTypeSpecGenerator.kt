@@ -24,6 +24,7 @@ import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.isValueSystemSupported
 import com.google.fhir.codegen.schema.sanitizeKDoc
 import com.google.fhir.codegen.schema.toPascalCase
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
@@ -82,6 +83,27 @@ object EnumTypeSpecGenerator {
             FunSpec.builder("getSystem")
               .addStatement("return %S", fhirEnum.getSystem() ?: "")
               .returns(String::class)
+              .build()
+          )
+
+          // Add a companion object with the fromCode function
+          addType(
+            TypeSpec.companionObjectBuilder()
+              .addFunction(
+                FunSpec.builder("fromCode")
+                  .addParameter("code", String::class)
+                  .returns(ClassName.bestGuess(enumClassName))
+                  .beginControlFlow("return when (code)")
+                  .apply {
+                    fhirEnum.constants.forEach { addStatement("%S -> %L", it.code, it.name) }
+                    addStatement(
+                      "else -> throw IllegalArgumentException(\"Unknown code \$code for enum %L\")",
+                      enumClassName,
+                    )
+                  }
+                  .endControlFlow()
+                  .build()
+              )
               .build()
           )
         }
