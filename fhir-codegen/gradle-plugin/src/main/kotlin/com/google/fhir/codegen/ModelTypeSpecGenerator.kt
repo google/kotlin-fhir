@@ -63,7 +63,7 @@ object ModelTypeSpecGenerator {
     serializerFileSpec: FileSpec.Builder,
     valueSetMap: Map<String, ValueSet>,
     codeSystemMap: Map<String, CodeSystem>,
-    structureDefinitionValueSetUrls: Pair<MutableMap<String, HashSet<String>>, HashSet<String>>,
+    commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
   ): TypeSpec {
     // Nested enums are all created inside the enclosing parent class for reusability
     val enumClassesMap = mutableMapOf<String, TypeSpec>()
@@ -170,7 +170,7 @@ object ModelTypeSpecGenerator {
             serializerTypeSpec = serializerFileSpec,
             valueSetMap = valueSetMap,
             codeSystemMap = codeSystemMap,
-            structureDefinitionValueSetUrls = structureDefinitionValueSetUrls,
+            commonBindingValueSetUrls = commonBindingValueSetUrls,
             enumClassesMap = enumClassesMap,
           )
 
@@ -180,7 +180,7 @@ object ModelTypeSpecGenerator {
             elements = structureDefinition.rootElements,
             valueSetMap = valueSetMap,
             codeSystemMap = codeSystemMap,
-            structureDefinitionValueSetUrls = structureDefinitionValueSetUrls,
+            commonBindingValueSetUrls = commonBindingValueSetUrls,
             enumClassesMap = enumClassesMap,
           )
 
@@ -217,7 +217,7 @@ private fun TypeSpec.Builder.generateEnumClasses(
   elements: List<Element>,
   valueSetMap: Map<String, ValueSet>,
   codeSystemMap: Map<String, CodeSystem>,
-  structureDefinitionValueSetUrls: Pair<MutableMap<String, HashSet<String>>, HashSet<String>>,
+  commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
   enumClassesMap: MutableMap<String, TypeSpec>,
 ): TypeSpec.Builder {
   for (element in elements) {
@@ -238,11 +238,8 @@ private fun TypeSpec.Builder.generateEnumClasses(
     }
 
     // Track ValueSet urls and binding names
-    val (commonBindingValuesMap, nonCommonBindingValueSetUrls) = structureDefinitionValueSetUrls
     if (isCommonBinding == true) {
-      commonBindingValuesMap.getOrPut(valueSetUrl) { hashSetOf() }.apply { add(bindingName!!) }
-    } else {
-      nonCommonBindingValueSetUrls.add(valueSetUrl)
+      commonBindingValueSetUrls.getOrPut(valueSetUrl) { hashSetOf() }.apply { add(bindingName!!) }
     }
   }
   return this
@@ -369,7 +366,7 @@ private fun TypeSpec.Builder.addBackboneElement(
   serializerTypeSpec: FileSpec.Builder,
   valueSetMap: Map<String, ValueSet>,
   codeSystemMap: Map<String, CodeSystem>,
-  structureDefinitionValueSetUrls: Pair<MutableMap<String, HashSet<String>>, HashSet<String>>,
+  commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
   enumClassesMap: MutableMap<String, TypeSpec>,
 ): TypeSpec.Builder {
   backboneElements
@@ -398,14 +395,14 @@ private fun TypeSpec.Builder.addBackboneElement(
             serializerTypeSpec,
             valueSetMap,
             codeSystemMap,
-            structureDefinitionValueSetUrls,
+            commonBindingValueSetUrls,
             enumClassesMap,
           )
           .generateEnumClasses(
             elements = backboneElements.values.flatten(),
             valueSetMap = valueSetMap,
             codeSystemMap = codeSystemMap,
-            structureDefinitionValueSetUrls = structureDefinitionValueSetUrls,
+            commonBindingValueSetUrls = commonBindingValueSetUrls,
             enumClassesMap = enumClassesMap,
           )
           .addSealedInterfaces(

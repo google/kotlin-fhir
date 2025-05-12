@@ -56,8 +56,7 @@ abstract class FhirCodegenTask : DefaultTask() {
     prettyPrint = true
   }
 
-  private val structureDefinitionValueSetUrls =
-    Pair(mutableMapOf<String, HashSet<String>>(), hashSetOf<String>())
+  private val commonBindingValueSetUrls = mutableMapOf<String, HashSet<String>>()
 
   @TaskAction
   fun generateCode() {
@@ -135,20 +134,17 @@ abstract class FhirCodegenTask : DefaultTask() {
           isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
           valueSetMap = valueSetMap,
           codeSystemMap = codeSystemMap,
-          structureDefinitionValueSetUrls = structureDefinitionValueSetUrls,
+          commonBindingValueSetUrls = commonBindingValueSetUrls,
         )
       }
       .forEach { it.writeTo(outputDir) }
 
-    val (commonBindingValuesMap, nonCommonBindingValueSetUrls) = structureDefinitionValueSetUrls
+    // Only create enums for common binding elements
     valueSetMap.values
-      .filter {
-        commonBindingValuesMap.containsKey(it.urlPart) ||
-          !nonCommonBindingValueSetUrls.contains(it.urlPart)
-      }
+      .filter { commonBindingValueSetUrls.containsKey(it.urlPart) }
       .forEach { valueSet ->
         val valueSetName = valueSet.name.toPascalCase()
-        val commonBindingNames = commonBindingValuesMap[valueSet.urlPart]
+        val commonBindingNames = commonBindingValueSetUrls[valueSet.urlPart]
 
         // Create enums for a ValueSet that's used by several common binding names
         if (commonBindingNames != null) {

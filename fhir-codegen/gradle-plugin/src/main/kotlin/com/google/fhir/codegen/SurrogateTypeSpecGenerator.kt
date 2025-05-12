@@ -248,7 +248,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
       if (element.typeIsEnumeratedCode(valueSetMap)) {
         val enumClass = element.getEnumClass(modelClassName)
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value?.let { %L.valueOf(it) }, element) } }",
+          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value?.let { %L.fromCode(it) }, element) } }",
           surrogateClassName,
           propertyName,
           surrogateClassName,
@@ -355,7 +355,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
   if (element.typeIsEnumeratedCode(valueSetMap)) {
     val enumClass = element.getEnumClass(modelClassName)
     add(
-      "%T.of(this@%T.%N?.let { %L.valueOf(it) }, this@%T.%N)",
+      "%T.of(this@%T.%N?.let { %L.fromCode(it) }, this@%T.%N)",
       ClassName(modelClassName.packageName, "Enumeration"),
       surrogateClassName,
       propertyName,

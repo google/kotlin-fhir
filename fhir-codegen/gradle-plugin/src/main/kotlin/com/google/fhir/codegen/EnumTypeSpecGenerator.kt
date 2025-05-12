@@ -87,45 +87,13 @@ object EnumTypeSpecGenerator {
               .build()
           )
 
-          // Add getDisplay function
           addFunction(
-            FunSpec.builder("getDisplay")
-              .addModifiers(KModifier.PUBLIC)
-              .returns(String::class.asTypeName().copy(nullable = true))
-              .apply {
-                beginControlFlow("return when (this)")
-                fhirEnum.constants.forEach { constant ->
-                  if (constant.display != null) {
-                    addStatement("%L -> %S", constant.name, constant.display)
-                  } else {
-                    addStatement("%L -> null", constant.name)
-                  }
-                }
-                endControlFlow()
-              }
-              .build()
+            createPropertyAccessorFunction("getDisplay", fhirEnum.constants) { it.display }
+          )
+          addFunction(
+            createPropertyAccessorFunction("getDefinition", fhirEnum.constants) { it.definition }
           )
 
-          // Add getDefinition function
-          addFunction(
-            FunSpec.builder("getDefinition")
-              .addModifiers(KModifier.PUBLIC)
-              .returns(String::class.asTypeName().copy(nullable = true))
-              .apply {
-                beginControlFlow("return when (this)")
-                fhirEnum.constants.forEach { constant ->
-                  if (constant.definition != null) {
-                    addStatement("%L -> %S", constant.name, constant.definition)
-                  } else {
-                    addStatement("%L -> null", constant.name)
-                  }
-                }
-                endControlFlow()
-              }
-              .build()
-          )
-
-          // Add a companion object with the fromCode function
           addType(
             TypeSpec.companionObjectBuilder()
               .addFunction(
@@ -148,6 +116,30 @@ object EnumTypeSpecGenerator {
         }
         .build()
     return typeSpec
+  }
+
+  private fun createPropertyAccessorFunction(
+    functionName: String,
+    constants: List<FhirEnumConstant>,
+    propertySelector: (FhirEnumConstant) -> String?,
+  ): FunSpec {
+    return FunSpec.builder(functionName)
+      .addModifiers(KModifier.PUBLIC)
+      .returns(String::class.asTypeName().copy(nullable = true))
+      .apply {
+        val constantsWithValue = constants.filter { propertySelector(it) != null }
+        if (constantsWithValue.isEmpty()) {
+          addStatement("return null")
+        } else {
+          beginControlFlow("return when (this)")
+          constantsWithValue.forEach { constant ->
+            propertySelector(constant)?.let { addStatement("%L -> %S", constant.name, it) }
+          }
+          addStatement("else -> null")
+          endControlFlow()
+        }
+      }
+      .build()
   }
 
   /**
