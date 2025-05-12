@@ -21,14 +21,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CodeSystem(
   val id: String,
-  val extension: List<Extension>? = null,
   val url: String,
-  val version: String? = null,
   val name: String,
-  val title: String? = null,
-  val status: String? = null,
-  val experimental: Boolean? = null,
-  val date: String? = null,
   val description: String? = null,
   val concept: List<Concept>? = null,
 )
