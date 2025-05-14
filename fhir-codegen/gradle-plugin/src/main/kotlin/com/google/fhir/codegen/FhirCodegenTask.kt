@@ -17,10 +17,16 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
+import com.google.fhir.codegen.primitives.EnumerationTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
+import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.urlPart
+import com.squareup.kotlinpoet.FileSpec
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
@@ -45,6 +51,13 @@ abstract class FhirCodegenTask : DefaultTask() {
 
   @get:OutputDirectory abstract val outputDirectory: DirectoryProperty
 
+  private val json = Json {
+    ignoreUnknownKeys = true
+    prettyPrint = true
+  }
+
+  private val commonBindingValueSetUrls = mutableMapOf<String, HashSet<String>>()
+
   @TaskAction
   fun generateCode() {
     // Prepare the output folder
@@ -55,23 +68,37 @@ abstract class FhirCodegenTask : DefaultTask() {
     // Prepare the input files and log them in the output folder
     val inputFiles =
       definitionFiles.files.flatMap { file ->
-        // Only use structure definition files for resource types.
+        // Use structure definitions, value set and code system files
         // NB filtering by file name is only an approximation.
         file.walkTopDown().filter {
-          it.isFile && it.name.matches("StructureDefinition-[A-Za-z0-9]*\\.json".toRegex())
+          it.isFile &&
+            (it.name.matches("StructureDefinition-[A-Za-z0-9]*\\.json".toRegex()) ||
+              it.name.matches("(?i)^(ValueSet|CodeSystem)((-v3.*)?|(?!-v\\d).*)\\.json$".toRegex()))
         }
       }
     outputDir.resolve("inputs.txt").writeText(inputFiles.joinToString("\n"))
 
-    // Parse input files
-    val json = Json {
-      ignoreUnknownKeys = true
-      prettyPrint = true
-    }
+    val valueSetMap =
+      inputFiles
+        .asSequence()
+        .filter { it.name.startsWith("ValueSet", ignoreCase = true) }
+        .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
+        .groupBy { it.urlPart }
+        .mapValues { it.value.first() }
 
+    val codeSystemMap =
+      inputFiles
+        .asSequence()
+        .filter { it.name.startsWith("CodeSystem", ignoreCase = true) }
+        .map { json.decodeFromString<CodeSystem>(it.readText(Charsets.UTF_8)) }
+        .groupBy { it.url }
+        .mapValues { it.value.first() }
+
+    // Only use structure definition files for resource types.
     val structureDefinitions =
       inputFiles
         .asSequence()
+        .filter { it.name.startsWith("StructureDefinition") }
         .map { json.decodeFromString<StructureDefinition>(it.readText(Charsets.UTF_8)) }
         .filterNot {
           // Do not generate classes for logical types e.g. `Definition`, `Request`, `Event`, etc.
@@ -98,21 +125,58 @@ abstract class FhirCodegenTask : DefaultTask() {
         }
         .distinct()
 
+    val packageName = this.packageName.get()
     structureDefinitions
-      .flatMap {
+      .flatMap { structureDefinition ->
         FhirCodegen.generateFileSpecs(
-          this.packageName.get(),
-          it,
-          baseClasses.contains(it.name.capitalized()),
+          packageName = packageName,
+          structureDefinition = structureDefinition,
+          isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
+          valueSetMap = valueSetMap,
+          codeSystemMap = codeSystemMap,
+          commonBindingValueSetUrls = commonBindingValueSetUrls,
         )
       }
       .forEach { it.writeTo(outputDir) }
 
-    FhirDateTimeTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
-    FhirDateTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
+    // Only create enums for common binding elements
+    valueSetMap.values
+      .filter { commonBindingValueSetUrls.containsKey(it.urlPart) }
+      .forEach { valueSet ->
+        val valueSetName = valueSet.name.toPascalCase()
+        val commonBindingNames = commonBindingValueSetUrls[valueSet.urlPart]
+
+        // Create enums for a ValueSet that's used by several common binding names
+        if (commonBindingNames != null) {
+          commonBindingNames.forEach { name ->
+            val enumTypeSpec = EnumTypeSpecGenerator.generate(name, valueSet, codeSystemMap)
+            if (enumTypeSpec != null) {
+              FileSpec.builder(packageName = "$packageName", fileName = name)
+                .addType(enumTypeSpec)
+                .build()
+                .writeTo(outputDir)
+            }
+          }
+        } else {
+          val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet, codeSystemMap)
+          if (enumTypeSpec != null) {
+            FileSpec.builder(packageName = "$packageName", fileName = valueSetName)
+              .addType(enumTypeSpec)
+              .build()
+              .writeTo(outputDir)
+          }
+        }
+      }
+
+    FhirDateTimeTypeGenerator.generate(packageName).writeTo(outputDir)
+    FhirDateTypeGenerator.generate(packageName).writeTo(outputDir)
+
+    // Generate an extension to the primitive type - "code", to be used where code is tied to an
+    // enumerated list of possible values. FHIR has no primitive type for enums.
+    EnumerationTypeGenerator.generate(packageName).writeTo(outputDir)
 
     // Generate custom serializers
-    val serializersPackageName = "${this.packageName.get()}.serializers"
+    val serializersPackageName = "$packageName.serializers"
     DoubleSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
     LocalTimeSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
   }
