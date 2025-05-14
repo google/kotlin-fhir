@@ -138,50 +138,50 @@ val exclusionListR5 =
 class SerializationRoundTripTest {
   @Test
   fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4() {
-    forEachR4Example(
-      fileNameFilter = {
-        return@forEachR4Example (filterFileName(it) && !exclusionListR4.contains(it))
-      },
-      block = {
+    loadR4Examples(
+        fileNameFilter = {
+          return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
+        }
+      )
+      .forEach {
         val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r4.Resource =
           json.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
         val reserializedString = json.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
-      },
-    )
+      }
   }
 
   @Test
   fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4B() {
-    forEachR4BExample(
-      fileNameFilter = {
-        return@forEachR4BExample (filterFileName(it) && !exclusionListR4B.contains(it))
-      },
-      block = {
+    loadR4BExamples(
+        fileNameFilter = {
+          return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
+        }
+      )
+      .forEach {
         val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r4b.Resource =
           json.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
         val reserializedString = json.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
-      },
-    )
+      }
   }
 
   @Test
   fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR5() {
-    forEachR5Example(
-      fileNameFilter = {
-        return@forEachR5Example (filterFileName(it) && !exclusionListR5.contains(it))
-      },
-      block = {
+    loadR5Examples(
+        fileNameFilter = {
+          return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
+        }
+      )
+      .forEach {
         val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r5.Resource =
           json.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
         val reserializedString = json.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
-      },
-    )
+      }
   }
 
   companion object {
@@ -225,8 +225,8 @@ class SerializationRoundTripTest {
   }
 }
 
-expect fun forEachR4Example(fileNameFilter: (String) -> Boolean, block: (String) -> Unit)
+expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
 
-expect fun forEachR4BExample(fileNameFilter: (String) -> Boolean, block: (String) -> Unit)
+expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String>
 
-expect fun forEachR5Example(fileNameFilter: (String) -> Boolean, block: (String) -> Unit)
+expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String>

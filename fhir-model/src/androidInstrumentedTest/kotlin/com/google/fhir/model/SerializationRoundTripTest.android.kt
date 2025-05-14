@@ -23,44 +23,31 @@ import java.io.InputStreamReader
 
 val assetManager: AssetManager = InstrumentationRegistry.getInstrumentation().context.assets
 
-actual fun forEachR4Example(fileNameFilter: (String) -> Boolean, block: (String) -> Unit) {
-  InstrumentationRegistry.getInstrumentation()
+private fun loadExamplesFromAssets(
+  examplePackage: String,
+  fileNameFilter: (String) -> Boolean,
+): Sequence<String> {
+  return InstrumentationRegistry.getInstrumentation()
     .context
     .assets
-    .list(r4ExamplePackage)!!
+    .list(examplePackage)!!
+    .asSequence()
     .filter { fileNameFilter(it) }
-    .forEach { fileName ->
-      assetManager.open("${r4ExamplePackage}${fileName}").use { it ->
-        val content = BufferedReader(InputStreamReader(it)).use { it.readText() }
-        block(content)
+    .map { fileName ->
+      assetManager.open("$examplePackage${fileName}").use { it ->
+        BufferedReader(InputStreamReader(it)).use { it.readText() }
       }
     }
 }
 
-actual fun forEachR4BExample(fileNameFilter: (String) -> Boolean, block: (String) -> Unit) {
-  InstrumentationRegistry.getInstrumentation()
-    .context
-    .assets
-    .list(r4bExamplePackage)!!
-    .filter { fileNameFilter(it) }
-    .forEach { fileName ->
-      assetManager.open("$r4bExamplePackage${fileName}").use { it ->
-        val content = BufferedReader(InputStreamReader(it)).use { it.readText() }
-        block(content)
-      }
-    }
+actual fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
+  return loadExamplesFromAssets(r4ExamplePackage, fileNameFilter)
 }
 
-actual fun forEachR5Example(fileNameFilter: (String) -> Boolean, block: (String) -> Unit) {
-  InstrumentationRegistry.getInstrumentation()
-    .context
-    .assets
-    .list(r5ExamplePackage)!!
-    .filter { fileNameFilter(it) }
-    .forEach { fileName ->
-      assetManager.open("$r5ExamplePackage${fileName}").use { it ->
-        val content = BufferedReader(InputStreamReader(it)).use { it.readText() }
-        block(content)
-      }
-    }
+actual fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String> {
+  return loadExamplesFromAssets(r4bExamplePackage, fileNameFilter)
+}
+
+actual fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
+  return loadExamplesFromAssets(r5ExamplePackage, fileNameFilter)
 }

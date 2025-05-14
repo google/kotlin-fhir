@@ -18,23 +18,25 @@ package com.google.fhir.model
 
 import java.io.File
 
-actual fun forEachR4Example(fileNameFilter: (String) -> Boolean, block: (String) -> Unit) {
-  File("${System.getProperty("projectRootDir")}/third_party/${r4ExamplePackage}")
+private fun loadExamplesFromFileSystem(
+  directoryName: String,
+  fileNameFilter: (String) -> Boolean,
+): Sequence<String> {
+  return File("${System.getProperty("projectRootDir")}/third_party/${directoryName}")
     .listFiles()!!
+    .asSequence()
     .filter { fileNameFilter(it.name) }
-    .forEach { block(it.readText()) }
+    .map { it.readText() }
 }
 
-actual fun forEachR4BExample(fileNameFilter: (String) -> Boolean, block: (String) -> Unit) {
-  File("${System.getProperty("projectRootDir")}/third_party/${r4bExamplePackage}")
-    .listFiles()!!
-    .filter { fileNameFilter(it.name) }
-    .forEach { block(it.readText()) }
+actual fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
+  return loadExamplesFromFileSystem(r4ExamplePackage, fileNameFilter)
 }
 
-actual fun forEachR5Example(fileNameFilter: (String) -> Boolean, block: (String) -> Unit) {
-  File("${System.getProperty("projectRootDir")}/third_party/${r5ExamplePackage}")
-    .listFiles()!!
-    .filter { fileNameFilter(it.name) }
-    .forEach { block(it.readText()) }
+actual fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String> {
+  return loadExamplesFromFileSystem(r4bExamplePackage, fileNameFilter)
+}
+
+actual fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
+  return loadExamplesFromFileSystem(r5ExamplePackage, fileNameFilter)
 }
