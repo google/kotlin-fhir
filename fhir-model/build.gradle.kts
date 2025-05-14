@@ -102,8 +102,6 @@ kotlin {
         val androidMain by getting
         val androidInstrumentedTest by getting {
             dependsOn(commonTest)
-            val projectRootPath = project.rootDir.absolutePath
-            resources.srcDir("$projectRootPath/third_party")
             dependencies {
                 implementation(libs.androidx.test.espresso)
                 implementation(libs.androidx.test.junit)
