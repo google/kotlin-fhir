@@ -449,6 +449,13 @@ notation instead of scientific notation (e.g. 1000000000000000000 instead of 1E1
 serialization process normalizes these variations, resulting in potentially different JSON output.
 However, in all of these cases, semantic equivalence is maintained.
 
+These tests are set up to run on JVM and as Android instrumented tests. To run them locally:
+
+```shell
+./gradlew :fhir-model:jvmTest
+./gradlew :fhir-model:connectedAndroidTest
+```
+
 ## Publishing
 
 To create a maven repository from the project, run:
