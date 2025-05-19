@@ -67,9 +67,11 @@ private fun TypeSpec.Builder.addSurrogateSerializerProperty(
         KSerializer::class.asClassName().parameterizedBy(className.toSurrogateClassName()),
       )
       .addModifiers(KModifier.INTERNAL)
-      .getter(
-        FunSpec.getterBuilder()
-          .addStatement("return %T.serializer()", className.toSurrogateClassName())
+      .delegate(
+        CodeBlock.builder()
+          .beginControlFlow("lazy")
+          .addStatement("%T.serializer()", className.toSurrogateClassName())
+          .endControlFlow()
           .build()
       )
       .build()
@@ -80,7 +82,7 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
   addProperty(
     PropertySpec.builder("descriptor", serialDescriptorClassName)
       .addModifiers(KModifier.OVERRIDE)
-      .initializer(
+      .delegate(
         if (className.simpleName == "Extension") {
           // A cyclic dependency caused by the `Extension` class prevents the kotlinx
           // serialization compiler plugin from generating serializers correctly. The
@@ -92,20 +94,28 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
           // is used for the `ExtensionSerializer`. This workaround is safe because
           // serialization and deserialization are delegated entirely to the surrogate
           // serializer, rendering the `ExtensionSerializer`'s descriptor effectively unused.
-          CodeBlock.of(
-            "%T(%S, %T(%S, %T.STRING))",
-            serialDescriptorClassName,
-            className.packageName,
-            primitiveSerialDescriptorClassName,
-            "Extension",
-            ClassName(KOTLINX_SERIALIZATION_DESCRIPTORS, "PrimitiveKind"),
-          )
+          CodeBlock.builder()
+            .beginControlFlow("lazy")
+            .addStatement(
+              "%T(%S, %T(%S, %T.STRING))",
+              serialDescriptorClassName,
+              className.packageName,
+              primitiveSerialDescriptorClassName,
+              "Extension",
+              ClassName(KOTLINX_SERIALIZATION_DESCRIPTORS, "PrimitiveKind"),
+            )
+            .endControlFlow()
+            .build()
         } else {
-          CodeBlock.of(
-            "%T(%S, surrogateSerializer.descriptor)",
-            serialDescriptorClassName,
-            className.simpleName,
-          )
+          CodeBlock.builder()
+            .beginControlFlow("lazy")
+            .addStatement(
+              "%T(%S, surrogateSerializer.descriptor)",
+              serialDescriptorClassName,
+              className.simpleName,
+            )
+            .endControlFlow()
+            .build()
         }
       )
       .build()
