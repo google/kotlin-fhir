@@ -67,13 +67,7 @@ private fun TypeSpec.Builder.addSurrogateSerializerProperty(
         KSerializer::class.asClassName().parameterizedBy(className.toSurrogateClassName()),
       )
       .addModifiers(KModifier.INTERNAL)
-      .delegate(
-        CodeBlock.builder()
-          .beginControlFlow("lazy")
-          .addStatement("%T.serializer()", className.toSurrogateClassName())
-          .endControlFlow()
-          .build()
-      )
+      .initializeWithLazy("%T.serializer()", className.toSurrogateClassName())
       .build()
   )
 
@@ -82,7 +76,7 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
   addProperty(
     PropertySpec.builder("descriptor", serialDescriptorClassName)
       .addModifiers(KModifier.OVERRIDE)
-      .delegate(
+      .apply {
         if (className.simpleName == "Extension") {
           // A cyclic dependency caused by the `Extension` class prevents the kotlinx
           // serialization compiler plugin from generating serializers correctly. The
@@ -94,30 +88,22 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
           // is used for the `ExtensionSerializer`. This workaround is safe because
           // serialization and deserialization are delegated entirely to the surrogate
           // serializer, rendering the `ExtensionSerializer`'s descriptor effectively unused.
-          CodeBlock.builder()
-            .beginControlFlow("lazy")
-            .addStatement(
-              "%T(%S, %T(%S, %T.STRING))",
-              serialDescriptorClassName,
-              className.packageName,
-              primitiveSerialDescriptorClassName,
-              "Extension",
-              ClassName(KOTLINX_SERIALIZATION_DESCRIPTORS, "PrimitiveKind"),
-            )
-            .endControlFlow()
-            .build()
+          initializeWithLazy(
+            "%T(%S, %T(%S, %T.STRING))",
+            serialDescriptorClassName,
+            className.packageName,
+            primitiveSerialDescriptorClassName,
+            "Extension",
+            ClassName(KOTLINX_SERIALIZATION_DESCRIPTORS, "PrimitiveKind"),
+          )
         } else {
-          CodeBlock.builder()
-            .beginControlFlow("lazy")
-            .addStatement(
-              "%T(%S, surrogateSerializer.descriptor)",
-              serialDescriptorClassName,
-              className.simpleName,
-            )
-            .endControlFlow()
-            .build()
+          initializeWithLazy(
+            "%T(%S, surrogateSerializer.descriptor)",
+            serialDescriptorClassName,
+            className.simpleName,
+          )
         }
-      )
+      }
       .build()
   )
 
@@ -157,6 +143,16 @@ private fun TypeSpec.Builder.addSerializeFunction(className: ClassName): TypeSpe
       .build()
   )
 }
+
+/** Initializes the property with a lazy delegate. */
+private fun PropertySpec.Builder.initializeWithLazy(statement: String, vararg args: Any) =
+  this.delegate(
+    CodeBlock.builder()
+      .beginControlFlow("lazy")
+      .addStatement(statement, *args)
+      .endControlFlow()
+      .build()
+  )
 
 /**
  * Returns the [ClassName] that represents the serializer for this [ClassName]. The generated
