@@ -39,8 +39,8 @@ private val encoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Encode
 private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decoder")
 
 /**
- * Generates a [TypeSpec] for a custom serializer that delegates serialization/deserialization to a
- * surrogate class.
+ * Generates a [TypeSpec] for a custom serializer object that delegates
+ * serialization/deserialization to a surrogate class.
  *
  * See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
@@ -48,15 +48,7 @@ private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decode
 object SerializerTypeSpecGenerator {
   /** @param className the class the serializer is for */
   fun generate(className: ClassName): TypeSpec =
-    TypeSpec.classBuilder(className.toSerializerClassName())
-      .apply {
-        // Mark serializers for backbone elements (e.g. Patient.contact) internal whilst keeping
-        // serializers for resources (e.g. Patient) public, with the assumption that class names
-        // with more than one single name are backbone elements.
-        if (className.simpleNames.size > 1) {
-          addModifiers(KModifier.INTERNAL)
-        }
-      }
+    TypeSpec.objectBuilder(className.toSerializerClassName())
       .addSuperinterface(KSerializer::class.asClassName().parameterizedBy(className))
       .addSurrogateSerializerProperty(className)
       .addDescriptorProperty(className)
