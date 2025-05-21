@@ -57,7 +57,11 @@ object ModelTypeSpecGenerator {
         .apply {
           val structureDefinitionName = structureDefinition.name
 
-          if (structureDefinition.abstract) {
+          if (structureDefinitionName == "Resource" || structureDefinitionName == "DomainResource") {
+            // We use open polymorphism to allow for runtime decision on which concrete class to instantiate
+            // Instead of sealing the `Resource` class, we keep it abstract.
+            addModifiers(KModifier.ABSTRACT)
+          } else if (structureDefinition.abstract) {
             // All abstract structure definitions should be sealed (and therefore abstract) classes,
             // except for Element which is concrete but open to be used for fields prefixed with
             // '_'.
@@ -91,23 +95,6 @@ object ModelTypeSpecGenerator {
           } else if (structureDefinitionName == "Element") {
             // Element is serializable for fields prefixed with '_'
             addAnnotation(Serializable::class)
-          }
-
-          // Add JSON class discriminator annotation
-          if (structureDefinitionName == "Resource") {
-            addAnnotation(
-              AnnotationSpec.builder(ClassName("kotlin", "OptIn"))
-                .addMember(
-                  "%T::class",
-                  ClassName("kotlinx.serialization", "ExperimentalSerializationApi"),
-                )
-                .build()
-            )
-            addAnnotation(
-              AnnotationSpec.builder(JsonClassDiscriminator::class)
-                .addMember("%S", "resourceType")
-                .build()
-            )
           }
 
           // Serial name annotations for resources

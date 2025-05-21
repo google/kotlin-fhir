@@ -16,11 +16,12 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
-import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
-import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
-import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
+import com.google.fhir.codegen.primitives.DoubleSerializerFileSpecGenerator
+import com.google.fhir.codegen.primitives.FhirDateFileSpecGenerator
+import com.google.fhir.codegen.primitives.FhirDateTimeFileSpecGenerator
+import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
+import com.squareup.kotlinpoet.ClassName
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
@@ -86,6 +87,7 @@ abstract class FhirCodegenTask : DefaultTask() {
           // ???
           it.kind == StructureDefinition.Kind.RESOURCE && it.name != it.id
         }
+        .filterNot { it.name == "MetadataResource" || it.name == "CanonicalResource" }
         .filterNot {
           // Filter out files like StructureDefinition-hdlcholesterol.json
           it.baseDefinition?.endsWith(it.type) == true
@@ -107,12 +109,25 @@ abstract class FhirCodegenTask : DefaultTask() {
       }
       .forEach { it.writeTo(outputDir) }
 
-    FhirDateTimeTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
-    FhirDateTypeGenerator.generate(this.packageName.get()).writeTo(outputDir)
+    MoreJsonBuilderFileSpecGenerator.generate(
+        this.packageName.get(),
+        ClassName(this.packageName.get(), "Resource"),
+        structureDefinitions
+          .mapNotNull {
+            if (it.kind != StructureDefinition.Kind.RESOURCE) return@mapNotNull null
+            if (it.abstract) return@mapNotNull null
+            return@mapNotNull ClassName(this.packageName.get(), it.name.capitalized())
+          }
+          .toList(),
+      )
+      .writeTo(outputDir)
+
+    FhirDateTimeFileSpecGenerator.generate(this.packageName.get()).writeTo(outputDir)
+    FhirDateFileSpecGenerator.generate(this.packageName.get()).writeTo(outputDir)
 
     // Generate custom serializers
     val serializersPackageName = "${this.packageName.get()}.serializers"
-    DoubleSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
-    LocalTimeSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
+    DoubleSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
+    LocalTimeSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
   }
 }
