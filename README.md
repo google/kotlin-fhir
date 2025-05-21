@@ -370,59 +370,64 @@ fun main() {
 
 ### Serialization
 
-Use [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) APIs for serialization
-and deserialization. For more information, see the
-[Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md).
-
-This is an example of serializing and deserializing the FHIR Patient resource created previously:
+To use the [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) APIs for 
+serialization and deserialization of the generated FHIR resources, set up the `Json` object with the
+extension function provided for the specific FHIR version:
 
 ```kotlin
-import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.configureR4
 import kotlinx.serialization.json.Json
 
 fun main() {
-    val patient = ...
-
-    // Serializing a FHIR Patient
-    val jsonString = Json.encodeToString(patient)
-    println(jsonString)
-
-    // Deserializing back into a FHIR Patient
-    val patientCopy = Json.decodeFromString<Patient>(jsonString)
-    println(patientCopy)
+    val json = Json {
+        configureR4()  // or configureR4b() or configureR5()
+    }
 }
 ```
 
-#### Polymorphic deserialization
+> **Note:** The `Json` object can only be configured to work with a specific FHIR version at time.
+> Use different `Json` objects for working with multiple FHIR versions.
 
-In the example above, the type parameter `Patient` specified in the deserialization function call
-`Json.decodeFromString<Patient>` serves as a hint to the serialization library on which serializer
-to use.
-
-In practice, however, the resource type is not always known prior to deserialization. To resolve
-this, the library leverages `kotlinx.serialization`'s polymorphic deserialization support by marking
-the `resourceType` JSON property as a
-[JsonClassDiscriminator](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-class-discriminator/).
-This allows kotlinx.serialization to dynamically select the correct resource subclass to instantiate
-based on the JSON content at runtime.
-
-To use polymorphic deserialization, use the base type `Resource` as the type parameter during
-deserialization:
+Once the `Json` object is correctly configured, it can be used to serialize and deserialize FHIR
+resources of the configured version. In the following example, we first serialize the previously
+created patient resource to a JSON string, and then deserialize it back into a new patient object:
 
 ```kotlin
 import com.google.fhir.model.r4.Patient
 import com.google.fhir.model.r4.Resource
+import com.google.fhir.model.r4.configureR4
 import kotlinx.serialization.json.Json
 
 fun main() {
-    // Instead of:
-    val patient = json.decodeFromString<Patient>(jsonString)
-
-    // Use:
-    val resource = json.decodeFromString<Resource>(jsonString)
-    check(resource is Patient)  // True
+    val json = Json {
+        configureR4()  // or configureR4b() or configureR5()
+    }
+    
+    val jsonString = json.encodeToString<Resource>(patient) // Serialization
+    val reconstructedPatient = json.decodeFromString<Resource>(jsonString) // Deserialization
+    
+    check(reconstructedPatient is Patient)  // True
 }
 ```
+
+#### Polymorphism
+
+In the example above, notice the type parameter `Resource` for the serialization and deserialization
+function calls `encodeToString` and `decodeFromString`. This is a critical detail.
+
+To allow the `kotlinx.serialization` library to determine the resource type at runtime during
+deserialization, the Kotlin FHIR library marks the `resourceType` JSON property as a
+[JsonClassDiscriminator](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-class-discriminator/).
+This serves as a hint to the `kotlinx.serialization` library so it can dynamically select the
+correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.
+
+However, during serialization, since the runtime type of the resource is already known, it is
+possible to call the `encodeToString` function without having to specify the type parameter. In such
+cases, the `kotlinx.serialization` library will not include the `resourceType` property in the
+serialized result, generating malformed FHIR JSON.
+
+> **Note:** `encodeToString` function must be called with the type parameter `<Resource>`. Failing
+> to do so will result in malformed FHIR JSON.
 
 ## Testing
 
