@@ -57,26 +57,11 @@ object ModelTypeSpecGenerator {
         .apply {
           val structureDefinitionName = structureDefinition.name
 
-          // Serialization annotations
-          if (structureDefinition.serializableWithCustomSerializer) {
-            addAnnotation(
-              AnnotationSpec.builder(Serializable::class)
-                .addMember("with = %T::class", modelClassName.toSerializerClassName())
-                .build()
-            )
-          } else if (structureDefinitionName == "Resource") {
-            // Resource is serializable for the contained fields
-            addAnnotation(Serializable::class)
-          } else if (structureDefinitionName == "Element") {
-            // Element is serializable for fields prefixed with '_'
-            addAnnotation(Serializable::class)
-          }
-
           if (structureDefinition.abstract) {
             // All abstract structure definitions should be sealed (and therefore abstract) classes,
             // except for Element which is concrete but open to be used for fields prefixed with
             // '_'.
-            if (structureDefinition.type == "Element") {
+            if (structureDefinition.name == "Element") {
               addModifiers(KModifier.OPEN)
             } else {
               addModifiers(KModifier.SEALED)
@@ -91,6 +76,21 @@ object ModelTypeSpecGenerator {
             addModifiers(KModifier.OPEN)
           } else {
             addModifiers(KModifier.DATA)
+          }
+
+          // Serialization annotations
+          if (structureDefinition.serializableWithCustomSerializer) {
+            addAnnotation(
+              AnnotationSpec.builder(Serializable::class)
+                .addMember("with = %T::class", modelClassName.toSerializerClassName())
+                .build()
+            )
+          } else if (structureDefinition.kind == StructureDefinition.Kind.RESOURCE) {
+            // All resources (Resource class and its subclasses) are serializable
+            addAnnotation(Serializable::class)
+          } else if (structureDefinitionName == "Element") {
+            // Element is serializable for fields prefixed with '_'
+            addAnnotation(Serializable::class)
           }
 
           // Add JSON class discriminator annotation
@@ -272,7 +272,7 @@ private fun TypeSpec.Builder.addBackboneElement(
           .apply { addKdoc(backboneElement.definition.sanitizeKDoc()) }
           .apply {
             superclass(
-              ClassName(enclosingModelClassName.packageName, backboneElement.type?.single()!!.code)
+              ClassName(enclosingModelClassName.packageName, backboneElement.type!!.single().code)
             )
           }
           .buildProperties(backboneElementClassName, elements, null)
