@@ -78,6 +78,11 @@ abstract class FhirCodegenTask : DefaultTask() {
           it.kind == StructureDefinition.Kind.LOGICAL
         }
         .filterNot {
+          // Do not generate metadata resource or canonical resource types as interface inheritance
+          // has not been implemented.
+          it.name == "MetadataResource" || it.name == "CanonicalResource"
+        }
+        .filterNot {
           // ???
           it.kind == StructureDefinition.Kind.RESOURCE && it.name != it.id
         }
@@ -89,13 +94,7 @@ abstract class FhirCodegenTask : DefaultTask() {
 
     val baseClasses =
       structureDefinitions
-        .map {
-          if (it.name == "MetadataResource") {
-            "CanonicalResource"
-          } else {
-            it.baseDefinition?.substringAfterLast('/')?.capitalized()
-          }
-        }
+        .map { it.baseDefinition?.substringAfterLast('/')?.capitalized() }
         .distinct()
 
     structureDefinitions

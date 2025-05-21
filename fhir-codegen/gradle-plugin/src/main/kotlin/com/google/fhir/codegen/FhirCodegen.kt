@@ -18,6 +18,7 @@ package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.rootElements
+import com.google.fhir.codegen.schema.serializableWithCustomSerializer
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
@@ -54,50 +55,52 @@ object FhirCodegen {
     val surrogateFileSpec = modelClassName.toSurrogateFileSpecBuilder()
     val serializerFileSpec = modelClassName.toSerializerFileSpecBuilder()
 
-    modelFileSpec
-      .addType(
-        ModelTypeSpecGenerator.generate(
-          modelClassName,
-          structureDefinition,
-          isBaseClass,
-          surrogateFileSpec,
-          serializerFileSpec,
-        )
+    val fileSpecs =
+      mutableListOf(
+        modelFileSpec
+          .addType(
+            ModelTypeSpecGenerator.generate(
+              modelClassName,
+              structureDefinition,
+              isBaseClass,
+              surrogateFileSpec,
+              serializerFileSpec,
+            )
+          )
+          .addSuppressAnnotation()
+          .build()
       )
-      .addSuppressAnnotation()
 
-    if (
-      (!isBaseClass && structureDefinition.kind == StructureDefinition.Kind.RESOURCE) ||
-        (structureDefinition.kind == StructureDefinition.Kind.COMPLEX_TYPE &&
-          structureDefinition.name != "Base" &&
-          structureDefinition.name != "Element" &&
-          structureDefinition.name != "BackboneElement")
-    ) {
+    if (structureDefinition.serializableWithCustomSerializer) {
       // TODO: Handle cases where the class does not need the surrogate class and the
       //  custom serializer since it does not have any primitive fields.
       val serializersPackageName = "${modelClassName.packageName}.serializers"
-      surrogateFileSpec
-        .addType(
-          SurrogateTypeSpecGenerator.generate(
-            ClassName(packageName, structureDefinition.name.capitalized()),
-            structureDefinition.rootElements,
+      fileSpecs +=
+        surrogateFileSpec
+          .addType(
+            SurrogateTypeSpecGenerator.generate(
+              ClassName(packageName, structureDefinition.name),
+              structureDefinition.rootElements,
+            )
           )
-        )
-        .addAnnotation(
-          AnnotationSpec.builder(UseSerializers::class)
-            .addMember("%T::class", ClassName(serializersPackageName, "DoubleSerializer"))
-            .addMember("%T::class", ClassName(serializersPackageName, "LocalTimeSerializer"))
-            .build()
-        )
-        .addSuppressAnnotation()
+          .addAnnotation(
+            AnnotationSpec.builder(UseSerializers::class)
+              .addMember("%T::class", ClassName(serializersPackageName, "DoubleSerializer"))
+              .addMember("%T::class", ClassName(serializersPackageName, "LocalTimeSerializer"))
+              .build()
+          )
+          .addSuppressAnnotation()
+          .build()
 
-      serializerFileSpec
-        .addType(
-          SerializerTypeSpecGenerator.generate(ClassName(packageName, structureDefinition.name))
-        )
-        .addSuppressAnnotation()
+      fileSpecs +=
+        serializerFileSpec
+          .addType(
+            SerializerTypeSpecGenerator.generate(ClassName(packageName, structureDefinition.name))
+          )
+          .addSuppressAnnotation()
+          .build()
     }
-    return listOf(modelFileSpec.build(), surrogateFileSpec.build(), serializerFileSpec.build())
+    return fileSpecs
   }
 }
 
@@ -137,7 +140,7 @@ private fun ClassName.toSerializerFileSpecBuilder(): FileSpec.Builder =
  *   which is a convention used in the generated code for JSON properties associated with FHIR
  *   primitive types that may have extensions.
  */
-private fun FileSpec.Builder.addSuppressAnnotation() {
+private fun FileSpec.Builder.addSuppressAnnotation() = apply {
   addAnnotation(
     AnnotationSpec.builder(Suppress::class)
       // Suppresses warnings about redundant visibility modifiers (e.g., `public`) KotlinPoet might
