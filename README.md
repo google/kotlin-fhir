@@ -389,7 +389,7 @@ fun main() {
 > Use different `Json` objects for working with multiple FHIR versions.
 
 Once the `Json` object is correctly configured, it can be used to serialize and deserialize FHIR
-resources of the configured version. In the following example, we first serialize the previously
+resources of the specified version. In the following example, we first serialize the previously
 created patient resource to a JSON string, and then deserialize it back into a new patient object:
 
 ```kotlin
@@ -416,15 +416,15 @@ In the example above, notice the type parameter `Resource` for the serialization
 function calls `encodeToString` and `decodeFromString`. This is a critical detail.
 
 To allow the `kotlinx.serialization` library to determine the resource type at runtime during
-deserialization, the Kotlin FHIR library marks the `resourceType` JSON property as a
+_deserialization_, the Kotlin FHIR library marks the `resourceType` JSON property as a
 [JsonClassDiscriminator](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-class-discriminator/).
 This serves as a hint to the `kotlinx.serialization` library so it can dynamically select the
 correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.
 
-However, during serialization, since the runtime type of the resource is already known, it is
-possible to call the `encodeToString` function without having to specify the type parameter. In such
-cases, the `kotlinx.serialization` library will not include the `resourceType` property in the
-serialized result, generating malformed FHIR JSON.
+However, during _serialization_, since the runtime type of the resource is already known, it is
+possible to call the `encodeToString` function without having to specify the type parameter. But
+this would be a mistake, since the `kotlinx.serialization` library would not include the
+`resourceType` property in the serialized result in such cases, generating malformed FHIR JSON.
 
 > **Note:** `encodeToString` function must be called with the type parameter `<Resource>`. Failing
 > to do so will result in malformed FHIR JSON.
