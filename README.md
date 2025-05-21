@@ -422,9 +422,9 @@ This serves as a hint to the `kotlinx.serialization` library so it can dynamical
 correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.
 
 However, during _serialization_, since the runtime type of the resource is already known, it is
-possible to call the `encodeToString` function without having to specify the type parameter. But
-this would be a mistake, since the `kotlinx.serialization` library would not include the
-`resourceType` property in the serialized result in such cases, generating malformed FHIR JSON.
+possible to call the `encodeToString` function without the type parameter. But this would be a
+mistake, since the `kotlinx.serialization` library would not include the `resourceType` property in
+the serialized result in such cases, generating malformed FHIR JSON.
 
 > **Note:** `encodeToString` function must be called with the type parameter `<Resource>`. Failing
 > to do so will result in malformed FHIR JSON.
