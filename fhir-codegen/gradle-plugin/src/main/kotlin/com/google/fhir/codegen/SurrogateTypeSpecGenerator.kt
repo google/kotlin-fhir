@@ -70,7 +70,7 @@ object SurrogateTypeSpecGenerator {
 
           val properties =
             filteredElements.flatMap { element ->
-              (element.getSurrogatePropertyNamesAndTypes(modelClassName)).map {
+              element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
                 PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
               }
             }
@@ -106,7 +106,7 @@ private fun TypeSpec.Builder.addConverterToDataClass(
   elements: List<Element>,
 ) {
   addFunction(
-    FunSpec.builder("to${modelClassName.simpleName.capitalized()}")
+    FunSpec.builder("toModel")
       .returns(modelClassName)
       .addCode(
         CodeBlock.builder()
@@ -135,20 +135,15 @@ private fun TypeSpec.Builder.addConverterFromDataClass(
   modelClassName: ClassName,
   elements: List<Element>,
 ) {
-  // The object name needs to be unique to avoid conflicts with element names which can be the
-  // same as the enclosing class name (e.g. element `Account.coverage.coverage` inside the
-  // BackboneElement `Account.coverage`).
-  val objectName = "${modelClassName.simpleName.replaceFirstChar { it.lowercase() }}Model"
-
   addType(
     TypeSpec.companionObjectBuilder()
       .addFunction(
-        FunSpec.builder("from${modelClassName.simpleName.capitalized()}")
-          .addParameter(ParameterSpec(objectName, modelClassName))
+        FunSpec.builder("fromModel")
+          .addParameter(ParameterSpec("model", modelClassName))
           .returns(modelClassName.toSurrogateClassName())
           .addCode(
             CodeBlock.builder()
-              .add("return with(%N){\n", objectName)
+              .add("return with(model){\n")
               .indent()
               .add("%T().apply{\n", modelClassName.toSurrogateClassName())
               .apply {

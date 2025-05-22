@@ -117,10 +117,7 @@ private fun TypeSpec.Builder.addDeserializeFunction(className: ClassName): TypeS
       .addModifiers(KModifier.OVERRIDE)
       .addParameter("decoder", decoderClassName)
       .returns(className)
-      .addStatement(
-        "return surrogateSerializer.deserialize(decoder).%N()",
-        "to${className.simpleName}",
-      )
+      .addStatement("return surrogateSerializer.deserialize(decoder).%N()", "toModel")
       .build()
   )
 }
@@ -138,7 +135,7 @@ private fun TypeSpec.Builder.addSerializeFunction(className: ClassName): TypeSpe
       .addStatement(
         "surrogateSerializer.serialize(encoder, %T.%N(value))",
         className.toSurrogateClassName(),
-        "from${className.simpleName}",
+        "fromModel",
       )
       .build()
   )
