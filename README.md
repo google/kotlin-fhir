@@ -262,34 +262,9 @@ mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
 ## User Guide
 
-### Running the codegen locally
-
-You can manually run the code generator (codegen) to inspect the generated code or, as an
-alternative to using the library as a dependency, copy the generated code into your project for
-direct use.
-
-Run the following command, replacing `<FHIR_VERSION>` with your desired FHIR version (`r4`, `r4b`,
-or `r5`):
-
-```bash
-./gradlew <FHIR_VERSION>
-```
-
-For example, to generate code for FHIR R4:
-
-```bash
-./gradlew r4
-```
-
-The generated code will be located in the `fhir-model/build/generated/<FHIR_VERSION>` subdirectory.
-
-> **Note:** The library is designed for use as a dependency. Directly copying generated code into
-> your project is generally discouraged as it can lead to maintenance issues and conflicts with
-> future updates.
-
 ### Using the Gradle plugin
 
-> **TODO:** add instructions on how to use the gradle plugin
+> **TODO:** add instructions on how to use the gradle plugin once it is published
 
 ### Adding the library to your project
 
@@ -368,14 +343,15 @@ fun main() {
 }
 ```
 
-### Serialization
+### Serialization and deserialization
 
-To use the [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) APIs for 
-serialization and deserialization of the generated FHIR resources, set up the `Json` object with the
-extension function provided for the specific FHIR version:
+To serialize and deserialize FHIR resources, first set up
+[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)'s `Json` object with the
+extension function `configure<FHIR_VERSION>()` provided by the Kotlin FHIR library for the specific
+FHIR version:
 
 ```kotlin
-import com.google.fhir.model.r4.configureR4
+import com.google.fhir.model.r4.configureR4  // or com.google.fhir.model.r4b.configureR4b or com.google.fhir.model.r5.configureR5
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -385,51 +361,108 @@ fun main() {
 }
 ```
 
-> **Note:** The `Json` object can only be configured to work with a specific FHIR version at time.
+> **Note:** The `Json` object can only be configured to work with a specific FHIR version at a time.
 > Use different `Json` objects for working with multiple FHIR versions.
 
 Once the `Json` object is correctly configured, it can be used to serialize and deserialize FHIR
-resources of the specified version. In the following example, we first serialize the previously
-created patient resource to a JSON string, and then deserialize it back into a new patient object:
+resources of the specific version. In the following example, we first serialize the previously
+created patient resource in FHIR R4 to a JSON string, and then deserialize it back into a new
+patient object:
 
 ```kotlin
 import com.google.fhir.model.r4.Patient
 import com.google.fhir.model.r4.Resource
-import com.google.fhir.model.r4.configureR4
-import kotlinx.serialization.json.Json
 
 fun main() {
-    val json = Json {
-        configureR4()  // or configureR4b() or configureR5()
-    }
+    val jsonString = json.encodeToString<Resource>(patient)  // Serialization
+    val reconstructedPatient = json.decodeFromString<Resource>(jsonString)  // Deserialization
     
-    val jsonString = json.encodeToString<Resource>(patient) // Serialization
-    val reconstructedPatient = json.decodeFromString<Resource>(jsonString) // Deserialization
-    
-    check(reconstructedPatient is Patient)  // True
+    check(reconstructedPatient is Patient)
 }
 ```
 
 #### Polymorphism
 
-In the example above, notice the type parameter `Resource` for the serialization and deserialization
-function calls `encodeToString` and `decodeFromString`. This is a critical detail.
+In the example above, notice the type parameter `<Resource>` in the serialization and
+deserialization function calls <code>encodeToString<b>\<Resource\></b></code> and
+<code>decodeFromString<b>\<Resource\></b></code>. This is a critical detail.
 
 To allow the `kotlinx.serialization` library to determine the resource type at runtime during
-_deserialization_, the Kotlin FHIR library marks the `resourceType` JSON property as a
-[JsonClassDiscriminator](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-class-discriminator/).
+_deserialization_, the Kotlin FHIR library uses the `resourceType` JSON property as the
+[JSON class discriminator](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/json.md#class-discriminator-for-polymorphism).
 This serves as a hint to the `kotlinx.serialization` library so it can dynamically select the
-correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.
+correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.[^5]
 
-However, during _serialization_, since the runtime type of the resource is already known, it is
-possible to call the `encodeToString` function without the type parameter. But this would be a
-mistake, since the `kotlinx.serialization` library would not include the `resourceType` property in
-the serialized result in such cases, generating malformed FHIR JSON.
+[^5]: If the resource type is known at compile time, it is safe to use a more specific type 
+parameter while deserializing, such as `decodeFromString<Patient>(jsonString)`, provided that the
+`Json` object is configured with `ignoreUnknownKeys = true`. The `ignoreUnknownKeys` option is
+critical because with the more specific type parameter the `kotlinx.serialization` library knows the
+specific type to instantiate and no longer uses the `resourceType` JSON property as a
+[JSON class discriminator](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/json.md#class-discriminator-for-polymorphism)
+as is the case when the type parameter `<Resource>` is used. Instead, it will attempt to map the
+`resourceType` JSON property to a regular field in the specified class (e.g., `Patient`). As a
+result, without `ignoreUnknownKeys = true` an error will occur since the target class does not have
+a corresponding field for the `resourceType` property.
 
-> **Note:** `encodeToString` function must be called with the type parameter `<Resource>`. Failing
-> to do so will result in malformed FHIR JSON.
+However, during _serialization_, it is possible to call the `encodeToString` function without the
+type parameter, or with the type parameter of the specific resource type if it is known at compile
+time, e.g. `encodeToString<Patient>`. But this would be a mistake, since the `kotlinx.serialization`
+library would not treat the serialization as polymorphic in these cases. As a result, it would not
+include the `resourceType` property in the serialized result, generating malformed FHIR JSON.
+Therefore, when serializing FHIR resources, always make sure to include the `<Resource>` type
+parameter like this: <code>encodeToString<b>\<Resource\></b></code>.
 
-## Testing
+```kotlin
+import com.google.fhir.model.r4.Resource
+
+fun main() {
+    // ✅ DO: 
+    val validPatient = json.encodeToString<Resource>(patient)
+    
+    // ⛔ DON'T:
+    // val invalidPatient = json.encodeToString<Patient>(patient)
+}
+```
+
+> ⚠️ **Warning:** `encodeToString` function must be called with the type parameter `<Resource>`.
+> Failing to do so will result in malformed FHIR JSON.
+
+To summarize, we recommend always using the type parameter `<Resource>` when calling
+`encodeToString` and `decodeFromString` to serialize and deserialize FHIR resources:
+<code>encodeToString<b>\<Resource\></b></code> and <code>decodeFromString<b>\<Resource\></b></code>.
+To learn more about polymorphism in serialization in Kotlin, see the
+[Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/polymorphism.md).
+
+## Developer Guide
+
+This section is for developers who want to contribute to the library.
+
+### Running the codegen locally
+
+You can manually run the code generator (codegen) to inspect the generated code or, as an
+alternative to using the library as a dependency, copy the generated code into your project for
+direct use.
+
+Run the following command, replacing `<FHIR_VERSION>` with your desired FHIR version (`r4`, `r4b`,
+or `r5`):
+
+```bash
+./gradlew <FHIR_VERSION>
+```
+
+For example, to generate code for FHIR R4:
+
+```bash
+./gradlew r4
+```
+
+The generated code will be located in the `fhir-model/build/generated/<FHIR_VERSION>` subdirectory.
+
+> **Note:** The library is designed for use as a dependency. Directly copying generated code into
+> your project is generally discouraged as it can lead to maintenance issues and conflicts with
+> future updates.
+
+### Testing
 
 The library includes comprehensive **serialization round-trip tests** for examples published in the
 following packages:
@@ -443,10 +476,10 @@ following steps:
 
 1. Deserialization: The JSON is deserialized into the corresponding generated Kotlin resource class.
 1. Serialization: The Kotlin object is then serialized back into JSON format.
-1. Verification: The newly generated JSON is compared, character by character[^5], to the original
+1. Verification: The newly generated JSON is compared, character by character[^6], to the original
    JSON to ensure complete fidelity.
 
-[^5]: There are several exceptions. The FHIR specification allows for some variability in data
+[^6]: There are several exceptions. The FHIR specification allows for some variability in data
 representation, which may lead to differences between the original and newly serialized JSON. For
 example, additional trailing zeros in decimals and times, non-standard JSON property ordering, the
 use of `+00:00` instead of `Z` for zero UTC offset, and large numbers represented in standard
@@ -461,16 +494,24 @@ These tests are set up to run on JVM and as Android instrumented tests. To run t
 ./gradlew :fhir-model:connectedAndroidTest
 ```
 
-## Publishing
+### Publishing
 
-To create a maven repository from the project, run:
+To create a maven repository from the generated FHIR model, run:
 
-`./gradlew :fhir-model:publish`
+```
+./gradlew :fhir-model:publish
+```
 
-This will create a maven repository in the `fhir-model/build/repo` directory.
+This will create a maven repository in the `fhir-model/build/repo` directory with artifacts for all
+supported platforms.
 
-There is also a `zipRepo` task that will zip the repository into the `fhir-model/build/repoZip`
-directory.
+To zip the repository, run:
+
+```
+./gradlew :fhir-model:zipRepo
+```
+
+This will generate a `.zip` file in the `fhir-model/build/repoZip` directory.
 
 ## Acknowledgements
 
