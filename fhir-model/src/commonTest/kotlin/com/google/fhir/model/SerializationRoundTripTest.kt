@@ -16,6 +16,9 @@
 
 package com.google.fhir.model
 
+import com.google.fhir.model.r4.configureR4
+import com.google.fhir.model.r4b.configureR4b
+import com.google.fhir.model.r5.configureR5
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.serialization.json.Json
@@ -146,8 +149,8 @@ class SerializationRoundTripTest {
       .forEach {
         val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r4.Resource =
-          json.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
-        val reserializedString = json.encodeToString(domainResource)
+          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val reserializedString = jsonR4.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
@@ -162,8 +165,8 @@ class SerializationRoundTripTest {
       .forEach {
         val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r4b.Resource =
-          json.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        val reserializedString = json.encodeToString(domainResource)
+          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
+        val reserializedString = jsonR4B.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
@@ -178,17 +181,26 @@ class SerializationRoundTripTest {
       .forEach {
         val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r5.Resource =
-          json.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        val reserializedString = json.encodeToString(domainResource)
+          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val reserializedString = jsonR5.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
 
   companion object {
-    private val json = Json {
-      ignoreUnknownKeys = true
-      explicitNulls = false
+    private val jsonR4 = Json {
       prettyPrint = true
+      configureR4()
+    }
+
+    private val jsonR4B = Json {
+      prettyPrint = true
+      configureR4b()
+    }
+
+    private val jsonR5 = Json {
+      prettyPrint = true
+      configureR5()
     }
 
     private val prettyPrintJson = Json { prettyPrint = true }
@@ -216,8 +228,8 @@ class SerializationRoundTripTest {
       // Some resources have non-standard JSON property ordering, so we sort the JSON
       // properties by the key before comparing them.
       assertEquals(
-        json.parseToJsonElement(expected).jsonObject.entries.sortedBy { it.key },
-        json.parseToJsonElement(actual).jsonObject.entries.sortedBy { it.key },
+        prettyPrintJson.parseToJsonElement(expected).jsonObject.entries.sortedBy { it.key },
+        prettyPrintJson.parseToJsonElement(actual).jsonObject.entries.sortedBy { it.key },
       )
     }
 

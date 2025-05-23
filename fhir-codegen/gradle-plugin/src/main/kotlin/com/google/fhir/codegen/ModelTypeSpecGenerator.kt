@@ -39,7 +39,6 @@ import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonClassDiscriminator
 import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
@@ -57,10 +56,19 @@ object ModelTypeSpecGenerator {
         .apply {
           val structureDefinitionName = structureDefinition.name
 
-          if (structureDefinition.abstract) {
-            // All abstract structure definitions should be sealed (and therefore abstract) classes,
-            // except for Element which is concrete but open to be used for fields prefixed with
-            // '_'.
+          if (
+            structureDefinitionName == "Resource" || structureDefinitionName == "DomainResource"
+          ) {
+            // We use open polymorphism to allow for runtime decision on which concrete class to
+            // instantiate. So instead of sealing the `Resource` class and `DomainResource` class,
+            // we keep them abstract.
+            // See
+            // https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/polymorphism.md#open-polymorphism
+            addModifiers(KModifier.ABSTRACT)
+          } else if (structureDefinition.abstract) {
+            // All other abstract structure definitions should be sealed (and therefore abstract)
+            // classes, except for Element which is concrete but open to be used for fields prefixed
+            // with '_'.
             if (structureDefinition.name == "Element") {
               addModifiers(KModifier.OPEN)
             } else {
@@ -91,23 +99,6 @@ object ModelTypeSpecGenerator {
           } else if (structureDefinitionName == "Element") {
             // Element is serializable for fields prefixed with '_'
             addAnnotation(Serializable::class)
-          }
-
-          // Add JSON class discriminator annotation
-          if (structureDefinitionName == "Resource") {
-            addAnnotation(
-              AnnotationSpec.builder(ClassName("kotlin", "OptIn"))
-                .addMember(
-                  "%T::class",
-                  ClassName("kotlinx.serialization", "ExperimentalSerializationApi"),
-                )
-                .build()
-            )
-            addAnnotation(
-              AnnotationSpec.builder(JsonClassDiscriminator::class)
-                .addMember("%S", "resourceType")
-                .build()
-            )
           }
 
           // Serial name annotations for resources
