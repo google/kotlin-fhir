@@ -99,6 +99,16 @@ kotlin {
                 implementation(libs.kotlinx.serialization.json)
             }
         }
+        val androidMain by getting
+        val androidInstrumentedTest by getting {
+            dependsOn(commonTest)
+            dependencies {
+                implementation(libs.androidx.test.espresso)
+                implementation(libs.androidx.test.junit)
+                implementation(libs.androidx.test.rules)
+                implementation(libs.androidx.test.runner)
+            }
+        }
         val jvmMain by getting
         val jvmTest by getting
         val jsMain by getting
@@ -111,6 +121,15 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["jvmArgs"] = "-Xmx4g"
+    }
+    sourceSets {
+        getByName("androidTest") {
+            // Make third party package available to Android instrumented tests
+            val projectRootPath = project.rootDir.absolutePath
+            assets.srcDir("$projectRootPath/third_party")
+        }
     }
 }
 

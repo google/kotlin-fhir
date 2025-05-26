@@ -39,8 +39,8 @@ private val encoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Encode
 private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decoder")
 
 /**
- * Generates a [TypeSpec] for a custom serializer that delegates serialization/deserialization to a
- * surrogate class.
+ * Generates a [TypeSpec] for a custom serializer object that delegates
+ * serialization/deserialization to a surrogate class.
  *
  * See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
@@ -48,8 +48,7 @@ private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decode
 object SerializerTypeSpecGenerator {
   /** @param className the class the serializer is for */
   fun generate(className: ClassName): TypeSpec =
-    TypeSpec.classBuilder(className.toSerializerClassName())
-      .addModifiers(KModifier.INTERNAL)
+    TypeSpec.objectBuilder(className.toSerializerClassName())
       .addSuperinterface(KSerializer::class.asClassName().parameterizedBy(className))
       .addSurrogateSerializerProperty(className)
       .addDescriptorProperty(className)
@@ -67,11 +66,8 @@ private fun TypeSpec.Builder.addSurrogateSerializerProperty(
         "surrogateSerializer",
         KSerializer::class.asClassName().parameterizedBy(className.toSurrogateClassName()),
       )
-      .getter(
-        FunSpec.getterBuilder()
-          .addStatement("return %T.serializer()", className.toSurrogateClassName())
-          .build()
-      )
+      .addModifiers(KModifier.INTERNAL)
+      .initializeWithLazy("%T.serializer()", className.toSurrogateClassName())
       .build()
   )
 
@@ -80,7 +76,7 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
   addProperty(
     PropertySpec.builder("descriptor", serialDescriptorClassName)
       .addModifiers(KModifier.OVERRIDE)
-      .initializer(
+      .apply {
         if (className.simpleName == "Extension") {
           // A cyclic dependency caused by the `Extension` class prevents the kotlinx
           // serialization compiler plugin from generating serializers correctly. The
@@ -92,7 +88,7 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
           // is used for the `ExtensionSerializer`. This workaround is safe because
           // serialization and deserialization are delegated entirely to the surrogate
           // serializer, rendering the `ExtensionSerializer`'s descriptor effectively unused.
-          CodeBlock.of(
+          initializeWithLazy(
             "%T(%S, %T(%S, %T.STRING))",
             serialDescriptorClassName,
             className.packageName,
@@ -101,13 +97,13 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
             ClassName(KOTLINX_SERIALIZATION_DESCRIPTORS, "PrimitiveKind"),
           )
         } else {
-          CodeBlock.of(
+          initializeWithLazy(
             "%T(%S, surrogateSerializer.descriptor)",
             serialDescriptorClassName,
             className.simpleName,
           )
         }
-      )
+      }
       .build()
   )
 
@@ -121,10 +117,7 @@ private fun TypeSpec.Builder.addDeserializeFunction(className: ClassName): TypeS
       .addModifiers(KModifier.OVERRIDE)
       .addParameter("decoder", decoderClassName)
       .returns(className)
-      .addStatement(
-        "return surrogateSerializer.deserialize(decoder).%N()",
-        "to${className.simpleName}",
-      )
+      .addStatement("return surrogateSerializer.deserialize(decoder).%N()", "toModel")
       .build()
   )
 }
@@ -142,11 +135,21 @@ private fun TypeSpec.Builder.addSerializeFunction(className: ClassName): TypeSpe
       .addStatement(
         "surrogateSerializer.serialize(encoder, %T.%N(value))",
         className.toSurrogateClassName(),
-        "from${className.simpleName}",
+        "fromModel",
       )
       .build()
   )
 }
+
+/** Initializes the property with a lazy delegate. */
+private fun PropertySpec.Builder.initializeWithLazy(statement: String, vararg args: Any) =
+  this.delegate(
+    CodeBlock.builder()
+      .beginControlFlow("lazy")
+      .addStatement(statement, *args)
+      .endControlFlow()
+      .build()
+  )
 
 /**
  * Returns the [ClassName] that represents the serializer for this [ClassName]. The generated

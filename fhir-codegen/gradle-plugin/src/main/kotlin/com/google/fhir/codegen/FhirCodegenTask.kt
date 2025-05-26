@@ -16,17 +16,19 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
+import com.google.fhir.codegen.primitives.DoubleSerializerFileSpecGenerator
 import com.google.fhir.codegen.primitives.EnumerationFileSpecGenerator
-import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
-import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
-import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
+import com.google.fhir.codegen.primitives.FhirDateFileSpecGenerator
+import com.google.fhir.codegen.primitives.FhirDateTimeFileSpecGenerator
+import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.toPascalCase
 import com.google.fhir.codegen.schema.urlPart
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
+import java.io.File
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
@@ -105,9 +107,15 @@ abstract class FhirCodegenTask : DefaultTask() {
           it.kind == StructureDefinition.Kind.LOGICAL
         }
         .filterNot {
+          // Do not generate metadata resource or canonical resource types as interface inheritance
+          // has not been implemented.
+          it.name == "MetadataResource" || it.name == "CanonicalResource"
+        }
+        .filterNot {
           // ???
           it.kind == StructureDefinition.Kind.RESOURCE && it.name != it.id
         }
+        .filterNot { it.name == "MetadataResource" || it.name == "CanonicalResource" }
         .filterNot {
           // Filter out files like StructureDefinition-hdlcholesterol.json
           it.baseDefinition?.endsWith(it.type) == true
@@ -116,13 +124,7 @@ abstract class FhirCodegenTask : DefaultTask() {
 
     val baseClasses =
       structureDefinitions
-        .map {
-          if (it.name == "MetadataResource") {
-            "CanonicalResource"
-          } else {
-            it.baseDefinition?.substringAfterLast('/')?.capitalized()
-          }
-        }
+        .map { it.baseDefinition?.substringAfterLast('/')?.capitalized() }
         .distinct()
 
     val packageName = this.packageName.get()
@@ -139,7 +141,43 @@ abstract class FhirCodegenTask : DefaultTask() {
       }
       .forEach { it.writeTo(outputDir) }
 
-    // Only create enums for common binding elements
+    MoreJsonBuilderFileSpecGenerator.generate(
+        this.packageName.get(),
+        ClassName(this.packageName.get(), "Resource"),
+        structureDefinitions
+          .mapNotNull {
+            if (it.kind != StructureDefinition.Kind.RESOURCE) return@mapNotNull null
+            if (it.abstract) return@mapNotNull null
+            return@mapNotNull ClassName(this.packageName.get(), it.name.capitalized())
+          }
+          .toList(),
+      )
+      .writeTo(outputDir)
+
+    FhirDateTimeFileSpecGenerator.generate(packageName).writeTo(outputDir)
+    FhirDateFileSpecGenerator.generate(packageName).writeTo(outputDir)
+
+    // Generates a wrapper for enum types
+    EnumerationFileSpecGenerator.generate(packageName).writeTo(outputDir)
+
+    generateSharedEnums(valueSetMap, codeSystemMap, packageName, outputDir)
+
+    // Generate custom serializers
+    val serializersPackageName = "$packageName.serializers"
+    DoubleSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
+    LocalTimeSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
+  }
+
+  /**
+   * Generate shared enums. These enum classes are created from [StructureDefinition.snapshot]
+   * Elements that have common binding extensions.
+   */
+  private fun generateSharedEnums(
+    valueSetMap: Map<String, ValueSet>,
+    codeSystemMap: Map<String, CodeSystem>,
+    packageName: String,
+    outputDir: File,
+  ) {
     valueSetMap.values
       .filter { commonBindingValueSetUrls.containsKey(it.urlPart) }
       .forEach { valueSet ->
@@ -151,7 +189,7 @@ abstract class FhirCodegenTask : DefaultTask() {
           commonBindingNames.forEach { name ->
             val enumTypeSpec = EnumTypeSpecGenerator.generate(name, valueSet, codeSystemMap)
             if (enumTypeSpec != null) {
-              FileSpec.builder(packageName = "$packageName", fileName = name)
+              FileSpec.builder(packageName = packageName, fileName = name)
                 .addType(enumTypeSpec)
                 .build()
                 .writeTo(outputDir)
@@ -160,24 +198,12 @@ abstract class FhirCodegenTask : DefaultTask() {
         } else {
           val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet, codeSystemMap)
           if (enumTypeSpec != null) {
-            FileSpec.builder(packageName = "$packageName", fileName = valueSetName)
+            FileSpec.builder(packageName = packageName, fileName = valueSetName)
               .addType(enumTypeSpec)
               .build()
               .writeTo(outputDir)
           }
         }
       }
-
-    FhirDateTimeTypeGenerator.generate(packageName).writeTo(outputDir)
-    FhirDateTypeGenerator.generate(packageName).writeTo(outputDir)
-
-    // Generate an extension to the primitive type - "code", to be used where code is tied to an
-    // enumerated list of possible values. FHIR has no primitive type for enums.
-    EnumerationFileSpecGenerator.generate(packageName).writeTo(outputDir)
-
-    // Generate custom serializers
-    val serializersPackageName = "$packageName.serializers"
-    DoubleSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
-    LocalTimeSerializerTypeSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
   }
 }

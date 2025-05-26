@@ -25,19 +25,24 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
+import kotlinx.datetime.LocalTime
 
 /**
- * Generalizes a [TypeSpec] for `DoubleSerializer` that always serializes Double with at least one
- * digit after the decimal point.
+ * Generates a [FileSpec] for `LocalTimeSerializer` that always include seconds, even if they are
+ * zero. Fractional parts of the second are included if non-zero.
  */
-object DoubleSerializerTypeSpecGenerator {
+object LocalTimeSerializerFileSpecGenerator {
   fun generate(packageName: String): FileSpec {
-    return FileSpec.builder(packageName, "DoubleSerializer")
+    return FileSpec.builder(packageName, "LocalTimeSerializer")
       .addType(
-        TypeSpec.objectBuilder("DoubleSerializer")
+        TypeSpec.objectBuilder("LocalTimeSerializer")
+          .addKdoc(
+            "A Serializer for `LocalTime` that always include seconds, even if they are zero.\n"
+          )
+          .addKdoc("Fractional parts of the second are included if non-zero.")
           .addSuperinterface(
             ClassName("kotlinx.serialization", "KSerializer")
-              .parameterizedBy(Double::class.asClassName())
+              .parameterizedBy(LocalTime::class.asClassName())
           )
           .addProperty(
             PropertySpec.builder(
@@ -49,9 +54,9 @@ object DoubleSerializerTypeSpecGenerator {
                 CodeBlock.of(
                   "%T(%S, %T.%L)",
                   ClassName("kotlinx.serialization.descriptors", "PrimitiveSerialDescriptor"),
-                  "FormattedDouble",
+                  "FormattedLocalTime",
                   ClassName("kotlinx.serialization.descriptors", "PrimitiveKind"),
-                  "DOUBLE",
+                  "STRING",
                 )
               )
               .build()
@@ -60,13 +65,10 @@ object DoubleSerializerTypeSpecGenerator {
             FunSpec.builder("serialize")
               .addModifiers(KModifier.OVERRIDE)
               .addParameter("encoder", ClassName("kotlinx.serialization.encoding", "Encoder"))
-              .addParameter("value", Double::class.asClassName())
+              .addParameter("value", LocalTime::class.asClassName())
               .addStatement(
-                "encoder.encodeSerializableValue(%T.serializer(), %T(value.toString().let { " +
-                  "if (it.contains('" +
-                  ".')) { it } else { \"\$it.0\" } }))",
-                ClassName("kotlinx.serialization.json", "JsonPrimitive"),
-                ClassName("kotlinx.serialization.json", "JsonUnquotedLiteral"),
+                "encoder.encodeString(%T.Formats.ISO.format(value))",
+                ClassName("kotlinx.datetime", "LocalTime"),
               )
               .build()
           )
@@ -74,8 +76,11 @@ object DoubleSerializerTypeSpecGenerator {
             FunSpec.builder("deserialize")
               .addModifiers(KModifier.OVERRIDE)
               .addParameter("decoder", ClassName("kotlinx.serialization.encoding", "Decoder"))
-              .returns(Double::class.asClassName())
-              .addStatement("return decoder.decodeDouble()")
+              .addStatement(
+                "return %T.parse(decoder.decodeString())",
+                ClassName("kotlinx.datetime", "LocalTime"),
+              )
+              .returns(LocalTime::class.asClassName())
               .build()
           )
           .build()

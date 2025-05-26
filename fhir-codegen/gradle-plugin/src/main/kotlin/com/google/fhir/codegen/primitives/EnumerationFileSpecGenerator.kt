@@ -61,8 +61,12 @@ object EnumerationFileSpecGenerator {
         .addModifiers(KModifier.PUBLIC, KModifier.DATA)
         .addTypeVariable(typeVariable)
         .superclass(superclassName)
-        .addSuperclassConstructorParameter("id")
-        .addSuperclassConstructorParameter("extension")
+        .apply {
+          if (!isR5) {
+            addSuperclassConstructorParameter("id")
+            addSuperclassConstructorParameter("extension")
+          }
+        }
         .primaryConstructor(
           FunSpec.constructorBuilder()
             .addParameter(

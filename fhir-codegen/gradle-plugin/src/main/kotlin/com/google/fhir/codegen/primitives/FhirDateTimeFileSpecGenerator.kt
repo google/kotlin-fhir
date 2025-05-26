@@ -25,22 +25,27 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.UtcOffset
 
 /**
- * Generates a [FileSpec] for `FhirDate.kt` containing a sealed interface `FhirDate` which is the
- * implementation of the FHIR Date primitive type.
+ * Generates a [FileSpec] for `FhirDateTime.kt` containing a sealed interface `FhirDateTime` which
+ * is the implementation of the FHIR DateTime primitive type.
  *
- * In particular, this class handles partial dates.
+ * In particular, this class handles partial date times.
  * - **Year:** Only the year (e.g. `2025`)
  * - **Year and Month:** The year and the month (e.g. `2025-01`)
  * - **Date:** The date part (e.g. `2025-01-08`)
+ * - **Date and Time:** The date and time parts with timezone offset (e.g. `2025-01-08T11:49:01Z`)
+ *   conforming to [IS8601](https://www.iso.org/iso-8601-date-and-time-format.html).
  *
- * See e.g. [date in R4](https://hl7.org/fhir/R4/datatypes.html#date)
+ * See e.g. [dateTime in R4](https://hl7.org/fhir/R4/datatypes.html#dateTime)
  */
-object FhirDateTypeGenerator {
+object FhirDateTimeFileSpecGenerator {
   fun generate(packageName: String): FileSpec {
-    val sealedInterfaceClassName = ClassName(packageName, "FhirDate")
+    val sealedInterfaceClassName = ClassName(packageName, "FhirDateTime")
     return FileSpec.builder(sealedInterfaceClassName)
+      .addImport("kotlinx.datetime", "LocalDateTime", "format") // Import extension function
       .addType(
         TypeSpec.interfaceBuilder(sealedInterfaceClassName)
           .addModifiers(KModifier.SEALED)
@@ -100,6 +105,42 @@ object FhirDateTypeGenerator {
                 )
                 .build()
             )
+            addType(
+              TypeSpec.classBuilder("DateTime")
+                .addSuperinterface(sealedInterfaceClassName)
+                .primaryConstructor(
+                  FunSpec.constructorBuilder()
+                    .addParameter("dateTime", LocalDateTime::class)
+                    .addParameter("utcOffset", UtcOffset::class)
+                    .build()
+                )
+                .addProperty(
+                  PropertySpec.builder("dateTime", LocalDateTime::class)
+                    .initializer("dateTime")
+                    .build()
+                )
+                .addProperty(
+                  PropertySpec.builder("utcOffset", UtcOffset::class)
+                    .initializer("utcOffset")
+                    .build()
+                )
+                .addFunction(
+                  FunSpec.builder("toString")
+                    .addModifiers(KModifier.OVERRIDE)
+                    .returns(String::class)
+                    // Use
+                    // [ISO
+                    // format](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date-time/-formats/-i-s-o.html)
+                    // to make sure seconds are always included.
+                    .addCode(
+                      "return dateTime.format(%T.%N) + utcOffset.toString()",
+                      ClassName("kotlinx.datetime", "LocalDateTime").nestedClass("Formats"),
+                      "ISO",
+                    )
+                    .build()
+                )
+                .build()
+            )
             addFunction(
               FunSpec.builder("toString")
                 .addModifiers(KModifier.OVERRIDE)
@@ -123,6 +164,9 @@ object FhirDateTypeGenerator {
                                     return YearMonth(parts[0].toInt(), parts[1].toInt())
                                 } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
                                     return Date(LocalDate.parse(string))
+                                } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|([+\\-])\\d{2}:\\d{2})"))) {
+                                    val groups = Regex("(?<datetime>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?)(?<utcoffset>Z|([+\\-])\\d{2}:\\d{2})").find(string)!!.groups
+                                    return DateTime(LocalDateTime.parse(groups["datetime"]!!.value), UtcOffset.parse(groups["utcoffset"]!!.value))
                                 }
                                 error("Invalid string value: ${'$'}string")
                                 """

@@ -16,11 +16,19 @@
 
 package com.google.fhir.model
 
-import java.io.File
+import com.google.fhir.model.r4.configureR4
+import com.google.fhir.model.r4b.configureR4b
+import com.google.fhir.model.r5.configureR5
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
+
+const val r4ExamplePackage = "hl7.fhir.r4.examples/package/"
+const val r4bExamplePackage = "hl7.fhir.r4b.examples/package/"
+const val r5ExamplePackage = "hl7.fhir.r5.examples/package/"
+
+val trailingZeroRegex = "\\.0+".toRegex()
 
 val exclusionListR4 =
   listOf(
@@ -63,7 +71,7 @@ val exclusionListR4B =
     "Observation-decimal.json",
   )
 
-val exclusionsListR5 =
+val exclusionListR5 =
   listOf(
     // Java heap space
     "Bundle-resources.json",
@@ -132,73 +140,77 @@ val exclusionsListR5 =
  */
 class SerializationRoundTripTest {
   @Test
-  fun `should match original json after deserialization and serialization in R4`() {
-    File("${System.getProperty("projectRootDir")}/third_party/hl7.fhir.r4.examples/package")
-      .listFiles()
-      ?.asSequence()
-      ?.filter { it.name.endsWith(".json") }
-      ?.filterNot {
-        it.name.startsWith('.') // filter out `.index.json` file
-      }
-      ?.filterNot { it.name == "package.json" }
-      ?.filterNot { exclusionListR4.contains(it.name) }
-      ?.forEach { file ->
-        val exampleJson = prettyPrintJson(file.readText())
+  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4() {
+    loadR4Examples(
+        fileNameFilter = {
+          return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
+        }
+      )
+      .forEach {
+        val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r4.Resource =
-          Json.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
-        val reserializedString = json.encodeToString(domainResource)
+          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val reserializedString = jsonR4.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
 
   @Test
-  fun `should match original json after deserialization and serialization in R4B`() {
-    File("${System.getProperty("projectRootDir")}/third_party/hl7.fhir.r4b.examples/package")
-      .listFiles()
-      ?.asSequence()
-      ?.filter { it.name.endsWith(".json") }
-      ?.filterNot {
-        it.name.startsWith('.') // filter out `.index.json` file
-      }
-      ?.filterNot { it.name == "package.json" }
-      ?.filterNot { exclusionListR4B.contains(it.name) }
-      ?.forEach { file ->
-        val exampleJson = prettyPrintJson(file.readText())
+  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4B() {
+    loadR4BExamples(
+        fileNameFilter = {
+          return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
+        }
+      )
+      .forEach {
+        val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r4b.Resource =
-          Json.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        val reserializedString = json.encodeToString(domainResource)
+          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
+        val reserializedString = jsonR4B.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
 
   @Test
-  fun `should match original json after deserialization and serialization in R5`() {
-    File("${System.getProperty("projectRootDir")}/third_party/hl7.fhir.r5.examples/package")
-      .listFiles()
-      ?.asSequence()
-      ?.filter { it.name.endsWith(".json") }
-      ?.filterNot {
-        it.name.startsWith('.') // filter out `.index.json` file
-      }
-      ?.filterNot { it.name == "package.json" }
-      ?.filterNot { exclusionsListR5.contains(it.name) }
-      ?.forEach { file ->
-        val exampleJson = prettyPrintJson(file.readText())
+  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR5() {
+    loadR5Examples(
+        fileNameFilter = {
+          return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
+        }
+      )
+      .forEach {
+        val exampleJson = prettyPrintJson(it)
         val domainResource: com.google.fhir.model.r5.Resource =
-          Json.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        val reserializedString = json.encodeToString(domainResource)
+          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val reserializedString = jsonR5.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
 
   companion object {
-    private val json = Json {
-      ignoreUnknownKeys = true
-      explicitNulls = false
+    private val jsonR4 = Json {
       prettyPrint = true
+      configureR4()
+    }
+
+    private val jsonR4B = Json {
+      prettyPrint = true
+      configureR4b()
+    }
+
+    private val jsonR5 = Json {
+      prettyPrint = true
+      configureR5()
     }
 
     private val prettyPrintJson = Json { prettyPrint = true }
+
+    fun filterFileName(name: String): Boolean {
+      return name.endsWith(".json") &&
+        !name.startsWith('.') // filter out `.index.json` file
+        &&
+        name != "package.json"
+    }
 
     private fun prettyPrintJson(jsonString: String): String {
       val jsonElement =
@@ -216,11 +228,17 @@ class SerializationRoundTripTest {
       // Some resources have non-standard JSON property ordering, so we sort the JSON
       // properties by the key before comparing them.
       assertEquals(
-        json.parseToJsonElement(expected).jsonObject.entries.sortedBy { it.key },
-        json.parseToJsonElement(actual).jsonObject.entries.sortedBy { it.key },
+        prettyPrintJson.parseToJsonElement(expected).jsonObject.entries.sortedBy { it.key },
+        prettyPrintJson.parseToJsonElement(actual).jsonObject.entries.sortedBy { it.key },
       )
     }
 
-    private fun String.removeZerosAfterDecimalPoint(): String = replace("\\.[0]+".toRegex(), "")
+    private fun String.removeZerosAfterDecimalPoint(): String = replace(trailingZeroRegex, "")
   }
 }
+
+expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
+
+expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String>
+
+expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String>

@@ -28,9 +28,11 @@ import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getExtension
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
+import com.google.fhir.codegen.schema.hasPrimaryConstructor
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.sanitizeKDoc
+import com.google.fhir.codegen.schema.serializableWithCustomSerializer
 import com.google.fhir.codegen.schema.toPascalCase
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.squareup.kotlinpoet.AnnotationSpec
@@ -46,15 +48,14 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.asTypeName
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlinx.serialization.json.JsonClassDiscriminator
 import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
 object ModelTypeSpecGenerator {
-
+  @OptIn(ExperimentalSerializationApi::class)
   fun generate(
     modelClassName: ClassName,
     structureDefinition: StructureDefinition,
@@ -71,50 +72,57 @@ object ModelTypeSpecGenerator {
       TypeSpec.classBuilder(modelClassName)
         .apply {
           val structureDefinitionName = structureDefinition.name
+
           if (
-            (!isBaseClass && structureDefinition.kind == StructureDefinition.Kind.RESOURCE) ||
-              (structureDefinition.kind == StructureDefinition.Kind.COMPLEX_TYPE &&
-                structureDefinitionName != "Base" &&
-                structureDefinitionName != "Element" &&
-                structureDefinitionName != "BackboneElement")
+            structureDefinitionName == "Resource" || structureDefinitionName == "DomainResource"
           ) {
+            // We use open polymorphism to allow for runtime decision on which concrete class to
+            // instantiate. So instead of sealing the `Resource` class and `DomainResource` class,
+            // we keep them abstract.
+            // See
+            // https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/polymorphism.md#open-polymorphism
+            addModifiers(KModifier.ABSTRACT)
+          } else if (structureDefinition.abstract) {
+            // All other abstract structure definitions should be sealed (and therefore abstract)
+            // classes, except for Element which is concrete but open to be used for fields prefixed
+            // with '_'.
+            if (structureDefinition.name == "Element") {
+              addModifiers(KModifier.OPEN)
+            } else {
+              addModifiers(KModifier.SEALED)
+            }
+          } else if (
+            (structureDefinition.kind == StructureDefinition.Kind.COMPLEX_TYPE ||
+              structureDefinition.kind == StructureDefinition.Kind.PRIMITIVE_TYPE) && isBaseClass
+          ) {
+            // Some primitive types and complex types have to be kept open (therefore not abstract)
+            // since they need to be subclassed. E.g. Uri can be extended by Url, and Quantity can
+            // be extended by Duration.
+            addModifiers(KModifier.OPEN)
+          } else {
+            addModifiers(KModifier.DATA)
+          }
+
+          // Serialization annotations
+          if (structureDefinition.serializableWithCustomSerializer) {
             addAnnotation(
               AnnotationSpec.builder(Serializable::class)
                 .addMember("with = %T::class", modelClassName.toSerializerClassName())
                 .build()
             )
+          } else if (structureDefinition.kind == StructureDefinition.Kind.RESOURCE) {
+            // All resources (Resource class and its subclasses) are serializable
+            addAnnotation(Serializable::class)
           } else if (structureDefinitionName == "Element") {
-            // element is serializable for the _ fields
+            // Element is serializable for fields prefixed with '_'
             addAnnotation(Serializable::class)
-          } else if (structureDefinitionName == "Resource") {
-            // resource is serializable for the contained fields
-            addAnnotation(Serializable::class)
-          } else if (structureDefinitionName == "BackboneElement") {
-            // mark as serializable for the backbone elements in resources
-            addAnnotation(Serializable::class)
-          } else if (structureDefinitionName == "DomainResource") {
-            addAnnotation(Serializable::class)
-          }
-          if (
-            structureDefinitionName == "DomainResource" || structureDefinitionName == "Resource"
-          ) {
-            addModifiers(KModifier.SEALED)
-            addAnnotation(
-              AnnotationSpec.builder(ClassName("kotlin", "OptIn"))
-                .addMember(
-                  "%T::class",
-                  ClassName("kotlinx.serialization", "ExperimentalSerializationApi"),
-                )
-                .build()
-            )
-            addAnnotation(
-              AnnotationSpec.builder(JsonClassDiscriminator::class)
-                .addMember("%S", "resourceType")
-                .build()
-            )
           }
 
-          if (structureDefinition.kind == StructureDefinition.Kind.RESOURCE) {
+          // Serial name annotations for resources
+          if (
+            structureDefinition.kind == StructureDefinition.Kind.RESOURCE &&
+              !structureDefinition.abstract
+          ) {
             addAnnotation(
               AnnotationSpec.builder(SerialName::class)
                 .addMember("%S", structureDefinitionName)
@@ -122,41 +130,17 @@ object ModelTypeSpecGenerator {
             )
           }
 
-          // BackboneElement is not considered base class because no resource directly extends it
-          // But it still should be marked as open to allow for subclasses
-          if (isBaseClass || structureDefinitionName == "BackboneElement") {
-            if (structureDefinition.kind == StructureDefinition.Kind.RESOURCE) {
-              addModifiers(KModifier.ABSTRACT)
-            } else if (
-              structureDefinition.kind == StructureDefinition.Kind.PRIMITIVE_TYPE ||
-                structureDefinition.kind == StructureDefinition.Kind.COMPLEX_TYPE
-            ) {
-              addModifiers(KModifier.OPEN)
-            }
-          } else {
-            addModifiers(KModifier.DATA)
-          }
-
           addKdoc(structureDefinition.description.sanitizeKDoc())
 
           // Set superclass if defined
           structureDefinition.baseDefinition?.substringAfterLast('/')?.capitalized()?.also {
-            superclass(
-              ClassName(
-                modelClassName.packageName,
-                if (structureDefinitionName.capitalized() == "MetadataResource") {
-                  // TODO: Inherits interfaces properly
-                  "CanonicalResource"
-                } else {
-                  it
-                },
-              )
-            )
+            superclass(ClassName(modelClassName.packageName, it))
           }
 
           buildProperties(
             modelClassName,
             structureDefinition.rootElements,
+            structureDefinition,
             isBaseClass,
             valueSetMap,
           )
@@ -247,7 +231,8 @@ private fun TypeSpec.Builder.generateEnumClasses(
 private fun TypeSpec.Builder.buildProperties(
   modelClassName: ClassName,
   elements: List<Element>,
-  isBaseClass: Boolean,
+  structureDefinition: StructureDefinition?, // null means backbone element
+  isBaseClass: Boolean = false,
   valueSetMap: Map<String, ValueSet>,
 ): TypeSpec.Builder {
   val properties =
@@ -263,24 +248,25 @@ private fun TypeSpec.Builder.buildProperties(
       PropertySpec.builder(name, type)
         .mutable()
         .apply {
-          initializer(name)
+          if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
+            initializer(name)
+          }
 
           if (element.path != element.base?.path) {
             // Override properties in base classes
             addModifiers(KModifier.OVERRIDE)
-          } else if (isBaseClass || modelClassName.simpleName == "BackboneElement") {
-            // Make properties open in base classes
-            addModifiers(KModifier.OPEN)
           }
 
-          if (
-            modelClassName.simpleName == "Resource" ||
-              modelClassName.simpleName == "DomainResource" ||
-              modelClassName.simpleName == "BackboneElement"
-          ) {
-            // Mark elements in Resource, DomainResource and BackboneElement classes as
-            // transient as we never intend to actually deserialize them.
-            addAnnotation(Transient::class)
+          if (structureDefinition?.abstract == true) {
+            // Make properties open in base classes
+            // Keep element's properties concrete since it is used in serialization
+            if (modelClassName.simpleName == "Element") {
+              addModifiers(KModifier.OPEN)
+            } else {
+              addModifiers(KModifier.ABSTRACT)
+            }
+          } else if (isBaseClass) {
+            addModifiers(KModifier.OPEN)
           }
 
           addKdoc("%L", element.definition.sanitizeKDoc())
@@ -292,29 +278,39 @@ private fun TypeSpec.Builder.buildProperties(
   addProperties(properties)
 
   // Create primary constructor
-  primaryConstructor(
-    FunSpec.constructorBuilder()
-      .apply {
-        properties.forEach { prop ->
-          addParameter(
-            ParameterSpec.builder(name = prop.name, type = prop.type).defaultValue("null").build()
-          )
+  if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
+    primaryConstructor(
+      FunSpec.constructorBuilder()
+        .apply {
+          properties.forEach { prop ->
+            addParameter(
+              ParameterSpec.builder(name = prop.name, type = prop.type).defaultValue("null").build()
+            )
+          }
         }
-      }
-      .build()
-  )
+        .build()
+    )
+  }
 
   // Create superclass constructor
-  elements
-    .filter { it.path != it.base?.path }
-    .forEach {
-      addSuperclassConstructorParameter(
-        "%N",
-        PropertySpec.builder(it.getElementName(), String::class.asTypeName().copy(nullable = true))
-          .apply { initializer(it.id) }
-          .build(),
-      )
-    }
+  if (
+    structureDefinition?.kind == StructureDefinition.Kind.PRIMITIVE_TYPE &&
+      structureDefinition.baseDefinition?.substringAfterLast('/')?.capitalized() != "PrimitiveType"
+  ) {
+    elements
+      .filter { it.path != it.base?.path }
+      .forEach {
+        addSuperclassConstructorParameter(
+          "%N",
+          PropertySpec.builder(
+              it.getElementName(),
+              String::class.asTypeName().copy(nullable = true),
+            )
+            .apply { initializer(it.id) }
+            .build(),
+        )
+      }
+  }
   return this
 }
 
@@ -383,8 +379,12 @@ private fun TypeSpec.Builder.addBackboneElement(
               .build()
           )
           .apply { addKdoc(backboneElement.definition.sanitizeKDoc()) }
-          .superclass(ClassName(enclosingModelClassName.packageName, "BackboneElement"))
-          .buildProperties(backboneElementClassName, elements, false, valueSetMap)
+          .apply {
+            superclass(
+              ClassName(enclosingModelClassName.packageName, backboneElement.type!!.single().code)
+            )
+          }
+          .buildProperties(backboneElementClassName, elements, null, false, valueSetMap)
           .addBackboneElement(
             backboneElement.path,
             enclosingModelClassName.nestedClass(name),

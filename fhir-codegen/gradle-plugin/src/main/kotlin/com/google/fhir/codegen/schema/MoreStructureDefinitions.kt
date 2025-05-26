@@ -85,6 +85,22 @@ val StructureDefinition.backboneElements
         }
     } ?: emptyMap()
 
+/** Concrete complex types and resources should be serializable with a custom serializer. */
+val StructureDefinition.serializableWithCustomSerializer
+  get() =
+    !abstract &&
+      (kind == StructureDefinition.Kind.RESOURCE || kind == StructureDefinition.Kind.COMPLEX_TYPE)
+
+/**
+ * Element, primitive types, and classes serializable with a custom serializer should have a primary
+ * constructor.
+ */
+val StructureDefinition.hasPrimaryConstructor
+  get() =
+    name == "Element" ||
+      kind == StructureDefinition.Kind.PRIMITIVE_TYPE ||
+      serializableWithCustomSerializer
+
 /**
  * Determines if an [Element] is a BackboneElement.
  *
