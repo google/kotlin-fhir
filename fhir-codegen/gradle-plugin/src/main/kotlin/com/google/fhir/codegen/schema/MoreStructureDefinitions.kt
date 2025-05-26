@@ -43,7 +43,7 @@ val ValueSet.urlPart
 fun Include.isValueSystemSupported(): Boolean =
   !system.isNullOrBlank() &&
     !system.startsWith("urn", ignoreCase = true) &&
-    system !in setOf("http://hl7.org/fhir/specimen-combined", "http://unitsofmeasure.org", true)
+    system !in setOf("http://hl7.org/fhir/specimen-combined", "http://unitsofmeasure.org")
 
 /**
  * Returns [Element]s from the [StructureDefinition] representing data members of the specified

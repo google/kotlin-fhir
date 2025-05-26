@@ -18,8 +18,6 @@ package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.Concept
-import com.google.fhir.codegen.schema.FhirEnum
-import com.google.fhir.codegen.schema.FhirEnumConstant
 import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.isValueSystemSupported
 import com.google.fhir.codegen.schema.sanitizeKDoc
@@ -31,6 +29,12 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
 
+/**
+ * Generates a [TypeSpec] for [Enum] class representation of FHIR data. The `Enum` class is
+ * generated using information derived from the [ValueSet] and [CodeSystem] terminology resources.
+ * Each generated enum class will contain the methods for retrieving the code, system, display and
+ * definition of each `Enum` class constant.
+ */
 object EnumTypeSpecGenerator {
 
   fun generate(
@@ -38,7 +42,6 @@ object EnumTypeSpecGenerator {
     valueSet: ValueSet,
     codeSystemMap: Map<String, CodeSystem>,
   ): TypeSpec? {
-
     val fhirEnum = generateEnum(valueSet, codeSystemMap)
     if (fhirEnum == null || fhirEnum.constants.isEmpty()) return null
     val typeSpec =
@@ -80,12 +83,7 @@ object EnumTypeSpecGenerator {
                 .build()
             )
 
-          addFunction(
-            FunSpec.builder("getSystem")
-              .addStatement("return %S", fhirEnum.getSystem() ?: "")
-              .returns(String::class)
-              .build()
-          )
+          addFunction(createPropertyAccessorFunction("getSystem", fhirEnum.constants) { it.system })
 
           addFunction(
             createPropertyAccessorFunction("getDisplay", fhirEnum.constants) { it.display }
@@ -154,23 +152,24 @@ object EnumTypeSpecGenerator {
    * Currency Code etc.
    */
   fun generateEnum(valueSet: ValueSet, codeSystemMap: Map<String, CodeSystem>): FhirEnum? {
-    if (valueSet.compose?.include.isNullOrEmpty()) return null
-    val includes = valueSet.compose.include.filter { it.isValueSystemSupported() }
-    val enumConstants = mutableListOf<FhirEnumConstant>()
-    for (include in includes) {
-      val system = include.system!!
-      val codeSystem = codeSystemMap[system]
+    return valueSet.compose
+      ?.include
+      ?.filter { it.isValueSystemSupported() }
+      ?.let {
+        val enumConstants = mutableListOf<FhirEnumConstant>()
+        for (include in it) {
+          val system = include.system!!
+          val codeSystem = codeSystemMap[system]
 
-      generateEnumConstants(
-        system = system,
-        codeSystemConcepts = codeSystem?.concept,
-        valueSetConcepts = include.concept,
-        enumConstants = enumConstants,
-      )
-    }
-
-    val fhirEnum = FhirEnum(valueSet.description, enumConstants)
-    return fhirEnum
+          generateEnumConstants(
+            system = system,
+            codeSystemConcepts = codeSystem?.concept,
+            valueSetConcepts = include.concept,
+            enumConstants = enumConstants,
+          )
+        }
+        return FhirEnum(valueSet.description, enumConstants)
+      }
   }
 
   private fun generateEnumConstants(

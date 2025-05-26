@@ -49,7 +49,6 @@ import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonClassDiscriminator
 import org.gradle.configurationcache.extensions.capitalized
 
@@ -236,9 +235,6 @@ private fun TypeSpec.Builder.generateEnumClasses(
           enumClassesMap.putIfAbsent(bindingName, typeSpec)
         }
       }
-    }
-    if (valueSetUrl == "http://hl7.org/fhir/ValueSet/specimen-combined") {
-      println("Look here..... is the element" + Json { prettyPrint = true }.encodeToString(element))
     }
     // Track ValueSet urls and binding names
     if (isCommonBinding == true) {

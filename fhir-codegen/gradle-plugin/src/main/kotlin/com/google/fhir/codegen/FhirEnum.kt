@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir.codegen.schema
+package com.google.fhir.codegen
 
 import kotlinx.serialization.Serializable
 
@@ -22,11 +22,7 @@ import kotlinx.serialization.Serializable
 data class FhirEnum(
   val description: String? = null,
   val constants: List<FhirEnumConstant> = emptyList(),
-) {
-  fun getSystem(): String? {
-    return constants.firstOrNull()?.system
-  }
-}
+) {}
 
 @Serializable
 data class FhirEnumConstant(

@@ -36,7 +36,7 @@ import kotlin.text.substringAfterLast
  * extension to primitive type `code` and represents a constrained code value from an enumerated
  * list
  */
-object EnumerationTypeGenerator {
+object EnumerationFileSpecGenerator {
 
   fun generate(packageName: String): FileSpec {
 

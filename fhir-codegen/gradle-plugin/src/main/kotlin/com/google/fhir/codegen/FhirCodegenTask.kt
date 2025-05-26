@@ -17,7 +17,7 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.primitives.DoubleSerializerTypeSpecGenerator
-import com.google.fhir.codegen.primitives.EnumerationTypeGenerator
+import com.google.fhir.codegen.primitives.EnumerationFileSpecGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeTypeGenerator
 import com.google.fhir.codegen.primitives.FhirDateTypeGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerTypeSpecGenerator
@@ -173,7 +173,7 @@ abstract class FhirCodegenTask : DefaultTask() {
 
     // Generate an extension to the primitive type - "code", to be used where code is tied to an
     // enumerated list of possible values. FHIR has no primitive type for enums.
-    EnumerationTypeGenerator.generate(packageName).writeTo(outputDir)
+    EnumerationFileSpecGenerator.generate(packageName).writeTo(outputDir)
 
     // Generate custom serializers
     val serializersPackageName = "$packageName.serializers"
