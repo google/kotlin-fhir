@@ -161,6 +161,8 @@ single sealed interface is generated with a subclass for each type.
 |----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | StructureDefinition JSON file (e.g. `StructureDefinition-Patient.json`)    | Kotlin .kt file (e.g. `Patient.kt`)                                                                               |
 | StructureDefinition (e.g. `Patient`)                                       | Kotlin class (e.g. `class Patient`)                                                                               |
+| ValueSet JSON file (e.g. `ValueSet-resource-types.json`)                   | Kotlin .kt file (e.g. `ResourceType`)                                                                             |
+| ValueSet (e.g. `ResourceType`)                                             | Kotlin class (e.g. `enum class ResourceType`)                                                                     |
 | BackboneElement (e.g. `Patient.contact`)                                   | Nested Kotlin class (e.g. `class Contact` nested under `Patient`)                                                 |
 | Choice of data types (e.g. `Patient.deceased[x]`)                          | Sealed interface (e.g. `sealed interface Deceased` nested under `Patient` with subtypes `Boolean` and `DateTime`) |
 
@@ -194,6 +196,29 @@ when (val multipleBirth = patient.multipleBirth) {
 
 The generated classes reflect the inheritance hierarchy defined by FHIR. For example, `Patient`
 inherits from `DomainResource`, which inherits from `Resource`.
+
+The constants in the generated Kotlin enum classes are derived from the code property of concepts found in FHIR `CodeSystem` 
+and `ValueSet` resources. To comply with Kotlin’s enum naming conventions—which require names to start with a letter 
+and avoid special characters—each code is transformed using a set of formatting rules. This includes handling numeric codes,
+special characters, and FHIR URLs. After all transformations, the final name is converted to PascalCase to match Kotlin style guidelines.
+
+| Rule # | Description                                                                            | Example Input                                                                       | Example Output    |
+|--------|----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------|
+| 1      | Codes made up entirely of digits are prefixed with an underscore                       | `1111`                                                                              | `_1111`           |
+| 2      | Dashes (`-`) and dots (`.`) are replaced with underscores (`_`)                        | `4.0.1`                                                                             | `_4_0_1`          |
+| 3      | All other unsupported special characters are removed (if not explicitly handled below) | `some@code!name`                                                                    | `Somecodename`    |
+| 4      | Specific special characters are replaced with readable keywords                        | `>=`                                                                                | `GreaterOrEquals` |
+|        |                                                                                        | `<`                                                                                 | `LessThan`        |
+|        |                                                                                        | `!=` or `<>`                                                                        | `NotEquals`       |
+|        |                                                                                        | `=`                                                                                 | `Equals`          |
+|        |                                                                                        | `*`                                                                                 | `Multiply`        |
+|        |                                                                                        | `+`                                                                                 | `Plus`            |
+|        |                                                                                        | `-`                                                                                 | `Minus`           |
+|        |                                                                                        | `/`                                                                                 | `Divide`          |
+|        |                                                                                        | `%`                                                                                 | `Percent`         |
+| 5      | For codes that are full URLs, extract the last segment after the final slash or dot    | `http://hl7.org/fhir/some-system/DateTime` or `http://hl7.org/fhir.system.DateTime` | `DateTime`        |
+| 6      | The final formatted string is converted to PascalCase                                  | `some_codename`                                                                     | `SomeCodename`    |
+
 
 ### Mapping FHIR JSON representation to Kotlin
 
