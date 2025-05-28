@@ -268,8 +268,19 @@ mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
 ### Adding the library dependency to your project
 
-To use the Kotlin FHIR model in your project, first add the dependency on the Kotlin FHIR library.
-Follow the instructions for your specific project type.
+To use the Kotlin FHIR model in your project, you need to add the Kotlin FHIR library dependency to
+your project. To do that, first make sure to include the [Google Maven](https://maven.google.com/)
+repository in the `build.gradle.kts` file in your project root.
+
+```
+// build.gradle.kts
+repositories {
+    // Other repositories such as mavenCentral() and gradlePluginPortal()
+    google()
+}
+```
+
+Next, follow the instructions for your specific project type.
 
 #### Kotlin Multiplatform Projects
 
