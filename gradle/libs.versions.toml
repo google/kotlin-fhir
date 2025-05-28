@@ -1,15 +1,15 @@
 [versions]
-android-gradle-plugin = "8.5.2"
+android-gradle-plugin = "8.10.0"
 android-compileSdk = "35"
 android-minSdk = "24"
 androidx-test-espresso = "3.5.1"
 androidx-test-junit = "1.2.1"
 androidx-test-rules = "1.6.1"
 androidx-test-runner = "1.6.2"
-kotlin = "2.1.0"
+kotlin = "2.1.21"
 kotlin-poet = "2.0.0"
 kotlinx-datetime = "0.6.2"
-kotlinx-serialization-json = "1.8.0-RC"
+kotlinx-serialization-json = "1.8.1"
 maven-publish = "0.29.0"
 spotless = "7.0.1"
 
