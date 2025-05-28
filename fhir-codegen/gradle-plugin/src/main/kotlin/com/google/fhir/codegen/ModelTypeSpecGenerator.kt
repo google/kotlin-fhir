@@ -16,15 +16,25 @@
 
 package com.google.fhir.codegen
 
+import com.google.fhir.codegen.schema.CodeSystem
+import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
+import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
+import com.google.fhir.codegen.schema.getExtension
 import com.google.fhir.codegen.schema.getTypeName
+import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.hasPrimaryConstructor
+import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.rootElements
+import com.google.fhir.codegen.schema.sanitizeKDoc
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
+import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
@@ -32,9 +42,11 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
@@ -50,7 +62,12 @@ object ModelTypeSpecGenerator {
     isBaseClass: Boolean,
     surrogateFileSpec: FileSpec.Builder,
     serializerFileSpec: FileSpec.Builder,
+    valueSetMap: Map<String, ValueSet>,
+    codeSystemMap: Map<String, CodeSystem>,
+    commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
   ): TypeSpec {
+    // Nested enums are all created inside the enclosing parent class for reusability
+    val enumClassesMap = mutableMapOf<String, TypeSpec>()
     val typeSpec =
       TypeSpec.classBuilder(modelClassName)
         .apply {
@@ -125,18 +142,31 @@ object ModelTypeSpecGenerator {
             structureDefinition.rootElements,
             structureDefinition,
             isBaseClass,
+            valueSetMap,
           )
 
           addBackboneElement(
-            structureDefinitionName,
-            modelClassName,
-            structureDefinition.backboneElements,
-            structureDefinition,
-            surrogateFileSpec,
-            serializerFileSpec,
+            path = structureDefinitionName,
+            enclosingModelClassName = modelClassName,
+            backboneElements = structureDefinition.backboneElements,
+            structureDefinition = structureDefinition,
+            surrogateTypeSpec = surrogateFileSpec,
+            serializerTypeSpec = serializerFileSpec,
+            valueSetMap = valueSetMap,
+            codeSystemMap = codeSystemMap,
+            commonBindingValueSetUrls = commonBindingValueSetUrls,
+            enumClassesMap = enumClassesMap,
           )
 
           addSealedInterfaces(modelClassName, structureDefinition.rootElements)
+
+          generateEnumClasses(
+            elements = structureDefinition.rootElements,
+            valueSetMap = valueSetMap,
+            codeSystemMap = codeSystemMap,
+            commonBindingValueSetUrls = commonBindingValueSetUrls,
+            enumClassesMap = enumClassesMap,
+          )
 
           if (structureDefinition.kind == StructureDefinition.Kind.PRIMITIVE_TYPE) {
             addToElementFunction(
@@ -152,10 +182,50 @@ object ModelTypeSpecGenerator {
             )
             addOfFunction(modelClassName, propertySpecs.single { it.name == "value" }.type)
           }
+
+          enumClassesMap.forEach {
+            // In some cases the model may share name with enum class
+            val enumClassName =
+              if (modelClassName.simpleNames.any { name -> name == it.key }) "${it.key}Enum"
+              else it.key
+            modelClassName.nestedClass(enumClassName)
+            addType(it.value)
+          }
         }
         .build()
     return typeSpec
   }
+}
+
+private fun TypeSpec.Builder.generateEnumClasses(
+  elements: List<Element>,
+  valueSetMap: Map<String, ValueSet>,
+  codeSystemMap: Map<String, CodeSystem>,
+  commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
+  enumClassesMap: MutableMap<String, TypeSpec>,
+): TypeSpec.Builder {
+  for (element in elements) {
+    val commonBindingExt = element.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+    val bindingNameExt = element.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+    val bindingName = bindingNameExt?.valueString?.toPascalCase()
+    val isCommonBinding = commonBindingExt?.isCommonBinding()
+    val valueSetUrl = element.getValueSetUrl()
+    if (valueSetUrl.isNullOrBlank()) continue
+    if (element.typeIsEnumeratedCode(valueSetMap) && isCommonBinding != true) {
+      val valueSet = valueSetMap[valueSetUrl]
+      if (valueSet != null) {
+        val typeSpec = EnumTypeSpecGenerator.generate(bindingName!!, valueSet, codeSystemMap)
+        if (typeSpec != null) {
+          enumClassesMap.putIfAbsent(bindingName, typeSpec)
+        }
+      }
+    }
+    // Track ValueSet urls and binding names
+    if (isCommonBinding == true) {
+      commonBindingValueSetUrls.getOrPut(valueSetUrl) { hashSetOf() }.apply { add(bindingName!!) }
+    }
+  }
+  return this
 }
 
 private fun TypeSpec.Builder.buildProperties(
@@ -163,12 +233,19 @@ private fun TypeSpec.Builder.buildProperties(
   elements: List<Element>,
   structureDefinition: StructureDefinition?, // null means backbone element
   isBaseClass: Boolean = false,
+  valueSetMap: Map<String, ValueSet>,
 ): TypeSpec.Builder {
   val properties =
     elements.map { element ->
       val name = element.getElementName()
+      val type =
+        if (element.typeIsEnumeratedCode(valueSetMap)) {
+          element.getEnumerationTypeName(modelClassName)
+        } else {
+          element.getTypeName(modelClassName)
+        }
 
-      PropertySpec.builder(name, element.getTypeName(modelClassName))
+      PropertySpec.builder(name, type)
         .mutable()
         .apply {
           if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
@@ -237,6 +314,43 @@ private fun TypeSpec.Builder.buildProperties(
   return this
 }
 
+/**
+ * Substitute the primitive type of code with an `Enumeration` type if the values for the code are
+ * constrained to a set of values.
+ */
+private fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName {
+  // Ignore all base.path starting with "Resource."
+  val elementBasePath = base?.path
+  val bindingNameExt = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
+
+  // Use bindingName for the enum class, subclasses re-use enums from the parent
+  val bindingNameString = bindingNameExt?.valueString?.toPascalCase()
+
+  val enumClassName =
+    if (path != elementBasePath) "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"
+    else bindingNameString
+
+  if (!enumClassName.isNullOrBlank()) {
+    val commonBindingExt = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
+    val enumClassPackageName =
+      if (commonBindingExt?.isCommonBinding() == true || enumClassName.contains("."))
+        modelClassName.packageName
+      else ""
+
+    val enumClass = ClassName(enumClassPackageName, enumClassName)
+    val enumerationClassName =
+      ClassName(modelClassName.packageName, "Enumeration").parameterizedBy(enumClass)
+    return if (this.max == "*") {
+        List::class.asClassName().parameterizedBy(enumerationClassName)
+      } else {
+        enumerationClassName
+      }
+      .copy(nullable = true)
+  } else {
+    return getTypeName(modelClassName)
+  }
+}
+
 /** Adds a nested class for each BackboneElement in the [StructureDefinition]. */
 private fun TypeSpec.Builder.addBackboneElement(
   path: String,
@@ -245,6 +359,10 @@ private fun TypeSpec.Builder.addBackboneElement(
   structureDefinition: StructureDefinition,
   surrogateTypeSpec: FileSpec.Builder,
   serializerTypeSpec: FileSpec.Builder,
+  valueSetMap: Map<String, ValueSet>,
+  codeSystemMap: Map<String, CodeSystem>,
+  commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
+  enumClassesMap: MutableMap<String, TypeSpec>,
 ): TypeSpec.Builder {
   backboneElements
     .filter { (backboneElement, _) ->
@@ -266,7 +384,7 @@ private fun TypeSpec.Builder.addBackboneElement(
               ClassName(enclosingModelClassName.packageName, backboneElement.type!!.single().code)
             )
           }
-          .buildProperties(backboneElementClassName, elements, null)
+          .buildProperties(backboneElementClassName, elements, null, false, valueSetMap)
           .addBackboneElement(
             backboneElement.path,
             enclosingModelClassName.nestedClass(name),
@@ -274,6 +392,17 @@ private fun TypeSpec.Builder.addBackboneElement(
             structureDefinition,
             surrogateTypeSpec,
             serializerTypeSpec,
+            valueSetMap,
+            codeSystemMap,
+            commonBindingValueSetUrls,
+            enumClassesMap,
+          )
+          .generateEnumClasses(
+            elements = backboneElements.values.flatten(),
+            valueSetMap = valueSetMap,
+            codeSystemMap = codeSystemMap,
+            commonBindingValueSetUrls = commonBindingValueSetUrls,
+            enumClassesMap = enumClassesMap,
           )
           .addSealedInterfaces(
             backboneElementClassName,
@@ -288,6 +417,7 @@ private fun TypeSpec.Builder.addBackboneElement(
         SurrogateTypeSpecGenerator.generate(
           enclosingModelClassName.nestedClass(name.capitalized()),
           elements,
+          valueSetMap,
         )
       )
       serializerTypeSpec.addType(
@@ -474,13 +604,4 @@ private fun TypeSpec.Builder.addOfFunction(className: ClassName, primitiveTypeNa
       )
       .build()
   )
-}
-
-/**
- * Sanitizes the string for KDoc, replacing character sequences that could break the comment block.
- *
- * See also: https://github.com/square/kotlinpoet/issues/887.
- */
-private fun String.sanitizeKDoc(): String {
-  return this.replace("/*", "&#47;*")
 }
