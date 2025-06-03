@@ -68,19 +68,19 @@ object SurrogateTypeSpecGenerator {
               element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
                 PropertySpec.builder(it.key, it.value).initializer("null").mutable().build()
               }
-            val surrogateClassName =
+            val className =
               ClassName(
                 surrogateClassName.packageName,
                 element.getPolymorphicTypeSurrogateClassSimpleName(),
               )
             val surrogateTypeSpec =
-              TypeSpec.classBuilder(surrogateClassName)
+              TypeSpec.classBuilder(className)
                 .addAnnotation(Serializable::class)
                 .addModifiers(KModifier.INTERNAL)
                 .addProperties(surrogateProperties)
                 .apply {
-                  addConverterToModelClass(modelClassName, surrogateClassName, element)
-                  addConverterFromModelClass(modelClassName, surrogateClassName, element)
+                  addConverterToModelClass(modelClassName, className, element)
+                  addConverterFromModelClass(modelClassName, className, element)
                 }
 
             val propertyName =
