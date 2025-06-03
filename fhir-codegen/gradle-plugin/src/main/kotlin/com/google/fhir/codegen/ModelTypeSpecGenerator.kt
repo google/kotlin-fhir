@@ -292,7 +292,7 @@ private fun TypeSpec.Builder.addBackboneElement(
         .forEach(surrogateFileSpec::addType)
 
       serializerFileSpec.addType(
-        SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name))
+        SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name), elements)
       )
     }
   return this
@@ -404,7 +404,7 @@ private fun TypeSpec.Builder.addSealedInterfaces(
         }
         .build()
     )
-    serializerFileSpec.addType(SerializerTypeSpecGenerator.generate(sealedInterfaceClassName))
+    serializerFileSpec.addType(SerializerTypeSpecGenerator.generate(sealedInterfaceClassName, null))
   }
   return this
 }

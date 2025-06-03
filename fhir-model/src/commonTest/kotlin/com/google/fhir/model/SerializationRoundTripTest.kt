@@ -45,12 +45,6 @@ val exclusionListR4 =
     // Instant with trailing 0s
     "ValueSet-v3-hl7PublishingSubSection.json",
 
-    // Pattern in ElementDefinition
-    "StructureDefinition-example-section-library.json",
-    "StructureDefinition-triglyceride.json",
-    "Bundle-profiles-others.json",
-    "StructureDefinition-provenance-relevant-history.json",
-
     // Scientific notation
     "Observation-decimal.json",
   )
@@ -59,13 +53,6 @@ val exclusionListR4B =
   listOf(
     // Java heap space
     "Bundle-resources.json",
-
-    // Pattern
-    "StructureDefinition-example-section-library.json",
-    "StructureDefinition-triglyceride.json",
-    "Bundle-profiles-others.json",
-    "StructureDefinition-provenance-relevant-history.json",
-    "StructureDefinition-lipidprofile.json",
 
     // Scientific notation
     "Observation-decimal.json",
@@ -109,26 +96,6 @@ val exclusionListR5 =
     "Bundle-dataelements.json",
     "Bundle-types.json",
     "StructureDefinition-integer64.json",
-
-    // Pattern
-    "StructureDefinition-search-set-bundle.json",
-    "StructureDefinition-fhirpathlibrary.json",
-    "StructureDefinition-subscription-notification-bundle.json",
-    "StructureDefinition-transaction-bundle.json",
-    "StructureDefinition-transaction-response-bundle.json",
-    "StructureDefinition-elmlibrary.json",
-    "StructureDefinition-batch-response-bundle.json",
-    "StructureDefinition-history-bundle.json",
-    "StructureDefinition-example-section-library.json",
-    "StructureDefinition-triglyceride.json",
-    "StructureDefinition-logiclibrary.json",
-    "StructureDefinition-batch-bundle.json",
-    "Bundle-profiles-others.json",
-    "StructureDefinition-moduledefinitionlibrary.json",
-    "StructureDefinition-provenance-relevant-history.json",
-    "StructureDefinition-cqllibrary.json",
-    "StructureDefinition-modelinfolibrary.json",
-    "StructureDefinition-lipidprofile.json",
 
     // Scientific notation
     "Observation-decimal.json",
