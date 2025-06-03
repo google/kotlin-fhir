@@ -176,34 +176,29 @@ private fun TypeSpec.Builder.addDeserializeFunction(
       .apply {
         if (hasMultiChoiceProperties) {
           // Unflatten the multi-choice JsonObjects; recreate nested JsonObject
-          addStatement(
-            "val jsonDecoder = decoder as? %T ?: error(\"This serializer only supports JSON decoding\")",
-            JsonDecoder::class,
-          )
           addCode(
             """
+                val jsonDecoder = 
+                  decoder as? %T ?: error("This serializer only supports JSON decoding")
                 val oldJsonObject =
-                if (resourceType.isNullOrBlank()) {
-                  jsonDecoder.decodeJsonElement().%T
-                } else JsonObject(jsonDecoder.decodeJsonElement().%T.toMutableMap().apply {
-                  remove("%L")
-                })
+                  if (resourceType.isNullOrBlank()) {
+                    jsonDecoder.decodeJsonElement().%T
+                  } else JsonObject(jsonDecoder.decodeJsonElement().%T.toMutableMap().apply {
+                    remove("resourceType")
+                  })
+                val unflattenedJsonObject = %T.unflatten(oldJsonObject, multiChoiceProperties)
+                val surrogate = 
+                  jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+                return surrogate.toModel()
               """
               .trimIndent(),
+            JsonDecoder::class,
             ClassName("kotlinx.serialization.json", "jsonObject"),
             ClassName("kotlinx.serialization.json", "jsonObject"),
-            "resourceType",
-          )
-          addStatement(
-            "\nval unflattenedJsonObject = %T.unflatten(oldJsonObject, multiChoiceProperties)",
             ClassName(className.packageName, "FhirJsonTransformer"),
           )
-          addStatement(
-            "val surrogate = jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)"
-          )
-          addStatement("return surrogate.%N()", "toModel")
         } else {
-          addStatement("return surrogateSerializer.deserialize(decoder).%N()", "toModel")
+          addStatement("return surrogateSerializer.deserialize(decoder).toModel()")
         }
       }
       .build()
@@ -226,17 +221,11 @@ private fun TypeSpec.Builder.addSerializeFunction(
       .apply {
         if (hasMultiChoiceProperties) {
           // Flatten the multi-choice JsonObjects; unwrap nested Json items
-          addStatement(
-            "val jsonEncoder = encoder as? %T ?: error(\"This serializer only supports JSON encoding\")",
-            JsonEncoder::class,
-          )
-          addStatement(
-            "val surrogate = %T.%N(value)",
-            className.toSurrogateClassName(),
-            "fromModel",
-          )
           addCode(
             """
+              val jsonEncoder = 
+                encoder as? %T ?: error("This serializer only supports JSON encoding")
+              val surrogate = %T.fromModel(value)
               val oldJsonObject = if (resourceType.isNullOrBlank()) {
                 jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).%T
               } else {
@@ -249,23 +238,22 @@ private fun TypeSpec.Builder.addSerializeFunction(
                   )
                 )
               }
+              val flattenedJsonObject = %T.flatten(oldJsonObject, multiChoiceProperties)
+              jsonEncoder.encodeJsonElement(flattenedJsonObject)
             """
               .trimIndent(),
+            JsonEncoder::class,
+            className.toSurrogateClassName(),
             ClassName("kotlinx.serialization.json", "jsonObject"),
             JsonObject::class,
             JsonPrimitive::class,
             ClassName("kotlinx.serialization.json", "jsonObject"),
-          )
-          addStatement(
-            "\nval flattenedJsonObject = %T.flatten(oldJsonObject, multiChoiceProperties)",
             ClassName(className.packageName, "FhirJsonTransformer"),
           )
-          addStatement("jsonEncoder.encodeJsonElement(flattenedJsonObject)")
         } else {
           addStatement(
-            "surrogateSerializer.serialize(encoder, %T.%N(value))",
+            "surrogateSerializer.serialize(encoder, %T.fromModel(value))",
             className.toSurrogateClassName(),
-            "fromModel",
           )
         }
       }

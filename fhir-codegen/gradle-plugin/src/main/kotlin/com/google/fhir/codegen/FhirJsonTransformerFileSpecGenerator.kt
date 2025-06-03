@@ -119,7 +119,7 @@ object FhirJsonTransformerFileSpecGenerator {
                 multiChoiceProperties.forEach { multiChoiceProperty ->
                   val nestedFields = mutableMapOf<String, JsonElement>()
                   inputJson.keys.forEach { key ->
-                    if (key.startsWith(multiChoiceProperty) || key.startsWith("_" + multiChoiceProperty) ) {
+                    if (key.startsWith(multiChoiceProperty) || key.startsWith("_${'$'}multiChoiceProperty") ) {
                       nestedFields[key] = nestedJsonMap.remove(key)!!
                     }
                   }
