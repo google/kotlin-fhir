@@ -27,7 +27,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.asTypeName
+import com.squareup.kotlinpoet.asClassName
 
 /**
  * Generates a [TypeSpec] for [Enum] class representation of FHIR data. The `Enum` class is
@@ -49,7 +49,12 @@ object EnumTypeSpecGenerator {
         .apply {
           fhirEnum.description?.sanitizeKDoc()?.let { addKdoc(it) }
           primaryConstructor(
-            FunSpec.constructorBuilder().addParameter("code", String::class).build()
+            FunSpec.constructorBuilder()
+              .addParameter("code", String::class)
+              .addParameter("system", String::class)
+              .addParameter("display", String::class.asClassName().copy(nullable = true))
+              .addParameter("definition", String::class.asClassName().copy(nullable = true))
+              .build()
           )
 
           fhirEnum.constants.forEach {
@@ -59,6 +64,9 @@ object EnumTypeSpecGenerator {
                   .apply {
                     if (!it.definition.isNullOrBlank()) addKdoc("%L", it.definition.sanitizeKDoc())
                     addSuperclassConstructorParameter("%S", it.code)
+                    addSuperclassConstructorParameter("%S", it.system)
+                    addSuperclassConstructorParameter("%S", it.display ?: "null")
+                    addSuperclassConstructorParameter("%S", it.definition ?: "null")
                   }
                   .build(),
               )
@@ -67,31 +75,65 @@ object EnumTypeSpecGenerator {
                   .initializer("code")
                   .build()
               )
+              .addProperty(
+                PropertySpec.builder("system", String::class, KModifier.PRIVATE)
+                  .initializer("system")
+                  .build()
+              )
+              .addProperty(
+                PropertySpec.builder(
+                    "display",
+                    String::class.asClassName().copy(nullable = true),
+                    KModifier.PRIVATE,
+                  )
+                  .initializer("display")
+                  .build()
+              )
+              .addProperty(
+                PropertySpec.builder(
+                    "definition",
+                    String::class.asClassName().copy(nullable = true),
+                    KModifier.PRIVATE,
+                  )
+                  .initializer("definition")
+                  .build()
+              )
           }
           addFunction(
-              FunSpec.builder("toString")
-                .addModifiers(KModifier.OVERRIDE)
-                .addStatement("return code")
-                .returns(String::class)
-                .build()
-            )
-            .addFunction(
-              FunSpec.builder("getCode")
-                .addModifiers(KModifier.PUBLIC)
-                .returns(String::class)
-                .addStatement("return code")
-                .build()
-            )
-
-          addFunction(createPropertyAccessorFunction("getSystem", fhirEnum.constants) { it.system })
-
-          addFunction(
-            createPropertyAccessorFunction("getDisplay", fhirEnum.constants) { it.display }
+            FunSpec.builder("toString")
+              .addModifiers(KModifier.OVERRIDE)
+              .addStatement("return code")
+              .returns(String::class)
+              .build()
           )
           addFunction(
-            createPropertyAccessorFunction("getDefinition", fhirEnum.constants) { it.definition }
+            FunSpec.builder("getCode")
+              .addModifiers(KModifier.PUBLIC)
+              .returns(String::class)
+              .addStatement("return code")
+              .build()
           )
-
+          addFunction(
+            FunSpec.builder("getSystem")
+              .addModifiers(KModifier.PUBLIC)
+              .returns(String::class)
+              .addStatement("return system")
+              .build()
+          )
+          addFunction(
+            FunSpec.builder("getDisplay")
+              .addModifiers(KModifier.PUBLIC)
+              .returns(String::class.asClassName().copy(nullable = true))
+              .addStatement("return display")
+              .build()
+          )
+          addFunction(
+            FunSpec.builder("getDefinition")
+              .addModifiers(KModifier.PUBLIC)
+              .returns(String::class.asClassName().copy(nullable = true))
+              .addStatement("return definition")
+              .build()
+          )
           addType(
             TypeSpec.companionObjectBuilder()
               .addFunction(
@@ -116,30 +158,6 @@ object EnumTypeSpecGenerator {
     return typeSpec
   }
 
-  private fun createPropertyAccessorFunction(
-    functionName: String,
-    constants: List<FhirEnumConstant>,
-    propertySelector: (FhirEnumConstant) -> String?,
-  ): FunSpec {
-    return FunSpec.builder(functionName)
-      .addModifiers(KModifier.PUBLIC)
-      .returns(String::class.asTypeName().copy(nullable = true))
-      .apply {
-        val constantsWithValue = constants.filter { propertySelector(it) != null }
-        if (constantsWithValue.isEmpty()) {
-          addStatement("return null")
-        } else {
-          beginControlFlow("return when (this)")
-          constantsWithValue.forEach { constant ->
-            propertySelector(constant)?.let { addStatement("%L -> %S", constant.name, it) }
-          }
-          addStatement("else -> null")
-          endControlFlow()
-        }
-      }
-      .build()
-  }
-
   /**
    * Instantiate a [FhirEnum] to facilitate the generation of Kotlin enum classes. The enum
    * constants are derived from concepts defined in a `ValueSet`, a `CodeSystem`, or both. When both
@@ -151,7 +169,7 @@ object EnumTypeSpecGenerator {
    * e.g. urn:ietf:bcp:13, urn:ietf:bcp:47,urn:iso:std:iso:4217 typically used for MIMETypes,
    * Currency Code etc.
    */
-  fun generateEnum(valueSet: ValueSet, codeSystemMap: Map<String, CodeSystem>): FhirEnum? {
+  private fun generateEnum(valueSet: ValueSet, codeSystemMap: Map<String, CodeSystem>): FhirEnum? {
     return valueSet.compose
       ?.include
       ?.filter { it.isValueSystemSupported() }
@@ -197,22 +215,22 @@ object EnumTypeSpecGenerator {
     val arrayDeque: ArrayDeque<Concept> = ArrayDeque(concepts)
 
     while (arrayDeque.isNotEmpty()) {
-      val currenConcept = arrayDeque.removeFirst()
-      val name = currenConcept.code.formatEnumConstantName()
-      val include = expectedCodesSet?.contains(currenConcept.code) != false
+      val currentConcept = arrayDeque.removeFirst()
+      val name = currentConcept.code.formatEnumConstantName()
+      val include = expectedCodesSet?.contains(currentConcept.code) != false
       if (name.isNotBlank() && include) {
         val fhirEnumConstant =
           FhirEnumConstant(
-            code = currenConcept.code,
+            code = currentConcept.code,
             system = system,
             name = name,
-            display = currenConcept.display,
-            definition = currenConcept.definition,
+            display = currentConcept.display,
+            definition = currentConcept.definition,
           )
         enumConstants.add(fhirEnumConstant)
       }
-      if (!currenConcept.concept.isNullOrEmpty() && include) {
-        arrayDeque.addAll(currenConcept.concept)
+      if (!currentConcept.concept.isNullOrEmpty() && include) {
+        arrayDeque.addAll(currentConcept.concept)
       }
     }
   }
