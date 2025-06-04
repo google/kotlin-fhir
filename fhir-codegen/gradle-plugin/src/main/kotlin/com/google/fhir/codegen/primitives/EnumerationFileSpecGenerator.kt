@@ -37,13 +37,20 @@ import kotlin.text.substringAfterLast
  * list
  */
 object EnumerationFileSpecGenerator {
+  private const val R4 = "r4"
+  private const val R4B = "r4b"
+  private const val R5 = "r5"
 
   fun generate(packageName: String): FileSpec {
-
     val version = packageName.substringAfterLast('.')
-    val isR5 = version.equals("r5", ignoreCase = true)
 
-    val superclassName = ClassName(packageName, if (isR5) "PrimitiveType" else "Element")
+    val baseClassName =
+      when (version) {
+        R4,
+        R4B -> "Element"
+        R5 -> "PrimitiveType"
+        else -> error("Enum generation is not supported for version: $version")
+      }
     val extensionClassName = ClassName(packageName, "Extension")
 
     // Define T with upper bound of Enum<*>
@@ -51,7 +58,6 @@ object EnumerationFileSpecGenerator {
     val typeVariable = TypeVariableName("T", enumType)
 
     val elementClassName = ClassName(packageName, "Element")
-
     val toElementFunction = createToElementFunction(elementClassName)
     val ofFunction = createOfFunction(elementClassName, typeVariable)
     val companionObject = createCompanionObject(ofFunction)
@@ -60,9 +66,9 @@ object EnumerationFileSpecGenerator {
       TypeSpec.classBuilder("Enumeration")
         .addModifiers(KModifier.PUBLIC, KModifier.DATA)
         .addTypeVariable(typeVariable)
-        .superclass(superclassName)
+        .superclass(ClassName(packageName, baseClassName))
         .apply {
-          if (!isR5) {
+          if (version == R4 || version == R4B) {
             addSuperclassConstructorParameter("id")
             addSuperclassConstructorParameter("extension")
           }
