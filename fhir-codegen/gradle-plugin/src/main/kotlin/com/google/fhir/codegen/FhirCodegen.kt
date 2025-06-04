@@ -16,7 +16,9 @@
 
 package com.google.fhir.codegen
 
+import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
 import com.squareup.kotlinpoet.AnnotationSpec
@@ -49,6 +51,9 @@ object FhirCodegen {
     packageName: String,
     structureDefinition: StructureDefinition,
     isBaseClass: Boolean,
+    valueSetMap: Map<String, ValueSet>,
+    codeSystemMap: Map<String, CodeSystem>,
+    commonBindingValueSetUrls: MutableMap<String, HashSet<String>>,
   ): List<FileSpec> {
     val modelClassName = ClassName(packageName, structureDefinition.name.capitalized())
     val modelFileSpec = FileSpec.builder(modelClassName)
@@ -65,6 +70,9 @@ object FhirCodegen {
               isBaseClass,
               surrogateFileSpec,
               serializerFileSpec,
+              valueSetMap = valueSetMap,
+              codeSystemMap = codeSystemMap,
+              commonBindingValueSetUrls = commonBindingValueSetUrls,
             )
           )
           .addSuppressAnnotation()
@@ -81,6 +89,7 @@ object FhirCodegen {
             SurrogateTypeSpecGenerator.generate(
               ClassName(packageName, structureDefinition.name),
               structureDefinition.rootElements,
+              valueSetMap,
             )
           )
           .addAnnotation(
