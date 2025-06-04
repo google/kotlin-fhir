@@ -161,8 +161,6 @@ single sealed interface is generated with a subclass for each type.
 |----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | StructureDefinition JSON file (e.g. `StructureDefinition-Patient.json`)    | Kotlin .kt file (e.g. `Patient.kt`)                                                                               |
 | StructureDefinition (e.g. `Patient`)                                       | Kotlin class (e.g. `class Patient`)                                                                               |
-| ValueSet JSON file (e.g. `ValueSet-resource-types.json`)                   | Kotlin .kt file (e.g. `ResourceType`)                                                                             |
-| ValueSet (e.g. `ResourceType`)                                             | Kotlin class (e.g. `enum class ResourceType`)                                                                     |
 | BackboneElement (e.g. `Patient.contact`)                                   | Nested Kotlin class (e.g. `class Contact` nested under `Patient`)                                                 |
 | Choice of data types (e.g. `Patient.deceased[x]`)                          | Sealed interface (e.g. `sealed interface Deceased` nested under `Patient` with subtypes `Boolean` and `DateTime`) |
 
@@ -197,27 +195,52 @@ when (val multipleBirth = patient.multipleBirth) {
 The generated classes reflect the inheritance hierarchy defined by FHIR. For example, `Patient`
 inherits from `DomainResource`, which inherits from `Resource`.
 
-The constants in the generated Kotlin enum classes are derived from the code property of concepts found in FHIR `CodeSystem` 
-and `ValueSet` resources. To comply with Kotlin’s enum naming conventions—which require names to start with a letter 
-and avoid special characters—each code is transformed using a set of formatting rules. This includes handling numeric codes,
-special characters, and FHIR URLs. After all transformations, the final name is converted to PascalCase to match Kotlin style guidelines.
+### Mapping FHIR ValueSets to Kotlin Enums
+The constants in the generated Kotlin `enum` classes are derived from the `code` property of concepts defined in FHIR `CodeSystem` and `ValueSet` resources.
 
-| Rule # | Description                                                                            | Example Input                                                                       | Example Output    |
-|--------|----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------|
-| 1      | Codes made up entirely of digits are prefixed with an underscore                       | `1111`                                                                              | `_1111`           |
-| 2      | Dashes (`-`) and dots (`.`) are replaced with underscores (`_`)                        | `4.0.1`                                                                             | `_4_0_1`          |
-| 3      | All other unsupported special characters are removed (if not explicitly handled below) | `some@code!name`                                                                    | `Somecodename`    |
-| 4      | Specific special characters are replaced with readable keywords                        | `>=`                                                                                | `GreaterOrEquals` |
-|        |                                                                                        | `<`                                                                                 | `LessThan`        |
-|        |                                                                                        | `!=` or `<>`                                                                        | `NotEquals`       |
-|        |                                                                                        | `=`                                                                                 | `Equals`          |
-|        |                                                                                        | `*`                                                                                 | `Multiply`        |
-|        |                                                                                        | `+`                                                                                 | `Plus`            |
-|        |                                                                                        | `-`                                                                                 | `Minus`           |
-|        |                                                                                        | `/`                                                                                 | `Divide`          |
-|        |                                                                                        | `%`                                                                                 | `Percent`         |
-| 5      | For codes that are full URLs, extract the last segment after the final slash or dot    | `http://hl7.org/fhir/some-system/DateTime` or `http://hl7.org/fhir.system.DateTime` | `DateTime`        |
-| 6      | The final formatted string is converted to PascalCase                                  | `some_codename`                                                                     | `SomeCodename`    |
+#### Location of Enums
+
+- **Shared enums** are placed in the package:  
+  `com.google.fhir.model.<r4|r4b|r5>`
+- **Local enums** are generated within the parent class when not intended for reuse.
+
+#### Shared vs. Local Enums
+
+- If the `StructureDefinition` defines an element with a **common binding**, a **shared enum** is generated.  
+  **Example:** `AdministrativeGender`
+- If the element uses a **non-common binding**, a **local enum** is created inside the associated parent class.  
+  **Example:** `NameUse` inside the `HumanName` class
+
+#### Enum Naming and Content
+
+- The **enum class name** is based on the value of the `binding` element in the `StructureDefinition`.
+- The **enum constants** are sourced from either a `CodeSystem` or a `ValueSet`.
+- If both a `CodeSystem` and a `ValueSet` are provided, the enum is constrained to only the concepts defined in the `ValueSet`.
+
+| FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> | Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/>                                    |
+|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| ValueSet JSON file (e.g. `ValueSet-resource-types.json`)                   | Kotlin .kt file (e.g. `ResourceType`)                                                                             |
+| ValueSet (e.g. `ResourceType`)                                             | Kotlin class (e.g. `enum class ResourceType`)                                                                     |
+
+To comply with Kotlin’s enum naming conventions—which require names to start with a letter and avoid special characters—each code is transformed using a set of formatting rules. 
+This includes handling numeric codes,special characters, and FHIR URLs. After all transformations, the final name is converted to PascalCase to match Kotlin style guidelines.
+
+| Rule # | Description                                                                            | Example Input                             | Example Output    | FHIR CodeSystem with example input                                                 |
+|--------|----------------------------------------------------------------------------------------|-------------------------------------------|-------------------|------------------------------------------------------------------------------------|
+| 1      | Codes made up entirely of digits are prefixed with an underscore                       | `1111`                                    | `_1111`           | `CodeSystem-forms.json` e.g. codes: `1` and `2`                                    |
+| 2      | Dashes (`-`) and dots (`.`) are replaced with underscores (`_`)                        | `4.0.1`                                   | `_4_0_1`          | `CodeSystem-FHIR-version.json` e.g. code: `4.0.1`,                                 |
+| 3      | All other unsupported special characters are removed (if not explicitly handled below) | `some@code!name`                          | `Somecodename`    |                                                                                    |
+| 4      | Specific special characters are replaced with readable keywords                        | `>=`                                      | `GreaterOrEquals` | `CodeSystem-quantity-comparator.json` e.g. codes `<`, `>=`, `>=` and `>`           |
+|        |                                                                                        | `<`                                       | `LessThan`        |                                                                                    |
+|        |                                                                                        | `!=` or `<>`                              | `NotEquals`       |                                                                                    |
+|        |                                                                                        | `=`                                       | `Equals`          |                                                                                    |
+|        |                                                                                        | `*`                                       | `Multiply`        |                                                                                    |
+|        |                                                                                        | `+`                                       | `Plus`            |                                                                                    |
+|        |                                                                                        | `-`                                       | `Minus`           |                                                                                    |
+|        |                                                                                        | `/`                                       | `Divide`          |                                                                                    |
+|        |                                                                                        | `%`                                       | `Percent`         |                                                                                    |
+| 5      | For codes that are full URLs, extract the last segment after the final slash or dot    | `http://hl7.org/fhirpath/System.DateTime` | `DateTime`        | `CodeSystem-fhirpath-types.json` e.g. code: http://hl7.org/fhirpath/System.Integer |
+| 6      | The final formatted string is converted to PascalCase                                  | `some_codename`                           | `SomeCodename`    | `CodeSystem-v3-MaritalStatus.json` e.g. code: `UNK`                                |
 
 
 ### Mapping FHIR JSON representation to Kotlin
