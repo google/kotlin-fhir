@@ -71,7 +71,6 @@ data class Element(
 @Serializable
 data class Binding(
   val extension: List<Extension>? = null,
-  val strength: String,
   val description: String? = null,
   val valueSet: String? = null,
 )
