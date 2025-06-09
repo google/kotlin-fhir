@@ -167,7 +167,8 @@ object EnumTypeSpecGenerator {
    *
    * NOTE: This excludes all systems that equals "http://unitsofmeasure.org" or start with "urn",
    * e.g. urn:ietf:bcp:13, urn:ietf:bcp:47,urn:iso:std:iso:4217 typically used for MIMETypes,
-   * Currency Code etc.
+   * Currency Code etc. The excluded ValueSets do not have a one-to-one mapping with CodeSystem, so
+   * we can't use them to generate enums.
    */
   private fun generateEnum(valueSet: ValueSet, codeSystemMap: Map<String, CodeSystem>): FhirEnum? {
     return valueSet.compose
@@ -245,12 +246,15 @@ object EnumTypeSpecGenerator {
    *    Example: "http://hl7.org/fhirpath/System.DateTime" → "DateTime"
    * 2. For special characters (>, <, >=, etc.), map them to descriptive names Example: ">" →
    *    "GreaterThan", "<" → "LessThan"
-   * 3. Replace all remaining non-alphanumeric characters with underscores Example: "some-value.123"
-   *    → "some_value_123"
-   * 4. If the string starts with a digit, prefix it with an underscore to make it a valid
-   *    identifier Example: "123test" → "_123test"
-   * 5. Apply PascalCase to each segment between underscores while preserving the underscores
-   *    Example: "test_value" → "Test_Value"
+   *
+   * 3.1. Replace all remaining non-alphanumeric characters with underscores Example:
+   * "some-value.123" → "some_value_123"
+   *
+   * 3.2. If the string starts with a digit, prefix it with an underscore to make it a valid
+   * identifier Example: "123test" → "_123test"
+   *
+   * 3.3. Apply PascalCase to each segment between underscores while preserving the underscores
+   * Example: "test_value" → "Test_Value"
    *
    * @return A valid Kotlin enum constant name
    */
@@ -261,8 +265,8 @@ object EnumTypeSpecGenerator {
     when (this) {
       ">" -> return "GreaterThan"
       "<" -> return "LessThan"
-      ">=" -> return "GreaterOrEquals"
-      "<=" -> return "LessOrEquals"
+      ">=" -> return "GreaterThanOrEquals"
+      "<=" -> return "LessThanOrEquals"
       "<>",
       "!=" -> return "NotEquals"
       "=" -> return "Equals"
@@ -281,8 +285,8 @@ object EnumTypeSpecGenerator {
       } else {
         withUnderscores
       }
-
-    val parts = prefixed.split("_")
-    return parts.joinToString("_") { part -> if (part.isEmpty()) "" else part.toPascalCase() }
+    return prefixed.split("_").joinToString("_") { part ->
+      if (part.isEmpty()) "" else part.toPascalCase()
+    }
   }
 }
