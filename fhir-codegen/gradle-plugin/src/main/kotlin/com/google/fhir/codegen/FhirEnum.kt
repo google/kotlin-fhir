@@ -16,15 +16,11 @@
 
 package com.google.fhir.codegen
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class FhirEnum(
   val description: String? = null,
   val constants: List<FhirEnumConstant> = emptyList(),
-) {}
+)
 
-@Serializable
 data class FhirEnumConstant(
   val code: String,
   val system: String,
