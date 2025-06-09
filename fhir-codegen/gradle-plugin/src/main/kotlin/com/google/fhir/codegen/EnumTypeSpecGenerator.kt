@@ -174,19 +174,16 @@ object EnumTypeSpecGenerator {
     return valueSet.compose
       ?.include
       ?.filter { it.isValueSystemSupported() }
-      ?.let {
-        val enumConstants = mutableListOf<FhirEnumConstant>()
-        for (include in it) {
-          val system = include.system!!
-          val codeSystem = codeSystemMap[system]
-
-          generateEnumConstants(
-            system = system,
-            codeSystemConcepts = codeSystem?.concept,
-            valueSetConcepts = include.concept,
-            enumConstants = enumConstants,
-          )
-        }
+      ?.let { includes ->
+        val enumConstants =
+          includes.flatMap { include ->
+            val system = include.system!!
+            generateEnumConstants(
+              system = system,
+              codeSystemConcepts = codeSystemMap[system]?.concept,
+              valueSetConcepts = include.concept,
+            )
+          }
         return FhirEnum(valueSet.description, enumConstants)
       }
   }
@@ -195,45 +192,46 @@ object EnumTypeSpecGenerator {
     system: String,
     codeSystemConcepts: List<Concept>?,
     valueSetConcepts: List<Concept>?,
-    enumConstants: MutableList<FhirEnumConstant>,
-  ) {
-    if (!codeSystemConcepts.isNullOrEmpty() && !valueSetConcepts.isNullOrEmpty()) {
-      val expectedCodesSet = valueSetConcepts.mapTo(hashSetOf()) { it.code }
-      generateNestedEnumConstants(valueSetConcepts, system, enumConstants, expectedCodesSet)
-    } else if (!valueSetConcepts.isNullOrEmpty() && codeSystemConcepts.isNullOrEmpty()) {
-      generateNestedEnumConstants(valueSetConcepts, system, enumConstants, null)
-    } else if (!codeSystemConcepts.isNullOrEmpty() && valueSetConcepts.isNullOrEmpty()) {
-      generateNestedEnumConstants(codeSystemConcepts, system, enumConstants, null)
+  ): List<FhirEnumConstant> {
+    return when {
+      !codeSystemConcepts.isNullOrEmpty() && !valueSetConcepts.isNullOrEmpty() -> {
+        val expectedCodesSet = valueSetConcepts.mapTo(hashSetOf()) { it.code }
+        valueSetConcepts.flatMap { processConcept(it, system, expectedCodesSet) }
+      }
+      !valueSetConcepts.isNullOrEmpty() && codeSystemConcepts.isNullOrEmpty() ->
+        valueSetConcepts.flatMap { processConcept(it, system, null) }
+
+      !codeSystemConcepts.isNullOrEmpty() && valueSetConcepts.isNullOrEmpty() ->
+        codeSystemConcepts.flatMap { processConcept(it, system, null) }
+      else -> emptyList()
     }
   }
 
-  private fun generateNestedEnumConstants(
-    concepts: List<Concept>,
+  private fun processConcept(
+    concept: Concept,
     system: String,
-    enumConstants: MutableList<FhirEnumConstant>,
     expectedCodesSet: Set<String>?,
-  ) {
-    val arrayDeque: ArrayDeque<Concept> = ArrayDeque(concepts)
+  ): List<FhirEnumConstant> {
+    val name = concept.code.formatEnumConstantName()
+    val include = expectedCodesSet?.contains(concept.code) != false
+    val result = mutableListOf<FhirEnumConstant>()
 
-    while (arrayDeque.isNotEmpty()) {
-      val currentConcept = arrayDeque.removeFirst()
-      val name = currentConcept.code.formatEnumConstantName()
-      val include = expectedCodesSet?.contains(currentConcept.code) != false
-      if (name.isNotBlank() && include) {
-        val fhirEnumConstant =
-          FhirEnumConstant(
-            code = currentConcept.code,
-            system = system,
-            name = name,
-            display = currentConcept.display,
-            definition = currentConcept.definition,
-          )
-        enumConstants.add(fhirEnumConstant)
-      }
-      if (!currentConcept.concept.isNullOrEmpty() && include) {
-        arrayDeque.addAll(currentConcept.concept)
-      }
+    if (name.isNotBlank() && include) {
+      result.add(
+        FhirEnumConstant(
+          code = concept.code,
+          system = system,
+          name = name,
+          display = concept.display,
+          definition = concept.definition,
+        )
+      )
     }
+
+    if (!concept.concept.isNullOrEmpty() && include) {
+      result.addAll(concept.concept.flatMap { processConcept(it, system, expectedCodesSet) })
+    }
+    return result
   }
 
   /**
