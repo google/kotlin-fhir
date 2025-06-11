@@ -198,16 +198,10 @@ inherits from `DomainResource`, which inherits from `Resource`.
 ### Mapping FHIR ValueSets to Kotlin Enums
 The constants in the generated Kotlin `enum` classes are derived from the `code` property of concepts defined in FHIR `CodeSystem` and `ValueSet` resources.
 
-#### Location of Enums
-
-- **Shared enums** are placed in the package:  
-  `com.google.fhir.model.<r4|r4b|r5>`
-- **Local enums** are generated within the parent class when not intended for reuse.
-
 #### Shared vs. Local Enums
 
-- If the `StructureDefinition` defines an element with a **common binding**, a **shared enum** is generated.  
-  **Example:** `AdministrativeGender`
+- If the `StructureDefinition` defines an element with a **common binding**, a **shared enum** is generated and placed in the `com.google.fhir.model.<r4|r4b|r5>` package.  
+  **Example:** `AdministrativeGender` 
 - If the element uses a **non-common binding**, a **local enum** is created inside the associated parent class.  
   **Example:** `NameUse` inside the `HumanName` class
 
@@ -225,23 +219,23 @@ The constants in the generated Kotlin `enum` classes are derived from the `code`
 To comply with Kotlin’s enum naming convention—which requires names to start with a letter and avoid special characters—each code is transformed using a set of formatting rules. 
 This includes handling numeric codes,special characters, and FHIR URLs. After all transformations, the final name is converted to PascalCase to match Kotlin style guidelines.
 
-| Rule # | Description                                                                                   | Example Input                             | Example Output        | FHIR CodeSystem with example input                                                 |
-|--------|-----------------------------------------------------------------------------------------------|-------------------------------------------|-----------------------|------------------------------------------------------------------------------------|
-| 1      | For codes that are full URLs, extract and return the last segment after the slash             | `http://hl7.org/fhirpath/System.DateTime` | `DateTime`            | `CodeSystem-fhirpath-types.json` e.g. code: http://hl7.org/fhirpath/System.Integer |
-| 2      | Specific special characters are replaced with readable keywords                               | `>=`                                      | `GreaterThanOrEquals` | `CodeSystem-quantity-comparator.json` e.g. codes `<`, `>=`, `>=` and `>`           |
-|        |                                                                                               | `>`                                       | `GreaterThan`         |                                                                                    |
-|        |                                                                                               | `<`                                       | `LessThan`            |                                                                                    |
-|        |                                                                                               | `<=`                                      | `LessThanOrEquals`    |                                                                                    |
-|        |                                                                                               | `!=` or `<>`                              | `NotEquals`           |                                                                                    |
-|        |                                                                                               | `=`                                       | `Equals`              |                                                                                    |
-|        |                                                                                               | `*`                                       | `Multiply`            |                                                                                    |
-|        |                                                                                               | `+`                                       | `Plus`                |                                                                                    |
-|        |                                                                                               | `-`                                       | `Minus`               |                                                                                    |
-|        |                                                                                               | `/`                                       | `Divide`              |                                                                                    |
-|        |                                                                                               | `%`                                       | `Percent`             |                                                                                    |
-| 3.1    | Replace all non-alphanumeric characters including dashes (`-`) and dots (`.`) with underscore | `4.0.1`                                   | `4_0_1`               | `CodeSystem-FHIR-version.json` e.g. code: `4.0.1`,                                 |
-| 3.2    | Prefix codes starting with a digit with an underscore                                         | `4.0.1`                                   | `_4_0_1`              | `CodeSystem-FHIR-version.json` e.g. code: `4.0.1`,                                 |
-| 3.3    | Apply PascalCase to each segment between underscores while preserving the underscores         | `pre-op`                                  | `Pre_Op`              | `CodeSystem-diagnosis-role.json` e.g. codes: `pre-op` and `post-op`                |
+| Rule # | Description                                                                                   | Example Input                                                                                                                     | Example Output        |
+|--------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+| 1      | For codes that are full URLs, extract and return the last segment after the dot               | `http://hl7.org/fhirpath/System.DateTime` from [CodeSystem-fhirpath-types](http://hl7.org/fhir/R5/codesystem-fhirpath-types.html) | `DateTime`            |
+| 2      | Specific special characters are replaced with readable keywords                               | `>=` from   [CodeSystem-quantity-comparator](http://hl7.org/fhir/R5/codesystem-quantity-comparator.html)                          | `GreaterThanOrEquals` |
+|        |                                                                                               | `>`                                                                                                                               | `GreaterThan`         |
+|        |                                                                                               | `<`                                                                                                                               | `LessThan`            |
+|        |                                                                                               | `<=`                                                                                                                              | `LessThanOrEquals`    |
+|        |                                                                                               | `!=` or `<>`                                                                                                                      | `NotEquals`           |
+|        |                                                                                               | `=`                                                                                                                               | `Equals`              |
+|        |                                                                                               | `*`                                                                                                                               | `Multiply`            |
+|        |                                                                                               | `+`                                                                                                                               | `Plus`                |
+|        |                                                                                               | `-`                                                                                                                               | `Minus`               |
+|        |                                                                                               | `/`                                                                                                                               | `Divide`              |
+|        |                                                                                               | `%`                                                                                                                               | `Percent`             |
+| 3.1    | Replace all non-alphanumeric characters including dashes (`-`) and dots (`.`) with underscore | `4.0.1` from [CodeSystem-FHIR-version](http://hl7.org/fhir/R5/codesystem-FHIR-version.html)                                       | `4_0_1`               |
+| 3.2    | Prefix codes starting with a digit with an underscore                                         | `4.0.1` from [CodeSystem-FHIR-version](http://hl7.org/fhir/R5/codesystem-FHIR-version.html)                                       | `_4_0_1`              |
+| 3.3    | Apply PascalCase to each segment between underscores while preserving the underscores         | `entered-in-error` from [CodeSystem-document-reference-status](http://hl7.org/fhir/R5/codesystem-document-reference-status.html)  | `Entered_In_Error`    |
 
 ### Mapping FHIR JSON representation to Kotlin
 
