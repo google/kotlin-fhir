@@ -17,13 +17,11 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.primitives.FhirPathType
-import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
-import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getExtension
 import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.isCommonBinding
@@ -389,18 +387,16 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
 
 private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
   val elementBasePath: String? = base?.path
-  val bindingNameExt = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-  val commonBindingExt = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
-  val bindingNameString = bindingNameExt?.valueString?.toPascalCase()
+  val bindingNameString = this.bidingName?.toPascalCase()
   val enumClassName =
     if (path != elementBasePath && !elementBasePath.isNullOrBlank())
       "${elementBasePath.substringBefore(".")}.$bindingNameString"
     else bindingNameString
   val enumClassPackageName =
-    if (commonBindingExt?.isCommonBinding() == true || enumClassName?.contains(".") == true) {
+    if (this.isCommonBinding || enumClassName?.contains(".") == true) {
       modelClassName.packageName
     } else {
-      // Use qualified import
+      // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
       modelClassName.packageName + "." + modelClassName.simpleNames.first()
     }
   val enumClass = ClassName(enumClassPackageName, enumClassName!!)

@@ -17,15 +17,13 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.CodeSystem
-import com.google.fhir.codegen.schema.ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL
-import com.google.fhir.codegen.schema.ELEMENT_IS_COMMON_BINDING_EXTENSION_URL
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.backboneElements
+import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
-import com.google.fhir.codegen.schema.getExtension
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.hasPrimaryConstructor
@@ -184,11 +182,7 @@ object ModelTypeSpecGenerator {
           }
 
           enumClassesMap.forEach {
-            // In some cases the model may share name with enum class
-            val enumClassName =
-              if (modelClassName.simpleNames.any { name -> name == it.key }) "${it.key}Enum"
-              else it.key
-            modelClassName.nestedClass(enumClassName)
+            modelClassName.nestedClass(it.key)
             addType(it.value)
           }
         }
@@ -205,13 +199,11 @@ private fun TypeSpec.Builder.generateEnumClasses(
   enumClassesMap: MutableMap<String, TypeSpec>,
 ): TypeSpec.Builder {
   for (element in elements) {
-    val commonBindingExt = element.getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
-    val bindingNameExt = element.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-    val bindingName = bindingNameExt?.valueString?.toPascalCase()
-    val isCommonBinding = commonBindingExt?.isCommonBinding()
+    val bindingName = element.bidingName?.toPascalCase()
+    val isCommonBinding = element.isCommonBinding
     val valueSetUrl = element.getValueSetUrl()
     if (valueSetUrl.isNullOrBlank()) continue
-    if (element.typeIsEnumeratedCode(valueSetMap) && isCommonBinding != true) {
+    if (element.typeIsEnumeratedCode(valueSetMap) && !isCommonBinding) {
       val valueSet = valueSetMap[valueSetUrl]
       if (valueSet != null) {
         val typeSpec = EnumTypeSpecGenerator.generate(bindingName!!, valueSet, codeSystemMap)
@@ -221,7 +213,7 @@ private fun TypeSpec.Builder.generateEnumClasses(
       }
     }
     // Track ValueSet urls and binding names
-    if (isCommonBinding == true) {
+    if (isCommonBinding) {
       commonBindingValueSetUrls.getOrPut(valueSetUrl) { hashSetOf() }.apply { add(bindingName!!) }
     }
   }
@@ -315,27 +307,22 @@ private fun TypeSpec.Builder.buildProperties(
 }
 
 /**
- * Substitute the primitive type of code with an `Enumeration` type if the values for the code are
+ * Substitutes the primitive type of code with an `Enumeration` type if the values for the code are
  * constrained to a set of values.
  */
 private fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName {
   // Ignore all base.path starting with "Resource."
   val elementBasePath = base?.path
-  val bindingNameExt = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-
   // Use bindingName for the enum class, subclasses re-use enums from the parent
-  val bindingNameString = bindingNameExt?.valueString?.toPascalCase()
+  val bindingNameString = this.bidingName?.toPascalCase()
 
   val enumClassName =
     if (path != elementBasePath) "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"
     else bindingNameString
 
   if (!enumClassName.isNullOrBlank()) {
-    val commonBindingExt = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)
     val enumClassPackageName =
-      if (commonBindingExt?.isCommonBinding() == true || enumClassName.contains("."))
-        modelClassName.packageName
-      else ""
+      if (this.isCommonBinding || enumClassName.contains(".")) modelClassName.packageName else ""
 
     val enumClass = ClassName(enumClassPackageName, enumClassName)
     val enumerationClassName =

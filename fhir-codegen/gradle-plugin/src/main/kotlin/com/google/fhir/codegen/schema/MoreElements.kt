@@ -23,8 +23,17 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asTypeName
 import org.gradle.configurationcache.extensions.capitalized
 
+const val ELEMENT_IS_COMMON_BINDING_EXTENSION_URL =
+  "http://hl7.org/fhir/StructureDefinition/elementdefinition-isCommonBinding"
+
 const val ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL =
   "http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName"
+
+val Element.isCommonBinding
+  get() = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)?.valueBoolean == true
+
+val Element.bidingName
+  get() = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)?.valueString
 
 /**
  * Determines if an [Element] is a BackboneElement.
@@ -42,7 +51,7 @@ fun Element.isBackboneElement(): Boolean {
 }
 
 /** Retrieves an [Extension] with the provided url otherwise return `null` */
-fun Element.getExtension(withUrl: String): Extension? {
+private fun Element.getExtension(withUrl: String): Extension? {
   if (binding == null || binding.extension.isNullOrEmpty()) return null
   return binding.extension.find { it.url == withUrl }
 }
