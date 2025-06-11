@@ -19,7 +19,20 @@ package com.google.fhir.codegen.schema
 val ValueSet.urlPart
   get() = url.substringBeforeLast("|")
 
-fun Include.isValueSystemSupported(): Boolean =
-  !system.isNullOrBlank() &&
+/** Checks if the [Include] contains supported system definitions */
+fun Include.isValueSystemSupported(): Boolean {
+  return !system.isNullOrBlank() &&
+    // The urn systems are excluded because they are not urls for CodeSystems
+    // The current implementation relies on the system to identify the CodeSystem
+    // For example in ValueSet-administrative gender the system included is
+    // http://hl7.org/fhir/administrative-gender which is the url for the
+    // CodeSystem-administrative-gender which contains concepts required to
+    // generate enum constants
     !system.startsWith("urn", ignoreCase = true) &&
-    system !in setOf("http://hl7.org/fhir/specimen-combined", "http://unitsofmeasure.org")
+    // This is excluded because there is no CodeSystem with this url
+    system != "http://unitsofmeasure.org" &&
+    // TODO To be investigated: There is a conflict in the concepts used for generating
+    //  for the enum identified by binding name PublicationStatus generated from
+    //  this ValueSet.
+    system != "http://hl7.org/fhir/specimen-combined"
+}

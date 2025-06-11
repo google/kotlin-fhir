@@ -19,9 +19,6 @@ package com.google.fhir.codegen.schema
 import com.squareup.kotlinpoet.ClassName
 import org.gradle.configurationcache.extensions.capitalized
 
-const val ELEMENT_IS_COMMON_BINDING_EXTENSION_URL =
-  "http://hl7.org/fhir/StructureDefinition/elementdefinition-isCommonBinding"
-
 val StructureDefinition.rootElements
   get() =
     snapshot?.element?.filter { it.id.matches("$name\\.[A-Za-z0-9]+(\\[x])?".toRegex()) }

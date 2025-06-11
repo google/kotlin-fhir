@@ -28,9 +28,8 @@ fun String.sanitizeKDoc(): String {
 }
 
 /**
- * Formats the string by replacing all non-alphanumeric-characters with an empty string and
- * capitalize the first character. Example: v3.ObservationInterpretation ->
- * V3ObservationInterpretation
+ * Formats the string by removing all non-alphanumeric-characters and capitalizing the first
+ * character. Example: v3.ObservationInterpretation -> V3ObservationInterpretation
  */
 fun String.toPascalCase(): String {
   val camelCaseString =

@@ -18,6 +18,10 @@ package com.google.fhir.codegen.schema
 
 import kotlinx.serialization.Serializable
 
+/**
+ * This structure is shared between ValueSet and CodeSystem to simplify processing and reduce
+ * duplication.
+ */
 @Serializable
 data class Concept(
   val code: String,
