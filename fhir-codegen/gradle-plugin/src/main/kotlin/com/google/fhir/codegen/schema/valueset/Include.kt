@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.fhir.codegen.schema
+package com.google.fhir.codegen.schema.valueset
 
 import kotlinx.serialization.Serializable
 
-/**
- * This structure is shared between ValueSet and CodeSystem to simplify processing and reduce
- * duplication.
- */
-@Serializable
-data class Concept(
-  val code: String,
-  val display: String? = null,
-  val definition: String? = null,
-  val concept: List<Concept>? = null,
-)
+@Serializable data class Include(val system: String? = null, val concept: List<Concept>? = null)

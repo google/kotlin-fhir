@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.fhir.codegen.schema
+package com.google.fhir.codegen.schema.valueset
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ValueSet(
-  val id: String,
-  val url: String,
-  val name: String,
-  val description: String? = null,
-  val compose: Compose? = null,
-)
-
-@Serializable data class Compose(val include: List<Include>)
-
-@Serializable data class Include(val system: String? = null, val concept: List<Concept>? = null)
+data class Concept(val code: String, val display: String? = null, val definition: String? = null)
