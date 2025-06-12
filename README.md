@@ -53,7 +53,7 @@ as well as a subset of
 | macosArm64         | `-macosarm64`        | ⛔       |
 | iosSimulatorArm64  | `-iossimulatorarm64` | ✅       |
 | iosX64             | `-iosx64`            | ✅       |
-| iosArm64           | `-iosarm64`         | ✅       |
+| iosArm64           | `-iosarm64`          | ✅       |
 
 The library does not support `macos` targets in the tier 1 list, or any
 [tier2](https://kotlinlang.org/docs/native-target-support.html#tier-2) and
