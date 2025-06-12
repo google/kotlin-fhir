@@ -16,6 +16,9 @@
 
 package com.google.fhir.codegen.schema
 
+import com.google.fhir.codegen.schema.valueset.Include
+import com.google.fhir.codegen.schema.valueset.ValueSet
+
 val ValueSet.urlPart
   get() = url.substringBeforeLast("|")
 

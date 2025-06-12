@@ -19,14 +19,15 @@ package com.google.fhir.codegen
 import com.google.fhir.codegen.primitives.FhirPathType
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.Type
-import com.google.fhir.codegen.schema.ValueSet
 import com.google.fhir.codegen.schema.bidingName
+import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.toPascalCase
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -35,7 +36,6 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import kotlinx.serialization.Serializable
-import org.gradle.configurationcache.extensions.capitalized
 
 /**
  * Generates a [TypeSpec] for a surrogate class.
@@ -47,13 +47,9 @@ import org.gradle.configurationcache.extensions.capitalized
  * See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
-object SurrogateTypeSpecGenerator {
+class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
 
-  fun generate(
-    modelClassName: ClassName,
-    elements: List<Element>,
-    valueSetMap: Map<String, ValueSet>,
-  ): TypeSpec {
+  fun generate(modelClassName: ClassName, elements: List<Element>): TypeSpec {
     val typeSpec =
       TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
         .apply {

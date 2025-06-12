@@ -16,12 +16,13 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.schema.CodeSystem
-import com.google.fhir.codegen.schema.Concept
-import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.codesystem.CodeSystem
+import com.google.fhir.codegen.schema.codesystem.Concept as CodeSystemConcept
 import com.google.fhir.codegen.schema.isValueSystemSupported
 import com.google.fhir.codegen.schema.sanitizeKDoc
 import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.valueset.Concept as ValueSystemConcept
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
@@ -35,13 +36,9 @@ import com.squareup.kotlinpoet.asClassName
  * Each generated enum class will contain the methods for retrieving the code, system, display and
  * definition of each `Enum` class constant.
  */
-object EnumTypeSpecGenerator {
+class EnumTypeSpecGenerator(val codeSystemMap: Map<String, CodeSystem>) {
 
-  fun generate(
-    enumClassName: String,
-    valueSet: ValueSet,
-    codeSystemMap: Map<String, CodeSystem>,
-  ): TypeSpec? {
+  fun generate(enumClassName: String, valueSet: ValueSet): TypeSpec? {
     val fhirEnum = generateEnum(valueSet, codeSystemMap) ?: return null
     val typeSpec =
       TypeSpec.enumBuilder(enumClassName)
@@ -194,48 +191,48 @@ object EnumTypeSpecGenerator {
 
   private fun generateEnumConstants(
     system: String,
-    codeSystemConcepts: List<Concept>?,
-    valueSetConcepts: List<Concept>?,
+    codeSystemConcepts: List<CodeSystemConcept>?,
+    valueSetConcepts: List<ValueSystemConcept>?,
   ): List<FhirEnumConstant> {
-    return when {
-      !codeSystemConcepts.isNullOrEmpty() && !valueSetConcepts.isNullOrEmpty() -> {
-        val expectedCodesSet = valueSetConcepts.mapTo(hashSetOf()) { it.code }
-        valueSetConcepts.flatMap { processConcept(it, system, expectedCodesSet) }
-      }
-      !valueSetConcepts.isNullOrEmpty() && codeSystemConcepts.isNullOrEmpty() ->
-        valueSetConcepts.flatMap { processConcept(it, system) }
-
-      !codeSystemConcepts.isNullOrEmpty() && valueSetConcepts.isNullOrEmpty() ->
-        codeSystemConcepts.flatMap { processConcept(it, system) }
-      else -> emptyList()
-    }
-  }
-
-  private fun processConcept(
-    concept: Concept,
-    system: String,
-    expectedCodesSet: Set<String>? = null,
-  ): List<FhirEnumConstant> {
-    val name = concept.code.formatEnumConstantName()
-    val include = expectedCodesSet?.contains(concept.code) != false
-    if (!include || name.isBlank()) {
-      return emptyList()
-    }
-    return listOf(
+    val valueSetConceptCodeSet = valueSetConcepts?.mapTo(hashSetOf()) { it.code } ?: emptySet()
+    return if (valueSetConceptCodeSet.isNotEmpty()) {
+      flattenCodeSystemConcepts(codeSystemConcepts)
+        .filter { valueSetConceptCodeSet.contains(it.code) }
+        .map { concept ->
+          FhirEnumConstant(
+            code = concept.code,
+            system = system,
+            name = concept.code.formatEnumConstantName(),
+            display = concept.display,
+            definition = concept.definition,
+          )
+        }
+    } else
+      flattenCodeSystemConcepts(codeSystemConcepts).map { concept ->
         FhirEnumConstant(
           code = concept.code,
           system = system,
-          name = name,
+          name = concept.code.formatEnumConstantName(),
           display = concept.display,
           definition = concept.definition,
         )
-      )
-      .plus(
-        concept.concept
-          ?.takeIf { it.isNotEmpty() }
-          ?.flatMap { processConcept(it, system, expectedCodesSet) } ?: emptyList()
-      )
+      }
   }
+
+  /**
+   * Flattens a list of Concept objects, including all nested concepts, into a single, flat list.
+   */
+  private fun flattenCodeSystemConcepts(
+    concepts: List<CodeSystemConcept>?
+  ): List<CodeSystemConcept> =
+    concepts?.flatMap { currentConcept ->
+      buildList {
+        add(currentConcept)
+        currentConcept.concept?.let { nestedConcepts ->
+          addAll(flattenCodeSystemConcepts(nestedConcepts))
+        }
+      }
+    } ?: emptyList()
 
   /**
    * Transforms a FHIR code into a valid Kotlin enum constant name.
@@ -281,7 +278,7 @@ object EnumTypeSpecGenerator {
     val withUnderscores = this.replace(Regex("[^a-zA-Z0-9]"), "_")
 
     val prefixed =
-      if (withUnderscores.isNotEmpty() && withUnderscores[0].isDigit()) {
+      if (withUnderscores.isNotEmpty() && withUnderscores.first().isDigit()) {
         "_$withUnderscores"
       } else {
         withUnderscores

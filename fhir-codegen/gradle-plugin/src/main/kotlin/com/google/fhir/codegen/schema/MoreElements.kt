@@ -17,11 +17,11 @@
 package com.google.fhir.codegen.schema
 
 import com.google.fhir.codegen.primitives.FhirPathType
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asTypeName
-import org.gradle.configurationcache.extensions.capitalized
 
 const val ELEMENT_IS_COMMON_BINDING_EXTENSION_URL =
   "http://hl7.org/fhir/StructureDefinition/elementdefinition-isCommonBinding"
@@ -57,8 +57,9 @@ private fun Element.getExtension(withUrl: String): Extension? {
 }
 
 /**
- * Retrieves the [ValueSet.url] from the [Element]. Extracts the URI part from the set url excluding
- * the FHIR versions E.g. http://hl7.org/fhir/ValueSet/task-status|4.3.0, will return
+ * Retrieves the [com.google.fhir.codegen.schema.valueset.ValueSet.url] from the [Element]. Extracts
+ * the URI part from the set url excluding the FHIR versions E.g.
+ * http://hl7.org/fhir/ValueSet/task-status|4.3.0, will return
  * "http://hl7.org/fhir/ValueSet/task-status"
  */
 fun Element.getValueSetUrl() = this.binding?.valueSet?.substringBeforeLast("|")

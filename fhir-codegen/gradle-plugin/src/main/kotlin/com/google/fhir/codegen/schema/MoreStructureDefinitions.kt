@@ -17,7 +17,6 @@
 package com.google.fhir.codegen.schema
 
 import com.squareup.kotlinpoet.ClassName
-import org.gradle.configurationcache.extensions.capitalized
 
 val StructureDefinition.rootElements
   get() =

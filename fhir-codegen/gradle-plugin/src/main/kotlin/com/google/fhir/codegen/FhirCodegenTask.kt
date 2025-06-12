@@ -21,11 +21,12 @@ import com.google.fhir.codegen.primitives.EnumerationFileSpecGenerator
 import com.google.fhir.codegen.primitives.FhirDateFileSpecGenerator
 import com.google.fhir.codegen.primitives.FhirDateTimeFileSpecGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
-import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
-import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.codesystem.CodeSystem
 import com.google.fhir.codegen.schema.toPascalCase
 import com.google.fhir.codegen.schema.urlPart
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import java.io.File
@@ -41,7 +42,6 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
-import org.gradle.configurationcache.extensions.capitalized
 
 @CacheableTask
 abstract class FhirCodegenTask : DefaultTask() {
@@ -187,7 +187,7 @@ abstract class FhirCodegenTask : DefaultTask() {
         // Create enums for a ValueSet that's used by several common binding names
         if (commonBindingNames != null) {
           commonBindingNames.forEach { name ->
-            val enumTypeSpec = EnumTypeSpecGenerator.generate(name, valueSet, codeSystemMap)
+            val enumTypeSpec = EnumTypeSpecGenerator(codeSystemMap).generate(name, valueSet)
             if (enumTypeSpec != null) {
               FileSpec.builder(packageName = packageName, fileName = name)
                 .addType(enumTypeSpec)
@@ -196,7 +196,7 @@ abstract class FhirCodegenTask : DefaultTask() {
             }
           }
         } else {
-          val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet, codeSystemMap)
+          val enumTypeSpec = EnumTypeSpecGenerator(codeSystemMap).generate(valueSetName, valueSet)
           if (enumTypeSpec != null) {
             FileSpec.builder(packageName = packageName, fileName = valueSetName)
               .addType(enumTypeSpec)

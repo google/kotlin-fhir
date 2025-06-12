@@ -16,16 +16,16 @@
 
 package com.google.fhir.codegen
 
-import com.google.fhir.codegen.schema.CodeSystem
 import com.google.fhir.codegen.schema.StructureDefinition
-import com.google.fhir.codegen.schema.ValueSet
+import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.codesystem.CodeSystem
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import kotlinx.serialization.UseSerializers
-import org.gradle.configurationcache.extensions.capitalized
 
 /**
  * Generates [FileSpec]s for a given FHIR StructureDefinition.
@@ -64,16 +64,14 @@ object FhirCodegen {
       mutableListOf(
         modelFileSpec
           .addType(
-            ModelTypeSpecGenerator.generate(
-              modelClassName,
-              structureDefinition,
-              isBaseClass,
-              surrogateFileSpec,
-              serializerFileSpec,
-              valueSetMap = valueSetMap,
-              codeSystemMap = codeSystemMap,
-              commonBindingValueSetUrls = commonBindingValueSetUrls,
-            )
+            ModelTypeSpecGenerator(valueSetMap, codeSystemMap, commonBindingValueSetUrls)
+              .generate(
+                modelClassName,
+                structureDefinition,
+                isBaseClass,
+                surrogateFileSpec,
+                serializerFileSpec,
+              )
           )
           .addSuppressAnnotation()
           .build()
@@ -86,11 +84,11 @@ object FhirCodegen {
       fileSpecs +=
         surrogateFileSpec
           .addType(
-            SurrogateTypeSpecGenerator.generate(
-              ClassName(packageName, structureDefinition.name),
-              structureDefinition.rootElements,
-              valueSetMap,
-            )
+            SurrogateTypeSpecGenerator(valueSetMap)
+              .generate(
+                ClassName(packageName, structureDefinition.name),
+                structureDefinition.rootElements,
+              )
           )
           .addAnnotation(
             AnnotationSpec.builder(UseSerializers::class)
