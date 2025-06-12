@@ -25,17 +25,13 @@ val ValueSet.urlPart
 /** Checks if the [Include] contains supported system definitions */
 fun Include.isValueSystemSupported(): Boolean {
   return !system.isNullOrBlank() &&
-    // The urn systems are excluded because they are not urls for CodeSystems
-    // The current implementation relies on the system to identify the CodeSystem
-    // For example in ValueSet-administrative gender the system included is
-    // http://hl7.org/fhir/administrative-gender which is the url for the
-    // CodeSystem-administrative-gender which contains concepts required to
-    // generate enum constants
+    // URN systems are excluded because they are not URLs pointing to actual CodeSystems.
+    // The current implementation uses the system URL to identify the corresponding CodeSystem.
+    // For example, in ValueSet-administrative-gender, the system is:
+    // http://hl7.org/fhir/administrative-gender
+    // This URL corresponds to the CodeSystem-administrative-gender, which contains
+    // the concepts needed to generate enum constants.
     !system.startsWith("urn", ignoreCase = true) &&
-    // This is excluded because there is no CodeSystem with this url
-    system != "http://unitsofmeasure.org" &&
-    // TODO To be investigated: There is a conflict in the concepts used for generating
-    //  for the enum identified by binding name PublicationStatus generated from
-    //  this ValueSet.
-    system != "http://hl7.org/fhir/specimen-combined"
+    // This URL is excluded because it does not point to a CodeSystem
+    system != "http://unitsofmeasure.org"
 }
