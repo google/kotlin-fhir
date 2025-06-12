@@ -16,8 +16,6 @@
 
 package com.google.fhir.codegen.schema
 
-import org.gradle.configurationcache.extensions.capitalized
-
 /**
  * Sanitizes the string for KDoc, replacing character sequences that could break the comment block.
  *
@@ -31,23 +29,10 @@ fun String.sanitizeKDoc(): String {
  * Formats the string by removing all non-alphanumeric-characters and capitalizing the first
  * character. Example: v3.ObservationInterpretation -> V3ObservationInterpretation
  */
-fun String.toPascalCase(): String {
-  val camelCaseString =
-    split("-").joinToString("") { it ->
-      it.replaceFirstChar { char ->
-        if (it.indexOf(char) == 0) {
-          char.uppercaseChar()
-        } else {
-          char
-        }
-      }
-    }
+fun String.toPascalCase() =
+  this.split(Regex("[^a-zA-Z0-9]+"))
+    .filter { it.isNotEmpty() }
+    .joinToString("") { it.lowercase().capitalized() }
 
-  // For consistency convert all uppercase word to lowercase then capitalize
-  val formattedString =
-    if (camelCaseString.all { it.isUpperCase() }) camelCaseString.lowercase().capitalized()
-    else camelCaseString
-
-  val alphanumericString = formattedString.replace(Regex("[^a-zA-Z0-9]+"), "")
-  return alphanumericString
-}
+/** Converts the firs character of a string to uppercase */
+fun String.capitalized() = this.replaceFirstChar(Char::uppercaseChar)
