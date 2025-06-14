@@ -33,5 +33,10 @@ fun Include.isValueSystemSupported(): Boolean {
     // the concepts needed to generate enum constants.
     !system.startsWith("urn", ignoreCase = true) &&
     // This URL is excluded because it does not point to a CodeSystem
-    system != "http://unitsofmeasure.org"
+    system != "http://unitsofmeasure.org" &&
+    // This is excluded to avoid generating conflicting enum classes because the binding name
+    // ("PublicationStatus") is already associated with the system
+    // at http://hl7.org/fhir/publication-status. In this case, two common binding elements
+    // reference different ValueSets, should this happen?
+    system != "http://hl7.org/fhir/specimen-combined"
 }
