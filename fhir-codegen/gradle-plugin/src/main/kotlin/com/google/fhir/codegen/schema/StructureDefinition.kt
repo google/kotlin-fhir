@@ -65,6 +65,14 @@ data class Element(
   val isModifierReason: String? = null,
   val representation: List<String>? = null,
   val condition: List<String>? = null,
+  val binding: Binding? = null,
+)
+
+@Serializable
+data class Binding(
+  val extension: List<Extension>? = null,
+  val description: String? = null,
+  val valueSet: String? = null,
 )
 
 @Serializable data class Base(val path: String, val min: Int, val max: String)

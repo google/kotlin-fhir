@@ -16,6 +16,7 @@
 
 package com.google.fhir.codegen
 
+import com.google.fhir.codegen.schema.capitalized
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
@@ -36,7 +37,7 @@ import kotlinx.serialization.modules.SerializersModule
  */
 object MoreJsonBuilderFileSpecGenerator {
   fun generate(packageName: String, baseClass: ClassName, subclasses: List<ClassName>): FileSpec {
-    val fhirVersion = packageName.substringAfterLast('.').replaceFirstChar { it.uppercase() }
+    val fhirVersion = packageName.substringAfterLast('.').capitalized()
     val funName = "configure${fhirVersion}"
     val serializersModuleName = "serializersModule${fhirVersion}"
     return FileSpec.builder(packageName, "MoreJsonBuilder")
