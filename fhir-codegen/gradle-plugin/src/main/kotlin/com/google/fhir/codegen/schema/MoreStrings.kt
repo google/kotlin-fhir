@@ -26,13 +26,17 @@ fun String.sanitizeKDoc(): String {
 }
 
 /**
- * Formats the string by removing all non-alphanumeric-characters and capitalizing the first
- * character. Example: v3.ObservationInterpretation -> V3ObservationInterpretation
+ * Formats the string by removing all non-alphanumeric characters and capitalizing the first
+ * character. Example: "v3.ObservationInterpretation" becomes "V3ObservationInterpretation".
+ * Transformation is applied only if the string starts with a lowercase letter or is in all
+ * uppercase, to avoid modifying strings already in PascalCase.
  */
 fun String.toPascalCase() =
   this.split(Regex("[^a-zA-Z0-9]+"))
+    .asSequence()
     .filter { it.isNotEmpty() }
-    .joinToString("") { it.lowercase().capitalized() }
+    .map { if (it.all { letter -> letter.isUpperCase() }) it.lowercase() else it }
+    .joinToString("") { it.capitalized() }
 
 /** Converts the firs character of a string to uppercase */
 fun String.capitalized() = this.replaceFirstChar(Char::uppercaseChar)

@@ -72,6 +72,8 @@ abstract class FhirCodegenTask : DefaultTask() {
       definitionFiles.files.flatMap { file ->
         // Use structure definitions, value set and code system files
         // NB filtering by file name is only an approximation.
+        // To maintain consistency with HAPI FHIR's approach, v2 CodeSystem and ValueSet resources
+        // are excluded and will not be used in the enum code generation
         file.walkTopDown().filter {
           it.isFile &&
             (it.name.matches("StructureDefinition-[A-Za-z0-9]*\\.json".toRegex()) ||

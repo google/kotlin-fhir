@@ -195,10 +195,27 @@ class EnumTypeSpecGenerator(val codeSystemMap: Map<String, CodeSystem>) {
     valueSetConcepts: List<ValueSystemConcept>?,
   ): List<FhirEnumConstant> {
     val valueSetConceptCodeSet = valueSetConcepts?.mapTo(hashSetOf()) { it.code } ?: emptySet()
+    val flattenedCodeSystemConcepts = flattenCodeSystemConcepts(codeSystemConcepts)
+    // Select concepts for enum generation. Prefer flattened CodeSystem concepts filtered
+    // by codes present in the ValueSet. If no CodeSystem concepts exist, fall back to
+    // ValueSet concepts, which include only code and system—the key properties for enums.
+    // To address missing concepts in R4B and R5, we may need to add v3 CodeSystems like
+    // CodeSystem-v3-AdministrativeGender, which are present in R4 but absent in later versions.
     return if (valueSetConceptCodeSet.isNotEmpty()) {
-      flattenCodeSystemConcepts(codeSystemConcepts)
-        .filter { valueSetConceptCodeSet.contains(it.code) }
-        .map { concept ->
+      if (flattenedCodeSystemConcepts.isNotEmpty()) {
+        flattenedCodeSystemConcepts
+          .filter { valueSetConceptCodeSet.contains(it.code) }
+          .map { concept ->
+            FhirEnumConstant(
+              code = concept.code,
+              system = system,
+              name = concept.code.formatEnumConstantName(),
+              display = concept.display,
+              definition = concept.definition,
+            )
+          }
+      } else {
+        valueSetConcepts!!.map { concept ->
           FhirEnumConstant(
             code = concept.code,
             system = system,
@@ -207,8 +224,9 @@ class EnumTypeSpecGenerator(val codeSystemMap: Map<String, CodeSystem>) {
             definition = concept.definition,
           )
         }
+      }
     } else
-      flattenCodeSystemConcepts(codeSystemConcepts).map { concept ->
+      flattenedCodeSystemConcepts.map { concept ->
         FhirEnumConstant(
           code = concept.code,
           system = system,
