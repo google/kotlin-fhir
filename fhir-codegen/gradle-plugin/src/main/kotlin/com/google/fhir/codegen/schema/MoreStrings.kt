@@ -26,12 +26,22 @@ fun String.sanitizeKDoc(): String {
 }
 
 /**
- * Formats the string by removing all non-alphanumeric characters and capitalizing the first
- * character. Example: "v3.ObservationInterpretation" becomes "V3ObservationInterpretation".
- * Transformation is applied only if the string starts with a lowercase letter or is in all
- * uppercase, to avoid modifying strings already in PascalCase.
+ * Normalizes a string into PascalCase, making it suitable for enum class or constant names. It
+ * removes all non-alphanumeric characters and converts fully uppercase parts to lowercase before
+ * capitalizing them.
+ *
+ * Normalization is only applied if the input starts with a lowercase letter or is entirely
+ * uppercase—this preserves names that are already in valid PascalCase.
+ *
+ * Example:
+ *
+ *   ```
+ *   "v3.ObservationInterpretation" → "V3ObservationInterpretation"
+ *   "UNKNOWN" → "Unknown"
+ *   "AdministrativeGender" → "AdministrativeGender"
+ *   ```
  */
-fun String.toPascalCase() =
+fun String.normalizeEnumName() =
   this.split(Regex("[^a-zA-Z0-9]+"))
     .asSequence()
     .filter { it.isNotEmpty() }

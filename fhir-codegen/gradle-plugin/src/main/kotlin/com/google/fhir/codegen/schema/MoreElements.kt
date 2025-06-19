@@ -86,7 +86,7 @@ fun Element.typeIsEnumeratedCode(valueSetMap: Map<String, ValueSet>): Boolean {
     this.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
     !this.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
       ?.valueString
-      ?.toPascalCase()
+      ?.normalizeEnumName()
       .isNullOrBlank()
 }
 

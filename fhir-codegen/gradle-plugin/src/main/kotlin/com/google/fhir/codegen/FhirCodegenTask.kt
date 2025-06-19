@@ -24,7 +24,7 @@ import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.codesystem.CodeSystem
-import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.urlPart
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
@@ -183,7 +183,7 @@ abstract class FhirCodegenTask : DefaultTask() {
     valueSetMap.values
       .filter { commonBindingValueSetUrls.containsKey(it.urlPart) }
       .forEach { valueSet ->
-        val valueSetName = valueSet.name.toPascalCase()
+        val valueSetName = valueSet.name.normalizeEnumName()
         val commonBindingNames = commonBindingValueSetUrls[valueSet.urlPart]
 
         // Create enums for a ValueSet that's used by several common binding names

@@ -28,10 +28,10 @@ import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.hasPrimaryConstructor
 import com.google.fhir.codegen.schema.isCommonBinding
+import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.sanitizeKDoc
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
-import com.google.fhir.codegen.schema.toPascalCase
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.AnnotationSpec
@@ -271,7 +271,7 @@ class ModelTypeSpecGenerator(
     createValueSetUrlToBindingEntry: (String, String) -> Unit,
   ) {
     for (element in elements) {
-      val bindingName = element.bidingName?.toPascalCase()
+      val bindingName = element.bidingName?.normalizeEnumName()
       val isCommonBinding = element.isCommonBinding
       val valueSetUrl = element.getValueSetUrl()
       if (valueSetUrl.isNullOrBlank()) continue
@@ -383,7 +383,7 @@ private fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName 
   // Ignore all base.path starting with "Resource."
   val elementBasePath = base?.path
   // Use bindingName for the enum class, subclasses re-use enums from the parent
-  val bindingNameString = this.bidingName?.toPascalCase()
+  val bindingNameString = this.bidingName?.normalizeEnumName()
 
   val enumClassName =
     if (path != elementBasePath) "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"

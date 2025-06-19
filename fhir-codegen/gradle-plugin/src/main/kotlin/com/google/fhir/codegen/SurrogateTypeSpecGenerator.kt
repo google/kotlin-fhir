@@ -25,7 +25,7 @@ import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.isCommonBinding
-import com.google.fhir.codegen.schema.toPascalCase
+import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
@@ -383,7 +383,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
 
 private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
   val elementBasePath: String? = base?.path
-  val bindingNameString = this.bidingName?.toPascalCase()
+  val bindingNameString = this.bidingName?.normalizeEnumName()
   val enumClassName =
     if (path != elementBasePath && !elementBasePath.isNullOrBlank())
       "${elementBasePath.substringBefore(".")}.$bindingNameString"

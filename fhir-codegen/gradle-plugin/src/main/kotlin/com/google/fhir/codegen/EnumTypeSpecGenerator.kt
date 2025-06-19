@@ -19,8 +19,8 @@ package com.google.fhir.codegen
 import com.google.fhir.codegen.schema.codesystem.CodeSystem
 import com.google.fhir.codegen.schema.codesystem.Concept as CodeSystemConcept
 import com.google.fhir.codegen.schema.isValueSystemSupported
+import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.sanitizeKDoc
-import com.google.fhir.codegen.schema.toPascalCase
 import com.google.fhir.codegen.schema.valueset.Concept as ValueSystemConcept
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
@@ -281,11 +281,11 @@ class EnumTypeSpecGenerator(val codeSystemMap: Map<String, CodeSystem>) {
     when (this) {
       ">" -> return "GreaterThan"
       "<" -> return "LessThan"
-      ">=" -> return "GreaterThanOrEquals"
-      "<=" -> return "LessThanOrEquals"
+      ">=" -> return "GreaterThanOrEqualTo"
+      "<=" -> return "LessThanOrEqualTo"
       "<>",
-      "!=" -> return "NotEquals"
-      "=" -> return "Equals"
+      "!=" -> return "NotEqualTo"
+      "=" -> return "EqualTo"
       "*" -> return "Multiply"
       "+" -> return "Plus"
       "-" -> return "Minus"
@@ -302,7 +302,7 @@ class EnumTypeSpecGenerator(val codeSystemMap: Map<String, CodeSystem>) {
         withUnderscores
       }
     return prefixed.split("_").joinToString("_") { part ->
-      if (part.isEmpty()) "" else part.toPascalCase()
+      if (part.isEmpty()) "" else part.normalizeEnumName()
     }
   }
 }
