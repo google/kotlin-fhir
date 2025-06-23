@@ -130,15 +130,18 @@ abstract class FhirCodegenTask : DefaultTask() {
         .distinct()
 
     val packageName = this.packageName.get()
+
+    val modelTypeSpecGenerator =
+      ModelTypeSpecGenerator(valueSetMap, codeSystemMap, commonBindingValueSetUrls)
+    val surrogateTypeSpecGenerator = SurrogateTypeSpecGenerator(valueSetMap)
     structureDefinitions
       .flatMap { structureDefinition ->
         FhirCodegen.generateFileSpecs(
           packageName = packageName,
           structureDefinition = structureDefinition,
           isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
-          valueSetMap = valueSetMap,
-          codeSystemMap = codeSystemMap,
-          commonBindingValueSetUrls = commonBindingValueSetUrls,
+          modelTypeSpecGenerator = modelTypeSpecGenerator,
+          surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
         )
       }
       .forEach { it.writeTo(outputDir) }
