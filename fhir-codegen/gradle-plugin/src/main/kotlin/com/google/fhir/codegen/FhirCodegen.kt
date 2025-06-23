@@ -17,13 +17,13 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import kotlinx.serialization.UseSerializers
-import org.gradle.configurationcache.extensions.capitalized
 
 /**
  * Generates [FileSpec]s for a given FHIR StructureDefinition.
@@ -49,6 +49,8 @@ object FhirCodegen {
     packageName: String,
     structureDefinition: StructureDefinition,
     isBaseClass: Boolean,
+    modelTypeSpecGenerator: ModelTypeSpecGenerator,
+    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
   ): List<FileSpec> {
     val modelClassName = ClassName(packageName, structureDefinition.name.capitalized())
     val modelFileSpec = FileSpec.builder(modelClassName)
@@ -59,7 +61,7 @@ object FhirCodegen {
       mutableListOf(
         modelFileSpec
           .addType(
-            ModelTypeSpecGenerator.generate(
+            modelTypeSpecGenerator.generate(
               modelClassName,
               structureDefinition,
               isBaseClass,
@@ -78,7 +80,7 @@ object FhirCodegen {
       fileSpecs +=
         surrogateFileSpec
           .addType(
-            SurrogateTypeSpecGenerator.generate(
+            surrogateTypeSpecGenerator.generate(
               ClassName(packageName, structureDefinition.name),
               structureDefinition.rootElements,
             )

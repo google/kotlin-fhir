@@ -53,7 +53,7 @@ as well as a subset of
 | macosArm64         | `-macosarm64`        | ⛔       |
 | iosSimulatorArm64  | `-iossimulatorarm64` | ✅       |
 | iosX64             | `-iosx64`            | ✅       |
-| iosArm64           | `-iosarm64`         | ✅       |
+| iosArm64           | `-iosarm64`          | ✅       |
 
 The library does not support `macos` targets in the tier 1 list, or any
 [tier2](https://kotlinlang.org/docs/native-target-support.html#tier-2) and
@@ -194,6 +194,49 @@ when (val multipleBirth = patient.multipleBirth) {
 
 The generated classes reflect the inheritance hierarchy defined by FHIR. For example, `Patient`
 inherits from `DomainResource`, which inherits from `Resource`.
+
+### Mapping FHIR ValueSets to Kotlin Enums
+`Enums` are generated for `code` elements that are [bound](https://hl7.org/fhir/R5/terminologies.html#binding) to a `ValueSet`. 
+The constants in the generated Kotlin `enum` classes are derived from the `code` property of concepts defined in FHIR `CodeSystem` and `ValueSet` resources.
+
+#### Shared vs. Local Enums
+
+- If the `StructureDefinition` defines an element with a [**common binding**](https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-elementdefinition-isCommonBinding.html), a **shared enum** is generated and placed in the `com.google.fhir.model.<r4|r4b|r5>` package.  
+  **Example:** `AdministrativeGender` 
+- If the element uses a **non-common binding**, a **local enum** is created inside the associated parent class.  
+  **Example:** `NameUse` inside the `HumanName` class
+
+#### Enum Naming and Content
+
+- The **enum class name** is based on the value of the [binding name](http://hl7.org/fhir/extensions/StructureDefinition-elementdefinition-bindingName.html) extension
+- The **enum constants** are sourced from the [concepts](https://hl7.org/fhir/valueset-definitions.html#ValueSet.compose.include.concept) in the binding's `ValueSet`, which are a subset of the concepts in the referenced [code system](https://hl7.org/fhir/valueset-definitions.html#ValueSet.compose.include.system).
+- If the value set's `concept` element is empty, the entire set of the code system's concepts is used.
+
+| FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> | Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/>                                    |
+|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| ValueSet JSON file (e.g. `ValueSet-resource-types.json`)                   | Kotlin .kt file (e.g. `ResourceType`)                                                                             |
+| ValueSet (e.g. `ResourceType`)                                             | Kotlin class (e.g. `enum class ResourceType`)                                                                     |
+
+To comply with Kotlin’s enum naming convention—which requires names to start with a letter and avoid special characters—each code is transformed using a set of formatting rules. 
+This includes handling numeric codes,special characters, and FHIR URLs. After all transformations, the final name is converted to PascalCase to match Kotlin style guidelines.
+
+| Rule # | Description                                                                                   | Example Input                                                                                                                     | Example Output         |
+|--------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------------------------|
+| 1      | For codes that are full URLs, extract and return the last segment after the dot               | `http://hl7.org/fhirpath/System.DateTime` from [CodeSystem-fhirpath-types](http://hl7.org/fhir/R5/codesystem-fhirpath-types.html) | `DateTime`             |
+| 2      | Specific special characters are replaced with readable keywords                               | `>=` from   [CodeSystem-quantity-comparator](http://hl7.org/fhir/R5/codesystem-quantity-comparator.html)                          | `GreaterThanOrEqualTo` |
+|        |                                                                                               | `>`                                                                                                                               | `GreaterThan`          |
+|        |                                                                                               | `<`                                                                                                                               | `LessThan`             |
+|        |                                                                                               | `<=`                                                                                                                              | `LessThanOrEqualTo`    |
+|        |                                                                                               | `!=` or `<>`                                                                                                                      | `NotEqualTo`           |
+|        |                                                                                               | `=`                                                                                                                               | `EqualTo`              |
+|        |                                                                                               | `*`                                                                                                                               | `Multiply`             |
+|        |                                                                                               | `+`                                                                                                                               | `Plus`                 |
+|        |                                                                                               | `-`                                                                                                                               | `Minus`                |
+|        |                                                                                               | `/`                                                                                                                               | `Divide`               |
+|        |                                                                                               | `%`                                                                                                                               | `Percent`              |
+| 3.1    | Replace all non-alphanumeric characters including dashes (`-`) and dots (`.`) with underscore | `4.0.1` from [CodeSystem-FHIR-version](http://hl7.org/fhir/R5/codesystem-FHIR-version.html)                                       | `4_0_1`                |
+| 3.2    | Prefix codes starting with a digit with an underscore                                         | `4.0.1` from [CodeSystem-FHIR-version](http://hl7.org/fhir/R5/codesystem-FHIR-version.html)                                       | `_4_0_1`               |
+| 3.3    | Apply PascalCase to each segment between underscores while preserving the underscores         | `entered-in-error` from [CodeSystem-document-reference-status](http://hl7.org/fhir/R5/codesystem-document-reference-status.html)  | `Entered_In_Error`     |
 
 ### Mapping FHIR JSON representation to Kotlin
 

@@ -19,12 +19,21 @@ package com.google.fhir.codegen
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.backboneElements
+import com.google.fhir.codegen.schema.bidingName
+import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.codesystem.CodeSystem
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getTypeName
+import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.hasPrimaryConstructor
+import com.google.fhir.codegen.schema.isCommonBinding
+import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.rootElements
+import com.google.fhir.codegen.schema.sanitizeKDoc
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
+import com.google.fhir.codegen.schema.typeIsEnumeratedCode
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
@@ -32,17 +41,23 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.gradle.configurationcache.extensions.capitalized
 
 /** Generates a [TypeSpec] for a model class. */
-object ModelTypeSpecGenerator {
+class ModelTypeSpecGenerator(
+  val valueSetMap: Map<String, ValueSet>,
+  val codeSystemMap: Map<String, CodeSystem>,
+  val commonBindingValueSetUrlsMap: MutableMap<String, HashSet<String>>,
+) {
+
   @OptIn(ExperimentalSerializationApi::class)
   fun generate(
     modelClassName: ClassName,
@@ -51,6 +66,8 @@ object ModelTypeSpecGenerator {
     surrogateFileSpec: FileSpec.Builder,
     serializerFileSpec: FileSpec.Builder,
   ): TypeSpec {
+    // Nested enums are all created inside the enclosing parent class for reusability
+    val enumClassesMap = mutableMapOf<String, TypeSpec>()
     val typeSpec =
       TypeSpec.classBuilder(modelClassName)
         .apply {
@@ -125,18 +142,30 @@ object ModelTypeSpecGenerator {
             structureDefinition.rootElements,
             structureDefinition,
             isBaseClass,
+            valueSetMap,
           )
 
           addBackboneElement(
-            structureDefinitionName,
-            modelClassName,
-            structureDefinition.backboneElements,
-            structureDefinition,
-            surrogateFileSpec,
-            serializerFileSpec,
+            path = structureDefinitionName,
+            enclosingModelClassName = modelClassName,
+            backboneElements = structureDefinition.backboneElements,
+            structureDefinition = structureDefinition,
+            surrogateTypeSpec = surrogateFileSpec,
+            serializerTypeSpec = serializerFileSpec,
+            createBindingToEnumTypeSpecEntry = { bindingName, typeSpec ->
+              enumClassesMap.putIfAbsent(bindingName, typeSpec)
+            },
           )
 
           addSealedInterfaces(modelClassName, structureDefinition.rootElements)
+
+          addEnumClassTypeSpec(
+            elements = structureDefinition.rootElements,
+            createValueSetUrlToBindingEntry = ::createValueSetUrlToBindingEntry,
+            createBindingToEnumTypeSpecEntry = { bindingName, typeSpec ->
+              enumClassesMap.putIfAbsent(bindingName, typeSpec)
+            },
+          )
 
           if (structureDefinition.kind == StructureDefinition.Kind.PRIMITIVE_TYPE) {
             addToElementFunction(
@@ -152,9 +181,111 @@ object ModelTypeSpecGenerator {
             )
             addOfFunction(modelClassName, propertySpecs.single { it.name == "value" }.type)
           }
+
+          enumClassesMap.forEach {
+            modelClassName.nestedClass(it.key)
+            addType(it.value)
+          }
         }
         .build()
     return typeSpec
+  }
+
+  private fun createValueSetUrlToBindingEntry(valueSetUrl: String, bindingName: String) {
+    commonBindingValueSetUrlsMap.getOrPut(valueSetUrl) { hashSetOf() }.apply { add(bindingName) }
+  }
+
+  /** Adds a nested class for each BackboneElement in the [StructureDefinition]. */
+  private fun TypeSpec.Builder.addBackboneElement(
+    path: String,
+    enclosingModelClassName: ClassName,
+    backboneElements: Map<Element, List<Element>>,
+    structureDefinition: StructureDefinition,
+    surrogateTypeSpec: FileSpec.Builder,
+    serializerTypeSpec: FileSpec.Builder,
+    createBindingToEnumTypeSpecEntry: (String, TypeSpec) -> Unit,
+  ): TypeSpec.Builder {
+    backboneElements
+      .filter { (backboneElement, _) ->
+        backboneElement.path.matches("$path\\.[A-Za-z0-9]+".toRegex())
+      }
+      .forEach { (backboneElement, elements) ->
+        val name = backboneElement.path.substringAfterLast('.').capitalized()
+        val backboneElementClassName = enclosingModelClassName.nestedClass(name)
+        addType(
+          TypeSpec.classBuilder(name)
+            .addAnnotation(
+              AnnotationSpec.builder(Serializable::class)
+                .addMember("with = %T::class", backboneElementClassName.toSerializerClassName())
+                .build()
+            )
+            .apply { addKdoc(backboneElement.definition.sanitizeKDoc()) }
+            .apply {
+              superclass(
+                ClassName(enclosingModelClassName.packageName, backboneElement.type!!.single().code)
+              )
+            }
+            .buildProperties(backboneElementClassName, elements, null, false, valueSetMap)
+            .addBackboneElement(
+              backboneElement.path,
+              enclosingModelClassName.nestedClass(name),
+              backboneElements,
+              structureDefinition,
+              surrogateTypeSpec,
+              serializerTypeSpec,
+              createBindingToEnumTypeSpecEntry,
+            )
+            .addSealedInterfaces(
+              backboneElementClassName,
+              structureDefinition.getElements(backboneElementClassName),
+            )
+            .build()
+        )
+
+        // TODO: Handle cases where the BackboneElement does not need the surrogate class and
+        //  the custom serializer since it does not have any primitive fields.
+        surrogateTypeSpec.addType(
+          SurrogateTypeSpecGenerator(valueSetMap)
+            .generate(enclosingModelClassName.nestedClass(name.capitalized()), elements)
+        )
+        serializerTypeSpec.addType(
+          SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name))
+        )
+      }
+
+    addEnumClassTypeSpec(
+      elements = backboneElements.values.flatten(),
+      createBindingToEnumTypeSpecEntry = createBindingToEnumTypeSpecEntry,
+      createValueSetUrlToBindingEntry = ::createValueSetUrlToBindingEntry,
+    )
+    return this
+  }
+
+  /**
+   * Adds [TypeSpec] for enum classes based on the [Element] definitions. This function also tracks
+   * the ValueSet urls for common binding Elements.
+   */
+  private fun addEnumClassTypeSpec(
+    elements: List<Element>,
+    createBindingToEnumTypeSpecEntry: (String, TypeSpec) -> Unit,
+    createValueSetUrlToBindingEntry: (String, String) -> Unit,
+  ) {
+    for (element in elements) {
+      val bindingName = element.bidingName?.normalizeEnumName()
+      val isCommonBinding = element.isCommonBinding
+      val valueSetUrl = element.getValueSetUrl()
+      if (valueSetUrl.isNullOrBlank()) continue
+      if (element.typeIsEnumeratedCode(valueSetMap) && !isCommonBinding) {
+        val valueSet = valueSetMap[valueSetUrl]
+        if (valueSet != null) {
+          val typeSpec = EnumTypeSpecGenerator(codeSystemMap).generate(bindingName!!, valueSet)
+          if (typeSpec != null) {
+            createBindingToEnumTypeSpecEntry(bindingName, typeSpec)
+          }
+        }
+      }
+      if (isCommonBinding) createValueSetUrlToBindingEntry(valueSetUrl, bindingName!!)
+    }
   }
 }
 
@@ -163,12 +294,19 @@ private fun TypeSpec.Builder.buildProperties(
   elements: List<Element>,
   structureDefinition: StructureDefinition?, // null means backbone element
   isBaseClass: Boolean = false,
+  valueSetMap: Map<String, ValueSet>,
 ): TypeSpec.Builder {
   val properties =
     elements.map { element ->
       val name = element.getElementName()
+      val type =
+        if (element.typeIsEnumeratedCode(valueSetMap)) {
+          element.getEnumerationTypeName(modelClassName)
+        } else {
+          element.getTypeName(modelClassName)
+        }
 
-      PropertySpec.builder(name, element.getTypeName(modelClassName))
+      PropertySpec.builder(name, type)
         .mutable()
         .apply {
           if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
@@ -237,64 +375,36 @@ private fun TypeSpec.Builder.buildProperties(
   return this
 }
 
-/** Adds a nested class for each BackboneElement in the [StructureDefinition]. */
-private fun TypeSpec.Builder.addBackboneElement(
-  path: String,
-  enclosingModelClassName: ClassName,
-  backboneElements: Map<Element, List<Element>>,
-  structureDefinition: StructureDefinition,
-  surrogateTypeSpec: FileSpec.Builder,
-  serializerTypeSpec: FileSpec.Builder,
-): TypeSpec.Builder {
-  backboneElements
-    .filter { (backboneElement, _) ->
-      backboneElement.path.matches("$path\\.[A-Za-z0-9]+".toRegex())
-    }
-    .forEach { (backboneElement, elements) ->
-      val name = backboneElement.path.substringAfterLast('.').capitalized()
-      val backboneElementClassName = enclosingModelClassName.nestedClass(name)
-      addType(
-        TypeSpec.classBuilder(name)
-          .addAnnotation(
-            AnnotationSpec.builder(Serializable::class)
-              .addMember("with = %T::class", backboneElementClassName.toSerializerClassName())
-              .build()
-          )
-          .apply { addKdoc(backboneElement.definition.sanitizeKDoc()) }
-          .apply {
-            superclass(
-              ClassName(enclosingModelClassName.packageName, backboneElement.type!!.single().code)
-            )
-          }
-          .buildProperties(backboneElementClassName, elements, null)
-          .addBackboneElement(
-            backboneElement.path,
-            enclosingModelClassName.nestedClass(name),
-            backboneElements,
-            structureDefinition,
-            surrogateTypeSpec,
-            serializerTypeSpec,
-          )
-          .addSealedInterfaces(
-            backboneElementClassName,
-            structureDefinition.getElements(backboneElementClassName),
-          )
-          .build()
-      )
+/**
+ * Substitutes the primitive type of code with an `Enumeration` type if the values for the code are
+ * constrained to a set of values.
+ */
+private fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName {
+  // Ignore all base.path starting with "Resource."
+  val elementBasePath = base?.path
+  // Use bindingName for the enum class, subclasses re-use enums from the parent
+  val bindingNameString = this.bidingName?.normalizeEnumName()
 
-      // TODO: Handle cases where the BackboneElement does not need the surrogate class and
-      //  the custom serializer since it does not have any primitive fields.
-      surrogateTypeSpec.addType(
-        SurrogateTypeSpecGenerator.generate(
-          enclosingModelClassName.nestedClass(name.capitalized()),
-          elements,
-        )
-      )
-      serializerTypeSpec.addType(
-        SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name))
-      )
-    }
-  return this
+  val enumClassName =
+    if (path != elementBasePath) "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"
+    else bindingNameString
+
+  if (!enumClassName.isNullOrBlank()) {
+    val enumClassPackageName =
+      if (this.isCommonBinding || enumClassName.contains(".")) modelClassName.packageName else ""
+
+    val enumClass = ClassName(enumClassPackageName, enumClassName)
+    val enumerationClassName =
+      ClassName(modelClassName.packageName, "Enumeration").parameterizedBy(enumClass)
+    return if (this.max == "*") {
+        List::class.asClassName().parameterizedBy(enumerationClassName)
+      } else {
+        enumerationClassName
+      }
+      .copy(nullable = true)
+  } else {
+    return getTypeName(modelClassName)
+  }
 }
 
 /** Adds a nested sealed interface for each choice type in the [StructureDefinition]. */
@@ -474,13 +584,4 @@ private fun TypeSpec.Builder.addOfFunction(className: ClassName, primitiveTypeNa
       )
       .build()
   )
-}
-
-/**
- * Sanitizes the string for KDoc, replacing character sequences that could break the comment block.
- *
- * See also: https://github.com/square/kotlinpoet/issues/887.
- */
-private fun String.sanitizeKDoc(): String {
-  return this.replace("/*", "&#47;*")
 }
