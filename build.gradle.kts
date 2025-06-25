@@ -15,4 +15,16 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
             "license-header.txt",
         )
     }
+    flexmark {
+        target("**/*.md")
+        flexmark()
+    }
+}
+
+// Make sure codegen is run before formatting
+tasks.named("spotlessKotlin") {
+    dependsOn(":fhir-model:codegen")
+}
+tasks.named("spotlessFlexmark") {
+    dependsOn(":fhir-model:codegen")
 }

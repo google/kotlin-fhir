@@ -1,0 +1,125 @@
+/*
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@file:UseSerializers(DoubleSerializer::class, LocalTimeSerializer::class)
+@file:Suppress("RedundantVisibilityModifier", "PropertyName")
+
+package com.google.fhir.model.r5.surrogates
+
+import com.google.fhir.model.r5.Canonical
+import com.google.fhir.model.r5.CodeableConcept
+import com.google.fhir.model.r5.DataRequirement
+import com.google.fhir.model.r5.Date
+import com.google.fhir.model.r5.DateTime
+import com.google.fhir.model.r5.Element
+import com.google.fhir.model.r5.Enumeration
+import com.google.fhir.model.r5.Expression
+import com.google.fhir.model.r5.Extension
+import com.google.fhir.model.r5.FhirDate
+import com.google.fhir.model.r5.FhirDateTime
+import com.google.fhir.model.r5.Reference
+import com.google.fhir.model.r5.String as R5String
+import com.google.fhir.model.r5.Timing
+import com.google.fhir.model.r5.TriggerDefinition
+import com.google.fhir.model.r5.serializers.DoubleSerializer
+import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import kotlin.String as KotlinString
+import kotlin.Suppress
+import kotlin.collections.List
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
+
+@Serializable
+internal data class TriggerDefinitionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: List<Extension?>? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var name: KotlinString? = null,
+  public var _name: Element? = null,
+  public var code: CodeableConcept? = null,
+  public var subscriptionTopic: KotlinString? = null,
+  public var _subscriptionTopic: Element? = null,
+  public var timingTiming: Timing? = null,
+  public var timingReference: Reference? = null,
+  public var timingDate: KotlinString? = null,
+  public var _timingDate: Element? = null,
+  public var timingDateTime: KotlinString? = null,
+  public var _timingDateTime: Element? = null,
+  public var `data`: List<DataRequirement?>? = null,
+  public var condition: Expression? = null,
+) {
+  public fun toModel(): TriggerDefinition =
+    TriggerDefinition().apply {
+      id = this@TriggerDefinitionSurrogate.id
+      extension = this@TriggerDefinitionSurrogate.extension
+      type =
+        Enumeration.of(
+          this@TriggerDefinitionSurrogate.type?.let {
+            com.google.fhir.model.r5.TriggerDefinition.TriggerType.fromCode(it)
+          },
+          this@TriggerDefinitionSurrogate._type,
+        )
+      name =
+        R5String.of(this@TriggerDefinitionSurrogate.name, this@TriggerDefinitionSurrogate._name)
+      code = this@TriggerDefinitionSurrogate.code
+      subscriptionTopic =
+        Canonical.of(
+          this@TriggerDefinitionSurrogate.subscriptionTopic,
+          this@TriggerDefinitionSurrogate._subscriptionTopic,
+        )
+      timing =
+        TriggerDefinition.Timing?.from(
+          this@TriggerDefinitionSurrogate.timingTiming,
+          this@TriggerDefinitionSurrogate.timingReference,
+          Date.of(
+            FhirDate.fromString(this@TriggerDefinitionSurrogate.timingDate),
+            this@TriggerDefinitionSurrogate._timingDate,
+          ),
+          DateTime.of(
+            FhirDateTime.fromString(this@TriggerDefinitionSurrogate.timingDateTime),
+            this@TriggerDefinitionSurrogate._timingDateTime,
+          ),
+        )
+      `data` = this@TriggerDefinitionSurrogate.`data`
+      condition = this@TriggerDefinitionSurrogate.condition
+    }
+
+  public companion object {
+    public fun fromModel(model: TriggerDefinition): TriggerDefinitionSurrogate =
+      with(model) {
+        TriggerDefinitionSurrogate().apply {
+          id = this@with.id
+          extension = this@with.extension
+          type = this@with.type?.value?.getCode()
+          _type = this@with.type?.toElement()
+          name = this@with.name?.value
+          _name = this@with.name?.toElement()
+          code = this@with.code
+          subscriptionTopic = this@with.subscriptionTopic?.value
+          _subscriptionTopic = this@with.subscriptionTopic?.toElement()
+          timingTiming = this@with.timing?.asTiming()?.value
+          timingReference = this@with.timing?.asReference()?.value
+          timingDate = this@with.timing?.asDate()?.value?.value?.toString()
+          _timingDate = this@with.timing?.asDate()?.value?.toElement()
+          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString()
+          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement()
+          `data` = this@with.`data`
+          condition = this@with.condition
+        }
+      }
+  }
+}

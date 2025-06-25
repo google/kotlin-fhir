@@ -80,7 +80,6 @@ abstract class FhirCodegenTask : DefaultTask() {
               it.name.matches("(?i)^(ValueSet|CodeSystem)((-v3.*)?|(?!-v\\d).*)\\.json$".toRegex()))
         }
       }
-    outputDir.resolve("inputs.txt").writeText(inputFiles.joinToString("\n"))
 
     val valueSetMap =
       inputFiles
