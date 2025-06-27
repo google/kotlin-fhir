@@ -1,0 +1,248 @@
+/*
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@file:UseSerializers(DoubleSerializer::class, LocalTimeSerializer::class)
+@file:Suppress("RedundantVisibilityModifier", "PropertyName")
+
+package com.google.fhir.model.r5.surrogates
+
+import com.google.fhir.model.r5.Code
+import com.google.fhir.model.r5.CodeableConcept
+import com.google.fhir.model.r5.DateTime
+import com.google.fhir.model.r5.Element
+import com.google.fhir.model.r5.Extension
+import com.google.fhir.model.r5.FhirDateTime
+import com.google.fhir.model.r5.Identifier
+import com.google.fhir.model.r5.ImmunizationRecommendation
+import com.google.fhir.model.r5.Markdown
+import com.google.fhir.model.r5.Meta
+import com.google.fhir.model.r5.Narrative
+import com.google.fhir.model.r5.Reference
+import com.google.fhir.model.r5.Resource
+import com.google.fhir.model.r5.String as R5String
+import com.google.fhir.model.r5.Uri
+import com.google.fhir.model.r5.serializers.DoubleSerializer
+import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import kotlin.String as KotlinString
+import kotlin.Suppress
+import kotlin.collections.List
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
+
+@Serializable
+internal data class ImmunizationRecommendationRecommendationDateCriterionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: List<Extension?>? = null,
+  public var modifierExtension: List<Extension?>? = null,
+  public var code: CodeableConcept? = null,
+  public var `value`: KotlinString? = null,
+  public var _value: Element? = null,
+) {
+  public fun toModel(): ImmunizationRecommendation.Recommendation.DateCriterion =
+    ImmunizationRecommendation.Recommendation.DateCriterion().apply {
+      id = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.id
+      extension = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.extension
+      modifierExtension =
+        this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.modifierExtension
+      code = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.code
+      `value` =
+        DateTime.of(
+          FhirDateTime.fromString(
+            this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.`value`
+          ),
+          this@ImmunizationRecommendationRecommendationDateCriterionSurrogate._value,
+        )
+    }
+
+  public companion object {
+    public fun fromModel(
+      model: ImmunizationRecommendation.Recommendation.DateCriterion
+    ): ImmunizationRecommendationRecommendationDateCriterionSurrogate =
+      with(model) {
+        ImmunizationRecommendationRecommendationDateCriterionSurrogate().apply {
+          id = this@with.id
+          extension = this@with.extension
+          modifierExtension = this@with.modifierExtension
+          code = this@with.code
+          `value` = this@with.`value`?.value?.toString()
+          _value = this@with.`value`?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationRecommendationRecommendationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: List<Extension?>? = null,
+  public var modifierExtension: List<Extension?>? = null,
+  public var vaccineCode: List<CodeableConcept?>? = null,
+  public var targetDisease: List<CodeableConcept?>? = null,
+  public var contraindicatedVaccineCode: List<CodeableConcept?>? = null,
+  public var forecastStatus: CodeableConcept? = null,
+  public var forecastReason: List<CodeableConcept?>? = null,
+  public var dateCriterion: List<ImmunizationRecommendation.Recommendation.DateCriterion>? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var series: KotlinString? = null,
+  public var _series: Element? = null,
+  public var doseNumber: KotlinString? = null,
+  public var _doseNumber: Element? = null,
+  public var seriesDoses: KotlinString? = null,
+  public var _seriesDoses: Element? = null,
+  public var supportingImmunization: List<Reference?>? = null,
+  public var supportingPatientInformation: List<Reference?>? = null,
+) {
+  public fun toModel(): ImmunizationRecommendation.Recommendation =
+    ImmunizationRecommendation.Recommendation().apply {
+      id = this@ImmunizationRecommendationRecommendationSurrogate.id
+      extension = this@ImmunizationRecommendationRecommendationSurrogate.extension
+      modifierExtension = this@ImmunizationRecommendationRecommendationSurrogate.modifierExtension
+      vaccineCode = this@ImmunizationRecommendationRecommendationSurrogate.vaccineCode
+      targetDisease = this@ImmunizationRecommendationRecommendationSurrogate.targetDisease
+      contraindicatedVaccineCode =
+        this@ImmunizationRecommendationRecommendationSurrogate.contraindicatedVaccineCode
+      forecastStatus = this@ImmunizationRecommendationRecommendationSurrogate.forecastStatus
+      forecastReason = this@ImmunizationRecommendationRecommendationSurrogate.forecastReason
+      dateCriterion = this@ImmunizationRecommendationRecommendationSurrogate.dateCriterion
+      description =
+        Markdown.of(
+          this@ImmunizationRecommendationRecommendationSurrogate.description,
+          this@ImmunizationRecommendationRecommendationSurrogate._description,
+        )
+      series =
+        R5String.of(
+          this@ImmunizationRecommendationRecommendationSurrogate.series,
+          this@ImmunizationRecommendationRecommendationSurrogate._series,
+        )
+      doseNumber =
+        R5String.of(
+          this@ImmunizationRecommendationRecommendationSurrogate.doseNumber,
+          this@ImmunizationRecommendationRecommendationSurrogate._doseNumber,
+        )
+      seriesDoses =
+        R5String.of(
+          this@ImmunizationRecommendationRecommendationSurrogate.seriesDoses,
+          this@ImmunizationRecommendationRecommendationSurrogate._seriesDoses,
+        )
+      supportingImmunization =
+        this@ImmunizationRecommendationRecommendationSurrogate.supportingImmunization
+      supportingPatientInformation =
+        this@ImmunizationRecommendationRecommendationSurrogate.supportingPatientInformation
+    }
+
+  public companion object {
+    public fun fromModel(
+      model: ImmunizationRecommendation.Recommendation
+    ): ImmunizationRecommendationRecommendationSurrogate =
+      with(model) {
+        ImmunizationRecommendationRecommendationSurrogate().apply {
+          id = this@with.id
+          extension = this@with.extension
+          modifierExtension = this@with.modifierExtension
+          vaccineCode = this@with.vaccineCode
+          targetDisease = this@with.targetDisease
+          contraindicatedVaccineCode = this@with.contraindicatedVaccineCode
+          forecastStatus = this@with.forecastStatus
+          forecastReason = this@with.forecastReason
+          dateCriterion = this@with.dateCriterion
+          description = this@with.description?.value
+          _description = this@with.description?.toElement()
+          series = this@with.series?.value
+          _series = this@with.series?.toElement()
+          doseNumber = this@with.doseNumber?.value
+          _doseNumber = this@with.doseNumber?.toElement()
+          seriesDoses = this@with.seriesDoses?.value
+          _seriesDoses = this@with.seriesDoses?.toElement()
+          supportingImmunization = this@with.supportingImmunization
+          supportingPatientInformation = this@with.supportingPatientInformation
+        }
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationRecommendationSurrogate(
+  public var id: KotlinString? = null,
+  public var meta: Meta? = null,
+  public var implicitRules: KotlinString? = null,
+  public var _implicitRules: Element? = null,
+  public var language: KotlinString? = null,
+  public var _language: Element? = null,
+  public var text: Narrative? = null,
+  public var contained: List<Resource?>? = null,
+  public var extension: List<Extension?>? = null,
+  public var modifierExtension: List<Extension?>? = null,
+  public var identifier: List<Identifier?>? = null,
+  public var patient: Reference? = null,
+  public var date: KotlinString? = null,
+  public var _date: Element? = null,
+  public var authority: Reference? = null,
+  public var recommendation: List<ImmunizationRecommendation.Recommendation>? = null,
+) {
+  public fun toModel(): ImmunizationRecommendation =
+    ImmunizationRecommendation().apply {
+      id = this@ImmunizationRecommendationSurrogate.id
+      meta = this@ImmunizationRecommendationSurrogate.meta
+      implicitRules =
+        Uri.of(
+          this@ImmunizationRecommendationSurrogate.implicitRules,
+          this@ImmunizationRecommendationSurrogate._implicitRules,
+        )
+      language =
+        Code.of(
+          this@ImmunizationRecommendationSurrogate.language,
+          this@ImmunizationRecommendationSurrogate._language,
+        )
+      text = this@ImmunizationRecommendationSurrogate.text
+      contained = this@ImmunizationRecommendationSurrogate.contained
+      extension = this@ImmunizationRecommendationSurrogate.extension
+      modifierExtension = this@ImmunizationRecommendationSurrogate.modifierExtension
+      identifier = this@ImmunizationRecommendationSurrogate.identifier
+      patient = this@ImmunizationRecommendationSurrogate.patient
+      date =
+        DateTime.of(
+          FhirDateTime.fromString(this@ImmunizationRecommendationSurrogate.date),
+          this@ImmunizationRecommendationSurrogate._date,
+        )
+      authority = this@ImmunizationRecommendationSurrogate.authority
+      recommendation = this@ImmunizationRecommendationSurrogate.recommendation
+    }
+
+  public companion object {
+    public fun fromModel(model: ImmunizationRecommendation): ImmunizationRecommendationSurrogate =
+      with(model) {
+        ImmunizationRecommendationSurrogate().apply {
+          id = this@with.id
+          meta = this@with.meta
+          implicitRules = this@with.implicitRules?.value
+          _implicitRules = this@with.implicitRules?.toElement()
+          language = this@with.language?.value
+          _language = this@with.language?.toElement()
+          text = this@with.text
+          contained = this@with.contained
+          extension = this@with.extension
+          modifierExtension = this@with.modifierExtension
+          identifier = this@with.identifier
+          patient = this@with.patient
+          date = this@with.date?.value?.toString()
+          _date = this@with.date?.toElement()
+          authority = this@with.authority
+          recommendation = this@with.recommendation
+        }
+      }
+  }
+}
