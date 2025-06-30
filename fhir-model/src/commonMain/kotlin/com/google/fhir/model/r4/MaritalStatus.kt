@@ -1,0 +1,70 @@
+/*
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.fhir.model.r4
+
+import kotlin.String
+
+/**
+ * This value set defines the set of codes that can be used to indicate the marital status of a
+ * person.
+ */
+public enum class MaritalStatus(
+  private val code: String,
+  private val system: String,
+  private val display: String?,
+  private val definition: String?,
+) {
+  A("A", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Annulled", null),
+  D("D", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Divorced", null),
+  I("I", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Interlocutory", null),
+  L("L", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Legally Separated", null),
+  M("M", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Married", null),
+  P("P", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Polygamous", null),
+  S("S", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Never Married", null),
+  T("T", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Domestic partner", null),
+  U("U", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "unmarried", null),
+  W("W", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Widowed", null),
+  Unk("UNK", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "unknown", null);
+
+  override fun toString(): String = code
+
+  public fun getCode(): String = code
+
+  public fun getSystem(): String = system
+
+  public fun getDisplay(): String? = display
+
+  public fun getDefinition(): String? = definition
+
+  public companion object {
+    public fun fromCode(code: String): MaritalStatus =
+      when (code) {
+        "A" -> A
+        "D" -> D
+        "I" -> I
+        "L" -> L
+        "M" -> M
+        "P" -> P
+        "S" -> S
+        "T" -> T
+        "U" -> U
+        "W" -> W
+        "UNK" -> Unk
+        else -> throw IllegalArgumentException("Unknown code $code for enum MaritalStatus")
+      }
+  }
+}

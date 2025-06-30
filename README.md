@@ -94,16 +94,16 @@ Kotlin code is generated for StructureDefinitions in the following FHIR packages
 - [hl7.fhir.r5.core](https://simplifier.net/packages/hl7.fhir.r5.core)
 
 > **Note:** The following are **NOT** included in the generated code:
->- [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
-   such as [Definition](https://hl7.org/fhir/R4/definition.html),
-   [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
-   in R4
+> - [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
+> such as [Definition](https://hl7.org/fhir/R4/definition.html),
+> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
+> in R4
 > - Profiles StructureDefinitions
 > - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
-    bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
-    StructureDefinitions are not represented in the generated code
+> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
+> StructureDefinitions are not represented in the generated code
 > - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
-    SearchParameters, and ValueSets
+> SearchParameters, and ValueSets
 
 ### Mapping FHIR primitive data types to Kotlin
 
@@ -157,7 +157,7 @@ represented as nested classes since they are never reused outside of the Structu
 each occurrence of a choice type (e.g. in [R4](https://hl7.org/fhir/R4/formats.html#choice)), a
 single sealed interface is generated with a subclass for each type.
 
-| FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> | Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/>                                    |
+| FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> |                  Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/>                   |
 |----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | StructureDefinition JSON file (e.g. `StructureDefinition-Patient.json`)    | Kotlin .kt file (e.g. `Patient.kt`)                                                                               |
 | StructureDefinition (e.g. `Patient`)                                       | Kotlin class (e.g. `class Patient`)                                                                               |
@@ -196,13 +196,14 @@ The generated classes reflect the inheritance hierarchy defined by FHIR. For exa
 inherits from `DomainResource`, which inherits from `Resource`.
 
 ### Mapping FHIR ValueSets to Kotlin Enums
-`Enums` are generated for `code` elements that are [bound](https://hl7.org/fhir/R5/terminologies.html#binding) to a `ValueSet`. 
+
+`Enums` are generated for `code` elements that are [bound](https://hl7.org/fhir/R5/terminologies.html#binding) to a `ValueSet`.
 The constants in the generated Kotlin `enum` classes are derived from the `code` property of concepts defined in FHIR `CodeSystem` and `ValueSet` resources.
 
 #### Shared vs. Local Enums
 
 - If the `StructureDefinition` defines an element with a [**common binding**](https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-elementdefinition-isCommonBinding.html), a **shared enum** is generated and placed in the `com.google.fhir.model.<r4|r4b|r5>` package.  
-  **Example:** `AdministrativeGender` 
+  **Example:** `AdministrativeGender`
 - If the element uses a **non-common binding**, a **local enum** is created inside the associated parent class.  
   **Example:** `NameUse` inside the `HumanName` class
 
@@ -212,15 +213,15 @@ The constants in the generated Kotlin `enum` classes are derived from the `code`
 - The **enum constants** are sourced from the [concepts](https://hl7.org/fhir/valueset-definitions.html#ValueSet.compose.include.concept) in the binding's `ValueSet`, which are a subset of the concepts in the referenced [code system](https://hl7.org/fhir/valueset-definitions.html#ValueSet.compose.include.system).
 - If the value set's `concept` element is empty, the entire set of the code system's concepts is used.
 
-| FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> | Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/>                                    |
-|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| ValueSet JSON file (e.g. `ValueSet-resource-types.json`)                   | Kotlin .kt file (e.g. `ResourceType`)                                                                             |
-| ValueSet (e.g. `ResourceType`)                                             | Kotlin class (e.g. `enum class ResourceType`)                                                                     |
+| FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> | Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/> |
+|----------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ValueSet JSON file (e.g. `ValueSet-resource-types.json`)                   | Kotlin .kt file (e.g. `ResourceType`)                                          |
+| ValueSet (e.g. `ResourceType`)                                             | Kotlin class (e.g. `enum class ResourceType`)                                  |
 
-To comply with Kotlin’s enum naming convention—which requires names to start with a letter and avoid special characters—each code is transformed using a set of formatting rules. 
+To comply with Kotlin’s enum naming convention—which requires names to start with a letter and avoid special characters—each code is transformed using a set of formatting rules.
 This includes handling numeric codes,special characters, and FHIR URLs. After all transformations, the final name is converted to PascalCase to match Kotlin style guidelines.
 
-| Rule # | Description                                                                                   | Example Input                                                                                                                     | Example Output         |
+| Rule # |                                          Description                                          |                                                           Example Input                                                           |     Example Output     |
 |--------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------------------------|
 | 1      | For codes that are full URLs, extract and return the last segment after the dot               | `http://hl7.org/fhirpath/System.DateTime` from [CodeSystem-fhirpath-types](http://hl7.org/fhir/R5/codesystem-fhirpath-types.html) | `DateTime`             |
 | 2      | Specific special characters are replaced with readable keywords                               | `>=` from   [CodeSystem-quantity-comparator](http://hl7.org/fhir/R5/codesystem-quantity-comparator.html)                          | `GreaterThanOrEqualTo` |
@@ -477,7 +478,7 @@ _deserialization_, the Kotlin FHIR library uses the `resourceType` JSON property
 This serves as a hint to the `kotlinx.serialization` library so it can dynamically select the
 correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.[^5]
 
-[^5]: If the resource type is known at compile time, it is safe to use a more specific type 
+[^5]: If the resource type is known at compile time, it is safe to use a more specific type
 parameter while deserializing, such as `decodeFromString<Patient>(jsonString)`, provided that the
 `Json` object is configured with `ignoreUnknownKeys = true`. The `ignoreUnknownKeys` option is
 critical because with the more specific type parameter the `kotlinx.serialization` library knows the
@@ -523,24 +524,18 @@ This section is for developers who want to contribute to the library.
 
 ### Running the codegen locally
 
-You can manually run the code generator (codegen) to inspect the generated code or, as an
-alternative to using the library as a dependency, copy the generated code into your project for
-direct use.
+You can run the codegen locally to generated FHIR models for all supported FHIR versions at once[^6]:
 
-Run the following command, replacing `<FHIR_VERSION>` with your desired FHIR version (`r4`, `r4b`,
-or `r5`):
-
-```bash
-./gradlew <FHIR_VERSION>
-```
-
-For example, to generate code for FHIR R4:
+[^6]: To generate FHIR models for specific versions, run `./gradlew <FHIR_VERSION>` where
+`<FHIR_VERSION>`∈ {`r4`, `r4b`, `r5`}. The generated code will be located in the
+`fhir-model/build/generated/<FHIR_VERSION>` subdirectory.
 
 ```bash
-./gradlew r4
+./gradlew codegen
 ```
 
-The generated code will be located in the `fhir-model/build/generated/<FHIR_VERSION>` subdirectory.
+This will sync all generated code into the `fhir-model/src/commonMain/kotlin` directory and apply
+consistent formatting using the [`spotless`](https://github.com/diffplug/spotless) plugin.
 
 > **Note:** The library is designed for use as a dependency. Directly copying generated code into
 > your project is generally discouraged as it can lead to maintenance issues and conflicts with
@@ -559,11 +554,11 @@ For each JSON example of a FHIR resource in the packages above, a test is perfor
 following steps:
 
 1. Deserialization: The JSON is deserialized into the corresponding generated Kotlin resource class.
-1. Serialization: The Kotlin object is then serialized back into JSON format.
-1. Verification: The newly generated JSON is compared, character by character[^6], to the original
+2. Serialization: The Kotlin object is then serialized back into JSON format.
+3. Verification: The newly generated JSON is compared, character by character[^7], to the original
    JSON to ensure complete fidelity.
 
-[^6]: There are several exceptions. The FHIR specification allows for some variability in data
+[^7]: There are several exceptions. The FHIR specification allows for some variability in data
 representation, which may lead to differences between the original and newly serialized JSON. For
 example, additional trailing zeros in decimals and times, non-standard JSON property ordering, the
 use of `+00:00` instead of `Z` for zero UTC offset, and large numbers represented in standard
@@ -600,4 +595,4 @@ This will generate a `.zip` file in the `fhir-model/build/repoZip` directory.
 ## Acknowledgements
 
 Thanks to [Yigit Boyar](https://github.com/yigit) for helping bootstrap this project and generously
-sharing his expertise in Kotlin Multiplatform and Gradle. 
+sharing his expertise in Kotlin Multiplatform and Gradle.

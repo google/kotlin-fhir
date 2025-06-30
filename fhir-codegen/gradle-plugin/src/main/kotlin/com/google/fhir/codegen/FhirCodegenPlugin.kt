@@ -33,6 +33,7 @@ class FhirCodegenPlugin : Plugin<Project> {
 abstract class FhirCodegenExtension @Inject constructor(private val project: Project) {
   fun newTask(version: String, configure: Action<FhirCodegenTask>): TaskProvider<FhirCodegenTask> {
     return project.tasks.register<FhirCodegenTask>(version) {
+      // e.g. FHIR models for R4 will be in the `fhir-model/build/generated/r4` subdirectory
       outputDirectory.set(project.layout.buildDirectory.dir("generated/$version"))
       configure.execute(this)
     }

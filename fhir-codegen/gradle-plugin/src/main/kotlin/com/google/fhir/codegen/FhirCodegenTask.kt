@@ -79,7 +79,6 @@ abstract class FhirCodegenTask : DefaultTask() {
           it.isFile && it.name.matches("StructureDefinition-[A-Za-z0-9]*\\.json".toRegex())
         }
       }
-    outputDir.resolve("inputs.txt").writeText(definitionInputFiles.joinToString("\n"))
 
     val expansionInputFiles =
       expansionFiles.files.flatMap { file ->
