@@ -84,8 +84,8 @@ abstract class FhirCodegenTask : DefaultTask() {
     val expansionInputFiles =
       expansionFiles.files.flatMap { file ->
         // The files from the expansion package are only ValueSets, extract only the JSON
-        // files'. These ValueSets are already expanded to include concepts from the referenced
-        // CodeSystems.
+        // files'. These ValueSets are already expanded to include codes from concepts from the
+        // referenced CodeSystems.
         file.walkTopDown().filter { it.isFile && it.name.matches("^ValueSet.*\\.json$".toRegex()) }
       }
 

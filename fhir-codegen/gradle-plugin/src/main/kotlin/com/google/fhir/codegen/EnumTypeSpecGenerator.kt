@@ -160,7 +160,7 @@ object EnumTypeSpecGenerator {
 
   /**
    * Instantiates a [FhirEnum] to facilitate the generation of Kotlin enum classes. The enum
-   * constants are derived from the expanded concepts defined in the `ValueSet.expansion.contains`
+   * constants are derived from the expanded codes defined in the `ValueSet.expansion.contains`
    * property. See
    * [ValueSet.expansion](https://www.hl7.org/fhir/R4B/valueset-definitions.html#ValueSet.expansion)
    */
