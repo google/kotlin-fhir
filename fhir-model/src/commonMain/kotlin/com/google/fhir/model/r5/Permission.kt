@@ -428,10 +428,9 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Deny("deny", "http://hl7.org/fhir/consent-provision-type", "Deny", null),
-    Permit("permit", "http://hl7.org/fhir/consent-provision-type", "Permit", null);
+    Deny("deny", "http://hl7.org/fhir/consent-provision-type", "Deny"),
+    Permit("permit", "http://hl7.org/fhir/consent-provision-type", "Permit");
 
     override fun toString(): String = code
 
@@ -440,8 +439,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PermissionProvisionType =
@@ -459,12 +456,11 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Instance("instance", "http://hl7.org/fhir/consent-data-meaning", "Instance", null),
-    Related("related", "http://hl7.org/fhir/consent-data-meaning", "Related", null),
-    Dependents("dependents", "http://hl7.org/fhir/consent-data-meaning", "Dependents", null),
-    Authoredby("authoredby", "http://hl7.org/fhir/consent-data-meaning", "AuthoredBy", null);
+    Instance("instance", "http://hl7.org/fhir/consent-data-meaning", "Instance"),
+    Related("related", "http://hl7.org/fhir/consent-data-meaning", "Related"),
+    Dependents("dependents", "http://hl7.org/fhir/consent-data-meaning", "Dependents"),
+    Authoredby("authoredby", "http://hl7.org/fhir/consent-data-meaning", "AuthoredBy");
 
     override fun toString(): String = code
 
@@ -473,8 +469,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentDataMeaning =
@@ -493,17 +487,15 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Active("active", "http://hl7.org/fhir/permission-status", "Active", null),
+    Active("active", "http://hl7.org/fhir/permission-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/permission-status",
       "Entered in Error",
-      null,
     ),
-    Draft("draft", "http://hl7.org/fhir/permission-status", "Draft", null),
-    Rejected("rejected", "http://hl7.org/fhir/permission-status", "Rejected", null);
+    Draft("draft", "http://hl7.org/fhir/permission-status", "Draft"),
+    Rejected("rejected", "http://hl7.org/fhir/permission-status", "Rejected");
 
     override fun toString(): String = code
 
@@ -512,8 +504,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PermissionStatus =
@@ -532,43 +522,36 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
     Deny_Overrides(
       "deny-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Deny-overrides",
-      null,
     ),
     Permit_Overrides(
       "permit-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Permit-overrides",
-      null,
     ),
     Ordered_Deny_Overrides(
       "ordered-deny-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Ordered-deny-overrides",
-      null,
     ),
     Ordered_Permit_Overrides(
       "ordered-permit-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Ordered-permit-overrides",
-      null,
     ),
     Deny_Unless_Permit(
       "deny-unless-permit",
       "http://hl7.org/fhir/permission-rule-combining",
       "Deny-unless-permit",
-      null,
     ),
     Permit_Unless_Deny(
       "permit-unless-deny",
       "http://hl7.org/fhir/permission-rule-combining",
       "Permit-unless-deny",
-      null,
     );
 
     override fun toString(): String = code
@@ -578,8 +561,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PermissionCombining =

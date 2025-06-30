@@ -758,19 +758,12 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Sense(
-      "sense",
-      "http://hl7.org/fhir/orientation-type",
-      "Sense orientation of referenceSeq",
-      null,
-    ),
+    Sense("sense", "http://hl7.org/fhir/orientation-type", "Sense orientation of referenceSeq"),
     Antisense(
       "antisense",
       "http://hl7.org/fhir/orientation-type",
       "Antisense orientation of referenceSeq",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -780,8 +773,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OrientationType =
@@ -798,10 +789,9 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Watson("watson", "http://hl7.org/fhir/strand-type", "Watson strand of referenceSeq", null),
-    Crick("crick", "http://hl7.org/fhir/strand-type", "Crick strand of referenceSeq", null);
+    Watson("watson", "http://hl7.org/fhir/strand-type", "Watson strand of referenceSeq"),
+    Crick("crick", "http://hl7.org/fhir/strand-type", "Crick strand of referenceSeq");
 
     override fun toString(): kotlin.String = code
 
@@ -810,8 +800,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StrandType =
@@ -828,11 +816,10 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Indel("indel", "http://hl7.org/fhir/quality-type", "INDEL Comparison", null),
-    Snp("snp", "http://hl7.org/fhir/quality-type", "SNP Comparison", null),
-    Unknown("unknown", "http://hl7.org/fhir/quality-type", "UNKNOWN Comparison", null);
+    Indel("indel", "http://hl7.org/fhir/quality-type", "INDEL Comparison"),
+    Snp("snp", "http://hl7.org/fhir/quality-type", "SNP Comparison"),
+    Unknown("unknown", "http://hl7.org/fhir/quality-type", "UNKNOWN Comparison");
 
     override fun toString(): kotlin.String = code
 
@@ -841,8 +828,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QualityType =
@@ -860,32 +845,27 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Directlink("directlink", "http://hl7.org/fhir/repository-type", "Click and see", null),
+    Directlink("directlink", "http://hl7.org/fhir/repository-type", "Click and see"),
     Openapi(
       "openapi",
       "http://hl7.org/fhir/repository-type",
       "The URL is the RESTful or other kind of API that can access to the result.",
-      null,
     ),
     Login(
       "login",
       "http://hl7.org/fhir/repository-type",
       "Result cannot be access unless an account is logged in",
-      null,
     ),
     Oauth(
       "oauth",
       "http://hl7.org/fhir/repository-type",
       "Result need to be fetched with API and need LOGIN( or cookies are required when visiting the link of resource)",
-      null,
     ),
     Other(
       "other",
       "http://hl7.org/fhir/repository-type",
       "Some other complicated or particular way to get resource from URL.",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -895,8 +875,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RepositoryType =
@@ -916,11 +894,10 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Aa("aa", "http://hl7.org/fhir/sequence-type", "AA Sequence", null),
-    Dna("dna", "http://hl7.org/fhir/sequence-type", "DNA Sequence", null),
-    Rna("rna", "http://hl7.org/fhir/sequence-type", "RNA Sequence", null);
+    Aa("aa", "http://hl7.org/fhir/sequence-type", "AA Sequence"),
+    Dna("dna", "http://hl7.org/fhir/sequence-type", "DNA Sequence"),
+    Rna("rna", "http://hl7.org/fhir/sequence-type", "RNA Sequence");
 
     override fun toString(): kotlin.String = code
 
@@ -929,8 +906,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SequenceType =

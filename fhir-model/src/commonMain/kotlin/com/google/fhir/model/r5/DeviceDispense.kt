@@ -274,22 +274,20 @@ public data class DeviceDispense(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Preparation("preparation", "http://hl7.org/fhir/devicedispense-status", "Preparation", null),
-    In_Progress("in-progress", "http://hl7.org/fhir/devicedispense-status", "In Progress", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/devicedispense-status", "Cancelled", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/devicedispense-status", "On Hold", null),
-    Completed("completed", "http://hl7.org/fhir/devicedispense-status", "Completed", null),
+    Preparation("preparation", "http://hl7.org/fhir/devicedispense-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/devicedispense-status", "In Progress"),
+    Cancelled("cancelled", "http://hl7.org/fhir/devicedispense-status", "Cancelled"),
+    On_Hold("on-hold", "http://hl7.org/fhir/devicedispense-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/devicedispense-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/devicedispense-status",
       "Entered in Error",
-      null,
     ),
-    Stopped("stopped", "http://hl7.org/fhir/devicedispense-status", "Stopped", null),
-    Declined("declined", "http://hl7.org/fhir/devicedispense-status", "Declined", null),
-    Unknown("unknown", "http://hl7.org/fhir/devicedispense-status", "Unknown", null);
+    Stopped("stopped", "http://hl7.org/fhir/devicedispense-status", "Stopped"),
+    Declined("declined", "http://hl7.org/fhir/devicedispense-status", "Declined"),
+    Unknown("unknown", "http://hl7.org/fhir/devicedispense-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -298,8 +296,6 @@ public data class DeviceDispense(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceDispenseStatus =

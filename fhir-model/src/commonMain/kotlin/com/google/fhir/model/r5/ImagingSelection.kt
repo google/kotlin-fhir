@@ -495,18 +495,16 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Point("point", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POINT", null),
-    Polyline("polyline", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POLYLINE", null),
+    Point("point", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POINT"),
+    Polyline("polyline", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POLYLINE"),
     Interpolated(
       "interpolated",
       "http://hl7.org/fhir/imagingselection-2dgraphictype",
       "INTERPOLATED",
-      null,
     ),
-    Circle("circle", "http://hl7.org/fhir/imagingselection-2dgraphictype", "CIRCLE", null),
-    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-2dgraphictype", "ELLIPSE", null);
+    Circle("circle", "http://hl7.org/fhir/imagingselection-2dgraphictype", "CIRCLE"),
+    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-2dgraphictype", "ELLIPSE");
 
     override fun toString(): kotlin.String = code
 
@@ -515,8 +513,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelection2DGraphicType =
@@ -539,19 +535,13 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Point("point", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POINT", null),
-    Multipoint(
-      "multipoint",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "MULTIPOINT",
-      null,
-    ),
-    Polyline("polyline", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYLINE", null),
-    Polygon("polygon", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYGON", null),
-    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSE", null),
-    Ellipsoid("ellipsoid", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSOID", null);
+    Point("point", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POINT"),
+    Multipoint("multipoint", "http://hl7.org/fhir/imagingselection-3dgraphictype", "MULTIPOINT"),
+    Polyline("polyline", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYLINE"),
+    Polygon("polygon", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYGON"),
+    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSE"),
+    Ellipsoid("ellipsoid", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSOID");
 
     override fun toString(): kotlin.String = code
 
@@ -560,8 +550,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelection3DGraphicType =
@@ -585,16 +573,14 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Available("available", "http://hl7.org/fhir/imagingselection-status", "Available", null),
+    Available("available", "http://hl7.org/fhir/imagingselection-status", "Available"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/imagingselection-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/imagingselection-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/imagingselection-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -603,8 +589,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelectionStatus =

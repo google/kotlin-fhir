@@ -616,10 +616,9 @@ public data class ConditionDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Sensitive("sensitive", "http://hl7.org/fhir/condition-precondition-type", "Sensitive", null),
-    Specific("specific", "http://hl7.org/fhir/condition-precondition-type", "Specific", null);
+    Sensitive("sensitive", "http://hl7.org/fhir/condition-precondition-type", "Sensitive"),
+    Specific("specific", "http://hl7.org/fhir/condition-precondition-type", "Specific");
 
     override fun toString(): kotlin.String = code
 
@@ -628,8 +627,6 @@ public data class ConditionDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionPreconditionType =
@@ -647,16 +644,14 @@ public data class ConditionDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Preadmit("preadmit", "http://hl7.org/fhir/condition-questionnaire-purpose", "Pre-admit", null),
+    Preadmit("preadmit", "http://hl7.org/fhir/condition-questionnaire-purpose", "Pre-admit"),
     Diff_Diagnosis(
       "diff-diagnosis",
       "http://hl7.org/fhir/condition-questionnaire-purpose",
       "Diff Diagnosis",
-      null,
     ),
-    Outcome("outcome", "http://hl7.org/fhir/condition-questionnaire-purpose", "Outcome", null);
+    Outcome("outcome", "http://hl7.org/fhir/condition-questionnaire-purpose", "Outcome");
 
     override fun toString(): kotlin.String = code
 
@@ -665,8 +660,6 @@ public data class ConditionDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionQuestionnairePurpose =

@@ -419,24 +419,22 @@ public data class DiagnosticReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered("registered", "http://hl7.org/fhir/diagnostic-report-status", "Registered", null),
-    Partial("partial", "http://hl7.org/fhir/diagnostic-report-status", "Partial", null),
-    Preliminary("preliminary", "http://hl7.org/fhir/diagnostic-report-status", "Preliminary", null),
-    Modified("modified", "http://hl7.org/fhir/diagnostic-report-status", "Modified", null),
-    Final("final", "http://hl7.org/fhir/diagnostic-report-status", "Final", null),
-    Amended("amended", "http://hl7.org/fhir/diagnostic-report-status", "Amended", null),
-    Corrected("corrected", "http://hl7.org/fhir/diagnostic-report-status", "Corrected", null),
-    Appended("appended", "http://hl7.org/fhir/diagnostic-report-status", "Appended", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/diagnostic-report-status", "Cancelled", null),
+    Registered("registered", "http://hl7.org/fhir/diagnostic-report-status", "Registered"),
+    Partial("partial", "http://hl7.org/fhir/diagnostic-report-status", "Partial"),
+    Preliminary("preliminary", "http://hl7.org/fhir/diagnostic-report-status", "Preliminary"),
+    Modified("modified", "http://hl7.org/fhir/diagnostic-report-status", "Modified"),
+    Final("final", "http://hl7.org/fhir/diagnostic-report-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/diagnostic-report-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/diagnostic-report-status", "Corrected"),
+    Appended("appended", "http://hl7.org/fhir/diagnostic-report-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/diagnostic-report-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/diagnostic-report-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/diagnostic-report-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/diagnostic-report-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -445,8 +443,6 @@ public data class DiagnosticReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DiagnosticReportStatus =

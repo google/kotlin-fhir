@@ -579,13 +579,12 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    _1("1", "http://hl7.org/fhir/network-type", "Machine Name", null),
-    _2("2", "http://hl7.org/fhir/network-type", "IP Address", null),
-    _3("3", "http://hl7.org/fhir/network-type", "Telephone Number", null),
-    _4("4", "http://hl7.org/fhir/network-type", "Email address", null),
-    _5("5", "http://hl7.org/fhir/network-type", "URI", null);
+    _1("1", "http://hl7.org/fhir/network-type", "Machine Name"),
+    _2("2", "http://hl7.org/fhir/network-type", "IP Address"),
+    _3("3", "http://hl7.org/fhir/network-type", "Telephone Number"),
+    _4("4", "http://hl7.org/fhir/network-type", "Email address"),
+    _5("5", "http://hl7.org/fhir/network-type", "URI");
 
     override fun toString(): kotlin.String = code
 
@@ -594,8 +593,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventAgentNetworkType =
@@ -616,13 +613,12 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    C("C", "http://hl7.org/fhir/audit-event-action", "Create", null),
-    R("R", "http://hl7.org/fhir/audit-event-action", "Read/View/Print", null),
-    U("U", "http://hl7.org/fhir/audit-event-action", "Update", null),
-    D("D", "http://hl7.org/fhir/audit-event-action", "Delete", null),
-    E("E", "http://hl7.org/fhir/audit-event-action", "Execute", null);
+    C("C", "http://hl7.org/fhir/audit-event-action", "Create"),
+    R("R", "http://hl7.org/fhir/audit-event-action", "Read/View/Print"),
+    U("U", "http://hl7.org/fhir/audit-event-action", "Update"),
+    D("D", "http://hl7.org/fhir/audit-event-action", "Delete"),
+    E("E", "http://hl7.org/fhir/audit-event-action", "Execute");
 
     override fun toString(): kotlin.String = code
 
@@ -631,8 +627,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventAction =
@@ -652,12 +646,11 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    _0("0", "http://hl7.org/fhir/audit-event-outcome", "Success", null),
-    _4("4", "http://hl7.org/fhir/audit-event-outcome", "Minor failure", null),
-    _8("8", "http://hl7.org/fhir/audit-event-outcome", "Serious failure", null),
-    _12("12", "http://hl7.org/fhir/audit-event-outcome", "Major failure", null);
+    _0("0", "http://hl7.org/fhir/audit-event-outcome", "Success"),
+    _4("4", "http://hl7.org/fhir/audit-event-outcome", "Minor failure"),
+    _8("8", "http://hl7.org/fhir/audit-event-outcome", "Serious failure"),
+    _12("12", "http://hl7.org/fhir/audit-event-outcome", "Major failure");
 
     override fun toString(): kotlin.String = code
 
@@ -666,8 +659,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventOutcome =

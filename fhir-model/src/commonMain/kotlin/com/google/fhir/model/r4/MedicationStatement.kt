@@ -306,50 +306,26 @@ public data class MedicationStatement(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Active("active", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Active", null),
+    Active("active", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Active"),
     Completed(
       "completed",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Completed",
-      null,
     ),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Entered in Error",
-      null,
     ),
-    Intended(
-      "intended",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Intended",
-      null,
-    ),
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Stopped",
-      null,
-    ),
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "On Hold",
-      null,
-    ),
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Unknown",
-      null,
-    ),
+    Intended("intended", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Intended"),
+    Stopped("stopped", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Stopped"),
+    On_Hold("on-hold", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "On Hold"),
+    Unknown("unknown", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Unknown"),
     Not_Taken(
       "not-taken",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Not Taken",
-      null,
     );
 
     override fun toString(): String = code
@@ -359,8 +335,6 @@ public data class MedicationStatement(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationStatementStatus =

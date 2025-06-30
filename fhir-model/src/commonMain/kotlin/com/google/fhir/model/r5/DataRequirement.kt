@@ -388,15 +388,14 @@ public data class DataRequirement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals", null),
-    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than", null),
-    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than", null),
-    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals", null),
-    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal", null),
-    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After", null),
-    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before", null);
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before");
 
     override fun toString(): kotlin.String = code
 
@@ -405,8 +404,6 @@ public data class DataRequirement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ValueFilterComparator =
@@ -429,10 +426,9 @@ public data class DataRequirement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Ascending("ascending", "http://hl7.org/fhir/sort-direction", "Ascending", null),
-    Descending("descending", "http://hl7.org/fhir/sort-direction", "Descending", null);
+    Ascending("ascending", "http://hl7.org/fhir/sort-direction", "Ascending"),
+    Descending("descending", "http://hl7.org/fhir/sort-direction", "Descending");
 
     override fun toString(): kotlin.String = code
 
@@ -441,8 +437,6 @@ public data class DataRequirement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SortDirection =

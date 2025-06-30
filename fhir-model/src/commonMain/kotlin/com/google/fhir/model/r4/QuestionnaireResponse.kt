@@ -432,23 +432,16 @@ public data class QuestionnaireResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "In Progress",
-      null,
-    ),
-    Completed("completed", "http://hl7.org/fhir/questionnaire-answers-status", "Completed", null),
-    Amended("amended", "http://hl7.org/fhir/questionnaire-answers-status", "Amended", null),
+    In_Progress("in-progress", "http://hl7.org/fhir/questionnaire-answers-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/questionnaire-answers-status", "Completed"),
+    Amended("amended", "http://hl7.org/fhir/questionnaire-answers-status", "Amended"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/questionnaire-answers-status",
       "Entered in Error",
-      null,
     ),
-    Stopped("stopped", "http://hl7.org/fhir/questionnaire-answers-status", "Stopped", null);
+    Stopped("stopped", "http://hl7.org/fhir/questionnaire-answers-status", "Stopped");
 
     override fun toString(): kotlin.String = code
 
@@ -457,8 +450,6 @@ public data class QuestionnaireResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireResponseStatus =

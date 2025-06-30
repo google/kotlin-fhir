@@ -830,11 +830,10 @@ public data class MeasureReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete", null),
-    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending", null),
-    Error("error", "http://hl7.org/fhir/measure-report-status", "Error", null);
+    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete"),
+    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending"),
+    Error("error", "http://hl7.org/fhir/measure-report-status", "Error");
 
     override fun toString(): kotlin.String = code
 
@@ -843,8 +842,6 @@ public data class MeasureReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MeasureReportStatus =
@@ -862,17 +859,11 @@ public data class MeasureReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual", null),
-    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List", null),
-    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary", null),
-    Data_Exchange(
-      "data-exchange",
-      "http://hl7.org/fhir/measure-report-type",
-      "Data Exchange",
-      null,
-    );
+    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual"),
+    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List"),
+    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary"),
+    Data_Exchange("data-exchange", "http://hl7.org/fhir/measure-report-type", "Data Exchange");
 
     override fun toString(): kotlin.String = code
 
@@ -881,8 +872,6 @@ public data class MeasureReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MeasureReportType =
@@ -904,20 +893,13 @@ public data class MeasureReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
     Incremental(
       "incremental",
       "http://hl7.org/fhir/CodeSystem/submit-data-update-type",
       "Incremental",
-      null,
     ),
-    Snapshot(
-      "snapshot",
-      "http://hl7.org/fhir/CodeSystem/submit-data-update-type",
-      "Snapshot",
-      null,
-    );
+    Snapshot("snapshot", "http://hl7.org/fhir/CodeSystem/submit-data-update-type", "Snapshot");
 
     override fun toString(): kotlin.String = code
 
@@ -926,8 +908,6 @@ public data class MeasureReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubmitDataUpdateType =

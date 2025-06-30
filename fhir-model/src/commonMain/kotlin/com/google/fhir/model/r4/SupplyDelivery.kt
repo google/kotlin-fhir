@@ -281,16 +281,14 @@ public data class SupplyDelivery(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    In_Progress("in-progress", "http://hl7.org/fhir/supplydelivery-status", "In Progress", null),
-    Completed("completed", "http://hl7.org/fhir/supplydelivery-status", "Delivered", null),
-    Abandoned("abandoned", "http://hl7.org/fhir/supplydelivery-status", "Abandoned", null),
+    In_Progress("in-progress", "http://hl7.org/fhir/supplydelivery-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/supplydelivery-status", "Delivered"),
+    Abandoned("abandoned", "http://hl7.org/fhir/supplydelivery-status", "Abandoned"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/supplydelivery-status",
       "Entered In Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -300,8 +298,6 @@ public data class SupplyDelivery(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SupplyDeliveryStatus =

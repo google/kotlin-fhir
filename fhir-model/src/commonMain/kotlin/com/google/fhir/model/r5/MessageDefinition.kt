@@ -522,20 +522,13 @@ public data class MessageDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Consequence(
-      "consequence",
-      "http://hl7.org/fhir/message-significance-category",
-      "Consequence",
-      null,
-    ),
-    Currency("currency", "http://hl7.org/fhir/message-significance-category", "Currency", null),
+    Consequence("consequence", "http://hl7.org/fhir/message-significance-category", "Consequence"),
+    Currency("currency", "http://hl7.org/fhir/message-significance-category", "Currency"),
     Notification(
       "notification",
       "http://hl7.org/fhir/message-significance-category",
       "Notification",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -545,8 +538,6 @@ public data class MessageDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MessageSignificanceCategory =
@@ -570,21 +561,18 @@ public data class MessageDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Always("always", "http://hl7.org/fhir/messageheader-response-request", "Always", null),
+    Always("always", "http://hl7.org/fhir/messageheader-response-request", "Always"),
     On_Error(
       "on-error",
       "http://hl7.org/fhir/messageheader-response-request",
       "Error/reject conditions only",
-      null,
     ),
-    Never("never", "http://hl7.org/fhir/messageheader-response-request", "Never", null),
+    Never("never", "http://hl7.org/fhir/messageheader-response-request", "Never"),
     On_Success(
       "on-success",
       "http://hl7.org/fhir/messageheader-response-request",
       "Successful completion only",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -594,8 +582,6 @@ public data class MessageDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MessageheaderResponseRequest =

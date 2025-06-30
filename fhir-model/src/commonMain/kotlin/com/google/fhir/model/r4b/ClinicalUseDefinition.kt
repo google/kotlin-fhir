@@ -602,33 +602,20 @@ public data class ClinicalUseDefinition(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Indication(
-      "indication",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Indication",
-      null,
-    ),
+    Indication("indication", "http://hl7.org/fhir/clinical-use-definition-type", "Indication"),
     Contraindication(
       "contraindication",
       "http://hl7.org/fhir/clinical-use-definition-type",
       "Contraindication",
-      null,
     ),
-    Interaction(
-      "interaction",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Interaction",
-      null,
-    ),
+    Interaction("interaction", "http://hl7.org/fhir/clinical-use-definition-type", "Interaction"),
     Undesirable_Effect(
       "undesirable-effect",
       "http://hl7.org/fhir/clinical-use-definition-type",
       "Undesirable Effect",
-      null,
     ),
-    Warning("warning", "http://hl7.org/fhir/clinical-use-definition-type", "Warning", null);
+    Warning("warning", "http://hl7.org/fhir/clinical-use-definition-type", "Warning");
 
     override fun toString(): String = code
 
@@ -637,8 +624,6 @@ public data class ClinicalUseDefinition(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ClinicalUseDefinitionType =

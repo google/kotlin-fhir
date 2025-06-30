@@ -235,15 +235,14 @@ public data class Timing(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    S("s", "http://unitsofmeasure.org", "秒", null),
-    Min("min", "http://unitsofmeasure.org", "分钟", null),
-    H("h", "http://unitsofmeasure.org", "小时", null),
-    D("d", "http://unitsofmeasure.org", "天", null),
-    Wk("wk", "http://unitsofmeasure.org", "星期", null),
-    Mo("mo", "http://unitsofmeasure.org", "月", null),
-    A("a", "http://unitsofmeasure.org", "年", null);
+    S("s", "http://unitsofmeasure.org", "秒"),
+    Min("min", "http://unitsofmeasure.org", "分钟"),
+    H("h", "http://unitsofmeasure.org", "小时"),
+    D("d", "http://unitsofmeasure.org", "天"),
+    Wk("wk", "http://unitsofmeasure.org", "星期"),
+    Mo("mo", "http://unitsofmeasure.org", "月"),
+    A("a", "http://unitsofmeasure.org", "年");
 
     override fun toString(): String = code
 
@@ -252,8 +251,6 @@ public data class Timing(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): UnitsOfTime =
@@ -275,15 +272,14 @@ public data class Timing(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", null),
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", null),
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", null),
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", null),
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", null),
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", null),
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", null);
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
 
     override fun toString(): String = code
 
@@ -292,8 +288,6 @@ public data class Timing(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DayOfWeek =
@@ -315,34 +309,33 @@ public data class Timing(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Morn("MORN", "http://hl7.org/fhir/event-timing", "Morning", null),
-    Morn_Early("MORN.early", "http://hl7.org/fhir/event-timing", "Early Morning", null),
-    Morn_Late("MORN.late", "http://hl7.org/fhir/event-timing", "Late Morning", null),
-    Noon("NOON", "http://hl7.org/fhir/event-timing", "Noon", null),
-    Aft("AFT", "http://hl7.org/fhir/event-timing", "Afternoon", null),
-    Aft_Early("AFT.early", "http://hl7.org/fhir/event-timing", "Early Afternoon", null),
-    Aft_Late("AFT.late", "http://hl7.org/fhir/event-timing", "Late Afternoon", null),
-    Eve("EVE", "http://hl7.org/fhir/event-timing", "Evening", null),
-    Eve_Early("EVE.early", "http://hl7.org/fhir/event-timing", "Early Evening", null),
-    Eve_Late("EVE.late", "http://hl7.org/fhir/event-timing", "Late Evening", null),
-    Night("NIGHT", "http://hl7.org/fhir/event-timing", "Night", null),
-    Phs("PHS", "http://hl7.org/fhir/event-timing", "After Sleep", null),
-    Hs("HS", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "HS", null),
-    Wake("WAKE", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "WAKE", null),
-    C("C", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "C", null),
-    Cm("CM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CM", null),
-    Cd("CD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CD", null),
-    Cv("CV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CV", null),
-    Ac("AC", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "AC", null),
-    Acm("ACM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACM", null),
-    Acd("ACD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACD", null),
-    Acv("ACV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACV", null),
-    Pc("PC", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PC", null),
-    Pcm("PCM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCM", null),
-    Pcd("PCD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCD", null),
-    Pcv("PCV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCV", null);
+    Morn("MORN", "http://hl7.org/fhir/event-timing", "Morning"),
+    Morn_Early("MORN.early", "http://hl7.org/fhir/event-timing", "Early Morning"),
+    Morn_Late("MORN.late", "http://hl7.org/fhir/event-timing", "Late Morning"),
+    Noon("NOON", "http://hl7.org/fhir/event-timing", "Noon"),
+    Aft("AFT", "http://hl7.org/fhir/event-timing", "Afternoon"),
+    Aft_Early("AFT.early", "http://hl7.org/fhir/event-timing", "Early Afternoon"),
+    Aft_Late("AFT.late", "http://hl7.org/fhir/event-timing", "Late Afternoon"),
+    Eve("EVE", "http://hl7.org/fhir/event-timing", "Evening"),
+    Eve_Early("EVE.early", "http://hl7.org/fhir/event-timing", "Early Evening"),
+    Eve_Late("EVE.late", "http://hl7.org/fhir/event-timing", "Late Evening"),
+    Night("NIGHT", "http://hl7.org/fhir/event-timing", "Night"),
+    Phs("PHS", "http://hl7.org/fhir/event-timing", "After Sleep"),
+    Hs("HS", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "HS"),
+    Wake("WAKE", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "WAKE"),
+    C("C", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "C"),
+    Cm("CM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CM"),
+    Cd("CD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CD"),
+    Cv("CV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CV"),
+    Ac("AC", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "AC"),
+    Acm("ACM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACM"),
+    Acd("ACD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACD"),
+    Acv("ACV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACV"),
+    Pc("PC", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PC"),
+    Pcm("PCM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCM"),
+    Pcd("PCD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCD"),
+    Pcv("PCV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCV");
 
     override fun toString(): String = code
 
@@ -351,8 +344,6 @@ public data class Timing(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EventTiming =

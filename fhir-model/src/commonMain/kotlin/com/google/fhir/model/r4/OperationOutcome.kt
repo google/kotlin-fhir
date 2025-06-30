@@ -224,12 +224,11 @@ public data class OperationOutcome(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Fatal("fatal", "http://hl7.org/fhir/issue-severity", "Fatal", null),
-    Error("error", "http://hl7.org/fhir/issue-severity", "Error", null),
-    Warning("warning", "http://hl7.org/fhir/issue-severity", "Warning", null),
-    Information("information", "http://hl7.org/fhir/issue-severity", "Information", null);
+    Fatal("fatal", "http://hl7.org/fhir/issue-severity", "Fatal"),
+    Error("error", "http://hl7.org/fhir/issue-severity", "Error"),
+    Warning("warning", "http://hl7.org/fhir/issue-severity", "Warning"),
+    Information("information", "http://hl7.org/fhir/issue-severity", "Information");
 
     override fun toString(): kotlin.String = code
 
@@ -238,8 +237,6 @@ public data class OperationOutcome(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IssueSeverity =
@@ -258,49 +255,38 @@ public data class OperationOutcome(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Invalid("invalid", "http://hl7.org/fhir/issue-type", "Invalid Content", null),
-    Structure("structure", "http://hl7.org/fhir/issue-type", "Structural Issue", null),
-    Required("required", "http://hl7.org/fhir/issue-type", "Required element missing", null),
-    Value("value", "http://hl7.org/fhir/issue-type", "Element value invalid", null),
-    Invariant("invariant", "http://hl7.org/fhir/issue-type", "Validation rule failed", null),
-    Security("security", "http://hl7.org/fhir/issue-type", "Security Problem", null),
-    Login("login", "http://hl7.org/fhir/issue-type", "Login Required", null),
-    Unknown("unknown", "http://hl7.org/fhir/issue-type", "Unknown User", null),
-    Expired("expired", "http://hl7.org/fhir/issue-type", "Session Expired", null),
-    Forbidden("forbidden", "http://hl7.org/fhir/issue-type", "Forbidden", null),
-    Suppressed("suppressed", "http://hl7.org/fhir/issue-type", "Information  Suppressed", null),
-    Processing("processing", "http://hl7.org/fhir/issue-type", "Processing Failure", null),
-    Not_Supported("not-supported", "http://hl7.org/fhir/issue-type", "Content not supported", null),
-    Duplicate("duplicate", "http://hl7.org/fhir/issue-type", "Duplicate", null),
-    Multiple_Matches(
-      "multiple-matches",
-      "http://hl7.org/fhir/issue-type",
-      "Multiple Matches",
-      null,
-    ),
-    Not_Found("not-found", "http://hl7.org/fhir/issue-type", "Not Found", null),
-    Deleted("deleted", "http://hl7.org/fhir/issue-type", "Deleted", null),
-    Too_Long("too-long", "http://hl7.org/fhir/issue-type", "Content Too Long", null),
-    Code_Invalid("code-invalid", "http://hl7.org/fhir/issue-type", "Invalid Code", null),
-    Extension("extension", "http://hl7.org/fhir/issue-type", "Unacceptable Extension", null),
-    Too_Costly("too-costly", "http://hl7.org/fhir/issue-type", "Operation Too Costly", null),
-    Business_Rule(
-      "business-rule",
-      "http://hl7.org/fhir/issue-type",
-      "Business Rule Violation",
-      null,
-    ),
-    Conflict("conflict", "http://hl7.org/fhir/issue-type", "Edit Version Conflict", null),
-    Transient("transient", "http://hl7.org/fhir/issue-type", "Transient Issue", null),
-    Lock_Error("lock-error", "http://hl7.org/fhir/issue-type", "Lock Error", null),
-    No_Store("no-store", "http://hl7.org/fhir/issue-type", "No Store Available", null),
-    Exception("exception", "http://hl7.org/fhir/issue-type", "Exception", null),
-    Timeout("timeout", "http://hl7.org/fhir/issue-type", "Timeout", null),
-    Incomplete("incomplete", "http://hl7.org/fhir/issue-type", "Incomplete Results", null),
-    Throttled("throttled", "http://hl7.org/fhir/issue-type", "Throttled", null),
-    Informational("informational", "http://hl7.org/fhir/issue-type", "Informational Note", null);
+    Invalid("invalid", "http://hl7.org/fhir/issue-type", "Invalid Content"),
+    Structure("structure", "http://hl7.org/fhir/issue-type", "Structural Issue"),
+    Required("required", "http://hl7.org/fhir/issue-type", "Required element missing"),
+    Value("value", "http://hl7.org/fhir/issue-type", "Element value invalid"),
+    Invariant("invariant", "http://hl7.org/fhir/issue-type", "Validation rule failed"),
+    Security("security", "http://hl7.org/fhir/issue-type", "Security Problem"),
+    Login("login", "http://hl7.org/fhir/issue-type", "Login Required"),
+    Unknown("unknown", "http://hl7.org/fhir/issue-type", "Unknown User"),
+    Expired("expired", "http://hl7.org/fhir/issue-type", "Session Expired"),
+    Forbidden("forbidden", "http://hl7.org/fhir/issue-type", "Forbidden"),
+    Suppressed("suppressed", "http://hl7.org/fhir/issue-type", "Information  Suppressed"),
+    Processing("processing", "http://hl7.org/fhir/issue-type", "Processing Failure"),
+    Not_Supported("not-supported", "http://hl7.org/fhir/issue-type", "Content not supported"),
+    Duplicate("duplicate", "http://hl7.org/fhir/issue-type", "Duplicate"),
+    Multiple_Matches("multiple-matches", "http://hl7.org/fhir/issue-type", "Multiple Matches"),
+    Not_Found("not-found", "http://hl7.org/fhir/issue-type", "Not Found"),
+    Deleted("deleted", "http://hl7.org/fhir/issue-type", "Deleted"),
+    Too_Long("too-long", "http://hl7.org/fhir/issue-type", "Content Too Long"),
+    Code_Invalid("code-invalid", "http://hl7.org/fhir/issue-type", "Invalid Code"),
+    Extension("extension", "http://hl7.org/fhir/issue-type", "Unacceptable Extension"),
+    Too_Costly("too-costly", "http://hl7.org/fhir/issue-type", "Operation Too Costly"),
+    Business_Rule("business-rule", "http://hl7.org/fhir/issue-type", "Business Rule Violation"),
+    Conflict("conflict", "http://hl7.org/fhir/issue-type", "Edit Version Conflict"),
+    Transient("transient", "http://hl7.org/fhir/issue-type", "Transient Issue"),
+    Lock_Error("lock-error", "http://hl7.org/fhir/issue-type", "Lock Error"),
+    No_Store("no-store", "http://hl7.org/fhir/issue-type", "No Store Available"),
+    Exception("exception", "http://hl7.org/fhir/issue-type", "Exception"),
+    Timeout("timeout", "http://hl7.org/fhir/issue-type", "Timeout"),
+    Incomplete("incomplete", "http://hl7.org/fhir/issue-type", "Incomplete Results"),
+    Throttled("throttled", "http://hl7.org/fhir/issue-type", "Throttled"),
+    Informational("informational", "http://hl7.org/fhir/issue-type", "Informational Note");
 
     override fun toString(): kotlin.String = code
 
@@ -309,8 +295,6 @@ public data class OperationOutcome(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IssueType =

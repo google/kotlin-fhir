@@ -344,12 +344,11 @@ public data class Person(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Level1("level1", "http://hl7.org/fhir/identity-assuranceLevel", "Level 1", null),
-    Level2("level2", "http://hl7.org/fhir/identity-assuranceLevel", "Level 2", null),
-    Level3("level3", "http://hl7.org/fhir/identity-assuranceLevel", "Level 3", null),
-    Level4("level4", "http://hl7.org/fhir/identity-assuranceLevel", "Level 4", null);
+    Level1("level1", "http://hl7.org/fhir/identity-assuranceLevel", "Level 1"),
+    Level2("level2", "http://hl7.org/fhir/identity-assuranceLevel", "Level 2"),
+    Level3("level3", "http://hl7.org/fhir/identity-assuranceLevel", "Level 3"),
+    Level4("level4", "http://hl7.org/fhir/identity-assuranceLevel", "Level 4");
 
     override fun toString(): String = code
 
@@ -358,8 +357,6 @@ public data class Person(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): IdentityAssuranceLevel =

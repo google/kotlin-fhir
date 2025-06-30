@@ -677,20 +677,18 @@ public data class EvidenceReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Replaces("replaces", "http://hl7.org/fhir/report-relation-type", "Replaces", null),
-    Amends("amends", "http://hl7.org/fhir/report-relation-type", "Amends", null),
-    Appends("appends", "http://hl7.org/fhir/report-relation-type", "Appends", null),
-    Transforms("transforms", "http://hl7.org/fhir/report-relation-type", "Transforms", null),
-    ReplacedWith("replacedWith", "http://hl7.org/fhir/report-relation-type", "Replaced With", null),
-    AmendedWith("amendedWith", "http://hl7.org/fhir/report-relation-type", "Amended With", null),
-    AppendedWith("appendedWith", "http://hl7.org/fhir/report-relation-type", "Appended With", null),
+    Replaces("replaces", "http://hl7.org/fhir/report-relation-type", "Replaces"),
+    Amends("amends", "http://hl7.org/fhir/report-relation-type", "Amends"),
+    Appends("appends", "http://hl7.org/fhir/report-relation-type", "Appends"),
+    Transforms("transforms", "http://hl7.org/fhir/report-relation-type", "Transforms"),
+    ReplacedWith("replacedWith", "http://hl7.org/fhir/report-relation-type", "Replaced With"),
+    AmendedWith("amendedWith", "http://hl7.org/fhir/report-relation-type", "Amended With"),
+    AppendedWith("appendedWith", "http://hl7.org/fhir/report-relation-type", "Appended With"),
     TransformedWith(
       "transformedWith",
       "http://hl7.org/fhir/report-relation-type",
       "Transformed With",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -700,8 +698,6 @@ public data class EvidenceReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReportRelationshipType =
@@ -725,11 +721,10 @@ public data class EvidenceReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Working("working", "http://hl7.org/fhir/list-mode", "Working List", null),
-    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List", null),
-    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List", null);
+    Working("working", "http://hl7.org/fhir/list-mode", "Working List"),
+    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List"),
+    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List");
 
     override fun toString(): kotlin.String = code
 
@@ -738,8 +733,6 @@ public data class EvidenceReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SectionMode =

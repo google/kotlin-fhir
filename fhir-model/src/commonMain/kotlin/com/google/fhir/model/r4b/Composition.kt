@@ -581,17 +581,15 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Personal("personal", "http://hl7.org/fhir/composition-attestation-mode", "Personal", null),
+    Personal("personal", "http://hl7.org/fhir/composition-attestation-mode", "Personal"),
     Professional(
       "professional",
       "http://hl7.org/fhir/composition-attestation-mode",
       "Professional",
-      null,
     ),
-    Legal("legal", "http://hl7.org/fhir/composition-attestation-mode", "Legal", null),
-    Official("official", "http://hl7.org/fhir/composition-attestation-mode", "Official", null);
+    Legal("legal", "http://hl7.org/fhir/composition-attestation-mode", "Legal"),
+    Official("official", "http://hl7.org/fhir/composition-attestation-mode", "Official");
 
     override fun toString(): kotlin.String = code
 
@@ -600,8 +598,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompositionAttestationMode =
@@ -621,12 +617,11 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Replaces("replaces", "http://hl7.org/fhir/document-relationship-type", "Replaces", null),
-    Transforms("transforms", "http://hl7.org/fhir/document-relationship-type", "Transforms", null),
-    Signs("signs", "http://hl7.org/fhir/document-relationship-type", "Signs", null),
-    Appends("appends", "http://hl7.org/fhir/document-relationship-type", "Appends", null);
+    Replaces("replaces", "http://hl7.org/fhir/document-relationship-type", "Replaces"),
+    Transforms("transforms", "http://hl7.org/fhir/document-relationship-type", "Transforms"),
+    Signs("signs", "http://hl7.org/fhir/document-relationship-type", "Signs"),
+    Appends("appends", "http://hl7.org/fhir/document-relationship-type", "Appends");
 
     override fun toString(): kotlin.String = code
 
@@ -635,8 +630,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DocumentRelationshipType =
@@ -656,11 +649,10 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Working("working", "http://hl7.org/fhir/list-mode", "Working List", null),
-    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List", null),
-    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List", null);
+    Working("working", "http://hl7.org/fhir/list-mode", "Working List"),
+    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List"),
+    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List");
 
     override fun toString(): kotlin.String = code
 
@@ -669,8 +661,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SectionMode =
@@ -688,16 +678,14 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary", null),
-    Final("final", "http://hl7.org/fhir/composition-status", "Final", null),
-    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended", null),
+    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/composition-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/composition-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -707,8 +695,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompositionStatus =
@@ -730,14 +716,13 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    L("L", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "low", null),
-    M("M", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "moderate", null),
-    N("N", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "normal", null),
-    R("R", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "restricted", null),
-    U("U", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "unrestricted", null),
-    V("V", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "very restricted", null);
+    L("L", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "low"),
+    M("M", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "moderate"),
+    N("N", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "normal"),
+    R("R", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "restricted"),
+    U("U", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "unrestricted"),
+    V("V", "http://terminology.hl7.org/CodeSystem/v3-Confidentiality", "very restricted");
 
     override fun toString(): kotlin.String = code
 
@@ -746,8 +731,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DocumentConfidentiality =

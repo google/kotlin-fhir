@@ -112,13 +112,12 @@ public data class Address(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Home("home", "http://hl7.org/fhir/address-use", "Home", null),
-    Work("work", "http://hl7.org/fhir/address-use", "Work", null),
-    Temp("temp", "http://hl7.org/fhir/address-use", "Temporary", null),
-    Old("old", "http://hl7.org/fhir/address-use", "Old / Incorrect", null),
-    Billing("billing", "http://hl7.org/fhir/address-use", "Billing", null);
+    Home("home", "http://hl7.org/fhir/address-use", "Home"),
+    Work("work", "http://hl7.org/fhir/address-use", "Work"),
+    Temp("temp", "http://hl7.org/fhir/address-use", "Temporary"),
+    Old("old", "http://hl7.org/fhir/address-use", "Old / Incorrect"),
+    Billing("billing", "http://hl7.org/fhir/address-use", "Billing");
 
     override fun toString(): kotlin.String = code
 
@@ -127,8 +126,6 @@ public data class Address(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AddressUse =
@@ -148,11 +145,10 @@ public data class Address(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Postal("postal", "http://hl7.org/fhir/address-type", "Postal", null),
-    Physical("physical", "http://hl7.org/fhir/address-type", "Physical", null),
-    Both("both", "http://hl7.org/fhir/address-type", "Postal & Physical", null);
+    Postal("postal", "http://hl7.org/fhir/address-type", "Postal"),
+    Physical("physical", "http://hl7.org/fhir/address-type", "Physical"),
+    Both("both", "http://hl7.org/fhir/address-type", "Postal & Physical");
 
     override fun toString(): kotlin.String = code
 
@@ -161,8 +157,6 @@ public data class Address(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AddressType =

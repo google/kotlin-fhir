@@ -510,18 +510,16 @@ public data class ChargeItemDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price", null),
-    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge", null),
-    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction", null),
-    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount", null),
-    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax", null),
+    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount"),
+    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax"),
     Informational(
       "informational",
       "http://hl7.org/fhir/invoice-priceComponentType",
       "informational",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -531,8 +529,6 @@ public data class ChargeItemDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ChargeItemDefinitionPriceComponentType =

@@ -453,12 +453,11 @@ public data class DocumentReference(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Replaces("replaces", "http://hl7.org/fhir/document-relationship-type", "Replaces", null),
-    Transforms("transforms", "http://hl7.org/fhir/document-relationship-type", "Transforms", null),
-    Signs("signs", "http://hl7.org/fhir/document-relationship-type", "Signs", null),
-    Appends("appends", "http://hl7.org/fhir/document-relationship-type", "Appends", null);
+    Replaces("replaces", "http://hl7.org/fhir/document-relationship-type", "Replaces"),
+    Transforms("transforms", "http://hl7.org/fhir/document-relationship-type", "Transforms"),
+    Signs("signs", "http://hl7.org/fhir/document-relationship-type", "Signs"),
+    Appends("appends", "http://hl7.org/fhir/document-relationship-type", "Appends");
 
     override fun toString(): kotlin.String = code
 
@@ -467,8 +466,6 @@ public data class DocumentReference(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DocumentRelationshipType =
@@ -488,16 +485,14 @@ public data class DocumentReference(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary", null),
-    Final("final", "http://hl7.org/fhir/composition-status", "Final", null),
-    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended", null),
+    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/composition-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/composition-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -507,8 +502,6 @@ public data class DocumentReference(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReferredDocumentStatus =

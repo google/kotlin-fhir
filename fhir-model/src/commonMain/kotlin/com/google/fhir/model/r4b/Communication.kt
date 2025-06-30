@@ -332,21 +332,15 @@ public data class Communication(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation", null),
-    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress", null),
-    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold", null),
-    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped", null),
-    Completed("completed", "http://hl7.org/fhir/event-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      null,
-    ),
-    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown", null);
+    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done"),
+    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold"),
+    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -355,8 +349,6 @@ public data class Communication(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): CommunicationStatus =
@@ -379,12 +371,11 @@ public data class Communication(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine", null),
-    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent", null),
-    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP", null),
-    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT", null);
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -393,8 +384,6 @@ public data class Communication(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): CommunicationPriority =

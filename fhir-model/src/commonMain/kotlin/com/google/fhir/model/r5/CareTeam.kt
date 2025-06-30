@@ -287,17 +287,15 @@ public data class CareTeam(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposed("proposed", "http://hl7.org/fhir/care-team-status", "Proposed", null),
-    Active("active", "http://hl7.org/fhir/care-team-status", "Active", null),
-    Suspended("suspended", "http://hl7.org/fhir/care-team-status", "Suspended", null),
-    Inactive("inactive", "http://hl7.org/fhir/care-team-status", "Inactive", null),
+    Proposed("proposed", "http://hl7.org/fhir/care-team-status", "Proposed"),
+    Active("active", "http://hl7.org/fhir/care-team-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/care-team-status", "Suspended"),
+    Inactive("inactive", "http://hl7.org/fhir/care-team-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/care-team-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -307,8 +305,6 @@ public data class CareTeam(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CareTeamStatus =

@@ -385,16 +385,10 @@ public data class ClinicalImpression(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress", null),
-    Completed("completed", "http://hl7.org/fhir/event-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      null,
-    );
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -403,8 +397,6 @@ public data class ClinicalImpression(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ClinicalImpressionStatus =

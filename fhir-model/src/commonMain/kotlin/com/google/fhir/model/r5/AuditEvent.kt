@@ -703,13 +703,12 @@ public data class AuditEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    C("C", "http://hl7.org/fhir/audit-event-action", "Create", null),
-    R("R", "http://hl7.org/fhir/audit-event-action", "Read", null),
-    U("U", "http://hl7.org/fhir/audit-event-action", "Update", null),
-    D("D", "http://hl7.org/fhir/audit-event-action", "Delete", null),
-    E("E", "http://hl7.org/fhir/audit-event-action", "Execute", null);
+    C("C", "http://hl7.org/fhir/audit-event-action", "Create"),
+    R("R", "http://hl7.org/fhir/audit-event-action", "Read"),
+    U("U", "http://hl7.org/fhir/audit-event-action", "Update"),
+    D("D", "http://hl7.org/fhir/audit-event-action", "Delete"),
+    E("E", "http://hl7.org/fhir/audit-event-action", "Execute");
 
     override fun toString(): String = code
 
@@ -718,8 +717,6 @@ public data class AuditEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AuditEventAction =
@@ -739,21 +736,15 @@ public data class AuditEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Emergency("emergency", "http://hl7.org/fhir/audit-event-severity", "Emergency", null),
-    Alert("alert", "http://hl7.org/fhir/audit-event-severity", "Alert", null),
-    Critical("critical", "http://hl7.org/fhir/audit-event-severity", "Critical", null),
-    Error("error", "http://hl7.org/fhir/audit-event-severity", "Error", null),
-    Warning("warning", "http://hl7.org/fhir/audit-event-severity", "Warning", null),
-    Notice("notice", "http://hl7.org/fhir/audit-event-severity", "Notice", null),
-    Informational(
-      "informational",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Informational",
-      null,
-    ),
-    Debug("debug", "http://hl7.org/fhir/audit-event-severity", "Debug", null);
+    Emergency("emergency", "http://hl7.org/fhir/audit-event-severity", "Emergency"),
+    Alert("alert", "http://hl7.org/fhir/audit-event-severity", "Alert"),
+    Critical("critical", "http://hl7.org/fhir/audit-event-severity", "Critical"),
+    Error("error", "http://hl7.org/fhir/audit-event-severity", "Error"),
+    Warning("warning", "http://hl7.org/fhir/audit-event-severity", "Warning"),
+    Notice("notice", "http://hl7.org/fhir/audit-event-severity", "Notice"),
+    Informational("informational", "http://hl7.org/fhir/audit-event-severity", "Informational"),
+    Debug("debug", "http://hl7.org/fhir/audit-event-severity", "Debug");
 
     override fun toString(): String = code
 
@@ -762,8 +753,6 @@ public data class AuditEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AuditEventSeverity =

@@ -766,17 +766,11 @@ public data class AdverseEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress", null),
-    Completed("completed", "http://hl7.org/fhir/event-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      null,
-    ),
-    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown", null);
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -785,8 +779,6 @@ public data class AdverseEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AdverseEventStatus =
@@ -805,14 +797,12 @@ public data class AdverseEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Actual("actual", "http://hl7.org/fhir/adverse-event-actuality", "Adverse Event", null),
+    Actual("actual", "http://hl7.org/fhir/adverse-event-actuality", "Adverse Event"),
     Potential(
       "potential",
       "http://hl7.org/fhir/adverse-event-actuality",
       "Potential Adverse Event",
-      null,
     );
 
     override fun toString(): String = code
@@ -822,8 +812,6 @@ public data class AdverseEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AdverseEventActuality =

@@ -23,20 +23,9 @@ public enum class AdjudicationError(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  A001(
-    "a001",
-    "http://terminology.hl7.org/CodeSystem/adjudication-error",
-    "Missing Identifier",
-    null,
-  ),
-  A002(
-    "a002",
-    "http://terminology.hl7.org/CodeSystem/adjudication-error",
-    "Missing Creation Date",
-    null,
-  );
+  A001("a001", "http://terminology.hl7.org/CodeSystem/adjudication-error", "Missing Identifier"),
+  A002("a002", "http://terminology.hl7.org/CodeSystem/adjudication-error", "Missing Creation Date");
 
   override fun toString(): String = code
 
@@ -45,8 +34,6 @@ public enum class AdjudicationError(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): AdjudicationError =

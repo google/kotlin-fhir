@@ -23,27 +23,23 @@ public enum class UnmappedConceptMapRelationship(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Related_To("related-to", "http://hl7.org/fhir/concept-map-relationship", "Related To", null),
-  Equivalent("equivalent", "http://hl7.org/fhir/concept-map-relationship", "Equivalent", null),
+  Related_To("related-to", "http://hl7.org/fhir/concept-map-relationship", "Related To"),
+  Equivalent("equivalent", "http://hl7.org/fhir/concept-map-relationship", "Equivalent"),
   Source_Is_Narrower_Than_Target(
     "source-is-narrower-than-target",
     "http://hl7.org/fhir/concept-map-relationship",
     "Source Is Narrower Than Target",
-    null,
   ),
   Source_Is_Broader_Than_Target(
     "source-is-broader-than-target",
     "http://hl7.org/fhir/concept-map-relationship",
     "Source Is Broader Than Target",
-    null,
   ),
   Not_Related_To(
     "not-related-to",
     "http://hl7.org/fhir/concept-map-relationship",
     "Not Related To",
-    null,
   );
 
   override fun toString(): String = code
@@ -53,8 +49,6 @@ public enum class UnmappedConceptMapRelationship(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): UnmappedConceptMapRelationship =

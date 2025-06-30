@@ -23,77 +23,61 @@ public enum class ObservationValueAbsentReason(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Unknown("unknown", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Unknown", null),
+  Unknown("unknown", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Unknown"),
   Asked_Unknown(
     "asked-unknown",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Asked But Unknown",
-    null,
   ),
   Temp_Unknown(
     "temp-unknown",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Temporarily Unknown",
-    null,
   ),
-  Not_Asked(
-    "not-asked",
-    "http://terminology.hl7.org/CodeSystem/data-absent-reason",
-    "Not Asked",
-    null,
-  ),
+  Not_Asked("not-asked", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Not Asked"),
   Asked_Declined(
     "asked-declined",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Asked But Declined",
-    null,
   ),
-  Masked("masked", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Masked", null),
+  Masked("masked", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Masked"),
   Not_Applicable(
     "not-applicable",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Not Applicable",
-    null,
   ),
   Unsupported(
     "unsupported",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Unsupported",
-    null,
   ),
-  As_Text("as-text", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "As Text", null),
-  Error("error", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Error", null),
+  As_Text("as-text", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "As Text"),
+  Error("error", "http://terminology.hl7.org/CodeSystem/data-absent-reason", "Error"),
   Not_A_Number(
     "not-a-number",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Not a Number (NaN)",
-    null,
   ),
   Negative_Infinity(
     "negative-infinity",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Negative Infinity (NINF)",
-    null,
   ),
   Positive_Infinity(
     "positive-infinity",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Positive Infinity (PINF)",
-    null,
   ),
   Not_Performed(
     "not-performed",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Not Performed",
-    null,
   ),
   Not_Permitted(
     "not-permitted",
     "http://terminology.hl7.org/CodeSystem/data-absent-reason",
     "Not Permitted",
-    null,
   );
 
   override fun toString(): String = code
@@ -103,8 +87,6 @@ public enum class ObservationValueAbsentReason(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ObservationValueAbsentReason =

@@ -101,13 +101,12 @@ public data class Identifier(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Usual("usual", "http://hl7.org/fhir/identifier-use", "Usual", null),
-    Official("official", "http://hl7.org/fhir/identifier-use", "Official", null),
-    Temp("temp", "http://hl7.org/fhir/identifier-use", "Temp", null),
-    Secondary("secondary", "http://hl7.org/fhir/identifier-use", "Secondary", null),
-    Old("old", "http://hl7.org/fhir/identifier-use", "Old", null);
+    Usual("usual", "http://hl7.org/fhir/identifier-use", "Usual"),
+    Official("official", "http://hl7.org/fhir/identifier-use", "Official"),
+    Temp("temp", "http://hl7.org/fhir/identifier-use", "Temp"),
+    Secondary("secondary", "http://hl7.org/fhir/identifier-use", "Secondary"),
+    Old("old", "http://hl7.org/fhir/identifier-use", "Old");
 
     override fun toString(): kotlin.String = code
 
@@ -116,8 +115,6 @@ public data class Identifier(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IdentifierUse =

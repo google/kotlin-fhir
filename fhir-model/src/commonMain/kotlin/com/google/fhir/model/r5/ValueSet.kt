@@ -1480,39 +1480,26 @@ public data class ValueSet(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals", null),
-    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)", null),
+    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals"),
+    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)"),
     Descendent_Of(
       "descendent-of",
       "http://hl7.org/fhir/filter-operator",
       "Descendent Of (by subsumption)",
-      null,
     ),
-    Is_Not_A(
-      "is-not-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Not (Is A) (by subsumption)",
-      null,
-    ),
-    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression", null),
-    In("in", "http://hl7.org/fhir/filter-operator", "In Set", null),
-    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set", null),
+    Is_Not_A("is-not-a", "http://hl7.org/fhir/filter-operator", "Not (Is A) (by subsumption)"),
+    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression"),
+    In("in", "http://hl7.org/fhir/filter-operator", "In Set"),
+    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set"),
     Generalizes(
       "generalizes",
       "http://hl7.org/fhir/filter-operator",
       "Generalizes (by Subsumption)",
-      null,
     ),
-    Child_Of("child-of", "http://hl7.org/fhir/filter-operator", "Child Of", null),
-    Descendent_Leaf(
-      "descendent-leaf",
-      "http://hl7.org/fhir/filter-operator",
-      "Descendent Leaf",
-      null,
-    ),
-    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists", null);
+    Child_Of("child-of", "http://hl7.org/fhir/filter-operator", "Child Of"),
+    Descendent_Leaf("descendent-leaf", "http://hl7.org/fhir/filter-operator", "Descendent Leaf"),
+    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists");
 
     override fun toString(): kotlin.String = code
 
@@ -1521,8 +1508,6 @@ public data class ValueSet(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FilterOperator =

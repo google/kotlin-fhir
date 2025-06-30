@@ -288,19 +288,17 @@ public data class EpisodeOfCare(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Planned("planned", "http://hl7.org/fhir/episode-of-care-status", "Planned", null),
-    Waitlist("waitlist", "http://hl7.org/fhir/episode-of-care-status", "Waitlist", null),
-    Active("active", "http://hl7.org/fhir/episode-of-care-status", "Active", null),
-    Onhold("onhold", "http://hl7.org/fhir/episode-of-care-status", "On Hold", null),
-    Finished("finished", "http://hl7.org/fhir/episode-of-care-status", "Finished", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/episode-of-care-status", "Cancelled", null),
+    Planned("planned", "http://hl7.org/fhir/episode-of-care-status", "Planned"),
+    Waitlist("waitlist", "http://hl7.org/fhir/episode-of-care-status", "Waitlist"),
+    Active("active", "http://hl7.org/fhir/episode-of-care-status", "Active"),
+    Onhold("onhold", "http://hl7.org/fhir/episode-of-care-status", "On Hold"),
+    Finished("finished", "http://hl7.org/fhir/episode-of-care-status", "Finished"),
+    Cancelled("cancelled", "http://hl7.org/fhir/episode-of-care-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/episode-of-care-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -310,8 +308,6 @@ public data class EpisodeOfCare(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EpisodeOfCareStatus =

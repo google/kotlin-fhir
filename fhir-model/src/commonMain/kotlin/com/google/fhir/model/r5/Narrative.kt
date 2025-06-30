@@ -69,12 +69,11 @@ public data class Narrative(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Generated("generated", "http://hl7.org/fhir/narrative-status", "Generated", null),
-    Extensions("extensions", "http://hl7.org/fhir/narrative-status", "Extensions", null),
-    Additional("additional", "http://hl7.org/fhir/narrative-status", "Additional", null),
-    Empty("empty", "http://hl7.org/fhir/narrative-status", "Empty", null);
+    Generated("generated", "http://hl7.org/fhir/narrative-status", "Generated"),
+    Extensions("extensions", "http://hl7.org/fhir/narrative-status", "Extensions"),
+    Additional("additional", "http://hl7.org/fhir/narrative-status", "Additional"),
+    Empty("empty", "http://hl7.org/fhir/narrative-status", "Empty");
 
     override fun toString(): String = code
 
@@ -83,8 +82,6 @@ public data class Narrative(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): NarrativeStatus =

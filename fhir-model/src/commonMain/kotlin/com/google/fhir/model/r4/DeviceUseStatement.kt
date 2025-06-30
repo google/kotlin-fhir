@@ -215,19 +215,17 @@ public data class DeviceUseStatement(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Active("active", "http://hl7.org/fhir/device-statement-status", "Active", null),
-    Completed("completed", "http://hl7.org/fhir/device-statement-status", "Completed", null),
+    Active("active", "http://hl7.org/fhir/device-statement-status", "Active"),
+    Completed("completed", "http://hl7.org/fhir/device-statement-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/device-statement-status",
       "Entered in Error",
-      null,
     ),
-    Intended("intended", "http://hl7.org/fhir/device-statement-status", "Intended", null),
-    Stopped("stopped", "http://hl7.org/fhir/device-statement-status", "Stopped", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/device-statement-status", "On Hold", null);
+    Intended("intended", "http://hl7.org/fhir/device-statement-status", "Intended"),
+    Stopped("stopped", "http://hl7.org/fhir/device-statement-status", "Stopped"),
+    On_Hold("on-hold", "http://hl7.org/fhir/device-statement-status", "On Hold");
 
     override fun toString(): String = code
 
@@ -236,8 +234,6 @@ public data class DeviceUseStatement(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceUseStatementStatus =

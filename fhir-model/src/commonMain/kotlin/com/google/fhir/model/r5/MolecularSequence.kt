@@ -409,19 +409,12 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Sense(
-      "sense",
-      "http://hl7.org/fhir/orientation-type",
-      "Sense orientation of referenceSeq",
-      null,
-    ),
+    Sense("sense", "http://hl7.org/fhir/orientation-type", "Sense orientation of referenceSeq"),
     Antisense(
       "antisense",
       "http://hl7.org/fhir/orientation-type",
       "Antisense orientation of referenceSeq",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -431,8 +424,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OrientationType =
@@ -449,10 +440,9 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Watson("watson", "http://hl7.org/fhir/strand-type", "Watson strand of starting sequence", null),
-    Crick("crick", "http://hl7.org/fhir/strand-type", "Crick strand of starting sequence", null);
+    Watson("watson", "http://hl7.org/fhir/strand-type", "Watson strand of starting sequence"),
+    Crick("crick", "http://hl7.org/fhir/strand-type", "Crick strand of starting sequence");
 
     override fun toString(): kotlin.String = code
 
@@ -461,8 +451,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StrandType =
@@ -479,11 +467,10 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Aa("aa", "http://hl7.org/fhir/sequence-type", "AA Sequence", null),
-    Dna("dna", "http://hl7.org/fhir/sequence-type", "DNA Sequence", null),
-    Rna("rna", "http://hl7.org/fhir/sequence-type", "RNA Sequence", null);
+    Aa("aa", "http://hl7.org/fhir/sequence-type", "AA Sequence"),
+    Dna("dna", "http://hl7.org/fhir/sequence-type", "DNA Sequence"),
+    Rna("rna", "http://hl7.org/fhir/sequence-type", "RNA Sequence");
 
     override fun toString(): kotlin.String = code
 
@@ -492,8 +479,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SequenceType =

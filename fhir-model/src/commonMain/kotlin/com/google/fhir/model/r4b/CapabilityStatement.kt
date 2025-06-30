@@ -1292,10 +1292,9 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Client("client", "http://hl7.org/fhir/restful-capability-mode", "Client", null),
-    Server("server", "http://hl7.org/fhir/restful-capability-mode", "Server", null);
+    Client("client", "http://hl7.org/fhir/restful-capability-mode", "Client"),
+    Server("server", "http://hl7.org/fhir/restful-capability-mode", "Server");
 
     override fun toString(): kotlin.String = code
 
@@ -1304,8 +1303,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RestfulCapabilityMode =
@@ -1323,15 +1320,13 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    No_Version("no-version", "http://hl7.org/fhir/versioning-policy", "No VersionId Support", null),
-    Versioned("versioned", "http://hl7.org/fhir/versioning-policy", "Versioned", null),
+    No_Version("no-version", "http://hl7.org/fhir/versioning-policy", "No VersionId Support"),
+    Versioned("versioned", "http://hl7.org/fhir/versioning-policy", "Versioned"),
     Versioned_Update(
       "versioned-update",
       "http://hl7.org/fhir/versioning-policy",
       "VersionId tracked fully",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1341,8 +1336,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResourceVersionPolicy =
@@ -1361,27 +1354,15 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Not_Supported(
-      "not-supported",
-      "http://hl7.org/fhir/conditional-read-status",
-      "Not Supported",
-      null,
-    ),
+    Not_Supported("not-supported", "http://hl7.org/fhir/conditional-read-status", "Not Supported"),
     Modified_Since(
       "modified-since",
       "http://hl7.org/fhir/conditional-read-status",
       "If-Modified-Since",
-      null,
     ),
-    Not_Match("not-match", "http://hl7.org/fhir/conditional-read-status", "If-None-Match", null),
-    Full_Support(
-      "full-support",
-      "http://hl7.org/fhir/conditional-read-status",
-      "Full Support",
-      null,
-    );
+    Not_Match("not-match", "http://hl7.org/fhir/conditional-read-status", "If-None-Match"),
+    Full_Support("full-support", "http://hl7.org/fhir/conditional-read-status", "Full Support");
 
     override fun toString(): kotlin.String = code
 
@@ -1390,8 +1371,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionalReadStatus =
@@ -1411,25 +1390,17 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
     Not_Supported(
       "not-supported",
       "http://hl7.org/fhir/conditional-delete-status",
       "Not Supported",
-      null,
     ),
-    Single(
-      "single",
-      "http://hl7.org/fhir/conditional-delete-status",
-      "Single Deletes Supported",
-      null,
-    ),
+    Single("single", "http://hl7.org/fhir/conditional-delete-status", "Single Deletes Supported"),
     Multiple(
       "multiple",
       "http://hl7.org/fhir/conditional-delete-status",
       "Multiple Deletes Supported",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1439,8 +1410,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionalDeleteStatus =
@@ -1459,23 +1428,16 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Literal("literal", "http://hl7.org/fhir/reference-handling-policy", "Literal References", null),
-    Logical("logical", "http://hl7.org/fhir/reference-handling-policy", "Logical References", null),
-    Resolves(
-      "resolves",
-      "http://hl7.org/fhir/reference-handling-policy",
-      "Resolves References",
-      null,
-    ),
+    Literal("literal", "http://hl7.org/fhir/reference-handling-policy", "Literal References"),
+    Logical("logical", "http://hl7.org/fhir/reference-handling-policy", "Logical References"),
+    Resolves("resolves", "http://hl7.org/fhir/reference-handling-policy", "Resolves References"),
     Enforced(
       "enforced",
       "http://hl7.org/fhir/reference-handling-policy",
       "Reference Integrity Enforced",
-      null,
     ),
-    Local("local", "http://hl7.org/fhir/reference-handling-policy", "Local References Only", null);
+    Local("local", "http://hl7.org/fhir/reference-handling-policy", "Local References Only");
 
     override fun toString(): kotlin.String = code
 
@@ -1484,8 +1446,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReferenceHandlingPolicy =
@@ -1506,22 +1466,20 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Read("read", "http://hl7.org/fhir/restful-interaction", "read", null),
-    Vread("vread", "http://hl7.org/fhir/restful-interaction", "vread", null),
-    Update("update", "http://hl7.org/fhir/restful-interaction", "update", null),
-    Patch("patch", "http://hl7.org/fhir/restful-interaction", "patch", null),
-    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete", null),
+    Read("read", "http://hl7.org/fhir/restful-interaction", "read"),
+    Vread("vread", "http://hl7.org/fhir/restful-interaction", "vread"),
+    Update("update", "http://hl7.org/fhir/restful-interaction", "update"),
+    Patch("patch", "http://hl7.org/fhir/restful-interaction", "patch"),
+    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete"),
     History_Instance(
       "history-instance",
       "http://hl7.org/fhir/restful-interaction",
       "history-instance",
-      null,
     ),
-    History_Type("history-type", "http://hl7.org/fhir/restful-interaction", "history-type", null),
-    Create("create", "http://hl7.org/fhir/restful-interaction", "create", null),
-    Search_Type("search-type", "http://hl7.org/fhir/restful-interaction", "search-type", null);
+    History_Type("history-type", "http://hl7.org/fhir/restful-interaction", "history-type"),
+    Create("create", "http://hl7.org/fhir/restful-interaction", "create"),
+    Search_Type("search-type", "http://hl7.org/fhir/restful-interaction", "search-type");
 
     override fun toString(): kotlin.String = code
 
@@ -1530,8 +1488,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TypeRestfulInteraction =
@@ -1556,22 +1512,11 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Transaction("transaction", "http://hl7.org/fhir/restful-interaction", "transaction", null),
-    Batch("batch", "http://hl7.org/fhir/restful-interaction", "batch", null),
-    Search_System(
-      "search-system",
-      "http://hl7.org/fhir/restful-interaction",
-      "search-system",
-      null,
-    ),
-    History_System(
-      "history-system",
-      "http://hl7.org/fhir/restful-interaction",
-      "history-system",
-      null,
-    );
+    Transaction("transaction", "http://hl7.org/fhir/restful-interaction", "transaction"),
+    Batch("batch", "http://hl7.org/fhir/restful-interaction", "batch"),
+    Search_System("search-system", "http://hl7.org/fhir/restful-interaction", "search-system"),
+    History_System("history-system", "http://hl7.org/fhir/restful-interaction", "history-system");
 
     override fun toString(): kotlin.String = code
 
@@ -1580,8 +1525,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SystemRestfulInteraction =
@@ -1601,10 +1544,9 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Sender("sender", "http://hl7.org/fhir/event-capability-mode", "Sender", null),
-    Receiver("receiver", "http://hl7.org/fhir/event-capability-mode", "Receiver", null);
+    Sender("sender", "http://hl7.org/fhir/event-capability-mode", "Sender"),
+    Receiver("receiver", "http://hl7.org/fhir/event-capability-mode", "Receiver");
 
     override fun toString(): kotlin.String = code
 
@@ -1613,8 +1555,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EventCapabilityMode =
@@ -1631,10 +1571,9 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Producer("producer", "http://hl7.org/fhir/document-mode", "Producer", null),
-    Consumer("consumer", "http://hl7.org/fhir/document-mode", "Consumer", null);
+    Producer("producer", "http://hl7.org/fhir/document-mode", "Producer"),
+    Consumer("consumer", "http://hl7.org/fhir/document-mode", "Consumer");
 
     override fun toString(): kotlin.String = code
 
@@ -1643,8 +1582,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DocumentMode =
@@ -1661,16 +1598,10 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance", null),
-    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability", null),
-    Requirements(
-      "requirements",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Requirements",
-      null,
-    );
+    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance"),
+    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability"),
+    Requirements("requirements", "http://hl7.org/fhir/capability-statement-kind", "Requirements");
 
     override fun toString(): kotlin.String = code
 
@@ -1679,8 +1610,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CapabilityStatementKind =

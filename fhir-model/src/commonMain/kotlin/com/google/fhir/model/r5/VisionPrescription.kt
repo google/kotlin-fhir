@@ -299,10 +299,9 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Right("right", "http://hl7.org/fhir/vision-eye-codes", "Right Eye", null),
-    Left("left", "http://hl7.org/fhir/vision-eye-codes", "Left Eye", null);
+    Right("right", "http://hl7.org/fhir/vision-eye-codes", "Right Eye"),
+    Left("left", "http://hl7.org/fhir/vision-eye-codes", "Left Eye");
 
     override fun toString(): kotlin.String = code
 
@@ -311,8 +310,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionEyes =
@@ -329,12 +326,11 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Up("up", "http://hl7.org/fhir/vision-base-codes", "Up", null),
-    Down("down", "http://hl7.org/fhir/vision-base-codes", "Down", null),
-    In("in", "http://hl7.org/fhir/vision-base-codes", "In", null),
-    Out("out", "http://hl7.org/fhir/vision-base-codes", "Out", null);
+    Up("up", "http://hl7.org/fhir/vision-base-codes", "Up"),
+    Down("down", "http://hl7.org/fhir/vision-base-codes", "Down"),
+    In("in", "http://hl7.org/fhir/vision-base-codes", "In"),
+    Out("out", "http://hl7.org/fhir/vision-base-codes", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -343,8 +339,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionBase =
@@ -363,12 +357,11 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/fm-status", "Active", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled", null),
-    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft", null),
-    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error", null);
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -377,8 +370,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionStatus =

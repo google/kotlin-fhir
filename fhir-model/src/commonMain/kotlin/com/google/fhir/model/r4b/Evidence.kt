@@ -746,21 +746,14 @@ public data class Evidence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable", null),
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      null,
-    ),
-    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable", null),
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -770,8 +763,6 @@ public data class Evidence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

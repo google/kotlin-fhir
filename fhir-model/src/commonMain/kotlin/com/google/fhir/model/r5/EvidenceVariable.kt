@@ -857,20 +857,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    All_Of("all-of", "http://hl7.org/fhir/characteristic-combination", "All of", null),
-    Any_Of("any-of", "http://hl7.org/fhir/characteristic-combination", "Any of", null),
-    At_Least("at-least", "http://hl7.org/fhir/characteristic-combination", "At least", null),
-    At_Most("at-most", "http://hl7.org/fhir/characteristic-combination", "At most", null),
-    Statistical(
-      "statistical",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Statistical",
-      null,
-    ),
-    Net_Effect("net-effect", "http://hl7.org/fhir/characteristic-combination", "Net effect", null),
-    Dataset("dataset", "http://hl7.org/fhir/characteristic-combination", "Dataset", null);
+    All_Of("all-of", "http://hl7.org/fhir/characteristic-combination", "All of"),
+    Any_Of("any-of", "http://hl7.org/fhir/characteristic-combination", "Any of"),
+    At_Least("at-least", "http://hl7.org/fhir/characteristic-combination", "At least"),
+    At_Most("at-most", "http://hl7.org/fhir/characteristic-combination", "At most"),
+    Statistical("statistical", "http://hl7.org/fhir/characteristic-combination", "Statistical"),
+    Net_Effect("net-effect", "http://hl7.org/fhir/characteristic-combination", "Net effect"),
+    Dataset("dataset", "http://hl7.org/fhir/characteristic-combination", "Dataset");
 
     override fun toString(): kotlin.String = code
 
@@ -879,8 +873,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CharacteristicCombination =
@@ -906,21 +898,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable", null),
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      null,
-    ),
-    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable", null),
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -930,8 +915,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

@@ -710,11 +710,10 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Test_Engine("test-engine", "http://hl7.org/fhir/report-participant-type", "Test Engine", null),
-    Client("client", "http://hl7.org/fhir/report-participant-type", "Client", null),
-    Server("server", "http://hl7.org/fhir/report-participant-type", "Server", null);
+    Test_Engine("test-engine", "http://hl7.org/fhir/report-participant-type", "Test Engine"),
+    Client("client", "http://hl7.org/fhir/report-participant-type", "Client"),
+    Server("server", "http://hl7.org/fhir/report-participant-type", "Server");
 
     override fun toString(): kotlin.String = code
 
@@ -723,8 +722,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportParticipantType =
@@ -743,13 +740,12 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Pass("pass", "http://hl7.org/fhir/report-action-result-codes", "Pass", null),
-    Skip("skip", "http://hl7.org/fhir/report-action-result-codes", "Skip", null),
-    Fail("fail", "http://hl7.org/fhir/report-action-result-codes", "Fail", null),
-    Warning("warning", "http://hl7.org/fhir/report-action-result-codes", "Warning", null),
-    Error("error", "http://hl7.org/fhir/report-action-result-codes", "Error", null);
+    Pass("pass", "http://hl7.org/fhir/report-action-result-codes", "Pass"),
+    Skip("skip", "http://hl7.org/fhir/report-action-result-codes", "Skip"),
+    Fail("fail", "http://hl7.org/fhir/report-action-result-codes", "Fail"),
+    Warning("warning", "http://hl7.org/fhir/report-action-result-codes", "Warning"),
+    Error("error", "http://hl7.org/fhir/report-action-result-codes", "Error");
 
     override fun toString(): kotlin.String = code
 
@@ -758,8 +754,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportActionResult =
@@ -780,17 +774,15 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Completed("completed", "http://hl7.org/fhir/report-status-codes", "Completed", null),
-    In_Progress("in-progress", "http://hl7.org/fhir/report-status-codes", "In Progress", null),
-    Waiting("waiting", "http://hl7.org/fhir/report-status-codes", "Waiting", null),
-    Stopped("stopped", "http://hl7.org/fhir/report-status-codes", "Stopped", null),
+    Completed("completed", "http://hl7.org/fhir/report-status-codes", "Completed"),
+    In_Progress("in-progress", "http://hl7.org/fhir/report-status-codes", "In Progress"),
+    Waiting("waiting", "http://hl7.org/fhir/report-status-codes", "Waiting"),
+    Stopped("stopped", "http://hl7.org/fhir/report-status-codes", "Stopped"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/report-status-codes",
       "Entered In Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -800,8 +792,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportStatus =
@@ -821,11 +811,10 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Pass("pass", "http://hl7.org/fhir/report-result-codes", "Pass", null),
-    Fail("fail", "http://hl7.org/fhir/report-result-codes", "Fail", null),
-    Pending("pending", "http://hl7.org/fhir/report-result-codes", "Pending", null);
+    Pass("pass", "http://hl7.org/fhir/report-result-codes", "Pass"),
+    Fail("fail", "http://hl7.org/fhir/report-result-codes", "Fail"),
+    Pending("pending", "http://hl7.org/fhir/report-result-codes", "Pending");
 
     override fun toString(): kotlin.String = code
 
@@ -834,8 +823,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportResult =

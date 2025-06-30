@@ -2636,16 +2636,14 @@ public data class ExplanationOfBenefit(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/explanationofbenefit-status", "Active", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/explanationofbenefit-status", "Cancelled", null),
-    Draft("draft", "http://hl7.org/fhir/explanationofbenefit-status", "Draft", null),
+    Active("active", "http://hl7.org/fhir/explanationofbenefit-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/explanationofbenefit-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/explanationofbenefit-status", "Draft"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/explanationofbenefit-status",
       "Entered In Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -2655,8 +2653,6 @@ public data class ExplanationOfBenefit(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExplanationOfBenefitStatus =
@@ -2676,11 +2672,10 @@ public data class ExplanationOfBenefit(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Claim("claim", "http://hl7.org/fhir/claim-use", "Claim", null),
-    Preauthorization("preauthorization", "http://hl7.org/fhir/claim-use", "Preauthorization", null),
-    Predetermination("predetermination", "http://hl7.org/fhir/claim-use", "Predetermination", null);
+    Claim("claim", "http://hl7.org/fhir/claim-use", "Claim"),
+    Preauthorization("preauthorization", "http://hl7.org/fhir/claim-use", "Preauthorization"),
+    Predetermination("predetermination", "http://hl7.org/fhir/claim-use", "Predetermination");
 
     override fun toString(): kotlin.String = code
 
@@ -2689,8 +2684,6 @@ public data class ExplanationOfBenefit(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Use =
@@ -2708,12 +2701,11 @@ public data class ExplanationOfBenefit(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Queued("queued", "http://hl7.org/fhir/claim-outcome", "Queued", null),
-    Complete("complete", "http://hl7.org/fhir/claim-outcome", "Processing Complete", null),
-    Error("error", "http://hl7.org/fhir/claim-outcome", "Error", null),
-    Partial("partial", "http://hl7.org/fhir/claim-outcome", "Partial Processing", null);
+    Queued("queued", "http://hl7.org/fhir/claim-outcome", "Queued"),
+    Complete("complete", "http://hl7.org/fhir/claim-outcome", "Processing Complete"),
+    Error("error", "http://hl7.org/fhir/claim-outcome", "Error"),
+    Partial("partial", "http://hl7.org/fhir/claim-outcome", "Partial Processing");
 
     override fun toString(): kotlin.String = code
 
@@ -2722,8 +2714,6 @@ public data class ExplanationOfBenefit(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ClaimOutcome =

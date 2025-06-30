@@ -23,65 +23,44 @@ public enum class ActivityDefinitionKind(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Appointment("Appointment", "http://hl7.org/fhir/fhir-types", "Appointment", null),
+  Appointment("Appointment", "http://hl7.org/fhir/fhir-types", "Appointment"),
   AppointmentResponse(
     "AppointmentResponse",
     "http://hl7.org/fhir/fhir-types",
     "AppointmentResponse",
-    null,
   ),
-  CarePlan("CarePlan", "http://hl7.org/fhir/fhir-types", "CarePlan", null),
-  Claim("Claim", "http://hl7.org/fhir/fhir-types", "Claim", null),
+  CarePlan("CarePlan", "http://hl7.org/fhir/fhir-types", "CarePlan"),
+  Claim("Claim", "http://hl7.org/fhir/fhir-types", "Claim"),
   CommunicationRequest(
     "CommunicationRequest",
     "http://hl7.org/fhir/fhir-types",
     "CommunicationRequest",
-    null,
   ),
   CoverageEligibilityRequest(
     "CoverageEligibilityRequest",
     "http://hl7.org/fhir/fhir-types",
     "CoverageEligibilityRequest",
-    null,
   ),
-  DeviceRequest("DeviceRequest", "http://hl7.org/fhir/fhir-types", "DeviceRequest", null),
-  EnrollmentRequest(
-    "EnrollmentRequest",
-    "http://hl7.org/fhir/fhir-types",
-    "EnrollmentRequest",
-    null,
-  ),
+  DeviceRequest("DeviceRequest", "http://hl7.org/fhir/fhir-types", "DeviceRequest"),
+  EnrollmentRequest("EnrollmentRequest", "http://hl7.org/fhir/fhir-types", "EnrollmentRequest"),
   ImmunizationRecommendation(
     "ImmunizationRecommendation",
     "http://hl7.org/fhir/fhir-types",
     "ImmunizationRecommendation",
-    null,
   ),
-  MedicationRequest(
-    "MedicationRequest",
-    "http://hl7.org/fhir/fhir-types",
-    "MedicationRequest",
-    null,
-  ),
-  NutritionOrder("NutritionOrder", "http://hl7.org/fhir/fhir-types", "NutritionOrder", null),
+  MedicationRequest("MedicationRequest", "http://hl7.org/fhir/fhir-types", "MedicationRequest"),
+  NutritionOrder("NutritionOrder", "http://hl7.org/fhir/fhir-types", "NutritionOrder"),
   RequestOrchestration(
     "RequestOrchestration",
     "http://hl7.org/fhir/fhir-types",
     "RequestOrchestration",
-    null,
   ),
-  ServiceRequest("ServiceRequest", "http://hl7.org/fhir/fhir-types", "ServiceRequest", null),
-  SupplyRequest("SupplyRequest", "http://hl7.org/fhir/fhir-types", "SupplyRequest", null),
-  Task("Task", "http://hl7.org/fhir/fhir-types", "Task", null),
-  Transport("Transport", "http://hl7.org/fhir/fhir-types", "Transport", null),
-  VisionPrescription(
-    "VisionPrescription",
-    "http://hl7.org/fhir/fhir-types",
-    "VisionPrescription",
-    null,
-  );
+  ServiceRequest("ServiceRequest", "http://hl7.org/fhir/fhir-types", "ServiceRequest"),
+  SupplyRequest("SupplyRequest", "http://hl7.org/fhir/fhir-types", "SupplyRequest"),
+  Task("Task", "http://hl7.org/fhir/fhir-types", "Task"),
+  Transport("Transport", "http://hl7.org/fhir/fhir-types", "Transport"),
+  VisionPrescription("VisionPrescription", "http://hl7.org/fhir/fhir-types", "VisionPrescription");
 
   override fun toString(): String = code
 
@@ -90,8 +69,6 @@ public enum class ActivityDefinitionKind(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ActivityDefinitionKind =

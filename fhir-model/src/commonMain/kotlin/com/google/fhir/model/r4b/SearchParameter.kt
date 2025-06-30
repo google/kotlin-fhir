@@ -388,13 +388,12 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Normal("normal", "http://hl7.org/fhir/search-xpath-usage", "Normal", null),
-    Phonetic("phonetic", "http://hl7.org/fhir/search-xpath-usage", "Phonetic", null),
-    Nearby("nearby", "http://hl7.org/fhir/search-xpath-usage", "Nearby", null),
-    Distance("distance", "http://hl7.org/fhir/search-xpath-usage", "Distance", null),
-    Other("other", "http://hl7.org/fhir/search-xpath-usage", "Other", null);
+    Normal("normal", "http://hl7.org/fhir/search-xpath-usage", "Normal"),
+    Phonetic("phonetic", "http://hl7.org/fhir/search-xpath-usage", "Phonetic"),
+    Nearby("nearby", "http://hl7.org/fhir/search-xpath-usage", "Nearby"),
+    Distance("distance", "http://hl7.org/fhir/search-xpath-usage", "Distance"),
+    Other("other", "http://hl7.org/fhir/search-xpath-usage", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -403,8 +402,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): XPathUsageType =
@@ -424,17 +421,16 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals", null),
-    Ne("ne", "http://hl7.org/fhir/search-comparator", "Not Equals", null),
-    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than", null),
-    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than", null),
-    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals", null),
-    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal", null),
-    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After", null),
-    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before", null),
-    Ap("ap", "http://hl7.org/fhir/search-comparator", "Approximately", null);
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Ne("ne", "http://hl7.org/fhir/search-comparator", "Not Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before"),
+    Ap("ap", "http://hl7.org/fhir/search-comparator", "Approximately");
 
     override fun toString(): kotlin.String = code
 
@@ -443,8 +439,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchComparator =
@@ -468,20 +462,19 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Missing("missing", "http://hl7.org/fhir/search-modifier-code", "Missing", null),
-    Exact("exact", "http://hl7.org/fhir/search-modifier-code", "Exact", null),
-    Contains("contains", "http://hl7.org/fhir/search-modifier-code", "Contains", null),
-    Not("not", "http://hl7.org/fhir/search-modifier-code", "Not", null),
-    Text("text", "http://hl7.org/fhir/search-modifier-code", "Text", null),
-    In("in", "http://hl7.org/fhir/search-modifier-code", "In", null),
-    Not_In("not-in", "http://hl7.org/fhir/search-modifier-code", "Not In", null),
-    Below("below", "http://hl7.org/fhir/search-modifier-code", "Below", null),
-    Above("above", "http://hl7.org/fhir/search-modifier-code", "Above", null),
-    Type("type", "http://hl7.org/fhir/search-modifier-code", "Type", null),
-    Identifier("identifier", "http://hl7.org/fhir/search-modifier-code", "Identifier", null),
-    OfType("ofType", "http://hl7.org/fhir/search-modifier-code", "Of Type", null);
+    Missing("missing", "http://hl7.org/fhir/search-modifier-code", "Missing"),
+    Exact("exact", "http://hl7.org/fhir/search-modifier-code", "Exact"),
+    Contains("contains", "http://hl7.org/fhir/search-modifier-code", "Contains"),
+    Not("not", "http://hl7.org/fhir/search-modifier-code", "Not"),
+    Text("text", "http://hl7.org/fhir/search-modifier-code", "Text"),
+    In("in", "http://hl7.org/fhir/search-modifier-code", "In"),
+    Not_In("not-in", "http://hl7.org/fhir/search-modifier-code", "Not In"),
+    Below("below", "http://hl7.org/fhir/search-modifier-code", "Below"),
+    Above("above", "http://hl7.org/fhir/search-modifier-code", "Above"),
+    Type("type", "http://hl7.org/fhir/search-modifier-code", "Type"),
+    Identifier("identifier", "http://hl7.org/fhir/search-modifier-code", "Identifier"),
+    OfType("ofType", "http://hl7.org/fhir/search-modifier-code", "Of Type");
 
     override fun toString(): kotlin.String = code
 
@@ -490,8 +483,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchModifierCode =

@@ -355,17 +355,15 @@ public data class DetectedIssue(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary", null),
-    Final("final", "http://hl7.org/fhir/observation-status", "Final", null),
+    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/observation-status", "Final"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/observation-status",
       "Entered in Error",
-      null,
     ),
-    Mitigated("mitigated", "http://hl7.org/fhir/detectedissue-status", "Mitigated", null);
+    Mitigated("mitigated", "http://hl7.org/fhir/detectedissue-status", "Mitigated");
 
     override fun toString(): String = code
 
@@ -374,8 +372,6 @@ public data class DetectedIssue(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DetectedIssueStatus =
@@ -394,11 +390,10 @@ public data class DetectedIssue(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    High("high", "http://hl7.org/fhir/detectedissue-severity", "High", null),
-    Moderate("moderate", "http://hl7.org/fhir/detectedissue-severity", "Moderate", null),
-    Low("low", "http://hl7.org/fhir/detectedissue-severity", "Low", null);
+    High("high", "http://hl7.org/fhir/detectedissue-severity", "High"),
+    Moderate("moderate", "http://hl7.org/fhir/detectedissue-severity", "Moderate"),
+    Low("low", "http://hl7.org/fhir/detectedissue-severity", "Low");
 
     override fun toString(): String = code
 
@@ -407,8 +402,6 @@ public data class DetectedIssue(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DetectedIssueSeverity =

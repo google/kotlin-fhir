@@ -205,16 +205,10 @@ public data class Linkage(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Source("source", "http://hl7.org/fhir/linkage-type", "Source of Truth", null),
-    Alternate("alternate", "http://hl7.org/fhir/linkage-type", "Alternate Record", null),
-    Historical(
-      "historical",
-      "http://hl7.org/fhir/linkage-type",
-      "Historical/Obsolete Record",
-      null,
-    );
+    Source("source", "http://hl7.org/fhir/linkage-type", "Source of Truth"),
+    Alternate("alternate", "http://hl7.org/fhir/linkage-type", "Alternate Record"),
+    Historical("historical", "http://hl7.org/fhir/linkage-type", "Historical/Obsolete Record");
 
     override fun toString(): String = code
 
@@ -223,8 +217,6 @@ public data class Linkage(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): LinkageType =

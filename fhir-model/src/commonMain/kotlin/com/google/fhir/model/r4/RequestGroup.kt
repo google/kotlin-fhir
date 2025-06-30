@@ -484,12 +484,11 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine", null),
-    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent", null),
-    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP", null),
-    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT", null);
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -498,8 +497,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =
@@ -518,25 +515,13 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Visual_Group(
-      "visual-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Visual Group",
-      null,
-    ),
-    Logical_Group(
-      "logical-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Logical Group",
-      null,
-    ),
+    Visual_Group("visual-group", "http://hl7.org/fhir/action-grouping-behavior", "Visual Group"),
+    Logical_Group("logical-group", "http://hl7.org/fhir/action-grouping-behavior", "Logical Group"),
     Sentence_Group(
       "sentence-group",
       "http://hl7.org/fhir/action-grouping-behavior",
       "Sentence Group",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -546,8 +531,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionGroupingBehavior =
@@ -566,34 +549,13 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Any("any", "http://hl7.org/fhir/action-selection-behavior", "Any", null),
-    All("all", "http://hl7.org/fhir/action-selection-behavior", "All", null),
-    All_Or_None(
-      "all-or-none",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All Or None",
-      null,
-    ),
-    Exactly_One(
-      "exactly-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Exactly One",
-      null,
-    ),
-    At_Most_One(
-      "at-most-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "At Most One",
-      null,
-    ),
-    One_Or_More(
-      "one-or-more",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "One Or More",
-      null,
-    );
+    Any("any", "http://hl7.org/fhir/action-selection-behavior", "Any"),
+    All("all", "http://hl7.org/fhir/action-selection-behavior", "All"),
+    All_Or_None("all-or-none", "http://hl7.org/fhir/action-selection-behavior", "All Or None"),
+    Exactly_One("exactly-one", "http://hl7.org/fhir/action-selection-behavior", "Exactly One"),
+    At_Most_One("at-most-one", "http://hl7.org/fhir/action-selection-behavior", "At Most One"),
+    One_Or_More("one-or-more", "http://hl7.org/fhir/action-selection-behavior", "One Or More");
 
     override fun toString(): kotlin.String = code
 
@@ -602,8 +564,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionSelectionBehavior =
@@ -625,15 +585,13 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Must("must", "http://hl7.org/fhir/action-required-behavior", "Must", null),
-    Could("could", "http://hl7.org/fhir/action-required-behavior", "Could", null),
+    Must("must", "http://hl7.org/fhir/action-required-behavior", "Must"),
+    Could("could", "http://hl7.org/fhir/action-required-behavior", "Could"),
     Must_Unless_Documented(
       "must-unless-documented",
       "http://hl7.org/fhir/action-required-behavior",
       "Must Unless Documented",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -643,8 +601,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRequiredBehavior =
@@ -663,10 +619,9 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Yes("yes", "http://hl7.org/fhir/action-precheck-behavior", "Yes", null),
-    No("no", "http://hl7.org/fhir/action-precheck-behavior", "No", null);
+    Yes("yes", "http://hl7.org/fhir/action-precheck-behavior", "Yes"),
+    No("no", "http://hl7.org/fhir/action-precheck-behavior", "No");
 
     override fun toString(): kotlin.String = code
 
@@ -675,8 +630,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionPrecheckBehavior =
@@ -694,10 +647,9 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Single("single", "http://hl7.org/fhir/action-cardinality-behavior", "Single", null),
-    Multiple("multiple", "http://hl7.org/fhir/action-cardinality-behavior", "Multiple", null);
+    Single("single", "http://hl7.org/fhir/action-cardinality-behavior", "Single"),
+    Multiple("multiple", "http://hl7.org/fhir/action-cardinality-behavior", "Multiple");
 
     override fun toString(): kotlin.String = code
 
@@ -706,8 +658,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionCardinalityBehavior =
@@ -725,16 +675,10 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Applicability(
-      "applicability",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Applicability",
-      null,
-    ),
-    Start("start", "http://hl7.org/fhir/action-condition-kind", "Start", null),
-    Stop("stop", "http://hl7.org/fhir/action-condition-kind", "Stop", null);
+    Applicability("applicability", "http://hl7.org/fhir/action-condition-kind", "Applicability"),
+    Start("start", "http://hl7.org/fhir/action-condition-kind", "Start"),
+    Stop("stop", "http://hl7.org/fhir/action-condition-kind", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -743,8 +687,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionConditionKind =
@@ -762,32 +704,24 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Before_Start(
-      "before-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before Start",
-      null,
-    ),
-    Before("before", "http://hl7.org/fhir/action-relationship-type", "Before", null),
-    Before_End("before-end", "http://hl7.org/fhir/action-relationship-type", "Before End", null),
+    Before_Start("before-start", "http://hl7.org/fhir/action-relationship-type", "Before Start"),
+    Before("before", "http://hl7.org/fhir/action-relationship-type", "Before"),
+    Before_End("before-end", "http://hl7.org/fhir/action-relationship-type", "Before End"),
     Concurrent_With_Start(
       "concurrent-with-start",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With Start",
-      null,
     ),
-    Concurrent("concurrent", "http://hl7.org/fhir/action-relationship-type", "Concurrent", null),
+    Concurrent("concurrent", "http://hl7.org/fhir/action-relationship-type", "Concurrent"),
     Concurrent_With_End(
       "concurrent-with-end",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With End",
-      null,
     ),
-    After_Start("after-start", "http://hl7.org/fhir/action-relationship-type", "After Start", null),
-    After("after", "http://hl7.org/fhir/action-relationship-type", "After", null),
-    After_End("after-end", "http://hl7.org/fhir/action-relationship-type", "After End", null);
+    After_Start("after-start", "http://hl7.org/fhir/action-relationship-type", "After Start"),
+    After("after", "http://hl7.org/fhir/action-relationship-type", "After"),
+    After_End("after-end", "http://hl7.org/fhir/action-relationship-type", "After End");
 
     override fun toString(): kotlin.String = code
 
@@ -796,8 +730,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRelationshipType =
@@ -822,20 +754,14 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/request-status", "Draft", null),
-    Active("active", "http://hl7.org/fhir/request-status", "Active", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold", null),
-    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked", null),
-    Completed("completed", "http://hl7.org/fhir/request-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      null,
-    ),
-    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown", null);
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -844,8 +770,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestStatus =
@@ -867,17 +791,16 @@ public data class RequestGroup(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal", null),
-    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan", null),
-    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive", null),
-    Order("order", "http://hl7.org/fhir/request-intent", "Order", null),
-    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order", null),
-    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order", null),
-    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order", null),
-    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order", null),
-    Option("option", "http://hl7.org/fhir/request-intent", "Option", null);
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -886,8 +809,6 @@ public data class RequestGroup(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestIntent =

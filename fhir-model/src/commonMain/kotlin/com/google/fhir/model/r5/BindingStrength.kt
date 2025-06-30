@@ -23,12 +23,11 @@ public enum class BindingStrength(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Required("required", "http://hl7.org/fhir/binding-strength", "Required", null),
-  Extensible("extensible", "http://hl7.org/fhir/binding-strength", "Extensible", null),
-  Preferred("preferred", "http://hl7.org/fhir/binding-strength", "Preferred", null),
-  Example("example", "http://hl7.org/fhir/binding-strength", "Example", null);
+  Required("required", "http://hl7.org/fhir/binding-strength", "Required"),
+  Extensible("extensible", "http://hl7.org/fhir/binding-strength", "Extensible"),
+  Preferred("preferred", "http://hl7.org/fhir/binding-strength", "Preferred"),
+  Example("example", "http://hl7.org/fhir/binding-strength", "Example");
 
   override fun toString(): String = code
 
@@ -37,8 +36,6 @@ public enum class BindingStrength(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): BindingStrength =

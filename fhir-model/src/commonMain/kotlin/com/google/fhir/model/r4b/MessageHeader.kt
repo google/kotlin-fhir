@@ -416,16 +416,10 @@ public data class MessageHeader(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Ok("ok", "http://hl7.org/fhir/response-code", "OK", null),
-    Transient_Error(
-      "transient-error",
-      "http://hl7.org/fhir/response-code",
-      "Transient Error",
-      null,
-    ),
-    Fatal_Error("fatal-error", "http://hl7.org/fhir/response-code", "Fatal Error", null);
+    Ok("ok", "http://hl7.org/fhir/response-code", "OK"),
+    Transient_Error("transient-error", "http://hl7.org/fhir/response-code", "Transient Error"),
+    Fatal_Error("fatal-error", "http://hl7.org/fhir/response-code", "Fatal Error");
 
     override fun toString(): kotlin.String = code
 
@@ -434,8 +428,6 @@ public data class MessageHeader(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResponseType =

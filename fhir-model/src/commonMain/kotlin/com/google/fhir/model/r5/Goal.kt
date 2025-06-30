@@ -400,22 +400,16 @@ public data class Goal(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposed("proposed", "http://hl7.org/fhir/goal-status", "Proposed", null),
-    Planned("planned", "http://hl7.org/fhir/goal-status", "Planned", null),
-    Accepted("accepted", "http://hl7.org/fhir/goal-status", "Accepted", null),
-    Active("active", "http://hl7.org/fhir/goal-status", "Active", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/goal-status", "On Hold", null),
-    Completed("completed", "http://hl7.org/fhir/goal-status", "Completed", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/goal-status", "Cancelled", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/goal-status",
-      "Entered in Error",
-      null,
-    ),
-    Rejected("rejected", "http://hl7.org/fhir/goal-status", "Rejected", null);
+    Proposed("proposed", "http://hl7.org/fhir/goal-status", "Proposed"),
+    Planned("planned", "http://hl7.org/fhir/goal-status", "Planned"),
+    Accepted("accepted", "http://hl7.org/fhir/goal-status", "Accepted"),
+    Active("active", "http://hl7.org/fhir/goal-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/goal-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/goal-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/goal-status", "Cancelled"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/goal-status", "Entered in Error"),
+    Rejected("rejected", "http://hl7.org/fhir/goal-status", "Rejected");
 
     override fun toString(): kotlin.String = code
 
@@ -424,8 +418,6 @@ public data class Goal(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GoalLifecycleStatus =

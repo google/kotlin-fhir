@@ -324,15 +324,13 @@ public data class Medication(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/CodeSystem/medication-status", "Active", null),
-    Inactive("inactive", "http://hl7.org/fhir/CodeSystem/medication-status", "Inactive", null),
+    Active("active", "http://hl7.org/fhir/CodeSystem/medication-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/CodeSystem/medication-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medication-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -342,8 +340,6 @@ public data class Medication(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MedicationStatus =

@@ -23,18 +23,17 @@ public enum class ConceptMapEquivalence(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Relatedto("relatedto", "http://hl7.org/fhir/concept-map-equivalence", "Related To", null),
-  Equivalent("equivalent", "http://hl7.org/fhir/concept-map-equivalence", "Equivalent", null),
-  Equal("equal", "http://hl7.org/fhir/concept-map-equivalence", "Equal", null),
-  Wider("wider", "http://hl7.org/fhir/concept-map-equivalence", "Wider", null),
-  Subsumes("subsumes", "http://hl7.org/fhir/concept-map-equivalence", "Subsumes", null),
-  Narrower("narrower", "http://hl7.org/fhir/concept-map-equivalence", "Narrower", null),
-  Specializes("specializes", "http://hl7.org/fhir/concept-map-equivalence", "Specializes", null),
-  Inexact("inexact", "http://hl7.org/fhir/concept-map-equivalence", "Inexact", null),
-  Unmatched("unmatched", "http://hl7.org/fhir/concept-map-equivalence", "Unmatched", null),
-  Disjoint("disjoint", "http://hl7.org/fhir/concept-map-equivalence", "Disjoint", null);
+  Relatedto("relatedto", "http://hl7.org/fhir/concept-map-equivalence", "Related To"),
+  Equivalent("equivalent", "http://hl7.org/fhir/concept-map-equivalence", "Equivalent"),
+  Equal("equal", "http://hl7.org/fhir/concept-map-equivalence", "Equal"),
+  Wider("wider", "http://hl7.org/fhir/concept-map-equivalence", "Wider"),
+  Subsumes("subsumes", "http://hl7.org/fhir/concept-map-equivalence", "Subsumes"),
+  Narrower("narrower", "http://hl7.org/fhir/concept-map-equivalence", "Narrower"),
+  Specializes("specializes", "http://hl7.org/fhir/concept-map-equivalence", "Specializes"),
+  Inexact("inexact", "http://hl7.org/fhir/concept-map-equivalence", "Inexact"),
+  Unmatched("unmatched", "http://hl7.org/fhir/concept-map-equivalence", "Unmatched"),
+  Disjoint("disjoint", "http://hl7.org/fhir/concept-map-equivalence", "Disjoint");
 
   override fun toString(): String = code
 
@@ -43,8 +42,6 @@ public enum class ConceptMapEquivalence(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ConceptMapEquivalence =

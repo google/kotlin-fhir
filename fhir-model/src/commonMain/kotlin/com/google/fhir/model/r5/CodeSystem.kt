@@ -867,39 +867,26 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals", null),
-    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)", null),
+    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals"),
+    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)"),
     Descendent_Of(
       "descendent-of",
       "http://hl7.org/fhir/filter-operator",
       "Descendent Of (by subsumption)",
-      null,
     ),
-    Is_Not_A(
-      "is-not-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Not (Is A) (by subsumption)",
-      null,
-    ),
-    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression", null),
-    In("in", "http://hl7.org/fhir/filter-operator", "In Set", null),
-    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set", null),
+    Is_Not_A("is-not-a", "http://hl7.org/fhir/filter-operator", "Not (Is A) (by subsumption)"),
+    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression"),
+    In("in", "http://hl7.org/fhir/filter-operator", "In Set"),
+    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set"),
     Generalizes(
       "generalizes",
       "http://hl7.org/fhir/filter-operator",
       "Generalizes (by Subsumption)",
-      null,
     ),
-    Child_Of("child-of", "http://hl7.org/fhir/filter-operator", "Child Of", null),
-    Descendent_Leaf(
-      "descendent-leaf",
-      "http://hl7.org/fhir/filter-operator",
-      "Descendent Leaf",
-      null,
-    ),
-    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists", null);
+    Child_Of("child-of", "http://hl7.org/fhir/filter-operator", "Child Of"),
+    Descendent_Leaf("descendent-leaf", "http://hl7.org/fhir/filter-operator", "Descendent Leaf"),
+    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists");
 
     override fun toString(): kotlin.String = code
 
@@ -908,8 +895,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FilterOperator =
@@ -935,20 +920,14 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Code("code", "http://hl7.org/fhir/concept-property-type", "code (internal reference)", null),
-    Coding(
-      "Coding",
-      "http://hl7.org/fhir/concept-property-type",
-      "Coding (external reference)",
-      null,
-    ),
-    String("string", "http://hl7.org/fhir/concept-property-type", "string", null),
-    Integer("integer", "http://hl7.org/fhir/concept-property-type", "integer", null),
-    Boolean("boolean", "http://hl7.org/fhir/concept-property-type", "boolean", null),
-    DateTime("dateTime", "http://hl7.org/fhir/concept-property-type", "dateTime", null),
-    Decimal("decimal", "http://hl7.org/fhir/concept-property-type", "decimal", null);
+    Code("code", "http://hl7.org/fhir/concept-property-type", "code (internal reference)"),
+    Coding("Coding", "http://hl7.org/fhir/concept-property-type", "Coding (external reference)"),
+    String("string", "http://hl7.org/fhir/concept-property-type", "string"),
+    Integer("integer", "http://hl7.org/fhir/concept-property-type", "integer"),
+    Boolean("boolean", "http://hl7.org/fhir/concept-property-type", "boolean"),
+    DateTime("dateTime", "http://hl7.org/fhir/concept-property-type", "dateTime"),
+    Decimal("decimal", "http://hl7.org/fhir/concept-property-type", "decimal");
 
     override fun toString(): kotlin.String = code
 
@@ -957,8 +936,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): PropertyType =
@@ -980,21 +957,14 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Grouped_By(
-      "grouped-by",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Grouped By",
-      null,
-    ),
-    Is_A("is-a", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Is-A", null),
-    Part_Of("part-of", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Part Of", null),
+    Grouped_By("grouped-by", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Grouped By"),
+    Is_A("is-a", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Is-A"),
+    Part_Of("part-of", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Part Of"),
     Classified_With(
       "classified-with",
       "http://hl7.org/fhir/codesystem-hierarchy-meaning",
       "Classified With",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1004,8 +974,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemHierarchyMeaning =
@@ -1028,13 +996,12 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present", null),
-    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example", null),
-    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment", null),
-    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete", null),
-    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement", null);
+    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present"),
+    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example"),
+    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment"),
+    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete"),
+    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement");
 
     override fun toString(): kotlin.String = code
 
@@ -1043,8 +1010,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemContentMode =

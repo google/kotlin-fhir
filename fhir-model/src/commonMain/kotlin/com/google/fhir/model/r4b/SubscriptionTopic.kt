@@ -675,11 +675,10 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Create("create", "http://hl7.org/fhir/restful-interaction", "create", null),
-    Update("update", "http://hl7.org/fhir/restful-interaction", "update", null),
-    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete", null);
+    Create("create", "http://hl7.org/fhir/restful-interaction", "create"),
+    Update("update", "http://hl7.org/fhir/restful-interaction", "update"),
+    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete");
 
     override fun toString(): kotlin.String = code
 
@@ -688,8 +687,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MethodCode =
@@ -710,20 +707,9 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Test_Passes(
-      "test-passes",
-      "http://hl7.org/fhir/subscriptiontopic-cr-behavior",
-      "test passes",
-      null,
-    ),
-    Test_Fails(
-      "test-fails",
-      "http://hl7.org/fhir/subscriptiontopic-cr-behavior",
-      "test fails",
-      null,
-    );
+    Test_Passes("test-passes", "http://hl7.org/fhir/subscriptiontopic-cr-behavior", "test passes"),
+    Test_Fails("test-fails", "http://hl7.org/fhir/subscriptiontopic-cr-behavior", "test fails");
 
     override fun toString(): kotlin.String = code
 
@@ -732,8 +718,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CriteriaNotExistsBehavior =
@@ -751,82 +735,37 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    EqualTo("=", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "=", null),
-    Eq("eq", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Equal", null),
-    Ne(
-      "ne",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Not Equal",
-      null,
-    ),
-    Gt(
-      "gt",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Greater Than",
-      null,
-    ),
-    Lt(
-      "lt",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Less Than",
-      null,
-    ),
+    EqualTo("=", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "="),
+    Eq("eq", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Equal"),
+    Ne("ne", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Not Equal"),
+    Gt("gt", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Greater Than"),
+    Lt("lt", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Less Than"),
     Ge(
       "ge",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Greater Than or Equal",
-      null,
     ),
     Le(
       "le",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Less Than or Equal",
-      null,
     ),
-    Sa(
-      "sa",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Starts After",
-      null,
-    ),
-    Eb(
-      "eb",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Ends Before",
-      null,
-    ),
-    Ap(
-      "ap",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Approximately",
-      null,
-    ),
-    Above(
-      "above",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Above",
-      null,
-    ),
-    Below(
-      "below",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Below",
-      null,
-    ),
-    In("in", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "In", null),
+    Sa("sa", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Starts After"),
+    Eb("eb", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Ends Before"),
+    Ap("ap", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Approximately"),
+    Above("above", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Above"),
+    Below("below", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Below"),
+    In("in", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "In"),
     Not_In(
       "not-in",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Not In",
-      null,
     ),
     Of_Type(
       "of-type",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Of Type",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -836,8 +775,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionTopicFilterBySearchModifier =

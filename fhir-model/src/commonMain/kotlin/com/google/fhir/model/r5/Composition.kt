@@ -539,24 +539,22 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered("registered", "http://hl7.org/fhir/composition-status", "Registered", null),
-    Partial("partial", "http://hl7.org/fhir/composition-status", "Partial", null),
-    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary", null),
-    Final("final", "http://hl7.org/fhir/composition-status", "Final", null),
-    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended", null),
-    Corrected("corrected", "http://hl7.org/fhir/composition-status", "Corrected", null),
-    Appended("appended", "http://hl7.org/fhir/composition-status", "Appended", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/composition-status", "Cancelled", null),
+    Registered("registered", "http://hl7.org/fhir/composition-status", "Registered"),
+    Partial("partial", "http://hl7.org/fhir/composition-status", "Partial"),
+    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/composition-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/composition-status", "Corrected"),
+    Appended("appended", "http://hl7.org/fhir/composition-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/composition-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/composition-status",
       "Entered in Error",
-      null,
     ),
-    Deprecated("deprecated", "http://hl7.org/fhir/composition-status", "Deprecated", null),
-    Unknown("unknown", "http://hl7.org/fhir/composition-status", "Unknown", null);
+    Deprecated("deprecated", "http://hl7.org/fhir/composition-status", "Deprecated"),
+    Unknown("unknown", "http://hl7.org/fhir/composition-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -565,8 +563,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompositionStatus =

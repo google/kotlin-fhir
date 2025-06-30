@@ -618,31 +618,19 @@ public data class MedicationRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Active("active", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Active", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "On Hold", null),
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Cancelled",
-      null,
-    ),
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Completed",
-      null,
-    ),
+    Active("active", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "On Hold"),
+    Cancelled("cancelled", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Cancelled"),
+    Completed("completed", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
       "Entered in Error",
-      null,
     ),
-    Stopped("stopped", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Stopped", null),
-    Draft("draft", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Draft", null),
-    Unknown("unknown", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Unknown", null);
+    Stopped("stopped", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Stopped"),
+    Draft("draft", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Draft"),
+    Unknown("unknown", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -651,8 +639,6 @@ public data class MedicationRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationRequestStatus =
@@ -676,41 +662,31 @@ public data class MedicationRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
-      "Proposal",
-      null,
-    ),
-    Plan("plan", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Plan", null),
-    Order("order", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Order", null),
+    Proposal("proposal", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Order"),
     Original_Order(
       "original-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Original Order",
-      null,
     ),
     Reflex_Order(
       "reflex-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Reflex Order",
-      null,
     ),
     Filler_Order(
       "filler-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Filler Order",
-      null,
     ),
     Instance_Order(
       "instance-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Instance Order",
-      null,
     ),
-    Option("option", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Option", null);
+    Option("option", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Option");
 
     override fun toString(): String = code
 
@@ -719,8 +695,6 @@ public data class MedicationRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationRequestIntent =
@@ -744,12 +718,11 @@ public data class MedicationRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine", null),
-    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent", null),
-    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP", null),
-    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT", null);
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -758,8 +731,6 @@ public data class MedicationRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationRequestPriority =

@@ -94,15 +94,14 @@ public data class ContactPoint(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Phone("phone", "http://hl7.org/fhir/contact-point-system", "Phone", null),
-    Fax("fax", "http://hl7.org/fhir/contact-point-system", "Fax", null),
-    Email("email", "http://hl7.org/fhir/contact-point-system", "Email", null),
-    Pager("pager", "http://hl7.org/fhir/contact-point-system", "Pager", null),
-    Url("url", "http://hl7.org/fhir/contact-point-system", "URL", null),
-    Sms("sms", "http://hl7.org/fhir/contact-point-system", "SMS", null),
-    Other("other", "http://hl7.org/fhir/contact-point-system", "Other", null);
+    Phone("phone", "http://hl7.org/fhir/contact-point-system", "Phone"),
+    Fax("fax", "http://hl7.org/fhir/contact-point-system", "Fax"),
+    Email("email", "http://hl7.org/fhir/contact-point-system", "Email"),
+    Pager("pager", "http://hl7.org/fhir/contact-point-system", "Pager"),
+    Url("url", "http://hl7.org/fhir/contact-point-system", "URL"),
+    Sms("sms", "http://hl7.org/fhir/contact-point-system", "SMS"),
+    Other("other", "http://hl7.org/fhir/contact-point-system", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -111,8 +110,6 @@ public data class ContactPoint(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContactPointSystem =
@@ -134,13 +131,12 @@ public data class ContactPoint(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Home("home", "http://hl7.org/fhir/contact-point-use", "Home", null),
-    Work("work", "http://hl7.org/fhir/contact-point-use", "Work", null),
-    Temp("temp", "http://hl7.org/fhir/contact-point-use", "Temp", null),
-    Old("old", "http://hl7.org/fhir/contact-point-use", "Old", null),
-    Mobile("mobile", "http://hl7.org/fhir/contact-point-use", "Mobile", null);
+    Home("home", "http://hl7.org/fhir/contact-point-use", "Home"),
+    Work("work", "http://hl7.org/fhir/contact-point-use", "Work"),
+    Temp("temp", "http://hl7.org/fhir/contact-point-use", "Temp"),
+    Old("old", "http://hl7.org/fhir/contact-point-use", "Old"),
+    Mobile("mobile", "http://hl7.org/fhir/contact-point-use", "Mobile");
 
     override fun toString(): kotlin.String = code
 
@@ -149,8 +145,6 @@ public data class ContactPoint(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContactPointUse =

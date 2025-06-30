@@ -91,26 +91,15 @@ public data class RelatedArtifact(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Documentation(
-      "documentation",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Documentation",
-      null,
-    ),
-    Justification(
-      "justification",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Justification",
-      null,
-    ),
-    Citation("citation", "http://hl7.org/fhir/related-artifact-type", "Citation", null),
-    Predecessor("predecessor", "http://hl7.org/fhir/related-artifact-type", "Predecessor", null),
-    Successor("successor", "http://hl7.org/fhir/related-artifact-type", "Successor", null),
-    Derived_From("derived-from", "http://hl7.org/fhir/related-artifact-type", "Derived From", null),
-    Depends_On("depends-on", "http://hl7.org/fhir/related-artifact-type", "Depends On", null),
-    Composed_Of("composed-of", "http://hl7.org/fhir/related-artifact-type", "Composed Of", null);
+    Documentation("documentation", "http://hl7.org/fhir/related-artifact-type", "Documentation"),
+    Justification("justification", "http://hl7.org/fhir/related-artifact-type", "Justification"),
+    Citation("citation", "http://hl7.org/fhir/related-artifact-type", "Citation"),
+    Predecessor("predecessor", "http://hl7.org/fhir/related-artifact-type", "Predecessor"),
+    Successor("successor", "http://hl7.org/fhir/related-artifact-type", "Successor"),
+    Derived_From("derived-from", "http://hl7.org/fhir/related-artifact-type", "Derived From"),
+    Depends_On("depends-on", "http://hl7.org/fhir/related-artifact-type", "Depends On"),
+    Composed_Of("composed-of", "http://hl7.org/fhir/related-artifact-type", "Composed Of");
 
     override fun toString(): kotlin.String = code
 
@@ -119,8 +108,6 @@ public data class RelatedArtifact(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RelatedArtifactType =

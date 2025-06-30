@@ -913,13 +913,12 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present", null),
-    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example", null),
-    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment", null),
-    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete", null),
-    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement", null);
+    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present"),
+    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example"),
+    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment"),
+    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete"),
+    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement");
 
     override fun toString(): kotlin.String = code
 
@@ -928,8 +927,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemContentMode =
@@ -950,16 +947,10 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance", null),
-    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability", null),
-    Requirements(
-      "requirements",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Requirements",
-      null,
-    );
+    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance"),
+    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability"),
+    Requirements("requirements", "http://hl7.org/fhir/capability-statement-kind", "Requirements");
 
     override fun toString(): kotlin.String = code
 
@@ -968,8 +959,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CapabilityStatementKind =
@@ -991,15 +980,13 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    In_Compose("in-compose", "http://hl7.org/fhir/code-search-support", "In Compose", null),
-    In_Expansion("in-expansion", "http://hl7.org/fhir/code-search-support", "In Expansion", null),
+    In_Compose("in-compose", "http://hl7.org/fhir/code-search-support", "In Compose"),
+    In_Expansion("in-expansion", "http://hl7.org/fhir/code-search-support", "In Expansion"),
     In_Compose_Or_Expansion(
       "in-compose-or-expansion",
       "http://hl7.org/fhir/code-search-support",
       "In Compose Or Expansion",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1009,8 +996,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSearchSupport =

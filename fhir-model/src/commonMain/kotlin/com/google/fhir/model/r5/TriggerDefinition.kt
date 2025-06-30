@@ -134,21 +134,15 @@ public data class TriggerDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Named_Event("named-event", "http://hl7.org/fhir/trigger-type", "Named Event", null),
-    Periodic("periodic", "http://hl7.org/fhir/trigger-type", "Periodic", null),
-    Data_Changed("data-changed", "http://hl7.org/fhir/trigger-type", "Data Changed", null),
-    Data_Added("data-added", "http://hl7.org/fhir/trigger-type", "Data Added", null),
-    Data_Modified("data-modified", "http://hl7.org/fhir/trigger-type", "Data Updated", null),
-    Data_Removed("data-removed", "http://hl7.org/fhir/trigger-type", "Data Removed", null),
-    Data_Accessed("data-accessed", "http://hl7.org/fhir/trigger-type", "Data Accessed", null),
-    Data_Access_Ended(
-      "data-access-ended",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Access Ended",
-      null,
-    );
+    Named_Event("named-event", "http://hl7.org/fhir/trigger-type", "Named Event"),
+    Periodic("periodic", "http://hl7.org/fhir/trigger-type", "Periodic"),
+    Data_Changed("data-changed", "http://hl7.org/fhir/trigger-type", "Data Changed"),
+    Data_Added("data-added", "http://hl7.org/fhir/trigger-type", "Data Added"),
+    Data_Modified("data-modified", "http://hl7.org/fhir/trigger-type", "Data Updated"),
+    Data_Removed("data-removed", "http://hl7.org/fhir/trigger-type", "Data Removed"),
+    Data_Accessed("data-accessed", "http://hl7.org/fhir/trigger-type", "Data Accessed"),
+    Data_Access_Ended("data-access-ended", "http://hl7.org/fhir/trigger-type", "Data Access Ended");
 
     override fun toString(): kotlin.String = code
 
@@ -157,8 +151,6 @@ public data class TriggerDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TriggerType =

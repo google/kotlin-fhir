@@ -534,29 +534,25 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Udi_Label_Name("udi-label-name", "http://hl7.org/fhir/device-nametype", "UDI Label name", null),
+    Udi_Label_Name("udi-label-name", "http://hl7.org/fhir/device-nametype", "UDI Label name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      null,
     ),
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      null,
     ),
     Manufacturer_Name(
       "manufacturer-name",
       "http://hl7.org/fhir/device-nametype",
       "Manufacturer name",
-      null,
     ),
-    Model_Name("model-name", "http://hl7.org/fhir/device-nametype", "Model name", null),
-    Other("other", "http://hl7.org/fhir/device-nametype", "other", null);
+    Model_Name("model-name", "http://hl7.org/fhir/device-nametype", "Model name"),
+    Other("other", "http://hl7.org/fhir/device-nametype", "other");
 
     override fun toString(): kotlin.String = code
 
@@ -565,8 +561,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =

@@ -521,10 +521,9 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Where("where", "http://hl7.org/fhir/graph-compartment-use", "Where", null),
-    Requires("requires", "http://hl7.org/fhir/graph-compartment-use", "requires", null);
+    Where("where", "http://hl7.org/fhir/graph-compartment-use", "Where"),
+    Requires("requires", "http://hl7.org/fhir/graph-compartment-use", "requires");
 
     override fun toString(): kotlin.String = code
 
@@ -533,8 +532,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GraphCompartmentUse =
@@ -551,12 +548,11 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Identical("identical", "http://hl7.org/fhir/graph-compartment-rule", "Identical", null),
-    Matching("matching", "http://hl7.org/fhir/graph-compartment-rule", "Matching", null),
-    Different("different", "http://hl7.org/fhir/graph-compartment-rule", "Different", null),
-    Custom("custom", "http://hl7.org/fhir/graph-compartment-rule", "Custom", null);
+    Identical("identical", "http://hl7.org/fhir/graph-compartment-rule", "Identical"),
+    Matching("matching", "http://hl7.org/fhir/graph-compartment-rule", "Matching"),
+    Different("different", "http://hl7.org/fhir/graph-compartment-rule", "Different"),
+    Custom("custom", "http://hl7.org/fhir/graph-compartment-rule", "Custom");
 
     override fun toString(): kotlin.String = code
 
@@ -565,8 +561,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GraphCompartmentRule =
@@ -585,14 +579,13 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient", null),
-    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter", null),
-    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson", null),
-    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner", null),
-    Device("Device", "http://hl7.org/fhir/compartment-type", "Device", null),
-    EpisodeOfCare("EpisodeOfCare", "http://hl7.org/fhir/compartment-type", "EpisodeOfCare", null);
+    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient"),
+    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter"),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner"),
+    Device("Device", "http://hl7.org/fhir/compartment-type", "Device"),
+    EpisodeOfCare("EpisodeOfCare", "http://hl7.org/fhir/compartment-type", "EpisodeOfCare");
 
     override fun toString(): kotlin.String = code
 
@@ -601,8 +594,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompartmentCode =

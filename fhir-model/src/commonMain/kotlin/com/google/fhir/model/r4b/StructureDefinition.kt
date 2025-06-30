@@ -588,11 +588,10 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Fhirpath("fhirpath", "http://hl7.org/fhir/extension-context-type", "FHIRPath", null),
-    Element("element", "http://hl7.org/fhir/extension-context-type", "Element ID", null),
-    Extension("extension", "http://hl7.org/fhir/extension-context-type", "Extension URL", null);
+    Fhirpath("fhirpath", "http://hl7.org/fhir/extension-context-type", "FHIRPath"),
+    Element("element", "http://hl7.org/fhir/extension-context-type", "Element ID"),
+    Extension("extension", "http://hl7.org/fhir/extension-context-type", "Extension URL");
 
     override fun toString(): kotlin.String = code
 
@@ -601,8 +600,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExtensionContextType =
@@ -620,22 +617,19 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
     Primitive_Type(
       "primitive-type",
       "http://hl7.org/fhir/structure-definition-kind",
       "Primitive Data Type",
-      null,
     ),
     Complex_Type(
       "complex-type",
       "http://hl7.org/fhir/structure-definition-kind",
       "Complex Data Type",
-      null,
     ),
-    Resource("resource", "http://hl7.org/fhir/structure-definition-kind", "Resource", null),
-    Logical("logical", "http://hl7.org/fhir/structure-definition-kind", "Logical", null);
+    Resource("resource", "http://hl7.org/fhir/structure-definition-kind", "Resource"),
+    Logical("logical", "http://hl7.org/fhir/structure-definition-kind", "Logical");
 
     override fun toString(): kotlin.String = code
 
@@ -644,8 +638,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureDefinitionKind =
@@ -665,15 +657,9 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Specialization(
-      "specialization",
-      "http://hl7.org/fhir/type-derivation-rule",
-      "Specialization",
-      null,
-    ),
-    Constraint("constraint", "http://hl7.org/fhir/type-derivation-rule", "Constraint", null);
+    Specialization("specialization", "http://hl7.org/fhir/type-derivation-rule", "Specialization"),
+    Constraint("constraint", "http://hl7.org/fhir/type-derivation-rule", "Constraint");
 
     override fun toString(): kotlin.String = code
 
@@ -682,8 +668,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TypeDerivationRule =

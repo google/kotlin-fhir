@@ -1598,28 +1598,26 @@ public data class Contract(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Amended("amended", "http://hl7.org/fhir/contract-publicationstatus", "Amended", null),
-    Appended("appended", "http://hl7.org/fhir/contract-publicationstatus", "Appended", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/contract-publicationstatus", "Cancelled", null),
-    Disputed("disputed", "http://hl7.org/fhir/contract-publicationstatus", "Disputed", null),
+    Amended("amended", "http://hl7.org/fhir/contract-publicationstatus", "Amended"),
+    Appended("appended", "http://hl7.org/fhir/contract-publicationstatus", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/contract-publicationstatus", "Cancelled"),
+    Disputed("disputed", "http://hl7.org/fhir/contract-publicationstatus", "Disputed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/contract-publicationstatus",
       "Entered in Error",
-      null,
     ),
-    Executable("executable", "http://hl7.org/fhir/contract-publicationstatus", "Executable", null),
-    Executed("executed", "http://hl7.org/fhir/contract-publicationstatus", "Executed", null),
-    Negotiable("negotiable", "http://hl7.org/fhir/contract-publicationstatus", "Negotiable", null),
-    Offered("offered", "http://hl7.org/fhir/contract-publicationstatus", "Offered", null),
-    Policy("policy", "http://hl7.org/fhir/contract-publicationstatus", "Policy", null),
-    Rejected("rejected", "http://hl7.org/fhir/contract-publicationstatus", "Rejected", null),
-    Renewed("renewed", "http://hl7.org/fhir/contract-publicationstatus", "Renewed", null),
-    Revoked("revoked", "http://hl7.org/fhir/contract-publicationstatus", "Revoked", null),
-    Resolved("resolved", "http://hl7.org/fhir/contract-publicationstatus", "Resolved", null),
-    Terminated("terminated", "http://hl7.org/fhir/contract-publicationstatus", "Terminated", null);
+    Executable("executable", "http://hl7.org/fhir/contract-publicationstatus", "Executable"),
+    Executed("executed", "http://hl7.org/fhir/contract-publicationstatus", "Executed"),
+    Negotiable("negotiable", "http://hl7.org/fhir/contract-publicationstatus", "Negotiable"),
+    Offered("offered", "http://hl7.org/fhir/contract-publicationstatus", "Offered"),
+    Policy("policy", "http://hl7.org/fhir/contract-publicationstatus", "Policy"),
+    Rejected("rejected", "http://hl7.org/fhir/contract-publicationstatus", "Rejected"),
+    Renewed("renewed", "http://hl7.org/fhir/contract-publicationstatus", "Renewed"),
+    Revoked("revoked", "http://hl7.org/fhir/contract-publicationstatus", "Revoked"),
+    Resolved("resolved", "http://hl7.org/fhir/contract-publicationstatus", "Resolved"),
+    Terminated("terminated", "http://hl7.org/fhir/contract-publicationstatus", "Terminated");
 
     override fun toString(): kotlin.String = code
 
@@ -1628,8 +1626,6 @@ public data class Contract(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContractPublicationStatus =
@@ -1660,28 +1656,22 @@ public data class Contract(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Amended("amended", "http://hl7.org/fhir/contract-status", "Amended", null),
-    Appended("appended", "http://hl7.org/fhir/contract-status", "Appended", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/contract-status", "Cancelled", null),
-    Disputed("disputed", "http://hl7.org/fhir/contract-status", "Disputed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/contract-status",
-      "Entered in Error",
-      null,
-    ),
-    Executable("executable", "http://hl7.org/fhir/contract-status", "Executable", null),
-    Executed("executed", "http://hl7.org/fhir/contract-status", "Executed", null),
-    Negotiable("negotiable", "http://hl7.org/fhir/contract-status", "Negotiable", null),
-    Offered("offered", "http://hl7.org/fhir/contract-status", "Offered", null),
-    Policy("policy", "http://hl7.org/fhir/contract-status", "Policy", null),
-    Rejected("rejected", "http://hl7.org/fhir/contract-status", "Rejected", null),
-    Renewed("renewed", "http://hl7.org/fhir/contract-status", "Renewed", null),
-    Revoked("revoked", "http://hl7.org/fhir/contract-status", "Revoked", null),
-    Resolved("resolved", "http://hl7.org/fhir/contract-status", "Resolved", null),
-    Terminated("terminated", "http://hl7.org/fhir/contract-status", "Terminated", null);
+    Amended("amended", "http://hl7.org/fhir/contract-status", "Amended"),
+    Appended("appended", "http://hl7.org/fhir/contract-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/contract-status", "Cancelled"),
+    Disputed("disputed", "http://hl7.org/fhir/contract-status", "Disputed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/contract-status", "Entered in Error"),
+    Executable("executable", "http://hl7.org/fhir/contract-status", "Executable"),
+    Executed("executed", "http://hl7.org/fhir/contract-status", "Executed"),
+    Negotiable("negotiable", "http://hl7.org/fhir/contract-status", "Negotiable"),
+    Offered("offered", "http://hl7.org/fhir/contract-status", "Offered"),
+    Policy("policy", "http://hl7.org/fhir/contract-status", "Policy"),
+    Rejected("rejected", "http://hl7.org/fhir/contract-status", "Rejected"),
+    Renewed("renewed", "http://hl7.org/fhir/contract-status", "Renewed"),
+    Revoked("revoked", "http://hl7.org/fhir/contract-status", "Revoked"),
+    Resolved("resolved", "http://hl7.org/fhir/contract-status", "Resolved"),
+    Terminated("terminated", "http://hl7.org/fhir/contract-status", "Terminated");
 
     override fun toString(): kotlin.String = code
 
@@ -1690,8 +1680,6 @@ public data class Contract(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContractStatus =

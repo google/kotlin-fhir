@@ -605,16 +605,10 @@ public data class ObservationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/observation-range-category",
-      "reference range",
-      null,
-    ),
-    Critical("critical", "http://hl7.org/fhir/observation-range-category", "critical range", null),
-    Absolute("absolute", "http://hl7.org/fhir/observation-range-category", "absolute range", null);
+    Reference("reference", "http://hl7.org/fhir/observation-range-category", "reference range"),
+    Critical("critical", "http://hl7.org/fhir/observation-range-category", "critical range"),
+    Absolute("absolute", "http://hl7.org/fhir/observation-range-category", "absolute range");
 
     override fun toString(): kotlin.String = code
 
@@ -623,8 +617,6 @@ public data class ObservationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationRangeCategory =
@@ -643,24 +635,22 @@ public data class ObservationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Quantity("Quantity", "http://hl7.org/fhir/permitted-data-type", "Quantity", null),
+    Quantity("Quantity", "http://hl7.org/fhir/permitted-data-type", "Quantity"),
     CodeableConcept(
       "CodeableConcept",
       "http://hl7.org/fhir/permitted-data-type",
       "CodeableConcept",
-      null,
     ),
-    String("string", "http://hl7.org/fhir/permitted-data-type", "string", null),
-    Boolean("boolean", "http://hl7.org/fhir/permitted-data-type", "boolean", null),
-    Integer("integer", "http://hl7.org/fhir/permitted-data-type", "integer", null),
-    Range("Range", "http://hl7.org/fhir/permitted-data-type", "Range", null),
-    Ratio("Ratio", "http://hl7.org/fhir/permitted-data-type", "Ratio", null),
-    SampledData("SampledData", "http://hl7.org/fhir/permitted-data-type", "SampledData", null),
-    Time("time", "http://hl7.org/fhir/permitted-data-type", "time", null),
-    DateTime("dateTime", "http://hl7.org/fhir/permitted-data-type", "dateTime", null),
-    Period("Period", "http://hl7.org/fhir/permitted-data-type", "Period", null);
+    String("string", "http://hl7.org/fhir/permitted-data-type", "string"),
+    Boolean("boolean", "http://hl7.org/fhir/permitted-data-type", "boolean"),
+    Integer("integer", "http://hl7.org/fhir/permitted-data-type", "integer"),
+    Range("Range", "http://hl7.org/fhir/permitted-data-type", "Range"),
+    Ratio("Ratio", "http://hl7.org/fhir/permitted-data-type", "Ratio"),
+    SampledData("SampledData", "http://hl7.org/fhir/permitted-data-type", "SampledData"),
+    Time("time", "http://hl7.org/fhir/permitted-data-type", "time"),
+    DateTime("dateTime", "http://hl7.org/fhir/permitted-data-type", "dateTime"),
+    Period("Period", "http://hl7.org/fhir/permitted-data-type", "Period");
 
     override fun toString(): kotlin.String = code
 
@@ -669,8 +659,6 @@ public data class ObservationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationDataType =

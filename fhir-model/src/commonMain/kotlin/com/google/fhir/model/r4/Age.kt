@@ -78,17 +78,11 @@ public data class Age(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    LessThan("<", "http://hl7.org/fhir/quantity-comparator", "Less than", null),
-    LessThanOrEqualTo("<=", "http://hl7.org/fhir/quantity-comparator", "Less or Equal to", null),
-    GreaterThanOrEqualTo(
-      ">=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater or Equal to",
-      null,
-    ),
-    GreaterThan(">", "http://hl7.org/fhir/quantity-comparator", "Greater than", null);
+    LessThan("<", "http://hl7.org/fhir/quantity-comparator", "Less than"),
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/quantity-comparator", "Less or Equal to"),
+    GreaterThanOrEqualTo(">=", "http://hl7.org/fhir/quantity-comparator", "Greater or Equal to"),
+    GreaterThan(">", "http://hl7.org/fhir/quantity-comparator", "Greater than");
 
     override fun toString(): kotlin.String = code
 
@@ -97,8 +91,6 @@ public data class Age(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuantityComparator =

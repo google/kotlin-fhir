@@ -218,12 +218,11 @@ public data class SubscriptionStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested", null),
-    Active("active", "http://hl7.org/fhir/subscription-status", "Active", null),
-    Error("error", "http://hl7.org/fhir/subscription-status", "Error", null),
-    Off("off", "http://hl7.org/fhir/subscription-status", "Off", null);
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off");
 
     override fun toString(): kotlin.String = code
 
@@ -232,8 +231,6 @@ public data class SubscriptionStatus(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionStatus =
@@ -252,28 +249,20 @@ public data class SubscriptionStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Handshake("handshake", "http://hl7.org/fhir/subscription-notification-type", "Handshake", null),
-    Heartbeat("heartbeat", "http://hl7.org/fhir/subscription-notification-type", "Heartbeat", null),
+    Handshake("handshake", "http://hl7.org/fhir/subscription-notification-type", "Handshake"),
+    Heartbeat("heartbeat", "http://hl7.org/fhir/subscription-notification-type", "Heartbeat"),
     Event_Notification(
       "event-notification",
       "http://hl7.org/fhir/subscription-notification-type",
       "Event Notification",
-      null,
     ),
     Query_Status(
       "query-status",
       "http://hl7.org/fhir/subscription-notification-type",
       "Query Status",
-      null,
     ),
-    Query_Event(
-      "query-event",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Query Event",
-      null,
-    );
+    Query_Event("query-event", "http://hl7.org/fhir/subscription-notification-type", "Query Event");
 
     override fun toString(): kotlin.String = code
 
@@ -282,8 +271,6 @@ public data class SubscriptionStatus(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionNotificationType =

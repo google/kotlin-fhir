@@ -575,30 +575,26 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Appointment("Appointment", "http://hl7.org/fhir/resource-types", "Appointment", null),
+    Appointment("Appointment", "http://hl7.org/fhir/resource-types", "Appointment"),
     CommunicationRequest(
       "CommunicationRequest",
       "http://hl7.org/fhir/resource-types",
       "CommunicationRequest",
-      null,
     ),
-    DeviceRequest("DeviceRequest", "http://hl7.org/fhir/resource-types", "DeviceRequest", null),
+    DeviceRequest("DeviceRequest", "http://hl7.org/fhir/resource-types", "DeviceRequest"),
     MedicationRequest(
       "MedicationRequest",
       "http://hl7.org/fhir/resource-types",
       "MedicationRequest",
-      null,
     ),
-    NutritionOrder("NutritionOrder", "http://hl7.org/fhir/resource-types", "NutritionOrder", null),
-    Task("Task", "http://hl7.org/fhir/resource-types", "Task", null),
-    ServiceRequest("ServiceRequest", "http://hl7.org/fhir/resource-types", "ServiceRequest", null),
+    NutritionOrder("NutritionOrder", "http://hl7.org/fhir/resource-types", "NutritionOrder"),
+    Task("Task", "http://hl7.org/fhir/resource-types", "Task"),
+    ServiceRequest("ServiceRequest", "http://hl7.org/fhir/resource-types", "ServiceRequest"),
     VisionPrescription(
       "VisionPrescription",
       "http://hl7.org/fhir/resource-types",
       "VisionPrescription",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -608,8 +604,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanActivityKind =
@@ -632,31 +626,19 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Not_Started(
-      "not-started",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Not Started",
-      null,
-    ),
-    Scheduled("scheduled", "http://hl7.org/fhir/care-plan-activity-status", "Scheduled", null),
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "In Progress",
-      null,
-    ),
-    On_Hold("on-hold", "http://hl7.org/fhir/care-plan-activity-status", "On Hold", null),
-    Completed("completed", "http://hl7.org/fhir/care-plan-activity-status", "Completed", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/care-plan-activity-status", "Cancelled", null),
-    Stopped("stopped", "http://hl7.org/fhir/care-plan-activity-status", "Stopped", null),
-    Unknown("unknown", "http://hl7.org/fhir/care-plan-activity-status", "Unknown", null),
+    Not_Started("not-started", "http://hl7.org/fhir/care-plan-activity-status", "Not Started"),
+    Scheduled("scheduled", "http://hl7.org/fhir/care-plan-activity-status", "Scheduled"),
+    In_Progress("in-progress", "http://hl7.org/fhir/care-plan-activity-status", "In Progress"),
+    On_Hold("on-hold", "http://hl7.org/fhir/care-plan-activity-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/care-plan-activity-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/care-plan-activity-status", "Cancelled"),
+    Stopped("stopped", "http://hl7.org/fhir/care-plan-activity-status", "Stopped"),
+    Unknown("unknown", "http://hl7.org/fhir/care-plan-activity-status", "Unknown"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/care-plan-activity-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -666,8 +648,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanActivityStatus =
@@ -692,20 +672,14 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/request-status", "Draft", null),
-    Active("active", "http://hl7.org/fhir/request-status", "Active", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold", null),
-    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked", null),
-    Completed("completed", "http://hl7.org/fhir/request-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      null,
-    ),
-    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown", null);
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -714,8 +688,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanStatus =
@@ -737,12 +709,11 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal", null),
-    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan", null),
-    Order("order", "http://hl7.org/fhir/request-intent", "Order", null),
-    Option("option", "http://hl7.org/fhir/request-intent", "Option", null);
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -751,8 +722,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanIntent =

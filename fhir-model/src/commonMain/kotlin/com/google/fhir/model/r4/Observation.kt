@@ -731,21 +731,19 @@ public data class Observation(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered", null),
-    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary", null),
-    Final("final", "http://hl7.org/fhir/observation-status", "Final", null),
-    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended", null),
-    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled", null),
+    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered"),
+    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/observation-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected"),
+    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/observation-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -754,8 +752,6 @@ public data class Observation(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationStatus =

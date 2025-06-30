@@ -59,12 +59,11 @@ public data class Contributor(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Author("author", "http://hl7.org/fhir/contributor-type", "Author", null),
-    Editor("editor", "http://hl7.org/fhir/contributor-type", "Editor", null),
-    Reviewer("reviewer", "http://hl7.org/fhir/contributor-type", "Reviewer", null),
-    Endorser("endorser", "http://hl7.org/fhir/contributor-type", "Endorser", null);
+    Author("author", "http://hl7.org/fhir/contributor-type", "Author"),
+    Editor("editor", "http://hl7.org/fhir/contributor-type", "Editor"),
+    Reviewer("reviewer", "http://hl7.org/fhir/contributor-type", "Reviewer"),
+    Endorser("endorser", "http://hl7.org/fhir/contributor-type", "Endorser");
 
     override fun toString(): kotlin.String = code
 
@@ -73,8 +72,6 @@ public data class Contributor(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContributorType =

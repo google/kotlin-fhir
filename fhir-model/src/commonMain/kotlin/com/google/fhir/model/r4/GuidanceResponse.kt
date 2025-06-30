@@ -233,28 +233,20 @@ public data class GuidanceResponse(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Success("success", "http://hl7.org/fhir/guidance-response-status", "Success", null),
+    Success("success", "http://hl7.org/fhir/guidance-response-status", "Success"),
     Data_Requested(
       "data-requested",
       "http://hl7.org/fhir/guidance-response-status",
       "Data Requested",
-      null,
     ),
-    Data_Required(
-      "data-required",
-      "http://hl7.org/fhir/guidance-response-status",
-      "Data Required",
-      null,
-    ),
-    In_Progress("in-progress", "http://hl7.org/fhir/guidance-response-status", "In Progress", null),
-    Failure("failure", "http://hl7.org/fhir/guidance-response-status", "Failure", null),
+    Data_Required("data-required", "http://hl7.org/fhir/guidance-response-status", "Data Required"),
+    In_Progress("in-progress", "http://hl7.org/fhir/guidance-response-status", "In Progress"),
+    Failure("failure", "http://hl7.org/fhir/guidance-response-status", "Failure"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/guidance-response-status",
       "Entered In Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -264,8 +256,6 @@ public data class GuidanceResponse(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): GuidanceResponseStatus =

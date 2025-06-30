@@ -23,35 +23,34 @@ public enum class FHIRVersion(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  _0_01("0.01", "http://hl7.org/fhir/FHIR-version", "0.01", null),
-  _0_05("0.05", "http://hl7.org/fhir/FHIR-version", "0.05", null),
-  _0_06("0.06", "http://hl7.org/fhir/FHIR-version", "0.06", null),
-  _0_11("0.11", "http://hl7.org/fhir/FHIR-version", "0.11", null),
-  _0_0_80("0.0.80", "http://hl7.org/fhir/FHIR-version", "0.0.80", null),
-  _0_0_81("0.0.81", "http://hl7.org/fhir/FHIR-version", "0.0.81", null),
-  _0_0_82("0.0.82", "http://hl7.org/fhir/FHIR-version", "0.0.82", null),
-  _0_4_0("0.4.0", "http://hl7.org/fhir/FHIR-version", "0.4.0", null),
-  _0_5_0("0.5.0", "http://hl7.org/fhir/FHIR-version", "0.5.0", null),
-  _1_0_0("1.0.0", "http://hl7.org/fhir/FHIR-version", "1.0.0", null),
-  _1_0_1("1.0.1", "http://hl7.org/fhir/FHIR-version", "1.0.1", null),
-  _1_0_2("1.0.2", "http://hl7.org/fhir/FHIR-version", "1.0.2", null),
-  _1_1_0("1.1.0", "http://hl7.org/fhir/FHIR-version", "1.1.0", null),
-  _1_4_0("1.4.0", "http://hl7.org/fhir/FHIR-version", "1.4.0", null),
-  _1_6_0("1.6.0", "http://hl7.org/fhir/FHIR-version", "1.6.0", null),
-  _1_8_0("1.8.0", "http://hl7.org/fhir/FHIR-version", "1.8.0", null),
-  _3_0_0("3.0.0", "http://hl7.org/fhir/FHIR-version", "3.0.0", null),
-  _3_0_1("3.0.1", "http://hl7.org/fhir/FHIR-version", "3.0.1", null),
-  _3_0_2("3.0.2", "http://hl7.org/fhir/FHIR-version", "3.0.2", null),
-  _3_3_0("3.3.0", "http://hl7.org/fhir/FHIR-version", "3.3.0", null),
-  _3_5_0("3.5.0", "http://hl7.org/fhir/FHIR-version", "3.5.0", null),
-  _4_0_0("4.0.0", "http://hl7.org/fhir/FHIR-version", "4.0.0", null),
-  _4_0_1("4.0.1", "http://hl7.org/fhir/FHIR-version", "4.0.1", null),
-  _4_1_0("4.1.0", "http://hl7.org/fhir/FHIR-version", "4.1.0", null),
-  _4_3_0_Cibuild("4.3.0-cibuild", "http://hl7.org/fhir/FHIR-version", "4.3.0-cibuild", null),
-  _4_3_0_Snapshot1("4.3.0-snapshot1", "http://hl7.org/fhir/FHIR-version", "4.3.0-snapshot1", null),
-  _4_3_0("4.3.0", "http://hl7.org/fhir/FHIR-version", "4.3.0", null);
+  _0_01("0.01", "http://hl7.org/fhir/FHIR-version", "0.01"),
+  _0_05("0.05", "http://hl7.org/fhir/FHIR-version", "0.05"),
+  _0_06("0.06", "http://hl7.org/fhir/FHIR-version", "0.06"),
+  _0_11("0.11", "http://hl7.org/fhir/FHIR-version", "0.11"),
+  _0_0_80("0.0.80", "http://hl7.org/fhir/FHIR-version", "0.0.80"),
+  _0_0_81("0.0.81", "http://hl7.org/fhir/FHIR-version", "0.0.81"),
+  _0_0_82("0.0.82", "http://hl7.org/fhir/FHIR-version", "0.0.82"),
+  _0_4_0("0.4.0", "http://hl7.org/fhir/FHIR-version", "0.4.0"),
+  _0_5_0("0.5.0", "http://hl7.org/fhir/FHIR-version", "0.5.0"),
+  _1_0_0("1.0.0", "http://hl7.org/fhir/FHIR-version", "1.0.0"),
+  _1_0_1("1.0.1", "http://hl7.org/fhir/FHIR-version", "1.0.1"),
+  _1_0_2("1.0.2", "http://hl7.org/fhir/FHIR-version", "1.0.2"),
+  _1_1_0("1.1.0", "http://hl7.org/fhir/FHIR-version", "1.1.0"),
+  _1_4_0("1.4.0", "http://hl7.org/fhir/FHIR-version", "1.4.0"),
+  _1_6_0("1.6.0", "http://hl7.org/fhir/FHIR-version", "1.6.0"),
+  _1_8_0("1.8.0", "http://hl7.org/fhir/FHIR-version", "1.8.0"),
+  _3_0_0("3.0.0", "http://hl7.org/fhir/FHIR-version", "3.0.0"),
+  _3_0_1("3.0.1", "http://hl7.org/fhir/FHIR-version", "3.0.1"),
+  _3_0_2("3.0.2", "http://hl7.org/fhir/FHIR-version", "3.0.2"),
+  _3_3_0("3.3.0", "http://hl7.org/fhir/FHIR-version", "3.3.0"),
+  _3_5_0("3.5.0", "http://hl7.org/fhir/FHIR-version", "3.5.0"),
+  _4_0_0("4.0.0", "http://hl7.org/fhir/FHIR-version", "4.0.0"),
+  _4_0_1("4.0.1", "http://hl7.org/fhir/FHIR-version", "4.0.1"),
+  _4_1_0("4.1.0", "http://hl7.org/fhir/FHIR-version", "4.1.0"),
+  _4_3_0_Cibuild("4.3.0-cibuild", "http://hl7.org/fhir/FHIR-version", "4.3.0-cibuild"),
+  _4_3_0_Snapshot1("4.3.0-snapshot1", "http://hl7.org/fhir/FHIR-version", "4.3.0-snapshot1"),
+  _4_3_0("4.3.0", "http://hl7.org/fhir/FHIR-version", "4.3.0");
 
   override fun toString(): String = code
 
@@ -60,8 +59,6 @@ public enum class FHIRVersion(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): FHIRVersion =

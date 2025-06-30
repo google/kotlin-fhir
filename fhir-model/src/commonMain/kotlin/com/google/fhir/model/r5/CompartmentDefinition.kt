@@ -378,14 +378,13 @@ public data class CompartmentDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient", null),
-    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter", null),
-    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson", null),
-    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner", null),
-    Device("Device", "http://hl7.org/fhir/compartment-type", "Device", null),
-    EpisodeOfCare("EpisodeOfCare", "http://hl7.org/fhir/compartment-type", "EpisodeOfCare", null);
+    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient"),
+    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter"),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner"),
+    Device("Device", "http://hl7.org/fhir/compartment-type", "Device"),
+    EpisodeOfCare("EpisodeOfCare", "http://hl7.org/fhir/compartment-type", "EpisodeOfCare");
 
     override fun toString(): kotlin.String = code
 
@@ -394,8 +393,6 @@ public data class CompartmentDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompartmentType =

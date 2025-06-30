@@ -345,10 +345,9 @@ public data class ActorDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Person("person", "http://hl7.org/fhir/examplescenario-actor-type", "Person", null),
-    System("system", "http://hl7.org/fhir/examplescenario-actor-type", "System", null);
+    Person("person", "http://hl7.org/fhir/examplescenario-actor-type", "Person"),
+    System("system", "http://hl7.org/fhir/examplescenario-actor-type", "System");
 
     override fun toString(): kotlin.String = code
 
@@ -357,8 +356,6 @@ public data class ActorDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExampleScenarioActorType =

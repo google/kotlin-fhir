@@ -185,12 +185,11 @@ public data class AppointmentResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted", null),
-    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined", null),
-    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative", null),
-    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action", null);
+    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted"),
+    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined"),
+    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative"),
+    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action");
 
     override fun toString(): kotlin.String = code
 
@@ -199,8 +198,6 @@ public data class AppointmentResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ParticipantStatus =

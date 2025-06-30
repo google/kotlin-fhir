@@ -372,18 +372,12 @@ public data class Provenance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Revision("revision", "http://hl7.org/fhir/provenance-entity-role", "Revision", null),
-    Quotation("quotation", "http://hl7.org/fhir/provenance-entity-role", "Quotation", null),
-    Source("source", "http://hl7.org/fhir/provenance-entity-role", "Source", null),
-    Instantiates(
-      "instantiates",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Instantiates",
-      null,
-    ),
-    Removal("removal", "http://hl7.org/fhir/provenance-entity-role", "Removal", null);
+    Revision("revision", "http://hl7.org/fhir/provenance-entity-role", "Revision"),
+    Quotation("quotation", "http://hl7.org/fhir/provenance-entity-role", "Quotation"),
+    Source("source", "http://hl7.org/fhir/provenance-entity-role", "Source"),
+    Instantiates("instantiates", "http://hl7.org/fhir/provenance-entity-role", "Instantiates"),
+    Removal("removal", "http://hl7.org/fhir/provenance-entity-role", "Removal");
 
     override fun toString(): String = code
 
@@ -392,8 +386,6 @@ public data class Provenance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ProvenanceEntityRole =

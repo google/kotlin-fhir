@@ -615,10 +615,9 @@ public data class OperationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    In("in", "http://hl7.org/fhir/operation-parameter-use", "In", null),
-    Out("out", "http://hl7.org/fhir/operation-parameter-use", "Out", null);
+    In("in", "http://hl7.org/fhir/operation-parameter-use", "In"),
+    Out("out", "http://hl7.org/fhir/operation-parameter-use", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -627,8 +626,6 @@ public data class OperationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OperationParameterUse =
@@ -646,10 +643,9 @@ public data class OperationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Operation("operation", "http://hl7.org/fhir/operation-kind", "Operation", null),
-    Query("query", "http://hl7.org/fhir/operation-kind", "Query", null);
+    Operation("operation", "http://hl7.org/fhir/operation-kind", "Operation"),
+    Query("query", "http://hl7.org/fhir/operation-kind", "Query");
 
     override fun toString(): kotlin.String = code
 
@@ -658,8 +654,6 @@ public data class OperationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OperationKind =

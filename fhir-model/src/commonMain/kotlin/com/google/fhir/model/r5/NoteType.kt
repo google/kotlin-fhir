@@ -23,11 +23,10 @@ public enum class NoteType(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Display("display", "http://hl7.org/fhir/note-type", "Display", null),
-  Print("print", "http://hl7.org/fhir/note-type", "Print (Form)", null),
-  Printoper("printoper", "http://hl7.org/fhir/note-type", "Print (Operator)", null);
+  Display("display", "http://hl7.org/fhir/note-type", "Display"),
+  Print("print", "http://hl7.org/fhir/note-type", "Print (Form)"),
+  Printoper("printoper", "http://hl7.org/fhir/note-type", "Print (Operator)");
 
   override fun toString(): String = code
 
@@ -36,8 +35,6 @@ public enum class NoteType(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): NoteType =

@@ -239,12 +239,11 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Unspecified("unspecified", "http://hl7.org/fhir/metric-calibration-type", "Unspecified", null),
-    Offset("offset", "http://hl7.org/fhir/metric-calibration-type", "Offset", null),
-    Gain("gain", "http://hl7.org/fhir/metric-calibration-type", "Gain", null),
-    Two_Point("two-point", "http://hl7.org/fhir/metric-calibration-type", "Two Point", null);
+    Unspecified("unspecified", "http://hl7.org/fhir/metric-calibration-type", "Unspecified"),
+    Offset("offset", "http://hl7.org/fhir/metric-calibration-type", "Offset"),
+    Gain("gain", "http://hl7.org/fhir/metric-calibration-type", "Gain"),
+    Two_Point("two-point", "http://hl7.org/fhir/metric-calibration-type", "Two Point");
 
     override fun toString(): String = code
 
@@ -253,8 +252,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricCalibrationType =
@@ -276,22 +273,19 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
     Not_Calibrated(
       "not-calibrated",
       "http://hl7.org/fhir/metric-calibration-state",
       "Not Calibrated",
-      null,
     ),
     Calibration_Required(
       "calibration-required",
       "http://hl7.org/fhir/metric-calibration-state",
       "Calibration Required",
-      null,
     ),
-    Calibrated("calibrated", "http://hl7.org/fhir/metric-calibration-state", "Calibrated", null),
-    Unspecified("unspecified", "http://hl7.org/fhir/metric-calibration-state", "Unspecified", null);
+    Calibrated("calibrated", "http://hl7.org/fhir/metric-calibration-state", "Calibrated"),
+    Unspecified("unspecified", "http://hl7.org/fhir/metric-calibration-state", "Unspecified");
 
     override fun toString(): String = code
 
@@ -300,8 +294,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricCalibrationState =
@@ -323,16 +315,14 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    On("on", "http://hl7.org/fhir/metric-operational-status", "On", null),
-    Off("off", "http://hl7.org/fhir/metric-operational-status", "Off", null),
-    Standby("standby", "http://hl7.org/fhir/metric-operational-status", "Standby", null),
+    On("on", "http://hl7.org/fhir/metric-operational-status", "On"),
+    Off("off", "http://hl7.org/fhir/metric-operational-status", "Off"),
+    Standby("standby", "http://hl7.org/fhir/metric-operational-status", "Standby"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/metric-operational-status",
       "Entered In Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -342,8 +332,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricOperationalStatus =
@@ -365,12 +353,11 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Measurement("measurement", "http://hl7.org/fhir/metric-category", "Measurement", null),
-    Setting("setting", "http://hl7.org/fhir/metric-category", "Setting", null),
-    Calculation("calculation", "http://hl7.org/fhir/metric-category", "Calculation", null),
-    Unspecified("unspecified", "http://hl7.org/fhir/metric-category", "Unspecified", null);
+    Measurement("measurement", "http://hl7.org/fhir/metric-category", "Measurement"),
+    Setting("setting", "http://hl7.org/fhir/metric-category", "Setting"),
+    Calculation("calculation", "http://hl7.org/fhir/metric-category", "Calculation"),
+    Unspecified("unspecified", "http://hl7.org/fhir/metric-category", "Unspecified");
 
     override fun toString(): String = code
 
@@ -379,8 +366,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricCategory =

@@ -552,28 +552,16 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Mean("mean", "http://hl7.org/fhir/group-measure", "Mean", null),
-    Median("median", "http://hl7.org/fhir/group-measure", "Median", null),
-    Mean_Of_Mean("mean-of-mean", "http://hl7.org/fhir/group-measure", "Mean of Study Means", null),
-    Mean_Of_Median(
-      "mean-of-median",
-      "http://hl7.org/fhir/group-measure",
-      "Mean of Study Medins",
-      null,
-    ),
-    Median_Of_Mean(
-      "median-of-mean",
-      "http://hl7.org/fhir/group-measure",
-      "Median of Study Means",
-      null,
-    ),
+    Mean("mean", "http://hl7.org/fhir/group-measure", "Mean"),
+    Median("median", "http://hl7.org/fhir/group-measure", "Median"),
+    Mean_Of_Mean("mean-of-mean", "http://hl7.org/fhir/group-measure", "Mean of Study Means"),
+    Mean_Of_Median("mean-of-median", "http://hl7.org/fhir/group-measure", "Mean of Study Medins"),
+    Median_Of_Mean("median-of-mean", "http://hl7.org/fhir/group-measure", "Median of Study Means"),
     Median_Of_Median(
       "median-of-median",
       "http://hl7.org/fhir/group-measure",
       "Median of Study Medians",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -583,8 +571,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GroupMeasure =
@@ -605,15 +591,9 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Intersection(
-      "intersection",
-      "http://hl7.org/fhir/characteristic-combination",
-      "intersection",
-      null,
-    ),
-    Union("union", "http://hl7.org/fhir/characteristic-combination", "union", null);
+    Intersection("intersection", "http://hl7.org/fhir/characteristic-combination", "intersection"),
+    Union("union", "http://hl7.org/fhir/characteristic-combination", "union");
 
     override fun toString(): kotlin.String = code
 
@@ -622,8 +602,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CharacteristicCombination =
@@ -644,21 +622,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable", null),
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      null,
-    ),
-    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable", null),
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -668,8 +639,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

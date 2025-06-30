@@ -792,43 +792,25 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Careteam("careteam", "http://hl7.org/fhir/action-participant-type", "CareTeam", null),
-    Device("device", "http://hl7.org/fhir/action-participant-type", "Device", null),
-    Group("group", "http://hl7.org/fhir/action-participant-type", "Group", null),
+    Careteam("careteam", "http://hl7.org/fhir/action-participant-type", "CareTeam"),
+    Device("device", "http://hl7.org/fhir/action-participant-type", "Device"),
+    Group("group", "http://hl7.org/fhir/action-participant-type", "Group"),
     Healthcareservice(
       "healthcareservice",
       "http://hl7.org/fhir/action-participant-type",
       "HealthcareService",
-      null,
     ),
-    Location("location", "http://hl7.org/fhir/action-participant-type", "Location", null),
-    Organization(
-      "organization",
-      "http://hl7.org/fhir/action-participant-type",
-      "Organization",
-      null,
-    ),
-    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient", null),
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/action-participant-type",
-      "Practitioner",
-      null,
-    ),
+    Location("location", "http://hl7.org/fhir/action-participant-type", "Location"),
+    Organization("organization", "http://hl7.org/fhir/action-participant-type", "Organization"),
+    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient"),
+    Practitioner("practitioner", "http://hl7.org/fhir/action-participant-type", "Practitioner"),
     Practitionerrole(
       "practitionerrole",
       "http://hl7.org/fhir/action-participant-type",
       "PractitionerRole",
-      null,
     ),
-    Relatedperson(
-      "relatedperson",
-      "http://hl7.org/fhir/action-participant-type",
-      "RelatedPerson",
-      null,
-    );
+    Relatedperson("relatedperson", "http://hl7.org/fhir/action-participant-type", "RelatedPerson");
 
     override fun toString(): kotlin.String = code
 
@@ -837,8 +819,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActivityParticipantType =
@@ -864,17 +844,16 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal", null),
-    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan", null),
-    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive", null),
-    Order("order", "http://hl7.org/fhir/request-intent", "Order", null),
-    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order", null),
-    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order", null),
-    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order", null),
-    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order", null),
-    Option("option", "http://hl7.org/fhir/request-intent", "Option", null);
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -883,8 +862,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestIntent =
@@ -908,12 +885,11 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine", null),
-    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent", null),
-    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP", null),
-    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT", null);
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -922,8 +898,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =

@@ -23,12 +23,11 @@ public enum class RemittanceOutcome(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Queued("queued", "http://hl7.org/fhir/remittance-outcome", "Queued", null),
-  Complete("complete", "http://hl7.org/fhir/remittance-outcome", "Complete", null),
-  Error("error", "http://hl7.org/fhir/remittance-outcome", "Error", null),
-  Partial("partial", "http://hl7.org/fhir/remittance-outcome", "Partial", null);
+  Queued("queued", "http://hl7.org/fhir/remittance-outcome", "Queued"),
+  Complete("complete", "http://hl7.org/fhir/remittance-outcome", "Complete"),
+  Error("error", "http://hl7.org/fhir/remittance-outcome", "Error"),
+  Partial("partial", "http://hl7.org/fhir/remittance-outcome", "Partial");
 
   override fun toString(): String = code
 
@@ -37,8 +36,6 @@ public enum class RemittanceOutcome(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): RemittanceOutcome =

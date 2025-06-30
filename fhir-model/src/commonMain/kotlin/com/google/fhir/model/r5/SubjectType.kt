@@ -23,23 +23,17 @@ public enum class SubjectType(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  CareTeam("CareTeam", "http://hl7.org/fhir/fhir-types", "CareTeam", null),
-  Device("Device", "http://hl7.org/fhir/fhir-types", "Device", null),
-  Group("Group", "http://hl7.org/fhir/fhir-types", "Group", null),
-  HealthcareService(
-    "HealthcareService",
-    "http://hl7.org/fhir/fhir-types",
-    "HealthcareService",
-    null,
-  ),
-  Location("Location", "http://hl7.org/fhir/fhir-types", "Location", null),
-  Organization("Organization", "http://hl7.org/fhir/fhir-types", "Organization", null),
-  Patient("Patient", "http://hl7.org/fhir/fhir-types", "Patient", null),
-  Practitioner("Practitioner", "http://hl7.org/fhir/fhir-types", "Practitioner", null),
-  PractitionerRole("PractitionerRole", "http://hl7.org/fhir/fhir-types", "PractitionerRole", null),
-  RelatedPerson("RelatedPerson", "http://hl7.org/fhir/fhir-types", "RelatedPerson", null);
+  CareTeam("CareTeam", "http://hl7.org/fhir/fhir-types", "CareTeam"),
+  Device("Device", "http://hl7.org/fhir/fhir-types", "Device"),
+  Group("Group", "http://hl7.org/fhir/fhir-types", "Group"),
+  HealthcareService("HealthcareService", "http://hl7.org/fhir/fhir-types", "HealthcareService"),
+  Location("Location", "http://hl7.org/fhir/fhir-types", "Location"),
+  Organization("Organization", "http://hl7.org/fhir/fhir-types", "Organization"),
+  Patient("Patient", "http://hl7.org/fhir/fhir-types", "Patient"),
+  Practitioner("Practitioner", "http://hl7.org/fhir/fhir-types", "Practitioner"),
+  PractitionerRole("PractitionerRole", "http://hl7.org/fhir/fhir-types", "PractitionerRole"),
+  RelatedPerson("RelatedPerson", "http://hl7.org/fhir/fhir-types", "RelatedPerson");
 
   override fun toString(): String = code
 
@@ -48,8 +42,6 @@ public enum class SubjectType(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): SubjectType =

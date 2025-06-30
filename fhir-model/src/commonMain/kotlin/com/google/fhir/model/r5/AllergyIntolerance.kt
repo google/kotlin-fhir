@@ -509,11 +509,10 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Mild("mild", "http://hl7.org/fhir/reaction-event-severity", "Mild", null),
-    Moderate("moderate", "http://hl7.org/fhir/reaction-event-severity", "Moderate", null),
-    Severe("severe", "http://hl7.org/fhir/reaction-event-severity", "Severe", null);
+    Mild("mild", "http://hl7.org/fhir/reaction-event-severity", "Mild"),
+    Moderate("moderate", "http://hl7.org/fhir/reaction-event-severity", "Moderate"),
+    Severe("severe", "http://hl7.org/fhir/reaction-event-severity", "Severe");
 
     override fun toString(): kotlin.String = code
 
@@ -522,8 +521,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceSeverity =
@@ -542,22 +539,11 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Food("food", "http://hl7.org/fhir/allergy-intolerance-category", "Food", null),
-    Medication(
-      "medication",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Medication",
-      null,
-    ),
-    Environment(
-      "environment",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Environment",
-      null,
-    ),
-    Biologic("biologic", "http://hl7.org/fhir/allergy-intolerance-category", "Biologic", null);
+    Food("food", "http://hl7.org/fhir/allergy-intolerance-category", "Food"),
+    Medication("medication", "http://hl7.org/fhir/allergy-intolerance-category", "Medication"),
+    Environment("environment", "http://hl7.org/fhir/allergy-intolerance-category", "Environment"),
+    Biologic("biologic", "http://hl7.org/fhir/allergy-intolerance-category", "Biologic");
 
     override fun toString(): kotlin.String = code
 
@@ -566,8 +552,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceCategory =
@@ -590,15 +574,13 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Low("low", "http://hl7.org/fhir/allergy-intolerance-criticality", "Low Risk", null),
-    High("high", "http://hl7.org/fhir/allergy-intolerance-criticality", "High Risk", null),
+    Low("low", "http://hl7.org/fhir/allergy-intolerance-criticality", "Low Risk"),
+    High("high", "http://hl7.org/fhir/allergy-intolerance-criticality", "High Risk"),
     Unable_To_Assess(
       "unable-to-assess",
       "http://hl7.org/fhir/allergy-intolerance-criticality",
       "Unable to Assess Risk",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -608,8 +590,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceCriticality =

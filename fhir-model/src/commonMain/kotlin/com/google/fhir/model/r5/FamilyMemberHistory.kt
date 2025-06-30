@@ -612,17 +612,11 @@ public data class FamilyMemberHistory(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Partial("partial", "http://hl7.org/fhir/history-status", "Partial", null),
-    Completed("completed", "http://hl7.org/fhir/history-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/history-status",
-      "Entered in Error",
-      null,
-    ),
-    Health_Unknown("health-unknown", "http://hl7.org/fhir/history-status", "Health Unknown", null);
+    Partial("partial", "http://hl7.org/fhir/history-status", "Partial"),
+    Completed("completed", "http://hl7.org/fhir/history-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/history-status", "Entered in Error"),
+    Health_Unknown("health-unknown", "http://hl7.org/fhir/history-status", "Health Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -631,8 +625,6 @@ public data class FamilyMemberHistory(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FamilyHistoryStatus =

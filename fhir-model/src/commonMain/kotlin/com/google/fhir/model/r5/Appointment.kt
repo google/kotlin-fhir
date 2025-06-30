@@ -678,12 +678,11 @@ public data class Appointment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted", null),
-    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined", null),
-    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative", null),
-    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action", null);
+    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted"),
+    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined"),
+    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative"),
+    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action");
 
     override fun toString(): kotlin.String = code
 
@@ -692,8 +691,6 @@ public data class Appointment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ParticipationStatus =
@@ -712,23 +709,21 @@ public data class Appointment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposed("proposed", "http://hl7.org/fhir/appointmentstatus", "Proposed", null),
-    Pending("pending", "http://hl7.org/fhir/appointmentstatus", "Pending", null),
-    Booked("booked", "http://hl7.org/fhir/appointmentstatus", "Booked", null),
-    Arrived("arrived", "http://hl7.org/fhir/appointmentstatus", "Arrived", null),
-    Fulfilled("fulfilled", "http://hl7.org/fhir/appointmentstatus", "Fulfilled", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/appointmentstatus", "Cancelled", null),
-    Noshow("noshow", "http://hl7.org/fhir/appointmentstatus", "No Show", null),
+    Proposed("proposed", "http://hl7.org/fhir/appointmentstatus", "Proposed"),
+    Pending("pending", "http://hl7.org/fhir/appointmentstatus", "Pending"),
+    Booked("booked", "http://hl7.org/fhir/appointmentstatus", "Booked"),
+    Arrived("arrived", "http://hl7.org/fhir/appointmentstatus", "Arrived"),
+    Fulfilled("fulfilled", "http://hl7.org/fhir/appointmentstatus", "Fulfilled"),
+    Cancelled("cancelled", "http://hl7.org/fhir/appointmentstatus", "Cancelled"),
+    Noshow("noshow", "http://hl7.org/fhir/appointmentstatus", "No Show"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/appointmentstatus",
       "Entered in error",
-      null,
     ),
-    Checked_In("checked-in", "http://hl7.org/fhir/appointmentstatus", "Checked In", null),
-    Waitlist("waitlist", "http://hl7.org/fhir/appointmentstatus", "Waitlisted", null);
+    Checked_In("checked-in", "http://hl7.org/fhir/appointmentstatus", "Checked In"),
+    Waitlist("waitlist", "http://hl7.org/fhir/appointmentstatus", "Waitlisted");
 
     override fun toString(): kotlin.String = code
 
@@ -737,8 +732,6 @@ public data class Appointment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AppointmentStatus =

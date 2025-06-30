@@ -699,11 +699,10 @@ public data class ConceptMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Provided("provided", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Provided Code", null),
-    Fixed("fixed", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Fixed Code", null),
-    Other_Map("other-map", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Other Map", null);
+    Provided("provided", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Provided Code"),
+    Fixed("fixed", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Fixed Code"),
+    Other_Map("other-map", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Other Map");
 
     override fun toString(): kotlin.String = code
 
@@ -712,8 +711,6 @@ public data class ConceptMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConceptMapGroupUnmappedMode =

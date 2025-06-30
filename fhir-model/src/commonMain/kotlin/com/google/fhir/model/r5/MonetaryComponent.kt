@@ -59,19 +59,13 @@ public data class MonetaryComponent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Base("base", "http://hl7.org/fhir/price-component-type", "base price", null),
-    Surcharge("surcharge", "http://hl7.org/fhir/price-component-type", "surcharge", null),
-    Deduction("deduction", "http://hl7.org/fhir/price-component-type", "deduction", null),
-    Discount("discount", "http://hl7.org/fhir/price-component-type", "discount", null),
-    Tax("tax", "http://hl7.org/fhir/price-component-type", "tax", null),
-    Informational(
-      "informational",
-      "http://hl7.org/fhir/price-component-type",
-      "informational",
-      null,
-    );
+    Base("base", "http://hl7.org/fhir/price-component-type", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/price-component-type", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/price-component-type", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/price-component-type", "discount"),
+    Tax("tax", "http://hl7.org/fhir/price-component-type", "tax"),
+    Informational("informational", "http://hl7.org/fhir/price-component-type", "informational");
 
     override fun toString(): String = code
 
@@ -80,8 +74,6 @@ public data class MonetaryComponent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PriceComponentType =

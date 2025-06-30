@@ -279,21 +279,15 @@ public data class Media(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation", null),
-    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress", null),
-    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold", null),
-    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped", null),
-    Completed("completed", "http://hl7.org/fhir/event-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      null,
-    ),
-    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown", null);
+    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done"),
+    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold"),
+    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -302,8 +296,6 @@ public data class Media(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MediaStatus =

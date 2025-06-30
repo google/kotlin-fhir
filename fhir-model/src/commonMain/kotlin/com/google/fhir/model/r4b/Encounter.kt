@@ -631,22 +631,20 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Planned("planned", "http://hl7.org/fhir/encounter-status", "Planned", null),
-    Arrived("arrived", "http://hl7.org/fhir/encounter-status", "Arrived", null),
-    Triaged("triaged", "http://hl7.org/fhir/encounter-status", "Triaged", null),
-    In_Progress("in-progress", "http://hl7.org/fhir/encounter-status", "In Progress", null),
-    Onleave("onleave", "http://hl7.org/fhir/encounter-status", "On Leave", null),
-    Finished("finished", "http://hl7.org/fhir/encounter-status", "Finished", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/encounter-status", "Cancelled", null),
+    Planned("planned", "http://hl7.org/fhir/encounter-status", "Planned"),
+    Arrived("arrived", "http://hl7.org/fhir/encounter-status", "Arrived"),
+    Triaged("triaged", "http://hl7.org/fhir/encounter-status", "Triaged"),
+    In_Progress("in-progress", "http://hl7.org/fhir/encounter-status", "In Progress"),
+    Onleave("onleave", "http://hl7.org/fhir/encounter-status", "On Leave"),
+    Finished("finished", "http://hl7.org/fhir/encounter-status", "Finished"),
+    Cancelled("cancelled", "http://hl7.org/fhir/encounter-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/encounter-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/encounter-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/encounter-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -655,8 +653,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterStatus =
@@ -680,12 +676,11 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Planned("planned", "http://hl7.org/fhir/encounter-location-status", "Planned", null),
-    Active("active", "http://hl7.org/fhir/encounter-location-status", "Active", null),
-    Reserved("reserved", "http://hl7.org/fhir/encounter-location-status", "Reserved", null),
-    Completed("completed", "http://hl7.org/fhir/encounter-location-status", "Completed", null);
+    Planned("planned", "http://hl7.org/fhir/encounter-location-status", "Planned"),
+    Active("active", "http://hl7.org/fhir/encounter-location-status", "Active"),
+    Reserved("reserved", "http://hl7.org/fhir/encounter-location-status", "Reserved"),
+    Completed("completed", "http://hl7.org/fhir/encounter-location-status", "Completed");
 
     override fun toString(): String = code
 
@@ -694,8 +689,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterLocationStatus =

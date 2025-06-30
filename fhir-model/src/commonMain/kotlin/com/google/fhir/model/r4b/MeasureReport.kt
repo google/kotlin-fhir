@@ -521,11 +521,10 @@ public data class MeasureReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete", null),
-    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending", null),
-    Error("error", "http://hl7.org/fhir/measure-report-status", "Error", null);
+    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete"),
+    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending"),
+    Error("error", "http://hl7.org/fhir/measure-report-status", "Error");
 
     override fun toString(): String = code
 
@@ -534,8 +533,6 @@ public data class MeasureReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MeasureReportStatus =
@@ -553,16 +550,14 @@ public data class MeasureReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual", null),
-    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List", null),
-    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary", null),
+    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual"),
+    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List"),
+    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary"),
     Data_Collection(
       "data-collection",
       "http://hl7.org/fhir/measure-report-type",
       "Data Collection",
-      null,
     );
 
     override fun toString(): String = code
@@ -572,8 +567,6 @@ public data class MeasureReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MeasureReportType =

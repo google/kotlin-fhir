@@ -882,25 +882,24 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Group("group", "http://hl7.org/fhir/item-type", "Group", null),
-    Display("display", "http://hl7.org/fhir/item-type", "Display", null),
-    Question("question", "http://hl7.org/fhir/item-type", "Question", null),
-    Boolean("boolean", "http://hl7.org/fhir/item-type", "Boolean", null),
-    Decimal("decimal", "http://hl7.org/fhir/item-type", "Decimal", null),
-    Integer("integer", "http://hl7.org/fhir/item-type", "Integer", null),
-    Date("date", "http://hl7.org/fhir/item-type", "Date", null),
-    DateTime("dateTime", "http://hl7.org/fhir/item-type", "Date Time", null),
-    Time("time", "http://hl7.org/fhir/item-type", "Time", null),
-    String("string", "http://hl7.org/fhir/item-type", "String", null),
-    Text("text", "http://hl7.org/fhir/item-type", "Text", null),
-    Url("url", "http://hl7.org/fhir/item-type", "Url", null),
-    Choice("choice", "http://hl7.org/fhir/item-type", "Choice", null),
-    Open_Choice("open-choice", "http://hl7.org/fhir/item-type", "Open Choice", null),
-    Attachment("attachment", "http://hl7.org/fhir/item-type", "Attachment", null),
-    Reference("reference", "http://hl7.org/fhir/item-type", "Reference", null),
-    Quantity("quantity", "http://hl7.org/fhir/item-type", "Quantity", null);
+    Group("group", "http://hl7.org/fhir/item-type", "Group"),
+    Display("display", "http://hl7.org/fhir/item-type", "Display"),
+    Question("question", "http://hl7.org/fhir/item-type", "Question"),
+    Boolean("boolean", "http://hl7.org/fhir/item-type", "Boolean"),
+    Decimal("decimal", "http://hl7.org/fhir/item-type", "Decimal"),
+    Integer("integer", "http://hl7.org/fhir/item-type", "Integer"),
+    Date("date", "http://hl7.org/fhir/item-type", "Date"),
+    DateTime("dateTime", "http://hl7.org/fhir/item-type", "Date Time"),
+    Time("time", "http://hl7.org/fhir/item-type", "Time"),
+    String("string", "http://hl7.org/fhir/item-type", "String"),
+    Text("text", "http://hl7.org/fhir/item-type", "Text"),
+    Url("url", "http://hl7.org/fhir/item-type", "Url"),
+    Choice("choice", "http://hl7.org/fhir/item-type", "Choice"),
+    Open_Choice("open-choice", "http://hl7.org/fhir/item-type", "Open Choice"),
+    Attachment("attachment", "http://hl7.org/fhir/item-type", "Attachment"),
+    Reference("reference", "http://hl7.org/fhir/item-type", "Reference"),
+    Quantity("quantity", "http://hl7.org/fhir/item-type", "Quantity");
 
     override fun toString(): kotlin.String = code
 
@@ -909,8 +908,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemType =
@@ -943,10 +940,9 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    All("all", "http://hl7.org/fhir/questionnaire-enable-behavior", "All", null),
-    Any("any", "http://hl7.org/fhir/questionnaire-enable-behavior", "Any", null);
+    All("all", "http://hl7.org/fhir/questionnaire-enable-behavior", "All"),
+    Any("any", "http://hl7.org/fhir/questionnaire-enable-behavior", "Any");
 
     override fun toString(): kotlin.String = code
 
@@ -955,8 +951,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EnableWhenBehavior =
@@ -973,25 +967,18 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Exists("exists", "http://hl7.org/fhir/questionnaire-enable-operator", "Exists", null),
-    EqualTo("=", "http://hl7.org/fhir/questionnaire-enable-operator", "Equals", null),
-    NotEqualTo("!=", "http://hl7.org/fhir/questionnaire-enable-operator", "Not Equals", null),
-    GreaterThan(">", "http://hl7.org/fhir/questionnaire-enable-operator", "Greater Than", null),
-    LessThan("<", "http://hl7.org/fhir/questionnaire-enable-operator", "Less Than", null),
+    Exists("exists", "http://hl7.org/fhir/questionnaire-enable-operator", "Exists"),
+    EqualTo("=", "http://hl7.org/fhir/questionnaire-enable-operator", "Equals"),
+    NotEqualTo("!=", "http://hl7.org/fhir/questionnaire-enable-operator", "Not Equals"),
+    GreaterThan(">", "http://hl7.org/fhir/questionnaire-enable-operator", "Greater Than"),
+    LessThan("<", "http://hl7.org/fhir/questionnaire-enable-operator", "Less Than"),
     GreaterThanOrEqualTo(
       ">=",
       "http://hl7.org/fhir/questionnaire-enable-operator",
       "Greater or Equals",
-      null,
     ),
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less or Equals",
-      null,
-    );
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/questionnaire-enable-operator", "Less or Equals");
 
     override fun toString(): kotlin.String = code
 
@@ -1000,8 +987,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemOperator =

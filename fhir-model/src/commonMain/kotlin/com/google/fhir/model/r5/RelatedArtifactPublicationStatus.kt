@@ -23,12 +23,11 @@ public enum class RelatedArtifactPublicationStatus(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Draft("draft", "http://hl7.org/fhir/publication-status", "Draft", null),
-  Active("active", "http://hl7.org/fhir/publication-status", "Active", null),
-  Retired("retired", "http://hl7.org/fhir/publication-status", "Retired", null),
-  Unknown("unknown", "http://hl7.org/fhir/publication-status", "Unknown", null);
+  Draft("draft", "http://hl7.org/fhir/publication-status", "Draft"),
+  Active("active", "http://hl7.org/fhir/publication-status", "Active"),
+  Retired("retired", "http://hl7.org/fhir/publication-status", "Retired"),
+  Unknown("unknown", "http://hl7.org/fhir/publication-status", "Unknown");
 
   override fun toString(): String = code
 
@@ -37,8 +36,6 @@ public enum class RelatedArtifactPublicationStatus(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): RelatedArtifactPublicationStatus =

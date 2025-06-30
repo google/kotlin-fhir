@@ -21,17 +21,16 @@ public enum class SearchParamType(
   private val code: kotlin.String,
   private val system: kotlin.String,
   private val display: kotlin.String?,
-  private val definition: kotlin.String?,
 ) {
-  Number("number", "http://hl7.org/fhir/search-param-type", "Number", null),
-  Date("date", "http://hl7.org/fhir/search-param-type", "Date/DateTime", null),
-  String("string", "http://hl7.org/fhir/search-param-type", "String", null),
-  Token("token", "http://hl7.org/fhir/search-param-type", "Token", null),
-  Reference("reference", "http://hl7.org/fhir/search-param-type", "Reference", null),
-  Composite("composite", "http://hl7.org/fhir/search-param-type", "Composite", null),
-  Quantity("quantity", "http://hl7.org/fhir/search-param-type", "Quantity", null),
-  Uri("uri", "http://hl7.org/fhir/search-param-type", "URI", null),
-  Special("special", "http://hl7.org/fhir/search-param-type", "Special", null);
+  Number("number", "http://hl7.org/fhir/search-param-type", "Number"),
+  Date("date", "http://hl7.org/fhir/search-param-type", "Date/DateTime"),
+  String("string", "http://hl7.org/fhir/search-param-type", "String"),
+  Token("token", "http://hl7.org/fhir/search-param-type", "Token"),
+  Reference("reference", "http://hl7.org/fhir/search-param-type", "Reference"),
+  Composite("composite", "http://hl7.org/fhir/search-param-type", "Composite"),
+  Quantity("quantity", "http://hl7.org/fhir/search-param-type", "Quantity"),
+  Uri("uri", "http://hl7.org/fhir/search-param-type", "URI"),
+  Special("special", "http://hl7.org/fhir/search-param-type", "Special");
 
   override fun toString(): kotlin.String = code
 
@@ -40,8 +39,6 @@ public enum class SearchParamType(
   public fun getSystem(): kotlin.String = system
 
   public fun getDisplay(): kotlin.String? = display
-
-  public fun getDefinition(): kotlin.String? = definition
 
   public companion object {
     public fun fromCode(code: kotlin.String): SearchParamType =

@@ -98,15 +98,14 @@ public data class HumanName(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Usual("usual", "http://hl7.org/fhir/name-use", "Usual", null),
-    Official("official", "http://hl7.org/fhir/name-use", "Official", null),
-    Temp("temp", "http://hl7.org/fhir/name-use", "Temp", null),
-    Nickname("nickname", "http://hl7.org/fhir/name-use", "Nickname", null),
-    Anonymous("anonymous", "http://hl7.org/fhir/name-use", "Anonymous", null),
-    Old("old", "http://hl7.org/fhir/name-use", "Old", null),
-    Maiden("maiden", "http://hl7.org/fhir/name-use", "Name changed for Marriage", null);
+    Usual("usual", "http://hl7.org/fhir/name-use", "Usual"),
+    Official("official", "http://hl7.org/fhir/name-use", "Official"),
+    Temp("temp", "http://hl7.org/fhir/name-use", "Temp"),
+    Nickname("nickname", "http://hl7.org/fhir/name-use", "Nickname"),
+    Anonymous("anonymous", "http://hl7.org/fhir/name-use", "Anonymous"),
+    Old("old", "http://hl7.org/fhir/name-use", "Old"),
+    Maiden("maiden", "http://hl7.org/fhir/name-use", "Name changed for Marriage");
 
     override fun toString(): kotlin.String = code
 
@@ -115,8 +114,6 @@ public data class HumanName(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NameUse =

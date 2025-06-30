@@ -324,14 +324,12 @@ public data class AdverseEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Actual("actual", "http://hl7.org/fhir/adverse-event-actuality", "Adverse Event", null),
+    Actual("actual", "http://hl7.org/fhir/adverse-event-actuality", "Adverse Event"),
     Potential(
       "potential",
       "http://hl7.org/fhir/adverse-event-actuality",
       "Potential Adverse Event",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -341,8 +339,6 @@ public data class AdverseEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AdverseEventActuality =

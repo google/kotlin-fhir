@@ -262,16 +262,14 @@ public data class InventoryReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/inventoryreport-status", "Draft", null),
-    Requested("requested", "http://hl7.org/fhir/inventoryreport-status", "Requested", null),
-    Active("active", "http://hl7.org/fhir/inventoryreport-status", "Active", null),
+    Draft("draft", "http://hl7.org/fhir/inventoryreport-status", "Draft"),
+    Requested("requested", "http://hl7.org/fhir/inventoryreport-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/inventoryreport-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/inventoryreport-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -281,8 +279,6 @@ public data class InventoryReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): InventoryReportStatus =
@@ -302,10 +298,9 @@ public data class InventoryReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Snapshot("snapshot", "http://hl7.org/fhir/inventoryreport-counttype", "Snapshot", null),
-    Difference("difference", "http://hl7.org/fhir/inventoryreport-counttype", "Difference", null);
+    Snapshot("snapshot", "http://hl7.org/fhir/inventoryreport-counttype", "Snapshot"),
+    Difference("difference", "http://hl7.org/fhir/inventoryreport-counttype", "Difference");
 
     override fun toString(): String = code
 
@@ -314,8 +309,6 @@ public data class InventoryReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): InventoryCountType =

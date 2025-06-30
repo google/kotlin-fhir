@@ -23,11 +23,10 @@ public enum class FundsReserve(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Patient("patient", "http://terminology.hl7.org/CodeSystem/fundsreserve", "Patient", null),
-  Provider("provider", "http://terminology.hl7.org/CodeSystem/fundsreserve", "Provider", null),
-  None("none", "http://terminology.hl7.org/CodeSystem/fundsreserve", "None", null);
+  Patient("patient", "http://terminology.hl7.org/CodeSystem/fundsreserve", "Patient"),
+  Provider("provider", "http://terminology.hl7.org/CodeSystem/fundsreserve", "Provider"),
+  None("none", "http://terminology.hl7.org/CodeSystem/fundsreserve", "None");
 
   override fun toString(): String = code
 
@@ -36,8 +35,6 @@ public enum class FundsReserve(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): FundsReserve =

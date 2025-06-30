@@ -647,14 +647,12 @@ public data class EffectEvidenceSynthesis(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Exposure("exposure", "http://hl7.org/fhir/exposure-state", "Exposure", null),
+    Exposure("exposure", "http://hl7.org/fhir/exposure-state", "Exposure"),
     Exposure_Alternative(
       "exposure-alternative",
       "http://hl7.org/fhir/exposure-state",
       "Exposure Alternative",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -664,8 +662,6 @@ public data class EffectEvidenceSynthesis(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExposureState =

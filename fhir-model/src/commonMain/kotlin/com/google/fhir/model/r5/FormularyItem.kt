@@ -155,16 +155,14 @@ public data class FormularyItem(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Active("active", "http://hl7.org/fhir/CodeSystem/formularyitem-status", "Active", null),
+    Active("active", "http://hl7.org/fhir/CodeSystem/formularyitem-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/formularyitem-status",
       "Entered in Error",
-      null,
     ),
-    Inactive("inactive", "http://hl7.org/fhir/CodeSystem/formularyitem-status", "Inactive", null);
+    Inactive("inactive", "http://hl7.org/fhir/CodeSystem/formularyitem-status", "Inactive");
 
     override fun toString(): String = code
 
@@ -173,8 +171,6 @@ public data class FormularyItem(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): FormularyItemStatus =

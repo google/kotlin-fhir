@@ -550,11 +550,10 @@ public data class Bundle(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Match("match", "http://hl7.org/fhir/search-entry-mode", "Match", null),
-    Include("include", "http://hl7.org/fhir/search-entry-mode", "Include", null),
-    Outcome("outcome", "http://hl7.org/fhir/search-entry-mode", "Outcome", null);
+    Match("match", "http://hl7.org/fhir/search-entry-mode", "Match"),
+    Include("include", "http://hl7.org/fhir/search-entry-mode", "Include"),
+    Outcome("outcome", "http://hl7.org/fhir/search-entry-mode", "Outcome");
 
     override fun toString(): kotlin.String = code
 
@@ -563,8 +562,6 @@ public data class Bundle(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchEntryMode =
@@ -585,14 +582,13 @@ public data class Bundle(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Get("GET", "http://hl7.org/fhir/http-verb", "GET", null),
-    Head("HEAD", "http://hl7.org/fhir/http-verb", "HEAD", null),
-    Post("POST", "http://hl7.org/fhir/http-verb", "POST", null),
-    Put("PUT", "http://hl7.org/fhir/http-verb", "PUT", null),
-    Delete("DELETE", "http://hl7.org/fhir/http-verb", "DELETE", null),
-    Patch("PATCH", "http://hl7.org/fhir/http-verb", "PATCH", null);
+    Get("GET", "http://hl7.org/fhir/http-verb", "GET"),
+    Head("HEAD", "http://hl7.org/fhir/http-verb", "HEAD"),
+    Post("POST", "http://hl7.org/fhir/http-verb", "POST"),
+    Put("PUT", "http://hl7.org/fhir/http-verb", "PUT"),
+    Delete("DELETE", "http://hl7.org/fhir/http-verb", "DELETE"),
+    Patch("PATCH", "http://hl7.org/fhir/http-verb", "PATCH");
 
     override fun toString(): kotlin.String = code
 
@@ -601,8 +597,6 @@ public data class Bundle(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): HTTPVerb =
@@ -623,27 +617,24 @@ public data class Bundle(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Document("document", "http://hl7.org/fhir/bundle-type", "Document", null),
-    Message("message", "http://hl7.org/fhir/bundle-type", "Message", null),
-    Transaction("transaction", "http://hl7.org/fhir/bundle-type", "Transaction", null),
+    Document("document", "http://hl7.org/fhir/bundle-type", "Document"),
+    Message("message", "http://hl7.org/fhir/bundle-type", "Message"),
+    Transaction("transaction", "http://hl7.org/fhir/bundle-type", "Transaction"),
     Transaction_Response(
       "transaction-response",
       "http://hl7.org/fhir/bundle-type",
       "Transaction Response",
-      null,
     ),
-    Batch("batch", "http://hl7.org/fhir/bundle-type", "Batch", null),
-    Batch_Response("batch-response", "http://hl7.org/fhir/bundle-type", "Batch Response", null),
-    History("history", "http://hl7.org/fhir/bundle-type", "History List", null),
-    Searchset("searchset", "http://hl7.org/fhir/bundle-type", "Search Results", null),
-    Collection("collection", "http://hl7.org/fhir/bundle-type", "Collection", null),
+    Batch("batch", "http://hl7.org/fhir/bundle-type", "Batch"),
+    Batch_Response("batch-response", "http://hl7.org/fhir/bundle-type", "Batch Response"),
+    History("history", "http://hl7.org/fhir/bundle-type", "History List"),
+    Searchset("searchset", "http://hl7.org/fhir/bundle-type", "Search Results"),
+    Collection("collection", "http://hl7.org/fhir/bundle-type", "Collection"),
     Subscription_Notification(
       "subscription-notification",
       "http://hl7.org/fhir/bundle-type",
       "Subscription Notification",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -653,8 +644,6 @@ public data class Bundle(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BundleType =

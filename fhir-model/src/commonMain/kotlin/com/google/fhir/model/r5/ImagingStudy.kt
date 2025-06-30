@@ -448,18 +448,16 @@ public data class ImagingStudy(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered("registered", "http://hl7.org/fhir/imagingstudy-status", "Registered", null),
-    Available("available", "http://hl7.org/fhir/imagingstudy-status", "Available", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/imagingstudy-status", "Cancelled", null),
+    Registered("registered", "http://hl7.org/fhir/imagingstudy-status", "Registered"),
+    Available("available", "http://hl7.org/fhir/imagingstudy-status", "Available"),
+    Cancelled("cancelled", "http://hl7.org/fhir/imagingstudy-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/imagingstudy-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/imagingstudy-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/imagingstudy-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -468,8 +466,6 @@ public data class ImagingStudy(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingStudyStatus =

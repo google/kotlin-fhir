@@ -269,16 +269,10 @@ public data class List(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Current("current", "http://hl7.org/fhir/list-status", "Current", null),
-    Retired("retired", "http://hl7.org/fhir/list-status", "Retired", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/list-status",
-      "Entered In Error",
-      null,
-    );
+    Current("current", "http://hl7.org/fhir/list-status", "Current"),
+    Retired("retired", "http://hl7.org/fhir/list-status", "Retired"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/list-status", "Entered In Error");
 
     override fun toString(): kotlin.String = code
 
@@ -287,8 +281,6 @@ public data class List(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ListStatus =
@@ -306,11 +298,10 @@ public data class List(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Working("working", "http://hl7.org/fhir/list-mode", "Working List", null),
-    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List", null),
-    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List", null);
+    Working("working", "http://hl7.org/fhir/list-mode", "Working List"),
+    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List"),
+    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List");
 
     override fun toString(): kotlin.String = code
 
@@ -319,8 +310,6 @@ public data class List(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ListMode =

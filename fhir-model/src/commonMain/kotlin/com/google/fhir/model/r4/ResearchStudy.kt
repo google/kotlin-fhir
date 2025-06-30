@@ -325,44 +325,38 @@ public data class ResearchStudy(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/research-study-status", "Active", null),
+    Active("active", "http://hl7.org/fhir/research-study-status", "Active"),
     Administratively_Completed(
       "administratively-completed",
       "http://hl7.org/fhir/research-study-status",
       "Administratively Completed",
-      null,
     ),
-    Approved("approved", "http://hl7.org/fhir/research-study-status", "Approved", null),
+    Approved("approved", "http://hl7.org/fhir/research-study-status", "Approved"),
     Closed_To_Accrual(
       "closed-to-accrual",
       "http://hl7.org/fhir/research-study-status",
       "Closed to Accrual",
-      null,
     ),
     Closed_To_Accrual_And_Intervention(
       "closed-to-accrual-and-intervention",
       "http://hl7.org/fhir/research-study-status",
       "Closed to Accrual and Intervention",
-      null,
     ),
-    Completed("completed", "http://hl7.org/fhir/research-study-status", "Completed", null),
-    Disapproved("disapproved", "http://hl7.org/fhir/research-study-status", "Disapproved", null),
-    In_Review("in-review", "http://hl7.org/fhir/research-study-status", "In Review", null),
+    Completed("completed", "http://hl7.org/fhir/research-study-status", "Completed"),
+    Disapproved("disapproved", "http://hl7.org/fhir/research-study-status", "Disapproved"),
+    In_Review("in-review", "http://hl7.org/fhir/research-study-status", "In Review"),
     Temporarily_Closed_To_Accrual(
       "temporarily-closed-to-accrual",
       "http://hl7.org/fhir/research-study-status",
       "Temporarily Closed to Accrual",
-      null,
     ),
     Temporarily_Closed_To_Accrual_And_Intervention(
       "temporarily-closed-to-accrual-and-intervention",
       "http://hl7.org/fhir/research-study-status",
       "Temporarily Closed to Accrual and Intervention",
-      null,
     ),
-    Withdrawn("withdrawn", "http://hl7.org/fhir/research-study-status", "Withdrawn", null);
+    Withdrawn("withdrawn", "http://hl7.org/fhir/research-study-status", "Withdrawn");
 
     override fun toString(): kotlin.String = code
 
@@ -371,8 +365,6 @@ public data class ResearchStudy(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResearchStudyStatus =

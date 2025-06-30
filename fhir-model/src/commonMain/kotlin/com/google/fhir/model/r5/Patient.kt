@@ -502,12 +502,11 @@ public data class Patient(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Replaced_By("replaced-by", "http://hl7.org/fhir/link-type", "Replaced-by", null),
-    Replaces("replaces", "http://hl7.org/fhir/link-type", "Replaces", null),
-    Refer("refer", "http://hl7.org/fhir/link-type", "Refer", null),
-    Seealso("seealso", "http://hl7.org/fhir/link-type", "See also", null);
+    Replaced_By("replaced-by", "http://hl7.org/fhir/link-type", "Replaced-by"),
+    Replaces("replaces", "http://hl7.org/fhir/link-type", "Replaces"),
+    Refer("refer", "http://hl7.org/fhir/link-type", "Refer"),
+    Seealso("seealso", "http://hl7.org/fhir/link-type", "See also");
 
     override fun toString(): String = code
 
@@ -516,8 +515,6 @@ public data class Patient(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): LinkType =

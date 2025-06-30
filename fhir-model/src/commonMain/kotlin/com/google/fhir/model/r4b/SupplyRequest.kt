@@ -315,20 +315,18 @@ public data class SupplyRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/supplyrequest-status", "Draft", null),
-    Active("active", "http://hl7.org/fhir/supplyrequest-status", "Active", null),
-    Suspended("suspended", "http://hl7.org/fhir/supplyrequest-status", "Suspended", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/supplyrequest-status", "Cancelled", null),
-    Completed("completed", "http://hl7.org/fhir/supplyrequest-status", "Completed", null),
+    Draft("draft", "http://hl7.org/fhir/supplyrequest-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/supplyrequest-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/supplyrequest-status", "Suspended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/supplyrequest-status", "Cancelled"),
+    Completed("completed", "http://hl7.org/fhir/supplyrequest-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/supplyrequest-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/supplyrequest-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/supplyrequest-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -337,8 +335,6 @@ public data class SupplyRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SupplyRequestStatus =
@@ -360,12 +356,11 @@ public data class SupplyRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine", null),
-    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent", null),
-    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP", null),
-    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT", null);
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -374,8 +369,6 @@ public data class SupplyRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): RequestPriority =

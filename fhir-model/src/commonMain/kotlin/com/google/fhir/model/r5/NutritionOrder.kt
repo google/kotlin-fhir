@@ -928,20 +928,14 @@ public data class NutritionOrder(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/request-status", "Draft", null),
-    Active("active", "http://hl7.org/fhir/request-status", "Active", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold", null),
-    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked", null),
-    Completed("completed", "http://hl7.org/fhir/request-status", "Completed", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      null,
-    ),
-    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown", null);
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -950,8 +944,6 @@ public data class NutritionOrder(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NutritionOrderStatus =
@@ -973,17 +965,16 @@ public data class NutritionOrder(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal", null),
-    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan", null),
-    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive", null),
-    Order("order", "http://hl7.org/fhir/request-intent", "Order", null),
-    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order", null),
-    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order", null),
-    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order", null),
-    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order", null),
-    Option("option", "http://hl7.org/fhir/request-intent", "Option", null);
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -992,8 +983,6 @@ public data class NutritionOrder(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NutritiionOrderIntent =
@@ -1018,12 +1007,11 @@ public data class NutritionOrder(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine", null),
-    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent", null),
-    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP", null),
-    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT", null);
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1032,8 +1020,6 @@ public data class NutritionOrder(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NutritionOrderPriority =

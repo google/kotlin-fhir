@@ -218,17 +218,15 @@ public data class AppointmentResponse(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted", null),
-    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined", null),
-    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative", null),
-    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action", null),
+    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted"),
+    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined"),
+    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative"),
+    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/appointmentstatus",
       "Entered in error",
-      null,
     );
 
     override fun toString(): String = code
@@ -238,8 +236,6 @@ public data class AppointmentResponse(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ParticipantStatus =

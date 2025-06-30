@@ -223,56 +223,39 @@ public data class BiologicallyDerivedProductDispense(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
     Preparation(
       "preparation",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Preparation",
-      null,
     ),
     In_Progress(
       "in-progress",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "In Progress",
-      null,
     ),
     Allocated(
       "allocated",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Allocated",
-      null,
     ),
-    Issued(
-      "issued",
-      "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
-      "Issued",
-      null,
-    ),
+    Issued("issued", "http://hl7.org/fhir/biologicallyderivedproductdispense-status", "Issued"),
     Unfulfilled(
       "unfulfilled",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Unfulfilled",
-      null,
     ),
     Returned(
       "returned",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Returned",
-      null,
     ),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Entered in Error",
-      null,
     ),
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
-      "Unknown",
-      null,
-    );
+    Unknown("unknown", "http://hl7.org/fhir/biologicallyderivedproductdispense-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -281,8 +264,6 @@ public data class BiologicallyDerivedProductDispense(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BiologicallyDerivedProductDispenseStatus =

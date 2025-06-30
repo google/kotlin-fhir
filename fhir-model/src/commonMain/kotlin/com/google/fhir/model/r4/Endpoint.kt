@@ -216,19 +216,13 @@ public data class Endpoint(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/endpoint-status", "Active", null),
-    Suspended("suspended", "http://hl7.org/fhir/endpoint-status", "Suspended", null),
-    Error("error", "http://hl7.org/fhir/endpoint-status", "Error", null),
-    Off("off", "http://hl7.org/fhir/endpoint-status", "Off", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/endpoint-status",
-      "Entered in error",
-      null,
-    ),
-    Test("test", "http://hl7.org/fhir/endpoint-status", "Test", null);
+    Active("active", "http://hl7.org/fhir/endpoint-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/endpoint-status", "Suspended"),
+    Error("error", "http://hl7.org/fhir/endpoint-status", "Error"),
+    Off("off", "http://hl7.org/fhir/endpoint-status", "Off"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/endpoint-status", "Entered in error"),
+    Test("test", "http://hl7.org/fhir/endpoint-status", "Test");
 
     override fun toString(): kotlin.String = code
 
@@ -237,8 +231,6 @@ public data class Endpoint(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EndpointStatus =

@@ -242,15 +242,13 @@ public data class Substance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Active("active", "http://hl7.org/fhir/substance-status", "Active", null),
-    Inactive("inactive", "http://hl7.org/fhir/substance-status", "Inactive", null),
+    Active("active", "http://hl7.org/fhir/substance-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/substance-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/substance-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -260,8 +258,6 @@ public data class Substance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): FHIRSubstanceStatus =

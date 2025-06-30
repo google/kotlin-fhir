@@ -416,61 +416,51 @@ public data class MedicationDispense(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
     Preparation(
       "preparation",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Preparation",
-      null,
     ),
     In_Progress(
       "in-progress",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "In Progress",
-      null,
     ),
     Cancelled(
       "cancelled",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Cancelled",
-      null,
     ),
     On_Hold(
       "on-hold",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "On Hold",
-      null,
     ),
     Completed(
       "completed",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Completed",
-      null,
     ),
     Entered_In_Error(
       "entered-in-error",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Entered in Error",
-      null,
     ),
     Stopped(
       "stopped",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Stopped",
-      null,
     ),
     Declined(
       "declined",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Declined",
-      null,
     ),
     Unknown(
       "unknown",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Unknown",
-      null,
     );
 
     override fun toString(): String = code
@@ -480,8 +470,6 @@ public data class MedicationDispense(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationDispenseStatus =

@@ -330,21 +330,19 @@ public data class DetectedIssue(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered", null),
-    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary", null),
-    Final("final", "http://hl7.org/fhir/observation-status", "Final", null),
-    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended", null),
-    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled", null),
+    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered"),
+    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/observation-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected"),
+    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/observation-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -353,8 +351,6 @@ public data class DetectedIssue(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DetectedIssueStatus =
@@ -377,11 +373,10 @@ public data class DetectedIssue(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    High("high", "http://hl7.org/fhir/detectedissue-severity", "High", null),
-    Moderate("moderate", "http://hl7.org/fhir/detectedissue-severity", "Moderate", null),
-    Low("low", "http://hl7.org/fhir/detectedissue-severity", "Low", null);
+    High("high", "http://hl7.org/fhir/detectedissue-severity", "High"),
+    Moderate("moderate", "http://hl7.org/fhir/detectedissue-severity", "Moderate"),
+    Low("low", "http://hl7.org/fhir/detectedissue-severity", "Low");
 
     override fun toString(): kotlin.String = code
 
@@ -390,8 +385,6 @@ public data class DetectedIssue(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DetectedIssueSeverity =

@@ -527,19 +527,17 @@ public data class NamingSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Oid("oid", "http://hl7.org/fhir/namingsystem-identifier-type", "OID", null),
-    Uuid("uuid", "http://hl7.org/fhir/namingsystem-identifier-type", "UUID", null),
-    Uri("uri", "http://hl7.org/fhir/namingsystem-identifier-type", "URI", null),
-    Iri_Stem("iri-stem", "http://hl7.org/fhir/namingsystem-identifier-type", "IRI stem", null),
+    Oid("oid", "http://hl7.org/fhir/namingsystem-identifier-type", "OID"),
+    Uuid("uuid", "http://hl7.org/fhir/namingsystem-identifier-type", "UUID"),
+    Uri("uri", "http://hl7.org/fhir/namingsystem-identifier-type", "URI"),
+    Iri_Stem("iri-stem", "http://hl7.org/fhir/namingsystem-identifier-type", "IRI stem"),
     V2csmnemonic(
       "v2csmnemonic",
       "http://hl7.org/fhir/namingsystem-identifier-type",
       "V2CSMNemonic",
-      null,
     ),
-    Other("other", "http://hl7.org/fhir/namingsystem-identifier-type", "Other", null);
+    Other("other", "http://hl7.org/fhir/namingsystem-identifier-type", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -548,8 +546,6 @@ public data class NamingSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NamingSystemIdentifierType =
@@ -571,11 +567,10 @@ public data class NamingSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Codesystem("codesystem", "http://hl7.org/fhir/namingsystem-type", "Code System", null),
-    Identifier("identifier", "http://hl7.org/fhir/namingsystem-type", "Identifier", null),
-    Root("root", "http://hl7.org/fhir/namingsystem-type", "Root", null);
+    Codesystem("codesystem", "http://hl7.org/fhir/namingsystem-type", "Code System"),
+    Identifier("identifier", "http://hl7.org/fhir/namingsystem-type", "Identifier"),
+    Root("root", "http://hl7.org/fhir/namingsystem-type", "Root");
 
     override fun toString(): kotlin.String = code
 
@@ -584,8 +579,6 @@ public data class NamingSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NamingSystemType =

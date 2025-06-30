@@ -1863,15 +1863,14 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE", null),
-    Get("get", "http://hl7.org/fhir/http-operations", "GET", null),
-    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS", null),
-    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH", null),
-    Post("post", "http://hl7.org/fhir/http-operations", "POST", null),
-    Put("put", "http://hl7.org/fhir/http-operations", "PUT", null),
-    Head("head", "http://hl7.org/fhir/http-operations", "HEAD", null);
+    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE"),
+    Get("get", "http://hl7.org/fhir/http-operations", "GET"),
+    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS"),
+    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH"),
+    Post("post", "http://hl7.org/fhir/http-operations", "POST"),
+    Put("put", "http://hl7.org/fhir/http-operations", "PUT"),
+    Head("head", "http://hl7.org/fhir/http-operations", "HEAD");
 
     override fun toString(): kotlin.String = code
 
@@ -1880,8 +1879,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestScriptRequestMethodCode =
@@ -1906,10 +1903,9 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Response("response", "http://hl7.org/fhir/assert-direction-codes", "response", null),
-    Request("request", "http://hl7.org/fhir/assert-direction-codes", "request", null);
+    Response("response", "http://hl7.org/fhir/assert-direction-codes", "response"),
+    Request("request", "http://hl7.org/fhir/assert-direction-codes", "request");
 
     override fun toString(): kotlin.String = code
 
@@ -1918,8 +1914,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionDirectionType =
@@ -1937,12 +1931,11 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Fail("fail", "http://hl7.org/fhir/assert-manual-completion-codes", "Fail", null),
-    Pass("pass", "http://hl7.org/fhir/assert-manual-completion-codes", "Pass", null),
-    Skip("skip", "http://hl7.org/fhir/assert-manual-completion-codes", "Skip", null),
-    Stop("stop", "http://hl7.org/fhir/assert-manual-completion-codes", "Stop", null);
+    Fail("fail", "http://hl7.org/fhir/assert-manual-completion-codes", "Fail"),
+    Pass("pass", "http://hl7.org/fhir/assert-manual-completion-codes", "Pass"),
+    Skip("skip", "http://hl7.org/fhir/assert-manual-completion-codes", "Skip"),
+    Stop("stop", "http://hl7.org/fhir/assert-manual-completion-codes", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -1951,8 +1944,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionManualCompletionType =
@@ -1974,20 +1965,19 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Equals("equals", "http://hl7.org/fhir/assert-operator-codes", "equals", null),
-    NotEquals("notEquals", "http://hl7.org/fhir/assert-operator-codes", "notEquals", null),
-    In("in", "http://hl7.org/fhir/assert-operator-codes", "in", null),
-    NotIn("notIn", "http://hl7.org/fhir/assert-operator-codes", "notIn", null),
-    GreaterThan("greaterThan", "http://hl7.org/fhir/assert-operator-codes", "greaterThan", null),
-    LessThan("lessThan", "http://hl7.org/fhir/assert-operator-codes", "lessThan", null),
-    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty", null),
-    NotEmpty("notEmpty", "http://hl7.org/fhir/assert-operator-codes", "notEmpty", null),
-    Contains("contains", "http://hl7.org/fhir/assert-operator-codes", "contains", null),
-    NotContains("notContains", "http://hl7.org/fhir/assert-operator-codes", "notContains", null),
-    Eval("eval", "http://hl7.org/fhir/assert-operator-codes", "evaluate", null),
-    ManualEval("manualEval", "http://hl7.org/fhir/assert-operator-codes", "manualEvaluate", null);
+    Equals("equals", "http://hl7.org/fhir/assert-operator-codes", "equals"),
+    NotEquals("notEquals", "http://hl7.org/fhir/assert-operator-codes", "notEquals"),
+    In("in", "http://hl7.org/fhir/assert-operator-codes", "in"),
+    NotIn("notIn", "http://hl7.org/fhir/assert-operator-codes", "notIn"),
+    GreaterThan("greaterThan", "http://hl7.org/fhir/assert-operator-codes", "greaterThan"),
+    LessThan("lessThan", "http://hl7.org/fhir/assert-operator-codes", "lessThan"),
+    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty"),
+    NotEmpty("notEmpty", "http://hl7.org/fhir/assert-operator-codes", "notEmpty"),
+    Contains("contains", "http://hl7.org/fhir/assert-operator-codes", "contains"),
+    NotContains("notContains", "http://hl7.org/fhir/assert-operator-codes", "notContains"),
+    Eval("eval", "http://hl7.org/fhir/assert-operator-codes", "evaluate"),
+    ManualEval("manualEval", "http://hl7.org/fhir/assert-operator-codes", "manualEvaluate");
 
     override fun toString(): kotlin.String = code
 
@@ -1996,8 +1986,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionOperatorType =
@@ -2025,201 +2013,154 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Continue("continue", "http://hl7.org/fhir/assert-response-code-types", "Continue", null),
+    Continue("continue", "http://hl7.org/fhir/assert-response-code-types", "Continue"),
     SwitchingProtocols(
       "switchingProtocols",
       "http://hl7.org/fhir/assert-response-code-types",
       "Switching Protocols",
-      null,
     ),
-    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "OK", null),
-    Created("created", "http://hl7.org/fhir/assert-response-code-types", "Created", null),
-    Accepted("accepted", "http://hl7.org/fhir/assert-response-code-types", "Accepted", null),
+    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "OK"),
+    Created("created", "http://hl7.org/fhir/assert-response-code-types", "Created"),
+    Accepted("accepted", "http://hl7.org/fhir/assert-response-code-types", "Accepted"),
     NonAuthoritativeInformation(
       "nonAuthoritativeInformation",
       "http://hl7.org/fhir/assert-response-code-types",
       "Non-Authoritative Information",
-      null,
     ),
-    NoContent("noContent", "http://hl7.org/fhir/assert-response-code-types", "No Content", null),
-    ResetContent(
-      "resetContent",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Reset Content",
-      null,
-    ),
+    NoContent("noContent", "http://hl7.org/fhir/assert-response-code-types", "No Content"),
+    ResetContent("resetContent", "http://hl7.org/fhir/assert-response-code-types", "Reset Content"),
     PartialContent(
       "partialContent",
       "http://hl7.org/fhir/assert-response-code-types",
       "Partial Content",
-      null,
     ),
     MultipleChoices(
       "multipleChoices",
       "http://hl7.org/fhir/assert-response-code-types",
       "Multiple Choices",
-      null,
     ),
     MovedPermanently(
       "movedPermanently",
       "http://hl7.org/fhir/assert-response-code-types",
       "Moved Permanently",
-      null,
     ),
-    Found("found", "http://hl7.org/fhir/assert-response-code-types", "Found", null),
-    SeeOther("seeOther", "http://hl7.org/fhir/assert-response-code-types", "See Other", null),
-    NotModified(
-      "notModified",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Not Modified",
-      null,
-    ),
-    UseProxy("useProxy", "http://hl7.org/fhir/assert-response-code-types", "Use Proxy", null),
+    Found("found", "http://hl7.org/fhir/assert-response-code-types", "Found"),
+    SeeOther("seeOther", "http://hl7.org/fhir/assert-response-code-types", "See Other"),
+    NotModified("notModified", "http://hl7.org/fhir/assert-response-code-types", "Not Modified"),
+    UseProxy("useProxy", "http://hl7.org/fhir/assert-response-code-types", "Use Proxy"),
     TemporaryRedirect(
       "temporaryRedirect",
       "http://hl7.org/fhir/assert-response-code-types",
       "Temporary Redirect",
-      null,
     ),
     PermanentRedirect(
       "permanentRedirect",
       "http://hl7.org/fhir/assert-response-code-types",
       "Permanent Redirect",
-      null,
     ),
-    BadRequest("badRequest", "http://hl7.org/fhir/assert-response-code-types", "Bad Request", null),
-    Unauthorized(
-      "unauthorized",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Unauthorized",
-      null,
-    ),
+    BadRequest("badRequest", "http://hl7.org/fhir/assert-response-code-types", "Bad Request"),
+    Unauthorized("unauthorized", "http://hl7.org/fhir/assert-response-code-types", "Unauthorized"),
     PaymentRequired(
       "paymentRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Payment Required",
-      null,
     ),
-    Forbidden("forbidden", "http://hl7.org/fhir/assert-response-code-types", "Forbidden", null),
-    NotFound("notFound", "http://hl7.org/fhir/assert-response-code-types", "Not Found", null),
+    Forbidden("forbidden", "http://hl7.org/fhir/assert-response-code-types", "Forbidden"),
+    NotFound("notFound", "http://hl7.org/fhir/assert-response-code-types", "Not Found"),
     MethodNotAllowed(
       "methodNotAllowed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Method Not Allowed",
-      null,
     ),
     NotAcceptable(
       "notAcceptable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Not Acceptable",
-      null,
     ),
     ProxyAuthenticationRequired(
       "proxyAuthenticationRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Proxy Authentication Required",
-      null,
     ),
     RequestTimeout(
       "requestTimeout",
       "http://hl7.org/fhir/assert-response-code-types",
       "Request Timeout",
-      null,
     ),
-    Conflict("conflict", "http://hl7.org/fhir/assert-response-code-types", "Conflict", null),
-    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "Gone", null),
+    Conflict("conflict", "http://hl7.org/fhir/assert-response-code-types", "Conflict"),
+    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "Gone"),
     LengthRequired(
       "lengthRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Length Required",
-      null,
     ),
     PreconditionFailed(
       "preconditionFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Precondition Failed",
-      null,
     ),
     ContentTooLarge(
       "contentTooLarge",
       "http://hl7.org/fhir/assert-response-code-types",
       "Content Too Large",
-      null,
     ),
-    UriTooLong(
-      "uriTooLong",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "URI Too Long",
-      null,
-    ),
+    UriTooLong("uriTooLong", "http://hl7.org/fhir/assert-response-code-types", "URI Too Long"),
     UnsupportedMediaType(
       "unsupportedMediaType",
       "http://hl7.org/fhir/assert-response-code-types",
       "Unsupported Media Type",
-      null,
     ),
     RangeNotSatisfiable(
       "rangeNotSatisfiable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Range Not Satisfiable",
-      null,
     ),
     ExpectationFailed(
       "expectationFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Expectation Failed",
-      null,
     ),
     MisdirectedRequest(
       "misdirectedRequest",
       "http://hl7.org/fhir/assert-response-code-types",
       "Misdirected Request",
-      null,
     ),
     UnprocessableContent(
       "unprocessableContent",
       "http://hl7.org/fhir/assert-response-code-types",
       "Unprocessable Content",
-      null,
     ),
     UpgradeRequired(
       "upgradeRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Upgrade Required",
-      null,
     ),
     InternalServerError(
       "internalServerError",
       "http://hl7.org/fhir/assert-response-code-types",
       "Internal Server Error",
-      null,
     ),
     NotImplemented(
       "notImplemented",
       "http://hl7.org/fhir/assert-response-code-types",
       "Not Implemented",
-      null,
     ),
-    BadGateway("badGateway", "http://hl7.org/fhir/assert-response-code-types", "Bad Gateway", null),
+    BadGateway("badGateway", "http://hl7.org/fhir/assert-response-code-types", "Bad Gateway"),
     ServiceUnavailable(
       "serviceUnavailable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Service Unavailable",
-      null,
     ),
     GatewayTimeout(
       "gatewayTimeout",
       "http://hl7.org/fhir/assert-response-code-types",
       "Gateway Timeout",
-      null,
     ),
     httpVersionNotSupported(
       "httpVersionNotSupported",
       "http://hl7.org/fhir/assert-response-code-types",
       "HTTP Version Not Supported",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -2229,8 +2170,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionResponseTypes =

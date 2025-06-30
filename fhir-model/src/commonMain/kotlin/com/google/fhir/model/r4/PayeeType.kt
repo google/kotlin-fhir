@@ -23,11 +23,10 @@ public enum class PayeeType(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Subscriber("subscriber", "http://terminology.hl7.org/CodeSystem/payeetype", "Subscriber", null),
-  Provider("provider", "http://terminology.hl7.org/CodeSystem/payeetype", "Provider", null),
-  Other("other", "http://terminology.hl7.org/CodeSystem/payeetype", "Provider", null);
+  Subscriber("subscriber", "http://terminology.hl7.org/CodeSystem/payeetype", "Subscriber"),
+  Provider("provider", "http://terminology.hl7.org/CodeSystem/payeetype", "Provider"),
+  Other("other", "http://terminology.hl7.org/CodeSystem/payeetype", "Provider");
 
   override fun toString(): String = code
 
@@ -36,8 +35,6 @@ public enum class PayeeType(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): PayeeType =

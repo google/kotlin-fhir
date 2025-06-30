@@ -836,16 +836,10 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance", null),
-    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability", null),
-    Requirements(
-      "requirements",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Requirements",
-      null,
-    );
+    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance"),
+    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability"),
+    Requirements("requirements", "http://hl7.org/fhir/capability-statement-kind", "Requirements");
 
     override fun toString(): kotlin.String = code
 
@@ -854,8 +848,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CapabilityStatementKind =
@@ -877,10 +869,9 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Explicit("explicit", "http://hl7.org/fhir/code-search-support", "Explicit Codes", null),
-    All("all", "http://hl7.org/fhir/code-search-support", "Implicit Codes", null);
+    Explicit("explicit", "http://hl7.org/fhir/code-search-support", "Explicit Codes"),
+    All("all", "http://hl7.org/fhir/code-search-support", "Implicit Codes");
 
     override fun toString(): kotlin.String = code
 
@@ -889,8 +880,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSearchSupport =

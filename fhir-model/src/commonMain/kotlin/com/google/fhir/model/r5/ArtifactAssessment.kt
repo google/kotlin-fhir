@@ -314,33 +314,20 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Comment("comment", "http://hl7.org/fhir/artifactassessment-information-type", "Comment", null),
+    Comment("comment", "http://hl7.org/fhir/artifactassessment-information-type", "Comment"),
     Classifier(
       "classifier",
       "http://hl7.org/fhir/artifactassessment-information-type",
       "Classifier",
-      null,
     ),
-    Rating("rating", "http://hl7.org/fhir/artifactassessment-information-type", "Rating", null),
-    Container(
-      "container",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Container",
-      null,
-    ),
-    Response(
-      "response",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Response",
-      null,
-    ),
+    Rating("rating", "http://hl7.org/fhir/artifactassessment-information-type", "Rating"),
+    Container("container", "http://hl7.org/fhir/artifactassessment-information-type", "Container"),
+    Response("response", "http://hl7.org/fhir/artifactassessment-information-type", "Response"),
     Change_Request(
       "change-request",
       "http://hl7.org/fhir/artifactassessment-information-type",
       "Change Request",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -350,8 +337,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InformationType =
@@ -376,57 +361,32 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Submitted(
-      "submitted",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Submitted",
-      null,
-    ),
-    Triaged("triaged", "http://hl7.org/fhir/artifactassessment-workflow-status", "Triaged", null),
+    Submitted("submitted", "http://hl7.org/fhir/artifactassessment-workflow-status", "Submitted"),
+    Triaged("triaged", "http://hl7.org/fhir/artifactassessment-workflow-status", "Triaged"),
     Waiting_For_Input(
       "waiting-for-input",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Waiting for Input",
-      null,
     ),
     Resolved_No_Change(
       "resolved-no-change",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Resolved - No Change",
-      null,
     ),
     Resolved_Change_Required(
       "resolved-change-required",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Resolved - Change Required",
-      null,
     ),
-    Deferred(
-      "deferred",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Deferred",
-      null,
-    ),
-    Duplicate(
-      "duplicate",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Duplicate",
-      null,
-    ),
-    Applied("applied", "http://hl7.org/fhir/artifactassessment-workflow-status", "Applied", null),
-    Published(
-      "published",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Published",
-      null,
-    ),
+    Deferred("deferred", "http://hl7.org/fhir/artifactassessment-workflow-status", "Deferred"),
+    Duplicate("duplicate", "http://hl7.org/fhir/artifactassessment-workflow-status", "Duplicate"),
+    Applied("applied", "http://hl7.org/fhir/artifactassessment-workflow-status", "Applied"),
+    Published("published", "http://hl7.org/fhir/artifactassessment-workflow-status", "Published"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -436,8 +396,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): WorkflowStatus =
@@ -466,37 +424,23 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Unresolved(
-      "unresolved",
-      "http://hl7.org/fhir/artifactassessment-disposition",
-      "Unresolved",
-      null,
-    ),
+    Unresolved("unresolved", "http://hl7.org/fhir/artifactassessment-disposition", "Unresolved"),
     Not_Persuasive(
       "not-persuasive",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Not Persuasive",
-      null,
     ),
-    Persuasive(
-      "persuasive",
-      "http://hl7.org/fhir/artifactassessment-disposition",
-      "Persuasive",
-      null,
-    ),
+    Persuasive("persuasive", "http://hl7.org/fhir/artifactassessment-disposition", "Persuasive"),
     Persuasive_With_Modification(
       "persuasive-with-modification",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Persuasive with Modification",
-      null,
     ),
     Not_Persuasive_With_Modification(
       "not-persuasive-with-modification",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Not Persuasive with Modification",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -506,8 +450,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Disposition =

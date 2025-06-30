@@ -495,28 +495,16 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Mean("mean", "http://hl7.org/fhir/group-measure", "Mean", null),
-    Median("median", "http://hl7.org/fhir/group-measure", "Median", null),
-    Mean_Of_Mean("mean-of-mean", "http://hl7.org/fhir/group-measure", "Mean of Study Means", null),
-    Mean_Of_Median(
-      "mean-of-median",
-      "http://hl7.org/fhir/group-measure",
-      "Mean of Study Medins",
-      null,
-    ),
-    Median_Of_Mean(
-      "median-of-mean",
-      "http://hl7.org/fhir/group-measure",
-      "Median of Study Means",
-      null,
-    ),
+    Mean("mean", "http://hl7.org/fhir/group-measure", "Mean"),
+    Median("median", "http://hl7.org/fhir/group-measure", "Median"),
+    Mean_Of_Mean("mean-of-mean", "http://hl7.org/fhir/group-measure", "Mean of Study Means"),
+    Mean_Of_Median("mean-of-median", "http://hl7.org/fhir/group-measure", "Mean of Study Medins"),
+    Median_Of_Mean("median-of-mean", "http://hl7.org/fhir/group-measure", "Median of Study Means"),
     Median_Of_Median(
       "median-of-median",
       "http://hl7.org/fhir/group-measure",
       "Median of Study Medians",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -526,8 +514,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GroupMeasure =
@@ -551,11 +537,10 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-type", "Dichotomous", null),
-    Continuous("continuous", "http://hl7.org/fhir/variable-type", "Continuous", null),
-    Descriptive("descriptive", "http://hl7.org/fhir/variable-type", "Descriptive", null);
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-type", "Dichotomous"),
+    Continuous("continuous", "http://hl7.org/fhir/variable-type", "Continuous"),
+    Descriptive("descriptive", "http://hl7.org/fhir/variable-type", "Descriptive");
 
     override fun toString(): kotlin.String = code
 
@@ -564,8 +549,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableType =

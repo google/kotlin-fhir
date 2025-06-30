@@ -331,15 +331,14 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", null),
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", null),
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", null),
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", null),
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", null),
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", null),
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", null);
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
 
     override fun toString(): kotlin.String = code
 
@@ -348,8 +347,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DaysOfWeek =
@@ -371,11 +368,10 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/location-status", "Active", null),
-    Suspended("suspended", "http://hl7.org/fhir/location-status", "Suspended", null),
-    Inactive("inactive", "http://hl7.org/fhir/location-status", "Inactive", null);
+    Active("active", "http://hl7.org/fhir/location-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/location-status", "Suspended"),
+    Inactive("inactive", "http://hl7.org/fhir/location-status", "Inactive");
 
     override fun toString(): kotlin.String = code
 
@@ -384,8 +380,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): LocationStatus =
@@ -405,10 +399,9 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Instance("instance", "http://hl7.org/fhir/location-mode", "Instance", null),
-    Kind("kind", "http://hl7.org/fhir/location-mode", "Kind", null);
+    Instance("instance", "http://hl7.org/fhir/location-mode", "Instance"),
+    Kind("kind", "http://hl7.org/fhir/location-mode", "Kind");
 
     override fun toString(): kotlin.String = code
 
@@ -417,8 +410,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): LocationMode =

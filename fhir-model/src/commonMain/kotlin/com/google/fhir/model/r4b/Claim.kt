@@ -1370,12 +1370,11 @@ public data class Claim(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/fm-status", "Active", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled", null),
-    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft", null),
-    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error", null);
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -1384,8 +1383,6 @@ public data class Claim(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ClaimStatus =
@@ -1404,11 +1401,10 @@ public data class Claim(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Claim("claim", "http://hl7.org/fhir/claim-use", "Claim", null),
-    Preauthorization("preauthorization", "http://hl7.org/fhir/claim-use", "Preauthorization", null),
-    Predetermination("predetermination", "http://hl7.org/fhir/claim-use", "Predetermination", null);
+    Claim("claim", "http://hl7.org/fhir/claim-use", "Claim"),
+    Preauthorization("preauthorization", "http://hl7.org/fhir/claim-use", "Preauthorization"),
+    Predetermination("predetermination", "http://hl7.org/fhir/claim-use", "Predetermination");
 
     override fun toString(): kotlin.String = code
 
@@ -1417,8 +1413,6 @@ public data class Claim(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Use =

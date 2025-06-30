@@ -26,20 +26,19 @@ public enum class MaritalStatus(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  A("A", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Annulled", null),
-  D("D", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Divorced", null),
-  I("I", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Interlocutory", null),
-  L("L", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Legally Separated", null),
-  M("M", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Married", null),
-  C("C", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Common Law", null),
-  P("P", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Polygamous", null),
-  T("T", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Domestic partner", null),
-  U("U", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "unmarried", null),
-  S("S", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Never Married", null),
-  W("W", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Widowed", null),
-  Unk("UNK", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "unknown", null);
+  A("A", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Annulled"),
+  D("D", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Divorced"),
+  I("I", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Interlocutory"),
+  L("L", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Legally Separated"),
+  M("M", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Married"),
+  C("C", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Common Law"),
+  P("P", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Polygamous"),
+  T("T", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Domestic partner"),
+  U("U", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "unmarried"),
+  S("S", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Never Married"),
+  W("W", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Widowed"),
+  Unk("UNK", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "unknown");
 
   override fun toString(): String = code
 
@@ -48,8 +47,6 @@ public enum class MaritalStatus(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): MaritalStatus =

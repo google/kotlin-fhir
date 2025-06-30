@@ -171,23 +171,12 @@ public data class Slot(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Busy("busy", "http://hl7.org/fhir/slotstatus", "Busy", null),
-    Free("free", "http://hl7.org/fhir/slotstatus", "Free", null),
-    Busy_Unavailable(
-      "busy-unavailable",
-      "http://hl7.org/fhir/slotstatus",
-      "Busy (Unavailable)",
-      null,
-    ),
-    Busy_Tentative("busy-tentative", "http://hl7.org/fhir/slotstatus", "Busy (Tentative)", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/slotstatus",
-      "Entered in error",
-      null,
-    );
+    Busy("busy", "http://hl7.org/fhir/slotstatus", "Busy"),
+    Free("free", "http://hl7.org/fhir/slotstatus", "Free"),
+    Busy_Unavailable("busy-unavailable", "http://hl7.org/fhir/slotstatus", "Busy (Unavailable)"),
+    Busy_Tentative("busy-tentative", "http://hl7.org/fhir/slotstatus", "Busy (Tentative)"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/slotstatus", "Entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -196,8 +185,6 @@ public data class Slot(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SlotStatus =

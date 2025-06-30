@@ -23,72 +23,45 @@ public enum class ActivityDefinitionKind(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Appointment("Appointment", "http://hl7.org/fhir/request-resource-types", "Appointment", null),
+  Appointment("Appointment", "http://hl7.org/fhir/request-resource-types", "Appointment"),
   AppointmentResponse(
     "AppointmentResponse",
     "http://hl7.org/fhir/request-resource-types",
     "AppointmentResponse",
-    null,
   ),
-  CarePlan("CarePlan", "http://hl7.org/fhir/request-resource-types", "CarePlan", null),
-  Claim("Claim", "http://hl7.org/fhir/request-resource-types", "Claim", null),
+  CarePlan("CarePlan", "http://hl7.org/fhir/request-resource-types", "CarePlan"),
+  Claim("Claim", "http://hl7.org/fhir/request-resource-types", "Claim"),
   CommunicationRequest(
     "CommunicationRequest",
     "http://hl7.org/fhir/request-resource-types",
     "CommunicationRequest",
-    null,
   ),
-  Contract("Contract", "http://hl7.org/fhir/request-resource-types", "Contract", null),
-  DeviceRequest(
-    "DeviceRequest",
-    "http://hl7.org/fhir/request-resource-types",
-    "DeviceRequest",
-    null,
-  ),
+  Contract("Contract", "http://hl7.org/fhir/request-resource-types", "Contract"),
+  DeviceRequest("DeviceRequest", "http://hl7.org/fhir/request-resource-types", "DeviceRequest"),
   EnrollmentRequest(
     "EnrollmentRequest",
     "http://hl7.org/fhir/request-resource-types",
     "EnrollmentRequest",
-    null,
   ),
   ImmunizationRecommendation(
     "ImmunizationRecommendation",
     "http://hl7.org/fhir/request-resource-types",
     "ImmunizationRecommendation",
-    null,
   ),
   MedicationRequest(
     "MedicationRequest",
     "http://hl7.org/fhir/request-resource-types",
     "MedicationRequest",
-    null,
   ),
-  NutritionOrder(
-    "NutritionOrder",
-    "http://hl7.org/fhir/request-resource-types",
-    "NutritionOrder",
-    null,
-  ),
-  ServiceRequest(
-    "ServiceRequest",
-    "http://hl7.org/fhir/request-resource-types",
-    "ServiceRequest",
-    null,
-  ),
-  SupplyRequest(
-    "SupplyRequest",
-    "http://hl7.org/fhir/request-resource-types",
-    "SupplyRequest",
-    null,
-  ),
-  Task("Task", "http://hl7.org/fhir/request-resource-types", "Task", null),
+  NutritionOrder("NutritionOrder", "http://hl7.org/fhir/request-resource-types", "NutritionOrder"),
+  ServiceRequest("ServiceRequest", "http://hl7.org/fhir/request-resource-types", "ServiceRequest"),
+  SupplyRequest("SupplyRequest", "http://hl7.org/fhir/request-resource-types", "SupplyRequest"),
+  Task("Task", "http://hl7.org/fhir/request-resource-types", "Task"),
   VisionPrescription(
     "VisionPrescription",
     "http://hl7.org/fhir/request-resource-types",
     "VisionPrescription",
-    null,
   );
 
   override fun toString(): String = code
@@ -98,8 +71,6 @@ public enum class ActivityDefinitionKind(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ActivityDefinitionKind =

@@ -656,12 +656,11 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Planned("planned", "http://hl7.org/fhir/encounter-location-status", "Planned", null),
-    Active("active", "http://hl7.org/fhir/encounter-location-status", "Active", null),
-    Reserved("reserved", "http://hl7.org/fhir/encounter-location-status", "Reserved", null),
-    Completed("completed", "http://hl7.org/fhir/encounter-location-status", "Completed", null);
+    Planned("planned", "http://hl7.org/fhir/encounter-location-status", "Planned"),
+    Active("active", "http://hl7.org/fhir/encounter-location-status", "Active"),
+    Reserved("reserved", "http://hl7.org/fhir/encounter-location-status", "Reserved"),
+    Completed("completed", "http://hl7.org/fhir/encounter-location-status", "Completed");
 
     override fun toString(): String = code
 
@@ -670,8 +669,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterLocationStatus =
@@ -691,22 +688,20 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Planned("planned", "http://hl7.org/fhir/encounter-status", "Planned", null),
-    In_Progress("in-progress", "http://hl7.org/fhir/encounter-status", "In Progress", null),
-    On_Hold("on-hold", "http://hl7.org/fhir/encounter-status", "On Hold", null),
-    Discharged("discharged", "http://hl7.org/fhir/encounter-status", "Discharged", null),
-    Completed("completed", "http://hl7.org/fhir/encounter-status", "Completed", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/encounter-status", "Cancelled", null),
-    Discontinued("discontinued", "http://hl7.org/fhir/encounter-status", "Discontinued", null),
+    Planned("planned", "http://hl7.org/fhir/encounter-status", "Planned"),
+    In_Progress("in-progress", "http://hl7.org/fhir/encounter-status", "In Progress"),
+    On_Hold("on-hold", "http://hl7.org/fhir/encounter-status", "On Hold"),
+    Discharged("discharged", "http://hl7.org/fhir/encounter-status", "Discharged"),
+    Completed("completed", "http://hl7.org/fhir/encounter-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/encounter-status", "Cancelled"),
+    Discontinued("discontinued", "http://hl7.org/fhir/encounter-status", "Discontinued"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/encounter-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/encounter-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/encounter-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -715,8 +710,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterStatus =

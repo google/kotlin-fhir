@@ -29,8 +29,7 @@ import com.squareup.kotlinpoet.asClassName
 /**
  * Generates a [TypeSpec] for [Enum] class representation of FHIR data. The `Enum` class is
  * generated using information derived from the [ValueSet]. Each generated enum class will contain
- * the methods for retrieving the code, system, display and definition of each `Enum` class
- * constant.
+ * the methods for retrieving the code, system and display of each `Enum` class constant.
  */
 object EnumTypeSpecGenerator {
 
@@ -45,7 +44,6 @@ object EnumTypeSpecGenerator {
               .addParameter("code", String::class)
               .addParameter("system", String::class)
               .addParameter("display", String::class.asClassName().copy(nullable = true))
-              .addParameter("definition", String::class.asClassName().copy(nullable = true))
               .build()
           )
 
@@ -54,16 +52,10 @@ object EnumTypeSpecGenerator {
                 it.name,
                 TypeSpec.anonymousClassBuilder()
                   .apply {
-                    if (!it.definition.isNullOrBlank()) addKdoc("%L", it.definition.sanitizeKDoc())
                     addSuperclassConstructorParameter("%S", it.code)
                     addSuperclassConstructorParameter("%S", it.system)
                     if (it.display != null) {
                       addSuperclassConstructorParameter("%S", it.display)
-                    } else {
-                      addSuperclassConstructorParameter("null")
-                    }
-                    if (it.definition != null) {
-                      addSuperclassConstructorParameter("%S", it.definition)
                     } else {
                       addSuperclassConstructorParameter("null")
                     }
@@ -87,15 +79,6 @@ object EnumTypeSpecGenerator {
                     KModifier.PRIVATE,
                   )
                   .initializer("display")
-                  .build()
-              )
-              .addProperty(
-                PropertySpec.builder(
-                    "definition",
-                    String::class.asClassName().copy(nullable = true),
-                    KModifier.PRIVATE,
-                  )
-                  .initializer("definition")
                   .build()
               )
           }
@@ -125,13 +108,6 @@ object EnumTypeSpecGenerator {
               .addModifiers(KModifier.PUBLIC)
               .returns(String::class.asClassName().copy(nullable = true))
               .addStatement("return display")
-              .build()
-          )
-          addFunction(
-            FunSpec.builder("getDefinition")
-              .addModifiers(KModifier.PUBLIC)
-              .returns(String::class.asClassName().copy(nullable = true))
-              .addStatement("return definition")
               .build()
           )
           addType(

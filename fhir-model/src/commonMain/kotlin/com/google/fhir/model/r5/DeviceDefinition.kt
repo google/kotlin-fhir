@@ -1178,25 +1178,13 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Basic(
-      "basic",
-      "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type",
-      "Basic",
-      null,
-    ),
-    Master(
-      "master",
-      "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type",
-      "Master",
-      null,
-    ),
+    Basic("basic", "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type", "Basic"),
+    Master("master", "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type", "Master"),
     License(
       "license",
       "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type",
       "License",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1206,8 +1194,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceRegulatoryIdentifierType =
@@ -1228,25 +1214,17 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered_Name(
-      "registered-name",
-      "http://hl7.org/fhir/device-nametype",
-      "Registered name",
-      null,
-    ),
+    Registered_Name("registered-name", "http://hl7.org/fhir/device-nametype", "Registered name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      null,
     ),
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1256,8 +1234,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =
@@ -1275,20 +1251,13 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Model("model", "http://hl7.org/fhir/device-correctiveactionscope", "Model", null),
-    Lot_Numbers(
-      "lot-numbers",
-      "http://hl7.org/fhir/device-correctiveactionscope",
-      "Lot Numbers",
-      null,
-    ),
+    Model("model", "http://hl7.org/fhir/device-correctiveactionscope", "Model"),
+    Lot_Numbers("lot-numbers", "http://hl7.org/fhir/device-correctiveactionscope", "Lot Numbers"),
     Serial_Numbers(
       "serial-numbers",
       "http://hl7.org/fhir/device-correctiveactionscope",
       "Serial Numbers",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1298,8 +1267,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceCorrectiveActionScope =
@@ -1320,43 +1287,32 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Lot_Number(
-      "lot-number",
-      "http://hl7.org/fhir/device-productidentifierinudi",
-      "Lot Number",
-      null,
-    ),
+    Lot_Number("lot-number", "http://hl7.org/fhir/device-productidentifierinudi", "Lot Number"),
     Manufactured_Date(
       "manufactured-date",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Manufactured date",
-      null,
     ),
     Serial_Number(
       "serial-number",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Serial Number",
-      null,
     ),
     Expiration_Date(
       "expiration-date",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Expiration date",
-      null,
     ),
     Biological_Source(
       "biological-source",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Biological source",
-      null,
     ),
     Software_Version(
       "software-version",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Software Version",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1366,8 +1322,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceProductionIdentifierInUDI =

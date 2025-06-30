@@ -565,10 +565,9 @@ public data class Consent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Deny("deny", "http://hl7.org/fhir/consent-provision-type", "Opt Out", null),
-    Permit("permit", "http://hl7.org/fhir/consent-provision-type", "Opt In", null);
+    Deny("deny", "http://hl7.org/fhir/consent-provision-type", "Opt Out"),
+    Permit("permit", "http://hl7.org/fhir/consent-provision-type", "Opt In");
 
     override fun toString(): String = code
 
@@ -577,8 +576,6 @@ public data class Consent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentProvisionType =
@@ -595,12 +592,11 @@ public data class Consent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Instance("instance", "http://hl7.org/fhir/consent-data-meaning", "Instance", null),
-    Related("related", "http://hl7.org/fhir/consent-data-meaning", "Related", null),
-    Dependents("dependents", "http://hl7.org/fhir/consent-data-meaning", "Dependents", null),
-    Authoredby("authoredby", "http://hl7.org/fhir/consent-data-meaning", "AuthoredBy", null);
+    Instance("instance", "http://hl7.org/fhir/consent-data-meaning", "Instance"),
+    Related("related", "http://hl7.org/fhir/consent-data-meaning", "Related"),
+    Dependents("dependents", "http://hl7.org/fhir/consent-data-meaning", "Dependents"),
+    Authoredby("authoredby", "http://hl7.org/fhir/consent-data-meaning", "AuthoredBy");
 
     override fun toString(): String = code
 
@@ -609,8 +605,6 @@ public data class Consent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentDataMeaning =
@@ -629,18 +623,16 @@ public data class Consent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/consent-state-codes", "Pending", null),
-    Proposed("proposed", "http://hl7.org/fhir/consent-state-codes", "Proposed", null),
-    Active("active", "http://hl7.org/fhir/consent-state-codes", "Active", null),
-    Rejected("rejected", "http://hl7.org/fhir/consent-state-codes", "Rejected", null),
-    Inactive("inactive", "http://hl7.org/fhir/consent-state-codes", "Inactive", null),
+    Draft("draft", "http://hl7.org/fhir/consent-state-codes", "Pending"),
+    Proposed("proposed", "http://hl7.org/fhir/consent-state-codes", "Proposed"),
+    Active("active", "http://hl7.org/fhir/consent-state-codes", "Active"),
+    Rejected("rejected", "http://hl7.org/fhir/consent-state-codes", "Rejected"),
+    Inactive("inactive", "http://hl7.org/fhir/consent-state-codes", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/consent-state-codes",
       "Entered in Error",
-      null,
     );
 
     override fun toString(): String = code
@@ -650,8 +642,6 @@ public data class Consent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentState =

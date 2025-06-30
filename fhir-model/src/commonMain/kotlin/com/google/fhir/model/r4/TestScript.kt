@@ -1615,15 +1615,14 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE", null),
-    Get("get", "http://hl7.org/fhir/http-operations", "GET", null),
-    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS", null),
-    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH", null),
-    Post("post", "http://hl7.org/fhir/http-operations", "POST", null),
-    Put("put", "http://hl7.org/fhir/http-operations", "PUT", null),
-    Head("head", "http://hl7.org/fhir/http-operations", "HEAD", null);
+    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE"),
+    Get("get", "http://hl7.org/fhir/http-operations", "GET"),
+    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS"),
+    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH"),
+    Post("post", "http://hl7.org/fhir/http-operations", "POST"),
+    Put("put", "http://hl7.org/fhir/http-operations", "PUT"),
+    Head("head", "http://hl7.org/fhir/http-operations", "HEAD");
 
     override fun toString(): kotlin.String = code
 
@@ -1632,8 +1631,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestScriptRequestMethodCode =
@@ -1658,10 +1655,9 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Response("response", "http://hl7.org/fhir/assert-direction-codes", "response", null),
-    Request("request", "http://hl7.org/fhir/assert-direction-codes", "request", null);
+    Response("response", "http://hl7.org/fhir/assert-direction-codes", "response"),
+    Request("request", "http://hl7.org/fhir/assert-direction-codes", "request");
 
     override fun toString(): kotlin.String = code
 
@@ -1670,8 +1666,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionDirectionType =
@@ -1689,19 +1683,18 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Equals("equals", "http://hl7.org/fhir/assert-operator-codes", "equals", null),
-    NotEquals("notEquals", "http://hl7.org/fhir/assert-operator-codes", "notEquals", null),
-    In("in", "http://hl7.org/fhir/assert-operator-codes", "in", null),
-    NotIn("notIn", "http://hl7.org/fhir/assert-operator-codes", "notIn", null),
-    GreaterThan("greaterThan", "http://hl7.org/fhir/assert-operator-codes", "greaterThan", null),
-    LessThan("lessThan", "http://hl7.org/fhir/assert-operator-codes", "lessThan", null),
-    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty", null),
-    NotEmpty("notEmpty", "http://hl7.org/fhir/assert-operator-codes", "notEmpty", null),
-    Contains("contains", "http://hl7.org/fhir/assert-operator-codes", "contains", null),
-    NotContains("notContains", "http://hl7.org/fhir/assert-operator-codes", "notContains", null),
-    Eval("eval", "http://hl7.org/fhir/assert-operator-codes", "evaluate", null);
+    Equals("equals", "http://hl7.org/fhir/assert-operator-codes", "equals"),
+    NotEquals("notEquals", "http://hl7.org/fhir/assert-operator-codes", "notEquals"),
+    In("in", "http://hl7.org/fhir/assert-operator-codes", "in"),
+    NotIn("notIn", "http://hl7.org/fhir/assert-operator-codes", "notIn"),
+    GreaterThan("greaterThan", "http://hl7.org/fhir/assert-operator-codes", "greaterThan"),
+    LessThan("lessThan", "http://hl7.org/fhir/assert-operator-codes", "lessThan"),
+    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty"),
+    NotEmpty("notEmpty", "http://hl7.org/fhir/assert-operator-codes", "notEmpty"),
+    Contains("contains", "http://hl7.org/fhir/assert-operator-codes", "contains"),
+    NotContains("notContains", "http://hl7.org/fhir/assert-operator-codes", "notContains"),
+    Eval("eval", "http://hl7.org/fhir/assert-operator-codes", "evaluate");
 
     override fun toString(): kotlin.String = code
 
@@ -1710,8 +1703,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionOperatorType =
@@ -1738,39 +1729,30 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "okay", null),
-    Created("created", "http://hl7.org/fhir/assert-response-code-types", "created", null),
-    NoContent("noContent", "http://hl7.org/fhir/assert-response-code-types", "noContent", null),
-    NotModified(
-      "notModified",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "notModified",
-      null,
-    ),
-    Bad("bad", "http://hl7.org/fhir/assert-response-code-types", "bad", null),
-    Forbidden("forbidden", "http://hl7.org/fhir/assert-response-code-types", "forbidden", null),
-    NotFound("notFound", "http://hl7.org/fhir/assert-response-code-types", "notFound", null),
+    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "okay"),
+    Created("created", "http://hl7.org/fhir/assert-response-code-types", "created"),
+    NoContent("noContent", "http://hl7.org/fhir/assert-response-code-types", "noContent"),
+    NotModified("notModified", "http://hl7.org/fhir/assert-response-code-types", "notModified"),
+    Bad("bad", "http://hl7.org/fhir/assert-response-code-types", "bad"),
+    Forbidden("forbidden", "http://hl7.org/fhir/assert-response-code-types", "forbidden"),
+    NotFound("notFound", "http://hl7.org/fhir/assert-response-code-types", "notFound"),
     MethodNotAllowed(
       "methodNotAllowed",
       "http://hl7.org/fhir/assert-response-code-types",
       "methodNotAllowed",
-      null,
     ),
-    Conflict("conflict", "http://hl7.org/fhir/assert-response-code-types", "conflict", null),
-    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "gone", null),
+    Conflict("conflict", "http://hl7.org/fhir/assert-response-code-types", "conflict"),
+    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "gone"),
     PreconditionFailed(
       "preconditionFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "preconditionFailed",
-      null,
     ),
     Unprocessable(
       "unprocessable",
       "http://hl7.org/fhir/assert-response-code-types",
       "unprocessable",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -1780,8 +1762,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionResponseTypes =

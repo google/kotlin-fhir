@@ -378,20 +378,18 @@ public data class ChargeItem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Planned("planned", "http://hl7.org/fhir/chargeitem-status", "Planned", null),
-    Billable("billable", "http://hl7.org/fhir/chargeitem-status", "Billable", null),
-    Not_Billable("not-billable", "http://hl7.org/fhir/chargeitem-status", "Not billable", null),
-    Aborted("aborted", "http://hl7.org/fhir/chargeitem-status", "Aborted", null),
-    Billed("billed", "http://hl7.org/fhir/chargeitem-status", "Billed", null),
+    Planned("planned", "http://hl7.org/fhir/chargeitem-status", "Planned"),
+    Billable("billable", "http://hl7.org/fhir/chargeitem-status", "Billable"),
+    Not_Billable("not-billable", "http://hl7.org/fhir/chargeitem-status", "Not billable"),
+    Aborted("aborted", "http://hl7.org/fhir/chargeitem-status", "Aborted"),
+    Billed("billed", "http://hl7.org/fhir/chargeitem-status", "Billed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/chargeitem-status",
       "Entered in Error",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/chargeitem-status", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/chargeitem-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -400,8 +398,6 @@ public data class ChargeItem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ChargeItemStatus =

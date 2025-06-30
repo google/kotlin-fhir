@@ -432,18 +432,16 @@ public data class Invoice(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price", null),
-    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge", null),
-    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction", null),
-    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount", null),
-    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax", null),
+    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount"),
+    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax"),
     Informational(
       "informational",
       "http://hl7.org/fhir/invoice-priceComponentType",
       "informational",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -453,8 +451,6 @@ public data class Invoice(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InvoicePriceComponentType =
@@ -476,18 +472,12 @@ public data class Invoice(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Draft("draft", "http://hl7.org/fhir/invoice-status", "draft", null),
-    Issued("issued", "http://hl7.org/fhir/invoice-status", "issued", null),
-    Balanced("balanced", "http://hl7.org/fhir/invoice-status", "balanced", null),
-    Cancelled("cancelled", "http://hl7.org/fhir/invoice-status", "cancelled", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/invoice-status",
-      "entered in error",
-      null,
-    );
+    Draft("draft", "http://hl7.org/fhir/invoice-status", "draft"),
+    Issued("issued", "http://hl7.org/fhir/invoice-status", "issued"),
+    Balanced("balanced", "http://hl7.org/fhir/invoice-status", "balanced"),
+    Cancelled("cancelled", "http://hl7.org/fhir/invoice-status", "cancelled"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/invoice-status", "entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -496,8 +486,6 @@ public data class Invoice(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InvoiceStatus =

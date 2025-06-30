@@ -149,46 +149,40 @@ public data class ResearchSubject(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Candidate("candidate", "http://hl7.org/fhir/research-subject-status", "Candidate", null),
-    Eligible("eligible", "http://hl7.org/fhir/research-subject-status", "Eligible", null),
-    Follow_Up("follow-up", "http://hl7.org/fhir/research-subject-status", "Follow-up", null),
-    Ineligible("ineligible", "http://hl7.org/fhir/research-subject-status", "Ineligible", null),
+    Candidate("candidate", "http://hl7.org/fhir/research-subject-status", "Candidate"),
+    Eligible("eligible", "http://hl7.org/fhir/research-subject-status", "Eligible"),
+    Follow_Up("follow-up", "http://hl7.org/fhir/research-subject-status", "Follow-up"),
+    Ineligible("ineligible", "http://hl7.org/fhir/research-subject-status", "Ineligible"),
     Not_Registered(
       "not-registered",
       "http://hl7.org/fhir/research-subject-status",
       "Not Registered",
-      null,
     ),
-    Off_Study("off-study", "http://hl7.org/fhir/research-subject-status", "Off-study", null),
-    On_Study("on-study", "http://hl7.org/fhir/research-subject-status", "On-study", null),
+    Off_Study("off-study", "http://hl7.org/fhir/research-subject-status", "Off-study"),
+    On_Study("on-study", "http://hl7.org/fhir/research-subject-status", "On-study"),
     On_Study_Intervention(
       "on-study-intervention",
       "http://hl7.org/fhir/research-subject-status",
       "On-study-intervention",
-      null,
     ),
     On_Study_Observation(
       "on-study-observation",
       "http://hl7.org/fhir/research-subject-status",
       "On-study-observation",
-      null,
     ),
     Pending_On_Study(
       "pending-on-study",
       "http://hl7.org/fhir/research-subject-status",
       "Pending on-study",
-      null,
     ),
     Potential_Candidate(
       "potential-candidate",
       "http://hl7.org/fhir/research-subject-status",
       "Potential Candidate",
-      null,
     ),
-    Screening("screening", "http://hl7.org/fhir/research-subject-status", "Screening", null),
-    Withdrawn("withdrawn", "http://hl7.org/fhir/research-subject-status", "Withdrawn", null);
+    Screening("screening", "http://hl7.org/fhir/research-subject-status", "Screening"),
+    Withdrawn("withdrawn", "http://hl7.org/fhir/research-subject-status", "Withdrawn");
 
     override fun toString(): kotlin.String = code
 
@@ -197,8 +191,6 @@ public data class ResearchSubject(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResearchSubjectStatus =

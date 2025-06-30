@@ -574,18 +574,12 @@ public data class Account(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/account-status", "Active", null),
-    Inactive("inactive", "http://hl7.org/fhir/account-status", "Inactive", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/account-status",
-      "Entered in error",
-      null,
-    ),
-    On_Hold("on-hold", "http://hl7.org/fhir/account-status", "On Hold", null),
-    Unknown("unknown", "http://hl7.org/fhir/account-status", "Unknown", null);
+    Active("active", "http://hl7.org/fhir/account-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/account-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/account-status", "Entered in error"),
+    On_Hold("on-hold", "http://hl7.org/fhir/account-status", "On Hold"),
+    Unknown("unknown", "http://hl7.org/fhir/account-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -594,8 +588,6 @@ public data class Account(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AccountStatus =

@@ -697,20 +697,18 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Barcode("barcode", "http://hl7.org/fhir/udi-entry-type", "Barcode", null),
-    Rfid("rfid", "http://hl7.org/fhir/udi-entry-type", "RFID", null),
-    Manual("manual", "http://hl7.org/fhir/udi-entry-type", "Manual", null),
-    Card("card", "http://hl7.org/fhir/udi-entry-type", "Card", null),
-    Self_Reported("self-reported", "http://hl7.org/fhir/udi-entry-type", "Self Reported", null),
+    Barcode("barcode", "http://hl7.org/fhir/udi-entry-type", "Barcode"),
+    Rfid("rfid", "http://hl7.org/fhir/udi-entry-type", "RFID"),
+    Manual("manual", "http://hl7.org/fhir/udi-entry-type", "Manual"),
+    Card("card", "http://hl7.org/fhir/udi-entry-type", "Card"),
+    Self_Reported("self-reported", "http://hl7.org/fhir/udi-entry-type", "Self Reported"),
     Electronic_Transmission(
       "electronic-transmission",
       "http://hl7.org/fhir/udi-entry-type",
       "Electronic Transmission",
-      null,
     ),
-    Unknown("unknown", "http://hl7.org/fhir/udi-entry-type", "Unknown", null);
+    Unknown("unknown", "http://hl7.org/fhir/udi-entry-type", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -719,8 +717,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): UDIEntryType =
@@ -742,25 +738,17 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Registered_Name(
-      "registered-name",
-      "http://hl7.org/fhir/device-nametype",
-      "Registered name",
-      null,
-    ),
+    Registered_Name("registered-name", "http://hl7.org/fhir/device-nametype", "Registered name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      null,
     ),
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -770,8 +758,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =
@@ -789,16 +775,10 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Active("active", "http://hl7.org/fhir/device-status", "Active", null),
-    Inactive("inactive", "http://hl7.org/fhir/device-status", "Inactive", null),
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/device-status",
-      "Entered in Error",
-      null,
-    );
+    Active("active", "http://hl7.org/fhir/device-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/device-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/device-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -807,8 +787,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FHIRDeviceStatus =

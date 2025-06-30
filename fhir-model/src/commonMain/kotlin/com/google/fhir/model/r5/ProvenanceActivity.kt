@@ -29,49 +29,41 @@ public enum class ProvenanceActivity(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
   Amend(
     "amend",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "Amend (Update) Record Lifecycle Event",
-    null,
   ),
   Originate(
     "originate",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "Originate/Retain Record Lifecycle Event",
-    null,
   ),
   Merge(
     "merge",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "Merge Record Lifecycle Event",
-    null,
   ),
   Deidentify(
     "deidentify",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "De-Identify (Anononymize) Record Lifecycle Event",
-    null,
   ),
   Receive(
     "receive",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "Receive/Retain Record Lifecycle Event",
-    null,
   ),
   Transform(
     "transform",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "Transform/Translate Record Lifecycle Event",
-    null,
   ),
   Verify(
     "verify",
     "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle",
     "Verify Record Lifecycle Event",
-    null,
   );
 
   override fun toString(): String = code
@@ -81,8 +73,6 @@ public enum class ProvenanceActivity(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ProvenanceActivity =

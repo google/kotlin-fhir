@@ -28,50 +28,31 @@ public enum class AuditAgentRole(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
   Regulated_Health_Professionals(
     "regulated-health-professionals",
     "sample-security-structural-roles",
     "Regulated Health Professionals",
-    null,
   ),
-  General_Medicine(
-    "general-medicine",
-    "sample-security-structural-roles",
-    "General Medicine",
-    null,
-  ),
-  General_Nursing("general-nursing", "sample-security-structural-roles", "General Nursing", null),
-  Dentist("dentist", "sample-security-structural-roles", "Dentist", null),
-  Veterinarian("veterinarian", "sample-security-structural-roles", "Veterinarian", null),
-  Pharmacy("pharmacy", "sample-security-structural-roles", "Pharmacy", null),
-  Dietician("dietician", "sample-security-structural-roles", "Dietician", null),
-  Pediatrics("pediatrics", "sample-security-structural-roles", "Pediatrics", null),
+  General_Medicine("general-medicine", "sample-security-structural-roles", "General Medicine"),
+  General_Nursing("general-nursing", "sample-security-structural-roles", "General Nursing"),
+  Dentist("dentist", "sample-security-structural-roles", "Dentist"),
+  Veterinarian("veterinarian", "sample-security-structural-roles", "Veterinarian"),
+  Pharmacy("pharmacy", "sample-security-structural-roles", "Pharmacy"),
+  Dietician("dietician", "sample-security-structural-roles", "Dietician"),
+  Pediatrics("pediatrics", "sample-security-structural-roles", "Pediatrics"),
   Non_Regulated_Health_Professionals(
     "non-regulated-health-professionals",
     "sample-security-structural-roles",
     "Non-Regulated health Professionals",
-    null,
   ),
-  Receptionist("receptionist", "sample-security-structural-roles", "Receptionist", null),
-  Business_Manager(
-    "business-manager",
-    "sample-security-structural-roles",
-    "Business Manager",
-    null,
-  ),
-  Transcriptionist(
-    "transcriptionist",
-    "sample-security-structural-roles",
-    "Transcriptionist",
-    null,
-  ),
+  Receptionist("receptionist", "sample-security-structural-roles", "Receptionist"),
+  Business_Manager("business-manager", "sample-security-structural-roles", "Business Manager"),
+  Transcriptionist("transcriptionist", "sample-security-structural-roles", "Transcriptionist"),
   Claims_Adjudicator(
     "claims-adjudicator",
     "sample-security-structural-roles",
     "Claims Adjudicator",
-    null,
   );
 
   override fun toString(): String = code
@@ -81,8 +62,6 @@ public enum class AuditAgentRole(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): AuditAgentRole =

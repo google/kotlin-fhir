@@ -243,13 +243,12 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Rest_Hook("rest-hook", "http://hl7.org/fhir/subscription-channel-type", "Rest Hook", null),
-    Websocket("websocket", "http://hl7.org/fhir/subscription-channel-type", "Websocket", null),
-    Email("email", "http://hl7.org/fhir/subscription-channel-type", "Email", null),
-    Sms("sms", "http://hl7.org/fhir/subscription-channel-type", "SMS", null),
-    Message("message", "http://hl7.org/fhir/subscription-channel-type", "Message", null);
+    Rest_Hook("rest-hook", "http://hl7.org/fhir/subscription-channel-type", "Rest Hook"),
+    Websocket("websocket", "http://hl7.org/fhir/subscription-channel-type", "Websocket"),
+    Email("email", "http://hl7.org/fhir/subscription-channel-type", "Email"),
+    Sms("sms", "http://hl7.org/fhir/subscription-channel-type", "SMS"),
+    Message("message", "http://hl7.org/fhir/subscription-channel-type", "Message");
 
     override fun toString(): kotlin.String = code
 
@@ -258,8 +257,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionChannelType =
@@ -280,12 +277,11 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested", null),
-    Active("active", "http://hl7.org/fhir/subscription-status", "Active", null),
-    Error("error", "http://hl7.org/fhir/subscription-status", "Error", null),
-    Off("off", "http://hl7.org/fhir/subscription-status", "Off", null);
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off");
 
     override fun toString(): kotlin.String = code
 
@@ -294,8 +290,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionStatus =
