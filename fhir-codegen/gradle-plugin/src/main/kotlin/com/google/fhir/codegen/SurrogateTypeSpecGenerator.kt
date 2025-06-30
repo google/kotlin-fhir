@@ -51,85 +51,85 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
 
   fun generate(modelClassName: ClassName, elements: List<Element>): List<TypeSpec> {
     val surrogateClassName = modelClassName.toSurrogateClassName()
-    val typeSpecs = mutableListOf<TypeSpec>()
-    val typeSpec =
-      TypeSpec.classBuilder(surrogateClassName).apply {
-        addAnnotation(Serializable::class)
-        addModifiers(KModifier.INTERNAL)
-        addModifiers(KModifier.DATA)
+    val (polymorphicElements, nonPolymorphicElements) =
+      elements.partition { it.path.endsWith("[x]") }
 
-        val (polymorphicElements, nonPolymorphicElements) =
-          elements.partition { it.path.endsWith("[x]") }
-
-        val nonPolymorphicProperties =
-          nonPolymorphicElements.flatMap { element ->
-            element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
-              PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
-            }
-          }
-
-        val resultPairs =
-          polymorphicElements.map { element: Element ->
-            val surrogateProperties =
-              element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
-                PropertySpec.builder(it.key, it.value).initializer("null").mutable().build()
-              }
-            val className =
-              ClassName(
-                surrogateClassName.packageName,
-                element.getPolymorphicTypeSurrogateClassSimpleName(),
-              )
-            val surrogateTypeSpec =
-              TypeSpec.classBuilder(className)
-                .addAnnotation(Serializable::class)
-                .addModifiers(KModifier.INTERNAL)
-                .addProperties(surrogateProperties)
-                .apply {
-                  addConverterToModelClass(modelClassName, className, element, valueSetMap)
-                  addConverterFromModelClass(modelClassName, className, element, valueSetMap)
-                }
-
-            val propertyName =
-              element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
-            val property =
-              PropertySpec.builder(
-                  propertyName,
-                  ClassName(modelClassName.packageName, element.getPathSimpleNames())
-                    .copy(nullable = true),
-                )
-                .initializer(propertyName)
-                .mutable()
-                .build()
-
-            val typeSpec = surrogateTypeSpec.build()
-            Pair(property, typeSpec)
-          }
-
-        val polymorphicProperties = resultPairs.map { it.first }
-        val surrogateTypeSpecs = resultPairs.map { it.second }
-
-        val properties = nonPolymorphicProperties + polymorphicProperties
-
-        addProperties(properties)
-        primaryConstructor(
-          FunSpec.constructorBuilder()
-            .apply {
-              properties.forEach {
-                addParameter(
-                  ParameterSpec.builder(name = it.name, type = it.type).defaultValue("null").build()
-                )
-              }
-            }
-            .build()
-        )
-
-        typeSpecs.addAll(surrogateTypeSpecs)
-        addConverterToDataClass(modelClassName, elements, valueSetMap)
-        addConverterFromDataClass(modelClassName, elements, valueSetMap)
+    val nonPolymorphicProperties =
+      nonPolymorphicElements.flatMap { element ->
+        element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
+          PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
+        }
       }
 
-    typeSpecs += typeSpec.build()
-    return typeSpecs
+    val resultPairs =
+      polymorphicElements.map { element: Element ->
+        val surrogateProperties =
+          element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
+            PropertySpec.builder(it.key, it.value).initializer("null").mutable().build()
+          }
+        val className =
+          ClassName(
+            surrogateClassName.packageName,
+            element.getPolymorphicTypeSurrogateClassSimpleName(),
+          )
+        val surrogateTypeSpec =
+          TypeSpec.classBuilder(className)
+            .addAnnotation(Serializable::class)
+            .addModifiers(KModifier.INTERNAL)
+            .addProperties(surrogateProperties)
+            .apply {
+              addConverterToModelClass(modelClassName, className, element, valueSetMap)
+              addConverterFromModelClass(modelClassName, className, element, valueSetMap)
+            }
+
+        val propertyName = element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
+        val property =
+          PropertySpec.builder(
+              propertyName,
+              ClassName(modelClassName.packageName, element.getPathSimpleNames())
+                .copy(nullable = true),
+            )
+            .initializer(propertyName)
+            .mutable()
+            .build()
+
+        val typeSpec = surrogateTypeSpec.build()
+        Pair(property, typeSpec)
+      }
+
+    val polymorphicProperties = resultPairs.map { it.first }
+    val properties = nonPolymorphicProperties + polymorphicProperties
+
+    val mainSurrogateTypeSpec =
+      TypeSpec.classBuilder(surrogateClassName)
+        .apply {
+          addAnnotation(Serializable::class)
+          addModifiers(KModifier.INTERNAL)
+          addModifiers(KModifier.DATA)
+          addProperties(properties)
+          primaryConstructor(
+            FunSpec.constructorBuilder()
+              .apply {
+                properties.forEach {
+                  addParameter(
+                    ParameterSpec.builder(name = it.name, type = it.type)
+                      .defaultValue("null")
+                      .build()
+                  )
+                }
+              }
+              .build()
+          )
+          addConverterToDataClass(modelClassName, elements, valueSetMap)
+          addConverterFromDataClass(modelClassName, elements, valueSetMap)
+        }
+        .build()
+
+    val sealedClassSurrogateTypeSpecs = resultPairs.map { it.second }
+    return buildList {
+      addAll(sealedClassSurrogateTypeSpecs)
+      add(mainSurrogateTypeSpec)
+    }
   }
 }
 
