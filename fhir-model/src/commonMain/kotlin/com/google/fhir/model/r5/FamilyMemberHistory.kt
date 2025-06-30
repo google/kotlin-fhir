@@ -18,8 +18,13 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryAgeSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryBornSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryConditionOnsetSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryConditionSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryDeceasedSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryParticipantSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryProcedurePerformedSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryProcedureSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistorySerializer
 import kotlin.Suppress
@@ -368,6 +373,7 @@ public data class FamilyMemberHistory(
     /** An area where general notes can be placed about this specific condition. */
     public var note: List<Annotation?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = FamilyMemberHistoryConditionOnsetSerializer::class)
     public sealed interface Onset {
       public fun asAge(): Age? = this as? Age
 
@@ -385,18 +391,20 @@ public data class FamilyMemberHistory(
 
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Onset
 
+      public data object Null : Onset
+
       public companion object {
         public fun from(
           AgeValue: com.google.fhir.model.r5.Age?,
           RangeValue: com.google.fhir.model.r5.Range?,
           PeriodValue: com.google.fhir.model.r5.Period?,
           stringValue: com.google.fhir.model.r5.String?,
-        ): Onset? {
+        ): Onset {
           if (AgeValue != null) return Age(AgeValue)
           if (RangeValue != null) return Range(RangeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -471,6 +479,7 @@ public data class FamilyMemberHistory(
     /** An area where general notes can be placed about this specific procedure. */
     public var note: List<Annotation?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = FamilyMemberHistoryProcedurePerformedSerializer::class)
     public sealed interface Performed {
       public fun asAge(): Age? = this as? Age
 
@@ -492,6 +501,8 @@ public data class FamilyMemberHistory(
 
       public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Performed
 
+      public data object Null : Performed
+
       public companion object {
         public fun from(
           AgeValue: com.google.fhir.model.r5.Age?,
@@ -499,18 +510,19 @@ public data class FamilyMemberHistory(
           PeriodValue: com.google.fhir.model.r5.Period?,
           stringValue: com.google.fhir.model.r5.String?,
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        ): Performed? {
+        ): Performed {
           if (AgeValue != null) return Age(AgeValue)
           if (RangeValue != null) return Range(RangeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (stringValue != null) return String(stringValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryBornSerializer::class)
   public sealed interface Born {
     public fun asPeriod(): Period? = this as? Period
 
@@ -524,20 +536,23 @@ public data class FamilyMemberHistory(
 
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Born
 
+    public data object Null : Born
+
     public companion object {
       public fun from(
         PeriodValue: com.google.fhir.model.r5.Period?,
         dateValue: com.google.fhir.model.r5.Date?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): Born? {
+      ): Born {
         if (PeriodValue != null) return Period(PeriodValue)
         if (dateValue != null) return Date(dateValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryAgeSerializer::class)
   public sealed interface Age {
     public fun asAge(): Age? = this as? Age
 
@@ -554,20 +569,23 @@ public data class FamilyMemberHistory(
     public data class String(public val `value`: com.google.fhir.model.r5.String) :
       FamilyMemberHistory.Age
 
+    public data object Null : FamilyMemberHistory.Age
+
     public companion object {
       public fun from(
         AgeValue: com.google.fhir.model.r5.Age?,
         RangeValue: com.google.fhir.model.r5.Range?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): FamilyMemberHistory.Age? {
+      ): FamilyMemberHistory.Age {
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -589,6 +607,8 @@ public data class FamilyMemberHistory(
 
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Deceased
 
+    public data object Null : Deceased
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -596,13 +616,13 @@ public data class FamilyMemberHistory(
         RangeValue: com.google.fhir.model.r5.Range?,
         dateValue: com.google.fhir.model.r5.Date?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): Deceased? {
+      ): Deceased {
         if (booleanValue != null) return Boolean(booleanValue)
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
         if (dateValue != null) return Date(dateValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

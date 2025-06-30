@@ -18,7 +18,10 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.SupplyRequestItemSerializer
+import com.google.fhir.model.r4b.serializers.SupplyRequestOccurrenceSerializer
 import com.google.fhir.model.r4b.serializers.SupplyRequestParameterSerializer
+import com.google.fhir.model.r4b.serializers.SupplyRequestParameterValueSerializer
 import com.google.fhir.model.r4b.serializers.SupplyRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -224,6 +227,7 @@ public data class SupplyRequest(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = SupplyRequestParameterValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -243,23 +247,26 @@ public data class SupplyRequest(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r4b.Boolean) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r4b.Quantity?,
           RangeValue: com.google.fhir.model.r4b.Range?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = SupplyRequestItemSerializer::class)
   public sealed interface Item {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -271,18 +278,21 @@ public data class SupplyRequest(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Item
 
+    public data object Null : Item
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Item? {
+      ): Item {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = SupplyRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -296,16 +306,18 @@ public data class SupplyRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
         TimingValue: com.google.fhir.model.r4b.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }

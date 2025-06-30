@@ -19,10 +19,14 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionSubjectSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerAdditiveSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -502,6 +506,7 @@ public data class SpecimenDefinition(
          */
         public var additive: Additive? = null,
       ) : BackboneElement() {
+        @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -514,19 +519,22 @@ public data class SpecimenDefinition(
           public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
             Additive
 
+          public data object Null : Additive
+
           public companion object {
             public fun from(
               CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
               ReferenceValue: com.google.fhir.model.r5.Reference?,
-            ): Additive? {
+            ): Additive {
               if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
               if (ReferenceValue != null) return Reference(ReferenceValue)
-              return null
+              return Null
             }
           }
         }
       }
 
+      @Serializable(with = SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer::class)
       public sealed interface MinimumVolume {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -538,14 +546,16 @@ public data class SpecimenDefinition(
         public data class String(public val `value`: com.google.fhir.model.r5.String) :
           MinimumVolume
 
+        public data object Null : MinimumVolume
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             stringValue: com.google.fhir.model.r5.String?,
-          ): MinimumVolume? {
+          ): MinimumVolume {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (stringValue != null) return String(stringValue)
-            return null
+            return Null
           }
         }
       }
@@ -611,6 +621,7 @@ public data class SpecimenDefinition(
     ) : BackboneElement()
   }
 
+  @Serializable(with = SpecimenDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -622,18 +633,21 @@ public data class SpecimenDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = SpecimenDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -645,14 +659,16 @@ public data class SpecimenDefinition(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

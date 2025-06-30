@@ -86,6 +86,45 @@ internal data class AuditEventOutcomeSurrogate(
 }
 
 @Serializable
+internal class AuditEventAgentNetworkSurrogate {
+  public var networkReference: Reference? = null
+
+  public var networkUri: KotlinString? = null
+
+  public var _networkUri: Element? = null
+
+  public var networkString: KotlinString? = null
+
+  public var _networkString: Element? = null
+
+  public fun toModel(): AuditEvent.Agent.Network =
+    AuditEvent.Agent.Network?.from(
+      this@AuditEventAgentNetworkSurrogate.networkReference,
+      Uri.of(
+        this@AuditEventAgentNetworkSurrogate.networkUri,
+        this@AuditEventAgentNetworkSurrogate._networkUri,
+      ),
+      R5String.of(
+        this@AuditEventAgentNetworkSurrogate.networkString,
+        this@AuditEventAgentNetworkSurrogate._networkString,
+      ),
+    ) ?: AuditEvent.Agent.Network.Null
+
+  public companion object {
+    public fun fromModel(model: AuditEvent.Agent.Network): AuditEventAgentNetworkSurrogate =
+      with(model) {
+        AuditEventAgentNetworkSurrogate().apply {
+          networkReference = this@with.asReference()?.value
+          networkUri = this@with.asUri()?.value?.value
+          _networkUri = this@with.asUri()?.value?.toElement()
+          networkString = this@with.asString()?.value?.value
+          _networkString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class AuditEventAgentSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -98,12 +137,8 @@ internal data class AuditEventAgentSurrogate(
   public var location: Reference? = null,
   public var policy: List<KotlinString?>? = null,
   public var _policy: List<Element?>? = null,
-  public var networkReference: Reference? = null,
-  public var networkUri: KotlinString? = null,
-  public var _networkUri: Element? = null,
-  public var networkString: KotlinString? = null,
-  public var _networkString: Element? = null,
   public var authorization: List<CodeableConcept?>? = null,
+  public var network: AuditEvent.Agent.Network? = null,
 ) {
   public fun toModel(): AuditEvent.Agent =
     AuditEvent.Agent().apply {
@@ -134,18 +169,7 @@ internal data class AuditEventAgentSurrogate(
             )
             .mapNotNull { (value, element) -> Uri.of(value, element) }
         }
-      network =
-        AuditEvent.Agent.Network?.from(
-          this@AuditEventAgentSurrogate.networkReference,
-          Uri.of(
-            this@AuditEventAgentSurrogate.networkUri,
-            this@AuditEventAgentSurrogate._networkUri,
-          ),
-          R5String.of(
-            this@AuditEventAgentSurrogate.networkString,
-            this@AuditEventAgentSurrogate._networkString,
-          ),
-        )
+      network = this@AuditEventAgentSurrogate.network
       authorization = this@AuditEventAgentSurrogate.authorization
     }
 
@@ -164,11 +188,7 @@ internal data class AuditEventAgentSurrogate(
           location = this@with.location
           policy = this@with.policy?.map { it?.value }?.takeUnless { it.all { it == null } }
           _policy = this@with.policy?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          networkReference = this@with.network?.asReference()?.value
-          networkUri = this@with.network?.asUri()?.value?.value
-          _networkUri = this@with.network?.asUri()?.value?.toElement()
-          networkString = this@with.network?.asString()?.value?.value
-          _networkString = this@with.network?.asString()?.value?.toElement()
+          network = this@with.network
           authorization = this@with.authorization
         }
       }
@@ -210,28 +230,109 @@ internal data class AuditEventSourceSurrogate(
 }
 
 @Serializable
+internal class AuditEventEntityDetailValueSurrogate {
+  public var valueQuantity: Quantity? = null
+
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueInteger: Int? = null
+
+  public var _valueInteger: Element? = null
+
+  public var valueRange: Range? = null
+
+  public var valueRatio: Ratio? = null
+
+  public var valueTime: LocalTime? = null
+
+  public var _valueTime: Element? = null
+
+  public var valueDateTime: KotlinString? = null
+
+  public var _valueDateTime: Element? = null
+
+  public var valuePeriod: Period? = null
+
+  public var valueBase64Binary: KotlinString? = null
+
+  public var _valueBase64Binary: Element? = null
+
+  public fun toModel(): AuditEvent.Entity.Detail.Value =
+    AuditEvent.Entity.Detail.Value?.from(
+      this@AuditEventEntityDetailValueSurrogate.valueQuantity,
+      this@AuditEventEntityDetailValueSurrogate.valueCodeableConcept,
+      R5String.of(
+        this@AuditEventEntityDetailValueSurrogate.valueString,
+        this@AuditEventEntityDetailValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@AuditEventEntityDetailValueSurrogate.valueBoolean,
+        this@AuditEventEntityDetailValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@AuditEventEntityDetailValueSurrogate.valueInteger,
+        this@AuditEventEntityDetailValueSurrogate._valueInteger,
+      ),
+      this@AuditEventEntityDetailValueSurrogate.valueRange,
+      this@AuditEventEntityDetailValueSurrogate.valueRatio,
+      Time.of(
+        this@AuditEventEntityDetailValueSurrogate.valueTime,
+        this@AuditEventEntityDetailValueSurrogate._valueTime,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@AuditEventEntityDetailValueSurrogate.valueDateTime),
+        this@AuditEventEntityDetailValueSurrogate._valueDateTime,
+      ),
+      this@AuditEventEntityDetailValueSurrogate.valuePeriod,
+      Base64Binary.of(
+        this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
+        this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
+      ),
+    ) ?: AuditEvent.Entity.Detail.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: AuditEvent.Entity.Detail.Value
+    ): AuditEventEntityDetailValueSurrogate =
+      with(model) {
+        AuditEventEntityDetailValueSurrogate().apply {
+          valueQuantity = this@with.asQuantity()?.value
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueInteger = this@with.asInteger()?.value?.value
+          _valueInteger = this@with.asInteger()?.value?.toElement()
+          valueRange = this@with.asRange()?.value
+          valueRatio = this@with.asRatio()?.value
+          valueTime = this@with.asTime()?.value?.value
+          _valueTime = this@with.asTime()?.value?.toElement()
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _valueDateTime = this@with.asDateTime()?.value?.toElement()
+          valuePeriod = this@with.asPeriod()?.value
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class AuditEventEntityDetailSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueRange: Range? = null,
-  public var valueRatio: Ratio? = null,
-  public var valueTime: LocalTime? = null,
-  public var _valueTime: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valuePeriod: Period? = null,
-  public var valueBase64Binary: KotlinString? = null,
-  public var _valueBase64Binary: Element? = null,
+  public var `value`: AuditEvent.Entity.Detail.Value? = null,
 ) {
   public fun toModel(): AuditEvent.Entity.Detail =
     AuditEvent.Entity.Detail().apply {
@@ -239,38 +340,7 @@ internal data class AuditEventEntityDetailSurrogate(
       extension = this@AuditEventEntityDetailSurrogate.extension
       modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension
       type = this@AuditEventEntityDetailSurrogate.type
-      `value` =
-        AuditEvent.Entity.Detail.Value?.from(
-          this@AuditEventEntityDetailSurrogate.valueQuantity,
-          this@AuditEventEntityDetailSurrogate.valueCodeableConcept,
-          R5String.of(
-            this@AuditEventEntityDetailSurrogate.valueString,
-            this@AuditEventEntityDetailSurrogate._valueString,
-          ),
-          R5Boolean.of(
-            this@AuditEventEntityDetailSurrogate.valueBoolean,
-            this@AuditEventEntityDetailSurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@AuditEventEntityDetailSurrogate.valueInteger,
-            this@AuditEventEntityDetailSurrogate._valueInteger,
-          ),
-          this@AuditEventEntityDetailSurrogate.valueRange,
-          this@AuditEventEntityDetailSurrogate.valueRatio,
-          Time.of(
-            this@AuditEventEntityDetailSurrogate.valueTime,
-            this@AuditEventEntityDetailSurrogate._valueTime,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@AuditEventEntityDetailSurrogate.valueDateTime),
-            this@AuditEventEntityDetailSurrogate._valueDateTime,
-          ),
-          this@AuditEventEntityDetailSurrogate.valuePeriod,
-          Base64Binary.of(
-            this@AuditEventEntityDetailSurrogate.valueBase64Binary,
-            this@AuditEventEntityDetailSurrogate._valueBase64Binary,
-          ),
-        )
+      `value` = this@AuditEventEntityDetailSurrogate.`value`
     }
 
   public companion object {
@@ -281,23 +351,7 @@ internal data class AuditEventEntityDetailSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
+          `value` = this@with.`value`
         }
       }
   }
@@ -350,6 +404,35 @@ internal data class AuditEventEntitySurrogate(
 }
 
 @Serializable
+internal class AuditEventOccurredSurrogate {
+  public var occurredPeriod: Period? = null
+
+  public var occurredDateTime: KotlinString? = null
+
+  public var _occurredDateTime: Element? = null
+
+  public fun toModel(): AuditEvent.Occurred =
+    AuditEvent.Occurred?.from(
+      this@AuditEventOccurredSurrogate.occurredPeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@AuditEventOccurredSurrogate.occurredDateTime),
+        this@AuditEventOccurredSurrogate._occurredDateTime,
+      ),
+    ) ?: AuditEvent.Occurred.Null
+
+  public companion object {
+    public fun fromModel(model: AuditEvent.Occurred): AuditEventOccurredSurrogate =
+      with(model) {
+        AuditEventOccurredSurrogate().apply {
+          occurredPeriod = this@with.asPeriod()?.value
+          occurredDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurredDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class AuditEventSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -367,9 +450,6 @@ internal data class AuditEventSurrogate(
   public var _action: Element? = null,
   public var severity: KotlinString? = null,
   public var _severity: Element? = null,
-  public var occurredPeriod: Period? = null,
-  public var occurredDateTime: KotlinString? = null,
-  public var _occurredDateTime: Element? = null,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var outcome: AuditEvent.Outcome? = null,
@@ -380,6 +460,7 @@ internal data class AuditEventSurrogate(
   public var agent: List<AuditEvent.Agent>? = null,
   public var source: AuditEvent.Source? = null,
   public var entity: List<AuditEvent.Entity>? = null,
+  public var occurred: AuditEvent.Occurred? = null,
 ) {
   public fun toModel(): AuditEvent =
     AuditEvent().apply {
@@ -408,14 +489,7 @@ internal data class AuditEventSurrogate(
           },
           this@AuditEventSurrogate._severity,
         )
-      occurred =
-        AuditEvent.Occurred?.from(
-          this@AuditEventSurrogate.occurredPeriod,
-          DateTime.of(
-            FhirDateTime.fromString(this@AuditEventSurrogate.occurredDateTime),
-            this@AuditEventSurrogate._occurredDateTime,
-          ),
-        )
+      occurred = this@AuditEventSurrogate.occurred
       recorded =
         Instant.of(
           FhirDateTime.fromString(this@AuditEventSurrogate.recorded),
@@ -451,9 +525,7 @@ internal data class AuditEventSurrogate(
           _action = this@with.action?.toElement()
           severity = this@with.severity?.value?.getCode()
           _severity = this@with.severity?.toElement()
-          occurredPeriod = this@with.occurred?.asPeriod()?.value
-          occurredDateTime = this@with.occurred?.asDateTime()?.value?.value?.toString()
-          _occurredDateTime = this@with.occurred?.asDateTime()?.value?.toElement()
+          occurred = this@with.occurred
           recorded = this@with.recorded?.value?.toString()
           _recorded = this@with.recorded?.toElement()
           outcome = this@with.outcome

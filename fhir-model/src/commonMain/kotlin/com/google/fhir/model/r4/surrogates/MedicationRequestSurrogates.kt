@@ -140,28 +140,50 @@ internal data class MedicationRequestDispenseRequestSurrogate(
 }
 
 @Serializable
+internal class MedicationRequestSubstitutionAllowedSurrogate {
+  public var allowedBoolean: KotlinBoolean? = null
+
+  public var _allowedBoolean: Element? = null
+
+  public var allowedCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): MedicationRequest.Substitution.Allowed =
+    MedicationRequest.Substitution.Allowed?.from(
+      R4Boolean.of(
+        this@MedicationRequestSubstitutionAllowedSurrogate.allowedBoolean,
+        this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
+      ),
+      this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
+    ) ?: MedicationRequest.Substitution.Allowed.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationRequest.Substitution.Allowed
+    ): MedicationRequestSubstitutionAllowedSurrogate =
+      with(model) {
+        MedicationRequestSubstitutionAllowedSurrogate().apply {
+          allowedBoolean = this@with.asBoolean()?.value?.value
+          _allowedBoolean = this@with.asBoolean()?.value?.toElement()
+          allowedCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationRequestSubstitutionSurrogate(
   public var id: String? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var allowedBoolean: KotlinBoolean? = null,
-  public var _allowedBoolean: Element? = null,
-  public var allowedCodeableConcept: CodeableConcept? = null,
   public var reason: CodeableConcept? = null,
+  public var allowed: MedicationRequest.Substitution.Allowed? = null,
 ) {
   public fun toModel(): MedicationRequest.Substitution =
     MedicationRequest.Substitution().apply {
       id = this@MedicationRequestSubstitutionSurrogate.id
       extension = this@MedicationRequestSubstitutionSurrogate.extension
       modifierExtension = this@MedicationRequestSubstitutionSurrogate.modifierExtension
-      allowed =
-        MedicationRequest.Substitution.Allowed?.from(
-          R4Boolean.of(
-            this@MedicationRequestSubstitutionSurrogate.allowedBoolean,
-            this@MedicationRequestSubstitutionSurrogate._allowedBoolean,
-          ),
-          this@MedicationRequestSubstitutionSurrogate.allowedCodeableConcept,
-        )
+      allowed = this@MedicationRequestSubstitutionSurrogate.allowed
       reason = this@MedicationRequestSubstitutionSurrogate.reason
     }
 
@@ -174,10 +196,62 @@ internal data class MedicationRequestSubstitutionSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          allowedBoolean = this@with.allowed?.asBoolean()?.value?.value
-          _allowedBoolean = this@with.allowed?.asBoolean()?.value?.toElement()
-          allowedCodeableConcept = this@with.allowed?.asCodeableConcept()?.value
+          allowed = this@with.allowed
           reason = this@with.reason
+        }
+      }
+  }
+}
+
+@Serializable
+internal class MedicationRequestReportedSurrogate {
+  public var reportedBoolean: KotlinBoolean? = null
+
+  public var _reportedBoolean: Element? = null
+
+  public var reportedReference: Reference? = null
+
+  public fun toModel(): MedicationRequest.Reported =
+    MedicationRequest.Reported?.from(
+      R4Boolean.of(
+        this@MedicationRequestReportedSurrogate.reportedBoolean,
+        this@MedicationRequestReportedSurrogate._reportedBoolean,
+      ),
+      this@MedicationRequestReportedSurrogate.reportedReference,
+    ) ?: MedicationRequest.Reported.Null
+
+  public companion object {
+    public fun fromModel(model: MedicationRequest.Reported): MedicationRequestReportedSurrogate =
+      with(model) {
+        MedicationRequestReportedSurrogate().apply {
+          reportedBoolean = this@with.asBoolean()?.value?.value
+          _reportedBoolean = this@with.asBoolean()?.value?.toElement()
+          reportedReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class MedicationRequestMedicationSurrogate {
+  public var medicationCodeableConcept: CodeableConcept? = null
+
+  public var medicationReference: Reference? = null
+
+  public fun toModel(): MedicationRequest.Medication =
+    MedicationRequest.Medication?.from(
+      this@MedicationRequestMedicationSurrogate.medicationCodeableConcept,
+      this@MedicationRequestMedicationSurrogate.medicationReference,
+    ) ?: MedicationRequest.Medication.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationRequest.Medication
+    ): MedicationRequestMedicationSurrogate =
+      with(model) {
+        MedicationRequestMedicationSurrogate().apply {
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value
+          medicationReference = this@with.asReference()?.value
         }
       }
   }
@@ -206,11 +280,6 @@ internal data class MedicationRequestSurrogate(
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
-  public var reportedBoolean: KotlinBoolean? = null,
-  public var _reportedBoolean: Element? = null,
-  public var reportedReference: Reference? = null,
-  public var medicationCodeableConcept: CodeableConcept? = null,
-  public var medicationReference: Reference? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
   public var supportingInformation: List<Reference?>? = null,
@@ -237,6 +306,8 @@ internal data class MedicationRequestSurrogate(
   public var priorPrescription: Reference? = null,
   public var detectedIssue: List<Reference?>? = null,
   public var eventHistory: List<Reference?>? = null,
+  public var reported: MedicationRequest.Reported? = null,
+  public var medication: MedicationRequest.Medication? = null,
 ) {
   public fun toModel(): MedicationRequest =
     MedicationRequest().apply {
@@ -282,19 +353,8 @@ internal data class MedicationRequestSurrogate(
           this@MedicationRequestSurrogate.doNotPerform,
           this@MedicationRequestSurrogate._doNotPerform,
         )
-      reported =
-        MedicationRequest.Reported?.from(
-          R4Boolean.of(
-            this@MedicationRequestSurrogate.reportedBoolean,
-            this@MedicationRequestSurrogate._reportedBoolean,
-          ),
-          this@MedicationRequestSurrogate.reportedReference,
-        )
-      medication =
-        MedicationRequest.Medication?.from(
-          this@MedicationRequestSurrogate.medicationCodeableConcept,
-          this@MedicationRequestSurrogate.medicationReference,
-        )
+      reported = this@MedicationRequestSurrogate.reported
+      medication = this@MedicationRequestSurrogate.medication
       subject = this@MedicationRequestSurrogate.subject
       encounter = this@MedicationRequestSurrogate.encounter
       supportingInformation = this@MedicationRequestSurrogate.supportingInformation
@@ -377,11 +437,8 @@ internal data class MedicationRequestSurrogate(
           _priority = this@with.priority?.toElement()
           doNotPerform = this@with.doNotPerform?.value
           _doNotPerform = this@with.doNotPerform?.toElement()
-          reportedBoolean = this@with.reported?.asBoolean()?.value?.value
-          _reportedBoolean = this@with.reported?.asBoolean()?.value?.toElement()
-          reportedReference = this@with.reported?.asReference()?.value
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value
-          medicationReference = this@with.medication?.asReference()?.value
+          reported = this@with.reported
+          medication = this@with.medication
           subject = this@with.subject
           encounter = this@with.encounter
           supportingInformation = this@with.supportingInformation

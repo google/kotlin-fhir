@@ -122,6 +122,37 @@ internal data class ClinicalUseDefinitionContraindicationSurrogate(
 }
 
 @Serializable
+internal class ClinicalUseDefinitionIndicationDurationSurrogate {
+  public var durationRange: Range? = null
+
+  public var durationString: KotlinString? = null
+
+  public var _durationString: Element? = null
+
+  public fun toModel(): ClinicalUseDefinition.Indication.Duration =
+    ClinicalUseDefinition.Indication.Duration?.from(
+      this@ClinicalUseDefinitionIndicationDurationSurrogate.durationRange,
+      R4bString.of(
+        this@ClinicalUseDefinitionIndicationDurationSurrogate.durationString,
+        this@ClinicalUseDefinitionIndicationDurationSurrogate._durationString,
+      ),
+    ) ?: ClinicalUseDefinition.Indication.Duration.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ClinicalUseDefinition.Indication.Duration
+    ): ClinicalUseDefinitionIndicationDurationSurrogate =
+      with(model) {
+        ClinicalUseDefinitionIndicationDurationSurrogate().apply {
+          durationRange = this@with.asRange()?.value
+          durationString = this@with.asString()?.value?.value
+          _durationString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ClinicalUseDefinitionIndicationSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -130,11 +161,9 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
   public var diseaseStatus: CodeableReference? = null,
   public var comorbidity: List<CodeableReference?>? = null,
   public var intendedEffect: CodeableReference? = null,
-  public var durationRange: Range? = null,
-  public var durationString: KotlinString? = null,
-  public var _durationString: Element? = null,
   public var undesirableEffect: List<Reference?>? = null,
   public var otherTherapy: List<ClinicalUseDefinition.Contraindication.OtherTherapy?>? = null,
+  public var duration: ClinicalUseDefinition.Indication.Duration? = null,
 ) {
   public fun toModel(): ClinicalUseDefinition.Indication =
     ClinicalUseDefinition.Indication().apply {
@@ -146,14 +175,7 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
       diseaseStatus = this@ClinicalUseDefinitionIndicationSurrogate.diseaseStatus
       comorbidity = this@ClinicalUseDefinitionIndicationSurrogate.comorbidity
       intendedEffect = this@ClinicalUseDefinitionIndicationSurrogate.intendedEffect
-      duration =
-        ClinicalUseDefinition.Indication.Duration?.from(
-          this@ClinicalUseDefinitionIndicationSurrogate.durationRange,
-          R4bString.of(
-            this@ClinicalUseDefinitionIndicationSurrogate.durationString,
-            this@ClinicalUseDefinitionIndicationSurrogate._durationString,
-          ),
-        )
+      duration = this@ClinicalUseDefinitionIndicationSurrogate.duration
       undesirableEffect = this@ClinicalUseDefinitionIndicationSurrogate.undesirableEffect
       otherTherapy = this@ClinicalUseDefinitionIndicationSurrogate.otherTherapy
     }
@@ -171,11 +193,34 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
           diseaseStatus = this@with.diseaseStatus
           comorbidity = this@with.comorbidity
           intendedEffect = this@with.intendedEffect
-          durationRange = this@with.duration?.asRange()?.value
-          durationString = this@with.duration?.asString()?.value?.value
-          _durationString = this@with.duration?.asString()?.value?.toElement()
+          duration = this@with.duration
           undesirableEffect = this@with.undesirableEffect
           otherTherapy = this@with.otherTherapy
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ClinicalUseDefinitionInteractionInteractantItemSurrogate {
+  public var itemReference: Reference? = null
+
+  public var itemCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): ClinicalUseDefinition.Interaction.Interactant.Item =
+    ClinicalUseDefinition.Interaction.Interactant.Item?.from(
+      this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemReference,
+      this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemCodeableConcept,
+    ) ?: ClinicalUseDefinition.Interaction.Interactant.Item.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ClinicalUseDefinition.Interaction.Interactant.Item
+    ): ClinicalUseDefinitionInteractionInteractantItemSurrogate =
+      with(model) {
+        ClinicalUseDefinitionInteractionInteractantItemSurrogate().apply {
+          itemReference = this@with.asReference()?.value
+          itemCodeableConcept = this@with.asCodeableConcept()?.value
         }
       }
   }
@@ -186,8 +231,7 @@ internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
+  public var item: ClinicalUseDefinition.Interaction.Interactant.Item? = null,
 ) {
   public fun toModel(): ClinicalUseDefinition.Interaction.Interactant =
     ClinicalUseDefinition.Interaction.Interactant().apply {
@@ -195,11 +239,7 @@ internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
       extension = this@ClinicalUseDefinitionInteractionInteractantSurrogate.extension
       modifierExtension =
         this@ClinicalUseDefinitionInteractionInteractantSurrogate.modifierExtension
-      item =
-        ClinicalUseDefinition.Interaction.Interactant.Item?.from(
-          this@ClinicalUseDefinitionInteractionInteractantSurrogate.itemReference,
-          this@ClinicalUseDefinitionInteractionInteractantSurrogate.itemCodeableConcept,
-        )
+      item = this@ClinicalUseDefinitionInteractionInteractantSurrogate.item
     }
 
   public companion object {
@@ -211,8 +251,7 @@ internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          itemReference = this@with.item?.asReference()?.value
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value
+          item = this@with.item
         }
       }
   }

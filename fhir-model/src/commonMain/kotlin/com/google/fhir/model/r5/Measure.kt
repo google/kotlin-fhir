@@ -22,9 +22,12 @@ import com.google.fhir.model.r5.serializers.MeasureGroupPopulationSerializer
 import com.google.fhir.model.r5.serializers.MeasureGroupSerializer
 import com.google.fhir.model.r5.serializers.MeasureGroupStratifierComponentSerializer
 import com.google.fhir.model.r5.serializers.MeasureGroupStratifierSerializer
+import com.google.fhir.model.r5.serializers.MeasureGroupSubjectSerializer
 import com.google.fhir.model.r5.serializers.MeasureSerializer
+import com.google.fhir.model.r5.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r5.serializers.MeasureSupplementalDataSerializer
 import com.google.fhir.model.r5.serializers.MeasureTermSerializer
+import com.google.fhir.model.r5.serializers.MeasureVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -967,6 +970,7 @@ public data class Measure(
       ) : BackboneElement()
     }
 
+    @Serializable(with = MeasureGroupSubjectSerializer::class)
     public sealed interface Subject {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -978,14 +982,16 @@ public data class Measure(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Subject
 
+      public data object Null : Subject
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Subject? {
+        ): Subject {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1068,6 +1074,7 @@ public data class Measure(
     public var criteria: Expression? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MeasureVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1079,18 +1086,21 @@ public data class Measure(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = MeasureSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1102,14 +1112,16 @@ public data class Measure(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

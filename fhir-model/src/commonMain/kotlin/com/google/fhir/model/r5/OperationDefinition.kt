@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.OperationDefinitionParameterBindingS
 import com.google.fhir.model.r5.serializers.OperationDefinitionParameterReferencedFromSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionParameterSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionSerializer
+import com.google.fhir.model.r5.serializers.OperationDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -690,6 +691,7 @@ public data class OperationDefinition(
     public var comment: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = OperationDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -701,14 +703,16 @@ public data class OperationDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

@@ -126,14 +126,43 @@ internal data class TestPlanTestCaseDependencySurrogate(
 }
 
 @Serializable
+internal class TestPlanTestCaseTestRunScriptSourceSurrogate {
+  public var sourceString: KotlinString? = null
+
+  public var _sourceString: Element? = null
+
+  public var sourceReference: Reference? = null
+
+  public fun toModel(): TestPlan.TestCase.TestRun.Script.Source =
+    TestPlan.TestCase.TestRun.Script.Source?.from(
+      R5String.of(
+        this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceString,
+        this@TestPlanTestCaseTestRunScriptSourceSurrogate._sourceString,
+      ),
+      this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceReference,
+    ) ?: TestPlan.TestCase.TestRun.Script.Source.Null
+
+  public companion object {
+    public fun fromModel(
+      model: TestPlan.TestCase.TestRun.Script.Source
+    ): TestPlanTestCaseTestRunScriptSourceSurrogate =
+      with(model) {
+        TestPlanTestCaseTestRunScriptSourceSurrogate().apply {
+          sourceString = this@with.asString()?.value?.value
+          _sourceString = this@with.asString()?.value?.toElement()
+          sourceReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class TestPlanTestCaseTestRunScriptSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var language: CodeableConcept? = null,
-  public var sourceString: KotlinString? = null,
-  public var _sourceString: Element? = null,
-  public var sourceReference: Reference? = null,
+  public var source: TestPlan.TestCase.TestRun.Script.Source? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.TestRun.Script =
     TestPlan.TestCase.TestRun.Script().apply {
@@ -141,14 +170,7 @@ internal data class TestPlanTestCaseTestRunScriptSurrogate(
       extension = this@TestPlanTestCaseTestRunScriptSurrogate.extension
       modifierExtension = this@TestPlanTestCaseTestRunScriptSurrogate.modifierExtension
       language = this@TestPlanTestCaseTestRunScriptSurrogate.language
-      source =
-        TestPlan.TestCase.TestRun.Script.Source?.from(
-          R5String.of(
-            this@TestPlanTestCaseTestRunScriptSurrogate.sourceString,
-            this@TestPlanTestCaseTestRunScriptSurrogate._sourceString,
-          ),
-          this@TestPlanTestCaseTestRunScriptSurrogate.sourceReference,
-        )
+      source = this@TestPlanTestCaseTestRunScriptSurrogate.source
     }
 
   public companion object {
@@ -161,9 +183,7 @@ internal data class TestPlanTestCaseTestRunScriptSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           language = this@with.language
-          sourceString = this@with.source?.asString()?.value?.value
-          _sourceString = this@with.source?.asString()?.value?.toElement()
-          sourceReference = this@with.source?.asReference()?.value
+          source = this@with.source
         }
       }
   }
@@ -207,15 +227,44 @@ internal data class TestPlanTestCaseTestRunSurrogate(
 }
 
 @Serializable
+internal class TestPlanTestCaseTestDataSourceSurrogate {
+  public var sourceString: KotlinString? = null
+
+  public var _sourceString: Element? = null
+
+  public var sourceReference: Reference? = null
+
+  public fun toModel(): TestPlan.TestCase.TestData.Source =
+    TestPlan.TestCase.TestData.Source?.from(
+      R5String.of(
+        this@TestPlanTestCaseTestDataSourceSurrogate.sourceString,
+        this@TestPlanTestCaseTestDataSourceSurrogate._sourceString,
+      ),
+      this@TestPlanTestCaseTestDataSourceSurrogate.sourceReference,
+    ) ?: TestPlan.TestCase.TestData.Source.Null
+
+  public companion object {
+    public fun fromModel(
+      model: TestPlan.TestCase.TestData.Source
+    ): TestPlanTestCaseTestDataSourceSurrogate =
+      with(model) {
+        TestPlanTestCaseTestDataSourceSurrogate().apply {
+          sourceString = this@with.asString()?.value?.value
+          _sourceString = this@with.asString()?.value?.toElement()
+          sourceReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class TestPlanTestCaseTestDataSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: Coding? = null,
   public var content: Reference? = null,
-  public var sourceString: KotlinString? = null,
-  public var _sourceString: Element? = null,
-  public var sourceReference: Reference? = null,
+  public var source: TestPlan.TestCase.TestData.Source? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.TestData =
     TestPlan.TestCase.TestData().apply {
@@ -224,14 +273,7 @@ internal data class TestPlanTestCaseTestDataSurrogate(
       modifierExtension = this@TestPlanTestCaseTestDataSurrogate.modifierExtension
       type = this@TestPlanTestCaseTestDataSurrogate.type
       content = this@TestPlanTestCaseTestDataSurrogate.content
-      source =
-        TestPlan.TestCase.TestData.Source?.from(
-          R5String.of(
-            this@TestPlanTestCaseTestDataSurrogate.sourceString,
-            this@TestPlanTestCaseTestDataSurrogate._sourceString,
-          ),
-          this@TestPlanTestCaseTestDataSurrogate.sourceReference,
-        )
+      source = this@TestPlanTestCaseTestDataSurrogate.source
     }
 
   public companion object {
@@ -243,9 +285,7 @@ internal data class TestPlanTestCaseTestDataSurrogate(
           modifierExtension = this@with.modifierExtension
           type = this@with.type
           content = this@with.content
-          sourceString = this@with.source?.asString()?.value?.value
-          _sourceString = this@with.source?.asString()?.value?.toElement()
-          sourceReference = this@with.source?.asReference()?.value
+          source = this@with.source
         }
       }
   }
@@ -335,6 +375,35 @@ internal data class TestPlanTestCaseSurrogate(
 }
 
 @Serializable
+internal class TestPlanVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): TestPlan.VersionAlgorithm =
+    TestPlan.VersionAlgorithm?.from(
+      R5String.of(
+        this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@TestPlanVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: TestPlan.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(model: TestPlan.VersionAlgorithm): TestPlanVersionAlgorithmSurrogate =
+      with(model) {
+        TestPlanVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class TestPlanSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -351,9 +420,6 @@ internal data class TestPlanSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -385,6 +451,7 @@ internal data class TestPlanSurrogate(
   public var exitCriteria: KotlinString? = null,
   public var _exitCriteria: Element? = null,
   public var testCase: List<TestPlan.TestCase>? = null,
+  public var versionAlgorithm: TestPlan.VersionAlgorithm? = null,
 ) {
   public fun toModel(): TestPlan =
     TestPlan().apply {
@@ -400,14 +467,7 @@ internal data class TestPlanSurrogate(
       url = Uri.of(this@TestPlanSurrogate.url, this@TestPlanSurrogate._url)
       identifier = this@TestPlanSurrogate.identifier
       version = R5String.of(this@TestPlanSurrogate.version, this@TestPlanSurrogate._version)
-      versionAlgorithm =
-        TestPlan.VersionAlgorithm?.from(
-          R5String.of(
-            this@TestPlanSurrogate.versionAlgorithmString,
-            this@TestPlanSurrogate._versionAlgorithmString,
-          ),
-          this@TestPlanSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@TestPlanSurrogate.versionAlgorithm
       name = R5String.of(this@TestPlanSurrogate.name, this@TestPlanSurrogate._name)
       title = R5String.of(this@TestPlanSurrogate.title, this@TestPlanSurrogate._title)
       status =
@@ -462,9 +522,7 @@ internal data class TestPlanSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

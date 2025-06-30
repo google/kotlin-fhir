@@ -18,10 +18,13 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.EvidenceReportCiteAsSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportRelatesToSerializer
+import com.google.fhir.model.r4b.serializers.EvidenceReportRelatesToTargetSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSectionSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -359,6 +362,7 @@ public data class EvidenceReport(
       /** Timeframe for the characteristic. */
       public var period: Period? = null,
     ) : BackboneElement() {
+      @Serializable(with = EvidenceReportSubjectCharacteristicValueSerializer::class)
       public sealed interface Value {
         public fun asReference(): Reference? = this as? Reference
 
@@ -383,6 +387,8 @@ public data class EvidenceReport(
 
         public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             ReferenceValue: com.google.fhir.model.r4b.Reference?,
@@ -390,13 +396,13 @@ public data class EvidenceReport(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             QuantityValue: com.google.fhir.model.r4b.Quantity?,
             RangeValue: com.google.fhir.model.r4b.Range?,
-          ): Value? {
+          ): Value {
             if (ReferenceValue != null) return Reference(ReferenceValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RangeValue != null) return Range(RangeValue)
-            return null
+            return Null
           }
         }
       }
@@ -456,6 +462,7 @@ public data class EvidenceReport(
     /** The target composition/document of this relationship. */
     public var target: Target? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceReportRelatesToTargetSerializer::class)
     public sealed interface Target {
       public fun asIdentifier(): Identifier? = this as? Identifier
 
@@ -466,14 +473,16 @@ public data class EvidenceReport(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Target
 
+      public data object Null : Target
+
       public companion object {
         public fun from(
           IdentifierValue: com.google.fhir.model.r4b.Identifier?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Target? {
+        ): Target {
           if (IdentifierValue != null) return Identifier(IdentifierValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -608,6 +617,7 @@ public data class EvidenceReport(
     public var section: List<Section?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceReportCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 
@@ -617,14 +627,16 @@ public data class EvidenceReport(
 
     public data class Markdown(public val `value`: com.google.fhir.model.r4b.Markdown) : CiteAs
 
+    public data object Null : CiteAs
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
         markdownValue: com.google.fhir.model.r4b.Markdown?,
-      ): CiteAs? {
+      ): CiteAs {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (markdownValue != null) return Markdown(markdownValue)
-        return null
+        return Null
       }
     }
   }

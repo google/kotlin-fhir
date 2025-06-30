@@ -276,6 +276,37 @@ internal data class GraphDefinitionLinkSurrogate(
 }
 
 @Serializable
+internal class GraphDefinitionVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): GraphDefinition.VersionAlgorithm =
+    GraphDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@GraphDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: GraphDefinition.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: GraphDefinition.VersionAlgorithm
+    ): GraphDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        GraphDefinitionVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class GraphDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -292,9 +323,6 @@ internal data class GraphDefinitionSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -322,6 +350,7 @@ internal data class GraphDefinitionSurrogate(
   public var _start: Element? = null,
   public var node: List<GraphDefinition.Node>? = null,
   public var link: List<GraphDefinition.Link>? = null,
+  public var versionAlgorithm: GraphDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): GraphDefinition =
     GraphDefinition().apply {
@@ -342,14 +371,7 @@ internal data class GraphDefinitionSurrogate(
       identifier = this@GraphDefinitionSurrogate.identifier
       version =
         R5String.of(this@GraphDefinitionSurrogate.version, this@GraphDefinitionSurrogate._version)
-      versionAlgorithm =
-        GraphDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@GraphDefinitionSurrogate.versionAlgorithmString,
-            this@GraphDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@GraphDefinitionSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@GraphDefinitionSurrogate.versionAlgorithm
       name = R5String.of(this@GraphDefinitionSurrogate.name, this@GraphDefinitionSurrogate._name)
       title = R5String.of(this@GraphDefinitionSurrogate.title, this@GraphDefinitionSurrogate._title)
       status =
@@ -418,9 +440,7 @@ internal data class GraphDefinitionSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

@@ -30,6 +30,7 @@ import com.google.fhir.model.r5.serializers.DeviceDefinitionMaterialSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionPackagingDistributorSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionPackagingSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionPropertySerializer
+import com.google.fhir.model.r5.serializers.DeviceDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionRegulatoryIdentifierSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionUdiDeviceIdentifierMarketDistributionSerializer
@@ -840,6 +841,7 @@ public data class DeviceDefinition(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = DeviceDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -871,6 +873,8 @@ public data class DeviceDefinition(
 
       public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -880,7 +884,7 @@ public data class DeviceDefinition(
           integerValue: com.google.fhir.model.r5.Integer?,
           RangeValue: com.google.fhir.model.r5.Range?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
-        ): Value? {
+        ): Value {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (stringValue != null) return String(stringValue)
@@ -888,7 +892,7 @@ public data class DeviceDefinition(
           if (integerValue != null) return Integer(integerValue)
           if (RangeValue != null) return Range(RangeValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return null
+          return Null
         }
       }
     }

@@ -25,6 +25,7 @@ import com.google.fhir.model.r4.serializers.ValueSetComposeIncludeSerializer
 import com.google.fhir.model.r4.serializers.ValueSetComposeSerializer
 import com.google.fhir.model.r4.serializers.ValueSetExpansionContainsSerializer
 import com.google.fhir.model.r4.serializers.ValueSetExpansionParameterSerializer
+import com.google.fhir.model.r4.serializers.ValueSetExpansionParameterValueSerializer
 import com.google.fhir.model.r4.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r4.serializers.ValueSetSerializer
 import kotlin.Suppress
@@ -846,6 +847,7 @@ public data class ValueSet(
       /** The value of the parameter. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = ValueSetExpansionParameterValueSerializer::class)
       public sealed interface Value {
         public fun asString(): String? = this as? String
 
@@ -875,6 +877,8 @@ public data class ValueSet(
 
         public data class DateTime(public val `value`: com.google.fhir.model.r4.DateTime) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             stringValue: com.google.fhir.model.r4.String?,
@@ -884,7 +888,7 @@ public data class ValueSet(
             uriValue: com.google.fhir.model.r4.Uri?,
             codeValue: com.google.fhir.model.r4.Code?,
             dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          ): Value? {
+          ): Value {
             if (stringValue != null) return String(stringValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (integerValue != null) return Integer(integerValue)
@@ -892,7 +896,7 @@ public data class ValueSet(
             if (uriValue != null) return Uri(uriValue)
             if (codeValue != null) return Code(codeValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
-            return null
+            return Null
           }
         }
       }

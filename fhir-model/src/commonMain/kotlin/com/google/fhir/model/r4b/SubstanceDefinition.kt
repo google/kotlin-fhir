@@ -19,12 +19,16 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionCodeSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionMoietyAmountSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionMoietySerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionMolecularWeightSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionNameOfficialSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionNameSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionPropertySerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionPropertyValueSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionRelationshipAmountSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionRelationshipSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionRelationshipSubstanceDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionSourceMaterialSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionStructureRepresentationSerializer
@@ -250,6 +254,7 @@ public data class SubstanceDefinition(
      */
     public var measurementType: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceDefinitionMoietyAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -259,14 +264,16 @@ public data class SubstanceDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r4b.String) : Amount
 
+      public data object Null : Amount
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r4b.Quantity?,
           stringValue: com.google.fhir.model.r4b.String?,
-        ): Amount? {
+        ): Amount {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -317,6 +324,7 @@ public data class SubstanceDefinition(
     /** A value for the property. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -341,6 +349,8 @@ public data class SubstanceDefinition(
       public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
         Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
@@ -348,13 +358,13 @@ public data class SubstanceDefinition(
           dateValue: com.google.fhir.model.r4b.Date?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
           AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return null
+          return Null
         }
       }
     }
@@ -768,6 +778,7 @@ public data class SubstanceDefinition(
     /** Supporting literature. */
     public var source: List<Reference?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceDefinitionRelationshipSubstanceDefinitionSerializer::class)
     public sealed interface SubstanceDefinition {
       public fun asReference(): Reference? = this as? Reference
 
@@ -780,18 +791,21 @@ public data class SubstanceDefinition(
         public val `value`: com.google.fhir.model.r4b.CodeableConcept
       ) : SubstanceDefinition
 
+      public data object Null : SubstanceDefinition
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ): SubstanceDefinition? {
+        ): SubstanceDefinition {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = SubstanceDefinitionRelationshipAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -805,16 +819,18 @@ public data class SubstanceDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r4b.String) : Amount
 
+      public data object Null : Amount
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r4b.Quantity?,
           RatioValue: com.google.fhir.model.r4b.Ratio?,
           stringValue: com.google.fhir.model.r4b.String?,
-        ): Amount? {
+        ): Amount {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RatioValue != null) return Ratio(RatioValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }

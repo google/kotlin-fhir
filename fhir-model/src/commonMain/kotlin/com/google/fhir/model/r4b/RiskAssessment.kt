@@ -18,7 +18,10 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.RiskAssessmentOccurrenceSerializer
+import com.google.fhir.model.r4b.serializers.RiskAssessmentPredictionProbabilitySerializer
 import com.google.fhir.model.r4b.serializers.RiskAssessmentPredictionSerializer
+import com.google.fhir.model.r4b.serializers.RiskAssessmentPredictionWhenSerializer
 import com.google.fhir.model.r4b.serializers.RiskAssessmentSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -247,6 +250,7 @@ public data class RiskAssessment(
     /** Additional information explaining the basis for the prediction. */
     public var rationale: String? = null,
   ) : BackboneElement() {
+    @Serializable(with = RiskAssessmentPredictionProbabilitySerializer::class)
     public sealed interface Probability {
       public fun asDecimal(): Decimal? = this as? Decimal
 
@@ -257,18 +261,21 @@ public data class RiskAssessment(
 
       public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : Probability
 
+      public data object Null : Probability
+
       public companion object {
         public fun from(
           decimalValue: com.google.fhir.model.r4b.Decimal?,
           RangeValue: com.google.fhir.model.r4b.Range?,
-        ): Probability? {
+        ): Probability {
           if (decimalValue != null) return Decimal(decimalValue)
           if (RangeValue != null) return Range(RangeValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = RiskAssessmentPredictionWhenSerializer::class)
     public sealed interface When {
       public fun asPeriod(): Period? = this as? Period
 
@@ -278,19 +285,22 @@ public data class RiskAssessment(
 
       public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : When
 
+      public data object Null : When
+
       public companion object {
         public fun from(
           PeriodValue: com.google.fhir.model.r4b.Period?,
           RangeValue: com.google.fhir.model.r4b.Range?,
-        ): When? {
+        ): When {
           if (PeriodValue != null) return Period(PeriodValue)
           if (RangeValue != null) return Range(RangeValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = RiskAssessmentOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -300,14 +310,16 @@ public data class RiskAssessment(
 
     public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

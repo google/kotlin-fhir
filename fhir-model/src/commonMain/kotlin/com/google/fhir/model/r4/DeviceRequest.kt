@@ -18,7 +18,10 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.DeviceRequestCodeSerializer
+import com.google.fhir.model.r4.serializers.DeviceRequestOccurrenceSerializer
 import com.google.fhir.model.r4.serializers.DeviceRequestParameterSerializer
+import com.google.fhir.model.r4.serializers.DeviceRequestParameterValueSerializer
 import com.google.fhir.model.r4.serializers.DeviceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -271,6 +274,7 @@ public data class DeviceRequest(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = DeviceRequestParameterValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -290,23 +294,26 @@ public data class DeviceRequest(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r4.Boolean) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r4.Quantity?,
           RangeValue: com.google.fhir.model.r4.Range?,
           booleanValue: com.google.fhir.model.r4.Boolean?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = DeviceRequestCodeSerializer::class)
   public sealed interface Code {
     public fun asReference(): Reference? = this as? Reference
 
@@ -318,18 +325,21 @@ public data class DeviceRequest(
       public val `value`: com.google.fhir.model.r4.CodeableConcept
     ) : Code
 
+    public data object Null : Code
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r4.Reference?,
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-      ): Code? {
+      ): Code {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = DeviceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -343,16 +353,18 @@ public data class DeviceRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r4.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
         TimingValue: com.google.fhir.model.r4.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }

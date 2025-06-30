@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.DiagnosticReportEffectiveSerializer
 import com.google.fhir.model.r4.serializers.DiagnosticReportMediaSerializer
 import com.google.fhir.model.r4.serializers.DiagnosticReportSerializer
 import kotlin.Suppress
@@ -311,6 +312,7 @@ public data class DiagnosticReport(
     public var link: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = DiagnosticReportEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -320,14 +322,16 @@ public data class DiagnosticReport(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

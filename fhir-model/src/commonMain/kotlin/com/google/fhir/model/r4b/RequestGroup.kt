@@ -19,8 +19,10 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.RequestGroupActionConditionSerializer
+import com.google.fhir.model.r4b.serializers.RequestGroupActionRelatedActionOffsetSerializer
 import com.google.fhir.model.r4b.serializers.RequestGroupActionRelatedActionSerializer
 import com.google.fhir.model.r4b.serializers.RequestGroupActionSerializer
+import com.google.fhir.model.r4b.serializers.RequestGroupActionTimingSerializer
 import com.google.fhir.model.r4b.serializers.RequestGroupSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -409,6 +411,7 @@ public data class RequestGroup(
        */
       public var offset: Offset? = null,
     ) : BackboneElement() {
+      @Serializable(with = RequestGroupActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -418,19 +421,22 @@ public data class RequestGroup(
 
         public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : Offset
 
+        public data object Null : Offset
+
         public companion object {
           public fun from(
             DurationValue: com.google.fhir.model.r4b.Duration?,
             RangeValue: com.google.fhir.model.r4b.Range?,
-          ): Offset? {
+          ): Offset {
             if (DurationValue != null) return Duration(DurationValue)
             if (RangeValue != null) return Range(RangeValue)
-            return null
+            return Null
           }
         }
       }
     }
 
+    @Serializable(with = RequestGroupActionTimingSerializer::class)
     public sealed interface Timing {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -460,6 +466,8 @@ public data class RequestGroup(
       public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) :
         Action.Timing
 
+      public data object Null : Action.Timing
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
@@ -468,14 +476,14 @@ public data class RequestGroup(
           DurationValue: com.google.fhir.model.r4b.Duration?,
           RangeValue: com.google.fhir.model.r4b.Range?,
           TimingValue: com.google.fhir.model.r4b.Timing?,
-        ): Action.Timing? {
+        ): Action.Timing {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (AgeValue != null) return Age(AgeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
           if (RangeValue != null) return Range(RangeValue)
           if (TimingValue != null) return Timing(TimingValue)
-          return null
+          return Null
         }
       }
     }

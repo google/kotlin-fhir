@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeEditSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeSerializer
+import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSequenceSequenceSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSequenceSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceSerializer
 import kotlin.Suppress
@@ -305,6 +306,7 @@ public data class MolecularSequence(
        */
       public var strand: Enumeration<StrandType>? = null,
     ) : BackboneElement() {
+      @Serializable(with = MolecularSequenceRelativeStartingSequenceSequenceSerializer::class)
       public sealed interface Sequence {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -321,16 +323,18 @@ public data class MolecularSequence(
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
           Sequence
 
+        public data object Null : Sequence
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             stringValue: com.google.fhir.model.r5.String?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Sequence? {
+          ): Sequence {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (stringValue != null) return String(stringValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }

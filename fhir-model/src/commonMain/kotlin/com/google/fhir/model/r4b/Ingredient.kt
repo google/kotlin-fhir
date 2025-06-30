@@ -21,7 +21,10 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.IngredientManufacturerSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceSerializer
+import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthConcentrationSerializer
+import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthPresentationSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthReferenceStrengthSerializer
+import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthReferenceStrengthStrengthSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -411,6 +414,7 @@ public data class Ingredient(
         /** The country or countries for which the strength range applies. */
         public var country: List<CodeableConcept?>? = null,
       ) : BackboneElement() {
+        @Serializable(with = IngredientSubstanceStrengthReferenceStrengthStrengthSerializer::class)
         public sealed interface Strength {
           public fun asRatio(): Ratio? = this as? Ratio
 
@@ -421,19 +425,22 @@ public data class Ingredient(
           public data class RatioRange(public val `value`: com.google.fhir.model.r4b.RatioRange) :
             Strength
 
+          public data object Null : Strength
+
           public companion object {
             public fun from(
               RatioValue: com.google.fhir.model.r4b.Ratio?,
               RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-            ): Strength? {
+            ): Strength {
               if (RatioValue != null) return Ratio(RatioValue)
               if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-              return null
+              return Null
             }
           }
         }
       }
 
+      @Serializable(with = IngredientSubstanceStrengthPresentationSerializer::class)
       public sealed interface Presentation {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -444,18 +451,21 @@ public data class Ingredient(
         public data class RatioRange(public val `value`: com.google.fhir.model.r4b.RatioRange) :
           Presentation
 
+        public data object Null : Presentation
+
         public companion object {
           public fun from(
             RatioValue: com.google.fhir.model.r4b.Ratio?,
             RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-          ): Presentation? {
+          ): Presentation {
             if (RatioValue != null) return Ratio(RatioValue)
             if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-            return null
+            return Null
           }
         }
       }
 
+      @Serializable(with = IngredientSubstanceStrengthConcentrationSerializer::class)
       public sealed interface Concentration {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -467,14 +477,16 @@ public data class Ingredient(
         public data class RatioRange(public val `value`: com.google.fhir.model.r4b.RatioRange) :
           Concentration
 
+        public data object Null : Concentration
+
         public companion object {
           public fun from(
             RatioValue: com.google.fhir.model.r4b.Ratio?,
             RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-          ): Concentration? {
+          ): Concentration {
             if (RatioValue != null) return Ratio(RatioValue)
             if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-            return null
+            return Null
           }
         }
       }

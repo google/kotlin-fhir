@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.DeviceUseStatementSerializer
+import com.google.fhir.model.r4.serializers.DeviceUseStatementTimingSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
@@ -180,6 +181,7 @@ public data class DeviceUseStatement(
    */
   public var note: List<Annotation?>? = null,
 ) : DomainResource() {
+  @Serializable(with = DeviceUseStatementTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 
@@ -196,16 +198,18 @@ public data class DeviceUseStatement(
     public data class DateTime(public val `value`: com.google.fhir.model.r4.DateTime) :
       DeviceUseStatement.Timing
 
+    public data object Null : DeviceUseStatement.Timing
+
     public companion object {
       public fun from(
         TimingValue: com.google.fhir.model.r4.Timing?,
         PeriodValue: com.google.fhir.model.r4.Period?,
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-      ): DeviceUseStatement.Timing? {
+      ): DeviceUseStatement.Timing {
         if (TimingValue != null) return Timing(TimingValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return null
+        return Null
       }
     }
   }

@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicinalProductContraindicationOtherTherapyMedicationSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductContraindicationOtherTherapySerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductContraindicationSerializer
 import kotlin.String
@@ -204,6 +205,7 @@ public data class MedicinalProductContraindication(
      */
     public var medication: Medication? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductContraindicationOtherTherapyMedicationSerializer::class)
     public sealed interface Medication {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -216,14 +218,16 @@ public data class MedicinalProductContraindication(
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
         Medication
 
+      public data object Null : Medication
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Medication? {
+        ): Medication {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

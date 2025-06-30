@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionPropertySerializer
+import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer
@@ -250,6 +251,7 @@ public data class AdministrableProductDefinition(
     /** The status of characteristic e.g. assigned or pending. */
     public var status: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = AdministrableProductDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -281,6 +283,8 @@ public data class AdministrableProductDefinition(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -290,7 +294,7 @@ public data class AdministrableProductDefinition(
           markdownValue: com.google.fhir.model.r5.Markdown?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (dateValue != null) return Date(dateValue)
@@ -298,7 +302,7 @@ public data class AdministrableProductDefinition(
           if (markdownValue != null) return Markdown(markdownValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

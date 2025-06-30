@@ -45,13 +45,37 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class SupplyDeliverySuppliedItemItemSurrogate {
+  public var itemCodeableConcept: CodeableConcept? = null
+
+  public var itemReference: Reference? = null
+
+  public fun toModel(): SupplyDelivery.SuppliedItem.Item =
+    SupplyDelivery.SuppliedItem.Item?.from(
+      this@SupplyDeliverySuppliedItemItemSurrogate.itemCodeableConcept,
+      this@SupplyDeliverySuppliedItemItemSurrogate.itemReference,
+    ) ?: SupplyDelivery.SuppliedItem.Item.Null
+
+  public companion object {
+    public fun fromModel(
+      model: SupplyDelivery.SuppliedItem.Item
+    ): SupplyDeliverySuppliedItemItemSurrogate =
+      with(model) {
+        SupplyDeliverySuppliedItemItemSurrogate().apply {
+          itemCodeableConcept = this@with.asCodeableConcept()?.value
+          itemReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SupplyDeliverySuppliedItemSurrogate(
   public var id: String? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var quantity: Quantity? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
-  public var itemReference: Reference? = null,
+  public var item: SupplyDelivery.SuppliedItem.Item? = null,
 ) {
   public fun toModel(): SupplyDelivery.SuppliedItem =
     SupplyDelivery.SuppliedItem().apply {
@@ -59,11 +83,7 @@ internal data class SupplyDeliverySuppliedItemSurrogate(
       extension = this@SupplyDeliverySuppliedItemSurrogate.extension
       modifierExtension = this@SupplyDeliverySuppliedItemSurrogate.modifierExtension
       quantity = this@SupplyDeliverySuppliedItemSurrogate.quantity
-      item =
-        SupplyDelivery.SuppliedItem.Item?.from(
-          this@SupplyDeliverySuppliedItemSurrogate.itemCodeableConcept,
-          this@SupplyDeliverySuppliedItemSurrogate.itemReference,
-        )
+      item = this@SupplyDeliverySuppliedItemSurrogate.item
     }
 
   public companion object {
@@ -74,8 +94,40 @@ internal data class SupplyDeliverySuppliedItemSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           quantity = this@with.quantity
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value
-          itemReference = this@with.item?.asReference()?.value
+          item = this@with.item
+        }
+      }
+  }
+}
+
+@Serializable
+internal class SupplyDeliveryOccurrenceSurrogate {
+  public var occurrenceDateTime: String? = null
+
+  public var _occurrenceDateTime: Element? = null
+
+  public var occurrencePeriod: Period? = null
+
+  public var occurrenceTiming: Timing? = null
+
+  public fun toModel(): SupplyDelivery.Occurrence =
+    SupplyDelivery.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@SupplyDeliveryOccurrenceSurrogate.occurrenceDateTime),
+        this@SupplyDeliveryOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@SupplyDeliveryOccurrenceSurrogate.occurrencePeriod,
+      this@SupplyDeliveryOccurrenceSurrogate.occurrenceTiming,
+    ) ?: SupplyDelivery.Occurrence.Null
+
+  public companion object {
+    public fun fromModel(model: SupplyDelivery.Occurrence): SupplyDeliveryOccurrenceSurrogate =
+      with(model) {
+        SupplyDeliveryOccurrenceSurrogate().apply {
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
+          occurrencePeriod = this@with.asPeriod()?.value
+          occurrenceTiming = this@with.asTiming()?.value
         }
       }
   }
@@ -101,13 +153,10 @@ internal data class SupplyDeliverySurrogate(
   public var patient: Reference? = null,
   public var type: CodeableConcept? = null,
   public var suppliedItem: List<SupplyDelivery.SuppliedItem>? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
   public var supplier: Reference? = null,
   public var destination: Reference? = null,
   public var `receiver`: List<Reference?>? = null,
+  public var occurrence: SupplyDelivery.Occurrence? = null,
 ) {
   public fun toModel(): SupplyDelivery =
     SupplyDelivery().apply {
@@ -137,15 +186,7 @@ internal data class SupplyDeliverySurrogate(
       patient = this@SupplyDeliverySurrogate.patient
       type = this@SupplyDeliverySurrogate.type
       suppliedItem = this@SupplyDeliverySurrogate.suppliedItem
-      occurrence =
-        SupplyDelivery.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@SupplyDeliverySurrogate.occurrenceDateTime),
-            this@SupplyDeliverySurrogate._occurrenceDateTime,
-          ),
-          this@SupplyDeliverySurrogate.occurrencePeriod,
-          this@SupplyDeliverySurrogate.occurrenceTiming,
-        )
+      occurrence = this@SupplyDeliverySurrogate.occurrence
       supplier = this@SupplyDeliverySurrogate.supplier
       destination = this@SupplyDeliverySurrogate.destination
       `receiver` = this@SupplyDeliverySurrogate.`receiver`
@@ -173,10 +214,7 @@ internal data class SupplyDeliverySurrogate(
           patient = this@with.patient
           type = this@with.type
           suppliedItem = this@with.suppliedItem
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value
+          occurrence = this@with.occurrence
           supplier = this@with.supplier
           destination = this@with.destination
           `receiver` = this@with.`receiver`

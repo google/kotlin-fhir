@@ -134,15 +134,37 @@ internal data class InvoiceLineItemPriceComponentSurrogate(
 }
 
 @Serializable
+internal class InvoiceLineItemChargeItemSurrogate {
+  public var chargeItemReference: Reference? = null
+
+  public var chargeItemCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): Invoice.LineItem.ChargeItem =
+    Invoice.LineItem.ChargeItem?.from(
+      this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
+      this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
+    ) ?: Invoice.LineItem.ChargeItem.Null
+
+  public companion object {
+    public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
+      with(model) {
+        InvoiceLineItemChargeItemSurrogate().apply {
+          chargeItemReference = this@with.asReference()?.value
+          chargeItemCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class InvoiceLineItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var chargeItemReference: Reference? = null,
-  public var chargeItemCodeableConcept: CodeableConcept? = null,
   public var priceComponent: List<Invoice.LineItem.PriceComponent>? = null,
+  public var chargeItem: Invoice.LineItem.ChargeItem? = null,
 ) {
   public fun toModel(): Invoice.LineItem =
     Invoice.LineItem().apply {
@@ -154,11 +176,7 @@ internal data class InvoiceLineItemSurrogate(
           this@InvoiceLineItemSurrogate.sequence,
           this@InvoiceLineItemSurrogate._sequence,
         )
-      chargeItem =
-        Invoice.LineItem.ChargeItem?.from(
-          this@InvoiceLineItemSurrogate.chargeItemReference,
-          this@InvoiceLineItemSurrogate.chargeItemCodeableConcept,
-        )
+      chargeItem = this@InvoiceLineItemSurrogate.chargeItem
       priceComponent = this@InvoiceLineItemSurrogate.priceComponent
     }
 
@@ -171,8 +189,7 @@ internal data class InvoiceLineItemSurrogate(
           modifierExtension = this@with.modifierExtension
           sequence = this@with.sequence?.value
           _sequence = this@with.sequence?.toElement()
-          chargeItemReference = this@with.chargeItem?.asReference()?.value
-          chargeItemCodeableConcept = this@with.chargeItem?.asCodeableConcept()?.value
+          chargeItem = this@with.chargeItem
           priceComponent = this@with.priceComponent
         }
       }

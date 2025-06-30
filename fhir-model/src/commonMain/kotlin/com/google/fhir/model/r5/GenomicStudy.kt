@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisDeviceSerializer
+import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisInputGeneratedBySerializer
 import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisInputSerializer
 import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisOutputSerializer
 import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisPerformerSerializer
@@ -304,6 +305,7 @@ public data class GenomicStudy(
       /** The analysis event or other GenomicStudy that generated this input file. */
       public var generatedBy: GeneratedBy? = null,
     ) : BackboneElement() {
+      @Serializable(with = GenomicStudyAnalysisInputGeneratedBySerializer::class)
       public sealed interface GeneratedBy {
         public fun asIdentifier(): Identifier? = this as? Identifier
 
@@ -315,14 +317,16 @@ public data class GenomicStudy(
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
           GeneratedBy
 
+        public data object Null : GeneratedBy
+
         public companion object {
           public fun from(
             IdentifierValue: com.google.fhir.model.r5.Identifier?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): GeneratedBy? {
+          ): GeneratedBy {
             if (IdentifierValue != null) return Identifier(IdentifierValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }

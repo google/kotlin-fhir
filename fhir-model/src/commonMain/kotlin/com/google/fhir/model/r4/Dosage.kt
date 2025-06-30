@@ -18,6 +18,9 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.DosageAsNeededSerializer
+import com.google.fhir.model.r4.serializers.DosageDoseAndRateDoseSerializer
+import com.google.fhir.model.r4.serializers.DosageDoseAndRateRateSerializer
 import com.google.fhir.model.r4.serializers.DosageDoseAndRateSerializer
 import com.google.fhir.model.r4.serializers.DosageSerializer
 import kotlin.Suppress
@@ -194,6 +197,7 @@ public data class Dosage(
      */
     public var rate: Rate? = null,
   ) : Element() {
+    @Serializable(with = DosageDoseAndRateDoseSerializer::class)
     public sealed interface Dose {
       public fun asRange(): Range? = this as? Range
 
@@ -203,18 +207,21 @@ public data class Dosage(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r4.Quantity) : Dose
 
+      public data object Null : Dose
+
       public companion object {
         public fun from(
           RangeValue: com.google.fhir.model.r4.Range?,
           QuantityValue: com.google.fhir.model.r4.Quantity?,
-        ): Dose? {
+        ): Dose {
           if (RangeValue != null) return Range(RangeValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = DosageDoseAndRateRateSerializer::class)
     public sealed interface Rate {
       public fun asRatio(): Ratio? = this as? Ratio
 
@@ -228,21 +235,24 @@ public data class Dosage(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r4.Quantity) : Rate
 
+      public data object Null : Rate
+
       public companion object {
         public fun from(
           RatioValue: com.google.fhir.model.r4.Ratio?,
           RangeValue: com.google.fhir.model.r4.Range?,
           QuantityValue: com.google.fhir.model.r4.Quantity?,
-        ): Rate? {
+        ): Rate {
           if (RatioValue != null) return Ratio(RatioValue)
           if (RangeValue != null) return Range(RangeValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = DosageAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -254,14 +264,16 @@ public data class Dosage(
       public val `value`: com.google.fhir.model.r4.CodeableConcept
     ) : AsNeeded
 
+    public data object Null : AsNeeded
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r4.Boolean?,
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-      ): AsNeeded? {
+      ): AsNeeded {
         if (booleanValue != null) return Boolean(booleanValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ObservationDefinitionComponentSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionQualifiedValueSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ObservationDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -577,6 +578,7 @@ public data class ObservationDefinition(
     public var qualifiedValue: List<QualifiedValue?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ObservationDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -588,14 +590,16 @@ public data class ObservationDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

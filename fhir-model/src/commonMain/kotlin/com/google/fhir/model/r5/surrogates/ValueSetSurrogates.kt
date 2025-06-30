@@ -359,26 +359,100 @@ internal data class ValueSetComposeSurrogate(
 }
 
 @Serializable
+internal class ValueSetExpansionParameterValueSurrogate {
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueInteger: Int? = null
+
+  public var _valueInteger: Element? = null
+
+  public var valueDecimal: Double? = null
+
+  public var _valueDecimal: Element? = null
+
+  public var valueUri: KotlinString? = null
+
+  public var _valueUri: Element? = null
+
+  public var valueCode: KotlinString? = null
+
+  public var _valueCode: Element? = null
+
+  public var valueDateTime: KotlinString? = null
+
+  public var _valueDateTime: Element? = null
+
+  public fun toModel(): ValueSet.Expansion.Parameter.Value =
+    ValueSet.Expansion.Parameter.Value?.from(
+      R5String.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueString,
+        this@ValueSetExpansionParameterValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueBoolean,
+        this@ValueSetExpansionParameterValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueInteger,
+        this@ValueSetExpansionParameterValueSurrogate._valueInteger,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueDecimal,
+        this@ValueSetExpansionParameterValueSurrogate._valueDecimal,
+      ),
+      Uri.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueUri,
+        this@ValueSetExpansionParameterValueSurrogate._valueUri,
+      ),
+      Code.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueCode,
+        this@ValueSetExpansionParameterValueSurrogate._valueCode,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
+        this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
+      ),
+    ) ?: ValueSet.Expansion.Parameter.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Parameter.Value
+    ): ValueSetExpansionParameterValueSurrogate =
+      with(model) {
+        ValueSetExpansionParameterValueSurrogate().apply {
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueInteger = this@with.asInteger()?.value?.value
+          _valueInteger = this@with.asInteger()?.value?.toElement()
+          valueDecimal = this@with.asDecimal()?.value?.value
+          _valueDecimal = this@with.asDecimal()?.value?.toElement()
+          valueUri = this@with.asUri()?.value?.value
+          _valueUri = this@with.asUri()?.value?.toElement()
+          valueCode = this@with.asCode()?.value?.value
+          _valueCode = this@with.asCode()?.value?.toElement()
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _valueDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ValueSetExpansionParameterSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-  public var valueUri: KotlinString? = null,
-  public var _valueUri: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
+  public var `value`: ValueSet.Expansion.Parameter.Value? = null,
 ) {
   public fun toModel(): ValueSet.Expansion.Parameter =
     ValueSet.Expansion.Parameter().apply {
@@ -390,37 +464,7 @@ internal data class ValueSetExpansionParameterSurrogate(
           this@ValueSetExpansionParameterSurrogate.name,
           this@ValueSetExpansionParameterSurrogate._name,
         )
-      `value` =
-        ValueSet.Expansion.Parameter.Value?.from(
-          R5String.of(
-            this@ValueSetExpansionParameterSurrogate.valueString,
-            this@ValueSetExpansionParameterSurrogate._valueString,
-          ),
-          R5Boolean.of(
-            this@ValueSetExpansionParameterSurrogate.valueBoolean,
-            this@ValueSetExpansionParameterSurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@ValueSetExpansionParameterSurrogate.valueInteger,
-            this@ValueSetExpansionParameterSurrogate._valueInteger,
-          ),
-          Decimal.of(
-            this@ValueSetExpansionParameterSurrogate.valueDecimal,
-            this@ValueSetExpansionParameterSurrogate._valueDecimal,
-          ),
-          Uri.of(
-            this@ValueSetExpansionParameterSurrogate.valueUri,
-            this@ValueSetExpansionParameterSurrogate._valueUri,
-          ),
-          Code.of(
-            this@ValueSetExpansionParameterSurrogate.valueCode,
-            this@ValueSetExpansionParameterSurrogate._valueCode,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@ValueSetExpansionParameterSurrogate.valueDateTime),
-            this@ValueSetExpansionParameterSurrogate._valueDateTime,
-          ),
-        )
+      `value` = this@ValueSetExpansionParameterSurrogate.`value`
     }
 
   public companion object {
@@ -432,20 +476,7 @@ internal data class ValueSetExpansionParameterSurrogate(
           modifierExtension = this@with.modifierExtension
           name = this@with.name?.value
           _name = this@with.name?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
+          `value` = this@with.`value`
         }
       }
   }
@@ -495,25 +526,96 @@ internal data class ValueSetExpansionPropertySurrogate(
 }
 
 @Serializable
+internal class ValueSetExpansionContainsPropertySubPropertyValueSurrogate {
+  public var valueCode: KotlinString? = null
+
+  public var _valueCode: Element? = null
+
+  public var valueCoding: Coding? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueInteger: Int? = null
+
+  public var _valueInteger: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueDateTime: KotlinString? = null
+
+  public var _valueDateTime: Element? = null
+
+  public var valueDecimal: Double? = null
+
+  public var _valueDecimal: Element? = null
+
+  public fun toModel(): ValueSet.Expansion.Contains.Property.SubProperty.Value =
+    ValueSet.Expansion.Contains.Property.SubProperty.Value?.from(
+      Code.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCode,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueCode,
+      ),
+      this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCoding,
+      R5String.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueString,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueInteger,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueInteger,
+      ),
+      R5Boolean.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueBoolean,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDateTime
+        ),
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDecimal,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDecimal,
+      ),
+    ) ?: ValueSet.Expansion.Contains.Property.SubProperty.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Contains.Property.SubProperty.Value
+    ): ValueSetExpansionContainsPropertySubPropertyValueSurrogate =
+      with(model) {
+        ValueSetExpansionContainsPropertySubPropertyValueSurrogate().apply {
+          valueCode = this@with.asCode()?.value?.value
+          _valueCode = this@with.asCode()?.value?.toElement()
+          valueCoding = this@with.asCoding()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueInteger = this@with.asInteger()?.value?.value
+          _valueInteger = this@with.asInteger()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _valueDateTime = this@with.asDateTime()?.value?.toElement()
+          valueDecimal = this@with.asDecimal()?.value?.value
+          _valueDecimal = this@with.asDecimal()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ValueSetExpansionContainsPropertySubPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
+  public var `value`: ValueSet.Expansion.Contains.Property.SubProperty.Value? = null,
 ) {
   public fun toModel(): ValueSet.Expansion.Contains.Property.SubProperty =
     ValueSet.Expansion.Contains.Property.SubProperty().apply {
@@ -526,36 +628,7 @@ internal data class ValueSetExpansionContainsPropertySubPropertySurrogate(
           this@ValueSetExpansionContainsPropertySubPropertySurrogate.code,
           this@ValueSetExpansionContainsPropertySubPropertySurrogate._code,
         )
-      `value` =
-        ValueSet.Expansion.Contains.Property.SubProperty.Value?.from(
-          Code.of(
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueCode,
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate._valueCode,
-          ),
-          this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueCoding,
-          R5String.of(
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueString,
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate._valueString,
-          ),
-          Integer.of(
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueInteger,
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate._valueInteger,
-          ),
-          R5Boolean.of(
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueBoolean,
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate._valueBoolean,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueDateTime
-            ),
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate._valueDateTime,
-          ),
-          Decimal.of(
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate.valueDecimal,
-            this@ValueSetExpansionContainsPropertySubPropertySurrogate._valueDecimal,
-          ),
-        )
+      `value` = this@ValueSetExpansionContainsPropertySubPropertySurrogate.`value`
     }
 
   public companion object {
@@ -569,19 +642,88 @@ internal data class ValueSetExpansionContainsPropertySubPropertySurrogate(
           modifierExtension = this@with.modifierExtension
           code = this@with.code?.value
           _code = this@with.code?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
+          `value` = this@with.`value`
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ValueSetExpansionContainsPropertyValueSurrogate {
+  public var valueCode: KotlinString? = null
+
+  public var _valueCode: Element? = null
+
+  public var valueCoding: Coding? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueInteger: Int? = null
+
+  public var _valueInteger: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueDateTime: KotlinString? = null
+
+  public var _valueDateTime: Element? = null
+
+  public var valueDecimal: Double? = null
+
+  public var _valueDecimal: Element? = null
+
+  public fun toModel(): ValueSet.Expansion.Contains.Property.Value =
+    ValueSet.Expansion.Contains.Property.Value?.from(
+      Code.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueCode,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueCode,
+      ),
+      this@ValueSetExpansionContainsPropertyValueSurrogate.valueCoding,
+      R5String.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueString,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueInteger,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueInteger,
+      ),
+      R5Boolean.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueBoolean,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ValueSetExpansionContainsPropertyValueSurrogate.valueDateTime),
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueDecimal,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueDecimal,
+      ),
+    ) ?: ValueSet.Expansion.Contains.Property.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Contains.Property.Value
+    ): ValueSetExpansionContainsPropertyValueSurrogate =
+      with(model) {
+        ValueSetExpansionContainsPropertyValueSurrogate().apply {
+          valueCode = this@with.asCode()?.value?.value
+          _valueCode = this@with.asCode()?.value?.toElement()
+          valueCoding = this@with.asCoding()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueInteger = this@with.asInteger()?.value?.value
+          _valueInteger = this@with.asInteger()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _valueDateTime = this@with.asDateTime()?.value?.toElement()
+          valueDecimal = this@with.asDecimal()?.value?.value
+          _valueDecimal = this@with.asDecimal()?.value?.toElement()
         }
       }
   }
@@ -594,20 +736,8 @@ internal data class ValueSetExpansionContainsPropertySurrogate(
   public var modifierExtension: List<Extension?>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
   public var subProperty: List<ValueSet.Expansion.Contains.Property.SubProperty>? = null,
+  public var `value`: ValueSet.Expansion.Contains.Property.Value? = null,
 ) {
   public fun toModel(): ValueSet.Expansion.Contains.Property =
     ValueSet.Expansion.Contains.Property().apply {
@@ -619,34 +749,7 @@ internal data class ValueSetExpansionContainsPropertySurrogate(
           this@ValueSetExpansionContainsPropertySurrogate.code,
           this@ValueSetExpansionContainsPropertySurrogate._code,
         )
-      `value` =
-        ValueSet.Expansion.Contains.Property.Value?.from(
-          Code.of(
-            this@ValueSetExpansionContainsPropertySurrogate.valueCode,
-            this@ValueSetExpansionContainsPropertySurrogate._valueCode,
-          ),
-          this@ValueSetExpansionContainsPropertySurrogate.valueCoding,
-          R5String.of(
-            this@ValueSetExpansionContainsPropertySurrogate.valueString,
-            this@ValueSetExpansionContainsPropertySurrogate._valueString,
-          ),
-          Integer.of(
-            this@ValueSetExpansionContainsPropertySurrogate.valueInteger,
-            this@ValueSetExpansionContainsPropertySurrogate._valueInteger,
-          ),
-          R5Boolean.of(
-            this@ValueSetExpansionContainsPropertySurrogate.valueBoolean,
-            this@ValueSetExpansionContainsPropertySurrogate._valueBoolean,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@ValueSetExpansionContainsPropertySurrogate.valueDateTime),
-            this@ValueSetExpansionContainsPropertySurrogate._valueDateTime,
-          ),
-          Decimal.of(
-            this@ValueSetExpansionContainsPropertySurrogate.valueDecimal,
-            this@ValueSetExpansionContainsPropertySurrogate._valueDecimal,
-          ),
-        )
+      `value` = this@ValueSetExpansionContainsPropertySurrogate.`value`
       subProperty = this@ValueSetExpansionContainsPropertySurrogate.subProperty
     }
 
@@ -661,19 +764,7 @@ internal data class ValueSetExpansionContainsPropertySurrogate(
           modifierExtension = this@with.modifierExtension
           code = this@with.code?.value
           _code = this@with.code?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
+          `value` = this@with.`value`
           subProperty = this@with.subProperty
         }
       }
@@ -881,6 +972,35 @@ internal data class ValueSetScopeSurrogate(
 }
 
 @Serializable
+internal class ValueSetVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ValueSet.VersionAlgorithm =
+    ValueSet.VersionAlgorithm?.from(
+      R5String.of(
+        this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ValueSetVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ValueSet.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(model: ValueSet.VersionAlgorithm): ValueSetVersionAlgorithmSurrogate =
+      with(model) {
+        ValueSetVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ValueSetSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -897,9 +1017,6 @@ internal data class ValueSetSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -939,6 +1056,7 @@ internal data class ValueSetSurrogate(
   public var compose: ValueSet.Compose? = null,
   public var expansion: ValueSet.Expansion? = null,
   public var scope: ValueSet.Scope? = null,
+  public var versionAlgorithm: ValueSet.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ValueSet =
     ValueSet().apply {
@@ -954,14 +1072,7 @@ internal data class ValueSetSurrogate(
       url = Uri.of(this@ValueSetSurrogate.url, this@ValueSetSurrogate._url)
       identifier = this@ValueSetSurrogate.identifier
       version = R5String.of(this@ValueSetSurrogate.version, this@ValueSetSurrogate._version)
-      versionAlgorithm =
-        ValueSet.VersionAlgorithm?.from(
-          R5String.of(
-            this@ValueSetSurrogate.versionAlgorithmString,
-            this@ValueSetSurrogate._versionAlgorithmString,
-          ),
-          this@ValueSetSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ValueSetSurrogate.versionAlgorithm
       name = R5String.of(this@ValueSetSurrogate.name, this@ValueSetSurrogate._name)
       title = R5String.of(this@ValueSetSurrogate.title, this@ValueSetSurrogate._title)
       status =
@@ -1030,9 +1141,7 @@ internal data class ValueSetSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

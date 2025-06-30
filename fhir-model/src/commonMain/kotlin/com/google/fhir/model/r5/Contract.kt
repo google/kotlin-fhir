@@ -19,21 +19,30 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ContractContentDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ContractFriendlyContentSerializer
 import com.google.fhir.model.r5.serializers.ContractFriendlySerializer
+import com.google.fhir.model.r5.serializers.ContractLegalContentSerializer
 import com.google.fhir.model.r5.serializers.ContractLegalSerializer
+import com.google.fhir.model.r5.serializers.ContractLegallyBindingSerializer
+import com.google.fhir.model.r5.serializers.ContractRuleContentSerializer
 import com.google.fhir.model.r5.serializers.ContractRuleSerializer
 import com.google.fhir.model.r5.serializers.ContractSerializer
 import com.google.fhir.model.r5.serializers.ContractSignerSerializer
+import com.google.fhir.model.r5.serializers.ContractTermActionOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ContractTermActionSerializer
 import com.google.fhir.model.r5.serializers.ContractTermActionSubjectSerializer
 import com.google.fhir.model.r5.serializers.ContractTermAssetContextSerializer
 import com.google.fhir.model.r5.serializers.ContractTermAssetSerializer
+import com.google.fhir.model.r5.serializers.ContractTermAssetValuedItemEntitySerializer
 import com.google.fhir.model.r5.serializers.ContractTermAssetValuedItemSerializer
 import com.google.fhir.model.r5.serializers.ContractTermOfferAnswerSerializer
+import com.google.fhir.model.r5.serializers.ContractTermOfferAnswerValueSerializer
 import com.google.fhir.model.r5.serializers.ContractTermOfferPartySerializer
 import com.google.fhir.model.r5.serializers.ContractTermOfferSerializer
 import com.google.fhir.model.r5.serializers.ContractTermSecurityLabelSerializer
 import com.google.fhir.model.r5.serializers.ContractTermSerializer
+import com.google.fhir.model.r5.serializers.ContractTermTopicSerializer
+import com.google.fhir.model.r5.serializers.ContractTopicSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -764,6 +773,7 @@ public data class Contract(
          */
         public var `value`: Value? = null,
       ) : BackboneElement() {
+        @Serializable(with = ContractTermOfferAnswerValueSerializer::class)
         public sealed interface Value {
           public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -815,6 +825,8 @@ public data class Contract(
           public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
             Value
 
+          public data object Null : Value
+
           public companion object {
             public fun from(
               booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -829,7 +841,7 @@ public data class Contract(
               CodingValue: com.google.fhir.model.r5.Coding?,
               QuantityValue: com.google.fhir.model.r5.Quantity?,
               ReferenceValue: com.google.fhir.model.r5.Reference?,
-            ): Value? {
+            ): Value {
               if (booleanValue != null) return Boolean(booleanValue)
               if (decimalValue != null) return Decimal(decimalValue)
               if (integerValue != null) return Integer(integerValue)
@@ -842,7 +854,7 @@ public data class Contract(
               if (CodingValue != null) return Coding(CodingValue)
               if (QuantityValue != null) return Quantity(QuantityValue)
               if (ReferenceValue != null) return Reference(ReferenceValue)
-              return null
+              return Null
             }
           }
         }
@@ -1074,6 +1086,7 @@ public data class Contract(
         /** A set of security labels that define which terms are controlled by this condition. */
         public var securityLabelNumber: List<UnsignedInt?>? = null,
       ) : BackboneElement() {
+        @Serializable(with = ContractTermAssetValuedItemEntitySerializer::class)
         public sealed interface Entity {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1086,14 +1099,16 @@ public data class Contract(
           public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
             Entity
 
+          public data object Null : Entity
+
           public companion object {
             public fun from(
               CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
               ReferenceValue: com.google.fhir.model.r5.Reference?,
-            ): Entity? {
+            ): Entity {
               if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
               if (ReferenceValue != null) return Reference(ReferenceValue)
-              return null
+              return Null
             }
           }
         }
@@ -1258,6 +1273,7 @@ public data class Contract(
         public var role: CodeableConcept? = null,
       ) : BackboneElement()
 
+      @Serializable(with = ContractTermActionOccurrenceSerializer::class)
       public sealed interface Occurrence {
         public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -1272,21 +1288,24 @@ public data class Contract(
 
         public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
+        public data object Null : Occurrence
+
         public companion object {
           public fun from(
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
             PeriodValue: com.google.fhir.model.r5.Period?,
             TimingValue: com.google.fhir.model.r5.Timing?,
-          ): Occurrence? {
+          ): Occurrence {
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (PeriodValue != null) return Period(PeriodValue)
             if (TimingValue != null) return Timing(TimingValue)
-            return null
+            return Null
           }
         }
       }
     }
 
+    @Serializable(with = ContractTermTopicSerializer::class)
     public sealed interface Topic {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1298,14 +1317,16 @@ public data class Contract(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Topic
 
+      public data object Null : Topic
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Topic? {
+        ): Topic {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1415,6 +1436,7 @@ public data class Contract(
      */
     public var content: Content? = null,
   ) : BackboneElement() {
+    @Serializable(with = ContractFriendlyContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1425,14 +1447,16 @@ public data class Contract(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Content
 
+      public data object Null : Content
+
       public companion object {
         public fun from(
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Content? {
+        ): Content {
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1481,6 +1505,7 @@ public data class Contract(
     /** Contract legal text in human renderable form. */
     public var content: Content? = null,
   ) : BackboneElement() {
+    @Serializable(with = ContractLegalContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1491,14 +1516,16 @@ public data class Contract(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Content
 
+      public data object Null : Content
+
       public companion object {
         public fun from(
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Content? {
+        ): Content {
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1547,6 +1574,7 @@ public data class Contract(
     /** Computable Contract conveyed using a policy rule language (e.g. XACML, DKAL, SecPal). */
     public var content: Content? = null,
   ) : BackboneElement() {
+    @Serializable(with = ContractRuleContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1557,19 +1585,22 @@ public data class Contract(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Content
 
+      public data object Null : Content
+
       public companion object {
         public fun from(
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Content? {
+        ): Content {
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = ContractTopicSerializer::class)
   public sealed interface Topic {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1581,18 +1612,21 @@ public data class Contract(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Topic
 
+    public data object Null : Topic
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Topic? {
+      ): Topic {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ContractLegallyBindingSerializer::class)
   public sealed interface LegallyBinding {
     public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1604,14 +1638,16 @@ public data class Contract(
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
       LegallyBinding
 
+    public data object Null : LegallyBinding
+
     public companion object {
       public fun from(
         AttachmentValue: com.google.fhir.model.r5.Attachment?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): LegallyBinding? {
+      ): LegallyBinding {
         if (AttachmentValue != null) return Attachment(AttachmentValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

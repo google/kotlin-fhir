@@ -18,15 +18,20 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeCostCostSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeCostSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalDrugCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalDrugCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalIngredientSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalIngredientStrengthSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelineSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeMedicineClassificationSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeMedicineClassificationSourceSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeMonitoringProgramSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeMonographSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgePackagingSerializer
@@ -36,6 +41,7 @@ import com.google.fhir.model.r5.serializers.MedicationKnowledgeRegulatorySubstit
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeRelatedMedicationKnowledgeSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineEnvironmentalSettingSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -396,6 +402,7 @@ public data class MedicationKnowledge(
      */
     public var cost: Cost? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationKnowledgeCostCostSerializer::class)
     public sealed interface Cost {
       public fun asMoney(): Money? = this as? Money
 
@@ -407,14 +414,16 @@ public data class MedicationKnowledge(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Cost
 
+      public data object Null : Cost
+
       public companion object {
         public fun from(
           MoneyValue: com.google.fhir.model.r5.Money?,
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Cost? {
+        ): Cost {
           if (MoneyValue != null) return Money(MoneyValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }
@@ -680,6 +689,10 @@ public data class MedicationKnowledge(
         /** The specific characteristic (e.g. height, weight, gender, etc.). */
         public var `value`: Value? = null,
       ) : BackboneElement() {
+        @Serializable(
+          with =
+            MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSerializer::class
+        )
         public sealed interface Value {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -695,16 +708,18 @@ public data class MedicationKnowledge(
 
           public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Value
 
+          public data object Null : Value
+
           public companion object {
             public fun from(
               CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
               QuantityValue: com.google.fhir.model.r5.Quantity?,
               RangeValue: com.google.fhir.model.r5.Range?,
-            ): Value? {
+            ): Value {
               if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
               if (QuantityValue != null) return Quantity(QuantityValue)
               if (RangeValue != null) return Range(RangeValue)
-              return null
+              return Null
             }
           }
         }
@@ -765,6 +780,7 @@ public data class MedicationKnowledge(
      */
     public var classification: List<CodeableConcept?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationKnowledgeMedicineClassificationSourceSerializer::class)
     public sealed interface Source {
       public fun asString(): String? = this as? String
 
@@ -774,14 +790,16 @@ public data class MedicationKnowledge(
 
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Source
 
+      public data object Null : Source
+
       public companion object {
         public fun from(
           stringValue: com.google.fhir.model.r5.String?,
           uriValue: com.google.fhir.model.r5.Uri?,
-        ): Source? {
+        ): Source {
           if (stringValue != null) return String(stringValue)
           if (uriValue != null) return Uri(uriValue)
-          return null
+          return Null
         }
       }
     }
@@ -943,6 +961,9 @@ public data class MedicationKnowledge(
       /** Value associated to the setting. E.g., 40° – 50°F for temperature. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(
+        with = MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSerializer::class
+      )
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -958,16 +979,18 @@ public data class MedicationKnowledge(
           public val `value`: com.google.fhir.model.r5.CodeableConcept
         ) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             RangeValue: com.google.fhir.model.r5.Range?,
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ): Value? {
+          ): Value {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RangeValue != null) return Range(RangeValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            return null
+            return Null
           }
         }
       }
@@ -1233,6 +1256,7 @@ public data class MedicationKnowledge(
        */
       public var strength: Strength? = null,
     ) : BackboneElement() {
+      @Serializable(with = MedicationKnowledgeDefinitionalIngredientStrengthSerializer::class)
       public sealed interface Strength {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -1249,16 +1273,18 @@ public data class MedicationKnowledge(
         public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) :
           Strength
 
+        public data object Null : Strength
+
         public companion object {
           public fun from(
             RatioValue: com.google.fhir.model.r5.Ratio?,
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
-          ): Strength? {
+          ): Strength {
             if (RatioValue != null) return Ratio(RatioValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
-            return null
+            return Null
           }
         }
       }
@@ -1317,6 +1343,7 @@ public data class MedicationKnowledge(
        */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = MedicationKnowledgeDefinitionalDrugCharacteristicValueSerializer::class)
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1342,6 +1369,8 @@ public data class MedicationKnowledge(
         public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) :
           Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -1349,13 +1378,13 @@ public data class MedicationKnowledge(
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
             AttachmentValue: com.google.fhir.model.r5.Attachment?,
-          ): Value? {
+          ): Value {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (stringValue != null) return String(stringValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
             if (AttachmentValue != null) return Attachment(AttachmentValue)
-            return null
+            return Null
           }
         }
       }

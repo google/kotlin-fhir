@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.DetectedIssueEvidenceSerializer
+import com.google.fhir.model.r4.serializers.DetectedIssueIdentifiedSerializer
 import com.google.fhir.model.r4.serializers.DetectedIssueMitigationSerializer
 import com.google.fhir.model.r4.serializers.DetectedIssueSerializer
 import kotlin.Suppress
@@ -304,6 +305,7 @@ public data class DetectedIssue(
     public var author: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = DetectedIssueIdentifiedSerializer::class)
   public sealed interface Identified {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -313,14 +315,16 @@ public data class DetectedIssue(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Identified
 
+    public data object Null : Identified
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Identified? {
+      ): Identified {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

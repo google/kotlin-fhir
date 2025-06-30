@@ -85,16 +85,40 @@ internal data class IngredientManufacturerSurrogate(
 }
 
 @Serializable
+internal class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate {
+  public var strengthRatio: Ratio? = null
+
+  public var strengthRatioRange: RatioRange? = null
+
+  public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength.Strength =
+    Ingredient.Substance.Strength.ReferenceStrength.Strength?.from(
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
+    ) ?: Ingredient.Substance.Strength.ReferenceStrength.Strength.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.ReferenceStrength.Strength
+    ): IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate().apply {
+          strengthRatio = this@with.asRatio()?.value
+          strengthRatioRange = this@with.asRatioRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var substance: CodeableReference? = null,
-  public var strengthRatio: Ratio? = null,
-  public var strengthRatioRange: RatioRange? = null,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
   public var country: List<CodeableConcept?>? = null,
+  public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength? = null,
 ) {
   public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength =
     Ingredient.Substance.Strength.ReferenceStrength().apply {
@@ -103,11 +127,7 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
       modifierExtension =
         this@IngredientSubstanceStrengthReferenceStrengthSurrogate.modifierExtension
       substance = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.substance
-      strength =
-        Ingredient.Substance.Strength.ReferenceStrength.Strength?.from(
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strengthRatio,
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strengthRatioRange,
-        )
+      strength = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strength
       measurementPoint =
         R4bString.of(
           this@IngredientSubstanceStrengthReferenceStrengthSurrogate.measurementPoint,
@@ -126,11 +146,60 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           substance = this@with.substance
-          strengthRatio = this@with.strength?.asRatio()?.value
-          strengthRatioRange = this@with.strength?.asRatioRange()?.value
+          strength = this@with.strength
           measurementPoint = this@with.measurementPoint?.value
           _measurementPoint = this@with.measurementPoint?.toElement()
           country = this@with.country
+        }
+      }
+  }
+}
+
+@Serializable
+internal class IngredientSubstanceStrengthPresentationSurrogate {
+  public var presentationRatio: Ratio? = null
+
+  public var presentationRatioRange: RatioRange? = null
+
+  public fun toModel(): Ingredient.Substance.Strength.Presentation =
+    Ingredient.Substance.Strength.Presentation?.from(
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
+    ) ?: Ingredient.Substance.Strength.Presentation.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.Presentation
+    ): IngredientSubstanceStrengthPresentationSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthPresentationSurrogate().apply {
+          presentationRatio = this@with.asRatio()?.value
+          presentationRatioRange = this@with.asRatioRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class IngredientSubstanceStrengthConcentrationSurrogate {
+  public var concentrationRatio: Ratio? = null
+
+  public var concentrationRatioRange: RatioRange? = null
+
+  public fun toModel(): Ingredient.Substance.Strength.Concentration =
+    Ingredient.Substance.Strength.Concentration?.from(
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
+    ) ?: Ingredient.Substance.Strength.Concentration.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.Concentration
+    ): IngredientSubstanceStrengthConcentrationSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthConcentrationSurrogate().apply {
+          concentrationRatio = this@with.asRatio()?.value
+          concentrationRatioRange = this@with.asRatioRange()?.value
         }
       }
   }
@@ -141,39 +210,29 @@ internal data class IngredientSubstanceStrengthSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var presentationRatio: Ratio? = null,
-  public var presentationRatioRange: RatioRange? = null,
   public var textPresentation: KotlinString? = null,
   public var _textPresentation: Element? = null,
-  public var concentrationRatio: Ratio? = null,
-  public var concentrationRatioRange: RatioRange? = null,
   public var textConcentration: KotlinString? = null,
   public var _textConcentration: Element? = null,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
   public var country: List<CodeableConcept?>? = null,
   public var referenceStrength: List<Ingredient.Substance.Strength.ReferenceStrength>? = null,
+  public var presentation: Ingredient.Substance.Strength.Presentation? = null,
+  public var concentration: Ingredient.Substance.Strength.Concentration? = null,
 ) {
   public fun toModel(): Ingredient.Substance.Strength =
     Ingredient.Substance.Strength().apply {
       id = this@IngredientSubstanceStrengthSurrogate.id
       extension = this@IngredientSubstanceStrengthSurrogate.extension
       modifierExtension = this@IngredientSubstanceStrengthSurrogate.modifierExtension
-      presentation =
-        Ingredient.Substance.Strength.Presentation?.from(
-          this@IngredientSubstanceStrengthSurrogate.presentationRatio,
-          this@IngredientSubstanceStrengthSurrogate.presentationRatioRange,
-        )
+      presentation = this@IngredientSubstanceStrengthSurrogate.presentation
       textPresentation =
         R4bString.of(
           this@IngredientSubstanceStrengthSurrogate.textPresentation,
           this@IngredientSubstanceStrengthSurrogate._textPresentation,
         )
-      concentration =
-        Ingredient.Substance.Strength.Concentration?.from(
-          this@IngredientSubstanceStrengthSurrogate.concentrationRatio,
-          this@IngredientSubstanceStrengthSurrogate.concentrationRatioRange,
-        )
+      concentration = this@IngredientSubstanceStrengthSurrogate.concentration
       textConcentration =
         R4bString.of(
           this@IngredientSubstanceStrengthSurrogate.textConcentration,
@@ -197,12 +256,10 @@ internal data class IngredientSubstanceStrengthSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          presentationRatio = this@with.presentation?.asRatio()?.value
-          presentationRatioRange = this@with.presentation?.asRatioRange()?.value
+          presentation = this@with.presentation
           textPresentation = this@with.textPresentation?.value
           _textPresentation = this@with.textPresentation?.toElement()
-          concentrationRatio = this@with.concentration?.asRatio()?.value
-          concentrationRatioRange = this@with.concentration?.asRatioRange()?.value
+          concentration = this@with.concentration
           textConcentration = this@with.textConcentration?.value
           _textConcentration = this@with.textConcentration?.toElement()
           measurementPoint = this@with.measurementPoint?.value

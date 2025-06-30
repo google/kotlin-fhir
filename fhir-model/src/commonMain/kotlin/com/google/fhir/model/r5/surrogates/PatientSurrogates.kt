@@ -183,6 +183,76 @@ internal data class PatientLinkSurrogate(
 }
 
 @Serializable
+internal class PatientDeceasedSurrogate {
+  public var deceasedBoolean: KotlinBoolean? = null
+
+  public var _deceasedBoolean: Element? = null
+
+  public var deceasedDateTime: String? = null
+
+  public var _deceasedDateTime: Element? = null
+
+  public fun toModel(): Patient.Deceased =
+    Patient.Deceased?.from(
+      R5Boolean.of(
+        this@PatientDeceasedSurrogate.deceasedBoolean,
+        this@PatientDeceasedSurrogate._deceasedBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@PatientDeceasedSurrogate.deceasedDateTime),
+        this@PatientDeceasedSurrogate._deceasedDateTime,
+      ),
+    ) ?: Patient.Deceased.Null
+
+  public companion object {
+    public fun fromModel(model: Patient.Deceased): PatientDeceasedSurrogate =
+      with(model) {
+        PatientDeceasedSurrogate().apply {
+          deceasedBoolean = this@with.asBoolean()?.value?.value
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement()
+          deceasedDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _deceasedDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class PatientMultipleBirthSurrogate {
+  public var multipleBirthBoolean: KotlinBoolean? = null
+
+  public var _multipleBirthBoolean: Element? = null
+
+  public var multipleBirthInteger: Int? = null
+
+  public var _multipleBirthInteger: Element? = null
+
+  public fun toModel(): Patient.MultipleBirth =
+    Patient.MultipleBirth?.from(
+      R5Boolean.of(
+        this@PatientMultipleBirthSurrogate.multipleBirthBoolean,
+        this@PatientMultipleBirthSurrogate._multipleBirthBoolean,
+      ),
+      Integer.of(
+        this@PatientMultipleBirthSurrogate.multipleBirthInteger,
+        this@PatientMultipleBirthSurrogate._multipleBirthInteger,
+      ),
+    ) ?: Patient.MultipleBirth.Null
+
+  public companion object {
+    public fun fromModel(model: Patient.MultipleBirth): PatientMultipleBirthSurrogate =
+      with(model) {
+        PatientMultipleBirthSurrogate().apply {
+          multipleBirthBoolean = this@with.asBoolean()?.value?.value
+          _multipleBirthBoolean = this@with.asBoolean()?.value?.toElement()
+          multipleBirthInteger = this@with.asInteger()?.value?.value
+          _multipleBirthInteger = this@with.asInteger()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class PatientSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -203,22 +273,16 @@ internal data class PatientSurrogate(
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
-  public var deceasedBoolean: KotlinBoolean? = null,
-  public var _deceasedBoolean: Element? = null,
-  public var deceasedDateTime: String? = null,
-  public var _deceasedDateTime: Element? = null,
   public var address: List<Address?>? = null,
   public var maritalStatus: CodeableConcept? = null,
-  public var multipleBirthBoolean: KotlinBoolean? = null,
-  public var _multipleBirthBoolean: Element? = null,
-  public var multipleBirthInteger: Int? = null,
-  public var _multipleBirthInteger: Element? = null,
   public var photo: List<Attachment?>? = null,
   public var contact: List<Patient.Contact>? = null,
   public var communication: List<Patient.Communication>? = null,
   public var generalPractitioner: List<Reference?>? = null,
   public var managingOrganization: Reference? = null,
   public var link: List<Patient.Link>? = null,
+  public var deceased: Patient.Deceased? = null,
+  public var multipleBirth: Patient.MultipleBirth? = null,
 ) {
   public fun toModel(): Patient =
     Patient().apply {
@@ -247,30 +311,10 @@ internal data class PatientSurrogate(
           FhirDate.fromString(this@PatientSurrogate.birthDate),
           this@PatientSurrogate._birthDate,
         )
-      deceased =
-        Patient.Deceased?.from(
-          R5Boolean.of(
-            this@PatientSurrogate.deceasedBoolean,
-            this@PatientSurrogate._deceasedBoolean,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@PatientSurrogate.deceasedDateTime),
-            this@PatientSurrogate._deceasedDateTime,
-          ),
-        )
+      deceased = this@PatientSurrogate.deceased
       address = this@PatientSurrogate.address
       maritalStatus = this@PatientSurrogate.maritalStatus
-      multipleBirth =
-        Patient.MultipleBirth?.from(
-          R5Boolean.of(
-            this@PatientSurrogate.multipleBirthBoolean,
-            this@PatientSurrogate._multipleBirthBoolean,
-          ),
-          Integer.of(
-            this@PatientSurrogate.multipleBirthInteger,
-            this@PatientSurrogate._multipleBirthInteger,
-          ),
-        )
+      multipleBirth = this@PatientSurrogate.multipleBirth
       photo = this@PatientSurrogate.photo
       contact = this@PatientSurrogate.contact
       communication = this@PatientSurrogate.communication
@@ -302,16 +346,10 @@ internal data class PatientSurrogate(
           _gender = this@with.gender?.toElement()
           birthDate = this@with.birthDate?.value?.toString()
           _birthDate = this@with.birthDate?.toElement()
-          deceasedBoolean = this@with.deceased?.asBoolean()?.value?.value
-          _deceasedBoolean = this@with.deceased?.asBoolean()?.value?.toElement()
-          deceasedDateTime = this@with.deceased?.asDateTime()?.value?.value?.toString()
-          _deceasedDateTime = this@with.deceased?.asDateTime()?.value?.toElement()
+          deceased = this@with.deceased
           address = this@with.address
           maritalStatus = this@with.maritalStatus
-          multipleBirthBoolean = this@with.multipleBirth?.asBoolean()?.value?.value
-          _multipleBirthBoolean = this@with.multipleBirth?.asBoolean()?.value?.toElement()
-          multipleBirthInteger = this@with.multipleBirth?.asInteger()?.value?.value
-          _multipleBirthInteger = this@with.multipleBirth?.asInteger()?.value?.toElement()
+          multipleBirth = this@with.multipleBirth
           photo = this@with.photo
           contact = this@with.contact
           communication = this@with.communication

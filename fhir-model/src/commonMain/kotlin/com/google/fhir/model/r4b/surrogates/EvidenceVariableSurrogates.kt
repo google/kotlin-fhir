@@ -100,17 +100,51 @@ internal data class EvidenceVariableCharacteristicTimeFromStartSurrogate(
 }
 
 @Serializable
+internal class EvidenceVariableCharacteristicDefinitionSurrogate {
+  public var definitionReference: Reference? = null
+
+  public var definitionCanonical: KotlinString? = null
+
+  public var _definitionCanonical: Element? = null
+
+  public var definitionCodeableConcept: CodeableConcept? = null
+
+  public var definitionExpression: Expression? = null
+
+  public fun toModel(): EvidenceVariable.Characteristic.Definition =
+    EvidenceVariable.Characteristic.Definition?.from(
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionReference,
+      Canonical.of(
+        this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCanonical,
+        this@EvidenceVariableCharacteristicDefinitionSurrogate._definitionCanonical,
+      ),
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
+    ) ?: EvidenceVariable.Characteristic.Definition.Null
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.Definition
+    ): EvidenceVariableCharacteristicDefinitionSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicDefinitionSurrogate().apply {
+          definitionReference = this@with.asReference()?.value
+          definitionCanonical = this@with.asCanonical()?.value?.value
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement()
+          definitionCodeableConcept = this@with.asCodeableConcept()?.value
+          definitionExpression = this@with.asExpression()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceVariableCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var definitionReference: Reference? = null,
-  public var definitionCanonical: KotlinString? = null,
-  public var _definitionCanonical: Element? = null,
-  public var definitionCodeableConcept: CodeableConcept? = null,
-  public var definitionExpression: Expression? = null,
   public var method: CodeableConcept? = null,
   public var device: Reference? = null,
   public var exclude: KotlinBoolean? = null,
@@ -118,6 +152,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
   public var timeFromStart: EvidenceVariable.Characteristic.TimeFromStart? = null,
   public var groupMeasure: KotlinString? = null,
   public var _groupMeasure: Element? = null,
+  public var definition: EvidenceVariable.Characteristic.Definition? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic =
     EvidenceVariable.Characteristic().apply {
@@ -129,16 +164,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           this@EvidenceVariableCharacteristicSurrogate.description,
           this@EvidenceVariableCharacteristicSurrogate._description,
         )
-      definition =
-        EvidenceVariable.Characteristic.Definition?.from(
-          this@EvidenceVariableCharacteristicSurrogate.definitionReference,
-          Canonical.of(
-            this@EvidenceVariableCharacteristicSurrogate.definitionCanonical,
-            this@EvidenceVariableCharacteristicSurrogate._definitionCanonical,
-          ),
-          this@EvidenceVariableCharacteristicSurrogate.definitionCodeableConcept,
-          this@EvidenceVariableCharacteristicSurrogate.definitionExpression,
-        )
+      definition = this@EvidenceVariableCharacteristicSurrogate.definition
       method = this@EvidenceVariableCharacteristicSurrogate.method
       device = this@EvidenceVariableCharacteristicSurrogate.device
       exclude =
@@ -167,11 +193,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           modifierExtension = this@with.modifierExtension
           description = this@with.description?.value
           _description = this@with.description?.toElement()
-          definitionReference = this@with.definition?.asReference()?.value
-          definitionCanonical = this@with.definition?.asCanonical()?.value?.value
-          _definitionCanonical = this@with.definition?.asCanonical()?.value?.toElement()
-          definitionCodeableConcept = this@with.definition?.asCodeableConcept()?.value
-          definitionExpression = this@with.definition?.asExpression()?.value
+          definition = this@with.definition
           method = this@with.method
           device = this@with.device
           exclude = this@with.exclude?.value
@@ -185,15 +207,42 @@ internal data class EvidenceVariableCharacteristicSurrogate(
 }
 
 @Serializable
+internal class EvidenceVariableCategoryValueSurrogate {
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueQuantity: Quantity? = null
+
+  public var valueRange: Range? = null
+
+  public fun toModel(): EvidenceVariable.Category.Value =
+    EvidenceVariable.Category.Value?.from(
+      this@EvidenceVariableCategoryValueSurrogate.valueCodeableConcept,
+      this@EvidenceVariableCategoryValueSurrogate.valueQuantity,
+      this@EvidenceVariableCategoryValueSurrogate.valueRange,
+    ) ?: EvidenceVariable.Category.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Category.Value
+    ): EvidenceVariableCategoryValueSurrogate =
+      with(model) {
+        EvidenceVariableCategoryValueSurrogate().apply {
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueQuantity = this@with.asQuantity()?.value
+          valueRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceVariableCategorySurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
+  public var `value`: EvidenceVariable.Category.Value? = null,
 ) {
   public fun toModel(): EvidenceVariable.Category =
     EvidenceVariable.Category().apply {
@@ -205,12 +254,7 @@ internal data class EvidenceVariableCategorySurrogate(
           this@EvidenceVariableCategorySurrogate.name,
           this@EvidenceVariableCategorySurrogate._name,
         )
-      `value` =
-        EvidenceVariable.Category.Value?.from(
-          this@EvidenceVariableCategorySurrogate.valueCodeableConcept,
-          this@EvidenceVariableCategorySurrogate.valueQuantity,
-          this@EvidenceVariableCategorySurrogate.valueRange,
-        )
+      `value` = this@EvidenceVariableCategorySurrogate.`value`
     }
 
   public companion object {
@@ -222,9 +266,7 @@ internal data class EvidenceVariableCategorySurrogate(
           modifierExtension = this@with.modifierExtension
           name = this@with.name?.value
           _name = this@with.name?.toElement()
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
+          `value` = this@with.`value`
         }
       }
   }

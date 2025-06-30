@@ -20,7 +20,9 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.PatientCommunicationSerializer
 import com.google.fhir.model.r4.serializers.PatientContactSerializer
+import com.google.fhir.model.r4.serializers.PatientDeceasedSerializer
 import com.google.fhir.model.r4.serializers.PatientLinkSerializer
+import com.google.fhir.model.r4.serializers.PatientMultipleBirthSerializer
 import com.google.fhir.model.r4.serializers.PatientSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -452,6 +454,7 @@ public data class Patient(
     public var type: Enumeration<LinkType>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = PatientDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -461,18 +464,21 @@ public data class Patient(
 
     public data class DateTime(public val `value`: com.google.fhir.model.r4.DateTime) : Deceased
 
+    public data object Null : Deceased
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r4.Boolean?,
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-      ): Deceased? {
+      ): Deceased {
         if (booleanValue != null) return Boolean(booleanValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = PatientMultipleBirthSerializer::class)
   public sealed interface MultipleBirth {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -482,14 +488,16 @@ public data class Patient(
 
     public data class Integer(public val `value`: com.google.fhir.model.r4.Integer) : MultipleBirth
 
+    public data object Null : MultipleBirth
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r4.Boolean?,
         integerValue: com.google.fhir.model.r4.Integer?,
-      ): MultipleBirth? {
+      ): MultipleBirth {
         if (booleanValue != null) return Boolean(booleanValue)
         if (integerValue != null) return Integer(integerValue)
-        return null
+        return Null
       }
     }
   }

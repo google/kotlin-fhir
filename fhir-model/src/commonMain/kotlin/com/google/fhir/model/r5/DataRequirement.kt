@@ -20,9 +20,12 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.DataRequirementCodeFilterSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementDateFilterSerializer
+import com.google.fhir.model.r5.serializers.DataRequirementDateFilterValueSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementSortSerializer
+import com.google.fhir.model.r5.serializers.DataRequirementSubjectSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementValueFilterSerializer
+import com.google.fhir.model.r5.serializers.DataRequirementValueFilterValueSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.Serializable
@@ -224,6 +227,7 @@ public data class DataRequirement(
      */
     public var `value`: Value? = null,
   ) : Element() {
+    @Serializable(with = DataRequirementDateFilterValueSerializer::class)
     public sealed interface Value {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -237,16 +241,18 @@ public data class DataRequirement(
 
       public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
           DurationValue: com.google.fhir.model.r5.Duration?,
-        ): Value? {
+        ): Value {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
-          return null
+          return Null
         }
       }
     }
@@ -300,6 +306,7 @@ public data class DataRequirement(
     /** The value of the filter. */
     public var `value`: Value? = null,
   ) : Element() {
+    @Serializable(with = DataRequirementValueFilterValueSerializer::class)
     public sealed interface Value {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -313,16 +320,18 @@ public data class DataRequirement(
 
       public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
           DurationValue: com.google.fhir.model.r5.Duration?,
-        ): Value? {
+        ): Value {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
-          return null
+          return Null
         }
       }
     }
@@ -360,6 +369,7 @@ public data class DataRequirement(
     public var direction: Enumeration<SortDirection>? = null,
   ) : Element()
 
+  @Serializable(with = DataRequirementSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -371,14 +381,16 @@ public data class DataRequirement(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

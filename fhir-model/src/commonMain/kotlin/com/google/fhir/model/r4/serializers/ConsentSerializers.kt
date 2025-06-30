@@ -19,17 +19,26 @@
 package com.google.fhir.model.r4.serializers
 
 import com.google.fhir.model.r4.Consent
+import com.google.fhir.model.r4.FhirJsonTransformer
 import com.google.fhir.model.r4.surrogates.ConsentPolicySurrogate
 import com.google.fhir.model.r4.surrogates.ConsentProvisionActorSurrogate
 import com.google.fhir.model.r4.surrogates.ConsentProvisionDataSurrogate
 import com.google.fhir.model.r4.surrogates.ConsentProvisionSurrogate
+import com.google.fhir.model.r4.surrogates.ConsentSourceSurrogate
 import com.google.fhir.model.r4.surrogates.ConsentSurrogate
 import com.google.fhir.model.r4.surrogates.ConsentVerificationSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ConsentPolicySerializer : KSerializer<Consent.Policy> {
   internal val surrogateSerializer: KSerializer<ConsentPolicySurrogate> by lazy {
@@ -116,19 +125,66 @@ public object ConsentProvisionSerializer : KSerializer<Consent.Provision> {
   }
 }
 
+public object ConsentSourceSerializer : KSerializer<Consent.Source> {
+  internal val surrogateSerializer: KSerializer<ConsentSourceSurrogate> by lazy {
+    ConsentSourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Source", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Consent.Source =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Consent.Source) {
+    surrogateSerializer.serialize(encoder, ConsentSourceSurrogate.fromModel(value))
+  }
+}
+
 public object ConsentSerializer : KSerializer<Consent> {
   internal val surrogateSerializer: KSerializer<ConsentSurrogate> by lazy {
     ConsentSurrogate.serializer()
   }
 
+  private val resourceType: String? = "Consent"
+
+  private val multiChoiceProperties: List<String> = listOf("source")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Consent", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Consent =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Consent {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Consent) {
-    surrogateSerializer.serialize(encoder, ConsentSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ConsentSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

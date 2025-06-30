@@ -19,10 +19,13 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseErrorSerializer
+import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemBenefitSerializer
+import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseSerializer
+import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseServicedSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -426,6 +429,9 @@ public data class CoverageEligibilityResponse(
         /** The quantity of the benefit which have been consumed to date. */
         public var used: Used? = null,
       ) : BackboneElement() {
+        @Serializable(
+          with = CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer::class
+        )
         public sealed interface Allowed {
           public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -440,20 +446,23 @@ public data class CoverageEligibilityResponse(
 
           public data class Money(public val `value`: com.google.fhir.model.r4b.Money) : Allowed
 
+          public data object Null : Allowed
+
           public companion object {
             public fun from(
               unsignedIntValue: com.google.fhir.model.r4b.UnsignedInt?,
               stringValue: com.google.fhir.model.r4b.String?,
               MoneyValue: com.google.fhir.model.r4b.Money?,
-            ): Allowed? {
+            ): Allowed {
               if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
               if (stringValue != null) return String(stringValue)
               if (MoneyValue != null) return Money(MoneyValue)
-              return null
+              return Null
             }
           }
         }
 
+        @Serializable(with = CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer::class)
         public sealed interface Used {
           public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -468,16 +477,18 @@ public data class CoverageEligibilityResponse(
 
           public data class Money(public val `value`: com.google.fhir.model.r4b.Money) : Used
 
+          public data object Null : Used
+
           public companion object {
             public fun from(
               unsignedIntValue: com.google.fhir.model.r4b.UnsignedInt?,
               stringValue: com.google.fhir.model.r4b.String?,
               MoneyValue: com.google.fhir.model.r4b.Money?,
-            ): Used? {
+            ): Used {
               if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
               if (stringValue != null) return String(stringValue)
               if (MoneyValue != null) return Money(MoneyValue)
-              return null
+              return Null
             }
           }
         }
@@ -532,6 +543,7 @@ public data class CoverageEligibilityResponse(
     public var code: CodeableConcept? = null,
   ) : BackboneElement()
 
+  @Serializable(with = CoverageEligibilityResponseServicedSerializer::class)
   public sealed interface Serviced {
     public fun asDate(): Date? = this as? Date
 
@@ -541,14 +553,16 @@ public data class CoverageEligibilityResponse(
 
     public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Serviced
 
+    public data object Null : Serviced
+
     public companion object {
       public fun from(
         dateValue: com.google.fhir.model.r4b.Date?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
-      ): Serviced? {
+      ): Serviced {
         if (dateValue != null) return Date(dateValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

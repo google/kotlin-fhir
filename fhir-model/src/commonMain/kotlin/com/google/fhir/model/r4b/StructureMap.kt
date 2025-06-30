@@ -21,8 +21,10 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.StructureMapGroupInputSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleDependentSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleSerializer
+import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleSourceDefaultValueSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleSourceSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleTargetParameterSerializer
+import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleTargetParameterValueSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleTargetSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapSerializer
@@ -597,6 +599,7 @@ public data class StructureMap(
          */
         public var logMessage: String? = null,
       ) : BackboneElement() {
+        @Serializable(with = StructureMapGroupRuleSourceDefaultValueSerializer::class)
         public sealed interface DefaultValue {
           public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -847,6 +850,8 @@ public data class StructureMap(
 
           public data class Meta(public val `value`: com.google.fhir.model.r4b.Meta) : DefaultValue
 
+          public data object Null : DefaultValue
+
           public companion object {
             public fun from(
               base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
@@ -899,7 +904,7 @@ public data class StructureMap(
               UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
               DosageValue: com.google.fhir.model.r4b.Dosage?,
               MetaValue: com.google.fhir.model.r4b.Meta?,
-            ): DefaultValue? {
+            ): DefaultValue {
               if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
               if (booleanValue != null) return Boolean(booleanValue)
               if (canonicalValue != null) return Canonical(canonicalValue)
@@ -951,7 +956,7 @@ public data class StructureMap(
               if (UsageContextValue != null) return UsageContext(UsageContextValue)
               if (DosageValue != null) return Dosage(DosageValue)
               if (MetaValue != null) return Meta(MetaValue)
-              return null
+              return Null
             }
           }
         }
@@ -1057,6 +1062,7 @@ public data class StructureMap(
           /** Parameter value - variable or literal. */
           public var `value`: Value? = null,
         ) : BackboneElement() {
+          @Serializable(with = StructureMapGroupRuleTargetParameterValueSerializer::class)
           public sealed interface Value {
             public fun asId(): Id? = this as? Id
 
@@ -1081,6 +1087,8 @@ public data class StructureMap(
             public data class Decimal(public val `value`: com.google.fhir.model.r4b.Decimal) :
               Value
 
+            public data object Null : Value
+
             public companion object {
               public fun from(
                 idValue: com.google.fhir.model.r4b.Id?,
@@ -1088,13 +1096,13 @@ public data class StructureMap(
                 booleanValue: com.google.fhir.model.r4b.Boolean?,
                 integerValue: com.google.fhir.model.r4b.Integer?,
                 decimalValue: com.google.fhir.model.r4b.Decimal?,
-              ): Value? {
+              ): Value {
                 if (idValue != null) return Id(idValue)
                 if (stringValue != null) return String(stringValue)
                 if (booleanValue != null) return Boolean(booleanValue)
                 if (integerValue != null) return Integer(integerValue)
                 if (decimalValue != null) return Decimal(decimalValue)
-                return null
+                return Null
               }
             }
           }

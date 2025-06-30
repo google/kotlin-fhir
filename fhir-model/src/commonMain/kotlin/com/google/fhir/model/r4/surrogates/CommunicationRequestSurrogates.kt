@@ -48,29 +48,53 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class CommunicationRequestPayloadContentSurrogate {
+  public var contentString: KotlinString? = null
+
+  public var _contentString: Element? = null
+
+  public var contentAttachment: Attachment? = null
+
+  public var contentReference: Reference? = null
+
+  public fun toModel(): CommunicationRequest.Payload.Content =
+    CommunicationRequest.Payload.Content?.from(
+      R4String.of(
+        this@CommunicationRequestPayloadContentSurrogate.contentString,
+        this@CommunicationRequestPayloadContentSurrogate._contentString,
+      ),
+      this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
+      this@CommunicationRequestPayloadContentSurrogate.contentReference,
+    ) ?: CommunicationRequest.Payload.Content.Null
+
+  public companion object {
+    public fun fromModel(
+      model: CommunicationRequest.Payload.Content
+    ): CommunicationRequestPayloadContentSurrogate =
+      with(model) {
+        CommunicationRequestPayloadContentSurrogate().apply {
+          contentString = this@with.asString()?.value?.value
+          _contentString = this@with.asString()?.value?.toElement()
+          contentAttachment = this@with.asAttachment()?.value
+          contentReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CommunicationRequestPayloadSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var contentString: KotlinString? = null,
-  public var _contentString: Element? = null,
-  public var contentAttachment: Attachment? = null,
-  public var contentReference: Reference? = null,
+  public var content: CommunicationRequest.Payload.Content? = null,
 ) {
   public fun toModel(): CommunicationRequest.Payload =
     CommunicationRequest.Payload().apply {
       id = this@CommunicationRequestPayloadSurrogate.id
       extension = this@CommunicationRequestPayloadSurrogate.extension
       modifierExtension = this@CommunicationRequestPayloadSurrogate.modifierExtension
-      content =
-        CommunicationRequest.Payload.Content?.from(
-          R4String.of(
-            this@CommunicationRequestPayloadSurrogate.contentString,
-            this@CommunicationRequestPayloadSurrogate._contentString,
-          ),
-          this@CommunicationRequestPayloadSurrogate.contentAttachment,
-          this@CommunicationRequestPayloadSurrogate.contentReference,
-        )
+      content = this@CommunicationRequestPayloadSurrogate.content
     }
 
   public companion object {
@@ -82,10 +106,38 @@ internal data class CommunicationRequestPayloadSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          contentString = this@with.content?.asString()?.value?.value
-          _contentString = this@with.content?.asString()?.value?.toElement()
-          contentAttachment = this@with.content?.asAttachment()?.value
-          contentReference = this@with.content?.asReference()?.value
+          content = this@with.content
+        }
+      }
+  }
+}
+
+@Serializable
+internal class CommunicationRequestOccurrenceSurrogate {
+  public var occurrenceDateTime: KotlinString? = null
+
+  public var _occurrenceDateTime: Element? = null
+
+  public var occurrencePeriod: Period? = null
+
+  public fun toModel(): CommunicationRequest.Occurrence =
+    CommunicationRequest.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@CommunicationRequestOccurrenceSurrogate.occurrenceDateTime),
+        this@CommunicationRequestOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@CommunicationRequestOccurrenceSurrogate.occurrencePeriod,
+    ) ?: CommunicationRequest.Occurrence.Null
+
+  public companion object {
+    public fun fromModel(
+      model: CommunicationRequest.Occurrence
+    ): CommunicationRequestOccurrenceSurrogate =
+      with(model) {
+        CommunicationRequestOccurrenceSurrogate().apply {
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
+          occurrencePeriod = this@with.asPeriod()?.value
         }
       }
   }
@@ -120,9 +172,6 @@ internal data class CommunicationRequestSurrogate(
   public var about: List<Reference?>? = null,
   public var encounter: Reference? = null,
   public var payload: List<CommunicationRequest.Payload>? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -131,6 +180,7 @@ internal data class CommunicationRequestSurrogate(
   public var reasonCode: List<CodeableConcept?>? = null,
   public var reasonReference: List<Reference?>? = null,
   public var note: List<Annotation?>? = null,
+  public var occurrence: CommunicationRequest.Occurrence? = null,
 ) {
   public fun toModel(): CommunicationRequest =
     CommunicationRequest().apply {
@@ -180,14 +230,7 @@ internal data class CommunicationRequestSurrogate(
       about = this@CommunicationRequestSurrogate.about
       encounter = this@CommunicationRequestSurrogate.encounter
       payload = this@CommunicationRequestSurrogate.payload
-      occurrence =
-        CommunicationRequest.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@CommunicationRequestSurrogate.occurrenceDateTime),
-            this@CommunicationRequestSurrogate._occurrenceDateTime,
-          ),
-          this@CommunicationRequestSurrogate.occurrencePeriod,
-        )
+      occurrence = this@CommunicationRequestSurrogate.occurrence
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@CommunicationRequestSurrogate.authoredOn),
@@ -232,9 +275,7 @@ internal data class CommunicationRequestSurrogate(
           about = this@with.about
           encounter = this@with.encounter
           payload = this@with.payload
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
+          occurrence = this@with.occurrence
           authoredOn = this@with.authoredOn?.value?.toString()
           _authoredOn = this@with.authoredOn?.toElement()
           requester = this@with.requester

@@ -45,6 +45,45 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class GuidanceResponseModuleSurrogate {
+  public var moduleUri: String? = null
+
+  public var _moduleUri: Element? = null
+
+  public var moduleCanonical: String? = null
+
+  public var _moduleCanonical: Element? = null
+
+  public var moduleCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): GuidanceResponse.Module =
+    GuidanceResponse.Module?.from(
+      Uri.of(
+        this@GuidanceResponseModuleSurrogate.moduleUri,
+        this@GuidanceResponseModuleSurrogate._moduleUri,
+      ),
+      Canonical.of(
+        this@GuidanceResponseModuleSurrogate.moduleCanonical,
+        this@GuidanceResponseModuleSurrogate._moduleCanonical,
+      ),
+      this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
+    ) ?: GuidanceResponse.Module.Null
+
+  public companion object {
+    public fun fromModel(model: GuidanceResponse.Module): GuidanceResponseModuleSurrogate =
+      with(model) {
+        GuidanceResponseModuleSurrogate().apply {
+          moduleUri = this@with.asUri()?.value?.value
+          _moduleUri = this@with.asUri()?.value?.toElement()
+          moduleCanonical = this@with.asCanonical()?.value?.value
+          _moduleCanonical = this@with.asCanonical()?.value?.toElement()
+          moduleCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class GuidanceResponseSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -58,11 +97,6 @@ internal data class GuidanceResponseSurrogate(
   public var modifierExtension: List<Extension?>? = null,
   public var requestIdentifier: Identifier? = null,
   public var identifier: List<Identifier?>? = null,
-  public var moduleUri: String? = null,
-  public var _moduleUri: Element? = null,
-  public var moduleCanonical: String? = null,
-  public var _moduleCanonical: Element? = null,
-  public var moduleCodeableConcept: CodeableConcept? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var subject: Reference? = null,
@@ -77,6 +111,7 @@ internal data class GuidanceResponseSurrogate(
   public var outputParameters: Reference? = null,
   public var result: Reference? = null,
   public var dataRequirement: List<DataRequirement?>? = null,
+  public var module: GuidanceResponse.Module? = null,
 ) {
   public fun toModel(): GuidanceResponse =
     GuidanceResponse().apply {
@@ -95,18 +130,7 @@ internal data class GuidanceResponseSurrogate(
       modifierExtension = this@GuidanceResponseSurrogate.modifierExtension
       requestIdentifier = this@GuidanceResponseSurrogate.requestIdentifier
       identifier = this@GuidanceResponseSurrogate.identifier
-      module =
-        GuidanceResponse.Module?.from(
-          Uri.of(
-            this@GuidanceResponseSurrogate.moduleUri,
-            this@GuidanceResponseSurrogate._moduleUri,
-          ),
-          Canonical.of(
-            this@GuidanceResponseSurrogate.moduleCanonical,
-            this@GuidanceResponseSurrogate._moduleCanonical,
-          ),
-          this@GuidanceResponseSurrogate.moduleCodeableConcept,
-        )
+      module = this@GuidanceResponseSurrogate.module
       status =
         Enumeration.of(
           this@GuidanceResponseSurrogate.status?.let {
@@ -147,11 +171,7 @@ internal data class GuidanceResponseSurrogate(
           modifierExtension = this@with.modifierExtension
           requestIdentifier = this@with.requestIdentifier
           identifier = this@with.identifier
-          moduleUri = this@with.module?.asUri()?.value?.value
-          _moduleUri = this@with.module?.asUri()?.value?.toElement()
-          moduleCanonical = this@with.module?.asCanonical()?.value?.value
-          _moduleCanonical = this@with.module?.asCanonical()?.value?.toElement()
-          moduleCodeableConcept = this@with.module?.asCodeableConcept()?.value
+          module = this@with.module
           status = this@with.status?.value?.getCode()
           _status = this@with.status?.toElement()
           subject = this@with.subject

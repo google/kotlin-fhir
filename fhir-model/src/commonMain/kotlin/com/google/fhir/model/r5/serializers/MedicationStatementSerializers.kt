@@ -18,14 +18,23 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.MedicationStatement
 import com.google.fhir.model.r5.surrogates.MedicationStatementAdherenceSurrogate
+import com.google.fhir.model.r5.surrogates.MedicationStatementEffectiveSurrogate
 import com.google.fhir.model.r5.surrogates.MedicationStatementSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object MedicationStatementAdherenceSerializer : KSerializer<MedicationStatement.Adherence> {
   internal val surrogateSerializer: KSerializer<MedicationStatementAdherenceSurrogate> by lazy {
@@ -44,19 +53,66 @@ public object MedicationStatementAdherenceSerializer : KSerializer<MedicationSta
   }
 }
 
+public object MedicationStatementEffectiveSerializer : KSerializer<MedicationStatement.Effective> {
+  internal val surrogateSerializer: KSerializer<MedicationStatementEffectiveSurrogate> by lazy {
+    MedicationStatementEffectiveSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Effective", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicationStatement.Effective =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicationStatement.Effective) {
+    surrogateSerializer.serialize(encoder, MedicationStatementEffectiveSurrogate.fromModel(value))
+  }
+}
+
 public object MedicationStatementSerializer : KSerializer<MedicationStatement> {
   internal val surrogateSerializer: KSerializer<MedicationStatementSurrogate> by lazy {
     MedicationStatementSurrogate.serializer()
   }
 
+  private val resourceType: String? = "MedicationStatement"
+
+  private val multiChoiceProperties: List<String> = listOf("effective")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("MedicationStatement", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicationStatement =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): MedicationStatement {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: MedicationStatement) {
-    surrogateSerializer.serialize(encoder, MedicationStatementSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = MedicationStatementSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

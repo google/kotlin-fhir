@@ -67,22 +67,76 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class PlanDefinitionGoalTargetDetailSurrogate {
+  public var detailQuantity: Quantity? = null
+
+  public var detailRange: Range? = null
+
+  public var detailCodeableConcept: CodeableConcept? = null
+
+  public var detailString: KotlinString? = null
+
+  public var _detailString: Element? = null
+
+  public var detailBoolean: KotlinBoolean? = null
+
+  public var _detailBoolean: Element? = null
+
+  public var detailInteger: Int? = null
+
+  public var _detailInteger: Element? = null
+
+  public var detailRatio: Ratio? = null
+
+  public fun toModel(): PlanDefinition.Goal.Target.Detail =
+    PlanDefinition.Goal.Target.Detail?.from(
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailQuantity,
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailRange,
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailCodeableConcept,
+      R5String.of(
+        this@PlanDefinitionGoalTargetDetailSurrogate.detailString,
+        this@PlanDefinitionGoalTargetDetailSurrogate._detailString,
+      ),
+      R5Boolean.of(
+        this@PlanDefinitionGoalTargetDetailSurrogate.detailBoolean,
+        this@PlanDefinitionGoalTargetDetailSurrogate._detailBoolean,
+      ),
+      Integer.of(
+        this@PlanDefinitionGoalTargetDetailSurrogate.detailInteger,
+        this@PlanDefinitionGoalTargetDetailSurrogate._detailInteger,
+      ),
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailRatio,
+    ) ?: PlanDefinition.Goal.Target.Detail.Null
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Goal.Target.Detail
+    ): PlanDefinitionGoalTargetDetailSurrogate =
+      with(model) {
+        PlanDefinitionGoalTargetDetailSurrogate().apply {
+          detailQuantity = this@with.asQuantity()?.value
+          detailRange = this@with.asRange()?.value
+          detailCodeableConcept = this@with.asCodeableConcept()?.value
+          detailString = this@with.asString()?.value?.value
+          _detailString = this@with.asString()?.value?.toElement()
+          detailBoolean = this@with.asBoolean()?.value?.value
+          _detailBoolean = this@with.asBoolean()?.value?.toElement()
+          detailInteger = this@with.asInteger()?.value?.value
+          _detailInteger = this@with.asInteger()?.value?.toElement()
+          detailRatio = this@with.asRatio()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class PlanDefinitionGoalTargetSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var measure: CodeableConcept? = null,
-  public var detailQuantity: Quantity? = null,
-  public var detailRange: Range? = null,
-  public var detailCodeableConcept: CodeableConcept? = null,
-  public var detailString: KotlinString? = null,
-  public var _detailString: Element? = null,
-  public var detailBoolean: KotlinBoolean? = null,
-  public var _detailBoolean: Element? = null,
-  public var detailInteger: Int? = null,
-  public var _detailInteger: Element? = null,
-  public var detailRatio: Ratio? = null,
   public var due: Duration? = null,
+  public var detail: PlanDefinition.Goal.Target.Detail? = null,
 ) {
   public fun toModel(): PlanDefinition.Goal.Target =
     PlanDefinition.Goal.Target().apply {
@@ -90,25 +144,7 @@ internal data class PlanDefinitionGoalTargetSurrogate(
       extension = this@PlanDefinitionGoalTargetSurrogate.extension
       modifierExtension = this@PlanDefinitionGoalTargetSurrogate.modifierExtension
       measure = this@PlanDefinitionGoalTargetSurrogate.measure
-      detail =
-        PlanDefinition.Goal.Target.Detail?.from(
-          this@PlanDefinitionGoalTargetSurrogate.detailQuantity,
-          this@PlanDefinitionGoalTargetSurrogate.detailRange,
-          this@PlanDefinitionGoalTargetSurrogate.detailCodeableConcept,
-          R5String.of(
-            this@PlanDefinitionGoalTargetSurrogate.detailString,
-            this@PlanDefinitionGoalTargetSurrogate._detailString,
-          ),
-          R5Boolean.of(
-            this@PlanDefinitionGoalTargetSurrogate.detailBoolean,
-            this@PlanDefinitionGoalTargetSurrogate._detailBoolean,
-          ),
-          Integer.of(
-            this@PlanDefinitionGoalTargetSurrogate.detailInteger,
-            this@PlanDefinitionGoalTargetSurrogate._detailInteger,
-          ),
-          this@PlanDefinitionGoalTargetSurrogate.detailRatio,
-        )
+      detail = this@PlanDefinitionGoalTargetSurrogate.detail
       due = this@PlanDefinitionGoalTargetSurrogate.due
     }
 
@@ -120,16 +156,7 @@ internal data class PlanDefinitionGoalTargetSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           measure = this@with.measure
-          detailQuantity = this@with.detail?.asQuantity()?.value
-          detailRange = this@with.detail?.asRange()?.value
-          detailCodeableConcept = this@with.detail?.asCodeableConcept()?.value
-          detailString = this@with.detail?.asString()?.value?.value
-          _detailString = this@with.detail?.asString()?.value?.toElement()
-          detailBoolean = this@with.detail?.asBoolean()?.value?.value
-          _detailBoolean = this@with.detail?.asBoolean()?.value?.toElement()
-          detailInteger = this@with.detail?.asInteger()?.value?.value
-          _detailInteger = this@with.detail?.asInteger()?.value?.toElement()
-          detailRatio = this@with.detail?.asRatio()?.value
+          detail = this@with.detail
           due = this@with.due
         }
       }
@@ -413,6 +440,31 @@ internal data class PlanDefinitionActionOutputSurrogate(
 }
 
 @Serializable
+internal class PlanDefinitionActionRelatedActionOffsetSurrogate {
+  public var offsetDuration: Duration? = null
+
+  public var offsetRange: Range? = null
+
+  public fun toModel(): PlanDefinition.Action.RelatedAction.Offset =
+    PlanDefinition.Action.RelatedAction.Offset?.from(
+      this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetDuration,
+      this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetRange,
+    ) ?: PlanDefinition.Action.RelatedAction.Offset.Null
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.RelatedAction.Offset
+    ): PlanDefinitionActionRelatedActionOffsetSurrogate =
+      with(model) {
+        PlanDefinitionActionRelatedActionOffsetSurrogate().apply {
+          offsetDuration = this@with.asDuration()?.value
+          offsetRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class PlanDefinitionActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -423,8 +475,7 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
   public var _relationship: Element? = null,
   public var endRelationship: KotlinString? = null,
   public var _endRelationship: Element? = null,
-  public var offsetDuration: Duration? = null,
-  public var offsetRange: Range? = null,
+  public var offset: PlanDefinition.Action.RelatedAction.Offset? = null,
 ) {
   public fun toModel(): PlanDefinition.Action.RelatedAction =
     PlanDefinition.Action.RelatedAction().apply {
@@ -450,11 +501,7 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
           },
           this@PlanDefinitionActionRelatedActionSurrogate._endRelationship,
         )
-      offset =
-        PlanDefinition.Action.RelatedAction.Offset?.from(
-          this@PlanDefinitionActionRelatedActionSurrogate.offsetDuration,
-          this@PlanDefinitionActionRelatedActionSurrogate.offsetRange,
-        )
+      offset = this@PlanDefinitionActionRelatedActionSurrogate.offset
     }
 
   public companion object {
@@ -472,8 +519,7 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
           _relationship = this@with.relationship?.toElement()
           endRelationship = this@with.endRelationship?.value?.getCode()
           _endRelationship = this@with.endRelationship?.toElement()
-          offsetDuration = this@with.offset?.asDuration()?.value
-          offsetRange = this@with.offset?.asRange()?.value
+          offset = this@with.offset
         }
       }
   }
@@ -584,6 +630,109 @@ internal data class PlanDefinitionActionDynamicValueSurrogate(
 }
 
 @Serializable
+internal class PlanDefinitionActionSubjectSurrogate {
+  public var subjectCodeableConcept: CodeableConcept? = null
+
+  public var subjectReference: Reference? = null
+
+  public var subjectCanonical: KotlinString? = null
+
+  public var _subjectCanonical: Element? = null
+
+  public fun toModel(): PlanDefinition.Action.Subject =
+    PlanDefinition.Action.Subject?.from(
+      this@PlanDefinitionActionSubjectSurrogate.subjectCodeableConcept,
+      this@PlanDefinitionActionSubjectSurrogate.subjectReference,
+      Canonical.of(
+        this@PlanDefinitionActionSubjectSurrogate.subjectCanonical,
+        this@PlanDefinitionActionSubjectSurrogate._subjectCanonical,
+      ),
+    ) ?: PlanDefinition.Action.Subject.Null
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.Subject
+    ): PlanDefinitionActionSubjectSurrogate =
+      with(model) {
+        PlanDefinitionActionSubjectSurrogate().apply {
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value
+          subjectReference = this@with.asReference()?.value
+          subjectCanonical = this@with.asCanonical()?.value?.value
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class PlanDefinitionActionTimingSurrogate {
+  public var timingAge: Age? = null
+
+  public var timingDuration: Duration? = null
+
+  public var timingRange: Range? = null
+
+  public var timingTiming: Timing? = null
+
+  public fun toModel(): PlanDefinition.Action.Timing =
+    PlanDefinition.Action.Timing?.from(
+      this@PlanDefinitionActionTimingSurrogate.timingAge,
+      this@PlanDefinitionActionTimingSurrogate.timingDuration,
+      this@PlanDefinitionActionTimingSurrogate.timingRange,
+      this@PlanDefinitionActionTimingSurrogate.timingTiming,
+    ) ?: PlanDefinition.Action.Timing.Null
+
+  public companion object {
+    public fun fromModel(model: PlanDefinition.Action.Timing): PlanDefinitionActionTimingSurrogate =
+      with(model) {
+        PlanDefinitionActionTimingSurrogate().apply {
+          timingAge = this@with.asAge()?.value
+          timingDuration = this@with.asDuration()?.value
+          timingRange = this@with.asRange()?.value
+          timingTiming = this@with.asTiming()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class PlanDefinitionActionDefinitionSurrogate {
+  public var definitionCanonical: KotlinString? = null
+
+  public var _definitionCanonical: Element? = null
+
+  public var definitionUri: KotlinString? = null
+
+  public var _definitionUri: Element? = null
+
+  public fun toModel(): PlanDefinition.Action.Definition =
+    PlanDefinition.Action.Definition?.from(
+      Canonical.of(
+        this@PlanDefinitionActionDefinitionSurrogate.definitionCanonical,
+        this@PlanDefinitionActionDefinitionSurrogate._definitionCanonical,
+      ),
+      Uri.of(
+        this@PlanDefinitionActionDefinitionSurrogate.definitionUri,
+        this@PlanDefinitionActionDefinitionSurrogate._definitionUri,
+      ),
+    ) ?: PlanDefinition.Action.Definition.Null
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.Definition
+    ): PlanDefinitionActionDefinitionSurrogate =
+      with(model) {
+        PlanDefinitionActionDefinitionSurrogate().apply {
+          definitionCanonical = this@with.asCanonical()?.value?.value
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement()
+          definitionUri = this@with.asUri()?.value?.value
+          _definitionUri = this@with.asUri()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class PlanDefinitionActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -605,19 +754,11 @@ internal data class PlanDefinitionActionSurrogate(
   public var documentation: List<RelatedArtifact?>? = null,
   public var goalId: List<KotlinString?>? = null,
   public var _goalId: List<Element?>? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
-  public var subjectCanonical: KotlinString? = null,
-  public var _subjectCanonical: Element? = null,
   public var trigger: List<TriggerDefinition?>? = null,
   public var condition: List<PlanDefinition.Action.Condition>? = null,
   public var input: List<PlanDefinition.Action.Input>? = null,
   public var output: List<PlanDefinition.Action.Output>? = null,
   public var relatedAction: List<PlanDefinition.Action.RelatedAction>? = null,
-  public var timingAge: Age? = null,
-  public var timingDuration: Duration? = null,
-  public var timingRange: Range? = null,
-  public var timingTiming: Timing? = null,
   public var location: CodeableReference? = null,
   public var participant: List<PlanDefinition.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
@@ -631,14 +772,13 @@ internal data class PlanDefinitionActionSurrogate(
   public var _precheckBehavior: Element? = null,
   public var cardinalityBehavior: KotlinString? = null,
   public var _cardinalityBehavior: Element? = null,
-  public var definitionCanonical: KotlinString? = null,
-  public var _definitionCanonical: Element? = null,
-  public var definitionUri: KotlinString? = null,
-  public var _definitionUri: Element? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: List<PlanDefinition.Action.DynamicValue>? = null,
   public var action: List<PlanDefinition.Action?>? = null,
+  public var subject: PlanDefinition.Action.Subject? = null,
+  public var timing: PlanDefinition.Action.Timing? = null,
+  public var definition: PlanDefinition.Action.Definition? = null,
 ) {
   public fun toModel(): PlanDefinition.Action =
     PlanDefinition.Action().apply {
@@ -695,27 +835,13 @@ internal data class PlanDefinitionActionSurrogate(
             )
             .mapNotNull { (value, element) -> Id.of(value, element) }
         }
-      subject =
-        PlanDefinition.Action.Subject?.from(
-          this@PlanDefinitionActionSurrogate.subjectCodeableConcept,
-          this@PlanDefinitionActionSurrogate.subjectReference,
-          Canonical.of(
-            this@PlanDefinitionActionSurrogate.subjectCanonical,
-            this@PlanDefinitionActionSurrogate._subjectCanonical,
-          ),
-        )
+      subject = this@PlanDefinitionActionSurrogate.subject
       trigger = this@PlanDefinitionActionSurrogate.trigger
       condition = this@PlanDefinitionActionSurrogate.condition
       input = this@PlanDefinitionActionSurrogate.input
       output = this@PlanDefinitionActionSurrogate.output
       relatedAction = this@PlanDefinitionActionSurrogate.relatedAction
-      timing =
-        PlanDefinition.Action.Timing?.from(
-          this@PlanDefinitionActionSurrogate.timingAge,
-          this@PlanDefinitionActionSurrogate.timingDuration,
-          this@PlanDefinitionActionSurrogate.timingRange,
-          this@PlanDefinitionActionSurrogate.timingTiming,
-        )
+      timing = this@PlanDefinitionActionSurrogate.timing
       location = this@PlanDefinitionActionSurrogate.location
       participant = this@PlanDefinitionActionSurrogate.participant
       type = this@PlanDefinitionActionSurrogate.type
@@ -754,17 +880,7 @@ internal data class PlanDefinitionActionSurrogate(
           },
           this@PlanDefinitionActionSurrogate._cardinalityBehavior,
         )
-      definition =
-        PlanDefinition.Action.Definition?.from(
-          Canonical.of(
-            this@PlanDefinitionActionSurrogate.definitionCanonical,
-            this@PlanDefinitionActionSurrogate._definitionCanonical,
-          ),
-          Uri.of(
-            this@PlanDefinitionActionSurrogate.definitionUri,
-            this@PlanDefinitionActionSurrogate._definitionUri,
-          ),
-        )
+      definition = this@PlanDefinitionActionSurrogate.definition
       transform =
         Canonical.of(
           this@PlanDefinitionActionSurrogate.transform,
@@ -798,19 +914,13 @@ internal data class PlanDefinitionActionSurrogate(
           documentation = this@with.documentation
           goalId = this@with.goalId?.map { it?.value }?.takeUnless { it.all { it == null } }
           _goalId = this@with.goalId?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
-          subjectCanonical = this@with.subject?.asCanonical()?.value?.value
-          _subjectCanonical = this@with.subject?.asCanonical()?.value?.toElement()
+          subject = this@with.subject
           trigger = this@with.trigger
           condition = this@with.condition
           input = this@with.input
           output = this@with.output
           relatedAction = this@with.relatedAction
-          timingAge = this@with.timing?.asAge()?.value
-          timingDuration = this@with.timing?.asDuration()?.value
-          timingRange = this@with.timing?.asRange()?.value
-          timingTiming = this@with.timing?.asTiming()?.value
+          timing = this@with.timing
           location = this@with.location
           participant = this@with.participant
           type = this@with.type
@@ -824,14 +934,104 @@ internal data class PlanDefinitionActionSurrogate(
           _precheckBehavior = this@with.precheckBehavior?.toElement()
           cardinalityBehavior = this@with.cardinalityBehavior?.value?.getCode()
           _cardinalityBehavior = this@with.cardinalityBehavior?.toElement()
-          definitionCanonical = this@with.definition?.asCanonical()?.value?.value
-          _definitionCanonical = this@with.definition?.asCanonical()?.value?.toElement()
-          definitionUri = this@with.definition?.asUri()?.value?.value
-          _definitionUri = this@with.definition?.asUri()?.value?.toElement()
+          definition = this@with.definition
           transform = this@with.transform?.value
           _transform = this@with.transform?.toElement()
           dynamicValue = this@with.dynamicValue
           action = this@with.action
+        }
+      }
+  }
+}
+
+@Serializable
+internal class PlanDefinitionVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): PlanDefinition.VersionAlgorithm =
+    PlanDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@PlanDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@PlanDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@PlanDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: PlanDefinition.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.VersionAlgorithm
+    ): PlanDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        PlanDefinitionVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class PlanDefinitionSubjectSurrogate {
+  public var subjectCodeableConcept: CodeableConcept? = null
+
+  public var subjectReference: Reference? = null
+
+  public var subjectCanonical: KotlinString? = null
+
+  public var _subjectCanonical: Element? = null
+
+  public fun toModel(): PlanDefinition.Subject =
+    PlanDefinition.Subject?.from(
+      this@PlanDefinitionSubjectSurrogate.subjectCodeableConcept,
+      this@PlanDefinitionSubjectSurrogate.subjectReference,
+      Canonical.of(
+        this@PlanDefinitionSubjectSurrogate.subjectCanonical,
+        this@PlanDefinitionSubjectSurrogate._subjectCanonical,
+      ),
+    ) ?: PlanDefinition.Subject.Null
+
+  public companion object {
+    public fun fromModel(model: PlanDefinition.Subject): PlanDefinitionSubjectSurrogate =
+      with(model) {
+        PlanDefinitionSubjectSurrogate().apply {
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value
+          subjectReference = this@with.asReference()?.value
+          subjectCanonical = this@with.asCanonical()?.value?.value
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class PlanDefinitionAsNeededSurrogate {
+  public var asNeededBoolean: KotlinBoolean? = null
+
+  public var _asNeededBoolean: Element? = null
+
+  public var asNeededCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): PlanDefinition.AsNeeded =
+    PlanDefinition.AsNeeded?.from(
+      R5Boolean.of(
+        this@PlanDefinitionAsNeededSurrogate.asNeededBoolean,
+        this@PlanDefinitionAsNeededSurrogate._asNeededBoolean,
+      ),
+      this@PlanDefinitionAsNeededSurrogate.asNeededCodeableConcept,
+    ) ?: PlanDefinition.AsNeeded.Null
+
+  public companion object {
+    public fun fromModel(model: PlanDefinition.AsNeeded): PlanDefinitionAsNeededSurrogate =
+      with(model) {
+        PlanDefinitionAsNeededSurrogate().apply {
+          asNeededBoolean = this@with.asBoolean()?.value?.value
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement()
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value
         }
       }
   }
@@ -854,9 +1054,6 @@ internal data class PlanDefinitionSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -868,10 +1065,6 @@ internal data class PlanDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
-  public var subjectCanonical: KotlinString? = null,
-  public var _subjectCanonical: Element? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -905,9 +1098,9 @@ internal data class PlanDefinitionSurrogate(
   public var goal: List<PlanDefinition.Goal>? = null,
   public var actor: List<PlanDefinition.Actor>? = null,
   public var action: List<PlanDefinition.Action>? = null,
-  public var asNeededBoolean: KotlinBoolean? = null,
-  public var _asNeededBoolean: Element? = null,
-  public var asNeededCodeableConcept: CodeableConcept? = null,
+  public var versionAlgorithm: PlanDefinition.VersionAlgorithm? = null,
+  public var subject: PlanDefinition.Subject? = null,
+  public var asNeeded: PlanDefinition.AsNeeded? = null,
 ) {
   public fun toModel(): PlanDefinition =
     PlanDefinition().apply {
@@ -928,14 +1121,7 @@ internal data class PlanDefinitionSurrogate(
       identifier = this@PlanDefinitionSurrogate.identifier
       version =
         R5String.of(this@PlanDefinitionSurrogate.version, this@PlanDefinitionSurrogate._version)
-      versionAlgorithm =
-        PlanDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@PlanDefinitionSurrogate.versionAlgorithmString,
-            this@PlanDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@PlanDefinitionSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@PlanDefinitionSurrogate.versionAlgorithm
       name = R5String.of(this@PlanDefinitionSurrogate.name, this@PlanDefinitionSurrogate._name)
       title = R5String.of(this@PlanDefinitionSurrogate.title, this@PlanDefinitionSurrogate._title)
       subtitle =
@@ -953,15 +1139,7 @@ internal data class PlanDefinitionSurrogate(
           this@PlanDefinitionSurrogate.experimental,
           this@PlanDefinitionSurrogate._experimental,
         )
-      subject =
-        PlanDefinition.Subject?.from(
-          this@PlanDefinitionSurrogate.subjectCodeableConcept,
-          this@PlanDefinitionSurrogate.subjectReference,
-          Canonical.of(
-            this@PlanDefinitionSurrogate.subjectCanonical,
-            this@PlanDefinitionSurrogate._subjectCanonical,
-          ),
-        )
+      subject = this@PlanDefinitionSurrogate.subject
       date =
         DateTime.of(
           FhirDateTime.fromString(this@PlanDefinitionSurrogate.date),
@@ -1022,14 +1200,7 @@ internal data class PlanDefinitionSurrogate(
       goal = this@PlanDefinitionSurrogate.goal
       actor = this@PlanDefinitionSurrogate.actor
       action = this@PlanDefinitionSurrogate.action
-      asNeeded =
-        PlanDefinition.AsNeeded?.from(
-          R5Boolean.of(
-            this@PlanDefinitionSurrogate.asNeededBoolean,
-            this@PlanDefinitionSurrogate._asNeededBoolean,
-          ),
-          this@PlanDefinitionSurrogate.asNeededCodeableConcept,
-        )
+      asNeeded = this@PlanDefinitionSurrogate.asNeeded
     }
 
   public companion object {
@@ -1051,9 +1222,7 @@ internal data class PlanDefinitionSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value
@@ -1065,10 +1234,7 @@ internal data class PlanDefinitionSurrogate(
           _status = this@with.status?.toElement()
           experimental = this@with.experimental?.value
           _experimental = this@with.experimental?.toElement()
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
-          subjectCanonical = this@with.subject?.asCanonical()?.value?.value
-          _subjectCanonical = this@with.subject?.asCanonical()?.value?.toElement()
+          subject = this@with.subject
           date = this@with.date?.value?.toString()
           _date = this@with.date?.toElement()
           publisher = this@with.publisher?.value
@@ -1103,9 +1269,7 @@ internal data class PlanDefinitionSurrogate(
           goal = this@with.goal
           actor = this@with.actor
           action = this@with.action
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement()
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value
+          asNeeded = this@with.asNeeded
         }
       }
   }

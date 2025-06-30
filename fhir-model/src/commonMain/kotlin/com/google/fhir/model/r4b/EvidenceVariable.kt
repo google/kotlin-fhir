@@ -19,6 +19,8 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCategorySerializer
+import com.google.fhir.model.r4b.serializers.EvidenceVariableCategoryValueSerializer
+import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicTimeFromStartSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableSerializer
@@ -430,6 +432,7 @@ public data class EvidenceVariable(
       public var note: List<Annotation?>? = null,
     ) : BackboneElement()
 
+    @Serializable(with = EvidenceVariableCharacteristicDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asReference(): Reference? = this as? Reference
 
@@ -452,18 +455,20 @@ public data class EvidenceVariable(
       public data class Expression(public val `value`: com.google.fhir.model.r4b.Expression) :
         Definition
 
+      public data object Null : Definition
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           ExpressionValue: com.google.fhir.model.r4b.Expression?,
-        ): Definition? {
+        ): Definition {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ExpressionValue != null) return Expression(ExpressionValue)
-          return null
+          return Null
         }
       }
     }
@@ -517,6 +522,7 @@ public data class EvidenceVariable(
     /** Value or set of values that define the grouping. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceVariableCategoryValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -532,16 +538,18 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r4b.Quantity?,
           RangeValue: com.google.fhir.model.r4b.Range?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
-          return null
+          return Null
         }
       }
     }

@@ -41,32 +41,70 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class DosageDoseAndRateDoseSurrogate {
+  public var doseRange: Range? = null
+
+  public var doseQuantity: Quantity? = null
+
+  public fun toModel(): Dosage.DoseAndRate.Dose =
+    Dosage.DoseAndRate.Dose?.from(
+      this@DosageDoseAndRateDoseSurrogate.doseRange,
+      this@DosageDoseAndRateDoseSurrogate.doseQuantity,
+    ) ?: Dosage.DoseAndRate.Dose.Null
+
+  public companion object {
+    public fun fromModel(model: Dosage.DoseAndRate.Dose): DosageDoseAndRateDoseSurrogate =
+      with(model) {
+        DosageDoseAndRateDoseSurrogate().apply {
+          doseRange = this@with.asRange()?.value
+          doseQuantity = this@with.asQuantity()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class DosageDoseAndRateRateSurrogate {
+  public var rateRatio: Ratio? = null
+
+  public var rateRange: Range? = null
+
+  public var rateQuantity: Quantity? = null
+
+  public fun toModel(): Dosage.DoseAndRate.Rate =
+    Dosage.DoseAndRate.Rate?.from(
+      this@DosageDoseAndRateRateSurrogate.rateRatio,
+      this@DosageDoseAndRateRateSurrogate.rateRange,
+      this@DosageDoseAndRateRateSurrogate.rateQuantity,
+    ) ?: Dosage.DoseAndRate.Rate.Null
+
+  public companion object {
+    public fun fromModel(model: Dosage.DoseAndRate.Rate): DosageDoseAndRateRateSurrogate =
+      with(model) {
+        DosageDoseAndRateRateSurrogate().apply {
+          rateRatio = this@with.asRatio()?.value
+          rateRange = this@with.asRange()?.value
+          rateQuantity = this@with.asQuantity()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class DosageDoseAndRateSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var doseRange: Range? = null,
-  public var doseQuantity: Quantity? = null,
-  public var rateRatio: Ratio? = null,
-  public var rateRange: Range? = null,
-  public var rateQuantity: Quantity? = null,
+  public var dose: Dosage.DoseAndRate.Dose? = null,
+  public var rate: Dosage.DoseAndRate.Rate? = null,
 ) {
   public fun toModel(): Dosage.DoseAndRate =
     Dosage.DoseAndRate().apply {
       id = this@DosageDoseAndRateSurrogate.id
       extension = this@DosageDoseAndRateSurrogate.extension
       type = this@DosageDoseAndRateSurrogate.type
-      dose =
-        Dosage.DoseAndRate.Dose?.from(
-          this@DosageDoseAndRateSurrogate.doseRange,
-          this@DosageDoseAndRateSurrogate.doseQuantity,
-        )
-      rate =
-        Dosage.DoseAndRate.Rate?.from(
-          this@DosageDoseAndRateSurrogate.rateRatio,
-          this@DosageDoseAndRateSurrogate.rateRange,
-          this@DosageDoseAndRateSurrogate.rateQuantity,
-        )
+      dose = this@DosageDoseAndRateSurrogate.dose
+      rate = this@DosageDoseAndRateSurrogate.rate
     }
 
   public companion object {
@@ -76,11 +114,37 @@ internal data class DosageDoseAndRateSurrogate(
           id = this@with.id
           extension = this@with.extension
           type = this@with.type
-          doseRange = this@with.dose?.asRange()?.value
-          doseQuantity = this@with.dose?.asQuantity()?.value
-          rateRatio = this@with.rate?.asRatio()?.value
-          rateRange = this@with.rate?.asRange()?.value
-          rateQuantity = this@with.rate?.asQuantity()?.value
+          dose = this@with.dose
+          rate = this@with.rate
+        }
+      }
+  }
+}
+
+@Serializable
+internal class DosageAsNeededSurrogate {
+  public var asNeededBoolean: KotlinBoolean? = null
+
+  public var _asNeededBoolean: Element? = null
+
+  public var asNeededCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): Dosage.AsNeeded =
+    Dosage.AsNeeded?.from(
+      R4Boolean.of(
+        this@DosageAsNeededSurrogate.asNeededBoolean,
+        this@DosageAsNeededSurrogate._asNeededBoolean,
+      ),
+      this@DosageAsNeededSurrogate.asNeededCodeableConcept,
+    ) ?: Dosage.AsNeeded.Null
+
+  public companion object {
+    public fun fromModel(model: Dosage.AsNeeded): DosageAsNeededSurrogate =
+      with(model) {
+        DosageAsNeededSurrogate().apply {
+          asNeededBoolean = this@with.asBoolean()?.value?.value
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement()
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value
         }
       }
   }
@@ -99,9 +163,6 @@ internal data class DosageSurrogate(
   public var patientInstruction: KotlinString? = null,
   public var _patientInstruction: Element? = null,
   public var timing: Timing? = null,
-  public var asNeededBoolean: KotlinBoolean? = null,
-  public var _asNeededBoolean: Element? = null,
-  public var asNeededCodeableConcept: CodeableConcept? = null,
   public var site: CodeableConcept? = null,
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
@@ -109,6 +170,7 @@ internal data class DosageSurrogate(
   public var maxDosePerPeriod: Ratio? = null,
   public var maxDosePerAdministration: Quantity? = null,
   public var maxDosePerLifetime: Quantity? = null,
+  public var asNeeded: Dosage.AsNeeded? = null,
 ) {
   public fun toModel(): Dosage =
     Dosage().apply {
@@ -124,11 +186,7 @@ internal data class DosageSurrogate(
           this@DosageSurrogate._patientInstruction,
         )
       timing = this@DosageSurrogate.timing
-      asNeeded =
-        Dosage.AsNeeded?.from(
-          R4Boolean.of(this@DosageSurrogate.asNeededBoolean, this@DosageSurrogate._asNeededBoolean),
-          this@DosageSurrogate.asNeededCodeableConcept,
-        )
+      asNeeded = this@DosageSurrogate.asNeeded
       site = this@DosageSurrogate.site
       route = this@DosageSurrogate.route
       method = this@DosageSurrogate.method
@@ -153,9 +211,7 @@ internal data class DosageSurrogate(
           patientInstruction = this@with.patientInstruction?.value
           _patientInstruction = this@with.patientInstruction?.toElement()
           timing = this@with.timing
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement()
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value
+          asNeeded = this@with.asNeeded
           site = this@with.site
           route = this@with.route
           method = this@with.method

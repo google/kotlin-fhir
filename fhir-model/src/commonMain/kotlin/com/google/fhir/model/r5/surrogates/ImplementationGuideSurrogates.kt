@@ -323,16 +323,57 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
 }
 
 @Serializable
+internal class ImplementationGuideDefinitionPageSourceSurrogate {
+  public var sourceUrl: KotlinString? = null
+
+  public var _sourceUrl: Element? = null
+
+  public var sourceString: KotlinString? = null
+
+  public var _sourceString: Element? = null
+
+  public var sourceMarkdown: KotlinString? = null
+
+  public var _sourceMarkdown: Element? = null
+
+  public fun toModel(): ImplementationGuide.Definition.Page.Source =
+    ImplementationGuide.Definition.Page.Source?.from(
+      Url.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceUrl,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceUrl,
+      ),
+      R5String.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceString,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceString,
+      ),
+      Markdown.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceMarkdown,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceMarkdown,
+      ),
+    ) ?: ImplementationGuide.Definition.Page.Source.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Definition.Page.Source
+    ): ImplementationGuideDefinitionPageSourceSurrogate =
+      with(model) {
+        ImplementationGuideDefinitionPageSourceSurrogate().apply {
+          sourceUrl = this@with.asUrl()?.value?.value
+          _sourceUrl = this@with.asUrl()?.value?.toElement()
+          sourceString = this@with.asString()?.value?.value
+          _sourceString = this@with.asString()?.value?.toElement()
+          sourceMarkdown = this@with.asMarkdown()?.value?.value
+          _sourceMarkdown = this@with.asMarkdown()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ImplementationGuideDefinitionPageSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var sourceUrl: KotlinString? = null,
-  public var _sourceUrl: Element? = null,
-  public var sourceString: KotlinString? = null,
-  public var _sourceString: Element? = null,
-  public var sourceMarkdown: KotlinString? = null,
-  public var _sourceMarkdown: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -340,27 +381,14 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
   public var generation: KotlinString? = null,
   public var _generation: Element? = null,
   public var page: List<ImplementationGuide.Definition.Page?>? = null,
+  public var source: ImplementationGuide.Definition.Page.Source? = null,
 ) {
   public fun toModel(): ImplementationGuide.Definition.Page =
     ImplementationGuide.Definition.Page().apply {
       id = this@ImplementationGuideDefinitionPageSurrogate.id
       extension = this@ImplementationGuideDefinitionPageSurrogate.extension
       modifierExtension = this@ImplementationGuideDefinitionPageSurrogate.modifierExtension
-      source =
-        ImplementationGuide.Definition.Page.Source?.from(
-          Url.of(
-            this@ImplementationGuideDefinitionPageSurrogate.sourceUrl,
-            this@ImplementationGuideDefinitionPageSurrogate._sourceUrl,
-          ),
-          R5String.of(
-            this@ImplementationGuideDefinitionPageSurrogate.sourceString,
-            this@ImplementationGuideDefinitionPageSurrogate._sourceString,
-          ),
-          Markdown.of(
-            this@ImplementationGuideDefinitionPageSurrogate.sourceMarkdown,
-            this@ImplementationGuideDefinitionPageSurrogate._sourceMarkdown,
-          ),
-        )
+      source = this@ImplementationGuideDefinitionPageSurrogate.source
       name =
         Url.of(
           this@ImplementationGuideDefinitionPageSurrogate.name,
@@ -390,12 +418,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          sourceUrl = this@with.source?.asUrl()?.value?.value
-          _sourceUrl = this@with.source?.asUrl()?.value?.toElement()
-          sourceString = this@with.source?.asString()?.value?.value
-          _sourceString = this@with.source?.asString()?.value?.toElement()
-          sourceMarkdown = this@with.source?.asMarkdown()?.value?.value
-          _sourceMarkdown = this@with.source?.asMarkdown()?.value?.toElement()
+          source = this@with.source
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value
@@ -756,6 +779,37 @@ internal data class ImplementationGuideManifestSurrogate(
 }
 
 @Serializable
+internal class ImplementationGuideVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ImplementationGuide.VersionAlgorithm =
+    ImplementationGuide.VersionAlgorithm?.from(
+      R5String.of(
+        this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ImplementationGuideVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ImplementationGuide.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.VersionAlgorithm
+    ): ImplementationGuideVersionAlgorithmSurrogate =
+      with(model) {
+        ImplementationGuideVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ImplementationGuideSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -772,9 +826,6 @@ internal data class ImplementationGuideSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -808,6 +859,7 @@ internal data class ImplementationGuideSurrogate(
   public var global: List<ImplementationGuide.Global>? = null,
   public var definition: ImplementationGuide.Definition? = null,
   public var manifest: ImplementationGuide.Manifest? = null,
+  public var versionAlgorithm: ImplementationGuide.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ImplementationGuide =
     ImplementationGuide().apply {
@@ -834,14 +886,7 @@ internal data class ImplementationGuideSurrogate(
           this@ImplementationGuideSurrogate.version,
           this@ImplementationGuideSurrogate._version,
         )
-      versionAlgorithm =
-        ImplementationGuide.VersionAlgorithm?.from(
-          R5String.of(
-            this@ImplementationGuideSurrogate.versionAlgorithmString,
-            this@ImplementationGuideSurrogate._versionAlgorithmString,
-          ),
-          this@ImplementationGuideSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ImplementationGuideSurrogate.versionAlgorithm
       name =
         R5String.of(this@ImplementationGuideSurrogate.name, this@ImplementationGuideSurrogate._name)
       title =
@@ -951,9 +996,7 @@ internal data class ImplementationGuideSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

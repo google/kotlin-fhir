@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.CommunicationPayloadContentSerializer
 import com.google.fhir.model.r4.serializers.CommunicationPayloadSerializer
 import com.google.fhir.model.r4.serializers.CommunicationSerializer
 import kotlin.String
@@ -297,6 +298,7 @@ public data class Communication(
      */
     public var content: Content? = null,
   ) : BackboneElement() {
+    @Serializable(with = CommunicationPayloadContentSerializer::class)
     public sealed interface Content {
       public fun asString(): String? = this as? String
 
@@ -311,16 +313,18 @@ public data class Communication(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Content
 
+      public data object Null : Content
+
       public companion object {
         public fun from(
           stringValue: com.google.fhir.model.r4.String?,
           AttachmentValue: com.google.fhir.model.r4.Attachment?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Content? {
+        ): Content {
           if (stringValue != null) return String(stringValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

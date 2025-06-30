@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.EventDefinitionSerializer
+import com.google.fhir.model.r4.serializers.EventDefinitionSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -330,6 +331,7 @@ public data class EventDefinition(
    */
   public var trigger: List<TriggerDefinition?>? = null,
 ) : DomainResource() {
+  @Serializable(with = EventDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -341,14 +343,16 @@ public data class EventDefinition(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

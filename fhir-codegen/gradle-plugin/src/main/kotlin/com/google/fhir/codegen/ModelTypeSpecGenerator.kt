@@ -63,6 +63,7 @@ class ModelTypeSpecGenerator(
     modelClassName: ClassName,
     structureDefinition: StructureDefinition,
     isBaseClass: Boolean,
+    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
     surrogateFileSpec: FileSpec.Builder,
     serializerFileSpec: FileSpec.Builder,
   ): TypeSpec {
@@ -150,14 +151,15 @@ class ModelTypeSpecGenerator(
             enclosingModelClassName = modelClassName,
             backboneElements = structureDefinition.backboneElements,
             structureDefinition = structureDefinition,
-            surrogateTypeSpec = surrogateFileSpec,
-            serializerTypeSpec = serializerFileSpec,
+            surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
+            surrogateFileSpec = surrogateFileSpec,
+            serializerFileSpec = serializerFileSpec,
             createBindingToEnumTypeSpecEntry = { bindingName, typeSpec ->
               enumClassesMap.putIfAbsent(bindingName, typeSpec)
             },
           )
 
-          addSealedInterfaces(modelClassName, structureDefinition.rootElements)
+          addSealedInterfaces(modelClassName, structureDefinition.rootElements, serializerFileSpec)
 
           addEnumClassTypeSpec(
             elements = structureDefinition.rootElements,
@@ -201,8 +203,9 @@ class ModelTypeSpecGenerator(
     enclosingModelClassName: ClassName,
     backboneElements: Map<Element, List<Element>>,
     structureDefinition: StructureDefinition,
-    surrogateTypeSpec: FileSpec.Builder,
-    serializerTypeSpec: FileSpec.Builder,
+    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
+    surrogateFileSpec: FileSpec.Builder,
+    serializerFileSpec: FileSpec.Builder,
     createBindingToEnumTypeSpecEntry: (String, TypeSpec) -> Unit,
   ): TypeSpec.Builder {
     backboneElements
@@ -231,25 +234,27 @@ class ModelTypeSpecGenerator(
               enclosingModelClassName.nestedClass(name),
               backboneElements,
               structureDefinition,
-              surrogateTypeSpec,
-              serializerTypeSpec,
+              surrogateTypeSpecGenerator,
+              surrogateFileSpec,
+              serializerFileSpec,
               createBindingToEnumTypeSpecEntry,
             )
             .addSealedInterfaces(
               backboneElementClassName,
               structureDefinition.getElements(backboneElementClassName),
+              serializerFileSpec,
             )
             .build()
         )
 
         // TODO: Handle cases where the BackboneElement does not need the surrogate class and
         //  the custom serializer since it does not have any primitive fields.
-        surrogateTypeSpec.addType(
-          SurrogateTypeSpecGenerator(valueSetMap)
-            .generate(enclosingModelClassName.nestedClass(name.capitalized()), elements)
-        )
-        serializerTypeSpec.addType(
-          SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name))
+        surrogateTypeSpecGenerator
+          .generate(enclosingModelClassName.nestedClass(name.capitalized()), elements)
+          .forEach(surrogateFileSpec::addType)
+
+        serializerFileSpec.addType(
+          SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name), elements)
         )
       }
 
@@ -411,6 +416,7 @@ private fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName 
 private fun TypeSpec.Builder.addSealedInterfaces(
   enclosingModelClassName: ClassName,
   elements: List<Element>,
+  serializerFileSpec: FileSpec.Builder,
 ): TypeSpec.Builder {
   for (element in elements.filter { it.path.endsWith("[x]") }) {
     val sealedInterfaceClassName =
@@ -418,6 +424,11 @@ private fun TypeSpec.Builder.addSealedInterfaces(
     addType(
       TypeSpec.interfaceBuilder(sealedInterfaceClassName)
         .addModifiers(KModifier.SEALED)
+        .addAnnotation(
+          AnnotationSpec.builder(Serializable::class)
+            .addMember("with = %T::class", sealedInterfaceClassName.toSerializerClassName())
+            .build()
+        )
         .apply {
           for (type in element.type!!) {
             addType(
@@ -437,6 +448,15 @@ private fun TypeSpec.Builder.addSealedInterfaces(
                 .build()
             )
           }
+
+          // Add default type for nullable values
+          addType(
+            TypeSpec.objectBuilder("Null")
+              .addSuperinterface(sealedInterfaceClassName)
+              .addModifiers(KModifier.DATA)
+              .build()
+          )
+
           addType(
               // Add a `from` function in the companion object with a parameter list
               // containing each data type in the choice type. This function is used to
@@ -464,9 +484,9 @@ private fun TypeSpec.Builder.addSealedInterfaces(
                             .build()
                         )
                       }
-                      addCode(CodeBlock.builder().add("return null").build())
+                      addCode(CodeBlock.builder().add("return Null").build())
                     }
-                    .returns(sealedInterfaceClassName.copy(nullable = true))
+                    .returns(sealedInterfaceClassName)
                     .build()
                 )
                 .build()
@@ -498,6 +518,7 @@ private fun TypeSpec.Builder.addSealedInterfaces(
         }
         .build()
     )
+    serializerFileSpec.addType(SerializerTypeSpecGenerator.generate(sealedInterfaceClassName, null))
   }
   return this
 }

@@ -18,8 +18,11 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.InvoiceLineItemChargeItemSerializer
 import com.google.fhir.model.r5.serializers.InvoiceLineItemSerializer
+import com.google.fhir.model.r5.serializers.InvoiceLineItemServicedSerializer
 import com.google.fhir.model.r5.serializers.InvoiceParticipantSerializer
+import com.google.fhir.model.r5.serializers.InvoicePeriodSerializer
 import com.google.fhir.model.r5.serializers.InvoiceSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -336,6 +339,7 @@ public data class Invoice(
      */
     public var priceComponent: List<MonetaryComponent?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = InvoiceLineItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -345,18 +349,21 @@ public data class Invoice(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = InvoiceLineItemChargeItemSerializer::class)
     public sealed interface ChargeItem {
       public fun asReference(): Reference? = this as? Reference
 
@@ -369,19 +376,22 @@ public data class Invoice(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : ChargeItem
 
+      public data object Null : ChargeItem
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r5.Reference?,
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): ChargeItem? {
+        ): ChargeItem {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = InvoicePeriodSerializer::class)
   public sealed interface Period {
     public fun asDate(): Date? = this as? Date
 
@@ -391,14 +401,16 @@ public data class Invoice(
 
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Invoice.Period
 
+    public data object Null : Invoice.Period
+
     public companion object {
       public fun from(
         dateValue: com.google.fhir.model.r5.Date?,
         PeriodValue: com.google.fhir.model.r5.Period?,
-      ): Invoice.Period? {
+      ): Invoice.Period {
         if (dateValue != null) return Date(dateValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

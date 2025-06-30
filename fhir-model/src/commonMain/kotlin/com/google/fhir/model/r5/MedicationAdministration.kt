@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.MedicationAdministrationDosageRateSerializer
 import com.google.fhir.model.r5.serializers.MedicationAdministrationDosageSerializer
+import com.google.fhir.model.r5.serializers.MedicationAdministrationOccurenceSerializer
 import com.google.fhir.model.r5.serializers.MedicationAdministrationPerformerSerializer
 import com.google.fhir.model.r5.serializers.MedicationAdministrationSerializer
 import kotlin.Suppress
@@ -398,6 +400,7 @@ public data class MedicationAdministration(
      */
     public var rate: Rate? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationAdministrationDosageRateSerializer::class)
     public sealed interface Rate {
       public fun asRatio(): Ratio? = this as? Ratio
 
@@ -407,19 +410,22 @@ public data class MedicationAdministration(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Rate
 
+      public data object Null : Rate
+
       public companion object {
         public fun from(
           RatioValue: com.google.fhir.model.r5.Ratio?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Rate? {
+        ): Rate {
           if (RatioValue != null) return Ratio(RatioValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = MedicationAdministrationOccurenceSerializer::class)
   public sealed interface Occurence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -433,16 +439,18 @@ public data class MedicationAdministration(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurence
 
+    public data object Null : Occurence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         PeriodValue: com.google.fhir.model.r5.Period?,
         TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurence? {
+      ): Occurence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }

@@ -162,17 +162,50 @@ internal data class CitationStatusDateSurrogate(
 }
 
 @Serializable
+internal class CitationRelatesToTargetSurrogate {
+  public var targetUri: KotlinString? = null
+
+  public var _targetUri: Element? = null
+
+  public var targetIdentifier: Identifier? = null
+
+  public var targetReference: Reference? = null
+
+  public var targetAttachment: Attachment? = null
+
+  public fun toModel(): Citation.RelatesTo.Target =
+    Citation.RelatesTo.Target?.from(
+      Uri.of(
+        this@CitationRelatesToTargetSurrogate.targetUri,
+        this@CitationRelatesToTargetSurrogate._targetUri,
+      ),
+      this@CitationRelatesToTargetSurrogate.targetIdentifier,
+      this@CitationRelatesToTargetSurrogate.targetReference,
+      this@CitationRelatesToTargetSurrogate.targetAttachment,
+    ) ?: Citation.RelatesTo.Target.Null
+
+  public companion object {
+    public fun fromModel(model: Citation.RelatesTo.Target): CitationRelatesToTargetSurrogate =
+      with(model) {
+        CitationRelatesToTargetSurrogate().apply {
+          targetUri = this@with.asUri()?.value?.value
+          _targetUri = this@with.asUri()?.value?.toElement()
+          targetIdentifier = this@with.asIdentifier()?.value
+          targetReference = this@with.asReference()?.value
+          targetAttachment = this@with.asAttachment()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CitationRelatesToSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var relationshipType: CodeableConcept? = null,
   public var targetClassifier: List<CodeableConcept?>? = null,
-  public var targetUri: KotlinString? = null,
-  public var _targetUri: Element? = null,
-  public var targetIdentifier: Identifier? = null,
-  public var targetReference: Reference? = null,
-  public var targetAttachment: Attachment? = null,
+  public var target: Citation.RelatesTo.Target? = null,
 ) {
   public fun toModel(): Citation.RelatesTo =
     Citation.RelatesTo().apply {
@@ -181,16 +214,7 @@ internal data class CitationRelatesToSurrogate(
       modifierExtension = this@CitationRelatesToSurrogate.modifierExtension
       relationshipType = this@CitationRelatesToSurrogate.relationshipType
       targetClassifier = this@CitationRelatesToSurrogate.targetClassifier
-      target =
-        Citation.RelatesTo.Target?.from(
-          Uri.of(
-            this@CitationRelatesToSurrogate.targetUri,
-            this@CitationRelatesToSurrogate._targetUri,
-          ),
-          this@CitationRelatesToSurrogate.targetIdentifier,
-          this@CitationRelatesToSurrogate.targetReference,
-          this@CitationRelatesToSurrogate.targetAttachment,
-        )
+      target = this@CitationRelatesToSurrogate.target
     }
 
   public companion object {
@@ -202,11 +226,7 @@ internal data class CitationRelatesToSurrogate(
           modifierExtension = this@with.modifierExtension
           relationshipType = this@with.relationshipType
           targetClassifier = this@with.targetClassifier
-          targetUri = this@with.target?.asUri()?.value?.value
-          _targetUri = this@with.target?.asUri()?.value?.toElement()
-          targetIdentifier = this@with.target?.asIdentifier()?.value
-          targetReference = this@with.target?.asReference()?.value
-          targetAttachment = this@with.target?.asAttachment()?.value
+          target = this@with.target
         }
       }
   }
@@ -425,17 +445,52 @@ internal data class CitationCitedArtifactPartSurrogate(
 }
 
 @Serializable
+internal class CitationCitedArtifactRelatesToTargetSurrogate {
+  public var targetUri: KotlinString? = null
+
+  public var _targetUri: Element? = null
+
+  public var targetIdentifier: Identifier? = null
+
+  public var targetReference: Reference? = null
+
+  public var targetAttachment: Attachment? = null
+
+  public fun toModel(): Citation.CitedArtifact.RelatesTo.Target =
+    Citation.CitedArtifact.RelatesTo.Target?.from(
+      Uri.of(
+        this@CitationCitedArtifactRelatesToTargetSurrogate.targetUri,
+        this@CitationCitedArtifactRelatesToTargetSurrogate._targetUri,
+      ),
+      this@CitationCitedArtifactRelatesToTargetSurrogate.targetIdentifier,
+      this@CitationCitedArtifactRelatesToTargetSurrogate.targetReference,
+      this@CitationCitedArtifactRelatesToTargetSurrogate.targetAttachment,
+    ) ?: Citation.CitedArtifact.RelatesTo.Target.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Citation.CitedArtifact.RelatesTo.Target
+    ): CitationCitedArtifactRelatesToTargetSurrogate =
+      with(model) {
+        CitationCitedArtifactRelatesToTargetSurrogate().apply {
+          targetUri = this@with.asUri()?.value?.value
+          _targetUri = this@with.asUri()?.value?.toElement()
+          targetIdentifier = this@with.asIdentifier()?.value
+          targetReference = this@with.asReference()?.value
+          targetAttachment = this@with.asAttachment()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CitationCitedArtifactRelatesToSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var relationshipType: CodeableConcept? = null,
   public var targetClassifier: List<CodeableConcept?>? = null,
-  public var targetUri: KotlinString? = null,
-  public var _targetUri: Element? = null,
-  public var targetIdentifier: Identifier? = null,
-  public var targetReference: Reference? = null,
-  public var targetAttachment: Attachment? = null,
+  public var target: Citation.CitedArtifact.RelatesTo.Target? = null,
 ) {
   public fun toModel(): Citation.CitedArtifact.RelatesTo =
     Citation.CitedArtifact.RelatesTo().apply {
@@ -444,16 +499,7 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
       modifierExtension = this@CitationCitedArtifactRelatesToSurrogate.modifierExtension
       relationshipType = this@CitationCitedArtifactRelatesToSurrogate.relationshipType
       targetClassifier = this@CitationCitedArtifactRelatesToSurrogate.targetClassifier
-      target =
-        Citation.CitedArtifact.RelatesTo.Target?.from(
-          Uri.of(
-            this@CitationCitedArtifactRelatesToSurrogate.targetUri,
-            this@CitationCitedArtifactRelatesToSurrogate._targetUri,
-          ),
-          this@CitationCitedArtifactRelatesToSurrogate.targetIdentifier,
-          this@CitationCitedArtifactRelatesToSurrogate.targetReference,
-          this@CitationCitedArtifactRelatesToSurrogate.targetAttachment,
-        )
+      target = this@CitationCitedArtifactRelatesToSurrogate.target
     }
 
   public companion object {
@@ -467,11 +513,7 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
           modifierExtension = this@with.modifierExtension
           relationshipType = this@with.relationshipType
           targetClassifier = this@with.targetClassifier
-          targetUri = this@with.target?.asUri()?.value?.value
-          _targetUri = this@with.target?.asUri()?.value?.toElement()
-          targetIdentifier = this@with.target?.asIdentifier()?.value
-          targetReference = this@with.target?.asReference()?.value
-          targetAttachment = this@with.target?.asAttachment()?.value
+          target = this@with.target
         }
       }
   }

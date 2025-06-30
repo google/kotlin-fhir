@@ -18,7 +18,11 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.FamilyMemberHistoryAgeSerializer
+import com.google.fhir.model.r4b.serializers.FamilyMemberHistoryBornSerializer
+import com.google.fhir.model.r4b.serializers.FamilyMemberHistoryConditionOnsetSerializer
 import com.google.fhir.model.r4b.serializers.FamilyMemberHistoryConditionSerializer
+import com.google.fhir.model.r4b.serializers.FamilyMemberHistoryDeceasedSerializer
 import com.google.fhir.model.r4b.serializers.FamilyMemberHistorySerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -298,6 +302,7 @@ public data class FamilyMemberHistory(
     /** An area where general notes can be placed about this specific condition. */
     public var note: List<Annotation?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = FamilyMemberHistoryConditionOnsetSerializer::class)
     public sealed interface Onset {
       public fun asAge(): Age? = this as? Age
 
@@ -315,23 +320,26 @@ public data class FamilyMemberHistory(
 
       public data class String(public val `value`: com.google.fhir.model.r4b.String) : Onset
 
+      public data object Null : Onset
+
       public companion object {
         public fun from(
           AgeValue: com.google.fhir.model.r4b.Age?,
           RangeValue: com.google.fhir.model.r4b.Range?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
           stringValue: com.google.fhir.model.r4b.String?,
-        ): Onset? {
+        ): Onset {
           if (AgeValue != null) return Age(AgeValue)
           if (RangeValue != null) return Range(RangeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryBornSerializer::class)
   public sealed interface Born {
     public fun asPeriod(): Period? = this as? Period
 
@@ -345,20 +353,23 @@ public data class FamilyMemberHistory(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Born
 
+    public data object Null : Born
+
     public companion object {
       public fun from(
         PeriodValue: com.google.fhir.model.r4b.Period?,
         dateValue: com.google.fhir.model.r4b.Date?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): Born? {
+      ): Born {
         if (PeriodValue != null) return Period(PeriodValue)
         if (dateValue != null) return Date(dateValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryAgeSerializer::class)
   public sealed interface Age {
     public fun asAge(): Age? = this as? Age
 
@@ -375,20 +386,23 @@ public data class FamilyMemberHistory(
     public data class String(public val `value`: com.google.fhir.model.r4b.String) :
       FamilyMemberHistory.Age
 
+    public data object Null : FamilyMemberHistory.Age
+
     public companion object {
       public fun from(
         AgeValue: com.google.fhir.model.r4b.Age?,
         RangeValue: com.google.fhir.model.r4b.Range?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): FamilyMemberHistory.Age? {
+      ): FamilyMemberHistory.Age {
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -410,6 +424,8 @@ public data class FamilyMemberHistory(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Deceased
 
+    public data object Null : Deceased
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r4b.Boolean?,
@@ -417,13 +433,13 @@ public data class FamilyMemberHistory(
         RangeValue: com.google.fhir.model.r4b.Range?,
         dateValue: com.google.fhir.model.r4b.Date?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): Deceased? {
+      ): Deceased {
         if (booleanValue != null) return Boolean(booleanValue)
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
         if (dateValue != null) return Date(dateValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

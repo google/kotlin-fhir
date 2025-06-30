@@ -52,24 +52,103 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class GoalTargetDetailSurrogate {
+  public var detailQuantity: Quantity? = null
+
+  public var detailRange: Range? = null
+
+  public var detailCodeableConcept: CodeableConcept? = null
+
+  public var detailString: KotlinString? = null
+
+  public var _detailString: Element? = null
+
+  public var detailBoolean: KotlinBoolean? = null
+
+  public var _detailBoolean: Element? = null
+
+  public var detailInteger: Int? = null
+
+  public var _detailInteger: Element? = null
+
+  public var detailRatio: Ratio? = null
+
+  public fun toModel(): Goal.Target.Detail =
+    Goal.Target.Detail?.from(
+      this@GoalTargetDetailSurrogate.detailQuantity,
+      this@GoalTargetDetailSurrogate.detailRange,
+      this@GoalTargetDetailSurrogate.detailCodeableConcept,
+      R4String.of(
+        this@GoalTargetDetailSurrogate.detailString,
+        this@GoalTargetDetailSurrogate._detailString,
+      ),
+      R4Boolean.of(
+        this@GoalTargetDetailSurrogate.detailBoolean,
+        this@GoalTargetDetailSurrogate._detailBoolean,
+      ),
+      Integer.of(
+        this@GoalTargetDetailSurrogate.detailInteger,
+        this@GoalTargetDetailSurrogate._detailInteger,
+      ),
+      this@GoalTargetDetailSurrogate.detailRatio,
+    ) ?: Goal.Target.Detail.Null
+
+  public companion object {
+    public fun fromModel(model: Goal.Target.Detail): GoalTargetDetailSurrogate =
+      with(model) {
+        GoalTargetDetailSurrogate().apply {
+          detailQuantity = this@with.asQuantity()?.value
+          detailRange = this@with.asRange()?.value
+          detailCodeableConcept = this@with.asCodeableConcept()?.value
+          detailString = this@with.asString()?.value?.value
+          _detailString = this@with.asString()?.value?.toElement()
+          detailBoolean = this@with.asBoolean()?.value?.value
+          _detailBoolean = this@with.asBoolean()?.value?.toElement()
+          detailInteger = this@with.asInteger()?.value?.value
+          _detailInteger = this@with.asInteger()?.value?.toElement()
+          detailRatio = this@with.asRatio()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class GoalTargetDueSurrogate {
+  public var dueDate: KotlinString? = null
+
+  public var _dueDate: Element? = null
+
+  public var dueDuration: Duration? = null
+
+  public fun toModel(): Goal.Target.Due =
+    Goal.Target.Due?.from(
+      Date.of(
+        FhirDate.fromString(this@GoalTargetDueSurrogate.dueDate),
+        this@GoalTargetDueSurrogate._dueDate,
+      ),
+      this@GoalTargetDueSurrogate.dueDuration,
+    ) ?: Goal.Target.Due.Null
+
+  public companion object {
+    public fun fromModel(model: Goal.Target.Due): GoalTargetDueSurrogate =
+      with(model) {
+        GoalTargetDueSurrogate().apply {
+          dueDate = this@with.asDate()?.value?.value?.toString()
+          _dueDate = this@with.asDate()?.value?.toElement()
+          dueDuration = this@with.asDuration()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class GoalTargetSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var measure: CodeableConcept? = null,
-  public var detailQuantity: Quantity? = null,
-  public var detailRange: Range? = null,
-  public var detailCodeableConcept: CodeableConcept? = null,
-  public var detailString: KotlinString? = null,
-  public var _detailString: Element? = null,
-  public var detailBoolean: KotlinBoolean? = null,
-  public var _detailBoolean: Element? = null,
-  public var detailInteger: Int? = null,
-  public var _detailInteger: Element? = null,
-  public var detailRatio: Ratio? = null,
-  public var dueDate: KotlinString? = null,
-  public var _dueDate: Element? = null,
-  public var dueDuration: Duration? = null,
+  public var detail: Goal.Target.Detail? = null,
+  public var due: Goal.Target.Due? = null,
 ) {
   public fun toModel(): Goal.Target =
     Goal.Target().apply {
@@ -77,33 +156,8 @@ internal data class GoalTargetSurrogate(
       extension = this@GoalTargetSurrogate.extension
       modifierExtension = this@GoalTargetSurrogate.modifierExtension
       measure = this@GoalTargetSurrogate.measure
-      detail =
-        Goal.Target.Detail?.from(
-          this@GoalTargetSurrogate.detailQuantity,
-          this@GoalTargetSurrogate.detailRange,
-          this@GoalTargetSurrogate.detailCodeableConcept,
-          R4String.of(
-            this@GoalTargetSurrogate.detailString,
-            this@GoalTargetSurrogate._detailString,
-          ),
-          R4Boolean.of(
-            this@GoalTargetSurrogate.detailBoolean,
-            this@GoalTargetSurrogate._detailBoolean,
-          ),
-          Integer.of(
-            this@GoalTargetSurrogate.detailInteger,
-            this@GoalTargetSurrogate._detailInteger,
-          ),
-          this@GoalTargetSurrogate.detailRatio,
-        )
-      due =
-        Goal.Target.Due?.from(
-          Date.of(
-            FhirDate.fromString(this@GoalTargetSurrogate.dueDate),
-            this@GoalTargetSurrogate._dueDate,
-          ),
-          this@GoalTargetSurrogate.dueDuration,
-        )
+      detail = this@GoalTargetSurrogate.detail
+      due = this@GoalTargetSurrogate.due
     }
 
   public companion object {
@@ -114,19 +168,37 @@ internal data class GoalTargetSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           measure = this@with.measure
-          detailQuantity = this@with.detail?.asQuantity()?.value
-          detailRange = this@with.detail?.asRange()?.value
-          detailCodeableConcept = this@with.detail?.asCodeableConcept()?.value
-          detailString = this@with.detail?.asString()?.value?.value
-          _detailString = this@with.detail?.asString()?.value?.toElement()
-          detailBoolean = this@with.detail?.asBoolean()?.value?.value
-          _detailBoolean = this@with.detail?.asBoolean()?.value?.toElement()
-          detailInteger = this@with.detail?.asInteger()?.value?.value
-          _detailInteger = this@with.detail?.asInteger()?.value?.toElement()
-          detailRatio = this@with.detail?.asRatio()?.value
-          dueDate = this@with.due?.asDate()?.value?.value?.toString()
-          _dueDate = this@with.due?.asDate()?.value?.toElement()
-          dueDuration = this@with.due?.asDuration()?.value
+          detail = this@with.detail
+          due = this@with.due
+        }
+      }
+  }
+}
+
+@Serializable
+internal class GoalStartSurrogate {
+  public var startDate: KotlinString? = null
+
+  public var _startDate: Element? = null
+
+  public var startCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): Goal.Start =
+    Goal.Start?.from(
+      Date.of(
+        FhirDate.fromString(this@GoalStartSurrogate.startDate),
+        this@GoalStartSurrogate._startDate,
+      ),
+      this@GoalStartSurrogate.startCodeableConcept,
+    ) ?: Goal.Start.Null
+
+  public companion object {
+    public fun fromModel(model: Goal.Start): GoalStartSurrogate =
+      with(model) {
+        GoalStartSurrogate().apply {
+          startDate = this@with.asDate()?.value?.value?.toString()
+          _startDate = this@with.asDate()?.value?.toElement()
+          startCodeableConcept = this@with.asCodeableConcept()?.value
         }
       }
   }
@@ -152,9 +224,6 @@ internal data class GoalSurrogate(
   public var priority: CodeableConcept? = null,
   public var description: CodeableConcept? = null,
   public var subject: Reference? = null,
-  public var startDate: KotlinString? = null,
-  public var _startDate: Element? = null,
-  public var startCodeableConcept: CodeableConcept? = null,
   public var target: List<Goal.Target>? = null,
   public var statusDate: KotlinString? = null,
   public var _statusDate: Element? = null,
@@ -165,6 +234,7 @@ internal data class GoalSurrogate(
   public var note: List<Annotation?>? = null,
   public var outcomeCode: List<CodeableConcept?>? = null,
   public var outcomeReference: List<Reference?>? = null,
+  public var start: Goal.Start? = null,
 ) {
   public fun toModel(): Goal =
     Goal().apply {
@@ -189,11 +259,7 @@ internal data class GoalSurrogate(
       priority = this@GoalSurrogate.priority
       description = this@GoalSurrogate.description
       subject = this@GoalSurrogate.subject
-      start =
-        Goal.Start?.from(
-          Date.of(FhirDate.fromString(this@GoalSurrogate.startDate), this@GoalSurrogate._startDate),
-          this@GoalSurrogate.startCodeableConcept,
-        )
+      start = this@GoalSurrogate.start
       target = this@GoalSurrogate.target
       statusDate =
         Date.of(FhirDate.fromString(this@GoalSurrogate.statusDate), this@GoalSurrogate._statusDate)
@@ -227,9 +293,7 @@ internal data class GoalSurrogate(
           priority = this@with.priority
           description = this@with.description
           subject = this@with.subject
-          startDate = this@with.start?.asDate()?.value?.value?.toString()
-          _startDate = this@with.start?.asDate()?.value?.toElement()
-          startCodeableConcept = this@with.start?.asCodeableConcept()?.value
+          start = this@with.start
           target = this@with.target
           statusDate = this@with.statusDate?.value?.toString()
           _statusDate = this@with.statusDate?.toElement()

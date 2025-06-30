@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ChargeItemOccurrenceSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemPerformerSerializer
+import com.google.fhir.model.r4b.serializers.ChargeItemProductSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -323,6 +325,7 @@ public data class ChargeItem(
     public var actor: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ChargeItemOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -336,20 +339,23 @@ public data class ChargeItem(
 
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
         TimingValue: com.google.fhir.model.r4b.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ChargeItemProductSerializer::class)
   public sealed interface Product {
     public fun asReference(): Reference? = this as? Reference
 
@@ -361,14 +367,16 @@ public data class ChargeItem(
       public val `value`: com.google.fhir.model.r4b.CodeableConcept
     ) : Product
 
+    public data object Null : Product
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-      ): Product? {
+      ): Product {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

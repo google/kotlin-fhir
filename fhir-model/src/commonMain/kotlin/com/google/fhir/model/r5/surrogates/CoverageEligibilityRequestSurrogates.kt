@@ -52,14 +52,43 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class CoverageEligibilityRequestEventWhenSurrogate {
+  public var whenDateTime: KotlinString? = null
+
+  public var _whenDateTime: Element? = null
+
+  public var whenPeriod: Period? = null
+
+  public fun toModel(): CoverageEligibilityRequest.Event.When =
+    CoverageEligibilityRequest.Event.When?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@CoverageEligibilityRequestEventWhenSurrogate.whenDateTime),
+        this@CoverageEligibilityRequestEventWhenSurrogate._whenDateTime,
+      ),
+      this@CoverageEligibilityRequestEventWhenSurrogate.whenPeriod,
+    ) ?: CoverageEligibilityRequest.Event.When.Null
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityRequest.Event.When
+    ): CoverageEligibilityRequestEventWhenSurrogate =
+      with(model) {
+        CoverageEligibilityRequestEventWhenSurrogate().apply {
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _whenDateTime = this@with.asDateTime()?.value?.toElement()
+          whenPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageEligibilityRequestEventSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var whenDateTime: KotlinString? = null,
-  public var _whenDateTime: Element? = null,
-  public var whenPeriod: Period? = null,
+  public var `when`: CoverageEligibilityRequest.Event.When? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.Event =
     CoverageEligibilityRequest.Event().apply {
@@ -67,14 +96,7 @@ internal data class CoverageEligibilityRequestEventSurrogate(
       extension = this@CoverageEligibilityRequestEventSurrogate.extension
       modifierExtension = this@CoverageEligibilityRequestEventSurrogate.modifierExtension
       type = this@CoverageEligibilityRequestEventSurrogate.type
-      `when` =
-        CoverageEligibilityRequest.Event.When?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@CoverageEligibilityRequestEventSurrogate.whenDateTime),
-            this@CoverageEligibilityRequestEventSurrogate._whenDateTime,
-          ),
-          this@CoverageEligibilityRequestEventSurrogate.whenPeriod,
-        )
+      `when` = this@CoverageEligibilityRequestEventSurrogate.`when`
     }
 
   public companion object {
@@ -87,9 +109,7 @@ internal data class CoverageEligibilityRequestEventSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          whenDateTime = this@with.`when`?.asDateTime()?.value?.value?.toString()
-          _whenDateTime = this@with.`when`?.asDateTime()?.value?.toElement()
-          whenPeriod = this@with.`when`?.asPeriod()?.value
+          `when` = this@with.`when`
         }
       }
   }
@@ -192,23 +212,43 @@ internal data class CoverageEligibilityRequestInsuranceSurrogate(
 }
 
 @Serializable
+internal class CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate {
+  public var diagnosisCodeableConcept: CodeableConcept? = null
+
+  public var diagnosisReference: Reference? = null
+
+  public fun toModel(): CoverageEligibilityRequest.Item.Diagnosis.Diagnosis =
+    CoverageEligibilityRequest.Item.Diagnosis.Diagnosis?.from(
+      this@CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
+      this@CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.diagnosisReference,
+    ) ?: CoverageEligibilityRequest.Item.Diagnosis.Diagnosis.Null
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityRequest.Item.Diagnosis.Diagnosis
+    ): CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate =
+      with(model) {
+        CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate().apply {
+          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value
+          diagnosisReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageEligibilityRequestItemDiagnosisSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var diagnosisCodeableConcept: CodeableConcept? = null,
-  public var diagnosisReference: Reference? = null,
+  public var diagnosis: CoverageEligibilityRequest.Item.Diagnosis.Diagnosis? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.Item.Diagnosis =
     CoverageEligibilityRequest.Item.Diagnosis().apply {
       id = this@CoverageEligibilityRequestItemDiagnosisSurrogate.id
       extension = this@CoverageEligibilityRequestItemDiagnosisSurrogate.extension
       modifierExtension = this@CoverageEligibilityRequestItemDiagnosisSurrogate.modifierExtension
-      diagnosis =
-        CoverageEligibilityRequest.Item.Diagnosis.Diagnosis?.from(
-          this@CoverageEligibilityRequestItemDiagnosisSurrogate.diagnosisCodeableConcept,
-          this@CoverageEligibilityRequestItemDiagnosisSurrogate.diagnosisReference,
-        )
+      diagnosis = this@CoverageEligibilityRequestItemDiagnosisSurrogate.diagnosis
     }
 
   public companion object {
@@ -220,8 +260,7 @@ internal data class CoverageEligibilityRequestItemDiagnosisSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          diagnosisCodeableConcept = this@with.diagnosis?.asCodeableConcept()?.value
-          diagnosisReference = this@with.diagnosis?.asReference()?.value
+          diagnosis = this@with.diagnosis
         }
       }
   }
@@ -313,6 +352,37 @@ internal data class CoverageEligibilityRequestItemSurrogate(
 }
 
 @Serializable
+internal class CoverageEligibilityRequestServicedSurrogate {
+  public var servicedDate: KotlinString? = null
+
+  public var _servicedDate: Element? = null
+
+  public var servicedPeriod: Period? = null
+
+  public fun toModel(): CoverageEligibilityRequest.Serviced =
+    CoverageEligibilityRequest.Serviced?.from(
+      Date.of(
+        FhirDate.fromString(this@CoverageEligibilityRequestServicedSurrogate.servicedDate),
+        this@CoverageEligibilityRequestServicedSurrogate._servicedDate,
+      ),
+      this@CoverageEligibilityRequestServicedSurrogate.servicedPeriod,
+    ) ?: CoverageEligibilityRequest.Serviced.Null
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityRequest.Serviced
+    ): CoverageEligibilityRequestServicedSurrogate =
+      with(model) {
+        CoverageEligibilityRequestServicedSurrogate().apply {
+          servicedDate = this@with.asDate()?.value?.value?.toString()
+          _servicedDate = this@with.asDate()?.value?.toElement()
+          servicedPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageEligibilityRequestSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -332,9 +402,6 @@ internal data class CoverageEligibilityRequestSurrogate(
   public var _purpose: List<Element?>? = null,
   public var patient: Reference? = null,
   public var event: List<CoverageEligibilityRequest.Event>? = null,
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var enterer: Reference? = null,
@@ -344,6 +411,7 @@ internal data class CoverageEligibilityRequestSurrogate(
   public var supportingInfo: List<CoverageEligibilityRequest.SupportingInfo>? = null,
   public var insurance: List<CoverageEligibilityRequest.Insurance>? = null,
   public var item: List<CoverageEligibilityRequest.Item>? = null,
+  public var serviced: CoverageEligibilityRequest.Serviced? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest =
     CoverageEligibilityRequest().apply {
@@ -399,14 +467,7 @@ internal data class CoverageEligibilityRequestSurrogate(
         }
       patient = this@CoverageEligibilityRequestSurrogate.patient
       event = this@CoverageEligibilityRequestSurrogate.event
-      serviced =
-        CoverageEligibilityRequest.Serviced?.from(
-          Date.of(
-            FhirDate.fromString(this@CoverageEligibilityRequestSurrogate.servicedDate),
-            this@CoverageEligibilityRequestSurrogate._servicedDate,
-          ),
-          this@CoverageEligibilityRequestSurrogate.servicedPeriod,
-        )
+      serviced = this@CoverageEligibilityRequestSurrogate.serviced
       created =
         DateTime.of(
           FhirDateTime.fromString(this@CoverageEligibilityRequestSurrogate.created),
@@ -445,9 +506,7 @@ internal data class CoverageEligibilityRequestSurrogate(
             this@with.purpose?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
           patient = this@with.patient
           event = this@with.event
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString()
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement()
-          servicedPeriod = this@with.serviced?.asPeriod()?.value
+          serviced = this@with.serviced
           created = this@with.created?.value?.toString()
           _created = this@with.created?.toElement()
           enterer = this@with.enterer

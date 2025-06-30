@@ -85,13 +85,37 @@ internal data class SubstanceInstanceSurrogate(
 }
 
 @Serializable
+internal class SubstanceIngredientSubstanceSurrogate {
+  public var substanceCodeableConcept: CodeableConcept? = null
+
+  public var substanceReference: Reference? = null
+
+  public fun toModel(): Substance.Ingredient.Substance =
+    Substance.Ingredient.Substance?.from(
+      this@SubstanceIngredientSubstanceSurrogate.substanceCodeableConcept,
+      this@SubstanceIngredientSubstanceSurrogate.substanceReference,
+    ) ?: Substance.Ingredient.Substance.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Substance.Ingredient.Substance
+    ): SubstanceIngredientSubstanceSurrogate =
+      with(model) {
+        SubstanceIngredientSubstanceSurrogate().apply {
+          substanceCodeableConcept = this@with.asCodeableConcept()?.value
+          substanceReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var quantity: Ratio? = null,
-  public var substanceCodeableConcept: CodeableConcept? = null,
-  public var substanceReference: Reference? = null,
+  public var substance: Substance.Ingredient.Substance? = null,
 ) {
   public fun toModel(): Substance.Ingredient =
     Substance.Ingredient().apply {
@@ -99,11 +123,7 @@ internal data class SubstanceIngredientSurrogate(
       extension = this@SubstanceIngredientSurrogate.extension
       modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension
       quantity = this@SubstanceIngredientSurrogate.quantity
-      substance =
-        Substance.Ingredient.Substance?.from(
-          this@SubstanceIngredientSurrogate.substanceCodeableConcept,
-          this@SubstanceIngredientSurrogate.substanceReference,
-        )
+      substance = this@SubstanceIngredientSurrogate.substance
     }
 
   public companion object {
@@ -114,8 +134,7 @@ internal data class SubstanceIngredientSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           quantity = this@with.quantity
-          substanceCodeableConcept = this@with.substance?.asCodeableConcept()?.value
-          substanceReference = this@with.substance?.asReference()?.value
+          substance = this@with.substance
         }
       }
   }

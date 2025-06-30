@@ -19,8 +19,11 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ObservationComponentSerializer
+import com.google.fhir.model.r4.serializers.ObservationComponentValueSerializer
+import com.google.fhir.model.r4.serializers.ObservationEffectiveSerializer
 import com.google.fhir.model.r4.serializers.ObservationReferenceRangeSerializer
 import com.google.fhir.model.r4.serializers.ObservationSerializer
+import com.google.fhir.model.r4.serializers.ObservationValueSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -537,6 +540,7 @@ public data class Observation(
      */
     public var referenceRange: List<ReferenceRange?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ObservationComponentValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -585,6 +589,8 @@ public data class Observation(
 
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r4.Quantity?,
@@ -598,7 +604,7 @@ public data class Observation(
           timeValue: com.google.fhir.model.r4.Time?,
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
           PeriodValue: com.google.fhir.model.r4.Period?,
-        ): Value? {
+        ): Value {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (stringValue != null) return String(stringValue)
@@ -610,12 +616,13 @@ public data class Observation(
           if (timeValue != null) return Time(timeValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = ObservationEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -633,22 +640,25 @@ public data class Observation(
 
     public data class Instant(public val `value`: com.google.fhir.model.r4.Instant) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
         TimingValue: com.google.fhir.model.r4.Timing?,
         instantValue: com.google.fhir.model.r4.Instant?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
         if (instantValue != null) return Instant(instantValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ObservationValueSerializer::class)
   public sealed interface Value {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -696,6 +706,8 @@ public data class Observation(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Value
 
+    public data object Null : Value
+
     public companion object {
       public fun from(
         QuantityValue: com.google.fhir.model.r4.Quantity?,
@@ -709,7 +721,7 @@ public data class Observation(
         timeValue: com.google.fhir.model.r4.Time?,
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Value? {
+      ): Value {
         if (QuantityValue != null) return Quantity(QuantityValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (stringValue != null) return String(stringValue)
@@ -721,7 +733,7 @@ public data class Observation(
         if (timeValue != null) return Time(timeValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

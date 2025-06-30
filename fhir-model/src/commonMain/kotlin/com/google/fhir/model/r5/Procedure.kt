@@ -19,7 +19,9 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ProcedureFocalDeviceSerializer
+import com.google.fhir.model.r5.serializers.ProcedureOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ProcedurePerformerSerializer
+import com.google.fhir.model.r5.serializers.ProcedureReportedSerializer
 import com.google.fhir.model.r5.serializers.ProcedureSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -444,6 +446,7 @@ public data class Procedure(
     public var manipulated: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ProcedureOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -469,6 +472,8 @@ public data class Procedure(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
@@ -477,18 +482,19 @@ public data class Procedure(
         AgeValue: com.google.fhir.model.r5.Age?,
         RangeValue: com.google.fhir.model.r5.Range?,
         TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (stringValue != null) return String(stringValue)
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ProcedureReportedSerializer::class)
   public sealed interface Reported {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -498,14 +504,16 @@ public data class Procedure(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Reported
 
+    public data object Null : Reported
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Reported? {
+      ): Reported {
         if (booleanValue != null) return Boolean(booleanValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

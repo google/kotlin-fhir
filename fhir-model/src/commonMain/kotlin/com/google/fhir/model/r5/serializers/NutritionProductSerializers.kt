@@ -18,17 +18,26 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.NutritionProduct
 import com.google.fhir.model.r5.surrogates.NutritionProductCharacteristicSurrogate
+import com.google.fhir.model.r5.surrogates.NutritionProductCharacteristicValueSurrogate
 import com.google.fhir.model.r5.surrogates.NutritionProductIngredientSurrogate
 import com.google.fhir.model.r5.surrogates.NutritionProductInstanceSurrogate
 import com.google.fhir.model.r5.surrogates.NutritionProductNutrientSurrogate
 import com.google.fhir.model.r5.surrogates.NutritionProductSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object NutritionProductNutrientSerializer : KSerializer<NutritionProduct.Nutrient> {
   internal val surrogateSerializer: KSerializer<NutritionProductNutrientSurrogate> by lazy {
@@ -64,21 +73,73 @@ public object NutritionProductIngredientSerializer : KSerializer<NutritionProduc
   }
 }
 
+public object NutritionProductCharacteristicValueSerializer :
+  KSerializer<NutritionProduct.Characteristic.Value> {
+  internal val surrogateSerializer:
+    KSerializer<NutritionProductCharacteristicValueSurrogate> by lazy {
+    NutritionProductCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): NutritionProduct.Characteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: NutritionProduct.Characteristic.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      NutritionProductCharacteristicValueSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object NutritionProductCharacteristicSerializer :
   KSerializer<NutritionProduct.Characteristic> {
   internal val surrogateSerializer: KSerializer<NutritionProductCharacteristicSurrogate> by lazy {
     NutritionProductCharacteristicSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Characteristic", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): NutritionProduct.Characteristic =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): NutritionProduct.Characteristic {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct.Characteristic) {
-    surrogateSerializer.serialize(encoder, NutritionProductCharacteristicSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = NutritionProductCharacteristicSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

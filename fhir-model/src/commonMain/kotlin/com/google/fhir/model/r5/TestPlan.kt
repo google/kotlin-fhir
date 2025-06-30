@@ -24,8 +24,11 @@ import com.google.fhir.model.r5.serializers.TestPlanTestCaseAssertionSerializer
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseDependencySerializer
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseSerializer
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestDataSerializer
+import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestDataSourceSerializer
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunScriptSerializer
+import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunScriptSourceSerializer
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunSerializer
+import com.google.fhir.model.r5.serializers.TestPlanVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -576,6 +579,7 @@ public data class TestPlan(
          */
         public var source: Source? = null,
       ) : BackboneElement() {
+        @Serializable(with = TestPlanTestCaseTestRunScriptSourceSerializer::class)
         public sealed interface Source {
           public fun asString(): String? = this as? String
 
@@ -586,14 +590,16 @@ public data class TestPlan(
           public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
             Source
 
+          public data object Null : Source
+
           public companion object {
             public fun from(
               stringValue: com.google.fhir.model.r5.String?,
               ReferenceValue: com.google.fhir.model.r5.Reference?,
-            ): Source? {
+            ): Source {
               if (stringValue != null) return String(stringValue)
               if (ReferenceValue != null) return Reference(ReferenceValue)
-              return null
+              return Null
             }
           }
         }
@@ -650,6 +656,7 @@ public data class TestPlan(
        */
       public var source: Source? = null,
     ) : BackboneElement() {
+      @Serializable(with = TestPlanTestCaseTestDataSourceSerializer::class)
       public sealed interface Source {
         public fun asString(): String? = this as? String
 
@@ -660,14 +667,16 @@ public data class TestPlan(
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
           Source
 
+        public data object Null : Source
+
         public companion object {
           public fun from(
             stringValue: com.google.fhir.model.r5.String?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Source? {
+          ): Source {
             if (stringValue != null) return String(stringValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }
@@ -727,6 +736,7 @@ public data class TestPlan(
     ) : BackboneElement()
   }
 
+  @Serializable(with = TestPlanVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -738,14 +748,16 @@ public data class TestPlan(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

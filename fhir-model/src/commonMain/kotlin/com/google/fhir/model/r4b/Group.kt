@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.GroupCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.GroupCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.GroupMemberSerializer
 import com.google.fhir.model.r4b.serializers.GroupSerializer
 import kotlin.Suppress
@@ -244,6 +245,7 @@ public data class Group(
      */
     public var period: Period? = null,
   ) : BackboneElement() {
+    @Serializable(with = GroupCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -267,6 +269,8 @@ public data class Group(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
@@ -274,13 +278,13 @@ public data class Group(
           QuantityValue: com.google.fhir.model.r4b.Quantity?,
           RangeValue: com.google.fhir.model.r4b.Range?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

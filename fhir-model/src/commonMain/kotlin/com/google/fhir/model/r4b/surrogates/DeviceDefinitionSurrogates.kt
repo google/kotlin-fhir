@@ -303,6 +303,37 @@ internal data class DeviceDefinitionMaterialSurrogate(
 }
 
 @Serializable
+internal class DeviceDefinitionManufacturerSurrogate {
+  public var manufacturerString: KotlinString? = null
+
+  public var _manufacturerString: Element? = null
+
+  public var manufacturerReference: Reference? = null
+
+  public fun toModel(): DeviceDefinition.Manufacturer =
+    DeviceDefinition.Manufacturer?.from(
+      R4bString.of(
+        this@DeviceDefinitionManufacturerSurrogate.manufacturerString,
+        this@DeviceDefinitionManufacturerSurrogate._manufacturerString,
+      ),
+      this@DeviceDefinitionManufacturerSurrogate.manufacturerReference,
+    ) ?: DeviceDefinition.Manufacturer.Null
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceDefinition.Manufacturer
+    ): DeviceDefinitionManufacturerSurrogate =
+      with(model) {
+        DeviceDefinitionManufacturerSurrogate().apply {
+          manufacturerString = this@with.asString()?.value?.value
+          _manufacturerString = this@with.asString()?.value?.toElement()
+          manufacturerReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -316,9 +347,6 @@ internal data class DeviceDefinitionSurrogate(
   public var modifierExtension: List<Extension?>? = null,
   public var identifier: List<Identifier?>? = null,
   public var udiDeviceIdentifier: List<DeviceDefinition.UdiDeviceIdentifier>? = null,
-  public var manufacturerString: KotlinString? = null,
-  public var _manufacturerString: Element? = null,
-  public var manufacturerReference: Reference? = null,
   public var deviceName: List<DeviceDefinition.DeviceName>? = null,
   public var modelNumber: KotlinString? = null,
   public var _modelNumber: Element? = null,
@@ -342,6 +370,7 @@ internal data class DeviceDefinitionSurrogate(
   public var quantity: Quantity? = null,
   public var parentDevice: Reference? = null,
   public var material: List<DeviceDefinition.Material>? = null,
+  public var manufacturer: DeviceDefinition.Manufacturer? = null,
 ) {
   public fun toModel(): DeviceDefinition =
     DeviceDefinition().apply {
@@ -360,14 +389,7 @@ internal data class DeviceDefinitionSurrogate(
       modifierExtension = this@DeviceDefinitionSurrogate.modifierExtension
       identifier = this@DeviceDefinitionSurrogate.identifier
       udiDeviceIdentifier = this@DeviceDefinitionSurrogate.udiDeviceIdentifier
-      manufacturer =
-        DeviceDefinition.Manufacturer?.from(
-          R4bString.of(
-            this@DeviceDefinitionSurrogate.manufacturerString,
-            this@DeviceDefinitionSurrogate._manufacturerString,
-          ),
-          this@DeviceDefinitionSurrogate.manufacturerReference,
-        )
+      manufacturer = this@DeviceDefinitionSurrogate.manufacturer
       deviceName = this@DeviceDefinitionSurrogate.deviceName
       modelNumber =
         R4bString.of(
@@ -427,9 +449,7 @@ internal data class DeviceDefinitionSurrogate(
           modifierExtension = this@with.modifierExtension
           identifier = this@with.identifier
           udiDeviceIdentifier = this@with.udiDeviceIdentifier
-          manufacturerString = this@with.manufacturer?.asString()?.value?.value
-          _manufacturerString = this@with.manufacturer?.asString()?.value?.toElement()
-          manufacturerReference = this@with.manufacturer?.asReference()?.value
+          manufacturer = this@with.manufacturer
           deviceName = this@with.deviceName
           modelNumber = this@with.modelNumber?.value
           _modelNumber = this@with.modelNumber?.toElement()

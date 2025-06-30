@@ -19,14 +19,17 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionGroupingSerializer
+import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionPageNameSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionPageSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionParameterSerializer
+import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionResourceExampleSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionResourceSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionTemplateSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDependsOnSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideGlobalSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestPageSerializer
+import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestResourceExampleSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestResourceSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideSerializer
@@ -636,6 +639,7 @@ public data class ImplementationGuide(
        */
       public var groupingId: Id? = null,
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideDefinitionResourceExampleSerializer::class)
       public sealed interface Example {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -646,14 +650,16 @@ public data class ImplementationGuide(
         public data class Canonical(public val `value`: com.google.fhir.model.r4b.Canonical) :
           Example
 
+        public data object Null : Example
+
         public companion object {
           public fun from(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             canonicalValue: com.google.fhir.model.r4b.Canonical?,
-          ): Example? {
+          ): Example {
             if (booleanValue != null) return Boolean(booleanValue)
             if (canonicalValue != null) return Canonical(canonicalValue)
-            return null
+            return Null
           }
         }
       }
@@ -723,6 +729,7 @@ public data class ImplementationGuide(
        */
       public var page: List<Page?>? = null,
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideDefinitionPageNameSerializer::class)
       public sealed interface Name {
         public fun asUrl(): Url? = this as? Url
 
@@ -732,14 +739,16 @@ public data class ImplementationGuide(
 
         public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Name
 
+        public data object Null : Name
+
         public companion object {
           public fun from(
             urlValue: com.google.fhir.model.r4b.Url?,
             ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          ): Name? {
+          ): Name {
             if (urlValue != null) return Url(urlValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }
@@ -970,6 +979,7 @@ public data class ImplementationGuide(
        */
       public var relativePath: Url? = null,
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideManifestResourceExampleSerializer::class)
       public sealed interface Example {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -980,14 +990,16 @@ public data class ImplementationGuide(
         public data class Canonical(public val `value`: com.google.fhir.model.r4b.Canonical) :
           Example
 
+        public data object Null : Example
+
         public companion object {
           public fun from(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             canonicalValue: com.google.fhir.model.r4b.Canonical?,
-          ): Example? {
+          ): Example {
             if (booleanValue != null) return Boolean(booleanValue)
             if (canonicalValue != null) return Canonical(canonicalValue)
-            return null
+            return Null
           }
         }
       }

@@ -19,19 +19,33 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.AdverseEvent
+import com.google.fhir.model.r5.FhirJsonTransformer
+import com.google.fhir.model.r5.surrogates.AdverseEventContributingFactorItemSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventContributingFactorSurrogate
+import com.google.fhir.model.r5.surrogates.AdverseEventMitigatingActionItemSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventMitigatingActionSurrogate
+import com.google.fhir.model.r5.surrogates.AdverseEventOccurrenceSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventParticipantSurrogate
+import com.google.fhir.model.r5.surrogates.AdverseEventPreventiveActionItemSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventPreventiveActionSurrogate
+import com.google.fhir.model.r5.surrogates.AdverseEventSupportingInfoItemSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventSupportingInfoSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventSuspectEntityCausalitySurrogate
+import com.google.fhir.model.r5.surrogates.AdverseEventSuspectEntityInstanceSurrogate
 import com.google.fhir.model.r5.surrogates.AdverseEventSuspectEntitySurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object AdverseEventParticipantSerializer : KSerializer<AdverseEvent.Participant> {
   internal val surrogateSerializer: KSerializer<AdverseEventParticipantSurrogate> by lazy {
@@ -72,20 +86,94 @@ public object AdverseEventSuspectEntityCausalitySerializer :
   }
 }
 
+public object AdverseEventSuspectEntityInstanceSerializer :
+  KSerializer<AdverseEvent.SuspectEntity.Instance> {
+  internal val surrogateSerializer:
+    KSerializer<AdverseEventSuspectEntityInstanceSurrogate> by lazy {
+    AdverseEventSuspectEntityInstanceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Instance", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity.Instance =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity.Instance) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventSuspectEntityInstanceSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object AdverseEventSuspectEntitySerializer : KSerializer<AdverseEvent.SuspectEntity> {
   internal val surrogateSerializer: KSerializer<AdverseEventSuspectEntitySurrogate> by lazy {
     AdverseEventSuspectEntitySurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("instance")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("SuspectEntity", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity) {
-    surrogateSerializer.serialize(encoder, AdverseEventSuspectEntitySurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AdverseEventSuspectEntitySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object AdverseEventContributingFactorItemSerializer :
+  KSerializer<AdverseEvent.ContributingFactor.Item> {
+  internal val surrogateSerializer:
+    KSerializer<AdverseEventContributingFactorItemSurrogate> by lazy {
+    AdverseEventContributingFactorItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.ContributingFactor.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.ContributingFactor.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventContributingFactorItemSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -95,15 +183,66 @@ public object AdverseEventContributingFactorSerializer :
     AdverseEventContributingFactorSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("item")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ContributingFactor", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent.ContributingFactor =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AdverseEvent.ContributingFactor {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.ContributingFactor) {
-    surrogateSerializer.serialize(encoder, AdverseEventContributingFactorSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AdverseEventContributingFactorSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object AdverseEventPreventiveActionItemSerializer :
+  KSerializer<AdverseEvent.PreventiveAction.Item> {
+  internal val surrogateSerializer: KSerializer<AdverseEventPreventiveActionItemSurrogate> by lazy {
+    AdverseEventPreventiveActionItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.PreventiveAction.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.PreventiveAction.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventPreventiveActionItemSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -112,15 +251,66 @@ public object AdverseEventPreventiveActionSerializer : KSerializer<AdverseEvent.
     AdverseEventPreventiveActionSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("item")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("PreventiveAction", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent.PreventiveAction =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AdverseEvent.PreventiveAction {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.PreventiveAction) {
-    surrogateSerializer.serialize(encoder, AdverseEventPreventiveActionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AdverseEventPreventiveActionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object AdverseEventMitigatingActionItemSerializer :
+  KSerializer<AdverseEvent.MitigatingAction.Item> {
+  internal val surrogateSerializer: KSerializer<AdverseEventMitigatingActionItemSurrogate> by lazy {
+    AdverseEventMitigatingActionItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.MitigatingAction.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.MitigatingAction.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventMitigatingActionItemSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -129,15 +319,63 @@ public object AdverseEventMitigatingActionSerializer : KSerializer<AdverseEvent.
     AdverseEventMitigatingActionSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("item")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("MitigatingAction", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent.MitigatingAction =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AdverseEvent.MitigatingAction {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.MitigatingAction) {
-    surrogateSerializer.serialize(encoder, AdverseEventMitigatingActionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AdverseEventMitigatingActionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object AdverseEventSupportingInfoItemSerializer :
+  KSerializer<AdverseEvent.SupportingInfo.Item> {
+  internal val surrogateSerializer: KSerializer<AdverseEventSupportingInfoItemSurrogate> by lazy {
+    AdverseEventSupportingInfoItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.SupportingInfo.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SupportingInfo.Item) {
+    surrogateSerializer.serialize(encoder, AdverseEventSupportingInfoItemSurrogate.fromModel(value))
   }
 }
 
@@ -146,15 +384,62 @@ public object AdverseEventSupportingInfoSerializer : KSerializer<AdverseEvent.Su
     AdverseEventSupportingInfoSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("item")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("SupportingInfo", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent.SupportingInfo =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AdverseEvent.SupportingInfo {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.SupportingInfo) {
-    surrogateSerializer.serialize(encoder, AdverseEventSupportingInfoSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AdverseEventSupportingInfoSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object AdverseEventOccurrenceSerializer : KSerializer<AdverseEvent.Occurrence> {
+  internal val surrogateSerializer: KSerializer<AdverseEventOccurrenceSurrogate> by lazy {
+    AdverseEventOccurrenceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.Occurrence =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.Occurrence) {
+    surrogateSerializer.serialize(encoder, AdverseEventOccurrenceSurrogate.fromModel(value))
   }
 }
 
@@ -163,14 +448,44 @@ public object AdverseEventSerializer : KSerializer<AdverseEvent> {
     AdverseEventSurrogate.serializer()
   }
 
+  private val resourceType: String? = "AdverseEvent"
+
+  private val multiChoiceProperties: List<String> = listOf("occurrence")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("AdverseEvent", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AdverseEvent {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent) {
-    surrogateSerializer.serialize(encoder, AdverseEventSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AdverseEventSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

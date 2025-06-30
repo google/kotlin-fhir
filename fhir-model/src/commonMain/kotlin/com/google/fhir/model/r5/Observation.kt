@@ -19,9 +19,13 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ObservationComponentSerializer
+import com.google.fhir.model.r5.serializers.ObservationComponentValueSerializer
+import com.google.fhir.model.r5.serializers.ObservationEffectiveSerializer
+import com.google.fhir.model.r5.serializers.ObservationInstantiatesSerializer
 import com.google.fhir.model.r5.serializers.ObservationReferenceRangeSerializer
 import com.google.fhir.model.r5.serializers.ObservationSerializer
 import com.google.fhir.model.r5.serializers.ObservationTriggeredBySerializer
+import com.google.fhir.model.r5.serializers.ObservationValueSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -635,6 +639,7 @@ public data class Observation(
      */
     public var referenceRange: List<ReferenceRange?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ObservationComponentValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -691,6 +696,8 @@ public data class Observation(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -706,7 +713,7 @@ public data class Observation(
           PeriodValue: com.google.fhir.model.r5.Period?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Value? {
+        ): Value {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (stringValue != null) return String(stringValue)
@@ -720,12 +727,13 @@ public data class Observation(
           if (PeriodValue != null) return Period(PeriodValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = ObservationInstantiatesSerializer::class)
   public sealed interface Instantiates {
     public fun asCanonical(): Canonical? = this as? Canonical
 
@@ -737,18 +745,21 @@ public data class Observation(
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
       Instantiates
 
+    public data object Null : Instantiates
+
     public companion object {
       public fun from(
         canonicalValue: com.google.fhir.model.r5.Canonical?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Instantiates? {
+      ): Instantiates {
         if (canonicalValue != null) return Canonical(canonicalValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ObservationEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -766,22 +777,25 @@ public data class Observation(
 
     public data class Instant(public val `value`: com.google.fhir.model.r5.Instant) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         PeriodValue: com.google.fhir.model.r5.Period?,
         TimingValue: com.google.fhir.model.r5.Timing?,
         instantValue: com.google.fhir.model.r5.Instant?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
         if (instantValue != null) return Instant(instantValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ObservationValueSerializer::class)
   public sealed interface Value {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -837,6 +851,8 @@ public data class Observation(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+    public data object Null : Value
+
     public companion object {
       public fun from(
         QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -852,7 +868,7 @@ public data class Observation(
         PeriodValue: com.google.fhir.model.r5.Period?,
         AttachmentValue: com.google.fhir.model.r5.Attachment?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Value? {
+      ): Value {
         if (QuantityValue != null) return Quantity(QuantityValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (stringValue != null) return String(stringValue)
@@ -866,7 +882,7 @@ public data class Observation(
         if (PeriodValue != null) return Period(PeriodValue)
         if (AttachmentValue != null) return Attachment(AttachmentValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

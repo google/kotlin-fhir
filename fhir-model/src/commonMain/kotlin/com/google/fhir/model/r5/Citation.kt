@@ -37,6 +37,7 @@ import com.google.fhir.model.r5.serializers.CitationClassificationSerializer
 import com.google.fhir.model.r5.serializers.CitationSerializer
 import com.google.fhir.model.r5.serializers.CitationStatusDateSerializer
 import com.google.fhir.model.r5.serializers.CitationSummarySerializer
+import com.google.fhir.model.r5.serializers.CitationVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -1609,6 +1610,7 @@ public data class Citation(
     }
   }
 
+  @Serializable(with = CitationVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1620,14 +1622,16 @@ public data class Citation(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

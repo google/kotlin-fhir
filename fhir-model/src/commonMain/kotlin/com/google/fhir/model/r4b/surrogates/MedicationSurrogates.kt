@@ -46,26 +46,44 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class MedicationIngredientItemSurrogate {
+  public var itemCodeableConcept: CodeableConcept? = null
+
+  public var itemReference: Reference? = null
+
+  public fun toModel(): Medication.Ingredient.Item =
+    Medication.Ingredient.Item?.from(
+      this@MedicationIngredientItemSurrogate.itemCodeableConcept,
+      this@MedicationIngredientItemSurrogate.itemReference,
+    ) ?: Medication.Ingredient.Item.Null
+
+  public companion object {
+    public fun fromModel(model: Medication.Ingredient.Item): MedicationIngredientItemSurrogate =
+      with(model) {
+        MedicationIngredientItemSurrogate().apply {
+          itemCodeableConcept = this@with.asCodeableConcept()?.value
+          itemReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
-  public var itemReference: Reference? = null,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
   public var strength: Ratio? = null,
+  public var item: Medication.Ingredient.Item? = null,
 ) {
   public fun toModel(): Medication.Ingredient =
     Medication.Ingredient().apply {
       id = this@MedicationIngredientSurrogate.id
       extension = this@MedicationIngredientSurrogate.extension
       modifierExtension = this@MedicationIngredientSurrogate.modifierExtension
-      item =
-        Medication.Ingredient.Item?.from(
-          this@MedicationIngredientSurrogate.itemCodeableConcept,
-          this@MedicationIngredientSurrogate.itemReference,
-        )
+      item = this@MedicationIngredientSurrogate.item
       isActive =
         R4bBoolean.of(
           this@MedicationIngredientSurrogate.isActive,
@@ -81,8 +99,7 @@ internal data class MedicationIngredientSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value
-          itemReference = this@with.item?.asReference()?.value
+          item = this@with.item
           isActive = this@with.isActive?.value
           _isActive = this@with.isActive?.toElement()
           strength = this@with.strength

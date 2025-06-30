@@ -92,14 +92,36 @@ internal data class CompositionAttesterSurrogate(
 }
 
 @Serializable
+internal class CompositionRelatesToTargetSurrogate {
+  public var targetIdentifier: Identifier? = null
+
+  public var targetReference: Reference? = null
+
+  public fun toModel(): Composition.RelatesTo.Target =
+    Composition.RelatesTo.Target?.from(
+      this@CompositionRelatesToTargetSurrogate.targetIdentifier,
+      this@CompositionRelatesToTargetSurrogate.targetReference,
+    ) ?: Composition.RelatesTo.Target.Null
+
+  public companion object {
+    public fun fromModel(model: Composition.RelatesTo.Target): CompositionRelatesToTargetSurrogate =
+      with(model) {
+        CompositionRelatesToTargetSurrogate().apply {
+          targetIdentifier = this@with.asIdentifier()?.value
+          targetReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CompositionRelatesToSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var targetIdentifier: Identifier? = null,
-  public var targetReference: Reference? = null,
+  public var target: Composition.RelatesTo.Target? = null,
 ) {
   public fun toModel(): Composition.RelatesTo =
     Composition.RelatesTo().apply {
@@ -113,11 +135,7 @@ internal data class CompositionRelatesToSurrogate(
           },
           this@CompositionRelatesToSurrogate._code,
         )
-      target =
-        Composition.RelatesTo.Target?.from(
-          this@CompositionRelatesToSurrogate.targetIdentifier,
-          this@CompositionRelatesToSurrogate.targetReference,
-        )
+      target = this@CompositionRelatesToSurrogate.target
     }
 
   public companion object {
@@ -129,8 +147,7 @@ internal data class CompositionRelatesToSurrogate(
           modifierExtension = this@with.modifierExtension
           code = this@with.code?.value?.getCode()
           _code = this@with.code?.toElement()
-          targetIdentifier = this@with.target?.asIdentifier()?.value
-          targetReference = this@with.target?.asReference()?.value
+          target = this@with.target
         }
       }
   }

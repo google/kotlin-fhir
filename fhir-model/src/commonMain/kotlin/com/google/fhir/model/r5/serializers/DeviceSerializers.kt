@@ -19,17 +19,26 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.Device
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.DeviceConformsToSurrogate
 import com.google.fhir.model.r5.surrogates.DeviceNameSurrogate
 import com.google.fhir.model.r5.surrogates.DevicePropertySurrogate
+import com.google.fhir.model.r5.surrogates.DevicePropertyValueSurrogate
 import com.google.fhir.model.r5.surrogates.DeviceSurrogate
 import com.google.fhir.model.r5.surrogates.DeviceUdiCarrierSurrogate
 import com.google.fhir.model.r5.surrogates.DeviceVersionSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object DeviceUdiCarrierSerializer : KSerializer<Device.UdiCarrier> {
   internal val surrogateSerializer: KSerializer<DeviceUdiCarrierSurrogate> by lazy {
@@ -99,20 +108,67 @@ public object DeviceConformsToSerializer : KSerializer<Device.ConformsTo> {
   }
 }
 
+public object DevicePropertyValueSerializer : KSerializer<Device.Property.Value> {
+  internal val surrogateSerializer: KSerializer<DevicePropertyValueSurrogate> by lazy {
+    DevicePropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Device.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Device.Property.Value) {
+    surrogateSerializer.serialize(encoder, DevicePropertyValueSurrogate.fromModel(value))
+  }
+}
+
 public object DevicePropertySerializer : KSerializer<Device.Property> {
   internal val surrogateSerializer: KSerializer<DevicePropertySurrogate> by lazy {
     DevicePropertySurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Property", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Device.Property =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Device.Property {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Device.Property) {
-    surrogateSerializer.serialize(encoder, DevicePropertySurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = DevicePropertySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

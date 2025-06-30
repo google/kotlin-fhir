@@ -47,14 +47,38 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class GenomicStudyAnalysisInputGeneratedBySurrogate {
+  public var generatedByIdentifier: Identifier? = null
+
+  public var generatedByReference: Reference? = null
+
+  public fun toModel(): GenomicStudy.Analysis.Input.GeneratedBy =
+    GenomicStudy.Analysis.Input.GeneratedBy?.from(
+      this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByIdentifier,
+      this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByReference,
+    ) ?: GenomicStudy.Analysis.Input.GeneratedBy.Null
+
+  public companion object {
+    public fun fromModel(
+      model: GenomicStudy.Analysis.Input.GeneratedBy
+    ): GenomicStudyAnalysisInputGeneratedBySurrogate =
+      with(model) {
+        GenomicStudyAnalysisInputGeneratedBySurrogate().apply {
+          generatedByIdentifier = this@with.asIdentifier()?.value
+          generatedByReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class GenomicStudyAnalysisInputSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var `file`: Reference? = null,
   public var type: CodeableConcept? = null,
-  public var generatedByIdentifier: Identifier? = null,
-  public var generatedByReference: Reference? = null,
+  public var generatedBy: GenomicStudy.Analysis.Input.GeneratedBy? = null,
 ) {
   public fun toModel(): GenomicStudy.Analysis.Input =
     GenomicStudy.Analysis.Input().apply {
@@ -63,11 +87,7 @@ internal data class GenomicStudyAnalysisInputSurrogate(
       modifierExtension = this@GenomicStudyAnalysisInputSurrogate.modifierExtension
       `file` = this@GenomicStudyAnalysisInputSurrogate.`file`
       type = this@GenomicStudyAnalysisInputSurrogate.type
-      generatedBy =
-        GenomicStudy.Analysis.Input.GeneratedBy?.from(
-          this@GenomicStudyAnalysisInputSurrogate.generatedByIdentifier,
-          this@GenomicStudyAnalysisInputSurrogate.generatedByReference,
-        )
+      generatedBy = this@GenomicStudyAnalysisInputSurrogate.generatedBy
     }
 
   public companion object {
@@ -79,8 +99,7 @@ internal data class GenomicStudyAnalysisInputSurrogate(
           modifierExtension = this@with.modifierExtension
           `file` = this@with.`file`
           type = this@with.type
-          generatedByIdentifier = this@with.generatedBy?.asIdentifier()?.value
-          generatedByReference = this@with.generatedBy?.asReference()?.value
+          generatedBy = this@with.generatedBy
         }
       }
   }

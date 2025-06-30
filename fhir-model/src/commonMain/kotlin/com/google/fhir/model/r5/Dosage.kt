@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.DosageDoseAndRateDoseSerializer
+import com.google.fhir.model.r5.serializers.DosageDoseAndRateRateSerializer
 import com.google.fhir.model.r5.serializers.DosageDoseAndRateSerializer
 import com.google.fhir.model.r5.serializers.DosageSerializer
 import kotlin.Suppress
@@ -205,6 +207,7 @@ public data class Dosage(
      */
     public var rate: Rate? = null,
   ) : Element() {
+    @Serializable(with = DosageDoseAndRateDoseSerializer::class)
     public sealed interface Dose {
       public fun asRange(): Range? = this as? Range
 
@@ -214,18 +217,21 @@ public data class Dosage(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Dose
 
+      public data object Null : Dose
+
       public companion object {
         public fun from(
           RangeValue: com.google.fhir.model.r5.Range?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Dose? {
+        ): Dose {
           if (RangeValue != null) return Range(RangeValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = DosageDoseAndRateRateSerializer::class)
     public sealed interface Rate {
       public fun asRatio(): Ratio? = this as? Ratio
 
@@ -239,16 +245,18 @@ public data class Dosage(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Rate
 
+      public data object Null : Rate
+
       public companion object {
         public fun from(
           RatioValue: com.google.fhir.model.r5.Ratio?,
           RangeValue: com.google.fhir.model.r5.Range?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Rate? {
+        ): Rate {
           if (RatioValue != null) return Ratio(RatioValue)
           if (RangeValue != null) return Range(RangeValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }

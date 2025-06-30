@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ProcedureFocalDeviceSerializer
+import com.google.fhir.model.r4.serializers.ProcedurePerformedSerializer
 import com.google.fhir.model.r4.serializers.ProcedurePerformerSerializer
 import com.google.fhir.model.r4.serializers.ProcedureSerializer
 import kotlin.String
@@ -423,6 +424,7 @@ public data class Procedure(
     public var manipulated: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ProcedurePerformedSerializer::class)
   public sealed interface Performed {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -444,6 +446,8 @@ public data class Procedure(
 
     public data class Range(public val `value`: com.google.fhir.model.r4.Range) : Performed
 
+    public data object Null : Performed
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
@@ -451,13 +455,13 @@ public data class Procedure(
         stringValue: com.google.fhir.model.r4.String?,
         AgeValue: com.google.fhir.model.r4.Age?,
         RangeValue: com.google.fhir.model.r4.Range?,
-      ): Performed? {
+      ): Performed {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (stringValue != null) return String(stringValue)
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
-        return null
+        return Null
       }
     }
   }

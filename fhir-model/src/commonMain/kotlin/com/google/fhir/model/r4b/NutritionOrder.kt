@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.NutritionOrderEnteralFormulaAdministrationRateSerializer
 import com.google.fhir.model.r4b.serializers.NutritionOrderEnteralFormulaAdministrationSerializer
 import com.google.fhir.model.r4b.serializers.NutritionOrderEnteralFormulaSerializer
 import com.google.fhir.model.r4b.serializers.NutritionOrderOralDietNutrientSerializer
@@ -659,6 +660,7 @@ public data class NutritionOrder(
        */
       public var rate: Rate? = null,
     ) : BackboneElement() {
+      @Serializable(with = NutritionOrderEnteralFormulaAdministrationRateSerializer::class)
       public sealed interface Rate {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -668,14 +670,16 @@ public data class NutritionOrder(
 
         public data class Ratio(public val `value`: com.google.fhir.model.r4b.Ratio) : Rate
 
+        public data object Null : Rate
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r4b.Quantity?,
             RatioValue: com.google.fhir.model.r4b.Ratio?,
-          ): Rate? {
+          ): Rate {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RatioValue != null) return Ratio(RatioValue)
-            return null
+            return Null
           }
         }
       }

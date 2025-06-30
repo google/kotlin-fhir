@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.MessageDefinitionAllowedResponseSerializer
+import com.google.fhir.model.r4b.serializers.MessageDefinitionEventSerializer
 import com.google.fhir.model.r4b.serializers.MessageDefinitionFocusSerializer
 import com.google.fhir.model.r4b.serializers.MessageDefinitionSerializer
 import kotlin.Suppress
@@ -433,6 +434,7 @@ public data class MessageDefinition(
     public var situation: Markdown? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MessageDefinitionEventSerializer::class)
   public sealed interface Event {
     public fun asCoding(): Coding? = this as? Coding
 
@@ -442,14 +444,16 @@ public data class MessageDefinition(
 
     public data class Uri(public val `value`: com.google.fhir.model.r4b.Uri) : Event
 
+    public data object Null : Event
+
     public companion object {
       public fun from(
         CodingValue: com.google.fhir.model.r4b.Coding?,
         uriValue: com.google.fhir.model.r4b.Uri?,
-      ): Event? {
+      ): Event {
         if (CodingValue != null) return Coding(CodingValue)
         if (uriValue != null) return Uri(uriValue)
-        return null
+        return Null
       }
     }
   }

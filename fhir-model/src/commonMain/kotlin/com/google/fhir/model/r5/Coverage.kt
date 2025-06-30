@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.CoverageClassSerializer
 import com.google.fhir.model.r5.serializers.CoverageCostToBeneficiaryExceptionSerializer
 import com.google.fhir.model.r5.serializers.CoverageCostToBeneficiarySerializer
+import com.google.fhir.model.r5.serializers.CoverageCostToBeneficiaryValueSerializer
 import com.google.fhir.model.r5.serializers.CoveragePaymentBySerializer
 import com.google.fhir.model.r5.serializers.CoverageSerializer
 import kotlin.Suppress
@@ -480,6 +481,7 @@ public data class Coverage(
       public var period: Period? = null,
     ) : BackboneElement()
 
+    @Serializable(with = CoverageCostToBeneficiaryValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -489,14 +491,16 @@ public data class Coverage(
 
       public data class Money(public val `value`: com.google.fhir.model.r5.Money) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
           MoneyValue: com.google.fhir.model.r5.Money?,
-        ): Value? {
+        ): Value {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (MoneyValue != null) return Money(MoneyValue)
-          return null
+          return Null
         }
       }
     }

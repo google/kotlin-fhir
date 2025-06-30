@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ParametersParameterSerializer
+import com.google.fhir.model.r4.serializers.ParametersParameterValueSerializer
 import com.google.fhir.model.r4.serializers.ParametersSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -134,6 +135,7 @@ public data class Parameters(
      */
     public var part: List<Parameter?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ParametersParameterValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -353,6 +355,8 @@ public data class Parameters(
 
       public data class Meta(public val `value`: com.google.fhir.model.r4.Meta) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           base64BinaryValue: com.google.fhir.model.r4.Base64Binary?,
@@ -405,7 +409,7 @@ public data class Parameters(
           UsageContextValue: com.google.fhir.model.r4.UsageContext?,
           DosageValue: com.google.fhir.model.r4.Dosage?,
           MetaValue: com.google.fhir.model.r4.Meta?,
-        ): Value? {
+        ): Value {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -456,7 +460,7 @@ public data class Parameters(
           if (UsageContextValue != null) return UsageContext(UsageContextValue)
           if (DosageValue != null) return Dosage(DosageValue)
           if (MetaValue != null) return Meta(MetaValue)
-          return null
+          return Null
         }
       }
     }

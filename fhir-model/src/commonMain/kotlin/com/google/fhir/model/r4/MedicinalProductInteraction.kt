@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicinalProductInteractionInteractantItemSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductInteractionInteractantSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductInteractionSerializer
 import kotlin.Suppress
@@ -191,6 +192,7 @@ public data class MedicinalProductInteraction(
     /** The specific medication, food or laboratory test that interacts. */
     public var item: Item? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductInteractionInteractantItemSerializer::class)
     public sealed interface Item {
       public fun asReference(): Reference? = this as? Reference
 
@@ -202,14 +204,16 @@ public data class MedicinalProductInteraction(
         public val `value`: com.google.fhir.model.r4.CodeableConcept
       ) : Item
 
+      public data object Null : Item
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r4.Reference?,
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ): Item? {
+        ): Item {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }

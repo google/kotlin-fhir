@@ -22,6 +22,7 @@ import com.google.fhir.model.r4b.serializers.NutritionProductIngredientSerialize
 import com.google.fhir.model.r4b.serializers.NutritionProductInstanceSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductNutrientSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductProductCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.NutritionProductProductCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -319,6 +320,7 @@ public data class NutritionProduct(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = NutritionProductProductCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -348,6 +350,8 @@ public data class NutritionProduct(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r4b.Boolean) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
@@ -356,14 +360,14 @@ public data class NutritionProduct(
           base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
           AttachmentValue: com.google.fhir.model.r4b.Attachment?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (stringValue != null) return String(stringValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return null
+          return Null
         }
       }
     }

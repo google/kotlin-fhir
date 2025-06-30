@@ -235,6 +235,37 @@ internal data class ObservationDefinitionComponentSurrogate(
 }
 
 @Serializable
+internal class ObservationDefinitionVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ObservationDefinition.VersionAlgorithm =
+    ObservationDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ObservationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ObservationDefinition.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ObservationDefinition.VersionAlgorithm
+    ): ObservationDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        ObservationDefinitionVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ObservationDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -251,9 +282,6 @@ internal data class ObservationDefinitionSurrogate(
   public var identifier: Identifier? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -304,6 +332,7 @@ internal data class ObservationDefinitionSurrogate(
   public var qualifiedValue: List<ObservationDefinition.QualifiedValue>? = null,
   public var hasMember: List<Reference?>? = null,
   public var component: List<ObservationDefinition.Component>? = null,
+  public var versionAlgorithm: ObservationDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ObservationDefinition =
     ObservationDefinition().apply {
@@ -331,14 +360,7 @@ internal data class ObservationDefinitionSurrogate(
           this@ObservationDefinitionSurrogate.version,
           this@ObservationDefinitionSurrogate._version,
         )
-      versionAlgorithm =
-        ObservationDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@ObservationDefinitionSurrogate.versionAlgorithmString,
-            this@ObservationDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@ObservationDefinitionSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ObservationDefinitionSurrogate.versionAlgorithm
       name =
         R5String.of(
           this@ObservationDefinitionSurrogate.name,
@@ -500,9 +522,7 @@ internal data class ObservationDefinitionSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

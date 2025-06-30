@@ -45,16 +45,47 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class MolecularSequenceRelativeStartingSequenceSequenceSurrogate {
+  public var sequenceCodeableConcept: CodeableConcept? = null
+
+  public var sequenceString: KotlinString? = null
+
+  public var _sequenceString: Element? = null
+
+  public var sequenceReference: Reference? = null
+
+  public fun toModel(): MolecularSequence.Relative.StartingSequence.Sequence =
+    MolecularSequence.Relative.StartingSequence.Sequence?.from(
+      this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceCodeableConcept,
+      R5String.of(
+        this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceString,
+        this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate._sequenceString,
+      ),
+      this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceReference,
+    ) ?: MolecularSequence.Relative.StartingSequence.Sequence.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MolecularSequence.Relative.StartingSequence.Sequence
+    ): MolecularSequenceRelativeStartingSequenceSequenceSurrogate =
+      with(model) {
+        MolecularSequenceRelativeStartingSequenceSequenceSurrogate().apply {
+          sequenceCodeableConcept = this@with.asCodeableConcept()?.value
+          sequenceString = this@with.asString()?.value?.value
+          _sequenceString = this@with.asString()?.value?.toElement()
+          sequenceReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var genomeAssembly: CodeableConcept? = null,
   public var chromosome: CodeableConcept? = null,
-  public var sequenceCodeableConcept: CodeableConcept? = null,
-  public var sequenceString: KotlinString? = null,
-  public var _sequenceString: Element? = null,
-  public var sequenceReference: Reference? = null,
   public var windowStart: Int? = null,
   public var _windowStart: Element? = null,
   public var windowEnd: Int? = null,
@@ -63,6 +94,7 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var _orientation: Element? = null,
   public var strand: KotlinString? = null,
   public var _strand: Element? = null,
+  public var sequence: MolecularSequence.Relative.StartingSequence.Sequence? = null,
 ) {
   public fun toModel(): MolecularSequence.Relative.StartingSequence =
     MolecularSequence.Relative.StartingSequence().apply {
@@ -71,15 +103,7 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
       modifierExtension = this@MolecularSequenceRelativeStartingSequenceSurrogate.modifierExtension
       genomeAssembly = this@MolecularSequenceRelativeStartingSequenceSurrogate.genomeAssembly
       chromosome = this@MolecularSequenceRelativeStartingSequenceSurrogate.chromosome
-      sequence =
-        MolecularSequence.Relative.StartingSequence.Sequence?.from(
-          this@MolecularSequenceRelativeStartingSequenceSurrogate.sequenceCodeableConcept,
-          R5String.of(
-            this@MolecularSequenceRelativeStartingSequenceSurrogate.sequenceString,
-            this@MolecularSequenceRelativeStartingSequenceSurrogate._sequenceString,
-          ),
-          this@MolecularSequenceRelativeStartingSequenceSurrogate.sequenceReference,
-        )
+      sequence = this@MolecularSequenceRelativeStartingSequenceSurrogate.sequence
       windowStart =
         Integer.of(
           this@MolecularSequenceRelativeStartingSequenceSurrogate.windowStart,
@@ -117,10 +141,7 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
           modifierExtension = this@with.modifierExtension
           genomeAssembly = this@with.genomeAssembly
           chromosome = this@with.chromosome
-          sequenceCodeableConcept = this@with.sequence?.asCodeableConcept()?.value
-          sequenceString = this@with.sequence?.asString()?.value?.value
-          _sequenceString = this@with.sequence?.asString()?.value?.toElement()
-          sequenceReference = this@with.sequence?.asReference()?.value
+          sequence = this@with.sequence
           windowStart = this@with.windowStart?.value
           _windowStart = this@with.windowStart?.toElement()
           windowEnd = this@with.windowEnd?.value

@@ -88,16 +88,47 @@ internal data class MedicinalProductAuthorizationJurisdictionalAuthorizationSurr
 }
 
 @Serializable
+internal class MedicinalProductAuthorizationProcedureDateSurrogate {
+  public var datePeriod: Period? = null
+
+  public var dateDateTime: String? = null
+
+  public var _dateDateTime: Element? = null
+
+  public fun toModel(): MedicinalProductAuthorization.Procedure.Date =
+    MedicinalProductAuthorization.Procedure.Date?.from(
+      this@MedicinalProductAuthorizationProcedureDateSurrogate.datePeriod,
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@MedicinalProductAuthorizationProcedureDateSurrogate.dateDateTime
+        ),
+        this@MedicinalProductAuthorizationProcedureDateSurrogate._dateDateTime,
+      ),
+    ) ?: MedicinalProductAuthorization.Procedure.Date.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductAuthorization.Procedure.Date
+    ): MedicinalProductAuthorizationProcedureDateSurrogate =
+      with(model) {
+        MedicinalProductAuthorizationProcedureDateSurrogate().apply {
+          datePeriod = this@with.asPeriod()?.value
+          dateDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _dateDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicinalProductAuthorizationProcedureSurrogate(
   public var id: String? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept? = null,
-  public var datePeriod: Period? = null,
-  public var dateDateTime: String? = null,
-  public var _dateDateTime: Element? = null,
   public var application: List<MedicinalProductAuthorization.Procedure?>? = null,
+  public var date: MedicinalProductAuthorization.Procedure.Date? = null,
 ) {
   public fun toModel(): MedicinalProductAuthorization.Procedure =
     MedicinalProductAuthorization.Procedure().apply {
@@ -106,16 +137,7 @@ internal data class MedicinalProductAuthorizationProcedureSurrogate(
       modifierExtension = this@MedicinalProductAuthorizationProcedureSurrogate.modifierExtension
       identifier = this@MedicinalProductAuthorizationProcedureSurrogate.identifier
       type = this@MedicinalProductAuthorizationProcedureSurrogate.type
-      date =
-        MedicinalProductAuthorization.Procedure.Date?.from(
-          this@MedicinalProductAuthorizationProcedureSurrogate.datePeriod,
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@MedicinalProductAuthorizationProcedureSurrogate.dateDateTime
-            ),
-            this@MedicinalProductAuthorizationProcedureSurrogate._dateDateTime,
-          ),
-        )
+      date = this@MedicinalProductAuthorizationProcedureSurrogate.date
       application = this@MedicinalProductAuthorizationProcedureSurrogate.application
     }
 
@@ -130,9 +152,7 @@ internal data class MedicinalProductAuthorizationProcedureSurrogate(
           modifierExtension = this@with.modifierExtension
           identifier = this@with.identifier
           type = this@with.type
-          datePeriod = this@with.date?.asPeriod()?.value
-          dateDateTime = this@with.date?.asDateTime()?.value?.value?.toString()
-          _dateDateTime = this@with.date?.asDateTime()?.value?.toElement()
+          date = this@with.date
           application = this@with.application
         }
       }

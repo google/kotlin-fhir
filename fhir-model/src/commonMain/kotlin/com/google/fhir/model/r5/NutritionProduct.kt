@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NutritionProductCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.NutritionProductCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.NutritionProductIngredientSerializer
 import com.google.fhir.model.r5.serializers.NutritionProductInstanceSerializer
 import com.google.fhir.model.r5.serializers.NutritionProductNutrientSerializer
@@ -324,6 +325,7 @@ public data class NutritionProduct(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = NutritionProductCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -352,6 +354,8 @@ public data class NutritionProduct(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r5.Boolean) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -360,14 +364,14 @@ public data class NutritionProduct(
           base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (stringValue != null) return String(stringValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return null
+          return Null
         }
       }
     }

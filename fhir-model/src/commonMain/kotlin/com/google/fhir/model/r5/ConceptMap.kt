@@ -21,12 +21,17 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ConceptMapAdditionalAttributeSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetDependsOnSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetDependsOnValueSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetPropertySerializer
+import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupUnmappedSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapPropertySerializer
 import com.google.fhir.model.r5.serializers.ConceptMapSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapSourceScopeSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapTargetScopeSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -846,6 +851,7 @@ public data class ConceptMap(
            */
           public var `value`: Value? = null,
         ) : BackboneElement() {
+          @Serializable(with = ConceptMapGroupElementTargetPropertyValueSerializer::class)
           public sealed interface Value {
             public fun asCoding(): Coding? = this as? Coding
 
@@ -876,6 +882,8 @@ public data class ConceptMap(
 
             public data class Code(public val `value`: com.google.fhir.model.r5.Code) : Value
 
+            public data object Null : Value
+
             public companion object {
               public fun from(
                 CodingValue: com.google.fhir.model.r5.Coding?,
@@ -885,7 +893,7 @@ public data class ConceptMap(
                 dateTimeValue: com.google.fhir.model.r5.DateTime?,
                 decimalValue: com.google.fhir.model.r5.Decimal?,
                 codeValue: com.google.fhir.model.r5.Code?,
-              ): Value? {
+              ): Value {
                 if (CodingValue != null) return Coding(CodingValue)
                 if (stringValue != null) return String(stringValue)
                 if (integerValue != null) return Integer(integerValue)
@@ -893,7 +901,7 @@ public data class ConceptMap(
                 if (dateTimeValue != null) return DateTime(dateTimeValue)
                 if (decimalValue != null) return Decimal(decimalValue)
                 if (codeValue != null) return Code(codeValue)
-                return null
+                return Null
               }
             }
           }
@@ -955,6 +963,7 @@ public data class ConceptMap(
           /** This mapping applies if the data element value is a code from this value set. */
           public var valueSet: Canonical? = null,
         ) : BackboneElement() {
+          @Serializable(with = ConceptMapGroupElementTargetDependsOnValueSerializer::class)
           public sealed interface Value {
             public fun asCode(): Code? = this as? Code
 
@@ -977,6 +986,8 @@ public data class ConceptMap(
             public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) :
               Value
 
+            public data object Null : Value
+
             public companion object {
               public fun from(
                 codeValue: com.google.fhir.model.r5.Code?,
@@ -984,13 +995,13 @@ public data class ConceptMap(
                 stringValue: com.google.fhir.model.r5.String?,
                 booleanValue: com.google.fhir.model.r5.Boolean?,
                 QuantityValue: com.google.fhir.model.r5.Quantity?,
-              ): Value? {
+              ): Value {
                 if (codeValue != null) return Code(codeValue)
                 if (CodingValue != null) return Coding(CodingValue)
                 if (stringValue != null) return String(stringValue)
                 if (booleanValue != null) return Boolean(booleanValue)
                 if (QuantityValue != null) return Quantity(QuantityValue)
-                return null
+                return Null
               }
             }
           }
@@ -1083,6 +1094,7 @@ public data class ConceptMap(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ConceptMapVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1094,18 +1106,21 @@ public data class ConceptMap(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ConceptMapSourceScopeSerializer::class)
   public sealed interface SourceScope {
     public fun asUri(): Uri? = this as? Uri
 
@@ -1116,18 +1131,21 @@ public data class ConceptMap(
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) :
       SourceScope
 
+    public data object Null : SourceScope
+
     public companion object {
       public fun from(
         uriValue: com.google.fhir.model.r5.Uri?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
-      ): SourceScope? {
+      ): SourceScope {
         if (uriValue != null) return Uri(uriValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ConceptMapTargetScopeSerializer::class)
   public sealed interface TargetScope {
     public fun asUri(): Uri? = this as? Uri
 
@@ -1138,14 +1156,16 @@ public data class ConceptMap(
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) :
       TargetScope
 
+    public data object Null : TargetScope
+
     public companion object {
       public fun from(
         uriValue: com.google.fhir.model.r5.Uri?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
-      ): TargetScope? {
+      ): TargetScope {
         if (uriValue != null) return Uri(uriValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return null
+        return Null
       }
     }
   }

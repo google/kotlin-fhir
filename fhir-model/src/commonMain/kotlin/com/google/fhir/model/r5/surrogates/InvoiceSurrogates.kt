@@ -83,18 +83,67 @@ internal data class InvoiceParticipantSurrogate(
 }
 
 @Serializable
+internal class InvoiceLineItemServicedSurrogate {
+  public var servicedDate: KotlinString? = null
+
+  public var _servicedDate: Element? = null
+
+  public var servicedPeriod: Period? = null
+
+  public fun toModel(): Invoice.LineItem.Serviced =
+    Invoice.LineItem.Serviced?.from(
+      Date.of(
+        FhirDate.fromString(this@InvoiceLineItemServicedSurrogate.servicedDate),
+        this@InvoiceLineItemServicedSurrogate._servicedDate,
+      ),
+      this@InvoiceLineItemServicedSurrogate.servicedPeriod,
+    ) ?: Invoice.LineItem.Serviced.Null
+
+  public companion object {
+    public fun fromModel(model: Invoice.LineItem.Serviced): InvoiceLineItemServicedSurrogate =
+      with(model) {
+        InvoiceLineItemServicedSurrogate().apply {
+          servicedDate = this@with.asDate()?.value?.value?.toString()
+          _servicedDate = this@with.asDate()?.value?.toElement()
+          servicedPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class InvoiceLineItemChargeItemSurrogate {
+  public var chargeItemReference: Reference? = null
+
+  public var chargeItemCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): Invoice.LineItem.ChargeItem =
+    Invoice.LineItem.ChargeItem?.from(
+      this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
+      this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
+    ) ?: Invoice.LineItem.ChargeItem.Null
+
+  public companion object {
+    public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
+      with(model) {
+        InvoiceLineItemChargeItemSurrogate().apply {
+          chargeItemReference = this@with.asReference()?.value
+          chargeItemCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class InvoiceLineItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-  public var chargeItemReference: Reference? = null,
-  public var chargeItemCodeableConcept: CodeableConcept? = null,
   public var priceComponent: List<MonetaryComponent?>? = null,
+  public var serviced: Invoice.LineItem.Serviced? = null,
+  public var chargeItem: Invoice.LineItem.ChargeItem? = null,
 ) {
   public fun toModel(): Invoice.LineItem =
     Invoice.LineItem().apply {
@@ -106,19 +155,8 @@ internal data class InvoiceLineItemSurrogate(
           this@InvoiceLineItemSurrogate.sequence,
           this@InvoiceLineItemSurrogate._sequence,
         )
-      serviced =
-        Invoice.LineItem.Serviced?.from(
-          Date.of(
-            FhirDate.fromString(this@InvoiceLineItemSurrogate.servicedDate),
-            this@InvoiceLineItemSurrogate._servicedDate,
-          ),
-          this@InvoiceLineItemSurrogate.servicedPeriod,
-        )
-      chargeItem =
-        Invoice.LineItem.ChargeItem?.from(
-          this@InvoiceLineItemSurrogate.chargeItemReference,
-          this@InvoiceLineItemSurrogate.chargeItemCodeableConcept,
-        )
+      serviced = this@InvoiceLineItemSurrogate.serviced
+      chargeItem = this@InvoiceLineItemSurrogate.chargeItem
       priceComponent = this@InvoiceLineItemSurrogate.priceComponent
     }
 
@@ -131,12 +169,38 @@ internal data class InvoiceLineItemSurrogate(
           modifierExtension = this@with.modifierExtension
           sequence = this@with.sequence?.value
           _sequence = this@with.sequence?.toElement()
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString()
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement()
-          servicedPeriod = this@with.serviced?.asPeriod()?.value
-          chargeItemReference = this@with.chargeItem?.asReference()?.value
-          chargeItemCodeableConcept = this@with.chargeItem?.asCodeableConcept()?.value
+          serviced = this@with.serviced
+          chargeItem = this@with.chargeItem
           priceComponent = this@with.priceComponent
+        }
+      }
+  }
+}
+
+@Serializable
+internal class InvoicePeriodSurrogate {
+  public var periodDate: KotlinString? = null
+
+  public var _periodDate: Element? = null
+
+  public var periodPeriod: Period? = null
+
+  public fun toModel(): Invoice.Period =
+    Invoice.Period?.from(
+      Date.of(
+        FhirDate.fromString(this@InvoicePeriodSurrogate.periodDate),
+        this@InvoicePeriodSurrogate._periodDate,
+      ),
+      this@InvoicePeriodSurrogate.periodPeriod,
+    ) ?: Invoice.Period.Null
+
+  public companion object {
+    public fun fromModel(model: Invoice.Period): InvoicePeriodSurrogate =
+      with(model) {
+        InvoicePeriodSurrogate().apply {
+          periodDate = this@with.asDate()?.value?.value?.toString()
+          _periodDate = this@with.asDate()?.value?.toElement()
+          periodPeriod = this@with.asPeriod()?.value
         }
       }
   }
@@ -166,9 +230,6 @@ internal data class InvoiceSurrogate(
   public var _date: Element? = null,
   public var creation: KotlinString? = null,
   public var _creation: Element? = null,
-  public var periodDate: KotlinString? = null,
-  public var _periodDate: Element? = null,
-  public var periodPeriod: Period? = null,
   public var participant: List<Invoice.Participant>? = null,
   public var issuer: Reference? = null,
   public var account: Reference? = null,
@@ -179,6 +240,7 @@ internal data class InvoiceSurrogate(
   public var paymentTerms: KotlinString? = null,
   public var _paymentTerms: Element? = null,
   public var note: List<Annotation?>? = null,
+  public var period: Invoice.Period? = null,
 ) {
   public fun toModel(): Invoice =
     Invoice().apply {
@@ -214,14 +276,7 @@ internal data class InvoiceSurrogate(
           FhirDateTime.fromString(this@InvoiceSurrogate.creation),
           this@InvoiceSurrogate._creation,
         )
-      period =
-        Invoice.Period?.from(
-          Date.of(
-            FhirDate.fromString(this@InvoiceSurrogate.periodDate),
-            this@InvoiceSurrogate._periodDate,
-          ),
-          this@InvoiceSurrogate.periodPeriod,
-        )
+      period = this@InvoiceSurrogate.period
       participant = this@InvoiceSurrogate.participant
       issuer = this@InvoiceSurrogate.issuer
       account = this@InvoiceSurrogate.account
@@ -260,9 +315,7 @@ internal data class InvoiceSurrogate(
           _date = this@with.date?.toElement()
           creation = this@with.creation?.value?.toString()
           _creation = this@with.creation?.toElement()
-          periodDate = this@with.period?.asDate()?.value?.value?.toString()
-          _periodDate = this@with.period?.asDate()?.value?.toElement()
-          periodPeriod = this@with.period?.asPeriod()?.value
+          period = this@with.period
           participant = this@with.participant
           issuer = this@with.issuer
           account = this@with.account

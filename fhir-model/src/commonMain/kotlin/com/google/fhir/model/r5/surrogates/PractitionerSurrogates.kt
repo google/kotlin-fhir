@@ -125,6 +125,41 @@ internal data class PractitionerCommunicationSurrogate(
 }
 
 @Serializable
+internal class PractitionerDeceasedSurrogate {
+  public var deceasedBoolean: KotlinBoolean? = null
+
+  public var _deceasedBoolean: Element? = null
+
+  public var deceasedDateTime: String? = null
+
+  public var _deceasedDateTime: Element? = null
+
+  public fun toModel(): Practitioner.Deceased =
+    Practitioner.Deceased?.from(
+      R5Boolean.of(
+        this@PractitionerDeceasedSurrogate.deceasedBoolean,
+        this@PractitionerDeceasedSurrogate._deceasedBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@PractitionerDeceasedSurrogate.deceasedDateTime),
+        this@PractitionerDeceasedSurrogate._deceasedDateTime,
+      ),
+    ) ?: Practitioner.Deceased.Null
+
+  public companion object {
+    public fun fromModel(model: Practitioner.Deceased): PractitionerDeceasedSurrogate =
+      with(model) {
+        PractitionerDeceasedSurrogate().apply {
+          deceasedBoolean = this@with.asBoolean()?.value?.value
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement()
+          deceasedDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _deceasedDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class PractitionerSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -145,14 +180,11 @@ internal data class PractitionerSurrogate(
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
-  public var deceasedBoolean: KotlinBoolean? = null,
-  public var _deceasedBoolean: Element? = null,
-  public var deceasedDateTime: String? = null,
-  public var _deceasedDateTime: Element? = null,
   public var address: List<Address?>? = null,
   public var photo: List<Attachment?>? = null,
   public var qualification: List<Practitioner.Qualification>? = null,
   public var communication: List<Practitioner.Communication>? = null,
+  public var deceased: Practitioner.Deceased? = null,
 ) {
   public fun toModel(): Practitioner =
     Practitioner().apply {
@@ -181,17 +213,7 @@ internal data class PractitionerSurrogate(
           FhirDate.fromString(this@PractitionerSurrogate.birthDate),
           this@PractitionerSurrogate._birthDate,
         )
-      deceased =
-        Practitioner.Deceased?.from(
-          R5Boolean.of(
-            this@PractitionerSurrogate.deceasedBoolean,
-            this@PractitionerSurrogate._deceasedBoolean,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@PractitionerSurrogate.deceasedDateTime),
-            this@PractitionerSurrogate._deceasedDateTime,
-          ),
-        )
+      deceased = this@PractitionerSurrogate.deceased
       address = this@PractitionerSurrogate.address
       photo = this@PractitionerSurrogate.photo
       qualification = this@PractitionerSurrogate.qualification
@@ -221,10 +243,7 @@ internal data class PractitionerSurrogate(
           _gender = this@with.gender?.toElement()
           birthDate = this@with.birthDate?.value?.toString()
           _birthDate = this@with.birthDate?.toElement()
-          deceasedBoolean = this@with.deceased?.asBoolean()?.value?.value
-          _deceasedBoolean = this@with.deceased?.asBoolean()?.value?.toElement()
-          deceasedDateTime = this@with.deceased?.asDateTime()?.value?.value?.toString()
-          _deceasedDateTime = this@with.deceased?.asDateTime()?.value?.toElement()
+          deceased = this@with.deceased
           address = this@with.address
           photo = this@with.photo
           qualification = this@with.qualification

@@ -116,26 +116,46 @@ internal data class MedicationKnowledgeMonographSurrogate(
 }
 
 @Serializable
+internal class MedicationKnowledgeIngredientItemSurrogate {
+  public var itemCodeableConcept: CodeableConcept? = null
+
+  public var itemReference: Reference? = null
+
+  public fun toModel(): MedicationKnowledge.Ingredient.Item =
+    MedicationKnowledge.Ingredient.Item?.from(
+      this@MedicationKnowledgeIngredientItemSurrogate.itemCodeableConcept,
+      this@MedicationKnowledgeIngredientItemSurrogate.itemReference,
+    ) ?: MedicationKnowledge.Ingredient.Item.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.Ingredient.Item
+    ): MedicationKnowledgeIngredientItemSurrogate =
+      with(model) {
+        MedicationKnowledgeIngredientItemSurrogate().apply {
+          itemCodeableConcept = this@with.asCodeableConcept()?.value
+          itemReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationKnowledgeIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
-  public var itemReference: Reference? = null,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
   public var strength: Ratio? = null,
+  public var item: MedicationKnowledge.Ingredient.Item? = null,
 ) {
   public fun toModel(): MedicationKnowledge.Ingredient =
     MedicationKnowledge.Ingredient().apply {
       id = this@MedicationKnowledgeIngredientSurrogate.id
       extension = this@MedicationKnowledgeIngredientSurrogate.extension
       modifierExtension = this@MedicationKnowledgeIngredientSurrogate.modifierExtension
-      item =
-        MedicationKnowledge.Ingredient.Item?.from(
-          this@MedicationKnowledgeIngredientSurrogate.itemCodeableConcept,
-          this@MedicationKnowledgeIngredientSurrogate.itemReference,
-        )
+      item = this@MedicationKnowledgeIngredientSurrogate.item
       isActive =
         R4bBoolean.of(
           this@MedicationKnowledgeIngredientSurrogate.isActive,
@@ -153,8 +173,7 @@ internal data class MedicationKnowledgeIngredientSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value
-          itemReference = this@with.item?.asReference()?.value
+          item = this@with.item
           isActive = this@with.isActive?.value
           _isActive = this@with.isActive?.toElement()
           strength = this@with.strength
@@ -277,14 +296,44 @@ internal data class MedicationKnowledgeAdministrationGuidelinesDosageSurrogate(
 }
 
 @Serializable
+internal class MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate {
+  public var characteristicCodeableConcept: CodeableConcept? = null
+
+  public var characteristicQuantity: Quantity? = null
+
+  public fun toModel():
+    MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic =
+    MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic?.from(
+      this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate
+        .characteristicCodeableConcept,
+      this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate
+        .characteristicQuantity,
+    ) ?: MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic
+    ): MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate =
+      with(model) {
+        MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate()
+          .apply {
+            characteristicCodeableConcept = this@with.asCodeableConcept()?.value
+            characteristicQuantity = this@with.asQuantity()?.value
+          }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var characteristicCodeableConcept: CodeableConcept? = null,
-  public var characteristicQuantity: Quantity? = null,
   public var `value`: List<KotlinString?>? = null,
   public var _value: List<Element?>? = null,
+  public var characteristic:
+    MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic? =
+    null,
 ) {
   public fun toModel(): MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics =
     MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics().apply {
@@ -295,12 +344,8 @@ internal data class MedicationKnowledgeAdministrationGuidelinesPatientCharacteri
         this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSurrogate
           .modifierExtension
       characteristic =
-        MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic?.from(
-          this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSurrogate
-            .characteristicCodeableConcept,
-          this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSurrogate
-            .characteristicQuantity,
-        )
+        this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSurrogate
+          .characteristic
       `value` =
         if (
           this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSurrogate.`value` ==
@@ -341,10 +386,34 @@ internal data class MedicationKnowledgeAdministrationGuidelinesPatientCharacteri
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          characteristicCodeableConcept = this@with.characteristic?.asCodeableConcept()?.value
-          characteristicQuantity = this@with.characteristic?.asQuantity()?.value
+          characteristic = this@with.characteristic
           `value` = this@with.`value`?.map { it?.value }?.takeUnless { it.all { it == null } }
           _value = this@with.`value`?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+        }
+      }
+  }
+}
+
+@Serializable
+internal class MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate {
+  public var indicationCodeableConcept: CodeableConcept? = null
+
+  public var indicationReference: Reference? = null
+
+  public fun toModel(): MedicationKnowledge.AdministrationGuidelines.Indication =
+    MedicationKnowledge.AdministrationGuidelines.Indication?.from(
+      this@MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate.indicationCodeableConcept,
+      this@MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate.indicationReference,
+    ) ?: MedicationKnowledge.AdministrationGuidelines.Indication.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.AdministrationGuidelines.Indication
+    ): MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate =
+      with(model) {
+        MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate().apply {
+          indicationCodeableConcept = this@with.asCodeableConcept()?.value
+          indicationReference = this@with.asReference()?.value
         }
       }
   }
@@ -356,11 +425,10 @@ internal data class MedicationKnowledgeAdministrationGuidelinesSurrogate(
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var dosage: List<MedicationKnowledge.AdministrationGuidelines.Dosage>? = null,
-  public var indicationCodeableConcept: CodeableConcept? = null,
-  public var indicationReference: Reference? = null,
   public var patientCharacteristics:
     List<MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics>? =
     null,
+  public var indication: MedicationKnowledge.AdministrationGuidelines.Indication? = null,
 ) {
   public fun toModel(): MedicationKnowledge.AdministrationGuidelines =
     MedicationKnowledge.AdministrationGuidelines().apply {
@@ -369,11 +437,7 @@ internal data class MedicationKnowledgeAdministrationGuidelinesSurrogate(
       modifierExtension =
         this@MedicationKnowledgeAdministrationGuidelinesSurrogate.modifierExtension
       dosage = this@MedicationKnowledgeAdministrationGuidelinesSurrogate.dosage
-      indication =
-        MedicationKnowledge.AdministrationGuidelines.Indication?.from(
-          this@MedicationKnowledgeAdministrationGuidelinesSurrogate.indicationCodeableConcept,
-          this@MedicationKnowledgeAdministrationGuidelinesSurrogate.indicationReference,
-        )
+      indication = this@MedicationKnowledgeAdministrationGuidelinesSurrogate.indication
       patientCharacteristics =
         this@MedicationKnowledgeAdministrationGuidelinesSurrogate.patientCharacteristics
     }
@@ -388,8 +452,7 @@ internal data class MedicationKnowledgeAdministrationGuidelinesSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           dosage = this@with.dosage
-          indicationCodeableConcept = this@with.indication?.asCodeableConcept()?.value
-          indicationReference = this@with.indication?.asReference()?.value
+          indication = this@with.indication
           patientCharacteristics = this@with.patientCharacteristics
         }
       }
@@ -463,17 +526,57 @@ internal data class MedicationKnowledgePackagingSurrogate(
 }
 
 @Serializable
+internal class MedicationKnowledgeDrugCharacteristicValueSurrogate {
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueQuantity: Quantity? = null
+
+  public var valueBase64Binary: KotlinString? = null
+
+  public var _valueBase64Binary: Element? = null
+
+  public fun toModel(): MedicationKnowledge.DrugCharacteristic.Value =
+    MedicationKnowledge.DrugCharacteristic.Value?.from(
+      this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueCodeableConcept,
+      R4bString.of(
+        this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueString,
+        this@MedicationKnowledgeDrugCharacteristicValueSurrogate._valueString,
+      ),
+      this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueQuantity,
+      Base64Binary.of(
+        this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueBase64Binary,
+        this@MedicationKnowledgeDrugCharacteristicValueSurrogate._valueBase64Binary,
+      ),
+    ) ?: MedicationKnowledge.DrugCharacteristic.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.DrugCharacteristic.Value
+    ): MedicationKnowledgeDrugCharacteristicValueSurrogate =
+      with(model) {
+        MedicationKnowledgeDrugCharacteristicValueSurrogate().apply {
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueQuantity = this@with.asQuantity()?.value
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationKnowledgeDrugCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueBase64Binary: KotlinString? = null,
-  public var _valueBase64Binary: Element? = null,
+  public var `value`: MedicationKnowledge.DrugCharacteristic.Value? = null,
 ) {
   public fun toModel(): MedicationKnowledge.DrugCharacteristic =
     MedicationKnowledge.DrugCharacteristic().apply {
@@ -481,19 +584,7 @@ internal data class MedicationKnowledgeDrugCharacteristicSurrogate(
       extension = this@MedicationKnowledgeDrugCharacteristicSurrogate.extension
       modifierExtension = this@MedicationKnowledgeDrugCharacteristicSurrogate.modifierExtension
       type = this@MedicationKnowledgeDrugCharacteristicSurrogate.type
-      `value` =
-        MedicationKnowledge.DrugCharacteristic.Value?.from(
-          this@MedicationKnowledgeDrugCharacteristicSurrogate.valueCodeableConcept,
-          R4bString.of(
-            this@MedicationKnowledgeDrugCharacteristicSurrogate.valueString,
-            this@MedicationKnowledgeDrugCharacteristicSurrogate._valueString,
-          ),
-          this@MedicationKnowledgeDrugCharacteristicSurrogate.valueQuantity,
-          Base64Binary.of(
-            this@MedicationKnowledgeDrugCharacteristicSurrogate.valueBase64Binary,
-            this@MedicationKnowledgeDrugCharacteristicSurrogate._valueBase64Binary,
-          ),
-        )
+      `value` = this@MedicationKnowledgeDrugCharacteristicSurrogate.`value`
     }
 
   public companion object {
@@ -506,12 +597,7 @@ internal data class MedicationKnowledgeDrugCharacteristicSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
+          `value` = this@with.`value`
         }
       }
   }

@@ -19,9 +19,11 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestInsuranceSerializer
+import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestItemDiagnosisSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestItemSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestSerializer
+import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestServicedSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestSupportingInfoSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -454,6 +456,7 @@ public data class CoverageEligibilityRequest(
        */
       public var diagnosis: Diagnosis? = null,
     ) : BackboneElement() {
+      @Serializable(with = CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer::class)
       public sealed interface Diagnosis {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -466,20 +469,23 @@ public data class CoverageEligibilityRequest(
         public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
           Diagnosis
 
+        public data object Null : Diagnosis
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
             ReferenceValue: com.google.fhir.model.r4.Reference?,
-          ): Diagnosis? {
+          ): Diagnosis {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }
     }
   }
 
+  @Serializable(with = CoverageEligibilityRequestServicedSerializer::class)
   public sealed interface Serviced {
     public fun asDate(): Date? = this as? Date
 
@@ -489,14 +495,16 @@ public data class CoverageEligibilityRequest(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Serviced
 
+    public data object Null : Serviced
+
     public companion object {
       public fun from(
         dateValue: com.google.fhir.model.r4.Date?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Serviced? {
+      ): Serviced {
         if (dateValue != null) return Date(dateValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionComponentConstituentSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionComponentSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertySerializer
+import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -211,6 +212,7 @@ public data class ManufacturedItemDefinition(
     /** A value for the characteristic. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = ManufacturedItemDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -242,6 +244,8 @@ public data class ManufacturedItemDefinition(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -251,7 +255,7 @@ public data class ManufacturedItemDefinition(
           markdownValue: com.google.fhir.model.r5.Markdown?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (dateValue != null) return Date(dateValue)
@@ -259,7 +263,7 @@ public data class ManufacturedItemDefinition(
           if (markdownValue != null) return Markdown(markdownValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

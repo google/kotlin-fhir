@@ -20,10 +20,12 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CodeSystemConceptDesignationSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemConceptPropertySerializer
+import com.google.fhir.model.r5.serializers.CodeSystemConceptPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemConceptSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemPropertySerializer
 import com.google.fhir.model.r5.serializers.CodeSystemSerializer
+import com.google.fhir.model.r5.serializers.CodeSystemVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -786,6 +788,7 @@ public data class CodeSystem(
       /** The value of this property. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = CodeSystemConceptPropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCode(): Code? = this as? Code
 
@@ -815,6 +818,8 @@ public data class CodeSystem(
 
         public data class Decimal(public val `value`: com.google.fhir.model.r5.Decimal) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             codeValue: com.google.fhir.model.r5.Code?,
@@ -824,7 +829,7 @@ public data class CodeSystem(
             booleanValue: com.google.fhir.model.r5.Boolean?,
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
             decimalValue: com.google.fhir.model.r5.Decimal?,
-          ): Value? {
+          ): Value {
             if (codeValue != null) return Code(codeValue)
             if (CodingValue != null) return Coding(CodingValue)
             if (stringValue != null) return String(stringValue)
@@ -832,13 +837,14 @@ public data class CodeSystem(
             if (booleanValue != null) return Boolean(booleanValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (decimalValue != null) return Decimal(decimalValue)
-            return null
+            return Null
           }
         }
       }
     }
   }
 
+  @Serializable(with = CodeSystemVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -850,14 +856,16 @@ public data class CodeSystem(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

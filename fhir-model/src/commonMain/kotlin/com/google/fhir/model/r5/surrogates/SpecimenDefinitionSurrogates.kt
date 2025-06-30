@@ -56,12 +56,36 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate {
+  public var additiveCodeableConcept: CodeableConcept? = null
+
+  public var additiveReference: Reference? = null
+
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive.Additive =
+    SpecimenDefinition.TypeTested.Container.Additive.Additive?.from(
+      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
+      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
+    ) ?: SpecimenDefinition.TypeTested.Container.Additive.Additive.Null
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.TypeTested.Container.Additive.Additive
+    ): SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate =
+      with(model) {
+        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate().apply {
+          additiveCodeableConcept = this@with.asCodeableConcept()?.value
+          additiveReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var additiveCodeableConcept: CodeableConcept? = null,
-  public var additiveReference: Reference? = null,
+  public var additive: SpecimenDefinition.TypeTested.Container.Additive.Additive? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
     SpecimenDefinition.TypeTested.Container.Additive().apply {
@@ -69,11 +93,7 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
       extension = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension
       modifierExtension =
         this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
-      additive =
-        SpecimenDefinition.TypeTested.Container.Additive.Additive?.from(
-          this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additiveCodeableConcept,
-          this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additiveReference,
-        )
+      additive = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additive
     }
 
   public companion object {
@@ -85,8 +105,38 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          additiveCodeableConcept = this@with.additive?.asCodeableConcept()?.value
-          additiveReference = this@with.additive?.asReference()?.value
+          additive = this@with.additive
+        }
+      }
+  }
+}
+
+@Serializable
+internal class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate {
+  public var minimumVolumeQuantity: Quantity? = null
+
+  public var minimumVolumeString: KotlinString? = null
+
+  public var _minimumVolumeString: Element? = null
+
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume =
+    SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
+      this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
+      R5String.of(
+        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
+        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
+      ),
+    ) ?: SpecimenDefinition.TypeTested.Container.MinimumVolume.Null
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.TypeTested.Container.MinimumVolume
+    ): SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate =
+      with(model) {
+        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate().apply {
+          minimumVolumeQuantity = this@with.asQuantity()?.value
+          minimumVolumeString = this@with.asString()?.value?.value
+          _minimumVolumeString = this@with.asString()?.value?.toElement()
         }
       }
   }
@@ -103,12 +153,10 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var capacity: Quantity? = null,
-  public var minimumVolumeQuantity: Quantity? = null,
-  public var minimumVolumeString: KotlinString? = null,
-  public var _minimumVolumeString: Element? = null,
   public var additive: List<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
+  public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container =
     SpecimenDefinition.TypeTested.Container().apply {
@@ -124,14 +172,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
           this@SpecimenDefinitionTypeTestedContainerSurrogate._description,
         )
       capacity = this@SpecimenDefinitionTypeTestedContainerSurrogate.capacity
-      minimumVolume =
-        SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
-          this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolumeQuantity,
-          R5String.of(
-            this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolumeString,
-            this@SpecimenDefinitionTypeTestedContainerSurrogate._minimumVolumeString,
-          ),
-        )
+      minimumVolume = this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolume
       additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive
       preparation =
         Markdown.of(
@@ -155,9 +196,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
           description = this@with.description?.value
           _description = this@with.description?.toElement()
           capacity = this@with.capacity
-          minimumVolumeQuantity = this@with.minimumVolume?.asQuantity()?.value
-          minimumVolumeString = this@with.minimumVolume?.asString()?.value?.value
-          _minimumVolumeString = this@with.minimumVolume?.asString()?.value?.toElement()
+          minimumVolume = this@with.minimumVolume
           additive = this@with.additive
           preparation = this@with.preparation?.value
           _preparation = this@with.preparation?.toElement()
@@ -295,6 +334,60 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
 }
 
 @Serializable
+internal class SpecimenDefinitionVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): SpecimenDefinition.VersionAlgorithm =
+    SpecimenDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@SpecimenDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@SpecimenDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@SpecimenDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: SpecimenDefinition.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.VersionAlgorithm
+    ): SpecimenDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        SpecimenDefinitionVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class SpecimenDefinitionSubjectSurrogate {
+  public var subjectCodeableConcept: CodeableConcept? = null
+
+  public var subjectReference: Reference? = null
+
+  public fun toModel(): SpecimenDefinition.Subject =
+    SpecimenDefinition.Subject?.from(
+      this@SpecimenDefinitionSubjectSurrogate.subjectCodeableConcept,
+      this@SpecimenDefinitionSubjectSurrogate.subjectReference,
+    ) ?: SpecimenDefinition.Subject.Null
+
+  public companion object {
+    public fun fromModel(model: SpecimenDefinition.Subject): SpecimenDefinitionSubjectSurrogate =
+      with(model) {
+        SpecimenDefinitionSubjectSurrogate().apply {
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value
+          subjectReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SpecimenDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -311,9 +404,6 @@ internal data class SpecimenDefinitionSurrogate(
   public var identifier: Identifier? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -326,8 +416,6 @@ internal data class SpecimenDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -354,6 +442,8 @@ internal data class SpecimenDefinitionSurrogate(
   public var _timeAspect: Element? = null,
   public var collection: List<CodeableConcept?>? = null,
   public var typeTested: List<SpecimenDefinition.TypeTested>? = null,
+  public var versionAlgorithm: SpecimenDefinition.VersionAlgorithm? = null,
+  public var subject: SpecimenDefinition.Subject? = null,
 ) {
   public fun toModel(): SpecimenDefinition =
     SpecimenDefinition().apply {
@@ -380,14 +470,7 @@ internal data class SpecimenDefinitionSurrogate(
           this@SpecimenDefinitionSurrogate.version,
           this@SpecimenDefinitionSurrogate._version,
         )
-      versionAlgorithm =
-        SpecimenDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@SpecimenDefinitionSurrogate.versionAlgorithmString,
-            this@SpecimenDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@SpecimenDefinitionSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@SpecimenDefinitionSurrogate.versionAlgorithm
       name =
         R5String.of(this@SpecimenDefinitionSurrogate.name, this@SpecimenDefinitionSurrogate._name)
       title =
@@ -434,11 +517,7 @@ internal data class SpecimenDefinitionSurrogate(
           this@SpecimenDefinitionSurrogate.experimental,
           this@SpecimenDefinitionSurrogate._experimental,
         )
-      subject =
-        SpecimenDefinition.Subject?.from(
-          this@SpecimenDefinitionSurrogate.subjectCodeableConcept,
-          this@SpecimenDefinitionSurrogate.subjectReference,
-        )
+      subject = this@SpecimenDefinitionSurrogate.subject
       date =
         DateTime.of(
           FhirDateTime.fromString(this@SpecimenDefinitionSurrogate.date),
@@ -513,9 +592,7 @@ internal data class SpecimenDefinitionSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value
@@ -534,8 +611,7 @@ internal data class SpecimenDefinitionSurrogate(
           _status = this@with.status?.toElement()
           experimental = this@with.experimental?.value
           _experimental = this@with.experimental?.toElement()
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
+          subject = this@with.subject
           date = this@with.date?.value?.toString()
           _date = this@with.date?.toElement()
           publisher = this@with.publisher?.value

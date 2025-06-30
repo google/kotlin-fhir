@@ -18,6 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ServiceRequestAsNeededSerializer
+import com.google.fhir.model.r4b.serializers.ServiceRequestOccurrenceSerializer
+import com.google.fhir.model.r4b.serializers.ServiceRequestQuantitySerializer
 import com.google.fhir.model.r4b.serializers.ServiceRequestSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -370,6 +373,7 @@ public data class ServiceRequest(
    */
   public var relevantHistory: List<Reference?>? = null,
 ) : DomainResource() {
+  @Serializable(with = ServiceRequestQuantitySerializer::class)
   public sealed interface Quantity {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -386,20 +390,23 @@ public data class ServiceRequest(
     public data class Range(public val `value`: com.google.fhir.model.r4b.Range) :
       ServiceRequest.Quantity
 
+    public data object Null : ServiceRequest.Quantity
+
     public companion object {
       public fun from(
         QuantityValue: com.google.fhir.model.r4b.Quantity?,
         RatioValue: com.google.fhir.model.r4b.Ratio?,
         RangeValue: com.google.fhir.model.r4b.Range?,
-      ): ServiceRequest.Quantity? {
+      ): ServiceRequest.Quantity {
         if (QuantityValue != null) return Quantity(QuantityValue)
         if (RatioValue != null) return Ratio(RatioValue)
         if (RangeValue != null) return Range(RangeValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ServiceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -413,20 +420,23 @@ public data class ServiceRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
         TimingValue: com.google.fhir.model.r4b.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ServiceRequestAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -438,14 +448,16 @@ public data class ServiceRequest(
       public val `value`: com.google.fhir.model.r4b.CodeableConcept
     ) : AsNeeded
 
+    public data object Null : AsNeeded
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r4b.Boolean?,
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-      ): AsNeeded? {
+      ): AsNeeded {
         if (booleanValue != null) return Boolean(booleanValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

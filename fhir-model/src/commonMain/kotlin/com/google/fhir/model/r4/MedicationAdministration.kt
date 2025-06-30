@@ -18,7 +18,10 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicationAdministrationDosageRateSerializer
 import com.google.fhir.model.r4.serializers.MedicationAdministrationDosageSerializer
+import com.google.fhir.model.r4.serializers.MedicationAdministrationEffectiveSerializer
+import com.google.fhir.model.r4.serializers.MedicationAdministrationMedicationSerializer
 import com.google.fhir.model.r4.serializers.MedicationAdministrationPerformerSerializer
 import com.google.fhir.model.r4.serializers.MedicationAdministrationSerializer
 import kotlin.Suppress
@@ -376,6 +379,7 @@ public data class MedicationAdministration(
      */
     public var rate: Rate? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationAdministrationDosageRateSerializer::class)
     public sealed interface Rate {
       public fun asRatio(): Ratio? = this as? Ratio
 
@@ -385,19 +389,22 @@ public data class MedicationAdministration(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r4.Quantity) : Rate
 
+      public data object Null : Rate
+
       public companion object {
         public fun from(
           RatioValue: com.google.fhir.model.r4.Ratio?,
           QuantityValue: com.google.fhir.model.r4.Quantity?,
-        ): Rate? {
+        ): Rate {
           if (RatioValue != null) return Ratio(RatioValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = MedicationAdministrationMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -410,18 +417,21 @@ public data class MedicationAdministration(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       Medication
 
+    public data object Null : Medication
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Medication? {
+      ): Medication {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = MedicationAdministrationEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -431,14 +441,16 @@ public data class MedicationAdministration(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

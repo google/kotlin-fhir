@@ -51,6 +51,35 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class MediaCreatedSurrogate {
+  public var createdDateTime: KotlinString? = null
+
+  public var _createdDateTime: Element? = null
+
+  public var createdPeriod: Period? = null
+
+  public fun toModel(): Media.Created =
+    Media.Created?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@MediaCreatedSurrogate.createdDateTime),
+        this@MediaCreatedSurrogate._createdDateTime,
+      ),
+      this@MediaCreatedSurrogate.createdPeriod,
+    ) ?: Media.Created.Null
+
+  public companion object {
+    public fun fromModel(model: Media.Created): MediaCreatedSurrogate =
+      with(model) {
+        MediaCreatedSurrogate().apply {
+          createdDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _createdDateTime = this@with.asDateTime()?.value?.toElement()
+          createdPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MediaSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -72,9 +101,6 @@ internal data class MediaSurrogate(
   public var view: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
-  public var createdDateTime: KotlinString? = null,
-  public var _createdDateTime: Element? = null,
-  public var createdPeriod: Period? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var `operator`: Reference? = null,
@@ -93,6 +119,7 @@ internal data class MediaSurrogate(
   public var _duration: Element? = null,
   public var content: Attachment? = null,
   public var note: List<Annotation?>? = null,
+  public var created: Media.Created? = null,
 ) {
   public fun toModel(): Media =
     Media().apply {
@@ -119,14 +146,7 @@ internal data class MediaSurrogate(
       view = this@MediaSurrogate.view
       subject = this@MediaSurrogate.subject
       encounter = this@MediaSurrogate.encounter
-      created =
-        Media.Created?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@MediaSurrogate.createdDateTime),
-            this@MediaSurrogate._createdDateTime,
-          ),
-          this@MediaSurrogate.createdPeriod,
-        )
+      created = this@MediaSurrogate.created
       issued =
         Instant.of(FhirDateTime.fromString(this@MediaSurrogate.issued), this@MediaSurrogate._issued)
       `operator` = this@MediaSurrogate.`operator`
@@ -166,9 +186,7 @@ internal data class MediaSurrogate(
           view = this@with.view
           subject = this@with.subject
           encounter = this@with.encounter
-          createdDateTime = this@with.created?.asDateTime()?.value?.value?.toString()
-          _createdDateTime = this@with.created?.asDateTime()?.value?.toElement()
-          createdPeriod = this@with.created?.asPeriod()?.value
+          created = this@with.created
           issued = this@with.issued?.value?.toString()
           _issued = this@with.issued?.toElement()
           `operator` = this@with.`operator`

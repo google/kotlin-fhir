@@ -80,6 +80,31 @@ internal data class MedicationAdministrationPerformerSurrogate(
 }
 
 @Serializable
+internal class MedicationAdministrationDosageRateSurrogate {
+  public var rateRatio: Ratio? = null
+
+  public var rateQuantity: Quantity? = null
+
+  public fun toModel(): MedicationAdministration.Dosage.Rate =
+    MedicationAdministration.Dosage.Rate?.from(
+      this@MedicationAdministrationDosageRateSurrogate.rateRatio,
+      this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
+    ) ?: MedicationAdministration.Dosage.Rate.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Dosage.Rate
+    ): MedicationAdministrationDosageRateSurrogate =
+      with(model) {
+        MedicationAdministrationDosageRateSurrogate().apply {
+          rateRatio = this@with.asRatio()?.value
+          rateQuantity = this@with.asQuantity()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationAdministrationDosageSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -90,8 +115,7 @@ internal data class MedicationAdministrationDosageSurrogate(
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
   public var dose: Quantity? = null,
-  public var rateRatio: Ratio? = null,
-  public var rateQuantity: Quantity? = null,
+  public var rate: MedicationAdministration.Dosage.Rate? = null,
 ) {
   public fun toModel(): MedicationAdministration.Dosage =
     MedicationAdministration.Dosage().apply {
@@ -107,11 +131,7 @@ internal data class MedicationAdministrationDosageSurrogate(
       route = this@MedicationAdministrationDosageSurrogate.route
       method = this@MedicationAdministrationDosageSurrogate.method
       dose = this@MedicationAdministrationDosageSurrogate.dose
-      rate =
-        MedicationAdministration.Dosage.Rate?.from(
-          this@MedicationAdministrationDosageSurrogate.rateRatio,
-          this@MedicationAdministrationDosageSurrogate.rateQuantity,
-        )
+      rate = this@MedicationAdministrationDosageSurrogate.rate
     }
 
   public companion object {
@@ -129,8 +149,63 @@ internal data class MedicationAdministrationDosageSurrogate(
           route = this@with.route
           method = this@with.method
           dose = this@with.dose
-          rateRatio = this@with.rate?.asRatio()?.value
-          rateQuantity = this@with.rate?.asQuantity()?.value
+          rate = this@with.rate
+        }
+      }
+  }
+}
+
+@Serializable
+internal class MedicationAdministrationMedicationSurrogate {
+  public var medicationCodeableConcept: CodeableConcept? = null
+
+  public var medicationReference: Reference? = null
+
+  public fun toModel(): MedicationAdministration.Medication =
+    MedicationAdministration.Medication?.from(
+      this@MedicationAdministrationMedicationSurrogate.medicationCodeableConcept,
+      this@MedicationAdministrationMedicationSurrogate.medicationReference,
+    ) ?: MedicationAdministration.Medication.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Medication
+    ): MedicationAdministrationMedicationSurrogate =
+      with(model) {
+        MedicationAdministrationMedicationSurrogate().apply {
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value
+          medicationReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class MedicationAdministrationEffectiveSurrogate {
+  public var effectiveDateTime: KotlinString? = null
+
+  public var _effectiveDateTime: Element? = null
+
+  public var effectivePeriod: Period? = null
+
+  public fun toModel(): MedicationAdministration.Effective =
+    MedicationAdministration.Effective?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@MedicationAdministrationEffectiveSurrogate.effectiveDateTime),
+        this@MedicationAdministrationEffectiveSurrogate._effectiveDateTime,
+      ),
+      this@MedicationAdministrationEffectiveSurrogate.effectivePeriod,
+    ) ?: MedicationAdministration.Effective.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Effective
+    ): MedicationAdministrationEffectiveSurrogate =
+      with(model) {
+        MedicationAdministrationEffectiveSurrogate().apply {
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement()
+          effectivePeriod = this@with.asPeriod()?.value
         }
       }
   }
@@ -156,14 +231,9 @@ internal data class MedicationAdministrationSurrogate(
   public var _status: Element? = null,
   public var statusReason: List<CodeableConcept?>? = null,
   public var category: CodeableConcept? = null,
-  public var medicationCodeableConcept: CodeableConcept? = null,
-  public var medicationReference: Reference? = null,
   public var subject: Reference? = null,
   public var context: Reference? = null,
   public var supportingInformation: List<Reference?>? = null,
-  public var effectiveDateTime: KotlinString? = null,
-  public var _effectiveDateTime: Element? = null,
-  public var effectivePeriod: Period? = null,
   public var performer: List<MedicationAdministration.Performer>? = null,
   public var reasonCode: List<CodeableConcept?>? = null,
   public var reasonReference: List<Reference?>? = null,
@@ -172,6 +242,8 @@ internal data class MedicationAdministrationSurrogate(
   public var note: List<Annotation?>? = null,
   public var dosage: MedicationAdministration.Dosage? = null,
   public var eventHistory: List<Reference?>? = null,
+  public var medication: MedicationAdministration.Medication? = null,
+  public var effective: MedicationAdministration.Effective? = null,
 ) {
   public fun toModel(): MedicationAdministration =
     MedicationAdministration().apply {
@@ -218,22 +290,11 @@ internal data class MedicationAdministrationSurrogate(
         )
       statusReason = this@MedicationAdministrationSurrogate.statusReason
       category = this@MedicationAdministrationSurrogate.category
-      medication =
-        MedicationAdministration.Medication?.from(
-          this@MedicationAdministrationSurrogate.medicationCodeableConcept,
-          this@MedicationAdministrationSurrogate.medicationReference,
-        )
+      medication = this@MedicationAdministrationSurrogate.medication
       subject = this@MedicationAdministrationSurrogate.subject
       context = this@MedicationAdministrationSurrogate.context
       supportingInformation = this@MedicationAdministrationSurrogate.supportingInformation
-      effective =
-        MedicationAdministration.Effective?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@MedicationAdministrationSurrogate.effectiveDateTime),
-            this@MedicationAdministrationSurrogate._effectiveDateTime,
-          ),
-          this@MedicationAdministrationSurrogate.effectivePeriod,
-        )
+      effective = this@MedicationAdministrationSurrogate.effective
       performer = this@MedicationAdministrationSurrogate.performer
       reasonCode = this@MedicationAdministrationSurrogate.reasonCode
       reasonReference = this@MedicationAdministrationSurrogate.reasonReference
@@ -268,14 +329,11 @@ internal data class MedicationAdministrationSurrogate(
           _status = this@with.status?.toElement()
           statusReason = this@with.statusReason
           category = this@with.category
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value
-          medicationReference = this@with.medication?.asReference()?.value
+          medication = this@with.medication
           subject = this@with.subject
           context = this@with.context
           supportingInformation = this@with.supportingInformation
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString()
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement()
-          effectivePeriod = this@with.effective?.asPeriod()?.value
+          effective = this@with.effective
           performer = this@with.performer
           reasonCode = this@with.reasonCode
           reasonReference = this@with.reasonReference

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionPropertySerializer
+import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionPropertyValueSerializer
 import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -199,6 +200,7 @@ public data class ManufacturedItemDefinition(
     /** A value for the characteristic. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = ManufacturedItemDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -223,6 +225,8 @@ public data class ManufacturedItemDefinition(
       public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
         Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
@@ -230,13 +234,13 @@ public data class ManufacturedItemDefinition(
           dateValue: com.google.fhir.model.r4b.Date?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
           AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return null
+          return Null
         }
       }
     }

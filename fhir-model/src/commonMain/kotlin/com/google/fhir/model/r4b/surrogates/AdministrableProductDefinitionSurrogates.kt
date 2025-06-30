@@ -49,19 +49,62 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class AdministrableProductDefinitionPropertyValueSurrogate {
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueQuantity: Quantity? = null
+
+  public var valueDate: KotlinString? = null
+
+  public var _valueDate: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueAttachment: Attachment? = null
+
+  public fun toModel(): AdministrableProductDefinition.Property.Value =
+    AdministrableProductDefinition.Property.Value?.from(
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@AdministrableProductDefinitionPropertyValueSurrogate.valueDate),
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R4bBoolean.of(
+        this@AdministrableProductDefinitionPropertyValueSurrogate.valueBoolean,
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueAttachment,
+    ) ?: AdministrableProductDefinition.Property.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: AdministrableProductDefinition.Property.Value
+    ): AdministrableProductDefinitionPropertyValueSurrogate =
+      with(model) {
+        AdministrableProductDefinitionPropertyValueSurrogate().apply {
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueQuantity = this@with.asQuantity()?.value
+          valueDate = this@with.asDate()?.value?.value?.toString()
+          _valueDate = this@with.asDate()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueAttachment = this@with.asAttachment()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class AdministrableProductDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueAttachment: Attachment? = null,
   public var status: CodeableConcept? = null,
+  public var `value`: AdministrableProductDefinition.Property.Value? = null,
 ) {
   public fun toModel(): AdministrableProductDefinition.Property =
     AdministrableProductDefinition.Property().apply {
@@ -69,20 +112,7 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
       extension = this@AdministrableProductDefinitionPropertySurrogate.extension
       modifierExtension = this@AdministrableProductDefinitionPropertySurrogate.modifierExtension
       type = this@AdministrableProductDefinitionPropertySurrogate.type
-      `value` =
-        AdministrableProductDefinition.Property.Value?.from(
-          this@AdministrableProductDefinitionPropertySurrogate.valueCodeableConcept,
-          this@AdministrableProductDefinitionPropertySurrogate.valueQuantity,
-          Date.of(
-            FhirDate.fromString(this@AdministrableProductDefinitionPropertySurrogate.valueDate),
-            this@AdministrableProductDefinitionPropertySurrogate._valueDate,
-          ),
-          R4bBoolean.of(
-            this@AdministrableProductDefinitionPropertySurrogate.valueBoolean,
-            this@AdministrableProductDefinitionPropertySurrogate._valueBoolean,
-          ),
-          this@AdministrableProductDefinitionPropertySurrogate.valueAttachment,
-        )
+      `value` = this@AdministrableProductDefinitionPropertySurrogate.`value`
       status = this@AdministrableProductDefinitionPropertySurrogate.status
     }
 
@@ -96,13 +126,7 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueAttachment = this@with.`value`?.asAttachment()?.value
+          `value` = this@with.`value`
           status = this@with.status
         }
       }

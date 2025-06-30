@@ -19,6 +19,9 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.GoalSerializer
+import com.google.fhir.model.r5.serializers.GoalStartSerializer
+import com.google.fhir.model.r5.serializers.GoalTargetDetailSerializer
+import com.google.fhir.model.r5.serializers.GoalTargetDueSerializer
 import com.google.fhir.model.r5.serializers.GoalTargetSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -295,6 +298,7 @@ public data class Goal(
     /** Indicates either the date or the duration after start by which the goal should be met. */
     public var due: Due? = null,
   ) : BackboneElement() {
+    @Serializable(with = GoalTargetDetailSerializer::class)
     public sealed interface Detail {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -326,6 +330,8 @@ public data class Goal(
 
       public data class Ratio(public val `value`: com.google.fhir.model.r5.Ratio) : Detail
 
+      public data object Null : Detail
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -335,7 +341,7 @@ public data class Goal(
           booleanValue: com.google.fhir.model.r5.Boolean?,
           integerValue: com.google.fhir.model.r5.Integer?,
           RatioValue: com.google.fhir.model.r5.Ratio?,
-        ): Detail? {
+        ): Detail {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
@@ -343,11 +349,12 @@ public data class Goal(
           if (booleanValue != null) return Boolean(booleanValue)
           if (integerValue != null) return Integer(integerValue)
           if (RatioValue != null) return Ratio(RatioValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = GoalTargetDueSerializer::class)
     public sealed interface Due {
       public fun asDate(): Date? = this as? Date
 
@@ -357,19 +364,22 @@ public data class Goal(
 
       public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) : Due
 
+      public data object Null : Due
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           DurationValue: com.google.fhir.model.r5.Duration?,
-        ): Due? {
+        ): Due {
           if (dateValue != null) return Date(dateValue)
           if (DurationValue != null) return Duration(DurationValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = GoalStartSerializer::class)
   public sealed interface Start {
     public fun asDate(): Date? = this as? Date
 
@@ -381,14 +391,16 @@ public data class Goal(
       public val `value`: com.google.fhir.model.r5.CodeableConcept
     ) : Start
 
+    public data object Null : Start
+
     public companion object {
       public fun from(
         dateValue: com.google.fhir.model.r5.Date?,
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-      ): Start? {
+      ): Start {
         if (dateValue != null) return Date(dateValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

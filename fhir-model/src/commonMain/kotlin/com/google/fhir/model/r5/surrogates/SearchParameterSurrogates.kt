@@ -92,6 +92,37 @@ internal data class SearchParameterComponentSurrogate(
 }
 
 @Serializable
+internal class SearchParameterVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): SearchParameter.VersionAlgorithm =
+    SearchParameter.VersionAlgorithm?.from(
+      R5String.of(
+        this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@SearchParameterVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: SearchParameter.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: SearchParameter.VersionAlgorithm
+    ): SearchParameterVersionAlgorithmSurrogate =
+      with(model) {
+        SearchParameterVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SearchParameterSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -108,9 +139,6 @@ internal data class SearchParameterSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -161,6 +189,7 @@ internal data class SearchParameterSurrogate(
   public var chain: List<KotlinString?>? = null,
   public var _chain: List<Element?>? = null,
   public var component: List<SearchParameter.Component>? = null,
+  public var versionAlgorithm: SearchParameter.VersionAlgorithm? = null,
 ) {
   public fun toModel(): SearchParameter =
     SearchParameter().apply {
@@ -181,14 +210,7 @@ internal data class SearchParameterSurrogate(
       identifier = this@SearchParameterSurrogate.identifier
       version =
         R5String.of(this@SearchParameterSurrogate.version, this@SearchParameterSurrogate._version)
-      versionAlgorithm =
-        SearchParameter.VersionAlgorithm?.from(
-          R5String.of(
-            this@SearchParameterSurrogate.versionAlgorithmString,
-            this@SearchParameterSurrogate._versionAlgorithmString,
-          ),
-          this@SearchParameterSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@SearchParameterSurrogate.versionAlgorithm
       name = R5String.of(this@SearchParameterSurrogate.name, this@SearchParameterSurrogate._name)
       title = R5String.of(this@SearchParameterSurrogate.title, this@SearchParameterSurrogate._title)
       derivedFrom =
@@ -383,9 +405,7 @@ internal data class SearchParameterSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

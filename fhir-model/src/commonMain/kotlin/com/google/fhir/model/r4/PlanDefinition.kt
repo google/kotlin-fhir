@@ -19,13 +19,19 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.PlanDefinitionActionConditionSerializer
+import com.google.fhir.model.r4.serializers.PlanDefinitionActionDefinitionSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionActionDynamicValueSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionActionParticipantSerializer
+import com.google.fhir.model.r4.serializers.PlanDefinitionActionRelatedActionOffsetSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionActionRelatedActionSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionActionSerializer
+import com.google.fhir.model.r4.serializers.PlanDefinitionActionSubjectSerializer
+import com.google.fhir.model.r4.serializers.PlanDefinitionActionTimingSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionGoalSerializer
+import com.google.fhir.model.r4.serializers.PlanDefinitionGoalTargetDetailSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionGoalTargetSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionSerializer
+import com.google.fhir.model.r4.serializers.PlanDefinitionSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -486,6 +492,7 @@ public data class PlanDefinition(
       /** Indicates the timeframe after the start of the goal in which the goal should be met. */
       public var due: Duration? = null,
     ) : BackboneElement() {
+      @Serializable(with = PlanDefinitionGoalTargetDetailSerializer::class)
       public sealed interface Detail {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -501,16 +508,18 @@ public data class PlanDefinition(
           public val `value`: com.google.fhir.model.r4.CodeableConcept
         ) : Detail
 
+        public data object Null : Detail
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r4.Quantity?,
             RangeValue: com.google.fhir.model.r4.Range?,
             CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-          ): Detail? {
+          ): Detail {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RangeValue != null) return Range(RangeValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            return null
+            return Null
           }
         }
       }
@@ -790,6 +799,7 @@ public data class PlanDefinition(
        */
       public var offset: Offset? = null,
     ) : BackboneElement() {
+      @Serializable(with = PlanDefinitionActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -799,14 +809,16 @@ public data class PlanDefinition(
 
         public data class Range(public val `value`: com.google.fhir.model.r4.Range) : Offset
 
+        public data object Null : Offset
+
         public companion object {
           public fun from(
             DurationValue: com.google.fhir.model.r4.Duration?,
             RangeValue: com.google.fhir.model.r4.Range?,
-          ): Offset? {
+          ): Offset {
             if (DurationValue != null) return Duration(DurationValue)
             if (RangeValue != null) return Range(RangeValue)
-            return null
+            return Null
           }
         }
       }
@@ -928,6 +940,7 @@ public data class PlanDefinition(
       public var expression: Expression? = null,
     ) : BackboneElement()
 
+    @Serializable(with = PlanDefinitionActionSubjectSerializer::class)
     public sealed interface Subject {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -939,18 +952,21 @@ public data class PlanDefinition(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
+      public data object Null : Subject
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Subject? {
+        ): Subject {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = PlanDefinitionActionTimingSerializer::class)
     public sealed interface Timing {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -978,6 +994,8 @@ public data class PlanDefinition(
 
       public data class Timing(public val `value`: com.google.fhir.model.r4.Timing) : Action.Timing
 
+      public data object Null : Action.Timing
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
@@ -986,18 +1004,19 @@ public data class PlanDefinition(
           DurationValue: com.google.fhir.model.r4.Duration?,
           RangeValue: com.google.fhir.model.r4.Range?,
           TimingValue: com.google.fhir.model.r4.Timing?,
-        ): Action.Timing? {
+        ): Action.Timing {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (AgeValue != null) return Age(AgeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
           if (RangeValue != null) return Range(RangeValue)
           if (TimingValue != null) return Timing(TimingValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = PlanDefinitionActionDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asCanonical(): Canonical? = this as? Canonical
 
@@ -1008,19 +1027,22 @@ public data class PlanDefinition(
 
       public data class Uri(public val `value`: com.google.fhir.model.r4.Uri) : Definition
 
+      public data object Null : Definition
+
       public companion object {
         public fun from(
           canonicalValue: com.google.fhir.model.r4.Canonical?,
           uriValue: com.google.fhir.model.r4.Uri?,
-        ): Definition? {
+        ): Definition {
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (uriValue != null) return Uri(uriValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = PlanDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1032,14 +1054,16 @@ public data class PlanDefinition(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

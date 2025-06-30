@@ -126,6 +126,41 @@ internal data class PersonLinkSurrogate(
 }
 
 @Serializable
+internal class PersonDeceasedSurrogate {
+  public var deceasedBoolean: KotlinBoolean? = null
+
+  public var _deceasedBoolean: Element? = null
+
+  public var deceasedDateTime: String? = null
+
+  public var _deceasedDateTime: Element? = null
+
+  public fun toModel(): Person.Deceased =
+    Person.Deceased?.from(
+      R5Boolean.of(
+        this@PersonDeceasedSurrogate.deceasedBoolean,
+        this@PersonDeceasedSurrogate._deceasedBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@PersonDeceasedSurrogate.deceasedDateTime),
+        this@PersonDeceasedSurrogate._deceasedDateTime,
+      ),
+    ) ?: Person.Deceased.Null
+
+  public companion object {
+    public fun fromModel(model: Person.Deceased): PersonDeceasedSurrogate =
+      with(model) {
+        PersonDeceasedSurrogate().apply {
+          deceasedBoolean = this@with.asBoolean()?.value?.value
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement()
+          deceasedDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _deceasedDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class PersonSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -146,16 +181,13 @@ internal data class PersonSurrogate(
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
-  public var deceasedBoolean: KotlinBoolean? = null,
-  public var _deceasedBoolean: Element? = null,
-  public var deceasedDateTime: String? = null,
-  public var _deceasedDateTime: Element? = null,
   public var address: List<Address?>? = null,
   public var maritalStatus: CodeableConcept? = null,
   public var photo: List<Attachment?>? = null,
   public var communication: List<Person.Communication>? = null,
   public var managingOrganization: Reference? = null,
   public var link: List<Person.Link>? = null,
+  public var deceased: Person.Deceased? = null,
 ) {
   public fun toModel(): Person =
     Person().apply {
@@ -184,14 +216,7 @@ internal data class PersonSurrogate(
           FhirDate.fromString(this@PersonSurrogate.birthDate),
           this@PersonSurrogate._birthDate,
         )
-      deceased =
-        Person.Deceased?.from(
-          R5Boolean.of(this@PersonSurrogate.deceasedBoolean, this@PersonSurrogate._deceasedBoolean),
-          DateTime.of(
-            FhirDateTime.fromString(this@PersonSurrogate.deceasedDateTime),
-            this@PersonSurrogate._deceasedDateTime,
-          ),
-        )
+      deceased = this@PersonSurrogate.deceased
       address = this@PersonSurrogate.address
       maritalStatus = this@PersonSurrogate.maritalStatus
       photo = this@PersonSurrogate.photo
@@ -223,10 +248,7 @@ internal data class PersonSurrogate(
           _gender = this@with.gender?.toElement()
           birthDate = this@with.birthDate?.value?.toString()
           _birthDate = this@with.birthDate?.toElement()
-          deceasedBoolean = this@with.deceased?.asBoolean()?.value?.value
-          _deceasedBoolean = this@with.deceased?.asBoolean()?.value?.toElement()
-          deceasedDateTime = this@with.deceased?.asDateTime()?.value?.value?.toString()
-          _deceasedDateTime = this@with.deceased?.asDateTime()?.value?.toElement()
+          deceased = this@with.deceased
           address = this@with.address
           maritalStatus = this@with.maritalStatus
           photo = this@with.photo

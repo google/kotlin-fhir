@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.AllergyIntoleranceOnsetSerializer
 import com.google.fhir.model.r4b.serializers.AllergyIntoleranceReactionSerializer
 import com.google.fhir.model.r4b.serializers.AllergyIntoleranceSerializer
 import kotlin.Suppress
@@ -393,6 +394,7 @@ public data class AllergyIntolerance(
     public var note: List<Annotation?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = AllergyIntoleranceOnsetSerializer::class)
   public sealed interface Onset {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -414,6 +416,8 @@ public data class AllergyIntolerance(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Onset
 
+    public data object Null : Onset
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
@@ -421,13 +425,13 @@ public data class AllergyIntolerance(
         PeriodValue: com.google.fhir.model.r4b.Period?,
         RangeValue: com.google.fhir.model.r4b.Range?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): Onset? {
+      ): Onset {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (AgeValue != null) return Age(AgeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (RangeValue != null) return Range(RangeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

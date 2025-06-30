@@ -20,7 +20,9 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionContraindicationOtherTherapySerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionContraindicationSerializer
+import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionIndicationDurationSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionIndicationSerializer
+import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionInteractionInteractantItemSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionInteractionInteractantSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionInteractionSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionSerializer
@@ -349,6 +351,7 @@ public data class ClinicalUseDefinition(
      */
     public var otherTherapy: List<Contraindication.OtherTherapy?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClinicalUseDefinitionIndicationDurationSerializer::class)
     public sealed interface Duration {
       public fun asRange(): Range? = this as? Range
 
@@ -358,14 +361,16 @@ public data class ClinicalUseDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r4b.String) : Duration
 
+      public data object Null : Duration
+
       public companion object {
         public fun from(
           RangeValue: com.google.fhir.model.r4b.Range?,
           stringValue: com.google.fhir.model.r4b.String?,
-        ): Duration? {
+        ): Duration {
           if (RangeValue != null) return Range(RangeValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -471,6 +476,7 @@ public data class ClinicalUseDefinition(
       /** The specific medication, food or laboratory test that interacts. */
       public var item: Item? = null,
     ) : BackboneElement() {
+      @Serializable(with = ClinicalUseDefinitionInteractionInteractantItemSerializer::class)
       public sealed interface Item {
         public fun asReference(): Reference? = this as? Reference
 
@@ -482,14 +488,16 @@ public data class ClinicalUseDefinition(
           public val `value`: com.google.fhir.model.r4b.CodeableConcept
         ) : Item
 
+        public data object Null : Item
+
         public companion object {
           public fun from(
             ReferenceValue: com.google.fhir.model.r4b.Reference?,
             CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          ): Item? {
+          ): Item {
             if (ReferenceValue != null) return Reference(ReferenceValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            return null
+            return Null
           }
         }
       }

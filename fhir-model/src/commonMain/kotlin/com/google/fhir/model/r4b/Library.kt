@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.LibrarySerializer
+import com.google.fhir.model.r4b.serializers.LibrarySubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -350,6 +351,7 @@ public data class Library(
    */
   public var content: List<Attachment?>? = null,
 ) : DomainResource() {
+  @Serializable(with = LibrarySubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -361,14 +363,16 @@ public data class Library(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

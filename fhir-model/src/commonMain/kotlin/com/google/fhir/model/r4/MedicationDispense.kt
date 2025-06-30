@@ -18,8 +18,10 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicationDispenseMedicationSerializer
 import com.google.fhir.model.r4.serializers.MedicationDispensePerformerSerializer
 import com.google.fhir.model.r4.serializers.MedicationDispenseSerializer
+import com.google.fhir.model.r4.serializers.MedicationDispenseStatusReasonSerializer
 import com.google.fhir.model.r4.serializers.MedicationDispenseSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -363,6 +365,7 @@ public data class MedicationDispense(
     public var responsibleParty: List<Reference?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MedicationDispenseStatusReasonSerializer::class)
   public sealed interface StatusReason {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -375,18 +378,21 @@ public data class MedicationDispense(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       StatusReason
 
+    public data object Null : StatusReason
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): StatusReason? {
+      ): StatusReason {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = MedicationDispenseMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -399,14 +405,16 @@ public data class MedicationDispense(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       Medication
 
+    public data object Null : Medication
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Medication? {
+      ): Medication {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

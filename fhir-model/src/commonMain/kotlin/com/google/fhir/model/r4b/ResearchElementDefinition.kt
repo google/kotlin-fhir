@@ -18,8 +18,12 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionCharacteristicDefinitionSerializer
+import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionCharacteristicParticipantEffectiveSerializer
 import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionCharacteristicStudyEffectiveSerializer
 import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionSerializer
+import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -452,6 +456,7 @@ public data class ResearchElementDefinition(
     /** Indicates how elements are aggregated within the study effective period. */
     public var participantEffectiveGroupMeasure: Enumeration<GroupMeasure>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ResearchElementDefinitionCharacteristicDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -475,22 +480,25 @@ public data class ResearchElementDefinition(
         public val `value`: com.google.fhir.model.r4b.DataRequirement
       ) : Definition
 
+      public data object Null : Definition
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
           ExpressionValue: com.google.fhir.model.r4b.Expression?,
           DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-        ): Definition? {
+        ): Definition {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (ExpressionValue != null) return Expression(ExpressionValue)
           if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ResearchElementDefinitionCharacteristicStudyEffectiveSerializer::class)
     public sealed interface StudyEffective {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -512,22 +520,27 @@ public data class ResearchElementDefinition(
       public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) :
         StudyEffective
 
+      public data object Null : StudyEffective
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
           DurationValue: com.google.fhir.model.r4b.Duration?,
           TimingValue: com.google.fhir.model.r4b.Timing?,
-        ): StudyEffective? {
+        ): StudyEffective {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
           if (TimingValue != null) return Timing(TimingValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(
+      with = ResearchElementDefinitionCharacteristicParticipantEffectiveSerializer::class
+    )
     public sealed interface ParticipantEffective {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -549,23 +562,26 @@ public data class ResearchElementDefinition(
       public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) :
         ParticipantEffective
 
+      public data object Null : ParticipantEffective
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
           DurationValue: com.google.fhir.model.r4b.Duration?,
           TimingValue: com.google.fhir.model.r4b.Timing?,
-        ): ParticipantEffective? {
+        ): ParticipantEffective {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
           if (TimingValue != null) return Timing(TimingValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = ResearchElementDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -577,14 +593,16 @@ public data class ResearchElementDefinition(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

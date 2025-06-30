@@ -20,7 +20,9 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemDetailSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemDetailSubDetailSerializer
+import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemLocationSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemSerializer
+import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemServicedSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseErrorSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseInsuranceSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseItemAdjudicationSerializer
@@ -807,6 +809,7 @@ public data class ClaimResponse(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimResponseAddItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -816,18 +819,21 @@ public data class ClaimResponse(
 
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r4b.Date?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ClaimResponseAddItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -844,16 +850,18 @@ public data class ClaimResponse(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           AddressValue: com.google.fhir.model.r4b.Address?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Location? {
+        ): Location {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

@@ -943,6 +943,37 @@ internal data class CapabilityStatementDocumentSurrogate(
 }
 
 @Serializable
+internal class CapabilityStatementVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): CapabilityStatement.VersionAlgorithm =
+    CapabilityStatement.VersionAlgorithm?.from(
+      R5String.of(
+        this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@CapabilityStatementVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: CapabilityStatement.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: CapabilityStatement.VersionAlgorithm
+    ): CapabilityStatementVersionAlgorithmSurrogate =
+      with(model) {
+        CapabilityStatementVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CapabilityStatementSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -959,9 +990,6 @@ internal data class CapabilityStatementSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1006,6 +1034,7 @@ internal data class CapabilityStatementSurrogate(
   public var rest: List<CapabilityStatement.Rest>? = null,
   public var messaging: List<CapabilityStatement.Messaging>? = null,
   public var document: List<CapabilityStatement.Document>? = null,
+  public var versionAlgorithm: CapabilityStatement.VersionAlgorithm? = null,
 ) {
   public fun toModel(): CapabilityStatement =
     CapabilityStatement().apply {
@@ -1032,14 +1061,7 @@ internal data class CapabilityStatementSurrogate(
           this@CapabilityStatementSurrogate.version,
           this@CapabilityStatementSurrogate._version,
         )
-      versionAlgorithm =
-        CapabilityStatement.VersionAlgorithm?.from(
-          R5String.of(
-            this@CapabilityStatementSurrogate.versionAlgorithmString,
-            this@CapabilityStatementSurrogate._versionAlgorithmString,
-          ),
-          this@CapabilityStatementSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@CapabilityStatementSurrogate.versionAlgorithm
       name =
         R5String.of(this@CapabilityStatementSurrogate.name, this@CapabilityStatementSurrogate._name)
       title =
@@ -1222,9 +1244,7 @@ internal data class CapabilityStatementSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

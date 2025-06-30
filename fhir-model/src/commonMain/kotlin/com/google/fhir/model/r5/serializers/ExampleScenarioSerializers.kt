@@ -19,8 +19,10 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.ExampleScenario
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.ExampleScenarioActorSurrogate
 import com.google.fhir.model.r5.surrogates.ExampleScenarioInstanceContainedInstanceSurrogate
+import com.google.fhir.model.r5.surrogates.ExampleScenarioInstanceStructureProfileSurrogate
 import com.google.fhir.model.r5.surrogates.ExampleScenarioInstanceSurrogate
 import com.google.fhir.model.r5.surrogates.ExampleScenarioInstanceVersionSurrogate
 import com.google.fhir.model.r5.surrogates.ExampleScenarioProcessStepAlternativeSurrogate
@@ -28,11 +30,19 @@ import com.google.fhir.model.r5.surrogates.ExampleScenarioProcessStepOperationSu
 import com.google.fhir.model.r5.surrogates.ExampleScenarioProcessStepSurrogate
 import com.google.fhir.model.r5.surrogates.ExampleScenarioProcessSurrogate
 import com.google.fhir.model.r5.surrogates.ExampleScenarioSurrogate
+import com.google.fhir.model.r5.surrogates.ExampleScenarioVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ExampleScenarioActorSerializer : KSerializer<ExampleScenario.Actor> {
   internal val surrogateSerializer: KSerializer<ExampleScenarioActorSurrogate> by lazy {
@@ -91,20 +101,72 @@ public object ExampleScenarioInstanceContainedInstanceSerializer :
   }
 }
 
+public object ExampleScenarioInstanceStructureProfileSerializer :
+  KSerializer<ExampleScenario.Instance.StructureProfile> {
+  internal val surrogateSerializer:
+    KSerializer<ExampleScenarioInstanceStructureProfileSurrogate> by lazy {
+    ExampleScenarioInstanceStructureProfileSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("StructureProfile", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.StructureProfile =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.StructureProfile) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExampleScenarioInstanceStructureProfileSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ExampleScenarioInstanceSerializer : KSerializer<ExampleScenario.Instance> {
   internal val surrogateSerializer: KSerializer<ExampleScenarioInstanceSurrogate> by lazy {
     ExampleScenarioInstanceSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("structureProfile")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Instance", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ExampleScenario.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ExampleScenario.Instance {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance) {
-    surrogateSerializer.serialize(encoder, ExampleScenarioInstanceSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ExampleScenarioInstanceSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -186,19 +248,70 @@ public object ExampleScenarioProcessSerializer : KSerializer<ExampleScenario.Pro
   }
 }
 
+public object ExampleScenarioVersionAlgorithmSerializer :
+  KSerializer<ExampleScenario.VersionAlgorithm> {
+  internal val surrogateSerializer: KSerializer<ExampleScenarioVersionAlgorithmSurrogate> by lazy {
+    ExampleScenarioVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.VersionAlgorithm) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExampleScenarioVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ExampleScenarioSerializer : KSerializer<ExampleScenario> {
   internal val surrogateSerializer: KSerializer<ExampleScenarioSurrogate> by lazy {
     ExampleScenarioSurrogate.serializer()
   }
 
+  private val resourceType: String? = "ExampleScenario"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ExampleScenario", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ExampleScenario =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ExampleScenario {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario) {
-    surrogateSerializer.serialize(encoder, ExampleScenarioSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ExampleScenarioSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

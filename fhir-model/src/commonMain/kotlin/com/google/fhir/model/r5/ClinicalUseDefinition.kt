@@ -20,7 +20,9 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionContraindicationOtherTherapySerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionContraindicationSerializer
+import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionIndicationDurationSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionIndicationSerializer
+import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionInteractionInteractantItemSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionInteractionInteractantSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionInteractionSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionSerializer
@@ -369,6 +371,7 @@ public data class ClinicalUseDefinition(
      */
     public var otherTherapy: List<Contraindication.OtherTherapy?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClinicalUseDefinitionIndicationDurationSerializer::class)
     public sealed interface Duration {
       public fun asRange(): Range? = this as? Range
 
@@ -378,14 +381,16 @@ public data class ClinicalUseDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Duration
 
+      public data object Null : Duration
+
       public companion object {
         public fun from(
           RangeValue: com.google.fhir.model.r5.Range?,
           stringValue: com.google.fhir.model.r5.String?,
-        ): Duration? {
+        ): Duration {
           if (RangeValue != null) return Range(RangeValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -493,6 +498,7 @@ public data class ClinicalUseDefinition(
        */
       public var item: Item? = null,
     ) : BackboneElement() {
+      @Serializable(with = ClinicalUseDefinitionInteractionInteractantItemSerializer::class)
       public sealed interface Item {
         public fun asReference(): Reference? = this as? Reference
 
@@ -504,14 +510,16 @@ public data class ClinicalUseDefinition(
           public val `value`: com.google.fhir.model.r5.CodeableConcept
         ) : Item
 
+        public data object Null : Item
+
         public companion object {
           public fun from(
             ReferenceValue: com.google.fhir.model.r5.Reference?,
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ): Item? {
+          ): Item {
             if (ReferenceValue != null) return Reference(ReferenceValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            return null
+            return Null
           }
         }
       }

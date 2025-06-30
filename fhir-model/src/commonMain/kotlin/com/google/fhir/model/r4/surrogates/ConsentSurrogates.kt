@@ -265,6 +265,29 @@ internal data class ConsentProvisionSurrogate(
 }
 
 @Serializable
+internal class ConsentSourceSurrogate {
+  public var sourceAttachment: Attachment? = null
+
+  public var sourceReference: Reference? = null
+
+  public fun toModel(): Consent.Source =
+    Consent.Source?.from(
+      this@ConsentSourceSurrogate.sourceAttachment,
+      this@ConsentSourceSurrogate.sourceReference,
+    ) ?: Consent.Source.Null
+
+  public companion object {
+    public fun fromModel(model: Consent.Source): ConsentSourceSurrogate =
+      with(model) {
+        ConsentSourceSurrogate().apply {
+          sourceAttachment = this@with.asAttachment()?.value
+          sourceReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ConsentSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -286,12 +309,11 @@ internal data class ConsentSurrogate(
   public var _dateTime: Element? = null,
   public var performer: List<Reference?>? = null,
   public var organization: List<Reference?>? = null,
-  public var sourceAttachment: Attachment? = null,
-  public var sourceReference: Reference? = null,
   public var policy: List<Consent.Policy>? = null,
   public var policyRule: CodeableConcept? = null,
   public var verification: List<Consent.Verification>? = null,
   public var provision: Consent.Provision? = null,
+  public var source: Consent.Source? = null,
 ) {
   public fun toModel(): Consent =
     Consent().apply {
@@ -322,11 +344,7 @@ internal data class ConsentSurrogate(
         )
       performer = this@ConsentSurrogate.performer
       organization = this@ConsentSurrogate.organization
-      source =
-        Consent.Source?.from(
-          this@ConsentSurrogate.sourceAttachment,
-          this@ConsentSurrogate.sourceReference,
-        )
+      source = this@ConsentSurrogate.source
       policy = this@ConsentSurrogate.policy
       policyRule = this@ConsentSurrogate.policyRule
       verification = this@ConsentSurrogate.verification
@@ -357,8 +375,7 @@ internal data class ConsentSurrogate(
           _dateTime = this@with.dateTime?.toElement()
           performer = this@with.performer
           organization = this@with.organization
-          sourceAttachment = this@with.source?.asAttachment()?.value
-          sourceReference = this@with.source?.asReference()?.value
+          source = this@with.source
           policy = this@with.policy
           policyRule = this@with.policyRule
           verification = this@with.verification

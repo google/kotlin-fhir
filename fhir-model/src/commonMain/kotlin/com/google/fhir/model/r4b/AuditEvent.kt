@@ -21,6 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.AuditEventAgentNetworkSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventAgentSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventEntityDetailSerializer
+import com.google.fhir.model.r4b.serializers.AuditEventEntityDetailValueSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventEntitySerializer
 import com.google.fhir.model.r4b.serializers.AuditEventSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventSourceSerializer
@@ -550,6 +551,7 @@ public data class AuditEvent(
        */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = AuditEventEntityDetailValueSerializer::class)
       public sealed interface Value {
         public fun asString(): String? = this as? String
 
@@ -560,14 +562,16 @@ public data class AuditEvent(
         public data class Base64Binary(public val `value`: com.google.fhir.model.r4b.Base64Binary) :
           Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             stringValue: com.google.fhir.model.r4b.String?,
             base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
-          ): Value? {
+          ): Value {
             if (stringValue != null) return String(stringValue)
             if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
-            return null
+            return Null
           }
         }
       }
