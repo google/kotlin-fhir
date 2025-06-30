@@ -63,10 +63,6 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
 
     val resultPairs =
       polymorphicElements.map { element: Element ->
-        val surrogateProperties =
-          element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
-            PropertySpec.builder(it.key, it.value).initializer("null").mutable().build()
-          }
         val className =
           ClassName(
             surrogateClassName.packageName,
@@ -76,11 +72,16 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
           TypeSpec.classBuilder(className)
             .addAnnotation(Serializable::class)
             .addModifiers(KModifier.INTERNAL)
-            .addProperties(surrogateProperties)
             .apply {
+              val surrogateProperties =
+                element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
+                  PropertySpec.builder(it.key, it.value).initializer("null").mutable().build()
+                }
+              addProperties(surrogateProperties)
               addConverterToModelClass(modelClassName, className, element, valueSetMap)
               addConverterFromModelClass(modelClassName, className, element, valueSetMap)
             }
+            .build()
 
         val propertyName = element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
         val property =
@@ -93,12 +94,11 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
             .mutable()
             .build()
 
-        val typeSpec = surrogateTypeSpec.build()
-        Pair(property, typeSpec)
+        Pair(property, surrogateTypeSpec)
       }
 
     val polymorphicProperties = resultPairs.map { it.first }
-    val properties = nonPolymorphicProperties + polymorphicProperties
+    val allProperties = nonPolymorphicProperties + polymorphicProperties
 
     val mainSurrogateTypeSpec =
       TypeSpec.classBuilder(surrogateClassName)
@@ -106,11 +106,11 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
           addAnnotation(Serializable::class)
           addModifiers(KModifier.INTERNAL)
           addModifiers(KModifier.DATA)
-          addProperties(properties)
+          addProperties(allProperties)
           primaryConstructor(
             FunSpec.constructorBuilder()
               .apply {
-                properties.forEach {
+                allProperties.forEach {
                   addParameter(
                     ParameterSpec.builder(name = it.name, type = it.type)
                       .defaultValue("null")
