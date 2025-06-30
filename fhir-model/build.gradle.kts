@@ -14,25 +14,39 @@ plugins {
 group = "com.google.fhir"
 version = "1.0.0-alpha01"
 
+// Run `./gradlew r4` to generate FHIR models for R4 in `fhir-model/build/generated/r4`
 val codegenTaskR4 = fhirCodegenExtension.newTask("r4") {
+    description = "Generate FHIR models for R4"
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4.core/package").listFiles()
     )
     this.packageName.set("com.google.fhir.model.r4")
 }
 
+// Run `./gradlew r4b` to generate FHIR models for R4B in `fhir-model/build/generated/r4b`
 val codegenTaskR4B = fhirCodegenExtension.newTask("r4b") {
+    description = "Generate FHIR models for R4B"
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r4b.core/package").listFiles()
     )
     this.packageName.set("com.google.fhir.model.r4b")
 }
 
+// Run `./gradlew r5` to generate FHIR models for R5 in `fhir-model/build/generated/r5`
 val codegenTaskR5 = fhirCodegenExtension.newTask("r5") {
+    description = "Generate FHIR models for R5"
     this.definitionFiles.from(
         File(project.rootDir, "third_party/hl7.fhir.r5.core/package").listFiles()
     )
     this.packageName.set("com.google.fhir.model.r5")
+}
+
+// Run `./gradlew codegen` to generate all FHIR models in the main source set
+val codegen = tasks.register<Sync>("codegen") {
+    description = "Generate FHIR models for R4, R4B and R5, and sync all versions into the main source set."
+    from(codegenTaskR4, codegenTaskR4B, codegenTaskR5)
+    into(project.layout.projectDirectory.dir("src/commonMain/kotlin"))
+    finalizedBy(":spotlessApply")
 }
 
 kotlin {
@@ -85,9 +99,6 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-            kotlin.srcDirs(codegenTaskR4.map { it.outputDirectory })
-            kotlin.srcDirs(codegenTaskR4B.map { it.outputDirectory })
-            kotlin.srcDirs(codegenTaskR5.map { it.outputDirectory })
             dependencies {
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kotlinx.serialization.json)
