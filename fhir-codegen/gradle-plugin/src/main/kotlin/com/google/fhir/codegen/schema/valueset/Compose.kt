@@ -18,4 +18,4 @@ package com.google.fhir.codegen.schema.valueset
 
 import kotlinx.serialization.Serializable
 
-@Serializable data class Compose(val include: List<Include>)
+@Serializable data class Compose(val include: List<Include> = emptyList())

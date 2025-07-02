@@ -23,6 +23,7 @@ import com.google.fhir.codegen.primitives.FhirDateTimeFileSpecGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.isEligibleForEnumCreation
 import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.urlPart
 import com.google.fhir.codegen.schema.valueset.ValueSet
@@ -46,11 +47,13 @@ import org.gradle.api.tasks.TaskAction
 abstract class FhirCodegenTask : DefaultTask() {
   @get:InputFiles
   @get:PathSensitive(PathSensitivity.NONE)
-  abstract val definitionFiles: ConfigurableFileCollection
+  // These are files retrieved from third_party/hl7.fhir.<R4|R4B|R5>.core directory
+  abstract val corePackageFiles: ConfigurableFileCollection
 
   @get:InputFiles
   @get:PathSensitive(PathSensitivity.NONE)
-  abstract val expansionFiles: ConfigurableFileCollection
+  // These are files retrieved from third_party/hl7.fhir.<R4|R4B|R5>.expansion directory
+  abstract val expansionPackageFiles: ConfigurableFileCollection
 
   @get:Input abstract val packageName: Property<String>
 
@@ -70,9 +73,9 @@ abstract class FhirCodegenTask : DefaultTask() {
     outputDir.deleteRecursively()
     outputDir.mkdirs()
 
-    // Prepare the input files and log them in the output folder
-    val definitionInputFiles =
-      definitionFiles.files.flatMap { file ->
+    // Prepare the input files
+    val structureDefinitionInputFiles =
+      corePackageFiles.files.flatMap { file ->
         // Use structure definitions files
         // NB filtering by file name is only an approximation.
         file.walkTopDown().filter {
@@ -80,35 +83,22 @@ abstract class FhirCodegenTask : DefaultTask() {
         }
       }
 
-    val expansionInputFiles =
-      expansionFiles.files.flatMap { file ->
-        // The files from the expansion package are only ValueSets, extract only the JSON
-        // files'. These ValueSets are already expanded to include codes from concepts from the
-        // referenced CodeSystems.
+    val valueSetInputFiles =
+      expansionPackageFiles.files.flatMap { file ->
         file.walkTopDown().filter { it.isFile && it.name.matches("^ValueSet.*\\.json$".toRegex()) }
       }
 
     val valueSetMap =
-      expansionInputFiles
+      valueSetInputFiles
         .asSequence()
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
-        .filter { valueSet ->
-          valueSet.compose?.include?.all {
-            !it.system.isNullOrBlank() &&
-              // URN systems are excluded because they cannot be expanded (e.g., UCUM, MIME)
-              !it.system.startsWith("urn", ignoreCase = true) &&
-              // Excluded to avoid generating conflicting enum classes because the binding name
-              // ("PublicationStatus") is already associated  with a different ValueSet. In this
-              // case, two common binding elements reference different ValueSets.
-              it.system != "http://hl7.org/fhir/specimen-combined"
-          } == true
-        }
+        .filter { it.isEligibleForEnumCreation }
         .groupBy { it.urlPart }
         .mapValues { it.value.first() }
 
     // Only use structure definition files for resource types.
     val structureDefinitions =
-      definitionInputFiles
+      structureDefinitionInputFiles
         .asSequence()
         .filter { it.name.startsWith("StructureDefinition") }
         .map { json.decodeFromString<StructureDefinition>(it.readText(Charsets.UTF_8)) }
