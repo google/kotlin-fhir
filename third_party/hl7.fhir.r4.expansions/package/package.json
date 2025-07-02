@@ -1,0 +1,14 @@
+{
+  "name": "hl7.fhir.r4.expansions",
+  "version": "4.0.1",
+  "fhirVersions" : [ "4.0.1" ],
+  "type": "fhir.expansions",
+  "license": "CC0-1.0",
+  "canonical": "http://hl7.org/fhir",
+  "tools-version" : 3,
+  "homepage": "http://hl7.org/fhir",
+  "title": "FHIR R4 package : Expansions",
+  "description": "Expansions for the R4 version of the FHIR standard",
+  "author": "HL7 Inc",
+  "url": "http://hl7.org/fhir/R4"
+}

@@ -416,36 +416,10 @@ public data class MessageHeader(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The message was accepted and processed without error. */
-    Ok(
-      "ok",
-      "http://hl7.org/fhir/response-code",
-      "OK",
-      "The message was accepted and processed without error.",
-    ),
-    /**
-     * Some internal unexpected error occurred - wait and try again. Note - this is usually used for
-     * things like database unavailable, which may be expected to resolve, though human intervention
-     * may be required.
-     */
-    Transient_Error(
-      "transient-error",
-      "http://hl7.org/fhir/response-code",
-      "Transient Error",
-      "Some internal unexpected error occurred - wait and try again. Note - this is usually used for things like database unavailable, which may be expected to resolve, though human intervention may be required.",
-    ),
-    /**
-     * The message was rejected because of a problem with the content. There is no point in
-     * re-sending without change. The response narrative SHALL describe the issue.
-     */
-    Fatal_Error(
-      "fatal-error",
-      "http://hl7.org/fhir/response-code",
-      "Fatal Error",
-      "The message was rejected because of a problem with the content. There is no point in re-sending without change. The response narrative SHALL describe the issue.",
-    );
+    Ok("ok", "http://hl7.org/fhir/response-code", "OK"),
+    Transient_Error("transient-error", "http://hl7.org/fhir/response-code", "Transient Error"),
+    Fatal_Error("fatal-error", "http://hl7.org/fhir/response-code", "Fatal Error");
 
     override fun toString(): kotlin.String = code
 
@@ -454,8 +428,6 @@ public data class MessageHeader(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResponseType =

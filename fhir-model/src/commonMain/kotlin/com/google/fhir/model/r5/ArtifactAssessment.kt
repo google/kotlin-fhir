@@ -314,49 +314,20 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A comment on the artifact */
-    Comment(
-      "comment",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Comment",
-      "A comment on the artifact",
-    ),
-    /** A classifier of the artifact */
+    Comment("comment", "http://hl7.org/fhir/artifactassessment-information-type", "Comment"),
     Classifier(
       "classifier",
       "http://hl7.org/fhir/artifactassessment-information-type",
       "Classifier",
-      "A classifier of the artifact",
     ),
-    /** A rating of the artifact */
-    Rating(
-      "rating",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Rating",
-      "A rating of the artifact",
-    ),
-    /** A container for multiple components */
-    Container(
-      "container",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Container",
-      "A container for multiple components",
-    ),
-    /** A response to a comment */
-    Response(
-      "response",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Response",
-      "A response to a comment",
-    ),
-    /** A change request for the artifact */
+    Rating("rating", "http://hl7.org/fhir/artifactassessment-information-type", "Rating"),
+    Container("container", "http://hl7.org/fhir/artifactassessment-information-type", "Container"),
+    Response("response", "http://hl7.org/fhir/artifactassessment-information-type", "Response"),
     Change_Request(
       "change-request",
       "http://hl7.org/fhir/artifactassessment-information-type",
       "Change Request",
-      "A change request for the artifact",
     );
 
     override fun toString(): kotlin.String = code
@@ -366,8 +337,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InformationType =
@@ -392,88 +361,32 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The comment has been submitted, but the responsible party has not yet been determined, or the
-     * responsible party has not yet determined the next steps to be taken.
-     */
-    Submitted(
-      "submitted",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Submitted",
-      "The comment has been submitted, but the responsible party has not yet been determined, or the responsible party has not yet determined the next steps to be taken.",
-    ),
-    /**
-     * The comment has been triaged, meaning the responsible party has been determined and next
-     * steps have been identified to address the comment.
-     */
-    Triaged(
-      "triaged",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Triaged",
-      "The comment has been triaged, meaning the responsible party has been determined and next steps have been identified to address the comment.",
-    ),
-    /** The comment is waiting for input from a specific party before next steps can be taken. */
+    Submitted("submitted", "http://hl7.org/fhir/artifactassessment-workflow-status", "Submitted"),
+    Triaged("triaged", "http://hl7.org/fhir/artifactassessment-workflow-status", "Triaged"),
     Waiting_For_Input(
       "waiting-for-input",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Waiting for Input",
-      "The comment is waiting for input from a specific party before next steps can be taken.",
     ),
-    /** The comment has been resolved and no changes resulted from the resolution */
     Resolved_No_Change(
       "resolved-no-change",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Resolved - No Change",
-      "The comment has been resolved and no changes resulted from the resolution",
     ),
-    /** The comment has been resolved and changes are required to address the comment */
     Resolved_Change_Required(
       "resolved-change-required",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Resolved - Change Required",
-      "The comment has been resolved and changes are required to address the comment",
     ),
-    /**
-     * The comment is acceptable, but resolution of the comment and application of any associated
-     * changes have been deferred
-     */
-    Deferred(
-      "deferred",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Deferred",
-      "The comment is acceptable, but resolution of the comment and application of any associated changes have been deferred",
-    ),
-    /** The comment is a duplicate of another comment already received */
-    Duplicate(
-      "duplicate",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Duplicate",
-      "The comment is a duplicate of another comment already received",
-    ),
-    /** The comment is resolved and any necessary changes have been applied */
-    Applied(
-      "applied",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Applied",
-      "The comment is resolved and any necessary changes have been applied",
-    ),
-    /**
-     * The necessary changes to the artifact have been published in a new version of the artifact
-     */
-    Published(
-      "published",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Published",
-      "The necessary changes to the artifact have been published in a new version of the artifact",
-    ),
-    /** The assessment was entered in error */
+    Deferred("deferred", "http://hl7.org/fhir/artifactassessment-workflow-status", "Deferred"),
+    Duplicate("duplicate", "http://hl7.org/fhir/artifactassessment-workflow-status", "Duplicate"),
+    Applied("applied", "http://hl7.org/fhir/artifactassessment-workflow-status", "Applied"),
+    Published("published", "http://hl7.org/fhir/artifactassessment-workflow-status", "Published"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Entered in Error",
-      "The assessment was entered in error",
     );
 
     override fun toString(): kotlin.String = code
@@ -483,8 +396,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): WorkflowStatus =
@@ -513,42 +424,23 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The comment is unresolved */
-    Unresolved(
-      "unresolved",
-      "http://hl7.org/fhir/artifactassessment-disposition",
-      "Unresolved",
-      "The comment is unresolved",
-    ),
-    /** The comment is not persuasive (rejected in full) */
+    Unresolved("unresolved", "http://hl7.org/fhir/artifactassessment-disposition", "Unresolved"),
     Not_Persuasive(
       "not-persuasive",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Not Persuasive",
-      "The comment is not persuasive (rejected in full)",
     ),
-    /** The comment is persuasive (accepted in full) */
-    Persuasive(
-      "persuasive",
-      "http://hl7.org/fhir/artifactassessment-disposition",
-      "Persuasive",
-      "The comment is persuasive (accepted in full)",
-    ),
-    /** The comment is persuasive with modification (partially accepted) */
+    Persuasive("persuasive", "http://hl7.org/fhir/artifactassessment-disposition", "Persuasive"),
     Persuasive_With_Modification(
       "persuasive-with-modification",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Persuasive with Modification",
-      "The comment is persuasive with modification (partially accepted)",
     ),
-    /** The comment is not persuasive with modification (partially rejected) */
     Not_Persuasive_With_Modification(
       "not-persuasive-with-modification",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Not Persuasive with Modification",
-      "The comment is not persuasive with modification (partially rejected)",
     );
 
     override fun toString(): kotlin.String = code
@@ -558,8 +450,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Disposition =

@@ -243,58 +243,12 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The channel is executed by making a post to the URI. If a payload is included, the URL is
-     * interpreted as the service base, and an update (PUT) is made.
-     */
-    Rest_Hook(
-      "rest-hook",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Rest Hook",
-      "The channel is executed by making a post to the URI. If a payload is included, the URL is interpreted as the service base, and an update (PUT) is made.",
-    ),
-    /**
-     * The channel is executed by sending a packet across a web socket connection maintained by the
-     * client. The URL identifies the websocket, and the client binds to this URL.
-     */
-    Websocket(
-      "websocket",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Websocket",
-      "The channel is executed by sending a packet across a web socket connection maintained by the client. The URL identifies the websocket, and the client binds to this URL.",
-    ),
-    /**
-     * The channel is executed by sending an email to the email addressed in the URI (which must be
-     * a mailto:).
-     */
-    Email(
-      "email",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Email",
-      "The channel is executed by sending an email to the email addressed in the URI (which must be a mailto:).",
-    ),
-    /**
-     * The channel is executed by sending an SMS message to the phone number identified in the URL
-     * (tel:).
-     */
-    Sms(
-      "sms",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "SMS",
-      "The channel is executed by sending an SMS message to the phone number identified in the URL (tel:).",
-    ),
-    /**
-     * The channel is executed by sending a message (e.g. a Bundle with a MessageHeader resource
-     * etc.) to the application identified in the URI.
-     */
-    Message(
-      "message",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Message",
-      "The channel is executed by sending a message (e.g. a Bundle with a MessageHeader resource etc.) to the application identified in the URI.",
-    );
+    Rest_Hook("rest-hook", "http://hl7.org/fhir/subscription-channel-type", "Rest Hook"),
+    Websocket("websocket", "http://hl7.org/fhir/subscription-channel-type", "Websocket"),
+    Email("email", "http://hl7.org/fhir/subscription-channel-type", "Email"),
+    Sms("sms", "http://hl7.org/fhir/subscription-channel-type", "SMS"),
+    Message("message", "http://hl7.org/fhir/subscription-channel-type", "Message");
 
     override fun toString(): kotlin.String = code
 
@@ -303,8 +257,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionChannelType =
@@ -325,36 +277,11 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The client has requested the subscription, and the server has not yet set it up. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/subscription-status",
-      "Requested",
-      "The client has requested the subscription, and the server has not yet set it up.",
-    ),
-    /** The subscription is active. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/subscription-status",
-      "Active",
-      "The subscription is active.",
-    ),
-    /** The server has an error executing the notification. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/subscription-status",
-      "Error",
-      "The server has an error executing the notification.",
-    ),
-    /** Too many errors have occurred or the subscription has expired. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/subscription-status",
-      "Off",
-      "Too many errors have occurred or the subscription has expired.",
-    );
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off");
 
     override fun toString(): kotlin.String = code
 
@@ -363,8 +290,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionStatus =

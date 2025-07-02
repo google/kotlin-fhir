@@ -97,74 +97,14 @@ public data class HumanName(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Known as/conventional/the one you normally use. */
-    Usual(
-      "usual",
-      "http://hl7.org/fhir/name-use",
-      "Usual",
-      "Known as/conventional/the one you normally use.",
-    ),
-    /**
-     * The formal name as registered in an official (government) registry, but which name might not
-     * be commonly used. May be called "legal name".
-     */
-    Official(
-      "official",
-      "http://hl7.org/fhir/name-use",
-      "Official",
-      "The formal name as registered in an official (government) registry, but which name might not be commonly used. May be called \"legal name\".",
-    ),
-    /**
-     * A temporary name. Name.period can provide more detailed information. This may also be used
-     * for temporary names assigned at birth or in emergency situations.
-     */
-    Temp(
-      "temp",
-      "http://hl7.org/fhir/name-use",
-      "Temp",
-      "A temporary name. Name.period can provide more detailed information. This may also be used for temporary names assigned at birth or in emergency situations.",
-    ),
-    /**
-     * A name that is used to address the person in an informal manner, but is not part of their
-     * formal or usual name.
-     */
-    Nickname(
-      "nickname",
-      "http://hl7.org/fhir/name-use",
-      "Nickname",
-      "A name that is used to address the person in an informal manner, but is not part of their formal or usual name.",
-    ),
-    /**
-     * Anonymous assigned name, alias, or pseudonym (used to protect a person's identity for privacy
-     * reasons).
-     */
-    Anonymous(
-      "anonymous",
-      "http://hl7.org/fhir/name-use",
-      "Anonymous",
-      "Anonymous assigned name, alias, or pseudonym (used to protect a person's identity for privacy reasons).",
-    ),
-    /** This name is no longer in use (or was never correct, but retained for records). */
-    Old(
-      "old",
-      "http://hl7.org/fhir/name-use",
-      "Old",
-      "This name is no longer in use (or was never correct, but retained for records).",
-    ),
-    /**
-     * A name used prior to changing name because of marriage. This name use is for use by
-     * applications that collect and store names that were used prior to a marriage. Marriage naming
-     * customs vary greatly around the world, and are constantly changing. This term is not gender
-     * specific. The use of this term does not imply any particular history for a person's name.
-     */
-    Maiden(
-      "maiden",
-      "http://hl7.org/fhir/name-use",
-      "Name changed for Marriage",
-      "A name used prior to changing name because of marriage. This name use is for use by applications that collect and store names that were used prior to a marriage. Marriage naming customs vary greatly around the world, and are constantly changing. This term is not gender specific. The use of this term does not imply any particular history for a person's name.",
-    );
+    Usual("usual", "http://hl7.org/fhir/name-use", "Usual"),
+    Official("official", "http://hl7.org/fhir/name-use", "Official"),
+    Temp("temp", "http://hl7.org/fhir/name-use", "Temp"),
+    Nickname("nickname", "http://hl7.org/fhir/name-use", "Nickname"),
+    Anonymous("anonymous", "http://hl7.org/fhir/name-use", "Anonymous"),
+    Old("old", "http://hl7.org/fhir/name-use", "Old"),
+    Maiden("maiden", "http://hl7.org/fhir/name-use", "Name changed for Marriage");
 
     override fun toString(): kotlin.String = code
 
@@ -173,8 +113,6 @@ public data class HumanName(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NameUse =

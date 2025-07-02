@@ -594,49 +594,16 @@ public data class ResearchElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Aggregated using Mean of participant values. */
-    Mean(
-      "mean",
-      "http://hl7.org/fhir/group-measure",
-      "Mean",
-      "Aggregated using Mean of participant values.",
-    ),
-    /** Aggregated using Median of participant values. */
-    Median(
-      "median",
-      "http://hl7.org/fhir/group-measure",
-      "Median",
-      "Aggregated using Median of participant values.",
-    ),
-    /** Aggregated using Mean of study mean values. */
-    Mean_Of_Mean(
-      "mean-of-mean",
-      "http://hl7.org/fhir/group-measure",
-      "Mean of Study Means",
-      "Aggregated using Mean of study mean values.",
-    ),
-    /** Aggregated using Mean of study median values. */
-    Mean_Of_Median(
-      "mean-of-median",
-      "http://hl7.org/fhir/group-measure",
-      "Mean of Study Medins",
-      "Aggregated using Mean of study median values.",
-    ),
-    /** Aggregated using Median of study mean values. */
-    Median_Of_Mean(
-      "median-of-mean",
-      "http://hl7.org/fhir/group-measure",
-      "Median of Study Means",
-      "Aggregated using Median of study mean values.",
-    ),
-    /** Aggregated using Median of study median values. */
+    Mean("mean", "http://hl7.org/fhir/group-measure", "Mean"),
+    Median("median", "http://hl7.org/fhir/group-measure", "Median"),
+    Mean_Of_Mean("mean-of-mean", "http://hl7.org/fhir/group-measure", "Mean of Study Means"),
+    Mean_Of_Median("mean-of-median", "http://hl7.org/fhir/group-measure", "Mean of Study Medins"),
+    Median_Of_Mean("median-of-mean", "http://hl7.org/fhir/group-measure", "Median of Study Means"),
     Median_Of_Median(
       "median-of-median",
       "http://hl7.org/fhir/group-measure",
       "Median of Study Medians",
-      "Aggregated using Median of study median values.",
     );
 
     override fun toString(): kotlin.String = code
@@ -646,8 +613,6 @@ public data class ResearchElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GroupMeasure =
@@ -668,29 +633,10 @@ public data class ResearchElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The element defines the population that forms the basis for research. */
-    Population(
-      "population",
-      "http://hl7.org/fhir/research-element-type",
-      "Population",
-      "The element defines the population that forms the basis for research.",
-    ),
-    /** The element defines an exposure within the population that is being researched. */
-    Exposure(
-      "exposure",
-      "http://hl7.org/fhir/research-element-type",
-      "Exposure",
-      "The element defines an exposure within the population that is being researched.",
-    ),
-    /** The element defines an outcome within the population that is being researched. */
-    Outcome(
-      "outcome",
-      "http://hl7.org/fhir/research-element-type",
-      "Outcome",
-      "The element defines an outcome within the population that is being researched.",
-    );
+    Population("population", "http://hl7.org/fhir/research-element-type", "Population"),
+    Exposure("exposure", "http://hl7.org/fhir/research-element-type", "Exposure"),
+    Outcome("outcome", "http://hl7.org/fhir/research-element-type", "Outcome");
 
     override fun toString(): kotlin.String = code
 
@@ -699,8 +645,6 @@ public data class ResearchElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResearchElementType =
@@ -721,29 +665,10 @@ public data class ResearchElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The variable is dichotomous, such as present or absent. */
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-type",
-      "Dichotomous",
-      "The variable is dichotomous, such as present or absent.",
-    ),
-    /** The variable is a continuous result such as a quantity. */
-    Continuous(
-      "continuous",
-      "http://hl7.org/fhir/variable-type",
-      "Continuous",
-      "The variable is a continuous result such as a quantity.",
-    ),
-    /** The variable is described narratively rather than quantitatively. */
-    Descriptive(
-      "descriptive",
-      "http://hl7.org/fhir/variable-type",
-      "Descriptive",
-      "The variable is described narratively rather than quantitatively.",
-    );
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-type", "Dichotomous"),
+    Continuous("continuous", "http://hl7.org/fhir/variable-type", "Continuous"),
+    Descriptive("descriptive", "http://hl7.org/fhir/variable-type", "Descriptive");
 
     override fun toString(): kotlin.String = code
 
@@ -752,8 +677,6 @@ public data class ResearchElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VariableType =

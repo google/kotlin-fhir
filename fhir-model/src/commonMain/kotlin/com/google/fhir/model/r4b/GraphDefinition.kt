@@ -438,22 +438,9 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This compartment rule is a condition for whether the rule applies. */
-    Condition(
-      "condition",
-      "http://hl7.org/fhir/graph-compartment-use",
-      "Condition",
-      "This compartment rule is a condition for whether the rule applies.",
-    ),
-    /** This compartment rule is enforced on any relationships that meet the conditions. */
-    Requirement(
-      "requirement",
-      "http://hl7.org/fhir/graph-compartment-use",
-      "Requirement",
-      "This compartment rule is enforced on any relationships that meet the conditions.",
-    );
+    Condition("condition", "http://hl7.org/fhir/graph-compartment-use", "Condition"),
+    Requirement("requirement", "http://hl7.org/fhir/graph-compartment-use", "Requirement");
 
     override fun toString(): kotlin.String = code
 
@@ -462,8 +449,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GraphCompartmentUse =
@@ -480,43 +465,12 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The compartment definition is for the patient compartment. */
-    Patient(
-      "Patient",
-      "http://hl7.org/fhir/compartment-type",
-      "Patient",
-      "The compartment definition is for the patient compartment.",
-    ),
-    /** The compartment definition is for the encounter compartment. */
-    Encounter(
-      "Encounter",
-      "http://hl7.org/fhir/compartment-type",
-      "Encounter",
-      "The compartment definition is for the encounter compartment.",
-    ),
-    /** The compartment definition is for the related-person compartment. */
-    RelatedPerson(
-      "RelatedPerson",
-      "http://hl7.org/fhir/compartment-type",
-      "RelatedPerson",
-      "The compartment definition is for the related-person compartment.",
-    ),
-    /** The compartment definition is for the practitioner compartment. */
-    Practitioner(
-      "Practitioner",
-      "http://hl7.org/fhir/compartment-type",
-      "Practitioner",
-      "The compartment definition is for the practitioner compartment.",
-    ),
-    /** The compartment definition is for the device compartment. */
-    Device(
-      "Device",
-      "http://hl7.org/fhir/compartment-type",
-      "Device",
-      "The compartment definition is for the device compartment.",
-    );
+    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient"),
+    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter"),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner"),
+    Device("Device", "http://hl7.org/fhir/compartment-type", "Device");
 
     override fun toString(): kotlin.String = code
 
@@ -525,8 +479,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompartmentCode =
@@ -546,39 +498,11 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The compartment must be identical (the same literal reference). */
-    Identical(
-      "identical",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Identical",
-      "The compartment must be identical (the same literal reference).",
-    ),
-    /**
-     * The compartment must be the same - the record must be about the same patient, but the
-     * reference may be different.
-     */
-    Matching(
-      "matching",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Matching",
-      "The compartment must be the same - the record must be about the same patient, but the reference may be different.",
-    ),
-    /** The compartment must be different. */
-    Different(
-      "different",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Different",
-      "The compartment must be different.",
-    ),
-    /** The compartment rule is defined in the accompanying FHIRPath expression. */
-    Custom(
-      "custom",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Custom",
-      "The compartment rule is defined in the accompanying FHIRPath expression.",
-    );
+    Identical("identical", "http://hl7.org/fhir/graph-compartment-rule", "Identical"),
+    Matching("matching", "http://hl7.org/fhir/graph-compartment-rule", "Matching"),
+    Different("different", "http://hl7.org/fhir/graph-compartment-rule", "Different"),
+    Custom("custom", "http://hl7.org/fhir/graph-compartment-rule", "Custom");
 
     override fun toString(): kotlin.String = code
 
@@ -587,8 +511,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GraphCompartmentRule =

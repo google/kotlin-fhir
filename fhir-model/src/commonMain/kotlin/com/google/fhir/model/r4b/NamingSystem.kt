@@ -310,41 +310,11 @@ public data class NamingSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An ISO object identifier; e.g. 1.2.3.4.5. */
-    Oid(
-      "oid",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "OID",
-      "An ISO object identifier; e.g. 1.2.3.4.5.",
-    ),
-    /** A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11. */
-    Uuid(
-      "uuid",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "UUID",
-      "A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11.",
-    ),
-    /**
-     * A uniform resource identifier (ideally a URL - uniform resource locator); e.g.
-     * http://unitsofmeasure.org.
-     */
-    Uri(
-      "uri",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "URI",
-      "A uniform resource identifier (ideally a URL - uniform resource locator); e.g. http://unitsofmeasure.org.",
-    ),
-    /**
-     * Some other type of unique identifier; e.g. HL7-assigned reserved string such as LN for LOINC.
-     */
-    Other(
-      "other",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "Other",
-      "Some other type of unique identifier; e.g. HL7-assigned reserved string such as LN for LOINC.",
-    );
+    Oid("oid", "http://hl7.org/fhir/namingsystem-identifier-type", "OID"),
+    Uuid("uuid", "http://hl7.org/fhir/namingsystem-identifier-type", "UUID"),
+    Uri("uri", "http://hl7.org/fhir/namingsystem-identifier-type", "URI"),
+    Other("other", "http://hl7.org/fhir/namingsystem-identifier-type", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -353,8 +323,6 @@ public data class NamingSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NamingSystemIdentifierType =
@@ -374,34 +342,10 @@ public data class NamingSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The naming system is used to define concepts and symbols to represent those concepts; e.g.
-     * UCUM, LOINC, NDC code, local lab codes, etc.
-     */
-    Codesystem(
-      "codesystem",
-      "http://hl7.org/fhir/namingsystem-type",
-      "Code System",
-      "The naming system is used to define concepts and symbols to represent those concepts; e.g. UCUM, LOINC, NDC code, local lab codes, etc.",
-    ),
-    /**
-     * The naming system is used to manage identifiers (e.g. license numbers, order numbers, etc.).
-     */
-    Identifier(
-      "identifier",
-      "http://hl7.org/fhir/namingsystem-type",
-      "Identifier",
-      "The naming system is used to manage identifiers (e.g. license numbers, order numbers, etc.).",
-    ),
-    /** The naming system is used as the root for other identifiers and naming systems. */
-    Root(
-      "root",
-      "http://hl7.org/fhir/namingsystem-type",
-      "Root",
-      "The naming system is used as the root for other identifiers and naming systems.",
-    );
+    Codesystem("codesystem", "http://hl7.org/fhir/namingsystem-type", "Code System"),
+    Identifier("identifier", "http://hl7.org/fhir/namingsystem-type", "Identifier"),
+    Root("root", "http://hl7.org/fhir/namingsystem-type", "Root");
 
     override fun toString(): kotlin.String = code
 
@@ -410,8 +354,6 @@ public data class NamingSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NamingSystemType =

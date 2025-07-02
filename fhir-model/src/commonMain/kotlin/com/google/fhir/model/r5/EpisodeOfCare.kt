@@ -373,75 +373,17 @@ public data class EpisodeOfCare(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * This episode of care is planned to start at the date specified in the period.start. During
-     * this status, an organization may perform assessments to determine if the patient is eligible
-     * to receive services, or be organizing to make resources available to provide care services.
-     */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/episode-of-care-status",
-      "Planned",
-      "This episode of care is planned to start at the date specified in the period.start. During this status, an organization may perform assessments to determine if the patient is eligible to receive services, or be organizing to make resources available to provide care services.",
-    ),
-    /**
-     * This episode has been placed on a waitlist, pending the episode being made active (or
-     * cancelled).
-     */
-    Waitlist(
-      "waitlist",
-      "http://hl7.org/fhir/episode-of-care-status",
-      "Waitlist",
-      "This episode has been placed on a waitlist, pending the episode being made active (or cancelled).",
-    ),
-    /** This episode of care is current. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/episode-of-care-status",
-      "Active",
-      "This episode of care is current.",
-    ),
-    /**
-     * This episode of care is on hold; the organization has limited responsibility for the patient
-     * (such as while on respite).
-     */
-    Onhold(
-      "onhold",
-      "http://hl7.org/fhir/episode-of-care-status",
-      "On Hold",
-      "This episode of care is on hold; the organization has limited responsibility for the patient (such as while on respite).",
-    ),
-    /**
-     * This episode of care is finished and the organization is not expecting to be providing
-     * further care to the patient. Can also be known as "closed", "completed" or other similar
-     * terms.
-     */
-    Finished(
-      "finished",
-      "http://hl7.org/fhir/episode-of-care-status",
-      "Finished",
-      "This episode of care is finished and the organization is not expecting to be providing further care to the patient. Can also be known as \"closed\", \"completed\" or other similar terms.",
-    ),
-    /**
-     * The episode of care was cancelled, or withdrawn from service, often selected during the
-     * planned stage as the patient may have gone elsewhere, or the circumstances have changed and
-     * the organization is unable to provide the care. It indicates that services terminated outside
-     * the planned/expected workflow.
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/episode-of-care-status",
-      "Cancelled",
-      "The episode of care was cancelled, or withdrawn from service, often selected during the planned stage as the patient may have gone elsewhere, or the circumstances have changed and the organization is unable to provide the care. It indicates that services terminated outside the planned/expected workflow.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
+    Planned("planned", "http://hl7.org/fhir/episode-of-care-status", "Planned"),
+    Waitlist("waitlist", "http://hl7.org/fhir/episode-of-care-status", "Waitlist"),
+    Active("active", "http://hl7.org/fhir/episode-of-care-status", "Active"),
+    Onhold("onhold", "http://hl7.org/fhir/episode-of-care-status", "On Hold"),
+    Finished("finished", "http://hl7.org/fhir/episode-of-care-status", "Finished"),
+    Cancelled("cancelled", "http://hl7.org/fhir/episode-of-care-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/episode-of-care-status",
       "Entered in Error",
-      "This instance should not have been part of this patient's medical record.",
     );
 
     override fun toString(): String = code
@@ -451,8 +393,6 @@ public data class EpisodeOfCare(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EpisodeOfCareStatus =

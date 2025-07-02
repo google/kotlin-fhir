@@ -432,55 +432,16 @@ public data class Invoice(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * the amount is the base price used for calculating the total price before applying surcharges,
-     * discount or taxes.
-     */
-    Base(
-      "base",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "base price",
-      "the amount is the base price used for calculating the total price before applying surcharges, discount or taxes.",
-    ),
-    /** the amount is a surcharge applied on the base price. */
-    Surcharge(
-      "surcharge",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "surcharge",
-      "the amount is a surcharge applied on the base price.",
-    ),
-    /** the amount is a deduction applied on the base price. */
-    Deduction(
-      "deduction",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "deduction",
-      "the amount is a deduction applied on the base price.",
-    ),
-    /** the amount is a discount applied on the base price. */
-    Discount(
-      "discount",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "discount",
-      "the amount is a discount applied on the base price.",
-    ),
-    /** the amount is the tax component of the total price. */
-    Tax(
-      "tax",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "tax",
-      "the amount is the tax component of the total price.",
-    ),
-    /**
-     * the amount is of informational character, it has not been applied in the calculation of the
-     * total price.
-     */
+    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount"),
+    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax"),
     Informational(
       "informational",
       "http://hl7.org/fhir/invoice-priceComponentType",
       "informational",
-      "the amount is of informational character, it has not been applied in the calculation of the total price.",
     );
 
     override fun toString(): kotlin.String = code
@@ -490,8 +451,6 @@ public data class Invoice(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InvoicePriceComponentType =
@@ -513,43 +472,12 @@ public data class Invoice(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the invoice has been prepared but not yet finalized. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/invoice-status",
-      "draft",
-      "the invoice has been prepared but not yet finalized.",
-    ),
-    /** the invoice has been finalized and sent to the recipient. */
-    Issued(
-      "issued",
-      "http://hl7.org/fhir/invoice-status",
-      "issued",
-      "the invoice has been finalized and sent to the recipient.",
-    ),
-    /** the invoice has been balaced / completely paid. */
-    Balanced(
-      "balanced",
-      "http://hl7.org/fhir/invoice-status",
-      "balanced",
-      "the invoice has been balaced / completely paid.",
-    ),
-    /** the invoice was cancelled. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/invoice-status",
-      "cancelled",
-      "the invoice was cancelled.",
-    ),
-    /** the invoice was determined as entered in error before it was issued. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/invoice-status",
-      "entered in error",
-      "the invoice was determined as entered in error before it was issued.",
-    );
+    Draft("draft", "http://hl7.org/fhir/invoice-status", "draft"),
+    Issued("issued", "http://hl7.org/fhir/invoice-status", "issued"),
+    Balanced("balanced", "http://hl7.org/fhir/invoice-status", "balanced"),
+    Cancelled("cancelled", "http://hl7.org/fhir/invoice-status", "cancelled"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/invoice-status", "entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -558,8 +486,6 @@ public data class Invoice(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InvoiceStatus =

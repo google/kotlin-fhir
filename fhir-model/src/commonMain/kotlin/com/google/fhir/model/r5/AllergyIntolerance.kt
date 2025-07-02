@@ -509,29 +509,10 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Causes mild physiological effects. */
-    Mild(
-      "mild",
-      "http://hl7.org/fhir/reaction-event-severity",
-      "Mild",
-      "Causes mild physiological effects.",
-    ),
-    /** Causes moderate physiological effects. */
-    Moderate(
-      "moderate",
-      "http://hl7.org/fhir/reaction-event-severity",
-      "Moderate",
-      "Causes moderate physiological effects.",
-    ),
-    /** Causes severe physiological effects. */
-    Severe(
-      "severe",
-      "http://hl7.org/fhir/reaction-event-severity",
-      "Severe",
-      "Causes severe physiological effects.",
-    );
+    Mild("mild", "http://hl7.org/fhir/reaction-event-severity", "Mild"),
+    Moderate("moderate", "http://hl7.org/fhir/reaction-event-severity", "Moderate"),
+    Severe("severe", "http://hl7.org/fhir/reaction-event-severity", "Severe");
 
     override fun toString(): kotlin.String = code
 
@@ -540,8 +521,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceSeverity =
@@ -560,46 +539,11 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Any substance consumed to provide nutritional support for the body. */
-    Food(
-      "food",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Food",
-      "Any substance consumed to provide nutritional support for the body.",
-    ),
-    /** Substances administered to achieve a physiological effect. */
-    Medication(
-      "medication",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Medication",
-      "Substances administered to achieve a physiological effect.",
-    ),
-    /**
-     * Any substances that are encountered in the environment, including any substance not already
-     * classified as food, medication, or biologic.
-     */
-    Environment(
-      "environment",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Environment",
-      "Any substances that are encountered in the environment, including any substance not already classified as food, medication, or biologic.",
-    ),
-    /**
-     * A preparation that is synthesized from living organisms or their products, especially a human
-     * or animal protein, such as a hormone or antitoxin, that is used as a diagnostic, preventive,
-     * or therapeutic agent. Examples of biologic medications include: vaccines; allergenic
-     * extracts, which are used for both diagnosis and treatment (for example, allergy shots); gene
-     * therapies; cellular therapies. There are other biologic products, such as tissues, which are
-     * not typically associated with allergies.
-     */
-    Biologic(
-      "biologic",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Biologic",
-      "A preparation that is synthesized from living organisms or their products, especially a human or animal protein, such as a hormone or antitoxin, that is used as a diagnostic, preventive, or therapeutic agent. Examples of biologic medications include: vaccines; allergenic extracts, which are used for both diagnosis and treatment (for example, allergy shots); gene therapies; cellular therapies.  There are other biologic products, such as tissues, which are not typically associated with allergies.",
-    );
+    Food("food", "http://hl7.org/fhir/allergy-intolerance-category", "Food"),
+    Medication("medication", "http://hl7.org/fhir/allergy-intolerance-category", "Medication"),
+    Environment("environment", "http://hl7.org/fhir/allergy-intolerance-category", "Environment"),
+    Biologic("biologic", "http://hl7.org/fhir/allergy-intolerance-category", "Biologic");
 
     override fun toString(): kotlin.String = code
 
@@ -608,8 +552,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceCategory =
@@ -632,34 +574,13 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Worst case result of a future exposure is not assessed to be life-threatening or having high
-     * potential for organ system failure.
-     */
-    Low(
-      "low",
-      "http://hl7.org/fhir/allergy-intolerance-criticality",
-      "Low Risk",
-      "Worst case result of a future exposure is not assessed to be life-threatening or having high potential for organ system failure.",
-    ),
-    /**
-     * Worst case result of a future exposure is assessed to be life-threatening or having high
-     * potential for organ system failure.
-     */
-    High(
-      "high",
-      "http://hl7.org/fhir/allergy-intolerance-criticality",
-      "High Risk",
-      "Worst case result of a future exposure is assessed to be life-threatening or having high potential for organ system failure.",
-    ),
-    /** Unable to assess the worst case result of a future exposure. */
+    Low("low", "http://hl7.org/fhir/allergy-intolerance-criticality", "Low Risk"),
+    High("high", "http://hl7.org/fhir/allergy-intolerance-criticality", "High Risk"),
     Unable_To_Assess(
       "unable-to-assess",
       "http://hl7.org/fhir/allergy-intolerance-criticality",
       "Unable to Assess Risk",
-      "Unable to assess the worst case result of a future exposure.",
     );
 
     override fun toString(): kotlin.String = code
@@ -669,8 +590,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceCriticality =

@@ -857,57 +857,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Combine characteristics with AND. */
-    All_Of(
-      "all-of",
-      "http://hl7.org/fhir/characteristic-combination",
-      "All of",
-      "Combine characteristics with AND.",
-    ),
-    /** Combine characteristics with OR. */
-    Any_Of(
-      "any-of",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Any of",
-      "Combine characteristics with OR.",
-    ),
-    /** Meet at least the threshold number of characteristics for definition. */
-    At_Least(
-      "at-least",
-      "http://hl7.org/fhir/characteristic-combination",
-      "At least",
-      "Meet at least the threshold number of characteristics for definition.",
-    ),
-    /** Meet at most the threshold number of characteristics for definition. */
-    At_Most(
-      "at-most",
-      "http://hl7.org/fhir/characteristic-combination",
-      "At most",
-      "Meet at most the threshold number of characteristics for definition.",
-    ),
-    /** Combine characteristics statistically. Use method to specify the statistical method. */
-    Statistical(
-      "statistical",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Statistical",
-      "Combine characteristics statistically. Use method to specify the statistical method.",
-    ),
-    /** Combine characteristics by addition of benefits and subtraction of harms. */
-    Net_Effect(
-      "net-effect",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Net effect",
-      "Combine characteristics by addition of benefits and subtraction of harms.",
-    ),
-    /** Combine characteristics as a collection used as the dataset. */
-    Dataset(
-      "dataset",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Dataset",
-      "Combine characteristics as a collection used as the dataset.",
-    );
+    All_Of("all-of", "http://hl7.org/fhir/characteristic-combination", "All of"),
+    Any_Of("any-of", "http://hl7.org/fhir/characteristic-combination", "Any of"),
+    At_Least("at-least", "http://hl7.org/fhir/characteristic-combination", "At least"),
+    At_Most("at-most", "http://hl7.org/fhir/characteristic-combination", "At most"),
+    Statistical("statistical", "http://hl7.org/fhir/characteristic-combination", "Statistical"),
+    Net_Effect("net-effect", "http://hl7.org/fhir/characteristic-combination", "Net effect"),
+    Dataset("dataset", "http://hl7.org/fhir/characteristic-combination", "Dataset");
 
     override fun toString(): kotlin.String = code
 
@@ -916,8 +873,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CharacteristicCombination =
@@ -943,50 +898,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A continuous variable is one for which, within the limits the variable ranges, any value is
-     * possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).
-     */
-    Continuous(
-      "continuous",
-      "http://hl7.org/fhir/variable-handling",
-      "continuous variable",
-      "A continuous variable is one for which, within the limits the variable ranges, any value is possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).",
-    ),
-    /**
-     * A dichotomous variable is a categorical variable which is defined to have only 2 categories
-     * or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).
-     */
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      "A dichotomous variable is a categorical variable which is defined to have only 2 categories or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).",
-    ),
-    /**
-     * An ordinal variable is a categorical variable where the discrete possible values are ordered
-     * or correspond to an implicit ranking (from STATO
-     * http://purl.obolibrary.org/obo/STATO_0000228).
-     */
-    Ordinal(
-      "ordinal",
-      "http://hl7.org/fhir/variable-handling",
-      "ordinal variable",
-      "An ordinal variable is a categorical variable where the discrete possible values are ordered or correspond to an implicit ranking (from STATO http://purl.obolibrary.org/obo/STATO_0000228).",
-    ),
-    /**
-     * A polychotomous variable is a categorical variable which is defined to have minimally 2
-     * categories or possible values. (from STATO http://purl.obolibrary.org/obo/STATO_0000087).
-     * Suggestion to limit code use to situations when neither dichotomous nor ordinal variables
-     * apply.
-     */
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      "A polychotomous variable is a categorical variable which is defined to have minimally 2 categories or possible values. (from STATO  http://purl.obolibrary.org/obo/STATO_0000087).  Suggestion to limit code use to situations when neither dichotomous nor ordinal variables apply.",
     );
 
     override fun toString(): kotlin.String = code
@@ -996,8 +915,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

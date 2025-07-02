@@ -792,81 +792,25 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant is a care team caring for the patient under evaluation. */
-    Careteam(
-      "careteam",
-      "http://hl7.org/fhir/action-participant-type",
-      "CareTeam",
-      "The participant is a care team caring for the patient under evaluation.",
-    ),
-    /** The participant is a system or device used in the care of the patient. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/action-participant-type",
-      "Device",
-      "The participant is a system or device used in the care of the patient.",
-    ),
-    /** The participant is a group of participants involved in the care of the patient. */
-    Group(
-      "group",
-      "http://hl7.org/fhir/action-participant-type",
-      "Group",
-      "The participant is a group of participants involved in the care of the patient.",
-    ),
-    /**
-     * The participant is an institution that can provide the given healthcare service used in the
-     * care of the patient.
-     */
+    Careteam("careteam", "http://hl7.org/fhir/action-participant-type", "CareTeam"),
+    Device("device", "http://hl7.org/fhir/action-participant-type", "Device"),
+    Group("group", "http://hl7.org/fhir/action-participant-type", "Group"),
     Healthcareservice(
       "healthcareservice",
       "http://hl7.org/fhir/action-participant-type",
       "HealthcareService",
-      "The participant is an institution that can provide the given healthcare service used in the care of the patient.",
     ),
-    /** The participant is a location involved in the care of the patient. */
-    Location(
-      "location",
-      "http://hl7.org/fhir/action-participant-type",
-      "Location",
-      "The participant is a location involved in the care of the patient.",
-    ),
-    /** The participant is an organization involved in the care of the patient. */
-    Organization(
-      "organization",
-      "http://hl7.org/fhir/action-participant-type",
-      "Organization",
-      "The participant is an organization involved in the care of the patient.",
-    ),
-    /** The participant is the patient under evaluation. */
-    Patient(
-      "patient",
-      "http://hl7.org/fhir/action-participant-type",
-      "Patient",
-      "The participant is the patient under evaluation.",
-    ),
-    /** The participant is a practitioner involved in the patient's care. */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/action-participant-type",
-      "Practitioner",
-      "The participant is a practitioner involved in the patient's care.",
-    ),
-    /** The participant is a particular practitioner role involved in the patient's care. */
+    Location("location", "http://hl7.org/fhir/action-participant-type", "Location"),
+    Organization("organization", "http://hl7.org/fhir/action-participant-type", "Organization"),
+    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient"),
+    Practitioner("practitioner", "http://hl7.org/fhir/action-participant-type", "Practitioner"),
     Practitionerrole(
       "practitionerrole",
       "http://hl7.org/fhir/action-participant-type",
       "PractitionerRole",
-      "The participant is a particular practitioner role involved in the patient's care.",
     ),
-    /** The participant is a person related to the patient. */
-    Relatedperson(
-      "relatedperson",
-      "http://hl7.org/fhir/action-participant-type",
-      "RelatedPerson",
-      "The participant is a person related to the patient.",
-    );
+    Relatedperson("relatedperson", "http://hl7.org/fhir/action-participant-type", "RelatedPerson");
 
     override fun toString(): kotlin.String = code
 
@@ -875,8 +819,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActivityParticipantType =
@@ -902,93 +844,16 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /**
-     * The request represents a legally binding instruction authored by a Patient or RelatedPerson.
-     */
-    Directive(
-      "directive",
-      "http://hl7.org/fhir/request-intent",
-      "Directive",
-      "The request represents a legally binding instruction authored by a Patient or RelatedPerson.",
-    ),
-    /** The request represents a request/demand and authorization for action by the requestor. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by the requestor.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestOrchestration that establishes
-     * timing, conditionality and/or other constraints among a set of requests. Refer to
-     * [[[RequestOrchestration]]] for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestOrchestration that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestOrchestration]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -997,8 +862,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestIntent =
@@ -1022,38 +885,11 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1062,8 +898,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =

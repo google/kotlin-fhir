@@ -1367,38 +1367,14 @@ public data class MedicationKnowledge(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The medication referred to by this MedicationKnowledge is in active use within the drug
-     * database or inventory system.
-     */
-    Active(
-      "active",
-      "http://hl7.org/fhir/CodeSystem/medicationknowledge-status",
-      "Active",
-      "The medication referred to by this MedicationKnowledge is in active use within the drug database or inventory system.",
-    ),
-    /**
-     * The medication referred to by this MedicationKnowledge was entered in error within the drug
-     * database or inventory system.
-     */
+    Active("active", "http://hl7.org/fhir/CodeSystem/medicationknowledge-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medicationknowledge-status",
       "Entered in Error",
-      "The medication referred to by this MedicationKnowledge was entered in error within the drug database or inventory system.",
     ),
-    /**
-     * The medication referred to by this MedicationKnowledge is not in active use within the drug
-     * database or inventory system.
-     */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/CodeSystem/medicationknowledge-status",
-      "Inactive",
-      "The medication referred to by this MedicationKnowledge is not in active use within the drug database or inventory system.",
-    );
+    Inactive("inactive", "http://hl7.org/fhir/CodeSystem/medicationknowledge-status", "Inactive");
 
     override fun toString(): kotlin.String = code
 
@@ -1407,8 +1383,6 @@ public data class MedicationKnowledge(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MedicationKnowledgeStatus =

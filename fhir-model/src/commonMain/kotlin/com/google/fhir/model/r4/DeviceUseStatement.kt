@@ -215,55 +215,17 @@ public data class DeviceUseStatement(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The device is still being used. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/device-statement-status",
-      "Active",
-      "The device is still being used.",
-    ),
-    /** The device is no longer being used. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/device-statement-status",
-      "Completed",
-      "The device is no longer being used.",
-    ),
-    /** The statement was recorded incorrectly. */
+    Active("active", "http://hl7.org/fhir/device-statement-status", "Active"),
+    Completed("completed", "http://hl7.org/fhir/device-statement-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/device-statement-status",
       "Entered in Error",
-      "The statement was recorded incorrectly.",
     ),
-    /** The device may be used at some time in the future. */
-    Intended(
-      "intended",
-      "http://hl7.org/fhir/device-statement-status",
-      "Intended",
-      "The device may be used at some time in the future.",
-    ),
-    /**
-     * Actions implied by the statement have been permanently halted, before all of them occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/device-statement-status",
-      "Stopped",
-      "Actions implied by the statement have been permanently halted, before all of them occurred.",
-    ),
-    /**
-     * Actions implied by the statement have been temporarily halted, but are expected to continue
-     * later. May also be called "suspended".
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/device-statement-status",
-      "On Hold",
-      "Actions implied by the statement have been temporarily halted, but are expected to continue later. May also be called \"suspended\".",
-    );
+    Intended("intended", "http://hl7.org/fhir/device-statement-status", "Intended"),
+    Stopped("stopped", "http://hl7.org/fhir/device-statement-status", "Stopped"),
+    On_Hold("on-hold", "http://hl7.org/fhir/device-statement-status", "On Hold");
 
     override fun toString(): String = code
 
@@ -272,8 +234,6 @@ public data class DeviceUseStatement(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceUseStatementStatus =

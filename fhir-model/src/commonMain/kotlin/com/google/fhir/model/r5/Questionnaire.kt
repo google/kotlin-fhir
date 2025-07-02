@@ -1008,145 +1008,23 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An item with no direct answer but should have at least one child item. */
-    Group(
-      "group",
-      "http://hl7.org/fhir/item-type",
-      "Group",
-      "An item with no direct answer but should have at least one child item.",
-    ),
-    /** Text for display that will not capture an answer or have child items. */
-    Display(
-      "display",
-      "http://hl7.org/fhir/item-type",
-      "Display",
-      "Text for display that will not capture an answer or have child items.",
-    ),
-    /**
-     * An item that defines a specific answer to be captured, and which may have child items. (the
-     * answer provided in the QuestionnaireResponse should be of the defined datatype).
-     */
-    Question(
-      "question",
-      "http://hl7.org/fhir/item-type",
-      "Question",
-      "An item that defines a specific answer to be captured, and which may have child items. (the answer provided in the QuestionnaireResponse should be of the defined datatype).",
-    ),
-    /** Question with a yes/no answer (valueBoolean). */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/item-type",
-      "Boolean",
-      "Question with a yes/no answer (valueBoolean).",
-    ),
-    /**
-     * Question with is a real number answer (valueDecimal). There is an extension
-     * 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to computably
-     * convey the unit of measure associated with the answer for use when performing data extraction
-     * to an element of type Quantity.
-     */
-    Decimal(
-      "decimal",
-      "http://hl7.org/fhir/item-type",
-      "Decimal",
-      "Question with is a real number answer (valueDecimal).  There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to computably convey the unit of measure associated with the answer for use when performing data extraction to an element of type Quantity.",
-    ),
-    /**
-     * Question with an integer answer (valueInteger). There is an extension
-     * 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to computably
-     * convey the unit of measure associated with the answer for use when performing data extraction
-     * to an element of type Quantity.
-     */
-    Integer(
-      "integer",
-      "http://hl7.org/fhir/item-type",
-      "Integer",
-      "Question with an integer answer (valueInteger).  There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to computably convey the unit of measure associated with the answer for use when performing data extraction to an element of type Quantity.",
-    ),
-    /** Question with a date answer (valueDate). */
-    Date(
-      "date",
-      "http://hl7.org/fhir/item-type",
-      "Date",
-      "Question with a date answer (valueDate).",
-    ),
-    /** Question with a date and time answer (valueDateTime). */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/item-type",
-      "Date Time",
-      "Question with a date and time answer (valueDateTime).",
-    ),
-    /** Question with a time (hour:minute:second) answer independent of date. (valueTime). */
-    Time(
-      "time",
-      "http://hl7.org/fhir/item-type",
-      "Time",
-      "Question with a time (hour:minute:second) answer independent of date. (valueTime).",
-    ),
-    /**
-     * Question with a short (few words to short sentence) free-text entry answer (valueString).
-     * Strings SHOULD NOT contain carriage return or newline characters. If multi-line answers are
-     * needed, use the 'text' type.
-     */
-    String(
-      "string",
-      "http://hl7.org/fhir/item-type",
-      "String",
-      "Question with a short (few words to short sentence) free-text entry answer (valueString).  Strings SHOULD NOT contain carriage return or newline characters.  If multi-line answers are needed, use the 'text' type.",
-    ),
-    /** Question with a long (potentially multi-paragraph) free-text entry answer (valueString). */
-    Text(
-      "text",
-      "http://hl7.org/fhir/item-type",
-      "Text",
-      "Question with a long (potentially multi-paragraph) free-text entry answer (valueString).",
-    ),
-    /** Question with a URL (website, FTP site, etc.) answer (valueUri). */
-    Url(
-      "url",
-      "http://hl7.org/fhir/item-type",
-      "Url",
-      "Question with a URL (website, FTP site, etc.) answer (valueUri).",
-    ),
-    /** Question with a Coding - generally drawn from a list of possible answers (valueCoding) */
-    Coding(
-      "coding",
-      "http://hl7.org/fhir/item-type",
-      "Coding",
-      "Question with a Coding - generally drawn from a list of possible answers (valueCoding)",
-    ),
-    /** Question with binary content such as an image, PDF, etc. as an answer (valueAttachment). */
-    Attachment(
-      "attachment",
-      "http://hl7.org/fhir/item-type",
-      "Attachment",
-      "Question with binary content such as an image, PDF, etc. as an answer (valueAttachment).",
-    ),
-    /**
-     * Question with a reference to another resource (practitioner, organization, etc.) as an answer
-     * (valueReference).
-     */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/item-type",
-      "Reference",
-      "Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).",
-    ),
-    /**
-     * Question with a combination of a numeric value and unit as an answer. (valueSimpleQuantity)
-     * There are two extensions ('http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption'
-     * and 'http://hl7.org/fhir/StructureDefinition/questionnaire-unitValueSet') that can be used to
-     * define what unit should be selected for the Quantity.code and Quantity.system.
-     */
-    Quantity(
-      "quantity",
-      "http://hl7.org/fhir/item-type",
-      "Quantity",
-      "Question with a combination of a numeric value and unit as an answer. (valueSimpleQuantity)  There are two extensions ('http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption' and 'http://hl7.org/fhir/StructureDefinition/questionnaire-unitValueSet')  that can be used to define what unit should be selected for the Quantity.code and Quantity.system.",
-    );
+    Group("group", "http://hl7.org/fhir/item-type", "Group"),
+    Display("display", "http://hl7.org/fhir/item-type", "Display"),
+    Question("question", "http://hl7.org/fhir/item-type", "Question"),
+    Boolean("boolean", "http://hl7.org/fhir/item-type", "Boolean"),
+    Decimal("decimal", "http://hl7.org/fhir/item-type", "Decimal"),
+    Integer("integer", "http://hl7.org/fhir/item-type", "Integer"),
+    Date("date", "http://hl7.org/fhir/item-type", "Date"),
+    DateTime("dateTime", "http://hl7.org/fhir/item-type", "Date Time"),
+    Time("time", "http://hl7.org/fhir/item-type", "Time"),
+    String("string", "http://hl7.org/fhir/item-type", "String"),
+    Text("text", "http://hl7.org/fhir/item-type", "Text"),
+    Url("url", "http://hl7.org/fhir/item-type", "Url"),
+    Coding("coding", "http://hl7.org/fhir/item-type", "Coding"),
+    Attachment("attachment", "http://hl7.org/fhir/item-type", "Attachment"),
+    Reference("reference", "http://hl7.org/fhir/item-type", "Reference"),
+    Quantity("quantity", "http://hl7.org/fhir/item-type", "Quantity");
 
     override fun toString(): kotlin.String = code
 
@@ -1155,8 +1033,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemType =
@@ -1188,22 +1064,9 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Enable the question when all the enableWhen criteria are satisfied. */
-    All(
-      "all",
-      "http://hl7.org/fhir/questionnaire-enable-behavior",
-      "All",
-      "Enable the question when all the enableWhen criteria are satisfied.",
-    ),
-    /** Enable the question when any of the enableWhen criteria are satisfied. */
-    Any(
-      "any",
-      "http://hl7.org/fhir/questionnaire-enable-behavior",
-      "Any",
-      "Enable the question when any of the enableWhen criteria are satisfied.",
-    );
+    All("all", "http://hl7.org/fhir/questionnaire-enable-behavior", "All"),
+    Any("any", "http://hl7.org/fhir/questionnaire-enable-behavior", "Any");
 
     override fun toString(): kotlin.String = code
 
@@ -1212,8 +1075,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EnableWhenBehavior =
@@ -1230,26 +1091,9 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The item (and its children) should not be visible to the user at all. */
-    Hidden(
-      "hidden",
-      "http://hl7.org/fhir/questionnaire-disabled-display",
-      "Hidden",
-      "The item (and its children) should not be visible to the user at all.",
-    ),
-    /**
-     * The item (and possibly its children) should not be selectable or editable but should still be
-     * visible - to allow the user to see what questions *could* have been completed had other
-     * answers caused the item to be enabled.
-     */
-    Protected(
-      "protected",
-      "http://hl7.org/fhir/questionnaire-disabled-display",
-      "Protected",
-      "The item (and possibly its children) should not be selectable or editable but should still be visible - to allow the user to see what questions *could* have been completed had other answers caused the item to be enabled.",
-    );
+    Hidden("hidden", "http://hl7.org/fhir/questionnaire-disabled-display", "Hidden"),
+    Protected("protected", "http://hl7.org/fhir/questionnaire-disabled-display", "Protected");
 
     override fun toString(): kotlin.String = code
 
@@ -1258,8 +1102,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DisabledDisplay =
@@ -1279,36 +1121,21 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Only values listed as answerOption or in the expansion of the answerValueSet are permitted
-     */
     OptionsOnly(
       "optionsOnly",
       "http://hl7.org/fhir/questionnaire-answer-constraint",
       "Options only",
-      "Only values listed as answerOption or in the expansion of the answerValueSet are permitted",
     ),
-    /**
-     * In addition to the values listed as answerOption or in the expansion of the answerValueSet,
-     * any other values that correspond to the specified item.type are permitted
-     */
     OptionsOrType(
       "optionsOrType",
       "http://hl7.org/fhir/questionnaire-answer-constraint",
       "Options or 'type'",
-      "In addition to the values listed as answerOption or in the expansion of the answerValueSet, any other values that correspond to the specified item.type are permitted",
     ),
-    /**
-     * In addition to the values listed as answerOption or in the expansion of the answerValueSet,
-     * free-text strings are permitted. Answers will have a type of 'string'.
-     */
     OptionsOrString(
       "optionsOrString",
       "http://hl7.org/fhir/questionnaire-answer-constraint",
       "Options or string",
-      "In addition to the values listed as answerOption or in the expansion of the answerValueSet, free-text strings are permitted.  Answers will have a type of 'string'.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1318,8 +1145,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireAnswerConstraint =
@@ -1340,62 +1165,18 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * True if the determination of 'whether an answer exists for the question' is equal to the
-     * enableWhen answer (which must be a boolean).
-     */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Exists",
-      "True if the determination of 'whether an answer exists for the question' is equal to the enableWhen answer (which must be a boolean).",
-    ),
-    /** True if at least one answer has a value that is equal to the enableWhen answer. */
-    EqualTo(
-      "=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Equals",
-      "True if at least one answer has a value that is equal to the enableWhen answer.",
-    ),
-    /** True if no answer has a value that is equal to the enableWhen answer. */
-    NotEqualTo(
-      "!=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Not Equals",
-      "True if no answer has a value that is equal to the enableWhen answer.",
-    ),
-    /** True if at least one answer has a value that is greater than the enableWhen answer. */
-    GreaterThan(
-      ">",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Greater Than",
-      "True if at least one answer has a value that is greater than the enableWhen answer.",
-    ),
-    /** True if at least one answer has a value that is less than the enableWhen answer. */
-    LessThan(
-      "<",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less Than",
-      "True if at least one answer has a value that is less than the enableWhen answer.",
-    ),
-    /**
-     * True if at least one answer has a value that is greater or equal to the enableWhen answer.
-     */
+    Exists("exists", "http://hl7.org/fhir/questionnaire-enable-operator", "Exists"),
+    EqualTo("=", "http://hl7.org/fhir/questionnaire-enable-operator", "Equals"),
+    NotEqualTo("!=", "http://hl7.org/fhir/questionnaire-enable-operator", "Not Equals"),
+    GreaterThan(">", "http://hl7.org/fhir/questionnaire-enable-operator", "Greater Than"),
+    LessThan("<", "http://hl7.org/fhir/questionnaire-enable-operator", "Less Than"),
     GreaterThanOrEqualTo(
       ">=",
       "http://hl7.org/fhir/questionnaire-enable-operator",
       "Greater or Equals",
-      "True if at least one answer has a value that is greater or equal to the enableWhen answer.",
     ),
-    /** True if at least one answer has a value that is less or equal to the enableWhen answer. */
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less or Equals",
-      "True if at least one answer has a value that is less or equal to the enableWhen answer.",
-    );
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/questionnaire-enable-operator", "Less or Equals");
 
     override fun toString(): kotlin.String = code
 
@@ -1404,8 +1185,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemOperator =

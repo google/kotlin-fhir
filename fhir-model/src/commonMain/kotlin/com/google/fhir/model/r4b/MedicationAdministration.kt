@@ -448,70 +448,30 @@ public data class MedicationAdministration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The administration has started but has not yet completed. */
     In_Progress(
       "in-progress",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "In Progress",
-      "The administration has started but has not yet completed.",
     ),
-    /**
-     * The administration was terminated prior to any impact on the subject (though preparatory
-     * actions may have been taken)
-     */
     Not_Done(
       "not-done",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Not Done",
-      "The administration was terminated prior to any impact on the subject (though preparatory actions may have been taken)",
     ),
-    /**
-     * Actions implied by the administration have been temporarily halted, but are expected to
-     * continue later. May also be called 'suspended'.
-     */
-    On_Hold(
-      "on-hold",
-      "http://terminology.hl7.org/CodeSystem/medication-admin-status",
-      "On Hold",
-      "Actions implied by the administration have been temporarily halted, but are expected to continue later. May also be called 'suspended'.",
-    ),
-    /** All actions that are implied by the administration have occurred. */
+    On_Hold("on-hold", "http://terminology.hl7.org/CodeSystem/medication-admin-status", "On Hold"),
     Completed(
       "completed",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Completed",
-      "All actions that are implied by the administration have occurred.",
     ),
-    /** The administration was entered in error and therefore nullified. */
     Entered_In_Error(
       "entered-in-error",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Entered in Error",
-      "The administration was entered in error and therefore nullified.",
     ),
-    /**
-     * Actions implied by the administration have been permanently halted, before all of them
-     * occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://terminology.hl7.org/CodeSystem/medication-admin-status",
-      "Stopped",
-      "Actions implied by the administration have been permanently halted, before all of them occurred.",
-    ),
-    /**
-     * The authoring system does not know which of the status values currently applies for this
-     * request. Note: This concept is not to be used for 'other' - one of the listed statuses is
-     * presumed to apply, it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://terminology.hl7.org/CodeSystem/medication-admin-status",
-      "Unknown",
-      "The authoring system does not know which of the status values currently applies for this request. Note: This concept is not to be used for 'other' - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Stopped("stopped", "http://terminology.hl7.org/CodeSystem/medication-admin-status", "Stopped"),
+    Unknown("unknown", "http://terminology.hl7.org/CodeSystem/medication-admin-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -520,8 +480,6 @@ public data class MedicationAdministration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MedicationAdministrationStatus =

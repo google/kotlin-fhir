@@ -2211,35 +2211,14 @@ public data class ExplanationOfBenefit(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The resource instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/explanationofbenefit-status",
-      "Active",
-      "The resource instance is currently in-force.",
-    ),
-    /** The resource instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/explanationofbenefit-status",
-      "Cancelled",
-      "The resource instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new resource instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/explanationofbenefit-status",
-      "Draft",
-      "A new resource instance the contents of which is not complete.",
-    ),
-    /** The resource instance was entered in error. */
+    Active("active", "http://hl7.org/fhir/explanationofbenefit-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/explanationofbenefit-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/explanationofbenefit-status", "Draft"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/explanationofbenefit-status",
       "Entered In Error",
-      "The resource instance was entered in error.",
     );
 
     override fun toString(): kotlin.String = code
@@ -2249,8 +2228,6 @@ public data class ExplanationOfBenefit(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExplanationOfBenefitStatus =
@@ -2270,29 +2247,10 @@ public data class ExplanationOfBenefit(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The treatment is complete and this represents a Claim for the services. */
-    Claim(
-      "claim",
-      "http://hl7.org/fhir/claim-use",
-      "Claim",
-      "The treatment is complete and this represents a Claim for the services.",
-    ),
-    /** The treatment is proposed and this represents a Pre-authorization for the services. */
-    Preauthorization(
-      "preauthorization",
-      "http://hl7.org/fhir/claim-use",
-      "Preauthorization",
-      "The treatment is proposed and this represents a Pre-authorization for the services.",
-    ),
-    /** The treatment is proposed and this represents a Pre-determination for the services. */
-    Predetermination(
-      "predetermination",
-      "http://hl7.org/fhir/claim-use",
-      "Predetermination",
-      "The treatment is proposed and this represents a Pre-determination for the services.",
-    );
+    Claim("claim", "http://hl7.org/fhir/claim-use", "Claim"),
+    Preauthorization("preauthorization", "http://hl7.org/fhir/claim-use", "Preauthorization"),
+    Predetermination("predetermination", "http://hl7.org/fhir/claim-use", "Predetermination");
 
     override fun toString(): kotlin.String = code
 
@@ -2301,8 +2259,6 @@ public data class ExplanationOfBenefit(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Use =
@@ -2320,40 +2276,11 @@ public data class ExplanationOfBenefit(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.
-     */
-    Queued(
-      "queued",
-      "http://hl7.org/fhir/remittance-outcome",
-      "Queued",
-      "The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.",
-    ),
-    /** The processing has completed without errors */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/remittance-outcome",
-      "Processing Complete",
-      "The processing has completed without errors",
-    ),
-    /** One or more errors have been detected in the Claim */
-    Error(
-      "error",
-      "http://hl7.org/fhir/remittance-outcome",
-      "Error",
-      "One or more errors have been detected in the Claim",
-    ),
-    /**
-     * No errors have been detected in the Claim and some of the adjudication has been performed.
-     */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/remittance-outcome",
-      "Partial Processing",
-      "No errors have been detected in the Claim and some of the adjudication has been performed.",
-    );
+    Queued("queued", "http://hl7.org/fhir/remittance-outcome", "Queued"),
+    Complete("complete", "http://hl7.org/fhir/remittance-outcome", "Processing Complete"),
+    Error("error", "http://hl7.org/fhir/remittance-outcome", "Error"),
+    Partial("partial", "http://hl7.org/fhir/remittance-outcome", "Partial Processing");
 
     override fun toString(): kotlin.String = code
 
@@ -2362,8 +2289,6 @@ public data class ExplanationOfBenefit(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RemittanceOutcome =

@@ -23,22 +23,9 @@ public enum class Forms(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  /** Example: The #1 form to be used when printing this information. */
-  _1(
-    "1",
-    "http://terminology.hl7.org/CodeSystem/forms-codes",
-    "Form #1",
-    "Example: The #1 form to be used when printing this information.",
-  ),
-  /** Example: The #2 form to be used when printing this information. */
-  _2(
-    "2",
-    "http://terminology.hl7.org/CodeSystem/forms-codes",
-    "Form #1",
-    "Example: The #2 form to be used when printing this information.",
-  );
+  _1("1", "http://terminology.hl7.org/CodeSystem/forms-codes", "Form #1"),
+  _2("2", "http://terminology.hl7.org/CodeSystem/forms-codes", "Form #1");
 
   override fun toString(): String = code
 
@@ -47,8 +34,6 @@ public enum class Forms(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): Forms =

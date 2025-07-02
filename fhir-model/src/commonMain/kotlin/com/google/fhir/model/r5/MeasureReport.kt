@@ -830,29 +830,10 @@ public data class MeasureReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The report is complete and ready for use. */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/measure-report-status",
-      "Complete",
-      "The report is complete and ready for use.",
-    ),
-    /** The report is currently being generated. */
-    Pending(
-      "pending",
-      "http://hl7.org/fhir/measure-report-status",
-      "Pending",
-      "The report is currently being generated.",
-    ),
-    /** An error occurred attempting to generate the report. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/measure-report-status",
-      "Error",
-      "An error occurred attempting to generate the report.",
-    );
+    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete"),
+    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending"),
+    Error("error", "http://hl7.org/fhir/measure-report-status", "Error");
 
     override fun toString(): kotlin.String = code
 
@@ -861,8 +842,6 @@ public data class MeasureReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MeasureReportStatus =
@@ -880,48 +859,11 @@ public data class MeasureReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An individual report that provides information on the performance for a given measure with
-     * respect to a single subject.
-     */
-    Individual(
-      "individual",
-      "http://hl7.org/fhir/measure-report-type",
-      "Individual",
-      "An individual report that provides information on the performance for a given measure with respect to a single subject.",
-    ),
-    /**
-     * A subject list report that includes a listing of subjects that satisfied each population
-     * criteria in the measure.
-     */
-    Subject_List(
-      "subject-list",
-      "http://hl7.org/fhir/measure-report-type",
-      "Subject List",
-      "A subject list report that includes a listing of subjects that satisfied each population criteria in the measure.",
-    ),
-    /**
-     * A summary report that returns the number of members in each population criteria for the
-     * measure.
-     */
-    Summary(
-      "summary",
-      "http://hl7.org/fhir/measure-report-type",
-      "Summary",
-      "A summary report that returns the number of members in each population criteria for the measure.",
-    ),
-    /**
-     * A data exchange report that contains data-of-interest for the measure (i.e. data that is
-     * needed to calculate the measure)
-     */
-    Data_Exchange(
-      "data-exchange",
-      "http://hl7.org/fhir/measure-report-type",
-      "Data Exchange",
-      "A data exchange report that contains data-of-interest for the measure (i.e. data that is needed to calculate the measure)",
-    );
+    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual"),
+    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List"),
+    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary"),
+    Data_Exchange("data-exchange", "http://hl7.org/fhir/measure-report-type", "Data Exchange");
 
     override fun toString(): kotlin.String = code
 
@@ -930,8 +872,6 @@ public data class MeasureReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MeasureReportType =
@@ -953,32 +893,13 @@ public data class MeasureReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * In contrast to the Snapshot Update, the FHIR Parameters resource used in a Submit Data or the
-     * Collect Data scenario contains only the new and updated DEQM and QI Core Profiles since the
-     * last transaction. If the Consumer supports incremental updates, the contents of the updated
-     * payload updates the previous payload data.
-     */
     Incremental(
       "incremental",
       "http://hl7.org/fhir/CodeSystem/submit-data-update-type",
       "Incremental",
-      "In contrast to the Snapshot Update, the FHIR Parameters resource used in a Submit Data or the Collect Data scenario contains only the new and updated DEQM and QI Core Profiles since the last transaction. If the Consumer supports incremental updates, the contents of the updated payload updates the previous payload data.",
     ),
-    /**
-     * In contrast to the Incremental Update, the FHIR Parameters resource used in a Submit Data or
-     * the Collect Data scenario contains all the DEQM and QI Core Profiles for each transaction. If
-     * the Consumer supports snapshot updates, the contents of the updated payload entirely replaces
-     * the previous payload
-     */
-    Snapshot(
-      "snapshot",
-      "http://hl7.org/fhir/CodeSystem/submit-data-update-type",
-      "Snapshot",
-      "In contrast to the Incremental Update, the FHIR Parameters resource used in a Submit Data or the Collect Data scenario contains all the DEQM and QI Core Profiles for each transaction.  If the Consumer supports snapshot updates, the contents of the updated payload entirely replaces the previous payload",
-    );
+    Snapshot("snapshot", "http://hl7.org/fhir/CodeSystem/submit-data-update-type", "Snapshot");
 
     override fun toString(): kotlin.String = code
 
@@ -987,8 +908,6 @@ public data class MeasureReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubmitDataUpdateType =

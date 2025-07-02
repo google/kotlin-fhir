@@ -718,17 +718,9 @@ public data class OperationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This is an input parameter. */
-    In("in", "http://hl7.org/fhir/operation-parameter-use", "In", "This is an input parameter."),
-    /** This is an output parameter. */
-    Out(
-      "out",
-      "http://hl7.org/fhir/operation-parameter-use",
-      "Out",
-      "This is an output parameter.",
-    );
+    In("in", "http://hl7.org/fhir/operation-parameter-use", "In"),
+    Out("out", "http://hl7.org/fhir/operation-parameter-use", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -737,8 +729,6 @@ public data class OperationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OperationParameterUse =
@@ -758,29 +748,10 @@ public data class OperationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This is a parameter that can be used at the instance level. */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/operation-parameter-scope",
-      "Instance",
-      "This is a parameter that can be used at the instance level.",
-    ),
-    /** This is a parameter that can be used at the type level. */
-    Type(
-      "type",
-      "http://hl7.org/fhir/operation-parameter-scope",
-      "Type",
-      "This is a parameter that can be used at the type level.",
-    ),
-    /** This is a parameter that can be used at the system level. */
-    System(
-      "system",
-      "http://hl7.org/fhir/operation-parameter-scope",
-      "System",
-      "This is a parameter that can be used at the system level.",
-    );
+    Instance("instance", "http://hl7.org/fhir/operation-parameter-scope", "Instance"),
+    Type("type", "http://hl7.org/fhir/operation-parameter-scope", "Type"),
+    System("system", "http://hl7.org/fhir/operation-parameter-scope", "System");
 
     override fun toString(): kotlin.String = code
 
@@ -789,8 +760,6 @@ public data class OperationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OperationParameterScope =
@@ -809,22 +778,9 @@ public data class OperationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This operation is invoked as an operation. */
-    Operation(
-      "operation",
-      "http://hl7.org/fhir/operation-kind",
-      "Operation",
-      "This operation is invoked as an operation.",
-    ),
-    /** This operation is a named query, invoked using the search mechanism. */
-    Query(
-      "query",
-      "http://hl7.org/fhir/operation-kind",
-      "Query",
-      "This operation is a named query, invoked using the search mechanism.",
-    );
+    Operation("operation", "http://hl7.org/fhir/operation-kind", "Operation"),
+    Query("query", "http://hl7.org/fhir/operation-kind", "Query");
 
     override fun toString(): kotlin.String = code
 
@@ -833,8 +789,6 @@ public data class OperationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OperationKind =

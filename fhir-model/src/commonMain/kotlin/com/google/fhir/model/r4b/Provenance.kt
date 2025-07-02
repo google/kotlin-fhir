@@ -359,56 +359,12 @@ public data class Provenance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * A transformation of an entity into another, an update of an entity resulting in a new one, or
-     * the construction of a new entity based on a pre-existing entity.
-     */
-    Derivation(
-      "derivation",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Derivation",
-      "A transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity.",
-    ),
-    /** A derivation for which the resulting entity is a revised version of some original. */
-    Revision(
-      "revision",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Revision",
-      "A derivation for which the resulting entity is a revised version of some original.",
-    ),
-    /**
-     * The repeat of (some or all of) an entity, such as text or image, by someone who might or
-     * might not be its original author.
-     */
-    Quotation(
-      "quotation",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Quotation",
-      "The repeat of (some or all of) an entity, such as text or image, by someone who might or might not be its original author.",
-    ),
-    /**
-     * A primary source for a topic refers to something produced by some agent with direct
-     * experience and knowledge about the topic, at the time of the topic's study, without benefit
-     * from hindsight.
-     */
-    Source(
-      "source",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Source",
-      "A primary source for a topic refers to something produced by some agent with direct experience and knowledge about the topic, at the time of the topic's study, without benefit from hindsight.",
-    ),
-    /**
-     * A derivation for which the entity is removed from accessibility usually through the use of
-     * the Delete operation.
-     */
-    Removal(
-      "removal",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Removal",
-      "A derivation for which the entity is removed from accessibility usually through the use of the Delete operation.",
-    );
+    Derivation("derivation", "http://hl7.org/fhir/provenance-entity-role", "Derivation"),
+    Revision("revision", "http://hl7.org/fhir/provenance-entity-role", "Revision"),
+    Quotation("quotation", "http://hl7.org/fhir/provenance-entity-role", "Quotation"),
+    Source("source", "http://hl7.org/fhir/provenance-entity-role", "Source"),
+    Removal("removal", "http://hl7.org/fhir/provenance-entity-role", "Removal");
 
     override fun toString(): String = code
 
@@ -417,8 +373,6 @@ public data class Provenance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ProvenanceEntityRole =

@@ -546,53 +546,13 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** a barcodescanner captured the data from the device label. */
-    Barcode(
-      "barcode",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Barcode",
-      "a barcodescanner captured the data from the device label.",
-    ),
-    /** An RFID chip reader captured the data from the device label. */
-    Rfid(
-      "rfid",
-      "http://hl7.org/fhir/udi-entry-type",
-      "RFID",
-      "An RFID chip reader captured the data from the device label.",
-    ),
-    /** The data was read from the label by a person and manually entered. (e.g. via a keyboard). */
-    Manual(
-      "manual",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Manual",
-      "The data was read from the label by a person and manually entered. (e.g.  via a keyboard).",
-    ),
-    /** The data originated from a patient's implant card and was read by an operator. */
-    Card(
-      "card",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Card",
-      "The data originated from a patient's implant card and was read by an operator.",
-    ),
-    /**
-     * The data originated from a patient source and was not directly scanned or read from a label
-     * or card.
-     */
-    Self_Reported(
-      "self-reported",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Self Reported",
-      "The data originated from a patient source and was not directly scanned or read from a label or card.",
-    ),
-    /** The method of data capture has not been determined. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Unknown",
-      "The method of data capture has not been determined.",
-    );
+    Barcode("barcode", "http://hl7.org/fhir/udi-entry-type", "Barcode"),
+    Rfid("rfid", "http://hl7.org/fhir/udi-entry-type", "RFID"),
+    Manual("manual", "http://hl7.org/fhir/udi-entry-type", "Manual"),
+    Card("card", "http://hl7.org/fhir/udi-entry-type", "Card"),
+    Self_Reported("self-reported", "http://hl7.org/fhir/udi-entry-type", "Self Reported"),
+    Unknown("unknown", "http://hl7.org/fhir/udi-entry-type", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -601,8 +561,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): UDIEntryType =
@@ -623,40 +581,25 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** UDI Label name. */
-    Udi_Label_Name(
-      "udi-label-name",
-      "http://hl7.org/fhir/device-nametype",
-      "UDI Label name",
-      "UDI Label name.",
-    ),
-    /** User Friendly name. */
+    Udi_Label_Name("udi-label-name", "http://hl7.org/fhir/device-nametype", "UDI Label name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      "User Friendly name.",
     ),
-    /** Patient Reported name. */
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      "Patient Reported name.",
     ),
-    /** Manufacturer name. */
     Manufacturer_Name(
       "manufacturer-name",
       "http://hl7.org/fhir/device-nametype",
       "Manufacturer name",
-      "Manufacturer name.",
     ),
-    /** Model name. */
-    Model_Name("model-name", "http://hl7.org/fhir/device-nametype", "Model name", "Model name."),
-    /** other. */
-    Other("other", "http://hl7.org/fhir/device-nametype", "other", "other.");
+    Model_Name("model-name", "http://hl7.org/fhir/device-nametype", "Model name"),
+    Other("other", "http://hl7.org/fhir/device-nametype", "other");
 
     override fun toString(): kotlin.String = code
 
@@ -665,8 +608,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =
@@ -687,42 +628,11 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The device is available for use. Note: For *implanted devices* this means that the device is
-     * implanted in the patient.
-     */
-    Active(
-      "active",
-      "http://hl7.org/fhir/device-status",
-      "Active",
-      "The device is available for use.  Note: For *implanted devices*  this means that the device is implanted in the patient.",
-    ),
-    /**
-     * The device is no longer available for use (e.g. lost, expired, damaged). Note: For *implanted
-     * devices* this means that the device has been removed from the patient.
-     */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/device-status",
-      "Inactive",
-      "The device is no longer available for use (e.g. lost, expired, damaged).  Note: For *implanted devices*  this means that the device has been removed from the patient.",
-    ),
-    /** The device was entered in error and voided. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/device-status",
-      "Entered in Error",
-      "The device was entered in error and voided.",
-    ),
-    /** The status of the device has not been determined. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/device-status",
-      "Unknown",
-      "The status of the device has not been determined.",
-    );
+    Active("active", "http://hl7.org/fhir/device-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/device-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/device-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/device-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -731,8 +641,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FHIRDeviceStatus =

@@ -315,74 +315,18 @@ public data class SupplyRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Active",
-      "The request is ready to be acted upon.",
-    ),
-    /**
-     * The authorization/request to act has been temporarily withdrawn but is expected to resume in
-     * the future.
-     */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Suspended",
-      "The authorization/request to act has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The authorization/request to act has been terminated prior to the full completion of the
-     * intended actions. No further activity should occur.
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Cancelled",
-      "The authorization/request to act has been terminated prior to the full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * Activity against the request has been sufficiently completed to the satisfaction of the
-     * requester.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Completed",
-      "Activity against the request has been sufficiently completed to the satisfaction of the requester.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "cancelled" rather than "entered-in-error".).
-     */
+    Draft("draft", "http://hl7.org/fhir/supplyrequest-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/supplyrequest-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/supplyrequest-status", "Suspended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/supplyrequest-status", "Cancelled"),
+    Completed("completed", "http://hl7.org/fhir/supplyrequest-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/supplyrequest-status",
       "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/supplyrequest-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -391,8 +335,6 @@ public data class SupplyRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SupplyRequestStatus =
@@ -414,38 +356,11 @@ public data class SupplyRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -454,8 +369,6 @@ public data class SupplyRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): RequestPriority =

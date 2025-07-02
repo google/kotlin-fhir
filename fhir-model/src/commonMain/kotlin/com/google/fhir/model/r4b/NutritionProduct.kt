@@ -438,32 +438,13 @@ public data class NutritionProduct(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The product can be used. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/nutritionproduct-status",
-      "Active",
-      "The product can be used.",
-    ),
-    /** The product is not expected or allowed to be used. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/nutritionproduct-status",
-      "Inactive",
-      "The product is not expected or allowed to be used.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "cancelled" rather than "entered-in-error".).
-     */
+    Active("active", "http://hl7.org/fhir/nutritionproduct-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/nutritionproduct-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/nutritionproduct-status",
       "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     );
 
     override fun toString(): kotlin.String = code
@@ -473,8 +454,6 @@ public data class NutritionProduct(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NutritionProductStatus =

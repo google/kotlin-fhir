@@ -218,22 +218,9 @@ public data class CatalogEntry(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** the related entry represents an activity that may be triggered by the current item. */
-    Triggers(
-      "triggers",
-      "http://hl7.org/fhir/relation-type",
-      "Triggers",
-      "the related entry represents an activity that may be triggered by the current item.",
-    ),
-    /** the related entry represents an item that replaces the current retired item. */
-    Is_Replaced_By(
-      "is-replaced-by",
-      "http://hl7.org/fhir/relation-type",
-      "Replaced By",
-      "the related entry represents an item that replaces the current retired item.",
-    );
+    Triggers("triggers", "http://hl7.org/fhir/relation-type", "Triggers"),
+    Is_Replaced_By("is-replaced-by", "http://hl7.org/fhir/relation-type", "Replaced By");
 
     override fun toString(): String = code
 
@@ -242,8 +229,6 @@ public data class CatalogEntry(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): CatalogEntryRelationType =

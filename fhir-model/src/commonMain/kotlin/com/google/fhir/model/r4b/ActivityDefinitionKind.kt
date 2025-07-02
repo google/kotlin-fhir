@@ -23,116 +23,45 @@ public enum class ActivityDefinitionKind(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  /**
-   * A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or
-   * device(s) for a specific date/time. This may result in one or more Encounter(s).
-   */
-  Appointment(
-    "Appointment",
-    "http://hl7.org/fhir/request-resource-types",
-    "Appointment",
-    "A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s).",
-  ),
-  /**
-   * A reply to an appointment request for a patient and/or practitioner(s), such as a confirmation
-   * or rejection.
-   */
+  Appointment("Appointment", "http://hl7.org/fhir/request-resource-types", "Appointment"),
   AppointmentResponse(
     "AppointmentResponse",
     "http://hl7.org/fhir/request-resource-types",
     "AppointmentResponse",
-    "A reply to an appointment request for a patient and/or practitioner(s), such as a confirmation or rejection.",
   ),
-  /** Healthcare plan for patient or group. */
-  CarePlan(
-    "CarePlan",
-    "http://hl7.org/fhir/request-resource-types",
-    "CarePlan",
-    "Healthcare plan for patient or group.",
-  ),
-  /** Claim, Pre-determination or Pre-authorization. */
-  Claim(
-    "Claim",
-    "http://hl7.org/fhir/request-resource-types",
-    "Claim",
-    "Claim, Pre-determination or Pre-authorization.",
-  ),
-  /** A request for information to be sent to a receiver. */
+  CarePlan("CarePlan", "http://hl7.org/fhir/request-resource-types", "CarePlan"),
+  Claim("Claim", "http://hl7.org/fhir/request-resource-types", "Claim"),
   CommunicationRequest(
     "CommunicationRequest",
     "http://hl7.org/fhir/request-resource-types",
     "CommunicationRequest",
-    "A request for information to be sent to a receiver.",
   ),
-  /** Legal Agreement. */
-  Contract(
-    "Contract",
-    "http://hl7.org/fhir/request-resource-types",
-    "Contract",
-    "Legal Agreement.",
-  ),
-  /** Medical device request. */
-  DeviceRequest(
-    "DeviceRequest",
-    "http://hl7.org/fhir/request-resource-types",
-    "DeviceRequest",
-    "Medical device request.",
-  ),
-  /** Enrollment request. */
+  Contract("Contract", "http://hl7.org/fhir/request-resource-types", "Contract"),
+  DeviceRequest("DeviceRequest", "http://hl7.org/fhir/request-resource-types", "DeviceRequest"),
   EnrollmentRequest(
     "EnrollmentRequest",
     "http://hl7.org/fhir/request-resource-types",
     "EnrollmentRequest",
-    "Enrollment request.",
   ),
-  /** Guidance or advice relating to an immunization. */
   ImmunizationRecommendation(
     "ImmunizationRecommendation",
     "http://hl7.org/fhir/request-resource-types",
     "ImmunizationRecommendation",
-    "Guidance or advice relating to an immunization.",
   ),
-  /** Ordering of medication for patient or group. */
   MedicationRequest(
     "MedicationRequest",
     "http://hl7.org/fhir/request-resource-types",
     "MedicationRequest",
-    "Ordering of medication for patient or group.",
   ),
-  /** Diet, formula or nutritional supplement request. */
-  NutritionOrder(
-    "NutritionOrder",
-    "http://hl7.org/fhir/request-resource-types",
-    "NutritionOrder",
-    "Diet, formula or nutritional supplement request.",
-  ),
-  /**
-   * A record of a request for service such as diagnostic investigations, treatments, or operations
-   * to be performed.
-   */
-  ServiceRequest(
-    "ServiceRequest",
-    "http://hl7.org/fhir/request-resource-types",
-    "ServiceRequest",
-    "A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.",
-  ),
-  /** Request for a medication, substance or device. */
-  SupplyRequest(
-    "SupplyRequest",
-    "http://hl7.org/fhir/request-resource-types",
-    "SupplyRequest",
-    "Request for a medication, substance or device.",
-  ),
-  /** A task to be performed. */
-  Task("Task", "http://hl7.org/fhir/request-resource-types", "Task", "A task to be performed."),
-  /** Prescription for vision correction products for a patient. */
+  NutritionOrder("NutritionOrder", "http://hl7.org/fhir/request-resource-types", "NutritionOrder"),
+  ServiceRequest("ServiceRequest", "http://hl7.org/fhir/request-resource-types", "ServiceRequest"),
+  SupplyRequest("SupplyRequest", "http://hl7.org/fhir/request-resource-types", "SupplyRequest"),
+  Task("Task", "http://hl7.org/fhir/request-resource-types", "Task"),
   VisionPrescription(
     "VisionPrescription",
     "http://hl7.org/fhir/request-resource-types",
     "VisionPrescription",
-    "Prescription for vision correction products for a patient.",
   );
 
   override fun toString(): String = code
@@ -142,8 +71,6 @@ public enum class ActivityDefinitionKind(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ActivityDefinitionKind =

@@ -710,19 +710,10 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The test execution engine. */
-    Test_Engine(
-      "test-engine",
-      "http://hl7.org/fhir/report-participant-type",
-      "Test Engine",
-      "The test execution engine.",
-    ),
-    /** A FHIR Client. */
-    Client("client", "http://hl7.org/fhir/report-participant-type", "Client", "A FHIR Client."),
-    /** A FHIR Server. */
-    Server("server", "http://hl7.org/fhir/report-participant-type", "Server", "A FHIR Server.");
+    Test_Engine("test-engine", "http://hl7.org/fhir/report-participant-type", "Test Engine"),
+    Client("client", "http://hl7.org/fhir/report-participant-type", "Client"),
+    Server("server", "http://hl7.org/fhir/report-participant-type", "Server");
 
     override fun toString(): kotlin.String = code
 
@@ -731,8 +722,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportParticipantType =
@@ -751,38 +740,12 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action was successful. */
-    Pass(
-      "pass",
-      "http://hl7.org/fhir/report-action-result-codes",
-      "Pass",
-      "The action was successful.",
-    ),
-    /** The action was skipped. */
-    Skip(
-      "skip",
-      "http://hl7.org/fhir/report-action-result-codes",
-      "Skip",
-      "The action was skipped.",
-    ),
-    /** The action failed. */
-    Fail("fail", "http://hl7.org/fhir/report-action-result-codes", "Fail", "The action failed."),
-    /** The action passed but with warnings. */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/report-action-result-codes",
-      "Warning",
-      "The action passed but with warnings.",
-    ),
-    /** The action encountered a fatal error and the engine was unable to process. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/report-action-result-codes",
-      "Error",
-      "The action encountered a fatal error and the engine was unable to process.",
-    );
+    Pass("pass", "http://hl7.org/fhir/report-action-result-codes", "Pass"),
+    Skip("skip", "http://hl7.org/fhir/report-action-result-codes", "Skip"),
+    Fail("fail", "http://hl7.org/fhir/report-action-result-codes", "Fail"),
+    Warning("warning", "http://hl7.org/fhir/report-action-result-codes", "Warning"),
+    Error("error", "http://hl7.org/fhir/report-action-result-codes", "Error");
 
     override fun toString(): kotlin.String = code
 
@@ -791,8 +754,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportActionResult =
@@ -813,42 +774,15 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** All test operations have completed. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/report-status-codes",
-      "Completed",
-      "All test operations have completed.",
-    ),
-    /** A test operations is currently executing. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/report-status-codes",
-      "In Progress",
-      "A test operations is currently executing.",
-    ),
-    /** A test operation is waiting for an external client request. */
-    Waiting(
-      "waiting",
-      "http://hl7.org/fhir/report-status-codes",
-      "Waiting",
-      "A test operation is waiting for an external client request.",
-    ),
-    /** The test script execution was manually stopped. */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/report-status-codes",
-      "Stopped",
-      "The test script execution was manually stopped.",
-    ),
-    /** This test report was entered or created in error. */
+    Completed("completed", "http://hl7.org/fhir/report-status-codes", "Completed"),
+    In_Progress("in-progress", "http://hl7.org/fhir/report-status-codes", "In Progress"),
+    Waiting("waiting", "http://hl7.org/fhir/report-status-codes", "Waiting"),
+    Stopped("stopped", "http://hl7.org/fhir/report-status-codes", "Stopped"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/report-status-codes",
       "Entered In Error",
-      "This test report was entered or created in error.",
     );
 
     override fun toString(): kotlin.String = code
@@ -858,8 +792,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportStatus =
@@ -879,29 +811,10 @@ public data class TestReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** All test operations successfully passed all asserts. */
-    Pass(
-      "pass",
-      "http://hl7.org/fhir/report-result-codes",
-      "Pass",
-      "All test operations successfully passed all asserts.",
-    ),
-    /** One or more test operations failed one or more asserts. */
-    Fail(
-      "fail",
-      "http://hl7.org/fhir/report-result-codes",
-      "Fail",
-      "One or more test operations failed one or more asserts.",
-    ),
-    /** One or more test operations is pending execution completion. */
-    Pending(
-      "pending",
-      "http://hl7.org/fhir/report-result-codes",
-      "Pending",
-      "One or more test operations is pending execution completion.",
-    );
+    Pass("pass", "http://hl7.org/fhir/report-result-codes", "Pass"),
+    Fail("fail", "http://hl7.org/fhir/report-result-codes", "Fail"),
+    Pending("pending", "http://hl7.org/fhir/report-result-codes", "Pending");
 
     override fun toString(): kotlin.String = code
 
@@ -910,8 +823,6 @@ public data class TestReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestReportResult =

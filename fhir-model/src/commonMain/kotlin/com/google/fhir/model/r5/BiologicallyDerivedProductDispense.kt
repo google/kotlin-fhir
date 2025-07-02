@@ -223,68 +223,39 @@ public data class BiologicallyDerivedProductDispense(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The dispense process has started but not yet completed. */
     Preparation(
       "preparation",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Preparation",
-      "The dispense process has started but not yet completed.",
     ),
-    /** The dispense process is in progress. */
     In_Progress(
       "in-progress",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "In Progress",
-      "The dispense process is in progress.",
     ),
-    /** The requested product has been allocated and is ready for transport. */
     Allocated(
       "allocated",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Allocated",
-      "The requested product has been allocated and is ready for transport.",
     ),
-    /** The dispensed product has been picked up. */
-    Issued(
-      "issued",
-      "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
-      "Issued",
-      "The dispensed product has been picked up.",
-    ),
-    /** The dispense could not be completed. */
+    Issued("issued", "http://hl7.org/fhir/biologicallyderivedproductdispense-status", "Issued"),
     Unfulfilled(
       "unfulfilled",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Unfulfilled",
-      "The dispense could not be completed.",
     ),
-    /** The dispensed product was returned. */
     Returned(
       "returned",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Returned",
-      "The dispensed product was returned.",
     ),
-    /** The dispense was entered in error and therefore nullified. */
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Entered in Error",
-      "The dispense was entered in error and therefore nullified.",
     ),
-    /**
-     * The authoring system does not know which of the status values applies for this dispense.
-     * Note: this concept is not to be used for other - one of the listed statuses is presumed to
-     * apply, it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
-      "Unknown",
-      "The authoring system does not know which of the status values applies for this dispense. Note: this concept is not to be used for other - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/biologicallyderivedproductdispense-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -293,8 +264,6 @@ public data class BiologicallyDerivedProductDispense(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BiologicallyDerivedProductDispenseStatus =

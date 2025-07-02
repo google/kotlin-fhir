@@ -26,25 +26,14 @@ public enum class DiagnosisRole(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Ad("AD", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Admission diagnosis", null),
-  Dd("DD", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Discharge diagnosis", null),
-  Cc("CC", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Chief complaint", null),
-  Cm("CM", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Comorbidity diagnosis", null),
-  Pre_Op(
-    "pre-op",
-    "http://terminology.hl7.org/CodeSystem/diagnosis-role",
-    "pre-op diagnosis",
-    null,
-  ),
-  Post_Op(
-    "post-op",
-    "http://terminology.hl7.org/CodeSystem/diagnosis-role",
-    "post-op diagnosis",
-    null,
-  ),
-  Billing("billing", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Billing", null);
+  Ad("AD", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Admission diagnosis"),
+  Dd("DD", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Discharge diagnosis"),
+  Cc("CC", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Chief complaint"),
+  Cm("CM", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Comorbidity diagnosis"),
+  Pre_Op("pre-op", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "pre-op diagnosis"),
+  Post_Op("post-op", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "post-op diagnosis"),
+  Billing("billing", "http://terminology.hl7.org/CodeSystem/diagnosis-role", "Billing");
 
   override fun toString(): String = code
 
@@ -53,8 +42,6 @@ public enum class DiagnosisRole(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): DiagnosisRole =

@@ -205,39 +205,10 @@ public data class Linkage(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The resource represents the "source of truth" (from the perspective of this Linkage resource)
-     * for the underlying event/condition/etc.
-     */
-    Source(
-      "source",
-      "http://hl7.org/fhir/linkage-type",
-      "Source of Truth",
-      "The resource represents the \"source of truth\" (from the perspective of this Linkage resource) for the underlying event/condition/etc.",
-    ),
-    /**
-     * The resource represents an alternative view of the underlying event/condition/etc. The
-     * resource may still be actively maintained, even though it is not considered to be the source
-     * of truth.
-     */
-    Alternate(
-      "alternate",
-      "http://hl7.org/fhir/linkage-type",
-      "Alternate Record",
-      "The resource represents an alternative view of the underlying event/condition/etc.  The resource may still be actively maintained, even though it is not considered to be the source of truth.",
-    ),
-    /**
-     * The resource represents an obsolete record of the underlying event/condition/etc. It is not
-     * expected to be actively maintained.
-     */
-    Historical(
-      "historical",
-      "http://hl7.org/fhir/linkage-type",
-      "Historical/Obsolete Record",
-      "The resource represents an obsolete record of the underlying event/condition/etc.  It is not expected to be actively maintained.",
-    );
+    Source("source", "http://hl7.org/fhir/linkage-type", "Source of Truth"),
+    Alternate("alternate", "http://hl7.org/fhir/linkage-type", "Alternate Record"),
+    Historical("historical", "http://hl7.org/fhir/linkage-type", "Historical/Obsolete Record");
 
     override fun toString(): String = code
 
@@ -246,8 +217,6 @@ public data class Linkage(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): LinkageType =

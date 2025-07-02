@@ -522,37 +522,13 @@ public data class MessageDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The message represents/requests a change that should not be processed more than once; e.g.,
-     * making a booking for an appointment.
-     */
-    Consequence(
-      "consequence",
-      "http://hl7.org/fhir/message-significance-category",
-      "Consequence",
-      "The message represents/requests a change that should not be processed more than once; e.g., making a booking for an appointment.",
-    ),
-    /**
-     * The message represents a response to query for current information. Retrospective processing
-     * is wrong and/or wasteful.
-     */
-    Currency(
-      "currency",
-      "http://hl7.org/fhir/message-significance-category",
-      "Currency",
-      "The message represents a response to query for current information. Retrospective processing is wrong and/or wasteful.",
-    ),
-    /**
-     * The content is not necessarily intended to be current, and it can be reprocessed, though
-     * there may be version issues created by processing old notifications.
-     */
+    Consequence("consequence", "http://hl7.org/fhir/message-significance-category", "Consequence"),
+    Currency("currency", "http://hl7.org/fhir/message-significance-category", "Currency"),
     Notification(
       "notification",
       "http://hl7.org/fhir/message-significance-category",
       "Notification",
-      "The content is not necessarily intended to be current, and it can be reprocessed, though there may be version issues created by processing old notifications.",
     );
 
     override fun toString(): kotlin.String = code
@@ -562,8 +538,6 @@ public data class MessageDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MessageSignificanceCategory =
@@ -587,35 +561,18 @@ public data class MessageDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** initiator expects a response for this message. */
-    Always(
-      "always",
-      "http://hl7.org/fhir/messageheader-response-request",
-      "Always",
-      "initiator expects a response for this message.",
-    ),
-    /** initiator expects a response only if in error. */
+    Always("always", "http://hl7.org/fhir/messageheader-response-request", "Always"),
     On_Error(
       "on-error",
       "http://hl7.org/fhir/messageheader-response-request",
       "Error/reject conditions only",
-      "initiator expects a response only if in error.",
     ),
-    /** initiator does not expect a response. */
-    Never(
-      "never",
-      "http://hl7.org/fhir/messageheader-response-request",
-      "Never",
-      "initiator does not expect a response.",
-    ),
-    /** initiator expects a response only if successful. */
+    Never("never", "http://hl7.org/fhir/messageheader-response-request", "Never"),
     On_Success(
       "on-success",
       "http://hl7.org/fhir/messageheader-response-request",
       "Successful completion only",
-      "initiator expects a response only if successful.",
     );
 
     override fun toString(): kotlin.String = code
@@ -625,8 +582,6 @@ public data class MessageDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MessageheaderResponseRequest =

@@ -1621,186 +1621,26 @@ public data class Contract(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Contract is augmented with additional information to correct errors in a predecessor or to
-     * updated values in a predecessor. Usage: Contract altered within effective time. Precedence
-     * Order = 9. Comparable FHIR and v.3 status codes: revised; replaced.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Amended",
-      "Contract is augmented with additional information to correct errors in a predecessor or to updated values in a predecessor. Usage: Contract altered within effective time. Precedence Order = 9. Comparable FHIR and v.3 status codes: revised; replaced.",
-    ),
-    /**
-     * Contract is augmented with additional information that was missing from a predecessor
-     * Contract. Usage: Contract altered within effective time. Precedence Order = 9. Comparable
-     * FHIR and v.3 status codes: updated, replaced.
-     */
-    Appended(
-      "appended",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Appended",
-      "Contract is augmented with additional information that was missing from a predecessor Contract. Usage: Contract altered within effective time. Precedence Order = 9. Comparable FHIR and v.3 status codes: updated, replaced.",
-    ),
-    /**
-     * Contract is terminated due to failure of the Grantor and/or the Grantee to fulfil one or more
-     * contract provisions. Usage: Abnormal contract termination. Precedence Order = 10. Comparable
-     * FHIR and v.3 status codes: stopped; failed; aborted.
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Cancelled",
-      "Contract is terminated due to failure of the Grantor and/or the Grantee to fulfil one or more contract provisions. Usage: Abnormal contract termination. Precedence Order = 10. Comparable FHIR and v.3 status codes: stopped; failed; aborted.",
-    ),
-    /**
-     * Contract is pended to rectify failure of the Grantor or the Grantee to fulfil contract
-     * provision(s). E.g., Grantee complaint about Grantor's failure to comply with contract
-     * provisions. Usage: Contract pended. Precedence Order = 7. Comparable FHIR and v.3 status
-     * codes: on hold; pended; suspended.
-     */
-    Disputed(
-      "disputed",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Disputed",
-      "Contract is pended to rectify failure of the Grantor or the Grantee to fulfil contract provision(s). E.g., Grantee complaint about Grantor's failure to comply with contract provisions. Usage: Contract pended. Precedence Order = 7. Comparable FHIR and v.3 status codes: on hold; pended; suspended.",
-    ),
-    /**
-     * Contract was created in error. No Precedence Order. Status may be applied to a Contract with
-     * any status.
-     */
+    Amended("amended", "http://hl7.org/fhir/contract-publicationstatus", "Amended"),
+    Appended("appended", "http://hl7.org/fhir/contract-publicationstatus", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/contract-publicationstatus", "Cancelled"),
+    Disputed("disputed", "http://hl7.org/fhir/contract-publicationstatus", "Disputed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/contract-publicationstatus",
       "Entered in Error",
-      "Contract was created in error. No Precedence Order.  Status may be applied to a Contract with any status.",
     ),
-    /**
-     * Contract execution pending; may be executed when either the Grantor or the Grantee accepts
-     * the contract provisions by signing. I.e., where either the Grantor or the Grantee has signed,
-     * but not both. E.g., when an insurance applicant signs the insurers application, which
-     * references the policy. Usage: Optional first step of contract execution activity. May be
-     * skipped and contracting activity moves directly to executed state. Precedence Order = 3.
-     * Comparable FHIR and v.3 status codes: draft; preliminary; planned; intended; active.
-     */
-    Executable(
-      "executable",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Executable",
-      "Contract execution pending; may be executed when either the Grantor or the Grantee accepts the contract provisions by signing. I.e., where either the Grantor or the Grantee has signed, but not both. E.g., when an insurance applicant signs the insurers application, which references the policy. Usage: Optional first step of contract execution activity.  May be skipped and contracting activity moves directly to executed state. Precedence Order = 3. Comparable FHIR and v.3 status codes: draft; preliminary; planned; intended; active.",
-    ),
-    /**
-     * Contract is activated for period stipulated when both the Grantor and Grantee have signed it.
-     * Usage: Required state for normal completion of contracting activity. Precedence Order = 6.
-     * Comparable FHIR and v.3 status codes: accepted; completed.
-     */
-    Executed(
-      "executed",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Executed",
-      "Contract is activated for period stipulated when both the Grantor and Grantee have signed it. Usage: Required state for normal completion of contracting activity.  Precedence Order = 6. Comparable FHIR and v.3 status codes: accepted; completed.",
-    ),
-    /**
-     * Contract execution is suspended while either or both the Grantor and Grantee propose and
-     * consider new or revised contract provisions. I.e., where the party which has not signed
-     * proposes changes to the terms. E .g., a life insurer declines to agree to the signed
-     * application because the life insurer has evidence that the applicant, who asserted to being
-     * younger or a non-smoker to get a lower premium rate - but offers instead to agree to a higher
-     * premium based on the applicants actual age or smoking status. Usage: Optional contract
-     * activity between executable and executed state. Precedence Order = 4. Comparable FHIR and v.3
-     * status codes: in progress; review; held.
-     */
-    Negotiable(
-      "negotiable",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Negotiable",
-      "Contract execution is suspended while either or both the Grantor and Grantee propose and consider new or revised contract provisions. I.e., where the party which has not signed proposes changes to the terms.  E .g., a life insurer declines to agree to the signed application because the life insurer has evidence that the applicant, who asserted to being younger or a non-smoker to get a lower premium rate - but offers instead to agree to a higher premium based on the applicants actual age or smoking status. Usage: Optional contract activity between executable and executed state. Precedence Order = 4. Comparable FHIR and v.3 status codes: in progress; review; held.",
-    ),
-    /**
-     * Contract is a proposal by either the Grantor or the Grantee. Aka - A Contract hard copy or
-     * electronic 'template', 'form' or 'application'. E.g., health insurance application; consent
-     * directive form. Usage: Beginning of contract negotiation, which may have been completed as a
-     * precondition because used for 0..* contracts. Precedence Order = 2. Comparable FHIR and v.3
-     * status codes: requested; new.
-     */
-    Offered(
-      "offered",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Offered",
-      "Contract is a proposal by either the Grantor or the Grantee. Aka - A Contract hard copy or electronic 'template', 'form' or 'application'. E.g., health insurance application; consent directive form. Usage: Beginning of contract negotiation, which may have been completed as a precondition because used for 0..* contracts. Precedence Order = 2. Comparable FHIR and v.3 status codes: requested; new.",
-    ),
-    /**
-     * Contract template is available as the basis for an application or offer by the Grantor or
-     * Grantee. E.g., health insurance policy; consent directive policy. Usage: Required initial
-     * contract activity, which may have been completed as a precondition because used for 0..*
-     * contracts. Precedence Order = 1. Comparable FHIR and v.3 status codes: proposed; intended.
-     */
-    Policy(
-      "policy",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Policy",
-      "Contract template is available as the basis for an application or offer by the Grantor or Grantee. E.g., health insurance policy; consent directive policy.  Usage: Required initial contract activity, which may have been completed as a precondition because used for 0..* contracts. Precedence Order = 1. Comparable FHIR and v.3 status codes: proposed; intended.",
-    ),
-    /**
-     * Execution of the Contract is not completed because either or both the Grantor and Grantee
-     * decline to accept some or all of the contract provisions. Usage: Optional contract activity
-     * between executable and abnormal termination. Precedence Order = 5. Comparable FHIR and v.3
-     * status codes: stopped; cancelled.
-     */
-    Rejected(
-      "rejected",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Rejected",
-      " Execution of the Contract is not completed because either or both the Grantor and Grantee decline to accept some or all of the contract provisions. Usage: Optional contract activity between executable and abnormal termination. Precedence Order = 5. Comparable FHIR and v.3 status codes:  stopped; cancelled.",
-    ),
-    /**
-     * Beginning of a successor Contract at the termination of predecessor Contract lifecycle.
-     * Usage: Follows termination of a preceding Contract that has reached its expiry date.
-     * Precedence Order = 13. Comparable FHIR and v.3 status codes: superseded.
-     */
-    Renewed(
-      "renewed",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Renewed",
-      "Beginning of a successor Contract at the termination of predecessor Contract lifecycle. Usage: Follows termination of a preceding Contract that has reached its expiry date. Precedence Order = 13. Comparable FHIR and v.3 status codes: superseded.",
-    ),
-    /**
-     * A Contract that is rescinded. May be required prior to replacing with an updated Contract.
-     * Comparable FHIR and v.3 status codes: nullified.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Revoked",
-      "A Contract that is rescinded.  May be required prior to replacing with an updated Contract. Comparable FHIR and v.3 status codes: nullified.",
-    ),
-    /**
-     * Contract is reactivated after being pended because of faulty execution. *E.g., competency of
-     * the signer(s), or where the policy is substantially different from and did not accompany the
-     * application/form so that the applicant could not compare them. Aka - ''reactivated''. Usage:
-     * Optional stage where a pended contract is reactivated. Precedence Order = 8. Comparable FHIR
-     * and v.3 status codes: reactivated.
-     */
-    Resolved(
-      "resolved",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Resolved",
-      "Contract is reactivated after being pended because of faulty execution. *E.g., competency of the signer(s), or where the policy is substantially different from and did not accompany the application/form so that the applicant could not compare them. Aka - ''reactivated''. Usage: Optional stage where a pended contract is reactivated. Precedence Order = 8. Comparable FHIR and v.3 status codes: reactivated.",
-    ),
-    /**
-     * Contract reaches its expiry date. It might or might not be renewed or renegotiated. Usage:
-     * Normal end of contract period. Precedence Order = 12. Comparable FHIR and v.3 status codes:
-     * Obsoleted.
-     */
-    Terminated(
-      "terminated",
-      "http://hl7.org/fhir/contract-publicationstatus",
-      "Terminated",
-      "Contract reaches its expiry date. It might or might not be renewed or renegotiated. Usage: Normal end of contract period. Precedence Order = 12. Comparable FHIR and v.3 status codes: Obsoleted.",
-    );
+    Executable("executable", "http://hl7.org/fhir/contract-publicationstatus", "Executable"),
+    Executed("executed", "http://hl7.org/fhir/contract-publicationstatus", "Executed"),
+    Negotiable("negotiable", "http://hl7.org/fhir/contract-publicationstatus", "Negotiable"),
+    Offered("offered", "http://hl7.org/fhir/contract-publicationstatus", "Offered"),
+    Policy("policy", "http://hl7.org/fhir/contract-publicationstatus", "Policy"),
+    Rejected("rejected", "http://hl7.org/fhir/contract-publicationstatus", "Rejected"),
+    Renewed("renewed", "http://hl7.org/fhir/contract-publicationstatus", "Renewed"),
+    Revoked("revoked", "http://hl7.org/fhir/contract-publicationstatus", "Revoked"),
+    Resolved("resolved", "http://hl7.org/fhir/contract-publicationstatus", "Resolved"),
+    Terminated("terminated", "http://hl7.org/fhir/contract-publicationstatus", "Terminated");
 
     override fun toString(): kotlin.String = code
 
@@ -1809,8 +1649,6 @@ public data class Contract(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContractPublicationStatus =
@@ -1841,186 +1679,22 @@ public data class Contract(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Contract is augmented with additional information to correct errors in a predecessor or to
-     * updated values in a predecessor. Usage: Contract altered within effective time. Precedence
-     * Order = 9. Comparable FHIR and v.3 status codes: revised; replaced.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/contract-status",
-      "Amended",
-      "Contract is augmented with additional information to correct errors in a predecessor or to updated values in a predecessor. Usage: Contract altered within effective time. Precedence Order = 9. Comparable FHIR and v.3 status codes: revised; replaced.",
-    ),
-    /**
-     * Contract is augmented with additional information that was missing from a predecessor
-     * Contract. Usage: Contract altered within effective time. Precedence Order = 9. Comparable
-     * FHIR and v.3 status codes: updated, replaced.
-     */
-    Appended(
-      "appended",
-      "http://hl7.org/fhir/contract-status",
-      "Appended",
-      "Contract is augmented with additional information that was missing from a predecessor Contract. Usage: Contract altered within effective time. Precedence Order = 9. Comparable FHIR and v.3 status codes: updated, replaced.",
-    ),
-    /**
-     * Contract is terminated due to failure of the Grantor and/or the Grantee to fulfil one or more
-     * contract provisions. Usage: Abnormal contract termination. Precedence Order = 10. Comparable
-     * FHIR and v.3 status codes: stopped; failed; aborted.
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/contract-status",
-      "Cancelled",
-      "Contract is terminated due to failure of the Grantor and/or the Grantee to fulfil one or more contract provisions. Usage: Abnormal contract termination. Precedence Order = 10. Comparable FHIR and v.3 status codes: stopped; failed; aborted.",
-    ),
-    /**
-     * Contract is pended to rectify failure of the Grantor or the Grantee to fulfil contract
-     * provision(s). E.g., Grantee complaint about Grantor's failure to comply with contract
-     * provisions. Usage: Contract pended. Precedence Order = 7. Comparable FHIR and v.3 status
-     * codes: on hold; pended; suspended.
-     */
-    Disputed(
-      "disputed",
-      "http://hl7.org/fhir/contract-status",
-      "Disputed",
-      "Contract is pended to rectify failure of the Grantor or the Grantee to fulfil contract provision(s). E.g., Grantee complaint about Grantor's failure to comply with contract provisions. Usage: Contract pended. Precedence Order = 7. Comparable FHIR and v.3 status codes: on hold; pended; suspended.",
-    ),
-    /**
-     * Contract was created in error. No Precedence Order. Status may be applied to a Contract with
-     * any status.
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/contract-status",
-      "Entered in Error",
-      "Contract was created in error. No Precedence Order.  Status may be applied to a Contract with any status.",
-    ),
-    /**
-     * Contract execution pending; may be executed when either the Grantor or the Grantee accepts
-     * the contract provisions by signing. I.e., where either the Grantor or the Grantee has signed,
-     * but not both. E.g., when an insurance applicant signs the insurers application, which
-     * references the policy. Usage: Optional first step of contract execution activity. May be
-     * skipped and contracting activity moves directly to executed state. Precedence Order = 3.
-     * Comparable FHIR and v.3 status codes: draft; preliminary; planned; intended; active.
-     */
-    Executable(
-      "executable",
-      "http://hl7.org/fhir/contract-status",
-      "Executable",
-      "Contract execution pending; may be executed when either the Grantor or the Grantee accepts the contract provisions by signing. I.e., where either the Grantor or the Grantee has signed, but not both. E.g., when an insurance applicant signs the insurers application, which references the policy. Usage: Optional first step of contract execution activity.  May be skipped and contracting activity moves directly to executed state. Precedence Order = 3. Comparable FHIR and v.3 status codes: draft; preliminary; planned; intended; active.",
-    ),
-    /**
-     * Contract is activated for period stipulated when both the Grantor and Grantee have signed it.
-     * Usage: Required state for normal completion of contracting activity. Precedence Order = 6.
-     * Comparable FHIR and v.3 status codes: accepted; completed.
-     */
-    Executed(
-      "executed",
-      "http://hl7.org/fhir/contract-status",
-      "Executed",
-      "Contract is activated for period stipulated when both the Grantor and Grantee have signed it. Usage: Required state for normal completion of contracting activity.  Precedence Order = 6. Comparable FHIR and v.3 status codes: accepted; completed.",
-    ),
-    /**
-     * Contract execution is suspended while either or both the Grantor and Grantee propose and
-     * consider new or revised contract provisions. I.e., where the party which has not signed
-     * proposes changes to the terms. E .g., a life insurer declines to agree to the signed
-     * application because the life insurer has evidence that the applicant, who asserted to being
-     * younger or a non-smoker to get a lower premium rate - but offers instead to agree to a higher
-     * premium based on the applicants actual age or smoking status. Usage: Optional contract
-     * activity between executable and executed state. Precedence Order = 4. Comparable FHIR and v.3
-     * status codes: in progress; review; held.
-     */
-    Negotiable(
-      "negotiable",
-      "http://hl7.org/fhir/contract-status",
-      "Negotiable",
-      "Contract execution is suspended while either or both the Grantor and Grantee propose and consider new or revised contract provisions. I.e., where the party which has not signed proposes changes to the terms.  E .g., a life insurer declines to agree to the signed application because the life insurer has evidence that the applicant, who asserted to being younger or a non-smoker to get a lower premium rate - but offers instead to agree to a higher premium based on the applicants actual age or smoking status. Usage: Optional contract activity between executable and executed state. Precedence Order = 4. Comparable FHIR and v.3 status codes: in progress; review; held.",
-    ),
-    /**
-     * Contract is a proposal by either the Grantor or the Grantee. Aka - A Contract hard copy or
-     * electronic 'template', 'form' or 'application'. E.g., health insurance application; consent
-     * directive form. Usage: Beginning of contract negotiation, which may have been completed as a
-     * precondition because used for 0..* contracts. Precedence Order = 2. Comparable FHIR and v.3
-     * status codes: requested; new.
-     */
-    Offered(
-      "offered",
-      "http://hl7.org/fhir/contract-status",
-      "Offered",
-      "Contract is a proposal by either the Grantor or the Grantee. Aka - A Contract hard copy or electronic 'template', 'form' or 'application'. E.g., health insurance application; consent directive form. Usage: Beginning of contract negotiation, which may have been completed as a precondition because used for 0..* contracts. Precedence Order = 2. Comparable FHIR and v.3 status codes: requested; new.",
-    ),
-    /**
-     * Contract template is available as the basis for an application or offer by the Grantor or
-     * Grantee. E.g., health insurance policy; consent directive policy. Usage: Required initial
-     * contract activity, which may have been completed as a precondition because used for 0..*
-     * contracts. Precedence Order = 1. Comparable FHIR and v.3 status codes: proposed; intended.
-     */
-    Policy(
-      "policy",
-      "http://hl7.org/fhir/contract-status",
-      "Policy",
-      "Contract template is available as the basis for an application or offer by the Grantor or Grantee. E.g., health insurance policy; consent directive policy.  Usage: Required initial contract activity, which may have been completed as a precondition because used for 0..* contracts. Precedence Order = 1. Comparable FHIR and v.3 status codes: proposed; intended.",
-    ),
-    /**
-     * Execution of the Contract is not completed because either or both the Grantor and Grantee
-     * decline to accept some or all of the contract provisions. Usage: Optional contract activity
-     * between executable and abnormal termination. Precedence Order = 5. Comparable FHIR and v.3
-     * status codes: stopped; cancelled.
-     */
-    Rejected(
-      "rejected",
-      "http://hl7.org/fhir/contract-status",
-      "Rejected",
-      " Execution of the Contract is not completed because either or both the Grantor and Grantee decline to accept some or all of the contract provisions. Usage: Optional contract activity between executable and abnormal termination. Precedence Order = 5. Comparable FHIR and v.3 status codes:  stopped; cancelled.",
-    ),
-    /**
-     * Beginning of a successor Contract at the termination of predecessor Contract lifecycle.
-     * Usage: Follows termination of a preceding Contract that has reached its expiry date.
-     * Precedence Order = 13. Comparable FHIR and v.3 status codes: superseded.
-     */
-    Renewed(
-      "renewed",
-      "http://hl7.org/fhir/contract-status",
-      "Renewed",
-      "Beginning of a successor Contract at the termination of predecessor Contract lifecycle. Usage: Follows termination of a preceding Contract that has reached its expiry date. Precedence Order = 13. Comparable FHIR and v.3 status codes: superseded.",
-    ),
-    /**
-     * A Contract that is rescinded. May be required prior to replacing with an updated Contract.
-     * Comparable FHIR and v.3 status codes: nullified.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/contract-status",
-      "Revoked",
-      "A Contract that is rescinded.  May be required prior to replacing with an updated Contract. Comparable FHIR and v.3 status codes: nullified.",
-    ),
-    /**
-     * Contract is reactivated after being pended because of faulty execution. *E.g., competency of
-     * the signer(s), or where the policy is substantially different from and did not accompany the
-     * application/form so that the applicant could not compare them. Aka - ''reactivated''. Usage:
-     * Optional stage where a pended contract is reactivated. Precedence Order = 8. Comparable FHIR
-     * and v.3 status codes: reactivated.
-     */
-    Resolved(
-      "resolved",
-      "http://hl7.org/fhir/contract-status",
-      "Resolved",
-      "Contract is reactivated after being pended because of faulty execution. *E.g., competency of the signer(s), or where the policy is substantially different from and did not accompany the application/form so that the applicant could not compare them. Aka - ''reactivated''. Usage: Optional stage where a pended contract is reactivated. Precedence Order = 8. Comparable FHIR and v.3 status codes: reactivated.",
-    ),
-    /**
-     * Contract reaches its expiry date. It might or might not be renewed or renegotiated. Usage:
-     * Normal end of contract period. Precedence Order = 12. Comparable FHIR and v.3 status codes:
-     * Obsoleted.
-     */
-    Terminated(
-      "terminated",
-      "http://hl7.org/fhir/contract-status",
-      "Terminated",
-      "Contract reaches its expiry date. It might or might not be renewed or renegotiated. Usage: Normal end of contract period. Precedence Order = 12. Comparable FHIR and v.3 status codes: Obsoleted.",
-    );
+    Amended("amended", "http://hl7.org/fhir/contract-status", "Amended"),
+    Appended("appended", "http://hl7.org/fhir/contract-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/contract-status", "Cancelled"),
+    Disputed("disputed", "http://hl7.org/fhir/contract-status", "Disputed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/contract-status", "Entered in Error"),
+    Executable("executable", "http://hl7.org/fhir/contract-status", "Executable"),
+    Executed("executed", "http://hl7.org/fhir/contract-status", "Executed"),
+    Negotiable("negotiable", "http://hl7.org/fhir/contract-status", "Negotiable"),
+    Offered("offered", "http://hl7.org/fhir/contract-status", "Offered"),
+    Policy("policy", "http://hl7.org/fhir/contract-status", "Policy"),
+    Rejected("rejected", "http://hl7.org/fhir/contract-status", "Rejected"),
+    Renewed("renewed", "http://hl7.org/fhir/contract-status", "Renewed"),
+    Revoked("revoked", "http://hl7.org/fhir/contract-status", "Revoked"),
+    Resolved("resolved", "http://hl7.org/fhir/contract-status", "Resolved"),
+    Terminated("terminated", "http://hl7.org/fhir/contract-status", "Terminated");
 
     override fun toString(): kotlin.String = code
 
@@ -2029,8 +1703,6 @@ public data class Contract(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContractStatus =

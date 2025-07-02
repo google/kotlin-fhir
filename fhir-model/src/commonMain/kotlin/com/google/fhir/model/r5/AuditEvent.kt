@@ -703,46 +703,12 @@ public data class AuditEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Create a new database object, such as placing an order. */
-    C(
-      "C",
-      "http://hl7.org/fhir/audit-event-action",
-      "Create",
-      "Create a new database object, such as placing an order.",
-    ),
-    /** Read data, such as to print or display to a doctor. */
-    R(
-      "R",
-      "http://hl7.org/fhir/audit-event-action",
-      "Read",
-      "Read data, such as to print or display to a doctor.",
-    ),
-    /** Update data, such as revise patient information. */
-    U(
-      "U",
-      "http://hl7.org/fhir/audit-event-action",
-      "Update",
-      "Update data, such as revise patient information.",
-    ),
-    /** Delete items, such as a doctor master file record. */
-    D(
-      "D",
-      "http://hl7.org/fhir/audit-event-action",
-      "Delete",
-      "Delete items, such as a doctor master file record.",
-    ),
-    /**
-     * Perform a system or application function such as log-on, program execution or use of an
-     * object's method, or perform a query/search operation.
-     */
-    E(
-      "E",
-      "http://hl7.org/fhir/audit-event-action",
-      "Execute",
-      "Perform a system or application function such as log-on, program execution or use of an object's method, or perform a query/search operation.",
-    );
+    C("C", "http://hl7.org/fhir/audit-event-action", "Create"),
+    R("R", "http://hl7.org/fhir/audit-event-action", "Read"),
+    U("U", "http://hl7.org/fhir/audit-event-action", "Update"),
+    D("D", "http://hl7.org/fhir/audit-event-action", "Delete"),
+    E("E", "http://hl7.org/fhir/audit-event-action", "Execute");
 
     override fun toString(): String = code
 
@@ -751,8 +717,6 @@ public data class AuditEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AuditEventAction =
@@ -772,85 +736,15 @@ public data class AuditEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * System is unusable. e.g., This level should only be reported by infrastructure and should not
-     * be used by applications.
-     */
-    Emergency(
-      "emergency",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Emergency",
-      "System is unusable. e.g., This level should only be reported by infrastructure and should not be used by applications.",
-    ),
-    /**
-     * Notification should be sent to trigger action be taken. e.g., Loss of the primary network
-     * connection needing attention.
-     */
-    Alert(
-      "alert",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Alert",
-      "Notification should be sent to trigger action be taken. e.g., Loss of the primary network connection needing attention.",
-    ),
-    /**
-     * Critical conditions. e.g., A failure in the system's primary application that will reset
-     * automatically.
-     */
-    Critical(
-      "critical",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Critical",
-      "Critical conditions. e.g., A failure in the system's primary application that will reset automatically.",
-    ),
-    /**
-     * Error conditions. e.g., An application has exceeded its file storage limit and attempts to
-     * write are failing.
-     */
-    Error(
-      "error",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Error",
-      "Error conditions. e.g., An application has exceeded its file storage limit and attempts to write are failing. ",
-    ),
-    /**
-     * Warning conditions. May indicate that an error will occur if action is not taken. e.g., A
-     * non-root file system has only 2GB remaining.
-     */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Warning",
-      "Warning conditions. May indicate that an error will occur if action is not taken. e.g., A non-root file system has only 2GB remaining.",
-    ),
-    /**
-     * Notice messages. Normal but significant condition. Events that are unusual, but not error
-     * conditions.
-     */
-    Notice(
-      "notice",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Notice",
-      "Notice messages. Normal but significant condition. Events that are unusual, but not error conditions.",
-    ),
-    /**
-     * Normal operational messages that require no action. e.g., An application has started, paused,
-     * or ended successfully.
-     */
-    Informational(
-      "informational",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Informational",
-      "Normal operational messages that require no action. e.g., An application has started, paused, or ended successfully.",
-    ),
-    /** Debug-level messages. Information useful to developers for debugging the application. */
-    Debug(
-      "debug",
-      "http://hl7.org/fhir/audit-event-severity",
-      "Debug",
-      "Debug-level messages. Information useful to developers for debugging the application.",
-    );
+    Emergency("emergency", "http://hl7.org/fhir/audit-event-severity", "Emergency"),
+    Alert("alert", "http://hl7.org/fhir/audit-event-severity", "Alert"),
+    Critical("critical", "http://hl7.org/fhir/audit-event-severity", "Critical"),
+    Error("error", "http://hl7.org/fhir/audit-event-severity", "Error"),
+    Warning("warning", "http://hl7.org/fhir/audit-event-severity", "Warning"),
+    Notice("notice", "http://hl7.org/fhir/audit-event-severity", "Notice"),
+    Informational("informational", "http://hl7.org/fhir/audit-event-severity", "Informational"),
+    Debug("debug", "http://hl7.org/fhir/audit-event-severity", "Debug");
 
     override fun toString(): String = code
 
@@ -859,8 +753,6 @@ public data class AuditEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AuditEventSeverity =

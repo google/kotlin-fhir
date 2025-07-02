@@ -305,22 +305,9 @@ public data class DataRequirement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Sort by the value ascending, so that lower values appear first. */
-    Ascending(
-      "ascending",
-      "http://hl7.org/fhir/sort-direction",
-      "Ascending",
-      "Sort by the value ascending, so that lower values appear first.",
-    ),
-    /** Sort by the value descending, so that lower values appear last. */
-    Descending(
-      "descending",
-      "http://hl7.org/fhir/sort-direction",
-      "Descending",
-      "Sort by the value descending, so that lower values appear last.",
-    );
+    Ascending("ascending", "http://hl7.org/fhir/sort-direction", "Ascending"),
+    Descending("descending", "http://hl7.org/fhir/sort-direction", "Descending");
 
     override fun toString(): kotlin.String = code
 
@@ -329,8 +316,6 @@ public data class DataRequirement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SortDirection =

@@ -23,10 +23,9 @@ public enum class DiagnosisUse(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Working("working", "http://hl7.org/fhir/encounter-diagnosis-use", "Working", null),
-  Final("final", "http://hl7.org/fhir/encounter-diagnosis-use", "Final", null);
+  Working("working", "http://hl7.org/fhir/encounter-diagnosis-use", "Working"),
+  Final("final", "http://hl7.org/fhir/encounter-diagnosis-use", "Final");
 
   override fun toString(): String = code
 
@@ -35,8 +34,6 @@ public enum class DiagnosisUse(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): DiagnosisUse =

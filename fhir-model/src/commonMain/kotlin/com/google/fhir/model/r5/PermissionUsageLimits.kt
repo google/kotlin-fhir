@@ -28,14 +28,21 @@ public enum class PermissionUsageLimits(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Treat("TREAT", "http://terminology.hl7.org/CodeSystem/v3-ActReason", null, null),
-  Hpaymt("HPAYMT", "http://terminology.hl7.org/CodeSystem/v3-ActReason", null, null),
-  Etreat("ETREAT", "http://terminology.hl7.org/CodeSystem/v3-ActReason", null, null),
-  Noauth("NOAUTH", "http://terminology.hl7.org/CodeSystem/v3-ActCode", null, null),
-  Delau("DELAU", "http://terminology.hl7.org/CodeSystem/v3-ActCode", null, null),
-  Nordsclcd("NORDSCLCD", "http://terminology.hl7.org/CodeSystem/v3-ActCode", null, null);
+  Treat("TREAT", "http://terminology.hl7.org/CodeSystem/v3-ActReason", "treatment"),
+  Hpaymt("HPAYMT", "http://terminology.hl7.org/CodeSystem/v3-ActReason", "healthcare payment"),
+  Etreat("ETREAT", "http://terminology.hl7.org/CodeSystem/v3-ActReason", "Emergency Treatment"),
+  Noauth(
+    "NOAUTH",
+    "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "no disclosure without subject authorization",
+  ),
+  Delau("DELAU", "http://terminology.hl7.org/CodeSystem/v3-ActCode", "delete after use"),
+  Nordsclcd(
+    "NORDSCLCD",
+    "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "no redisclosure without consent directive",
+  );
 
   override fun toString(): String = code
 
@@ -44,8 +51,6 @@ public enum class PermissionUsageLimits(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): PermissionUsageLimits =

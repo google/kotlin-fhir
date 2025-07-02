@@ -675,24 +675,10 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Update an existing resource by its id (or create it if it is new). */
-    Update(
-      "update",
-      "http://hl7.org/fhir/restful-interaction",
-      "update",
-      "Update an existing resource by its id (or create it if it is new).",
-    ),
-    /** Delete a resource. */
-    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete", "Delete a resource."),
-    /** Create a new resource with a server assigned id. */
-    Create(
-      "create",
-      "http://hl7.org/fhir/restful-interaction",
-      "create",
-      "Create a new resource with a server assigned id.",
-    );
+    Create("create", "http://hl7.org/fhir/restful-interaction", "create"),
+    Update("update", "http://hl7.org/fhir/restful-interaction", "update"),
+    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete");
 
     override fun toString(): kotlin.String = code
 
@@ -702,14 +688,12 @@ public data class SubscriptionTopic(
 
     public fun getDisplay(): kotlin.String? = display
 
-    public fun getDefinition(): kotlin.String? = definition
-
     public companion object {
       public fun fromCode(code: kotlin.String): MethodCode =
         when (code) {
+          "create" -> Create
           "update" -> Update
           "delete" -> Delete
-          "create" -> Create
           else -> throw IllegalArgumentException("Unknown code $code for enum MethodCode")
         }
     }
@@ -723,28 +707,9 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The requested conditional statement will pass if a matching state does not exist (e.g.,
-     * previous state during create).
-     */
-    Test_Passes(
-      "test-passes",
-      "http://hl7.org/fhir/subscriptiontopic-cr-behavior",
-      "test passes",
-      "The requested conditional statement will pass if a matching state does not exist (e.g., previous state during create).",
-    ),
-    /**
-     * The requested conditional statement will fail if a matching state does not exist (e.g.,
-     * previous state during create).
-     */
-    Test_Fails(
-      "test-fails",
-      "http://hl7.org/fhir/subscriptiontopic-cr-behavior",
-      "test fails",
-      "The requested conditional statement will fail if a matching state does not exist (e.g., previous state during create).",
-    );
+    Test_Passes("test-passes", "http://hl7.org/fhir/subscriptiontopic-cr-behavior", "test passes"),
+    Test_Fails("test-fails", "http://hl7.org/fhir/subscriptiontopic-cr-behavior", "test fails");
 
     override fun toString(): kotlin.String = code
 
@@ -753,8 +718,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CriteriaNotExistsBehavior =
@@ -772,135 +735,37 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Used to match a value according to FHIR Search rules (e.g., Patient/123, Encounter/2002). */
-    EqualTo(
-      "=",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "=",
-      "Used to match a value according to FHIR Search rules (e.g., Patient/123, Encounter/2002).",
-    ),
-    /** The value for the parameter in the resource is equal to the provided value. */
-    Eq(
-      "eq",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Equal",
-      "The value for the parameter in the resource is equal to the provided value.",
-    ),
-    /** The value for the parameter in the resource is not equal to the provided value. */
-    Ne(
-      "ne",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Not Equal",
-      "The value for the parameter in the resource is not equal to the provided value.",
-    ),
-    /** The value for the parameter in the resource is greater than the provided value. */
-    Gt(
-      "gt",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Greater Than",
-      "The value for the parameter in the resource is greater than the provided value.",
-    ),
-    /** The value for the parameter in the resource is less than the provided value. */
-    Lt(
-      "lt",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Less Than",
-      "The value for the parameter in the resource is less than the provided value.",
-    ),
-    /** The value for the parameter in the resource is greater or equal to the provided value. */
+    EqualTo("=", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "="),
+    Eq("eq", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Equal"),
+    Ne("ne", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Not Equal"),
+    Gt("gt", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Greater Than"),
+    Lt("lt", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Less Than"),
     Ge(
       "ge",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Greater Than or Equal",
-      "The value for the parameter in the resource is greater or equal to the provided value.",
     ),
-    /** The value for the parameter in the resource is less or equal to the provided value. */
     Le(
       "le",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Less Than or Equal",
-      "The value for the parameter in the resource is less or equal to the provided value.",
     ),
-    /** The value for the parameter in the resource starts after the provided value. */
-    Sa(
-      "sa",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Starts After",
-      "The value for the parameter in the resource starts after the provided value.",
-    ),
-    /** The value for the parameter in the resource ends before the provided value. */
-    Eb(
-      "eb",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Ends Before",
-      "The value for the parameter in the resource ends before the provided value.",
-    ),
-    /**
-     * The value for the parameter in the resource is approximately the same to the provided value.
-     * Note that the recommended value for the approximation is 10% of the stated value (or for a
-     * date, 10% of the gap between now and the date), but systems may choose other values where
-     * appropriate.
-     */
-    Ap(
-      "ap",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Approximately",
-      "The value for the parameter in the resource is approximately the same to the provided value. Note that the recommended value for the approximation is 10% of the stated value (or for a date, 10% of the gap between now and the date), but systems may choose other values where appropriate.",
-    ),
-    /**
-     * The search parameter is a concept with the form [system]|[code], and the search parameter
-     * tests whether the coding in a resource subsumes the specified search code.
-     */
-    Above(
-      "above",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Above",
-      "The search parameter is a concept with the form [system]|[code], and the search parameter tests whether the coding in a resource subsumes the specified search code.",
-    ),
-    /**
-     * The search parameter is a concept with the form [system]|[code], and the search parameter
-     * tests whether the coding in a resource is subsumed by the specified search code.
-     */
-    Below(
-      "below",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "Below",
-      "The search parameter is a concept with the form [system]|[code], and the search parameter tests whether the coding in a resource is subsumed by the specified search code.",
-    ),
-    /**
-     * The search parameter is a member of a Group or List, or the search parameter is a URI
-     * (relative or absolute) that identifies a value set, and the search parameter tests whether
-     * the value is present in the specified Group, List, or Value Set.
-     */
-    In(
-      "in",
-      "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
-      "In",
-      "The search parameter is a member of a Group or List, or the search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the value is present in the specified Group, List, or Value Set.",
-    ),
-    /**
-     * The search parameter is a member of a Group or List, or the search parameter is a URI
-     * (relative or absolute) that identifies a value set, and the search parameter tests whether
-     * the value is NOT present in the specified Group, List, or Value Set.
-     */
+    Sa("sa", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Starts After"),
+    Eb("eb", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Ends Before"),
+    Ap("ap", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Approximately"),
+    Above("above", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Above"),
+    Below("below", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "Below"),
+    In("in", "http://terminology.hl7.org/CodeSystem/subscription-search-modifier", "In"),
     Not_In(
       "not-in",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Not In",
-      "The search parameter is a member of a Group or List, or the search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the value is NOT present in the specified Group, List, or Value Set.",
     ),
-    /**
-     * The search parameter has the format system|code|value, where the system and code refer to
-     * a Identifier.type.coding.system and .code, and match if any of the type codes match. All 3
-     * parts must be present.
-     */
     Of_Type(
       "of-type",
       "http://terminology.hl7.org/CodeSystem/subscription-search-modifier",
       "Of Type",
-      "The search parameter has the format system|code|value, where the system and code refer to a Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.",
     );
 
     override fun toString(): kotlin.String = code
@@ -910,8 +775,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionTopicFilterBySearchModifier =

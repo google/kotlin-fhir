@@ -282,46 +282,12 @@ public data class Endpoint(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This endpoint is expected to be active and can be used. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/endpoint-status",
-      "Active",
-      "This endpoint is expected to be active and can be used.",
-    ),
-    /** This endpoint is temporarily unavailable. */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/endpoint-status",
-      "Suspended",
-      "This endpoint is temporarily unavailable.",
-    ),
-    /**
-     * This endpoint has exceeded connectivity thresholds and is considered in an error state and
-     * should no longer be attempted to connect to until corrective action is taken.
-     */
-    Error(
-      "error",
-      "http://hl7.org/fhir/endpoint-status",
-      "Error",
-      "This endpoint has exceeded connectivity thresholds and is considered in an error state and should no longer be attempted to connect to until corrective action is taken.",
-    ),
-    /** This endpoint is no longer to be used. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/endpoint-status",
-      "Off",
-      "This endpoint is no longer to be used.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/endpoint-status",
-      "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
-    );
+    Active("active", "http://hl7.org/fhir/endpoint-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/endpoint-status", "Suspended"),
+    Error("error", "http://hl7.org/fhir/endpoint-status", "Error"),
+    Off("off", "http://hl7.org/fhir/endpoint-status", "Off"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/endpoint-status", "Entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -330,8 +296,6 @@ public data class Endpoint(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EndpointStatus =

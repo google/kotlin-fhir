@@ -25,4 +25,5 @@ data class ValueSet(
   val name: String,
   val description: String? = null,
   val compose: Compose? = null,
+  val expansion: Expansion,
 )

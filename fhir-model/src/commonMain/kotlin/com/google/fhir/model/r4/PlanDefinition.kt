@@ -1049,38 +1049,11 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1089,8 +1062,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =
@@ -1109,42 +1080,13 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Any group marked with this behavior should be displayed as a visual group to the end user.
-     */
-    Visual_Group(
-      "visual-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Visual Group",
-      "Any group marked with this behavior should be displayed as a visual group to the end user.",
-    ),
-    /**
-     * A group with this behavior logically groups its sub-elements, and may be shown as a visual
-     * group to the end user, but it is not required to do so.
-     */
-    Logical_Group(
-      "logical-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Logical Group",
-      "A group with this behavior logically groups its sub-elements, and may be shown as a visual group to the end user, but it is not required to do so.",
-    ),
-    /**
-     * A group of related alternative actions is a sentence group if the target referenced by the
-     * action is the same in all the actions and each action simply constitutes a different
-     * variation on how to specify the details for the target. For example, two actions that could
-     * be in a SentenceGroup are "aspirin, 500 mg, 2 times per day" and "aspirin, 300 mg, 3 times
-     * per day". In both cases, aspirin is the target referenced by the action, and the two actions
-     * represent different options for how aspirin might be ordered for the patient. Note that a
-     * SentenceGroup would almost always have an associated selection behavior of "AtMostOne",
-     * unless it's a required action, in which case, it would be "ExactlyOne".
-     */
+    Visual_Group("visual-group", "http://hl7.org/fhir/action-grouping-behavior", "Visual Group"),
+    Logical_Group("logical-group", "http://hl7.org/fhir/action-grouping-behavior", "Logical Group"),
     Sentence_Group(
       "sentence-group",
       "http://hl7.org/fhir/action-grouping-behavior",
       "Sentence Group",
-      "A group of related alternative actions is a sentence group if the target referenced by the action is the same in all the actions and each action simply constitutes a different variation on how to specify the details for the target. For example, two actions that could be in a SentenceGroup are \"aspirin, 500 mg, 2 times per day\" and \"aspirin, 300 mg, 3 times per day\". In both cases, aspirin is the target referenced by the action, and the two actions represent different options for how aspirin might be ordered for the patient. Note that a SentenceGroup would almost always have an associated selection behavior of \"AtMostOne\", unless it's a required action, in which case, it would be \"ExactlyOne\".",
     );
 
     override fun toString(): kotlin.String = code
@@ -1154,8 +1096,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionGroupingBehavior =
@@ -1174,56 +1114,13 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Any number of the actions in the group may be chosen, from zero to all. */
-    Any(
-      "any",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Any",
-      "Any number of the actions in the group may be chosen, from zero to all.",
-    ),
-    /** All the actions in the group must be selected as a single unit. */
-    All(
-      "all",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All",
-      "All the actions in the group must be selected as a single unit.",
-    ),
-    /**
-     * All the actions in the group are meant to be chosen as a single unit: either all must be
-     * selected by the end user, or none may be selected.
-     */
-    All_Or_None(
-      "all-or-none",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All Or None",
-      "All the actions in the group are meant to be chosen as a single unit: either all must be selected by the end user, or none may be selected.",
-    ),
-    /**
-     * The end user must choose one and only one of the selectable actions in the group. The user
-     * SHALL NOT choose none of the actions in the group.
-     */
-    Exactly_One(
-      "exactly-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Exactly One",
-      "The end user must choose one and only one of the selectable actions in the group. The user SHALL NOT choose none of the actions in the group.",
-    ),
-    /** The end user may choose zero or at most one of the actions in the group. */
-    At_Most_One(
-      "at-most-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "At Most One",
-      "The end user may choose zero or at most one of the actions in the group.",
-    ),
-    /** The end user must choose a minimum of one, and as many additional as desired. */
-    One_Or_More(
-      "one-or-more",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "One Or More",
-      "The end user must choose a minimum of one, and as many additional as desired.",
-    );
+    Any("any", "http://hl7.org/fhir/action-selection-behavior", "Any"),
+    All("all", "http://hl7.org/fhir/action-selection-behavior", "All"),
+    All_Or_None("all-or-none", "http://hl7.org/fhir/action-selection-behavior", "All Or None"),
+    Exactly_One("exactly-one", "http://hl7.org/fhir/action-selection-behavior", "Exactly One"),
+    At_Most_One("at-most-one", "http://hl7.org/fhir/action-selection-behavior", "At Most One"),
+    One_Or_More("one-or-more", "http://hl7.org/fhir/action-selection-behavior", "One Or More");
 
     override fun toString(): kotlin.String = code
 
@@ -1232,8 +1129,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionSelectionBehavior =
@@ -1255,36 +1150,13 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An action with this behavior must be included in the actions processed by the end user; the
-     * end user SHALL NOT choose not to include this action.
-     */
-    Must(
-      "must",
-      "http://hl7.org/fhir/action-required-behavior",
-      "Must",
-      "An action with this behavior must be included in the actions processed by the end user; the end user SHALL NOT choose not to include this action.",
-    ),
-    /**
-     * An action with this behavior may be included in the set of actions processed by the end user.
-     */
-    Could(
-      "could",
-      "http://hl7.org/fhir/action-required-behavior",
-      "Could",
-      "An action with this behavior may be included in the set of actions processed by the end user.",
-    ),
-    /**
-     * An action with this behavior must be included in the set of actions processed by the end
-     * user, unless the end user provides documentation as to why the action was not included.
-     */
+    Must("must", "http://hl7.org/fhir/action-required-behavior", "Must"),
+    Could("could", "http://hl7.org/fhir/action-required-behavior", "Could"),
     Must_Unless_Documented(
       "must-unless-documented",
       "http://hl7.org/fhir/action-required-behavior",
       "Must Unless Documented",
-      "An action with this behavior must be included in the set of actions processed by the end user, unless the end user provides documentation as to why the action was not included.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1294,8 +1166,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRequiredBehavior =
@@ -1314,31 +1184,9 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An action with this behavior is one of the most frequent action that is, or should be,
-     * included by an end user, for the particular context in which the action occurs. The system
-     * displaying the action to the end user should consider "pre-checking" such an action as a
-     * convenience for the user.
-     */
-    Yes(
-      "yes",
-      "http://hl7.org/fhir/action-precheck-behavior",
-      "Yes",
-      "An action with this behavior is one of the most frequent action that is, or should be, included by an end user, for the particular context in which the action occurs. The system displaying the action to the end user should consider \"pre-checking\" such an action as a convenience for the user.",
-    ),
-    /**
-     * An action with this behavior is one of the less frequent actions included by the end user,
-     * for the particular context in which the action occurs. The system displaying the actions to
-     * the end user would typically not "pre-check" such an action.
-     */
-    No(
-      "no",
-      "http://hl7.org/fhir/action-precheck-behavior",
-      "No",
-      "An action with this behavior is one of the less frequent actions included by the end user, for the particular context in which the action occurs. The system displaying the actions to the end user would typically not \"pre-check\" such an action.",
-    );
+    Yes("yes", "http://hl7.org/fhir/action-precheck-behavior", "Yes"),
+    No("no", "http://hl7.org/fhir/action-precheck-behavior", "No");
 
     override fun toString(): kotlin.String = code
 
@@ -1347,8 +1195,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionPrecheckBehavior =
@@ -1366,22 +1212,9 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action may only be selected one time. */
-    Single(
-      "single",
-      "http://hl7.org/fhir/action-cardinality-behavior",
-      "Single",
-      "The action may only be selected one time.",
-    ),
-    /** The action may be selected multiple times. */
-    Multiple(
-      "multiple",
-      "http://hl7.org/fhir/action-cardinality-behavior",
-      "Multiple",
-      "The action may be selected multiple times.",
-    );
+    Single("single", "http://hl7.org/fhir/action-cardinality-behavior", "Single"),
+    Multiple("multiple", "http://hl7.org/fhir/action-cardinality-behavior", "Multiple");
 
     override fun toString(): kotlin.String = code
 
@@ -1390,8 +1223,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionCardinalityBehavior =
@@ -1409,29 +1240,10 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The condition describes whether or not a given action is applicable. */
-    Applicability(
-      "applicability",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Applicability",
-      "The condition describes whether or not a given action is applicable.",
-    ),
-    /** The condition is a starting condition for the action. */
-    Start(
-      "start",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Start",
-      "The condition is a starting condition for the action.",
-    ),
-    /** The condition is a stop, or exit condition for the action. */
-    Stop(
-      "stop",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Stop",
-      "The condition is a stop, or exit condition for the action.",
-    );
+    Applicability("applicability", "http://hl7.org/fhir/action-condition-kind", "Applicability"),
+    Start("start", "http://hl7.org/fhir/action-condition-kind", "Start"),
+    Stop("stop", "http://hl7.org/fhir/action-condition-kind", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -1440,8 +1252,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionConditionKind =
@@ -1459,71 +1269,24 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action must be performed before the start of the related action. */
-    Before_Start(
-      "before-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before Start",
-      "The action must be performed before the start of the related action.",
-    ),
-    /** The action must be performed before the related action. */
-    Before(
-      "before",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before",
-      "The action must be performed before the related action.",
-    ),
-    /** The action must be performed before the end of the related action. */
-    Before_End(
-      "before-end",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before End",
-      "The action must be performed before the end of the related action.",
-    ),
-    /** The action must be performed concurrent with the start of the related action. */
+    Before_Start("before-start", "http://hl7.org/fhir/action-relationship-type", "Before Start"),
+    Before("before", "http://hl7.org/fhir/action-relationship-type", "Before"),
+    Before_End("before-end", "http://hl7.org/fhir/action-relationship-type", "Before End"),
     Concurrent_With_Start(
       "concurrent-with-start",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With Start",
-      "The action must be performed concurrent with the start of the related action.",
     ),
-    /** The action must be performed concurrent with the related action. */
-    Concurrent(
-      "concurrent",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Concurrent",
-      "The action must be performed concurrent with the related action.",
-    ),
-    /** The action must be performed concurrent with the end of the related action. */
+    Concurrent("concurrent", "http://hl7.org/fhir/action-relationship-type", "Concurrent"),
     Concurrent_With_End(
       "concurrent-with-end",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With End",
-      "The action must be performed concurrent with the end of the related action.",
     ),
-    /** The action must be performed after the start of the related action. */
-    After_Start(
-      "after-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After Start",
-      "The action must be performed after the start of the related action.",
-    ),
-    /** The action must be performed after the related action. */
-    After(
-      "after",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After",
-      "The action must be performed after the related action.",
-    ),
-    /** The action must be performed after the end of the related action. */
-    After_End(
-      "after-end",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After End",
-      "The action must be performed after the end of the related action.",
-    );
+    After_Start("after-start", "http://hl7.org/fhir/action-relationship-type", "After Start"),
+    After("after", "http://hl7.org/fhir/action-relationship-type", "After"),
+    After_End("after-end", "http://hl7.org/fhir/action-relationship-type", "After End");
 
     override fun toString(): kotlin.String = code
 
@@ -1532,8 +1295,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRelationshipType =
@@ -1558,36 +1319,15 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant is the patient under evaluation. */
-    Patient(
-      "patient",
-      "http://hl7.org/fhir/action-participant-type",
-      "Patient",
-      "The participant is the patient under evaluation.",
-    ),
-    /** The participant is a practitioner involved in the patient's care. */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/action-participant-type",
-      "Practitioner",
-      "The participant is a practitioner involved in the patient's care.",
-    ),
-    /** The participant is a person related to the patient. */
+    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient"),
+    Practitioner("practitioner", "http://hl7.org/fhir/action-participant-type", "Practitioner"),
     Related_Person(
       "related-person",
       "http://hl7.org/fhir/action-participant-type",
       "Related Person",
-      "The participant is a person related to the patient.",
     ),
-    /** The participant is a system or device used in the care of the patient. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/action-participant-type",
-      "Device",
-      "The participant is a system or device used in the care of the patient.",
-    );
+    Device("device", "http://hl7.org/fhir/action-participant-type", "Device");
 
     override fun toString(): kotlin.String = code
 
@@ -1596,8 +1336,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionParticipantType =

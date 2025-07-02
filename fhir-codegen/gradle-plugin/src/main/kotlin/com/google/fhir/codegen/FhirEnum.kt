@@ -26,5 +26,4 @@ data class FhirEnumConstant(
   val system: String,
   val name: String,
   val display: String? = null,
-  val definition: String? = null,
 )

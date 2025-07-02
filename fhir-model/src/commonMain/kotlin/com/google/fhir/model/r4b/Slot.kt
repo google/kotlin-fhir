@@ -164,49 +164,12 @@ public data class Slot(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Indicates that the time interval is busy because one or more events have been scheduled for
-     * that interval.
-     */
-    Busy(
-      "busy",
-      "http://hl7.org/fhir/slotstatus",
-      "Busy",
-      "Indicates that the time interval is busy because one  or more events have been scheduled for that interval.",
-    ),
-    /** Indicates that the time interval is free for scheduling. */
-    Free(
-      "free",
-      "http://hl7.org/fhir/slotstatus",
-      "Free",
-      "Indicates that the time interval is free for scheduling.",
-    ),
-    /** Indicates that the time interval is busy and that the interval cannot be scheduled. */
-    Busy_Unavailable(
-      "busy-unavailable",
-      "http://hl7.org/fhir/slotstatus",
-      "Busy (Unavailable)",
-      "Indicates that the time interval is busy and that the interval cannot be scheduled.",
-    ),
-    /**
-     * Indicates that the time interval is busy because one or more events have been tentatively
-     * scheduled for that interval.
-     */
-    Busy_Tentative(
-      "busy-tentative",
-      "http://hl7.org/fhir/slotstatus",
-      "Busy (Tentative)",
-      "Indicates that the time interval is busy because one or more events have been tentatively scheduled for that interval.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/slotstatus",
-      "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
-    );
+    Busy("busy", "http://hl7.org/fhir/slotstatus", "Busy"),
+    Free("free", "http://hl7.org/fhir/slotstatus", "Free"),
+    Busy_Unavailable("busy-unavailable", "http://hl7.org/fhir/slotstatus", "Busy (Unavailable)"),
+    Busy_Tentative("busy-tentative", "http://hl7.org/fhir/slotstatus", "Busy (Tentative)"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/slotstatus", "Entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -215,8 +178,6 @@ public data class Slot(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SlotStatus =

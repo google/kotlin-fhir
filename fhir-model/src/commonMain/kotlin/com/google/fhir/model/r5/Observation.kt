@@ -876,36 +876,10 @@ public data class Observation(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Performance of one or more other tests depending on the results of the initial test. This may
-     * include collection of additional specimen. While a new ServiceRequest is not required to
-     * perform the additional test, where it is still needed (e.g., requesting another laboratory to
-     * perform the reflex test), the Observation.basedOn would reference the new ServiceRequest that
-     * requested the additional test to be performed as well as the original ServiceRequest to
-     * reflect the one that provided the authorization.
-     */
-    Reflex(
-      "reflex",
-      "http://hl7.org/fhir/observation-triggeredbytype",
-      "Reflex",
-      "Performance of one or more other tests depending on the results of the initial test.  This may include collection of additional specimen. While a new ServiceRequest is not required to perform the additional test, where it is still needed (e.g., requesting another laboratory to perform the reflex test), the Observation.basedOn would reference the new ServiceRequest that requested the additional test to be performed as well as the original ServiceRequest to reflect the one that provided the authorization.",
-    ),
-    /** Performance of the same test again with the same parameters/settings/solution. */
-    Repeat(
-      "repeat",
-      "http://hl7.org/fhir/observation-triggeredbytype",
-      "Repeat (per policy)",
-      "Performance of the same test again with the same parameters/settings/solution.",
-    ),
-    /** Performance of the same test but with different parameters/settings/solution. */
-    Re_Run(
-      "re-run",
-      "http://hl7.org/fhir/observation-triggeredbytype",
-      "Re-run (per policy)",
-      "Performance of the same test but with different parameters/settings/solution.",
-    );
+    Reflex("reflex", "http://hl7.org/fhir/observation-triggeredbytype", "Reflex"),
+    Repeat("repeat", "http://hl7.org/fhir/observation-triggeredbytype", "Repeat (per policy)"),
+    Re_Run("re-run", "http://hl7.org/fhir/observation-triggeredbytype", "Re-run (per policy)");
 
     override fun toString(): kotlin.String = code
 
@@ -914,8 +888,6 @@ public data class Observation(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TriggeredByType =
@@ -933,88 +905,19 @@ public data class Observation(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the observation is registered, but there is no result yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/observation-status",
-      "Registered",
-      "The existence of the observation is registered, but there is no result yet available.",
-    ),
-    /** This is an initial or interim observation: data may be incomplete or unverified. */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/observation-status",
-      "Preliminary",
-      "This is an initial or interim observation: data may be incomplete or unverified.",
-    ),
-    /**
-     * The observation is complete and there are no further actions needed. Additional information
-     * such "released", "signed", etc. would be represented using [Provenance](provenance.html)
-     * which provides not only the act but also the actors and dates and other related data. These
-     * act states would be associated with an observation status of `preliminary` until they are all
-     * completed and then a status of `final` would be applied.
-     */
-    Final(
-      "final",
-      "http://hl7.org/fhir/observation-status",
-      "Final",
-      "The observation is complete and there are no further actions needed. Additional information such \"released\", \"signed\", etc. would be represented using [Provenance](provenance.html) which provides not only the act but also the actors and dates and other related data. These act states would be associated with an observation status of `preliminary` until they are all completed and then a status of `final` would be applied.",
-    ),
-    /**
-     * Subsequent to being Final, the observation has been modified subsequent. This includes
-     * updates/new information and corrections.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/observation-status",
-      "Amended",
-      "Subsequent to being Final, the observation has been modified subsequent.  This includes updates/new information and corrections.",
-    ),
-    /**
-     * Subsequent to being Final, the observation has been modified to correct an error in the test
-     * result.
-     */
-    Corrected(
-      "corrected",
-      "http://hl7.org/fhir/observation-status",
-      "Corrected",
-      "Subsequent to being Final, the observation has been modified to correct an error in the test result.",
-    ),
-    /**
-     * The observation is unavailable because the measurement was not started or not completed (also
-     * sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/observation-status",
-      "Cancelled",
-      "The observation is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The observation has been withdrawn following previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     * (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered"),
+    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/observation-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected"),
+    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/observation-status",
       "Entered in Error",
-      "The observation has been withdrawn following previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/observation-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -1023,8 +926,6 @@ public data class Observation(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationStatus =

@@ -331,22 +331,14 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Monday. */
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", "Monday."),
-    /** Tuesday. */
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", "Tuesday."),
-    /** Wednesday. */
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", "Wednesday."),
-    /** Thursday. */
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", "Thursday."),
-    /** Friday. */
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", "Friday."),
-    /** Saturday. */
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", "Saturday."),
-    /** Sunday. */
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", "Sunday.");
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
 
     override fun toString(): kotlin.String = code
 
@@ -355,8 +347,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DaysOfWeek =
@@ -378,29 +368,10 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The location is operational. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/location-status",
-      "Active",
-      "The location is operational.",
-    ),
-    /** The location is temporarily closed. */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/location-status",
-      "Suspended",
-      "The location is temporarily closed.",
-    ),
-    /** The location is no longer used. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/location-status",
-      "Inactive",
-      "The location is no longer used.",
-    );
+    Active("active", "http://hl7.org/fhir/location-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/location-status", "Suspended"),
+    Inactive("inactive", "http://hl7.org/fhir/location-status", "Inactive");
 
     override fun toString(): kotlin.String = code
 
@@ -409,8 +380,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): LocationStatus =
@@ -430,29 +399,9 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The Location resource represents a specific instance of a location (e.g. Operating Theatre
-     * 1A).
-     */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/location-mode",
-      "Instance",
-      "The Location resource represents a specific instance of a location (e.g. Operating Theatre 1A).",
-    ),
-    /**
-     * The Location represents a class of locations (e.g. Any Operating Theatre) although this class
-     * of locations could be constrained within a specific boundary (such as organization, or parent
-     * location, address etc.).
-     */
-    Kind(
-      "kind",
-      "http://hl7.org/fhir/location-mode",
-      "Kind",
-      "The Location represents a class of locations (e.g. Any Operating Theatre) although this class of locations could be constrained within a specific boundary (such as organization, or parent location, address etc.).",
-    );
+    Instance("instance", "http://hl7.org/fhir/location-mode", "Instance"),
+    Kind("kind", "http://hl7.org/fhir/location-mode", "Kind");
 
     override fun toString(): kotlin.String = code
 
@@ -461,8 +410,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): LocationMode =

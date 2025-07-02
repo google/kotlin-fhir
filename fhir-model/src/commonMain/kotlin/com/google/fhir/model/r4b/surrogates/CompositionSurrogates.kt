@@ -302,8 +302,10 @@ internal data class CompositionSurrogate(
       author = this@CompositionSurrogate.author
       title = R4bString.of(this@CompositionSurrogate.title, this@CompositionSurrogate._title)
       confidentiality =
-        Code.of(
-          this@CompositionSurrogate.confidentiality,
+        Enumeration.of(
+          this@CompositionSurrogate.confidentiality?.let {
+            com.google.fhir.model.r4b.Composition.DocumentConfidentiality.fromCode(it)
+          },
           this@CompositionSurrogate._confidentiality,
         )
       attester = this@CompositionSurrogate.attester
@@ -339,7 +341,7 @@ internal data class CompositionSurrogate(
           author = this@with.author
           title = this@with.title?.value
           _title = this@with.title?.toElement()
-          confidentiality = this@with.confidentiality?.value
+          confidentiality = this@with.confidentiality?.value?.getCode()
           _confidentiality = this@with.confidentiality?.toElement()
           attester = this@with.attester
           custodian = this@with.custodian

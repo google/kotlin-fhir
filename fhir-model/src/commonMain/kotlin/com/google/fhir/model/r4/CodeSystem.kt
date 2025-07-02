@@ -716,96 +716,24 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The specified property of the code equals the provided value. */
-    EqualTo(
-      "=",
-      "http://hl7.org/fhir/filter-operator",
-      "Equals",
-      "The specified property of the code equals the provided value.",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship with the concept Id
-     * provided as the value, including the provided concept itself (include descendant codes and
-     * self).
-     */
-    Is_A(
-      "is-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Is A (by subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, including the provided concept itself (include descendant codes and self).",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship with the concept Id
-     * provided as the value, excluding the provided concept itself i.e. include descendant codes
-     * only).
-     */
+    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals"),
+    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)"),
     Descendent_Of(
       "descendent-of",
       "http://hl7.org/fhir/filter-operator",
       "Descendent Of (by subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, excluding the provided concept itself i.e. include descendant codes only).",
     ),
-    /**
-     * The specified property of the code does not have an is-a relationship with the provided
-     * value.
-     */
-    Is_Not_A(
-      "is-not-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Not (Is A) (by subsumption)",
-      "The specified property of the code does not have an is-a relationship with the provided value.",
-    ),
-    /** The specified property of the code matches the regex specified in the provided value. */
-    Regex(
-      "regex",
-      "http://hl7.org/fhir/filter-operator",
-      "Regular Expression",
-      "The specified property of the code  matches the regex specified in the provided value.",
-    ),
-    /**
-     * The specified property of the code is in the set of codes or concepts specified in the
-     * provided value (comma separated list).
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/filter-operator",
-      "In Set",
-      "The specified property of the code is in the set of codes or concepts specified in the provided value (comma separated list).",
-    ),
-    /**
-     * The specified property of the code is not in the set of codes or concepts specified in the
-     * provided value (comma separated list).
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/filter-operator",
-      "Not in Set",
-      "The specified property of the code is not in the set of codes or concepts specified in the provided value (comma separated list).",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship from the concept Id
-     * provided as the value, including the provided concept itself (i.e. include ancestor codes and
-     * self).
-     */
+    Is_Not_A("is-not-a", "http://hl7.org/fhir/filter-operator", "Not (Is A) (by subsumption)"),
+    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression"),
+    In("in", "http://hl7.org/fhir/filter-operator", "In Set"),
+    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set"),
     Generalizes(
       "generalizes",
       "http://hl7.org/fhir/filter-operator",
       "Generalizes (by Subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship from the concept Id provided as the value, including the provided concept itself (i.e. include ancestor codes and self).",
     ),
-    /**
-     * The specified property of the code has at least one value (if the specified value is true; if
-     * the specified value is false, then matches when the specified property of the code has no
-     * values).
-     */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/filter-operator",
-      "Exists",
-      "The specified property of the code has at least one value (if the specified value is true; if the specified value is false, then matches when the specified property of the code has no values).",
-    );
+    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists");
 
     override fun toString(): kotlin.String = code
 
@@ -814,8 +742,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FilterOperator =
@@ -839,63 +765,14 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The property value is a code that identifies a concept defined in the code system. */
-    Code(
-      "code",
-      "http://hl7.org/fhir/concept-property-type",
-      "code (internal reference)",
-      "The property value is a code that identifies a concept defined in the code system.",
-    ),
-    /**
-     * The property value is a code defined in an external code system. This may be used for
-     * translations, but is not the intent.
-     */
-    Coding(
-      "Coding",
-      "http://hl7.org/fhir/concept-property-type",
-      "Coding (external reference)",
-      "The property  value is a code defined in an external code system. This may be used for translations, but is not the intent.",
-    ),
-    /** The property value is a string. */
-    String(
-      "string",
-      "http://hl7.org/fhir/concept-property-type",
-      "string",
-      "The property value is a string.",
-    ),
-    /**
-     * The property value is a string (often used to assign ranking values to concepts for
-     * supporting score assessments).
-     */
-    Integer(
-      "integer",
-      "http://hl7.org/fhir/concept-property-type",
-      "integer",
-      "The property value is a string (often used to assign ranking values to concepts for supporting score assessments).",
-    ),
-    /** The property value is a boolean true | false. */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/concept-property-type",
-      "boolean",
-      "The property value is a boolean true | false.",
-    ),
-    /** The property is a date or a date + time. */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/concept-property-type",
-      "dateTime",
-      "The property is a date or a date + time.",
-    ),
-    /** The property value is a decimal number. */
-    Decimal(
-      "decimal",
-      "http://hl7.org/fhir/concept-property-type",
-      "decimal",
-      "The property value is a decimal number.",
-    );
+    Code("code", "http://hl7.org/fhir/concept-property-type", "code (internal reference)"),
+    Coding("Coding", "http://hl7.org/fhir/concept-property-type", "Coding (external reference)"),
+    String("string", "http://hl7.org/fhir/concept-property-type", "string"),
+    Integer("integer", "http://hl7.org/fhir/concept-property-type", "integer"),
+    Boolean("boolean", "http://hl7.org/fhir/concept-property-type", "boolean"),
+    DateTime("dateTime", "http://hl7.org/fhir/concept-property-type", "dateTime"),
+    Decimal("decimal", "http://hl7.org/fhir/concept-property-type", "decimal");
 
     override fun toString(): kotlin.String = code
 
@@ -904,8 +781,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): PropertyType =
@@ -927,49 +802,14 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * No particular relationship between the concepts can be assumed, except what can be determined
-     * by inspection of the definitions of the elements (possible reasons to use this: importing
-     * from a source where this is not defined, or where various parts of the hierarchy have
-     * different meanings).
-     */
-    Grouped_By(
-      "grouped-by",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Grouped By",
-      "No particular relationship between the concepts can be assumed, except what can be determined by inspection of the definitions of the elements (possible reasons to use this: importing from a source where this is not defined, or where various parts of the hierarchy have different meanings).",
-    ),
-    /**
-     * A hierarchy where the child concepts have an IS-A relationship with the parents - that is,
-     * all the properties of the parent are also true for its child concepts. Not that is-a is a
-     * property of the concepts, so additional subsumption relationships may be defined using
-     * properties or the [subsumes](extension-codesystem-subsumes.html) extension.
-     */
-    Is_A(
-      "is-a",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Is-A",
-      "A hierarchy where the child concepts have an IS-A relationship with the parents - that is, all the properties of the parent are also true for its child concepts. Not that is-a is a property of the concepts, so additional subsumption relationships may be defined using properties or the [subsumes](extension-codesystem-subsumes.html) extension.",
-    ),
-    /** Child elements list the individual parts of a composite whole (e.g. body site). */
-    Part_Of(
-      "part-of",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Part Of",
-      "Child elements list the individual parts of a composite whole (e.g. body site).",
-    ),
-    /**
-     * Child concepts in the hierarchy may have only one parent, and there is a presumption that the
-     * code system is a "closed world" meaning all things must be in the hierarchy. This results in
-     * concepts such as "not otherwise classified.".
-     */
+    Grouped_By("grouped-by", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Grouped By"),
+    Is_A("is-a", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Is-A"),
+    Part_Of("part-of", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Part Of"),
     Classified_With(
       "classified-with",
       "http://hl7.org/fhir/codesystem-hierarchy-meaning",
       "Classified With",
-      "Child concepts in the hierarchy may have only one parent, and there is a presumption that the code system is a \"closed world\" meaning all things must be in the hierarchy. This results in concepts such as \"not otherwise classified.\".",
     );
 
     override fun toString(): kotlin.String = code
@@ -979,8 +819,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemHierarchyMeaning =
@@ -1003,56 +841,12 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** None of the concepts defined by the code system are included in the code system resource. */
-    Not_Present(
-      "not-present",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Not Present",
-      "None of the concepts defined by the code system are included in the code system resource.",
-    ),
-    /**
-     * A few representative concepts are included in the code system resource. There is no useful
-     * intent in the subset choice and there's no process to make it workable: it's not intended to
-     * be workable.
-     */
-    Example(
-      "example",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Example",
-      "A few representative concepts are included in the code system resource. There is no useful intent in the subset choice and there's no process to make it workable: it's not intended to be workable.",
-    ),
-    /**
-     * A subset of the code system concepts are included in the code system resource. This is a
-     * curated subset released for a specific purpose under the governance of the code system
-     * steward, and that the intent, bounds and consequences of the fragmentation are clearly
-     * defined in the fragment or the code system documentation. Fragments are also known as
-     * partitions.
-     */
-    Fragment(
-      "fragment",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Fragment",
-      "A subset of the code system concepts are included in the code system resource. This is a curated subset released for a specific purpose under the governance of the code system steward, and that the intent, bounds and consequences of the fragmentation are clearly defined in the fragment or the code system documentation. Fragments are also known as partitions.",
-    ),
-    /** All the concepts defined by the code system are included in the code system resource. */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Complete",
-      "All the concepts defined by the code system are included in the code system resource.",
-    ),
-    /**
-     * The resource doesn't define any new concepts; it just provides additional designations and
-     * properties to another code system.
-     */
-    Supplement(
-      "supplement",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Supplement",
-      "The resource doesn't define any new concepts; it just provides additional designations and properties to another code system.",
-    );
+    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present"),
+    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example"),
+    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment"),
+    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete"),
+    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement");
 
     override fun toString(): kotlin.String = code
 
@@ -1061,8 +855,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemContentMode =

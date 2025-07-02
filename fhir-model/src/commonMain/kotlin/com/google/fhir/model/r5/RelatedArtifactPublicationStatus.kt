@@ -23,42 +23,11 @@ public enum class RelatedArtifactPublicationStatus(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  /**
-   * This resource is still under development and is not yet considered to be ready for normal use.
-   */
-  Draft(
-    "draft",
-    "http://hl7.org/fhir/publication-status",
-    "Draft",
-    "This resource is still under development and is not yet considered to be ready for normal use.",
-  ),
-  /** This resource is ready for normal use. */
-  Active(
-    "active",
-    "http://hl7.org/fhir/publication-status",
-    "Active",
-    "This resource is ready for normal use.",
-  ),
-  /** This resource has been withdrawn or superseded and should no longer be used. */
-  Retired(
-    "retired",
-    "http://hl7.org/fhir/publication-status",
-    "Retired",
-    "This resource has been withdrawn or superseded and should no longer be used.",
-  ),
-  /**
-   * The authoring system does not know which of the status values currently applies for this
-   * resource. Note: This concept is not to be used for "other" - one of the listed statuses is
-   * presumed to apply, it's just not known which one.
-   */
-  Unknown(
-    "unknown",
-    "http://hl7.org/fhir/publication-status",
-    "Unknown",
-    "The authoring system does not know which of the status values currently applies for this resource.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one.",
-  );
+  Draft("draft", "http://hl7.org/fhir/publication-status", "Draft"),
+  Active("active", "http://hl7.org/fhir/publication-status", "Active"),
+  Retired("retired", "http://hl7.org/fhir/publication-status", "Retired"),
+  Unknown("unknown", "http://hl7.org/fhir/publication-status", "Unknown");
 
   override fun toString(): String = code
 
@@ -67,8 +36,6 @@ public enum class RelatedArtifactPublicationStatus(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): RelatedArtifactPublicationStatus =

@@ -882,145 +882,24 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An item with no direct answer but should have at least one child item. */
-    Group(
-      "group",
-      "http://hl7.org/fhir/item-type",
-      "Group",
-      "An item with no direct answer but should have at least one child item.",
-    ),
-    /** Text for display that will not capture an answer or have child items. */
-    Display(
-      "display",
-      "http://hl7.org/fhir/item-type",
-      "Display",
-      "Text for display that will not capture an answer or have child items.",
-    ),
-    /**
-     * An item that defines a specific answer to be captured, and which may have child items. (the
-     * answer provided in the QuestionnaireResponse should be of the defined datatype).
-     */
-    Question(
-      "question",
-      "http://hl7.org/fhir/item-type",
-      "Question",
-      "An item that defines a specific answer to be captured, and which may have child items. (the answer provided in the QuestionnaireResponse should be of the defined datatype).",
-    ),
-    /** Question with a yes/no answer (valueBoolean). */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/item-type",
-      "Boolean",
-      "Question with a yes/no answer (valueBoolean).",
-    ),
-    /** Question with is a real number answer (valueDecimal). */
-    Decimal(
-      "decimal",
-      "http://hl7.org/fhir/item-type",
-      "Decimal",
-      "Question with is a real number answer (valueDecimal).",
-    ),
-    /** Question with an integer answer (valueInteger). */
-    Integer(
-      "integer",
-      "http://hl7.org/fhir/item-type",
-      "Integer",
-      "Question with an integer answer (valueInteger).",
-    ),
-    /** Question with a date answer (valueDate). */
-    Date(
-      "date",
-      "http://hl7.org/fhir/item-type",
-      "Date",
-      "Question with a date answer (valueDate).",
-    ),
-    /** Question with a date and time answer (valueDateTime). */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/item-type",
-      "Date Time",
-      "Question with a date and time answer (valueDateTime).",
-    ),
-    /** Question with a time (hour:minute:second) answer independent of date. (valueTime). */
-    Time(
-      "time",
-      "http://hl7.org/fhir/item-type",
-      "Time",
-      "Question with a time (hour:minute:second) answer independent of date. (valueTime).",
-    ),
-    /** Question with a short (few words to short sentence) free-text entry answer (valueString). */
-    String(
-      "string",
-      "http://hl7.org/fhir/item-type",
-      "String",
-      "Question with a short (few words to short sentence) free-text entry answer (valueString).",
-    ),
-    /** Question with a long (potentially multi-paragraph) free-text entry answer (valueString). */
-    Text(
-      "text",
-      "http://hl7.org/fhir/item-type",
-      "Text",
-      "Question with a long (potentially multi-paragraph) free-text entry answer (valueString).",
-    ),
-    /** Question with a URL (website, FTP site, etc.) answer (valueUri). */
-    Url(
-      "url",
-      "http://hl7.org/fhir/item-type",
-      "Url",
-      "Question with a URL (website, FTP site, etc.) answer (valueUri).",
-    ),
-    /**
-     * Question with a Coding drawn from a list of possible answers (specified in either the
-     * answerOption property, or via the valueset referenced in the answerValueSet property) as an
-     * answer (valueCoding).
-     */
-    Choice(
-      "choice",
-      "http://hl7.org/fhir/item-type",
-      "Choice",
-      "Question with a Coding drawn from a list of possible answers (specified in either the answerOption property, or via the valueset referenced in the answerValueSet property) as an answer (valueCoding).",
-    ),
-    /**
-     * Answer is a Coding drawn from a list of possible answers (as with the choice type) or a
-     * free-text entry in a string (valueCoding or valueString).
-     */
-    Open_Choice(
-      "open-choice",
-      "http://hl7.org/fhir/item-type",
-      "Open Choice",
-      "Answer is a Coding drawn from a list of possible answers (as with the choice type) or a free-text entry in a string (valueCoding or valueString).",
-    ),
-    /** Question with binary content such as an image, PDF, etc. as an answer (valueAttachment). */
-    Attachment(
-      "attachment",
-      "http://hl7.org/fhir/item-type",
-      "Attachment",
-      "Question with binary content such as an image, PDF, etc. as an answer (valueAttachment).",
-    ),
-    /**
-     * Question with a reference to another resource (practitioner, organization, etc.) as an answer
-     * (valueReference).
-     */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/item-type",
-      "Reference",
-      "Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).",
-    ),
-    /**
-     * Question with a combination of a numeric value and unit, potentially with a comparator (<, >,
-     * etc.) as an answer. (valueQuantity) There is an extension
-     * 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to define what
-     * unit should be captured (or the unit that has a ucum conversion from the provided unit).
-     */
-    Quantity(
-      "quantity",
-      "http://hl7.org/fhir/item-type",
-      "Quantity",
-      "Question with a combination of a numeric value and unit, potentially with a comparator (<, >, etc.) as an answer. (valueQuantity) There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to define what unit should be captured (or the unit that has a ucum conversion from the provided unit).",
-    );
+    Group("group", "http://hl7.org/fhir/item-type", "Group"),
+    Display("display", "http://hl7.org/fhir/item-type", "Display"),
+    Question("question", "http://hl7.org/fhir/item-type", "Question"),
+    Boolean("boolean", "http://hl7.org/fhir/item-type", "Boolean"),
+    Decimal("decimal", "http://hl7.org/fhir/item-type", "Decimal"),
+    Integer("integer", "http://hl7.org/fhir/item-type", "Integer"),
+    Date("date", "http://hl7.org/fhir/item-type", "Date"),
+    DateTime("dateTime", "http://hl7.org/fhir/item-type", "Date Time"),
+    Time("time", "http://hl7.org/fhir/item-type", "Time"),
+    String("string", "http://hl7.org/fhir/item-type", "String"),
+    Text("text", "http://hl7.org/fhir/item-type", "Text"),
+    Url("url", "http://hl7.org/fhir/item-type", "Url"),
+    Choice("choice", "http://hl7.org/fhir/item-type", "Choice"),
+    Open_Choice("open-choice", "http://hl7.org/fhir/item-type", "Open Choice"),
+    Attachment("attachment", "http://hl7.org/fhir/item-type", "Attachment"),
+    Reference("reference", "http://hl7.org/fhir/item-type", "Reference"),
+    Quantity("quantity", "http://hl7.org/fhir/item-type", "Quantity");
 
     override fun toString(): kotlin.String = code
 
@@ -1029,8 +908,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemType =
@@ -1063,22 +940,9 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Enable the question when all the enableWhen criteria are satisfied. */
-    All(
-      "all",
-      "http://hl7.org/fhir/questionnaire-enable-behavior",
-      "All",
-      "Enable the question when all the enableWhen criteria are satisfied.",
-    ),
-    /** Enable the question when any of the enableWhen criteria are satisfied. */
-    Any(
-      "any",
-      "http://hl7.org/fhir/questionnaire-enable-behavior",
-      "Any",
-      "Enable the question when any of the enableWhen criteria are satisfied.",
-    );
+    All("all", "http://hl7.org/fhir/questionnaire-enable-behavior", "All"),
+    Any("any", "http://hl7.org/fhir/questionnaire-enable-behavior", "Any");
 
     override fun toString(): kotlin.String = code
 
@@ -1087,8 +951,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EnableWhenBehavior =
@@ -1105,67 +967,18 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * True if whether an answer exists is equal to the enableWhen answer (which must be a boolean).
-     */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Exists",
-      "True if whether an answer exists is equal to the enableWhen answer (which must be a boolean).",
-    ),
-    /** True if whether at least one answer has a value that is equal to the enableWhen answer. */
-    EqualTo(
-      "=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Equals",
-      "True if whether at least one answer has a value that is equal to the enableWhen answer.",
-    ),
-    /** True if whether at least no answer has a value that is equal to the enableWhen answer. */
-    NotEqualTo(
-      "!=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Not Equals",
-      "True if whether at least no answer has a value that is equal to the enableWhen answer.",
-    ),
-    /**
-     * True if whether at least no answer has a value that is greater than the enableWhen answer.
-     */
-    GreaterThan(
-      ">",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Greater Than",
-      "True if whether at least no answer has a value that is greater than the enableWhen answer.",
-    ),
-    /** True if whether at least no answer has a value that is less than the enableWhen answer. */
-    LessThan(
-      "<",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less Than",
-      "True if whether at least no answer has a value that is less than the enableWhen answer.",
-    ),
-    /**
-     * True if whether at least no answer has a value that is greater or equal to the enableWhen
-     * answer.
-     */
+    Exists("exists", "http://hl7.org/fhir/questionnaire-enable-operator", "Exists"),
+    EqualTo("=", "http://hl7.org/fhir/questionnaire-enable-operator", "Equals"),
+    NotEqualTo("!=", "http://hl7.org/fhir/questionnaire-enable-operator", "Not Equals"),
+    GreaterThan(">", "http://hl7.org/fhir/questionnaire-enable-operator", "Greater Than"),
+    LessThan("<", "http://hl7.org/fhir/questionnaire-enable-operator", "Less Than"),
     GreaterThanOrEqualTo(
       ">=",
       "http://hl7.org/fhir/questionnaire-enable-operator",
       "Greater or Equals",
-      "True if whether at least no answer has a value that is greater or equal to the enableWhen answer.",
     ),
-    /**
-     * True if whether at least no answer has a value that is less or equal to the enableWhen
-     * answer.
-     */
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less or Equals",
-      "True if whether at least no answer has a value that is less or equal to the enableWhen answer.",
-    );
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/questionnaire-enable-operator", "Less or Equals");
 
     override fun toString(): kotlin.String = code
 
@@ -1174,8 +987,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemOperator =

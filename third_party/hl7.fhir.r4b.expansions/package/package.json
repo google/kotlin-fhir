@@ -1,0 +1,18 @@
+{
+  "name" : "hl7.fhir.r4b.expansions",
+  "version" : "4.3.0",
+  "tools-version" : 3,
+  "type" : "Core",
+  "date" : "20220528124740",
+  "license" : "CC0-1.0",
+  "canonical" : "http://hl7.org/fhir",
+  "title" : "FHIR 4.3.0 package : Expansions",
+  "description" : "Expansions for the 4.3.0 version of the FHIR standard (built Sat, May 28, 2022 12:47+1000+10:00)",
+  "directories" : {
+    "lib" : "package",
+    "example" : "example"
+  },
+  "fhirVersions" : ["4.3.0"],
+  "url" : "http://hl7.org/fhir/R4B",
+  "homepage" : "http://hl7.org/fhir/R4B"
+}

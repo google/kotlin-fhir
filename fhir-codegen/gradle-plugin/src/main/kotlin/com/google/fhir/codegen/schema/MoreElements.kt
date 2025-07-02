@@ -73,14 +73,9 @@ fun Element.getValueSetUrl() = this.binding?.valueSet?.substringBeforeLast("|")
  *   `http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName`.
  * - The element's base path does **not** start with `"Resource."` or `"CanonicalResource."`.
  * - The element's name is not blank
- * - The ValueSet system is supported (ValueSets with systems starting with `"urn"` are currently
- *   excluded)
  */
 fun Element.typeIsEnumeratedCode(valueSetMap: Map<String, ValueSet>): Boolean {
-  val valueSet = valueSetMap[getValueSetUrl()]
-  if (valueSet == null) return false
-  val isValidValueSet = valueSet.compose?.include?.all { it.isValueSystemSupported() }
-  return isValidValueSet == true &&
+  return valueSetMap.containsKey(getValueSetUrl()) &&
     base?.path?.startsWith("Resource.") != true &&
     base?.path?.startsWith("CanonicalResource.") != true &&
     this.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&

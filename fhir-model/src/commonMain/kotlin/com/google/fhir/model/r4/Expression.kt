@@ -75,28 +75,13 @@ public data class Expression(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Clinical Quality Language. */
-    Text_Cql(
-      "text/cql",
-      "http://hl7.org/fhir/expression-language",
-      "CQL",
-      "Clinical Quality Language.",
-    ),
-    /** FHIRPath. */
-    Text_Fhirpath(
-      "text/fhirpath",
-      "http://hl7.org/fhir/expression-language",
-      "FHIRPath",
-      "FHIRPath.",
-    ),
-    /** FHIR's RESTful query syntax - typically independent of base URL. */
+    Text_Cql("text/cql", "http://hl7.org/fhir/expression-language", "CQL"),
+    Text_Fhirpath("text/fhirpath", "http://hl7.org/fhir/expression-language", "FHIRPath"),
     Application_X_Fhir_Query(
       "application/x-fhir-query",
       "http://hl7.org/fhir/expression-language",
       "FHIR Query",
-      "FHIR's RESTful query syntax - typically independent of base URL.",
     );
 
     override fun toString(): kotlin.String = code
@@ -106,8 +91,6 @@ public data class Expression(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExpressionLanguage =

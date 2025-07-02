@@ -490,25 +490,21 @@ public data class Ingredient(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
     Allowed(
       "allowed",
       "http://hl7.org/fhir/ingredient-manufacturer-role",
       "Manufacturer is specifically allowed for this ingredient",
-      null,
     ),
     Possible(
       "possible",
       "http://hl7.org/fhir/ingredient-manufacturer-role",
       "Manufacturer is known to make this ingredient in general",
-      null,
     ),
     Actual(
       "actual",
       "http://hl7.org/fhir/ingredient-manufacturer-role",
       "Manufacturer actually makes this particular ingredient",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -518,8 +514,6 @@ public data class Ingredient(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IngredientManufacturerRole =

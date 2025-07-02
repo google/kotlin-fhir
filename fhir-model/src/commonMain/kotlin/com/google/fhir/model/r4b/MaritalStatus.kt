@@ -26,9 +26,19 @@ public enum class MaritalStatus(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Unk("UNK", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", null, null);
+  A("A", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Annulled"),
+  D("D", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Divorced"),
+  I("I", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Interlocutory"),
+  L("L", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Legally Separated"),
+  M("M", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Married"),
+  C("C", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Common Law"),
+  P("P", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Polygamous"),
+  T("T", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Domestic partner"),
+  U("U", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "unmarried"),
+  S("S", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Never Married"),
+  W("W", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus", "Widowed"),
+  Unk("UNK", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "unknown");
 
   override fun toString(): String = code
 
@@ -38,11 +48,20 @@ public enum class MaritalStatus(
 
   public fun getDisplay(): String? = display
 
-  public fun getDefinition(): String? = definition
-
   public companion object {
     public fun fromCode(code: String): MaritalStatus =
       when (code) {
+        "A" -> A
+        "D" -> D
+        "I" -> I
+        "L" -> L
+        "M" -> M
+        "C" -> C
+        "P" -> P
+        "T" -> T
+        "U" -> U
+        "S" -> S
+        "W" -> W
         "UNK" -> Unk
         else -> throw IllegalArgumentException("Unknown code $code for enum MaritalStatus")
       }

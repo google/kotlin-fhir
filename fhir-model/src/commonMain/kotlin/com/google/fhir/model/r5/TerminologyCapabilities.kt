@@ -913,55 +913,12 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** None of the concepts defined by the code system are included in the code system resource. */
-    Not_Present(
-      "not-present",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Not Present",
-      "None of the concepts defined by the code system are included in the code system resource.",
-    ),
-    /**
-     * A subset of the valid externally defined concepts are included in the code system resource.
-     * There is no specific purpose or documented intent other than for illustrative purposes.
-     */
-    Example(
-      "example",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Example",
-      "A subset of the valid externally defined concepts are included in the code system resource. There is no specific purpose or documented intent other than for illustrative purposes.",
-    ),
-    /**
-     * A subset of the code system concepts are included in the code system resource. This is a
-     * curated subset released for a specific purpose under the governance of the code system
-     * steward, and that the intent, bounds and consequences of the fragmentation are clearly
-     * defined in the fragment or the code system documentation. Fragments are also known as
-     * partitions.
-     */
-    Fragment(
-      "fragment",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Fragment",
-      "A subset of the code system concepts are included in the code system resource. This is a curated subset released for a specific purpose under the governance of the code system steward, and that the intent, bounds and consequences of the fragmentation are clearly defined in the fragment or the code system documentation. Fragments are also known as partitions.",
-    ),
-    /** All the concepts defined by the code system are included in the code system resource. */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Complete",
-      "All the concepts defined by the code system are included in the code system resource.",
-    ),
-    /**
-     * The resource doesn't define any new concepts; it just provides additional designations and
-     * properties to another code system.
-     */
-    Supplement(
-      "supplement",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Supplement",
-      "The resource doesn't define any new concepts; it just provides additional designations and properties to another code system.",
-    );
+    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present"),
+    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example"),
+    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment"),
+    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete"),
+    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement");
 
     override fun toString(): kotlin.String = code
 
@@ -970,8 +927,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemContentMode =
@@ -992,38 +947,10 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The CapabilityStatement instance represents the present capabilities of a specific system
-     * instance. This is the kind returned by /metadata for a FHIR server end-point.
-     */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Instance",
-      "The CapabilityStatement instance represents the present capabilities of a specific system instance.  This is the kind returned by /metadata for a FHIR server end-point.",
-    ),
-    /**
-     * The CapabilityStatement instance represents the capabilities of a system or piece of
-     * software, independent of a particular installation.
-     */
-    Capability(
-      "capability",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Capability",
-      "The CapabilityStatement instance represents the capabilities of a system or piece of software, independent of a particular installation.",
-    ),
-    /**
-     * The CapabilityStatement instance represents a set of requirements for other systems to meet;
-     * e.g. as part of an implementation guide or 'request for proposal'.
-     */
-    Requirements(
-      "requirements",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Requirements",
-      "The CapabilityStatement instance represents a set of requirements for other systems to meet; e.g. as part of an implementation guide or 'request for proposal'.",
-    );
+    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance"),
+    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability"),
+    Requirements("requirements", "http://hl7.org/fhir/capability-statement-kind", "Requirements");
 
     override fun toString(): kotlin.String = code
 
@@ -1032,8 +959,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CapabilityStatementKind =
@@ -1055,37 +980,13 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The search for code on ValueSet returns ValueSet resources where the code is included in the
-     * extensional definition of the ValueSet.
-     */
-    In_Compose(
-      "in-compose",
-      "http://hl7.org/fhir/code-search-support",
-      "In Compose",
-      "The search for code on ValueSet returns ValueSet resources where the code is included in the extensional definition of the ValueSet.",
-    ),
-    /**
-     * The search for code on ValueSet returns ValueSet resources where the code is contained in the
-     * ValueSet expansion.
-     */
-    In_Expansion(
-      "in-expansion",
-      "http://hl7.org/fhir/code-search-support",
-      "In Expansion",
-      "The search for code on ValueSet returns ValueSet resources where the code is contained in the  ValueSet expansion.",
-    ),
-    /**
-     * The search for code on ValueSet returns ValueSet resources where the code is included in the
-     * extensional definition or contained in the ValueSet expansion.
-     */
+    In_Compose("in-compose", "http://hl7.org/fhir/code-search-support", "In Compose"),
+    In_Expansion("in-expansion", "http://hl7.org/fhir/code-search-support", "In Expansion"),
     In_Compose_Or_Expansion(
       "in-compose-or-expansion",
       "http://hl7.org/fhir/code-search-support",
       "In Compose Or Expansion",
-      "The search for code on ValueSet returns ValueSet resources where the code is included in the extensional definition or contained in the ValueSet expansion.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1095,8 +996,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSearchSupport =

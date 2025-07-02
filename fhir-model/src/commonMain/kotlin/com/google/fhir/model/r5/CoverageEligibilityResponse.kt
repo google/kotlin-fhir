@@ -642,36 +642,11 @@ public data class CoverageEligibilityResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -680,8 +655,6 @@ public data class CoverageEligibilityResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EligibilityResponseStatus =
@@ -701,44 +674,18 @@ public data class CoverageEligibilityResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The prior authorization requirements for the listed, or discovered if specified, converages
-     * for the categories of service and/or specifed biling codes are requested.
-     */
     Auth_Requirements(
       "auth-requirements",
       "http://hl7.org/fhir/eligibilityresponse-purpose",
       "Coverage auth-requirements",
-      "The prior authorization requirements for the listed, or discovered if specified, converages for the categories of service and/or specifed biling codes are requested.",
     ),
-    /**
-     * The plan benefits and optionally benefits consumed for the listed, or discovered if
-     * specified, converages are requested.
-     */
-    Benefits(
-      "benefits",
-      "http://hl7.org/fhir/eligibilityresponse-purpose",
-      "Coverage benefits",
-      "The plan benefits and optionally benefits consumed  for the listed, or discovered if specified, converages are requested.",
-    ),
-    /**
-     * The insurer is requested to report on any coverages which they are aware of in addition to
-     * any specifed.
-     */
-    Discovery(
-      "discovery",
-      "http://hl7.org/fhir/eligibilityresponse-purpose",
-      "Coverage Discovery",
-      "The insurer is requested to report on any coverages which they are aware of in addition to any specifed.",
-    ),
-    /** A check that the specified coverages are in-force is requested. */
+    Benefits("benefits", "http://hl7.org/fhir/eligibilityresponse-purpose", "Coverage benefits"),
+    Discovery("discovery", "http://hl7.org/fhir/eligibilityresponse-purpose", "Coverage Discovery"),
     Validation(
       "validation",
       "http://hl7.org/fhir/eligibilityresponse-purpose",
       "Coverage Validation",
-      "A check that the specified coverages are in-force is requested.",
     );
 
     override fun toString(): kotlin.String = code
@@ -748,8 +695,6 @@ public data class CoverageEligibilityResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EligibilityResponsePurpose =
@@ -769,40 +714,11 @@ public data class CoverageEligibilityResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.
-     */
-    Queued(
-      "queued",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Queued",
-      "The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.",
-    ),
-    /** The processing has completed without errors */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Processing Complete",
-      "The processing has completed without errors",
-    ),
-    /** One or more errors have been detected in the Claim */
-    Error(
-      "error",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Error",
-      "One or more errors have been detected in the Claim",
-    ),
-    /**
-     * No errors have been detected in the Claim and some of the adjudication has been performed.
-     */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Partial Processing",
-      "No errors have been detected in the Claim and some of the adjudication has been performed.",
-    );
+    Queued("queued", "http://hl7.org/fhir/eligibility-outcome", "Queued"),
+    Complete("complete", "http://hl7.org/fhir/eligibility-outcome", "Processing Complete"),
+    Error("error", "http://hl7.org/fhir/eligibility-outcome", "Error"),
+    Partial("partial", "http://hl7.org/fhir/eligibility-outcome", "Partial Processing");
 
     override fun toString(): kotlin.String = code
 
@@ -811,8 +727,6 @@ public data class CoverageEligibilityResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EligibilityOutcome =

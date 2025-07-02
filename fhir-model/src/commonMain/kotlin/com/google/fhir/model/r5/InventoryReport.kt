@@ -262,41 +262,14 @@ public data class InventoryReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The existence of the report is registered, but it is still without content or only some
-     * preliminary content.
-     */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/inventoryreport-status",
-      "Draft",
-      "The existence of the report is registered, but it is still without content or only some preliminary content.",
-    ),
-    /** The inventory report has been requested but there is no data available. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/inventoryreport-status",
-      "Requested",
-      "The inventory report has been requested but there is no data available.",
-    ),
-    /** This report is submitted as current. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/inventoryreport-status",
-      "Active",
-      "This report is submitted as current.",
-    ),
-    /**
-     * The report has been withdrawn following a previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     */
+    Draft("draft", "http://hl7.org/fhir/inventoryreport-status", "Draft"),
+    Requested("requested", "http://hl7.org/fhir/inventoryreport-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/inventoryreport-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/inventoryreport-status",
       "Entered in Error",
-      "The report has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it.",
     );
 
     override fun toString(): String = code
@@ -306,8 +279,6 @@ public data class InventoryReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): InventoryReportStatus =
@@ -327,28 +298,9 @@ public data class InventoryReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The inventory report is a current absolute snapshot, i.e. it represents the quantities at
-     * hand.
-     */
-    Snapshot(
-      "snapshot",
-      "http://hl7.org/fhir/inventoryreport-counttype",
-      "Snapshot",
-      "The inventory report is a current absolute snapshot, i.e. it represents the quantities at hand.",
-    ),
-    /**
-     * The inventory report is about the difference between a previous count and a current count,
-     * i.e. it represents the items that have been added/subtracted from inventory.
-     */
-    Difference(
-      "difference",
-      "http://hl7.org/fhir/inventoryreport-counttype",
-      "Difference",
-      "The inventory report is about the difference between a previous count and a current count, i.e. it represents the items that have been added/subtracted from inventory.",
-    );
+    Snapshot("snapshot", "http://hl7.org/fhir/inventoryreport-counttype", "Snapshot"),
+    Difference("difference", "http://hl7.org/fhir/inventoryreport-counttype", "Difference");
 
     override fun toString(): String = code
 
@@ -357,8 +309,6 @@ public data class InventoryReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): InventoryCountType =

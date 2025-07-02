@@ -447,29 +447,10 @@ public data class BiologicallyDerivedProduct(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Fahrenheit temperature scale. */
-    Farenheit(
-      "farenheit",
-      "http://hl7.org/fhir/product-storage-scale",
-      "Fahrenheit",
-      "Fahrenheit temperature scale.",
-    ),
-    /** Celsius or centigrade temperature scale. */
-    Celsius(
-      "celsius",
-      "http://hl7.org/fhir/product-storage-scale",
-      "Celsius",
-      "Celsius or centigrade temperature scale.",
-    ),
-    /** Kelvin absolute thermodynamic temperature scale. */
-    Kelvin(
-      "kelvin",
-      "http://hl7.org/fhir/product-storage-scale",
-      "Kelvin",
-      "Kelvin absolute thermodynamic temperature scale.",
-    );
+    Farenheit("farenheit", "http://hl7.org/fhir/product-storage-scale", "Fahrenheit"),
+    Celsius("celsius", "http://hl7.org/fhir/product-storage-scale", "Celsius"),
+    Kelvin("kelvin", "http://hl7.org/fhir/product-storage-scale", "Kelvin");
 
     override fun toString(): kotlin.String = code
 
@@ -478,8 +459,6 @@ public data class BiologicallyDerivedProduct(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BiologicallyDerivedProductStorageScale =
@@ -500,36 +479,12 @@ public data class BiologicallyDerivedProduct(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A collection of tissues joined in a structural unit to serve a common function. */
-    Organ(
-      "organ",
-      "http://hl7.org/fhir/product-category",
-      "Organ",
-      "A collection of tissues joined in a structural unit to serve a common function.",
-    ),
-    /**
-     * An ensemble of similar cells and their extracellular matrix from the same origin that
-     * together carry out a specific function.
-     */
-    Tissue(
-      "tissue",
-      "http://hl7.org/fhir/product-category",
-      "Tissue",
-      "An ensemble of similar cells and their extracellular matrix from the same origin that together carry out a specific function.",
-    ),
-    /** Body fluid. */
-    Fluid("fluid", "http://hl7.org/fhir/product-category", "Fluid", "Body fluid."),
-    /** Collection of cells. */
-    Cells("cells", "http://hl7.org/fhir/product-category", "Cells", "Collection of cells."),
-    /** Biological agent of unspecified type. */
-    BiologicalAgent(
-      "biologicalAgent",
-      "http://hl7.org/fhir/product-category",
-      "BiologicalAgent",
-      "Biological agent of unspecified type.",
-    );
+    Organ("organ", "http://hl7.org/fhir/product-category", "Organ"),
+    Tissue("tissue", "http://hl7.org/fhir/product-category", "Tissue"),
+    Fluid("fluid", "http://hl7.org/fhir/product-category", "Fluid"),
+    Cells("cells", "http://hl7.org/fhir/product-category", "Cells"),
+    BiologicalAgent("biologicalAgent", "http://hl7.org/fhir/product-category", "BiologicalAgent");
 
     override fun toString(): kotlin.String = code
 
@@ -538,8 +493,6 @@ public data class BiologicallyDerivedProduct(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BiologicallyDerivedProductCategory =
@@ -562,22 +515,9 @@ public data class BiologicallyDerivedProduct(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Product is currently available for use. */
-    Available(
-      "available",
-      "http://hl7.org/fhir/product-status",
-      "Available",
-      "Product is currently available for use.",
-    ),
-    /** Product is not currently available for use. */
-    Unavailable(
-      "unavailable",
-      "http://hl7.org/fhir/product-status",
-      "Unavailable",
-      "Product is not currently available for use.",
-    );
+    Available("available", "http://hl7.org/fhir/product-status", "Available"),
+    Unavailable("unavailable", "http://hl7.org/fhir/product-status", "Unavailable");
 
     override fun toString(): kotlin.String = code
 
@@ -586,8 +526,6 @@ public data class BiologicallyDerivedProduct(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BiologicallyDerivedProductStatus =

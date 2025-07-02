@@ -495,56 +495,16 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A single location denoted by a single (x,y) pair. */
-    Point(
-      "point",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "POINT",
-      "A single location denoted by a single (x,y) pair.",
-    ),
-    /**
-     * A series of connected line segments with ordered vertices denoted by (x,y) triplets; the
-     * points need not be coplanar.
-     */
-    Polyline(
-      "polyline",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "POLYLINE",
-      "A series of connected line segments with ordered vertices denoted by (x,y) triplets; the points need not be coplanar.",
-    ),
-    /**
-     * An n-tuple list of (x,y) pair end points between which some form of implementation dependent
-     * curved lines are to be drawn. The rendered line shall pass through all the specified points.
-     */
+    Point("point", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POINT"),
+    Polyline("polyline", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POLYLINE"),
     Interpolated(
       "interpolated",
       "http://hl7.org/fhir/imagingselection-2dgraphictype",
       "INTERPOLATED",
-      "An n-tuple list of (x,y) pair end points between which some form of implementation dependent curved lines are to be drawn. The rendered line shall pass through all the specified points.",
     ),
-    /**
-     * Two points shall be present; the first point is to be interpreted as the center and the
-     * second point as a point on the circumference of a circle, some form of implementation
-     * dependent representation of which is to be drawn.
-     */
-    Circle(
-      "circle",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "CIRCLE",
-      "Two points shall be present; the first point is to be interpreted as the center and the second point as a point on the circumference of a circle, some form of implementation dependent representation of which is to be drawn.",
-    ),
-    /**
-     * An ellipse defined by four (x,y) pairs, the first two pairs specifying the endpoints of the
-     * major axis and the second two pairs specifying the endpoints of the minor axis.
-     */
-    Ellipse(
-      "ellipse",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "ELLIPSE",
-      "An ellipse defined by four (x,y) pairs, the first two pairs specifying the endpoints of the major axis and the second two pairs specifying the endpoints of the minor axis.",
-    );
+    Circle("circle", "http://hl7.org/fhir/imagingselection-2dgraphictype", "CIRCLE"),
+    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-2dgraphictype", "ELLIPSE");
 
     override fun toString(): kotlin.String = code
 
@@ -553,8 +513,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelection2DGraphicType =
@@ -577,66 +535,13 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A single location denoted by a single (x,y,z) triplet. */
-    Point(
-      "point",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "POINT",
-      "A single location denoted by a single (x,y,z) triplet.",
-    ),
-    /** multiple locations each denoted by an (x,y,z) triplet; the points need not be coplanar. */
-    Multipoint(
-      "multipoint",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "MULTIPOINT",
-      "multiple locations each denoted by an (x,y,z) triplet; the points need not be coplanar.",
-    ),
-    /**
-     * a series of connected line segments with ordered vertices denoted by (x,y,z) triplets; the
-     * points need not be coplanar.
-     */
-    Polyline(
-      "polyline",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "POLYLINE",
-      "a series of connected line segments with ordered vertices denoted by (x,y,z) triplets; the points need not be coplanar.",
-    ),
-    /**
-     * a series of connected line segments with ordered vertices denoted by (x,y,z) triplets, where
-     * the first and last vertices shall be the same forming a polygon; the points shall be
-     * coplanar.
-     */
-    Polygon(
-      "polygon",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "POLYGON",
-      "a series of connected line segments with ordered vertices denoted by (x,y,z) triplets, where the first and last vertices shall be the same forming a polygon; the points shall be coplanar.",
-    ),
-    /**
-     * an ellipse defined by four (x,y,z) triplets, the first two triplets specifying the endpoints
-     * of the major axis and the second two triplets specifying the endpoints of the minor axis.
-     */
-    Ellipse(
-      "ellipse",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "ELLIPSE",
-      "an ellipse defined by four (x,y,z) triplets, the first two triplets specifying the endpoints of the major axis and the second two triplets specifying the endpoints of the minor axis.",
-    ),
-    /**
-     * a three-dimensional geometric surface whose plane sections are either ellipses or circles and
-     * contains three intersecting orthogonal axes, "a", "b", and "c"; the ellipsoid is defined by
-     * six (x,y,z) triplets, the first and second triplets specifying the endpoints of axis "a", the
-     * third and fourth triplets specifying the endpoints of axis "b", and the fifth and sixth
-     * triplets specifying the endpoints of axis "c".
-     */
-    Ellipsoid(
-      "ellipsoid",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "ELLIPSOID",
-      "a three-dimensional geometric surface whose plane sections are either ellipses or circles and contains three intersecting orthogonal axes, \"a\", \"b\", and \"c\"; the ellipsoid is defined by six (x,y,z) triplets, the first and second triplets specifying the endpoints of axis \"a\", the third and fourth triplets specifying the endpoints of axis \"b\", and the fifth and sixth triplets specifying the endpoints of axis \"c\".",
-    );
+    Point("point", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POINT"),
+    Multipoint("multipoint", "http://hl7.org/fhir/imagingselection-3dgraphictype", "MULTIPOINT"),
+    Polyline("polyline", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYLINE"),
+    Polygon("polygon", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYGON"),
+    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSE"),
+    Ellipsoid("ellipsoid", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSOID");
 
     override fun toString(): kotlin.String = code
 
@@ -645,8 +550,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelection3DGraphicType =
@@ -670,38 +573,14 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The selected resources are available.. */
-    Available(
-      "available",
-      "http://hl7.org/fhir/imagingselection-status",
-      "Available",
-      "The selected resources are available..",
-    ),
-    /**
-     * The imaging selection has been withdrawn following a release. This electronic record should
-     * never have existed, though it is possible that real-world decisions were based on it. (If
-     * real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Available("available", "http://hl7.org/fhir/imagingselection-status", "Available"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/imagingselection-status",
       "Entered in Error",
-      "The imaging selection has been withdrawn following a release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The system does not know which of the status values currently applies for this request. Note:
-     * This concept is not to be used for "other" - one of the listed statuses is presumed to apply,
-     * it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/imagingselection-status",
-      "Unknown",
-      "The system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/imagingselection-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -710,8 +589,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelectionStatus =

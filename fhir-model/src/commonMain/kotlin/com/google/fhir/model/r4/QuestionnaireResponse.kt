@@ -432,55 +432,16 @@ public data class QuestionnaireResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This QuestionnaireResponse has been partially filled out with answers but changes or
-     * additions are still expected to be made to it.
-     */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "In Progress",
-      "This QuestionnaireResponse has been partially filled out with answers but changes or additions are still expected to be made to it.",
-    ),
-    /**
-     * This QuestionnaireResponse has been filled out with answers and the current content is
-     * regarded as definitive.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "Completed",
-      "This QuestionnaireResponse has been filled out with answers and the current content is regarded as definitive.",
-    ),
-    /**
-     * This QuestionnaireResponse has been filled out with answers, then marked as complete, yet
-     * changes or additions have been made to it afterwards.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "Amended",
-      "This QuestionnaireResponse has been filled out with answers, then marked as complete, yet changes or additions have been made to it afterwards.",
-    ),
-    /** This QuestionnaireResponse was entered in error and voided. */
+    In_Progress("in-progress", "http://hl7.org/fhir/questionnaire-answers-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/questionnaire-answers-status", "Completed"),
+    Amended("amended", "http://hl7.org/fhir/questionnaire-answers-status", "Amended"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/questionnaire-answers-status",
       "Entered in Error",
-      "This QuestionnaireResponse was entered in error and voided.",
     ),
-    /**
-     * This QuestionnaireResponse has been partially filled out with answers but has been abandoned.
-     * It is unknown whether changes or additions are expected to be made to it.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "Stopped",
-      "This QuestionnaireResponse has been partially filled out with answers but has been abandoned. It is unknown whether changes or additions are expected to be made to it.",
-    );
+    Stopped("stopped", "http://hl7.org/fhir/questionnaire-answers-status", "Stopped");
 
     override fun toString(): kotlin.String = code
 
@@ -489,8 +450,6 @@ public data class QuestionnaireResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireResponseStatus =

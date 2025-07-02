@@ -378,71 +378,18 @@ public data class ChargeItem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The charge item has been entered, but the charged service is not yet complete, so it shall
-     * not be billed yet but might be used in the context of pre-authorization.
-     */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/chargeitem-status",
-      "Planned",
-      "The charge item has been entered, but the charged service is not  yet complete, so it shall not be billed yet but might be used in the context of pre-authorization.",
-    ),
-    /** The charge item is ready for billing. */
-    Billable(
-      "billable",
-      "http://hl7.org/fhir/chargeitem-status",
-      "Billable",
-      "The charge item is ready for billing.",
-    ),
-    /**
-     * The charge item has been determined to be not billable (e.g. due to rules associated with the
-     * billing code).
-     */
-    Not_Billable(
-      "not-billable",
-      "http://hl7.org/fhir/chargeitem-status",
-      "Not billable",
-      "The charge item has been determined to be not billable (e.g. due to rules associated with the billing code).",
-    ),
-    /** The processing of the charge was aborted. */
-    Aborted(
-      "aborted",
-      "http://hl7.org/fhir/chargeitem-status",
-      "Aborted",
-      "The processing of the charge was aborted.",
-    ),
-    /**
-     * The charge item has been billed (e.g. a billing engine has generated financial transactions
-     * by applying the associated ruled for the charge item to the context of the Encounter, and
-     * placed them into Claims/Invoices.
-     */
-    Billed(
-      "billed",
-      "http://hl7.org/fhir/chargeitem-status",
-      "Billed",
-      "The charge item has been billed (e.g. a billing engine has generated financial transactions by applying the associated ruled for the charge item to the context of the Encounter, and placed them into Claims/Invoices.",
-    ),
-    /** The charge item has been entered in error and should not be processed for billing. */
+    Planned("planned", "http://hl7.org/fhir/chargeitem-status", "Planned"),
+    Billable("billable", "http://hl7.org/fhir/chargeitem-status", "Billable"),
+    Not_Billable("not-billable", "http://hl7.org/fhir/chargeitem-status", "Not billable"),
+    Aborted("aborted", "http://hl7.org/fhir/chargeitem-status", "Aborted"),
+    Billed("billed", "http://hl7.org/fhir/chargeitem-status", "Billed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/chargeitem-status",
       "Entered in Error",
-      "The charge item has been entered in error and should not be processed for billing.",
     ),
-    /**
-     * The authoring system does not know which of the status values currently applies for this
-     * charge item Note: This concept is not to be used for "other" - one of the listed statuses is
-     * presumed to apply, it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/chargeitem-status",
-      "Unknown",
-      "The authoring system does not know which of the status values currently applies for this charge item  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/chargeitem-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -451,8 +398,6 @@ public data class ChargeItem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ChargeItemStatus =

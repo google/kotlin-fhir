@@ -306,73 +306,26 @@ public data class MedicationStatement(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The medication is still being taken. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Active",
-      "The medication is still being taken.",
-    ),
-    /** The medication is no longer being taken. */
+    Active("active", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Active"),
     Completed(
       "completed",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Completed",
-      "The medication is no longer being taken.",
     ),
-    /**
-     * Some of the actions that are implied by the medication statement may have occurred. For
-     * example, the patient may have taken some of the medication. Clinical decision support systems
-     * should take this status into account.
-     */
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Entered in Error",
-      "Some of the actions that are implied by the medication statement may have occurred.  For example, the patient may have taken some of the medication.  Clinical decision support systems should take this status into account.",
     ),
-    /** The medication may be taken at some time in the future. */
-    Intended(
-      "intended",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Intended",
-      "The medication may be taken at some time in the future.",
-    ),
-    /**
-     * Actions implied by the statement have been permanently halted, before all of them occurred.
-     * This should not be used if the statement was entered in error.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Stopped",
-      "Actions implied by the statement have been permanently halted, before all of them occurred. This should not be used if the statement was entered in error.",
-    ),
-    /**
-     * Actions implied by the statement have been temporarily halted, but are expected to continue
-     * later. May also be called 'suspended'.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "On Hold",
-      "Actions implied by the statement have been temporarily halted, but are expected to continue later. May also be called 'suspended'.",
-    ),
-    /** The state of the medication use is not currently known. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Unknown",
-      "The state of the medication use is not currently known.",
-    ),
-    /** The medication was not consumed by the patient */
+    Intended("intended", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Intended"),
+    Stopped("stopped", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Stopped"),
+    On_Hold("on-hold", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "On Hold"),
+    Unknown("unknown", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Unknown"),
     Not_Taken(
       "not-taken",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Not Taken",
-      "The medication was not consumed by the patient",
     );
 
     override fun toString(): String = code
@@ -382,8 +335,6 @@ public data class MedicationStatement(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationStatementStatus =

@@ -395,74 +395,16 @@ public data class Goal(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A goal is proposed for this patient. */
-    Proposed(
-      "proposed",
-      "http://hl7.org/fhir/goal-status",
-      "Proposed",
-      "A goal is proposed for this patient.",
-    ),
-    /** A goal is planned for this patient. */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/goal-status",
-      "Planned",
-      "A goal is planned for this patient.",
-    ),
-    /** A proposed goal was accepted or acknowledged. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/goal-status",
-      "Accepted",
-      "A proposed goal was accepted or acknowledged.",
-    ),
-    /** The goal is being sought actively. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/goal-status",
-      "Active",
-      "The goal is being sought actively.",
-    ),
-    /**
-     * The goal remains a long term objective but is no longer being actively pursued for a
-     * temporary period of time.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/goal-status",
-      "On Hold",
-      "The goal remains a long term objective but is no longer being actively pursued for a temporary period of time.",
-    ),
-    /** The goal is no longer being sought. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/goal-status",
-      "Completed",
-      "The goal is no longer being sought.",
-    ),
-    /** The goal has been abandoned. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/goal-status",
-      "Cancelled",
-      "The goal has been abandoned.",
-    ),
-    /** The goal was entered in error and voided. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/goal-status",
-      "Entered in Error",
-      "The goal was entered in error and voided.",
-    ),
-    /** A proposed goal was rejected. */
-    Rejected(
-      "rejected",
-      "http://hl7.org/fhir/goal-status",
-      "Rejected",
-      "A proposed goal was rejected.",
-    );
+    Proposed("proposed", "http://hl7.org/fhir/goal-status", "Proposed"),
+    Planned("planned", "http://hl7.org/fhir/goal-status", "Planned"),
+    Accepted("accepted", "http://hl7.org/fhir/goal-status", "Accepted"),
+    Active("active", "http://hl7.org/fhir/goal-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/goal-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/goal-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/goal-status", "Cancelled"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/goal-status", "Entered in Error"),
+    Rejected("rejected", "http://hl7.org/fhir/goal-status", "Rejected");
 
     override fun toString(): kotlin.String = code
 
@@ -471,8 +413,6 @@ public data class Goal(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GoalLifecycleStatus =
