@@ -78,7 +78,12 @@ internal data class GraphDefinitionNodeSurrogate(
           this@GraphDefinitionNodeSurrogate._description,
         )
       type =
-        Code.of(this@GraphDefinitionNodeSurrogate.type, this@GraphDefinitionNodeSurrogate._type)
+        Enumeration.of(
+          this@GraphDefinitionNodeSurrogate.type?.let {
+            com.google.fhir.model.r5.GraphDefinition.FHIRTypes.fromCode(it)
+          },
+          this@GraphDefinitionNodeSurrogate._type,
+        )
       profile =
         Canonical.of(
           this@GraphDefinitionNodeSurrogate.profile,
@@ -97,7 +102,7 @@ internal data class GraphDefinitionNodeSurrogate(
           _nodeId = this@with.nodeId?.toElement()
           description = this@with.description?.value
           _description = this@with.description?.toElement()
-          type = this@with.type?.value
+          type = this@with.type?.value?.getCode()
           _type = this@with.type?.toElement()
           profile = this@with.profile?.value
           _profile = this@with.profile?.toElement()

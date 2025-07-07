@@ -23,7 +23,6 @@ import com.google.fhir.codegen.primitives.FhirDateTimeFileSpecGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.capitalized
-import com.google.fhir.codegen.schema.isEligibleForEnumCreation
 import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.urlPart
 import com.google.fhir.codegen.schema.valueset.ValueSet
@@ -92,7 +91,18 @@ abstract class FhirCodegenTask : DefaultTask() {
       valueSetInputFiles
         .asSequence()
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
-        .filter { it.isEligibleForEnumCreation }
+        .filter {
+          // Refer to the section "Excluded ValueSets from Enum Generation" on the README file for
+          // the reasons for exclusion
+          it.urlPart !in
+            setOf(
+              "http://hl7.org/fhir/ValueSet/mimetypes",
+              "http://hl7.org/fhir/ValueSet/languages",
+              "http://hl7.org/fhir/ValueSet/all-languages",
+              "http://hl7.org/fhir/ValueSet/specimen-combined",
+              "http://hl7.org/fhir/ValueSet/use-context",
+            )
+        }
         .groupBy { it.urlPart }
         .mapValues { it.value.first() }
 

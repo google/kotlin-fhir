@@ -570,7 +570,12 @@ internal data class OperationDefinitionSurrogate(
               this@OperationDefinitionSurrogate._resource
                 ?: List(this@OperationDefinitionSurrogate.resource!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
+            .mapNotNull { (value, element) ->
+              Enumeration.of(
+                value?.let { com.google.fhir.model.r5.OperationDefinition.FHIRTypes.fromCode(it) },
+                element,
+              )
+            }
         }
       system =
         R5Boolean.of(
@@ -656,7 +661,8 @@ internal data class OperationDefinitionSurrogate(
           _comment = this@with.comment?.toElement()
           base = this@with.base?.value
           _base = this@with.base?.toElement()
-          resource = this@with.resource?.map { it?.value }?.takeUnless { it.all { it == null } }
+          resource =
+            this@with.resource?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
           _resource =
             this@with.resource?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
           system = this@with.system?.value

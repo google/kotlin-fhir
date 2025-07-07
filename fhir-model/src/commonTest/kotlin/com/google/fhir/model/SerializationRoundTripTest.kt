@@ -132,6 +132,9 @@ val exclusionListR5 =
 
     // Scientific notation
     "Observation-decimal.json",
+
+    // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
+    "ChargeItemDefinition-ebm.json",
   )
 
 /**

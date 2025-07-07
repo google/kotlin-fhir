@@ -59,7 +59,7 @@ public data class Expression(
    */
   public var name: Code? = null,
   /** The media type of the language for the expression. */
-  public var language: Code? = null,
+  public var language: Enumeration<ExpressionLanguage>? = null,
   /**
    * An expression in the specified language that returns a value.
    *
@@ -74,4 +74,37 @@ public data class Expression(
    * expression.
    */
   public var reference: Uri? = null,
-) : DataType()
+) : DataType() {
+  /** The media type of the expression language. */
+  public enum class ExpressionLanguage(
+    private val code: kotlin.String,
+    private val system: kotlin.String,
+    private val display: kotlin.String?,
+  ) {
+    Text_Cql("text/cql", "urn:ietf:bcp:13", "CQL"),
+    Text_Fhirpath("text/fhirpath", "urn:ietf:bcp:13", "FHIRPath"),
+    Text_X_Fhir_Query("text/x-fhir-query", "urn:ietf:bcp:13", "FHIR Query"),
+    Text_Cql_Identifier("text/cql-identifier", "urn:ietf:bcp:13", "CQL Identifier"),
+    Text_Cql_Expression("text/cql-expression", "urn:ietf:bcp:13", "CQL Expression");
+
+    override fun toString(): kotlin.String = code
+
+    public fun getCode(): kotlin.String = code
+
+    public fun getSystem(): kotlin.String = system
+
+    public fun getDisplay(): kotlin.String? = display
+
+    public companion object {
+      public fun fromCode(code: kotlin.String): ExpressionLanguage =
+        when (code) {
+          "text/cql" -> Text_Cql
+          "text/fhirpath" -> Text_Fhirpath
+          "text/x-fhir-query" -> Text_X_Fhir_Query
+          "text/cql-identifier" -> Text_Cql_Identifier
+          "text/cql-expression" -> Text_Cql_Expression
+          else -> throw IllegalArgumentException("Unknown code $code for enum ExpressionLanguage")
+        }
+    }
+  }
+}
