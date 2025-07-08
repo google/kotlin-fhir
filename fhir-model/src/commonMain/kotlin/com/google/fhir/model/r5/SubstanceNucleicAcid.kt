@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.SubstanceNucleicAcidSubunitLinkageSe
 import com.google.fhir.model.r5.serializers.SubstanceNucleicAcidSubunitSerializer
 import com.google.fhir.model.r5.serializers.SubstanceNucleicAcidSubunitSugarSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class SubstanceNucleicAcid(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class SubstanceNucleicAcid(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class SubstanceNucleicAcid(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The type of the sequence shall be specified based on a controlled vocabulary. */
   public var sequenceType: CodeableConcept? = null,
   /**
@@ -155,7 +155,7 @@ public data class SubstanceNucleicAcid(
    * Subunits are listed in order of decreasing length; sequences of the same length will be ordered
    * by molecular weight; subunits that have identical sequences will be repeated multiple times.
    */
-  public var subunit: List<Subunit>? = null,
+  public var subunit: MutableList<Subunit> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Subunits are listed in order of decreasing length; sequences of the same length will be ordered
@@ -180,7 +180,7 @@ public data class SubstanceNucleicAcid(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -199,7 +199,7 @@ public data class SubstanceNucleicAcid(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Index of linear sequences of nucleic acids in order of decreasing length. Sequences of the
      * same length will be ordered by molecular weight. Subunits that have identical sequences will
@@ -231,9 +231,9 @@ public data class SubstanceNucleicAcid(
      */
     public var threePrime: CodeableConcept? = null,
     /** The linkages between sugar residues will also be captured. */
-    public var linkage: List<Linkage>? = null,
+    public var linkage: MutableList<Linkage> = mutableListOf(),
     /** 5.3.6.8.1 Sugar ID (Mandatory). */
-    public var sugar: List<Sugar>? = null,
+    public var sugar: MutableList<Sugar> = mutableListOf(),
   ) : BackboneElement() {
     /** The linkages between sugar residues will also be captured. */
     @Serializable(with = SubstanceNucleicAcidSubunitLinkageSerializer::class)
@@ -255,7 +255,7 @@ public data class SubstanceNucleicAcid(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -274,7 +274,7 @@ public data class SubstanceNucleicAcid(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The entity that links the sugar residues together should also be captured for nearly all
        * naturally occurring nucleic acid the linkage is a phosphate group. For many synthetic
@@ -313,7 +313,7 @@ public data class SubstanceNucleicAcid(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -332,7 +332,7 @@ public data class SubstanceNucleicAcid(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The Substance ID of the sugar or sugar-like component that make up the nucleotide. */
       public var identifier: Identifier? = null,
       /** The name of the sugar or sugar-like component that make up the nucleotide. */

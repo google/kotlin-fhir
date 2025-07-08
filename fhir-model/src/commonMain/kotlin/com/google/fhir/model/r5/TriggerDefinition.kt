@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.TriggerDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,9 +46,9 @@ public data class TriggerDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The type of triggering event. */
-  public var type: Enumeration<TriggerType>? = null,
+  public var type: Enumeration<TriggerType>,
   /**
    * A formal name for the event. This may be an absolute URI that identifies the event formally
    * (e.g. from a trigger registry), or a simple relative URI that identifies the event in a local
@@ -74,7 +74,7 @@ public data class TriggerDefinition(
    *
    * This element shall be present for any data type trigger.
    */
-  public var `data`: List<DataRequirement?>? = null,
+  public var `data`: MutableList<DataRequirement> = mutableListOf(),
   /**
    * A boolean-valued expression that is evaluated in the context of the container of the trigger
    * definition and returns whether or not the trigger fires.
@@ -115,6 +115,21 @@ public data class TriggerDefinition(
 
     public companion object {
       public fun from(
+        TimingValue: com.google.fhir.model.r5.Timing?,
+        ReferenceValue: com.google.fhir.model.r5.Reference?,
+        dateValue: com.google.fhir.model.r5.Date?,
+        dateTimeValue: com.google.fhir.model.r5.DateTime?,
+      ): TriggerDefinition.Timing {
+        if (TimingValue != null) return Timing(TimingValue)
+        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (dateValue != null) return Date(dateValue)
+        if (dateTimeValue != null) return DateTime(dateTimeValue)
+        throw IllegalArgumentException(
+          "Missing value for com.google.fhir.model.r5.TriggerDefinition.Timing"
+        )
+      }
+
+      public fun fromNullable(
         TimingValue: com.google.fhir.model.r5.Timing?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         dateValue: com.google.fhir.model.r5.Date?,

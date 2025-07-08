@@ -41,40 +41,40 @@ internal data class BinarySurrogate(
   public var _implicitRules: Element? = null,
   public var language: String? = null,
   public var _language: Element? = null,
-  public var contentType: String? = null,
+  public var contentType: String?,
   public var _contentType: Element? = null,
   public var securityContext: Reference? = null,
   public var `data`: String? = null,
   public var _data: Element? = null,
 ) {
   public fun toModel(): Binary =
-    Binary().apply {
-      id = this@BinarySurrogate.id
-      meta = this@BinarySurrogate.meta
+    Binary(
+      id = this@BinarySurrogate.id,
+      meta = this@BinarySurrogate.meta,
       implicitRules =
-        Uri.of(this@BinarySurrogate.implicitRules, this@BinarySurrogate._implicitRules)
-      language = Code.of(this@BinarySurrogate.language, this@BinarySurrogate._language)
-      contentType = Code.of(this@BinarySurrogate.contentType, this@BinarySurrogate._contentType)
-      securityContext = this@BinarySurrogate.securityContext
-      `data` = Base64Binary.of(this@BinarySurrogate.`data`, this@BinarySurrogate._data)
-    }
+        Uri.ofNullable(this@BinarySurrogate.implicitRules, this@BinarySurrogate._implicitRules),
+      language = Code.ofNullable(this@BinarySurrogate.language, this@BinarySurrogate._language),
+      contentType = Code.of(this@BinarySurrogate.contentType!!, this@BinarySurrogate._contentType),
+      securityContext = this@BinarySurrogate.securityContext,
+      `data` = Base64Binary.ofNullable(this@BinarySurrogate.`data`, this@BinarySurrogate._data),
+    )
 
   public companion object {
     public fun fromModel(model: Binary): BinarySurrogate =
       with(model) {
-        BinarySurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          contentType = this@with.contentType?.value
-          _contentType = this@with.contentType?.toElement()
-          securityContext = this@with.securityContext
-          `data` = this@with.`data`?.value
-          _data = this@with.`data`?.toElement()
-        }
+        BinarySurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          contentType = this@with.contentType.value!!,
+          _contentType = this@with.contentType.toElement(),
+          securityContext = this@with.securityContext,
+          `data` = this@with.`data`?.value,
+          _data = this@with.`data`?.toElement(),
+        )
       }
   }
 }

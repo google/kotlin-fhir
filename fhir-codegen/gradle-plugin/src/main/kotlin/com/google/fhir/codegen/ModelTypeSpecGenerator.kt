@@ -24,6 +24,7 @@ import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.codesystem.CodeSystem
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
+import com.google.fhir.codegen.schema.getEnumerationTypeName
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.hasPrimaryConstructor
@@ -41,24 +42,20 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.asTypeName
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /** Generates a [TypeSpec] for a model class. */
 class ModelTypeSpecGenerator(
-  val valueSetMap: Map<String, ValueSet>,
-  val codeSystemMap: Map<String, CodeSystem>,
-  val commonBindingValueSetUrlsMap: MutableMap<String, HashSet<String>>,
+  private val valueSetMap: Map<String, ValueSet>,
+  private val codeSystemMap: Map<String, CodeSystem>,
+  private val commonBindingValueSetUrlsMap: MutableMap<String, HashSet<String>>,
 ) {
 
-  @OptIn(ExperimentalSerializationApi::class)
   fun generate(
     modelClassName: ClassName,
     structureDefinition: StructureDefinition,
@@ -179,7 +176,15 @@ class ModelTypeSpecGenerator(
                 structureDefinition.baseDefinition ==
                   "http://hl7.org/fhir/StructureDefinition/PrimitiveType",
             )
-            addOfFunction(modelClassName, propertySpecs.single { it.name == "value" }.type)
+            addType(
+              TypeSpec.companionObjectBuilder()
+                .addOfFunction(modelClassName, propertySpecs.single { it.name == "value" }.type)
+                .addOfNullableFunction(
+                  modelClassName,
+                  propertySpecs.single { it.name == "value" }.type,
+                )
+                .build()
+            )
           }
 
           enumClassesMap.forEach {
@@ -296,7 +301,7 @@ private fun TypeSpec.Builder.buildProperties(
   isBaseClass: Boolean = false,
   valueSetMap: Map<String, ValueSet>,
 ): TypeSpec.Builder {
-  val properties =
+  val propertyParameterPairs =
     elements.map { element ->
       val name = element.getElementName()
       val type =
@@ -306,49 +311,49 @@ private fun TypeSpec.Builder.buildProperties(
           element.getTypeName(modelClassName)
         }
 
-      PropertySpec.builder(name, type)
-        .mutable()
-        .apply {
-          if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
-            initializer(name)
-          }
-
-          if (element.path != element.base?.path) {
-            // Override properties in base classes
-            addModifiers(KModifier.OVERRIDE)
-          }
-
-          if (structureDefinition?.abstract == true) {
-            // Make properties open in base classes
-            // Keep element's properties concrete since it is used in serialization
-            if (modelClassName.simpleName == "Element") {
-              addModifiers(KModifier.OPEN)
-            } else {
-              addModifiers(KModifier.ABSTRACT)
+      val property =
+        PropertySpec.builder(name, type)
+          .mutable()
+          .apply {
+            if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
+              initializer(name)
             }
-          } else if (isBaseClass) {
-            addModifiers(KModifier.OPEN)
-          }
 
-          addKdoc("%L", element.definition.sanitizeKDoc())
-          element.comment?.let { addKdoc("\n\n%L", it.sanitizeKDoc()) }
-        }
-        .build()
+            if (element.path != element.base?.path) {
+              // Override properties in base classes
+              addModifiers(KModifier.OVERRIDE)
+            }
+
+            if (structureDefinition?.abstract == true) {
+              // Make properties open in base classes
+              // Keep element's properties concrete since it is used in serialization
+              if (modelClassName.simpleName == "Element") {
+                addModifiers(KModifier.OPEN)
+              } else {
+                addModifiers(KModifier.ABSTRACT)
+              }
+            } else if (isBaseClass) {
+              addModifiers(KModifier.OPEN)
+            }
+
+            addKdoc("%L", element.definition.sanitizeKDoc())
+            element.comment?.let { addKdoc("\n\n%L", it.sanitizeKDoc()) }
+          }
+          .build()
+
+      val parameter =
+        ParameterSpec.builder(name = name, type = type).setDefaultValue(element).build()
+
+      return@map Pair(property, parameter)
     }
 
-  addProperties(properties)
+  addProperties(propertyParameterPairs.map { it.first })
 
   // Create primary constructor
   if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
     primaryConstructor(
       FunSpec.constructorBuilder()
-        .apply {
-          properties.forEach { prop ->
-            addParameter(
-              ParameterSpec.builder(name = prop.name, type = prop.type).defaultValue("null").build()
-            )
-          }
-        }
+        .apply { propertyParameterPairs.forEach { addParameter(it.second) } }
         .build()
     )
   }
@@ -373,38 +378,6 @@ private fun TypeSpec.Builder.buildProperties(
       }
   }
   return this
-}
-
-/**
- * Substitutes the primitive type of code with an `Enumeration` type if the values for the code are
- * constrained to a set of values.
- */
-private fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName {
-  // Ignore all base.path starting with "Resource."
-  val elementBasePath = base?.path
-  // Use bindingName for the enum class, subclasses re-use enums from the parent
-  val bindingNameString = this.bidingName?.normalizeEnumName()
-
-  val enumClassName =
-    if (path != elementBasePath) "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"
-    else bindingNameString
-
-  if (!enumClassName.isNullOrBlank()) {
-    val enumClassPackageName =
-      if (this.isCommonBinding || enumClassName.contains(".")) modelClassName.packageName else ""
-
-    val enumClass = ClassName(enumClassPackageName, enumClassName)
-    val enumerationClassName =
-      ClassName(modelClassName.packageName, "Enumeration").parameterizedBy(enumClass)
-    return if (this.max == "*") {
-        List::class.asClassName().parameterizedBy(enumerationClassName)
-      } else {
-        enumerationClassName
-      }
-      .copy(nullable = true)
-  } else {
-    return getTypeName(modelClassName)
-  }
 }
 
 /** Adds a nested sealed interface for each choice type in the [StructureDefinition]. */
@@ -445,6 +418,38 @@ private fun TypeSpec.Builder.addSealedInterfaces(
               TypeSpec.companionObjectBuilder()
                 .addFunction(
                   FunSpec.builder("from")
+                    .apply {
+                      for (type in element.type) {
+                        addParameter(
+                          ParameterSpec(
+                            "${type.code}Value",
+                            type.getTypeName(enclosingModelClassName).copy(nullable = true),
+                          )
+                        )
+                        addCode(
+                          CodeBlock.builder()
+                            .add(
+                              "if(%N != null) return %T(%N) \n",
+                              "${type.code}Value",
+                              sealedInterfaceClassName.nestedClass(type.code.capitalized()),
+                              "${type.code}Value",
+                            )
+                            .build()
+                        )
+                      }
+                      addCode(
+                        CodeBlock.builder()
+                          .add(
+                            "throw IllegalArgumentException(\"Missing value for ${sealedInterfaceClassName}\")"
+                          )
+                          .build()
+                      )
+                    }
+                    .returns(sealedInterfaceClassName)
+                    .build()
+                )
+                .addFunction(
+                  FunSpec.builder("fromNullable")
                     .apply {
                       for (type in element.type) {
                         addParameter(
@@ -524,7 +529,7 @@ private fun TypeSpec.Builder.addToElementFunction(
         }
       }
       .addStatement(
-        "if (id != null || extension != null) { return %T(id, extension) }",
+        "if (id != null || extension.isNotEmpty()) { return %T(id, extension) }",
         ClassName(packageName, "Element"),
       )
       .addStatement("return null")
@@ -533,7 +538,7 @@ private fun TypeSpec.Builder.addToElementFunction(
 }
 
 /**
- * Adds a companion object with an `of` function to return a FHIR primitive date type object from a
+ * Adds an `of` function in the companion object to return a FHIR primitive date type object from a
  * Kotlin primitive value and a FHIR `Element`.
  *
  * The generated function is useful for merging the two fields in the surrogate class representing
@@ -556,32 +561,100 @@ private fun TypeSpec.Builder.addToElementFunction(
  * `Date`:
  * ```
  * public companion object {
- *   public fun of(`value`: LocalDate?, element: Element?): Date? =
- *     if (value == null && element == null) {
- *       null
- *     } else {
- *       Date(element?.id, element?.extension, value)
- *     }
+ *   public fun of(`value`: LocalDate, element: Element): Date =
+ *     Date(element.id, element.extension, value)
  * }
  * ```
  */
-private fun TypeSpec.Builder.addOfFunction(className: ClassName, primitiveTypeName: TypeName) {
-  addType(
-    TypeSpec.companionObjectBuilder()
-      .addFunction(
-        FunSpec.builder("of")
-          .addParameter("value", primitiveTypeName.copy(nullable = true))
-          .addParameter(
-            "element",
-            ClassName(className.packageName, "Element").copy(nullable = true),
-          )
-          .addCode(
-            "return if (value == null && element == null) { null } else { %T(element?.id, element?.extension, value) }",
-            className,
-          )
-          .returns(className.copy(nullable = true))
-          .build()
-      )
+private fun TypeSpec.Builder.addOfFunction(
+  className: ClassName,
+  primitiveTypeName: TypeName,
+): TypeSpec.Builder {
+  addFunction(
+    FunSpec.builder("of")
+      .addParameter("value", primitiveTypeName)
+      .addParameter("element", ClassName(className.packageName, "Element").copy(nullable = true))
+      .addCode("return %T(element?.id, element?.extension ?: mutableListOf(), value)", className)
+      .returns(className)
       .build()
   )
+  return this
+}
+
+/**
+ * Adds an `ofNullable` function in the companion object to return a FHIR primitive date type object
+ * from a Kotlin primitive value and a FHIR `Element`.
+ *
+ * The generated function is useful for merging the two fields in the surrogate class representing
+ * the two JSON properties into a single field in the data class.
+ *
+ * For example, the `birthDate` and `_birthDate` JSON properties in a patient object are
+ * deserialized into two fields in the `PatientSurrogate` class:
+ * - `birthDate`: `LocalDate` storing the primitive value
+ * - `_birthDate`: `Element` storing the id and extensions of the FHIR data type
+ *
+ * N.B. The `LocalDate` type here is `kotlinx.datetime.LocalDate`.
+ *
+ * They are then merged into a single field in the `Patient` class:
+ * - `birthDate`: `Date`
+ *
+ * N.B. The `Date` type here is a FHIR primitive type that contains both the primitive Kotlin value
+ * and the `Element` with id and extensions.
+ *
+ * For this example, this function will add the following code to the FHIR primitive data type
+ * `Date`:
+ * ```
+ * public companion object {
+ *   public fun ofNullable(`value`: FhirDate?, element: Element?): Date? =
+ *     if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+ *       Date(element?.id, element?.extension ?: mutableListOf(), value)
+ *     } else {
+ *       null
+ *     }
+ * }
+ * ```
+ *
+ * The generated function is also useful for merging choice of types as separate fields in the
+ * surrogate class into a single object in the data model class. For example:
+ * ```
+ * Extension.Value?.from(
+ *   Base64Binary.ofNullable(
+ *     this@ExtensionSurrogate.valueBase64Binary,
+ *     this@ExtensionSurrogate._valueBase64Binary,
+ *   ),
+ *   R4bBoolean.ofNullable(
+ *     this@ExtensionSurrogate.valueBoolean,
+ *     this@ExtensionSurrogate._valueBoolean,
+ *   ),
+ *   Canonical.ofNullable(
+ *     this@ExtensionSurrogate.valueCanonical,
+ *     this@ExtensionSurrogate._valueCanonical,
+ *   ),
+ *   ...
+ * )
+ * ```
+ *
+ * The nullability here is critical since we must generate `null` for types that do not have a value
+ * in the surrogate class. As a result, only one of the data types will be non-null, and the
+ * serialization code will be able to correctly serialize the in-memory value to the correct data
+ * type.
+ */
+private fun TypeSpec.Builder.addOfNullableFunction(
+  className: ClassName,
+  primitiveTypeName: TypeName,
+): TypeSpec.Builder {
+  // Xhtml overrides the cardinality of the value field
+  val isXhtml = className.simpleName == "Xhtml"
+  addFunction(
+    FunSpec.builder("ofNullable")
+      .addParameter("value", primitiveTypeName.copy(nullable = true))
+      .addParameter("element", ClassName(className.packageName, "Element").copy(nullable = true))
+      .addCode(
+        "return if (value != null || element?.id != null || element?.extension?.isEmpty() == false) { %T(element?.id, element?.extension ?: mutableListOf(), value${ if(isXhtml) { "!!" } else {""} }) } else { null }",
+        className,
+      )
+      .returns(className.copy(nullable = true))
+      .build()
+  )
+  return this
 }

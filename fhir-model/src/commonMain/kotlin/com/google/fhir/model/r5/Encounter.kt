@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.EncounterReasonSerializer
 import com.google.fhir.model.r5.serializers.EncounterSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class Encounter(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class Encounter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,9 +134,9 @@ public data class Encounter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier(s) by which this encounter is known. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The current state of the encounter (not the state of the patient within the encounter - that is
    * subjectState).
@@ -144,12 +144,12 @@ public data class Encounter(
    * Note that internal business rules will determine the appropriate transitions that may occur
    * between statuses (and also classes).
    */
-  public var status: Enumeration<EncounterStatus>? = null,
+  public var status: Enumeration<EncounterStatus>,
   /**
    * Concepts representing classification of patient encounter such as ambulatory (outpatient),
    * inpatient, emergency, home health or others due to local variations.
    */
-  public var `class`: List<CodeableConcept?>? = null,
+  public var `class`: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates the urgency of the encounter. */
   public var priority: CodeableConcept? = null,
   /**
@@ -158,9 +158,9 @@ public data class Encounter(
    *
    * Since there are many ways to further classify encounters, this element is 0..*.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /** Broad categorization of the service that is to be provided (e.g. cardiology). */
-  public var serviceType: List<CodeableReference?>? = null,
+  public var serviceType: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The patient or group related to this encounter. In some use-cases the patient MAY not be
    * present, such as a case meeting about a patient between several practitioners or a careteam.
@@ -193,15 +193,15 @@ public data class Encounter(
    * episode of care and grouped on entry rather than editing the episode of care to append another
    * encounter to it (the episode of care could span years).
    */
-  public var episodeOfCare: List<Reference?>? = null,
+  public var episodeOfCare: MutableList<Reference> = mutableListOf(),
   /** The request this encounter satisfies (e.g. incoming referral or procedure request). */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * The group(s) of individuals, organizations that are allocated to participate in this encounter.
    * The participants backbone will record the actuals of when these individuals participated during
    * the encounter.
    */
-  public var careTeam: List<Reference?>? = null,
+  public var careTeam: MutableList<Reference> = mutableListOf(),
   /**
    * Another Encounter of which this encounter is a part of (administratively or in time).
    *
@@ -225,9 +225,9 @@ public data class Encounter(
    * subject may be absent from the participation.actor for cases where the patient (or group) is
    * not present, such as during a case review conference.
    */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** The appointment that scheduled this encounter. */
-  public var appointment: List<Reference?>? = null,
+  public var appointment: MutableList<Reference> = mutableListOf(),
   /**
    * Connection details of a virtual service (e.g. conference call).
    *
@@ -241,7 +241,7 @@ public data class Encounter(
    * If each participant would have a different meeting link, an extension using the
    * VirtualServiceContactDetail can be applied to the Encounter.participant BackboneElement.
    */
-  public var virtualService: List<VirtualServiceDetail?>? = null,
+  public var virtualService: MutableList<VirtualServiceDetail> = mutableListOf(),
   /**
    * The actual start and end time of the encounter.
    *
@@ -278,33 +278,33 @@ public data class Encounter(
    * Examples: pregnancy would use HealthcareService or a coding as the reason patient home
    * monitoring could use Condition as the reason
    */
-  public var reason: List<Reason>? = null,
+  public var reason: MutableList<Reason> = mutableListOf(),
   /**
    * The list of diagnosis relevant to this encounter.
    *
    * Also note that for the purpose of billing, the diagnoses are recorded in the account where they
    * can be ranked appropriately for how the invoicing/claiming documentation needs to be prepared.
    */
-  public var diagnosis: List<Diagnosis>? = null,
+  public var diagnosis: MutableList<Diagnosis> = mutableListOf(),
   /**
    * The set of accounts that may be used for billing for this Encounter.
    *
    * The billing system may choose to allocate billable items associated with the Encounter to
    * different referenced Accounts based on internal business rules.
    */
-  public var account: List<Reference?>? = null,
+  public var account: MutableList<Reference> = mutableListOf(),
   /**
    * Diet preferences reported by the patient.
    *
    * For example, a patient may request both a dairy-free and nut-free diet preference (not mutually
    * exclusive).
    */
-  public var dietPreference: List<CodeableConcept?>? = null,
+  public var dietPreference: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Any special requests that have been made for this encounter, such as the provision of specific
    * equipment or other things.
    */
-  public var specialArrangement: List<CodeableConcept?>? = null,
+  public var specialArrangement: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Special courtesies that may be provided to the patient during the encounter (VIP, board member,
    * professional courtesy).
@@ -320,7 +320,7 @@ public data class Encounter(
    * It is not specifically intended to be used for securing the specific record - that is the
    * purpose of the security meta tag, and where appropriate, both fields could be used.
    */
-  public var specialCourtesy: List<CodeableConcept?>? = null,
+  public var specialCourtesy: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Details about the stay during which a healthcare service is provided.
    *
@@ -340,7 +340,7 @@ public data class Encounter(
    * Virtual encounters can be recorded in the Encounter by specifying a location reference to a
    * location of type "kind" such as "client's home" and an encounter.class = "virtual".
    */
-  public var location: List<Location>? = null,
+  public var location: MutableList<Location> = mutableListOf(),
 ) : DomainResource() {
   /** The list of people responsible for providing the service. */
   @Serializable(with = EncounterParticipantSerializer::class)
@@ -362,7 +362,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -381,7 +381,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Role of participant in encounter.
      *
@@ -391,7 +391,7 @@ public data class Encounter(
      * Consulting Dr). This is different to the practitioner roles which are functional roles,
      * derived from terms of employment, education, licensing, etc.
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The period of time that the specified participant participated in the encounter. These can
      * overlap or be sub-sets of the overall encounter's period.
@@ -442,7 +442,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -461,17 +461,17 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * What the reason value should be used as e.g. Chief Complaint, Health Concern, Health
      * Maintenance (including screening).
      */
-    public var use: List<CodeableConcept?>? = null,
+    public var use: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Reason the encounter takes place, expressed as a code or a reference to another resource. For
      * admissions, this can be used for a coded admission diagnosis.
      */
-    public var `value`: List<CodeableReference?>? = null,
+    public var `value`: MutableList<CodeableReference> = mutableListOf(),
   ) : BackboneElement()
 
   /** The list of diagnosis relevant to this encounter. */
@@ -494,7 +494,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -513,14 +513,14 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The coded diagnosis or a reference to a Condition (with other resources referenced in the
      * evidence.detail), the use property will indicate the purpose of this specific diagnosis.
      */
-    public var condition: List<CodeableReference?>? = null,
+    public var condition: MutableList<CodeableReference> = mutableListOf(),
     /** Role that this diagnosis has within the encounter (e.g. admission, billing, discharge …). */
-    public var use: List<CodeableConcept?>? = null,
+    public var use: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -548,7 +548,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -567,7 +567,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Pre-admission identifier. */
     public var preAdmissionIdentifier: Identifier? = null,
     /** The location/organization from which the patient came before admission. */
@@ -605,7 +605,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -624,9 +624,9 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The location where the encounter takes place. */
-    public var location: Reference? = null,
+    public var location: Reference,
     /**
      * The status of the participants' presence at the specified location during the period
      * specified. If the participant is no longer at the location, then the period will have an end

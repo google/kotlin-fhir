@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.SlotSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class Slot(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -106,7 +106,7 @@ public data class Slot(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,37 +125,37 @@ public data class Slot(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** External Ids for this item. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A broad categorization of the service that is to be performed during this appointment. */
-  public var serviceCategory: List<CodeableConcept?>? = null,
+  public var serviceCategory: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The type of appointments that can be booked into this slot (ideally this would be an
    * identifiable service - which is at a location, rather than the location itself). If provided
    * then this overrides the value provided on the Schedule resource.
    */
-  public var serviceType: List<CodeableReference?>? = null,
+  public var serviceType: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The specialty of a practitioner that would be required to perform the service requested in this
    * appointment.
    */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The style of appointment or patient that may be booked in the slot (not service type).
    *
    * A slot may be allow multiple appointment types, but when booked, would only be used for one of
    * the given appointment types.
    */
-  public var appointmentType: List<CodeableConcept?>? = null,
+  public var appointmentType: MutableList<CodeableConcept> = mutableListOf(),
   /** The schedule resource that this slot defines an interval of status information. */
-  public var schedule: Reference? = null,
+  public var schedule: Reference,
   /** busy | free | busy-unavailable | busy-tentative | entered-in-error. */
-  public var status: Enumeration<SlotStatus>? = null,
+  public var status: Enumeration<SlotStatus>,
   /** Date/Time that the slot is to begin. */
-  public var start: Instant? = null,
+  public var start: Instant,
   /** Date/Time that the slot is to conclude. */
-  public var end: Instant? = null,
+  public var end: Instant,
   /**
    * This slot has already been overbooked, appointments are unlikely to be accepted for this time.
    */

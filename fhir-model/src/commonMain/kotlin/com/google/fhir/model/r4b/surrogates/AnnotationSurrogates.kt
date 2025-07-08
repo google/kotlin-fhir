@@ -31,56 +31,56 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AnnotationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var authorReference: Reference? = null,
   public var authorString: KotlinString? = null,
   public var _authorString: Element? = null,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
-  public var text: KotlinString? = null,
+  public var text: KotlinString?,
   public var _text: Element? = null,
 ) {
   public fun toModel(): Annotation =
-    Annotation().apply {
-      id = this@AnnotationSurrogate.id
-      extension = this@AnnotationSurrogate.extension
+    Annotation(
+      id = this@AnnotationSurrogate.id,
+      extension = this@AnnotationSurrogate.extension ?: mutableListOf(),
       author =
-        Annotation.Author?.from(
+        Annotation.Author?.fromNullable(
           this@AnnotationSurrogate.authorReference,
-          R4bString.of(
+          R4bString.ofNullable(
             this@AnnotationSurrogate.authorString,
             this@AnnotationSurrogate._authorString,
           ),
-        )
+        ),
       time =
-        DateTime.of(
+        DateTime.ofNullable(
           FhirDateTime.fromString(this@AnnotationSurrogate.time),
           this@AnnotationSurrogate._time,
-        )
-      text = Markdown.of(this@AnnotationSurrogate.text, this@AnnotationSurrogate._text)
-    }
+        ),
+      text = Markdown.of(this@AnnotationSurrogate.text!!, this@AnnotationSurrogate._text),
+    )
 
   public companion object {
     public fun fromModel(model: Annotation): AnnotationSurrogate =
       with(model) {
-        AnnotationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          authorReference = this@with.author?.asReference()?.value
-          authorString = this@with.author?.asString()?.value?.value
-          _authorString = this@with.author?.asString()?.value?.toElement()
-          time = this@with.time?.value?.toString()
-          _time = this@with.time?.toElement()
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-        }
+        AnnotationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          authorReference = this@with.author?.asReference()?.value,
+          authorString = this@with.author?.asString()?.value?.value,
+          _authorString = this@with.author?.asString()?.value?.toElement(),
+          time = this@with.time?.value?.toString(),
+          _time = this@with.time?.toElement(),
+          text = this@with.text.value!!,
+          _text = this@with.text.toElement(),
+        )
       }
   }
 }

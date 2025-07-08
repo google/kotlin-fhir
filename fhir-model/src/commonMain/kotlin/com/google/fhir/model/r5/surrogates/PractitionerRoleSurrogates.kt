@@ -39,7 +39,7 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -52,87 +52,93 @@ internal data class PractitionerRoleSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var period: Period? = null,
   public var practitioner: Reference? = null,
   public var organization: Reference? = null,
-  public var code: List<CodeableConcept?>? = null,
-  public var specialty: List<CodeableConcept?>? = null,
-  public var location: List<Reference?>? = null,
-  public var healthcareService: List<Reference?>? = null,
-  public var contact: List<ExtendedContactDetail?>? = null,
-  public var characteristic: List<CodeableConcept?>? = null,
-  public var communication: List<CodeableConcept?>? = null,
-  public var availability: List<Availability?>? = null,
-  public var endpoint: List<Reference?>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var specialty: MutableList<CodeableConcept>? = null,
+  public var location: MutableList<Reference>? = null,
+  public var healthcareService: MutableList<Reference>? = null,
+  public var contact: MutableList<ExtendedContactDetail>? = null,
+  public var characteristic: MutableList<CodeableConcept>? = null,
+  public var communication: MutableList<CodeableConcept>? = null,
+  public var availability: MutableList<Availability>? = null,
+  public var endpoint: MutableList<Reference>? = null,
 ) {
   public fun toModel(): PractitionerRole =
-    PractitionerRole().apply {
-      id = this@PractitionerRoleSurrogate.id
-      meta = this@PractitionerRoleSurrogate.meta
+    PractitionerRole(
+      id = this@PractitionerRoleSurrogate.id,
+      meta = this@PractitionerRoleSurrogate.meta,
       implicitRules =
-        Uri.of(
+        Uri.ofNullable(
           this@PractitionerRoleSurrogate.implicitRules,
           this@PractitionerRoleSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@PractitionerRoleSurrogate.language, this@PractitionerRoleSurrogate._language)
-      text = this@PractitionerRoleSurrogate.text
-      contained = this@PractitionerRoleSurrogate.contained
-      extension = this@PractitionerRoleSurrogate.extension
-      modifierExtension = this@PractitionerRoleSurrogate.modifierExtension
-      identifier = this@PractitionerRoleSurrogate.identifier
+        Code.ofNullable(
+          this@PractitionerRoleSurrogate.language,
+          this@PractitionerRoleSurrogate._language,
+        ),
+      text = this@PractitionerRoleSurrogate.text,
+      contained = this@PractitionerRoleSurrogate.contained ?: mutableListOf(),
+      extension = this@PractitionerRoleSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@PractitionerRoleSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@PractitionerRoleSurrogate.identifier ?: mutableListOf(),
       active =
-        R5Boolean.of(this@PractitionerRoleSurrogate.active, this@PractitionerRoleSurrogate._active)
-      period = this@PractitionerRoleSurrogate.period
-      practitioner = this@PractitionerRoleSurrogate.practitioner
-      organization = this@PractitionerRoleSurrogate.organization
-      code = this@PractitionerRoleSurrogate.code
-      specialty = this@PractitionerRoleSurrogate.specialty
-      location = this@PractitionerRoleSurrogate.location
-      healthcareService = this@PractitionerRoleSurrogate.healthcareService
-      contact = this@PractitionerRoleSurrogate.contact
-      characteristic = this@PractitionerRoleSurrogate.characteristic
-      communication = this@PractitionerRoleSurrogate.communication
-      availability = this@PractitionerRoleSurrogate.availability
-      endpoint = this@PractitionerRoleSurrogate.endpoint
-    }
+        R5Boolean.ofNullable(
+          this@PractitionerRoleSurrogate.active,
+          this@PractitionerRoleSurrogate._active,
+        ),
+      period = this@PractitionerRoleSurrogate.period,
+      practitioner = this@PractitionerRoleSurrogate.practitioner,
+      organization = this@PractitionerRoleSurrogate.organization,
+      code = this@PractitionerRoleSurrogate.code ?: mutableListOf(),
+      specialty = this@PractitionerRoleSurrogate.specialty ?: mutableListOf(),
+      location = this@PractitionerRoleSurrogate.location ?: mutableListOf(),
+      healthcareService = this@PractitionerRoleSurrogate.healthcareService ?: mutableListOf(),
+      contact = this@PractitionerRoleSurrogate.contact ?: mutableListOf(),
+      characteristic = this@PractitionerRoleSurrogate.characteristic ?: mutableListOf(),
+      communication = this@PractitionerRoleSurrogate.communication ?: mutableListOf(),
+      availability = this@PractitionerRoleSurrogate.availability ?: mutableListOf(),
+      endpoint = this@PractitionerRoleSurrogate.endpoint ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: PractitionerRole): PractitionerRoleSurrogate =
       with(model) {
-        PractitionerRoleSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          period = this@with.period
-          practitioner = this@with.practitioner
-          organization = this@with.organization
-          code = this@with.code
-          specialty = this@with.specialty
-          location = this@with.location
-          healthcareService = this@with.healthcareService
-          contact = this@with.contact
-          characteristic = this@with.characteristic
-          communication = this@with.communication
-          availability = this@with.availability
-          endpoint = this@with.endpoint
-        }
+        PractitionerRoleSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.isEmpty() },
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          identifier = this@with.identifier.takeUnless { it.isEmpty() },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          period = this@with.period,
+          practitioner = this@with.practitioner,
+          organization = this@with.organization,
+          code = this@with.code.takeUnless { it.isEmpty() },
+          specialty = this@with.specialty.takeUnless { it.isEmpty() },
+          location = this@with.location.takeUnless { it.isEmpty() },
+          healthcareService = this@with.healthcareService.takeUnless { it.isEmpty() },
+          contact = this@with.contact.takeUnless { it.isEmpty() },
+          characteristic = this@with.characteristic.takeUnless { it.isEmpty() },
+          communication = this@with.communication.takeUnless { it.isEmpty() },
+          availability = this@with.availability.takeUnless { it.isEmpty() },
+          endpoint = this@with.endpoint.takeUnless { it.isEmpty() },
+        )
       }
   }
 }

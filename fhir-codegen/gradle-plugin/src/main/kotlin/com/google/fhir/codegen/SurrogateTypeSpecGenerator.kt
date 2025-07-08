@@ -22,7 +22,7 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
+import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
@@ -47,8 +47,7 @@ import kotlinx.serialization.Serializable
  * See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
-class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
-
+class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
   fun generate(modelClassName: ClassName, elements: List<Element>): TypeSpec {
     val typeSpec =
       TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
@@ -74,29 +73,29 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
           //  of fields in the surrogate class.
           val filteredElements = elements.filter { it.id != "ElementDefinition.pattern[x]" }
 
-          val properties =
+          val propertyParameterPairs =
             filteredElements.flatMap { element ->
-              element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
-                PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
+              element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
+                val property =
+                  PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
+                val parameter =
+                  ParameterSpec.builder(it.first, it.second)
+                    .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+                    .build()
+                Pair(property, parameter)
               }
             }
-          addProperties(properties)
+
+          addProperties(propertyParameterPairs.map { it.first })
+
           primaryConstructor(
             FunSpec.constructorBuilder()
-              .apply {
-                properties.forEach {
-                  addParameter(
-                    ParameterSpec.builder(name = it.name, type = it.type)
-                      .defaultValue("null")
-                      .build()
-                  )
-                }
-              }
+              .apply { propertyParameterPairs.forEach { addParameter(it.second) } }
               .build()
           )
 
-          addConverterToDataClass(modelClassName, filteredElements, valueSetMap)
-          addConverterFromDataClass(modelClassName, filteredElements, valueSetMap)
+          addConverterToModelClass(modelClassName, filteredElements, valueSetMap)
+          addConverterFromModelClass(modelClassName, filteredElements, valueSetMap)
         }
         .build()
     return typeSpec
@@ -104,10 +103,10 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
 }
 
 /**
- * Adds a [FunSpec] to convert the surrogate class to the data class (e.g.
+ * Adds a [FunSpec] to convert the surrogate class to the model class (e.g.
  * `PatientSurrogate.toPatient`).
  */
-private fun TypeSpec.Builder.addConverterToDataClass(
+private fun TypeSpec.Builder.addConverterToModelClass(
   modelClassName: ClassName,
   elements: List<Element>,
   valueSetMap: Map<String, ValueSet>,
@@ -117,22 +116,22 @@ private fun TypeSpec.Builder.addConverterToDataClass(
       .returns(modelClassName)
       .addCode(
         CodeBlock.builder()
-          .add("return %T().apply{\n", modelClassName)
+          .add("return %T(\n", modelClassName)
           .apply {
             indent()
             elements.forEach { element ->
               add("%N = ", element.getElementName())
-              addCodeToBuildProperty(
+              addParamToModelClassConstructor(
                 modelClassName,
                 modelClassName.toSurrogateClassName(),
                 element,
                 valueSetMap,
               )
-              add("\n")
+              add(",\n")
             }
             unindent()
           }
-          .add("}\n")
+          .add(")\n")
           .build()
       )
       .build()
@@ -140,10 +139,10 @@ private fun TypeSpec.Builder.addConverterToDataClass(
 }
 
 /**
- * Adds a companion object with a [FunSpec] to convert the data class to the surrogate class (e.g.
+ * Adds a companion object with a [FunSpec] to convert the model class to the surrogate class (e.g.
  * `PatientSurrogate.fromPatient`).
  */
-private fun TypeSpec.Builder.addConverterFromDataClass(
+private fun TypeSpec.Builder.addConverterFromModelClass(
   modelClassName: ClassName,
   elements: List<Element>,
   valueSetMap: Map<String, ValueSet>,
@@ -158,15 +157,15 @@ private fun TypeSpec.Builder.addConverterFromDataClass(
             CodeBlock.builder()
               .add("return with(model){\n")
               .indent()
-              .add("%T().apply{\n", modelClassName.toSurrogateClassName())
+              .add("%T(\n", modelClassName.toSurrogateClassName())
               .apply {
                 indent()
                 elements.forEach { element ->
-                  addCodeToBuildPropertiesInSurrogate(modelClassName, element, valueSetMap)
+                  addParamToSurrogateClassConstructor(modelClassName, element, valueSetMap)
                 }
                 unindent()
               }
-              .add("}\n")
+              .add(")\n")
               .unindent()
               .add("}\n")
               .build()
@@ -207,7 +206,7 @@ private fun TypeSpec.Builder.addConverterFromDataClass(
  * - **Complex type:** Complex types can be directly assigned since the data types in the data class
  *   and the surrogate class are the same. The generated code simply includes the property name.
  */
-private fun CodeBlock.Builder.addCodeToBuildProperty(
+private fun CodeBlock.Builder.addParamToModelClassConstructor(
   modelClassName: ClassName,
   surrogateClassName: ClassName,
   element: Element,
@@ -216,9 +215,10 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
   val propertyName = element.getElementName()
   if (element.type != null && element.type.size > 1) {
     // A single property (sealed interface) constructed from a choice of types
-    add("%T.from(", element.getTypeName(modelClassName))
+    val fromFunctionName = "from${if (element.min == 1) { "" } else { "Nullable" }}"
+    add("%T.${fromFunctionName}(", element.getTypeName(modelClassName))
     for (type in element.type) {
-      addCodeToBuildChoiceTypeProperty(
+      addChoiceTypeParamToModelClassConstructor(
         modelClassName,
         surrogateClassName,
         element,
@@ -233,11 +233,10 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
       // A list of primitive type
       val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-
       if (element.typeIsEnumeratedCode(valueSetMap)) {
         val enumClass = element.getEnumClass(modelClassName)
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value?.let { %L.fromCode(it) }, element) } }",
+          "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %L.fromCode(it!!) }, element) }.toMutableList() }",
           surrogateClassName,
           propertyName,
           surrogateClassName,
@@ -255,7 +254,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
         )
       } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value, element) } }",
+          "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value, element) }.toMutableList() }",
           surrogateClassName,
           propertyName,
           surrogateClassName,
@@ -273,7 +272,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
       } else {
         // Call FhirDateTime.fromString
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(%T.fromString(value), element) } }",
+          "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(%T.fromString(value), element) }.toMutableList() }",
           surrogateClassName,
           propertyName,
           surrogateClassName,
@@ -292,11 +291,11 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
       }
     } else {
       // A list of complex type
-      add("this@%T.%N", surrogateClassName, propertyName)
+      add("this@%T.%N ?: mutableListOf()", surrogateClassName, propertyName)
     }
   } else {
     // A single property - not a list or a choice of types
-    addCodeToBuildProperty(
+    addParamToModelClassConstructor(
       modelClassName,
       surrogateClassName,
       propertyName,
@@ -323,7 +322,10 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
  * For example, the following code will be generated for the `birthDate` field in the `Patient`
  * class:
  * ```
- * Date.of(birthDate, _birthDate)
+ * Date.of(
+ *   FhirDate.fromString(this@PatientSurrogate.birthDate),
+ *   this@PatientSurrogate._birthDate,
+ * )
  * ```
  *
  * If the underlying types in the data class and the surrogate class are different, an additional
@@ -332,7 +334,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
  * DateTime.of(FhirDateTime.fromString(start), _start)
  * ```
  */
-private fun CodeBlock.Builder.addCodeToBuildProperty(
+private fun CodeBlock.Builder.addParamToModelClassConstructor(
   modelClassName: ClassName,
   surrogateClassName: ClassName,
   propertyName: String,
@@ -340,24 +342,42 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
   element: Element,
   valueSetMap: Map<String, ValueSet>,
 ) {
-
   if (element.typeIsEnumeratedCode(valueSetMap)) {
     val enumClass = element.getEnumClass(modelClassName)
-    add(
-      "%T.of(this@%T.%N?.let { %L.fromCode(it) }, this@%T.%N)",
-      ClassName(modelClassName.packageName, "Enumeration"),
-      surrogateClassName,
-      propertyName,
-      enumClass,
-      surrogateClassName,
-      "_$propertyName",
-    )
+    if (element.min == 0) {
+      add(
+        "this@%T.%N?.let { %T.of(%L.fromCode(it!!), this@%T.%N) }",
+        surrogateClassName,
+        propertyName,
+        ClassName(modelClassName.packageName, "Enumeration"),
+        enumClass,
+        surrogateClassName,
+        "_$propertyName",
+      )
+    } else {
+      add(
+        "%T.of(%L.fromCode(this@%T.%N!!), this@%T.%N)",
+        ClassName(modelClassName.packageName, "Enumeration"),
+        enumClass,
+        surrogateClassName,
+        propertyName,
+        surrogateClassName,
+        "_$propertyName",
+      )
+    }
   } else if (type != null && FhirPathType.containsFhirTypeCode(type.code)) {
     val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
     val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
+    val ofFunctionName = "of${if (element.min == 1) { "" } else { "Nullable" }}"
+    val notNull =
+      if (element.min == 1) {
+        "!!"
+      } else {
+        ""
+      }
     if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
       add(
-        "%T.of(this@%T.%N, this@%T.%N)",
+        "%T.${ofFunctionName}(this@%T.%N${notNull}, this@%T.%N)",
         ClassName(modelClassName.packageName, type.code.capitalized()),
         surrogateClassName,
         propertyName,
@@ -367,7 +387,7 @@ private fun CodeBlock.Builder.addCodeToBuildProperty(
     } else {
       // Call FhirDateTime.fromString
       add(
-        "%T.of(%T.fromString(this@%T.%N), this@%T.%N)",
+        "%T.${ofFunctionName}(%T.fromString(this@%T.%N${notNull}), this@%T.%N)",
         ClassName(modelClassName.packageName, type.code.capitalized()),
         fhirPathType.getTypeInDataClass(modelClassName.packageName),
         surrogateClassName,
@@ -419,7 +439,7 @@ private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
  * Boolean.of(patientDeceased, _patientDeceased)
  * ```
  */
-private fun CodeBlock.Builder.addCodeToBuildChoiceTypeProperty(
+private fun CodeBlock.Builder.addChoiceTypeParamToModelClassConstructor(
   modelClassName: ClassName,
   surrogateClassName: ClassName,
   element: Element,
@@ -429,7 +449,7 @@ private fun CodeBlock.Builder.addCodeToBuildChoiceTypeProperty(
   // The property name in the surrogate class is the element name concatenated with the type code
   // e.g. `Patient.deceasedBoolean`
   val propertyName = "${element.getElementName()}${type.code.capitalized()}"
-  addCodeToBuildProperty(
+  addParamToModelClassConstructor(
     modelClassName,
     surrogateClassName,
     propertyName,
@@ -473,7 +493,7 @@ private fun CodeBlock.Builder.addCodeToBuildChoiceTypeProperty(
  * - **Complex type:** Complex types can be directly assigned since the data types in the data class
  *   and the surrogate class are the same. The generated code simply includes the property name.
  */
-private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
+private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
   modelClassName: ClassName,
   element: Element,
   valueSetMap: Map<String, ValueSet>,
@@ -482,11 +502,7 @@ private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
   if (element.type != null && element.type.size > 1) {
     // Build properties in the surrogate class for each type in a choice of types
     for (type in element.type) {
-      addCodeToBuildChoiceTypePropertiesInSurrogate(
-        modelClassName.packageName,
-        propertyName,
-        type.code,
-      )
+      addParamToSurrogateClassConstructor(modelClassName.packageName, propertyName, type.code)
     }
   } else if (element.max == "*" || propertyName == "extension") {
     if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
@@ -495,32 +511,32 @@ private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
       if (element.typeIsEnumeratedCode(valueSetMap)) {
         add(
-          "%N = this@with.%N?.map{ it?.value?.getCode() }?.takeUnless { it.all { it == null } }\n",
+          "%N = this@with.%N.map{ it.value.getCode() }.toMutableList().takeUnless { it.isEmpty() },\n",
           propertyName,
           propertyName,
         )
       } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add(
-          "%N = this@with.%N?.map{ it?.value }?.takeUnless { it.all { it == null } }\n",
+          "%N = this@with.%N.map{ it.value!! }.toMutableList().takeUnless { it.isEmpty() },\n",
           propertyName,
           propertyName,
         )
       } else {
         // Call FhirDateTime.toString
         add(
-          "%N = this@with.%N?.map{ it?.value?.toString() }?.takeUnless { it.all { it == null } }\n",
+          "%N = this@with.%N.map{ it.value.toString() }.toMutableList().takeUnless { it.isEmpty() },\n",
           propertyName,
           propertyName,
         )
       }
       add(
-        "%N = this@with.%N?.map{ it?.toElement() }?.takeUnless { it.all { it == null } }\n",
+        "%N = this@with.%N.map{ it.toElement() }.takeUnless { it.all { it == null } }?.map{ it ?: Element() }?.toMutableList(),\n",
         "_$propertyName",
         propertyName,
       )
     } else {
       // A list of complex type is simply assigned
-      add("%N = this@with.%N\n", propertyName, propertyName)
+      add("%N = this@with.%N.takeUnless { it.isEmpty() },\n", propertyName, propertyName)
     }
   } else {
     if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
@@ -528,19 +544,36 @@ private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
       val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
 
+      val isRequired = element.min == 1 && element.max == "1"
       if (element.typeIsEnumeratedCode(valueSetMap)) {
         // Call getCode() if the type of the property is an enum type
-        add("%N = this@with.%N?.value?.getCode()\n", propertyName, propertyName)
+        add(
+          "%N = this@with.%N${ if(isRequired) {".value."} else {"?.value?."} }getCode(),\n",
+          propertyName,
+          propertyName,
+        )
       } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-        add("%N = this@with.%N?.value\n", propertyName, propertyName)
+        add(
+          "%N = this@with.%N${ if(isRequired) {""} else {"?"} }.value${ if(isRequired) {"!!"} else {""} },\n",
+          propertyName,
+          propertyName,
+        )
       } else {
         // Call FhirDateTime.toString
-        add("%N = this@with.%N?.value?.toString()\n", propertyName, propertyName)
+        add(
+          "%N = this@with.%N${ if(isRequired) {""} else {"?"} }.value?.toString()${ if(isRequired) {"!!"} else {""} },\n",
+          propertyName,
+          propertyName,
+        )
       }
-      add("%N = this@with.%N?.toElement()\n", "_$propertyName", propertyName)
+      add(
+        "%N = this@with.%N${ if(isRequired) { "" } else { "?" } }.toElement(),\n",
+        "_$propertyName",
+        propertyName,
+      )
     } else {
       // A single complex type is simply assigned
-      add("%N = this@with.%N\n", propertyName, propertyName)
+      add("%N = this@with.%N,\n", propertyName, propertyName)
     }
   }
 }
@@ -564,7 +597,7 @@ private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
  * authorReference = author?.asReference()?.value,
  * ```
  */
-private fun CodeBlock.Builder.addCodeToBuildChoiceTypePropertiesInSurrogate(
+private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
   packageName: String,
   propertyName: String,
   typeCode: String,
@@ -574,28 +607,28 @@ private fun CodeBlock.Builder.addCodeToBuildChoiceTypePropertiesInSurrogate(
     val typeInDataClass = fhirPathType.getTypeInDataClass(packageName)
     if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
       add(
-        "%N = this@with.%N?.%N()?.value?.value\n",
+        "%N = this@with.%N?.%N()?.value?.value,\n",
         "$propertyName${typeCode.capitalized()}",
         propertyName,
         "as${typeCode.capitalized()}",
       )
     } else {
       add(
-        "%N = this@with.%N?.%N()?.value?.value?.toString()\n",
+        "%N = this@with.%N?.%N()?.value?.value?.toString(),\n",
         "$propertyName${typeCode.capitalized()}",
         propertyName,
         "as${typeCode.capitalized()}",
       )
     }
     add(
-      "%N = this@with.%N?.%N()?.value?.toElement()\n",
+      "%N = this@with.%N?.%N()?.value?.toElement(),\n",
       "_$propertyName${typeCode.capitalized()}",
       propertyName,
       "as${typeCode.capitalized()}",
     )
   } else {
     add(
-      "%N = this@with.%N?.%N()?.value\n",
+      "%N = this@with.%N?.%N()?.value,\n",
       "$propertyName${typeCode.capitalized()}",
       propertyName,
       "as${typeCode.capitalized()}",

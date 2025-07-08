@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.SubstanceProteinSerializer
 import com.google.fhir.model.r5.serializers.SubstanceProteinSubunitSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class SubstanceProtein(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class SubstanceProtein(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class SubstanceProtein(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The SubstanceProtein descriptive elements will only be used when a complete or partial amino
    * acid sequence is available or derivable from a nucleic acid sequence.
@@ -152,7 +152,7 @@ public data class SubstanceProtein(
    * subunit followed by the abbreviation of the amino acids involved. The disulfide linkage
    * positions shall actually contain the amino acid Cysteine at the respective positions.
    */
-  public var disulfideLinkage: List<String?>? = null,
+  public var disulfideLinkage: MutableList<String> = mutableListOf(),
   /**
    * This subclause refers to the description of each subunit constituting the SubstanceProtein. A
    * subunit is a linear sequence of amino acids linked through peptide bonds. The Subunit
@@ -162,7 +162,7 @@ public data class SubstanceProtein(
    * decreasing molecular weight; subunits that have identical sequences will be repeated multiple
    * times.
    */
-  public var subunit: List<Subunit>? = null,
+  public var subunit: MutableList<Subunit> = mutableListOf(),
 ) : DomainResource() {
   /**
    * This subclause refers to the description of each subunit constituting the SubstanceProtein. A
@@ -192,7 +192,7 @@ public data class SubstanceProtein(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -211,7 +211,7 @@ public data class SubstanceProtein(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Index of primary sequences of amino acids linked through peptide bonds in order of decreasing
      * length. Sequences of the same length will be ordered by molecular weight. Subunits that have

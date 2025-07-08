@@ -32,17 +32,17 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ParameterDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var use: KotlinString? = null,
+  public var use: KotlinString?,
   public var _use: Element? = null,
   public var min: Int? = null,
   public var _min: Element? = null,
@@ -50,68 +50,75 @@ internal data class ParameterDefinitionSurrogate(
   public var _max: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var type: KotlinString? = null,
+  public var type: KotlinString?,
   public var _type: Element? = null,
   public var profile: KotlinString? = null,
   public var _profile: Element? = null,
 ) {
   public fun toModel(): ParameterDefinition =
-    ParameterDefinition().apply {
-      id = this@ParameterDefinitionSurrogate.id
-      extension = this@ParameterDefinitionSurrogate.extension
+    ParameterDefinition(
+      id = this@ParameterDefinitionSurrogate.id,
+      extension = this@ParameterDefinitionSurrogate.extension ?: mutableListOf(),
       name =
-        Code.of(this@ParameterDefinitionSurrogate.name, this@ParameterDefinitionSurrogate._name)
+        Code.ofNullable(
+          this@ParameterDefinitionSurrogate.name,
+          this@ParameterDefinitionSurrogate._name,
+        ),
       use =
         Enumeration.of(
-          this@ParameterDefinitionSurrogate.use?.let {
-            com.google.fhir.model.r5.ParameterDefinition.ParameterUse.fromCode(it)
-          },
+          com.google.fhir.model.r5.ParameterDefinition.ParameterUse.fromCode(
+            this@ParameterDefinitionSurrogate.use!!
+          ),
           this@ParameterDefinitionSurrogate._use,
-        )
+        ),
       min =
-        Integer.of(this@ParameterDefinitionSurrogate.min, this@ParameterDefinitionSurrogate._min)
+        Integer.ofNullable(
+          this@ParameterDefinitionSurrogate.min,
+          this@ParameterDefinitionSurrogate._min,
+        ),
       max =
-        R5String.of(this@ParameterDefinitionSurrogate.max, this@ParameterDefinitionSurrogate._max)
+        R5String.ofNullable(
+          this@ParameterDefinitionSurrogate.max,
+          this@ParameterDefinitionSurrogate._max,
+        ),
       documentation =
-        R5String.of(
+        R5String.ofNullable(
           this@ParameterDefinitionSurrogate.documentation,
           this@ParameterDefinitionSurrogate._documentation,
-        )
+        ),
       type =
         Enumeration.of(
-          this@ParameterDefinitionSurrogate.type?.let {
-            com.google.fhir.model.r5.FHIRTypes.fromCode(it)
-          },
+          com.google.fhir.model.r5.FHIRTypes.fromCode(this@ParameterDefinitionSurrogate.type!!),
           this@ParameterDefinitionSurrogate._type,
-        )
+        ),
       profile =
-        Canonical.of(
+        Canonical.ofNullable(
           this@ParameterDefinitionSurrogate.profile,
           this@ParameterDefinitionSurrogate._profile,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: ParameterDefinition): ParameterDefinitionSurrogate =
       with(model) {
-        ParameterDefinitionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          use = this@with.use?.value?.getCode()
-          _use = this@with.use?.toElement()
-          min = this@with.min?.value
-          _min = this@with.min?.toElement()
-          max = this@with.max?.value
-          _max = this@with.max?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          profile = this@with.profile?.value
-          _profile = this@with.profile?.toElement()
-        }
+        ParameterDefinitionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          use = this@with.use.value.getCode(),
+          _use = this@with.use.toElement(),
+          min = this@with.min?.value,
+          _min = this@with.min?.toElement(),
+          max = this@with.max?.value,
+          _max = this@with.max?.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          type = this@with.type.value.getCode(),
+          _type = this@with.type.toElement(),
+          profile = this@with.profile?.value,
+          _profile = this@with.profile?.toElement(),
+        )
       }
   }
 }

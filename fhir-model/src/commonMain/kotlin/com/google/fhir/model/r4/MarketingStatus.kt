@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.MarketingStatusSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class MarketingStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -67,12 +67,12 @@ public data class MarketingStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The country in which the marketing authorisation has been granted shall be specified It should
    * be specified using the ISO 3166 ‑ 1 alpha-2 code elements.
    */
-  public var country: CodeableConcept? = null,
+  public var country: CodeableConcept,
   /**
    * Where a Medicines Regulatory Agency has granted a marketing authorisation for which specific
    * provisions within a jurisdiction apply, the jurisdiction can be specified using an appropriate
@@ -84,7 +84,7 @@ public data class MarketingStatus(
    * This attribute provides information on the status of the marketing of the medicinal product See
    * ISO/TS 20443 for more information and examples.
    */
-  public var status: CodeableConcept? = null,
+  public var status: CodeableConcept,
   /**
    * The date when the Medicinal Product is placed on the market by the Marketing Authorisation
    * Holder (or where applicable, the manufacturer/distributor) in a country and/or jurisdiction
@@ -92,7 +92,7 @@ public data class MarketingStatus(
    * the ISO 8601 date format NOTE “Placed on the market” refers to the release of the Medicinal
    * Product into the distribution chain.
    */
-  public var dateRange: Period? = null,
+  public var dateRange: Period,
   /**
    * The date when the Medicinal Product is placed on the market by the Marketing Authorisation
    * Holder (or where applicable, the manufacturer/distributor) in a country and/or jurisdiction

@@ -29,38 +29,38 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MoneySurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var currency: String? = null,
   public var _currency: Element? = null,
 ) {
   public fun toModel(): Money =
-    Money().apply {
-      id = this@MoneySurrogate.id
-      extension = this@MoneySurrogate.extension
-      `value` = Decimal.of(this@MoneySurrogate.`value`, this@MoneySurrogate._value)
-      currency = Code.of(this@MoneySurrogate.currency, this@MoneySurrogate._currency)
-    }
+    Money(
+      id = this@MoneySurrogate.id,
+      extension = this@MoneySurrogate.extension ?: mutableListOf(),
+      `value` = Decimal.ofNullable(this@MoneySurrogate.`value`, this@MoneySurrogate._value),
+      currency = Code.ofNullable(this@MoneySurrogate.currency, this@MoneySurrogate._currency),
+    )
 
   public companion object {
     public fun fromModel(model: Money): MoneySurrogate =
       with(model) {
-        MoneySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          currency = this@with.currency?.value
-          _currency = this@with.currency?.toElement()
-        }
+        MoneySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          currency = this@with.currency?.value,
+          _currency = this@with.currency?.toElement(),
+        )
       }
   }
 }

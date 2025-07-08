@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.AvailabilityAvailableTimeSerializer
 import com.google.fhir.model.r5.serializers.AvailabilityNotAvailableTimeSerializer
 import com.google.fhir.model.r5.serializers.AvailabilitySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Availability Type: Availability data for an {item}. */
@@ -45,11 +45,11 @@ public data class Availability(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Times the {item} is available. */
-  public var availableTime: List<AvailableTime>? = null,
+  public var availableTime: MutableList<AvailableTime> = mutableListOf(),
   /** Not available during this time due to provided reason. */
-  public var notAvailableTime: List<NotAvailableTime>? = null,
+  public var notAvailableTime: MutableList<NotAvailableTime> = mutableListOf(),
 ) : DataType() {
   /** Times the {item} is available. */
   @Serializable(with = AvailabilityAvailableTimeSerializer::class)
@@ -71,9 +71,9 @@ public data class Availability(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** mon | tue | wed | thu | fri | sat | sun. */
-    public var daysOfWeek: List<Enumeration<DaysOfWeek>>? = null,
+    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
     /** Always available? i.e. 24 hour service. */
     public var allDay: Boolean? = null,
     /**
@@ -110,7 +110,7 @@ public data class Availability(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * Reason presented to the user explaining why time not available.
      *

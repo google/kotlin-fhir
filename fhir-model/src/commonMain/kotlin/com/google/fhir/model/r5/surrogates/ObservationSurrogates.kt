@@ -54,7 +54,7 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -62,47 +62,47 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ObservationTriggeredBySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var observation: Reference? = null,
-  public var type: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var observation: Reference,
+  public var type: KotlinString?,
   public var _type: Element? = null,
   public var reason: KotlinString? = null,
   public var _reason: Element? = null,
 ) {
   public fun toModel(): Observation.TriggeredBy =
-    Observation.TriggeredBy().apply {
-      id = this@ObservationTriggeredBySurrogate.id
-      extension = this@ObservationTriggeredBySurrogate.extension
-      modifierExtension = this@ObservationTriggeredBySurrogate.modifierExtension
-      observation = this@ObservationTriggeredBySurrogate.observation
+    Observation.TriggeredBy(
+      id = this@ObservationTriggeredBySurrogate.id,
+      extension = this@ObservationTriggeredBySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ObservationTriggeredBySurrogate.modifierExtension ?: mutableListOf(),
+      observation = this@ObservationTriggeredBySurrogate.observation,
       type =
         Enumeration.of(
-          this@ObservationTriggeredBySurrogate.type?.let {
-            com.google.fhir.model.r5.Observation.TriggeredByType.fromCode(it)
-          },
+          com.google.fhir.model.r5.Observation.TriggeredByType.fromCode(
+            this@ObservationTriggeredBySurrogate.type!!
+          ),
           this@ObservationTriggeredBySurrogate._type,
-        )
+        ),
       reason =
-        R5String.of(
+        R5String.ofNullable(
           this@ObservationTriggeredBySurrogate.reason,
           this@ObservationTriggeredBySurrogate._reason,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Observation.TriggeredBy): ObservationTriggeredBySurrogate =
       with(model) {
-        ObservationTriggeredBySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          observation = this@with.observation
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          reason = this@with.reason?.value
-          _reason = this@with.reason?.toElement()
-        }
+        ObservationTriggeredBySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          observation = this@with.observation,
+          type = this@with.type.value.getCode(),
+          _type = this@with.type.toElement(),
+          reason = this@with.reason?.value,
+          _reason = this@with.reason?.toElement(),
+        )
       }
   }
 }
@@ -110,51 +110,52 @@ internal data class ObservationTriggeredBySurrogate(
 @Serializable
 internal data class ObservationReferenceRangeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var low: Quantity? = null,
   public var high: Quantity? = null,
   public var normalValue: CodeableConcept? = null,
   public var type: CodeableConcept? = null,
-  public var appliesTo: List<CodeableConcept?>? = null,
+  public var appliesTo: MutableList<CodeableConcept>? = null,
   public var age: Range? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
 ) {
   public fun toModel(): Observation.ReferenceRange =
-    Observation.ReferenceRange().apply {
-      id = this@ObservationReferenceRangeSurrogate.id
-      extension = this@ObservationReferenceRangeSurrogate.extension
-      modifierExtension = this@ObservationReferenceRangeSurrogate.modifierExtension
-      low = this@ObservationReferenceRangeSurrogate.low
-      high = this@ObservationReferenceRangeSurrogate.high
-      normalValue = this@ObservationReferenceRangeSurrogate.normalValue
-      type = this@ObservationReferenceRangeSurrogate.type
-      appliesTo = this@ObservationReferenceRangeSurrogate.appliesTo
-      age = this@ObservationReferenceRangeSurrogate.age
+    Observation.ReferenceRange(
+      id = this@ObservationReferenceRangeSurrogate.id,
+      extension = this@ObservationReferenceRangeSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ObservationReferenceRangeSurrogate.modifierExtension ?: mutableListOf(),
+      low = this@ObservationReferenceRangeSurrogate.low,
+      high = this@ObservationReferenceRangeSurrogate.high,
+      normalValue = this@ObservationReferenceRangeSurrogate.normalValue,
+      type = this@ObservationReferenceRangeSurrogate.type,
+      appliesTo = this@ObservationReferenceRangeSurrogate.appliesTo ?: mutableListOf(),
+      age = this@ObservationReferenceRangeSurrogate.age,
       text =
-        Markdown.of(
+        Markdown.ofNullable(
           this@ObservationReferenceRangeSurrogate.text,
           this@ObservationReferenceRangeSurrogate._text,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Observation.ReferenceRange): ObservationReferenceRangeSurrogate =
       with(model) {
-        ObservationReferenceRangeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          low = this@with.low
-          high = this@with.high
-          normalValue = this@with.normalValue
-          type = this@with.type
-          appliesTo = this@with.appliesTo
-          age = this@with.age
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-        }
+        ObservationReferenceRangeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          low = this@with.low,
+          high = this@with.high,
+          normalValue = this@with.normalValue,
+          type = this@with.type,
+          appliesTo = this@with.appliesTo.takeUnless { it.isEmpty() },
+          age = this@with.age,
+          text = this@with.text?.value,
+          _text = this@with.text?.toElement(),
+        )
       }
   }
 }
@@ -162,9 +163,9 @@ internal data class ObservationReferenceRangeSurrogate(
 @Serializable
 internal data class ObservationComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
   public var valueQuantity: Quantity? = null,
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueString: KotlinString? = null,
@@ -184,81 +185,81 @@ internal data class ObservationComponentSurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
   public var dataAbsentReason: CodeableConcept? = null,
-  public var interpretation: List<CodeableConcept?>? = null,
-  public var referenceRange: List<Observation.ReferenceRange?>? = null,
+  public var interpretation: MutableList<CodeableConcept>? = null,
+  public var referenceRange: MutableList<Observation.ReferenceRange>? = null,
 ) {
   public fun toModel(): Observation.Component =
-    Observation.Component().apply {
-      id = this@ObservationComponentSurrogate.id
-      extension = this@ObservationComponentSurrogate.extension
-      modifierExtension = this@ObservationComponentSurrogate.modifierExtension
-      code = this@ObservationComponentSurrogate.code
+    Observation.Component(
+      id = this@ObservationComponentSurrogate.id,
+      extension = this@ObservationComponentSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ObservationComponentSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@ObservationComponentSurrogate.code,
       `value` =
-        Observation.Component.Value?.from(
+        Observation.Component.Value?.fromNullable(
           this@ObservationComponentSurrogate.valueQuantity,
           this@ObservationComponentSurrogate.valueCodeableConcept,
-          R5String.of(
+          R5String.ofNullable(
             this@ObservationComponentSurrogate.valueString,
             this@ObservationComponentSurrogate._valueString,
           ),
-          R5Boolean.of(
+          R5Boolean.ofNullable(
             this@ObservationComponentSurrogate.valueBoolean,
             this@ObservationComponentSurrogate._valueBoolean,
           ),
-          Integer.of(
+          Integer.ofNullable(
             this@ObservationComponentSurrogate.valueInteger,
             this@ObservationComponentSurrogate._valueInteger,
           ),
           this@ObservationComponentSurrogate.valueRange,
           this@ObservationComponentSurrogate.valueRatio,
           this@ObservationComponentSurrogate.valueSampledData,
-          Time.of(
+          Time.ofNullable(
             this@ObservationComponentSurrogate.valueTime,
             this@ObservationComponentSurrogate._valueTime,
           ),
-          DateTime.of(
+          DateTime.ofNullable(
             FhirDateTime.fromString(this@ObservationComponentSurrogate.valueDateTime),
             this@ObservationComponentSurrogate._valueDateTime,
           ),
           this@ObservationComponentSurrogate.valuePeriod,
           this@ObservationComponentSurrogate.valueAttachment,
           this@ObservationComponentSurrogate.valueReference,
-        )
-      dataAbsentReason = this@ObservationComponentSurrogate.dataAbsentReason
-      interpretation = this@ObservationComponentSurrogate.interpretation
-      referenceRange = this@ObservationComponentSurrogate.referenceRange
-    }
+        ),
+      dataAbsentReason = this@ObservationComponentSurrogate.dataAbsentReason,
+      interpretation = this@ObservationComponentSurrogate.interpretation ?: mutableListOf(),
+      referenceRange = this@ObservationComponentSurrogate.referenceRange ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Observation.Component): ObservationComponentSurrogate =
       with(model) {
-        ObservationComponentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          dataAbsentReason = this@with.dataAbsentReason
-          interpretation = this@with.interpretation
-          referenceRange = this@with.referenceRange
-        }
+        ObservationComponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          code = this@with.code,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          dataAbsentReason = this@with.dataAbsentReason,
+          interpretation = this@with.interpretation.takeUnless { it.isEmpty() },
+          referenceRange = this@with.referenceRange.takeUnless { it.isEmpty() },
+        )
       }
   }
 }
@@ -272,22 +273,22 @@ internal data class ObservationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesReference: Reference? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var triggeredBy: List<Observation.TriggeredBy>? = null,
-  public var partOf: List<Reference?>? = null,
-  public var status: KotlinString? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var triggeredBy: MutableList<Observation.TriggeredBy>? = null,
+  public var partOf: MutableList<Reference>? = null,
+  public var status: KotlinString?,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var code: CodeableConcept? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var code: CodeableConcept,
   public var subject: Reference? = null,
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
   public var effectiveDateTime: KotlinString? = null,
   public var _effectiveDateTime: Element? = null,
@@ -297,7 +298,7 @@ internal data class ObservationSurrogate(
   public var _effectiveInstant: Element? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
-  public var performer: List<Reference?>? = null,
+  public var performer: MutableList<Reference>? = null,
   public var valueQuantity: Quantity? = null,
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueString: KotlinString? = null,
@@ -317,182 +318,189 @@ internal data class ObservationSurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
   public var dataAbsentReason: CodeableConcept? = null,
-  public var interpretation: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var interpretation: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
   public var bodySite: CodeableConcept? = null,
   public var bodyStructure: Reference? = null,
   public var method: CodeableConcept? = null,
   public var specimen: Reference? = null,
   public var device: Reference? = null,
-  public var referenceRange: List<Observation.ReferenceRange>? = null,
-  public var hasMember: List<Reference?>? = null,
-  public var derivedFrom: List<Reference?>? = null,
-  public var component: List<Observation.Component>? = null,
+  public var referenceRange: MutableList<Observation.ReferenceRange>? = null,
+  public var hasMember: MutableList<Reference>? = null,
+  public var derivedFrom: MutableList<Reference>? = null,
+  public var component: MutableList<Observation.Component>? = null,
 ) {
   public fun toModel(): Observation =
-    Observation().apply {
-      id = this@ObservationSurrogate.id
-      meta = this@ObservationSurrogate.meta
+    Observation(
+      id = this@ObservationSurrogate.id,
+      meta = this@ObservationSurrogate.meta,
       implicitRules =
-        Uri.of(this@ObservationSurrogate.implicitRules, this@ObservationSurrogate._implicitRules)
-      language = Code.of(this@ObservationSurrogate.language, this@ObservationSurrogate._language)
-      text = this@ObservationSurrogate.text
-      contained = this@ObservationSurrogate.contained
-      extension = this@ObservationSurrogate.extension
-      modifierExtension = this@ObservationSurrogate.modifierExtension
-      identifier = this@ObservationSurrogate.identifier
+        Uri.ofNullable(
+          this@ObservationSurrogate.implicitRules,
+          this@ObservationSurrogate._implicitRules,
+        ),
+      language =
+        Code.ofNullable(this@ObservationSurrogate.language, this@ObservationSurrogate._language),
+      text = this@ObservationSurrogate.text,
+      contained = this@ObservationSurrogate.contained ?: mutableListOf(),
+      extension = this@ObservationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ObservationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ObservationSurrogate.identifier ?: mutableListOf(),
       instantiates =
-        Observation.Instantiates?.from(
-          Canonical.of(
+        Observation.Instantiates?.fromNullable(
+          Canonical.ofNullable(
             this@ObservationSurrogate.instantiatesCanonical,
             this@ObservationSurrogate._instantiatesCanonical,
           ),
           this@ObservationSurrogate.instantiatesReference,
-        )
-      basedOn = this@ObservationSurrogate.basedOn
-      triggeredBy = this@ObservationSurrogate.triggeredBy
-      partOf = this@ObservationSurrogate.partOf
+        ),
+      basedOn = this@ObservationSurrogate.basedOn ?: mutableListOf(),
+      triggeredBy = this@ObservationSurrogate.triggeredBy ?: mutableListOf(),
+      partOf = this@ObservationSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ObservationSurrogate.status?.let {
-            com.google.fhir.model.r5.Observation.ObservationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.Observation.ObservationStatus.fromCode(
+            this@ObservationSurrogate.status!!
+          ),
           this@ObservationSurrogate._status,
-        )
-      category = this@ObservationSurrogate.category
-      code = this@ObservationSurrogate.code
-      subject = this@ObservationSurrogate.subject
-      focus = this@ObservationSurrogate.focus
-      encounter = this@ObservationSurrogate.encounter
+        ),
+      category = this@ObservationSurrogate.category ?: mutableListOf(),
+      code = this@ObservationSurrogate.code,
+      subject = this@ObservationSurrogate.subject,
+      focus = this@ObservationSurrogate.focus ?: mutableListOf(),
+      encounter = this@ObservationSurrogate.encounter,
       effective =
-        Observation.Effective?.from(
-          DateTime.of(
+        Observation.Effective?.fromNullable(
+          DateTime.ofNullable(
             FhirDateTime.fromString(this@ObservationSurrogate.effectiveDateTime),
             this@ObservationSurrogate._effectiveDateTime,
           ),
           this@ObservationSurrogate.effectivePeriod,
           this@ObservationSurrogate.effectiveTiming,
-          Instant.of(
+          Instant.ofNullable(
             FhirDateTime.fromString(this@ObservationSurrogate.effectiveInstant),
             this@ObservationSurrogate._effectiveInstant,
           ),
-        )
+        ),
       issued =
-        Instant.of(
+        Instant.ofNullable(
           FhirDateTime.fromString(this@ObservationSurrogate.issued),
           this@ObservationSurrogate._issued,
-        )
-      performer = this@ObservationSurrogate.performer
+        ),
+      performer = this@ObservationSurrogate.performer ?: mutableListOf(),
       `value` =
-        Observation.Value?.from(
+        Observation.Value?.fromNullable(
           this@ObservationSurrogate.valueQuantity,
           this@ObservationSurrogate.valueCodeableConcept,
-          R5String.of(
+          R5String.ofNullable(
             this@ObservationSurrogate.valueString,
             this@ObservationSurrogate._valueString,
           ),
-          R5Boolean.of(
+          R5Boolean.ofNullable(
             this@ObservationSurrogate.valueBoolean,
             this@ObservationSurrogate._valueBoolean,
           ),
-          Integer.of(
+          Integer.ofNullable(
             this@ObservationSurrogate.valueInteger,
             this@ObservationSurrogate._valueInteger,
           ),
           this@ObservationSurrogate.valueRange,
           this@ObservationSurrogate.valueRatio,
           this@ObservationSurrogate.valueSampledData,
-          Time.of(this@ObservationSurrogate.valueTime, this@ObservationSurrogate._valueTime),
-          DateTime.of(
+          Time.ofNullable(
+            this@ObservationSurrogate.valueTime,
+            this@ObservationSurrogate._valueTime,
+          ),
+          DateTime.ofNullable(
             FhirDateTime.fromString(this@ObservationSurrogate.valueDateTime),
             this@ObservationSurrogate._valueDateTime,
           ),
           this@ObservationSurrogate.valuePeriod,
           this@ObservationSurrogate.valueAttachment,
           this@ObservationSurrogate.valueReference,
-        )
-      dataAbsentReason = this@ObservationSurrogate.dataAbsentReason
-      interpretation = this@ObservationSurrogate.interpretation
-      note = this@ObservationSurrogate.note
-      bodySite = this@ObservationSurrogate.bodySite
-      bodyStructure = this@ObservationSurrogate.bodyStructure
-      method = this@ObservationSurrogate.method
-      specimen = this@ObservationSurrogate.specimen
-      device = this@ObservationSurrogate.device
-      referenceRange = this@ObservationSurrogate.referenceRange
-      hasMember = this@ObservationSurrogate.hasMember
-      derivedFrom = this@ObservationSurrogate.derivedFrom
-      component = this@ObservationSurrogate.component
-    }
+        ),
+      dataAbsentReason = this@ObservationSurrogate.dataAbsentReason,
+      interpretation = this@ObservationSurrogate.interpretation ?: mutableListOf(),
+      note = this@ObservationSurrogate.note ?: mutableListOf(),
+      bodySite = this@ObservationSurrogate.bodySite,
+      bodyStructure = this@ObservationSurrogate.bodyStructure,
+      method = this@ObservationSurrogate.method,
+      specimen = this@ObservationSurrogate.specimen,
+      device = this@ObservationSurrogate.device,
+      referenceRange = this@ObservationSurrogate.referenceRange ?: mutableListOf(),
+      hasMember = this@ObservationSurrogate.hasMember ?: mutableListOf(),
+      derivedFrom = this@ObservationSurrogate.derivedFrom ?: mutableListOf(),
+      component = this@ObservationSurrogate.component ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Observation): ObservationSurrogate =
       with(model) {
-        ObservationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          instantiatesCanonical = this@with.instantiates?.asCanonical()?.value?.value
-          _instantiatesCanonical = this@with.instantiates?.asCanonical()?.value?.toElement()
-          instantiatesReference = this@with.instantiates?.asReference()?.value
-          basedOn = this@with.basedOn
-          triggeredBy = this@with.triggeredBy
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          code = this@with.code
-          subject = this@with.subject
-          focus = this@with.focus
-          encounter = this@with.encounter
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString()
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement()
-          effectivePeriod = this@with.effective?.asPeriod()?.value
-          effectiveTiming = this@with.effective?.asTiming()?.value
-          effectiveInstant = this@with.effective?.asInstant()?.value?.value?.toString()
-          _effectiveInstant = this@with.effective?.asInstant()?.value?.toElement()
-          issued = this@with.issued?.value?.toString()
-          _issued = this@with.issued?.toElement()
-          performer = this@with.performer
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          dataAbsentReason = this@with.dataAbsentReason
-          interpretation = this@with.interpretation
-          note = this@with.note
-          bodySite = this@with.bodySite
-          bodyStructure = this@with.bodyStructure
-          method = this@with.method
-          specimen = this@with.specimen
-          device = this@with.device
-          referenceRange = this@with.referenceRange
-          hasMember = this@with.hasMember
-          derivedFrom = this@with.derivedFrom
-          component = this@with.component
-        }
+        ObservationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.isEmpty() },
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          identifier = this@with.identifier.takeUnless { it.isEmpty() },
+          instantiatesCanonical = this@with.instantiates?.asCanonical()?.value?.value,
+          _instantiatesCanonical = this@with.instantiates?.asCanonical()?.value?.toElement(),
+          instantiatesReference = this@with.instantiates?.asReference()?.value,
+          basedOn = this@with.basedOn.takeUnless { it.isEmpty() },
+          triggeredBy = this@with.triggeredBy.takeUnless { it.isEmpty() },
+          partOf = this@with.partOf.takeUnless { it.isEmpty() },
+          status = this@with.status.value.getCode(),
+          _status = this@with.status.toElement(),
+          category = this@with.category.takeUnless { it.isEmpty() },
+          code = this@with.code,
+          subject = this@with.subject,
+          focus = this@with.focus.takeUnless { it.isEmpty() },
+          encounter = this@with.encounter,
+          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.effective?.asPeriod()?.value,
+          effectiveTiming = this@with.effective?.asTiming()?.value,
+          effectiveInstant = this@with.effective?.asInstant()?.value?.value?.toString(),
+          _effectiveInstant = this@with.effective?.asInstant()?.value?.toElement(),
+          issued = this@with.issued?.value?.toString(),
+          _issued = this@with.issued?.toElement(),
+          performer = this@with.performer.takeUnless { it.isEmpty() },
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          dataAbsentReason = this@with.dataAbsentReason,
+          interpretation = this@with.interpretation.takeUnless { it.isEmpty() },
+          note = this@with.note.takeUnless { it.isEmpty() },
+          bodySite = this@with.bodySite,
+          bodyStructure = this@with.bodyStructure,
+          method = this@with.method,
+          specimen = this@with.specimen,
+          device = this@with.device,
+          referenceRange = this@with.referenceRange.takeUnless { it.isEmpty() },
+          hasMember = this@with.hasMember.takeUnless { it.isEmpty() },
+          derivedFrom = this@with.derivedFrom.takeUnless { it.isEmpty() },
+          component = this@with.component.takeUnless { it.isEmpty() },
+        )
       }
   }
 }

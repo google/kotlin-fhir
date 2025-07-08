@@ -39,48 +39,51 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ImmunizationRecommendationRecommendationDateCriterionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: CodeableConcept? = null,
-  public var `value`: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: KotlinString?,
   public var _value: Element? = null,
 ) {
   public fun toModel(): ImmunizationRecommendation.Recommendation.DateCriterion =
-    ImmunizationRecommendation.Recommendation.DateCriterion().apply {
-      id = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.id
-      extension = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.extension
+    ImmunizationRecommendation.Recommendation.DateCriterion(
+      id = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.id,
+      extension =
+        this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.modifierExtension
-      code = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.code
+          ?: mutableListOf(),
+      code = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.code,
       `value` =
         DateTime.of(
           FhirDateTime.fromString(
-            this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.`value`
+            this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.`value`!!
           ),
           this@ImmunizationRecommendationRecommendationDateCriterionSurrogate._value,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: ImmunizationRecommendation.Recommendation.DateCriterion
     ): ImmunizationRecommendationRecommendationDateCriterionSurrogate =
       with(model) {
-        ImmunizationRecommendationRecommendationDateCriterionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          `value` = this@with.`value`?.value?.toString()
-          _value = this@with.`value`?.toElement()
-        }
+        ImmunizationRecommendationRecommendationDateCriterionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          code = this@with.code,
+          `value` = this@with.`value`.value?.toString()!!,
+          _value = this@with.`value`.toElement(),
+        )
       }
   }
 }
@@ -88,14 +91,15 @@ internal data class ImmunizationRecommendationRecommendationDateCriterionSurroga
 @Serializable
 internal data class ImmunizationRecommendationRecommendationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var vaccineCode: List<CodeableConcept?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var vaccineCode: MutableList<CodeableConcept>? = null,
   public var targetDisease: CodeableConcept? = null,
-  public var contraindicatedVaccineCode: List<CodeableConcept?>? = null,
-  public var forecastStatus: CodeableConcept? = null,
-  public var forecastReason: List<CodeableConcept?>? = null,
-  public var dateCriterion: List<ImmunizationRecommendation.Recommendation.DateCriterion>? = null,
+  public var contraindicatedVaccineCode: MutableList<CodeableConcept>? = null,
+  public var forecastStatus: CodeableConcept,
+  public var forecastReason: MutableList<CodeableConcept>? = null,
+  public var dateCriterion: MutableList<ImmunizationRecommendation.Recommendation.DateCriterion>? =
+    null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var series: KotlinString? = null,
@@ -108,89 +112,99 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
   public var _seriesDosesPositiveInt: Element? = null,
   public var seriesDosesString: KotlinString? = null,
   public var _seriesDosesString: Element? = null,
-  public var supportingImmunization: List<Reference?>? = null,
-  public var supportingPatientInformation: List<Reference?>? = null,
+  public var supportingImmunization: MutableList<Reference>? = null,
+  public var supportingPatientInformation: MutableList<Reference>? = null,
 ) {
   public fun toModel(): ImmunizationRecommendation.Recommendation =
-    ImmunizationRecommendation.Recommendation().apply {
-      id = this@ImmunizationRecommendationRecommendationSurrogate.id
-      extension = this@ImmunizationRecommendationRecommendationSurrogate.extension
-      modifierExtension = this@ImmunizationRecommendationRecommendationSurrogate.modifierExtension
-      vaccineCode = this@ImmunizationRecommendationRecommendationSurrogate.vaccineCode
-      targetDisease = this@ImmunizationRecommendationRecommendationSurrogate.targetDisease
+    ImmunizationRecommendation.Recommendation(
+      id = this@ImmunizationRecommendationRecommendationSurrogate.id,
+      extension =
+        this@ImmunizationRecommendationRecommendationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ImmunizationRecommendationRecommendationSurrogate.modifierExtension ?: mutableListOf(),
+      vaccineCode =
+        this@ImmunizationRecommendationRecommendationSurrogate.vaccineCode ?: mutableListOf(),
+      targetDisease = this@ImmunizationRecommendationRecommendationSurrogate.targetDisease,
       contraindicatedVaccineCode =
         this@ImmunizationRecommendationRecommendationSurrogate.contraindicatedVaccineCode
-      forecastStatus = this@ImmunizationRecommendationRecommendationSurrogate.forecastStatus
-      forecastReason = this@ImmunizationRecommendationRecommendationSurrogate.forecastReason
-      dateCriterion = this@ImmunizationRecommendationRecommendationSurrogate.dateCriterion
+          ?: mutableListOf(),
+      forecastStatus = this@ImmunizationRecommendationRecommendationSurrogate.forecastStatus,
+      forecastReason =
+        this@ImmunizationRecommendationRecommendationSurrogate.forecastReason ?: mutableListOf(),
+      dateCriterion =
+        this@ImmunizationRecommendationRecommendationSurrogate.dateCriterion ?: mutableListOf(),
       description =
-        R4bString.of(
+        R4bString.ofNullable(
           this@ImmunizationRecommendationRecommendationSurrogate.description,
           this@ImmunizationRecommendationRecommendationSurrogate._description,
-        )
+        ),
       series =
-        R4bString.of(
+        R4bString.ofNullable(
           this@ImmunizationRecommendationRecommendationSurrogate.series,
           this@ImmunizationRecommendationRecommendationSurrogate._series,
-        )
+        ),
       doseNumber =
-        ImmunizationRecommendation.Recommendation.DoseNumber?.from(
-          PositiveInt.of(
+        ImmunizationRecommendation.Recommendation.DoseNumber?.fromNullable(
+          PositiveInt.ofNullable(
             this@ImmunizationRecommendationRecommendationSurrogate.doseNumberPositiveInt,
             this@ImmunizationRecommendationRecommendationSurrogate._doseNumberPositiveInt,
           ),
-          R4bString.of(
+          R4bString.ofNullable(
             this@ImmunizationRecommendationRecommendationSurrogate.doseNumberString,
             this@ImmunizationRecommendationRecommendationSurrogate._doseNumberString,
           ),
-        )
+        ),
       seriesDoses =
-        ImmunizationRecommendation.Recommendation.SeriesDoses?.from(
-          PositiveInt.of(
+        ImmunizationRecommendation.Recommendation.SeriesDoses?.fromNullable(
+          PositiveInt.ofNullable(
             this@ImmunizationRecommendationRecommendationSurrogate.seriesDosesPositiveInt,
             this@ImmunizationRecommendationRecommendationSurrogate._seriesDosesPositiveInt,
           ),
-          R4bString.of(
+          R4bString.ofNullable(
             this@ImmunizationRecommendationRecommendationSurrogate.seriesDosesString,
             this@ImmunizationRecommendationRecommendationSurrogate._seriesDosesString,
           ),
-        )
+        ),
       supportingImmunization =
         this@ImmunizationRecommendationRecommendationSurrogate.supportingImmunization
+          ?: mutableListOf(),
       supportingPatientInformation =
         this@ImmunizationRecommendationRecommendationSurrogate.supportingPatientInformation
-    }
+          ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: ImmunizationRecommendation.Recommendation
     ): ImmunizationRecommendationRecommendationSurrogate =
       with(model) {
-        ImmunizationRecommendationRecommendationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          vaccineCode = this@with.vaccineCode
-          targetDisease = this@with.targetDisease
-          contraindicatedVaccineCode = this@with.contraindicatedVaccineCode
-          forecastStatus = this@with.forecastStatus
-          forecastReason = this@with.forecastReason
-          dateCriterion = this@with.dateCriterion
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          series = this@with.series?.value
-          _series = this@with.series?.toElement()
-          doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.value
-          _doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.toElement()
-          doseNumberString = this@with.doseNumber?.asString()?.value?.value
-          _doseNumberString = this@with.doseNumber?.asString()?.value?.toElement()
-          seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.value
-          _seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.toElement()
-          seriesDosesString = this@with.seriesDoses?.asString()?.value?.value
-          _seriesDosesString = this@with.seriesDoses?.asString()?.value?.toElement()
-          supportingImmunization = this@with.supportingImmunization
-          supportingPatientInformation = this@with.supportingPatientInformation
-        }
+        ImmunizationRecommendationRecommendationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          vaccineCode = this@with.vaccineCode.takeUnless { it.isEmpty() },
+          targetDisease = this@with.targetDisease,
+          contraindicatedVaccineCode =
+            this@with.contraindicatedVaccineCode.takeUnless { it.isEmpty() },
+          forecastStatus = this@with.forecastStatus,
+          forecastReason = this@with.forecastReason.takeUnless { it.isEmpty() },
+          dateCriterion = this@with.dateCriterion.takeUnless { it.isEmpty() },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          series = this@with.series?.value,
+          _series = this@with.series?.toElement(),
+          doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.value,
+          _doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.toElement(),
+          doseNumberString = this@with.doseNumber?.asString()?.value?.value,
+          _doseNumberString = this@with.doseNumber?.asString()?.value?.toElement(),
+          seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.value,
+          _seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.toElement(),
+          seriesDosesString = this@with.seriesDoses?.asString()?.value?.value,
+          _seriesDosesString = this@with.seriesDoses?.asString()?.value?.toElement(),
+          supportingImmunization = this@with.supportingImmunization.takeUnless { it.isEmpty() },
+          supportingPatientInformation =
+            this@with.supportingPatientInformation.takeUnless { it.isEmpty() },
+        )
       }
   }
 }
@@ -204,66 +218,67 @@ internal data class ImmunizationRecommendationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var patient: Reference? = null,
-  public var date: KotlinString? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var patient: Reference,
+  public var date: KotlinString?,
   public var _date: Element? = null,
   public var authority: Reference? = null,
-  public var recommendation: List<ImmunizationRecommendation.Recommendation>? = null,
+  public var recommendation: MutableList<ImmunizationRecommendation.Recommendation>? = null,
 ) {
   public fun toModel(): ImmunizationRecommendation =
-    ImmunizationRecommendation().apply {
-      id = this@ImmunizationRecommendationSurrogate.id
-      meta = this@ImmunizationRecommendationSurrogate.meta
+    ImmunizationRecommendation(
+      id = this@ImmunizationRecommendationSurrogate.id,
+      meta = this@ImmunizationRecommendationSurrogate.meta,
       implicitRules =
-        Uri.of(
+        Uri.ofNullable(
           this@ImmunizationRecommendationSurrogate.implicitRules,
           this@ImmunizationRecommendationSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(
+        Code.ofNullable(
           this@ImmunizationRecommendationSurrogate.language,
           this@ImmunizationRecommendationSurrogate._language,
-        )
-      text = this@ImmunizationRecommendationSurrogate.text
-      contained = this@ImmunizationRecommendationSurrogate.contained
-      extension = this@ImmunizationRecommendationSurrogate.extension
-      modifierExtension = this@ImmunizationRecommendationSurrogate.modifierExtension
-      identifier = this@ImmunizationRecommendationSurrogate.identifier
-      patient = this@ImmunizationRecommendationSurrogate.patient
+        ),
+      text = this@ImmunizationRecommendationSurrogate.text,
+      contained = this@ImmunizationRecommendationSurrogate.contained ?: mutableListOf(),
+      extension = this@ImmunizationRecommendationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ImmunizationRecommendationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ImmunizationRecommendationSurrogate.identifier ?: mutableListOf(),
+      patient = this@ImmunizationRecommendationSurrogate.patient,
       date =
         DateTime.of(
-          FhirDateTime.fromString(this@ImmunizationRecommendationSurrogate.date),
+          FhirDateTime.fromString(this@ImmunizationRecommendationSurrogate.date!!),
           this@ImmunizationRecommendationSurrogate._date,
-        )
-      authority = this@ImmunizationRecommendationSurrogate.authority
-      recommendation = this@ImmunizationRecommendationSurrogate.recommendation
-    }
+        ),
+      authority = this@ImmunizationRecommendationSurrogate.authority,
+      recommendation = this@ImmunizationRecommendationSurrogate.recommendation ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ImmunizationRecommendation): ImmunizationRecommendationSurrogate =
       with(model) {
-        ImmunizationRecommendationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          patient = this@with.patient
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          authority = this@with.authority
-          recommendation = this@with.recommendation
-        }
+        ImmunizationRecommendationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.isEmpty() },
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          identifier = this@with.identifier.takeUnless { it.isEmpty() },
+          patient = this@with.patient,
+          date = this@with.date.value?.toString()!!,
+          _date = this@with.date.toElement(),
+          authority = this@with.authority,
+          recommendation = this@with.recommendation.takeUnless { it.isEmpty() },
+        )
       }
   }
 }
