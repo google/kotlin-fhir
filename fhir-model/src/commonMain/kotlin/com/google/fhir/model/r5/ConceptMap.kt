@@ -1155,63 +1155,14 @@ public data class ConceptMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The property value is a code defined in an external code system. This may be used for
-     * translations, but is not the intent.
-     */
-    Coding(
-      "Coding",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "Coding (external reference)",
-      "The property  value is a code defined in an external code system. This may be used for translations, but is not the intent.",
-    ),
-    /** The property value is a string. */
-    String(
-      "string",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "string",
-      "The property value is a string.",
-    ),
-    /**
-     * The property value is an integer (often used to assign ranking values to concepts for
-     * supporting score assessments).
-     */
-    Integer(
-      "integer",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "integer",
-      "The property value is an integer (often used to assign ranking values to concepts for supporting score assessments).",
-    ),
-    /** The property value is a boolean true | false. */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "boolean",
-      "The property value is a boolean true | false.",
-    ),
-    /** The property is a date or a date + time. */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "dateTime",
-      "The property is a date or a date + time.",
-    ),
-    /** The property value is a decimal number. */
-    Decimal(
-      "decimal",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "decimal",
-      "The property value is a decimal number.",
-    ),
-    /** The property value is a code as defined in the CodeSystem in ConceptMap.property.system. */
-    Code(
-      "code",
-      "http://hl7.org/fhir/conceptmap-property-type",
-      "code",
-      "The property value is a code as defined in the CodeSystem in ConceptMap.property.system.",
-    );
+    Coding("Coding", "http://hl7.org/fhir/conceptmap-property-type", "Coding (external reference)"),
+    String("string", "http://hl7.org/fhir/conceptmap-property-type", "string"),
+    Integer("integer", "http://hl7.org/fhir/conceptmap-property-type", "integer"),
+    Boolean("boolean", "http://hl7.org/fhir/conceptmap-property-type", "boolean"),
+    DateTime("dateTime", "http://hl7.org/fhir/conceptmap-property-type", "dateTime"),
+    Decimal("decimal", "http://hl7.org/fhir/conceptmap-property-type", "decimal"),
+    Code("code", "http://hl7.org/fhir/conceptmap-property-type", "code");
 
     override fun toString(): kotlin.String = code
 
@@ -1220,8 +1171,6 @@ public data class ConceptMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): PropertyType =
@@ -1243,43 +1192,12 @@ public data class ConceptMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The attribute value is a code defined in the code system in context. */
-    Code(
-      "code",
-      "http://hl7.org/fhir/conceptmap-attribute-type",
-      "code",
-      "The attribute value is a code defined in the code system in context.",
-    ),
-    /** The attribute value is a code defined in a code system. */
-    Coding(
-      "Coding",
-      "http://hl7.org/fhir/conceptmap-attribute-type",
-      "Coding",
-      "The attribute value is a code defined in a code system.",
-    ),
-    /** The attribute value is a string. */
-    String(
-      "string",
-      "http://hl7.org/fhir/conceptmap-attribute-type",
-      "string",
-      "The attribute value is a string.",
-    ),
-    /** The attribute value is a boolean true | false. */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/conceptmap-attribute-type",
-      "boolean",
-      "The attribute value is a boolean true | false.",
-    ),
-    /** The attribute is a Quantity (may represent an integer or a decimal with no units). */
-    Quantity(
-      "Quantity",
-      "http://hl7.org/fhir/conceptmap-attribute-type",
-      "Quantity",
-      "The attribute is a Quantity (may represent an integer or a decimal with no units).",
-    );
+    Code("code", "http://hl7.org/fhir/conceptmap-attribute-type", "code"),
+    Coding("Coding", "http://hl7.org/fhir/conceptmap-attribute-type", "Coding"),
+    String("string", "http://hl7.org/fhir/conceptmap-attribute-type", "string"),
+    Boolean("boolean", "http://hl7.org/fhir/conceptmap-attribute-type", "boolean"),
+    Quantity("Quantity", "http://hl7.org/fhir/conceptmap-attribute-type", "Quantity");
 
     override fun toString(): kotlin.String = code
 
@@ -1288,8 +1206,6 @@ public data class ConceptMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConceptMapmapAttributeType =
@@ -1310,32 +1226,14 @@ public data class ConceptMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Use the code as provided in the $translate request in one of the following input parameters:
-     * sourceCode, sourceCoding, sourceCodeableConcept.
-     */
     Use_Source_Code(
       "use-source-code",
       "http://hl7.org/fhir/conceptmap-unmapped-mode",
       "Use Provided Source Code",
-      "Use the code as provided in the ${'$'}translate request in one of the following input parameters: sourceCode, sourceCoding, sourceCodeableConcept.",
     ),
-    /** Use the code(s) explicitly provided in the group.unmapped 'code' or 'valueSet' element. */
-    Fixed(
-      "fixed",
-      "http://hl7.org/fhir/conceptmap-unmapped-mode",
-      "Fixed Code",
-      "Use the code(s) explicitly provided in the group.unmapped 'code' or 'valueSet' element.",
-    ),
-    /** Use the map identified by the canonical URL in the url element. */
-    Other_Map(
-      "other-map",
-      "http://hl7.org/fhir/conceptmap-unmapped-mode",
-      "Other Map",
-      "Use the map identified by the canonical URL in the url element.",
-    );
+    Fixed("fixed", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Fixed Code"),
+    Other_Map("other-map", "http://hl7.org/fhir/conceptmap-unmapped-mode", "Other Map");
 
     override fun toString(): kotlin.String = code
 
@@ -1344,8 +1242,6 @@ public data class ConceptMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConceptMapGroupUnmappedMode =

@@ -21,6 +21,7 @@ package com.google.fhir.model.r5.surrogates
 
 import com.google.fhir.model.r5.Code
 import com.google.fhir.model.r5.Element
+import com.google.fhir.model.r5.Enumeration
 import com.google.fhir.model.r5.Expression
 import com.google.fhir.model.r5.Extension
 import com.google.fhir.model.r5.String as R5String
@@ -55,7 +56,13 @@ internal data class ExpressionSurrogate(
       description =
         R5String.of(this@ExpressionSurrogate.description, this@ExpressionSurrogate._description)
       name = Code.of(this@ExpressionSurrogate.name, this@ExpressionSurrogate._name)
-      language = Code.of(this@ExpressionSurrogate.language, this@ExpressionSurrogate._language)
+      language =
+        Enumeration.of(
+          this@ExpressionSurrogate.language?.let {
+            com.google.fhir.model.r5.Expression.ExpressionLanguage.fromCode(it)
+          },
+          this@ExpressionSurrogate._language,
+        )
       expression =
         R5String.of(this@ExpressionSurrogate.expression, this@ExpressionSurrogate._expression)
       reference = Uri.of(this@ExpressionSurrogate.reference, this@ExpressionSurrogate._reference)
@@ -71,7 +78,7 @@ internal data class ExpressionSurrogate(
           _description = this@with.description?.toElement()
           name = this@with.name?.value
           _name = this@with.name?.toElement()
-          language = this@with.language?.value
+          language = this@with.language?.value?.getCode()
           _language = this@with.language?.toElement()
           expression = this@with.expression?.value
           _expression = this@with.expression?.toElement()

@@ -23,16 +23,11 @@ public enum class AdministrativeGender(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  /** Male. */
-  Male("male", "http://hl7.org/fhir/administrative-gender", "Male", "Male."),
-  /** Female. */
-  Female("female", "http://hl7.org/fhir/administrative-gender", "Female", "Female."),
-  /** Other. */
-  Other("other", "http://hl7.org/fhir/administrative-gender", "Other", "Other."),
-  /** Unknown. */
-  Unknown("unknown", "http://hl7.org/fhir/administrative-gender", "Unknown", "Unknown.");
+  Male("male", "http://hl7.org/fhir/administrative-gender", "Male"),
+  Female("female", "http://hl7.org/fhir/administrative-gender", "Female"),
+  Other("other", "http://hl7.org/fhir/administrative-gender", "Other"),
+  Unknown("unknown", "http://hl7.org/fhir/administrative-gender", "Unknown");
 
   override fun toString(): String = code
 
@@ -41,8 +36,6 @@ public enum class AdministrativeGender(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): AdministrativeGender =

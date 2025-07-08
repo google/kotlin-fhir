@@ -297,12 +297,9 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Right Eye. */
-    Right("right", "http://hl7.org/fhir/vision-eye-codes", "Right Eye", "Right Eye."),
-    /** Left Eye. */
-    Left("left", "http://hl7.org/fhir/vision-eye-codes", "Left Eye", "Left Eye.");
+    Right("right", "http://hl7.org/fhir/vision-eye-codes", "Right Eye"),
+    Left("left", "http://hl7.org/fhir/vision-eye-codes", "Left Eye");
 
     override fun toString(): kotlin.String = code
 
@@ -311,8 +308,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionEyes =
@@ -329,16 +324,11 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** top. */
-    Up("up", "http://hl7.org/fhir/vision-base-codes", "Up", "top."),
-    /** bottom. */
-    Down("down", "http://hl7.org/fhir/vision-base-codes", "Down", "bottom."),
-    /** inner edge. */
-    In("in", "http://hl7.org/fhir/vision-base-codes", "In", "inner edge."),
-    /** outer edge. */
-    Out("out", "http://hl7.org/fhir/vision-base-codes", "Out", "outer edge.");
+    Up("up", "http://hl7.org/fhir/vision-base-codes", "Up"),
+    Down("down", "http://hl7.org/fhir/vision-base-codes", "Down"),
+    In("in", "http://hl7.org/fhir/vision-base-codes", "In"),
+    Out("out", "http://hl7.org/fhir/vision-base-codes", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -347,8 +337,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionBase =
@@ -367,36 +355,11 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -405,8 +368,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionStatus =

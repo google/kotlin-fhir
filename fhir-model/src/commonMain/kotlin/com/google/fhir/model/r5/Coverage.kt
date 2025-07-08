@@ -507,36 +507,11 @@ public data class Coverage(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -545,8 +520,6 @@ public data class Coverage(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CoverageStatus =
@@ -565,29 +538,10 @@ public data class Coverage(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The Coverage provides the identifiers and card-level details of an insurance policy. */
-    Insurance(
-      "insurance",
-      "http://hl7.org/fhir/coverage-kind",
-      "Insurance",
-      "The Coverage provides the identifiers and card-level details of an insurance policy.",
-    ),
-    /** One or more persons and/or organizations are paying for the services rendered. */
-    Self_Pay(
-      "self-pay",
-      "http://hl7.org/fhir/coverage-kind",
-      "Self-pay",
-      "One or more persons and/or organizations are paying for the services rendered.",
-    ),
-    /** Some other organization is paying for the service. */
-    Other(
-      "other",
-      "http://hl7.org/fhir/coverage-kind",
-      "Other",
-      "Some other organization is paying for the service.",
-    );
+    Insurance("insurance", "http://hl7.org/fhir/coverage-kind", "Insurance"),
+    Self_Pay("self-pay", "http://hl7.org/fhir/coverage-kind", "Self-pay"),
+    Other("other", "http://hl7.org/fhir/coverage-kind", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -596,8 +550,6 @@ public data class Coverage(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CoverageKind =

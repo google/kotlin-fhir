@@ -836,38 +836,10 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The CapabilityStatement instance represents the present capabilities of a specific system
-     * instance. This is the kind returned by /metadata for a FHIR server end-point.
-     */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Instance",
-      "The CapabilityStatement instance represents the present capabilities of a specific system instance.  This is the kind returned by /metadata for a FHIR server end-point.",
-    ),
-    /**
-     * The CapabilityStatement instance represents the capabilities of a system or piece of
-     * software, independent of a particular installation.
-     */
-    Capability(
-      "capability",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Capability",
-      "The CapabilityStatement instance represents the capabilities of a system or piece of software, independent of a particular installation.",
-    ),
-    /**
-     * The CapabilityStatement instance represents a set of requirements for other systems to meet;
-     * e.g. as part of an implementation guide or 'request for proposal'.
-     */
-    Requirements(
-      "requirements",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Requirements",
-      "The CapabilityStatement instance represents a set of requirements for other systems to meet; e.g. as part of an implementation guide or 'request for proposal'.",
-    );
+    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance"),
+    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability"),
+    Requirements("requirements", "http://hl7.org/fhir/capability-statement-kind", "Requirements");
 
     override fun toString(): kotlin.String = code
 
@@ -876,8 +848,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CapabilityStatementKind =
@@ -899,28 +869,9 @@ public data class TerminologyCapabilities(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The search for code on ValueSet only includes codes explicitly detailed on includes or
-     * expansions.
-     */
-    Explicit(
-      "explicit",
-      "http://hl7.org/fhir/code-search-support",
-      "Explicit Codes",
-      "The search for code on ValueSet only includes codes explicitly detailed on includes or expansions.",
-    ),
-    /**
-     * The search for code on ValueSet only includes all codes based on the expansion of the value
-     * set.
-     */
-    All(
-      "all",
-      "http://hl7.org/fhir/code-search-support",
-      "Implicit Codes",
-      "The search for code on ValueSet only includes all codes based on the expansion of the value set.",
-    );
+    Explicit("explicit", "http://hl7.org/fhir/code-search-support", "Explicit Codes"),
+    All("all", "http://hl7.org/fhir/code-search-support", "Implicit Codes");
 
     override fun toString(): kotlin.String = code
 
@@ -929,8 +880,6 @@ public data class TerminologyCapabilities(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSearchSupport =

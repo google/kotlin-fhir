@@ -616,24 +616,9 @@ public data class ConditionDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The observation is very sensitive for the condition, but may also indicate other conditions.
-     */
-    Sensitive(
-      "sensitive",
-      "http://hl7.org/fhir/condition-precondition-type",
-      "Sensitive",
-      "The observation is very sensitive for the condition, but may also indicate other conditions.",
-    ),
-    /** The observation is very specific for this condition, but not particularly sensitive. */
-    Specific(
-      "specific",
-      "http://hl7.org/fhir/condition-precondition-type",
-      "Specific",
-      "The observation is very specific for this condition, but not particularly sensitive.",
-    );
+    Sensitive("sensitive", "http://hl7.org/fhir/condition-precondition-type", "Sensitive"),
+    Specific("specific", "http://hl7.org/fhir/condition-precondition-type", "Specific");
 
     override fun toString(): kotlin.String = code
 
@@ -642,8 +627,6 @@ public data class ConditionDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionPreconditionType =
@@ -661,29 +644,14 @@ public data class ConditionDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A pre-admit questionnaire. */
-    Preadmit(
-      "preadmit",
-      "http://hl7.org/fhir/condition-questionnaire-purpose",
-      "Pre-admit",
-      "A pre-admit questionnaire.",
-    ),
-    /** A questionnaire that helps with diferential diagnosis. */
+    Preadmit("preadmit", "http://hl7.org/fhir/condition-questionnaire-purpose", "Pre-admit"),
     Diff_Diagnosis(
       "diff-diagnosis",
       "http://hl7.org/fhir/condition-questionnaire-purpose",
       "Diff Diagnosis",
-      "A questionnaire that helps with diferential diagnosis.",
     ),
-    /** A questionnaire to check on outcomes for the patient. */
-    Outcome(
-      "outcome",
-      "http://hl7.org/fhir/condition-questionnaire-purpose",
-      "Outcome",
-      "A questionnaire to check on outcomes for the patient.",
-    );
+    Outcome("outcome", "http://hl7.org/fhir/condition-questionnaire-purpose", "Outcome");
 
     override fun toString(): kotlin.String = code
 
@@ -692,8 +660,6 @@ public data class ConditionDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionQuestionnairePurpose =

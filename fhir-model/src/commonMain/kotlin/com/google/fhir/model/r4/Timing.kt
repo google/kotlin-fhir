@@ -149,7 +149,7 @@ public data class Timing(
      */
     public var durationMax: Decimal? = null,
     /** The units of time for the duration, in UCUM units. */
-    public var durationUnit: Code? = null,
+    public var durationUnit: Enumeration<UnitsOfTime>? = null,
     /**
      * The number of times to repeat the action within the specified period. If frequencyMax is
      * present, this element indicates the lower bound of the allowed range of the frequency.
@@ -172,7 +172,7 @@ public data class Timing(
      */
     public var periodMax: Decimal? = null,
     /** The units of time for the period in UCUM units. */
-    public var periodUnit: Code? = null,
+    public var periodUnit: Enumeration<UnitsOfTime>? = null,
     /**
      * If one or more days of week is provided, then the action happens only on the specified
      * day(s).
@@ -230,27 +230,19 @@ public data class Timing(
     }
   }
 
-  /** The days of the week. */
-  public enum class DayOfWeek(
+  /** A unit of time (units from UCUM). */
+  public enum class UnitsOfTime(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Monday. */
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", "Monday."),
-    /** Tuesday. */
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", "Tuesday."),
-    /** Wednesday. */
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", "Wednesday."),
-    /** Thursday. */
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", "Thursday."),
-    /** Friday. */
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", "Friday."),
-    /** Saturday. */
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", "Saturday."),
-    /** Sunday. */
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", "Sunday.");
+    S("s", "http://unitsofmeasure.org", "秒"),
+    Min("min", "http://unitsofmeasure.org", "分钟"),
+    H("h", "http://unitsofmeasure.org", "小时"),
+    D("d", "http://unitsofmeasure.org", "天"),
+    Wk("wk", "http://unitsofmeasure.org", "星期"),
+    Mo("mo", "http://unitsofmeasure.org", "月"),
+    A("a", "http://unitsofmeasure.org", "年");
 
     override fun toString(): String = code
 
@@ -260,7 +252,42 @@ public data class Timing(
 
     public fun getDisplay(): String? = display
 
-    public fun getDefinition(): String? = definition
+    public companion object {
+      public fun fromCode(code: String): UnitsOfTime =
+        when (code) {
+          "s" -> S
+          "min" -> Min
+          "h" -> H
+          "d" -> D
+          "wk" -> Wk
+          "mo" -> Mo
+          "a" -> A
+          else -> throw IllegalArgumentException("Unknown code $code for enum UnitsOfTime")
+        }
+    }
+  }
+
+  /** The days of the week. */
+  public enum class DayOfWeek(
+    private val code: String,
+    private val system: String,
+    private val display: String?,
+  ) {
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
+
+    override fun toString(): String = code
+
+    public fun getCode(): String = code
+
+    public fun getSystem(): String = system
+
+    public fun getDisplay(): String? = display
 
     public companion object {
       public fun fromCode(code: String): DayOfWeek =
@@ -282,251 +309,33 @@ public data class Timing(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * Event occurs during the morning. The exact time is unspecified and established by institution
-     * convention or patient interpretation.
-     */
-    Morn(
-      "MORN",
-      "http://hl7.org/fhir/event-timing",
-      "Morning",
-      "Event occurs during the morning. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the early morning. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Morn_Early(
-      "MORN.early",
-      "http://hl7.org/fhir/event-timing",
-      "Early Morning",
-      "Event occurs during the early morning. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the late morning. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Morn_Late(
-      "MORN.late",
-      "http://hl7.org/fhir/event-timing",
-      "Late Morning",
-      "Event occurs during the late morning. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs around 12:00pm. The exact time is unspecified and established by institution
-     * convention or patient interpretation.
-     */
-    Noon(
-      "NOON",
-      "http://hl7.org/fhir/event-timing",
-      "Noon",
-      "Event occurs around 12:00pm. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the afternoon. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Aft(
-      "AFT",
-      "http://hl7.org/fhir/event-timing",
-      "Afternoon",
-      "Event occurs during the afternoon. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the early afternoon. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Aft_Early(
-      "AFT.early",
-      "http://hl7.org/fhir/event-timing",
-      "Early Afternoon",
-      "Event occurs during the early afternoon. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the late afternoon. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Aft_Late(
-      "AFT.late",
-      "http://hl7.org/fhir/event-timing",
-      "Late Afternoon",
-      "Event occurs during the late afternoon. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the evening. The exact time is unspecified and established by institution
-     * convention or patient interpretation.
-     */
-    Eve(
-      "EVE",
-      "http://hl7.org/fhir/event-timing",
-      "Evening",
-      "Event occurs during the evening. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the early evening. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Eve_Early(
-      "EVE.early",
-      "http://hl7.org/fhir/event-timing",
-      "Early Evening",
-      "Event occurs during the early evening. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the late evening. The exact time is unspecified and established by
-     * institution convention or patient interpretation.
-     */
-    Eve_Late(
-      "EVE.late",
-      "http://hl7.org/fhir/event-timing",
-      "Late Evening",
-      "Event occurs during the late evening. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs during the night. The exact time is unspecified and established by institution
-     * convention or patient interpretation.
-     */
-    Night(
-      "NIGHT",
-      "http://hl7.org/fhir/event-timing",
-      "Night",
-      "Event occurs during the night. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /**
-     * Event occurs [offset] after subject goes to sleep. The exact time is unspecified and
-     * established by institution convention or patient interpretation.
-     */
-    Phs(
-      "PHS",
-      "http://hl7.org/fhir/event-timing",
-      "After Sleep",
-      "Event occurs [offset] after subject goes to sleep. The exact time is unspecified and established by institution convention or patient interpretation.",
-    ),
-    /** before meal (from lat. ante cibus) */
-    Ac(
-      "AC",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "AC",
-      "before meal (from lat. ante cibus)",
-    ),
-    /** before lunch (from lat. ante cibus diurnus) */
-    Acd(
-      "ACD",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "ACD",
-      "before lunch (from lat. ante cibus diurnus)",
-    ),
-    /** before breakfast (from lat. ante cibus matutinus) */
-    Acm(
-      "ACM",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "ACM",
-      "before breakfast (from lat. ante cibus matutinus)",
-    ),
-    /** before dinner (from lat. ante cibus vespertinus) */
-    Acv(
-      "ACV",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "ACV",
-      "before dinner (from lat. ante cibus vespertinus)",
-    ),
-    /** Description: meal (from lat. ante cibus) */
-    C(
-      "C",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "C",
-      "Description: meal (from lat. ante cibus)",
-    ),
-    /** Description: lunch (from lat. cibus diurnus) */
-    Cd(
-      "CD",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "CD",
-      "Description: lunch (from lat. cibus diurnus)",
-    ),
-    /** Description: breakfast (from lat. cibus matutinus) */
-    Cm(
-      "CM",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "CM",
-      "Description: breakfast (from lat. cibus matutinus)",
-    ),
-    /** Description: dinner (from lat. cibus vespertinus) */
-    Cv(
-      "CV",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "CV",
-      "Description: dinner (from lat. cibus vespertinus)",
-    ),
-    /**
-     * Description: Prior to beginning a regular period of extended sleep (this would exclude naps).
-     * Note that this might occur at different times of day depending on a person's regular sleep
-     * schedule.
-     */
-    Hs(
-      "HS",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "HS",
-      "Description: Prior to beginning a regular period of extended sleep (this would exclude naps).  Note that this might occur at different times of day depending on a person's regular sleep schedule.",
-    ),
-    /** after meal (from lat. post cibus) */
-    Pc(
-      "PC",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "PC",
-      "after meal (from lat. post cibus)",
-    ),
-    /** after lunch (from lat. post cibus diurnus) */
-    Pcd(
-      "PCD",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "PCD",
-      "after lunch (from lat. post cibus diurnus)",
-    ),
-    /** after breakfast (from lat. post cibus matutinus) */
-    Pcm(
-      "PCM",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "PCM",
-      "after breakfast (from lat. post cibus matutinus)",
-    ),
-    /** after dinner (from lat. post cibus vespertinus) */
-    Pcv(
-      "PCV",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "PCV",
-      "after dinner (from lat. post cibus vespertinus)",
-    ),
-    /**
-     * Description: Upon waking up from a regular period of sleep, in order to start regular
-     * activities (this would exclude waking up from a nap or temporarily waking up during a period
-     * of sleep)
-     *
-     *                            Usage Notes: e.g.
-     *                         Take pulse rate on waking in management of thyrotoxicosis.
-     *                         Take BP on waking in management of hypertension
-     *                         Take basal body temperature on waking in establishing date of ovulation
-     */
-    Wake(
-      "WAKE",
-      "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
-      "WAKE",
-      """
-    |Description: Upon waking up from a regular period of sleep, in order to start regular activities (this would exclude waking up from a nap or temporarily waking up during a period of sleep)
-    |
-    |                        
-    |                           Usage Notes: e.g.
-    |
-    |                        Take pulse rate on waking in management of thyrotoxicosis.
-    |
-    |                        Take BP on waking in management of hypertension
-    |
-    |                        Take basal body temperature on waking in establishing date of ovulation
-    """
-        .trimMargin(),
-    );
+    Morn("MORN", "http://hl7.org/fhir/event-timing", "Morning"),
+    Morn_Early("MORN.early", "http://hl7.org/fhir/event-timing", "Early Morning"),
+    Morn_Late("MORN.late", "http://hl7.org/fhir/event-timing", "Late Morning"),
+    Noon("NOON", "http://hl7.org/fhir/event-timing", "Noon"),
+    Aft("AFT", "http://hl7.org/fhir/event-timing", "Afternoon"),
+    Aft_Early("AFT.early", "http://hl7.org/fhir/event-timing", "Early Afternoon"),
+    Aft_Late("AFT.late", "http://hl7.org/fhir/event-timing", "Late Afternoon"),
+    Eve("EVE", "http://hl7.org/fhir/event-timing", "Evening"),
+    Eve_Early("EVE.early", "http://hl7.org/fhir/event-timing", "Early Evening"),
+    Eve_Late("EVE.late", "http://hl7.org/fhir/event-timing", "Late Evening"),
+    Night("NIGHT", "http://hl7.org/fhir/event-timing", "Night"),
+    Phs("PHS", "http://hl7.org/fhir/event-timing", "After Sleep"),
+    Hs("HS", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "HS"),
+    Wake("WAKE", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "WAKE"),
+    C("C", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "C"),
+    Cm("CM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CM"),
+    Cd("CD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CD"),
+    Cv("CV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "CV"),
+    Ac("AC", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "AC"),
+    Acm("ACM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACM"),
+    Acd("ACD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACD"),
+    Acv("ACV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "ACV"),
+    Pc("PC", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PC"),
+    Pcm("PCM", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCM"),
+    Pcd("PCD", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCD"),
+    Pcv("PCV", "http://terminology.hl7.org/CodeSystem/v3-TimingEvent", "PCV");
 
     override fun toString(): String = code
 
@@ -535,8 +344,6 @@ public data class Timing(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EventTiming =
@@ -553,20 +360,20 @@ public data class Timing(
           "EVE.late" -> Eve_Late
           "NIGHT" -> Night
           "PHS" -> Phs
-          "AC" -> Ac
-          "ACD" -> Acd
-          "ACM" -> Acm
-          "ACV" -> Acv
-          "C" -> C
-          "CD" -> Cd
-          "CM" -> Cm
-          "CV" -> Cv
           "HS" -> Hs
-          "PC" -> Pc
-          "PCD" -> Pcd
-          "PCM" -> Pcm
-          "PCV" -> Pcv
           "WAKE" -> Wake
+          "C" -> C
+          "CM" -> Cm
+          "CD" -> Cd
+          "CV" -> Cv
+          "AC" -> Ac
+          "ACM" -> Acm
+          "ACD" -> Acd
+          "ACV" -> Acv
+          "PC" -> Pc
+          "PCM" -> Pcm
+          "PCD" -> Pcd
+          "PCV" -> Pcv
           else -> throw IllegalArgumentException("Unknown code $code for enum EventTiming")
         }
     }

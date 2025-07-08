@@ -667,37 +667,10 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The context is all elements that match the FHIRPath query found in the expression. */
-    Fhirpath(
-      "fhirpath",
-      "http://hl7.org/fhir/extension-context-type",
-      "FHIRPath",
-      "The context is all elements that match the FHIRPath query found in the expression.",
-    ),
-    /**
-     * The context is any element that has an ElementDefinition.id that matches that found in the
-     * expression. This includes ElementDefinition Ids that have slicing identifiers. The full path
-     * for the element is [url]#[elementid]. If there is no #, the Element id is one defined in the
-     * base specification.
-     */
-    Element(
-      "element",
-      "http://hl7.org/fhir/extension-context-type",
-      "Element ID",
-      "The context is any element that has an ElementDefinition.id that matches that found in the expression. This includes ElementDefinition Ids that have slicing identifiers. The full path for the element is [url]#[elementid]. If there is no #, the Element id is one defined in the base specification.",
-    ),
-    /**
-     * The context is a particular extension from a particular StructureDefinition, and the
-     * expression is just a uri that identifies the extension.
-     */
-    Extension(
-      "extension",
-      "http://hl7.org/fhir/extension-context-type",
-      "Extension URL",
-      "The context is a particular extension from a particular StructureDefinition, and the expression is just a uri that identifies the extension.",
-    );
+    Fhirpath("fhirpath", "http://hl7.org/fhir/extension-context-type", "FHIRPath"),
+    Element("element", "http://hl7.org/fhir/extension-context-type", "Element ID"),
+    Extension("extension", "http://hl7.org/fhir/extension-context-type", "Extension URL");
 
     override fun toString(): kotlin.String = code
 
@@ -706,8 +679,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExtensionContextType =
@@ -725,52 +696,19 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A primitive type that has a value and an extension. These can be used throughout complex
-     * datatype, Resource and extension definitions. Only the base specification can define
-     * primitive types.
-     */
     Primitive_Type(
       "primitive-type",
       "http://hl7.org/fhir/structure-definition-kind",
       "Primitive Data Type",
-      "A primitive type that has a value and an extension. These can be used throughout complex datatype, Resource and extension definitions. Only the base specification can define primitive types.",
     ),
-    /**
-     * A complex structure that defines a set of data elements that is suitable for use in
-     * 'resources'. The base specification defines a number of complex types, and other
-     * specifications can define additional types. These structures do not have a maintained
-     * identity.
-     */
     Complex_Type(
       "complex-type",
       "http://hl7.org/fhir/structure-definition-kind",
       "Complex Data Type",
-      "A  complex structure that defines a set of data elements that is suitable for use in 'resources'. The base specification defines a number of complex types, and other specifications can define additional types. These structures do not have a maintained identity.",
     ),
-    /**
-     * A 'resource' - a directed acyclic graph of elements that aggregrates other types into an
-     * identifiable entity. The base FHIR resources are defined by the FHIR specification itself but
-     * other 'resources' can be defined in additional specifications (though these will not be
-     * recognized as 'resources' by the FHIR specification; i.e. they do not get end-points etc., or
-     * act as the targets of references in FHIR defined resources - though other specifications can
-     * treat them this way).
-     */
-    Resource(
-      "resource",
-      "http://hl7.org/fhir/structure-definition-kind",
-      "Resource",
-      "A 'resource' - a directed acyclic graph of elements that aggregrates other types into an identifiable entity. The base FHIR resources are defined by the FHIR specification itself but other 'resources' can be defined in additional specifications (though these will not be recognized as 'resources' by the FHIR specification; i.e. they do not get end-points etc., or act as the targets of references in FHIR defined resources - though other specifications can treat them this way).",
-    ),
-    /** A pattern or a template that is not intended to be a real resource or complex type. */
-    Logical(
-      "logical",
-      "http://hl7.org/fhir/structure-definition-kind",
-      "Logical",
-      "A pattern or a template that is not intended to be a real resource or complex type.",
-    );
+    Resource("resource", "http://hl7.org/fhir/structure-definition-kind", "Resource"),
+    Logical("logical", "http://hl7.org/fhir/structure-definition-kind", "Logical");
 
     override fun toString(): kotlin.String = code
 
@@ -779,8 +717,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureDefinitionKind =
@@ -800,25 +736,9 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This definition defines a new type that adds additional elements and optionally additional
-     * rules to the base type.
-     */
-    Specialization(
-      "specialization",
-      "http://hl7.org/fhir/type-derivation-rule",
-      "Specialization",
-      "This definition defines a new type that adds additional elements and optionally additional rules to the base type.",
-    ),
-    /** This definition adds additional rules to an existing concrete type. */
-    Constraint(
-      "constraint",
-      "http://hl7.org/fhir/type-derivation-rule",
-      "Constraint",
-      "This definition adds additional rules to an existing concrete type.",
-    );
+    Specialization("specialization", "http://hl7.org/fhir/type-derivation-rule", "Specialization"),
+    Constraint("constraint", "http://hl7.org/fhir/type-derivation-rule", "Constraint");
 
     override fun toString(): kotlin.String = code
 
@@ -827,8 +747,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TypeDerivationRule =

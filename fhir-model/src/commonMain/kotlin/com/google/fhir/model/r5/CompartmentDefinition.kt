@@ -378,50 +378,13 @@ public data class CompartmentDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The compartment definition is for the patient compartment. */
-    Patient(
-      "Patient",
-      "http://hl7.org/fhir/compartment-type",
-      "Patient",
-      "The compartment definition is for the patient compartment.",
-    ),
-    /** The compartment definition is for the encounter compartment. */
-    Encounter(
-      "Encounter",
-      "http://hl7.org/fhir/compartment-type",
-      "Encounter",
-      "The compartment definition is for the encounter compartment.",
-    ),
-    /** The compartment definition is for the related-person compartment. */
-    RelatedPerson(
-      "RelatedPerson",
-      "http://hl7.org/fhir/compartment-type",
-      "RelatedPerson",
-      "The compartment definition is for the related-person compartment.",
-    ),
-    /** The compartment definition is for the practitioner compartment. */
-    Practitioner(
-      "Practitioner",
-      "http://hl7.org/fhir/compartment-type",
-      "Practitioner",
-      "The compartment definition is for the practitioner compartment.",
-    ),
-    /** The compartment definition is for the device compartment. */
-    Device(
-      "Device",
-      "http://hl7.org/fhir/compartment-type",
-      "Device",
-      "The compartment definition is for the device compartment.",
-    ),
-    /** The compartment definition is for the episodeofcare compartment. */
-    EpisodeOfCare(
-      "EpisodeOfCare",
-      "http://hl7.org/fhir/compartment-type",
-      "EpisodeOfCare",
-      "The compartment definition is for the episodeofcare compartment.",
-    );
+    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient"),
+    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter"),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner"),
+    Device("Device", "http://hl7.org/fhir/compartment-type", "Device"),
+    EpisodeOfCare("EpisodeOfCare", "http://hl7.org/fhir/compartment-type", "EpisodeOfCare");
 
     override fun toString(): kotlin.String = code
 
@@ -430,8 +393,6 @@ public data class CompartmentDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompartmentType =

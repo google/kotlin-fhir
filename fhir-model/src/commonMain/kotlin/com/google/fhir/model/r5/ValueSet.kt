@@ -1480,117 +1480,26 @@ public data class ValueSet(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The specified property of the code equals the provided value. */
-    EqualTo(
-      "=",
-      "http://hl7.org/fhir/filter-operator",
-      "Equals",
-      "The specified property of the code equals the provided value.",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship with the concept Id
-     * provided as the value, including the provided concept itself (include descendant codes and
-     * self).
-     */
-    Is_A(
-      "is-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Is A (by subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, including the provided concept itself (include descendant codes and self).",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship with the concept Id
-     * provided as the value, excluding the provided concept itself (i.e. include descendant codes
-     * only).
-     */
+    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals"),
+    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)"),
     Descendent_Of(
       "descendent-of",
       "http://hl7.org/fhir/filter-operator",
       "Descendent Of (by subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, excluding the provided concept itself (i.e. include descendant codes only).",
     ),
-    /**
-     * The specified property of the code does not have an is-a relationship with the provided
-     * value.
-     */
-    Is_Not_A(
-      "is-not-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Not (Is A) (by subsumption)",
-      "The specified property of the code does not have an is-a relationship with the provided value.",
-    ),
-    /** The specified property of the code matches the regex specified in the provided value. */
-    Regex(
-      "regex",
-      "http://hl7.org/fhir/filter-operator",
-      "Regular Expression",
-      "The specified property of the code  matches the regex specified in the provided value.",
-    ),
-    /**
-     * The specified property of the code is in the set of codes or concepts specified in the
-     * provided value (comma-separated list).
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/filter-operator",
-      "In Set",
-      "The specified property of the code is in the set of codes or concepts specified in the provided value (comma-separated list).",
-    ),
-    /**
-     * The specified property of the code is not in the set of codes or concepts specified in the
-     * provided value (comma-separated list).
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/filter-operator",
-      "Not in Set",
-      "The specified property of the code is not in the set of codes or concepts specified in the provided value (comma-separated list).",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship from the concept Id
-     * provided as the value, including the provided concept itself (i.e. include ancestor codes and
-     * self).
-     */
+    Is_Not_A("is-not-a", "http://hl7.org/fhir/filter-operator", "Not (Is A) (by subsumption)"),
+    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression"),
+    In("in", "http://hl7.org/fhir/filter-operator", "In Set"),
+    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set"),
     Generalizes(
       "generalizes",
       "http://hl7.org/fhir/filter-operator",
       "Generalizes (by Subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship from the concept Id provided as the value, including the provided concept itself (i.e. include ancestor codes and self).",
     ),
-    /**
-     * Only concepts with a direct hierarchical relationship to the index code and no other
-     * concepts. This does not include the index code in the output.
-     */
-    Child_Of(
-      "child-of",
-      "http://hl7.org/fhir/filter-operator",
-      "Child Of",
-      "Only concepts with a direct hierarchical relationship to the index code and no other concepts. This does not include the index code in the output.",
-    ),
-    /**
-     * Includes concept ids that have a transitive is-a relationship with the concept Id provided as
-     * the value, but which do not have any concept ids with transitive is-a relationships with
-     * themselves.
-     */
-    Descendent_Leaf(
-      "descendent-leaf",
-      "http://hl7.org/fhir/filter-operator",
-      "Descendent Leaf",
-      "Includes concept ids that have a transitive is-a relationship with the concept Id provided as the value, but which do not have any concept ids with transitive is-a relationships with themselves.",
-    ),
-    /**
-     * The specified property of the code has at least one value (if the specified value is true; if
-     * the specified value is false, then matches when the specified property of the code has no
-     * values).
-     */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/filter-operator",
-      "Exists",
-      "The specified property of the code has at least one value (if the specified value is true; if the specified value is false, then matches when the specified property of the code has no values).",
-    );
+    Child_Of("child-of", "http://hl7.org/fhir/filter-operator", "Child Of"),
+    Descendent_Leaf("descendent-leaf", "http://hl7.org/fhir/filter-operator", "Descendent Leaf"),
+    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists");
 
     override fun toString(): kotlin.String = code
 
@@ -1599,8 +1508,6 @@ public data class ValueSet(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FilterOperator =

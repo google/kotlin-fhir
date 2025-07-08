@@ -16,27 +16,7 @@
 
 package com.google.fhir.codegen.schema
 
-import com.google.fhir.codegen.schema.valueset.Include
 import com.google.fhir.codegen.schema.valueset.ValueSet
 
 val ValueSet.urlPart
   get() = url.substringBeforeLast("|")
-
-/** Checks if the [Include] contains supported system definitions */
-fun Include.isValueSystemSupported(): Boolean {
-  return !system.isNullOrBlank() &&
-    // URN systems are excluded because they are not URLs pointing to actual CodeSystems.
-    // The current implementation uses the system URL to identify the corresponding CodeSystem.
-    // For example, in ValueSet-administrative-gender, the system is:
-    // http://hl7.org/fhir/administrative-gender
-    // This URL corresponds to the CodeSystem-administrative-gender, which contains
-    // the concepts needed to generate enum constants.
-    !system.startsWith("urn", ignoreCase = true) &&
-    // This URL is excluded because it does not point to a CodeSystem
-    system != "http://unitsofmeasure.org" &&
-    // This is excluded to avoid generating conflicting enum classes because the binding name
-    // ("PublicationStatus") is already associated with the system
-    // at http://hl7.org/fhir/publication-status. In this case, two common binding elements
-    // reference different ValueSets, should this happen?
-    system != "http://hl7.org/fhir/specimen-combined"
-}

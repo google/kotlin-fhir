@@ -69,49 +69,11 @@ public data class Narrative(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The contents of the narrative are entirely generated from the core elements in the content.
-     */
-    Generated(
-      "generated",
-      "http://hl7.org/fhir/narrative-status",
-      "Generated",
-      "The contents of the narrative are entirely generated from the core elements in the content.",
-    ),
-    /**
-     * The contents of the narrative are entirely generated from the core elements in the content
-     * and some of the content is generated from extensions. The narrative SHALL reflect the impact
-     * of all modifier extensions.
-     */
-    Extensions(
-      "extensions",
-      "http://hl7.org/fhir/narrative-status",
-      "Extensions",
-      "The contents of the narrative are entirely generated from the core elements in the content and some of the content is generated from extensions. The narrative SHALL reflect the impact of all modifier extensions.",
-    ),
-    /**
-     * The contents of the narrative may contain additional information not found in the structured
-     * data. Note that there is no computable way to determine what the extra information is, other
-     * than by human inspection.
-     */
-    Additional(
-      "additional",
-      "http://hl7.org/fhir/narrative-status",
-      "Additional",
-      "The contents of the narrative may contain additional information not found in the structured data. Note that there is no computable way to determine what the extra information is, other than by human inspection.",
-    ),
-    /**
-     * The contents of the narrative are some equivalent of "No human-readable text provided in this
-     * case".
-     */
-    Empty(
-      "empty",
-      "http://hl7.org/fhir/narrative-status",
-      "Empty",
-      "The contents of the narrative are some equivalent of \"No human-readable text provided in this case\".",
-    );
+    Generated("generated", "http://hl7.org/fhir/narrative-status", "Generated"),
+    Extensions("extensions", "http://hl7.org/fhir/narrative-status", "Extensions"),
+    Additional("additional", "http://hl7.org/fhir/narrative-status", "Additional"),
+    Empty("empty", "http://hl7.org/fhir/narrative-status", "Empty");
 
     override fun toString(): String = code
 
@@ -120,8 +82,6 @@ public data class Narrative(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): NarrativeStatus =

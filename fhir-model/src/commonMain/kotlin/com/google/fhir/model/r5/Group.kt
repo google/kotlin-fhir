@@ -366,78 +366,17 @@ public data class Group(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Group contains "person" Patient resources. */
-    Person(
-      "person",
-      "http://hl7.org/fhir/group-type",
-      "Person",
-      "Group contains \"person\" Patient resources.",
-    ),
-    /** Group contains "animal" Patient resources. */
-    Animal(
-      "animal",
-      "http://hl7.org/fhir/group-type",
-      "Animal",
-      "Group contains \"animal\" Patient resources.",
-    ),
-    /** Group contains healthcare practitioner resources (Practitioner or PractitionerRole). */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/group-type",
-      "Practitioner",
-      "Group contains healthcare practitioner resources (Practitioner or PractitionerRole).",
-    ),
-    /** Group contains Device resources. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/group-type",
-      "Device",
-      "Group contains Device resources.",
-    ),
-    /** Group contains CareTeam resources. */
-    Careteam(
-      "careteam",
-      "http://hl7.org/fhir/group-type",
-      "CareTeam",
-      "Group contains CareTeam resources.",
-    ),
-    /** Group contains HealthcareService resources. */
-    Healthcareservice(
-      "healthcareservice",
-      "http://hl7.org/fhir/group-type",
-      "HealthcareService",
-      "Group contains HealthcareService resources.",
-    ),
-    /** Group contains Location resources. */
-    Location(
-      "location",
-      "http://hl7.org/fhir/group-type",
-      "Location",
-      "Group contains Location resources.",
-    ),
-    /** Group contains Organization resources. */
-    Organization(
-      "organization",
-      "http://hl7.org/fhir/group-type",
-      "Organization",
-      "Group contains Organization resources.",
-    ),
-    /** Group contains RelatedPerson resources. */
-    Relatedperson(
-      "relatedperson",
-      "http://hl7.org/fhir/group-type",
-      "RelatedPerson",
-      "Group contains RelatedPerson resources.",
-    ),
-    /** Group contains Specimen resources. */
-    Specimen(
-      "specimen",
-      "http://hl7.org/fhir/group-type",
-      "Specimen",
-      "Group contains Specimen resources.",
-    );
+    Person("person", "http://hl7.org/fhir/group-type", "Person"),
+    Animal("animal", "http://hl7.org/fhir/group-type", "Animal"),
+    Practitioner("practitioner", "http://hl7.org/fhir/group-type", "Practitioner"),
+    Device("device", "http://hl7.org/fhir/group-type", "Device"),
+    Careteam("careteam", "http://hl7.org/fhir/group-type", "CareTeam"),
+    Healthcareservice("healthcareservice", "http://hl7.org/fhir/group-type", "HealthcareService"),
+    Location("location", "http://hl7.org/fhir/group-type", "Location"),
+    Organization("organization", "http://hl7.org/fhir/group-type", "Organization"),
+    Relatedperson("relatedperson", "http://hl7.org/fhir/group-type", "RelatedPerson"),
+    Specimen("specimen", "http://hl7.org/fhir/group-type", "Specimen");
 
     override fun toString(): kotlin.String = code
 
@@ -446,8 +385,6 @@ public data class Group(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GroupType =

@@ -149,125 +149,40 @@ public data class ResearchSubject(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An identified person that can be considered for inclusion in a study. */
-    Candidate(
-      "candidate",
-      "http://hl7.org/fhir/research-subject-status",
-      "Candidate",
-      "An identified person that can be considered for inclusion in a study.",
-    ),
-    /** A person that has met the eligibility criteria for inclusion in a study. */
-    Eligible(
-      "eligible",
-      "http://hl7.org/fhir/research-subject-status",
-      "Eligible",
-      "A person that has met the eligibility criteria for inclusion in a study.",
-    ),
-    /**
-     * A person is no longer receiving study intervention and/or being evaluated with tests and
-     * procedures according to the protocol, but they are being monitored on a protocol-prescribed
-     * schedule.
-     */
-    Follow_Up(
-      "follow-up",
-      "http://hl7.org/fhir/research-subject-status",
-      "Follow-up",
-      "A person is no longer receiving study intervention and/or being evaluated with tests and procedures according to the protocol, but they are being monitored on a protocol-prescribed schedule.",
-    ),
-    /**
-     * A person who did not meet one or more criteria required for participation in a study is
-     * considered to have failed screening or is ineligible for the study.
-     */
-    Ineligible(
-      "ineligible",
-      "http://hl7.org/fhir/research-subject-status",
-      "Ineligible",
-      """
-    |A person who did not meet one or more criteria required for participation in a study is considered to have failed screening or
-    |is ineligible for the study.
-    """
-        .trimMargin(),
-    ),
-    /** A person for whom registration was not completed. */
+    Candidate("candidate", "http://hl7.org/fhir/research-subject-status", "Candidate"),
+    Eligible("eligible", "http://hl7.org/fhir/research-subject-status", "Eligible"),
+    Follow_Up("follow-up", "http://hl7.org/fhir/research-subject-status", "Follow-up"),
+    Ineligible("ineligible", "http://hl7.org/fhir/research-subject-status", "Ineligible"),
     Not_Registered(
       "not-registered",
       "http://hl7.org/fhir/research-subject-status",
       "Not Registered",
-      "A person for whom registration was not completed.",
     ),
-    /**
-     * A person that has ended their participation on a study either because their
-     * treatment/observation is complete or through not responding, withdrawal, non-compliance
-     * and/or adverse event.
-     */
-    Off_Study(
-      "off-study",
-      "http://hl7.org/fhir/research-subject-status",
-      "Off-study",
-      """
-    |A person that has ended their participation on a study either because their treatment/observation is complete or through not
-    |responding, withdrawal, non-compliance and/or adverse event.
-    """
-        .trimMargin(),
-    ),
-    /** A person that is enrolled or registered on a study. */
-    On_Study(
-      "on-study",
-      "http://hl7.org/fhir/research-subject-status",
-      "On-study",
-      "A person that is enrolled or registered on a study.",
-    ),
-    /**
-     * The person is receiving the treatment or participating in an activity (e.g. yoga, diet, etc.)
-     * that the study is evaluating.
-     */
+    Off_Study("off-study", "http://hl7.org/fhir/research-subject-status", "Off-study"),
+    On_Study("on-study", "http://hl7.org/fhir/research-subject-status", "On-study"),
     On_Study_Intervention(
       "on-study-intervention",
       "http://hl7.org/fhir/research-subject-status",
       "On-study-intervention",
-      "The person is receiving the treatment or participating in an activity (e.g. yoga, diet, etc.) that the study is evaluating.",
     ),
-    /**
-     * The subject is being evaluated via tests and assessments according to the study calendar, but
-     * is not receiving any intervention. Note that this state is study-dependent and might not
-     * exist in all studies. A synonym for this is "short-term follow-up".
-     */
     On_Study_Observation(
       "on-study-observation",
       "http://hl7.org/fhir/research-subject-status",
       "On-study-observation",
-      "The subject is being evaluated via tests and assessments according to the study calendar, but is not receiving any intervention. Note that this state is study-dependent and might not exist in all studies.  A synonym for this is \"short-term follow-up\".",
     ),
-    /** A person is pre-registered for a study. */
     Pending_On_Study(
       "pending-on-study",
       "http://hl7.org/fhir/research-subject-status",
       "Pending on-study",
-      "A person is pre-registered for a study.",
     ),
-    /** A person that is potentially eligible for participation in the study. */
     Potential_Candidate(
       "potential-candidate",
       "http://hl7.org/fhir/research-subject-status",
       "Potential Candidate",
-      "A person that is potentially eligible for participation in the study.",
     ),
-    /** A person who is being evaluated for eligibility for a study. */
-    Screening(
-      "screening",
-      "http://hl7.org/fhir/research-subject-status",
-      "Screening",
-      "A person who is being evaluated for eligibility for a study.",
-    ),
-    /** The person has withdrawn their participation in the study before registration. */
-    Withdrawn(
-      "withdrawn",
-      "http://hl7.org/fhir/research-subject-status",
-      "Withdrawn",
-      "The person has withdrawn their participation in the study before registration.",
-    );
+    Screening("screening", "http://hl7.org/fhir/research-subject-status", "Screening"),
+    Withdrawn("withdrawn", "http://hl7.org/fhir/research-subject-status", "Withdrawn");
 
     override fun toString(): kotlin.String = code
 
@@ -276,8 +191,6 @@ public data class ResearchSubject(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResearchSubjectStatus =

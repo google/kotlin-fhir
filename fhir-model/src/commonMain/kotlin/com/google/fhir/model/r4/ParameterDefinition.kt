@@ -75,17 +75,9 @@ public data class ParameterDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This is an input parameter. */
-    In("in", "http://hl7.org/fhir/operation-parameter-use", "In", "This is an input parameter."),
-    /** This is an output parameter. */
-    Out(
-      "out",
-      "http://hl7.org/fhir/operation-parameter-use",
-      "Out",
-      "This is an output parameter.",
-    );
+    In("in", "http://hl7.org/fhir/operation-parameter-use", "In"),
+    Out("out", "http://hl7.org/fhir/operation-parameter-use", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -94,8 +86,6 @@ public data class ParameterDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ParameterUse =

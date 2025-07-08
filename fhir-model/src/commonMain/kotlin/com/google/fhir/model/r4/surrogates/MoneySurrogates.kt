@@ -19,9 +19,9 @@
 
 package com.google.fhir.model.r4.surrogates
 
-import com.google.fhir.model.r4.Code
 import com.google.fhir.model.r4.Decimal
 import com.google.fhir.model.r4.Element
+import com.google.fhir.model.r4.Enumeration
 import com.google.fhir.model.r4.Extension
 import com.google.fhir.model.r4.Money
 import com.google.fhir.model.r4.serializers.DoubleSerializer
@@ -47,7 +47,11 @@ internal data class MoneySurrogate(
       id = this@MoneySurrogate.id
       extension = this@MoneySurrogate.extension
       `value` = Decimal.of(this@MoneySurrogate.`value`, this@MoneySurrogate._value)
-      currency = Code.of(this@MoneySurrogate.currency, this@MoneySurrogate._currency)
+      currency =
+        Enumeration.of(
+          this@MoneySurrogate.currency?.let { com.google.fhir.model.r4.CurrencyCode.fromCode(it) },
+          this@MoneySurrogate._currency,
+        )
     }
 
   public companion object {
@@ -58,7 +62,7 @@ internal data class MoneySurrogate(
           extension = this@with.extension
           `value` = this@with.`value`?.value
           _value = this@with.`value`?.toElement()
-          currency = this@with.currency?.value
+          currency = this@with.currency?.value?.getCode()
           _currency = this@with.currency?.toElement()
         }
       }

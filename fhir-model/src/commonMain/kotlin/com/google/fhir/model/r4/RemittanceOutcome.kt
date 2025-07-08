@@ -23,38 +23,11 @@ public enum class RemittanceOutcome(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  /**
-   * The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.
-   */
-  Queued(
-    "queued",
-    "http://hl7.org/fhir/remittance-outcome",
-    "Queued",
-    "The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.",
-  ),
-  /** The processing has completed without errors */
-  Complete(
-    "complete",
-    "http://hl7.org/fhir/remittance-outcome",
-    "Processing Complete",
-    "The processing has completed without errors",
-  ),
-  /** One or more errors have been detected in the Claim */
-  Error(
-    "error",
-    "http://hl7.org/fhir/remittance-outcome",
-    "Error",
-    "One or more errors have been detected in the Claim",
-  ),
-  /** No errors have been detected in the Claim and some of the adjudication has been performed. */
-  Partial(
-    "partial",
-    "http://hl7.org/fhir/remittance-outcome",
-    "Partial Processing",
-    "No errors have been detected in the Claim and some of the adjudication has been performed.",
-  );
+  Queued("queued", "http://hl7.org/fhir/remittance-outcome", "Queued"),
+  Complete("complete", "http://hl7.org/fhir/remittance-outcome", "Processing Complete"),
+  Error("error", "http://hl7.org/fhir/remittance-outcome", "Error"),
+  Partial("partial", "http://hl7.org/fhir/remittance-outcome", "Partial Processing");
 
   override fun toString(): String = code
 
@@ -63,8 +36,6 @@ public enum class RemittanceOutcome(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): RemittanceOutcome =

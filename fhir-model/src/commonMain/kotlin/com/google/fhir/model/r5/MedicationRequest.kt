@@ -626,93 +626,20 @@ public data class MedicationRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The request is 'actionable', but not all actions that are implied by it have occurred yet.
-     */
-    Active(
-      "active",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Active",
-      "The request is 'actionable', but not all actions that are implied by it have occurred yet.",
-    ),
-    /**
-     * Actions implied by the request are to be temporarily halted. The request might or might not
-     * be resumed. May also be called 'suspended'.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "On Hold",
-      "Actions implied by the request are to be temporarily halted. The request might or might not be resumed. May also be called 'suspended'.",
-    ),
-    /**
-     * The request is no longer active and the subject should no longer be taking the medication.
-     */
-    Ended(
-      "ended",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Ended",
-      "The request is no longer active and the subject should no longer be taking the medication.",
-    ),
-    /**
-     * Actions implied by the request are to be permanently halted, before all of the
-     * administrations occurred. This should not be used if the original order was entered in error
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Stopped",
-      "Actions implied by the request are to be permanently halted, before all of the administrations occurred. This should not be used if the original order was entered in error",
-    ),
-    /** All actions that are implied by the request have occurred. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Completed",
-      "All actions that are implied by the request have occurred.",
-    ),
-    /** The request has been withdrawn before any administrations have occurred */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Cancelled",
-      "The request has been withdrawn before any administrations have occurred",
-    ),
-    /**
-     * The request was recorded against the wrong patient or for some reason should not have been
-     * recorded (e.g. wrong medication, wrong dose, etc.). Some of the actions that are implied by
-     * the medication request may have occurred. For example, the medication may have been dispensed
-     * and the patient may have taken some of the medication.
-     */
+    Active("active", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "On Hold"),
+    Ended("ended", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Ended"),
+    Stopped("stopped", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
       "Entered in Error",
-      "The request was recorded against the wrong patient or for some reason should not have been recorded (e.g. wrong medication, wrong dose, etc.). Some of the actions that are implied by the medication request may have occurred. For example, the medication may have been dispensed and the patient may have taken some of the medication.",
     ),
-    /**
-     * The request is not yet 'actionable', e.g. it is a work in progress, requires sign-off,
-     * verification or needs to be run through decision support process.
-     */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Draft",
-      "The request is not yet 'actionable', e.g. it is a work in progress, requires sign-off, verification or needs to be run through decision support process.",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this request. Note: This concept is not to be used for 'other' - one of the listed statuses
-     * is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this request. Note: This concept is not to be used for 'other' - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Draft("draft", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Draft"),
+    Unknown("unknown", "http://hl7.org/fhir/CodeSystem/medicationrequest-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -721,8 +648,6 @@ public data class MedicationRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationRequestStatus =
@@ -747,83 +672,31 @@ public data class MedicationRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that doesn't have an intention to
-     * ensure it occurs and without providing an authorization to act
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that doesn't have an intention to ensure it occurs and without providing an authorization to act",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /** The request represents a request/demand and authorization for action */
-    Order(
-      "order",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action",
-    ),
-    /** The request represents the original authorization for the medication request. */
+    Proposal("proposal", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Order"),
     Original_Order(
       "original-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Original Order",
-      "The request represents the original authorization for the medication request.",
     ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization..
-     */
     Reflex_Order(
       "reflex-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization..",
     ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
     Filler_Order(
       "filler-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
     ),
-    /**
-     * The request represents an instance for the particular order and is used to generate a
-     * schedule of requests on a medication administration record (MAR).
-     */
     Instance_Order(
       "instance-order",
       "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
       "Instance Order",
-      "The request represents an instance for the particular order and is used to generate a schedule of requests on a medication administration record (MAR).",
     ),
-    /**
-     * The request represents a component or option for a RequestOrchestration that establishes
-     * timing, conditionality and/or other constraints among a set of requests.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/CodeSystem/medicationrequest-intent",
-      "Option",
-      "The request represents a component or option for a RequestOrchestration that establishes timing, conditionality and/or  other constraints among a set of requests.",
-    );
+    Option("option", "http://hl7.org/fhir/CodeSystem/medicationrequest-intent", "Option");
 
     override fun toString(): String = code
 
@@ -832,8 +705,6 @@ public data class MedicationRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationRequestIntent =
@@ -857,38 +728,11 @@ public data class MedicationRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -897,8 +741,6 @@ public data class MedicationRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationRequestPriority =

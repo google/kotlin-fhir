@@ -539,111 +539,22 @@ public data class Composition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the composition is registered, but there is nothing yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/composition-status",
-      "Registered",
-      "The existence of the composition is registered, but there is nothing yet available.",
-    ),
-    /**
-     * This is a partial (e.g. initial, interim or preliminary) composition: data in the composition
-     * may be incomplete or unverified.
-     */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/composition-status",
-      "Partial",
-      "This is a partial (e.g. initial, interim or preliminary) composition: data in the composition may be incomplete or unverified.",
-    ),
-    /** Verified early results are available, but not all results are final. */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/composition-status",
-      "Preliminary",
-      "Verified early results are available, but not all results are final.",
-    ),
-    /**
-     * This version of the composition is complete and verified by an appropriate person and no
-     * further work is planned. Any subsequent updates would be on a new version of the composition.
-     */
-    Final(
-      "final",
-      "http://hl7.org/fhir/composition-status",
-      "Final",
-      "This version of the composition is complete and verified by an appropriate person and no further work is planned. Any subsequent updates would be on a new version of the composition.",
-    ),
-    /**
-     * The composition content or the referenced resources have been modified (edited or added to)
-     * subsequent to being released as "final" and the composition is complete and verified by an
-     * authorized person.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/composition-status",
-      "Amended",
-      "The composition content or the referenced resources have been modified (edited or added to) subsequent to being released as \"final\" and the composition is complete and verified by an authorized person.",
-    ),
-    /**
-     * Subsequent to being final, the composition content has been modified to correct an error in
-     * the composition or referenced results.
-     */
-    Corrected(
-      "corrected",
-      "http://hl7.org/fhir/composition-status",
-      "Corrected",
-      "Subsequent to being final, the composition content has been modified to correct an error in the composition or referenced results.",
-    ),
-    /**
-     * Subsequent to being final, the composition content has been modified by adding new content.
-     * The existing content is unchanged.
-     */
-    Appended(
-      "appended",
-      "http://hl7.org/fhir/composition-status",
-      "Appended",
-      "Subsequent to being final, the composition content has been modified by adding new content. The existing content is unchanged.",
-    ),
-    /**
-     * The composition is unavailable because the measurement was not started or not completed (also
-     * sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/composition-status",
-      "Cancelled",
-      "The composition is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The composition or document was originally created/issued in error, and this is an amendment
-     * that marks that the entire series should not be considered as valid.
-     */
+    Registered("registered", "http://hl7.org/fhir/composition-status", "Registered"),
+    Partial("partial", "http://hl7.org/fhir/composition-status", "Partial"),
+    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/composition-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/composition-status", "Corrected"),
+    Appended("appended", "http://hl7.org/fhir/composition-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/composition-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/composition-status",
       "Entered in Error",
-      "The composition or document was originally created/issued in error, and this is an amendment that marks that the entire series should not be considered as valid.",
     ),
-    /** This composition has been withdrawn or superseded and should no longer be used. */
-    Deprecated(
-      "deprecated",
-      "http://hl7.org/fhir/composition-status",
-      "Deprecated",
-      "This composition has been withdrawn or superseded and should no longer be used.",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/composition-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Deprecated("deprecated", "http://hl7.org/fhir/composition-status", "Deprecated"),
+    Unknown("unknown", "http://hl7.org/fhir/composition-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -652,8 +563,6 @@ public data class Composition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompositionStatus =

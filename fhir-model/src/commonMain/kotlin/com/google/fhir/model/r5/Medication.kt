@@ -338,34 +338,13 @@ public data class Medication(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The medication record is current and is appropriate for reference in new instances. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/CodeSystem/medication-status",
-      "Active",
-      "The medication record is current and is appropriate for reference in new instances.",
-    ),
-    /**
-     * The medication record is not current and is not is appropriate for reference in new
-     * instances.
-     */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/CodeSystem/medication-status",
-      "Inactive",
-      "The medication record is not current and is not is appropriate for reference in new instances.",
-    ),
-    /**
-     * The medication record was created erroneously and is not appropriated for reference in new
-     * instances.
-     */
+    Active("active", "http://hl7.org/fhir/CodeSystem/medication-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/CodeSystem/medication-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medication-status",
       "Entered in Error",
-      "The medication record was created erroneously and is not appropriated for reference in new instances.",
     );
 
     override fun toString(): kotlin.String = code
@@ -375,8 +354,6 @@ public data class Medication(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MedicationStatus =

@@ -229,42 +229,15 @@ public data class SubscriptionStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The client has requested the subscription, and the server has not yet set it up. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/subscription-status",
-      "Requested",
-      "The client has requested the subscription, and the server has not yet set it up.",
-    ),
-    /** The subscription is active. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/subscription-status",
-      "Active",
-      "The subscription is active.",
-    ),
-    /** The server has an error executing the notification. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/subscription-status",
-      "Error",
-      "The server has an error executing the notification.",
-    ),
-    /** Too many errors have occurred or the subscription has expired. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/subscription-status",
-      "Off",
-      "Too many errors have occurred or the subscription has expired.",
-    ),
-    /** This subscription has been flagged as incorrect. */
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/subscription-status",
       "Entered in Error",
-      "This subscription has been flagged as incorrect.",
     );
 
     override fun toString(): String = code
@@ -274,8 +247,6 @@ public data class SubscriptionStatus(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SubscriptionStatus =
@@ -295,45 +266,20 @@ public data class SubscriptionStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The status was generated as part of the setup or verification of a communications channel.
-     */
-    Handshake(
-      "handshake",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Handshake",
-      "The status was generated as part of the setup or verification of a communications channel.",
-    ),
-    /** The status was generated to perform a heartbeat notification to the subscriber. */
-    Heartbeat(
-      "heartbeat",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Heartbeat",
-      "The status was generated to perform a heartbeat notification to the subscriber.",
-    ),
-    /** The status was generated for an event to the subscriber. */
+    Handshake("handshake", "http://hl7.org/fhir/subscription-notification-type", "Handshake"),
+    Heartbeat("heartbeat", "http://hl7.org/fhir/subscription-notification-type", "Heartbeat"),
     Event_Notification(
       "event-notification",
       "http://hl7.org/fhir/subscription-notification-type",
       "Event Notification",
-      "The status was generated for an event to the subscriber.",
     ),
-    /** The status was generated in response to a status query/request. */
     Query_Status(
       "query-status",
       "http://hl7.org/fhir/subscription-notification-type",
       "Query Status",
-      "The status was generated in response to a status query/request.",
     ),
-    /** The status was generated in response to an event query/request. */
-    Query_Event(
-      "query-event",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Query Event",
-      "The status was generated in response to an event query/request.",
-    );
+    Query_Event("query-event", "http://hl7.org/fhir/subscription-notification-type", "Query Event");
 
     override fun toString(): String = code
 
@@ -342,8 +288,6 @@ public data class SubscriptionStatus(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SubscriptionNotificationType =

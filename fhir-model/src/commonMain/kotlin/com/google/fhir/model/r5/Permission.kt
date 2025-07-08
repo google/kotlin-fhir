@@ -428,22 +428,9 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Consent is denied for actions meeting these rules. */
-    Deny(
-      "deny",
-      "http://hl7.org/fhir/consent-provision-type",
-      "Deny",
-      "Consent is denied for actions meeting these rules.",
-    ),
-    /** Consent is provided for actions meeting these rules. */
-    Permit(
-      "permit",
-      "http://hl7.org/fhir/consent-provision-type",
-      "Permit",
-      "Consent is provided for actions meeting these rules.",
-    );
+    Deny("deny", "http://hl7.org/fhir/consent-provision-type", "Deny"),
+    Permit("permit", "http://hl7.org/fhir/consent-provision-type", "Permit");
 
     override fun toString(): String = code
 
@@ -452,8 +439,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PermissionProvisionType =
@@ -471,38 +456,11 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The consent applies directly to the instance of the resource. */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "Instance",
-      "The consent applies directly to the instance of the resource.",
-    ),
-    /** The consent applies directly to the instance of the resource and instances it refers to. */
-    Related(
-      "related",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "Related",
-      "The consent applies directly to the instance of the resource and instances it refers to.",
-    ),
-    /**
-     * The consent applies directly to the instance of the resource and instances that refer to it.
-     */
-    Dependents(
-      "dependents",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "Dependents",
-      "The consent applies directly to the instance of the resource and instances that refer to it.",
-    ),
-    /** The consent applies to instances of resources that are authored by. */
-    Authoredby(
-      "authoredby",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "AuthoredBy",
-      "The consent applies to instances of resources that are authored by.",
-    );
+    Instance("instance", "http://hl7.org/fhir/consent-data-meaning", "Instance"),
+    Related("related", "http://hl7.org/fhir/consent-data-meaning", "Related"),
+    Dependents("dependents", "http://hl7.org/fhir/consent-data-meaning", "Dependents"),
+    Authoredby("authoredby", "http://hl7.org/fhir/consent-data-meaning", "AuthoredBy");
 
     override fun toString(): String = code
 
@@ -511,8 +469,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentDataMeaning =
@@ -531,31 +487,15 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Permission is given. */
-    Active("active", "http://hl7.org/fhir/permission-status", "Active", "Permission is given."),
-    /** Permission was entered in error and is not active. */
+    Active("active", "http://hl7.org/fhir/permission-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/permission-status",
       "Entered in Error",
-      "Permission was entered in error and is not active.",
     ),
-    /** Permission is being defined. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/permission-status",
-      "Draft",
-      "Permission is being defined.",
-    ),
-    /** Permission not granted. */
-    Rejected(
-      "rejected",
-      "http://hl7.org/fhir/permission-status",
-      "Rejected",
-      "Permission not granted.",
-    );
+    Draft("draft", "http://hl7.org/fhir/permission-status", "Draft"),
+    Rejected("rejected", "http://hl7.org/fhir/permission-status", "Rejected");
 
     override fun toString(): String = code
 
@@ -564,8 +504,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PermissionStatus =
@@ -584,74 +522,36 @@ public data class Permission(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The deny overrides combining algorithm is intended for those cases where a deny decision
-     * should have priority over a permit decision.
-     */
     Deny_Overrides(
       "deny-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Deny-overrides",
-      "The deny overrides combining algorithm is intended for those cases where a deny decision should have priority over a permit decision.",
     ),
-    /**
-     * The permit overrides combining algorithm is intended for those cases where a permit decision
-     * should have priority over a deny decision.
-     */
     Permit_Overrides(
       "permit-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Permit-overrides",
-      "The permit overrides combining algorithm is intended for those cases where a permit decision should have priority over a deny decision.",
     ),
-    /**
-     * The behavior of this algorithm is identical to that of the “Deny-overrides” rule-combining
-     * algorithm with one exception. The order in which the collection of rules is evaluated SHALL
-     * match the order as listed in the permission.
-     */
     Ordered_Deny_Overrides(
       "ordered-deny-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Ordered-deny-overrides",
-      "The behavior of this algorithm is identical to that of the “Deny-overrides” rule-combining algorithm with one exception.  The order in which the collection of rules is evaluated SHALL match the order as listed in the permission.",
     ),
-    /**
-     * The behavior of this algorithm is identical to that of the “Permit-overrides” rule-combining
-     * algorithm with one exception. The order in which the collection of rules is evaluated SHALL
-     * match the order as listed in the permission.
-     */
     Ordered_Permit_Overrides(
       "ordered-permit-overrides",
       "http://hl7.org/fhir/permission-rule-combining",
       "Ordered-permit-overrides",
-      "The behavior of this algorithm is identical to that of the “Permit-overrides” rule-combining algorithm with one exception.  The order in which the collection of rules is evaluated SHALL match the order as listed in the permission.",
     ),
-    /**
-     * The “Deny-unless-permit” combining algorithm is intended for those cases where a permit
-     * decision should have priority over a deny decision, and an “Indeterminate” or “NotApplicable”
-     * must never be the result. It is particularly useful at the top level in a policy structure to
-     * ensure that a PDP will always return a definite “Permit” or “Deny” result.
-     */
     Deny_Unless_Permit(
       "deny-unless-permit",
       "http://hl7.org/fhir/permission-rule-combining",
       "Deny-unless-permit",
-      "The “Deny-unless-permit” combining algorithm is intended for those cases where a permit decision should have priority over a deny decision, and an “Indeterminate” or “NotApplicable” must never be the result. It is particularly useful at the top level in a policy structure to ensure that a PDP will always return a definite “Permit” or “Deny” result.",
     ),
-    /**
-     * The “Permit-unless-deny” combining algorithm is intended for those cases where a deny
-     * decision should have priority over a permit decision, and an “Indeterminate” or
-     * “NotApplicable” must never be the result. It is particularly useful at the top level in a
-     * policy structure to ensure that a PDP will always return a definite “Permit” or “Deny”
-     * result. This algorithm has the following behavior.
-     */
     Permit_Unless_Deny(
       "permit-unless-deny",
       "http://hl7.org/fhir/permission-rule-combining",
       "Permit-unless-deny",
-      "The “Permit-unless-deny” combining algorithm is intended for those cases where a deny decision should have priority over a permit decision, and an “Indeterminate” or “NotApplicable” must never be the result. It is particularly useful at the top level in a policy structure to ensure that a PDP will always return a definite “Permit” or “Deny” result. This algorithm has the following behavior.",
     );
 
     override fun toString(): String = code
@@ -661,8 +561,6 @@ public data class Permission(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PermissionCombining =

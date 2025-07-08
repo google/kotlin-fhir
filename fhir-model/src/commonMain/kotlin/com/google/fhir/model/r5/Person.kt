@@ -344,36 +344,11 @@ public data class Person(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Little or no confidence in the asserted identity's accuracy. */
-    Level1(
-      "level1",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 1",
-      "Little or no confidence in the asserted identity's accuracy.",
-    ),
-    /** Some confidence in the asserted identity's accuracy. */
-    Level2(
-      "level2",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 2",
-      "Some confidence in the asserted identity's accuracy.",
-    ),
-    /** High confidence in the asserted identity's accuracy. */
-    Level3(
-      "level3",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 3",
-      "High confidence in the asserted identity's accuracy.",
-    ),
-    /** Very high confidence in the asserted identity's accuracy. */
-    Level4(
-      "level4",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 4",
-      "Very high confidence in the asserted identity's accuracy.",
-    );
+    Level1("level1", "http://hl7.org/fhir/identity-assuranceLevel", "Level 1"),
+    Level2("level2", "http://hl7.org/fhir/identity-assuranceLevel", "Level 2"),
+    Level3("level3", "http://hl7.org/fhir/identity-assuranceLevel", "Level 3"),
+    Level4("level4", "http://hl7.org/fhir/identity-assuranceLevel", "Level 4");
 
     override fun toString(): String = code
 
@@ -382,8 +357,6 @@ public data class Person(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): IdentityAssuranceLevel =

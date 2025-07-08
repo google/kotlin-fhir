@@ -408,43 +408,12 @@ public data class Invoice(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the invoice has been prepared but not yet finalized. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/invoice-status",
-      "draft",
-      "the invoice has been prepared but not yet finalized.",
-    ),
-    /** the invoice has been finalized and sent to the recipient. */
-    Issued(
-      "issued",
-      "http://hl7.org/fhir/invoice-status",
-      "issued",
-      "the invoice has been finalized and sent to the recipient.",
-    ),
-    /** the invoice has been balaced / completely paid. */
-    Balanced(
-      "balanced",
-      "http://hl7.org/fhir/invoice-status",
-      "balanced",
-      "the invoice has been balaced / completely paid.",
-    ),
-    /** the invoice was cancelled. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/invoice-status",
-      "cancelled",
-      "the invoice was cancelled.",
-    ),
-    /** the invoice was determined as entered in error before it was issued. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/invoice-status",
-      "entered in error",
-      "the invoice was determined as entered in error before it was issued.",
-    );
+    Draft("draft", "http://hl7.org/fhir/invoice-status", "draft"),
+    Issued("issued", "http://hl7.org/fhir/invoice-status", "issued"),
+    Balanced("balanced", "http://hl7.org/fhir/invoice-status", "balanced"),
+    Cancelled("cancelled", "http://hl7.org/fhir/invoice-status", "cancelled"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/invoice-status", "entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -453,8 +422,6 @@ public data class Invoice(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InvoiceStatus =

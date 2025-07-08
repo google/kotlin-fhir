@@ -187,32 +187,10 @@ public data class Flag(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * A current flag that should be displayed to a user. A system may use the category to determine
-     * which user roles should view the flag.
-     */
-    Active(
-      "active",
-      "http://hl7.org/fhir/flag-status",
-      "Active",
-      "A current flag that should be displayed to a user. A system may use the category to determine which user roles should view the flag.",
-    ),
-    /** The flag no longer needs to be displayed. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/flag-status",
-      "Inactive",
-      "The flag no longer needs to be displayed.",
-    ),
-    /** The flag was added in error and should no longer be displayed. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/flag-status",
-      "Entered in Error",
-      "The flag was added in error and should no longer be displayed.",
-    );
+    Active("active", "http://hl7.org/fhir/flag-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/flag-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/flag-status", "Entered in Error");
 
     override fun toString(): String = code
 
@@ -221,8 +199,6 @@ public data class Flag(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): FlagStatus =

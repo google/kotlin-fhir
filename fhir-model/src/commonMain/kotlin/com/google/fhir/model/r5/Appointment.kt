@@ -678,43 +678,11 @@ public data class Appointment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant has accepted the appointment. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/participationstatus",
-      "Accepted",
-      "The participant has accepted the appointment.",
-    ),
-    /** The participant has declined the appointment and will not participate in the appointment. */
-    Declined(
-      "declined",
-      "http://hl7.org/fhir/participationstatus",
-      "Declined",
-      "The participant has declined the appointment and will not participate in the appointment.",
-    ),
-    /**
-     * The participant has tentatively accepted the appointment. This could be automatically created
-     * by a system and requires further processing before it can be accepted. There is no commitment
-     * that attendance will occur.
-     */
-    Tentative(
-      "tentative",
-      "http://hl7.org/fhir/participationstatus",
-      "Tentative",
-      "The participant has  tentatively accepted the appointment. This could be automatically created by a system and requires further processing before it can be accepted. There is no commitment that attendance will occur.",
-    ),
-    /**
-     * The participant needs to indicate if they accept the appointment by changing this status to
-     * one of the other statuses.
-     */
-    Needs_Action(
-      "needs-action",
-      "http://hl7.org/fhir/participationstatus",
-      "Needs Action",
-      "The participant needs to indicate if they accept the appointment by changing this status to one of the other statuses.",
-    );
+    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted"),
+    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined"),
+    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative"),
+    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action");
 
     override fun toString(): kotlin.String = code
 
@@ -723,8 +691,6 @@ public data class Appointment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ParticipationStatus =
@@ -743,104 +709,21 @@ public data class Appointment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * None of the participant(s) have finalized their acceptance of the appointment request, and
-     * the start/end time might not be set yet.
-     */
-    Proposed(
-      "proposed",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Proposed",
-      "None of the participant(s) have finalized their acceptance of the appointment request, and the start/end time might not be set yet.",
-    ),
-    /**
-     * Some or all of the participant(s) have not finalized their acceptance of the appointment
-     * request.
-     */
-    Pending(
-      "pending",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Pending",
-      "Some or all of the participant(s) have not finalized their acceptance of the appointment request.",
-    ),
-    /**
-     * All participant(s) have been considered and the appointment is confirmed to go ahead at the
-     * date/times specified.
-     */
-    Booked(
-      "booked",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Booked",
-      "All participant(s) have been considered and the appointment is confirmed to go ahead at the date/times specified.",
-    ),
-    /** The patient/patients has/have arrived and is/are waiting to be seen. */
-    Arrived(
-      "arrived",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Arrived",
-      "The patient/patients has/have arrived and is/are waiting to be seen.",
-    ),
-    /**
-     * The planning stages of the appointment are now complete, the encounter resource will exist
-     * and will track further status changes. Note that an encounter may exist before the
-     * appointment status is fulfilled for many reasons.
-     */
-    Fulfilled(
-      "fulfilled",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Fulfilled",
-      "The planning stages of the appointment are now complete, the encounter resource will exist and will track further status changes. Note that an encounter may exist before the appointment status is fulfilled for many reasons.",
-    ),
-    /** The appointment has been cancelled. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Cancelled",
-      "The appointment has been cancelled.",
-    ),
-    /**
-     * Some or all of the participant(s) have not/did not appear for the appointment (usually the
-     * patient).
-     */
-    Noshow(
-      "noshow",
-      "http://hl7.org/fhir/appointmentstatus",
-      "No Show",
-      "Some or all of the participant(s) have not/did not appear for the appointment (usually the patient).",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
+    Proposed("proposed", "http://hl7.org/fhir/appointmentstatus", "Proposed"),
+    Pending("pending", "http://hl7.org/fhir/appointmentstatus", "Pending"),
+    Booked("booked", "http://hl7.org/fhir/appointmentstatus", "Booked"),
+    Arrived("arrived", "http://hl7.org/fhir/appointmentstatus", "Arrived"),
+    Fulfilled("fulfilled", "http://hl7.org/fhir/appointmentstatus", "Fulfilled"),
+    Cancelled("cancelled", "http://hl7.org/fhir/appointmentstatus", "Cancelled"),
+    Noshow("noshow", "http://hl7.org/fhir/appointmentstatus", "No Show"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/appointmentstatus",
       "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
     ),
-    /**
-     * When checked in, all pre-encounter administrative work is complete, and the encounter may
-     * begin. (where multiple patients are involved, they are all present).
-     */
-    Checked_In(
-      "checked-in",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Checked In",
-      "When checked in, all pre-encounter administrative work is complete, and the encounter may begin. (where multiple patients are involved, they are all present).",
-    ),
-    /**
-     * The appointment has been placed on a waitlist, to be scheduled/confirmed in the future when a
-     * slot/service is available. A specific time might or might not be pre-allocated.
-     */
-    Waitlist(
-      "waitlist",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Waitlisted",
-      """
-    |The appointment has been placed on a waitlist, to be scheduled/confirmed in the future when a slot/service is available.
-    |A specific time might or might not be pre-allocated.
-    """
-        .trimMargin(),
-    );
+    Checked_In("checked-in", "http://hl7.org/fhir/appointmentstatus", "Checked In"),
+    Waitlist("waitlist", "http://hl7.org/fhir/appointmentstatus", "Waitlisted");
 
     override fun toString(): kotlin.String = code
 
@@ -849,8 +732,6 @@ public data class Appointment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AppointmentStatus =

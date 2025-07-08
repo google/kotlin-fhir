@@ -574,38 +574,12 @@ public data class Account(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This account is active and may be used. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/account-status",
-      "Active",
-      "This account is active and may be used.",
-    ),
-    /** This account is inactive and should not be used to track financial information. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/account-status",
-      "Inactive",
-      "This account is inactive and should not be used to track financial information.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/account-status",
-      "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
-    ),
-    /** This account is on hold. */
-    On_Hold("on-hold", "http://hl7.org/fhir/account-status", "On Hold", "This account is on hold."),
-    /** The account status is unknown. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/account-status",
-      "Unknown",
-      "The account status is unknown.",
-    );
+    Active("active", "http://hl7.org/fhir/account-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/account-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/account-status", "Entered in error"),
+    On_Hold("on-hold", "http://hl7.org/fhir/account-status", "On Hold"),
+    Unknown("unknown", "http://hl7.org/fhir/account-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -614,8 +588,6 @@ public data class Account(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AccountStatus =

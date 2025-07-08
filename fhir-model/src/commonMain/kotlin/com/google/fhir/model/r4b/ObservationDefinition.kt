@@ -333,32 +333,10 @@ public data class ObservationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Reference (Normal) Range for Ordinal and Continuous Observations. */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/observation-range-category",
-      "reference range",
-      "Reference (Normal) Range for Ordinal and Continuous Observations.",
-    ),
-    /** Critical Range for Ordinal and Continuous Observations. */
-    Critical(
-      "critical",
-      "http://hl7.org/fhir/observation-range-category",
-      "critical range",
-      "Critical Range for Ordinal and Continuous Observations.",
-    ),
-    /**
-     * Absolute Range for Ordinal and Continuous Observations. Results outside this range are not
-     * possible.
-     */
-    Absolute(
-      "absolute",
-      "http://hl7.org/fhir/observation-range-category",
-      "absolute range",
-      "Absolute Range for Ordinal and Continuous Observations. Results outside this range are not possible.",
-    );
+    Reference("reference", "http://hl7.org/fhir/observation-range-category", "reference range"),
+    Critical("critical", "http://hl7.org/fhir/observation-range-category", "critical range"),
+    Absolute("absolute", "http://hl7.org/fhir/observation-range-category", "absolute range");
 
     override fun toString(): kotlin.String = code
 
@@ -367,8 +345,6 @@ public data class ObservationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationRangeCategory =
@@ -387,78 +363,22 @@ public data class ObservationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A measured amount. */
-    Quantity(
-      "Quantity",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Quantity",
-      "A measured amount.",
-    ),
-    /** A coded concept from a reference terminology and/or text. */
+    Quantity("Quantity", "http://hl7.org/fhir/permitted-data-type", "Quantity"),
     CodeableConcept(
       "CodeableConcept",
       "http://hl7.org/fhir/permitted-data-type",
       "CodeableConcept",
-      "A coded concept from a reference terminology and/or text.",
     ),
-    /** A sequence of Unicode characters. */
-    String(
-      "string",
-      "http://hl7.org/fhir/permitted-data-type",
-      "string",
-      "A sequence of Unicode characters.",
-    ),
-    /** true or false. */
-    Boolean("boolean", "http://hl7.org/fhir/permitted-data-type", "boolean", "true or false."),
-    /** A signed integer. */
-    Integer("integer", "http://hl7.org/fhir/permitted-data-type", "integer", "A signed integer."),
-    /** A set of values bounded by low and high. */
-    Range(
-      "Range",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Range",
-      "A set of values bounded by low and high.",
-    ),
-    /** A ratio of two Quantity values - a numerator and a denominator. */
-    Ratio(
-      "Ratio",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Ratio",
-      "A ratio of two Quantity values - a numerator and a denominator.",
-    ),
-    /** A series of measurements taken by a device. */
-    SampledData(
-      "SampledData",
-      "http://hl7.org/fhir/permitted-data-type",
-      "SampledData",
-      "A series of measurements taken by a device.",
-    ),
-    /** A time during the day, in the format hh:mm:ss. */
-    Time(
-      "time",
-      "http://hl7.org/fhir/permitted-data-type",
-      "time",
-      "A time during the day, in the format hh:mm:ss.",
-    ),
-    /**
-     * A date, date-time or partial date (e.g. just year or year + month) as used in human
-     * communication.
-     */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/permitted-data-type",
-      "dateTime",
-      "A date, date-time or partial date (e.g. just year or year + month) as used in human communication.",
-    ),
-    /** A time range defined by start and end date/time. */
-    Period(
-      "Period",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Period",
-      "A time range defined by start and end date/time.",
-    );
+    String("string", "http://hl7.org/fhir/permitted-data-type", "string"),
+    Boolean("boolean", "http://hl7.org/fhir/permitted-data-type", "boolean"),
+    Integer("integer", "http://hl7.org/fhir/permitted-data-type", "integer"),
+    Range("Range", "http://hl7.org/fhir/permitted-data-type", "Range"),
+    Ratio("Ratio", "http://hl7.org/fhir/permitted-data-type", "Ratio"),
+    SampledData("SampledData", "http://hl7.org/fhir/permitted-data-type", "SampledData"),
+    Time("time", "http://hl7.org/fhir/permitted-data-type", "time"),
+    DateTime("dateTime", "http://hl7.org/fhir/permitted-data-type", "dateTime"),
+    Period("Period", "http://hl7.org/fhir/permitted-data-type", "Period");
 
     override fun toString(): kotlin.String = code
 
@@ -467,8 +387,6 @@ public data class ObservationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationDataType =

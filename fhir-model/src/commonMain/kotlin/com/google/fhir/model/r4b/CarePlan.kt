@@ -575,79 +575,26 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or
-     * device(s) for a specific date/time. This may result in one or more Encounter(s).
-     */
-    Appointment(
-      "Appointment",
-      "http://hl7.org/fhir/resource-types",
-      "Appointment",
-      "A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s).",
-    ),
-    /**
-     * A request to convey information; e.g. the CDS system proposes that an alert be sent to a
-     * responsible provider, the CDS system proposes that the public health agency be notified about
-     * a reportable condition.
-     */
+    Appointment("Appointment", "http://hl7.org/fhir/resource-types", "Appointment"),
     CommunicationRequest(
       "CommunicationRequest",
       "http://hl7.org/fhir/resource-types",
       "CommunicationRequest",
-      "A request to convey information; e.g. the CDS system proposes that an alert be sent to a responsible provider, the CDS system proposes that the public health agency be notified about a reportable condition.",
     ),
-    /**
-     * Represents a request for a patient to employ a medical device. The device may be an
-     * implantable device, or an external assistive device, such as a walker.
-     */
-    DeviceRequest(
-      "DeviceRequest",
-      "http://hl7.org/fhir/resource-types",
-      "DeviceRequest",
-      "Represents a request for a patient to employ a medical device. The device may be an implantable device, or an external assistive device, such as a walker.",
-    ),
-    /**
-     * An order or request for both supply of the medication and the instructions for administration
-     * of the medication to a patient. The resource is called "MedicationRequest" rather than
-     * "MedicationPrescription" or "MedicationOrder" to generalize the use across inpatient and
-     * outpatient settings, including care plans, etc., and to harmonize with workflow patterns.
-     */
+    DeviceRequest("DeviceRequest", "http://hl7.org/fhir/resource-types", "DeviceRequest"),
     MedicationRequest(
       "MedicationRequest",
       "http://hl7.org/fhir/resource-types",
       "MedicationRequest",
-      "An order or request for both supply of the medication and the instructions for administration of the medication to a patient. The resource is called \"MedicationRequest\" rather than \"MedicationPrescription\" or \"MedicationOrder\" to generalize the use across inpatient and outpatient settings, including care plans, etc., and to harmonize with workflow patterns.",
     ),
-    /**
-     * A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a
-     * patient/resident.
-     */
-    NutritionOrder(
-      "NutritionOrder",
-      "http://hl7.org/fhir/resource-types",
-      "NutritionOrder",
-      "A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.",
-    ),
-    /**
-     * A record of a request for service such as diagnostic investigations, treatments, or
-     * operations to be performed.
-     */
-    ServiceRequest(
-      "ServiceRequest",
-      "http://hl7.org/fhir/resource-types",
-      "ServiceRequest",
-      "A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.",
-    ),
-    /** A task to be performed. */
-    Task("Task", "http://hl7.org/fhir/resource-types", "Task", "A task to be performed."),
-    /** An authorization for the provision of glasses and/or contact lenses to a patient. */
+    NutritionOrder("NutritionOrder", "http://hl7.org/fhir/resource-types", "NutritionOrder"),
+    Task("Task", "http://hl7.org/fhir/resource-types", "Task"),
+    ServiceRequest("ServiceRequest", "http://hl7.org/fhir/resource-types", "ServiceRequest"),
     VisionPrescription(
       "VisionPrescription",
       "http://hl7.org/fhir/resource-types",
       "VisionPrescription",
-      "An authorization for the provision of glasses and/or contact lenses to a patient.",
     );
 
     override fun toString(): kotlin.String = code
@@ -658,8 +605,6 @@ public data class CarePlan(
 
     public fun getDisplay(): kotlin.String? = display
 
-    public fun getDefinition(): kotlin.String? = definition
-
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanActivityKind =
         when (code) {
@@ -668,8 +613,8 @@ public data class CarePlan(
           "DeviceRequest" -> DeviceRequest
           "MedicationRequest" -> MedicationRequest
           "NutritionOrder" -> NutritionOrder
-          "ServiceRequest" -> ServiceRequest
           "Task" -> Task
+          "ServiceRequest" -> ServiceRequest
           "VisionPrescription" -> VisionPrescription
           else -> throw IllegalArgumentException("Unknown code $code for enum CarePlanActivityKind")
         }
@@ -681,80 +626,19 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Care plan activity is planned but no action has yet been taken. */
-    Not_Started(
-      "not-started",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Not Started",
-      "Care plan activity is planned but no action has yet been taken.",
-    ),
-    /** Appointment or other booking has occurred but activity has not yet begun. */
-    Scheduled(
-      "scheduled",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Scheduled",
-      "Appointment or other booking has occurred but activity has not yet begun.",
-    ),
-    /** Care plan activity has been started but is not yet complete. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "In Progress",
-      "Care plan activity has been started but is not yet complete.",
-    ),
-    /**
-     * Care plan activity was started but has temporarily ceased with an expectation of resumption
-     * at a future time.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "On Hold",
-      "Care plan activity was started but has temporarily ceased with an expectation of resumption at a future time.",
-    ),
-    /** Care plan activity has been completed (more or less) as planned. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Completed",
-      "Care plan activity has been completed (more or less) as planned.",
-    ),
-    /** The planned care plan activity has been withdrawn. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Cancelled",
-      "The planned care plan activity has been withdrawn.",
-    ),
-    /**
-     * The planned care plan activity has been ended prior to completion after the activity was
-     * started.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Stopped",
-      "The planned care plan activity has been ended prior to completion after the activity was started.",
-    ),
-    /**
-     * The current state of the care plan activity is not known. Note: This concept is not to be
-     * used for "other" - one of the listed statuses is presumed to apply, but the authoring/source
-     * system does not know which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Unknown",
-      "The current state of the care plan activity is not known.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which one.",
-    ),
-    /** Care plan activity was entered in error and voided. */
+    Not_Started("not-started", "http://hl7.org/fhir/care-plan-activity-status", "Not Started"),
+    Scheduled("scheduled", "http://hl7.org/fhir/care-plan-activity-status", "Scheduled"),
+    In_Progress("in-progress", "http://hl7.org/fhir/care-plan-activity-status", "In Progress"),
+    On_Hold("on-hold", "http://hl7.org/fhir/care-plan-activity-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/care-plan-activity-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/care-plan-activity-status", "Cancelled"),
+    Stopped("stopped", "http://hl7.org/fhir/care-plan-activity-status", "Stopped"),
+    Unknown("unknown", "http://hl7.org/fhir/care-plan-activity-status", "Unknown"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/care-plan-activity-status",
       "Entered in Error",
-      "Care plan activity was entered in error and voided.",
     );
 
     override fun toString(): kotlin.String = code
@@ -764,8 +648,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanActivityStatus =
@@ -790,74 +672,14 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/request-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is in force and ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/request-status",
-      "Active",
-      "The request is in force and ready to be acted upon.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been temporarily withdrawn but is
-     * expected to resume in the future.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/request-status",
-      "On Hold",
-      "The request (and any implicit authorization to act) has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been terminated prior to the known
-     * full completion of the intended actions. No further activity should occur.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/request-status",
-      "Revoked",
-      "The request (and any implicit authorization to act) has been terminated prior to the known full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * The activity described by the request has been fully performed. No further activity will
-     * occur.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/request-status",
-      "Completed",
-      "The activity described by the request has been fully performed.  No further activity will occur.",
-    ),
-    /**
-     * This request should never have existed and should be considered 'void'. (It is possible that
-     * real-world decisions were based on it. If real-world activity has occurred, the status should
-     * be "revoked" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      "This request should never have existed and should be considered 'void'.  (It is possible that real-world decisions were based on it.  If real-world activity has occurred, the status should be \"revoked\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this request. Note: This concept is not to be used for "other" - one of the listed statuses
-     * is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/request-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -866,8 +688,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanStatus =
@@ -889,46 +709,11 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /** The request represents a request/demand and authorization for action by a Practitioner. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by a Practitioner.",
-    ),
-    /**
-     * The request represents a component or option for a RequestGroup that establishes timing,
-     * conditionality and/or other constraints among a set of requests. Refer to [[[RequestGroup]]]
-     * for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -937,8 +722,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanIntent =

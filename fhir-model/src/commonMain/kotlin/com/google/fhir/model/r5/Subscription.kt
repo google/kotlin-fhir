@@ -361,73 +361,16 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the value for the parameter in the resource is equal to the provided value. */
-    Eq(
-      "eq",
-      "http://hl7.org/fhir/search-comparator",
-      "Equals",
-      "the value for the parameter in the resource is equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is not equal to the provided value. */
-    Ne(
-      "ne",
-      "http://hl7.org/fhir/search-comparator",
-      "Not Equals",
-      "the value for the parameter in the resource is not equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater than the provided value. */
-    Gt(
-      "gt",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater Than",
-      "the value for the parameter in the resource is greater than the provided value.",
-    ),
-    /** the value for the parameter in the resource is less than the provided value. */
-    Lt(
-      "lt",
-      "http://hl7.org/fhir/search-comparator",
-      "Less Than",
-      "the value for the parameter in the resource is less than the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater or equal to the provided value. */
-    Ge(
-      "ge",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater or Equals",
-      "the value for the parameter in the resource is greater or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is less or equal to the provided value. */
-    Le(
-      "le",
-      "http://hl7.org/fhir/search-comparator",
-      "Less of Equal",
-      "the value for the parameter in the resource is less or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource starts after the provided value. */
-    Sa(
-      "sa",
-      "http://hl7.org/fhir/search-comparator",
-      "Starts After",
-      "the value for the parameter in the resource starts after the provided value.",
-    ),
-    /** the value for the parameter in the resource ends before the provided value. */
-    Eb(
-      "eb",
-      "http://hl7.org/fhir/search-comparator",
-      "Ends Before",
-      "the value for the parameter in the resource ends before the provided value.",
-    ),
-    /**
-     * the value for the parameter in the resource is approximately the same to the provided value.
-     */
-    Ap(
-      "ap",
-      "http://hl7.org/fhir/search-comparator",
-      "Approximately",
-      "the value for the parameter in the resource is approximately the same to the provided value.",
-    );
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Ne("ne", "http://hl7.org/fhir/search-comparator", "Not Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before"),
+    Ap("ap", "http://hl7.org/fhir/search-comparator", "Approximately");
 
     override fun toString(): kotlin.String = code
 
@@ -436,8 +379,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchComparator =
@@ -461,152 +402,22 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The search parameter returns resources that have a value or not. */
-    Missing(
-      "missing",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Missing",
-      "The search parameter returns resources that have a value or not.",
-    ),
-    /**
-     * The search parameter returns resources that have a value that exactly matches the supplied
-     * parameter (the whole string, including casing and accents).
-     */
-    Exact(
-      "exact",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Exact",
-      "The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole string, including casing and accents).",
-    ),
-    /**
-     * The search parameter returns resources that include the supplied parameter value anywhere
-     * within the field being searched.
-     */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Contains",
-      "The search parameter returns resources that include the supplied parameter value anywhere within the field being searched.",
-    ),
-    /** The search parameter returns resources that do not contain a match. */
-    Not(
-      "not",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not",
-      "The search parameter returns resources that do not contain a match.",
-    ),
-    /**
-     * The search parameter is processed as a string that searches text associated with the
-     * code/value - either CodeableConcept.text, Coding.display, Identifier.type.text, or
-     * Reference.display.
-     */
-    Text(
-      "text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text",
-      "The search parameter is processed as a string that searches text associated with the code/value - either CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is in the specified value set.
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is in the specified value set.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is not in the specified value set.
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is not in the specified value set.",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource is subsumed by the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Below(
-      "below",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Below",
-      "The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource subsumes the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Above(
-      "above",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Above",
-      "The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter only applies to the Resource Type specified as a modifier (e.g. the
-     * modifier is not actually :type, but :Patient etc.).
-     */
-    Type(
-      "type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Type",
-      "The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not actually :type, but :Patient etc.).",
-    ),
-    /** The search parameter applies to the identifier on the resource, not the reference. */
-    Identifier(
-      "identifier",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Identifier",
-      "The search parameter applies to the identifier on the resource, not the reference.",
-    ),
-    /**
-     * The search parameter has the format system|code|value, where the system and code refer to an
-     * Identifier.type.coding.system and .code, and match if any of the type codes match. All 3
-     * parts must be present.
-     */
-    Of_Type(
-      "of-type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Of Type",
-      "The search parameter has the format system|code|value, where the system and code refer to an Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.",
-    ),
-    /**
-     * Tests whether the textual display value in a resource (e.g., CodeableConcept.text,
-     * Coding.display, or Reference.display) matches the supplied parameter value.
-     */
-    Code_Text(
-      "code-text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Code Text",
-      "Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or Reference.display) matches the supplied parameter value.",
-    ),
-    /**
-     * Tests whether the value in a resource matches the supplied parameter value using advanced
-     * text handling that searches text associated with the code/value - e.g., CodeableConcept.text,
-     * Coding.display, or Identifier.type.text.
-     */
-    Text_Advanced(
-      "text-advanced",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text Advanced",
-      "Tests whether the value in a resource matches the supplied parameter value using advanced text handling that searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or Identifier.type.text.",
-    ),
-    /**
-     * The search parameter indicates an inclusion directive (_include, _revinclude) that is applied
-     * to an included resource instead of the matching resource.
-     */
-    Iterate(
-      "iterate",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Iterate",
-      "The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included resource instead of the matching resource.",
-    );
+    Missing("missing", "http://hl7.org/fhir/search-modifier-code", "Missing"),
+    Exact("exact", "http://hl7.org/fhir/search-modifier-code", "Exact"),
+    Contains("contains", "http://hl7.org/fhir/search-modifier-code", "Contains"),
+    Not("not", "http://hl7.org/fhir/search-modifier-code", "Not"),
+    Text("text", "http://hl7.org/fhir/search-modifier-code", "Text"),
+    In("in", "http://hl7.org/fhir/search-modifier-code", "In"),
+    Not_In("not-in", "http://hl7.org/fhir/search-modifier-code", "Not In"),
+    Below("below", "http://hl7.org/fhir/search-modifier-code", "Below"),
+    Above("above", "http://hl7.org/fhir/search-modifier-code", "Above"),
+    Type("type", "http://hl7.org/fhir/search-modifier-code", "Type"),
+    Identifier("identifier", "http://hl7.org/fhir/search-modifier-code", "Identifier"),
+    Of_Type("of-type", "http://hl7.org/fhir/search-modifier-code", "Of Type"),
+    Code_Text("code-text", "http://hl7.org/fhir/search-modifier-code", "Code Text"),
+    Text_Advanced("text-advanced", "http://hl7.org/fhir/search-modifier-code", "Text Advanced"),
+    Iterate("iterate", "http://hl7.org/fhir/search-modifier-code", "Iterate");
 
     override fun toString(): kotlin.String = code
 
@@ -615,8 +426,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchModifierCode =
@@ -646,42 +455,15 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The client has requested the subscription, and the server has not yet set it up. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/subscription-status",
-      "Requested",
-      "The client has requested the subscription, and the server has not yet set it up.",
-    ),
-    /** The subscription is active. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/subscription-status",
-      "Active",
-      "The subscription is active.",
-    ),
-    /** The server has an error executing the notification. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/subscription-status",
-      "Error",
-      "The server has an error executing the notification.",
-    ),
-    /** Too many errors have occurred or the subscription has expired. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/subscription-status",
-      "Off",
-      "Too many errors have occurred or the subscription has expired.",
-    ),
-    /** This subscription has been flagged as incorrect. */
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/subscription-status",
       "Entered in Error",
-      "This subscription has been flagged as incorrect.",
     );
 
     override fun toString(): kotlin.String = code
@@ -691,8 +473,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionStatusCodes =
@@ -713,28 +493,13 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** No resource content is transacted in the notification payload. */
-    Empty(
-      "empty",
-      "http://hl7.org/fhir/subscription-payload-content",
-      "Empty",
-      "No resource content is transacted in the notification payload.",
-    ),
-    /** Only the resource id is transacted in the notification payload. */
-    Id_Only(
-      "id-only",
-      "http://hl7.org/fhir/subscription-payload-content",
-      "Id-only",
-      "Only the resource id is transacted in the notification payload.",
-    ),
-    /** The entire resource is transacted in the notification payload. */
+    Empty("empty", "http://hl7.org/fhir/subscription-payload-content", "Empty"),
+    Id_Only("id-only", "http://hl7.org/fhir/subscription-payload-content", "Id-only"),
     Full_Resource(
       "full-resource",
       "http://hl7.org/fhir/subscription-payload-content",
       "Full-resource",
-      "The entire resource is transacted in the notification payload.",
     );
 
     override fun toString(): kotlin.String = code
@@ -744,8 +509,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionPayloadContent =

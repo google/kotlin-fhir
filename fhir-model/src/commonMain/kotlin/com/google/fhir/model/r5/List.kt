@@ -277,29 +277,10 @@ public data class List(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The list is considered to be an active part of the patient's record. */
-    Current(
-      "current",
-      "http://hl7.org/fhir/list-status",
-      "Current",
-      "The list is considered to be an active part of the patient's record.",
-    ),
-    /** The list is "old" and should no longer be considered accurate or relevant. */
-    Retired(
-      "retired",
-      "http://hl7.org/fhir/list-status",
-      "Retired",
-      "The list is \"old\" and should no longer be considered accurate or relevant.",
-    ),
-    /** The list was never accurate. It is retained for medico-legal purposes only. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/list-status",
-      "Entered In Error",
-      "The list was never accurate.  It is retained for medico-legal purposes only.",
-    );
+    Current("current", "http://hl7.org/fhir/list-status", "Current"),
+    Retired("retired", "http://hl7.org/fhir/list-status", "Retired"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/list-status", "Entered In Error");
 
     override fun toString(): kotlin.String = code
 
@@ -308,8 +289,6 @@ public data class List(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ListStatus =
@@ -327,35 +306,10 @@ public data class List(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This list is the master list, maintained in an ongoing fashion with regular updates as the
-     * real-world list it is tracking changes.
-     */
-    Working(
-      "working",
-      "http://hl7.org/fhir/list-mode",
-      "Working List",
-      "This list is the master list, maintained in an ongoing fashion with regular updates as the real-world list it is tracking changes.",
-    ),
-    /** This list was prepared as a snapshot. It should not be assumed to be current. */
-    Snapshot(
-      "snapshot",
-      "http://hl7.org/fhir/list-mode",
-      "Snapshot List",
-      "This list was prepared as a snapshot. It should not be assumed to be current.",
-    ),
-    /**
-     * A point-in-time list that shows what changes have been made or recommended. E.g. a discharge
-     * medication list showing what was added and removed during an encounter.
-     */
-    Changes(
-      "changes",
-      "http://hl7.org/fhir/list-mode",
-      "Change List",
-      "A point-in-time list that shows what changes have been made or recommended.  E.g. a discharge medication list showing what was added and removed during an encounter.",
-    );
+    Working("working", "http://hl7.org/fhir/list-mode", "Working List"),
+    Snapshot("snapshot", "http://hl7.org/fhir/list-mode", "Snapshot List"),
+    Changes("changes", "http://hl7.org/fhir/list-mode", "Change List");
 
     override fun toString(): kotlin.String = code
 
@@ -364,8 +318,6 @@ public data class List(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ListMode =

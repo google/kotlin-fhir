@@ -59,56 +59,13 @@ public data class MonetaryComponent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * the amount is the base price used for calculating the total price before applying surcharges,
-     * discount or taxes.
-     */
-    Base(
-      "base",
-      "http://hl7.org/fhir/price-component-type",
-      "base price",
-      "the amount is the base price used for calculating the total price before applying surcharges, discount or taxes.",
-    ),
-    /** the amount is a surcharge applied on the base price. */
-    Surcharge(
-      "surcharge",
-      "http://hl7.org/fhir/price-component-type",
-      "surcharge",
-      "the amount is a surcharge applied on the base price.",
-    ),
-    /** the amount is a deduction applied on the base price. */
-    Deduction(
-      "deduction",
-      "http://hl7.org/fhir/price-component-type",
-      "deduction",
-      "the amount is a deduction applied on the base price.",
-    ),
-    /** the amount is a discount applied on the base price. */
-    Discount(
-      "discount",
-      "http://hl7.org/fhir/price-component-type",
-      "discount",
-      "the amount is a discount applied on the base price.",
-    ),
-    /** the amount is the tax component of the total price. */
-    Tax(
-      "tax",
-      "http://hl7.org/fhir/price-component-type",
-      "tax",
-      "the amount is the tax component of the total price.",
-    ),
-    /**
-     * the amount is of informational character, it has not been applied in the calculation of the
-     * total price.
-     */
-    Informational(
-      "informational",
-      "http://hl7.org/fhir/price-component-type",
-      "informational",
-      "the amount is of informational character, it has not been applied in the calculation of the total price.",
-    );
+    Base("base", "http://hl7.org/fhir/price-component-type", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/price-component-type", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/price-component-type", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/price-component-type", "discount"),
+    Tax("tax", "http://hl7.org/fhir/price-component-type", "tax"),
+    Informational("informational", "http://hl7.org/fhir/price-component-type", "informational");
 
     override fun toString(): String = code
 
@@ -117,8 +74,6 @@ public data class MonetaryComponent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PriceComponentType =

@@ -251,7 +251,12 @@ internal data class SearchParameterSurrogate(
               this@SearchParameterSurrogate._base
                 ?: List(this@SearchParameterSurrogate.base!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
+            .mapNotNull { (value, element) ->
+              Enumeration.of(
+                value?.let { com.google.fhir.model.r5.SearchParameter.FHIRTypes.fromCode(it) },
+                element,
+              )
+            }
         }
       type =
         Enumeration.of(
@@ -290,7 +295,12 @@ internal data class SearchParameterSurrogate(
               this@SearchParameterSurrogate._target
                 ?: List(this@SearchParameterSurrogate.target!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
+            .mapNotNull { (value, element) ->
+              Enumeration.of(
+                value?.let { com.google.fhir.model.r5.SearchParameter.FHIRTypes.fromCode(it) },
+                element,
+              )
+            }
         }
       multipleOr =
         R5Boolean.of(
@@ -413,7 +423,7 @@ internal data class SearchParameterSurrogate(
           _copyrightLabel = this@with.copyrightLabel?.toElement()
           code = this@with.code?.value
           _code = this@with.code?.toElement()
-          base = this@with.base?.map { it?.value }?.takeUnless { it.all { it == null } }
+          base = this@with.base?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
           _base = this@with.base?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
           type = this@with.type?.value?.getCode()
           _type = this@with.type?.toElement()
@@ -423,7 +433,8 @@ internal data class SearchParameterSurrogate(
           _processingMode = this@with.processingMode?.toElement()
           constraint = this@with.constraint?.value
           _constraint = this@with.constraint?.toElement()
-          target = this@with.target?.map { it?.value }?.takeUnless { it.all { it == null } }
+          target =
+            this@with.target?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
           _target = this@with.target?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
           multipleOr = this@with.multipleOr?.value
           _multipleOr = this@with.multipleOr?.toElement()

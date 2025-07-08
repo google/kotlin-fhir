@@ -697,63 +697,18 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** a barcodescanner captured the data from the device label. */
-    Barcode(
-      "barcode",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Barcode",
-      "a barcodescanner captured the data from the device label.",
-    ),
-    /** An RFID chip reader captured the data from the device label. */
-    Rfid(
-      "rfid",
-      "http://hl7.org/fhir/udi-entry-type",
-      "RFID",
-      "An RFID chip reader captured the data from the device label.",
-    ),
-    /** The data was read from the label by a person and manually entered. (e.g. via a keyboard). */
-    Manual(
-      "manual",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Manual",
-      "The data was read from the label by a person and manually entered. (e.g.  via a keyboard).",
-    ),
-    /** The data originated from a patient's implant card and was read by an operator. */
-    Card(
-      "card",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Card",
-      "The data originated from a patient's implant card and was read by an operator.",
-    ),
-    /**
-     * The data originated from a patient source and was not directly scanned or read from a label
-     * or card.
-     */
-    Self_Reported(
-      "self-reported",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Self Reported",
-      "The data originated from a patient source and was not directly scanned or read from a label or card.",
-    ),
-    /**
-     * The UDI information was received electronically from the device through a communication
-     * protocol, such as the IEEE 11073 20601 version 4 exchange protocol over Bluetooth or USB.
-     */
+    Barcode("barcode", "http://hl7.org/fhir/udi-entry-type", "Barcode"),
+    Rfid("rfid", "http://hl7.org/fhir/udi-entry-type", "RFID"),
+    Manual("manual", "http://hl7.org/fhir/udi-entry-type", "Manual"),
+    Card("card", "http://hl7.org/fhir/udi-entry-type", "Card"),
+    Self_Reported("self-reported", "http://hl7.org/fhir/udi-entry-type", "Self Reported"),
     Electronic_Transmission(
       "electronic-transmission",
       "http://hl7.org/fhir/udi-entry-type",
       "Electronic Transmission",
-      "The UDI information was received electronically from the device through a communication protocol, such as the IEEE 11073 20601 version 4 exchange protocol over Bluetooth or USB.",
     ),
-    /** The method of data capture has not been determined. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Unknown",
-      "The method of data capture has not been determined.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/udi-entry-type", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -762,8 +717,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): UDIEntryType =
@@ -785,44 +738,17 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The term assigned to a medical device by the entity who registers or submits information
-     * about it to a jurisdiction or its databases. This may be considered the manufacturer assigned
-     * name (e.g., brand name assigned by the labeler or manufacturer in US, or device name assigned
-     * by the manufacturer in EU) and may also be synonymous with proprietary name or trade name of
-     * the device.
-     */
-    Registered_Name(
-      "registered-name",
-      "http://hl7.org/fhir/device-nametype",
-      "Registered name",
-      "The term assigned to a medical device by the entity who registers or submits information about it to a jurisdiction or its databases. This may be considered the manufacturer assigned name (e.g., brand name assigned by the labeler or manufacturer in US, or device name assigned by the manufacturer in EU) and may also be synonymous with proprietary name or trade name of the device.",
-    ),
-    /**
-     * The term that generically describes the device by a name as assigned by the manufacturer that
-     * is recognized by lay person. This common or generic name may be printed on the package it
-     * came in or some combination of that name with the model number, serial number, or other
-     * attribute that makes the name easy to understand for the user of that device. It is often
-     * exposed in communicating devices transport protocols. It is provided to help users identify
-     * the device when reported in discovery operations.
-     */
+    Registered_Name("registered-name", "http://hl7.org/fhir/device-nametype", "Registered name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      "The term that generically describes the device by a name as assigned by the manufacturer that is recognized by lay person.  This common or generic name may be printed on the package it came in or some combination of that name with the model number, serial number, or other attribute that makes the name easy to understand for the user of that device. It is often exposed in communicating devices transport protocols. It is provided to help users identify the device when reported in discovery operations.",
     ),
-    /**
-     * the term used by the patient associated with the device when describing the device, for
-     * example 'knee implant', when documented as a self-reported device.
-     */
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      "the term used by the patient associated with the device when describing the device, for example 'knee implant', when documented as a self-reported device.",
     );
 
     override fun toString(): kotlin.String = code
@@ -832,8 +758,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =
@@ -851,29 +775,10 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The device record is current and is appropriate for reference in new instances. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/device-status",
-      "Active",
-      "The device record is current and is appropriate for reference in new instances.",
-    ),
-    /** The device record is not current and is not appropriate for reference in new instances. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/device-status",
-      "Inactive",
-      "The device record is not current and is not appropriate for reference in new instances.",
-    ),
-    /** The device record is not current and is not appropriate for reference in new instances. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/device-status",
-      "Entered in Error",
-      "The device record is not current and is not appropriate for reference in new instances.",
-    );
+    Active("active", "http://hl7.org/fhir/device-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/device-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/device-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -882,8 +787,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FHIRDeviceStatus =

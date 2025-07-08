@@ -1178,28 +1178,13 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** EUDAMED's basic UDI-DI identifier. */
-    Basic(
-      "basic",
-      "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type",
-      "Basic",
-      "EUDAMED's basic UDI-DI identifier.",
-    ),
-    /** EUDAMED's master UDI-DI identifier. */
-    Master(
-      "master",
-      "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type",
-      "Master",
-      "EUDAMED's master UDI-DI identifier.",
-    ),
-    /** The identifier is a license number. */
+    Basic("basic", "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type", "Basic"),
+    Master("master", "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type", "Master"),
     License(
       "license",
       "http://hl7.org/fhir/devicedefinition-regulatory-identifier-type",
       "License",
-      "The identifier is a license number.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1209,8 +1194,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceRegulatoryIdentifierType =
@@ -1231,44 +1214,17 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The term assigned to a medical device by the entity who registers or submits information
-     * about it to a jurisdiction or its databases. This may be considered the manufacturer assigned
-     * name (e.g., brand name assigned by the labeler or manufacturer in US, or device name assigned
-     * by the manufacturer in EU) and may also be synonymous with proprietary name or trade name of
-     * the device.
-     */
-    Registered_Name(
-      "registered-name",
-      "http://hl7.org/fhir/device-nametype",
-      "Registered name",
-      "The term assigned to a medical device by the entity who registers or submits information about it to a jurisdiction or its databases. This may be considered the manufacturer assigned name (e.g., brand name assigned by the labeler or manufacturer in US, or device name assigned by the manufacturer in EU) and may also be synonymous with proprietary name or trade name of the device.",
-    ),
-    /**
-     * The term that generically describes the device by a name as assigned by the manufacturer that
-     * is recognized by lay person. This common or generic name may be printed on the package it
-     * came in or some combination of that name with the model number, serial number, or other
-     * attribute that makes the name easy to understand for the user of that device. It is often
-     * exposed in communicating devices transport protocols. It is provided to help users identify
-     * the device when reported in discovery operations.
-     */
+    Registered_Name("registered-name", "http://hl7.org/fhir/device-nametype", "Registered name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      "The term that generically describes the device by a name as assigned by the manufacturer that is recognized by lay person.  This common or generic name may be printed on the package it came in or some combination of that name with the model number, serial number, or other attribute that makes the name easy to understand for the user of that device. It is often exposed in communicating devices transport protocols. It is provided to help users identify the device when reported in discovery operations.",
     ),
-    /**
-     * the term used by the patient associated with the device when describing the device, for
-     * example 'knee implant', when documented as a self-reported device.
-     */
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      "the term used by the patient associated with the device when describing the device, for example 'knee implant', when documented as a self-reported device.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1278,8 +1234,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =
@@ -1297,33 +1251,13 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The corrective action was intended for all units of the same model. */
-    Model(
-      "model",
-      "http://hl7.org/fhir/device-correctiveactionscope",
-      "Model",
-      "The corrective action was intended for all units of the same model.",
-    ),
-    /**
-     * The corrective action was intended for a specific batch of units identified by a lot number.
-     */
-    Lot_Numbers(
-      "lot-numbers",
-      "http://hl7.org/fhir/device-correctiveactionscope",
-      "Lot Numbers",
-      "The corrective action was intended for a specific batch of units identified by a lot number.",
-    ),
-    /**
-     * The corrective action was intended for an individual unit (or a set of units) individually
-     * identified by serial number.
-     */
+    Model("model", "http://hl7.org/fhir/device-correctiveactionscope", "Model"),
+    Lot_Numbers("lot-numbers", "http://hl7.org/fhir/device-correctiveactionscope", "Lot Numbers"),
     Serial_Numbers(
       "serial-numbers",
       "http://hl7.org/fhir/device-correctiveactionscope",
       "Serial Numbers",
-      "The corrective action was intended for an individual unit (or a set of units) individually identified by serial number.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1333,8 +1267,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceCorrectiveActionScope =
@@ -1355,49 +1287,32 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The label includes the lot number. */
-    Lot_Number(
-      "lot-number",
-      "http://hl7.org/fhir/device-productidentifierinudi",
-      "Lot Number",
-      "The label includes the lot number.",
-    ),
-    /** The label includes the manufacture date. */
+    Lot_Number("lot-number", "http://hl7.org/fhir/device-productidentifierinudi", "Lot Number"),
     Manufactured_Date(
       "manufactured-date",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Manufactured date",
-      "The label includes the manufacture date.",
     ),
-    /** The label includes the serial number. */
     Serial_Number(
       "serial-number",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Serial Number",
-      "The label includes the serial number.",
     ),
-    /** The label includes the expiration date. */
     Expiration_Date(
       "expiration-date",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Expiration date",
-      "The label includes the expiration date.",
     ),
-    /** The label includes the biological source identifier. */
     Biological_Source(
       "biological-source",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Biological source",
-      "The label includes the biological source identifier.",
     ),
-    /** The label includes the software version. */
     Software_Version(
       "software-version",
       "http://hl7.org/fhir/device-productidentifierinudi",
       "Software Version",
-      "The label includes the software version.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1407,8 +1322,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceProductionIdentifierInUDI =

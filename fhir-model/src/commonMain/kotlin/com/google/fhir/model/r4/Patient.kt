@@ -499,54 +499,11 @@ public data class Patient(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The patient resource containing this link must no longer be used. The link points forward to
-     * another patient resource that must be used in lieu of the patient resource that contains this
-     * link.
-     */
-    Replaced_By(
-      "replaced-by",
-      "http://hl7.org/fhir/link-type",
-      "Replaced-by",
-      "The patient resource containing this link must no longer be used. The link points forward to another patient resource that must be used in lieu of the patient resource that contains this link.",
-    ),
-    /**
-     * The patient resource containing this link is the current active patient record. The link
-     * points back to an inactive patient resource that has been merged into this resource, and
-     * should be consulted to retrieve additional referenced information.
-     */
-    Replaces(
-      "replaces",
-      "http://hl7.org/fhir/link-type",
-      "Replaces",
-      "The patient resource containing this link is the current active patient record. The link points back to an inactive patient resource that has been merged into this resource, and should be consulted to retrieve additional referenced information.",
-    ),
-    /**
-     * The patient resource containing this link is in use and valid but not considered the main
-     * source of information about a patient. The link points forward to another patient resource
-     * that should be consulted to retrieve additional patient information.
-     */
-    Refer(
-      "refer",
-      "http://hl7.org/fhir/link-type",
-      "Refer",
-      "The patient resource containing this link is in use and valid but not considered the main source of information about a patient. The link points forward to another patient resource that should be consulted to retrieve additional patient information.",
-    ),
-    /**
-     * The patient resource containing this link is in use and valid, but points to another patient
-     * resource that is known to contain data about the same person. Data in this resource might
-     * overlap or contradict information found in the other patient resource. This link does not
-     * indicate any relative importance of the resources concerned, and both should be regarded as
-     * equally valid.
-     */
-    Seealso(
-      "seealso",
-      "http://hl7.org/fhir/link-type",
-      "See also",
-      "The patient resource containing this link is in use and valid, but points to another patient resource that is known to contain data about the same person. Data in this resource might overlap or contradict information found in the other patient resource. This link does not indicate any relative importance of the resources concerned, and both should be regarded as equally valid.",
-    );
+    Replaced_By("replaced-by", "http://hl7.org/fhir/link-type", "Replaced-by"),
+    Replaces("replaces", "http://hl7.org/fhir/link-type", "Replaces"),
+    Refer("refer", "http://hl7.org/fhir/link-type", "Refer"),
+    Seealso("seealso", "http://hl7.org/fhir/link-type", "See also");
 
     override fun toString(): String = code
 
@@ -555,8 +512,6 @@ public data class Patient(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): LinkType =

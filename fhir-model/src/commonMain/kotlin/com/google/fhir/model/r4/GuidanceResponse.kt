@@ -233,52 +233,20 @@ public data class GuidanceResponse(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request was processed successfully. */
-    Success(
-      "success",
-      "http://hl7.org/fhir/guidance-response-status",
-      "Success",
-      "The request was processed successfully.",
-    ),
-    /**
-     * The request was processed successfully, but more data may result in a more complete
-     * evaluation.
-     */
+    Success("success", "http://hl7.org/fhir/guidance-response-status", "Success"),
     Data_Requested(
       "data-requested",
       "http://hl7.org/fhir/guidance-response-status",
       "Data Requested",
-      "The request was processed successfully, but more data may result in a more complete evaluation.",
     ),
-    /** The request was processed, but more data is required to complete the evaluation. */
-    Data_Required(
-      "data-required",
-      "http://hl7.org/fhir/guidance-response-status",
-      "Data Required",
-      "The request was processed, but more data is required to complete the evaluation.",
-    ),
-    /** The request is currently being processed. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/guidance-response-status",
-      "In Progress",
-      "The request is currently being processed.",
-    ),
-    /** The request was not processed successfully. */
-    Failure(
-      "failure",
-      "http://hl7.org/fhir/guidance-response-status",
-      "Failure",
-      "The request was not processed successfully.",
-    ),
-    /** The response was entered in error. */
+    Data_Required("data-required", "http://hl7.org/fhir/guidance-response-status", "Data Required"),
+    In_Progress("in-progress", "http://hl7.org/fhir/guidance-response-status", "In Progress"),
+    Failure("failure", "http://hl7.org/fhir/guidance-response-status", "Failure"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/guidance-response-status",
       "Entered In Error",
-      "The response was entered in error.",
     );
 
     override fun toString(): String = code
@@ -288,8 +256,6 @@ public data class GuidanceResponse(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): GuidanceResponseStatus =

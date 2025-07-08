@@ -388,57 +388,14 @@ public data class DataRequirement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the value for the parameter in the resource is equal to the provided value. */
-    Eq(
-      "eq",
-      "http://hl7.org/fhir/search-comparator",
-      "Equals",
-      "the value for the parameter in the resource is equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater than the provided value. */
-    Gt(
-      "gt",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater Than",
-      "the value for the parameter in the resource is greater than the provided value.",
-    ),
-    /** the value for the parameter in the resource is less than the provided value. */
-    Lt(
-      "lt",
-      "http://hl7.org/fhir/search-comparator",
-      "Less Than",
-      "the value for the parameter in the resource is less than the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater or equal to the provided value. */
-    Ge(
-      "ge",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater or Equals",
-      "the value for the parameter in the resource is greater or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is less or equal to the provided value. */
-    Le(
-      "le",
-      "http://hl7.org/fhir/search-comparator",
-      "Less of Equal",
-      "the value for the parameter in the resource is less or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource starts after the provided value. */
-    Sa(
-      "sa",
-      "http://hl7.org/fhir/search-comparator",
-      "Starts After",
-      "the value for the parameter in the resource starts after the provided value.",
-    ),
-    /** the value for the parameter in the resource ends before the provided value. */
-    Eb(
-      "eb",
-      "http://hl7.org/fhir/search-comparator",
-      "Ends Before",
-      "the value for the parameter in the resource ends before the provided value.",
-    );
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before");
 
     override fun toString(): kotlin.String = code
 
@@ -447,8 +404,6 @@ public data class DataRequirement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ValueFilterComparator =
@@ -471,22 +426,9 @@ public data class DataRequirement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Sort by the value ascending, so that lower values appear first. */
-    Ascending(
-      "ascending",
-      "http://hl7.org/fhir/sort-direction",
-      "Ascending",
-      "Sort by the value ascending, so that lower values appear first.",
-    ),
-    /** Sort by the value descending, so that lower values appear last. */
-    Descending(
-      "descending",
-      "http://hl7.org/fhir/sort-direction",
-      "Descending",
-      "Sort by the value descending, so that lower values appear last.",
-    );
+    Ascending("ascending", "http://hl7.org/fhir/sort-direction", "Ascending"),
+    Descending("descending", "http://hl7.org/fhir/sort-direction", "Descending");
 
     override fun toString(): kotlin.String = code
 
@@ -495,8 +437,6 @@ public data class DataRequirement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SortDirection =

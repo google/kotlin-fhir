@@ -550,33 +550,10 @@ public data class Bundle(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This resource matched the search specification. */
-    Match(
-      "match",
-      "http://hl7.org/fhir/search-entry-mode",
-      "Match",
-      "This resource matched the search specification.",
-    ),
-    /**
-     * This resource is returned because it is referred to from another resource in the search set.
-     */
-    Include(
-      "include",
-      "http://hl7.org/fhir/search-entry-mode",
-      "Include",
-      "This resource is returned because it is referred to from another resource in the search set.",
-    ),
-    /**
-     * An OperationOutcome that provides additional information about the processing of a search.
-     */
-    Outcome(
-      "outcome",
-      "http://hl7.org/fhir/search-entry-mode",
-      "Outcome",
-      "An OperationOutcome that provides additional information about the processing of a search.",
-    );
+    Match("match", "http://hl7.org/fhir/search-entry-mode", "Match"),
+    Include("include", "http://hl7.org/fhir/search-entry-mode", "Include"),
+    Outcome("outcome", "http://hl7.org/fhir/search-entry-mode", "Outcome");
 
     override fun toString(): kotlin.String = code
 
@@ -585,8 +562,6 @@ public data class Bundle(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchEntryMode =
@@ -607,20 +582,13 @@ public data class Bundle(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** HTTP GET Command. */
-    Get("GET", "http://hl7.org/fhir/http-verb", "GET", "HTTP GET Command."),
-    /** HTTP HEAD Command. */
-    Head("HEAD", "http://hl7.org/fhir/http-verb", "HEAD", "HTTP HEAD Command."),
-    /** HTTP POST Command. */
-    Post("POST", "http://hl7.org/fhir/http-verb", "POST", "HTTP POST Command."),
-    /** HTTP PUT Command. */
-    Put("PUT", "http://hl7.org/fhir/http-verb", "PUT", "HTTP PUT Command."),
-    /** HTTP DELETE Command. */
-    Delete("DELETE", "http://hl7.org/fhir/http-verb", "DELETE", "HTTP DELETE Command."),
-    /** HTTP PATCH Command. */
-    Patch("PATCH", "http://hl7.org/fhir/http-verb", "PATCH", "HTTP PATCH Command.");
+    Get("GET", "http://hl7.org/fhir/http-verb", "GET"),
+    Head("HEAD", "http://hl7.org/fhir/http-verb", "HEAD"),
+    Post("POST", "http://hl7.org/fhir/http-verb", "POST"),
+    Put("PUT", "http://hl7.org/fhir/http-verb", "PUT"),
+    Delete("DELETE", "http://hl7.org/fhir/http-verb", "DELETE"),
+    Patch("PATCH", "http://hl7.org/fhir/http-verb", "PATCH");
 
     override fun toString(): kotlin.String = code
 
@@ -629,8 +597,6 @@ public data class Bundle(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): HTTPVerb =
@@ -651,92 +617,24 @@ public data class Bundle(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The bundle is a document. The first resource is a Composition. */
-    Document(
-      "document",
-      "http://hl7.org/fhir/bundle-type",
-      "Document",
-      "The bundle is a document. The first resource is a Composition.",
-    ),
-    /** The bundle is a message. The first resource is a MessageHeader. */
-    Message(
-      "message",
-      "http://hl7.org/fhir/bundle-type",
-      "Message",
-      "The bundle is a message. The first resource is a MessageHeader.",
-    ),
-    /** The bundle is a transaction - intended to be processed by a server as an atomic commit. */
-    Transaction(
-      "transaction",
-      "http://hl7.org/fhir/bundle-type",
-      "Transaction",
-      "The bundle is a transaction - intended to be processed by a server as an atomic commit.",
-    ),
-    /**
-     * The bundle is a transaction response. Because the response is a transaction response, the
-     * transaction has succeeded, and all responses are error free.
-     */
+    Document("document", "http://hl7.org/fhir/bundle-type", "Document"),
+    Message("message", "http://hl7.org/fhir/bundle-type", "Message"),
+    Transaction("transaction", "http://hl7.org/fhir/bundle-type", "Transaction"),
     Transaction_Response(
       "transaction-response",
       "http://hl7.org/fhir/bundle-type",
       "Transaction Response",
-      "The bundle is a transaction response. Because the response is a transaction response, the transaction has succeeded, and all responses are error free.",
     ),
-    /**
-     * The bundle is a set of actions - intended to be processed by a server as a group of
-     * independent actions.
-     */
-    Batch(
-      "batch",
-      "http://hl7.org/fhir/bundle-type",
-      "Batch",
-      "The bundle is a set of actions - intended to be processed by a server as a group of independent actions.",
-    ),
-    /**
-     * The bundle is a batch response. Note that as a batch, some responses may indicate failure and
-     * others success.
-     */
-    Batch_Response(
-      "batch-response",
-      "http://hl7.org/fhir/bundle-type",
-      "Batch Response",
-      "The bundle is a batch response. Note that as a batch, some responses may indicate failure and others success.",
-    ),
-    /** The bundle is a list of resources from a history interaction on a server. */
-    History(
-      "history",
-      "http://hl7.org/fhir/bundle-type",
-      "History List",
-      "The bundle is a list of resources from a history interaction on a server.",
-    ),
-    /**
-     * The bundle is a list of resources returned as a result of a search/query interaction,
-     * operation, or message.
-     */
-    Searchset(
-      "searchset",
-      "http://hl7.org/fhir/bundle-type",
-      "Search Results",
-      "The bundle is a list of resources returned as a result of a search/query interaction, operation, or message.",
-    ),
-    /**
-     * The bundle is a set of resources collected into a single package for ease of distribution
-     * that imposes no processing obligations or behavioral rules beyond persistence.
-     */
-    Collection(
-      "collection",
-      "http://hl7.org/fhir/bundle-type",
-      "Collection",
-      "The bundle is a set of resources collected into a single package for ease of distribution that imposes no processing obligations or behavioral rules beyond persistence.",
-    ),
-    /** The bundle has been generated by a Subscription to communicate information to a client. */
+    Batch("batch", "http://hl7.org/fhir/bundle-type", "Batch"),
+    Batch_Response("batch-response", "http://hl7.org/fhir/bundle-type", "Batch Response"),
+    History("history", "http://hl7.org/fhir/bundle-type", "History List"),
+    Searchset("searchset", "http://hl7.org/fhir/bundle-type", "Search Results"),
+    Collection("collection", "http://hl7.org/fhir/bundle-type", "Collection"),
     Subscription_Notification(
       "subscription-notification",
       "http://hl7.org/fhir/bundle-type",
       "Subscription Notification",
-      "The bundle has been generated by a Subscription to communicate information to a client.",
     );
 
     override fun toString(): kotlin.String = code
@@ -746,8 +644,6 @@ public data class Bundle(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BundleType =

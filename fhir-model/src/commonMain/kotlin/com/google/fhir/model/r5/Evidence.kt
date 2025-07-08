@@ -840,50 +840,14 @@ public data class Evidence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A continuous variable is one for which, within the limits the variable ranges, any value is
-     * possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).
-     */
-    Continuous(
-      "continuous",
-      "http://hl7.org/fhir/variable-handling",
-      "continuous variable",
-      "A continuous variable is one for which, within the limits the variable ranges, any value is possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).",
-    ),
-    /**
-     * A dichotomous variable is a categorical variable which is defined to have only 2 categories
-     * or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).
-     */
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      "A dichotomous variable is a categorical variable which is defined to have only 2 categories or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).",
-    ),
-    /**
-     * An ordinal variable is a categorical variable where the discrete possible values are ordered
-     * or correspond to an implicit ranking (from STATO
-     * http://purl.obolibrary.org/obo/STATO_0000228).
-     */
-    Ordinal(
-      "ordinal",
-      "http://hl7.org/fhir/variable-handling",
-      "ordinal variable",
-      "An ordinal variable is a categorical variable where the discrete possible values are ordered or correspond to an implicit ranking (from STATO http://purl.obolibrary.org/obo/STATO_0000228).",
-    ),
-    /**
-     * A polychotomous variable is a categorical variable which is defined to have minimally 2
-     * categories or possible values. (from STATO http://purl.obolibrary.org/obo/STATO_0000087).
-     * Suggestion to limit code use to situations when neither dichotomous nor ordinal variables
-     * apply.
-     */
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      "A polychotomous variable is a categorical variable which is defined to have minimally 2 categories or possible values. (from STATO  http://purl.obolibrary.org/obo/STATO_0000087).  Suggestion to limit code use to situations when neither dichotomous nor ordinal variables apply.",
     );
 
     override fun toString(): kotlin.String = code
@@ -893,8 +857,6 @@ public data class Evidence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

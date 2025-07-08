@@ -372,48 +372,12 @@ public data class Provenance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** An entity that is used by the activity to produce a new version of that entity. */
-    Revision(
-      "revision",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Revision",
-      "An entity that is used by the activity to produce a new version of that entity.",
-    ),
-    /**
-     * An entity that is copied in full or part by an agent that is not the author of the entity.
-     */
-    Quotation(
-      "quotation",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Quotation",
-      "An entity that is copied in full or part by an agent that is not the author of the entity.",
-    ),
-    /** An entity that is used as input to the activity that produced the target. */
-    Source(
-      "source",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Source",
-      "An entity that is used as input to the activity that produced the target.",
-    ),
-    /**
-     * The record resulting from this event adheres to the protocol, guideline, order set or other
-     * definition represented by this entity.
-     */
-    Instantiates(
-      "instantiates",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Instantiates",
-      "The record resulting from this event adheres to the protocol, guideline, order set or other definition represented by this entity.",
-    ),
-    /** An entity that is removed from accessibility, usually through the DELETE operator. */
-    Removal(
-      "removal",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Removal",
-      "An entity that is removed from accessibility, usually through the DELETE operator.",
-    );
+    Revision("revision", "http://hl7.org/fhir/provenance-entity-role", "Revision"),
+    Quotation("quotation", "http://hl7.org/fhir/provenance-entity-role", "Quotation"),
+    Source("source", "http://hl7.org/fhir/provenance-entity-role", "Source"),
+    Instantiates("instantiates", "http://hl7.org/fhir/provenance-entity-role", "Instantiates"),
+    Removal("removal", "http://hl7.org/fhir/provenance-entity-role", "Removal");
 
     override fun toString(): String = code
 
@@ -422,8 +386,6 @@ public data class Provenance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ProvenanceEntityRole =

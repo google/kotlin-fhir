@@ -281,39 +281,14 @@ public data class SupplyDelivery(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Supply has been requested, but not delivered. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/supplydelivery-status",
-      "In Progress",
-      "Supply has been requested, but not delivered.",
-    ),
-    /** Supply has been delivered ("completed"). */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/supplydelivery-status",
-      "Delivered",
-      "Supply has been delivered (\"completed\").",
-    ),
-    /** Delivery was not completed. */
-    Abandoned(
-      "abandoned",
-      "http://hl7.org/fhir/supplydelivery-status",
-      "Abandoned",
-      "Delivery was not completed.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "abandoned" rather than "entered-in-error".).
-     */
+    In_Progress("in-progress", "http://hl7.org/fhir/supplydelivery-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/supplydelivery-status", "Delivered"),
+    Abandoned("abandoned", "http://hl7.org/fhir/supplydelivery-status", "Abandoned"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/supplydelivery-status",
       "Entered In Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"abandoned\" rather than \"entered-in-error\".).",
     );
 
     override fun toString(): String = code
@@ -323,8 +298,6 @@ public data class SupplyDelivery(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SupplyDeliveryStatus =

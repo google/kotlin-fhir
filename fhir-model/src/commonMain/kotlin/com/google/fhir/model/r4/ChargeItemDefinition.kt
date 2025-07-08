@@ -510,55 +510,16 @@ public data class ChargeItemDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * the amount is the base price used for calculating the total price before applying surcharges,
-     * discount or taxes.
-     */
-    Base(
-      "base",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "base price",
-      "the amount is the base price used for calculating the total price before applying surcharges, discount or taxes.",
-    ),
-    /** the amount is a surcharge applied on the base price. */
-    Surcharge(
-      "surcharge",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "surcharge",
-      "the amount is a surcharge applied on the base price.",
-    ),
-    /** the amount is a deduction applied on the base price. */
-    Deduction(
-      "deduction",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "deduction",
-      "the amount is a deduction applied on the base price.",
-    ),
-    /** the amount is a discount applied on the base price. */
-    Discount(
-      "discount",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "discount",
-      "the amount is a discount applied on the base price.",
-    ),
-    /** the amount is the tax component of the total price. */
-    Tax(
-      "tax",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "tax",
-      "the amount is the tax component of the total price.",
-    ),
-    /**
-     * the amount is of informational character, it has not been applied in the calculation of the
-     * total price.
-     */
+    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount"),
+    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax"),
     Informational(
       "informational",
       "http://hl7.org/fhir/invoice-priceComponentType",
       "informational",
-      "the amount is of informational character, it has not been applied in the calculation of the total price.",
     );
 
     override fun toString(): kotlin.String = code
@@ -568,8 +529,6 @@ public data class ChargeItemDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ChargeItemDefinitionPriceComponentType =

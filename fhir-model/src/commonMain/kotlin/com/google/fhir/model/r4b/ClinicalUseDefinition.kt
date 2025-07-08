@@ -602,43 +602,20 @@ public data class ClinicalUseDefinition(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** A reason for giving the medication. */
-    Indication(
-      "indication",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Indication",
-      "A reason for giving the medication.",
-    ),
-    /** A reason for not giving the medication. */
+    Indication("indication", "http://hl7.org/fhir/clinical-use-definition-type", "Indication"),
     Contraindication(
       "contraindication",
       "http://hl7.org/fhir/clinical-use-definition-type",
       "Contraindication",
-      "A reason for not giving the medication.",
     ),
-    /** Interactions between the medication and other substances. */
-    Interaction(
-      "interaction",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Interaction",
-      "Interactions between the medication and other substances.",
-    ),
-    /** Side effects or adverse effects associated with the medication. */
+    Interaction("interaction", "http://hl7.org/fhir/clinical-use-definition-type", "Interaction"),
     Undesirable_Effect(
       "undesirable-effect",
       "http://hl7.org/fhir/clinical-use-definition-type",
       "Undesirable Effect",
-      "Side effects or adverse effects associated with the medication.",
     ),
-    /** A general warning or issue that is not specifically one of the other types. */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Warning",
-      "A general warning or issue that is not specifically one of the other types.",
-    );
+    Warning("warning", "http://hl7.org/fhir/clinical-use-definition-type", "Warning");
 
     override fun toString(): String = code
 
@@ -647,8 +624,6 @@ public data class ClinicalUseDefinition(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ClinicalUseDefinitionType =

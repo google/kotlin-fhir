@@ -348,33 +348,14 @@ public data class MedicationStatement(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The action of recording the medication statement is finished. */
-    Recorded(
-      "recorded",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Recorded",
-      "The action of recording the medication statement is finished.",
-    ),
-    /**
-     * Some of the actions that are implied by the medication usage may have occurred. For example,
-     * the patient may have taken some of the medication. Clinical decision support systems should
-     * take this status into account.
-     */
+    Recorded("recorded", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Recorded"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Entered in Error",
-      "Some of the actions that are implied by the medication usage may have occurred.  For example, the patient may have taken some of the medication.  Clinical decision support systems should take this status into account.",
     ),
-    /** The medication usage is draft or preliminary. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Draft",
-      "The medication usage is draft or preliminary.",
-    );
+    Draft("draft", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Draft");
 
     override fun toString(): String = code
 
@@ -383,8 +364,6 @@ public data class MedicationStatement(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationStatementStatus =

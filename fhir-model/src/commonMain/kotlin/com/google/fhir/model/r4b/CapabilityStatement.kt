@@ -1292,22 +1292,9 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The application acts as a client for this resource. */
-    Client(
-      "client",
-      "http://hl7.org/fhir/restful-capability-mode",
-      "Client",
-      "The application acts as a client for this resource.",
-    ),
-    /** The application acts as a server for this resource. */
-    Server(
-      "server",
-      "http://hl7.org/fhir/restful-capability-mode",
-      "Server",
-      "The application acts as a server for this resource.",
-    );
+    Client("client", "http://hl7.org/fhir/restful-capability-mode", "Client"),
+    Server("server", "http://hl7.org/fhir/restful-capability-mode", "Server");
 
     override fun toString(): kotlin.String = code
 
@@ -1316,8 +1303,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RestfulCapabilityMode =
@@ -1335,31 +1320,13 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** VersionId meta-property is not supported (server) or used (client). */
-    No_Version(
-      "no-version",
-      "http://hl7.org/fhir/versioning-policy",
-      "No VersionId Support",
-      "VersionId meta-property is not supported (server) or used (client).",
-    ),
-    /** VersionId meta-property is supported (server) or used (client). */
-    Versioned(
-      "versioned",
-      "http://hl7.org/fhir/versioning-policy",
-      "Versioned",
-      "VersionId meta-property is supported (server) or used (client).",
-    ),
-    /**
-     * VersionId must be correct for updates (server) or will be specified (If-match header) for
-     * updates (client).
-     */
+    No_Version("no-version", "http://hl7.org/fhir/versioning-policy", "No VersionId Support"),
+    Versioned("versioned", "http://hl7.org/fhir/versioning-policy", "Versioned"),
     Versioned_Update(
       "versioned-update",
       "http://hl7.org/fhir/versioning-policy",
       "VersionId tracked fully",
-      "VersionId must be correct for updates (server) or will be specified (If-match header) for updates (client).",
     );
 
     override fun toString(): kotlin.String = code
@@ -1369,8 +1336,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResourceVersionPolicy =
@@ -1389,38 +1354,15 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** No support for conditional reads. */
-    Not_Supported(
-      "not-supported",
-      "http://hl7.org/fhir/conditional-read-status",
-      "Not Supported",
-      "No support for conditional reads.",
-    ),
-    /** Conditional reads are supported, but only with the If-Modified-Since HTTP Header. */
+    Not_Supported("not-supported", "http://hl7.org/fhir/conditional-read-status", "Not Supported"),
     Modified_Since(
       "modified-since",
       "http://hl7.org/fhir/conditional-read-status",
       "If-Modified-Since",
-      "Conditional reads are supported, but only with the If-Modified-Since HTTP Header.",
     ),
-    /** Conditional reads are supported, but only with the If-None-Match HTTP Header. */
-    Not_Match(
-      "not-match",
-      "http://hl7.org/fhir/conditional-read-status",
-      "If-None-Match",
-      "Conditional reads are supported, but only with the If-None-Match HTTP Header.",
-    ),
-    /**
-     * Conditional reads are supported, with both If-Modified-Since and If-None-Match HTTP Headers.
-     */
-    Full_Support(
-      "full-support",
-      "http://hl7.org/fhir/conditional-read-status",
-      "Full Support",
-      "Conditional reads are supported, with both If-Modified-Since and If-None-Match HTTP Headers.",
-    );
+    Not_Match("not-match", "http://hl7.org/fhir/conditional-read-status", "If-None-Match"),
+    Full_Support("full-support", "http://hl7.org/fhir/conditional-read-status", "Full Support");
 
     override fun toString(): kotlin.String = code
 
@@ -1429,8 +1371,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionalReadStatus =
@@ -1450,31 +1390,17 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** No support for conditional deletes. */
     Not_Supported(
       "not-supported",
       "http://hl7.org/fhir/conditional-delete-status",
       "Not Supported",
-      "No support for conditional deletes.",
     ),
-    /** Conditional deletes are supported, but only single resources at a time. */
-    Single(
-      "single",
-      "http://hl7.org/fhir/conditional-delete-status",
-      "Single Deletes Supported",
-      "Conditional deletes are supported, but only single resources at a time.",
-    ),
-    /**
-     * Conditional deletes are supported, and multiple resources can be deleted in a single
-     * interaction.
-     */
+    Single("single", "http://hl7.org/fhir/conditional-delete-status", "Single Deletes Supported"),
     Multiple(
       "multiple",
       "http://hl7.org/fhir/conditional-delete-status",
       "Multiple Deletes Supported",
-      "Conditional deletes are supported, and multiple resources can be deleted in a single interaction.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1484,8 +1410,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionalDeleteStatus =
@@ -1504,55 +1428,16 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The server supports and populates Literal references (i.e. using Reference.reference) where
-     * they are known (this code does not guarantee that all references are literal; see
-     * 'enforced').
-     */
-    Literal(
-      "literal",
-      "http://hl7.org/fhir/reference-handling-policy",
-      "Literal References",
-      "The server supports and populates Literal references (i.e. using Reference.reference) where they are known (this code does not guarantee that all references are literal; see 'enforced').",
-    ),
-    /** The server allows logical references (i.e. using Reference.identifier). */
-    Logical(
-      "logical",
-      "http://hl7.org/fhir/reference-handling-policy",
-      "Logical References",
-      "The server allows logical references (i.e. using Reference.identifier).",
-    ),
-    /**
-     * The server will attempt to resolve logical references to literal references - i.e. converting
-     * Reference.identifier to Reference.reference (if resolution fails, the server may still accept
-     * resources; see logical).
-     */
-    Resolves(
-      "resolves",
-      "http://hl7.org/fhir/reference-handling-policy",
-      "Resolves References",
-      "The server will attempt to resolve logical references to literal references - i.e. converting Reference.identifier to Reference.reference (if resolution fails, the server may still accept resources; see logical).",
-    ),
-    /**
-     * The server enforces that references have integrity - e.g. it ensures that references can
-     * always be resolved. This is typically the case for clinical record systems, but often not the
-     * case for middleware/proxy systems.
-     */
+    Literal("literal", "http://hl7.org/fhir/reference-handling-policy", "Literal References"),
+    Logical("logical", "http://hl7.org/fhir/reference-handling-policy", "Logical References"),
+    Resolves("resolves", "http://hl7.org/fhir/reference-handling-policy", "Resolves References"),
     Enforced(
       "enforced",
       "http://hl7.org/fhir/reference-handling-policy",
       "Reference Integrity Enforced",
-      "The server enforces that references have integrity - e.g. it ensures that references can always be resolved. This is typically the case for clinical record systems, but often not the case for middleware/proxy systems.",
     ),
-    /** The server does not support references that point to other servers. */
-    Local(
-      "local",
-      "http://hl7.org/fhir/reference-handling-policy",
-      "Local References Only",
-      "The server does not support references that point to other servers.",
-    );
+    Local("local", "http://hl7.org/fhir/reference-handling-policy", "Local References Only");
 
     override fun toString(): kotlin.String = code
 
@@ -1561,8 +1446,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReferenceHandlingPolicy =
@@ -1583,66 +1466,20 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Read the current state of the resource. */
-    Read(
-      "read",
-      "http://hl7.org/fhir/restful-interaction",
-      "read",
-      "Read the current state of the resource.",
-    ),
-    /** Read the state of a specific version of the resource. */
-    Vread(
-      "vread",
-      "http://hl7.org/fhir/restful-interaction",
-      "vread",
-      "Read the state of a specific version of the resource.",
-    ),
-    /** Update an existing resource by its id (or create it if it is new). */
-    Update(
-      "update",
-      "http://hl7.org/fhir/restful-interaction",
-      "update",
-      "Update an existing resource by its id (or create it if it is new).",
-    ),
-    /** Update an existing resource by posting a set of changes to it. */
-    Patch(
-      "patch",
-      "http://hl7.org/fhir/restful-interaction",
-      "patch",
-      "Update an existing resource by posting a set of changes to it.",
-    ),
-    /** Delete a resource. */
-    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete", "Delete a resource."),
-    /** Retrieve the change history for a particular resource. */
+    Read("read", "http://hl7.org/fhir/restful-interaction", "read"),
+    Vread("vread", "http://hl7.org/fhir/restful-interaction", "vread"),
+    Update("update", "http://hl7.org/fhir/restful-interaction", "update"),
+    Patch("patch", "http://hl7.org/fhir/restful-interaction", "patch"),
+    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete"),
     History_Instance(
       "history-instance",
       "http://hl7.org/fhir/restful-interaction",
       "history-instance",
-      "Retrieve the change history for a particular resource.",
     ),
-    /** Retrieve the change history for all resources of a particular type. */
-    History_Type(
-      "history-type",
-      "http://hl7.org/fhir/restful-interaction",
-      "history-type",
-      "Retrieve the change history for all resources of a particular type.",
-    ),
-    /** Create a new resource with a server assigned id. */
-    Create(
-      "create",
-      "http://hl7.org/fhir/restful-interaction",
-      "create",
-      "Create a new resource with a server assigned id.",
-    ),
-    /** Search all resources of the specified type based on some filter criteria. */
-    Search_Type(
-      "search-type",
-      "http://hl7.org/fhir/restful-interaction",
-      "search-type",
-      "Search all resources of the specified type based on some filter criteria.",
-    );
+    History_Type("history-type", "http://hl7.org/fhir/restful-interaction", "history-type"),
+    Create("create", "http://hl7.org/fhir/restful-interaction", "create"),
+    Search_Type("search-type", "http://hl7.org/fhir/restful-interaction", "search-type");
 
     override fun toString(): kotlin.String = code
 
@@ -1651,8 +1488,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TypeRestfulInteraction =
@@ -1677,36 +1512,11 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Retrieve the change history for all resources on a system. */
-    History_System(
-      "history-system",
-      "http://hl7.org/fhir/restful-interaction",
-      "history-system",
-      "Retrieve the change history for all resources on a system.",
-    ),
-    /** Search all resources based on some filter criteria. */
-    Search_System(
-      "search-system",
-      "http://hl7.org/fhir/restful-interaction",
-      "search-system",
-      "Search all resources based on some filter criteria.",
-    ),
-    /** Update, create or delete a set of resources as a single transaction. */
-    Transaction(
-      "transaction",
-      "http://hl7.org/fhir/restful-interaction",
-      "transaction",
-      "Update, create or delete a set of resources as a single transaction.",
-    ),
-    /** perform a set of a separate interactions in a single http operation */
-    Batch(
-      "batch",
-      "http://hl7.org/fhir/restful-interaction",
-      "batch",
-      "perform a set of a separate interactions in a single http operation",
-    );
+    Transaction("transaction", "http://hl7.org/fhir/restful-interaction", "transaction"),
+    Batch("batch", "http://hl7.org/fhir/restful-interaction", "batch"),
+    Search_System("search-system", "http://hl7.org/fhir/restful-interaction", "search-system"),
+    History_System("history-system", "http://hl7.org/fhir/restful-interaction", "history-system");
 
     override fun toString(): kotlin.String = code
 
@@ -1716,15 +1526,13 @@ public data class CapabilityStatement(
 
     public fun getDisplay(): kotlin.String? = display
 
-    public fun getDefinition(): kotlin.String? = definition
-
     public companion object {
       public fun fromCode(code: kotlin.String): SystemRestfulInteraction =
         when (code) {
-          "history-system" -> History_System
-          "search-system" -> Search_System
           "transaction" -> Transaction
           "batch" -> Batch
+          "search-system" -> Search_System
+          "history-system" -> History_System
           else ->
             throw IllegalArgumentException("Unknown code $code for enum SystemRestfulInteraction")
         }
@@ -1736,22 +1544,9 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The application sends requests and receives responses. */
-    Sender(
-      "sender",
-      "http://hl7.org/fhir/event-capability-mode",
-      "Sender",
-      "The application sends requests and receives responses.",
-    ),
-    /** The application receives requests and sends responses. */
-    Receiver(
-      "receiver",
-      "http://hl7.org/fhir/event-capability-mode",
-      "Receiver",
-      "The application receives requests and sends responses.",
-    );
+    Sender("sender", "http://hl7.org/fhir/event-capability-mode", "Sender"),
+    Receiver("receiver", "http://hl7.org/fhir/event-capability-mode", "Receiver");
 
     override fun toString(): kotlin.String = code
 
@@ -1760,8 +1555,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EventCapabilityMode =
@@ -1778,22 +1571,9 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The application produces documents of the specified type. */
-    Producer(
-      "producer",
-      "http://hl7.org/fhir/document-mode",
-      "Producer",
-      "The application produces documents of the specified type.",
-    ),
-    /** The application consumes documents of the specified type. */
-    Consumer(
-      "consumer",
-      "http://hl7.org/fhir/document-mode",
-      "Consumer",
-      "The application consumes documents of the specified type.",
-    );
+    Producer("producer", "http://hl7.org/fhir/document-mode", "Producer"),
+    Consumer("consumer", "http://hl7.org/fhir/document-mode", "Consumer");
 
     override fun toString(): kotlin.String = code
 
@@ -1802,8 +1582,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DocumentMode =
@@ -1820,38 +1598,10 @@ public data class CapabilityStatement(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The CapabilityStatement instance represents the present capabilities of a specific system
-     * instance. This is the kind returned by /metadata for a FHIR server end-point.
-     */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Instance",
-      "The CapabilityStatement instance represents the present capabilities of a specific system instance.  This is the kind returned by /metadata for a FHIR server end-point.",
-    ),
-    /**
-     * The CapabilityStatement instance represents the capabilities of a system or piece of
-     * software, independent of a particular installation.
-     */
-    Capability(
-      "capability",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Capability",
-      "The CapabilityStatement instance represents the capabilities of a system or piece of software, independent of a particular installation.",
-    ),
-    /**
-     * The CapabilityStatement instance represents a set of requirements for other systems to meet;
-     * e.g. as part of an implementation guide or 'request for proposal'.
-     */
-    Requirements(
-      "requirements",
-      "http://hl7.org/fhir/capability-statement-kind",
-      "Requirements",
-      "The CapabilityStatement instance represents a set of requirements for other systems to meet; e.g. as part of an implementation guide or 'request for proposal'.",
-    );
+    Instance("instance", "http://hl7.org/fhir/capability-statement-kind", "Instance"),
+    Capability("capability", "http://hl7.org/fhir/capability-statement-kind", "Capability"),
+    Requirements("requirements", "http://hl7.org/fhir/capability-statement-kind", "Requirements");
 
     override fun toString(): kotlin.String = code
 
@@ -1860,8 +1610,6 @@ public data class CapabilityStatement(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CapabilityStatementKind =

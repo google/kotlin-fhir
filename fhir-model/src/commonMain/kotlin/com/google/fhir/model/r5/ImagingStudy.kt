@@ -448,55 +448,16 @@ public data class ImagingStudy(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the imaging study is registered, but there is nothing yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Registered",
-      "The existence of the imaging study is registered, but there is nothing yet available.",
-    ),
-    /** At least one instance has been associated with this imaging study. */
-    Available(
-      "available",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Available",
-      "At least one instance has been associated with this imaging study.",
-    ),
-    /**
-     * The imaging study is unavailable because the imaging study was not started or not completed
-     * (also sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Cancelled",
-      "The imaging study is unavailable because the imaging study was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The imaging study has been withdrawn following a previous final release. This electronic
-     * record should never have existed, though it is possible that real-world decisions were based
-     * on it. (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/imagingstudy-status", "Registered"),
+    Available("available", "http://hl7.org/fhir/imagingstudy-status", "Available"),
+    Cancelled("cancelled", "http://hl7.org/fhir/imagingstudy-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/imagingstudy-status",
       "Entered in Error",
-      "The imaging study has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The system does not know which of the status values currently applies for this request. Note:
-     * This concept is not to be used for "other" - one of the listed statuses is presumed to apply,
-     * it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Unknown",
-      "The system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/imagingstudy-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -505,8 +466,6 @@ public data class ImagingStudy(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingStudyStatus =

@@ -242,28 +242,13 @@ public data class Substance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The substance is considered for use or reference. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/substance-status",
-      "Active",
-      "The substance is considered for use or reference.",
-    ),
-    /** The substance is considered for reference, but not for use. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/substance-status",
-      "Inactive",
-      "The substance is considered for reference, but not for use.",
-    ),
-    /** The substance was entered in error. */
+    Active("active", "http://hl7.org/fhir/substance-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/substance-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/substance-status",
       "Entered in Error",
-      "The substance was entered in error.",
     );
 
     override fun toString(): String = code
@@ -273,8 +258,6 @@ public data class Substance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): FHIRSubstanceStatus =

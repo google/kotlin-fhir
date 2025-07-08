@@ -1151,48 +1151,11 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This structure describes an instance passed to the mapping engine that is used a source of
-     * data.
-     */
-    Source(
-      "source",
-      "http://hl7.org/fhir/map-model-mode",
-      "Source Structure Definition",
-      "This structure describes an instance passed to the mapping engine that is used a source of data.",
-    ),
-    /**
-     * This structure describes an instance that the mapping engine may ask for that is used a
-     * source of data.
-     */
-    Queried(
-      "queried",
-      "http://hl7.org/fhir/map-model-mode",
-      "Queried Structure Definition",
-      "This structure describes an instance that the mapping engine may ask for that is used a source of data.",
-    ),
-    /**
-     * This structure describes an instance passed to the mapping engine that is used a target of
-     * data.
-     */
-    Target(
-      "target",
-      "http://hl7.org/fhir/map-model-mode",
-      "Target Structure Definition",
-      "This structure describes an instance passed to the mapping engine that is used a target of data.",
-    ),
-    /**
-     * This structure describes an instance that the mapping engine may ask to create that is used a
-     * target of data.
-     */
-    Produced(
-      "produced",
-      "http://hl7.org/fhir/map-model-mode",
-      "Produced Structure Definition",
-      "This structure describes an instance that the mapping engine may ask to create that is used a target of data.",
-    );
+    Source("source", "http://hl7.org/fhir/map-model-mode", "Source Structure Definition"),
+    Queried("queried", "http://hl7.org/fhir/map-model-mode", "Queried Structure Definition"),
+    Target("target", "http://hl7.org/fhir/map-model-mode", "Target Structure Definition"),
+    Produced("produced", "http://hl7.org/fhir/map-model-mode", "Produced Structure Definition");
 
     override fun toString(): kotlin.String = code
 
@@ -1201,8 +1164,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapModelMode =
@@ -1222,31 +1183,13 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This group is not a default group for the types. */
-    None(
-      "none",
-      "http://hl7.org/fhir/map-group-type-mode",
-      "Not a Default",
-      "This group is not a default group for the types.",
-    ),
-    /**
-     * This group is a default mapping group for the specified types and for the primary source
-     * type.
-     */
-    Types(
-      "types",
-      "http://hl7.org/fhir/map-group-type-mode",
-      "Default for Type Combination",
-      "This group is a default mapping group for the specified types and for the primary source type.",
-    ),
-    /** This group is a default mapping group for the specified types. */
+    None("none", "http://hl7.org/fhir/map-group-type-mode", "Not a Default"),
+    Types("types", "http://hl7.org/fhir/map-group-type-mode", "Default for Type Combination"),
     Type_And_Types(
       "type-and-types",
       "http://hl7.org/fhir/map-group-type-mode",
       "Default for type + combination",
-      "This group is a default mapping group for the specified types.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1256,8 +1199,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapGroupTypeMode =
@@ -1276,22 +1217,9 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Names an input instance used a source for mapping. */
-    Source(
-      "source",
-      "http://hl7.org/fhir/map-input-mode",
-      "Source Instance",
-      "Names an input instance used a source for mapping.",
-    ),
-    /** Names an instance that is being populated. */
-    Target(
-      "target",
-      "http://hl7.org/fhir/map-input-mode",
-      "Target Instance",
-      "Names an instance that is being populated.",
-    );
+    Source("source", "http://hl7.org/fhir/map-input-mode", "Source Instance"),
+    Target("target", "http://hl7.org/fhir/map-input-mode", "Target Instance");
 
     override fun toString(): kotlin.String = code
 
@@ -1300,8 +1228,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapInputMode =
@@ -1319,43 +1245,12 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Only process this rule for the first in the list. */
-    First(
-      "first",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "First",
-      "Only process this rule for the first in the list.",
-    ),
-    /** Process this rule for all but the first. */
-    Not_First(
-      "not_first",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "All but the first",
-      "Process this rule for all but the first.",
-    ),
-    /** Only process this rule for the last in the list. */
-    Last(
-      "last",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "Last",
-      "Only process this rule for the last in the list.",
-    ),
-    /** Process this rule for all but the last. */
-    Not_Last(
-      "not_last",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "All but the last",
-      "Process this rule for all but the last.",
-    ),
-    /** Only process this rule is there is only item. */
-    Only_One(
-      "only_one",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "Enforce only one",
-      "Only process this rule is there is only item.",
-    );
+    First("first", "http://hl7.org/fhir/map-source-list-mode", "First"),
+    Not_First("not_first", "http://hl7.org/fhir/map-source-list-mode", "All but the first"),
+    Last("last", "http://hl7.org/fhir/map-source-list-mode", "Last"),
+    Not_Last("not_last", "http://hl7.org/fhir/map-source-list-mode", "All but the last"),
+    Only_One("only_one", "http://hl7.org/fhir/map-source-list-mode", "Enforce only one");
 
     override fun toString(): kotlin.String = code
 
@@ -1364,8 +1259,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapSourceListMode =
@@ -1386,17 +1279,9 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The context specifies a type. */
-    Type("type", "http://hl7.org/fhir/map-context-type", "Type", "The context specifies a type."),
-    /** The context specifies a variable. */
-    Variable(
-      "variable",
-      "http://hl7.org/fhir/map-context-type",
-      "Variable",
-      "The context specifies a variable.",
-    );
+    Type("type", "http://hl7.org/fhir/map-context-type", "Type"),
+    Variable("variable", "http://hl7.org/fhir/map-context-type", "Variable");
 
     override fun toString(): kotlin.String = code
 
@@ -1405,8 +1290,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapContextType =
@@ -1424,45 +1307,11 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * when the target list is being assembled, the items for this rule go first. If more than one
-     * rule defines a first item (for a given instance of mapping) then this is an error.
-     */
-    First(
-      "first",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "First",
-      "when the target list is being assembled, the items for this rule go first. If more than one rule defines a first item (for a given instance of mapping) then this is an error.",
-    ),
-    /**
-     * the target instance is shared with the target instances generated by another rule (up to the
-     * first common n items, then create new ones).
-     */
-    Share(
-      "share",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "Share",
-      "the target instance is shared with the target instances generated by another rule (up to the first common n items, then create new ones).",
-    ),
-    /**
-     * when the target list is being assembled, the items for this rule go last. If more than one
-     * rule defines a last item (for a given instance of mapping) then this is an error.
-     */
-    Last(
-      "last",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "Last",
-      "when the target list is being assembled, the items for this rule go last. If more than one rule defines a last item (for a given instance of mapping) then this is an error.",
-    ),
-    /** re-use the first item in the list, and keep adding content to it. */
-    Collate(
-      "collate",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "Collate",
-      "re-use the first item in the list, and keep adding content to it.",
-    );
+    First("first", "http://hl7.org/fhir/map-target-list-mode", "First"),
+    Share("share", "http://hl7.org/fhir/map-target-list-mode", "Share"),
+    Last("last", "http://hl7.org/fhir/map-target-list-mode", "Last"),
+    Collate("collate", "http://hl7.org/fhir/map-target-list-mode", "Collate");
 
     override fun toString(): kotlin.String = code
 
@@ -1471,8 +1320,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapTargetListMode =
@@ -1492,143 +1339,24 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * create(type : string) - type is passed through to the application on the standard API, and
-     * must be known by it.
-     */
-    Create(
-      "create",
-      "http://hl7.org/fhir/map-transform",
-      "create",
-      "create(type : string) - type is passed through to the application on the standard API, and must be known by it.",
-    ),
-    /** copy(source). */
-    Copy("copy", "http://hl7.org/fhir/map-transform", "copy", "copy(source)."),
-    /** truncate(source, length) - source must be stringy type. */
-    Truncate(
-      "truncate",
-      "http://hl7.org/fhir/map-transform",
-      "truncate",
-      "truncate(source, length) - source must be stringy type.",
-    ),
-    /**
-     * escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java,
-     * xml, json). note that this is for when the string itself is escaped.
-     */
-    Escape(
-      "escape",
-      "http://hl7.org/fhir/map-transform",
-      "escape",
-      "escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java, xml, json). note that this is for when the string itself is escaped.",
-    ),
-    /**
-     * cast(source, type?) - case source from one type to another. target type can be left as
-     * implicit if there is one and only one target type known.
-     */
-    Cast(
-      "cast",
-      "http://hl7.org/fhir/map-transform",
-      "cast",
-      "cast(source, type?) - case source from one type to another. target type can be left as implicit if there is one and only one target type known.",
-    ),
-    /** append(source...) - source is element or string. */
-    Append(
-      "append",
-      "http://hl7.org/fhir/map-transform",
-      "append",
-      "append(source...) - source is element or string.",
-    ),
-    /** translate(source, uri_of_map) - use the translate operation. */
-    Translate(
-      "translate",
-      "http://hl7.org/fhir/map-transform",
-      "translate",
-      "translate(source, uri_of_map) - use the translate operation.",
-    ),
-    /** reference(source : object) - return a string that references the provided tree properly. */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/map-transform",
-      "reference",
-      "reference(source : object) - return a string that references the provided tree properly.",
-    ),
-    /** Perform a date operation. *Parameters to be documented*. */
-    DateOp(
-      "dateOp",
-      "http://hl7.org/fhir/map-transform",
-      "dateOp",
-      "Perform a date operation. *Parameters to be documented*.",
-    ),
-    /** Generate a random UUID (in lowercase). No Parameters. */
-    Uuid(
-      "uuid",
-      "http://hl7.org/fhir/map-transform",
-      "uuid",
-      "Generate a random UUID (in lowercase). No Parameters.",
-    ),
-    /**
-     * Return the appropriate string to put in a reference that refers to the resource provided as a
-     * parameter.
-     */
-    Pointer(
-      "pointer",
-      "http://hl7.org/fhir/map-transform",
-      "pointer",
-      "Return the appropriate string to put in a reference that refers to the resource provided as a parameter.",
-    ),
-    /** Execute the supplied FHIRPath expression and use the value returned by that. */
-    Evaluate(
-      "evaluate",
-      "http://hl7.org/fhir/map-transform",
-      "evaluate",
-      "Execute the supplied FHIRPath expression and use the value returned by that.",
-    ),
-    /** Create a CodeableConcept. Parameters = (text) or (system. Code[, display]). */
-    Cc(
-      "cc",
-      "http://hl7.org/fhir/map-transform",
-      "cc",
-      "Create a CodeableConcept. Parameters = (text) or (system. Code[, display]).",
-    ),
-    /** Create a Coding. Parameters = (system. Code[, display]). */
-    C(
-      "c",
-      "http://hl7.org/fhir/map-transform",
-      "c",
-      "Create a Coding. Parameters = (system. Code[, display]).",
-    ),
-    /**
-     * Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the
-     * natural representation e.g. [comparator]value[space]unit.
-     */
-    Qty(
-      "qty",
-      "http://hl7.org/fhir/map-transform",
-      "qty",
-      "Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the natural representation e.g. [comparator]value[space]unit.",
-    ),
-    /**
-     * Create an identifier. Parameters = (system, value[, type]) where type is a code from the
-     * identifier type value set.
-     */
-    Id(
-      "id",
-      "http://hl7.org/fhir/map-transform",
-      "id",
-      "Create an identifier. Parameters = (system, value[, type]) where type is a code from the identifier type value set.",
-    ),
-    /**
-     * Create a contact details. Parameters = (value) or (system, value). If no system is provided,
-     * the system should be inferred from the content of the value.
-     */
-    Cp(
-      "cp",
-      "http://hl7.org/fhir/map-transform",
-      "cp",
-      "Create a contact details. Parameters = (value) or (system, value). If no system is provided, the system should be inferred from the content of the value.",
-    );
+    Create("create", "http://hl7.org/fhir/map-transform", "create"),
+    Copy("copy", "http://hl7.org/fhir/map-transform", "copy"),
+    Truncate("truncate", "http://hl7.org/fhir/map-transform", "truncate"),
+    Escape("escape", "http://hl7.org/fhir/map-transform", "escape"),
+    Cast("cast", "http://hl7.org/fhir/map-transform", "cast"),
+    Append("append", "http://hl7.org/fhir/map-transform", "append"),
+    Translate("translate", "http://hl7.org/fhir/map-transform", "translate"),
+    Reference("reference", "http://hl7.org/fhir/map-transform", "reference"),
+    DateOp("dateOp", "http://hl7.org/fhir/map-transform", "dateOp"),
+    Uuid("uuid", "http://hl7.org/fhir/map-transform", "uuid"),
+    Pointer("pointer", "http://hl7.org/fhir/map-transform", "pointer"),
+    Evaluate("evaluate", "http://hl7.org/fhir/map-transform", "evaluate"),
+    Cc("cc", "http://hl7.org/fhir/map-transform", "cc"),
+    C("c", "http://hl7.org/fhir/map-transform", "c"),
+    Qty("qty", "http://hl7.org/fhir/map-transform", "qty"),
+    Id("id", "http://hl7.org/fhir/map-transform", "id"),
+    Cp("cp", "http://hl7.org/fhir/map-transform", "cp");
 
     override fun toString(): kotlin.String = code
 
@@ -1637,8 +1365,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapTransform =

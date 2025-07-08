@@ -78,36 +78,11 @@ public data class Distance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The actual value is less than the given value. */
-    LessThan(
-      "<",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Less than",
-      "The actual value is less than the given value.",
-    ),
-    /** The actual value is less than or equal to the given value. */
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Less or Equal to",
-      "The actual value is less than or equal to the given value.",
-    ),
-    /** The actual value is greater than or equal to the given value. */
-    GreaterThanOrEqualTo(
-      ">=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater or Equal to",
-      "The actual value is greater than or equal to the given value.",
-    ),
-    /** The actual value is greater than the given value. */
-    GreaterThan(
-      ">",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater than",
-      "The actual value is greater than the given value.",
-    );
+    LessThan("<", "http://hl7.org/fhir/quantity-comparator", "Less than"),
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/quantity-comparator", "Less or Equal to"),
+    GreaterThanOrEqualTo(">=", "http://hl7.org/fhir/quantity-comparator", "Greater or Equal to"),
+    GreaterThan(">", "http://hl7.org/fhir/quantity-comparator", "Greater than");
 
     override fun toString(): kotlin.String = code
 
@@ -116,8 +91,6 @@ public data class Distance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuantityComparator =

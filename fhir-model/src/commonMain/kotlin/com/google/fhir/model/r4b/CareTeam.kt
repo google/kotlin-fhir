@@ -267,50 +267,15 @@ public data class CareTeam(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The care team has been drafted and proposed, but not yet participating in the coordination
-     * and delivery of patient care.
-     */
-    Proposed(
-      "proposed",
-      "http://hl7.org/fhir/care-team-status",
-      "Proposed",
-      "The care team has been drafted and proposed, but not yet participating in the coordination and delivery of patient care.",
-    ),
-    /** The care team is currently participating in the coordination and delivery of care. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/care-team-status",
-      "Active",
-      "The care team is currently participating in the coordination and delivery of care.",
-    ),
-    /**
-     * The care team is temporarily on hold or suspended and not participating in the coordination
-     * and delivery of care.
-     */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/care-team-status",
-      "Suspended",
-      "The care team is temporarily on hold or suspended and not participating in the coordination and delivery of care.",
-    ),
-    /**
-     * The care team was, but is no longer, participating in the coordination and delivery of care.
-     */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/care-team-status",
-      "Inactive",
-      "The care team was, but is no longer, participating in the coordination and delivery of care.",
-    ),
-    /** The care team should have never existed. */
+    Proposed("proposed", "http://hl7.org/fhir/care-team-status", "Proposed"),
+    Active("active", "http://hl7.org/fhir/care-team-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/care-team-status", "Suspended"),
+    Inactive("inactive", "http://hl7.org/fhir/care-team-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/care-team-status",
       "Entered in Error",
-      "The care team should have never existed.",
     );
 
     override fun toString(): kotlin.String = code
@@ -320,8 +285,6 @@ public data class CareTeam(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CareTeamStatus =

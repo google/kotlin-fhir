@@ -2282,33 +2282,10 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** No additional content is allowed other than that described by the slices in this profile. */
-    Closed(
-      "closed",
-      "http://hl7.org/fhir/resource-slicing-rules",
-      "Closed",
-      "No additional content is allowed other than that described by the slices in this profile.",
-    ),
-    /** Additional content is allowed anywhere in the list. */
-    Open(
-      "open",
-      "http://hl7.org/fhir/resource-slicing-rules",
-      "Open",
-      "Additional content is allowed anywhere in the list.",
-    ),
-    /**
-     * Additional content is allowed, but only at the end of the list. Note that using this requires
-     * that the slices be ordered, which makes it hard to share uses. This should only be done where
-     * absolutely required.
-     */
-    OpenAtEnd(
-      "openAtEnd",
-      "http://hl7.org/fhir/resource-slicing-rules",
-      "Open at End",
-      "Additional content is allowed, but only at the end of the list. Note that using this requires that the slices be ordered, which makes it hard to share uses. This should only be done where absolutely required.",
-    );
+    Closed("closed", "http://hl7.org/fhir/resource-slicing-rules", "Closed"),
+    Open("open", "http://hl7.org/fhir/resource-slicing-rules", "Open"),
+    OpenAtEnd("openAtEnd", "http://hl7.org/fhir/resource-slicing-rules", "Open at End");
 
     override fun toString(): kotlin.String = code
 
@@ -2317,8 +2294,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SlicingRules =
@@ -2336,51 +2311,12 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The slices have different values in the nominated element. */
-    Value(
-      "value",
-      "http://hl7.org/fhir/discriminator-type",
-      "Value",
-      "The slices have different values in the nominated element.",
-    ),
-    /** The slices are differentiated by the presence or absence of the nominated element. */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/discriminator-type",
-      "Exists",
-      "The slices are differentiated by the presence or absence of the nominated element.",
-    ),
-    /**
-     * The slices have different values in the nominated element, as determined by testing them
-     * against the applicable ElementDefinition.pattern[x].
-     */
-    Pattern(
-      "pattern",
-      "http://hl7.org/fhir/discriminator-type",
-      "Pattern",
-      "The slices have different values in the nominated element, as determined by testing them against the applicable ElementDefinition.pattern[x].",
-    ),
-    /** The slices are differentiated by type of the nominated element. */
-    Type(
-      "type",
-      "http://hl7.org/fhir/discriminator-type",
-      "Type",
-      "The slices are differentiated by type of the nominated element.",
-    ),
-    /**
-     * The slices are differentiated by conformance of the nominated element to a specified profile.
-     * Note that if the path specifies .resolve() then the profile is the target profile on the
-     * reference. In this case, validation by the possible profiles is required to differentiate the
-     * slices.
-     */
-    Profile(
-      "profile",
-      "http://hl7.org/fhir/discriminator-type",
-      "Profile",
-      "The slices are differentiated by conformance of the nominated element to a specified profile. Note that if the path specifies .resolve() then the profile is the target profile on the reference. In this case, validation by the possible profiles is required to differentiate the slices.",
-    );
+    Value("value", "http://hl7.org/fhir/discriminator-type", "Value"),
+    Exists("exists", "http://hl7.org/fhir/discriminator-type", "Exists"),
+    Pattern("pattern", "http://hl7.org/fhir/discriminator-type", "Pattern"),
+    Type("type", "http://hl7.org/fhir/discriminator-type", "Type"),
+    Profile("profile", "http://hl7.org/fhir/discriminator-type", "Profile");
 
     override fun toString(): kotlin.String = code
 
@@ -2389,8 +2325,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DiscriminatorType =
@@ -2410,35 +2344,10 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The reference is a local reference to a contained resource. */
-    Contained(
-      "contained",
-      "http://hl7.org/fhir/resource-aggregation-mode",
-      "Contained",
-      "The reference is a local reference to a contained resource.",
-    ),
-    /**
-     * The reference to a resource that has to be resolved externally to the resource that includes
-     * the reference.
-     */
-    Referenced(
-      "referenced",
-      "http://hl7.org/fhir/resource-aggregation-mode",
-      "Referenced",
-      "The reference to a resource that has to be resolved externally to the resource that includes the reference.",
-    ),
-    /**
-     * The resource the reference points to will be found in the same bundle as the resource that
-     * includes the reference.
-     */
-    Bundled(
-      "bundled",
-      "http://hl7.org/fhir/resource-aggregation-mode",
-      "Bundled",
-      "The resource the reference points to will be found in the same bundle as the resource that includes the reference.",
-    );
+    Contained("contained", "http://hl7.org/fhir/resource-aggregation-mode", "Contained"),
+    Referenced("referenced", "http://hl7.org/fhir/resource-aggregation-mode", "Referenced"),
+    Bundled("bundled", "http://hl7.org/fhir/resource-aggregation-mode", "Bundled");
 
     override fun toString(): kotlin.String = code
 
@@ -2447,8 +2356,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AggregationMode =
@@ -2469,29 +2376,18 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The reference may be either version independent or version specific. */
     Either(
       "either",
       "http://hl7.org/fhir/reference-version-rules",
       "Either Specific or independent",
-      "The reference may be either version independent or version specific.",
     ),
-    /** The reference must be version independent. */
     Independent(
       "independent",
       "http://hl7.org/fhir/reference-version-rules",
       "Version independent",
-      "The reference must be version independent.",
     ),
-    /** The reference must be version specific. */
-    Specific(
-      "specific",
-      "http://hl7.org/fhir/reference-version-rules",
-      "Version Specific",
-      "The reference must be version specific.",
-    );
+    Specific("specific", "http://hl7.org/fhir/reference-version-rules", "Version Specific");
 
     override fun toString(): kotlin.String = code
 
@@ -2500,8 +2396,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReferenceVersionRules =
@@ -2520,25 +2414,9 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** If the constraint is violated, the resource is not conformant. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/constraint-severity",
-      "Error",
-      "If the constraint is violated, the resource is not conformant.",
-    ),
-    /**
-     * If the constraint is violated, the resource is conformant, but it is not necessarily
-     * following best practice.
-     */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/constraint-severity",
-      "Warning",
-      "If the constraint is violated, the resource is conformant, but it is not necessarily following best practice.",
-    );
+    Error("error", "http://hl7.org/fhir/constraint-severity", "Error"),
+    Warning("warning", "http://hl7.org/fhir/constraint-severity", "Warning");
 
     override fun toString(): kotlin.String = code
 
@@ -2547,8 +2425,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConstraintSeverity =
@@ -2565,43 +2441,12 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** In XML, this property is represented as an attribute not an element. */
-    XmlAttr(
-      "xmlAttr",
-      "http://hl7.org/fhir/property-representation",
-      "XML Attribute",
-      "In XML, this property is represented as an attribute not an element.",
-    ),
-    /** This element is represented using the XML text attribute (primitives only). */
-    XmlText(
-      "xmlText",
-      "http://hl7.org/fhir/property-representation",
-      "XML Text",
-      "This element is represented using the XML text attribute (primitives only).",
-    ),
-    /** The type of this element is indicated using xsi:type. */
-    TypeAttr(
-      "typeAttr",
-      "http://hl7.org/fhir/property-representation",
-      "Type Attribute",
-      "The type of this element is indicated using xsi:type.",
-    ),
-    /** Use CDA narrative instead of XHTML. */
-    CdaText(
-      "cdaText",
-      "http://hl7.org/fhir/property-representation",
-      "CDA Text Format",
-      "Use CDA narrative instead of XHTML.",
-    ),
-    /** The property is represented using XHTML. */
-    Xhtml(
-      "xhtml",
-      "http://hl7.org/fhir/property-representation",
-      "XHTML",
-      "The property is represented using XHTML.",
-    );
+    XmlAttr("xmlAttr", "http://hl7.org/fhir/property-representation", "XML Attribute"),
+    XmlText("xmlText", "http://hl7.org/fhir/property-representation", "XML Text"),
+    TypeAttr("typeAttr", "http://hl7.org/fhir/property-representation", "Type Attribute"),
+    CdaText("cdaText", "http://hl7.org/fhir/property-representation", "CDA Text Format"),
+    Xhtml("xhtml", "http://hl7.org/fhir/property-representation", "XHTML");
 
     override fun toString(): kotlin.String = code
 
@@ -2610,8 +2455,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): PropertyRepresentation =

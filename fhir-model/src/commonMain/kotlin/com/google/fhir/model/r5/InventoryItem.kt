@@ -564,39 +564,15 @@ public data class InventoryItem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The item is active and can be referenced. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/inventoryitem-status",
-      "Active",
-      "The item is active and can be referenced.",
-    ),
-    /**
-     * The item is presently inactive - there may be references to it but the item is not expected
-     * to be used.
-     */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/inventoryitem-status",
-      "Inactive",
-      "The item is presently inactive - there may be references to it but the item is not expected to be used.",
-    ),
-    /** The item record was entered in error. */
+    Active("active", "http://hl7.org/fhir/inventoryitem-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/inventoryitem-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/inventoryitem-status",
       "Entered in Error",
-      "The item record was entered in error.",
     ),
-    /** The item status has not been determined. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/inventoryitem-status",
-      "Unknown",
-      "The item status has not been determined.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/inventoryitem-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -605,8 +581,6 @@ public data class InventoryItem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InventoryItemStatus =

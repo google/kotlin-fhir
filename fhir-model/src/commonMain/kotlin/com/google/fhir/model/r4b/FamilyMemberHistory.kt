@@ -433,39 +433,11 @@ public data class FamilyMemberHistory(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Some health information is known and captured, but not complete - see notes for details. */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/history-status",
-      "Partial",
-      "Some health information is known and captured, but not complete - see notes for details.",
-    ),
-    /**
-     * All available related health information is captured as of the date (and possibly time) when
-     * the family member history was taken.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/history-status",
-      "Completed",
-      "All available related health information is captured as of the date (and possibly time) when the family member history was taken.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/history-status",
-      "Entered in Error",
-      "This instance should not have been part of this patient's medical record.",
-    ),
-    /** Health information for this family member is unavailable/unknown. */
-    Health_Unknown(
-      "health-unknown",
-      "http://hl7.org/fhir/history-status",
-      "Health Unknown",
-      "Health information for this family member is unavailable/unknown.",
-    );
+    Partial("partial", "http://hl7.org/fhir/history-status", "Partial"),
+    Completed("completed", "http://hl7.org/fhir/history-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/history-status", "Entered in Error"),
+    Health_Unknown("health-unknown", "http://hl7.org/fhir/history-status", "Health Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -474,8 +446,6 @@ public data class FamilyMemberHistory(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FamilyHistoryStatus =

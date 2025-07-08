@@ -1087,104 +1087,19 @@ public data class Task(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The task is not yet ready to be acted upon. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/task-status",
-      "Draft",
-      "The task is not yet ready to be acted upon.",
-    ),
-    /** The task is ready to be acted upon and action is sought. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/task-status",
-      "Requested",
-      "The task is ready to be acted upon and action is sought.",
-    ),
-    /**
-     * A potential performer has claimed ownership of the task and is evaluating whether to perform
-     * it.
-     */
-    Received(
-      "received",
-      "http://hl7.org/fhir/task-status",
-      "Received",
-      "A potential performer has claimed ownership of the task and is evaluating whether to perform it.",
-    ),
-    /** The potential performer has agreed to execute the task but has not yet started work. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/task-status",
-      "Accepted",
-      "The potential performer has agreed to execute the task but has not yet started work.",
-    ),
-    /**
-     * The potential performer who claimed ownership of the task has decided not to execute it prior
-     * to performing any action.
-     */
-    Rejected(
-      "rejected",
-      "http://hl7.org/fhir/task-status",
-      "Rejected",
-      "The potential performer who claimed ownership of the task has decided not to execute it prior to performing any action.",
-    ),
-    /**
-     * The task is ready to be performed, but no action has yet been taken. Used in place of
-     * requested/received/accepted/rejected when request assignment and acceptance is a given.
-     */
-    Ready(
-      "ready",
-      "http://hl7.org/fhir/task-status",
-      "Ready",
-      "The task is ready to be performed, but no action has yet been taken.  Used in place of requested/received/accepted/rejected when request assignment and acceptance is a given.",
-    ),
-    /** The task was not completed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/task-status",
-      "Cancelled",
-      "The task was not completed.",
-    ),
-    /** The task has been started but is not yet complete. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/task-status",
-      "In Progress",
-      "The task has been started but is not yet complete.",
-    ),
-    /** The task has been started but work has been paused. */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/task-status",
-      "On Hold",
-      "The task has been started but work has been paused.",
-    ),
-    /** The task was attempted but could not be completed due to some error. */
-    Failed(
-      "failed",
-      "http://hl7.org/fhir/task-status",
-      "Failed",
-      "The task was attempted but could not be completed due to some error.",
-    ),
-    /** The task has been completed. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/task-status",
-      "Completed",
-      "The task has been completed.",
-    ),
-    /**
-     * The task should never have existed and is retained only because of the possibility it may
-     * have used.
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/task-status",
-      "Entered in Error",
-      "The task should never have existed and is retained only because of the possibility it may have used.",
-    );
+    Draft("draft", "http://hl7.org/fhir/task-status", "Draft"),
+    Requested("requested", "http://hl7.org/fhir/task-status", "Requested"),
+    Received("received", "http://hl7.org/fhir/task-status", "Received"),
+    Accepted("accepted", "http://hl7.org/fhir/task-status", "Accepted"),
+    Rejected("rejected", "http://hl7.org/fhir/task-status", "Rejected"),
+    Ready("ready", "http://hl7.org/fhir/task-status", "Ready"),
+    Cancelled("cancelled", "http://hl7.org/fhir/task-status", "Cancelled"),
+    In_Progress("in-progress", "http://hl7.org/fhir/task-status", "In Progress"),
+    On_Hold("on-hold", "http://hl7.org/fhir/task-status", "On Hold"),
+    Failed("failed", "http://hl7.org/fhir/task-status", "Failed"),
+    Completed("completed", "http://hl7.org/fhir/task-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/task-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -1193,8 +1108,6 @@ public data class Task(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TaskStatus =
@@ -1221,95 +1134,16 @@ public data class Task(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The intent is not known. When dealing with Task, it's not always known (or relevant) how the
-     * task was initiated - i.e. whether it was proposed, planned, ordered or just done
-     * spontaneously.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/task-intent",
-      "Unknown",
-      "The intent is not known.  When dealing with Task, it's not always known (or relevant) how the task was initiated - i.e. whether it was proposed, planned, ordered or just done spontaneously.",
-    ),
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /** The request represents a request/demand and authorization for action by a Practitioner. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by a Practitioner.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestGroup that establishes timing,
-     * conditionality and/or other constraints among a set of requests. Refer to [[[RequestGroup]]]
-     * for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this status is used.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/task-intent", "Unknown"),
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -1318,8 +1152,6 @@ public data class Task(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TaskIntent =
@@ -1343,38 +1175,11 @@ public data class Task(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1383,8 +1188,6 @@ public data class Task(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TaskPriority =

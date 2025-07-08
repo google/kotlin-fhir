@@ -21,7 +21,6 @@ import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.capitalized
-import com.google.fhir.codegen.schema.codesystem.CodeSystem
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getTypeName
@@ -54,7 +53,6 @@ import kotlinx.serialization.Serializable
 /** Generates a [TypeSpec] for a model class. */
 class ModelTypeSpecGenerator(
   val valueSetMap: Map<String, ValueSet>,
-  val codeSystemMap: Map<String, CodeSystem>,
   val commonBindingValueSetUrlsMap: MutableMap<String, HashSet<String>>,
 ) {
 
@@ -278,7 +276,7 @@ class ModelTypeSpecGenerator(
       if (element.typeIsEnumeratedCode(valueSetMap) && !isCommonBinding) {
         val valueSet = valueSetMap[valueSetUrl]
         if (valueSet != null) {
-          val typeSpec = EnumTypeSpecGenerator(codeSystemMap).generate(bindingName!!, valueSet)
+          val typeSpec = EnumTypeSpecGenerator.generate(bindingName!!, valueSet)
           if (typeSpec != null) {
             createBindingToEnumTypeSpecEntry(bindingName, typeSpec)
           }

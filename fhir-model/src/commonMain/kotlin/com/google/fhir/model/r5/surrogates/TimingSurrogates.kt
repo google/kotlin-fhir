@@ -19,7 +19,6 @@
 
 package com.google.fhir.model.r5.surrogates
 
-import com.google.fhir.model.r5.Code
 import com.google.fhir.model.r5.CodeableConcept
 import com.google.fhir.model.r5.DateTime
 import com.google.fhir.model.r5.Decimal
@@ -99,7 +98,12 @@ internal data class TimingRepeatSurrogate(
       durationMax =
         Decimal.of(this@TimingRepeatSurrogate.durationMax, this@TimingRepeatSurrogate._durationMax)
       durationUnit =
-        Code.of(this@TimingRepeatSurrogate.durationUnit, this@TimingRepeatSurrogate._durationUnit)
+        Enumeration.of(
+          this@TimingRepeatSurrogate.durationUnit?.let {
+            com.google.fhir.model.r5.Timing.UnitsOfTime.fromCode(it)
+          },
+          this@TimingRepeatSurrogate._durationUnit,
+        )
       frequency =
         PositiveInt.of(this@TimingRepeatSurrogate.frequency, this@TimingRepeatSurrogate._frequency)
       frequencyMax =
@@ -111,7 +115,12 @@ internal data class TimingRepeatSurrogate(
       periodMax =
         Decimal.of(this@TimingRepeatSurrogate.periodMax, this@TimingRepeatSurrogate._periodMax)
       periodUnit =
-        Code.of(this@TimingRepeatSurrogate.periodUnit, this@TimingRepeatSurrogate._periodUnit)
+        Enumeration.of(
+          this@TimingRepeatSurrogate.periodUnit?.let {
+            com.google.fhir.model.r5.Timing.UnitsOfTime.fromCode(it)
+          },
+          this@TimingRepeatSurrogate._periodUnit,
+        )
       dayOfWeek =
         if (
           this@TimingRepeatSurrogate.dayOfWeek == null &&
@@ -184,7 +193,7 @@ internal data class TimingRepeatSurrogate(
           _duration = this@with.duration?.toElement()
           durationMax = this@with.durationMax?.value
           _durationMax = this@with.durationMax?.toElement()
-          durationUnit = this@with.durationUnit?.value
+          durationUnit = this@with.durationUnit?.value?.getCode()
           _durationUnit = this@with.durationUnit?.toElement()
           frequency = this@with.frequency?.value
           _frequency = this@with.frequency?.toElement()
@@ -194,7 +203,7 @@ internal data class TimingRepeatSurrogate(
           _period = this@with.period?.toElement()
           periodMax = this@with.periodMax?.value
           _periodMax = this@with.periodMax?.toElement()
-          periodUnit = this@with.periodUnit?.value
+          periodUnit = this@with.periodUnit?.value?.getCode()
           _periodUnit = this@with.periodUnit?.toElement()
           dayOfWeek =
             this@with.dayOfWeek?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }

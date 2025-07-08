@@ -1863,22 +1863,14 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** HTTP DELETE operation. */
-    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE", "HTTP DELETE operation."),
-    /** HTTP GET operation. */
-    Get("get", "http://hl7.org/fhir/http-operations", "GET", "HTTP GET operation."),
-    /** HTTP OPTIONS operation. */
-    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS", "HTTP OPTIONS operation."),
-    /** HTTP PATCH operation. */
-    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH", "HTTP PATCH operation."),
-    /** HTTP POST operation. */
-    Post("post", "http://hl7.org/fhir/http-operations", "POST", "HTTP POST operation."),
-    /** HTTP PUT operation. */
-    Put("put", "http://hl7.org/fhir/http-operations", "PUT", "HTTP PUT operation."),
-    /** HTTP HEAD operation. */
-    Head("head", "http://hl7.org/fhir/http-operations", "HEAD", "HTTP HEAD operation.");
+    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE"),
+    Get("get", "http://hl7.org/fhir/http-operations", "GET"),
+    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS"),
+    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH"),
+    Post("post", "http://hl7.org/fhir/http-operations", "POST"),
+    Put("put", "http://hl7.org/fhir/http-operations", "PUT"),
+    Head("head", "http://hl7.org/fhir/http-operations", "HEAD");
 
     override fun toString(): kotlin.String = code
 
@@ -1887,8 +1879,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestScriptRequestMethodCode =
@@ -1913,22 +1903,9 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The assertion is evaluated on the response. This is the default value. */
-    Response(
-      "response",
-      "http://hl7.org/fhir/assert-direction-codes",
-      "response",
-      "The assertion is evaluated on the response. This is the default value.",
-    ),
-    /** The assertion is evaluated on the request. */
-    Request(
-      "request",
-      "http://hl7.org/fhir/assert-direction-codes",
-      "request",
-      "The assertion is evaluated on the request.",
-    );
+    Response("response", "http://hl7.org/fhir/assert-direction-codes", "response"),
+    Request("request", "http://hl7.org/fhir/assert-direction-codes", "request");
 
     override fun toString(): kotlin.String = code
 
@@ -1937,8 +1914,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionDirectionType =
@@ -1956,45 +1931,11 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Mark the currently waiting test failed and proceed with the next assert if the stopTestOnFail
-     * is false or the next test in the TestScript if the stopTestOnFail is true.
-     */
-    Fail(
-      "fail",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Fail",
-      "Mark the currently waiting test failed and proceed with the next assert if the stopTestOnFail is false or the next test in the TestScript if the stopTestOnFail is true.",
-    ),
-    /**
-     * Mark the currently waiting test passed (if the test is not failed already) and proceed with
-     * the next action in the TestScript.
-     */
-    Pass(
-      "pass",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Pass",
-      "Mark the currently waiting test passed (if the test is not failed already) and proceed with the next action in the TestScript.",
-    ),
-    /** Mark this assert as skipped and proceed with the next action in the TestScript. */
-    Skip(
-      "skip",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Skip",
-      "Mark this assert as skipped and proceed with the next action in the TestScript.",
-    ),
-    /**
-     * Stop execution of this TestScript. The overall status of this TestScript is evaluated based
-     * on the status of the completed tests.
-     */
-    Stop(
-      "stop",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Stop",
-      "Stop execution of this TestScript. The overall status of this TestScript is evaluated based on the status of the completed tests.",
-    );
+    Fail("fail", "http://hl7.org/fhir/assert-manual-completion-codes", "Fail"),
+    Pass("pass", "http://hl7.org/fhir/assert-manual-completion-codes", "Pass"),
+    Skip("skip", "http://hl7.org/fhir/assert-manual-completion-codes", "Skip"),
+    Stop("stop", "http://hl7.org/fhir/assert-manual-completion-codes", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -2003,8 +1944,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionManualCompletionType =
@@ -2026,91 +1965,19 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Default value. Equals comparison. */
-    Equals(
-      "equals",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "equals",
-      "Default value. Equals comparison.",
-    ),
-    /** Not equals comparison. */
-    NotEquals(
-      "notEquals",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notEquals",
-      "Not equals comparison.",
-    ),
-    /** Compare value within a known set of values. */
-    In(
-      "in",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "in",
-      "Compare value within a known set of values.",
-    ),
-    /** Compare value not within a known set of values. */
-    NotIn(
-      "notIn",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notIn",
-      "Compare value not within a known set of values.",
-    ),
-    /** Compare value to be greater than a known value. */
-    GreaterThan(
-      "greaterThan",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "greaterThan",
-      "Compare value to be greater than a known value.",
-    ),
-    /** Compare value to be less than a known value. */
-    LessThan(
-      "lessThan",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "lessThan",
-      "Compare value to be less than a known value.",
-    ),
-    /** Compare value is empty. */
-    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty", "Compare value is empty."),
-    /** Compare value is not empty. */
-    NotEmpty(
-      "notEmpty",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notEmpty",
-      "Compare value is not empty.",
-    ),
-    /** Compare value string contains a known value. */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "contains",
-      "Compare value string contains a known value.",
-    ),
-    /** Compare value string does not contain a known value. */
-    NotContains(
-      "notContains",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notContains",
-      "Compare value string does not contain a known value.",
-    ),
-    /** Evaluate the FHIRPath expression as a boolean condition. */
-    Eval(
-      "eval",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "evaluate",
-      "Evaluate the FHIRPath expression as a boolean condition.",
-    ),
-    /**
-     * Manually evaluate the condition described by this assert. The test engine SHALL pause and
-     * provide an input mechanism to set the outcome of this assert to 'pass', 'fail', 'skip' or
-     * 'stop'.
-     */
-    ManualEval(
-      "manualEval",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "manualEvaluate",
-      "Manually evaluate the condition described by this assert. The test engine SHALL pause and provide an input mechanism to set the outcome of this assert to 'pass', 'fail', 'skip' or 'stop'.",
-    );
+    Equals("equals", "http://hl7.org/fhir/assert-operator-codes", "equals"),
+    NotEquals("notEquals", "http://hl7.org/fhir/assert-operator-codes", "notEquals"),
+    In("in", "http://hl7.org/fhir/assert-operator-codes", "in"),
+    NotIn("notIn", "http://hl7.org/fhir/assert-operator-codes", "notIn"),
+    GreaterThan("greaterThan", "http://hl7.org/fhir/assert-operator-codes", "greaterThan"),
+    LessThan("lessThan", "http://hl7.org/fhir/assert-operator-codes", "lessThan"),
+    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty"),
+    NotEmpty("notEmpty", "http://hl7.org/fhir/assert-operator-codes", "notEmpty"),
+    Contains("contains", "http://hl7.org/fhir/assert-operator-codes", "contains"),
+    NotContains("notContains", "http://hl7.org/fhir/assert-operator-codes", "notContains"),
+    Eval("eval", "http://hl7.org/fhir/assert-operator-codes", "evaluate"),
+    ManualEval("manualEval", "http://hl7.org/fhir/assert-operator-codes", "manualEvaluate");
 
     override fun toString(): kotlin.String = code
 
@@ -2119,8 +1986,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionOperatorType =
@@ -2148,305 +2013,154 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Response code is 100. */
-    Continue(
-      "continue",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Continue",
-      "Response code is 100.",
-    ),
-    /** Response code is 101. */
+    Continue("continue", "http://hl7.org/fhir/assert-response-code-types", "Continue"),
     SwitchingProtocols(
       "switchingProtocols",
       "http://hl7.org/fhir/assert-response-code-types",
       "Switching Protocols",
-      "Response code is 101.",
     ),
-    /** Response code is 200. */
-    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "OK", "Response code is 200."),
-    /** Response code is 201. */
-    Created(
-      "created",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Created",
-      "Response code is 201.",
-    ),
-    /** Response code is 202. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Accepted",
-      "Response code is 202.",
-    ),
-    /** Response code is 203. */
+    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "OK"),
+    Created("created", "http://hl7.org/fhir/assert-response-code-types", "Created"),
+    Accepted("accepted", "http://hl7.org/fhir/assert-response-code-types", "Accepted"),
     NonAuthoritativeInformation(
       "nonAuthoritativeInformation",
       "http://hl7.org/fhir/assert-response-code-types",
       "Non-Authoritative Information",
-      "Response code is 203.",
     ),
-    /** Response code is 204. */
-    NoContent(
-      "noContent",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "No Content",
-      "Response code is 204.",
-    ),
-    /** Response code is 205. */
-    ResetContent(
-      "resetContent",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Reset Content",
-      "Response code is 205.",
-    ),
-    /** Response code is 206. */
+    NoContent("noContent", "http://hl7.org/fhir/assert-response-code-types", "No Content"),
+    ResetContent("resetContent", "http://hl7.org/fhir/assert-response-code-types", "Reset Content"),
     PartialContent(
       "partialContent",
       "http://hl7.org/fhir/assert-response-code-types",
       "Partial Content",
-      "Response code is 206.",
     ),
-    /** Response code is 300. */
     MultipleChoices(
       "multipleChoices",
       "http://hl7.org/fhir/assert-response-code-types",
       "Multiple Choices",
-      "Response code is 300.",
     ),
-    /** Response code is 301. */
     MovedPermanently(
       "movedPermanently",
       "http://hl7.org/fhir/assert-response-code-types",
       "Moved Permanently",
-      "Response code is 301.",
     ),
-    /** Response code is 302. */
-    Found(
-      "found",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Found",
-      "Response code is 302.",
-    ),
-    /** Response code is 303. */
-    SeeOther(
-      "seeOther",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "See Other",
-      "Response code is 303.",
-    ),
-    /** Response code is 304. */
-    NotModified(
-      "notModified",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Not Modified",
-      "Response code is 304.",
-    ),
-    /** Response code is 305. */
-    UseProxy(
-      "useProxy",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Use Proxy",
-      "Response code is 305.",
-    ),
-    /** Response code is 307. */
+    Found("found", "http://hl7.org/fhir/assert-response-code-types", "Found"),
+    SeeOther("seeOther", "http://hl7.org/fhir/assert-response-code-types", "See Other"),
+    NotModified("notModified", "http://hl7.org/fhir/assert-response-code-types", "Not Modified"),
+    UseProxy("useProxy", "http://hl7.org/fhir/assert-response-code-types", "Use Proxy"),
     TemporaryRedirect(
       "temporaryRedirect",
       "http://hl7.org/fhir/assert-response-code-types",
       "Temporary Redirect",
-      "Response code is 307.",
     ),
-    /** Response code is 308. */
     PermanentRedirect(
       "permanentRedirect",
       "http://hl7.org/fhir/assert-response-code-types",
       "Permanent Redirect",
-      "Response code is 308.",
     ),
-    /** Response code is 400. */
-    BadRequest(
-      "badRequest",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Bad Request",
-      "Response code is 400.",
-    ),
-    /** Response code is 401. */
-    Unauthorized(
-      "unauthorized",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Unauthorized",
-      "Response code is 401.",
-    ),
-    /** Response code is 402. */
+    BadRequest("badRequest", "http://hl7.org/fhir/assert-response-code-types", "Bad Request"),
+    Unauthorized("unauthorized", "http://hl7.org/fhir/assert-response-code-types", "Unauthorized"),
     PaymentRequired(
       "paymentRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Payment Required",
-      "Response code is 402.",
     ),
-    /** Response code is 403. */
-    Forbidden(
-      "forbidden",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Forbidden",
-      "Response code is 403.",
-    ),
-    /** Response code is 404. */
-    NotFound(
-      "notFound",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Not Found",
-      "Response code is 404.",
-    ),
-    /** Response code is 405. */
+    Forbidden("forbidden", "http://hl7.org/fhir/assert-response-code-types", "Forbidden"),
+    NotFound("notFound", "http://hl7.org/fhir/assert-response-code-types", "Not Found"),
     MethodNotAllowed(
       "methodNotAllowed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Method Not Allowed",
-      "Response code is 405.",
     ),
-    /** Response code is 406. */
     NotAcceptable(
       "notAcceptable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Not Acceptable",
-      "Response code is 406.",
     ),
-    /** Response code is 407. */
     ProxyAuthenticationRequired(
       "proxyAuthenticationRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Proxy Authentication Required",
-      "Response code is 407.",
     ),
-    /** Response code is 408. */
     RequestTimeout(
       "requestTimeout",
       "http://hl7.org/fhir/assert-response-code-types",
       "Request Timeout",
-      "Response code is 408.",
     ),
-    /** Response code is 409. */
-    Conflict(
-      "conflict",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Conflict",
-      "Response code is 409.",
-    ),
-    /** Response code is 410. */
-    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "Gone", "Response code is 410."),
-    /** Response code is 411. */
+    Conflict("conflict", "http://hl7.org/fhir/assert-response-code-types", "Conflict"),
+    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "Gone"),
     LengthRequired(
       "lengthRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Length Required",
-      "Response code is 411.",
     ),
-    /** Response code is 412. */
     PreconditionFailed(
       "preconditionFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Precondition Failed",
-      "Response code is 412.",
     ),
-    /** Response code is 413. */
     ContentTooLarge(
       "contentTooLarge",
       "http://hl7.org/fhir/assert-response-code-types",
       "Content Too Large",
-      "Response code is 413.",
     ),
-    /** Response code is 414. */
-    UriTooLong(
-      "uriTooLong",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "URI Too Long",
-      "Response code is 414.",
-    ),
-    /** Response code is 415. */
+    UriTooLong("uriTooLong", "http://hl7.org/fhir/assert-response-code-types", "URI Too Long"),
     UnsupportedMediaType(
       "unsupportedMediaType",
       "http://hl7.org/fhir/assert-response-code-types",
       "Unsupported Media Type",
-      "Response code is 415.",
     ),
-    /** Response code is 416. */
     RangeNotSatisfiable(
       "rangeNotSatisfiable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Range Not Satisfiable",
-      "Response code is 416.",
     ),
-    /** Response code is 417. */
     ExpectationFailed(
       "expectationFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Expectation Failed",
-      "Response code is 417.",
     ),
-    /** Response code is 421. */
     MisdirectedRequest(
       "misdirectedRequest",
       "http://hl7.org/fhir/assert-response-code-types",
       "Misdirected Request",
-      "Response code is 421.",
     ),
-    /** Response code is 422. */
     UnprocessableContent(
       "unprocessableContent",
       "http://hl7.org/fhir/assert-response-code-types",
       "Unprocessable Content",
-      "Response code is 422.",
     ),
-    /** Response code is 426. */
     UpgradeRequired(
       "upgradeRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Upgrade Required",
-      "Response code is 426.",
     ),
-    /** Response code is 500. */
     InternalServerError(
       "internalServerError",
       "http://hl7.org/fhir/assert-response-code-types",
       "Internal Server Error",
-      "Response code is 500.",
     ),
-    /** Response code is 501. */
     NotImplemented(
       "notImplemented",
       "http://hl7.org/fhir/assert-response-code-types",
       "Not Implemented",
-      "Response code is 501.",
     ),
-    /** Response code is 502. */
-    BadGateway(
-      "badGateway",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Bad Gateway",
-      "Response code is 502.",
-    ),
-    /** Response code is 503. */
+    BadGateway("badGateway", "http://hl7.org/fhir/assert-response-code-types", "Bad Gateway"),
     ServiceUnavailable(
       "serviceUnavailable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Service Unavailable",
-      "Response code is 503.",
     ),
-    /** Response code is 504. */
     GatewayTimeout(
       "gatewayTimeout",
       "http://hl7.org/fhir/assert-response-code-types",
       "Gateway Timeout",
-      "Response code is 504.",
     ),
-    /** Response code is 505. */
     httpVersionNotSupported(
       "httpVersionNotSupported",
       "http://hl7.org/fhir/assert-response-code-types",
       "HTTP Version Not Supported",
-      "Response code is 505.",
     );
 
     override fun toString(): kotlin.String = code
@@ -2456,8 +2170,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionResponseTypes =

@@ -521,29 +521,10 @@ public data class MeasureReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The report is complete and ready for use. */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/measure-report-status",
-      "Complete",
-      "The report is complete and ready for use.",
-    ),
-    /** The report is currently being generated. */
-    Pending(
-      "pending",
-      "http://hl7.org/fhir/measure-report-status",
-      "Pending",
-      "The report is currently being generated.",
-    ),
-    /** An error occurred attempting to generate the report. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/measure-report-status",
-      "Error",
-      "An error occurred attempting to generate the report.",
-    );
+    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete"),
+    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending"),
+    Error("error", "http://hl7.org/fhir/measure-report-status", "Error");
 
     override fun toString(): String = code
 
@@ -552,8 +533,6 @@ public data class MeasureReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MeasureReportStatus =
@@ -571,44 +550,14 @@ public data class MeasureReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * An individual report that provides information on the performance for a given measure with
-     * respect to a single subject.
-     */
-    Individual(
-      "individual",
-      "http://hl7.org/fhir/measure-report-type",
-      "Individual",
-      "An individual report that provides information on the performance for a given measure with respect to a single subject.",
-    ),
-    /**
-     * A subject list report that includes a listing of subjects that satisfied each population
-     * criteria in the measure.
-     */
-    Subject_List(
-      "subject-list",
-      "http://hl7.org/fhir/measure-report-type",
-      "Subject List",
-      "A subject list report that includes a listing of subjects that satisfied each population criteria in the measure.",
-    ),
-    /**
-     * A summary report that returns the number of members in each population criteria for the
-     * measure.
-     */
-    Summary(
-      "summary",
-      "http://hl7.org/fhir/measure-report-type",
-      "Summary",
-      "A summary report that returns the number of members in each population criteria for the measure.",
-    ),
-    /** A data collection report that contains data-of-interest for the measure. */
+    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual"),
+    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List"),
+    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary"),
     Data_Collection(
       "data-collection",
       "http://hl7.org/fhir/measure-report-type",
       "Data Collection",
-      "A data collection report that contains data-of-interest for the measure.",
     );
 
     override fun toString(): String = code
@@ -618,8 +567,6 @@ public data class MeasureReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MeasureReportType =

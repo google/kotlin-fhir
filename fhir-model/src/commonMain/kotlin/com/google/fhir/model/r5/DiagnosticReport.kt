@@ -419,113 +419,22 @@ public data class DiagnosticReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the report is registered, but there is nothing yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Registered",
-      "The existence of the report is registered, but there is nothing yet available.",
-    ),
-    /**
-     * This is a partial (e.g. initial, interim or preliminary) report: data in the report may be
-     * incomplete or unverified.
-     */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Partial",
-      "This is a partial (e.g. initial, interim or preliminary) report: data in the report may be incomplete or unverified.",
-    ),
-    /** Verified early results are available, but not all results are final. */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Preliminary",
-      "Verified early results are available, but not all results are final.",
-    ),
-    /**
-     * Prior to being final, the report has been modified. This includes any change in the results,
-     * diagnosis, narrative text, or other content of a non-finalized (e.g., preliminary) report
-     * that has been issued.
-     */
-    Modified(
-      "modified",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Modified",
-      "Prior to being final, the report has been modified.  This includes any change in the results, diagnosis, narrative text, or other content of a non-finalized (e.g., preliminary) report that has been issued.",
-    ),
-    /** The report is complete and verified by an authorized person. */
-    Final(
-      "final",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Final",
-      "The report is complete and verified by an authorized person.",
-    ),
-    /**
-     * Subsequent to being final, the report has been modified. This includes any change in the
-     * results, diagnosis, narrative text, or other content of a report that has been issued.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Amended",
-      "Subsequent to being final, the report has been modified.  This includes any change in the results, diagnosis, narrative text, or other content of a report that has been issued.",
-    ),
-    /**
-     * Subsequent to being final, the report has been modified to correct an error in the report or
-     * referenced results.
-     */
-    Corrected(
-      "corrected",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Corrected",
-      "Subsequent to being final, the report has been modified to correct an error in the report or referenced results.",
-    ),
-    /**
-     * Subsequent to being final, the report has been modified by adding new content. The existing
-     * content is unchanged.
-     */
-    Appended(
-      "appended",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Appended",
-      "Subsequent to being final, the report has been modified by adding new content. The existing content is unchanged.",
-    ),
-    /**
-     * The report is unavailable because the measurement was not started or not completed (also
-     * sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Cancelled",
-      "The report is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The report has been withdrawn following a previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     * (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/diagnostic-report-status", "Registered"),
+    Partial("partial", "http://hl7.org/fhir/diagnostic-report-status", "Partial"),
+    Preliminary("preliminary", "http://hl7.org/fhir/diagnostic-report-status", "Preliminary"),
+    Modified("modified", "http://hl7.org/fhir/diagnostic-report-status", "Modified"),
+    Final("final", "http://hl7.org/fhir/diagnostic-report-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/diagnostic-report-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/diagnostic-report-status", "Corrected"),
+    Appended("appended", "http://hl7.org/fhir/diagnostic-report-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/diagnostic-report-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/diagnostic-report-status",
       "Entered in Error",
-      "The report has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/diagnostic-report-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -534,8 +443,6 @@ public data class DiagnosticReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DiagnosticReportStatus =

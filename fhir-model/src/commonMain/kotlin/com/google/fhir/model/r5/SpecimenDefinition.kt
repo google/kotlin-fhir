@@ -662,22 +662,9 @@ public data class SpecimenDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This type of contained specimen is preferred to collect this kind of specimen. */
-    Preferred(
-      "preferred",
-      "http://hl7.org/fhir/specimen-contained-preference",
-      "Preferred",
-      "This type of contained specimen is preferred to collect this kind of specimen.",
-    ),
-    /** This type of conditioned specimen is an alternate. */
-    Alternate(
-      "alternate",
-      "http://hl7.org/fhir/specimen-contained-preference",
-      "Alternate",
-      "This type of conditioned specimen is an alternate.",
-    );
+    Preferred("preferred", "http://hl7.org/fhir/specimen-contained-preference", "Preferred"),
+    Alternate("alternate", "http://hl7.org/fhir/specimen-contained-preference", "Alternate");
 
     override fun toString(): kotlin.String = code
 
@@ -686,8 +673,6 @@ public data class SpecimenDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SpecimenContainedPreference =

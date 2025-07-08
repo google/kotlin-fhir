@@ -579,38 +579,12 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The machine name, including DNS name. */
-    _1(
-      "1",
-      "http://hl7.org/fhir/network-type",
-      "Machine Name",
-      "The machine name, including DNS name.",
-    ),
-    /** The assigned Internet Protocol (IP) address. */
-    _2(
-      "2",
-      "http://hl7.org/fhir/network-type",
-      "IP Address",
-      "The assigned Internet Protocol (IP) address.",
-    ),
-    /** The assigned telephone number. */
-    _3(
-      "3",
-      "http://hl7.org/fhir/network-type",
-      "Telephone Number",
-      "The assigned telephone number.",
-    ),
-    /** The assigned email address. */
-    _4("4", "http://hl7.org/fhir/network-type", "Email address", "The assigned email address."),
-    /** URI (User directory, HTTP-PUT, ftp, etc.). */
-    _5(
-      "5",
-      "http://hl7.org/fhir/network-type",
-      "URI",
-      "URI (User directory, HTTP-PUT, ftp, etc.).",
-    );
+    _1("1", "http://hl7.org/fhir/network-type", "Machine Name"),
+    _2("2", "http://hl7.org/fhir/network-type", "IP Address"),
+    _3("3", "http://hl7.org/fhir/network-type", "Telephone Number"),
+    _4("4", "http://hl7.org/fhir/network-type", "Email address"),
+    _5("5", "http://hl7.org/fhir/network-type", "URI");
 
     override fun toString(): kotlin.String = code
 
@@ -619,8 +593,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventAgentNetworkType =
@@ -641,46 +613,12 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Create a new database object, such as placing an order. */
-    C(
-      "C",
-      "http://hl7.org/fhir/audit-event-action",
-      "Create",
-      "Create a new database object, such as placing an order.",
-    ),
-    /** Display or print data, such as a doctor census. */
-    R(
-      "R",
-      "http://hl7.org/fhir/audit-event-action",
-      "Read/View/Print",
-      "Display or print data, such as a doctor census.",
-    ),
-    /** Update data, such as revise patient information. */
-    U(
-      "U",
-      "http://hl7.org/fhir/audit-event-action",
-      "Update",
-      "Update data, such as revise patient information.",
-    ),
-    /** Delete items, such as a doctor master file record. */
-    D(
-      "D",
-      "http://hl7.org/fhir/audit-event-action",
-      "Delete",
-      "Delete items, such as a doctor master file record.",
-    ),
-    /**
-     * Perform a system or application function such as log-on, program execution or use of an
-     * object's method, or perform a query/search operation.
-     */
-    E(
-      "E",
-      "http://hl7.org/fhir/audit-event-action",
-      "Execute",
-      "Perform a system or application function such as log-on, program execution or use of an object's method, or perform a query/search operation.",
-    );
+    C("C", "http://hl7.org/fhir/audit-event-action", "Create"),
+    R("R", "http://hl7.org/fhir/audit-event-action", "Read/View/Print"),
+    U("U", "http://hl7.org/fhir/audit-event-action", "Update"),
+    D("D", "http://hl7.org/fhir/audit-event-action", "Delete"),
+    E("E", "http://hl7.org/fhir/audit-event-action", "Execute");
 
     override fun toString(): kotlin.String = code
 
@@ -689,8 +627,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventAction =
@@ -710,45 +646,11 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The operation completed successfully (whether with warnings or not). */
-    _0(
-      "0",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Success",
-      "The operation completed successfully (whether with warnings or not).",
-    ),
-    /**
-     * The action was not successful due to some kind of minor failure (often equivalent to an HTTP
-     * 400 response).
-     */
-    _4(
-      "4",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Minor failure",
-      "The action was not successful due to some kind of minor failure (often equivalent to an HTTP 400 response).",
-    ),
-    /**
-     * The action was not successful due to some kind of unexpected error (often equivalent to an
-     * HTTP 500 response).
-     */
-    _8(
-      "8",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Serious failure",
-      "The action was not successful due to some kind of unexpected error (often equivalent to an HTTP 500 response).",
-    ),
-    /**
-     * An error of such magnitude occurred that the system is no longer available for use (i.e. the
-     * system died).
-     */
-    _12(
-      "12",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Major failure",
-      "An error of such magnitude occurred that the system is no longer available for use (i.e. the system died).",
-    );
+    _0("0", "http://hl7.org/fhir/audit-event-outcome", "Success"),
+    _4("4", "http://hl7.org/fhir/audit-event-outcome", "Minor failure"),
+    _8("8", "http://hl7.org/fhir/audit-event-outcome", "Serious failure"),
+    _12("12", "http://hl7.org/fhir/audit-event-outcome", "Major failure");
 
     override fun toString(): kotlin.String = code
 
@@ -757,8 +659,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventOutcome =

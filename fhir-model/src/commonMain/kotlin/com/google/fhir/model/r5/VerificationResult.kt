@@ -347,56 +347,33 @@ public data class VerificationResult(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** ***TODO*** */
-    Attested(
-      "attested",
-      "http://hl7.org/fhir/CodeSystem/verificationresult-status",
-      "Attested",
-      "***TODO***",
-    ),
-    /** ***TODO*** */
-    Validated(
-      "validated",
-      "http://hl7.org/fhir/CodeSystem/verificationresult-status",
-      "Validated",
-      "***TODO***",
-    ),
-    /** ***TODO*** */
+    Attested("attested", "http://hl7.org/fhir/CodeSystem/verificationresult-status", "Attested"),
+    Validated("validated", "http://hl7.org/fhir/CodeSystem/verificationresult-status", "Validated"),
     In_Process(
       "in-process",
       "http://hl7.org/fhir/CodeSystem/verificationresult-status",
       "In process",
-      "***TODO***",
     ),
-    /** ***TODO*** */
     Req_Revalid(
       "req-revalid",
       "http://hl7.org/fhir/CodeSystem/verificationresult-status",
       "Requires revalidation",
-      "***TODO***",
     ),
-    /** ***TODO*** */
     Val_Fail(
       "val-fail",
       "http://hl7.org/fhir/CodeSystem/verificationresult-status",
       "Validation failed",
-      "***TODO***",
     ),
-    /** ***TODO*** */
     Reval_Fail(
       "reval-fail",
       "http://hl7.org/fhir/CodeSystem/verificationresult-status",
       "Re-Validation failed",
-      "***TODO***",
     ),
-    /** The VerificationResult record was created erroneously and is not appropriated for use. */
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/verificationresult-status",
       "Entered in Error",
-      "The VerificationResult record was created erroneously and is not appropriated for use.",
     );
 
     override fun toString(): kotlin.String = code
@@ -406,8 +383,6 @@ public data class VerificationResult(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Status =

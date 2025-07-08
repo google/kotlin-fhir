@@ -325,106 +325,38 @@ public data class ResearchStudy(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Study is opened for accrual. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/research-study-status",
-      "Active",
-      "Study is opened for accrual.",
-    ),
-    /**
-     * Study is completed prematurely and will not resume; patients are no longer examined nor
-     * treated.
-     */
+    Active("active", "http://hl7.org/fhir/research-study-status", "Active"),
     Administratively_Completed(
       "administratively-completed",
       "http://hl7.org/fhir/research-study-status",
       "Administratively Completed",
-      "Study is completed prematurely and will not resume; patients are no longer examined nor treated.",
     ),
-    /** Protocol is approved by the review board. */
-    Approved(
-      "approved",
-      "http://hl7.org/fhir/research-study-status",
-      "Approved",
-      "Protocol is approved by the review board.",
-    ),
-    /** Study is closed for accrual; patients can be examined and treated. */
+    Approved("approved", "http://hl7.org/fhir/research-study-status", "Approved"),
     Closed_To_Accrual(
       "closed-to-accrual",
       "http://hl7.org/fhir/research-study-status",
       "Closed to Accrual",
-      "Study is closed for accrual; patients can be examined and treated.",
     ),
-    /**
-     * Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all
-     * study subjects have completed treatment or intervention but are still being followed
-     * according to the primary objective of the study.
-     */
     Closed_To_Accrual_And_Intervention(
       "closed-to-accrual-and-intervention",
       "http://hl7.org/fhir/research-study-status",
       "Closed to Accrual and Intervention",
-      "Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all study subjects have completed treatment or intervention but are still being followed according to the primary objective of the study.",
     ),
-    /**
-     * Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all
-     * study subjects have completed treatment or intervention but are still being followed
-     * according to the primary objective of the study.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/research-study-status",
-      "Completed",
-      """
-    |Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all study subjects have completed treatment
-    |or intervention but are still being followed according to the primary objective of the study.
-    """
-        .trimMargin(),
-    ),
-    /** Protocol was disapproved by the review board. */
-    Disapproved(
-      "disapproved",
-      "http://hl7.org/fhir/research-study-status",
-      "Disapproved",
-      "Protocol was disapproved by the review board.",
-    ),
-    /** Protocol is submitted to the review board for approval. */
-    In_Review(
-      "in-review",
-      "http://hl7.org/fhir/research-study-status",
-      "In Review",
-      "Protocol is submitted to the review board for approval.",
-    ),
-    /**
-     * Study is temporarily closed for accrual; can be potentially resumed in the future; patients
-     * can be examined and treated.
-     */
+    Completed("completed", "http://hl7.org/fhir/research-study-status", "Completed"),
+    Disapproved("disapproved", "http://hl7.org/fhir/research-study-status", "Disapproved"),
+    In_Review("in-review", "http://hl7.org/fhir/research-study-status", "In Review"),
     Temporarily_Closed_To_Accrual(
       "temporarily-closed-to-accrual",
       "http://hl7.org/fhir/research-study-status",
       "Temporarily Closed to Accrual",
-      "Study is temporarily closed for accrual; can be potentially resumed in the future; patients can be examined and treated.",
     ),
-    /**
-     * Study is temporarily closed for accrual and intervention and potentially can be resumed in
-     * the future.
-     */
     Temporarily_Closed_To_Accrual_And_Intervention(
       "temporarily-closed-to-accrual-and-intervention",
       "http://hl7.org/fhir/research-study-status",
       "Temporarily Closed to Accrual and Intervention",
-      "Study is temporarily closed for accrual and intervention and potentially can be resumed in the future.",
     ),
-    /** Protocol was withdrawn by the lead organization. */
-    Withdrawn(
-      "withdrawn",
-      "http://hl7.org/fhir/research-study-status",
-      "Withdrawn",
-      "Protocol was withdrawn by the lead organization.",
-    );
+    Withdrawn("withdrawn", "http://hl7.org/fhir/research-study-status", "Withdrawn");
 
     override fun toString(): kotlin.String = code
 
@@ -433,8 +365,6 @@ public data class ResearchStudy(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResearchStudyStatus =

@@ -23,28 +23,13 @@ public enum class DocumentReferenceStatus(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  /** This is the current reference for this document. */
-  Current(
-    "current",
-    "http://hl7.org/fhir/document-reference-status",
-    "Current",
-    "This is the current reference for this document.",
-  ),
-  /** This reference has been superseded by another reference. */
-  Superseded(
-    "superseded",
-    "http://hl7.org/fhir/document-reference-status",
-    "Superseded",
-    "This reference has been superseded by another reference.",
-  ),
-  /** This reference was created in error. */
+  Current("current", "http://hl7.org/fhir/document-reference-status", "Current"),
+  Superseded("superseded", "http://hl7.org/fhir/document-reference-status", "Superseded"),
   Entered_In_Error(
     "entered-in-error",
     "http://hl7.org/fhir/document-reference-status",
     "Entered in Error",
-    "This reference was created in error.",
   );
 
   override fun toString(): String = code
@@ -54,8 +39,6 @@ public enum class DocumentReferenceStatus(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): DocumentReferenceStatus =

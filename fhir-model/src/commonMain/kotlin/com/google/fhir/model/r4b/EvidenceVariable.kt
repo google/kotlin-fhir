@@ -552,49 +552,16 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Aggregated using Mean of participant values. */
-    Mean(
-      "mean",
-      "http://hl7.org/fhir/group-measure",
-      "Mean",
-      "Aggregated using Mean of participant values.",
-    ),
-    /** Aggregated using Median of participant values. */
-    Median(
-      "median",
-      "http://hl7.org/fhir/group-measure",
-      "Median",
-      "Aggregated using Median of participant values.",
-    ),
-    /** Aggregated using Mean of study mean values. */
-    Mean_Of_Mean(
-      "mean-of-mean",
-      "http://hl7.org/fhir/group-measure",
-      "Mean of Study Means",
-      "Aggregated using Mean of study mean values.",
-    ),
-    /** Aggregated using Mean of study median values. */
-    Mean_Of_Median(
-      "mean-of-median",
-      "http://hl7.org/fhir/group-measure",
-      "Mean of Study Medins",
-      "Aggregated using Mean of study median values.",
-    ),
-    /** Aggregated using Median of study mean values. */
-    Median_Of_Mean(
-      "median-of-mean",
-      "http://hl7.org/fhir/group-measure",
-      "Median of Study Means",
-      "Aggregated using Median of study mean values.",
-    ),
-    /** Aggregated using Median of study median values. */
+    Mean("mean", "http://hl7.org/fhir/group-measure", "Mean"),
+    Median("median", "http://hl7.org/fhir/group-measure", "Median"),
+    Mean_Of_Mean("mean-of-mean", "http://hl7.org/fhir/group-measure", "Mean of Study Means"),
+    Mean_Of_Median("mean-of-median", "http://hl7.org/fhir/group-measure", "Mean of Study Medins"),
+    Median_Of_Mean("median-of-mean", "http://hl7.org/fhir/group-measure", "Median of Study Means"),
     Median_Of_Median(
       "median-of-median",
       "http://hl7.org/fhir/group-measure",
       "Median of Study Medians",
-      "Aggregated using Median of study median values.",
     );
 
     override fun toString(): kotlin.String = code
@@ -604,8 +571,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GroupMeasure =
@@ -626,22 +591,9 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Combine characteristics with AND. */
-    Intersection(
-      "intersection",
-      "http://hl7.org/fhir/characteristic-combination",
-      "intersection",
-      "Combine characteristics with AND.",
-    ),
-    /** Combine characteristics with OR. */
-    Union(
-      "union",
-      "http://hl7.org/fhir/characteristic-combination",
-      "union",
-      "Combine characteristics with OR.",
-    );
+    Intersection("intersection", "http://hl7.org/fhir/characteristic-combination", "intersection"),
+    Union("union", "http://hl7.org/fhir/characteristic-combination", "union");
 
     override fun toString(): kotlin.String = code
 
@@ -650,8 +602,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CharacteristicCombination =
@@ -672,50 +622,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A continuous variable is one for which, within the limits the variable ranges, any value is
-     * possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).
-     */
-    Continuous(
-      "continuous",
-      "http://hl7.org/fhir/variable-handling",
-      "continuous variable",
-      "A continuous variable is one for which, within the limits the variable ranges, any value is possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).",
-    ),
-    /**
-     * A dichotomous variable is a categorical variable which is defined to have only 2 categories
-     * or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).
-     */
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      "A dichotomous variable is a categorical variable which is defined to have only 2 categories or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).",
-    ),
-    /**
-     * An ordinal variable is a categorical variable where the discrete possible values are ordered
-     * or correspond to an implicit ranking (from STATO
-     * http://purl.obolibrary.org/obo/STATO_0000228).
-     */
-    Ordinal(
-      "ordinal",
-      "http://hl7.org/fhir/variable-handling",
-      "ordinal variable",
-      "An ordinal variable is a categorical variable where the discrete possible values are ordered or correspond to an implicit ranking (from STATO http://purl.obolibrary.org/obo/STATO_0000228).",
-    ),
-    /**
-     * A polychotomous variable is a categorical variable which is defined to have minimally 2
-     * categories or possible values. (from STATO http://purl.obolibrary.org/obo/STATO_0000087).
-     * Suggestion to limit code use to situations when neither dichotomous nor ordinal variables
-     * apply.
-     */
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      "A polychotomous variable is a categorical variable which is defined to have minimally 2 categories or possible values. (from STATO  http://purl.obolibrary.org/obo/STATO_0000087).  Suggestion to limit code use to situations when neither dichotomous nor ordinal variables apply.",
     );
 
     override fun toString(): kotlin.String = code
@@ -725,8 +639,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

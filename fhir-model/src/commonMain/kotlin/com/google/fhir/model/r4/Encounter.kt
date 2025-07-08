@@ -631,83 +631,20 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The Encounter has not yet started. */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/encounter-status",
-      "Planned",
-      "The Encounter has not yet started.",
-    ),
-    /**
-     * The Patient is present for the encounter, however is not currently meeting with a
-     * practitioner.
-     */
-    Arrived(
-      "arrived",
-      "http://hl7.org/fhir/encounter-status",
-      "Arrived",
-      "The Patient is present for the encounter, however is not currently meeting with a practitioner.",
-    ),
-    /**
-     * The patient has been assessed for the priority of their treatment based on the severity of
-     * their condition.
-     */
-    Triaged(
-      "triaged",
-      "http://hl7.org/fhir/encounter-status",
-      "Triaged",
-      "The patient has been assessed for the priority of their treatment based on the severity of their condition.",
-    ),
-    /**
-     * The Encounter has begun and the patient is present / the practitioner and the patient are
-     * meeting.
-     */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/encounter-status",
-      "In Progress",
-      "The Encounter has begun and the patient is present / the practitioner and the patient are meeting.",
-    ),
-    /** The Encounter has begun, but the patient is temporarily on leave. */
-    Onleave(
-      "onleave",
-      "http://hl7.org/fhir/encounter-status",
-      "On Leave",
-      "The Encounter has begun, but the patient is temporarily on leave.",
-    ),
-    /** The Encounter has ended. */
-    Finished(
-      "finished",
-      "http://hl7.org/fhir/encounter-status",
-      "Finished",
-      "The Encounter has ended.",
-    ),
-    /** The Encounter has ended before it has begun. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/encounter-status",
-      "Cancelled",
-      "The Encounter has ended before it has begun.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
+    Planned("planned", "http://hl7.org/fhir/encounter-status", "Planned"),
+    Arrived("arrived", "http://hl7.org/fhir/encounter-status", "Arrived"),
+    Triaged("triaged", "http://hl7.org/fhir/encounter-status", "Triaged"),
+    In_Progress("in-progress", "http://hl7.org/fhir/encounter-status", "In Progress"),
+    Onleave("onleave", "http://hl7.org/fhir/encounter-status", "On Leave"),
+    Finished("finished", "http://hl7.org/fhir/encounter-status", "Finished"),
+    Cancelled("cancelled", "http://hl7.org/fhir/encounter-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/encounter-status",
       "Entered in Error",
-      "This instance should not have been part of this patient's medical record.",
     ),
-    /**
-     * The encounter status is unknown. Note that "unknown" is a value of last resort and every
-     * attempt should be made to provide a meaningful value other than "unknown".
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/encounter-status",
-      "Unknown",
-      "The encounter status is unknown. Note that \"unknown\" is a value of last resort and every attempt should be made to provide a meaningful value other than \"unknown\".",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/encounter-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -716,8 +653,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterStatus =
@@ -741,45 +676,11 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The patient is planned to be moved to this location at some point in the future. */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Planned",
-      "The patient is planned to be moved to this location at some point in the future.",
-    ),
-    /**
-     * The patient is currently at this location, or was between the period specified.
-     *
-     * A system may update these records when the patient leaves the location to either reserved, or
-     * completed.
-     */
-    Active(
-      "active",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Active",
-      "The patient is currently at this location, or was between the period specified.\r\rA system may update these records when the patient leaves the location to either reserved, or completed.",
-    ),
-    /** This location is held empty for this patient. */
-    Reserved(
-      "reserved",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Reserved",
-      "This location is held empty for this patient.",
-    ),
-    /**
-     * The patient was at this location during the period specified.
-     *
-     * Not to be used when the patient is currently at the location.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Completed",
-      "The patient was at this location during the period specified.\r\rNot to be used when the patient is currently at the location.",
-    );
+    Planned("planned", "http://hl7.org/fhir/encounter-location-status", "Planned"),
+    Active("active", "http://hl7.org/fhir/encounter-location-status", "Active"),
+    Reserved("reserved", "http://hl7.org/fhir/encounter-location-status", "Reserved"),
+    Completed("completed", "http://hl7.org/fhir/encounter-location-status", "Completed");
 
     override fun toString(): String = code
 
@@ -788,8 +689,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterLocationStatus =

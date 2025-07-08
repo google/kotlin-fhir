@@ -482,39 +482,11 @@ public data class Specimen(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The physical specimen is present and in good condition. */
-    Available(
-      "available",
-      "http://hl7.org/fhir/specimen-status",
-      "Available",
-      "The physical specimen is present and in good condition.",
-    ),
-    /** There is no physical specimen because it is either lost, destroyed or consumed. */
-    Unavailable(
-      "unavailable",
-      "http://hl7.org/fhir/specimen-status",
-      "Unavailable",
-      "There is no physical specimen because it is either lost, destroyed or consumed.",
-    ),
-    /**
-     * The specimen cannot be used because of a quality issue such as a broken container,
-     * contamination, or too old.
-     */
-    Unsatisfactory(
-      "unsatisfactory",
-      "http://hl7.org/fhir/specimen-status",
-      "Unsatisfactory",
-      "The specimen cannot be used because of a quality issue such as a broken container, contamination, or too old.",
-    ),
-    /** The specimen was entered in error and therefore nullified. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/specimen-status",
-      "Entered in Error",
-      "The specimen was entered in error and therefore nullified.",
-    );
+    Available("available", "http://hl7.org/fhir/specimen-status", "Available"),
+    Unavailable("unavailable", "http://hl7.org/fhir/specimen-status", "Unavailable"),
+    Unsatisfactory("unsatisfactory", "http://hl7.org/fhir/specimen-status", "Unsatisfactory"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/specimen-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -523,8 +495,6 @@ public data class Specimen(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SpecimenStatus =
