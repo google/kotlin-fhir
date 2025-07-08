@@ -32,15 +32,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RelatedArtifactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var type: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var type: KotlinString?,
   public var _type: Element? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
@@ -55,51 +55,60 @@ internal data class RelatedArtifactSurrogate(
   public var _resource: Element? = null,
 ) {
   public fun toModel(): RelatedArtifact =
-    RelatedArtifact().apply {
-      id = this@RelatedArtifactSurrogate.id
-      extension = this@RelatedArtifactSurrogate.extension
+    RelatedArtifact(
+      id = this@RelatedArtifactSurrogate.id,
+      extension = this@RelatedArtifactSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@RelatedArtifactSurrogate.type?.let {
-            com.google.fhir.model.r4b.RelatedArtifact.RelatedArtifactType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.RelatedArtifact.RelatedArtifactType.fromCode(
+            this@RelatedArtifactSurrogate.type!!
+          ),
           this@RelatedArtifactSurrogate._type,
-        )
+        ),
       label =
-        R4bString.of(this@RelatedArtifactSurrogate.label, this@RelatedArtifactSurrogate._label)
+        R4bString.ofNullable(
+          this@RelatedArtifactSurrogate.label,
+          this@RelatedArtifactSurrogate._label,
+        ),
       display =
-        R4bString.of(this@RelatedArtifactSurrogate.display, this@RelatedArtifactSurrogate._display)
+        R4bString.ofNullable(
+          this@RelatedArtifactSurrogate.display,
+          this@RelatedArtifactSurrogate._display,
+        ),
       citation =
-        Markdown.of(this@RelatedArtifactSurrogate.citation, this@RelatedArtifactSurrogate._citation)
-      url = Url.of(this@RelatedArtifactSurrogate.url, this@RelatedArtifactSurrogate._url)
-      document = this@RelatedArtifactSurrogate.document
+        Markdown.ofNullable(
+          this@RelatedArtifactSurrogate.citation,
+          this@RelatedArtifactSurrogate._citation,
+        ),
+      url = Url.ofNullable(this@RelatedArtifactSurrogate.url, this@RelatedArtifactSurrogate._url),
+      document = this@RelatedArtifactSurrogate.document,
       resource =
-        Canonical.of(
+        Canonical.ofNullable(
           this@RelatedArtifactSurrogate.resource,
           this@RelatedArtifactSurrogate._resource,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: RelatedArtifact): RelatedArtifactSurrogate =
       with(model) {
-        RelatedArtifactSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          label = this@with.label?.value
-          _label = this@with.label?.toElement()
-          display = this@with.display?.value
-          _display = this@with.display?.toElement()
-          citation = this@with.citation?.value
-          _citation = this@with.citation?.toElement()
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          document = this@with.document
-          resource = this@with.resource?.value
-          _resource = this@with.resource?.toElement()
-        }
+        RelatedArtifactSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          type = this@with.type.value.getCode(),
+          _type = this@with.type.toElement(),
+          label = this@with.label?.value,
+          _label = this@with.label?.toElement(),
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
+          citation = this@with.citation?.value,
+          _citation = this@with.citation?.toElement(),
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          document = this@with.document,
+          resource = this@with.resource?.value,
+          _resource = this@with.resource?.toElement(),
+        )
       }
   }
 }

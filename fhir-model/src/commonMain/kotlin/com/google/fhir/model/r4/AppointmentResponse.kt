@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.AppointmentResponseSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class AppointmentResponse(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class AppointmentResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,15 +126,15 @@ public data class AppointmentResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * This records identifiers associated with this appointment response concern that are defined by
    * business processes and/ or used to refer to it when a direct URL reference to the resource
    * itself is not appropriate.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Appointment that this response is replying to. */
-  public var appointment: Reference? = null,
+  public var appointment: Reference,
   /**
    * Date/Time that the appointment is to take place, or requested new start time.
    *
@@ -159,7 +159,7 @@ public data class AppointmentResponse(
    * This value SHALL be the same as specified on the referenced Appointment so that they can be
    * matched, and subsequently updated.
    */
-  public var participantType: List<CodeableConcept?>? = null,
+  public var participantType: MutableList<CodeableConcept> = mutableListOf(),
   /** A Person, Location, HealthcareService, or Device that is participating in the appointment. */
   public var actor: Reference? = null,
   /**
@@ -171,7 +171,7 @@ public data class AppointmentResponse(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the participant as not currently valid.
    */
-  public var participantStatus: Enumeration<ParticipantStatus>? = null,
+  public var participantStatus: Enumeration<ParticipantStatus>,
   /**
    * Additional comments about the appointment.
    *

@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.SubstanceSourceMaterialOrganismSeria
 import com.google.fhir.model.r5.serializers.SubstanceSourceMaterialPartDescriptionSerializer
 import com.google.fhir.model.r5.serializers.SubstanceSourceMaterialSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -111,7 +111,7 @@ public data class SubstanceSourceMaterial(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -124,7 +124,7 @@ public data class SubstanceSourceMaterial(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -143,7 +143,7 @@ public data class SubstanceSourceMaterial(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * General high level classification of the source material specific to the origin of the
    * material.
@@ -166,21 +166,21 @@ public data class SubstanceSourceMaterial(
    * The parent of the herbal drug Ginkgo biloba, Leaf is the substance ID of the substance (fresh)
    * of Ginkgo biloba L. or Ginkgo biloba L. (Whole plant).
    */
-  public var parentSubstanceId: List<Identifier?>? = null,
+  public var parentSubstanceId: MutableList<Identifier> = mutableListOf(),
   /** The parent substance of the Herbal Drug, or Herbal preparation. */
-  public var parentSubstanceName: List<String?>? = null,
+  public var parentSubstanceName: MutableList<String> = mutableListOf(),
   /**
    * The country where the plant material is harvested or the countries where the plasma is sourced
    * from as laid down in accordance with the Plasma Master File. For “Plasma-derived substances”
    * the attribute country of origin provides information about the countries used for the
    * manufacturing of the Cryopoor plama or Crioprecipitate.
    */
-  public var countryOfOrigin: List<CodeableConcept?>? = null,
+  public var countryOfOrigin: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The place/region where the plant is harvested or the places/regions where the animal source
    * material has its habitat.
    */
-  public var geographicalLocation: List<String?>? = null,
+  public var geographicalLocation: MutableList<String> = mutableListOf(),
   /**
    * Stage of life for animals, plants, insects and microorganisms. This information shall be
    * provided only when the substance is significantly different in these stages (e.g. foetal bovine
@@ -196,7 +196,7 @@ public data class SubstanceSourceMaterial(
    * level. For plasma-derived products fraction information will be captured at the Substance and
    * the Specified Substance Group 1 levels.
    */
-  public var fractionDescription: List<FractionDescription>? = null,
+  public var fractionDescription: MutableList<FractionDescription> = mutableListOf(),
   /**
    * This subclause describes the organism which the substance is derived from. For vaccines, the
    * parent organism shall be specified based on these subclause elements. As an example, full
@@ -204,7 +204,7 @@ public data class SubstanceSourceMaterial(
    */
   public var organism: Organism? = null,
   /** To do. */
-  public var partDescription: List<PartDescription>? = null,
+  public var partDescription: MutableList<PartDescription> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Many complex materials are fractions of parts of plants, animals, or minerals. Fraction
@@ -234,7 +234,7 @@ public data class SubstanceSourceMaterial(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -253,7 +253,7 @@ public data class SubstanceSourceMaterial(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * This element is capturing information about the fraction of a plant part, or human plasma for
      * fractionation.
@@ -290,7 +290,7 @@ public data class SubstanceSourceMaterial(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -309,7 +309,7 @@ public data class SubstanceSourceMaterial(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The family of an organism shall be specified. */
     public var family: CodeableConcept? = null,
     /**
@@ -332,7 +332,7 @@ public data class SubstanceSourceMaterial(
      */
     public var intraspecificDescription: String? = null,
     /** 4.9.13.6.1 Author type (Conditional). */
-    public var author: List<Author>? = null,
+    public var author: MutableList<Author> = mutableListOf(),
     /** 4.9.13.8.1 Hybrid species maternal organism ID (Optional). */
     public var hybrid: Hybrid? = null,
     /** 4.9.13.7.1 Kingdom (Conditional). */
@@ -358,7 +358,7 @@ public data class SubstanceSourceMaterial(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -377,7 +377,7 @@ public data class SubstanceSourceMaterial(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The type of author of an organism species shall be specified. The parenthetical author of
        * an organism species refers to the first author who published the plant/animal name (of any
@@ -413,7 +413,7 @@ public data class SubstanceSourceMaterial(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -432,7 +432,7 @@ public data class SubstanceSourceMaterial(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The identifier of the maternal species constituting the hybrid organism shall be specified
        * based on a controlled vocabulary. For plants, the parents aren’t always known, and it is
@@ -476,7 +476,7 @@ public data class SubstanceSourceMaterial(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -495,7 +495,7 @@ public data class SubstanceSourceMaterial(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The kingdom of an organism shall be specified. */
       public var kingdom: CodeableConcept? = null,
       /** The phylum of an organism shall be specified. */
@@ -527,7 +527,7 @@ public data class SubstanceSourceMaterial(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -546,7 +546,7 @@ public data class SubstanceSourceMaterial(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Entity of anatomical origin of source material within an organism. */
     public var part: CodeableConcept? = null,
     /**

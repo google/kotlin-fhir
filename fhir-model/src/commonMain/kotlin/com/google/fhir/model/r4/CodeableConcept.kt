@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.CodeableConceptSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,7 +46,7 @@ public data class CodeableConcept(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * A reference to a code defined by a terminology system.
    *
@@ -55,7 +55,7 @@ public data class CodeableConcept(
    * of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of
    * the coding values will be labeled as UserSelected = true.
    */
-  public var coding: List<Coding?>? = null,
+  public var coding: MutableList<Coding> = mutableListOf(),
   /**
    * A human language representation of the concept as seen/selected/uttered by the user who entered
    * the data and/or which represents the intended meaning of the user.

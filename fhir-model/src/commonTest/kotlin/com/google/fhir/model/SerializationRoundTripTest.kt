@@ -53,6 +53,8 @@ val exclusionListR4 =
 
     // Scientific notation
     "Observation-decimal.json",
+
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
   )
 
 val exclusionListR4B =
@@ -69,6 +71,8 @@ val exclusionListR4B =
 
     // Scientific notation
     "Observation-decimal.json",
+
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
   )
 
 val exclusionListR5 =
@@ -132,6 +136,8 @@ val exclusionListR5 =
 
     // Scientific notation
     "Observation-decimal.json",
+
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
   )
 
 /**

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.SignatureSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -49,7 +49,7 @@ public data class Signature(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * An indication of the reason that the entity signed this document. This may be explicitly
    * included as part of the signature information and can be used when determining accountability
@@ -58,7 +58,7 @@ public data class Signature(
    * Examples include attesting to: authorship, correct transcription, and witness of specific
    * event. Also known as a &quot;Commitment Type Indication&quot;.
    */
-  public var type: List<Coding?>? = null,
+  public var type: MutableList<Coding> = mutableListOf(),
   /**
    * When the digital signature was signed.
    *

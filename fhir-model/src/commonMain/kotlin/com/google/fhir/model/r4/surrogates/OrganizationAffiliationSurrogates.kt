@@ -38,7 +38,7 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -51,87 +51,89 @@ internal data class OrganizationAffiliationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var period: Period? = null,
   public var organization: Reference? = null,
   public var participatingOrganization: Reference? = null,
-  public var network: List<Reference?>? = null,
-  public var code: List<CodeableConcept?>? = null,
-  public var specialty: List<CodeableConcept?>? = null,
-  public var location: List<Reference?>? = null,
-  public var healthcareService: List<Reference?>? = null,
-  public var telecom: List<ContactPoint?>? = null,
-  public var endpoint: List<Reference?>? = null,
+  public var network: MutableList<Reference>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var specialty: MutableList<CodeableConcept>? = null,
+  public var location: MutableList<Reference>? = null,
+  public var healthcareService: MutableList<Reference>? = null,
+  public var telecom: MutableList<ContactPoint>? = null,
+  public var endpoint: MutableList<Reference>? = null,
 ) {
   public fun toModel(): OrganizationAffiliation =
-    OrganizationAffiliation().apply {
-      id = this@OrganizationAffiliationSurrogate.id
-      meta = this@OrganizationAffiliationSurrogate.meta
+    OrganizationAffiliation(
+      id = this@OrganizationAffiliationSurrogate.id,
+      meta = this@OrganizationAffiliationSurrogate.meta,
       implicitRules =
-        Uri.of(
+        Uri.ofNullable(
           this@OrganizationAffiliationSurrogate.implicitRules,
           this@OrganizationAffiliationSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(
+        Code.ofNullable(
           this@OrganizationAffiliationSurrogate.language,
           this@OrganizationAffiliationSurrogate._language,
-        )
-      text = this@OrganizationAffiliationSurrogate.text
-      contained = this@OrganizationAffiliationSurrogate.contained
-      extension = this@OrganizationAffiliationSurrogate.extension
-      modifierExtension = this@OrganizationAffiliationSurrogate.modifierExtension
-      identifier = this@OrganizationAffiliationSurrogate.identifier
+        ),
+      text = this@OrganizationAffiliationSurrogate.text,
+      contained = this@OrganizationAffiliationSurrogate.contained ?: mutableListOf(),
+      extension = this@OrganizationAffiliationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@OrganizationAffiliationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@OrganizationAffiliationSurrogate.identifier ?: mutableListOf(),
       active =
-        R4Boolean.of(
+        R4Boolean.ofNullable(
           this@OrganizationAffiliationSurrogate.active,
           this@OrganizationAffiliationSurrogate._active,
-        )
-      period = this@OrganizationAffiliationSurrogate.period
-      organization = this@OrganizationAffiliationSurrogate.organization
-      participatingOrganization = this@OrganizationAffiliationSurrogate.participatingOrganization
-      network = this@OrganizationAffiliationSurrogate.network
-      code = this@OrganizationAffiliationSurrogate.code
-      specialty = this@OrganizationAffiliationSurrogate.specialty
-      location = this@OrganizationAffiliationSurrogate.location
-      healthcareService = this@OrganizationAffiliationSurrogate.healthcareService
-      telecom = this@OrganizationAffiliationSurrogate.telecom
-      endpoint = this@OrganizationAffiliationSurrogate.endpoint
-    }
+        ),
+      period = this@OrganizationAffiliationSurrogate.period,
+      organization = this@OrganizationAffiliationSurrogate.organization,
+      participatingOrganization = this@OrganizationAffiliationSurrogate.participatingOrganization,
+      network = this@OrganizationAffiliationSurrogate.network ?: mutableListOf(),
+      code = this@OrganizationAffiliationSurrogate.code ?: mutableListOf(),
+      specialty = this@OrganizationAffiliationSurrogate.specialty ?: mutableListOf(),
+      location = this@OrganizationAffiliationSurrogate.location ?: mutableListOf(),
+      healthcareService =
+        this@OrganizationAffiliationSurrogate.healthcareService ?: mutableListOf(),
+      telecom = this@OrganizationAffiliationSurrogate.telecom ?: mutableListOf(),
+      endpoint = this@OrganizationAffiliationSurrogate.endpoint ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: OrganizationAffiliation): OrganizationAffiliationSurrogate =
       with(model) {
-        OrganizationAffiliationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          period = this@with.period
-          organization = this@with.organization
-          participatingOrganization = this@with.participatingOrganization
-          network = this@with.network
-          code = this@with.code
-          specialty = this@with.specialty
-          location = this@with.location
-          healthcareService = this@with.healthcareService
-          telecom = this@with.telecom
-          endpoint = this@with.endpoint
-        }
+        OrganizationAffiliationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.isEmpty() },
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          identifier = this@with.identifier.takeUnless { it.isEmpty() },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          period = this@with.period,
+          organization = this@with.organization,
+          participatingOrganization = this@with.participatingOrganization,
+          network = this@with.network.takeUnless { it.isEmpty() },
+          code = this@with.code.takeUnless { it.isEmpty() },
+          specialty = this@with.specialty.takeUnless { it.isEmpty() },
+          location = this@with.location.takeUnless { it.isEmpty() },
+          healthcareService = this@with.healthcareService.takeUnless { it.isEmpty() },
+          telecom = this@with.telecom.takeUnless { it.isEmpty() },
+          endpoint = this@with.endpoint.takeUnless { it.isEmpty() },
+        )
       }
   }
 }

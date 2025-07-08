@@ -81,7 +81,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -89,8 +89,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ExtensionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var url: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var url: KotlinString,
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
   public var valueBoolean: KotlinBoolean? = null,
@@ -163,58 +163,67 @@ internal data class ExtensionSurrogate(
   public var valueDosage: Dosage? = null,
 ) {
   public fun toModel(): Extension =
-    Extension().apply {
-      id = this@ExtensionSurrogate.id
-      extension = this@ExtensionSurrogate.extension
-      url = this@ExtensionSurrogate.url
+    Extension(
+      id = this@ExtensionSurrogate.id,
+      extension = this@ExtensionSurrogate.extension ?: mutableListOf(),
+      url = this@ExtensionSurrogate.url,
       `value` =
-        Extension.Value?.from(
-          Base64Binary.of(
+        Extension.Value?.fromNullable(
+          Base64Binary.ofNullable(
             this@ExtensionSurrogate.valueBase64Binary,
             this@ExtensionSurrogate._valueBase64Binary,
           ),
-          R4bBoolean.of(
+          R4bBoolean.ofNullable(
             this@ExtensionSurrogate.valueBoolean,
             this@ExtensionSurrogate._valueBoolean,
           ),
-          Canonical.of(
+          Canonical.ofNullable(
             this@ExtensionSurrogate.valueCanonical,
             this@ExtensionSurrogate._valueCanonical,
           ),
-          Code.of(this@ExtensionSurrogate.valueCode, this@ExtensionSurrogate._valueCode),
-          Date.of(
+          Code.ofNullable(this@ExtensionSurrogate.valueCode, this@ExtensionSurrogate._valueCode),
+          Date.ofNullable(
             FhirDate.fromString(this@ExtensionSurrogate.valueDate),
             this@ExtensionSurrogate._valueDate,
           ),
-          DateTime.of(
+          DateTime.ofNullable(
             FhirDateTime.fromString(this@ExtensionSurrogate.valueDateTime),
             this@ExtensionSurrogate._valueDateTime,
           ),
-          Decimal.of(this@ExtensionSurrogate.valueDecimal, this@ExtensionSurrogate._valueDecimal),
-          Id.of(this@ExtensionSurrogate.valueId, this@ExtensionSurrogate._valueId),
-          Instant.of(
+          Decimal.ofNullable(
+            this@ExtensionSurrogate.valueDecimal,
+            this@ExtensionSurrogate._valueDecimal,
+          ),
+          Id.ofNullable(this@ExtensionSurrogate.valueId, this@ExtensionSurrogate._valueId),
+          Instant.ofNullable(
             FhirDateTime.fromString(this@ExtensionSurrogate.valueInstant),
             this@ExtensionSurrogate._valueInstant,
           ),
-          Integer.of(this@ExtensionSurrogate.valueInteger, this@ExtensionSurrogate._valueInteger),
-          Markdown.of(
+          Integer.ofNullable(
+            this@ExtensionSurrogate.valueInteger,
+            this@ExtensionSurrogate._valueInteger,
+          ),
+          Markdown.ofNullable(
             this@ExtensionSurrogate.valueMarkdown,
             this@ExtensionSurrogate._valueMarkdown,
           ),
-          Oid.of(this@ExtensionSurrogate.valueOid, this@ExtensionSurrogate._valueOid),
-          PositiveInt.of(
+          Oid.ofNullable(this@ExtensionSurrogate.valueOid, this@ExtensionSurrogate._valueOid),
+          PositiveInt.ofNullable(
             this@ExtensionSurrogate.valuePositiveInt,
             this@ExtensionSurrogate._valuePositiveInt,
           ),
-          R4bString.of(this@ExtensionSurrogate.valueString, this@ExtensionSurrogate._valueString),
-          Time.of(this@ExtensionSurrogate.valueTime, this@ExtensionSurrogate._valueTime),
-          UnsignedInt.of(
+          R4bString.ofNullable(
+            this@ExtensionSurrogate.valueString,
+            this@ExtensionSurrogate._valueString,
+          ),
+          Time.ofNullable(this@ExtensionSurrogate.valueTime, this@ExtensionSurrogate._valueTime),
+          UnsignedInt.ofNullable(
             this@ExtensionSurrogate.valueUnsignedInt,
             this@ExtensionSurrogate._valueUnsignedInt,
           ),
-          Uri.of(this@ExtensionSurrogate.valueUri, this@ExtensionSurrogate._valueUri),
-          Url.of(this@ExtensionSurrogate.valueUrl, this@ExtensionSurrogate._valueUrl),
-          Uuid.of(this@ExtensionSurrogate.valueUuid, this@ExtensionSurrogate._valueUuid),
+          Uri.ofNullable(this@ExtensionSurrogate.valueUri, this@ExtensionSurrogate._valueUri),
+          Url.ofNullable(this@ExtensionSurrogate.valueUrl, this@ExtensionSurrogate._valueUrl),
+          Uuid.ofNullable(this@ExtensionSurrogate.valueUuid, this@ExtensionSurrogate._valueUuid),
           this@ExtensionSurrogate.valueAddress,
           this@ExtensionSurrogate.valueAge,
           this@ExtensionSurrogate.valueAnnotation,
@@ -247,87 +256,87 @@ internal data class ExtensionSurrogate(
           this@ExtensionSurrogate.valueTriggerDefinition,
           this@ExtensionSurrogate.valueUsageContext,
           this@ExtensionSurrogate.valueDosage,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Extension): ExtensionSurrogate =
       with(model) {
-        ExtensionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          url = this@with.url
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueRatioRange = this@with.`value`?.asRatioRange()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueContributor = this@with.`value`?.asContributor()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-        }
+        ExtensionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          url = this@with.url,
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueRatioRange = this@with.`value`?.asRatioRange()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueContributor = this@with.`value`?.asContributor()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+        )
       }
   }
 }

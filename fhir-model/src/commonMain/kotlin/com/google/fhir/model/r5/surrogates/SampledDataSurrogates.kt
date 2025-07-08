@@ -34,18 +34,18 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SampledDataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var origin: Quantity? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var origin: Quantity,
   public var interval: Double? = null,
   public var _interval: Element? = null,
-  public var intervalUnit: KotlinString? = null,
+  public var intervalUnit: KotlinString?,
   public var _intervalUnit: Element? = null,
   public var factor: Double? = null,
   public var _factor: Element? = null,
@@ -53,7 +53,7 @@ internal data class SampledDataSurrogate(
   public var _lowerLimit: Element? = null,
   public var upperLimit: Double? = null,
   public var _upperLimit: Element? = null,
-  public var dimensions: Int? = null,
+  public var dimensions: Int?,
   public var _dimensions: Element? = null,
   public var codeMap: KotlinString? = null,
   public var _codeMap: Element? = null,
@@ -63,51 +63,65 @@ internal data class SampledDataSurrogate(
   public var _data: Element? = null,
 ) {
   public fun toModel(): SampledData =
-    SampledData().apply {
-      id = this@SampledDataSurrogate.id
-      extension = this@SampledDataSurrogate.extension
-      origin = this@SampledDataSurrogate.origin
-      interval = Decimal.of(this@SampledDataSurrogate.interval, this@SampledDataSurrogate._interval)
+    SampledData(
+      id = this@SampledDataSurrogate.id,
+      extension = this@SampledDataSurrogate.extension ?: mutableListOf(),
+      origin = this@SampledDataSurrogate.origin,
+      interval =
+        Decimal.ofNullable(this@SampledDataSurrogate.interval, this@SampledDataSurrogate._interval),
       intervalUnit =
-        Code.of(this@SampledDataSurrogate.intervalUnit, this@SampledDataSurrogate._intervalUnit)
-      factor = Decimal.of(this@SampledDataSurrogate.factor, this@SampledDataSurrogate._factor)
+        Code.of(this@SampledDataSurrogate.intervalUnit!!, this@SampledDataSurrogate._intervalUnit),
+      factor =
+        Decimal.ofNullable(this@SampledDataSurrogate.factor, this@SampledDataSurrogate._factor),
       lowerLimit =
-        Decimal.of(this@SampledDataSurrogate.lowerLimit, this@SampledDataSurrogate._lowerLimit)
+        Decimal.ofNullable(
+          this@SampledDataSurrogate.lowerLimit,
+          this@SampledDataSurrogate._lowerLimit,
+        ),
       upperLimit =
-        Decimal.of(this@SampledDataSurrogate.upperLimit, this@SampledDataSurrogate._upperLimit)
+        Decimal.ofNullable(
+          this@SampledDataSurrogate.upperLimit,
+          this@SampledDataSurrogate._upperLimit,
+        ),
       dimensions =
-        PositiveInt.of(this@SampledDataSurrogate.dimensions, this@SampledDataSurrogate._dimensions)
-      codeMap = Canonical.of(this@SampledDataSurrogate.codeMap, this@SampledDataSurrogate._codeMap)
-      offsets = R5String.of(this@SampledDataSurrogate.offsets, this@SampledDataSurrogate._offsets)
-      `data` = R5String.of(this@SampledDataSurrogate.`data`, this@SampledDataSurrogate._data)
-    }
+        PositiveInt.of(
+          this@SampledDataSurrogate.dimensions!!,
+          this@SampledDataSurrogate._dimensions,
+        ),
+      codeMap =
+        Canonical.ofNullable(this@SampledDataSurrogate.codeMap, this@SampledDataSurrogate._codeMap),
+      offsets =
+        R5String.ofNullable(this@SampledDataSurrogate.offsets, this@SampledDataSurrogate._offsets),
+      `data` =
+        R5String.ofNullable(this@SampledDataSurrogate.`data`, this@SampledDataSurrogate._data),
+    )
 
   public companion object {
     public fun fromModel(model: SampledData): SampledDataSurrogate =
       with(model) {
-        SampledDataSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          origin = this@with.origin
-          interval = this@with.interval?.value
-          _interval = this@with.interval?.toElement()
-          intervalUnit = this@with.intervalUnit?.value
-          _intervalUnit = this@with.intervalUnit?.toElement()
-          factor = this@with.factor?.value
-          _factor = this@with.factor?.toElement()
-          lowerLimit = this@with.lowerLimit?.value
-          _lowerLimit = this@with.lowerLimit?.toElement()
-          upperLimit = this@with.upperLimit?.value
-          _upperLimit = this@with.upperLimit?.toElement()
-          dimensions = this@with.dimensions?.value
-          _dimensions = this@with.dimensions?.toElement()
-          codeMap = this@with.codeMap?.value
-          _codeMap = this@with.codeMap?.toElement()
-          offsets = this@with.offsets?.value
-          _offsets = this@with.offsets?.toElement()
-          `data` = this@with.`data`?.value
-          _data = this@with.`data`?.toElement()
-        }
+        SampledDataSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          origin = this@with.origin,
+          interval = this@with.interval?.value,
+          _interval = this@with.interval?.toElement(),
+          intervalUnit = this@with.intervalUnit.value!!,
+          _intervalUnit = this@with.intervalUnit.toElement(),
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          lowerLimit = this@with.lowerLimit?.value,
+          _lowerLimit = this@with.lowerLimit?.toElement(),
+          upperLimit = this@with.upperLimit?.value,
+          _upperLimit = this@with.upperLimit?.toElement(),
+          dimensions = this@with.dimensions.value!!,
+          _dimensions = this@with.dimensions.toElement(),
+          codeMap = this@with.codeMap?.value,
+          _codeMap = this@with.codeMap?.toElement(),
+          offsets = this@with.offsets?.value,
+          _offsets = this@with.offsets?.toElement(),
+          `data` = this@with.`data`?.value,
+          _data = this@with.`data`?.toElement(),
+        )
       }
   }
 }

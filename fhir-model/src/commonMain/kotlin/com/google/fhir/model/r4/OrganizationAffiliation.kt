@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.OrganizationAffiliationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class OrganizationAffiliation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class OrganizationAffiliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,9 +127,9 @@ public data class OrganizationAffiliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifiers that are specific to this role. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this organization affiliation record is in active use.
    *
@@ -153,17 +153,17 @@ public data class OrganizationAffiliation(
    * Health insurance provider network in which the participatingOrganization provides the role's
    * services (if defined) at the indicated locations (if defined).
    */
-  public var network: List<Reference?>? = null,
+  public var network: MutableList<Reference> = mutableListOf(),
   /** Definition of the role the participatingOrganization plays in the association. */
-  public var code: List<CodeableConcept?>? = null,
+  public var code: MutableList<CodeableConcept> = mutableListOf(),
   /** Specific specialty of the participatingOrganization in the context of the role. */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /** The location(s) at which the role occurs. */
-  public var location: List<Reference?>? = null,
+  public var location: MutableList<Reference> = mutableListOf(),
   /** Healthcare services provided through the role. */
-  public var healthcareService: List<Reference?>? = null,
+  public var healthcareService: MutableList<Reference> = mutableListOf(),
   /** Contact details at the participatingOrganization relevant to this Affiliation. */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /** Technical endpoints providing access to services operated for this role. */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource()

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ProdCharacteristicSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class ProdCharacteristic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,7 +66,7 @@ public data class ProdCharacteristic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Where applicable, the height can be specified using a numerical value and its unit of
    * measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
@@ -112,14 +112,14 @@ public data class ProdCharacteristic(
    * Where applicable, the color can be specified An appropriate controlled vocabulary shall be used
    * The term and the term identifier shall be used.
    */
-  public var color: List<String?>? = null,
+  public var color: MutableList<String> = mutableListOf(),
   /** Where applicable, the imprint can be specified as text. */
-  public var imprint: List<String?>? = null,
+  public var imprint: MutableList<String> = mutableListOf(),
   /**
    * Where applicable, the image can be provided The format of the image attachment shall be
    * specified by regional implementations.
    */
-  public var image: List<Attachment?>? = null,
+  public var image: MutableList<Attachment> = mutableListOf(),
   /**
    * Where applicable, the scoring can be specified An appropriate controlled vocabulary shall be
    * used The term and the term identifier shall be used.

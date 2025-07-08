@@ -28,7 +28,7 @@ import com.google.fhir.model.r5.serializers.InsurancePlanPlanSpecificCostBenefit
 import com.google.fhir.model.r5.serializers.InsurancePlanPlanSpecificCostSerializer
 import com.google.fhir.model.r5.serializers.InsurancePlanSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class InsurancePlan(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class InsurancePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,16 +133,16 @@ public data class InsurancePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this health insurance product which remain constant as the
    * resource is updated and propagates from server to server.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The current state of the health insurance product. */
   public var status: Enumeration<PublicationStatus>? = null,
   /** The kind of health insurance product. */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Official name of the health insurance product as designated by the owner.
    *
@@ -157,7 +157,7 @@ public data class InsurancePlan(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the product/plan.
    */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /** The period of time that the health insurance product is available. */
   public var period: Period? = null,
   /**
@@ -172,7 +172,7 @@ public data class InsurancePlan(
    */
   public var administeredBy: Reference? = null,
   /** The geographic region in which a health insurance product's benefits apply. */
-  public var coverageArea: List<Reference?>? = null,
+  public var coverageArea: MutableList<Reference> = mutableListOf(),
   /**
    * The contact details of communication devices available relevant to the specific Insurance
    * Plan/Product. This can include addresses, phone numbers, fax numbers, mobile numbers, email
@@ -180,21 +180,21 @@ public data class InsurancePlan(
    *
    * The address/telecom use code 'home' are not to be used.
    */
-  public var contact: List<ExtendedContactDetail?>? = null,
+  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
   /**
    * The technical endpoints providing access to services operated for the health insurance product.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
   /**
    * Reference to the network included in the health insurance product.
    *
    * Networks are represented as a hierarchy of organization resources.
    */
-  public var network: List<Reference?>? = null,
+  public var network: MutableList<Reference> = mutableListOf(),
   /** Details about the coverage offered by the insurance product. */
-  public var coverage: List<Coverage>? = null,
+  public var coverage: MutableList<Coverage> = mutableListOf(),
   /** Details about an insurance plan. */
-  public var plan: List<Plan>? = null,
+  public var plan: MutableList<Plan> = mutableListOf(),
 ) : DomainResource() {
   /** Details about the coverage offered by the insurance product. */
   @Serializable(with = InsurancePlanCoverageSerializer::class)
@@ -216,7 +216,7 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -235,20 +235,20 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Type of coverage (Medical; Dental; Mental Health; Substance Abuse; Vision; Drug; Short Term;
      * Long Term Care; Hospice; Home Health).
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * Reference to the network that providing the type of coverage.
      *
      * Networks are represented as a hierarchy of organization resources.
      */
-    public var network: List<Reference?>? = null,
+    public var network: MutableList<Reference> = mutableListOf(),
     /** Specific benefits under this type of coverage. */
-    public var benefit: List<Benefit>? = null,
+    public var benefit: MutableList<Benefit> = mutableListOf(),
   ) : BackboneElement() {
     /** Specific benefits under this type of coverage. */
     @Serializable(with = InsurancePlanCoverageBenefitSerializer::class)
@@ -270,7 +270,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -289,13 +289,13 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Type of benefit (primary care; speciality care; inpatient; outpatient). */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** The referral requirements to have access/coverage for this benefit. */
       public var requirement: String? = null,
       /** The specific limits on the benefit. */
-      public var limit: List<Limit>? = null,
+      public var limit: MutableList<Limit> = mutableListOf(),
     ) : BackboneElement() {
       /** The specific limits on the benefit. */
       @Serializable(with = InsurancePlanCoverageBenefitLimitSerializer::class)
@@ -317,7 +317,7 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -336,7 +336,7 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The maximum amount of a service item a plan will pay for a covered benefit. For examples.
          * wellness visits, or eyeglasses.
@@ -374,7 +374,7 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -393,26 +393,26 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Business identifiers assigned to this health insurance plan which remain constant as the
      * resource is updated and propagates from server to server.
      */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** Type of plan. For example, "Platinum" or "High Deductable". */
     public var type: CodeableConcept? = null,
     /** The geographic region in which a health insurance plan's benefits apply. */
-    public var coverageArea: List<Reference?>? = null,
+    public var coverageArea: MutableList<Reference> = mutableListOf(),
     /**
      * Reference to the network that providing the type of coverage.
      *
      * Networks are represented as a hierarchy of organization resources.
      */
-    public var network: List<Reference?>? = null,
+    public var network: MutableList<Reference> = mutableListOf(),
     /** Overall costs associated with the plan. */
-    public var generalCost: List<GeneralCost>? = null,
+    public var generalCost: MutableList<GeneralCost> = mutableListOf(),
     /** Costs associated with the coverage provided by the product. */
-    public var specificCost: List<SpecificCost>? = null,
+    public var specificCost: MutableList<SpecificCost> = mutableListOf(),
   ) : BackboneElement() {
     /** Overall costs associated with the plan. */
     @Serializable(with = InsurancePlanPlanGeneralCostSerializer::class)
@@ -434,7 +434,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -453,7 +453,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Type of cost. */
       public var type: CodeableConcept? = null,
       /** Number of participants enrolled in the plan. */
@@ -484,7 +484,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -503,14 +503,14 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * General category of benefit (Medical; Dental; Vision; Drug; Mental Health; Substance Abuse;
        * Hospice, Home Health).
        */
-      public var category: CodeableConcept? = null,
+      public var category: CodeableConcept,
       /** List of the specific benefits under this category of benefit. */
-      public var benefit: List<Benefit>? = null,
+      public var benefit: MutableList<Benefit> = mutableListOf(),
     ) : BackboneElement() {
       /** List of the specific benefits under this category of benefit. */
       @Serializable(with = InsurancePlanPlanSpecificCostBenefitSerializer::class)
@@ -532,7 +532,7 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -551,14 +551,14 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Type of specific benefit (preventative; primary care office visit; speciality office
          * visit; hospitalization; emergency room; urgent care).
          */
-        public var type: CodeableConcept? = null,
+        public var type: CodeableConcept,
         /** List of the costs associated with a specific benefit. */
-        public var cost: List<Cost>? = null,
+        public var cost: MutableList<Cost> = mutableListOf(),
       ) : BackboneElement() {
         /** List of the costs associated with a specific benefit. */
         @Serializable(with = InsurancePlanPlanSpecificCostBenefitCostSerializer::class)
@@ -580,7 +580,7 @@ public data class InsurancePlan(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -599,9 +599,9 @@ public data class InsurancePlan(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Type of cost (copay; individual cap; family cap; coinsurance; deductible). */
-          public var type: CodeableConcept? = null,
+          public var type: CodeableConcept,
           /**
            * Whether the cost applies to in-network or out-of-network providers (in-network;
            * out-of-network; other).
@@ -611,7 +611,7 @@ public data class InsurancePlan(
            * Additional information about the cost, such as information about funding sources (e.g.
            * HSA, HRA, FSA, RRA).
            */
-          public var qualifiers: List<CodeableConcept?>? = null,
+          public var qualifiers: MutableList<CodeableConcept> = mutableListOf(),
           /**
            * The actual cost value. (some of the costs may be represented as percentages rather than
            * currency, e.g. 10% coinsurance).

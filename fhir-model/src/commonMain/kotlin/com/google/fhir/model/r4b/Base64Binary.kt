@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** Base StructureDefinition for base64Binary Type: A stream of bytes */
 public data class Base64Binary(
@@ -38,23 +38,26 @@ public data class Base64Binary(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public var `value`: String? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
   }
 
   public companion object {
-    public fun of(`value`: String?, element: Element?): Base64Binary? =
-      if (value == null && element == null) {
-        null
+    public fun of(`value`: String?, element: Element?): Base64Binary =
+      Base64Binary(element?.id, element?.extension ?: mutableListOf(), value)
+
+    public fun ofNullable(`value`: String?, element: Element?): Base64Binary? =
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Base64Binary(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Base64Binary(element?.id, element?.extension, value)
+        null
       }
   }
 }

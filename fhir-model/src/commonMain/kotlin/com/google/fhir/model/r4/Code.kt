@@ -19,7 +19,7 @@
 package com.google.fhir.model.r4
 
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * Base StructureDefinition for code type: A string which has at least one character and no leading
@@ -40,23 +40,26 @@ public data class Code(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Primitive value for code */
   override var `value`: kotlin.String? = null,
 ) : String(id, extension, `value`) {
   override fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
   }
 
   public companion object {
-    public fun of(`value`: kotlin.String?, element: Element?): Code? =
-      if (value == null && element == null) {
-        null
+    public fun of(`value`: kotlin.String?, element: Element?): Code =
+      Code(element?.id, element?.extension ?: mutableListOf(), value)
+
+    public fun ofNullable(`value`: kotlin.String?, element: Element?): Code? =
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Code(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Code(element?.id, element?.extension, value)
+        null
       }
   }
 }

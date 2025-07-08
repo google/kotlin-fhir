@@ -45,7 +45,7 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -58,12 +58,12 @@ internal data class ActorDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithmString: KotlinString? = null,
@@ -73,7 +73,7 @@ internal data class ActorDefinitionSurrogate(
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var status: KotlinString? = null,
+  public var status: KotlinString?,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
@@ -81,117 +81,134 @@ internal data class ActorDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var copyrightLabel: KotlinString? = null,
   public var _copyrightLabel: Element? = null,
-  public var type: KotlinString? = null,
+  public var type: KotlinString?,
   public var _type: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var reference: List<KotlinString?>? = null,
-  public var _reference: List<Element?>? = null,
+  public var reference: MutableList<KotlinString>? = null,
+  public var _reference: MutableList<Element>? = null,
   public var capabilities: KotlinString? = null,
   public var _capabilities: Element? = null,
-  public var derivedFrom: List<KotlinString?>? = null,
-  public var _derivedFrom: List<Element?>? = null,
+  public var derivedFrom: MutableList<KotlinString>? = null,
+  public var _derivedFrom: MutableList<Element>? = null,
 ) {
   public fun toModel(): ActorDefinition =
-    ActorDefinition().apply {
-      id = this@ActorDefinitionSurrogate.id
-      meta = this@ActorDefinitionSurrogate.meta
+    ActorDefinition(
+      id = this@ActorDefinitionSurrogate.id,
+      meta = this@ActorDefinitionSurrogate.meta,
       implicitRules =
-        Uri.of(
+        Uri.ofNullable(
           this@ActorDefinitionSurrogate.implicitRules,
           this@ActorDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@ActorDefinitionSurrogate.language, this@ActorDefinitionSurrogate._language)
-      text = this@ActorDefinitionSurrogate.text
-      contained = this@ActorDefinitionSurrogate.contained
-      extension = this@ActorDefinitionSurrogate.extension
-      modifierExtension = this@ActorDefinitionSurrogate.modifierExtension
-      url = Uri.of(this@ActorDefinitionSurrogate.url, this@ActorDefinitionSurrogate._url)
-      identifier = this@ActorDefinitionSurrogate.identifier
+        Code.ofNullable(
+          this@ActorDefinitionSurrogate.language,
+          this@ActorDefinitionSurrogate._language,
+        ),
+      text = this@ActorDefinitionSurrogate.text,
+      contained = this@ActorDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@ActorDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ActorDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.ofNullable(this@ActorDefinitionSurrogate.url, this@ActorDefinitionSurrogate._url),
+      identifier = this@ActorDefinitionSurrogate.identifier ?: mutableListOf(),
       version =
-        R5String.of(this@ActorDefinitionSurrogate.version, this@ActorDefinitionSurrogate._version)
+        R5String.ofNullable(
+          this@ActorDefinitionSurrogate.version,
+          this@ActorDefinitionSurrogate._version,
+        ),
       versionAlgorithm =
-        ActorDefinition.VersionAlgorithm?.from(
-          R5String.of(
+        ActorDefinition.VersionAlgorithm?.fromNullable(
+          R5String.ofNullable(
             this@ActorDefinitionSurrogate.versionAlgorithmString,
             this@ActorDefinitionSurrogate._versionAlgorithmString,
           ),
           this@ActorDefinitionSurrogate.versionAlgorithmCoding,
-        )
-      name = R5String.of(this@ActorDefinitionSurrogate.name, this@ActorDefinitionSurrogate._name)
-      title = R5String.of(this@ActorDefinitionSurrogate.title, this@ActorDefinitionSurrogate._title)
+        ),
+      name =
+        R5String.ofNullable(
+          this@ActorDefinitionSurrogate.name,
+          this@ActorDefinitionSurrogate._name,
+        ),
+      title =
+        R5String.ofNullable(
+          this@ActorDefinitionSurrogate.title,
+          this@ActorDefinitionSurrogate._title,
+        ),
       status =
         Enumeration.of(
-          this@ActorDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(
+            this@ActorDefinitionSurrogate.status!!
+          ),
           this@ActorDefinitionSurrogate._status,
-        )
+        ),
       experimental =
-        R5Boolean.of(
+        R5Boolean.ofNullable(
           this@ActorDefinitionSurrogate.experimental,
           this@ActorDefinitionSurrogate._experimental,
-        )
+        ),
       date =
-        DateTime.of(
+        DateTime.ofNullable(
           FhirDateTime.fromString(this@ActorDefinitionSurrogate.date),
           this@ActorDefinitionSurrogate._date,
-        )
+        ),
       publisher =
-        R5String.of(
+        R5String.ofNullable(
           this@ActorDefinitionSurrogate.publisher,
           this@ActorDefinitionSurrogate._publisher,
-        )
-      contact = this@ActorDefinitionSurrogate.contact
+        ),
+      contact = this@ActorDefinitionSurrogate.contact ?: mutableListOf(),
       description =
-        Markdown.of(
+        Markdown.ofNullable(
           this@ActorDefinitionSurrogate.description,
           this@ActorDefinitionSurrogate._description,
-        )
-      useContext = this@ActorDefinitionSurrogate.useContext
-      jurisdiction = this@ActorDefinitionSurrogate.jurisdiction
+        ),
+      useContext = this@ActorDefinitionSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@ActorDefinitionSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
-        Markdown.of(this@ActorDefinitionSurrogate.purpose, this@ActorDefinitionSurrogate._purpose)
+        Markdown.ofNullable(
+          this@ActorDefinitionSurrogate.purpose,
+          this@ActorDefinitionSurrogate._purpose,
+        ),
       copyright =
-        Markdown.of(
+        Markdown.ofNullable(
           this@ActorDefinitionSurrogate.copyright,
           this@ActorDefinitionSurrogate._copyright,
-        )
+        ),
       copyrightLabel =
-        R5String.of(
+        R5String.ofNullable(
           this@ActorDefinitionSurrogate.copyrightLabel,
           this@ActorDefinitionSurrogate._copyrightLabel,
-        )
+        ),
       type =
         Enumeration.of(
-          this@ActorDefinitionSurrogate.type?.let {
-            com.google.fhir.model.r5.ActorDefinition.ExampleScenarioActorType.fromCode(it)
-          },
+          com.google.fhir.model.r5.ActorDefinition.ExampleScenarioActorType.fromCode(
+            this@ActorDefinitionSurrogate.type!!
+          ),
           this@ActorDefinitionSurrogate._type,
-        )
+        ),
       documentation =
-        Markdown.of(
+        Markdown.ofNullable(
           this@ActorDefinitionSurrogate.documentation,
           this@ActorDefinitionSurrogate._documentation,
-        )
+        ),
       reference =
         if (
           this@ActorDefinitionSurrogate.reference == null &&
             this@ActorDefinitionSurrogate._reference == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ActorDefinitionSurrogate.reference
               ?: List(this@ActorDefinitionSurrogate._reference!!.size) { null })
@@ -199,19 +216,20 @@ internal data class ActorDefinitionSurrogate(
               this@ActorDefinitionSurrogate._reference
                 ?: List(this@ActorDefinitionSurrogate.reference!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Url.of(value, element) }
-        }
+            .map { (value, element) -> Url.of(value, element) }
+            .toMutableList()
+        },
       capabilities =
-        Canonical.of(
+        Canonical.ofNullable(
           this@ActorDefinitionSurrogate.capabilities,
           this@ActorDefinitionSurrogate._capabilities,
-        )
+        ),
       derivedFrom =
         if (
           this@ActorDefinitionSurrogate.derivedFrom == null &&
             this@ActorDefinitionSurrogate._derivedFrom == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ActorDefinitionSurrogate.derivedFrom
               ?: List(this@ActorDefinitionSurrogate._derivedFrom!!.size) { null })
@@ -219,69 +237,79 @@ internal data class ActorDefinitionSurrogate(
               this@ActorDefinitionSurrogate._derivedFrom
                 ?: List(this@ActorDefinitionSurrogate.derivedFrom!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
-    }
+            .map { (value, element) -> Canonical.of(value, element) }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: ActorDefinition): ActorDefinitionSurrogate =
       with(model) {
-        ActorDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          copyrightLabel = this@with.copyrightLabel?.value
-          _copyrightLabel = this@with.copyrightLabel?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          reference = this@with.reference?.map { it?.value }?.takeUnless { it.all { it == null } }
+        ActorDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.isEmpty() },
+          extension = this@with.extension.takeUnless { it.isEmpty() },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.isEmpty() },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.isEmpty() },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
+          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.isEmpty() },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.isEmpty() },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.isEmpty() },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          copyrightLabel = this@with.copyrightLabel?.value,
+          _copyrightLabel = this@with.copyrightLabel?.toElement(),
+          type = this@with.type.value.getCode(),
+          _type = this@with.type.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          reference =
+            this@with.reference.map { it.value!! }.toMutableList().takeUnless { it.isEmpty() },
           _reference =
-            this@with.reference?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          capabilities = this@with.capabilities?.value
-          _capabilities = this@with.capabilities?.toElement()
+            this@with.reference
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          capabilities = this@with.capabilities?.value,
+          _capabilities = this@with.capabilities?.toElement(),
           derivedFrom =
-            this@with.derivedFrom?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFrom.map { it.value!! }.toMutableList().takeUnless { it.isEmpty() },
           _derivedFrom =
-            this@with.derivedFrom?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.derivedFrom
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }

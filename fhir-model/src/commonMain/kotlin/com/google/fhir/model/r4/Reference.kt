@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ReferenceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Base StructureDefinition for Reference Type: A reference from one resource to another. */
@@ -43,7 +43,7 @@ public data class Reference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * A reference to a location at which the other resource is found. The reference may be a relative
    * reference, in which case it is relative to the service base URL, or an absolute URL that

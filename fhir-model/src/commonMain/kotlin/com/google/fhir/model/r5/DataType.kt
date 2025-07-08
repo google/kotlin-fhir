@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * DataType Type: The base class for all re-useable types defined as part of the FHIR Specification.
@@ -44,5 +44,5 @@ public sealed class DataType : Element() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  abstract override var extension: List<Extension?>?
+  abstract override var extension: MutableList<Extension>
 }

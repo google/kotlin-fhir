@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.BasicSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Basic(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Basic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,9 +128,9 @@ public data class Basic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier assigned to the resource for business purposes, outside the context of FHIR. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Identifies the 'type' of resource - equivalent to the resource name for other resources.
    *
@@ -141,7 +141,7 @@ public data class Basic(
    * This element is labeled as a modifier because it defines the meaning of the resource and cannot
    * be ignored.
    */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * Identifies the patient, practitioner, device or any other resource that is the "focus" of this
    * resource.

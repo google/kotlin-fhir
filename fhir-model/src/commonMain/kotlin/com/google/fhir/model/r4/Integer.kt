@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** Base StructureDefinition for integer Type: A whole number */
 public open class Integer(
@@ -39,23 +39,26 @@ public open class Integer(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  open override var extension: List<Extension?>? = null,
+  open override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public open var `value`: Int? = null,
 ) : Element(id, extension) {
   public open fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
   }
 
   public companion object {
-    public fun of(`value`: Int?, element: Element?): Integer? =
-      if (value == null && element == null) {
-        null
+    public fun of(`value`: Int?, element: Element?): Integer =
+      Integer(element?.id, element?.extension ?: mutableListOf(), value)
+
+    public fun ofNullable(`value`: Int?, element: Element?): Integer? =
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Integer(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Integer(element?.id, element?.extension, value)
+        null
       }
   }
 }

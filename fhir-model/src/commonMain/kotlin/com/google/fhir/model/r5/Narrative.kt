@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.NarrativeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,12 +47,12 @@ public data class Narrative(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The status of the narrative - whether it's entirely generated (from just the defined data or
    * the extensions too), or whether a human authored it and it may contain additional data.
    */
-  public var status: Enumeration<NarrativeStatus>? = null,
+  public var status: Enumeration<NarrativeStatus>,
   /**
    * The actual narrative content, a stripped down version of XHTML.
    *
@@ -62,7 +62,7 @@ public data class Narrative(
    * contain a head, a body, external stylesheet references, scripts, forms, base/link/xlink,
    * frames, iframes and objects.
    */
-  public var div: Xhtml? = null,
+  public var div: Xhtml,
 ) : DataType() {
   /** The status of a resource narrative. */
   public enum class NarrativeStatus(

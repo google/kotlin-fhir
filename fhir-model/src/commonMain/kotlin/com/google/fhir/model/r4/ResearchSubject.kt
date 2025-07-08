@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ResearchSubjectSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class ResearchSubject(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class ResearchSubject(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,17 +126,17 @@ public data class ResearchSubject(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifiers assigned to this research subject for a study. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The current state of the subject. */
-  public var status: Enumeration<ResearchSubjectStatus>? = null,
+  public var status: Enumeration<ResearchSubjectStatus>,
   /** The dates the subject began and ended their participation in the study. */
   public var period: Period? = null,
   /** Reference to the study the subject is participating in. */
-  public var study: Reference? = null,
+  public var study: Reference,
   /** The record of the person or animal who is involved in the study. */
-  public var individual: Reference? = null,
+  public var individual: Reference,
   /** The name of the arm in the study the subject is expected to follow as part of this study. */
   public var assignedArm: String? = null,
   /** The name of the arm in the study the subject actually followed as part of this study. */

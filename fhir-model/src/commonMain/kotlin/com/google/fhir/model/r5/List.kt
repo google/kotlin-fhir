@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ListEntrySerializer
 import com.google.fhir.model.r5.serializers.ListSerializer
 import kotlin.Suppress
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +97,7 @@ public data class List(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: kotlin.collections.List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +110,7 @@ public data class List(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: kotlin.collections.List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,16 +129,16 @@ public data class List(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: kotlin.collections.List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier for the List assigned for business purposes outside the context of FHIR. */
-  public var identifier: kotlin.collections.List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates the current state of this list.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ListStatus>? = null,
+  public var status: Enumeration<ListStatus>,
   /**
    * How this list was prepared - whether it is a working list that is suitable for being maintained
    * on an ongoing basis, or if it represents a snapshot of a list of items from another source, or
@@ -146,7 +147,7 @@ public data class List(
    * This element is labeled as a modifier because a change list must not be misunderstood as a
    * complete list.
    */
-  public var mode: Enumeration<ListMode>? = null,
+  public var mode: Enumeration<ListMode>,
   /** A label for the list assigned by the author. */
   public var title: String? = null,
   /**
@@ -166,7 +167,7 @@ public data class List(
    * subjects, then it would be nominally part of multiple patient compartments, which might drive
    * access rights.
    */
-  public var subject: kotlin.collections.List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /** The encounter that is the context in which this list was created. */
   public var encounter: Reference? = null,
   /**
@@ -193,13 +194,13 @@ public data class List(
    */
   public var orderedBy: CodeableConcept? = null,
   /** Comments that apply to the overall list. */
-  public var note: kotlin.collections.List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Entries in this list.
    *
    * If there are no entries in the list, an emptyReason SHOULD be provided.
    */
-  public var entry: kotlin.collections.List<Entry>? = null,
+  public var entry: MutableList<Entry> = mutableListOf(),
   /**
    * If the list is empty, why the list is empty.
    *
@@ -230,7 +231,7 @@ public data class List(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: kotlin.collections.List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -249,7 +250,7 @@ public data class List(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: kotlin.collections.List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The flag allows the system constructing the list to indicate the role and significance of the
      * item in the list.
@@ -269,7 +270,7 @@ public data class List(
     /** When this item was added to the list. */
     public var date: DateTime? = null,
     /** A reference to the actual resource from which data was derived. */
-    public var item: Reference? = null,
+    public var item: Reference,
   ) : BackboneElement()
 
   /** The current state of the list. */
