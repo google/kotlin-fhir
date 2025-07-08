@@ -18,9 +18,14 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ActivityDefinitionAsNeededSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionDynamicValueSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionParticipantSerializer
+import com.google.fhir.model.r5.serializers.ActivityDefinitionProductSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ActivityDefinitionSubjectSerializer
+import com.google.fhir.model.r5.serializers.ActivityDefinitionTimingSerializer
+import com.google.fhir.model.r5.serializers.ActivityDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -652,6 +657,7 @@ public data class ActivityDefinition(
     public var expression: Expression? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ActivityDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -663,18 +669,21 @@ public data class ActivityDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ActivityDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -690,20 +699,23 @@ public data class ActivityDefinition(
 
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ActivityDefinitionTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 
@@ -725,22 +737,25 @@ public data class ActivityDefinition(
     public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) :
       ActivityDefinition.Timing
 
+    public data object Null : ActivityDefinition.Timing
+
     public companion object {
       public fun from(
         TimingValue: com.google.fhir.model.r5.Timing?,
         AgeValue: com.google.fhir.model.r5.Age?,
         RangeValue: com.google.fhir.model.r5.Range?,
         DurationValue: com.google.fhir.model.r5.Duration?,
-      ): ActivityDefinition.Timing? {
+      ): ActivityDefinition.Timing {
         if (TimingValue != null) return Timing(TimingValue)
         if (AgeValue != null) return Age(AgeValue)
         if (RangeValue != null) return Range(RangeValue)
         if (DurationValue != null) return Duration(DurationValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ActivityDefinitionAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -752,18 +767,21 @@ public data class ActivityDefinition(
       public val `value`: com.google.fhir.model.r5.CodeableConcept
     ) : AsNeeded
 
+    public data object Null : AsNeeded
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-      ): AsNeeded? {
+      ): AsNeeded {
         if (booleanValue != null) return Boolean(booleanValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ActivityDefinitionProductSerializer::class)
   public sealed interface Product {
     public fun asReference(): Reference? = this as? Reference
 
@@ -775,14 +793,16 @@ public data class ActivityDefinition(
       public val `value`: com.google.fhir.model.r5.CodeableConcept
     ) : Product
 
+    public data object Null : Product
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-      ): Product? {
+      ): Product {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

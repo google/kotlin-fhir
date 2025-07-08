@@ -19,8 +19,10 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MessageDefinitionAllowedResponseSerializer
+import com.google.fhir.model.r5.serializers.MessageDefinitionEventSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionFocusSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionSerializer
+import com.google.fhir.model.r5.serializers.MessageDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -473,6 +475,7 @@ public data class MessageDefinition(
     public var situation: Markdown? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MessageDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -484,18 +487,21 @@ public data class MessageDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = MessageDefinitionEventSerializer::class)
   public sealed interface Event {
     public fun asCoding(): Coding? = this as? Coding
 
@@ -505,14 +511,16 @@ public data class MessageDefinition(
 
     public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Event
 
+    public data object Null : Event
+
     public companion object {
       public fun from(
         CodingValue: com.google.fhir.model.r5.Coding?,
         uriValue: com.google.fhir.model.r5.Uri?,
-      ): Event? {
+      ): Event {
         if (CodingValue != null) return Coding(CodingValue)
         if (uriValue != null) return Uri(uriValue)
-        return null
+        return Null
       }
     }
   }

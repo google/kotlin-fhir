@@ -21,7 +21,10 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.IngredientManufacturerSerializer
 import com.google.fhir.model.r5.serializers.IngredientSerializer
 import com.google.fhir.model.r5.serializers.IngredientSubstanceSerializer
+import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthConcentrationSerializer
+import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthPresentationSerializer
 import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthReferenceStrengthSerializer
+import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthReferenceStrengthStrengthSerializer
 import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -428,6 +431,7 @@ public data class Ingredient(
         /** The country or countries for which the strength range applies. */
         public var country: List<CodeableConcept?>? = null,
       ) : BackboneElement() {
+        @Serializable(with = IngredientSubstanceStrengthReferenceStrengthStrengthSerializer::class)
         public sealed interface Strength {
           public fun asRatio(): Ratio? = this as? Ratio
 
@@ -443,21 +447,24 @@ public data class Ingredient(
           public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) :
             Strength
 
+          public data object Null : Strength
+
           public companion object {
             public fun from(
               RatioValue: com.google.fhir.model.r5.Ratio?,
               RatioRangeValue: com.google.fhir.model.r5.RatioRange?,
               QuantityValue: com.google.fhir.model.r5.Quantity?,
-            ): Strength? {
+            ): Strength {
               if (RatioValue != null) return Ratio(RatioValue)
               if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
               if (QuantityValue != null) return Quantity(QuantityValue)
-              return null
+              return Null
             }
           }
         }
       }
 
+      @Serializable(with = IngredientSubstanceStrengthPresentationSerializer::class)
       public sealed interface Presentation {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -479,22 +486,25 @@ public data class Ingredient(
         public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) :
           Presentation
 
+        public data object Null : Presentation
+
         public companion object {
           public fun from(
             RatioValue: com.google.fhir.model.r5.Ratio?,
             RatioRangeValue: com.google.fhir.model.r5.RatioRange?,
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
-          ): Presentation? {
+          ): Presentation {
             if (RatioValue != null) return Ratio(RatioValue)
             if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
-            return null
+            return Null
           }
         }
       }
 
+      @Serializable(with = IngredientSubstanceStrengthConcentrationSerializer::class)
       public sealed interface Concentration {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -516,18 +526,20 @@ public data class Ingredient(
         public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) :
           Concentration
 
+        public data object Null : Concentration
+
         public companion object {
           public fun from(
             RatioValue: com.google.fhir.model.r5.Ratio?,
             RatioRangeValue: com.google.fhir.model.r5.RatioRange?,
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
-          ): Concentration? {
+          ): Concentration {
             if (RatioValue != null) return Ratio(RatioValue)
             if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
-            return null
+            return Null
           }
         }
       }

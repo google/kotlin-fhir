@@ -19,7 +19,9 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ImmunizationRecommendationRecommendationDateCriterionSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationRecommendationRecommendationDoseNumberSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationRecommendationRecommendationSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationRecommendationRecommendationSeriesDosesSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationRecommendationSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -277,6 +279,7 @@ public data class ImmunizationRecommendation(
       public var `value`: DateTime? = null,
     ) : BackboneElement()
 
+    @Serializable(with = ImmunizationRecommendationRecommendationDoseNumberSerializer::class)
     public sealed interface DoseNumber {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -287,18 +290,21 @@ public data class ImmunizationRecommendation(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : DoseNumber
 
+      public data object Null : DoseNumber
+
       public companion object {
         public fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): DoseNumber? {
+        ): DoseNumber {
           if (positiveIntValue != null) return PositiveInt(positiveIntValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ImmunizationRecommendationRecommendationSeriesDosesSerializer::class)
     public sealed interface SeriesDoses {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -309,14 +315,16 @@ public data class ImmunizationRecommendation(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : SeriesDoses
 
+      public data object Null : SeriesDoses
+
       public companion object {
         public fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): SeriesDoses? {
+        ): SeriesDoses {
           if (positiveIntValue != null) return PositiveInt(positiveIntValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }

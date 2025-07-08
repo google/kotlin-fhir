@@ -25,12 +25,16 @@ import com.google.fhir.model.r5.serializers.ValueSetComposeIncludeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetComposeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertySerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertySubPropertySerializer
+import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertySubPropertyValueSerializer
+import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionParameterSerializer
+import com.google.fhir.model.r5.serializers.ValueSetExpansionParameterValueSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionPropertySerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r5.serializers.ValueSetScopeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetSerializer
+import com.google.fhir.model.r5.serializers.ValueSetVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -996,6 +1000,7 @@ public data class ValueSet(
       /** The value of the parameter. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = ValueSetExpansionParameterValueSerializer::class)
       public sealed interface Value {
         public fun asString(): String? = this as? String
 
@@ -1025,6 +1030,8 @@ public data class ValueSet(
 
         public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             stringValue: com.google.fhir.model.r5.String?,
@@ -1034,7 +1041,7 @@ public data class ValueSet(
             uriValue: com.google.fhir.model.r5.Uri?,
             codeValue: com.google.fhir.model.r5.Code?,
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          ): Value? {
+          ): Value {
             if (stringValue != null) return String(stringValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (integerValue != null) return Integer(integerValue)
@@ -1042,7 +1049,7 @@ public data class ValueSet(
             if (uriValue != null) return Uri(uriValue)
             if (codeValue != null) return Code(codeValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
-            return null
+            return Null
           }
         }
       }
@@ -1296,6 +1303,7 @@ public data class ValueSet(
           /** The value of this subproperty. */
           public var `value`: Value? = null,
         ) : BackboneElement() {
+          @Serializable(with = ValueSetExpansionContainsPropertySubPropertyValueSerializer::class)
           public sealed interface Value {
             public fun asCode(): Code? = this as? Code
 
@@ -1326,6 +1334,8 @@ public data class ValueSet(
 
             public data class Decimal(public val `value`: com.google.fhir.model.r5.Decimal) : Value
 
+            public data object Null : Value
+
             public companion object {
               public fun from(
                 codeValue: com.google.fhir.model.r5.Code?,
@@ -1335,7 +1345,7 @@ public data class ValueSet(
                 booleanValue: com.google.fhir.model.r5.Boolean?,
                 dateTimeValue: com.google.fhir.model.r5.DateTime?,
                 decimalValue: com.google.fhir.model.r5.Decimal?,
-              ): Value? {
+              ): Value {
                 if (codeValue != null) return Code(codeValue)
                 if (CodingValue != null) return Coding(CodingValue)
                 if (stringValue != null) return String(stringValue)
@@ -1343,12 +1353,13 @@ public data class ValueSet(
                 if (booleanValue != null) return Boolean(booleanValue)
                 if (dateTimeValue != null) return DateTime(dateTimeValue)
                 if (decimalValue != null) return Decimal(decimalValue)
-                return null
+                return Null
               }
             }
           }
         }
 
+        @Serializable(with = ValueSetExpansionContainsPropertyValueSerializer::class)
         public sealed interface Value {
           public fun asCode(): Code? = this as? Code
 
@@ -1378,6 +1389,8 @@ public data class ValueSet(
 
           public data class Decimal(public val `value`: com.google.fhir.model.r5.Decimal) : Value
 
+          public data object Null : Value
+
           public companion object {
             public fun from(
               codeValue: com.google.fhir.model.r5.Code?,
@@ -1387,7 +1400,7 @@ public data class ValueSet(
               booleanValue: com.google.fhir.model.r5.Boolean?,
               dateTimeValue: com.google.fhir.model.r5.DateTime?,
               decimalValue: com.google.fhir.model.r5.Decimal?,
-            ): Value? {
+            ): Value {
               if (codeValue != null) return Code(codeValue)
               if (CodingValue != null) return Coding(CodingValue)
               if (stringValue != null) return String(stringValue)
@@ -1395,7 +1408,7 @@ public data class ValueSet(
               if (booleanValue != null) return Boolean(booleanValue)
               if (dateTimeValue != null) return DateTime(dateTimeValue)
               if (decimalValue != null) return Decimal(decimalValue)
-              return null
+              return Null
             }
           }
         }
@@ -1452,6 +1465,7 @@ public data class ValueSet(
     public var exclusionCriteria: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ValueSetVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1463,14 +1477,16 @@ public data class ValueSet(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

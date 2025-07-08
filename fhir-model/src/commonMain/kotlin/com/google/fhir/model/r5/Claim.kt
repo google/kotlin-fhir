@@ -18,20 +18,28 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ClaimAccidentLocationSerializer
 import com.google.fhir.model.r5.serializers.ClaimAccidentSerializer
 import com.google.fhir.model.r5.serializers.ClaimCareTeamSerializer
+import com.google.fhir.model.r5.serializers.ClaimDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.ClaimDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.ClaimEventSerializer
+import com.google.fhir.model.r5.serializers.ClaimEventWhenSerializer
 import com.google.fhir.model.r5.serializers.ClaimInsuranceSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemBodySiteSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemDetailSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemDetailSubDetailSerializer
+import com.google.fhir.model.r5.serializers.ClaimItemLocationSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemSerializer
+import com.google.fhir.model.r5.serializers.ClaimItemServicedSerializer
 import com.google.fhir.model.r5.serializers.ClaimPayeeSerializer
+import com.google.fhir.model.r5.serializers.ClaimProcedureProcedureSerializer
 import com.google.fhir.model.r5.serializers.ClaimProcedureSerializer
 import com.google.fhir.model.r5.serializers.ClaimRelatedSerializer
 import com.google.fhir.model.r5.serializers.ClaimSerializer
 import com.google.fhir.model.r5.serializers.ClaimSupportingInfoSerializer
+import com.google.fhir.model.r5.serializers.ClaimSupportingInfoTimingSerializer
+import com.google.fhir.model.r5.serializers.ClaimSupportingInfoValueSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -501,6 +509,7 @@ public data class Claim(
      */
     public var `when`: When? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -510,14 +519,16 @@ public data class Claim(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : When
 
+      public data object Null : When
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): When? {
+        ): When {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -659,6 +670,7 @@ public data class Claim(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimSupportingInfoTimingSerializer::class)
     public sealed interface Timing {
       public fun asDate(): Date? = this as? Date
 
@@ -668,18 +680,21 @@ public data class Claim(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Timing
 
+      public data object Null : Timing
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Timing? {
+        ): Timing {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ClaimSupportingInfoValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -705,6 +720,8 @@ public data class Claim(
 
       public data class Identifier(public val `value`: com.google.fhir.model.r5.Identifier) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -713,14 +730,14 @@ public data class Claim(
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
           IdentifierValue: com.google.fhir.model.r5.Identifier?,
-        ): Value? {
+        ): Value {
           if (booleanValue != null) return Boolean(booleanValue)
           if (stringValue != null) return String(stringValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (IdentifierValue != null) return Identifier(IdentifierValue)
-          return null
+          return Null
         }
       }
     }
@@ -786,6 +803,7 @@ public data class Claim(
     /** Indication of whether the diagnosis was present on admission to a facility. */
     public var onAdmission: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimDiagnosisDiagnosisSerializer::class)
     public sealed interface Diagnosis {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -798,14 +816,16 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Diagnosis
 
+      public data object Null : Diagnosis
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Diagnosis? {
+        ): Diagnosis {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -869,6 +889,7 @@ public data class Claim(
     /** Unique Device Identifiers associated with this line item. */
     public var udi: List<Reference?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimProcedureProcedureSerializer::class)
     public sealed interface Procedure {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -881,14 +902,16 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Procedure
 
+      public data object Null : Procedure
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Procedure? {
+        ): Procedure {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1049,6 +1072,7 @@ public data class Claim(
     /** The physical location of the accident event. */
     public var location: Location? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimAccidentLocationSerializer::class)
     public sealed interface Location {
       public fun asAddress(): Address? = this as? Address
 
@@ -1059,14 +1083,16 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           AddressValue: com.google.fhir.model.r5.Address?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Location? {
+        ): Location {
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1537,6 +1563,7 @@ public data class Claim(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1546,18 +1573,21 @@ public data class Claim(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ClaimItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1574,16 +1604,18 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           AddressValue: com.google.fhir.model.r5.Address?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Location? {
+        ): Location {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

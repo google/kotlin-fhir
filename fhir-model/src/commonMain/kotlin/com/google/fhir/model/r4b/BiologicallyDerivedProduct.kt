@@ -18,9 +18,12 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductCollectionCollectedSerializer
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductCollectionSerializer
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductManipulationSerializer
+import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductManipulationTimeSerializer
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductProcessingSerializer
+import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductProcessingTimeSerializer
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductSerializer
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductStorageSerializer
 import kotlin.Suppress
@@ -223,6 +226,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of product collection. */
     public var collected: Collected? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -233,14 +237,16 @@ public data class BiologicallyDerivedProduct(
 
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Collected
 
+      public data object Null : Collected
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
-        ): Collected? {
+        ): Collected {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -299,6 +305,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of processing. */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductProcessingTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -308,14 +315,16 @@ public data class BiologicallyDerivedProduct(
 
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Time
 
+      public data object Null : Time
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
-        ): Time? {
+        ): Time {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -370,6 +379,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of manipulation. */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductManipulationTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -379,14 +389,16 @@ public data class BiologicallyDerivedProduct(
 
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Time
 
+      public data object Null : Time
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
-        ): Time? {
+        ): Time {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }

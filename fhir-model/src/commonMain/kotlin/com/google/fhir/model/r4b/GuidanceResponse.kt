@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.GuidanceResponseModuleSerializer
 import com.google.fhir.model.r4b.serializers.GuidanceResponseSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -199,6 +200,7 @@ public data class GuidanceResponse(
    */
   public var dataRequirement: List<DataRequirement?>? = null,
 ) : DomainResource() {
+  @Serializable(with = GuidanceResponseModuleSerializer::class)
   public sealed interface Module {
     public fun asUri(): Uri? = this as? Uri
 
@@ -214,16 +216,18 @@ public data class GuidanceResponse(
       public val `value`: com.google.fhir.model.r4b.CodeableConcept
     ) : Module
 
+    public data object Null : Module
+
     public companion object {
       public fun from(
         uriValue: com.google.fhir.model.r4b.Uri?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-      ): Module? {
+      ): Module {
         if (uriValue != null) return Uri(uriValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

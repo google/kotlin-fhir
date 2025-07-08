@@ -51,20 +51,58 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class EvidenceReportSubjectCharacteristicValueSurrogate {
+  public var valueReference: Reference? = null
+
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueQuantity: Quantity? = null
+
+  public var valueRange: Range? = null
+
+  public fun toModel(): EvidenceReport.Subject.Characteristic.Value =
+    EvidenceReport.Subject.Characteristic.Value?.from(
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueReference,
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueCodeableConcept,
+      R5Boolean.of(
+        this@EvidenceReportSubjectCharacteristicValueSurrogate.valueBoolean,
+        this@EvidenceReportSubjectCharacteristicValueSurrogate._valueBoolean,
+      ),
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueQuantity,
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueRange,
+    ) ?: EvidenceReport.Subject.Characteristic.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceReport.Subject.Characteristic.Value
+    ): EvidenceReportSubjectCharacteristicValueSurrogate =
+      with(model) {
+        EvidenceReportSubjectCharacteristicValueSurrogate().apply {
+          valueReference = this@with.asReference()?.value
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueQuantity = this@with.asQuantity()?.value
+          valueRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceReportSubjectCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var code: CodeableConcept? = null,
-  public var valueReference: Reference? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var period: Period? = null,
+  public var `value`: EvidenceReport.Subject.Characteristic.Value? = null,
 ) {
   public fun toModel(): EvidenceReport.Subject.Characteristic =
     EvidenceReport.Subject.Characteristic().apply {
@@ -72,17 +110,7 @@ internal data class EvidenceReportSubjectCharacteristicSurrogate(
       extension = this@EvidenceReportSubjectCharacteristicSurrogate.extension
       modifierExtension = this@EvidenceReportSubjectCharacteristicSurrogate.modifierExtension
       code = this@EvidenceReportSubjectCharacteristicSurrogate.code
-      `value` =
-        EvidenceReport.Subject.Characteristic.Value?.from(
-          this@EvidenceReportSubjectCharacteristicSurrogate.valueReference,
-          this@EvidenceReportSubjectCharacteristicSurrogate.valueCodeableConcept,
-          R5Boolean.of(
-            this@EvidenceReportSubjectCharacteristicSurrogate.valueBoolean,
-            this@EvidenceReportSubjectCharacteristicSurrogate._valueBoolean,
-          ),
-          this@EvidenceReportSubjectCharacteristicSurrogate.valueQuantity,
-          this@EvidenceReportSubjectCharacteristicSurrogate.valueRange,
-        )
+      `value` = this@EvidenceReportSubjectCharacteristicSurrogate.`value`
       exclude =
         R5Boolean.of(
           this@EvidenceReportSubjectCharacteristicSurrogate.exclude,
@@ -101,12 +129,7 @@ internal data class EvidenceReportSubjectCharacteristicSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           code = this@with.code
-          valueReference = this@with.`value`?.asReference()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
+          `value` = this@with.`value`
           exclude = this@with.exclude?.value
           _exclude = this@with.exclude?.toElement()
           period = this@with.period
@@ -312,6 +335,35 @@ internal data class EvidenceReportSectionSurrogate(
 }
 
 @Serializable
+internal class EvidenceReportCiteAsSurrogate {
+  public var citeAsReference: Reference? = null
+
+  public var citeAsMarkdown: KotlinString? = null
+
+  public var _citeAsMarkdown: Element? = null
+
+  public fun toModel(): EvidenceReport.CiteAs =
+    EvidenceReport.CiteAs?.from(
+      this@EvidenceReportCiteAsSurrogate.citeAsReference,
+      Markdown.of(
+        this@EvidenceReportCiteAsSurrogate.citeAsMarkdown,
+        this@EvidenceReportCiteAsSurrogate._citeAsMarkdown,
+      ),
+    ) ?: EvidenceReport.CiteAs.Null
+
+  public companion object {
+    public fun fromModel(model: EvidenceReport.CiteAs): EvidenceReportCiteAsSurrogate =
+      with(model) {
+        EvidenceReportCiteAsSurrogate().apply {
+          citeAsReference = this@with.asReference()?.value
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceReportSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -330,9 +382,6 @@ internal data class EvidenceReportSurrogate(
   public var useContext: List<UsageContext?>? = null,
   public var identifier: List<Identifier?>? = null,
   public var relatedIdentifier: List<Identifier?>? = null,
-  public var citeAsReference: Reference? = null,
-  public var citeAsMarkdown: KotlinString? = null,
-  public var _citeAsMarkdown: Element? = null,
   public var type: CodeableConcept? = null,
   public var note: List<Annotation?>? = null,
   public var relatedArtifact: List<RelatedArtifact?>? = null,
@@ -346,6 +395,7 @@ internal data class EvidenceReportSurrogate(
   public var endorser: List<ContactDetail?>? = null,
   public var relatesTo: List<EvidenceReport.RelatesTo>? = null,
   public var section: List<EvidenceReport.Section>? = null,
+  public var citeAs: EvidenceReport.CiteAs? = null,
 ) {
   public fun toModel(): EvidenceReport =
     EvidenceReport().apply {
@@ -373,14 +423,7 @@ internal data class EvidenceReportSurrogate(
       useContext = this@EvidenceReportSurrogate.useContext
       identifier = this@EvidenceReportSurrogate.identifier
       relatedIdentifier = this@EvidenceReportSurrogate.relatedIdentifier
-      citeAs =
-        EvidenceReport.CiteAs?.from(
-          this@EvidenceReportSurrogate.citeAsReference,
-          Markdown.of(
-            this@EvidenceReportSurrogate.citeAsMarkdown,
-            this@EvidenceReportSurrogate._citeAsMarkdown,
-          ),
-        )
+      citeAs = this@EvidenceReportSurrogate.citeAs
       type = this@EvidenceReportSurrogate.type
       note = this@EvidenceReportSurrogate.note
       relatedArtifact = this@EvidenceReportSurrogate.relatedArtifact
@@ -417,9 +460,7 @@ internal data class EvidenceReportSurrogate(
           useContext = this@with.useContext
           identifier = this@with.identifier
           relatedIdentifier = this@with.relatedIdentifier
-          citeAsReference = this@with.citeAs?.asReference()?.value
-          citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.value
-          _citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.toElement()
+          citeAs = this@with.citeAs
           type = this@with.type
           note = this@with.note
           relatedArtifact = this@with.relatedArtifact

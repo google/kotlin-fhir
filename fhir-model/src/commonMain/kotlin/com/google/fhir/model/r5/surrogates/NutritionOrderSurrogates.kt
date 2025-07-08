@@ -388,14 +388,38 @@ internal data class NutritionOrderEnteralFormulaAdministrationScheduleSurrogate(
 }
 
 @Serializable
+internal class NutritionOrderEnteralFormulaAdministrationRateSurrogate {
+  public var rateQuantity: Quantity? = null
+
+  public var rateRatio: Ratio? = null
+
+  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate =
+    NutritionOrder.EnteralFormula.Administration.Rate?.from(
+      this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
+      this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
+    ) ?: NutritionOrder.EnteralFormula.Administration.Rate.Null
+
+  public companion object {
+    public fun fromModel(
+      model: NutritionOrder.EnteralFormula.Administration.Rate
+    ): NutritionOrderEnteralFormulaAdministrationRateSurrogate =
+      with(model) {
+        NutritionOrderEnteralFormulaAdministrationRateSurrogate().apply {
+          rateQuantity = this@with.asQuantity()?.value
+          rateRatio = this@with.asRatio()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var schedule: NutritionOrder.EnteralFormula.Administration.Schedule? = null,
   public var quantity: Quantity? = null,
-  public var rateQuantity: Quantity? = null,
-  public var rateRatio: Ratio? = null,
+  public var rate: NutritionOrder.EnteralFormula.Administration.Rate? = null,
 ) {
   public fun toModel(): NutritionOrder.EnteralFormula.Administration =
     NutritionOrder.EnteralFormula.Administration().apply {
@@ -404,11 +428,7 @@ internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
       modifierExtension = this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension
       schedule = this@NutritionOrderEnteralFormulaAdministrationSurrogate.schedule
       quantity = this@NutritionOrderEnteralFormulaAdministrationSurrogate.quantity
-      rate =
-        NutritionOrder.EnteralFormula.Administration.Rate?.from(
-          this@NutritionOrderEnteralFormulaAdministrationSurrogate.rateQuantity,
-          this@NutritionOrderEnteralFormulaAdministrationSurrogate.rateRatio,
-        )
+      rate = this@NutritionOrderEnteralFormulaAdministrationSurrogate.rate
     }
 
   public companion object {
@@ -422,8 +442,7 @@ internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
           modifierExtension = this@with.modifierExtension
           schedule = this@with.schedule
           quantity = this@with.quantity
-          rateQuantity = this@with.rate?.asQuantity()?.value
-          rateRatio = this@with.rate?.asRatio()?.value
+          rate = this@with.rate
         }
       }
   }

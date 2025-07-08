@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ImmunizationOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ImmunizationPerformerSerializer
 import com.google.fhir.model.r5.serializers.ImmunizationProgramEligibilitySerializer
 import com.google.fhir.model.r5.serializers.ImmunizationProtocolAppliedSerializer
@@ -489,6 +490,7 @@ public data class Immunization(
     public var seriesDoses: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ImmunizationOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -498,14 +500,16 @@ public data class Immunization(
 
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

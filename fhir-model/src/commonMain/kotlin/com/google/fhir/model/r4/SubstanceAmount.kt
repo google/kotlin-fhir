@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.SubstanceAmountAmountSerializer
 import com.google.fhir.model.r4.serializers.SubstanceAmountReferenceRangeSerializer
 import com.google.fhir.model.r4.serializers.SubstanceAmountSerializer
 import kotlin.Suppress
@@ -118,6 +119,7 @@ public data class SubstanceAmount(
     public var highLimit: Quantity? = null,
   ) : Element()
 
+  @Serializable(with = SubstanceAmountAmountSerializer::class)
   public sealed interface Amount {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -131,16 +133,18 @@ public data class SubstanceAmount(
 
     public data class String(public val `value`: com.google.fhir.model.r4.String) : Amount
 
+    public data object Null : Amount
+
     public companion object {
       public fun from(
         QuantityValue: com.google.fhir.model.r4.Quantity?,
         RangeValue: com.google.fhir.model.r4.Range?,
         stringValue: com.google.fhir.model.r4.String?,
-      ): Amount? {
+      ): Amount {
         if (QuantityValue != null) return Quantity(QuantityValue)
         if (RangeValue != null) return Range(RangeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

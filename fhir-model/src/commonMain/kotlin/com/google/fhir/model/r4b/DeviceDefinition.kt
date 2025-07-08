@@ -20,6 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.DeviceDefinitionCapabilitySerializer
 import com.google.fhir.model.r4b.serializers.DeviceDefinitionDeviceNameSerializer
+import com.google.fhir.model.r4b.serializers.DeviceDefinitionManufacturerSerializer
 import com.google.fhir.model.r4b.serializers.DeviceDefinitionMaterialSerializer
 import com.google.fhir.model.r4b.serializers.DeviceDefinitionPropertySerializer
 import com.google.fhir.model.r4b.serializers.DeviceDefinitionSerializer
@@ -507,6 +508,7 @@ public data class DeviceDefinition(
     public var allergenicIndicator: Boolean? = null,
   ) : BackboneElement()
 
+  @Serializable(with = DeviceDefinitionManufacturerSerializer::class)
   public sealed interface Manufacturer {
     public fun asString(): String? = this as? String
 
@@ -517,14 +519,16 @@ public data class DeviceDefinition(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
       Manufacturer
 
+    public data object Null : Manufacturer
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r4b.String?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Manufacturer? {
+      ): Manufacturer {
         if (stringValue != null) return String(stringValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

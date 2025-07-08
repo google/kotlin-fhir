@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.CommunicationRequestOccurrenceSerializer
+import com.google.fhir.model.r4.serializers.CommunicationRequestPayloadContentSerializer
 import com.google.fhir.model.r4.serializers.CommunicationRequestPayloadSerializer
 import com.google.fhir.model.r4.serializers.CommunicationRequestSerializer
 import kotlin.String
@@ -296,6 +298,7 @@ public data class CommunicationRequest(
      */
     public var content: Content? = null,
   ) : BackboneElement() {
+    @Serializable(with = CommunicationRequestPayloadContentSerializer::class)
     public sealed interface Content {
       public fun asString(): String? = this as? String
 
@@ -310,21 +313,24 @@ public data class CommunicationRequest(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Content
 
+      public data object Null : Content
+
       public companion object {
         public fun from(
           stringValue: com.google.fhir.model.r4.String?,
           AttachmentValue: com.google.fhir.model.r4.Attachment?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Content? {
+        ): Content {
           if (stringValue != null) return String(stringValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = CommunicationRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -334,14 +340,16 @@ public data class CommunicationRequest(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

@@ -187,25 +187,96 @@ internal data class ConceptMapAdditionalAttributeSurrogate(
 }
 
 @Serializable
+internal class ConceptMapGroupElementTargetPropertyValueSurrogate {
+  public var valueCoding: Coding? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueInteger: Int? = null
+
+  public var _valueInteger: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueDateTime: KotlinString? = null
+
+  public var _valueDateTime: Element? = null
+
+  public var valueDecimal: Double? = null
+
+  public var _valueDecimal: Element? = null
+
+  public var valueCode: KotlinString? = null
+
+  public var _valueCode: Element? = null
+
+  public fun toModel(): ConceptMap.Group.Element.Target.Property.Value =
+    ConceptMap.Group.Element.Target.Property.Value?.from(
+      this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCoding,
+      R5String.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueString,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueInteger,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueInteger,
+      ),
+      R5Boolean.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueBoolean,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDateTime
+        ),
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDecimal,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDecimal,
+      ),
+      Code.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCode,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueCode,
+      ),
+    ) ?: ConceptMap.Group.Element.Target.Property.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ConceptMap.Group.Element.Target.Property.Value
+    ): ConceptMapGroupElementTargetPropertyValueSurrogate =
+      with(model) {
+        ConceptMapGroupElementTargetPropertyValueSurrogate().apply {
+          valueCoding = this@with.asCoding()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueInteger = this@with.asInteger()?.value?.value
+          _valueInteger = this@with.asInteger()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _valueDateTime = this@with.asDateTime()?.value?.toElement()
+          valueDecimal = this@with.asDecimal()?.value?.value
+          _valueDecimal = this@with.asDecimal()?.value?.toElement()
+          valueCode = this@with.asCode()?.value?.value
+          _valueCode = this@with.asCode()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ConceptMapGroupElementTargetPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
+  public var `value`: ConceptMap.Group.Element.Target.Property.Value? = null,
 ) {
   public fun toModel(): ConceptMap.Group.Element.Target.Property =
     ConceptMap.Group.Element.Target.Property().apply {
@@ -217,36 +288,7 @@ internal data class ConceptMapGroupElementTargetPropertySurrogate(
           this@ConceptMapGroupElementTargetPropertySurrogate.code,
           this@ConceptMapGroupElementTargetPropertySurrogate._code,
         )
-      `value` =
-        ConceptMap.Group.Element.Target.Property.Value?.from(
-          this@ConceptMapGroupElementTargetPropertySurrogate.valueCoding,
-          R5String.of(
-            this@ConceptMapGroupElementTargetPropertySurrogate.valueString,
-            this@ConceptMapGroupElementTargetPropertySurrogate._valueString,
-          ),
-          Integer.of(
-            this@ConceptMapGroupElementTargetPropertySurrogate.valueInteger,
-            this@ConceptMapGroupElementTargetPropertySurrogate._valueInteger,
-          ),
-          R5Boolean.of(
-            this@ConceptMapGroupElementTargetPropertySurrogate.valueBoolean,
-            this@ConceptMapGroupElementTargetPropertySurrogate._valueBoolean,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@ConceptMapGroupElementTargetPropertySurrogate.valueDateTime
-            ),
-            this@ConceptMapGroupElementTargetPropertySurrogate._valueDateTime,
-          ),
-          Decimal.of(
-            this@ConceptMapGroupElementTargetPropertySurrogate.valueDecimal,
-            this@ConceptMapGroupElementTargetPropertySurrogate._valueDecimal,
-          ),
-          Code.of(
-            this@ConceptMapGroupElementTargetPropertySurrogate.valueCode,
-            this@ConceptMapGroupElementTargetPropertySurrogate._valueCode,
-          ),
-        )
+      `value` = this@ConceptMapGroupElementTargetPropertySurrogate.`value`
     }
 
   public companion object {
@@ -260,19 +302,62 @@ internal data class ConceptMapGroupElementTargetPropertySurrogate(
           modifierExtension = this@with.modifierExtension
           code = this@with.code?.value
           _code = this@with.code?.toElement()
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
+          `value` = this@with.`value`
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ConceptMapGroupElementTargetDependsOnValueSurrogate {
+  public var valueCode: KotlinString? = null
+
+  public var _valueCode: Element? = null
+
+  public var valueCoding: Coding? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueQuantity: Quantity? = null
+
+  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn.Value =
+    ConceptMap.Group.Element.Target.DependsOn.Value?.from(
+      Code.of(
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCode,
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueCode,
+      ),
+      this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCoding,
+      R5String.of(
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueString,
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueBoolean,
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueBoolean,
+      ),
+      this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueQuantity,
+    ) ?: ConceptMap.Group.Element.Target.DependsOn.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ConceptMap.Group.Element.Target.DependsOn.Value
+    ): ConceptMapGroupElementTargetDependsOnValueSurrogate =
+      with(model) {
+        ConceptMapGroupElementTargetDependsOnValueSurrogate().apply {
+          valueCode = this@with.asCode()?.value?.value
+          _valueCode = this@with.asCode()?.value?.toElement()
+          valueCoding = this@with.asCoding()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueQuantity = this@with.asQuantity()?.value
         }
       }
   }
@@ -285,16 +370,9 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
   public var modifierExtension: List<Extension?>? = null,
   public var attribute: KotlinString? = null,
   public var _attribute: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
   public var valueSet: KotlinString? = null,
   public var _valueSet: Element? = null,
+  public var `value`: ConceptMap.Group.Element.Target.DependsOn.Value? = null,
 ) {
   public fun toModel(): ConceptMap.Group.Element.Target.DependsOn =
     ConceptMap.Group.Element.Target.DependsOn().apply {
@@ -306,23 +384,7 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
           this@ConceptMapGroupElementTargetDependsOnSurrogate.attribute,
           this@ConceptMapGroupElementTargetDependsOnSurrogate._attribute,
         )
-      `value` =
-        ConceptMap.Group.Element.Target.DependsOn.Value?.from(
-          Code.of(
-            this@ConceptMapGroupElementTargetDependsOnSurrogate.valueCode,
-            this@ConceptMapGroupElementTargetDependsOnSurrogate._valueCode,
-          ),
-          this@ConceptMapGroupElementTargetDependsOnSurrogate.valueCoding,
-          R5String.of(
-            this@ConceptMapGroupElementTargetDependsOnSurrogate.valueString,
-            this@ConceptMapGroupElementTargetDependsOnSurrogate._valueString,
-          ),
-          R5Boolean.of(
-            this@ConceptMapGroupElementTargetDependsOnSurrogate.valueBoolean,
-            this@ConceptMapGroupElementTargetDependsOnSurrogate._valueBoolean,
-          ),
-          this@ConceptMapGroupElementTargetDependsOnSurrogate.valueQuantity,
-        )
+      `value` = this@ConceptMapGroupElementTargetDependsOnSurrogate.`value`
       valueSet =
         Canonical.of(
           this@ConceptMapGroupElementTargetDependsOnSurrogate.valueSet,
@@ -341,14 +403,7 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
           modifierExtension = this@with.modifierExtension
           attribute = this@with.attribute?.value
           _attribute = this@with.attribute?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueQuantity = this@with.`value`?.asQuantity()?.value
+          `value` = this@with.`value`
           valueSet = this@with.valueSet?.value
           _valueSet = this@with.valueSet?.toElement()
         }
@@ -630,6 +685,105 @@ internal data class ConceptMapGroupSurrogate(
 }
 
 @Serializable
+internal class ConceptMapVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ConceptMap.VersionAlgorithm =
+    ConceptMap.VersionAlgorithm?.from(
+      R5String.of(
+        this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ConceptMapVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ConceptMap.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(model: ConceptMap.VersionAlgorithm): ConceptMapVersionAlgorithmSurrogate =
+      with(model) {
+        ConceptMapVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ConceptMapSourceScopeSurrogate {
+  public var sourceScopeUri: KotlinString? = null
+
+  public var _sourceScopeUri: Element? = null
+
+  public var sourceScopeCanonical: KotlinString? = null
+
+  public var _sourceScopeCanonical: Element? = null
+
+  public fun toModel(): ConceptMap.SourceScope =
+    ConceptMap.SourceScope?.from(
+      Uri.of(
+        this@ConceptMapSourceScopeSurrogate.sourceScopeUri,
+        this@ConceptMapSourceScopeSurrogate._sourceScopeUri,
+      ),
+      Canonical.of(
+        this@ConceptMapSourceScopeSurrogate.sourceScopeCanonical,
+        this@ConceptMapSourceScopeSurrogate._sourceScopeCanonical,
+      ),
+    ) ?: ConceptMap.SourceScope.Null
+
+  public companion object {
+    public fun fromModel(model: ConceptMap.SourceScope): ConceptMapSourceScopeSurrogate =
+      with(model) {
+        ConceptMapSourceScopeSurrogate().apply {
+          sourceScopeUri = this@with.asUri()?.value?.value
+          _sourceScopeUri = this@with.asUri()?.value?.toElement()
+          sourceScopeCanonical = this@with.asCanonical()?.value?.value
+          _sourceScopeCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ConceptMapTargetScopeSurrogate {
+  public var targetScopeUri: KotlinString? = null
+
+  public var _targetScopeUri: Element? = null
+
+  public var targetScopeCanonical: KotlinString? = null
+
+  public var _targetScopeCanonical: Element? = null
+
+  public fun toModel(): ConceptMap.TargetScope =
+    ConceptMap.TargetScope?.from(
+      Uri.of(
+        this@ConceptMapTargetScopeSurrogate.targetScopeUri,
+        this@ConceptMapTargetScopeSurrogate._targetScopeUri,
+      ),
+      Canonical.of(
+        this@ConceptMapTargetScopeSurrogate.targetScopeCanonical,
+        this@ConceptMapTargetScopeSurrogate._targetScopeCanonical,
+      ),
+    ) ?: ConceptMap.TargetScope.Null
+
+  public companion object {
+    public fun fromModel(model: ConceptMap.TargetScope): ConceptMapTargetScopeSurrogate =
+      with(model) {
+        ConceptMapTargetScopeSurrogate().apply {
+          targetScopeUri = this@with.asUri()?.value?.value
+          _targetScopeUri = this@with.asUri()?.value?.toElement()
+          targetScopeCanonical = this@with.asCanonical()?.value?.value
+          _targetScopeCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ConceptMapSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -646,9 +800,6 @@ internal data class ConceptMapSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -685,15 +836,10 @@ internal data class ConceptMapSurrogate(
   public var relatedArtifact: List<RelatedArtifact?>? = null,
   public var `property`: List<ConceptMap.Property>? = null,
   public var additionalAttribute: List<ConceptMap.AdditionalAttribute>? = null,
-  public var sourceScopeUri: KotlinString? = null,
-  public var _sourceScopeUri: Element? = null,
-  public var sourceScopeCanonical: KotlinString? = null,
-  public var _sourceScopeCanonical: Element? = null,
-  public var targetScopeUri: KotlinString? = null,
-  public var _targetScopeUri: Element? = null,
-  public var targetScopeCanonical: KotlinString? = null,
-  public var _targetScopeCanonical: Element? = null,
   public var group: List<ConceptMap.Group>? = null,
+  public var versionAlgorithm: ConceptMap.VersionAlgorithm? = null,
+  public var sourceScope: ConceptMap.SourceScope? = null,
+  public var targetScope: ConceptMap.TargetScope? = null,
 ) {
   public fun toModel(): ConceptMap =
     ConceptMap().apply {
@@ -709,14 +855,7 @@ internal data class ConceptMapSurrogate(
       url = Uri.of(this@ConceptMapSurrogate.url, this@ConceptMapSurrogate._url)
       identifier = this@ConceptMapSurrogate.identifier
       version = R5String.of(this@ConceptMapSurrogate.version, this@ConceptMapSurrogate._version)
-      versionAlgorithm =
-        ConceptMap.VersionAlgorithm?.from(
-          R5String.of(
-            this@ConceptMapSurrogate.versionAlgorithmString,
-            this@ConceptMapSurrogate._versionAlgorithmString,
-          ),
-          this@ConceptMapSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ConceptMapSurrogate.versionAlgorithm
       name = R5String.of(this@ConceptMapSurrogate.name, this@ConceptMapSurrogate._name)
       title = R5String.of(this@ConceptMapSurrogate.title, this@ConceptMapSurrogate._title)
       status =
@@ -767,22 +906,8 @@ internal data class ConceptMapSurrogate(
       relatedArtifact = this@ConceptMapSurrogate.relatedArtifact
       `property` = this@ConceptMapSurrogate.`property`
       additionalAttribute = this@ConceptMapSurrogate.additionalAttribute
-      sourceScope =
-        ConceptMap.SourceScope?.from(
-          Uri.of(this@ConceptMapSurrogate.sourceScopeUri, this@ConceptMapSurrogate._sourceScopeUri),
-          Canonical.of(
-            this@ConceptMapSurrogate.sourceScopeCanonical,
-            this@ConceptMapSurrogate._sourceScopeCanonical,
-          ),
-        )
-      targetScope =
-        ConceptMap.TargetScope?.from(
-          Uri.of(this@ConceptMapSurrogate.targetScopeUri, this@ConceptMapSurrogate._targetScopeUri),
-          Canonical.of(
-            this@ConceptMapSurrogate.targetScopeCanonical,
-            this@ConceptMapSurrogate._targetScopeCanonical,
-          ),
-        )
+      sourceScope = this@ConceptMapSurrogate.sourceScope
+      targetScope = this@ConceptMapSurrogate.targetScope
       group = this@ConceptMapSurrogate.group
     }
 
@@ -805,9 +930,7 @@ internal data class ConceptMapSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value
@@ -844,14 +967,8 @@ internal data class ConceptMapSurrogate(
           relatedArtifact = this@with.relatedArtifact
           `property` = this@with.`property`
           additionalAttribute = this@with.additionalAttribute
-          sourceScopeUri = this@with.sourceScope?.asUri()?.value?.value
-          _sourceScopeUri = this@with.sourceScope?.asUri()?.value?.toElement()
-          sourceScopeCanonical = this@with.sourceScope?.asCanonical()?.value?.value
-          _sourceScopeCanonical = this@with.sourceScope?.asCanonical()?.value?.toElement()
-          targetScopeUri = this@with.targetScope?.asUri()?.value?.value
-          _targetScopeUri = this@with.targetScope?.asUri()?.value?.toElement()
-          targetScopeCanonical = this@with.targetScope?.asCanonical()?.value?.value
-          _targetScopeCanonical = this@with.targetScope?.asCanonical()?.value?.toElement()
+          sourceScope = this@with.sourceScope
+          targetScope = this@with.targetScope
           group = this@with.group
         }
       }

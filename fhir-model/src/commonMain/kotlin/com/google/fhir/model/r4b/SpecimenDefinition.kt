@@ -19,7 +19,9 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionSerializer
+import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedContainerAdditiveSerializer
+import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedContainerSerializer
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedSerializer
@@ -313,6 +315,7 @@ public data class SpecimenDefinition(
          */
         public var additive: Additive? = null,
       ) : BackboneElement() {
+        @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -325,19 +328,22 @@ public data class SpecimenDefinition(
           public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
             Additive
 
+          public data object Null : Additive
+
           public companion object {
             public fun from(
               CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
               ReferenceValue: com.google.fhir.model.r4b.Reference?,
-            ): Additive? {
+            ): Additive {
               if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
               if (ReferenceValue != null) return Reference(ReferenceValue)
-              return null
+              return Null
             }
           }
         }
       }
 
+      @Serializable(with = SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer::class)
       public sealed interface MinimumVolume {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -349,14 +355,16 @@ public data class SpecimenDefinition(
         public data class String(public val `value`: com.google.fhir.model.r4b.String) :
           MinimumVolume
 
+        public data object Null : MinimumVolume
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r4b.Quantity?,
             stringValue: com.google.fhir.model.r4b.String?,
-          ): MinimumVolume? {
+          ): MinimumVolume {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (stringValue != null) return String(stringValue)
-            return null
+            return Null
           }
         }
       }

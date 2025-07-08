@@ -22,8 +22,14 @@ import com.google.fhir.model.r5.serializers.ElementDefinitionBaseSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionBindingAdditionalSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionBindingSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionConstraintSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionDefaultValueSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionExampleSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionExampleValueSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionFixedSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionMappingSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionMaxValueSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionMinValueSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionPatternSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSlicingDiscriminatorSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSlicingSerializer
@@ -714,6 +720,7 @@ public data class ElementDefinition(
      */
     public var `value`: Value? = null,
   ) : Element() {
+    @Serializable(with = ElementDefinitionExampleValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -953,6 +960,8 @@ public data class ElementDefinition(
 
       public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
@@ -1009,7 +1018,7 @@ public data class ElementDefinition(
           ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
           DosageValue: com.google.fhir.model.r5.Dosage?,
           MetaValue: com.google.fhir.model.r5.Meta?,
-        ): Value? {
+        ): Value {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -1065,7 +1074,7 @@ public data class ElementDefinition(
             return ExtendedContactDetail(ExtendedContactDetailValue)
           if (DosageValue != null) return Dosage(DosageValue)
           if (MetaValue != null) return Meta(MetaValue)
-          return null
+          return Null
         }
       }
     }
@@ -1293,6 +1302,7 @@ public data class ElementDefinition(
     public var comment: Markdown? = null,
   ) : Element()
 
+  @Serializable(with = ElementDefinitionDefaultValueSerializer::class)
   public sealed interface DefaultValue {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -1547,6 +1557,8 @@ public data class ElementDefinition(
 
     public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : DefaultValue
 
+    public data object Null : DefaultValue
+
     public companion object {
       public fun from(
         base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
@@ -1603,7 +1615,7 @@ public data class ElementDefinition(
         ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
         DosageValue: com.google.fhir.model.r5.Dosage?,
         MetaValue: com.google.fhir.model.r5.Meta?,
-      ): DefaultValue? {
+      ): DefaultValue {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -1659,11 +1671,12 @@ public data class ElementDefinition(
           return ExtendedContactDetail(ExtendedContactDetailValue)
         if (DosageValue != null) return Dosage(DosageValue)
         if (MetaValue != null) return Meta(MetaValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ElementDefinitionFixedSerializer::class)
   public sealed interface Fixed {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -1900,6 +1913,8 @@ public data class ElementDefinition(
 
     public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : Fixed
 
+    public data object Null : Fixed
+
     public companion object {
       public fun from(
         base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
@@ -1956,7 +1971,7 @@ public data class ElementDefinition(
         ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
         DosageValue: com.google.fhir.model.r5.Dosage?,
         MetaValue: com.google.fhir.model.r5.Meta?,
-      ): Fixed? {
+      ): Fixed {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -2012,11 +2027,12 @@ public data class ElementDefinition(
           return ExtendedContactDetail(ExtendedContactDetailValue)
         if (DosageValue != null) return Dosage(DosageValue)
         if (MetaValue != null) return Meta(MetaValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ElementDefinitionPatternSerializer::class)
   public sealed interface Pattern {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -2256,6 +2272,8 @@ public data class ElementDefinition(
 
     public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : Pattern
 
+    public data object Null : Pattern
+
     public companion object {
       public fun from(
         base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
@@ -2312,7 +2330,7 @@ public data class ElementDefinition(
         ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
         DosageValue: com.google.fhir.model.r5.Dosage?,
         MetaValue: com.google.fhir.model.r5.Meta?,
-      ): Pattern? {
+      ): Pattern {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -2368,11 +2386,12 @@ public data class ElementDefinition(
           return ExtendedContactDetail(ExtendedContactDetailValue)
         if (DosageValue != null) return Dosage(DosageValue)
         if (MetaValue != null) return Meta(MetaValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ElementDefinitionMinValueSerializer::class)
   public sealed interface MinValue {
     public fun asDate(): Date? = this as? Date
 
@@ -2416,6 +2435,8 @@ public data class ElementDefinition(
 
     public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : MinValue
 
+    public data object Null : MinValue
+
     public companion object {
       public fun from(
         dateValue: com.google.fhir.model.r5.Date?,
@@ -2428,7 +2449,7 @@ public data class ElementDefinition(
         positiveIntValue: com.google.fhir.model.r5.PositiveInt?,
         unsignedIntValue: com.google.fhir.model.r5.UnsignedInt?,
         QuantityValue: com.google.fhir.model.r5.Quantity?,
-      ): MinValue? {
+      ): MinValue {
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (instantValue != null) return Instant(instantValue)
@@ -2439,11 +2460,12 @@ public data class ElementDefinition(
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
         if (QuantityValue != null) return Quantity(QuantityValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ElementDefinitionMaxValueSerializer::class)
   public sealed interface MaxValue {
     public fun asDate(): Date? = this as? Date
 
@@ -2487,6 +2509,8 @@ public data class ElementDefinition(
 
     public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : MaxValue
 
+    public data object Null : MaxValue
+
     public companion object {
       public fun from(
         dateValue: com.google.fhir.model.r5.Date?,
@@ -2499,7 +2523,7 @@ public data class ElementDefinition(
         positiveIntValue: com.google.fhir.model.r5.PositiveInt?,
         unsignedIntValue: com.google.fhir.model.r5.UnsignedInt?,
         QuantityValue: com.google.fhir.model.r5.Quantity?,
-      ): MaxValue? {
+      ): MaxValue {
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (instantValue != null) return Instant(instantValue)
@@ -2510,7 +2534,7 @@ public data class ElementDefinition(
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
         if (QuantityValue != null) return Quantity(QuantityValue)
-        return null
+        return Null
       }
     }
   }

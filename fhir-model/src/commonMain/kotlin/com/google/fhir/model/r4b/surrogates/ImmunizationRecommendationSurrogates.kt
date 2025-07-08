@@ -86,6 +86,80 @@ internal data class ImmunizationRecommendationRecommendationDateCriterionSurroga
 }
 
 @Serializable
+internal class ImmunizationRecommendationRecommendationDoseNumberSurrogate {
+  public var doseNumberPositiveInt: Int? = null
+
+  public var _doseNumberPositiveInt: Element? = null
+
+  public var doseNumberString: KotlinString? = null
+
+  public var _doseNumberString: Element? = null
+
+  public fun toModel(): ImmunizationRecommendation.Recommendation.DoseNumber =
+    ImmunizationRecommendation.Recommendation.DoseNumber?.from(
+      PositiveInt.of(
+        this@ImmunizationRecommendationRecommendationDoseNumberSurrogate.doseNumberPositiveInt,
+        this@ImmunizationRecommendationRecommendationDoseNumberSurrogate._doseNumberPositiveInt,
+      ),
+      R4bString.of(
+        this@ImmunizationRecommendationRecommendationDoseNumberSurrogate.doseNumberString,
+        this@ImmunizationRecommendationRecommendationDoseNumberSurrogate._doseNumberString,
+      ),
+    ) ?: ImmunizationRecommendation.Recommendation.DoseNumber.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ImmunizationRecommendation.Recommendation.DoseNumber
+    ): ImmunizationRecommendationRecommendationDoseNumberSurrogate =
+      with(model) {
+        ImmunizationRecommendationRecommendationDoseNumberSurrogate().apply {
+          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value
+          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement()
+          doseNumberString = this@with.asString()?.value?.value
+          _doseNumberString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ImmunizationRecommendationRecommendationSeriesDosesSurrogate {
+  public var seriesDosesPositiveInt: Int? = null
+
+  public var _seriesDosesPositiveInt: Element? = null
+
+  public var seriesDosesString: KotlinString? = null
+
+  public var _seriesDosesString: Element? = null
+
+  public fun toModel(): ImmunizationRecommendation.Recommendation.SeriesDoses =
+    ImmunizationRecommendation.Recommendation.SeriesDoses?.from(
+      PositiveInt.of(
+        this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate.seriesDosesPositiveInt,
+        this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate._seriesDosesPositiveInt,
+      ),
+      R4bString.of(
+        this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate.seriesDosesString,
+        this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate._seriesDosesString,
+      ),
+    ) ?: ImmunizationRecommendation.Recommendation.SeriesDoses.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ImmunizationRecommendation.Recommendation.SeriesDoses
+    ): ImmunizationRecommendationRecommendationSeriesDosesSurrogate =
+      with(model) {
+        ImmunizationRecommendationRecommendationSeriesDosesSurrogate().apply {
+          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value
+          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement()
+          seriesDosesString = this@with.asString()?.value?.value
+          _seriesDosesString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ImmunizationRecommendationRecommendationSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -100,16 +174,10 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
   public var _description: Element? = null,
   public var series: KotlinString? = null,
   public var _series: Element? = null,
-  public var doseNumberPositiveInt: Int? = null,
-  public var _doseNumberPositiveInt: Element? = null,
-  public var doseNumberString: KotlinString? = null,
-  public var _doseNumberString: Element? = null,
-  public var seriesDosesPositiveInt: Int? = null,
-  public var _seriesDosesPositiveInt: Element? = null,
-  public var seriesDosesString: KotlinString? = null,
-  public var _seriesDosesString: Element? = null,
   public var supportingImmunization: List<Reference?>? = null,
   public var supportingPatientInformation: List<Reference?>? = null,
+  public var doseNumber: ImmunizationRecommendation.Recommendation.DoseNumber? = null,
+  public var seriesDoses: ImmunizationRecommendation.Recommendation.SeriesDoses? = null,
 ) {
   public fun toModel(): ImmunizationRecommendation.Recommendation =
     ImmunizationRecommendation.Recommendation().apply {
@@ -133,28 +201,8 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
           this@ImmunizationRecommendationRecommendationSurrogate.series,
           this@ImmunizationRecommendationRecommendationSurrogate._series,
         )
-      doseNumber =
-        ImmunizationRecommendation.Recommendation.DoseNumber?.from(
-          PositiveInt.of(
-            this@ImmunizationRecommendationRecommendationSurrogate.doseNumberPositiveInt,
-            this@ImmunizationRecommendationRecommendationSurrogate._doseNumberPositiveInt,
-          ),
-          R4bString.of(
-            this@ImmunizationRecommendationRecommendationSurrogate.doseNumberString,
-            this@ImmunizationRecommendationRecommendationSurrogate._doseNumberString,
-          ),
-        )
-      seriesDoses =
-        ImmunizationRecommendation.Recommendation.SeriesDoses?.from(
-          PositiveInt.of(
-            this@ImmunizationRecommendationRecommendationSurrogate.seriesDosesPositiveInt,
-            this@ImmunizationRecommendationRecommendationSurrogate._seriesDosesPositiveInt,
-          ),
-          R4bString.of(
-            this@ImmunizationRecommendationRecommendationSurrogate.seriesDosesString,
-            this@ImmunizationRecommendationRecommendationSurrogate._seriesDosesString,
-          ),
-        )
+      doseNumber = this@ImmunizationRecommendationRecommendationSurrogate.doseNumber
+      seriesDoses = this@ImmunizationRecommendationRecommendationSurrogate.seriesDoses
       supportingImmunization =
         this@ImmunizationRecommendationRecommendationSurrogate.supportingImmunization
       supportingPatientInformation =
@@ -180,14 +228,8 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
           _description = this@with.description?.toElement()
           series = this@with.series?.value
           _series = this@with.series?.toElement()
-          doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.value
-          _doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.toElement()
-          doseNumberString = this@with.doseNumber?.asString()?.value?.value
-          _doseNumberString = this@with.doseNumber?.asString()?.value?.toElement()
-          seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.value
-          _seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.toElement()
-          seriesDosesString = this@with.seriesDoses?.asString()?.value?.value
-          _seriesDosesString = this@with.seriesDoses?.asString()?.value?.toElement()
+          doseNumber = this@with.doseNumber
+          seriesDoses = this@with.seriesDoses
           supportingImmunization = this@with.supportingImmunization
           supportingPatientInformation = this@with.supportingPatientInformation
         }

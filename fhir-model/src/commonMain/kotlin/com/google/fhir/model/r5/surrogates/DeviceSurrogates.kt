@@ -261,21 +261,73 @@ internal data class DeviceConformsToSurrogate(
 }
 
 @Serializable
+internal class DevicePropertyValueSurrogate {
+  public var valueQuantity: Quantity? = null
+
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public var valueInteger: Int? = null
+
+  public var _valueInteger: Element? = null
+
+  public var valueRange: Range? = null
+
+  public var valueAttachment: Attachment? = null
+
+  public fun toModel(): Device.Property.Value =
+    Device.Property.Value?.from(
+      this@DevicePropertyValueSurrogate.valueQuantity,
+      this@DevicePropertyValueSurrogate.valueCodeableConcept,
+      R5String.of(
+        this@DevicePropertyValueSurrogate.valueString,
+        this@DevicePropertyValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@DevicePropertyValueSurrogate.valueBoolean,
+        this@DevicePropertyValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@DevicePropertyValueSurrogate.valueInteger,
+        this@DevicePropertyValueSurrogate._valueInteger,
+      ),
+      this@DevicePropertyValueSurrogate.valueRange,
+      this@DevicePropertyValueSurrogate.valueAttachment,
+    ) ?: Device.Property.Value.Null
+
+  public companion object {
+    public fun fromModel(model: Device.Property.Value): DevicePropertyValueSurrogate =
+      with(model) {
+        DevicePropertyValueSurrogate().apply {
+          valueQuantity = this@with.asQuantity()?.value
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          valueInteger = this@with.asInteger()?.value?.value
+          _valueInteger = this@with.asInteger()?.value?.toElement()
+          valueRange = this@with.asRange()?.value
+          valueAttachment = this@with.asAttachment()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class DevicePropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueRange: Range? = null,
-  public var valueAttachment: Attachment? = null,
+  public var `value`: Device.Property.Value? = null,
 ) {
   public fun toModel(): Device.Property =
     Device.Property().apply {
@@ -283,25 +335,7 @@ internal data class DevicePropertySurrogate(
       extension = this@DevicePropertySurrogate.extension
       modifierExtension = this@DevicePropertySurrogate.modifierExtension
       type = this@DevicePropertySurrogate.type
-      `value` =
-        Device.Property.Value?.from(
-          this@DevicePropertySurrogate.valueQuantity,
-          this@DevicePropertySurrogate.valueCodeableConcept,
-          R5String.of(
-            this@DevicePropertySurrogate.valueString,
-            this@DevicePropertySurrogate._valueString,
-          ),
-          R5Boolean.of(
-            this@DevicePropertySurrogate.valueBoolean,
-            this@DevicePropertySurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@DevicePropertySurrogate.valueInteger,
-            this@DevicePropertySurrogate._valueInteger,
-          ),
-          this@DevicePropertySurrogate.valueRange,
-          this@DevicePropertySurrogate.valueAttachment,
-        )
+      `value` = this@DevicePropertySurrogate.`value`
     }
 
   public companion object {
@@ -312,16 +346,7 @@ internal data class DevicePropertySurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueRange = this@with.`value`?.asRange()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
+          `value` = this@with.`value`
         }
       }
   }

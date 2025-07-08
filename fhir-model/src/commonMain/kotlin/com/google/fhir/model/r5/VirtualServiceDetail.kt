@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.VirtualServiceDetailAddressSerializer
 import com.google.fhir.model.r5.serializers.VirtualServiceDetailSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -86,6 +87,7 @@ public data class VirtualServiceDetail(
    */
   public var sessionKey: String? = null,
 ) : DataType() {
+  @Serializable(with = VirtualServiceDetailAddressSerializer::class)
   public sealed interface Address {
     public fun asUrl(): Url? = this as? Url
 
@@ -106,19 +108,21 @@ public data class VirtualServiceDetail(
       public val `value`: com.google.fhir.model.r5.ExtendedContactDetail
     ) : Address
 
+    public data object Null : Address
+
     public companion object {
       public fun from(
         urlValue: com.google.fhir.model.r5.Url?,
         stringValue: com.google.fhir.model.r5.String?,
         ContactPointValue: com.google.fhir.model.r5.ContactPoint?,
         ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
-      ): Address? {
+      ): Address {
         if (urlValue != null) return Url(urlValue)
         if (stringValue != null) return String(stringValue)
         if (ContactPointValue != null) return ContactPoint(ContactPointValue)
         if (ExtendedContactDetailValue != null)
           return ExtendedContactDetail(ExtendedContactDetailValue)
-        return null
+        return Null
       }
     }
   }

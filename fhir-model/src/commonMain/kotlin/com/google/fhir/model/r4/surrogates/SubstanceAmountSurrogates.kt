@@ -65,33 +65,55 @@ internal data class SubstanceAmountReferenceRangeSurrogate(
 }
 
 @Serializable
+internal class SubstanceAmountAmountSurrogate {
+  public var amountQuantity: Quantity? = null
+
+  public var amountRange: Range? = null
+
+  public var amountString: KotlinString? = null
+
+  public var _amountString: Element? = null
+
+  public fun toModel(): SubstanceAmount.Amount =
+    SubstanceAmount.Amount?.from(
+      this@SubstanceAmountAmountSurrogate.amountQuantity,
+      this@SubstanceAmountAmountSurrogate.amountRange,
+      R4String.of(
+        this@SubstanceAmountAmountSurrogate.amountString,
+        this@SubstanceAmountAmountSurrogate._amountString,
+      ),
+    ) ?: SubstanceAmount.Amount.Null
+
+  public companion object {
+    public fun fromModel(model: SubstanceAmount.Amount): SubstanceAmountAmountSurrogate =
+      with(model) {
+        SubstanceAmountAmountSurrogate().apply {
+          amountQuantity = this@with.asQuantity()?.value
+          amountRange = this@with.asRange()?.value
+          amountString = this@with.asString()?.value?.value
+          _amountString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceAmountSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var amountQuantity: Quantity? = null,
-  public var amountRange: Range? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
   public var amountType: CodeableConcept? = null,
   public var amountText: KotlinString? = null,
   public var _amountText: Element? = null,
   public var referenceRange: SubstanceAmount.ReferenceRange? = null,
+  public var amount: SubstanceAmount.Amount? = null,
 ) {
   public fun toModel(): SubstanceAmount =
     SubstanceAmount().apply {
       id = this@SubstanceAmountSurrogate.id
       extension = this@SubstanceAmountSurrogate.extension
       modifierExtension = this@SubstanceAmountSurrogate.modifierExtension
-      amount =
-        SubstanceAmount.Amount?.from(
-          this@SubstanceAmountSurrogate.amountQuantity,
-          this@SubstanceAmountSurrogate.amountRange,
-          R4String.of(
-            this@SubstanceAmountSurrogate.amountString,
-            this@SubstanceAmountSurrogate._amountString,
-          ),
-        )
+      amount = this@SubstanceAmountSurrogate.amount
       amountType = this@SubstanceAmountSurrogate.amountType
       amountText =
         R4String.of(
@@ -108,10 +130,7 @@ internal data class SubstanceAmountSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          amountQuantity = this@with.amount?.asQuantity()?.value
-          amountRange = this@with.amount?.asRange()?.value
-          amountString = this@with.amount?.asString()?.value?.value
-          _amountString = this@with.amount?.asString()?.value?.toElement()
+          amount = this@with.amount
           amountType = this@with.amountType
           amountText = this@with.amountText?.value
           _amountText = this@with.amountText?.toElement()

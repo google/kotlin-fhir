@@ -21,7 +21,9 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionLegalStatusOfSupplySerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageContainedItemSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackagePropertySerializer
+import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackagePropertyValueSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageSerializer
+import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageShelfLifeStorageSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionSerializer
 import kotlin.Suppress
@@ -387,6 +389,7 @@ public data class PackagedProductDefinition(
        */
       public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
     ) : BackboneElement() {
+      @Serializable(with = PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer::class)
       public sealed interface Period {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -396,14 +399,16 @@ public data class PackagedProductDefinition(
 
         public data class String(public val `value`: com.google.fhir.model.r4b.String) : Period
 
+        public data object Null : Period
+
         public companion object {
           public fun from(
             DurationValue: com.google.fhir.model.r4b.Duration?,
             stringValue: com.google.fhir.model.r4b.String?,
-          ): Period? {
+          ): Period {
             if (DurationValue != null) return Duration(DurationValue)
             if (stringValue != null) return String(stringValue)
-            return null
+            return Null
           }
         }
       }
@@ -454,6 +459,7 @@ public data class PackagedProductDefinition(
       /** A value for the characteristic. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = PackagedProductDefinitionPackagePropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -478,6 +484,8 @@ public data class PackagedProductDefinition(
         public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
           Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
@@ -485,13 +493,13 @@ public data class PackagedProductDefinition(
             dateValue: com.google.fhir.model.r4b.Date?,
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          ): Value? {
+          ): Value {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (dateValue != null) return Date(dateValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (AttachmentValue != null) return Attachment(AttachmentValue)
-            return null
+            return Null
           }
         }
       }

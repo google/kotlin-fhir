@@ -19,11 +19,16 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationCodeSerializer
+import com.google.fhir.model.r4.serializers.SubstanceSpecificationMoietyAmountSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationMoietySerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationNameOfficialSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationNameSerializer
+import com.google.fhir.model.r4.serializers.SubstanceSpecificationPropertyAmountSerializer
+import com.google.fhir.model.r4.serializers.SubstanceSpecificationPropertyDefiningSubstanceSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationPropertySerializer
+import com.google.fhir.model.r4.serializers.SubstanceSpecificationRelationshipAmountSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationRelationshipSerializer
+import com.google.fhir.model.r4.serializers.SubstanceSpecificationRelationshipSubstanceSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationStructureIsotopeMolecularWeightSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationStructureIsotopeSerializer
@@ -231,6 +236,7 @@ public data class SubstanceSpecification(
     /** Quantitative value for this moiety. */
     public var amount: Amount? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceSpecificationMoietyAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -240,14 +246,16 @@ public data class SubstanceSpecification(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : Amount
 
+      public data object Null : Amount
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r4.Quantity?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): Amount? {
+        ): Amount {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -310,6 +318,7 @@ public data class SubstanceSpecification(
     /** Quantitative value for this property. */
     public var amount: Amount? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceSpecificationPropertyDefiningSubstanceSerializer::class)
     public sealed interface DefiningSubstance {
       public fun asReference(): Reference? = this as? Reference
 
@@ -322,18 +331,21 @@ public data class SubstanceSpecification(
         public val `value`: com.google.fhir.model.r4.CodeableConcept
       ) : DefiningSubstance
 
+      public data object Null : DefiningSubstance
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r4.Reference?,
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ): DefiningSubstance? {
+        ): DefiningSubstance {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = SubstanceSpecificationPropertyAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -343,14 +355,16 @@ public data class SubstanceSpecification(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : Amount
 
+      public data object Null : Amount
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r4.Quantity?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): Amount? {
+        ): Amount {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -806,6 +820,7 @@ public data class SubstanceSpecification(
     /** Supporting literature. */
     public var source: List<Reference?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceSpecificationRelationshipSubstanceSerializer::class)
     public sealed interface Substance {
       public fun asReference(): Reference? = this as? Reference
 
@@ -818,18 +833,21 @@ public data class SubstanceSpecification(
         public val `value`: com.google.fhir.model.r4.CodeableConcept
       ) : Substance
 
+      public data object Null : Substance
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r4.Reference?,
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ): Substance? {
+        ): Substance {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = SubstanceSpecificationRelationshipAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -847,18 +865,20 @@ public data class SubstanceSpecification(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : Amount
 
+      public data object Null : Amount
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r4.Quantity?,
           RangeValue: com.google.fhir.model.r4.Range?,
           RatioValue: com.google.fhir.model.r4.Ratio?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): Amount? {
+        ): Amount {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
           if (RatioValue != null) return Ratio(RatioValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }

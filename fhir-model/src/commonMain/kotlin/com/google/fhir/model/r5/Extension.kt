@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ExtensionSerializer
+import com.google.fhir.model.r5.serializers.ExtensionValueSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
@@ -59,6 +60,7 @@ public data class Extension(
    */
   public var `value`: Value? = null,
 ) : DataType() {
+  @Serializable(with = ExtensionValueSerializer::class)
   public sealed interface Value {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -295,6 +297,8 @@ public data class Extension(
 
     public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : Value
 
+    public data object Null : Value
+
     public companion object {
       public fun from(
         base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
@@ -351,7 +355,7 @@ public data class Extension(
         ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
         DosageValue: com.google.fhir.model.r5.Dosage?,
         MetaValue: com.google.fhir.model.r5.Meta?,
-      ): Value? {
+      ): Value {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -407,7 +411,7 @@ public data class Extension(
           return ExtendedContactDetail(ExtendedContactDetailValue)
         if (DosageValue != null) return Dosage(DosageValue)
         if (MetaValue != null) return Meta(MetaValue)
-        return null
+        return Null
       }
     }
   }

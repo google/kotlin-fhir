@@ -18,21 +18,31 @@
 
 package com.google.fhir.model.r4.serializers
 
+import com.google.fhir.model.r4.FhirJsonTransformer
 import com.google.fhir.model.r4.StructureMap
 import com.google.fhir.model.r4.surrogates.StructureMapGroupInputSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleDependentSurrogate
+import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleSourceDefaultValueSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleSourceSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleTargetParameterSurrogate
+import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleTargetParameterValueSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapGroupRuleTargetSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapGroupSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapStructureSurrogate
 import com.google.fhir.model.r4.surrogates.StructureMapSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object StructureMapStructureSerializer : KSerializer<StructureMap.Structure> {
   internal val surrogateSerializer: KSerializer<StructureMapStructureSurrogate> by lazy {
@@ -68,20 +78,97 @@ public object StructureMapGroupInputSerializer : KSerializer<StructureMap.Group.
   }
 }
 
+public object StructureMapGroupRuleSourceDefaultValueSerializer :
+  KSerializer<StructureMap.Group.Rule.Source.DefaultValue> {
+  internal val surrogateSerializer:
+    KSerializer<StructureMapGroupRuleSourceDefaultValueSurrogate> by lazy {
+    StructureMapGroupRuleSourceDefaultValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("DefaultValue", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Source.DefaultValue =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Source.DefaultValue) {
+    surrogateSerializer.serialize(
+      encoder,
+      StructureMapGroupRuleSourceDefaultValueSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object StructureMapGroupRuleSourceSerializer : KSerializer<StructureMap.Group.Rule.Source> {
   internal val surrogateSerializer: KSerializer<StructureMapGroupRuleSourceSurrogate> by lazy {
     StructureMapGroupRuleSourceSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("defaultValue")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Source", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Source {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Source) {
-    surrogateSerializer.serialize(encoder, StructureMapGroupRuleSourceSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = StructureMapGroupRuleSourceSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object StructureMapGroupRuleTargetParameterValueSerializer :
+  KSerializer<StructureMap.Group.Rule.Target.Parameter.Value> {
+  internal val surrogateSerializer:
+    KSerializer<StructureMapGroupRuleTargetParameterValueSurrogate> by lazy {
+    StructureMapGroupRuleTargetParameterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target.Parameter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: StructureMap.Group.Rule.Target.Parameter.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      StructureMapGroupRuleTargetParameterValueSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -92,18 +179,45 @@ public object StructureMapGroupRuleTargetParameterSerializer :
     StructureMapGroupRuleTargetParameterSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Parameter", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target.Parameter =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target.Parameter {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Target.Parameter) {
-    surrogateSerializer.serialize(
-      encoder,
-      StructureMapGroupRuleTargetParameterSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = StructureMapGroupRuleTargetParameterSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

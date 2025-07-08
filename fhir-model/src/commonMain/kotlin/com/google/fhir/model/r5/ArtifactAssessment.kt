@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ArtifactAssessmentArtifactSerializer
+import com.google.fhir.model.r5.serializers.ArtifactAssessmentCiteAsSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentContentSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentSerializer
 import kotlin.Suppress
@@ -261,6 +263,7 @@ public data class ArtifactAssessment(
     public var component: List<Content?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ArtifactAssessmentCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 
@@ -270,18 +273,21 @@ public data class ArtifactAssessment(
 
     public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : CiteAs
 
+    public data object Null : CiteAs
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         markdownValue: com.google.fhir.model.r5.Markdown?,
-      ): CiteAs? {
+      ): CiteAs {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (markdownValue != null) return Markdown(markdownValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ArtifactAssessmentArtifactSerializer::class)
   public sealed interface Artifact {
     public fun asReference(): Reference? = this as? Reference
 
@@ -295,16 +301,18 @@ public data class ArtifactAssessment(
 
     public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Artifact
 
+    public data object Null : Artifact
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
         uriValue: com.google.fhir.model.r5.Uri?,
-      ): Artifact? {
+      ): Artifact {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
         if (uriValue != null) return Uri(uriValue)
-        return null
+        return Null
       }
     }
   }

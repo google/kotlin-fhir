@@ -465,6 +465,37 @@ internal data class SubscriptionTopicNotificationShapeSurrogate(
 }
 
 @Serializable
+internal class SubscriptionTopicVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): SubscriptionTopic.VersionAlgorithm =
+    SubscriptionTopic.VersionAlgorithm?.from(
+      R5String.of(
+        this@SubscriptionTopicVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@SubscriptionTopicVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@SubscriptionTopicVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: SubscriptionTopic.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: SubscriptionTopic.VersionAlgorithm
+    ): SubscriptionTopicVersionAlgorithmSurrogate =
+      with(model) {
+        SubscriptionTopicVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class SubscriptionTopicSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -481,9 +512,6 @@ internal data class SubscriptionTopicSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -518,6 +546,7 @@ internal data class SubscriptionTopicSurrogate(
   public var eventTrigger: List<SubscriptionTopic.EventTrigger>? = null,
   public var canFilterBy: List<SubscriptionTopic.CanFilterBy>? = null,
   public var notificationShape: List<SubscriptionTopic.NotificationShape>? = null,
+  public var versionAlgorithm: SubscriptionTopic.VersionAlgorithm? = null,
 ) {
   public fun toModel(): SubscriptionTopic =
     SubscriptionTopic().apply {
@@ -541,14 +570,7 @@ internal data class SubscriptionTopicSurrogate(
           this@SubscriptionTopicSurrogate.version,
           this@SubscriptionTopicSurrogate._version,
         )
-      versionAlgorithm =
-        SubscriptionTopic.VersionAlgorithm?.from(
-          R5String.of(
-            this@SubscriptionTopicSurrogate.versionAlgorithmString,
-            this@SubscriptionTopicSurrogate._versionAlgorithmString,
-          ),
-          this@SubscriptionTopicSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@SubscriptionTopicSurrogate.versionAlgorithm
       name =
         R5String.of(this@SubscriptionTopicSurrogate.name, this@SubscriptionTopicSurrogate._name)
       title =
@@ -649,9 +671,7 @@ internal data class SubscriptionTopicSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

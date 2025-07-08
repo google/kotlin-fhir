@@ -21,12 +21,14 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ExampleScenarioActorSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceContainedInstanceSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceSerializer
+import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceStructureProfileSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceVersionSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepAlternativeSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepOperationSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioSerializer
+import com.google.fhir.model.r5.serializers.ExampleScenarioVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -559,6 +561,7 @@ public data class ExampleScenario(
       public var versionReference: String? = null,
     ) : BackboneElement()
 
+    @Serializable(with = ExampleScenarioInstanceStructureProfileSerializer::class)
     public sealed interface StructureProfile {
       public fun asCanonical(): Canonical? = this as? Canonical
 
@@ -569,14 +572,16 @@ public data class ExampleScenario(
 
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : StructureProfile
 
+      public data object Null : StructureProfile
+
       public companion object {
         public fun from(
           canonicalValue: com.google.fhir.model.r5.Canonical?,
           uriValue: com.google.fhir.model.r5.Uri?,
-        ): StructureProfile? {
+        ): StructureProfile {
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (uriValue != null) return Uri(uriValue)
-          return null
+          return Null
         }
       }
     }
@@ -862,6 +867,7 @@ public data class ExampleScenario(
     }
   }
 
+  @Serializable(with = ExampleScenarioVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -873,14 +879,16 @@ public data class ExampleScenario(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

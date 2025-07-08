@@ -192,6 +192,37 @@ internal data class RequirementsStatementSurrogate(
 }
 
 @Serializable
+internal class RequirementsVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): Requirements.VersionAlgorithm =
+    Requirements.VersionAlgorithm?.from(
+      R5String.of(
+        this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@RequirementsVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: Requirements.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Requirements.VersionAlgorithm
+    ): RequirementsVersionAlgorithmSurrogate =
+      with(model) {
+        RequirementsVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class RequirementsSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -208,9 +239,6 @@ internal data class RequirementsSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -241,6 +269,7 @@ internal data class RequirementsSurrogate(
   public var actor: List<KotlinString?>? = null,
   public var _actor: List<Element?>? = null,
   public var statement: List<Requirements.Statement>? = null,
+  public var versionAlgorithm: Requirements.VersionAlgorithm? = null,
 ) {
   public fun toModel(): Requirements =
     Requirements().apply {
@@ -256,14 +285,7 @@ internal data class RequirementsSurrogate(
       url = Uri.of(this@RequirementsSurrogate.url, this@RequirementsSurrogate._url)
       identifier = this@RequirementsSurrogate.identifier
       version = R5String.of(this@RequirementsSurrogate.version, this@RequirementsSurrogate._version)
-      versionAlgorithm =
-        Requirements.VersionAlgorithm?.from(
-          R5String.of(
-            this@RequirementsSurrogate.versionAlgorithmString,
-            this@RequirementsSurrogate._versionAlgorithmString,
-          ),
-          this@RequirementsSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@RequirementsSurrogate.versionAlgorithm
       name = R5String.of(this@RequirementsSurrogate.name, this@RequirementsSurrogate._name)
       title = R5String.of(this@RequirementsSurrogate.title, this@RequirementsSurrogate._title)
       status =
@@ -362,9 +384,7 @@ internal data class RequirementsSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

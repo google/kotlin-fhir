@@ -16,6 +16,9 @@
 
 package com.google.fhir.codegen
 
+import com.google.fhir.codegen.schema.Element
+import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.getElementName
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -25,6 +28,10 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 // Package names
 private const val KOTLINX_SERIALIZATION_DESCRIPTORS = "kotlinx.serialization.descriptors"
@@ -47,14 +54,60 @@ private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decode
  */
 object SerializerTypeSpecGenerator {
   /** @param className the class the serializer is for */
-  fun generate(className: ClassName): TypeSpec =
-    TypeSpec.objectBuilder(className.toSerializerClassName())
+  fun generate(
+    className: ClassName,
+    elements: List<Element>?,
+    structureDefinitionKindAndName: Pair<StructureDefinition.Kind, String>? = null,
+  ): TypeSpec {
+    val elementPaths = elements?.filter { it.path.endsWith("[x]") }?.map { it.getElementName() }
+    val hasMultiChoiceProperties = !elementPaths.isNullOrEmpty()
+    return TypeSpec.objectBuilder(className.toSerializerClassName())
       .addSuperinterface(KSerializer::class.asClassName().parameterizedBy(className))
       .addSurrogateSerializerProperty(className)
+      .apply {
+        if (!elementPaths.isNullOrEmpty()) {
+          addMultiChoicePropertiesProperty(elementPaths, structureDefinitionKindAndName)
+        }
+      }
       .addDescriptorProperty(className)
-      .addDeserializeFunction(className)
-      .addSerializeFunction(className)
+      .addDeserializeFunction(className, hasMultiChoiceProperties)
+      .addSerializeFunction(className, hasMultiChoiceProperties)
       .build()
+  }
+}
+
+/**
+ * Adds the `multiChoiceProperties` property to the [TypeSpec.Builder]. This will be used to track
+ * FHIR model properties that can be provided in multiple forms, e.g. Patient.deceased that can
+ * exist either as as Boolean or DateTime
+ */
+private fun TypeSpec.Builder.addMultiChoicePropertiesProperty(
+  paths: List<String>,
+  structureDefinitionKindAndName: Pair<StructureDefinition.Kind, String>?,
+): TypeSpec.Builder {
+  return apply {
+    // If the StructureDefinition.Kind is a resource, the resourceType will be removed
+    // from original JSON during Deserialization and added to the final JSON during
+    // Serialization, this is because the property is not used in the surrogates.
+    addProperty(
+      PropertySpec.builder("resourceType", String::class.asClassName().copy(nullable = true))
+        .addModifiers(KModifier.PRIVATE)
+        .initializer(
+          if (StructureDefinition.Kind.RESOURCE == structureDefinitionKindAndName?.first)
+            "\"${structureDefinitionKindAndName.second}\""
+          else "null"
+        )
+        .mutable(false)
+        .build()
+    )
+    addProperty(
+      PropertySpec.builder("multiChoiceProperties", List::class.parameterizedBy(String::class))
+        .addModifiers(KModifier.PRIVATE)
+        .mutable(false)
+        .initializer("listOf(${paths.joinToString(",") { """"$it"""" }})")
+        .build()
+    )
+  }
 }
 
 /** Adds the `surrogateSerializer` property to the [TypeSpec.Builder]. */
@@ -111,13 +164,43 @@ private fun TypeSpec.Builder.addDescriptorProperty(className: ClassName): TypeSp
  * Adds the `deserialize` function to the [TypeSpec.Builder]. This function delegates
  * deserialization to `surrogateSerializer`.
  */
-private fun TypeSpec.Builder.addDeserializeFunction(className: ClassName): TypeSpec.Builder {
+private fun TypeSpec.Builder.addDeserializeFunction(
+  className: ClassName,
+  hasMultiChoiceProperties: Boolean,
+): TypeSpec.Builder {
   return addFunction(
     FunSpec.builder("deserialize")
       .addModifiers(KModifier.OVERRIDE)
       .addParameter("decoder", decoderClassName)
       .returns(className)
-      .addStatement("return surrogateSerializer.deserialize(decoder).%N()", "toModel")
+      .apply {
+        if (hasMultiChoiceProperties) {
+          // Unflatten the multi-choice JsonObjects; recreate nested JsonObject
+          addCode(
+            """
+                val jsonDecoder = 
+                  decoder as? %T ?: error("This serializer only supports JSON decoding")
+                val oldJsonObject =
+                  if (resourceType.isNullOrBlank()) {
+                    jsonDecoder.decodeJsonElement().%T
+                  } else JsonObject(jsonDecoder.decodeJsonElement().%T.toMutableMap().apply {
+                    remove("resourceType")
+                  })
+                val unflattenedJsonObject = %T.unflatten(oldJsonObject, multiChoiceProperties)
+                val surrogate = 
+                  jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+                return surrogate.toModel()
+              """
+              .trimIndent(),
+            JsonDecoder::class,
+            ClassName("kotlinx.serialization.json", "jsonObject"),
+            ClassName("kotlinx.serialization.json", "jsonObject"),
+            ClassName(className.packageName, "FhirJsonTransformer"),
+          )
+        } else {
+          addStatement("return surrogateSerializer.deserialize(decoder).toModel()")
+        }
+      }
       .build()
   )
 }
@@ -126,17 +209,54 @@ private fun TypeSpec.Builder.addDeserializeFunction(className: ClassName): TypeS
  * Adds the `serialize` function to the [TypeSpec.Builder]. This function delegates serialization to
  * `surrogateSerializer`.
  */
-private fun TypeSpec.Builder.addSerializeFunction(className: ClassName): TypeSpec.Builder {
+private fun TypeSpec.Builder.addSerializeFunction(
+  className: ClassName,
+  hasMultiChoiceProperties: Boolean,
+): TypeSpec.Builder {
   return addFunction(
     FunSpec.builder("serialize")
       .addModifiers(KModifier.OVERRIDE)
       .addParameter("encoder", encoderClassName)
       .addParameter("value", className)
-      .addStatement(
-        "surrogateSerializer.serialize(encoder, %T.%N(value))",
-        className.toSurrogateClassName(),
-        "fromModel",
-      )
+      .apply {
+        if (hasMultiChoiceProperties) {
+          // Flatten the multi-choice JsonObjects; unwrap nested Json items
+          addCode(
+            """
+              val jsonEncoder = 
+                encoder as? %T ?: error("This serializer only supports JSON encoding")
+              val surrogate = %T.fromModel(value)
+              val oldJsonObject = if (resourceType.isNullOrBlank()) {
+                jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).%T
+              } else {
+                %T(
+                  mutableMapOf("resourceType" to %T(resourceType)).plus(
+                    jsonEncoder.json.encodeToJsonElement(
+                      surrogateSerializer,
+                      surrogate
+                    ).%T
+                  )
+                )
+              }
+              val flattenedJsonObject = %T.flatten(oldJsonObject, multiChoiceProperties)
+              jsonEncoder.encodeJsonElement(flattenedJsonObject)
+            """
+              .trimIndent(),
+            JsonEncoder::class,
+            className.toSurrogateClassName(),
+            ClassName("kotlinx.serialization.json", "jsonObject"),
+            JsonObject::class,
+            JsonPrimitive::class,
+            ClassName("kotlinx.serialization.json", "jsonObject"),
+            ClassName(className.packageName, "FhirJsonTransformer"),
+          )
+        } else {
+          addStatement(
+            "surrogateSerializer.serialize(encoder, %T.fromModel(value))",
+            className.toSurrogateClassName(),
+          )
+        }
+      }
       .build()
   )
 }

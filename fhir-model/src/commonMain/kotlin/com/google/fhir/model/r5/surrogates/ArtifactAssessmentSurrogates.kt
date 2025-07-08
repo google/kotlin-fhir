@@ -142,6 +142,74 @@ internal data class ArtifactAssessmentContentSurrogate(
 }
 
 @Serializable
+internal class ArtifactAssessmentCiteAsSurrogate {
+  public var citeAsReference: Reference? = null
+
+  public var citeAsMarkdown: KotlinString? = null
+
+  public var _citeAsMarkdown: Element? = null
+
+  public fun toModel(): ArtifactAssessment.CiteAs =
+    ArtifactAssessment.CiteAs?.from(
+      this@ArtifactAssessmentCiteAsSurrogate.citeAsReference,
+      Markdown.of(
+        this@ArtifactAssessmentCiteAsSurrogate.citeAsMarkdown,
+        this@ArtifactAssessmentCiteAsSurrogate._citeAsMarkdown,
+      ),
+    ) ?: ArtifactAssessment.CiteAs.Null
+
+  public companion object {
+    public fun fromModel(model: ArtifactAssessment.CiteAs): ArtifactAssessmentCiteAsSurrogate =
+      with(model) {
+        ArtifactAssessmentCiteAsSurrogate().apply {
+          citeAsReference = this@with.asReference()?.value
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ArtifactAssessmentArtifactSurrogate {
+  public var artifactReference: Reference? = null
+
+  public var artifactCanonical: KotlinString? = null
+
+  public var _artifactCanonical: Element? = null
+
+  public var artifactUri: KotlinString? = null
+
+  public var _artifactUri: Element? = null
+
+  public fun toModel(): ArtifactAssessment.Artifact =
+    ArtifactAssessment.Artifact?.from(
+      this@ArtifactAssessmentArtifactSurrogate.artifactReference,
+      Canonical.of(
+        this@ArtifactAssessmentArtifactSurrogate.artifactCanonical,
+        this@ArtifactAssessmentArtifactSurrogate._artifactCanonical,
+      ),
+      Uri.of(
+        this@ArtifactAssessmentArtifactSurrogate.artifactUri,
+        this@ArtifactAssessmentArtifactSurrogate._artifactUri,
+      ),
+    ) ?: ArtifactAssessment.Artifact.Null
+
+  public companion object {
+    public fun fromModel(model: ArtifactAssessment.Artifact): ArtifactAssessmentArtifactSurrogate =
+      with(model) {
+        ArtifactAssessmentArtifactSurrogate().apply {
+          artifactReference = this@with.asReference()?.value
+          artifactCanonical = this@with.asCanonical()?.value?.value
+          _artifactCanonical = this@with.asCanonical()?.value?.toElement()
+          artifactUri = this@with.asUri()?.value?.value
+          _artifactUri = this@with.asUri()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ArtifactAssessmentSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -156,9 +224,6 @@ internal data class ArtifactAssessmentSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var citeAsReference: Reference? = null,
-  public var citeAsMarkdown: KotlinString? = null,
-  public var _citeAsMarkdown: Element? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var copyright: KotlinString? = null,
@@ -167,16 +232,13 @@ internal data class ArtifactAssessmentSurrogate(
   public var _approvalDate: Element? = null,
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
-  public var artifactReference: Reference? = null,
-  public var artifactCanonical: KotlinString? = null,
-  public var _artifactCanonical: Element? = null,
-  public var artifactUri: KotlinString? = null,
-  public var _artifactUri: Element? = null,
   public var content: List<ArtifactAssessment.Content>? = null,
   public var workflowStatus: KotlinString? = null,
   public var _workflowStatus: Element? = null,
   public var disposition: KotlinString? = null,
   public var _disposition: Element? = null,
+  public var citeAs: ArtifactAssessment.CiteAs? = null,
+  public var artifact: ArtifactAssessment.Artifact? = null,
 ) {
   public fun toModel(): ArtifactAssessment =
     ArtifactAssessment().apply {
@@ -199,14 +261,7 @@ internal data class ArtifactAssessmentSurrogate(
       identifier = this@ArtifactAssessmentSurrogate.identifier
       title =
         R5String.of(this@ArtifactAssessmentSurrogate.title, this@ArtifactAssessmentSurrogate._title)
-      citeAs =
-        ArtifactAssessment.CiteAs?.from(
-          this@ArtifactAssessmentSurrogate.citeAsReference,
-          Markdown.of(
-            this@ArtifactAssessmentSurrogate.citeAsMarkdown,
-            this@ArtifactAssessmentSurrogate._citeAsMarkdown,
-          ),
-        )
+      citeAs = this@ArtifactAssessmentSurrogate.citeAs
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ArtifactAssessmentSurrogate.date),
@@ -227,18 +282,7 @@ internal data class ArtifactAssessmentSurrogate(
           FhirDate.fromString(this@ArtifactAssessmentSurrogate.lastReviewDate),
           this@ArtifactAssessmentSurrogate._lastReviewDate,
         )
-      artifact =
-        ArtifactAssessment.Artifact?.from(
-          this@ArtifactAssessmentSurrogate.artifactReference,
-          Canonical.of(
-            this@ArtifactAssessmentSurrogate.artifactCanonical,
-            this@ArtifactAssessmentSurrogate._artifactCanonical,
-          ),
-          Uri.of(
-            this@ArtifactAssessmentSurrogate.artifactUri,
-            this@ArtifactAssessmentSurrogate._artifactUri,
-          ),
-        )
+      artifact = this@ArtifactAssessmentSurrogate.artifact
       content = this@ArtifactAssessmentSurrogate.content
       workflowStatus =
         Enumeration.of(
@@ -273,9 +317,7 @@ internal data class ArtifactAssessmentSurrogate(
           identifier = this@with.identifier
           title = this@with.title?.value
           _title = this@with.title?.toElement()
-          citeAsReference = this@with.citeAs?.asReference()?.value
-          citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.value
-          _citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.toElement()
+          citeAs = this@with.citeAs
           date = this@with.date?.value?.toString()
           _date = this@with.date?.toElement()
           copyright = this@with.copyright?.value
@@ -284,11 +326,7 @@ internal data class ArtifactAssessmentSurrogate(
           _approvalDate = this@with.approvalDate?.toElement()
           lastReviewDate = this@with.lastReviewDate?.value?.toString()
           _lastReviewDate = this@with.lastReviewDate?.toElement()
-          artifactReference = this@with.artifact?.asReference()?.value
-          artifactCanonical = this@with.artifact?.asCanonical()?.value?.value
-          _artifactCanonical = this@with.artifact?.asCanonical()?.value?.toElement()
-          artifactUri = this@with.artifact?.asUri()?.value?.value
-          _artifactUri = this@with.artifact?.asUri()?.value?.toElement()
+          artifact = this@with.artifact
           content = this@with.content
           workflowStatus = this@with.workflowStatus?.value?.getCode()
           _workflowStatus = this@with.workflowStatus?.toElement()

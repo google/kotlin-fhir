@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.QuestionnaireResponseItemAnswerSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireResponseItemAnswerValueSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireResponseItemSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireResponseSerializer
 import kotlin.Suppress
@@ -391,6 +392,7 @@ public data class QuestionnaireResponse(
        */
       public var item: List<Item?>? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireResponseItemAnswerValueSerializer::class)
       public sealed interface Value {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -441,6 +443,8 @@ public data class QuestionnaireResponse(
 
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -455,7 +459,7 @@ public data class QuestionnaireResponse(
             CodingValue: com.google.fhir.model.r5.Coding?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Value? {
+          ): Value {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -468,7 +472,7 @@ public data class QuestionnaireResponse(
             if (CodingValue != null) return Coding(CodingValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }

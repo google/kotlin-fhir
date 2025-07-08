@@ -34,15 +34,42 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class ProductShelfLifePeriodSurrogate {
+  public var periodDuration: Duration? = null
+
+  public var periodString: KotlinString? = null
+
+  public var _periodString: Element? = null
+
+  public fun toModel(): ProductShelfLife.Period =
+    ProductShelfLife.Period?.from(
+      this@ProductShelfLifePeriodSurrogate.periodDuration,
+      R5String.of(
+        this@ProductShelfLifePeriodSurrogate.periodString,
+        this@ProductShelfLifePeriodSurrogate._periodString,
+      ),
+    ) ?: ProductShelfLife.Period.Null
+
+  public companion object {
+    public fun fromModel(model: ProductShelfLife.Period): ProductShelfLifePeriodSurrogate =
+      with(model) {
+        ProductShelfLifePeriodSurrogate().apply {
+          periodDuration = this@with.asDuration()?.value
+          periodString = this@with.asString()?.value?.value
+          _periodString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ProductShelfLifeSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var periodDuration: Duration? = null,
-  public var periodString: KotlinString? = null,
-  public var _periodString: Element? = null,
   public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+  public var period: ProductShelfLife.Period? = null,
 ) {
   public fun toModel(): ProductShelfLife =
     ProductShelfLife().apply {
@@ -50,14 +77,7 @@ internal data class ProductShelfLifeSurrogate(
       extension = this@ProductShelfLifeSurrogate.extension
       modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension
       type = this@ProductShelfLifeSurrogate.type
-      period =
-        ProductShelfLife.Period?.from(
-          this@ProductShelfLifeSurrogate.periodDuration,
-          R5String.of(
-            this@ProductShelfLifeSurrogate.periodString,
-            this@ProductShelfLifeSurrogate._periodString,
-          ),
-        )
+      period = this@ProductShelfLifeSurrogate.period
       specialPrecautionsForStorage = this@ProductShelfLifeSurrogate.specialPrecautionsForStorage
     }
 
@@ -69,9 +89,7 @@ internal data class ProductShelfLifeSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          periodDuration = this@with.period?.asDuration()?.value
-          periodString = this@with.period?.asString()?.value?.value
-          _periodString = this@with.period?.asString()?.value?.toElement()
+          period = this@with.period
           specialPrecautionsForStorage = this@with.specialPrecautionsForStorage
         }
       }

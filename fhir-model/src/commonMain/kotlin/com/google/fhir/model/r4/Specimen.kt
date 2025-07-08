@@ -18,9 +18,13 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.SpecimenCollectionCollectedSerializer
+import com.google.fhir.model.r4.serializers.SpecimenCollectionFastingStatusSerializer
 import com.google.fhir.model.r4.serializers.SpecimenCollectionSerializer
+import com.google.fhir.model.r4.serializers.SpecimenContainerAdditiveSerializer
 import com.google.fhir.model.r4.serializers.SpecimenContainerSerializer
 import com.google.fhir.model.r4.serializers.SpecimenProcessingSerializer
+import com.google.fhir.model.r4.serializers.SpecimenProcessingTimeSerializer
 import com.google.fhir.model.r4.serializers.SpecimenSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -266,6 +270,7 @@ public data class Specimen(
      */
     public var fastingStatus: FastingStatus? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -275,18 +280,21 @@ public data class Specimen(
 
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Collected
 
+      public data object Null : Collected
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
           PeriodValue: com.google.fhir.model.r4.Period?,
-        ): Collected? {
+        ): Collected {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = SpecimenCollectionFastingStatusSerializer::class)
     public sealed interface FastingStatus {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -299,14 +307,16 @@ public data class Specimen(
       public data class Duration(public val `value`: com.google.fhir.model.r4.Duration) :
         FastingStatus
 
+      public data object Null : FastingStatus
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           DurationValue: com.google.fhir.model.r4.Duration?,
-        ): FastingStatus? {
+        ): FastingStatus {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (DurationValue != null) return Duration(DurationValue)
-          return null
+          return Null
         }
       }
     }
@@ -364,6 +374,7 @@ public data class Specimen(
      */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenProcessingTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -373,14 +384,16 @@ public data class Specimen(
 
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Time
 
+      public data object Null : Time
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
           PeriodValue: com.google.fhir.model.r4.Period?,
-        ): Time? {
+        ): Time {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -451,6 +464,7 @@ public data class Specimen(
      */
     public var additive: Additive? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenContainerAdditiveSerializer::class)
     public sealed interface Additive {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -463,14 +477,16 @@ public data class Specimen(
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
         Additive
 
+      public data object Null : Additive
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Additive? {
+        ): Additive {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

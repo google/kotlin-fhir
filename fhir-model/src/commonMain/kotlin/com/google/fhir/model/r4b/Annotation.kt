@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.AnnotationAuthorSerializer
 import com.google.fhir.model.r4b.serializers.AnnotationSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -59,6 +60,7 @@ public data class Annotation(
   /** The text of the annotation in markdown format. */
   public var text: Markdown? = null,
 ) : Element() {
+  @Serializable(with = AnnotationAuthorSerializer::class)
   public sealed interface Author {
     public fun asReference(): Reference? = this as? Reference
 
@@ -68,14 +70,16 @@ public data class Annotation(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Author
 
+    public data object Null : Author
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): Author? {
+      ): Author {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

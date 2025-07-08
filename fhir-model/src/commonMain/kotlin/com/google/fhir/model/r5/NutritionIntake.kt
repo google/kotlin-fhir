@@ -20,7 +20,9 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NutritionIntakeConsumedItemSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakeIngredientLabelSerializer
+import com.google.fhir.model.r5.serializers.NutritionIntakeOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakePerformerSerializer
+import com.google.fhir.model.r5.serializers.NutritionIntakeReportedSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakeSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -393,6 +395,7 @@ public data class NutritionIntake(
     public var actor: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = NutritionIntakeOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -402,18 +405,21 @@ public data class NutritionIntake(
 
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         PeriodValue: com.google.fhir.model.r5.Period?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = NutritionIntakeReportedSerializer::class)
   public sealed interface Reported {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -423,14 +429,16 @@ public data class NutritionIntake(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Reported
 
+    public data object Null : Reported
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Reported? {
+      ): Reported {
         if (booleanValue != null) return Boolean(booleanValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

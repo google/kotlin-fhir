@@ -23,6 +23,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductNameCountryLanguageS
 import com.google.fhir.model.r4.serializers.MedicinalProductNameNamePartSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductNameSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductSerializer
+import com.google.fhir.model.r4.serializers.MedicinalProductSpecialDesignationIndicationSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductSpecialDesignationSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -430,6 +431,7 @@ public data class MedicinalProduct(
     /** Animal species for which this applies. */
     public var species: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductSpecialDesignationIndicationSerializer::class)
     public sealed interface Indication {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -442,14 +444,16 @@ public data class MedicinalProduct(
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
         Indication
 
+      public data object Null : Indication
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Indication? {
+        ): Indication {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

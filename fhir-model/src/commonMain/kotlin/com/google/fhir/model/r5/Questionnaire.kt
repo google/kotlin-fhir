@@ -19,10 +19,14 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.QuestionnaireItemAnswerOptionSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireItemAnswerOptionValueSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireItemEnableWhenAnswerSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireItemEnableWhenSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireItemInitialSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireItemInitialValueSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireItemSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -677,6 +681,7 @@ public data class Questionnaire(
        */
       public var answer: Answer? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemEnableWhenAnswerSerializer::class)
       public sealed interface Answer {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -719,6 +724,8 @@ public data class Questionnaire(
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
           Answer
 
+        public data object Null : Answer
+
         public companion object {
           public fun from(
             booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -731,7 +738,7 @@ public data class Questionnaire(
             CodingValue: com.google.fhir.model.r5.Coding?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Answer? {
+          ): Answer {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -742,7 +749,7 @@ public data class Questionnaire(
             if (CodingValue != null) return Coding(CodingValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }
@@ -800,6 +807,7 @@ public data class Questionnaire(
        */
       public var initialSelected: Boolean? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemAnswerOptionValueSerializer::class)
       public sealed interface Value {
         public fun asInteger(): Integer? = this as? Integer
 
@@ -825,6 +833,8 @@ public data class Questionnaire(
 
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             integerValue: com.google.fhir.model.r5.Integer?,
@@ -833,14 +843,14 @@ public data class Questionnaire(
             stringValue: com.google.fhir.model.r5.String?,
             CodingValue: com.google.fhir.model.r5.Coding?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Value? {
+          ): Value {
             if (integerValue != null) return Integer(integerValue)
             if (dateValue != null) return Date(dateValue)
             if (timeValue != null) return Time(timeValue)
             if (stringValue != null) return String(stringValue)
             if (CodingValue != null) return Coding(CodingValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }
@@ -896,6 +906,7 @@ public data class Questionnaire(
        */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemInitialValueSerializer::class)
       public sealed interface Value {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -946,6 +957,8 @@ public data class Questionnaire(
 
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -960,7 +973,7 @@ public data class Questionnaire(
             CodingValue: com.google.fhir.model.r5.Coding?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Value? {
+          ): Value {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -973,13 +986,14 @@ public data class Questionnaire(
             if (CodingValue != null) return Coding(CodingValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }
     }
   }
 
+  @Serializable(with = QuestionnaireVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -991,14 +1005,16 @@ public data class Questionnaire(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

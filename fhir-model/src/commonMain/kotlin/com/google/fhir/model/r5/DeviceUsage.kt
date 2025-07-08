@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.DeviceUsageAdherenceSerializer
 import com.google.fhir.model.r5.serializers.DeviceUsageSerializer
+import com.google.fhir.model.r5.serializers.DeviceUsageTimingSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
@@ -250,6 +251,7 @@ public data class DeviceUsage(
     public var reason: List<CodeableConcept?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = DeviceUsageTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 
@@ -266,16 +268,18 @@ public data class DeviceUsage(
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) :
       DeviceUsage.Timing
 
+    public data object Null : DeviceUsage.Timing
+
     public companion object {
       public fun from(
         TimingValue: com.google.fhir.model.r5.Timing?,
         PeriodValue: com.google.fhir.model.r5.Period?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-      ): DeviceUsage.Timing? {
+      ): DeviceUsage.Timing {
         if (TimingValue != null) return Timing(TimingValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return null
+        return Null
       }
     }
   }

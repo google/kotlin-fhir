@@ -53,16 +53,51 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class DeviceRequestParameterValueSurrogate {
+  public var valueCodeableConcept: CodeableConcept? = null
+
+  public var valueQuantity: Quantity? = null
+
+  public var valueRange: Range? = null
+
+  public var valueBoolean: KotlinBoolean? = null
+
+  public var _valueBoolean: Element? = null
+
+  public fun toModel(): DeviceRequest.Parameter.Value =
+    DeviceRequest.Parameter.Value?.from(
+      this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
+      this@DeviceRequestParameterValueSurrogate.valueQuantity,
+      this@DeviceRequestParameterValueSurrogate.valueRange,
+      R5Boolean.of(
+        this@DeviceRequestParameterValueSurrogate.valueBoolean,
+        this@DeviceRequestParameterValueSurrogate._valueBoolean,
+      ),
+    ) ?: DeviceRequest.Parameter.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceRequest.Parameter.Value
+    ): DeviceRequestParameterValueSurrogate =
+      with(model) {
+        DeviceRequestParameterValueSurrogate().apply {
+          valueCodeableConcept = this@with.asCodeableConcept()?.value
+          valueQuantity = this@with.asQuantity()?.value
+          valueRange = this@with.asRange()?.value
+          valueBoolean = this@with.asBoolean()?.value?.value
+          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceRequestParameterSurrogate(
   public var id: String? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var code: CodeableConcept? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
+  public var `value`: DeviceRequest.Parameter.Value? = null,
 ) {
   public fun toModel(): DeviceRequest.Parameter =
     DeviceRequest.Parameter().apply {
@@ -70,16 +105,7 @@ internal data class DeviceRequestParameterSurrogate(
       extension = this@DeviceRequestParameterSurrogate.extension
       modifierExtension = this@DeviceRequestParameterSurrogate.modifierExtension
       code = this@DeviceRequestParameterSurrogate.code
-      `value` =
-        DeviceRequest.Parameter.Value?.from(
-          this@DeviceRequestParameterSurrogate.valueCodeableConcept,
-          this@DeviceRequestParameterSurrogate.valueQuantity,
-          this@DeviceRequestParameterSurrogate.valueRange,
-          R5Boolean.of(
-            this@DeviceRequestParameterSurrogate.valueBoolean,
-            this@DeviceRequestParameterSurrogate._valueBoolean,
-          ),
-        )
+      `value` = this@DeviceRequestParameterSurrogate.`value`
     }
 
   public companion object {
@@ -90,11 +116,40 @@ internal data class DeviceRequestParameterSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           code = this@with.code
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
+          `value` = this@with.`value`
+        }
+      }
+  }
+}
+
+@Serializable
+internal class DeviceRequestOccurrenceSurrogate {
+  public var occurrenceDateTime: String? = null
+
+  public var _occurrenceDateTime: Element? = null
+
+  public var occurrencePeriod: Period? = null
+
+  public var occurrenceTiming: Timing? = null
+
+  public fun toModel(): DeviceRequest.Occurrence =
+    DeviceRequest.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@DeviceRequestOccurrenceSurrogate.occurrenceDateTime),
+        this@DeviceRequestOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@DeviceRequestOccurrenceSurrogate.occurrencePeriod,
+      this@DeviceRequestOccurrenceSurrogate.occurrenceTiming,
+    ) ?: DeviceRequest.Occurrence.Null
+
+  public companion object {
+    public fun fromModel(model: DeviceRequest.Occurrence): DeviceRequestOccurrenceSurrogate =
+      with(model) {
+        DeviceRequestOccurrenceSurrogate().apply {
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
+          occurrencePeriod = this@with.asPeriod()?.value
+          occurrenceTiming = this@with.asTiming()?.value
         }
       }
   }
@@ -134,10 +189,6 @@ internal data class DeviceRequestSurrogate(
   public var parameter: List<DeviceRequest.Parameter>? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -150,6 +201,7 @@ internal data class DeviceRequestSurrogate(
   public var supportingInfo: List<Reference?>? = null,
   public var note: List<Annotation?>? = null,
   public var relevantHistory: List<Reference?>? = null,
+  public var occurrence: DeviceRequest.Occurrence? = null,
 ) {
   public fun toModel(): DeviceRequest =
     DeviceRequest().apply {
@@ -232,15 +284,7 @@ internal data class DeviceRequestSurrogate(
       parameter = this@DeviceRequestSurrogate.parameter
       subject = this@DeviceRequestSurrogate.subject
       encounter = this@DeviceRequestSurrogate.encounter
-      occurrence =
-        DeviceRequest.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@DeviceRequestSurrogate.occurrenceDateTime),
-            this@DeviceRequestSurrogate._occurrenceDateTime,
-          ),
-          this@DeviceRequestSurrogate.occurrencePeriod,
-          this@DeviceRequestSurrogate.occurrenceTiming,
-        )
+      occurrence = this@DeviceRequestSurrogate.occurrence
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@DeviceRequestSurrogate.authoredOn),
@@ -300,10 +344,7 @@ internal data class DeviceRequestSurrogate(
           parameter = this@with.parameter
           subject = this@with.subject
           encounter = this@with.encounter
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value
+          occurrence = this@with.occurrence
           authoredOn = this@with.authoredOn?.value?.toString()
           _authoredOn = this@with.authoredOn?.toElement()
           requester = this@with.requester

@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MedicationBatchSerializer
 import com.google.fhir.model.r5.serializers.MedicationIngredientSerializer
+import com.google.fhir.model.r5.serializers.MedicationIngredientStrengthSerializer
 import com.google.fhir.model.r5.serializers.MedicationSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -257,6 +258,7 @@ public data class Medication(
      */
     public var strength: Strength? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationIngredientStrengthSerializer::class)
     public sealed interface Strength {
       public fun asRatio(): Ratio? = this as? Ratio
 
@@ -272,16 +274,18 @@ public data class Medication(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Strength
 
+      public data object Null : Strength
+
       public companion object {
         public fun from(
           RatioValue: com.google.fhir.model.r5.Ratio?,
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Strength? {
+        ): Strength {
           if (RatioValue != null) return Ratio(RatioValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }

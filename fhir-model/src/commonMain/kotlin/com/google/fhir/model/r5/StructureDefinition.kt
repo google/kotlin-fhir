@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.StructureDefinitionDifferentialSeria
 import com.google.fhir.model.r5.serializers.StructureDefinitionMappingSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionSnapshotSerializer
+import com.google.fhir.model.r5.serializers.StructureDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -639,6 +640,7 @@ public data class StructureDefinition(
     public var element: List<ElementDefinition?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = StructureDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -650,14 +652,16 @@ public data class StructureDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

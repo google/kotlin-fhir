@@ -94,6 +94,31 @@ internal data class RequestGroupActionConditionSurrogate(
 }
 
 @Serializable
+internal class RequestGroupActionRelatedActionOffsetSurrogate {
+  public var offsetDuration: Duration? = null
+
+  public var offsetRange: Range? = null
+
+  public fun toModel(): RequestGroup.Action.RelatedAction.Offset =
+    RequestGroup.Action.RelatedAction.Offset?.from(
+      this@RequestGroupActionRelatedActionOffsetSurrogate.offsetDuration,
+      this@RequestGroupActionRelatedActionOffsetSurrogate.offsetRange,
+    ) ?: RequestGroup.Action.RelatedAction.Offset.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RequestGroup.Action.RelatedAction.Offset
+    ): RequestGroupActionRelatedActionOffsetSurrogate =
+      with(model) {
+        RequestGroupActionRelatedActionOffsetSurrogate().apply {
+          offsetDuration = this@with.asDuration()?.value
+          offsetRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class RequestGroupActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -102,8 +127,7 @@ internal data class RequestGroupActionRelatedActionSurrogate(
   public var _actionId: Element? = null,
   public var relationship: KotlinString? = null,
   public var _relationship: Element? = null,
-  public var offsetDuration: Duration? = null,
-  public var offsetRange: Range? = null,
+  public var offset: RequestGroup.Action.RelatedAction.Offset? = null,
 ) {
   public fun toModel(): RequestGroup.Action.RelatedAction =
     RequestGroup.Action.RelatedAction().apply {
@@ -122,11 +146,7 @@ internal data class RequestGroupActionRelatedActionSurrogate(
           },
           this@RequestGroupActionRelatedActionSurrogate._relationship,
         )
-      offset =
-        RequestGroup.Action.RelatedAction.Offset?.from(
-          this@RequestGroupActionRelatedActionSurrogate.offsetDuration,
-          this@RequestGroupActionRelatedActionSurrogate.offsetRange,
-        )
+      offset = this@RequestGroupActionRelatedActionSurrogate.offset
     }
 
   public companion object {
@@ -142,8 +162,52 @@ internal data class RequestGroupActionRelatedActionSurrogate(
           _actionId = this@with.actionId?.toElement()
           relationship = this@with.relationship?.value?.getCode()
           _relationship = this@with.relationship?.toElement()
-          offsetDuration = this@with.offset?.asDuration()?.value
-          offsetRange = this@with.offset?.asRange()?.value
+          offset = this@with.offset
+        }
+      }
+  }
+}
+
+@Serializable
+internal class RequestGroupActionTimingSurrogate {
+  public var timingDateTime: KotlinString? = null
+
+  public var _timingDateTime: Element? = null
+
+  public var timingAge: Age? = null
+
+  public var timingPeriod: Period? = null
+
+  public var timingDuration: Duration? = null
+
+  public var timingRange: Range? = null
+
+  public var timingTiming: Timing? = null
+
+  public fun toModel(): RequestGroup.Action.Timing =
+    RequestGroup.Action.Timing?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@RequestGroupActionTimingSurrogate.timingDateTime),
+        this@RequestGroupActionTimingSurrogate._timingDateTime,
+      ),
+      this@RequestGroupActionTimingSurrogate.timingAge,
+      this@RequestGroupActionTimingSurrogate.timingPeriod,
+      this@RequestGroupActionTimingSurrogate.timingDuration,
+      this@RequestGroupActionTimingSurrogate.timingRange,
+      this@RequestGroupActionTimingSurrogate.timingTiming,
+    ) ?: RequestGroup.Action.Timing.Null
+
+  public companion object {
+    public fun fromModel(model: RequestGroup.Action.Timing): RequestGroupActionTimingSurrogate =
+      with(model) {
+        RequestGroupActionTimingSurrogate().apply {
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _timingDateTime = this@with.asDateTime()?.value?.toElement()
+          timingAge = this@with.asAge()?.value
+          timingPeriod = this@with.asPeriod()?.value
+          timingDuration = this@with.asDuration()?.value
+          timingRange = this@with.asRange()?.value
+          timingTiming = this@with.asTiming()?.value
         }
       }
   }
@@ -168,13 +232,6 @@ internal data class RequestGroupActionSurrogate(
   public var documentation: List<RelatedArtifact?>? = null,
   public var condition: List<RequestGroup.Action.Condition>? = null,
   public var relatedAction: List<RequestGroup.Action.RelatedAction>? = null,
-  public var timingDateTime: KotlinString? = null,
-  public var _timingDateTime: Element? = null,
-  public var timingAge: Age? = null,
-  public var timingPeriod: Period? = null,
-  public var timingDuration: Duration? = null,
-  public var timingRange: Range? = null,
-  public var timingTiming: Timing? = null,
   public var participant: List<Reference?>? = null,
   public var type: CodeableConcept? = null,
   public var groupingBehavior: KotlinString? = null,
@@ -189,6 +246,7 @@ internal data class RequestGroupActionSurrogate(
   public var _cardinalityBehavior: Element? = null,
   public var resource: Reference? = null,
   public var action: List<RequestGroup.Action?>? = null,
+  public var timing: RequestGroup.Action.Timing? = null,
 ) {
   public fun toModel(): RequestGroup.Action =
     RequestGroup.Action().apply {
@@ -226,18 +284,7 @@ internal data class RequestGroupActionSurrogate(
       documentation = this@RequestGroupActionSurrogate.documentation
       condition = this@RequestGroupActionSurrogate.condition
       relatedAction = this@RequestGroupActionSurrogate.relatedAction
-      timing =
-        RequestGroup.Action.Timing?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@RequestGroupActionSurrogate.timingDateTime),
-            this@RequestGroupActionSurrogate._timingDateTime,
-          ),
-          this@RequestGroupActionSurrogate.timingAge,
-          this@RequestGroupActionSurrogate.timingPeriod,
-          this@RequestGroupActionSurrogate.timingDuration,
-          this@RequestGroupActionSurrogate.timingRange,
-          this@RequestGroupActionSurrogate.timingTiming,
-        )
+      timing = this@RequestGroupActionSurrogate.timing
       participant = this@RequestGroupActionSurrogate.participant
       type = this@RequestGroupActionSurrogate.type
       groupingBehavior =
@@ -300,13 +347,7 @@ internal data class RequestGroupActionSurrogate(
           documentation = this@with.documentation
           condition = this@with.condition
           relatedAction = this@with.relatedAction
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement()
-          timingAge = this@with.timing?.asAge()?.value
-          timingPeriod = this@with.timing?.asPeriod()?.value
-          timingDuration = this@with.timing?.asDuration()?.value
-          timingRange = this@with.timing?.asRange()?.value
-          timingTiming = this@with.timing?.asTiming()?.value
+          timing = this@with.timing
           participant = this@with.participant
           type = this@with.type
           groupingBehavior = this@with.groupingBehavior?.value?.getCode()

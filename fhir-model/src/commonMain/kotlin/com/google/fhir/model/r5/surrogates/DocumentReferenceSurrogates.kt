@@ -121,33 +121,59 @@ internal data class DocumentReferenceRelatesToSurrogate(
 }
 
 @Serializable
+internal class DocumentReferenceContentProfileValueSurrogate {
+  public var valueCoding: Coding? = null
+
+  public var valueUri: KotlinString? = null
+
+  public var _valueUri: Element? = null
+
+  public var valueCanonical: KotlinString? = null
+
+  public var _valueCanonical: Element? = null
+
+  public fun toModel(): DocumentReference.Content.Profile.Value =
+    DocumentReference.Content.Profile.Value?.from(
+      this@DocumentReferenceContentProfileValueSurrogate.valueCoding,
+      Uri.of(
+        this@DocumentReferenceContentProfileValueSurrogate.valueUri,
+        this@DocumentReferenceContentProfileValueSurrogate._valueUri,
+      ),
+      Canonical.of(
+        this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
+        this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
+      ),
+    ) ?: DocumentReference.Content.Profile.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: DocumentReference.Content.Profile.Value
+    ): DocumentReferenceContentProfileValueSurrogate =
+      with(model) {
+        DocumentReferenceContentProfileValueSurrogate().apply {
+          valueCoding = this@with.asCoding()?.value
+          valueUri = this@with.asUri()?.value?.value
+          _valueUri = this@with.asUri()?.value?.toElement()
+          valueCanonical = this@with.asCanonical()?.value?.value
+          _valueCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class DocumentReferenceContentProfileSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var valueCoding: Coding? = null,
-  public var valueUri: KotlinString? = null,
-  public var _valueUri: Element? = null,
-  public var valueCanonical: KotlinString? = null,
-  public var _valueCanonical: Element? = null,
+  public var `value`: DocumentReference.Content.Profile.Value? = null,
 ) {
   public fun toModel(): DocumentReference.Content.Profile =
     DocumentReference.Content.Profile().apply {
       id = this@DocumentReferenceContentProfileSurrogate.id
       extension = this@DocumentReferenceContentProfileSurrogate.extension
       modifierExtension = this@DocumentReferenceContentProfileSurrogate.modifierExtension
-      `value` =
-        DocumentReference.Content.Profile.Value?.from(
-          this@DocumentReferenceContentProfileSurrogate.valueCoding,
-          Uri.of(
-            this@DocumentReferenceContentProfileSurrogate.valueUri,
-            this@DocumentReferenceContentProfileSurrogate._valueUri,
-          ),
-          Canonical.of(
-            this@DocumentReferenceContentProfileSurrogate.valueCanonical,
-            this@DocumentReferenceContentProfileSurrogate._valueCanonical,
-          ),
-        )
+      `value` = this@DocumentReferenceContentProfileSurrogate.`value`
     }
 
   public companion object {
@@ -159,11 +185,7 @@ internal data class DocumentReferenceContentProfileSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
+          `value` = this@with.`value`
         }
       }
   }

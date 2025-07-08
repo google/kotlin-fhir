@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicationStatementEffectiveSerializer
+import com.google.fhir.model.r4.serializers.MedicationStatementMedicationSerializer
 import com.google.fhir.model.r4.serializers.MedicationStatementSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -256,6 +258,7 @@ public data class MedicationStatement(
    */
   public var dosage: List<Dosage?>? = null,
 ) : DomainResource() {
+  @Serializable(with = MedicationStatementMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -268,18 +271,21 @@ public data class MedicationStatement(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       Medication
 
+    public data object Null : Medication
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Medication? {
+      ): Medication {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = MedicationStatementEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -289,14 +295,16 @@ public data class MedicationStatement(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

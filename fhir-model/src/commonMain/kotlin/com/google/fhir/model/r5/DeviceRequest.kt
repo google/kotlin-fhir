@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.DeviceRequestOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.DeviceRequestParameterSerializer
+import com.google.fhir.model.r5.serializers.DeviceRequestParameterValueSerializer
 import com.google.fhir.model.r5.serializers.DeviceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -296,6 +298,7 @@ public data class DeviceRequest(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = DeviceRequestParameterValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -315,23 +318,26 @@ public data class DeviceRequest(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r5.Boolean) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
           RangeValue: com.google.fhir.model.r5.Range?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = DeviceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -345,16 +351,18 @@ public data class DeviceRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         PeriodValue: com.google.fhir.model.r5.Period?,
         TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }

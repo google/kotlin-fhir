@@ -18,9 +18,14 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ServiceRequestAsNeededSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestOrderDetailParameterSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestOrderDetailParameterValueSerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestOrderDetailSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestPatientInstructionInstructionSerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestPatientInstructionSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestQuantitySerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -470,6 +475,7 @@ public data class ServiceRequest(
        */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = ServiceRequestOrderDetailParameterValueSerializer::class)
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -501,6 +507,8 @@ public data class ServiceRequest(
 
         public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -510,7 +518,7 @@ public data class ServiceRequest(
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             stringValue: com.google.fhir.model.r5.String?,
             PeriodValue: com.google.fhir.model.r5.Period?,
-          ): Value? {
+          ): Value {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RatioValue != null) return Ratio(RatioValue)
             if (RangeValue != null) return Range(RangeValue)
@@ -518,7 +526,7 @@ public data class ServiceRequest(
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (stringValue != null) return String(stringValue)
             if (PeriodValue != null) return Period(PeriodValue)
-            return null
+            return Null
           }
         }
       }
@@ -568,6 +576,7 @@ public data class ServiceRequest(
     /** Instructions in terms that are understood by the patient or consumer. */
     public var instruction: Instruction? = null,
   ) : BackboneElement() {
+    @Serializable(with = ServiceRequestPatientInstructionInstructionSerializer::class)
     public sealed interface Instruction {
       public fun asMarkdown(): Markdown? = this as? Markdown
 
@@ -579,19 +588,22 @@ public data class ServiceRequest(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Instruction
 
+      public data object Null : Instruction
+
       public companion object {
         public fun from(
           markdownValue: com.google.fhir.model.r5.Markdown?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Instruction? {
+        ): Instruction {
           if (markdownValue != null) return Markdown(markdownValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = ServiceRequestQuantitySerializer::class)
   public sealed interface Quantity {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -608,20 +620,23 @@ public data class ServiceRequest(
     public data class Range(public val `value`: com.google.fhir.model.r5.Range) :
       ServiceRequest.Quantity
 
+    public data object Null : ServiceRequest.Quantity
+
     public companion object {
       public fun from(
         QuantityValue: com.google.fhir.model.r5.Quantity?,
         RatioValue: com.google.fhir.model.r5.Ratio?,
         RangeValue: com.google.fhir.model.r5.Range?,
-      ): ServiceRequest.Quantity? {
+      ): ServiceRequest.Quantity {
         if (QuantityValue != null) return Quantity(QuantityValue)
         if (RatioValue != null) return Ratio(RatioValue)
         if (RangeValue != null) return Range(RangeValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ServiceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -635,20 +650,23 @@ public data class ServiceRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         PeriodValue: com.google.fhir.model.r5.Period?,
         TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ServiceRequestAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -660,14 +678,16 @@ public data class ServiceRequest(
       public val `value`: com.google.fhir.model.r5.CodeableConcept
     ) : AsNeeded
 
+    public data object Null : AsNeeded
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
         CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-      ): AsNeeded? {
+      ): AsNeeded {
         if (booleanValue != null) return Boolean(booleanValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

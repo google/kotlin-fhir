@@ -18,10 +18,13 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.SpecimenCollectionCollectedSerializer
+import com.google.fhir.model.r5.serializers.SpecimenCollectionFastingStatusSerializer
 import com.google.fhir.model.r5.serializers.SpecimenCollectionSerializer
 import com.google.fhir.model.r5.serializers.SpecimenContainerSerializer
 import com.google.fhir.model.r5.serializers.SpecimenFeatureSerializer
 import com.google.fhir.model.r5.serializers.SpecimenProcessingSerializer
+import com.google.fhir.model.r5.serializers.SpecimenProcessingTimeSerializer
 import com.google.fhir.model.r5.serializers.SpecimenSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -340,6 +343,7 @@ public data class Specimen(
      */
     public var fastingStatus: FastingStatus? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -349,18 +353,21 @@ public data class Specimen(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Collected
 
+      public data object Null : Collected
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Collected? {
+        ): Collected {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = SpecimenCollectionFastingStatusSerializer::class)
     public sealed interface FastingStatus {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -373,14 +380,16 @@ public data class Specimen(
       public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) :
         FastingStatus
 
+      public data object Null : FastingStatus
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           DurationValue: com.google.fhir.model.r5.Duration?,
-        ): FastingStatus? {
+        ): FastingStatus {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (DurationValue != null) return Duration(DurationValue)
-          return null
+          return Null
         }
       }
     }
@@ -438,6 +447,7 @@ public data class Specimen(
      */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenProcessingTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -447,14 +457,16 @@ public data class Specimen(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Time
 
+      public data object Null : Time
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Time? {
+        ): Time {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }

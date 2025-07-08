@@ -84,6 +84,31 @@ internal data class MedicationAdministrationPerformerSurrogate(
 }
 
 @Serializable
+internal class MedicationAdministrationDosageRateSurrogate {
+  public var rateRatio: Ratio? = null
+
+  public var rateQuantity: Quantity? = null
+
+  public fun toModel(): MedicationAdministration.Dosage.Rate =
+    MedicationAdministration.Dosage.Rate?.from(
+      this@MedicationAdministrationDosageRateSurrogate.rateRatio,
+      this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
+    ) ?: MedicationAdministration.Dosage.Rate.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Dosage.Rate
+    ): MedicationAdministrationDosageRateSurrogate =
+      with(model) {
+        MedicationAdministrationDosageRateSurrogate().apply {
+          rateRatio = this@with.asRatio()?.value
+          rateQuantity = this@with.asQuantity()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationAdministrationDosageSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -94,8 +119,7 @@ internal data class MedicationAdministrationDosageSurrogate(
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
   public var dose: Quantity? = null,
-  public var rateRatio: Ratio? = null,
-  public var rateQuantity: Quantity? = null,
+  public var rate: MedicationAdministration.Dosage.Rate? = null,
 ) {
   public fun toModel(): MedicationAdministration.Dosage =
     MedicationAdministration.Dosage().apply {
@@ -111,11 +135,7 @@ internal data class MedicationAdministrationDosageSurrogate(
       route = this@MedicationAdministrationDosageSurrogate.route
       method = this@MedicationAdministrationDosageSurrogate.method
       dose = this@MedicationAdministrationDosageSurrogate.dose
-      rate =
-        MedicationAdministration.Dosage.Rate?.from(
-          this@MedicationAdministrationDosageSurrogate.rateRatio,
-          this@MedicationAdministrationDosageSurrogate.rateQuantity,
-        )
+      rate = this@MedicationAdministrationDosageSurrogate.rate
     }
 
   public companion object {
@@ -133,8 +153,42 @@ internal data class MedicationAdministrationDosageSurrogate(
           route = this@with.route
           method = this@with.method
           dose = this@with.dose
-          rateRatio = this@with.rate?.asRatio()?.value
-          rateQuantity = this@with.rate?.asQuantity()?.value
+          rate = this@with.rate
+        }
+      }
+  }
+}
+
+@Serializable
+internal class MedicationAdministrationOccurenceSurrogate {
+  public var occurenceDateTime: KotlinString? = null
+
+  public var _occurenceDateTime: Element? = null
+
+  public var occurencePeriod: Period? = null
+
+  public var occurenceTiming: Timing? = null
+
+  public fun toModel(): MedicationAdministration.Occurence =
+    MedicationAdministration.Occurence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@MedicationAdministrationOccurenceSurrogate.occurenceDateTime),
+        this@MedicationAdministrationOccurenceSurrogate._occurenceDateTime,
+      ),
+      this@MedicationAdministrationOccurenceSurrogate.occurencePeriod,
+      this@MedicationAdministrationOccurenceSurrogate.occurenceTiming,
+    ) ?: MedicationAdministration.Occurence.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Occurence
+    ): MedicationAdministrationOccurenceSurrogate =
+      with(model) {
+        MedicationAdministrationOccurenceSurrogate().apply {
+          occurenceDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurenceDateTime = this@with.asDateTime()?.value?.toElement()
+          occurencePeriod = this@with.asPeriod()?.value
+          occurenceTiming = this@with.asTiming()?.value
         }
       }
   }
@@ -163,10 +217,6 @@ internal data class MedicationAdministrationSurrogate(
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
   public var supportingInformation: List<Reference?>? = null,
-  public var occurenceDateTime: KotlinString? = null,
-  public var _occurenceDateTime: Element? = null,
-  public var occurencePeriod: Period? = null,
-  public var occurenceTiming: Timing? = null,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var isSubPotent: KotlinBoolean? = null,
@@ -179,6 +229,7 @@ internal data class MedicationAdministrationSurrogate(
   public var note: List<Annotation?>? = null,
   public var dosage: MedicationAdministration.Dosage? = null,
   public var eventHistory: List<Reference?>? = null,
+  public var occurence: MedicationAdministration.Occurence? = null,
 ) {
   public fun toModel(): MedicationAdministration =
     MedicationAdministration().apply {
@@ -215,15 +266,7 @@ internal data class MedicationAdministrationSurrogate(
       subject = this@MedicationAdministrationSurrogate.subject
       encounter = this@MedicationAdministrationSurrogate.encounter
       supportingInformation = this@MedicationAdministrationSurrogate.supportingInformation
-      occurence =
-        MedicationAdministration.Occurence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@MedicationAdministrationSurrogate.occurenceDateTime),
-            this@MedicationAdministrationSurrogate._occurenceDateTime,
-          ),
-          this@MedicationAdministrationSurrogate.occurencePeriod,
-          this@MedicationAdministrationSurrogate.occurenceTiming,
-        )
+      occurence = this@MedicationAdministrationSurrogate.occurence
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationAdministrationSurrogate.recorded),
@@ -269,10 +312,7 @@ internal data class MedicationAdministrationSurrogate(
           subject = this@with.subject
           encounter = this@with.encounter
           supportingInformation = this@with.supportingInformation
-          occurenceDateTime = this@with.occurence?.asDateTime()?.value?.value?.toString()
-          _occurenceDateTime = this@with.occurence?.asDateTime()?.value?.toElement()
-          occurencePeriod = this@with.occurence?.asPeriod()?.value
-          occurenceTiming = this@with.occurence?.asTiming()?.value
+          occurence = this@with.occurence
           recorded = this@with.recorded?.value?.toString()
           _recorded = this@with.recorded?.toElement()
           isSubPotent = this@with.isSubPotent?.value

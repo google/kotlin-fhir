@@ -21,9 +21,12 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemBodySiteSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemDetailSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemDetailSubDetailSerializer
+import com.google.fhir.model.r5.serializers.ClaimResponseAddItemLocationSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemSerializer
+import com.google.fhir.model.r5.serializers.ClaimResponseAddItemServicedSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseErrorSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseEventSerializer
+import com.google.fhir.model.r5.serializers.ClaimResponseEventWhenSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseInsuranceSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseItemAdjudicationSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseItemDetailSerializer
@@ -373,6 +376,7 @@ public data class ClaimResponse(
      */
     public var `when`: When? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimResponseEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -382,14 +386,16 @@ public data class ClaimResponse(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : When
 
+      public data object Null : When
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): When? {
+        ): When {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -1122,6 +1128,7 @@ public data class ClaimResponse(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimResponseAddItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1131,18 +1138,21 @@ public data class ClaimResponse(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ClaimResponseAddItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1159,16 +1169,18 @@ public data class ClaimResponse(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           AddressValue: com.google.fhir.model.r5.Address?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Location? {
+        ): Location {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

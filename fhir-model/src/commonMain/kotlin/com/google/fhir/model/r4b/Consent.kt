@@ -23,6 +23,7 @@ import com.google.fhir.model.r4b.serializers.ConsentProvisionActorSerializer
 import com.google.fhir.model.r4b.serializers.ConsentProvisionDataSerializer
 import com.google.fhir.model.r4b.serializers.ConsentProvisionSerializer
 import com.google.fhir.model.r4b.serializers.ConsentSerializer
+import com.google.fhir.model.r4b.serializers.ConsentSourceSerializer
 import com.google.fhir.model.r4b.serializers.ConsentVerificationSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -539,6 +540,7 @@ public data class Consent(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ConsentSourceSerializer::class)
   public sealed interface Source {
     public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -548,14 +550,16 @@ public data class Consent(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Source
 
+    public data object Null : Source
+
     public companion object {
       public fun from(
         AttachmentValue: com.google.fhir.model.r4b.Attachment?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Source? {
+      ): Source {
         if (AttachmentValue != null) return Attachment(AttachmentValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

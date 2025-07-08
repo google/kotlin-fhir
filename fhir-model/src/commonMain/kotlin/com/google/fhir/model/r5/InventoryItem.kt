@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.InventoryItemAssociationSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.InventoryItemCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemDescriptionSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemInstanceSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemNameSerializer
@@ -417,6 +418,7 @@ public data class InventoryItem(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = InventoryItemCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asString(): String? = this as? String
 
@@ -472,6 +474,8 @@ public data class InventoryItem(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           stringValue: com.google.fhir.model.r5.String?,
@@ -487,7 +491,7 @@ public data class InventoryItem(
           AddressValue: com.google.fhir.model.r5.Address?,
           DurationValue: com.google.fhir.model.r5.Duration?,
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Value? {
+        ): Value {
           if (stringValue != null) return String(stringValue)
           if (integerValue != null) return Integer(integerValue)
           if (decimalValue != null) return Decimal(decimalValue)
@@ -501,7 +505,7 @@ public data class InventoryItem(
           if (AddressValue != null) return Address(AddressValue)
           if (DurationValue != null) return Duration(DurationValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }

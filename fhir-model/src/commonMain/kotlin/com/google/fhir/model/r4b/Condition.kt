@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ConditionAbatementSerializer
 import com.google.fhir.model.r4b.serializers.ConditionEvidenceSerializer
+import com.google.fhir.model.r4b.serializers.ConditionOnsetSerializer
 import com.google.fhir.model.r4b.serializers.ConditionSerializer
 import com.google.fhir.model.r4b.serializers.ConditionStageSerializer
 import kotlin.String
@@ -341,6 +343,7 @@ public data class Condition(
     public var detail: List<Reference?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ConditionOnsetSerializer::class)
   public sealed interface Onset {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -362,6 +365,8 @@ public data class Condition(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Onset
 
+    public data object Null : Onset
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
@@ -369,17 +374,18 @@ public data class Condition(
         PeriodValue: com.google.fhir.model.r4b.Period?,
         RangeValue: com.google.fhir.model.r4b.Range?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): Onset? {
+      ): Onset {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (AgeValue != null) return Age(AgeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (RangeValue != null) return Range(RangeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ConditionAbatementSerializer::class)
   public sealed interface Abatement {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -401,6 +407,8 @@ public data class Condition(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Abatement
 
+    public data object Null : Abatement
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
@@ -408,13 +416,13 @@ public data class Condition(
         PeriodValue: com.google.fhir.model.r4b.Period?,
         RangeValue: com.google.fhir.model.r4b.Range?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): Abatement? {
+      ): Abatement {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (AgeValue != null) return Age(AgeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (RangeValue != null) return Range(RangeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

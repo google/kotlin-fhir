@@ -18,18 +18,25 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ClaimAccidentLocationSerializer
 import com.google.fhir.model.r4b.serializers.ClaimAccidentSerializer
 import com.google.fhir.model.r4b.serializers.ClaimCareTeamSerializer
+import com.google.fhir.model.r4b.serializers.ClaimDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r4b.serializers.ClaimDiagnosisSerializer
 import com.google.fhir.model.r4b.serializers.ClaimInsuranceSerializer
 import com.google.fhir.model.r4b.serializers.ClaimItemDetailSerializer
 import com.google.fhir.model.r4b.serializers.ClaimItemDetailSubDetailSerializer
+import com.google.fhir.model.r4b.serializers.ClaimItemLocationSerializer
 import com.google.fhir.model.r4b.serializers.ClaimItemSerializer
+import com.google.fhir.model.r4b.serializers.ClaimItemServicedSerializer
 import com.google.fhir.model.r4b.serializers.ClaimPayeeSerializer
+import com.google.fhir.model.r4b.serializers.ClaimProcedureProcedureSerializer
 import com.google.fhir.model.r4b.serializers.ClaimProcedureSerializer
 import com.google.fhir.model.r4b.serializers.ClaimRelatedSerializer
 import com.google.fhir.model.r4b.serializers.ClaimSerializer
 import com.google.fhir.model.r4b.serializers.ClaimSupportingInfoSerializer
+import com.google.fhir.model.r4b.serializers.ClaimSupportingInfoTimingSerializer
+import com.google.fhir.model.r4b.serializers.ClaimSupportingInfoValueSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -542,6 +549,7 @@ public data class Claim(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimSupportingInfoTimingSerializer::class)
     public sealed interface Timing {
       public fun asDate(): Date? = this as? Date
 
@@ -551,18 +559,21 @@ public data class Claim(
 
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Timing
 
+      public data object Null : Timing
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r4b.Date?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
-        ): Timing? {
+        ): Timing {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ClaimSupportingInfoValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -585,6 +596,8 @@ public data class Claim(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           booleanValue: com.google.fhir.model.r4b.Boolean?,
@@ -592,13 +605,13 @@ public data class Claim(
           QuantityValue: com.google.fhir.model.r4b.Quantity?,
           AttachmentValue: com.google.fhir.model.r4b.Attachment?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Value? {
+        ): Value {
           if (booleanValue != null) return Boolean(booleanValue)
           if (stringValue != null) return String(stringValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -675,6 +688,7 @@ public data class Claim(
      */
     public var packageCode: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimDiagnosisDiagnosisSerializer::class)
     public sealed interface Diagnosis {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -687,14 +701,16 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
         Diagnosis
 
+      public data object Null : Diagnosis
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Diagnosis? {
+        ): Diagnosis {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -758,6 +774,7 @@ public data class Claim(
     /** Unique Device Identifiers associated with this line item. */
     public var udi: List<Reference?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimProcedureProcedureSerializer::class)
     public sealed interface Procedure {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -770,14 +787,16 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
         Procedure
 
+      public data object Null : Procedure
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Procedure? {
+        ): Procedure {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -938,6 +957,7 @@ public data class Claim(
     /** The physical location of the accident event. */
     public var location: Location? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimAccidentLocationSerializer::class)
     public sealed interface Location {
       public fun asAddress(): Address? = this as? Address
 
@@ -948,14 +968,16 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           AddressValue: com.google.fhir.model.r4b.Address?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Location? {
+        ): Location {
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1313,6 +1335,7 @@ public data class Claim(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1322,18 +1345,21 @@ public data class Claim(
 
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r4b.Date?,
           PeriodValue: com.google.fhir.model.r4b.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ClaimItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1350,16 +1376,18 @@ public data class Claim(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           AddressValue: com.google.fhir.model.r4b.Address?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Location? {
+        ): Location {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

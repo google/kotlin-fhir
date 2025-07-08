@@ -19,7 +19,9 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.TaskInputSerializer
+import com.google.fhir.model.r4.serializers.TaskInputValueSerializer
 import com.google.fhir.model.r4.serializers.TaskOutputSerializer
+import com.google.fhir.model.r4.serializers.TaskOutputValueSerializer
 import com.google.fhir.model.r4.serializers.TaskRestrictionSerializer
 import com.google.fhir.model.r4.serializers.TaskSerializer
 import kotlin.Suppress
@@ -381,6 +383,7 @@ public data class Task(
     /** The value of the input parameter as a basic type. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = TaskInputValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -600,6 +603,8 @@ public data class Task(
 
       public data class Meta(public val `value`: com.google.fhir.model.r4.Meta) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           base64BinaryValue: com.google.fhir.model.r4.Base64Binary?,
@@ -652,7 +657,7 @@ public data class Task(
           UsageContextValue: com.google.fhir.model.r4.UsageContext?,
           DosageValue: com.google.fhir.model.r4.Dosage?,
           MetaValue: com.google.fhir.model.r4.Meta?,
-        ): Value? {
+        ): Value {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -703,7 +708,7 @@ public data class Task(
           if (UsageContextValue != null) return UsageContext(UsageContextValue)
           if (DosageValue != null) return Dosage(DosageValue)
           if (MetaValue != null) return Meta(MetaValue)
-          return null
+          return Null
         }
       }
     }
@@ -754,6 +759,7 @@ public data class Task(
     /** The value of the Output parameter as a basic type. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = TaskOutputValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -973,6 +979,8 @@ public data class Task(
 
       public data class Meta(public val `value`: com.google.fhir.model.r4.Meta) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           base64BinaryValue: com.google.fhir.model.r4.Base64Binary?,
@@ -1025,7 +1033,7 @@ public data class Task(
           UsageContextValue: com.google.fhir.model.r4.UsageContext?,
           DosageValue: com.google.fhir.model.r4.Dosage?,
           MetaValue: com.google.fhir.model.r4.Meta?,
-        ): Value? {
+        ): Value {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -1076,7 +1084,7 @@ public data class Task(
           if (UsageContextValue != null) return UsageContext(UsageContextValue)
           if (DosageValue != null) return Dosage(DosageValue)
           if (MetaValue != null) return Meta(MetaValue)
-          return null
+          return Null
         }
       }
     }

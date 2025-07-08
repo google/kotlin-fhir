@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MessageHeaderDestinationSerializer
+import com.google.fhir.model.r4.serializers.MessageHeaderEventSerializer
 import com.google.fhir.model.r4.serializers.MessageHeaderResponseSerializer
 import com.google.fhir.model.r4.serializers.MessageHeaderSerializer
 import com.google.fhir.model.r4.serializers.MessageHeaderSourceSerializer
@@ -390,6 +391,7 @@ public data class MessageHeader(
     public var details: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MessageHeaderEventSerializer::class)
   public sealed interface Event {
     public fun asCoding(): Coding? = this as? Coding
 
@@ -399,14 +401,16 @@ public data class MessageHeader(
 
     public data class Uri(public val `value`: com.google.fhir.model.r4.Uri) : Event
 
+    public data object Null : Event
+
     public companion object {
       public fun from(
         CodingValue: com.google.fhir.model.r4.Coding?,
         uriValue: com.google.fhir.model.r4.Uri?,
-      ): Event? {
+      ): Event {
         if (CodingValue != null) return Coding(CodingValue)
         if (uriValue != null) return Uri(uriValue)
-        return null
+        return Null
       }
     }
   }

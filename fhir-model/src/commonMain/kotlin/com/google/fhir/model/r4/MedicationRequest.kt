@@ -20,7 +20,10 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MedicationRequestDispenseRequestInitialFillSerializer
 import com.google.fhir.model.r4.serializers.MedicationRequestDispenseRequestSerializer
+import com.google.fhir.model.r4.serializers.MedicationRequestMedicationSerializer
+import com.google.fhir.model.r4.serializers.MedicationRequestReportedSerializer
 import com.google.fhir.model.r4.serializers.MedicationRequestSerializer
+import com.google.fhir.model.r4.serializers.MedicationRequestSubstitutionAllowedSerializer
 import com.google.fhir.model.r4.serializers.MedicationRequestSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -544,6 +547,7 @@ public data class MedicationRequest(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationRequestSubstitutionAllowedSerializer::class)
     public sealed interface Allowed {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -555,19 +559,22 @@ public data class MedicationRequest(
         public val `value`: com.google.fhir.model.r4.CodeableConcept
       ) : Allowed
 
+      public data object Null : Allowed
+
       public companion object {
         public fun from(
           booleanValue: com.google.fhir.model.r4.Boolean?,
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ): Allowed? {
+        ): Allowed {
           if (booleanValue != null) return Boolean(booleanValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = MedicationRequestReportedSerializer::class)
   public sealed interface Reported {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -577,18 +584,21 @@ public data class MedicationRequest(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Reported
 
+    public data object Null : Reported
+
     public companion object {
       public fun from(
         booleanValue: com.google.fhir.model.r4.Boolean?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Reported? {
+      ): Reported {
         if (booleanValue != null) return Boolean(booleanValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = MedicationRequestMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -601,14 +611,16 @@ public data class MedicationRequest(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       Medication
 
+    public data object Null : Medication
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Medication? {
+      ): Medication {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

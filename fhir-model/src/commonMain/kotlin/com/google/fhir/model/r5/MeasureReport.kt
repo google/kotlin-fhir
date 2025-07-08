@@ -18,12 +18,16 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.MeasureReportGroupMeasureScoreSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportGroupPopulationSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportGroupSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumComponentSerializer
+import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumComponentValueSerializer
+import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumMeasureScoreSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumPopulationSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumSerializer
+import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumValueSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -555,6 +559,7 @@ public data class MeasureReport(
           /** The stratum component value. */
           public var `value`: Value? = null,
         ) : BackboneElement() {
+          @Serializable(with = MeasureReportGroupStratifierStratumComponentValueSerializer::class)
           public sealed interface Value {
             public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -580,6 +585,8 @@ public data class MeasureReport(
             public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
               Value
 
+            public data object Null : Value
+
             public companion object {
               public fun from(
                 CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -587,13 +594,13 @@ public data class MeasureReport(
                 QuantityValue: com.google.fhir.model.r5.Quantity?,
                 RangeValue: com.google.fhir.model.r5.Range?,
                 ReferenceValue: com.google.fhir.model.r5.Reference?,
-              ): Value? {
+              ): Value {
                 if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
                 if (booleanValue != null) return Boolean(booleanValue)
                 if (QuantityValue != null) return Quantity(QuantityValue)
                 if (RangeValue != null) return Range(RangeValue)
                 if (ReferenceValue != null) return Reference(ReferenceValue)
-                return null
+                return Null
               }
             }
           }
@@ -678,6 +685,7 @@ public data class MeasureReport(
           public var subjects: Reference? = null,
         ) : BackboneElement()
 
+        @Serializable(with = MeasureReportGroupStratifierStratumValueSerializer::class)
         public sealed interface Value {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -702,6 +710,8 @@ public data class MeasureReport(
           public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
             Value
 
+          public data object Null : Value
+
           public companion object {
             public fun from(
               CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -709,17 +719,18 @@ public data class MeasureReport(
               QuantityValue: com.google.fhir.model.r5.Quantity?,
               RangeValue: com.google.fhir.model.r5.Range?,
               ReferenceValue: com.google.fhir.model.r5.Reference?,
-            ): Value? {
+            ): Value {
               if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
               if (booleanValue != null) return Boolean(booleanValue)
               if (QuantityValue != null) return Quantity(QuantityValue)
               if (RangeValue != null) return Range(RangeValue)
               if (ReferenceValue != null) return Reference(ReferenceValue)
-              return null
+              return Null
             }
           }
         }
 
+        @Serializable(with = MeasureReportGroupStratifierStratumMeasureScoreSerializer::class)
         public sealed interface MeasureScore {
           public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -752,6 +763,8 @@ public data class MeasureReport(
           public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) :
             MeasureScore
 
+          public data object Null : MeasureScore
+
           public companion object {
             public fun from(
               QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -760,20 +773,21 @@ public data class MeasureReport(
               PeriodValue: com.google.fhir.model.r5.Period?,
               RangeValue: com.google.fhir.model.r5.Range?,
               DurationValue: com.google.fhir.model.r5.Duration?,
-            ): MeasureScore? {
+            ): MeasureScore {
               if (QuantityValue != null) return Quantity(QuantityValue)
               if (dateTimeValue != null) return DateTime(dateTimeValue)
               if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
               if (PeriodValue != null) return Period(PeriodValue)
               if (RangeValue != null) return Range(RangeValue)
               if (DurationValue != null) return Duration(DurationValue)
-              return null
+              return Null
             }
           }
         }
       }
     }
 
+    @Serializable(with = MeasureReportGroupMeasureScoreSerializer::class)
     public sealed interface MeasureScore {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -804,6 +818,8 @@ public data class MeasureReport(
       public data class Duration(public val `value`: com.google.fhir.model.r5.Duration) :
         MeasureScore
 
+      public data object Null : MeasureScore
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -812,14 +828,14 @@ public data class MeasureReport(
           PeriodValue: com.google.fhir.model.r5.Period?,
           RangeValue: com.google.fhir.model.r5.Range?,
           DurationValue: com.google.fhir.model.r5.Duration?,
-        ): MeasureScore? {
+        ): MeasureScore {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (RangeValue != null) return Range(RangeValue)
           if (DurationValue != null) return Duration(DurationValue)
-          return null
+          return Null
         }
       }
     }

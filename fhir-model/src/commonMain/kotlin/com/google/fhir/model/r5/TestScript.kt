@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.TestScriptMetadataSerializer
 import com.google.fhir.model.r5.serializers.TestScriptOriginSerializer
 import com.google.fhir.model.r5.serializers.TestScriptScopeSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSerializer
+import com.google.fhir.model.r5.serializers.TestScriptSetupActionAssertRequirementLinkSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSetupActionAssertRequirementSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSetupActionAssertSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSetupActionOperationRequestHeaderSerializer
@@ -37,6 +38,7 @@ import com.google.fhir.model.r5.serializers.TestScriptTeardownSerializer
 import com.google.fhir.model.r5.serializers.TestScriptTestActionSerializer
 import com.google.fhir.model.r5.serializers.TestScriptTestSerializer
 import com.google.fhir.model.r5.serializers.TestScriptVariableSerializer
+import com.google.fhir.model.r5.serializers.TestScriptVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -1608,6 +1610,7 @@ public data class TestScript(
           /** Link or reference providing traceability to the testing requirement for this test. */
           public var link: Link? = null,
         ) : BackboneElement() {
+          @Serializable(with = TestScriptSetupActionAssertRequirementLinkSerializer::class)
           public sealed interface Link {
             public fun asUri(): Uri? = this as? Uri
 
@@ -1618,14 +1621,16 @@ public data class TestScript(
             public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) :
               Link
 
+            public data object Null : Link
+
             public companion object {
               public fun from(
                 uriValue: com.google.fhir.model.r5.Uri?,
                 canonicalValue: com.google.fhir.model.r5.Canonical?,
-              ): Link? {
+              ): Link {
                 if (uriValue != null) return Uri(uriValue)
                 if (canonicalValue != null) return Canonical(canonicalValue)
-                return null
+                return Null
               }
             }
           }
@@ -1835,6 +1840,7 @@ public data class TestScript(
     ) : BackboneElement()
   }
 
+  @Serializable(with = TestScriptVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1846,14 +1852,16 @@ public data class TestScript(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

@@ -115,6 +115,35 @@ internal data class DetectedIssueMitigationSurrogate(
 }
 
 @Serializable
+internal class DetectedIssueIdentifiedSurrogate {
+  public var identifiedDateTime: KotlinString? = null
+
+  public var _identifiedDateTime: Element? = null
+
+  public var identifiedPeriod: Period? = null
+
+  public fun toModel(): DetectedIssue.Identified =
+    DetectedIssue.Identified?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
+        this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,
+      ),
+      this@DetectedIssueIdentifiedSurrogate.identifiedPeriod,
+    ) ?: DetectedIssue.Identified.Null
+
+  public companion object {
+    public fun fromModel(model: DetectedIssue.Identified): DetectedIssueIdentifiedSurrogate =
+      with(model) {
+        DetectedIssueIdentifiedSurrogate().apply {
+          identifiedDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _identifiedDateTime = this@with.asDateTime()?.value?.toElement()
+          identifiedPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class DetectedIssueSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -133,9 +162,6 @@ internal data class DetectedIssueSurrogate(
   public var severity: KotlinString? = null,
   public var _severity: Element? = null,
   public var patient: Reference? = null,
-  public var identifiedDateTime: KotlinString? = null,
-  public var _identifiedDateTime: Element? = null,
-  public var identifiedPeriod: Period? = null,
   public var author: Reference? = null,
   public var implicated: List<Reference?>? = null,
   public var evidence: List<DetectedIssue.Evidence>? = null,
@@ -144,6 +170,7 @@ internal data class DetectedIssueSurrogate(
   public var reference: KotlinString? = null,
   public var _reference: Element? = null,
   public var mitigation: List<DetectedIssue.Mitigation>? = null,
+  public var identified: DetectedIssue.Identified? = null,
 ) {
   public fun toModel(): DetectedIssue =
     DetectedIssue().apply {
@@ -177,14 +204,7 @@ internal data class DetectedIssueSurrogate(
           this@DetectedIssueSurrogate._severity,
         )
       patient = this@DetectedIssueSurrogate.patient
-      identified =
-        DetectedIssue.Identified?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@DetectedIssueSurrogate.identifiedDateTime),
-            this@DetectedIssueSurrogate._identifiedDateTime,
-          ),
-          this@DetectedIssueSurrogate.identifiedPeriod,
-        )
+      identified = this@DetectedIssueSurrogate.identified
       author = this@DetectedIssueSurrogate.author
       implicated = this@DetectedIssueSurrogate.implicated
       evidence = this@DetectedIssueSurrogate.evidence
@@ -215,9 +235,7 @@ internal data class DetectedIssueSurrogate(
           severity = this@with.severity?.value?.getCode()
           _severity = this@with.severity?.toElement()
           patient = this@with.patient
-          identifiedDateTime = this@with.identified?.asDateTime()?.value?.value?.toString()
-          _identifiedDateTime = this@with.identified?.asDateTime()?.value?.toElement()
-          identifiedPeriod = this@with.identified?.asPeriod()?.value
+          identified = this@with.identified
           author = this@with.author
           implicated = this@with.implicated
           evidence = this@with.evidence

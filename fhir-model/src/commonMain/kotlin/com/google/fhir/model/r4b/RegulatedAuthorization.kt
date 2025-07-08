@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationCaseDateSerializer
 import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationCaseSerializer
 import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationSerializer
 import kotlin.String
@@ -248,6 +249,7 @@ public data class RegulatedAuthorization(
      */
     public var application: List<Case?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = RegulatedAuthorizationCaseDateSerializer::class)
     public sealed interface Date {
       public fun asPeriod(): Period? = this as? Period
 
@@ -257,14 +259,16 @@ public data class RegulatedAuthorization(
 
       public data class DateTime(public val `value`: com.google.fhir.model.r4b.DateTime) : Date
 
+      public data object Null : Date
+
       public companion object {
         public fun from(
           PeriodValue: com.google.fhir.model.r4b.Period?,
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        ): Date? {
+        ): Date {
           if (PeriodValue != null) return Period(PeriodValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          return null
+          return Null
         }
       }
     }

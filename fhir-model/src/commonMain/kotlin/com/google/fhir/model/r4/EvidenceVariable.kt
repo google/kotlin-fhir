@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.EvidenceVariableCharacteristicDefinitionSerializer
+import com.google.fhir.model.r4.serializers.EvidenceVariableCharacteristicParticipantEffectiveSerializer
 import com.google.fhir.model.r4.serializers.EvidenceVariableCharacteristicSerializer
 import com.google.fhir.model.r4.serializers.EvidenceVariableSerializer
 import kotlin.Suppress
@@ -398,6 +400,7 @@ public data class EvidenceVariable(
     /** Indicates how elements are aggregated within the study effective period. */
     public var groupMeasure: Enumeration<GroupMeasure>? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceVariableCharacteristicDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asReference(): Reference? = this as? Reference
 
@@ -432,6 +435,8 @@ public data class EvidenceVariable(
         public val `value`: com.google.fhir.model.r4.TriggerDefinition
       ) : Definition
 
+      public data object Null : Definition
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r4.Reference?,
@@ -440,18 +445,19 @@ public data class EvidenceVariable(
           ExpressionValue: com.google.fhir.model.r4.Expression?,
           DataRequirementValue: com.google.fhir.model.r4.DataRequirement?,
           TriggerDefinitionValue: com.google.fhir.model.r4.TriggerDefinition?,
-        ): Definition? {
+        ): Definition {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ExpressionValue != null) return Expression(ExpressionValue)
           if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
           if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = EvidenceVariableCharacteristicParticipantEffectiveSerializer::class)
     public sealed interface ParticipantEffective {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -473,18 +479,20 @@ public data class EvidenceVariable(
       public data class Timing(public val `value`: com.google.fhir.model.r4.Timing) :
         ParticipantEffective
 
+      public data object Null : ParticipantEffective
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
           PeriodValue: com.google.fhir.model.r4.Period?,
           DurationValue: com.google.fhir.model.r4.Duration?,
           TimingValue: com.google.fhir.model.r4.Timing?,
-        ): ParticipantEffective? {
+        ): ParticipantEffective {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
           if (DurationValue != null) return Duration(DurationValue)
           if (TimingValue != null) return Timing(TimingValue)
-          return null
+          return Null
         }
       }
     }

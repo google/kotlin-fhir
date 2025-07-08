@@ -21,6 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.CompositionAttesterSerializer
 import com.google.fhir.model.r4b.serializers.CompositionEventSerializer
 import com.google.fhir.model.r4b.serializers.CompositionRelatesToSerializer
+import com.google.fhir.model.r4b.serializers.CompositionRelatesToTargetSerializer
 import com.google.fhir.model.r4b.serializers.CompositionSectionSerializer
 import com.google.fhir.model.r4b.serializers.CompositionSerializer
 import kotlin.Suppress
@@ -350,6 +351,7 @@ public data class Composition(
     /** The target composition/document of this relationship. */
     public var target: Target? = null,
   ) : BackboneElement() {
+    @Serializable(with = CompositionRelatesToTargetSerializer::class)
     public sealed interface Target {
       public fun asIdentifier(): Identifier? = this as? Identifier
 
@@ -360,14 +362,16 @@ public data class Composition(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Target
 
+      public data object Null : Target
+
       public companion object {
         public fun from(
           IdentifierValue: com.google.fhir.model.r4b.Identifier?,
           ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Target? {
+        ): Target {
           if (IdentifierValue != null) return Identifier(IdentifierValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }

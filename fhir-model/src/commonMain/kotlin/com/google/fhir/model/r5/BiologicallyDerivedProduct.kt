@@ -18,8 +18,10 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductCollectionCollectedSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductCollectionSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertySerializer
+import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -254,6 +256,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of product collection. */
     public var collected: Collected? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -263,14 +266,16 @@ public data class BiologicallyDerivedProduct(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Collected
 
+      public data object Null : Collected
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Collected? {
+        ): Collected {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -332,6 +337,7 @@ public data class BiologicallyDerivedProduct(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -371,6 +377,8 @@ public data class BiologicallyDerivedProduct(
 
       public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -382,7 +390,7 @@ public data class BiologicallyDerivedProduct(
           RatioValue: com.google.fhir.model.r5.Ratio?,
           stringValue: com.google.fhir.model.r5.String?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
-        ): Value? {
+        ): Value {
           if (booleanValue != null) return Boolean(booleanValue)
           if (integerValue != null) return Integer(integerValue)
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
@@ -392,7 +400,7 @@ public data class BiologicallyDerivedProduct(
           if (RatioValue != null) return Ratio(RatioValue)
           if (stringValue != null) return String(stringValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return null
+          return Null
         }
       }
     }

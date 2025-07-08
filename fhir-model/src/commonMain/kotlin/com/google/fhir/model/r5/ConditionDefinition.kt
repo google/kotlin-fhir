@@ -22,8 +22,10 @@ import com.google.fhir.model.r5.serializers.ConditionDefinitionMedicationSeriali
 import com.google.fhir.model.r5.serializers.ConditionDefinitionObservationSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionPlanSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionPreconditionSerializer
+import com.google.fhir.model.r5.serializers.ConditionDefinitionPreconditionValueSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionQuestionnaireSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ConditionDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -472,6 +474,7 @@ public data class ConditionDefinition(
     /** Value of Observation. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = ConditionDefinitionPreconditionValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -483,14 +486,16 @@ public data class ConditionDefinition(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
-          return null
+          return Null
         }
       }
     }
@@ -588,6 +593,7 @@ public data class ConditionDefinition(
     public var reference: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ConditionDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -599,14 +605,16 @@ public data class ConditionDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

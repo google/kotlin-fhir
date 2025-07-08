@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.DocumentReferenceAttesterSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceContentProfileSerializer
+import com.google.fhir.model.r5.serializers.DocumentReferenceContentProfileValueSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceContentSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceRelatesToSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceSerializer
@@ -508,6 +509,7 @@ public data class DocumentReference(
       /** Code|uri|canonical. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = DocumentReferenceContentProfileValueSerializer::class)
       public sealed interface Value {
         public fun asCoding(): Coding? = this as? Coding
 
@@ -521,16 +523,18 @@ public data class DocumentReference(
 
         public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             CodingValue: com.google.fhir.model.r5.Coding?,
             uriValue: com.google.fhir.model.r5.Uri?,
             canonicalValue: com.google.fhir.model.r5.Canonical?,
-          ): Value? {
+          ): Value {
             if (CodingValue != null) return Coding(CodingValue)
             if (uriValue != null) return Uri(uriValue)
             if (canonicalValue != null) return Canonical(canonicalValue)
-            return null
+            return Null
           }
         }
       }

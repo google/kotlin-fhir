@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ImmunizationEvaluationDoseNumberSerializer
 import com.google.fhir.model.r4b.serializers.ImmunizationEvaluationSerializer
+import com.google.fhir.model.r4b.serializers.ImmunizationEvaluationSeriesDosesSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -170,6 +172,7 @@ public data class ImmunizationEvaluation(
    */
   public var seriesDoses: SeriesDoses? = null,
 ) : DomainResource() {
+  @Serializable(with = ImmunizationEvaluationDoseNumberSerializer::class)
   public sealed interface DoseNumber {
     public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -180,18 +183,21 @@ public data class ImmunizationEvaluation(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : DoseNumber
 
+    public data object Null : DoseNumber
+
     public companion object {
       public fun from(
         positiveIntValue: com.google.fhir.model.r4b.PositiveInt?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): DoseNumber? {
+      ): DoseNumber {
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ImmunizationEvaluationSeriesDosesSerializer::class)
   public sealed interface SeriesDoses {
     public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -202,14 +208,16 @@ public data class ImmunizationEvaluation(
 
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : SeriesDoses
 
+    public data object Null : SeriesDoses
+
     public companion object {
       public fun from(
         positiveIntValue: com.google.fhir.model.r4b.PositiveInt?,
         stringValue: com.google.fhir.model.r4b.String?,
-      ): SeriesDoses? {
+      ): SeriesDoses {
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

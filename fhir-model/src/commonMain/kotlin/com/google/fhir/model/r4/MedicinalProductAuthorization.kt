@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationJurisdictionalAuthorizationSerializer
+import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationProcedureDateSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationProcedureSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationSerializer
 import kotlin.String
@@ -271,6 +272,7 @@ public data class MedicinalProductAuthorization(
     /** Applcations submitted to obtain a marketing authorization. */
     public var application: List<Procedure?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductAuthorizationProcedureDateSerializer::class)
     public sealed interface Date {
       public fun asPeriod(): Period? = this as? Period
 
@@ -280,14 +282,16 @@ public data class MedicinalProductAuthorization(
 
       public data class DateTime(public val `value`: com.google.fhir.model.r4.DateTime) : Date
 
+      public data object Null : Date
+
       public companion object {
         public fun from(
           PeriodValue: com.google.fhir.model.r4.Period?,
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        ): Date? {
+        ): Date {
           if (PeriodValue != null) return Period(PeriodValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          return null
+          return Null
         }
       }
     }

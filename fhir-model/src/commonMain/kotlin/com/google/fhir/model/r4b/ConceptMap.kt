@@ -24,6 +24,8 @@ import com.google.fhir.model.r4b.serializers.ConceptMapGroupElementTargetSeriali
 import com.google.fhir.model.r4b.serializers.ConceptMapGroupSerializer
 import com.google.fhir.model.r4b.serializers.ConceptMapGroupUnmappedSerializer
 import com.google.fhir.model.r4b.serializers.ConceptMapSerializer
+import com.google.fhir.model.r4b.serializers.ConceptMapSourceSerializer
+import com.google.fhir.model.r4b.serializers.ConceptMapTargetSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -652,6 +654,7 @@ public data class ConceptMap(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ConceptMapSourceSerializer::class)
   public sealed interface Source {
     public fun asUri(): Uri? = this as? Uri
 
@@ -661,18 +664,21 @@ public data class ConceptMap(
 
     public data class Canonical(public val `value`: com.google.fhir.model.r4b.Canonical) : Source
 
+    public data object Null : Source
+
     public companion object {
       public fun from(
         uriValue: com.google.fhir.model.r4b.Uri?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
-      ): Source? {
+      ): Source {
         if (uriValue != null) return Uri(uriValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = ConceptMapTargetSerializer::class)
   public sealed interface Target {
     public fun asUri(): Uri? = this as? Uri
 
@@ -682,14 +688,16 @@ public data class ConceptMap(
 
     public data class Canonical(public val `value`: com.google.fhir.model.r4b.Canonical) : Target
 
+    public data object Null : Target
+
     public companion object {
       public fun from(
         uriValue: com.google.fhir.model.r4b.Uri?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
-      ): Target? {
+      ): Target {
         if (uriValue != null) return Uri(uriValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return null
+        return Null
       }
     }
   }

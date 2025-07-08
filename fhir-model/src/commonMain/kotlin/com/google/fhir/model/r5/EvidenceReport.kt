@@ -18,11 +18,13 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.EvidenceReportCiteAsSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportRelatesToSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportRelatesToTargetSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSectionSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -375,6 +377,7 @@ public data class EvidenceReport(
       /** Timeframe for the characteristic. */
       public var period: Period? = null,
     ) : BackboneElement() {
+      @Serializable(with = EvidenceReportSubjectCharacteristicValueSerializer::class)
       public sealed interface Value {
         public fun asReference(): Reference? = this as? Reference
 
@@ -398,6 +401,8 @@ public data class EvidenceReport(
 
         public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             ReferenceValue: com.google.fhir.model.r5.Reference?,
@@ -405,13 +410,13 @@ public data class EvidenceReport(
             booleanValue: com.google.fhir.model.r5.Boolean?,
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             RangeValue: com.google.fhir.model.r5.Range?,
-          ): Value? {
+          ): Value {
             if (ReferenceValue != null) return Reference(ReferenceValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RangeValue != null) return Range(RangeValue)
-            return null
+            return Null
           }
         }
       }
@@ -651,6 +656,7 @@ public data class EvidenceReport(
     public var section: List<Section?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceReportCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 
@@ -660,14 +666,16 @@ public data class EvidenceReport(
 
     public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : CiteAs
 
+    public data object Null : CiteAs
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         markdownValue: com.google.fhir.model.r5.Markdown?,
-      ): CiteAs? {
+      ): CiteAs {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (markdownValue != null) return Markdown(markdownValue)
-        return null
+        return Null
       }
     }
   }

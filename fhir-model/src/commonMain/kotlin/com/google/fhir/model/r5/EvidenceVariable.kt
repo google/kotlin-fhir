@@ -19,11 +19,17 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.EvidenceVariableCategorySerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCategoryValueSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDefinitionByCombinationSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDefinitionByTypeAndValueSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDurationSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicInstancesSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFromEventEventSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFromEventSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -528,6 +534,9 @@ public data class EvidenceVariable(
        */
       public var offset: CodeableConcept? = null,
     ) : BackboneElement() {
+      @Serializable(
+        with = EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSerializer::class
+      )
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -555,6 +564,8 @@ public data class EvidenceVariable(
 
         public data class Id(public val `value`: com.google.fhir.model.r5.Id) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -563,14 +574,14 @@ public data class EvidenceVariable(
             RangeValue: com.google.fhir.model.r5.Range?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
             idValue: com.google.fhir.model.r5.Id?,
-          ): Value? {
+          ): Value {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RangeValue != null) return Range(RangeValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
             if (idValue != null) return Id(idValue)
-            return null
+            return Null
           }
         }
       }
@@ -675,6 +686,7 @@ public data class EvidenceVariable(
       /** Used to express the observation within a period before and/or after the event. */
       public var range: Range? = null,
     ) : BackboneElement() {
+      @Serializable(with = EvidenceVariableCharacteristicTimeFromEventEventSerializer::class)
       public sealed interface Event {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -694,23 +706,26 @@ public data class EvidenceVariable(
 
         public data class Id(public val `value`: com.google.fhir.model.r5.Id) : Event
 
+        public data object Null : Event
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             ReferenceValue: com.google.fhir.model.r5.Reference?,
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
             idValue: com.google.fhir.model.r5.Id?,
-          ): Event? {
+          ): Event {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (idValue != null) return Id(idValue)
-            return null
+            return Null
           }
         }
       }
     }
 
+    @Serializable(with = EvidenceVariableCharacteristicInstancesSerializer::class)
     public sealed interface Instances {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -720,18 +735,21 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Instances
 
+      public data object Null : Instances
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
           RangeValue: com.google.fhir.model.r5.Range?,
-        ): Instances? {
+        ): Instances {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = EvidenceVariableCharacteristicDurationSerializer::class)
     public sealed interface Duration {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -741,14 +759,16 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Duration
 
+      public data object Null : Duration
+
       public companion object {
         public fun from(
           QuantityValue: com.google.fhir.model.r5.Quantity?,
           RangeValue: com.google.fhir.model.r5.Range?,
-        ): Duration? {
+        ): Duration {
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
-          return null
+          return Null
         }
       }
     }
@@ -799,6 +819,7 @@ public data class EvidenceVariable(
     /** Definition of the grouping. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceVariableCategoryValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -814,21 +835,24 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           QuantityValue: com.google.fhir.model.r5.Quantity?,
           RangeValue: com.google.fhir.model.r5.Range?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (RangeValue != null) return Range(RangeValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = EvidenceVariableVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -840,14 +864,16 @@ public data class EvidenceVariable(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

@@ -18,9 +18,12 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.MessageHeaderDestinationEndpointSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderDestinationSerializer
+import com.google.fhir.model.r5.serializers.MessageHeaderEventSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderResponseSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSerializer
+import com.google.fhir.model.r5.serializers.MessageHeaderSourceEndpointSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSourceSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -261,6 +264,7 @@ public data class MessageHeader(
      */
     public var `receiver`: Reference? = null,
   ) : BackboneElement() {
+    @Serializable(with = MessageHeaderDestinationEndpointSerializer::class)
     public sealed interface Endpoint {
       public fun asUrl(): Url? = this as? Url
 
@@ -271,14 +275,16 @@ public data class MessageHeader(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Endpoint
 
+      public data object Null : Endpoint
+
       public companion object {
         public fun from(
           urlValue: com.google.fhir.model.r5.Url?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Endpoint? {
+        ): Endpoint {
           if (urlValue != null) return Url(urlValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -346,6 +352,7 @@ public data class MessageHeader(
      */
     public var contact: ContactPoint? = null,
   ) : BackboneElement() {
+    @Serializable(with = MessageHeaderSourceEndpointSerializer::class)
     public sealed interface Endpoint {
       public fun asUrl(): Url? = this as? Url
 
@@ -356,14 +363,16 @@ public data class MessageHeader(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Endpoint
 
+      public data object Null : Endpoint
+
       public companion object {
         public fun from(
           urlValue: com.google.fhir.model.r5.Url?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Endpoint? {
+        ): Endpoint {
           if (urlValue != null) return Url(urlValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -431,6 +440,7 @@ public data class MessageHeader(
     public var details: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MessageHeaderEventSerializer::class)
   public sealed interface Event {
     public fun asCoding(): Coding? = this as? Coding
 
@@ -440,14 +450,16 @@ public data class MessageHeader(
 
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Event
 
+    public data object Null : Event
+
     public companion object {
       public fun from(
         CodingValue: com.google.fhir.model.r5.Coding?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
-      ): Event? {
+      ): Event {
         if (CodingValue != null) return Coding(CodingValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return null
+        return Null
       }
     }
   }

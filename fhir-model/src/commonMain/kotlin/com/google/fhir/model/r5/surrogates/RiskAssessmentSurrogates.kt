@@ -49,21 +49,74 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class RiskAssessmentPredictionProbabilitySurrogate {
+  public var probabilityDecimal: Double? = null
+
+  public var _probabilityDecimal: Element? = null
+
+  public var probabilityRange: Range? = null
+
+  public fun toModel(): RiskAssessment.Prediction.Probability =
+    RiskAssessment.Prediction.Probability?.from(
+      Decimal.of(
+        this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
+        this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
+      ),
+      this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
+    ) ?: RiskAssessment.Prediction.Probability.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RiskAssessment.Prediction.Probability
+    ): RiskAssessmentPredictionProbabilitySurrogate =
+      with(model) {
+        RiskAssessmentPredictionProbabilitySurrogate().apply {
+          probabilityDecimal = this@with.asDecimal()?.value?.value
+          _probabilityDecimal = this@with.asDecimal()?.value?.toElement()
+          probabilityRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class RiskAssessmentPredictionWhenSurrogate {
+  public var whenPeriod: Period? = null
+
+  public var whenRange: Range? = null
+
+  public fun toModel(): RiskAssessment.Prediction.When =
+    RiskAssessment.Prediction.When?.from(
+      this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
+      this@RiskAssessmentPredictionWhenSurrogate.whenRange,
+    ) ?: RiskAssessment.Prediction.When.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RiskAssessment.Prediction.When
+    ): RiskAssessmentPredictionWhenSurrogate =
+      with(model) {
+        RiskAssessmentPredictionWhenSurrogate().apply {
+          whenPeriod = this@with.asPeriod()?.value
+          whenRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class RiskAssessmentPredictionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var outcome: CodeableConcept? = null,
-  public var probabilityDecimal: Double? = null,
-  public var _probabilityDecimal: Element? = null,
-  public var probabilityRange: Range? = null,
   public var qualitativeRisk: CodeableConcept? = null,
   public var relativeRisk: Double? = null,
   public var _relativeRisk: Element? = null,
-  public var whenPeriod: Period? = null,
-  public var whenRange: Range? = null,
   public var rationale: KotlinString? = null,
   public var _rationale: Element? = null,
+  public var probability: RiskAssessment.Prediction.Probability? = null,
+  public var `when`: RiskAssessment.Prediction.When? = null,
 ) {
   public fun toModel(): RiskAssessment.Prediction =
     RiskAssessment.Prediction().apply {
@@ -71,25 +124,14 @@ internal data class RiskAssessmentPredictionSurrogate(
       extension = this@RiskAssessmentPredictionSurrogate.extension
       modifierExtension = this@RiskAssessmentPredictionSurrogate.modifierExtension
       outcome = this@RiskAssessmentPredictionSurrogate.outcome
-      probability =
-        RiskAssessment.Prediction.Probability?.from(
-          Decimal.of(
-            this@RiskAssessmentPredictionSurrogate.probabilityDecimal,
-            this@RiskAssessmentPredictionSurrogate._probabilityDecimal,
-          ),
-          this@RiskAssessmentPredictionSurrogate.probabilityRange,
-        )
+      probability = this@RiskAssessmentPredictionSurrogate.probability
       qualitativeRisk = this@RiskAssessmentPredictionSurrogate.qualitativeRisk
       relativeRisk =
         Decimal.of(
           this@RiskAssessmentPredictionSurrogate.relativeRisk,
           this@RiskAssessmentPredictionSurrogate._relativeRisk,
         )
-      `when` =
-        RiskAssessment.Prediction.When?.from(
-          this@RiskAssessmentPredictionSurrogate.whenPeriod,
-          this@RiskAssessmentPredictionSurrogate.whenRange,
-        )
+      `when` = this@RiskAssessmentPredictionSurrogate.`when`
       rationale =
         R5String.of(
           this@RiskAssessmentPredictionSurrogate.rationale,
@@ -105,16 +147,42 @@ internal data class RiskAssessmentPredictionSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           outcome = this@with.outcome
-          probabilityDecimal = this@with.probability?.asDecimal()?.value?.value
-          _probabilityDecimal = this@with.probability?.asDecimal()?.value?.toElement()
-          probabilityRange = this@with.probability?.asRange()?.value
+          probability = this@with.probability
           qualitativeRisk = this@with.qualitativeRisk
           relativeRisk = this@with.relativeRisk?.value
           _relativeRisk = this@with.relativeRisk?.toElement()
-          whenPeriod = this@with.`when`?.asPeriod()?.value
-          whenRange = this@with.`when`?.asRange()?.value
+          `when` = this@with.`when`
           rationale = this@with.rationale?.value
           _rationale = this@with.rationale?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class RiskAssessmentOccurrenceSurrogate {
+  public var occurrenceDateTime: KotlinString? = null
+
+  public var _occurrenceDateTime: Element? = null
+
+  public var occurrencePeriod: Period? = null
+
+  public fun toModel(): RiskAssessment.Occurrence =
+    RiskAssessment.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@RiskAssessmentOccurrenceSurrogate.occurrenceDateTime),
+        this@RiskAssessmentOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@RiskAssessmentOccurrenceSurrogate.occurrencePeriod,
+    ) ?: RiskAssessment.Occurrence.Null
+
+  public companion object {
+    public fun fromModel(model: RiskAssessment.Occurrence): RiskAssessmentOccurrenceSurrogate =
+      with(model) {
+        RiskAssessmentOccurrenceSurrogate().apply {
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
+          occurrencePeriod = this@with.asPeriod()?.value
         }
       }
   }
@@ -141,9 +209,6 @@ internal data class RiskAssessmentSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
   public var condition: Reference? = null,
   public var performer: Reference? = null,
   public var reason: List<CodeableReference?>? = null,
@@ -152,6 +217,7 @@ internal data class RiskAssessmentSurrogate(
   public var mitigation: KotlinString? = null,
   public var _mitigation: Element? = null,
   public var note: List<Annotation?>? = null,
+  public var occurrence: RiskAssessment.Occurrence? = null,
 ) {
   public fun toModel(): RiskAssessment =
     RiskAssessment().apply {
@@ -182,14 +248,7 @@ internal data class RiskAssessmentSurrogate(
       code = this@RiskAssessmentSurrogate.code
       subject = this@RiskAssessmentSurrogate.subject
       encounter = this@RiskAssessmentSurrogate.encounter
-      occurrence =
-        RiskAssessment.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@RiskAssessmentSurrogate.occurrenceDateTime),
-            this@RiskAssessmentSurrogate._occurrenceDateTime,
-          ),
-          this@RiskAssessmentSurrogate.occurrencePeriod,
-        )
+      occurrence = this@RiskAssessmentSurrogate.occurrence
       condition = this@RiskAssessmentSurrogate.condition
       performer = this@RiskAssessmentSurrogate.performer
       reason = this@RiskAssessmentSurrogate.reason
@@ -226,9 +285,7 @@ internal data class RiskAssessmentSurrogate(
           code = this@with.code
           subject = this@with.subject
           encounter = this@with.encounter
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
+          occurrence = this@with.occurrence
           condition = this@with.condition
           performer = this@with.performer
           reason = this@with.reason

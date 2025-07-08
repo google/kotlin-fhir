@@ -36,26 +36,49 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class AnnotationAuthorSurrogate {
+  public var authorReference: Reference? = null
+
+  public var authorString: KotlinString? = null
+
+  public var _authorString: Element? = null
+
+  public fun toModel(): Annotation.Author =
+    Annotation.Author?.from(
+      this@AnnotationAuthorSurrogate.authorReference,
+      R4String.of(
+        this@AnnotationAuthorSurrogate.authorString,
+        this@AnnotationAuthorSurrogate._authorString,
+      ),
+    ) ?: Annotation.Author.Null
+
+  public companion object {
+    public fun fromModel(model: Annotation.Author): AnnotationAuthorSurrogate =
+      with(model) {
+        AnnotationAuthorSurrogate().apply {
+          authorReference = this@with.asReference()?.value
+          authorString = this@with.asString()?.value?.value
+          _authorString = this@with.asString()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class AnnotationSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
-  public var authorReference: Reference? = null,
-  public var authorString: KotlinString? = null,
-  public var _authorString: Element? = null,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
+  public var author: Annotation.Author? = null,
 ) {
   public fun toModel(): Annotation =
     Annotation().apply {
       id = this@AnnotationSurrogate.id
       extension = this@AnnotationSurrogate.extension
-      author =
-        Annotation.Author?.from(
-          this@AnnotationSurrogate.authorReference,
-          R4String.of(this@AnnotationSurrogate.authorString, this@AnnotationSurrogate._authorString),
-        )
+      author = this@AnnotationSurrogate.author
       time =
         DateTime.of(
           FhirDateTime.fromString(this@AnnotationSurrogate.time),
@@ -70,9 +93,7 @@ internal data class AnnotationSurrogate(
         AnnotationSurrogate().apply {
           id = this@with.id
           extension = this@with.extension
-          authorReference = this@with.author?.asReference()?.value
-          authorString = this@with.author?.asString()?.value?.value
-          _authorString = this@with.author?.asString()?.value?.toElement()
+          author = this@with.author
           time = this@with.time?.value?.toString()
           _time = this@with.time?.toElement()
           text = this@with.text?.value

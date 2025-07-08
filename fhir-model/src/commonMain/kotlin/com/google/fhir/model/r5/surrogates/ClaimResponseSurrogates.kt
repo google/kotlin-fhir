@@ -57,14 +57,41 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class ClaimResponseEventWhenSurrogate {
+  public var whenDateTime: KotlinString? = null
+
+  public var _whenDateTime: Element? = null
+
+  public var whenPeriod: Period? = null
+
+  public fun toModel(): ClaimResponse.Event.When =
+    ClaimResponse.Event.When?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ClaimResponseEventWhenSurrogate.whenDateTime),
+        this@ClaimResponseEventWhenSurrogate._whenDateTime,
+      ),
+      this@ClaimResponseEventWhenSurrogate.whenPeriod,
+    ) ?: ClaimResponse.Event.When.Null
+
+  public companion object {
+    public fun fromModel(model: ClaimResponse.Event.When): ClaimResponseEventWhenSurrogate =
+      with(model) {
+        ClaimResponseEventWhenSurrogate().apply {
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _whenDateTime = this@with.asDateTime()?.value?.toElement()
+          whenPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ClaimResponseEventSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var whenDateTime: KotlinString? = null,
-  public var _whenDateTime: Element? = null,
-  public var whenPeriod: Period? = null,
+  public var `when`: ClaimResponse.Event.When? = null,
 ) {
   public fun toModel(): ClaimResponse.Event =
     ClaimResponse.Event().apply {
@@ -72,14 +99,7 @@ internal data class ClaimResponseEventSurrogate(
       extension = this@ClaimResponseEventSurrogate.extension
       modifierExtension = this@ClaimResponseEventSurrogate.modifierExtension
       type = this@ClaimResponseEventSurrogate.type
-      `when` =
-        ClaimResponse.Event.When?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ClaimResponseEventSurrogate.whenDateTime),
-            this@ClaimResponseEventSurrogate._whenDateTime,
-          ),
-          this@ClaimResponseEventSurrogate.whenPeriod,
-        )
+      `when` = this@ClaimResponseEventSurrogate.`when`
     }
 
   public companion object {
@@ -90,9 +110,7 @@ internal data class ClaimResponseEventSurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          whenDateTime = this@with.`when`?.asDateTime()?.value?.value?.toString()
-          _whenDateTime = this@with.`when`?.asDateTime()?.value?.toElement()
-          whenPeriod = this@with.`when`?.asPeriod()?.value
+          `when` = this@with.`when`
         }
       }
   }
@@ -596,6 +614,66 @@ internal data class ClaimResponseAddItemDetailSurrogate(
 }
 
 @Serializable
+internal class ClaimResponseAddItemServicedSurrogate {
+  public var servicedDate: KotlinString? = null
+
+  public var _servicedDate: Element? = null
+
+  public var servicedPeriod: Period? = null
+
+  public fun toModel(): ClaimResponse.AddItem.Serviced =
+    ClaimResponse.AddItem.Serviced?.from(
+      Date.of(
+        FhirDate.fromString(this@ClaimResponseAddItemServicedSurrogate.servicedDate),
+        this@ClaimResponseAddItemServicedSurrogate._servicedDate,
+      ),
+      this@ClaimResponseAddItemServicedSurrogate.servicedPeriod,
+    ) ?: ClaimResponse.AddItem.Serviced.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Serviced
+    ): ClaimResponseAddItemServicedSurrogate =
+      with(model) {
+        ClaimResponseAddItemServicedSurrogate().apply {
+          servicedDate = this@with.asDate()?.value?.value?.toString()
+          _servicedDate = this@with.asDate()?.value?.toElement()
+          servicedPeriod = this@with.asPeriod()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ClaimResponseAddItemLocationSurrogate {
+  public var locationCodeableConcept: CodeableConcept? = null
+
+  public var locationAddress: Address? = null
+
+  public var locationReference: Reference? = null
+
+  public fun toModel(): ClaimResponse.AddItem.Location =
+    ClaimResponse.AddItem.Location?.from(
+      this@ClaimResponseAddItemLocationSurrogate.locationCodeableConcept,
+      this@ClaimResponseAddItemLocationSurrogate.locationAddress,
+      this@ClaimResponseAddItemLocationSurrogate.locationReference,
+    ) ?: ClaimResponse.AddItem.Location.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Location
+    ): ClaimResponseAddItemLocationSurrogate =
+      with(model) {
+        ClaimResponseAddItemLocationSurrogate().apply {
+          locationCodeableConcept = this@with.asCodeableConcept()?.value
+          locationAddress = this@with.asAddress()?.value
+          locationReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ClaimResponseAddItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -614,12 +692,6 @@ internal data class ClaimResponseAddItemSurrogate(
   public var request: List<Reference?>? = null,
   public var modifier: List<CodeableConcept?>? = null,
   public var programCode: List<CodeableConcept?>? = null,
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-  public var locationCodeableConcept: CodeableConcept? = null,
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
@@ -632,6 +704,8 @@ internal data class ClaimResponseAddItemSurrogate(
   public var reviewOutcome: ClaimResponse.Item.ReviewOutcome? = null,
   public var adjudication: List<ClaimResponse.Item.Adjudication?>? = null,
   public var detail: List<ClaimResponse.AddItem.Detail>? = null,
+  public var serviced: ClaimResponse.AddItem.Serviced? = null,
+  public var location: ClaimResponse.AddItem.Location? = null,
 ) {
   public fun toModel(): ClaimResponse.AddItem =
     ClaimResponse.AddItem().apply {
@@ -691,20 +765,8 @@ internal data class ClaimResponseAddItemSurrogate(
       request = this@ClaimResponseAddItemSurrogate.request
       modifier = this@ClaimResponseAddItemSurrogate.modifier
       programCode = this@ClaimResponseAddItemSurrogate.programCode
-      serviced =
-        ClaimResponse.AddItem.Serviced?.from(
-          Date.of(
-            FhirDate.fromString(this@ClaimResponseAddItemSurrogate.servicedDate),
-            this@ClaimResponseAddItemSurrogate._servicedDate,
-          ),
-          this@ClaimResponseAddItemSurrogate.servicedPeriod,
-        )
-      location =
-        ClaimResponse.AddItem.Location?.from(
-          this@ClaimResponseAddItemSurrogate.locationCodeableConcept,
-          this@ClaimResponseAddItemSurrogate.locationAddress,
-          this@ClaimResponseAddItemSurrogate.locationReference,
-        )
+      serviced = this@ClaimResponseAddItemSurrogate.serviced
+      location = this@ClaimResponseAddItemSurrogate.location
       quantity = this@ClaimResponseAddItemSurrogate.quantity
       unitPrice = this@ClaimResponseAddItemSurrogate.unitPrice
       factor =
@@ -764,12 +826,8 @@ internal data class ClaimResponseAddItemSurrogate(
           request = this@with.request
           modifier = this@with.modifier
           programCode = this@with.programCode
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString()
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement()
-          servicedPeriod = this@with.serviced?.asPeriod()?.value
-          locationCodeableConcept = this@with.location?.asCodeableConcept()?.value
-          locationAddress = this@with.location?.asAddress()?.value
-          locationReference = this@with.location?.asReference()?.value
+          serviced = this@with.serviced
+          location = this@with.location
           quantity = this@with.quantity
           unitPrice = this@with.unitPrice
           factor = this@with.factor?.value

@@ -50,6 +50,37 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class ActorDefinitionVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ActorDefinition.VersionAlgorithm =
+    ActorDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ActorDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ActorDefinition.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ActorDefinition.VersionAlgorithm
+    ): ActorDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        ActorDefinitionVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ActorDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -66,9 +97,6 @@ internal data class ActorDefinitionSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -102,6 +130,7 @@ internal data class ActorDefinitionSurrogate(
   public var _capabilities: Element? = null,
   public var derivedFrom: List<KotlinString?>? = null,
   public var _derivedFrom: List<Element?>? = null,
+  public var versionAlgorithm: ActorDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ActorDefinition =
     ActorDefinition().apply {
@@ -122,14 +151,7 @@ internal data class ActorDefinitionSurrogate(
       identifier = this@ActorDefinitionSurrogate.identifier
       version =
         R5String.of(this@ActorDefinitionSurrogate.version, this@ActorDefinitionSurrogate._version)
-      versionAlgorithm =
-        ActorDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@ActorDefinitionSurrogate.versionAlgorithmString,
-            this@ActorDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@ActorDefinitionSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ActorDefinitionSurrogate.versionAlgorithm
       name = R5String.of(this@ActorDefinitionSurrogate.name, this@ActorDefinitionSurrogate._name)
       title = R5String.of(this@ActorDefinitionSurrogate.title, this@ActorDefinitionSurrogate._title)
       status =
@@ -242,9 +264,7 @@ internal data class ActorDefinitionSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

@@ -19,8 +19,11 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ImmunizationEducationSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationOccurrenceSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationPerformerSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedDoseNumberSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedSeriesDosesSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationReactionSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationSerializer
 import kotlin.Suppress
@@ -473,6 +476,7 @@ public data class Immunization(
      */
     public var seriesDoses: SeriesDoses? = null,
   ) : BackboneElement() {
+    @Serializable(with = ImmunizationProtocolAppliedDoseNumberSerializer::class)
     public sealed interface DoseNumber {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -483,18 +487,21 @@ public data class Immunization(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : DoseNumber
 
+      public data object Null : DoseNumber
+
       public companion object {
         public fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): DoseNumber? {
+        ): DoseNumber {
           if (positiveIntValue != null) return PositiveInt(positiveIntValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ImmunizationProtocolAppliedSeriesDosesSerializer::class)
     public sealed interface SeriesDoses {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -505,19 +512,22 @@ public data class Immunization(
 
       public data class String(public val `value`: com.google.fhir.model.r4.String) : SeriesDoses
 
+      public data object Null : SeriesDoses
+
       public companion object {
         public fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
-        ): SeriesDoses? {
+        ): SeriesDoses {
           if (positiveIntValue != null) return PositiveInt(positiveIntValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = ImmunizationOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -527,14 +537,16 @@ public data class Immunization(
 
     public data class String(public val `value`: com.google.fhir.model.r4.String) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         stringValue: com.google.fhir.model.r4.String?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (stringValue != null) return String(stringValue)
-        return null
+        return Null
       }
     }
   }

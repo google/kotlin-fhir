@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionLegalStatusOfSupplySerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingContainedItemSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingPropertySerializer
+import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionSerializer
 import kotlin.Suppress
@@ -389,6 +390,7 @@ public data class PackagedProductDefinition(
       /** A value for the characteristic. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = PackagedProductDefinitionPackagingPropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -413,6 +415,8 @@ public data class PackagedProductDefinition(
         public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) :
           Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -420,13 +424,13 @@ public data class PackagedProductDefinition(
             dateValue: com.google.fhir.model.r5.Date?,
             booleanValue: com.google.fhir.model.r5.Boolean?,
             AttachmentValue: com.google.fhir.model.r5.Attachment?,
-          ): Value? {
+          ): Value {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (dateValue != null) return Date(dateValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (AttachmentValue != null) return Attachment(AttachmentValue)
-            return null
+            return Null
           }
         }
       }

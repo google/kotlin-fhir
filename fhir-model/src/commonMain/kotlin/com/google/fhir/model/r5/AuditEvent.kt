@@ -18,9 +18,12 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.AuditEventAgentNetworkSerializer
 import com.google.fhir.model.r5.serializers.AuditEventAgentSerializer
 import com.google.fhir.model.r5.serializers.AuditEventEntityDetailSerializer
+import com.google.fhir.model.r5.serializers.AuditEventEntityDetailValueSerializer
 import com.google.fhir.model.r5.serializers.AuditEventEntitySerializer
+import com.google.fhir.model.r5.serializers.AuditEventOccurredSerializer
 import com.google.fhir.model.r5.serializers.AuditEventOutcomeSerializer
 import com.google.fhir.model.r5.serializers.AuditEventSerializer
 import com.google.fhir.model.r5.serializers.AuditEventSourceSerializer
@@ -385,6 +388,7 @@ public data class AuditEvent(
      */
     public var authorization: List<CodeableConcept?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = AuditEventAgentNetworkSerializer::class)
     public sealed interface Network {
       public fun asReference(): Reference? = this as? Reference
 
@@ -398,16 +402,18 @@ public data class AuditEvent(
 
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Network
 
+      public data object Null : Network
+
       public companion object {
         public fun from(
           ReferenceValue: com.google.fhir.model.r5.Reference?,
           uriValue: com.google.fhir.model.r5.Uri?,
           stringValue: com.google.fhir.model.r5.String?,
-        ): Network? {
+        ): Network {
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (uriValue != null) return Uri(uriValue)
           if (stringValue != null) return String(stringValue)
-          return null
+          return Null
         }
       }
     }
@@ -597,6 +603,7 @@ public data class AuditEvent(
       /** The value of the extra detail. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = AuditEventEntityDetailValueSerializer::class)
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -645,6 +652,8 @@ public data class AuditEvent(
         public data class Base64Binary(public val `value`: com.google.fhir.model.r5.Base64Binary) :
           Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r5.Quantity?,
@@ -658,7 +667,7 @@ public data class AuditEvent(
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
             PeriodValue: com.google.fhir.model.r5.Period?,
             base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
-          ): Value? {
+          ): Value {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (stringValue != null) return String(stringValue)
@@ -670,13 +679,14 @@ public data class AuditEvent(
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (PeriodValue != null) return Period(PeriodValue)
             if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
-            return null
+            return Null
           }
         }
       }
     }
   }
 
+  @Serializable(with = AuditEventOccurredSerializer::class)
   public sealed interface Occurred {
     public fun asPeriod(): Period? = this as? Period
 
@@ -686,14 +696,16 @@ public data class AuditEvent(
 
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Occurred
 
+    public data object Null : Occurred
+
     public companion object {
       public fun from(
         PeriodValue: com.google.fhir.model.r5.Period?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-      ): Occurred? {
+      ): Occurred {
         if (PeriodValue != null) return Period(PeriodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return null
+        return Null
       }
     }
   }

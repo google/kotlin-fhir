@@ -23,6 +23,7 @@ import com.google.fhir.model.r4.serializers.MeasureGroupSerializer
 import com.google.fhir.model.r4.serializers.MeasureGroupStratifierComponentSerializer
 import com.google.fhir.model.r4.serializers.MeasureGroupStratifierSerializer
 import com.google.fhir.model.r4.serializers.MeasureSerializer
+import com.google.fhir.model.r4.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r4.serializers.MeasureSupplementalDataSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -726,6 +727,7 @@ public data class Measure(
     public var criteria: Expression? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MeasureSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -737,14 +739,16 @@ public data class Measure(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
+    public data object Null : Subject
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Subject? {
+      ): Subject {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

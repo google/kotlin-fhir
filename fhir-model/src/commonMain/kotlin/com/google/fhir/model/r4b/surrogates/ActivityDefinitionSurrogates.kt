@@ -140,6 +140,107 @@ internal data class ActivityDefinitionDynamicValueSurrogate(
 }
 
 @Serializable
+internal class ActivityDefinitionSubjectSurrogate {
+  public var subjectCodeableConcept: CodeableConcept? = null
+
+  public var subjectReference: Reference? = null
+
+  public var subjectCanonical: KotlinString? = null
+
+  public var _subjectCanonical: Element? = null
+
+  public fun toModel(): ActivityDefinition.Subject =
+    ActivityDefinition.Subject?.from(
+      this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
+      this@ActivityDefinitionSubjectSurrogate.subjectReference,
+      Canonical.of(
+        this@ActivityDefinitionSubjectSurrogate.subjectCanonical,
+        this@ActivityDefinitionSubjectSurrogate._subjectCanonical,
+      ),
+    ) ?: ActivityDefinition.Subject.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.Subject): ActivityDefinitionSubjectSurrogate =
+      with(model) {
+        ActivityDefinitionSubjectSurrogate().apply {
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value
+          subjectReference = this@with.asReference()?.value
+          subjectCanonical = this@with.asCanonical()?.value?.value
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ActivityDefinitionTimingSurrogate {
+  public var timingTiming: Timing? = null
+
+  public var timingDateTime: KotlinString? = null
+
+  public var _timingDateTime: Element? = null
+
+  public var timingAge: Age? = null
+
+  public var timingPeriod: Period? = null
+
+  public var timingRange: Range? = null
+
+  public var timingDuration: Duration? = null
+
+  public fun toModel(): ActivityDefinition.Timing =
+    ActivityDefinition.Timing?.from(
+      this@ActivityDefinitionTimingSurrogate.timingTiming,
+      DateTime.of(
+        FhirDateTime.fromString(this@ActivityDefinitionTimingSurrogate.timingDateTime),
+        this@ActivityDefinitionTimingSurrogate._timingDateTime,
+      ),
+      this@ActivityDefinitionTimingSurrogate.timingAge,
+      this@ActivityDefinitionTimingSurrogate.timingPeriod,
+      this@ActivityDefinitionTimingSurrogate.timingRange,
+      this@ActivityDefinitionTimingSurrogate.timingDuration,
+    ) ?: ActivityDefinition.Timing.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.Timing): ActivityDefinitionTimingSurrogate =
+      with(model) {
+        ActivityDefinitionTimingSurrogate().apply {
+          timingTiming = this@with.asTiming()?.value
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _timingDateTime = this@with.asDateTime()?.value?.toElement()
+          timingAge = this@with.asAge()?.value
+          timingPeriod = this@with.asPeriod()?.value
+          timingRange = this@with.asRange()?.value
+          timingDuration = this@with.asDuration()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ActivityDefinitionProductSurrogate {
+  public var productReference: Reference? = null
+
+  public var productCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): ActivityDefinition.Product =
+    ActivityDefinition.Product?.from(
+      this@ActivityDefinitionProductSurrogate.productReference,
+      this@ActivityDefinitionProductSurrogate.productCodeableConcept,
+    ) ?: ActivityDefinition.Product.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.Product): ActivityDefinitionProductSurrogate =
+      with(model) {
+        ActivityDefinitionProductSurrogate().apply {
+          productReference = this@with.asReference()?.value
+          productCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ActivityDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -166,10 +267,6 @@ internal data class ActivityDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
-  public var subjectCanonical: KotlinString? = null,
-  public var _subjectCanonical: Element? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -209,17 +306,8 @@ internal data class ActivityDefinitionSurrogate(
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
-  public var timingTiming: Timing? = null,
-  public var timingDateTime: KotlinString? = null,
-  public var _timingDateTime: Element? = null,
-  public var timingAge: Age? = null,
-  public var timingPeriod: Period? = null,
-  public var timingRange: Range? = null,
-  public var timingDuration: Duration? = null,
   public var location: Reference? = null,
   public var participant: List<ActivityDefinition.Participant>? = null,
-  public var productReference: Reference? = null,
-  public var productCodeableConcept: CodeableConcept? = null,
   public var quantity: Quantity? = null,
   public var dosage: List<Dosage?>? = null,
   public var bodySite: List<CodeableConcept?>? = null,
@@ -229,6 +317,9 @@ internal data class ActivityDefinitionSurrogate(
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: List<ActivityDefinition.DynamicValue>? = null,
+  public var subject: ActivityDefinition.Subject? = null,
+  public var timing: ActivityDefinition.Timing? = null,
+  public var product: ActivityDefinition.Product? = null,
 ) {
   public fun toModel(): ActivityDefinition =
     ActivityDefinition().apply {
@@ -279,15 +370,7 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate.experimental,
           this@ActivityDefinitionSurrogate._experimental,
         )
-      subject =
-        ActivityDefinition.Subject?.from(
-          this@ActivityDefinitionSurrogate.subjectCodeableConcept,
-          this@ActivityDefinitionSurrogate.subjectReference,
-          Canonical.of(
-            this@ActivityDefinitionSurrogate.subjectCanonical,
-            this@ActivityDefinitionSurrogate._subjectCanonical,
-          ),
-        )
+      subject = this@ActivityDefinitionSurrogate.subject
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ActivityDefinitionSurrogate.date),
@@ -385,25 +468,10 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate.doNotPerform,
           this@ActivityDefinitionSurrogate._doNotPerform,
         )
-      timing =
-        ActivityDefinition.Timing?.from(
-          this@ActivityDefinitionSurrogate.timingTiming,
-          DateTime.of(
-            FhirDateTime.fromString(this@ActivityDefinitionSurrogate.timingDateTime),
-            this@ActivityDefinitionSurrogate._timingDateTime,
-          ),
-          this@ActivityDefinitionSurrogate.timingAge,
-          this@ActivityDefinitionSurrogate.timingPeriod,
-          this@ActivityDefinitionSurrogate.timingRange,
-          this@ActivityDefinitionSurrogate.timingDuration,
-        )
+      timing = this@ActivityDefinitionSurrogate.timing
       location = this@ActivityDefinitionSurrogate.location
       participant = this@ActivityDefinitionSurrogate.participant
-      product =
-        ActivityDefinition.Product?.from(
-          this@ActivityDefinitionSurrogate.productReference,
-          this@ActivityDefinitionSurrogate.productCodeableConcept,
-        )
+      product = this@ActivityDefinitionSurrogate.product
       quantity = this@ActivityDefinitionSurrogate.quantity
       dosage = this@ActivityDefinitionSurrogate.dosage
       bodySite = this@ActivityDefinitionSurrogate.bodySite
@@ -447,10 +515,7 @@ internal data class ActivityDefinitionSurrogate(
           _status = this@with.status?.toElement()
           experimental = this@with.experimental?.value
           _experimental = this@with.experimental?.toElement()
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
-          subjectCanonical = this@with.subject?.asCanonical()?.value?.value
-          _subjectCanonical = this@with.subject?.asCanonical()?.value?.toElement()
+          subject = this@with.subject
           date = this@with.date?.value?.toString()
           _date = this@with.date?.toElement()
           publisher = this@with.publisher?.value
@@ -491,17 +556,10 @@ internal data class ActivityDefinitionSurrogate(
           _priority = this@with.priority?.toElement()
           doNotPerform = this@with.doNotPerform?.value
           _doNotPerform = this@with.doNotPerform?.toElement()
-          timingTiming = this@with.timing?.asTiming()?.value
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement()
-          timingAge = this@with.timing?.asAge()?.value
-          timingPeriod = this@with.timing?.asPeriod()?.value
-          timingRange = this@with.timing?.asRange()?.value
-          timingDuration = this@with.timing?.asDuration()?.value
+          timing = this@with.timing
           location = this@with.location
           participant = this@with.participant
-          productReference = this@with.product?.asReference()?.value
-          productCodeableConcept = this@with.product?.asCodeableConcept()?.value
+          product = this@with.product
           quantity = this@with.quantity
           dosage = this@with.dosage
           bodySite = this@with.bodySite

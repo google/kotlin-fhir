@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.MediaCreatedSerializer
 import com.google.fhir.model.r4b.serializers.MediaSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -253,6 +254,7 @@ public data class Media(
    */
   public var note: List<Annotation?>? = null,
 ) : DomainResource() {
+  @Serializable(with = MediaCreatedSerializer::class)
   public sealed interface Created {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -262,14 +264,16 @@ public data class Media(
 
     public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Created
 
+    public data object Null : Created
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
-      ): Created? {
+      ): Created {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

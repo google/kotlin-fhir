@@ -81,6 +81,41 @@ internal data class MedicationStatementAdherenceSurrogate(
 }
 
 @Serializable
+internal class MedicationStatementEffectiveSurrogate {
+  public var effectiveDateTime: String? = null
+
+  public var _effectiveDateTime: Element? = null
+
+  public var effectivePeriod: Period? = null
+
+  public var effectiveTiming: Timing? = null
+
+  public fun toModel(): MedicationStatement.Effective =
+    MedicationStatement.Effective?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@MedicationStatementEffectiveSurrogate.effectiveDateTime),
+        this@MedicationStatementEffectiveSurrogate._effectiveDateTime,
+      ),
+      this@MedicationStatementEffectiveSurrogate.effectivePeriod,
+      this@MedicationStatementEffectiveSurrogate.effectiveTiming,
+    ) ?: MedicationStatement.Effective.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationStatement.Effective
+    ): MedicationStatementEffectiveSurrogate =
+      with(model) {
+        MedicationStatementEffectiveSurrogate().apply {
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement()
+          effectivePeriod = this@with.asPeriod()?.value
+          effectiveTiming = this@with.asTiming()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationStatementSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -100,10 +135,6 @@ internal data class MedicationStatementSurrogate(
   public var medication: CodeableReference? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
-  public var effectiveDateTime: String? = null,
-  public var _effectiveDateTime: Element? = null,
-  public var effectivePeriod: Period? = null,
-  public var effectiveTiming: Timing? = null,
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var informationSource: List<Reference?>? = null,
@@ -115,6 +146,7 @@ internal data class MedicationStatementSurrogate(
   public var _renderedDosageInstruction: Element? = null,
   public var dosage: List<Dosage?>? = null,
   public var adherence: MedicationStatement.Adherence? = null,
+  public var effective: MedicationStatement.Effective? = null,
 ) {
   public fun toModel(): MedicationStatement =
     MedicationStatement().apply {
@@ -147,15 +179,7 @@ internal data class MedicationStatementSurrogate(
       medication = this@MedicationStatementSurrogate.medication
       subject = this@MedicationStatementSurrogate.subject
       encounter = this@MedicationStatementSurrogate.encounter
-      effective =
-        MedicationStatement.Effective?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@MedicationStatementSurrogate.effectiveDateTime),
-            this@MedicationStatementSurrogate._effectiveDateTime,
-          ),
-          this@MedicationStatementSurrogate.effectivePeriod,
-          this@MedicationStatementSurrogate.effectiveTiming,
-        )
+      effective = this@MedicationStatementSurrogate.effective
       dateAsserted =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationStatementSurrogate.dateAsserted),
@@ -197,10 +221,7 @@ internal data class MedicationStatementSurrogate(
           medication = this@with.medication
           subject = this@with.subject
           encounter = this@with.encounter
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString()
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement()
-          effectivePeriod = this@with.effective?.asPeriod()?.value
-          effectiveTiming = this@with.effective?.asTiming()?.value
+          effective = this@with.effective
           dateAsserted = this@with.dateAsserted?.value?.toString()
           _dateAsserted = this@with.dateAsserted?.toElement()
           informationSource = this@with.informationSource

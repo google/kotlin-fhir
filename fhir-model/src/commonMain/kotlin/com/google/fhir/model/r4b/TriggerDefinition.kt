@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.TriggerDefinitionSerializer
+import com.google.fhir.model.r4b.serializers.TriggerDefinitionTimingSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.Serializable
@@ -86,6 +87,7 @@ public data class TriggerDefinition(
    */
   public var condition: Expression? = null,
 ) : Element() {
+  @Serializable(with = TriggerDefinitionTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 
@@ -107,18 +109,20 @@ public data class TriggerDefinition(
     public data class DateTime(public val `value`: com.google.fhir.model.r4b.DateTime) :
       TriggerDefinition.Timing
 
+    public data object Null : TriggerDefinition.Timing
+
     public companion object {
       public fun from(
         TimingValue: com.google.fhir.model.r4b.Timing?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
         dateValue: com.google.fhir.model.r4b.Date?,
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-      ): TriggerDefinition.Timing? {
+      ): TriggerDefinition.Timing {
         if (TimingValue != null) return Timing(TimingValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return null
+        return Null
       }
     }
   }

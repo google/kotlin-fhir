@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.UsageContextSerializer
+import com.google.fhir.model.r4b.serializers.UsageContextValueSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
@@ -58,6 +59,7 @@ public data class UsageContext(
    */
   public var `value`: Value? = null,
 ) : Element() {
+  @Serializable(with = UsageContextValueSerializer::class)
   public sealed interface Value {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -77,18 +79,20 @@ public data class UsageContext(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Value
 
+    public data object Null : Value
+
     public companion object {
       public fun from(
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
         QuantityValue: com.google.fhir.model.r4b.Quantity?,
         RangeValue: com.google.fhir.model.r4b.Range?,
         ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Value? {
+      ): Value {
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
         if (QuantityValue != null) return Quantity(QuantityValue)
         if (RangeValue != null) return Range(RangeValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
-        return null
+        return Null
       }
     }
   }

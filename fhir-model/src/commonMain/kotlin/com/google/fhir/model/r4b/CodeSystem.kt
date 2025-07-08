@@ -20,6 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.CodeSystemConceptDesignationSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemConceptPropertySerializer
+import com.google.fhir.model.r4b.serializers.CodeSystemConceptPropertyValueSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemConceptSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemPropertySerializer
@@ -658,6 +659,7 @@ public data class CodeSystem(
       /** The value of this property. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = CodeSystemConceptPropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCode(): Code? = this as? Code
 
@@ -687,6 +689,8 @@ public data class CodeSystem(
 
         public data class Decimal(public val `value`: com.google.fhir.model.r4b.Decimal) : Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             codeValue: com.google.fhir.model.r4b.Code?,
@@ -696,7 +700,7 @@ public data class CodeSystem(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             dateTimeValue: com.google.fhir.model.r4b.DateTime?,
             decimalValue: com.google.fhir.model.r4b.Decimal?,
-          ): Value? {
+          ): Value {
             if (codeValue != null) return Code(codeValue)
             if (CodingValue != null) return Coding(CodingValue)
             if (stringValue != null) return String(stringValue)
@@ -704,7 +708,7 @@ public data class CodeSystem(
             if (booleanValue != null) return Boolean(booleanValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (decimalValue != null) return Decimal(decimalValue)
-            return null
+            return Null
           }
         }
       }

@@ -18,30 +18,42 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAccidentLocationSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAccidentSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAddItemBodySiteSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAddItemDetailSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAddItemDetailSubDetailSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAddItemLocationSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAddItemSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitAddItemServicedSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitBenefitBalanceFinancialAllowedSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitBenefitBalanceFinancialSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitBenefitBalanceFinancialUsedSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitBenefitBalanceSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitCareTeamSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitEventSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitEventWhenSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitInsuranceSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemAdjudicationSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemBodySiteSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemDetailSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemDetailSubDetailSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemLocationSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemReviewOutcomeSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitItemServicedSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitPayeeSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitPaymentSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitProcedureProcedureSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitProcedureSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitProcessNoteSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitRelatedSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitSupportingInfoSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitSupportingInfoTimingSerializer
+import com.google.fhir.model.r5.serializers.ExplanationOfBenefitSupportingInfoValueSerializer
 import com.google.fhir.model.r5.serializers.ExplanationOfBenefitTotalSerializer
 import kotlin.Suppress
 import kotlin.collections.List
@@ -542,6 +554,7 @@ public data class ExplanationOfBenefit(
      */
     public var `when`: When? = null,
   ) : BackboneElement() {
+    @Serializable(with = ExplanationOfBenefitEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -551,14 +564,16 @@ public data class ExplanationOfBenefit(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : When
 
+      public data object Null : When
+
       public companion object {
         public fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): When? {
+        ): When {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
@@ -755,6 +770,7 @@ public data class ExplanationOfBenefit(
      */
     public var reason: Coding? = null,
   ) : BackboneElement() {
+    @Serializable(with = ExplanationOfBenefitSupportingInfoTimingSerializer::class)
     public sealed interface Timing {
       public fun asDate(): Date? = this as? Date
 
@@ -764,18 +780,21 @@ public data class ExplanationOfBenefit(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Timing
 
+      public data object Null : Timing
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Timing? {
+        ): Timing {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ExplanationOfBenefitSupportingInfoValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -801,6 +820,8 @@ public data class ExplanationOfBenefit(
 
       public data class Identifier(public val `value`: com.google.fhir.model.r5.Identifier) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -809,14 +830,14 @@ public data class ExplanationOfBenefit(
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
           IdentifierValue: com.google.fhir.model.r5.Identifier?,
-        ): Value? {
+        ): Value {
           if (booleanValue != null) return Boolean(booleanValue)
           if (stringValue != null) return String(stringValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
           if (IdentifierValue != null) return Identifier(IdentifierValue)
-          return null
+          return Null
         }
       }
     }
@@ -882,6 +903,7 @@ public data class ExplanationOfBenefit(
     /** Indication of whether the diagnosis was present on admission to a facility. */
     public var onAdmission: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ExplanationOfBenefitDiagnosisDiagnosisSerializer::class)
     public sealed interface Diagnosis {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -894,14 +916,16 @@ public data class ExplanationOfBenefit(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Diagnosis
 
+      public data object Null : Diagnosis
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Diagnosis? {
+        ): Diagnosis {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -961,6 +985,7 @@ public data class ExplanationOfBenefit(
     /** Unique Device Identifiers associated with this line item. */
     public var udi: List<Reference?>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ExplanationOfBenefitProcedureProcedureSerializer::class)
     public sealed interface Procedure {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -973,14 +998,16 @@ public data class ExplanationOfBenefit(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Procedure
 
+      public data object Null : Procedure
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Procedure? {
+        ): Procedure {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1115,6 +1142,7 @@ public data class ExplanationOfBenefit(
     /** The physical location of the accident event. */
     public var location: Location? = null,
   ) : BackboneElement() {
+    @Serializable(with = ExplanationOfBenefitAccidentLocationSerializer::class)
     public sealed interface Location {
       public fun asAddress(): Address? = this as? Address
 
@@ -1125,14 +1153,16 @@ public data class ExplanationOfBenefit(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           AddressValue: com.google.fhir.model.r5.Address?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Location? {
+        ): Location {
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -1754,6 +1784,7 @@ public data class ExplanationOfBenefit(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ExplanationOfBenefitItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1763,18 +1794,21 @@ public data class ExplanationOfBenefit(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ExplanationOfBenefitItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1791,16 +1825,18 @@ public data class ExplanationOfBenefit(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           AddressValue: com.google.fhir.model.r5.Address?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Location? {
+        ): Location {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -2225,6 +2261,7 @@ public data class ExplanationOfBenefit(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ExplanationOfBenefitAddItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -2234,18 +2271,21 @@ public data class ExplanationOfBenefit(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
+      public data object Null : Serviced
+
       public companion object {
         public fun from(
           dateValue: com.google.fhir.model.r5.Date?,
           PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Serviced? {
+        ): Serviced {
           if (dateValue != null) return Date(dateValue)
           if (PeriodValue != null) return Period(PeriodValue)
-          return null
+          return Null
         }
       }
     }
 
+    @Serializable(with = ExplanationOfBenefitAddItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -2262,16 +2302,18 @@ public data class ExplanationOfBenefit(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Location
 
+      public data object Null : Location
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           AddressValue: com.google.fhir.model.r5.Address?,
           ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Location? {
+        ): Location {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (AddressValue != null) return Address(AddressValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
@@ -2579,6 +2621,7 @@ public data class ExplanationOfBenefit(
       /** The quantity of the benefit which have been consumed to date. */
       public var used: Used? = null,
     ) : BackboneElement() {
+      @Serializable(with = ExplanationOfBenefitBenefitBalanceFinancialAllowedSerializer::class)
       public sealed interface Allowed {
         public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -2593,20 +2636,23 @@ public data class ExplanationOfBenefit(
 
         public data class Money(public val `value`: com.google.fhir.model.r5.Money) : Allowed
 
+        public data object Null : Allowed
+
         public companion object {
           public fun from(
             unsignedIntValue: com.google.fhir.model.r5.UnsignedInt?,
             stringValue: com.google.fhir.model.r5.String?,
             MoneyValue: com.google.fhir.model.r5.Money?,
-          ): Allowed? {
+          ): Allowed {
             if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
             if (stringValue != null) return String(stringValue)
             if (MoneyValue != null) return Money(MoneyValue)
-            return null
+            return Null
           }
         }
       }
 
+      @Serializable(with = ExplanationOfBenefitBenefitBalanceFinancialUsedSerializer::class)
       public sealed interface Used {
         public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -2617,14 +2663,16 @@ public data class ExplanationOfBenefit(
 
         public data class Money(public val `value`: com.google.fhir.model.r5.Money) : Used
 
+        public data object Null : Used
+
         public companion object {
           public fun from(
             unsignedIntValue: com.google.fhir.model.r5.UnsignedInt?,
             MoneyValue: com.google.fhir.model.r5.Money?,
-          ): Used? {
+          ): Used {
             if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
             if (MoneyValue != null) return Money(MoneyValue)
-            return null
+            return Null
           }
         }
       }

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.TriggerDefinitionSerializer
+import com.google.fhir.model.r5.serializers.TriggerDefinitionTimingSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.Serializable
@@ -92,6 +93,7 @@ public data class TriggerDefinition(
    */
   public var condition: Expression? = null,
 ) : DataType() {
+  @Serializable(with = TriggerDefinitionTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 
@@ -113,18 +115,20 @@ public data class TriggerDefinition(
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) :
       TriggerDefinition.Timing
 
+    public data object Null : TriggerDefinition.Timing
+
     public companion object {
       public fun from(
         TimingValue: com.google.fhir.model.r5.Timing?,
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         dateValue: com.google.fhir.model.r5.Date?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-      ): TriggerDefinition.Timing? {
+      ): TriggerDefinition.Timing {
         if (TimingValue != null) return Timing(TimingValue)
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return null
+        return Null
       }
     }
   }

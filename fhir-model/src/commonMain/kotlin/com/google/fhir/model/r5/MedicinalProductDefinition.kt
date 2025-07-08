@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionContactSerializer
 import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionCrossReferenceSerializer
 import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionNamePartSerializer
@@ -629,6 +630,7 @@ public data class MedicinalProductDefinition(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductDefinitionCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -660,6 +662,8 @@ public data class MedicinalProductDefinition(
 
       public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) : Value
 
+      public data object Null : Value
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
@@ -669,7 +673,7 @@ public data class MedicinalProductDefinition(
           dateValue: com.google.fhir.model.r5.Date?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
           AttachmentValue: com.google.fhir.model.r5.Attachment?,
-        ): Value? {
+        ): Value {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (markdownValue != null) return Markdown(markdownValue)
           if (QuantityValue != null) return Quantity(QuantityValue)
@@ -677,7 +681,7 @@ public data class MedicinalProductDefinition(
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return null
+          return Null
         }
       }
     }

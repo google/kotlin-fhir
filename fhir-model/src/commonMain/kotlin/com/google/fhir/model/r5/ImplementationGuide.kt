@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionGroupingSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionPageSerializer
+import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionPageSourceSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionParameterSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionResourceSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionSerializer
@@ -30,6 +31,7 @@ import com.google.fhir.model.r5.serializers.ImplementationGuideManifestPageSeria
 import com.google.fhir.model.r5.serializers.ImplementationGuideManifestResourceSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideSerializer
+import com.google.fhir.model.r5.serializers.ImplementationGuideVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -780,6 +782,7 @@ public data class ImplementationGuide(
        */
       public var page: List<Page?>? = null,
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideDefinitionPageSourceSerializer::class)
       public sealed interface Source {
         public fun asUrl(): Url? = this as? Url
 
@@ -793,16 +796,18 @@ public data class ImplementationGuide(
 
         public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : Source
 
+        public data object Null : Source
+
         public companion object {
           public fun from(
             urlValue: com.google.fhir.model.r5.Url?,
             stringValue: com.google.fhir.model.r5.String?,
             markdownValue: com.google.fhir.model.r5.Markdown?,
-          ): Source? {
+          ): Source {
             if (urlValue != null) return Url(urlValue)
             if (stringValue != null) return String(stringValue)
             if (markdownValue != null) return Markdown(markdownValue)
-            return null
+            return Null
           }
         }
       }
@@ -1094,6 +1099,7 @@ public data class ImplementationGuide(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ImplementationGuideVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1105,14 +1111,16 @@ public data class ImplementationGuide(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

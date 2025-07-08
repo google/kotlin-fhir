@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.QuestionnaireResponseItemAnswerSerializer
+import com.google.fhir.model.r4b.serializers.QuestionnaireResponseItemAnswerValueSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireResponseItemSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireResponseSerializer
 import kotlin.Suppress
@@ -343,6 +344,7 @@ public data class QuestionnaireResponse(
       /** Nested groups and/or questions found within this particular answer. */
       public var item: List<Item?>? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireResponseItemAnswerValueSerializer::class)
       public sealed interface Value {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -394,6 +396,8 @@ public data class QuestionnaireResponse(
         public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
           Value
 
+        public data object Null : Value
+
         public companion object {
           public fun from(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
@@ -408,7 +412,7 @@ public data class QuestionnaireResponse(
             CodingValue: com.google.fhir.model.r4b.Coding?,
             QuantityValue: com.google.fhir.model.r4b.Quantity?,
             ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          ): Value? {
+          ): Value {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -421,7 +425,7 @@ public data class QuestionnaireResponse(
             if (CodingValue != null) return Coding(CodingValue)
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }

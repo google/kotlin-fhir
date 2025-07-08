@@ -265,6 +265,29 @@ internal data class MeasureSupplementalDataSurrogate(
 }
 
 @Serializable
+internal class MeasureSubjectSurrogate {
+  public var subjectCodeableConcept: CodeableConcept? = null
+
+  public var subjectReference: Reference? = null
+
+  public fun toModel(): Measure.Subject =
+    Measure.Subject?.from(
+      this@MeasureSubjectSurrogate.subjectCodeableConcept,
+      this@MeasureSubjectSurrogate.subjectReference,
+    ) ?: Measure.Subject.Null
+
+  public companion object {
+    public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =
+      with(model) {
+        MeasureSubjectSurrogate().apply {
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value
+          subjectReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MeasureSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -291,8 +314,6 @@ internal data class MeasureSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -341,6 +362,7 @@ internal data class MeasureSurrogate(
   public var _guidance: Element? = null,
   public var group: List<Measure.Group>? = null,
   public var supplementalData: List<Measure.SupplementalData>? = null,
+  public var subject: Measure.Subject? = null,
 ) {
   public fun toModel(): Measure =
     Measure().apply {
@@ -368,11 +390,7 @@ internal data class MeasureSurrogate(
         )
       experimental =
         R4bBoolean.of(this@MeasureSurrogate.experimental, this@MeasureSurrogate._experimental)
-      subject =
-        Measure.Subject?.from(
-          this@MeasureSurrogate.subjectCodeableConcept,
-          this@MeasureSurrogate.subjectReference,
-        )
+      subject = this@MeasureSurrogate.subject
       date =
         DateTime.of(
           FhirDateTime.fromString(this@MeasureSurrogate.date),
@@ -475,8 +493,7 @@ internal data class MeasureSurrogate(
           _status = this@with.status?.toElement()
           experimental = this@with.experimental?.value
           _experimental = this@with.experimental?.toElement()
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
+          subject = this@with.subject
           date = this@with.date?.value?.toString()
           _date = this@with.date?.toElement()
           publisher = this@with.publisher?.value

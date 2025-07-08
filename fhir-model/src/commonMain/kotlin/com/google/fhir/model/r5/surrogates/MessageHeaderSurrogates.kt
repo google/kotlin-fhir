@@ -45,31 +45,53 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class MessageHeaderDestinationEndpointSurrogate {
+  public var endpointUrl: KotlinString? = null
+
+  public var _endpointUrl: Element? = null
+
+  public var endpointReference: Reference? = null
+
+  public fun toModel(): MessageHeader.Destination.Endpoint =
+    MessageHeader.Destination.Endpoint?.from(
+      Url.of(
+        this@MessageHeaderDestinationEndpointSurrogate.endpointUrl,
+        this@MessageHeaderDestinationEndpointSurrogate._endpointUrl,
+      ),
+      this@MessageHeaderDestinationEndpointSurrogate.endpointReference,
+    ) ?: MessageHeader.Destination.Endpoint.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MessageHeader.Destination.Endpoint
+    ): MessageHeaderDestinationEndpointSurrogate =
+      with(model) {
+        MessageHeaderDestinationEndpointSurrogate().apply {
+          endpointUrl = this@with.asUrl()?.value?.value
+          _endpointUrl = this@with.asUrl()?.value?.toElement()
+          endpointReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MessageHeaderDestinationSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var endpointUrl: KotlinString? = null,
-  public var _endpointUrl: Element? = null,
-  public var endpointReference: Reference? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var target: Reference? = null,
   public var `receiver`: Reference? = null,
+  public var endpoint: MessageHeader.Destination.Endpoint? = null,
 ) {
   public fun toModel(): MessageHeader.Destination =
     MessageHeader.Destination().apply {
       id = this@MessageHeaderDestinationSurrogate.id
       extension = this@MessageHeaderDestinationSurrogate.extension
       modifierExtension = this@MessageHeaderDestinationSurrogate.modifierExtension
-      endpoint =
-        MessageHeader.Destination.Endpoint?.from(
-          Url.of(
-            this@MessageHeaderDestinationSurrogate.endpointUrl,
-            this@MessageHeaderDestinationSurrogate._endpointUrl,
-          ),
-          this@MessageHeaderDestinationSurrogate.endpointReference,
-        )
+      endpoint = this@MessageHeaderDestinationSurrogate.endpoint
       name =
         R5String.of(
           this@MessageHeaderDestinationSurrogate.name,
@@ -86,9 +108,7 @@ internal data class MessageHeaderDestinationSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          endpointUrl = this@with.endpoint?.asUrl()?.value?.value
-          _endpointUrl = this@with.endpoint?.asUrl()?.value?.toElement()
-          endpointReference = this@with.endpoint?.asReference()?.value
+          endpoint = this@with.endpoint
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           target = this@with.target
@@ -99,13 +119,41 @@ internal data class MessageHeaderDestinationSurrogate(
 }
 
 @Serializable
+internal class MessageHeaderSourceEndpointSurrogate {
+  public var endpointUrl: KotlinString? = null
+
+  public var _endpointUrl: Element? = null
+
+  public var endpointReference: Reference? = null
+
+  public fun toModel(): MessageHeader.Source.Endpoint =
+    MessageHeader.Source.Endpoint?.from(
+      Url.of(
+        this@MessageHeaderSourceEndpointSurrogate.endpointUrl,
+        this@MessageHeaderSourceEndpointSurrogate._endpointUrl,
+      ),
+      this@MessageHeaderSourceEndpointSurrogate.endpointReference,
+    ) ?: MessageHeader.Source.Endpoint.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MessageHeader.Source.Endpoint
+    ): MessageHeaderSourceEndpointSurrogate =
+      with(model) {
+        MessageHeaderSourceEndpointSurrogate().apply {
+          endpointUrl = this@with.asUrl()?.value?.value
+          _endpointUrl = this@with.asUrl()?.value?.toElement()
+          endpointReference = this@with.asReference()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MessageHeaderSourceSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var endpointUrl: KotlinString? = null,
-  public var _endpointUrl: Element? = null,
-  public var endpointReference: Reference? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var software: KotlinString? = null,
@@ -113,20 +161,14 @@ internal data class MessageHeaderSourceSurrogate(
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var contact: ContactPoint? = null,
+  public var endpoint: MessageHeader.Source.Endpoint? = null,
 ) {
   public fun toModel(): MessageHeader.Source =
     MessageHeader.Source().apply {
       id = this@MessageHeaderSourceSurrogate.id
       extension = this@MessageHeaderSourceSurrogate.extension
       modifierExtension = this@MessageHeaderSourceSurrogate.modifierExtension
-      endpoint =
-        MessageHeader.Source.Endpoint?.from(
-          Url.of(
-            this@MessageHeaderSourceSurrogate.endpointUrl,
-            this@MessageHeaderSourceSurrogate._endpointUrl,
-          ),
-          this@MessageHeaderSourceSurrogate.endpointReference,
-        )
+      endpoint = this@MessageHeaderSourceSurrogate.endpoint
       name =
         R5String.of(this@MessageHeaderSourceSurrogate.name, this@MessageHeaderSourceSurrogate._name)
       software =
@@ -149,9 +191,7 @@ internal data class MessageHeaderSourceSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          endpointUrl = this@with.endpoint?.asUrl()?.value?.value
-          _endpointUrl = this@with.endpoint?.asUrl()?.value?.toElement()
-          endpointReference = this@with.endpoint?.asReference()?.value
+          endpoint = this@with.endpoint
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           software = this@with.software?.value
@@ -207,6 +247,35 @@ internal data class MessageHeaderResponseSurrogate(
 }
 
 @Serializable
+internal class MessageHeaderEventSurrogate {
+  public var eventCoding: Coding? = null
+
+  public var eventCanonical: KotlinString? = null
+
+  public var _eventCanonical: Element? = null
+
+  public fun toModel(): MessageHeader.Event =
+    MessageHeader.Event?.from(
+      this@MessageHeaderEventSurrogate.eventCoding,
+      Canonical.of(
+        this@MessageHeaderEventSurrogate.eventCanonical,
+        this@MessageHeaderEventSurrogate._eventCanonical,
+      ),
+    ) ?: MessageHeader.Event.Null
+
+  public companion object {
+    public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =
+      with(model) {
+        MessageHeaderEventSurrogate().apply {
+          eventCoding = this@with.asCoding()?.value
+          eventCanonical = this@with.asCanonical()?.value?.value
+          _eventCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MessageHeaderSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -218,9 +287,6 @@ internal data class MessageHeaderSurrogate(
   public var contained: List<Resource?>? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var eventCoding: Coding? = null,
-  public var eventCanonical: KotlinString? = null,
-  public var _eventCanonical: Element? = null,
   public var destination: List<MessageHeader.Destination>? = null,
   public var sender: Reference? = null,
   public var author: Reference? = null,
@@ -231,6 +297,7 @@ internal data class MessageHeaderSurrogate(
   public var focus: List<Reference?>? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
+  public var event: MessageHeader.Event? = null,
 ) {
   public fun toModel(): MessageHeader =
     MessageHeader().apply {
@@ -247,14 +314,7 @@ internal data class MessageHeaderSurrogate(
       contained = this@MessageHeaderSurrogate.contained
       extension = this@MessageHeaderSurrogate.extension
       modifierExtension = this@MessageHeaderSurrogate.modifierExtension
-      event =
-        MessageHeader.Event?.from(
-          this@MessageHeaderSurrogate.eventCoding,
-          Canonical.of(
-            this@MessageHeaderSurrogate.eventCanonical,
-            this@MessageHeaderSurrogate._eventCanonical,
-          ),
-        )
+      event = this@MessageHeaderSurrogate.event
       destination = this@MessageHeaderSurrogate.destination
       sender = this@MessageHeaderSurrogate.sender
       author = this@MessageHeaderSurrogate.author
@@ -284,9 +344,7 @@ internal data class MessageHeaderSurrogate(
           contained = this@with.contained
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          eventCoding = this@with.event?.asCoding()?.value
-          eventCanonical = this@with.event?.asCanonical()?.value?.value
-          _eventCanonical = this@with.event?.asCanonical()?.value?.toElement()
+          event = this@with.event
           destination = this@with.destination
           sender = this@with.sender
           author = this@with.author

@@ -212,6 +212,43 @@ internal data class ExampleScenarioInstanceContainedInstanceSurrogate(
 }
 
 @Serializable
+internal class ExampleScenarioInstanceStructureProfileSurrogate {
+  public var structureProfileCanonical: KotlinString? = null
+
+  public var _structureProfileCanonical: Element? = null
+
+  public var structureProfileUri: KotlinString? = null
+
+  public var _structureProfileUri: Element? = null
+
+  public fun toModel(): ExampleScenario.Instance.StructureProfile =
+    ExampleScenario.Instance.StructureProfile?.from(
+      Canonical.of(
+        this@ExampleScenarioInstanceStructureProfileSurrogate.structureProfileCanonical,
+        this@ExampleScenarioInstanceStructureProfileSurrogate._structureProfileCanonical,
+      ),
+      Uri.of(
+        this@ExampleScenarioInstanceStructureProfileSurrogate.structureProfileUri,
+        this@ExampleScenarioInstanceStructureProfileSurrogate._structureProfileUri,
+      ),
+    ) ?: ExampleScenario.Instance.StructureProfile.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ExampleScenario.Instance.StructureProfile
+    ): ExampleScenarioInstanceStructureProfileSurrogate =
+      with(model) {
+        ExampleScenarioInstanceStructureProfileSurrogate().apply {
+          structureProfileCanonical = this@with.asCanonical()?.value?.value
+          _structureProfileCanonical = this@with.asCanonical()?.value?.toElement()
+          structureProfileUri = this@with.asUri()?.value?.value
+          _structureProfileUri = this@with.asUri()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ExampleScenarioInstanceSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -221,10 +258,6 @@ internal data class ExampleScenarioInstanceSurrogate(
   public var structureType: Coding? = null,
   public var structureVersion: KotlinString? = null,
   public var _structureVersion: Element? = null,
-  public var structureProfileCanonical: KotlinString? = null,
-  public var _structureProfileCanonical: Element? = null,
-  public var structureProfileUri: KotlinString? = null,
-  public var _structureProfileUri: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
@@ -232,6 +265,7 @@ internal data class ExampleScenarioInstanceSurrogate(
   public var content: Reference? = null,
   public var version: List<ExampleScenario.Instance.Version>? = null,
   public var containedInstance: List<ExampleScenario.Instance.ContainedInstance>? = null,
+  public var structureProfile: ExampleScenario.Instance.StructureProfile? = null,
 ) {
   public fun toModel(): ExampleScenario.Instance =
     ExampleScenario.Instance().apply {
@@ -249,17 +283,7 @@ internal data class ExampleScenarioInstanceSurrogate(
           this@ExampleScenarioInstanceSurrogate.structureVersion,
           this@ExampleScenarioInstanceSurrogate._structureVersion,
         )
-      structureProfile =
-        ExampleScenario.Instance.StructureProfile?.from(
-          Canonical.of(
-            this@ExampleScenarioInstanceSurrogate.structureProfileCanonical,
-            this@ExampleScenarioInstanceSurrogate._structureProfileCanonical,
-          ),
-          Uri.of(
-            this@ExampleScenarioInstanceSurrogate.structureProfileUri,
-            this@ExampleScenarioInstanceSurrogate._structureProfileUri,
-          ),
-        )
+      structureProfile = this@ExampleScenarioInstanceSurrogate.structureProfile
       title =
         R5String.of(
           this@ExampleScenarioInstanceSurrogate.title,
@@ -287,10 +311,7 @@ internal data class ExampleScenarioInstanceSurrogate(
           structureType = this@with.structureType
           structureVersion = this@with.structureVersion?.value
           _structureVersion = this@with.structureVersion?.toElement()
-          structureProfileCanonical = this@with.structureProfile?.asCanonical()?.value?.value
-          _structureProfileCanonical = this@with.structureProfile?.asCanonical()?.value?.toElement()
-          structureProfileUri = this@with.structureProfile?.asUri()?.value?.value
-          _structureProfileUri = this@with.structureProfile?.asUri()?.value?.toElement()
+          structureProfile = this@with.structureProfile
           title = this@with.title?.value
           _title = this@with.title?.toElement()
           description = this@with.description?.value
@@ -567,6 +588,37 @@ internal data class ExampleScenarioProcessSurrogate(
 }
 
 @Serializable
+internal class ExampleScenarioVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ExampleScenario.VersionAlgorithm =
+    ExampleScenario.VersionAlgorithm?.from(
+      R5String.of(
+        this@ExampleScenarioVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ExampleScenarioVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ExampleScenarioVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ExampleScenario.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ExampleScenario.VersionAlgorithm
+    ): ExampleScenarioVersionAlgorithmSurrogate =
+      with(model) {
+        ExampleScenarioVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ExampleScenarioSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -583,9 +635,6 @@ internal data class ExampleScenarioSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -612,6 +661,7 @@ internal data class ExampleScenarioSurrogate(
   public var actor: List<ExampleScenario.Actor>? = null,
   public var instance: List<ExampleScenario.Instance>? = null,
   public var process: List<ExampleScenario.Process>? = null,
+  public var versionAlgorithm: ExampleScenario.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ExampleScenario =
     ExampleScenario().apply {
@@ -632,14 +682,7 @@ internal data class ExampleScenarioSurrogate(
       identifier = this@ExampleScenarioSurrogate.identifier
       version =
         R5String.of(this@ExampleScenarioSurrogate.version, this@ExampleScenarioSurrogate._version)
-      versionAlgorithm =
-        ExampleScenario.VersionAlgorithm?.from(
-          R5String.of(
-            this@ExampleScenarioSurrogate.versionAlgorithmString,
-            this@ExampleScenarioSurrogate._versionAlgorithmString,
-          ),
-          this@ExampleScenarioSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ExampleScenarioSurrogate.versionAlgorithm
       name = R5String.of(this@ExampleScenarioSurrogate.name, this@ExampleScenarioSurrogate._name)
       title = R5String.of(this@ExampleScenarioSurrogate.title, this@ExampleScenarioSurrogate._title)
       status =
@@ -708,9 +751,7 @@ internal data class ExampleScenarioSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value

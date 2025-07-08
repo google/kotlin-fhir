@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.PopulationAgeSerializer
 import com.google.fhir.model.r4b.serializers.PopulationSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -76,6 +77,7 @@ public data class Population(
   /** The existing physiological conditions of the specific population to which this applies. */
   public var physiologicalCondition: CodeableConcept? = null,
 ) : BackboneElement() {
+  @Serializable(with = PopulationAgeSerializer::class)
   public sealed interface Age {
     public fun asRange(): Range? = this as? Range
 
@@ -87,14 +89,16 @@ public data class Population(
       public val `value`: com.google.fhir.model.r4b.CodeableConcept
     ) : Age
 
+    public data object Null : Age
+
     public companion object {
       public fun from(
         RangeValue: com.google.fhir.model.r4b.Range?,
         CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-      ): Age? {
+      ): Age {
         if (RangeValue != null) return Range(RangeValue)
         if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return null
+        return Null
       }
     }
   }

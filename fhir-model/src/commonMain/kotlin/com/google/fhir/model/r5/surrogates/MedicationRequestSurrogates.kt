@@ -147,28 +147,50 @@ internal data class MedicationRequestDispenseRequestSurrogate(
 }
 
 @Serializable
+internal class MedicationRequestSubstitutionAllowedSurrogate {
+  public var allowedBoolean: KotlinBoolean? = null
+
+  public var _allowedBoolean: Element? = null
+
+  public var allowedCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): MedicationRequest.Substitution.Allowed =
+    MedicationRequest.Substitution.Allowed?.from(
+      R5Boolean.of(
+        this@MedicationRequestSubstitutionAllowedSurrogate.allowedBoolean,
+        this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
+      ),
+      this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
+    ) ?: MedicationRequest.Substitution.Allowed.Null
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationRequest.Substitution.Allowed
+    ): MedicationRequestSubstitutionAllowedSurrogate =
+      with(model) {
+        MedicationRequestSubstitutionAllowedSurrogate().apply {
+          allowedBoolean = this@with.asBoolean()?.value?.value
+          _allowedBoolean = this@with.asBoolean()?.value?.toElement()
+          allowedCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationRequestSubstitutionSurrogate(
   public var id: String? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
-  public var allowedBoolean: KotlinBoolean? = null,
-  public var _allowedBoolean: Element? = null,
-  public var allowedCodeableConcept: CodeableConcept? = null,
   public var reason: CodeableConcept? = null,
+  public var allowed: MedicationRequest.Substitution.Allowed? = null,
 ) {
   public fun toModel(): MedicationRequest.Substitution =
     MedicationRequest.Substitution().apply {
       id = this@MedicationRequestSubstitutionSurrogate.id
       extension = this@MedicationRequestSubstitutionSurrogate.extension
       modifierExtension = this@MedicationRequestSubstitutionSurrogate.modifierExtension
-      allowed =
-        MedicationRequest.Substitution.Allowed?.from(
-          R5Boolean.of(
-            this@MedicationRequestSubstitutionSurrogate.allowedBoolean,
-            this@MedicationRequestSubstitutionSurrogate._allowedBoolean,
-          ),
-          this@MedicationRequestSubstitutionSurrogate.allowedCodeableConcept,
-        )
+      allowed = this@MedicationRequestSubstitutionSurrogate.allowed
       reason = this@MedicationRequestSubstitutionSurrogate.reason
     }
 
@@ -181,9 +203,7 @@ internal data class MedicationRequestSubstitutionSurrogate(
           id = this@with.id
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
-          allowedBoolean = this@with.allowed?.asBoolean()?.value?.value
-          _allowedBoolean = this@with.allowed?.asBoolean()?.value?.toElement()
-          allowedCodeableConcept = this@with.allowed?.asCodeableConcept()?.value
+          allowed = this@with.allowed
           reason = this@with.reason
         }
       }

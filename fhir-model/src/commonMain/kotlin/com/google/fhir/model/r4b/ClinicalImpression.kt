@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ClinicalImpressionEffectiveSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalImpressionFindingSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalImpressionInvestigationSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalImpressionSerializer
@@ -359,6 +360,7 @@ public data class ClinicalImpression(
     public var basis: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ClinicalImpressionEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -368,14 +370,16 @@ public data class ClinicalImpression(
 
     public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         PeriodValue: com.google.fhir.model.r4b.Period?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
-        return null
+        return Null
       }
     }
   }

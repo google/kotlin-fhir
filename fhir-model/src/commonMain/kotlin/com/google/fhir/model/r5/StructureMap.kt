@@ -24,10 +24,12 @@ import com.google.fhir.model.r5.serializers.StructureMapGroupRuleDependentSerial
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleSourceSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleTargetParameterSerializer
+import com.google.fhir.model.r5.serializers.StructureMapGroupRuleTargetParameterValueSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleTargetSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r5.serializers.StructureMapSerializer
 import com.google.fhir.model.r5.serializers.StructureMapStructureSerializer
+import com.google.fhir.model.r5.serializers.StructureMapVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -786,6 +788,7 @@ public data class StructureMap(
           /** Parameter value - variable or literal. */
           public var `value`: Value? = null,
         ) : BackboneElement() {
+          @Serializable(with = StructureMapGroupRuleTargetParameterValueSerializer::class)
           public sealed interface Value {
             public fun asId(): Id? = this as? Id
 
@@ -820,6 +823,8 @@ public data class StructureMap(
             public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) :
               Value
 
+            public data object Null : Value
+
             public companion object {
               public fun from(
                 idValue: com.google.fhir.model.r5.Id?,
@@ -830,7 +835,7 @@ public data class StructureMap(
                 dateValue: com.google.fhir.model.r5.Date?,
                 timeValue: com.google.fhir.model.r5.Time?,
                 dateTimeValue: com.google.fhir.model.r5.DateTime?,
-              ): Value? {
+              ): Value {
                 if (idValue != null) return Id(idValue)
                 if (stringValue != null) return String(stringValue)
                 if (booleanValue != null) return Boolean(booleanValue)
@@ -839,7 +844,7 @@ public data class StructureMap(
                 if (dateValue != null) return Date(dateValue)
                 if (timeValue != null) return Time(timeValue)
                 if (dateTimeValue != null) return DateTime(dateTimeValue)
-                return null
+                return Null
               }
             }
           }
@@ -894,6 +899,7 @@ public data class StructureMap(
     }
   }
 
+  @Serializable(with = StructureMapVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -905,14 +911,16 @@ public data class StructureMap(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }

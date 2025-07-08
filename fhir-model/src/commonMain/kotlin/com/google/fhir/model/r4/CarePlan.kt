@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.CarePlanActivityDetailProductSerializer
+import com.google.fhir.model.r4.serializers.CarePlanActivityDetailScheduledSerializer
 import com.google.fhir.model.r4.serializers.CarePlanActivityDetailSerializer
 import com.google.fhir.model.r4.serializers.CarePlanActivitySerializer
 import com.google.fhir.model.r4.serializers.CarePlanSerializer
@@ -514,6 +516,7 @@ public data class CarePlan(
        */
       public var description: String? = null,
     ) : BackboneElement() {
+      @Serializable(with = CarePlanActivityDetailScheduledSerializer::class)
       public sealed interface Scheduled {
         public fun asTiming(): Timing? = this as? Timing
 
@@ -527,20 +530,23 @@ public data class CarePlan(
 
         public data class String(public val `value`: com.google.fhir.model.r4.String) : Scheduled
 
+        public data object Null : Scheduled
+
         public companion object {
           public fun from(
             TimingValue: com.google.fhir.model.r4.Timing?,
             PeriodValue: com.google.fhir.model.r4.Period?,
             stringValue: com.google.fhir.model.r4.String?,
-          ): Scheduled? {
+          ): Scheduled {
             if (TimingValue != null) return Timing(TimingValue)
             if (PeriodValue != null) return Period(PeriodValue)
             if (stringValue != null) return String(stringValue)
-            return null
+            return Null
           }
         }
       }
 
+      @Serializable(with = CarePlanActivityDetailProductSerializer::class)
       public sealed interface Product {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -553,14 +559,16 @@ public data class CarePlan(
         public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
           Product
 
+        public data object Null : Product
+
         public companion object {
           public fun from(
             CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
             ReferenceValue: com.google.fhir.model.r4.Reference?,
-          ): Product? {
+          ): Product {
             if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
             if (ReferenceValue != null) return Reference(ReferenceValue)
-            return null
+            return Null
           }
         }
       }

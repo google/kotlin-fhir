@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MedicationStatementAdherenceSerializer
+import com.google.fhir.model.r5.serializers.MedicationStatementEffectiveSerializer
 import com.google.fhir.model.r5.serializers.MedicationStatementSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -316,6 +317,7 @@ public data class MedicationStatement(
     public var reason: CodeableConcept? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MedicationStatementEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -329,16 +331,18 @@ public data class MedicationStatement(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Effective
 
+    public data object Null : Effective
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
         PeriodValue: com.google.fhir.model.r5.Period?,
         TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Effective? {
+      ): Effective {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }

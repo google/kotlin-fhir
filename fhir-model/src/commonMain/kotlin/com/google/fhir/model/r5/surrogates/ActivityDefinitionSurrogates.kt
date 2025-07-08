@@ -157,6 +157,153 @@ internal data class ActivityDefinitionDynamicValueSurrogate(
 }
 
 @Serializable
+internal class ActivityDefinitionVersionAlgorithmSurrogate {
+  public var versionAlgorithmString: KotlinString? = null
+
+  public var _versionAlgorithmString: Element? = null
+
+  public var versionAlgorithmCoding: Coding? = null
+
+  public fun toModel(): ActivityDefinition.VersionAlgorithm =
+    ActivityDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@ActivityDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ActivityDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ActivityDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    ) ?: ActivityDefinition.VersionAlgorithm.Null
+
+  public companion object {
+    public fun fromModel(
+      model: ActivityDefinition.VersionAlgorithm
+    ): ActivityDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        ActivityDefinitionVersionAlgorithmSurrogate().apply {
+          versionAlgorithmString = this@with.asString()?.value?.value
+          _versionAlgorithmString = this@with.asString()?.value?.toElement()
+          versionAlgorithmCoding = this@with.asCoding()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ActivityDefinitionSubjectSurrogate {
+  public var subjectCodeableConcept: CodeableConcept? = null
+
+  public var subjectReference: Reference? = null
+
+  public var subjectCanonical: KotlinString? = null
+
+  public var _subjectCanonical: Element? = null
+
+  public fun toModel(): ActivityDefinition.Subject =
+    ActivityDefinition.Subject?.from(
+      this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
+      this@ActivityDefinitionSubjectSurrogate.subjectReference,
+      Canonical.of(
+        this@ActivityDefinitionSubjectSurrogate.subjectCanonical,
+        this@ActivityDefinitionSubjectSurrogate._subjectCanonical,
+      ),
+    ) ?: ActivityDefinition.Subject.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.Subject): ActivityDefinitionSubjectSurrogate =
+      with(model) {
+        ActivityDefinitionSubjectSurrogate().apply {
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value
+          subjectReference = this@with.asReference()?.value
+          subjectCanonical = this@with.asCanonical()?.value?.value
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ActivityDefinitionTimingSurrogate {
+  public var timingTiming: Timing? = null
+
+  public var timingAge: Age? = null
+
+  public var timingRange: Range? = null
+
+  public var timingDuration: Duration? = null
+
+  public fun toModel(): ActivityDefinition.Timing =
+    ActivityDefinition.Timing?.from(
+      this@ActivityDefinitionTimingSurrogate.timingTiming,
+      this@ActivityDefinitionTimingSurrogate.timingAge,
+      this@ActivityDefinitionTimingSurrogate.timingRange,
+      this@ActivityDefinitionTimingSurrogate.timingDuration,
+    ) ?: ActivityDefinition.Timing.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.Timing): ActivityDefinitionTimingSurrogate =
+      with(model) {
+        ActivityDefinitionTimingSurrogate().apply {
+          timingTiming = this@with.asTiming()?.value
+          timingAge = this@with.asAge()?.value
+          timingRange = this@with.asRange()?.value
+          timingDuration = this@with.asDuration()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ActivityDefinitionAsNeededSurrogate {
+  public var asNeededBoolean: KotlinBoolean? = null
+
+  public var _asNeededBoolean: Element? = null
+
+  public var asNeededCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): ActivityDefinition.AsNeeded =
+    ActivityDefinition.AsNeeded?.from(
+      R5Boolean.of(
+        this@ActivityDefinitionAsNeededSurrogate.asNeededBoolean,
+        this@ActivityDefinitionAsNeededSurrogate._asNeededBoolean,
+      ),
+      this@ActivityDefinitionAsNeededSurrogate.asNeededCodeableConcept,
+    ) ?: ActivityDefinition.AsNeeded.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.AsNeeded): ActivityDefinitionAsNeededSurrogate =
+      with(model) {
+        ActivityDefinitionAsNeededSurrogate().apply {
+          asNeededBoolean = this@with.asBoolean()?.value?.value
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement()
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ActivityDefinitionProductSurrogate {
+  public var productReference: Reference? = null
+
+  public var productCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): ActivityDefinition.Product =
+    ActivityDefinition.Product?.from(
+      this@ActivityDefinitionProductSurrogate.productReference,
+      this@ActivityDefinitionProductSurrogate.productCodeableConcept,
+    ) ?: ActivityDefinition.Product.Null
+
+  public companion object {
+    public fun fromModel(model: ActivityDefinition.Product): ActivityDefinitionProductSurrogate =
+      with(model) {
+        ActivityDefinitionProductSurrogate().apply {
+          productReference = this@with.asReference()?.value
+          productCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ActivityDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -173,9 +320,6 @@ internal data class ActivityDefinitionSurrogate(
   public var identifier: List<Identifier?>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -186,10 +330,6 @@ internal data class ActivityDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
-  public var subjectCanonical: KotlinString? = null,
-  public var _subjectCanonical: Element? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -231,17 +371,8 @@ internal data class ActivityDefinitionSurrogate(
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
-  public var timingTiming: Timing? = null,
-  public var timingAge: Age? = null,
-  public var timingRange: Range? = null,
-  public var timingDuration: Duration? = null,
-  public var asNeededBoolean: KotlinBoolean? = null,
-  public var _asNeededBoolean: Element? = null,
-  public var asNeededCodeableConcept: CodeableConcept? = null,
   public var location: CodeableReference? = null,
   public var participant: List<ActivityDefinition.Participant>? = null,
-  public var productReference: Reference? = null,
-  public var productCodeableConcept: CodeableConcept? = null,
   public var quantity: Quantity? = null,
   public var dosage: List<Dosage?>? = null,
   public var bodySite: List<CodeableConcept?>? = null,
@@ -254,6 +385,11 @@ internal data class ActivityDefinitionSurrogate(
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: List<ActivityDefinition.DynamicValue>? = null,
+  public var versionAlgorithm: ActivityDefinition.VersionAlgorithm? = null,
+  public var subject: ActivityDefinition.Subject? = null,
+  public var timing: ActivityDefinition.Timing? = null,
+  public var asNeeded: ActivityDefinition.AsNeeded? = null,
+  public var product: ActivityDefinition.Product? = null,
 ) {
   public fun toModel(): ActivityDefinition =
     ActivityDefinition().apply {
@@ -280,14 +416,7 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate.version,
           this@ActivityDefinitionSurrogate._version,
         )
-      versionAlgorithm =
-        ActivityDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@ActivityDefinitionSurrogate.versionAlgorithmString,
-            this@ActivityDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@ActivityDefinitionSurrogate.versionAlgorithmCoding,
-        )
+      versionAlgorithm = this@ActivityDefinitionSurrogate.versionAlgorithm
       name =
         R5String.of(this@ActivityDefinitionSurrogate.name, this@ActivityDefinitionSurrogate._name)
       title =
@@ -309,15 +438,7 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate.experimental,
           this@ActivityDefinitionSurrogate._experimental,
         )
-      subject =
-        ActivityDefinition.Subject?.from(
-          this@ActivityDefinitionSurrogate.subjectCodeableConcept,
-          this@ActivityDefinitionSurrogate.subjectReference,
-          Canonical.of(
-            this@ActivityDefinitionSurrogate.subjectCanonical,
-            this@ActivityDefinitionSurrogate._subjectCanonical,
-          ),
-        )
+      subject = this@ActivityDefinitionSurrogate.subject
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ActivityDefinitionSurrogate.date),
@@ -417,28 +538,11 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate.doNotPerform,
           this@ActivityDefinitionSurrogate._doNotPerform,
         )
-      timing =
-        ActivityDefinition.Timing?.from(
-          this@ActivityDefinitionSurrogate.timingTiming,
-          this@ActivityDefinitionSurrogate.timingAge,
-          this@ActivityDefinitionSurrogate.timingRange,
-          this@ActivityDefinitionSurrogate.timingDuration,
-        )
-      asNeeded =
-        ActivityDefinition.AsNeeded?.from(
-          R5Boolean.of(
-            this@ActivityDefinitionSurrogate.asNeededBoolean,
-            this@ActivityDefinitionSurrogate._asNeededBoolean,
-          ),
-          this@ActivityDefinitionSurrogate.asNeededCodeableConcept,
-        )
+      timing = this@ActivityDefinitionSurrogate.timing
+      asNeeded = this@ActivityDefinitionSurrogate.asNeeded
       location = this@ActivityDefinitionSurrogate.location
       participant = this@ActivityDefinitionSurrogate.participant
-      product =
-        ActivityDefinition.Product?.from(
-          this@ActivityDefinitionSurrogate.productReference,
-          this@ActivityDefinitionSurrogate.productCodeableConcept,
-        )
+      product = this@ActivityDefinitionSurrogate.product
       quantity = this@ActivityDefinitionSurrogate.quantity
       dosage = this@ActivityDefinitionSurrogate.dosage
       bodySite = this@ActivityDefinitionSurrogate.bodySite
@@ -518,9 +622,7 @@ internal data class ActivityDefinitionSurrogate(
           identifier = this@with.identifier
           version = this@with.version?.value
           _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
+          versionAlgorithm = this@with.versionAlgorithm
           name = this@with.name?.value
           _name = this@with.name?.toElement()
           title = this@with.title?.value
@@ -531,10 +633,7 @@ internal data class ActivityDefinitionSurrogate(
           _status = this@with.status?.toElement()
           experimental = this@with.experimental?.value
           _experimental = this@with.experimental?.toElement()
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
-          subjectCanonical = this@with.subject?.asCanonical()?.value?.value
-          _subjectCanonical = this@with.subject?.asCanonical()?.value?.toElement()
+          subject = this@with.subject
           date = this@with.date?.value?.toString()
           _date = this@with.date?.toElement()
           publisher = this@with.publisher?.value
@@ -577,17 +676,11 @@ internal data class ActivityDefinitionSurrogate(
           _priority = this@with.priority?.toElement()
           doNotPerform = this@with.doNotPerform?.value
           _doNotPerform = this@with.doNotPerform?.toElement()
-          timingTiming = this@with.timing?.asTiming()?.value
-          timingAge = this@with.timing?.asAge()?.value
-          timingRange = this@with.timing?.asRange()?.value
-          timingDuration = this@with.timing?.asDuration()?.value
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement()
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value
+          timing = this@with.timing
+          asNeeded = this@with.asNeeded
           location = this@with.location
           participant = this@with.participant
-          productReference = this@with.product?.asReference()?.value
-          productCodeableConcept = this@with.product?.asCodeableConcept()?.value
+          product = this@with.product
           quantity = this@with.quantity
           dosage = this@with.dosage
           bodySite = this@with.bodySite

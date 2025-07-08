@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.EvidenceCertaintySerializer
+import com.google.fhir.model.r5.serializers.EvidenceCiteAsSerializer
 import com.google.fhir.model.r5.serializers.EvidenceSerializer
 import com.google.fhir.model.r5.serializers.EvidenceStatisticAttributeEstimateSerializer
 import com.google.fhir.model.r5.serializers.EvidenceStatisticModelCharacteristicSerializer
@@ -26,6 +27,7 @@ import com.google.fhir.model.r5.serializers.EvidenceStatisticModelCharacteristic
 import com.google.fhir.model.r5.serializers.EvidenceStatisticSampleSizeSerializer
 import com.google.fhir.model.r5.serializers.EvidenceStatisticSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableDefinitionSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -788,6 +790,7 @@ public data class Evidence(
     public var subcomponent: List<Certainty?>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -799,18 +802,21 @@ public data class Evidence(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
+    public data object Null : VersionAlgorithm
+
     public companion object {
       public fun from(
         stringValue: com.google.fhir.model.r5.String?,
         CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm? {
+      ): VersionAlgorithm {
         if (stringValue != null) return String(stringValue)
         if (CodingValue != null) return Coding(CodingValue)
-        return null
+        return Null
       }
     }
   }
 
+  @Serializable(with = EvidenceCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 
@@ -820,14 +826,16 @@ public data class Evidence(
 
     public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : CiteAs
 
+    public data object Null : CiteAs
+
     public companion object {
       public fun from(
         ReferenceValue: com.google.fhir.model.r5.Reference?,
         markdownValue: com.google.fhir.model.r5.Markdown?,
-      ): CiteAs? {
+      ): CiteAs {
         if (ReferenceValue != null) return Reference(ReferenceValue)
         if (markdownValue != null) return Markdown(markdownValue)
-        return null
+        return Null
       }
     }
   }

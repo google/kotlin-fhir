@@ -213,16 +213,50 @@ internal data class AuditEventSourceSurrogate(
 }
 
 @Serializable
+internal class AuditEventEntityDetailValueSurrogate {
+  public var valueString: KotlinString? = null
+
+  public var _valueString: Element? = null
+
+  public var valueBase64Binary: KotlinString? = null
+
+  public var _valueBase64Binary: Element? = null
+
+  public fun toModel(): AuditEvent.Entity.Detail.Value =
+    AuditEvent.Entity.Detail.Value?.from(
+      R4bString.of(
+        this@AuditEventEntityDetailValueSurrogate.valueString,
+        this@AuditEventEntityDetailValueSurrogate._valueString,
+      ),
+      Base64Binary.of(
+        this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
+        this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
+      ),
+    ) ?: AuditEvent.Entity.Detail.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: AuditEvent.Entity.Detail.Value
+    ): AuditEventEntityDetailValueSurrogate =
+      with(model) {
+        AuditEventEntityDetailValueSurrogate().apply {
+          valueString = this@with.asString()?.value?.value
+          _valueString = this@with.asString()?.value?.toElement()
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class AuditEventEntityDetailSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBase64Binary: KotlinString? = null,
-  public var _valueBase64Binary: Element? = null,
+  public var `value`: AuditEvent.Entity.Detail.Value? = null,
 ) {
   public fun toModel(): AuditEvent.Entity.Detail =
     AuditEvent.Entity.Detail().apply {
@@ -234,17 +268,7 @@ internal data class AuditEventEntityDetailSurrogate(
           this@AuditEventEntityDetailSurrogate.type,
           this@AuditEventEntityDetailSurrogate._type,
         )
-      `value` =
-        AuditEvent.Entity.Detail.Value?.from(
-          R4bString.of(
-            this@AuditEventEntityDetailSurrogate.valueString,
-            this@AuditEventEntityDetailSurrogate._valueString,
-          ),
-          Base64Binary.of(
-            this@AuditEventEntityDetailSurrogate.valueBase64Binary,
-            this@AuditEventEntityDetailSurrogate._valueBase64Binary,
-          ),
-        )
+      `value` = this@AuditEventEntityDetailSurrogate.`value`
     }
 
   public companion object {
@@ -256,10 +280,7 @@ internal data class AuditEventEntityDetailSurrogate(
           modifierExtension = this@with.modifierExtension
           type = this@with.type?.value
           _type = this@with.type?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
+          `value` = this@with.`value`
         }
       }
   }

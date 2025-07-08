@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdditiveSerializer
+import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdministrationRateSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdministrationScheduleSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdministrationSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaSerializer
@@ -900,6 +901,7 @@ public data class NutritionOrder(
         public var asNeededFor: CodeableConcept? = null,
       ) : BackboneElement()
 
+      @Serializable(with = NutritionOrderEnteralFormulaAdministrationRateSerializer::class)
       public sealed interface Rate {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -909,14 +911,16 @@ public data class NutritionOrder(
 
         public data class Ratio(public val `value`: com.google.fhir.model.r5.Ratio) : Rate
 
+        public data object Null : Rate
+
         public companion object {
           public fun from(
             QuantityValue: com.google.fhir.model.r5.Quantity?,
             RatioValue: com.google.fhir.model.r5.Ratio?,
-          ): Rate? {
+          ): Rate {
             if (QuantityValue != null) return Quantity(QuantityValue)
             if (RatioValue != null) return Ratio(RatioValue)
-            return null
+            return Null
           }
         }
       }

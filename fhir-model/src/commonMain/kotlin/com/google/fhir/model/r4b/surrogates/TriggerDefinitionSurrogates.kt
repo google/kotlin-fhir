@@ -41,6 +41,49 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal class TriggerDefinitionTimingSurrogate {
+  public var timingTiming: Timing? = null
+
+  public var timingReference: Reference? = null
+
+  public var timingDate: KotlinString? = null
+
+  public var _timingDate: Element? = null
+
+  public var timingDateTime: KotlinString? = null
+
+  public var _timingDateTime: Element? = null
+
+  public fun toModel(): TriggerDefinition.Timing =
+    TriggerDefinition.Timing?.from(
+      this@TriggerDefinitionTimingSurrogate.timingTiming,
+      this@TriggerDefinitionTimingSurrogate.timingReference,
+      Date.of(
+        FhirDate.fromString(this@TriggerDefinitionTimingSurrogate.timingDate),
+        this@TriggerDefinitionTimingSurrogate._timingDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@TriggerDefinitionTimingSurrogate.timingDateTime),
+        this@TriggerDefinitionTimingSurrogate._timingDateTime,
+      ),
+    ) ?: TriggerDefinition.Timing.Null
+
+  public companion object {
+    public fun fromModel(model: TriggerDefinition.Timing): TriggerDefinitionTimingSurrogate =
+      with(model) {
+        TriggerDefinitionTimingSurrogate().apply {
+          timingTiming = this@with.asTiming()?.value
+          timingReference = this@with.asReference()?.value
+          timingDate = this@with.asDate()?.value?.value?.toString()
+          _timingDate = this@with.asDate()?.value?.toElement()
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _timingDateTime = this@with.asDateTime()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class TriggerDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -48,14 +91,9 @@ internal data class TriggerDefinitionSurrogate(
   public var _type: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var timingTiming: Timing? = null,
-  public var timingReference: Reference? = null,
-  public var timingDate: KotlinString? = null,
-  public var _timingDate: Element? = null,
-  public var timingDateTime: KotlinString? = null,
-  public var _timingDateTime: Element? = null,
   public var `data`: List<DataRequirement?>? = null,
   public var condition: Expression? = null,
+  public var timing: TriggerDefinition.Timing? = null,
 ) {
   public fun toModel(): TriggerDefinition =
     TriggerDefinition().apply {
@@ -70,19 +108,7 @@ internal data class TriggerDefinitionSurrogate(
         )
       name =
         R4bString.of(this@TriggerDefinitionSurrogate.name, this@TriggerDefinitionSurrogate._name)
-      timing =
-        TriggerDefinition.Timing?.from(
-          this@TriggerDefinitionSurrogate.timingTiming,
-          this@TriggerDefinitionSurrogate.timingReference,
-          Date.of(
-            FhirDate.fromString(this@TriggerDefinitionSurrogate.timingDate),
-            this@TriggerDefinitionSurrogate._timingDate,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@TriggerDefinitionSurrogate.timingDateTime),
-            this@TriggerDefinitionSurrogate._timingDateTime,
-          ),
-        )
+      timing = this@TriggerDefinitionSurrogate.timing
       `data` = this@TriggerDefinitionSurrogate.`data`
       condition = this@TriggerDefinitionSurrogate.condition
     }
@@ -97,12 +123,7 @@ internal data class TriggerDefinitionSurrogate(
           _type = this@with.type?.toElement()
           name = this@with.name?.value
           _name = this@with.name?.toElement()
-          timingTiming = this@with.timing?.asTiming()?.value
-          timingReference = this@with.timing?.asReference()?.value
-          timingDate = this@with.timing?.asDate()?.value?.value?.toString()
-          _timingDate = this@with.timing?.asDate()?.value?.toElement()
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement()
+          timing = this@with.timing
           `data` = this@with.`data`
           condition = this@with.condition
         }

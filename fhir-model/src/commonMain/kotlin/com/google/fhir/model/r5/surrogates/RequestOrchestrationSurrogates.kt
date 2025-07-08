@@ -193,6 +193,31 @@ internal data class RequestOrchestrationActionOutputSurrogate(
 }
 
 @Serializable
+internal class RequestOrchestrationActionRelatedActionOffsetSurrogate {
+  public var offsetDuration: Duration? = null
+
+  public var offsetRange: Range? = null
+
+  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset =
+    RequestOrchestration.Action.RelatedAction.Offset?.from(
+      this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
+      this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
+    ) ?: RequestOrchestration.Action.RelatedAction.Offset.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.RelatedAction.Offset
+    ): RequestOrchestrationActionRelatedActionOffsetSurrogate =
+      with(model) {
+        RequestOrchestrationActionRelatedActionOffsetSurrogate().apply {
+          offsetDuration = this@with.asDuration()?.value
+          offsetRange = this@with.asRange()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class RequestOrchestrationActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -203,8 +228,7 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
   public var _relationship: Element? = null,
   public var endRelationship: KotlinString? = null,
   public var _endRelationship: Element? = null,
-  public var offsetDuration: Duration? = null,
-  public var offsetRange: Range? = null,
+  public var offset: RequestOrchestration.Action.RelatedAction.Offset? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.RelatedAction =
     RequestOrchestration.Action.RelatedAction().apply {
@@ -230,11 +254,7 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
           },
           this@RequestOrchestrationActionRelatedActionSurrogate._endRelationship,
         )
-      offset =
-        RequestOrchestration.Action.RelatedAction.Offset?.from(
-          this@RequestOrchestrationActionRelatedActionSurrogate.offsetDuration,
-          this@RequestOrchestrationActionRelatedActionSurrogate.offsetRange,
-        )
+      offset = this@RequestOrchestrationActionRelatedActionSurrogate.offset
     }
 
   public companion object {
@@ -252,8 +272,38 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
           _relationship = this@with.relationship?.toElement()
           endRelationship = this@with.endRelationship?.value?.getCode()
           _endRelationship = this@with.endRelationship?.toElement()
-          offsetDuration = this@with.offset?.asDuration()?.value
-          offsetRange = this@with.offset?.asRange()?.value
+          offset = this@with.offset
+        }
+      }
+  }
+}
+
+@Serializable
+internal class RequestOrchestrationActionParticipantActorSurrogate {
+  public var actorCanonical: KotlinString? = null
+
+  public var _actorCanonical: Element? = null
+
+  public var actorReference: Reference? = null
+
+  public fun toModel(): RequestOrchestration.Action.Participant.Actor =
+    RequestOrchestration.Action.Participant.Actor?.from(
+      Canonical.of(
+        this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
+        this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
+      ),
+      this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
+    ) ?: RequestOrchestration.Action.Participant.Actor.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Participant.Actor
+    ): RequestOrchestrationActionParticipantActorSurrogate =
+      with(model) {
+        RequestOrchestrationActionParticipantActorSurrogate().apply {
+          actorCanonical = this@with.asCanonical()?.value?.value
+          _actorCanonical = this@with.asCanonical()?.value?.toElement()
+          actorReference = this@with.asReference()?.value
         }
       }
   }
@@ -271,9 +321,7 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
   public var typeReference: Reference? = null,
   public var role: CodeableConcept? = null,
   public var function: CodeableConcept? = null,
-  public var actorCanonical: KotlinString? = null,
-  public var _actorCanonical: Element? = null,
-  public var actorReference: Reference? = null,
+  public var actor: RequestOrchestration.Action.Participant.Actor? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.Participant =
     RequestOrchestration.Action.Participant().apply {
@@ -295,14 +343,7 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
       typeReference = this@RequestOrchestrationActionParticipantSurrogate.typeReference
       role = this@RequestOrchestrationActionParticipantSurrogate.role
       function = this@RequestOrchestrationActionParticipantSurrogate.function
-      actor =
-        RequestOrchestration.Action.Participant.Actor?.from(
-          Canonical.of(
-            this@RequestOrchestrationActionParticipantSurrogate.actorCanonical,
-            this@RequestOrchestrationActionParticipantSurrogate._actorCanonical,
-          ),
-          this@RequestOrchestrationActionParticipantSurrogate.actorReference,
-        )
+      actor = this@RequestOrchestrationActionParticipantSurrogate.actor
     }
 
   public companion object {
@@ -321,9 +362,7 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
           typeReference = this@with.typeReference
           role = this@with.role
           function = this@with.function
-          actorCanonical = this@with.actor?.asCanonical()?.value?.value
-          _actorCanonical = this@with.actor?.asCanonical()?.value?.toElement()
-          actorReference = this@with.actor?.asReference()?.value
+          actor = this@with.actor
         }
       }
   }
@@ -369,6 +408,90 @@ internal data class RequestOrchestrationActionDynamicValueSurrogate(
 }
 
 @Serializable
+internal class RequestOrchestrationActionTimingSurrogate {
+  public var timingDateTime: KotlinString? = null
+
+  public var _timingDateTime: Element? = null
+
+  public var timingAge: Age? = null
+
+  public var timingPeriod: Period? = null
+
+  public var timingDuration: Duration? = null
+
+  public var timingRange: Range? = null
+
+  public var timingTiming: Timing? = null
+
+  public fun toModel(): RequestOrchestration.Action.Timing =
+    RequestOrchestration.Action.Timing?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@RequestOrchestrationActionTimingSurrogate.timingDateTime),
+        this@RequestOrchestrationActionTimingSurrogate._timingDateTime,
+      ),
+      this@RequestOrchestrationActionTimingSurrogate.timingAge,
+      this@RequestOrchestrationActionTimingSurrogate.timingPeriod,
+      this@RequestOrchestrationActionTimingSurrogate.timingDuration,
+      this@RequestOrchestrationActionTimingSurrogate.timingRange,
+      this@RequestOrchestrationActionTimingSurrogate.timingTiming,
+    ) ?: RequestOrchestration.Action.Timing.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Timing
+    ): RequestOrchestrationActionTimingSurrogate =
+      with(model) {
+        RequestOrchestrationActionTimingSurrogate().apply {
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _timingDateTime = this@with.asDateTime()?.value?.toElement()
+          timingAge = this@with.asAge()?.value
+          timingPeriod = this@with.asPeriod()?.value
+          timingDuration = this@with.asDuration()?.value
+          timingRange = this@with.asRange()?.value
+          timingTiming = this@with.asTiming()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class RequestOrchestrationActionDefinitionSurrogate {
+  public var definitionCanonical: KotlinString? = null
+
+  public var _definitionCanonical: Element? = null
+
+  public var definitionUri: KotlinString? = null
+
+  public var _definitionUri: Element? = null
+
+  public fun toModel(): RequestOrchestration.Action.Definition =
+    RequestOrchestration.Action.Definition?.from(
+      Canonical.of(
+        this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
+        this@RequestOrchestrationActionDefinitionSurrogate._definitionCanonical,
+      ),
+      Uri.of(
+        this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
+        this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
+      ),
+    ) ?: RequestOrchestration.Action.Definition.Null
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Definition
+    ): RequestOrchestrationActionDefinitionSurrogate =
+      with(model) {
+        RequestOrchestrationActionDefinitionSurrogate().apply {
+          definitionCanonical = this@with.asCanonical()?.value?.value
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement()
+          definitionUri = this@with.asUri()?.value?.value
+          _definitionUri = this@with.asUri()?.value?.toElement()
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class RequestOrchestrationActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
@@ -392,13 +515,6 @@ internal data class RequestOrchestrationActionSurrogate(
   public var input: List<RequestOrchestration.Action.Input>? = null,
   public var output: List<RequestOrchestration.Action.Output>? = null,
   public var relatedAction: List<RequestOrchestration.Action.RelatedAction>? = null,
-  public var timingDateTime: KotlinString? = null,
-  public var _timingDateTime: Element? = null,
-  public var timingAge: Age? = null,
-  public var timingPeriod: Period? = null,
-  public var timingDuration: Duration? = null,
-  public var timingRange: Range? = null,
-  public var timingTiming: Timing? = null,
   public var location: CodeableReference? = null,
   public var participant: List<RequestOrchestration.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
@@ -413,14 +529,12 @@ internal data class RequestOrchestrationActionSurrogate(
   public var cardinalityBehavior: KotlinString? = null,
   public var _cardinalityBehavior: Element? = null,
   public var resource: Reference? = null,
-  public var definitionCanonical: KotlinString? = null,
-  public var _definitionCanonical: Element? = null,
-  public var definitionUri: KotlinString? = null,
-  public var _definitionUri: Element? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: List<RequestOrchestration.Action.DynamicValue>? = null,
   public var action: List<RequestOrchestration.Action?>? = null,
+  public var timing: RequestOrchestration.Action.Timing? = null,
+  public var definition: RequestOrchestration.Action.Definition? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action =
     RequestOrchestration.Action().apply {
@@ -466,18 +580,7 @@ internal data class RequestOrchestrationActionSurrogate(
       input = this@RequestOrchestrationActionSurrogate.input
       output = this@RequestOrchestrationActionSurrogate.output
       relatedAction = this@RequestOrchestrationActionSurrogate.relatedAction
-      timing =
-        RequestOrchestration.Action.Timing?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@RequestOrchestrationActionSurrogate.timingDateTime),
-            this@RequestOrchestrationActionSurrogate._timingDateTime,
-          ),
-          this@RequestOrchestrationActionSurrogate.timingAge,
-          this@RequestOrchestrationActionSurrogate.timingPeriod,
-          this@RequestOrchestrationActionSurrogate.timingDuration,
-          this@RequestOrchestrationActionSurrogate.timingRange,
-          this@RequestOrchestrationActionSurrogate.timingTiming,
-        )
+      timing = this@RequestOrchestrationActionSurrogate.timing
       location = this@RequestOrchestrationActionSurrogate.location
       participant = this@RequestOrchestrationActionSurrogate.participant
       type = this@RequestOrchestrationActionSurrogate.type
@@ -517,17 +620,7 @@ internal data class RequestOrchestrationActionSurrogate(
           this@RequestOrchestrationActionSurrogate._cardinalityBehavior,
         )
       resource = this@RequestOrchestrationActionSurrogate.resource
-      definition =
-        RequestOrchestration.Action.Definition?.from(
-          Canonical.of(
-            this@RequestOrchestrationActionSurrogate.definitionCanonical,
-            this@RequestOrchestrationActionSurrogate._definitionCanonical,
-          ),
-          Uri.of(
-            this@RequestOrchestrationActionSurrogate.definitionUri,
-            this@RequestOrchestrationActionSurrogate._definitionUri,
-          ),
-        )
+      definition = this@RequestOrchestrationActionSurrogate.definition
       transform =
         Canonical.of(
           this@RequestOrchestrationActionSurrogate.transform,
@@ -563,13 +656,7 @@ internal data class RequestOrchestrationActionSurrogate(
           input = this@with.input
           output = this@with.output
           relatedAction = this@with.relatedAction
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement()
-          timingAge = this@with.timing?.asAge()?.value
-          timingPeriod = this@with.timing?.asPeriod()?.value
-          timingDuration = this@with.timing?.asDuration()?.value
-          timingRange = this@with.timing?.asRange()?.value
-          timingTiming = this@with.timing?.asTiming()?.value
+          timing = this@with.timing
           location = this@with.location
           participant = this@with.participant
           type = this@with.type
@@ -584,10 +671,7 @@ internal data class RequestOrchestrationActionSurrogate(
           cardinalityBehavior = this@with.cardinalityBehavior?.value?.getCode()
           _cardinalityBehavior = this@with.cardinalityBehavior?.toElement()
           resource = this@with.resource
-          definitionCanonical = this@with.definition?.asCanonical()?.value?.value
-          _definitionCanonical = this@with.definition?.asCanonical()?.value?.toElement()
-          definitionUri = this@with.definition?.asUri()?.value?.value
-          _definitionUri = this@with.definition?.asUri()?.value?.toElement()
+          definition = this@with.definition
           transform = this@with.transform?.value
           _transform = this@with.transform?.toElement()
           dynamicValue = this@with.dynamicValue

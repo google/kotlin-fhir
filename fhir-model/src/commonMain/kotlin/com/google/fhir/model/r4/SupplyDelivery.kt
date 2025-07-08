@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.SupplyDeliveryOccurrenceSerializer
 import com.google.fhir.model.r4.serializers.SupplyDeliverySerializer
+import com.google.fhir.model.r4.serializers.SupplyDeliverySuppliedItemItemSerializer
 import com.google.fhir.model.r4.serializers.SupplyDeliverySuppliedItemSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -225,6 +227,7 @@ public data class SupplyDelivery(
      */
     public var item: Item? = null,
   ) : BackboneElement() {
+    @Serializable(with = SupplyDeliverySuppliedItemItemSerializer::class)
     public sealed interface Item {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -236,19 +239,22 @@ public data class SupplyDelivery(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Item
 
+      public data object Null : Item
+
       public companion object {
         public fun from(
           CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Item? {
+        ): Item {
           if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
           if (ReferenceValue != null) return Reference(ReferenceValue)
-          return null
+          return Null
         }
       }
     }
   }
 
+  @Serializable(with = SupplyDeliveryOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -262,16 +268,18 @@ public data class SupplyDelivery(
 
     public data class Timing(public val `value`: com.google.fhir.model.r4.Timing) : Occurrence
 
+    public data object Null : Occurrence
+
     public companion object {
       public fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         PeriodValue: com.google.fhir.model.r4.Period?,
         TimingValue: com.google.fhir.model.r4.Timing?,
-      ): Occurrence? {
+      ): Occurrence {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (PeriodValue != null) return Period(PeriodValue)
         if (TimingValue != null) return Timing(TimingValue)
-        return null
+        return Null
       }
     }
   }

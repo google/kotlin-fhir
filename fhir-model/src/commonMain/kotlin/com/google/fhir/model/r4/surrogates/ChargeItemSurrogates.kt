@@ -82,6 +82,62 @@ internal data class ChargeItemPerformerSurrogate(
 }
 
 @Serializable
+internal class ChargeItemOccurrenceSurrogate {
+  public var occurrenceDateTime: KotlinString? = null
+
+  public var _occurrenceDateTime: Element? = null
+
+  public var occurrencePeriod: Period? = null
+
+  public var occurrenceTiming: Timing? = null
+
+  public fun toModel(): ChargeItem.Occurrence =
+    ChargeItem.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ChargeItemOccurrenceSurrogate.occurrenceDateTime),
+        this@ChargeItemOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@ChargeItemOccurrenceSurrogate.occurrencePeriod,
+      this@ChargeItemOccurrenceSurrogate.occurrenceTiming,
+    ) ?: ChargeItem.Occurrence.Null
+
+  public companion object {
+    public fun fromModel(model: ChargeItem.Occurrence): ChargeItemOccurrenceSurrogate =
+      with(model) {
+        ChargeItemOccurrenceSurrogate().apply {
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
+          occurrencePeriod = this@with.asPeriod()?.value
+          occurrenceTiming = this@with.asTiming()?.value
+        }
+      }
+  }
+}
+
+@Serializable
+internal class ChargeItemProductSurrogate {
+  public var productReference: Reference? = null
+
+  public var productCodeableConcept: CodeableConcept? = null
+
+  public fun toModel(): ChargeItem.Product =
+    ChargeItem.Product?.from(
+      this@ChargeItemProductSurrogate.productReference,
+      this@ChargeItemProductSurrogate.productCodeableConcept,
+    ) ?: ChargeItem.Product.Null
+
+  public companion object {
+    public fun fromModel(model: ChargeItem.Product): ChargeItemProductSurrogate =
+      with(model) {
+        ChargeItemProductSurrogate().apply {
+          productReference = this@with.asReference()?.value
+          productCodeableConcept = this@with.asCodeableConcept()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class ChargeItemSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -104,10 +160,6 @@ internal data class ChargeItemSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var context: Reference? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
   public var performer: List<ChargeItem.Performer>? = null,
   public var performingOrganization: Reference? = null,
   public var requestingOrganization: Reference? = null,
@@ -124,11 +176,11 @@ internal data class ChargeItemSurrogate(
   public var _enteredDate: Element? = null,
   public var reason: List<CodeableConcept?>? = null,
   public var service: List<Reference?>? = null,
-  public var productReference: Reference? = null,
-  public var productCodeableConcept: CodeableConcept? = null,
   public var account: List<Reference?>? = null,
   public var note: List<Annotation?>? = null,
   public var supportingInformation: List<Reference?>? = null,
+  public var occurrence: ChargeItem.Occurrence? = null,
+  public var product: ChargeItem.Product? = null,
 ) {
   public fun toModel(): ChargeItem =
     ChargeItem().apply {
@@ -183,15 +235,7 @@ internal data class ChargeItemSurrogate(
       code = this@ChargeItemSurrogate.code
       subject = this@ChargeItemSurrogate.subject
       context = this@ChargeItemSurrogate.context
-      occurrence =
-        ChargeItem.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ChargeItemSurrogate.occurrenceDateTime),
-            this@ChargeItemSurrogate._occurrenceDateTime,
-          ),
-          this@ChargeItemSurrogate.occurrencePeriod,
-          this@ChargeItemSurrogate.occurrenceTiming,
-        )
+      occurrence = this@ChargeItemSurrogate.occurrence
       performer = this@ChargeItemSurrogate.performer
       performingOrganization = this@ChargeItemSurrogate.performingOrganization
       requestingOrganization = this@ChargeItemSurrogate.requestingOrganization
@@ -217,11 +261,7 @@ internal data class ChargeItemSurrogate(
         )
       reason = this@ChargeItemSurrogate.reason
       service = this@ChargeItemSurrogate.service
-      product =
-        ChargeItem.Product?.from(
-          this@ChargeItemSurrogate.productReference,
-          this@ChargeItemSurrogate.productCodeableConcept,
-        )
+      product = this@ChargeItemSurrogate.product
       account = this@ChargeItemSurrogate.account
       note = this@ChargeItemSurrogate.note
       supportingInformation = this@ChargeItemSurrogate.supportingInformation
@@ -258,10 +298,7 @@ internal data class ChargeItemSurrogate(
           code = this@with.code
           subject = this@with.subject
           context = this@with.context
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value
+          occurrence = this@with.occurrence
           performer = this@with.performer
           performingOrganization = this@with.performingOrganization
           requestingOrganization = this@with.requestingOrganization
@@ -278,8 +315,7 @@ internal data class ChargeItemSurrogate(
           _enteredDate = this@with.enteredDate?.toElement()
           reason = this@with.reason
           service = this@with.service
-          productReference = this@with.product?.asReference()?.value
-          productCodeableConcept = this@with.product?.asCodeableConcept()?.value
+          product = this@with.product
           account = this@with.account
           note = this@with.note
           supportingInformation = this@with.supportingInformation

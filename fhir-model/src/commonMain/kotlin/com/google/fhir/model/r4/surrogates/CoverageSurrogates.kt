@@ -119,14 +119,38 @@ internal data class CoverageCostToBeneficiaryExceptionSurrogate(
 }
 
 @Serializable
+internal class CoverageCostToBeneficiaryValueSurrogate {
+  public var valueQuantity: Quantity? = null
+
+  public var valueMoney: Money? = null
+
+  public fun toModel(): Coverage.CostToBeneficiary.Value =
+    Coverage.CostToBeneficiary.Value?.from(
+      this@CoverageCostToBeneficiaryValueSurrogate.valueQuantity,
+      this@CoverageCostToBeneficiaryValueSurrogate.valueMoney,
+    ) ?: Coverage.CostToBeneficiary.Value.Null
+
+  public companion object {
+    public fun fromModel(
+      model: Coverage.CostToBeneficiary.Value
+    ): CoverageCostToBeneficiaryValueSurrogate =
+      with(model) {
+        CoverageCostToBeneficiaryValueSurrogate().apply {
+          valueQuantity = this@with.asQuantity()?.value
+          valueMoney = this@with.asMoney()?.value
+        }
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageCostToBeneficiarySurrogate(
   public var id: KotlinString? = null,
   public var extension: List<Extension?>? = null,
   public var modifierExtension: List<Extension?>? = null,
   public var type: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueMoney: Money? = null,
   public var exception: List<Coverage.CostToBeneficiary.Exception>? = null,
+  public var `value`: Coverage.CostToBeneficiary.Value? = null,
 ) {
   public fun toModel(): Coverage.CostToBeneficiary =
     Coverage.CostToBeneficiary().apply {
@@ -134,11 +158,7 @@ internal data class CoverageCostToBeneficiarySurrogate(
       extension = this@CoverageCostToBeneficiarySurrogate.extension
       modifierExtension = this@CoverageCostToBeneficiarySurrogate.modifierExtension
       type = this@CoverageCostToBeneficiarySurrogate.type
-      `value` =
-        Coverage.CostToBeneficiary.Value?.from(
-          this@CoverageCostToBeneficiarySurrogate.valueQuantity,
-          this@CoverageCostToBeneficiarySurrogate.valueMoney,
-        )
+      `value` = this@CoverageCostToBeneficiarySurrogate.`value`
       exception = this@CoverageCostToBeneficiarySurrogate.exception
     }
 
@@ -150,8 +170,7 @@ internal data class CoverageCostToBeneficiarySurrogate(
           extension = this@with.extension
           modifierExtension = this@with.modifierExtension
           type = this@with.type
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
+          `value` = this@with.`value`
           exception = this@with.exception
         }
       }
