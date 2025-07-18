@@ -53,6 +53,12 @@ val exclusionListR4 =
 
     // Scientific notation
     "Observation-decimal.json",
+
+    // Invalid resources
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
+    "ImplementationGuide-fhir.json",
+    "Questionnaire-qs1.json",
+    "ig-r4.json",
   )
 
 val exclusionListR4B =
@@ -69,10 +75,21 @@ val exclusionListR4B =
 
     // Scientific notation
     "Observation-decimal.json",
+
+    // Invalid resource
+    "Bundle-valuesets.json",
+    "CodeSystem-catalogType.json",
+    "ValueSet-catalogType.json",
+
+    // Invalid resources
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
   )
 
 val exclusionListR5 =
   listOf(
+    // Hanging
+    "Bundle-searchParams.json",
+
     // Java heap space
     "Bundle-resources.json",
 

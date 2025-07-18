@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.CarePlanActivitySerializer
 import com.google.fhir.model.r5.serializers.CarePlanSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class CarePlan(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class CarePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class CarePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this care plan by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -142,24 +142,24 @@ public data class CarePlan(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, questionnaire or other definition that
    * is adhered to in whole or in part by this CarePlan.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, questionnaire or other
    * definition that is adhered to in whole or in part by this CarePlan.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /**
    * A higher-level request resource (i.e. a plan, proposal or order) that is fulfilled in whole or
    * in part by this care plan.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * Completed or terminated care plan whose function is taken by this new care plan.
    *
@@ -167,14 +167,14 @@ public data class CarePlan(
    * issue) or because the previous care plan was completed, but the need for the action described
    * by the care plan remains ongoing.
    */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * A larger care plan of which this particular care plan is a component or step.
    *
    * Each care plan is an independent request, such that having a care plan be part of another care
    * plan can cause issues with cascading statuses. As such, this element is still being discussed.
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * Indicates whether the plan is currently being acted upon, represents future intentions or is
    * now a historical record.
@@ -186,7 +186,7 @@ public data class CarePlan(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the plan as not currently valid.
    */
-  public var status: Enumeration<CarePlanStatus>? = null,
+  public var status: Enumeration<CarePlanStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the care plan and where the
    * care plan fits into the workflow chain.
@@ -196,7 +196,7 @@ public data class CarePlan(
    * should never change to be a "plan" instance or "order" instance. Instead, a new instance
    * 'basedOn' the prior instance should be created with the new 'intent' value.
    */
-  public var intent: Enumeration<CarePlanIntent>? = null,
+  public var intent: Enumeration<CarePlanIntent>,
   /**
    * Identifies what "kind" of plan this is to support differentiation between multiple co-existing
    * plans; e.g. "Home health", "psychiatric", "asthma", "disease management", "wellness plan", etc.
@@ -204,13 +204,13 @@ public data class CarePlan(
    * There may be multiple axes of categorization and one plan may serve multiple purposes. In some
    * cases, this may be redundant with references to CarePlan.addresses.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Human-friendly name for the care plan. */
   public var title: String? = null,
   /** A description of the scope and nature of the plan. */
   public var description: String? = null,
   /** Identifies the patient or group whose intended care is described by the plan. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which this CarePlan was created or to which the creation of this record is
    * tightly associated.
@@ -247,12 +247,12 @@ public data class CarePlan(
    *
    * Collaborative care plans may have multiple contributors.
    */
-  public var contributor: List<Reference?>? = null,
+  public var contributor: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies all people and organizations who are expected to be involved in the care envisioned
    * by this plan.
    */
-  public var careTeam: List<Reference?>? = null,
+  public var careTeam: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation
    * are handled by this plan.
@@ -267,7 +267,7 @@ public data class CarePlan(
    * CarePlan.addresses.concept and CarePlan.addresses.reference can be used if they are describing
    * different concerns for the care plan.
    */
-  public var addresses: List<CodeableReference?>? = null,
+  public var addresses: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Identifies portions of the patient's record that specifically influenced the formation of the
    * plan. These might include comorbidities, recent procedures, limitations, recent assessments,
@@ -277,22 +277,22 @@ public data class CarePlan(
    * used to convey one or more Advance Directives or Medical Treatment Consent Directives by
    * referencing Consent or any other request resource with intent = directive.
    */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Describes the intended objective(s) of carrying out the care plan.
    *
    * Goal can be achieving a particular change or merely maintaining a current state or even slowing
    * a decline.
    */
-  public var goal: List<Reference?>? = null,
+  public var goal: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies an action that has occurred or is a planned action to occur as part of the plan. For
    * example, a medication to be used, lab tests to perform, self-monitoring that has occurred,
    * education etc.
    */
-  public var activity: List<Activity>? = null,
+  public var activity: MutableList<Activity> = mutableListOf(),
   /** General notes about the care plan not covered elsewhere. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Identifies an action that has occurred or is a planned action to occur as part of the plan. For
@@ -318,7 +318,7 @@ public data class CarePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -337,7 +337,7 @@ public data class CarePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies the activity that was performed. For example, an activity could be patient
      * education, exercise, or a medication administration. The reference to an "event" resource,
@@ -351,7 +351,7 @@ public data class CarePlan(
      * then the activity performed could be amount and intensity of exercise performed whereas the
      * goal outcome is an observation for the actual body weight measured.
      */
-    public var performedActivity: List<CodeableReference?>? = null,
+    public var performedActivity: MutableList<CodeableReference> = mutableListOf(),
     /**
      * Notes about the adherence/status/progress of the activity.
      *
@@ -359,7 +359,7 @@ public data class CarePlan(
      * within the resource pointed to by activity.detail.reference or in
      * activity.detail.description.
      */
-    public var progress: List<Annotation?>? = null,
+    public var progress: MutableList<Annotation> = mutableListOf(),
     /**
      * The details of the proposed activity represented in a specific resource.
      *

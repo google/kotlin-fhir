@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageSer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageShelfLifeStorageSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class PackagedProductDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class PackagedProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,12 +128,12 @@ public data class PackagedProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A unique identifier for this package as whole. Unique instance identifiers assigned to a
    * package by manufacturers, regulators, drug catalogue custodians or other organizations.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A name for this package. Typically what it would be listed as in a drug formulary or catalogue,
    * inventory etc.
@@ -144,7 +144,7 @@ public data class PackagedProductDefinition(
    */
   public var type: CodeableConcept? = null,
   /** The product that this is a pack for. */
-  public var packageFor: List<Reference?>? = null,
+  public var packageFor: MutableList<Reference> = mutableListOf(),
   /**
    * The status within the lifecycle of this item. A high level status, this is not intended to
    * duplicate details carried elsewhere such as legal status, or authorization or marketing status.
@@ -164,28 +164,28 @@ public data class PackagedProductDefinition(
    * not '2 tubes and 3 tubes'). Repeats are not to be used to represent different pack sizes (e.g.
    * 20 pack vs. 50 pack) - which would be different instances of this resource.
    */
-  public var containedItemQuantity: List<Quantity?>? = null,
+  public var containedItemQuantity: MutableList<Quantity> = mutableListOf(),
   /** Textual description. Note that this is not the name of the package or product. */
   public var description: Markdown? = null,
   /** The legal status of supply of the packaged item as classified by the regulator. */
-  public var legalStatusOfSupply: List<LegalStatusOfSupply>? = null,
+  public var legalStatusOfSupply: MutableList<LegalStatusOfSupply> = mutableListOf(),
   /**
    * Allows specifying that an item is on the market for sale, or that it is not available, and the
    * dates and locations associated.
    */
-  public var marketingStatus: List<MarketingStatus?>? = null,
+  public var marketingStatus: MutableList<MarketingStatus> = mutableListOf(),
   /**
    * Allows the key features to be recorded, such as "hospital pack", "nurse prescribable",
    * "calendar pack".
    */
-  public var characteristic: List<CodeableConcept?>? = null,
+  public var characteristic: MutableList<CodeableConcept> = mutableListOf(),
   /** States whether a drug product is supplied with another item such as a diluent or adjuvant. */
   public var copackagedIndicator: Boolean? = null,
   /**
    * Manufacturer of this package type. When there are multiple it means these are all possible
    * manufacturers.
    */
-  public var manufacturer: List<Reference?>? = null,
+  public var manufacturer: MutableList<Reference> = mutableListOf(),
   /**
    * A packaging item, as a container for medically related items, possibly with other packaging
    * items within, or a packaging component, such as bottle cap (which is not a device or a
@@ -213,7 +213,7 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -232,7 +232,7 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The actual status of supply. Conveys in what situation this package type may be supplied for
      * use.
@@ -269,7 +269,7 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,12 +288,12 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An identifier that is specific to this particular part of the packaging. Including possibly
      * Data Carrier Identifier (a GS1 barcode).
      */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** The physical type of the container of the items. */
     public var type: CodeableConcept? = null,
     /**
@@ -302,29 +302,29 @@ public data class PackagedProductDefinition(
      */
     public var quantity: Integer? = null,
     /** Material type of the package item. */
-    public var material: List<CodeableConcept?>? = null,
+    public var material: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * A possible alternate material for this part of the packaging, that is allowed to be used
      * instead of the usual material (e.g. different types of plastic for a blister sleeve).
      */
-    public var alternateMaterial: List<CodeableConcept?>? = null,
+    public var alternateMaterial: MutableList<CodeableConcept> = mutableListOf(),
     /** Shelf Life and storage information. */
-    public var shelfLifeStorage: List<ShelfLifeStorage>? = null,
+    public var shelfLifeStorage: MutableList<ShelfLifeStorage> = mutableListOf(),
     /**
      * Manufacturer of this package Item. When there are multiple it means these are all possible
      * manufacturers.
      */
-    public var manufacturer: List<Reference?>? = null,
+    public var manufacturer: MutableList<Reference> = mutableListOf(),
     /** General characteristics of this item. */
-    public var `property`: List<Property>? = null,
+    public var `property`: MutableList<Property> = mutableListOf(),
     /** The item(s) within the packaging. */
-    public var containedItem: List<ContainedItem>? = null,
+    public var containedItem: MutableList<ContainedItem> = mutableListOf(),
     /**
      * Allows containers (and parts of containers) parwithin containers, still a single packaged
      * product. See also
      * PackagedProductDefinition.package.containedItem.item(PackagedProductDefinition).
      */
-    public var `package`: List<Package?>? = null,
+    public var `package`: MutableList<Package> = mutableListOf(),
   ) : BackboneElement() {
     /** Shelf Life and storage information. */
     @Serializable(with = PackagedProductDefinitionPackageShelfLifeStorageSerializer::class)
@@ -346,7 +346,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -365,7 +365,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * This describes the shelf life, taking into account various scenarios such as shelf life of
        * the packaged Medicinal Product itself, shelf life after transformation where necessary and
@@ -385,7 +385,7 @@ public data class PackagedProductDefinition(
        * Special precautions for storage, if any, can be specified using an appropriate controlled
        * vocabulary. The controlled term and the controlled term identifier shall be specified.
        */
-      public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+      public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
     ) : BackboneElement() {
       public sealed interface Period {
         public fun asDuration(): Duration? = this as? Duration
@@ -397,11 +397,11 @@ public data class PackagedProductDefinition(
         public data class String(public val `value`: com.google.fhir.model.r4b.String) : Period
 
         public companion object {
-          public fun from(
-            DurationValue: com.google.fhir.model.r4b.Duration?,
+          internal fun from(
+            durationValue: com.google.fhir.model.r4b.Duration?,
             stringValue: com.google.fhir.model.r4b.String?,
           ): Period? {
-            if (DurationValue != null) return Duration(DurationValue)
+            if (durationValue != null) return Duration(durationValue)
             if (stringValue != null) return String(stringValue)
             return null
           }
@@ -429,7 +429,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -448,9 +448,9 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A code expressing the type of characteristic. */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** A value for the characteristic. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
@@ -479,18 +479,18 @@ public data class PackagedProductDefinition(
           Value
 
         public companion object {
-          public fun from(
-            CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-            QuantityValue: com.google.fhir.model.r4b.Quantity?,
+          internal fun from(
+            codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+            quantityValue: com.google.fhir.model.r4b.Quantity?,
             dateValue: com.google.fhir.model.r4b.Date?,
             booleanValue: com.google.fhir.model.r4b.Boolean?,
-            AttachmentValue: com.google.fhir.model.r4b.Attachment?,
+            attachmentValue: com.google.fhir.model.r4b.Attachment?,
           ): Value? {
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+            if (quantityValue != null) return Quantity(quantityValue)
             if (dateValue != null) return Date(dateValue)
             if (booleanValue != null) return Boolean(booleanValue)
-            if (AttachmentValue != null) return Attachment(AttachmentValue)
+            if (attachmentValue != null) return Attachment(attachmentValue)
             return null
           }
         }
@@ -517,7 +517,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -536,7 +536,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The actual item(s) of medication, as manufactured, or a device (typically, but not
        * necessarily, a co-packaged one), or other medically related item (such as food,
@@ -545,7 +545,7 @@ public data class PackagedProductDefinition(
        * where a package of other entire packages is wanted - such as a wholesale or distribution
        * pack (for layers within one package, use PackagedProductDefinition.package.package).
        */
-      public var item: CodeableReference? = null,
+      public var item: CodeableReference,
       /** The number of this type of item within this packaging. */
       public var amount: Quantity? = null,
     ) : BackboneElement()

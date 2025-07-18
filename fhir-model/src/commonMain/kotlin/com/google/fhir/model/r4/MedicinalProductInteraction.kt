@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.MedicinalProductInteractionInteractantSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductInteractionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class MedicinalProductInteraction(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class MedicinalProductInteraction(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,13 +127,13 @@ public data class MedicinalProductInteraction(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The medication for which this is a described interaction. */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /** The interaction described. */
   public var description: String? = null,
   /** The specific medication, food or laboratory test that interacts. */
-  public var interactant: List<Interactant>? = null,
+  public var interactant: MutableList<Interactant> = mutableListOf(),
   /**
    * The type of the interaction e.g. drug-drug interaction, drug-food interaction, drug-lab test
    * interaction.
@@ -168,7 +168,7 @@ public data class MedicinalProductInteraction(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -187,9 +187,9 @@ public data class MedicinalProductInteraction(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The specific medication, food or laboratory test that interacts. */
-    public var item: Item? = null,
+    public var item: Item,
   ) : BackboneElement() {
     public sealed interface Item {
       public fun asReference(): Reference? = this as? Reference
@@ -203,12 +203,12 @@ public data class MedicinalProductInteraction(
       ) : Item
 
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r4.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        internal fun from(
+          referenceValue: com.google.fhir.model.r4.Reference?,
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
         ): Item? {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           return null
         }
       }

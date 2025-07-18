@@ -36,7 +36,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,15 +49,15 @@ internal data class ResearchSubjectSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var period: Period? = null,
-  public var study: Reference? = null,
-  public var individual: Reference? = null,
+  public var study: Reference,
+  public var individual: Reference,
   public var assignedArm: KotlinString? = null,
   public var _assignedArm: Element? = null,
   public var actualArm: KotlinString? = null,
@@ -65,70 +65,70 @@ internal data class ResearchSubjectSurrogate(
   public var consent: Reference? = null,
 ) {
   public fun toModel(): ResearchSubject =
-    ResearchSubject().apply {
-      id = this@ResearchSubjectSurrogate.id
-      meta = this@ResearchSubjectSurrogate.meta
+    ResearchSubject(
+      id = this@ResearchSubjectSurrogate.id,
+      meta = this@ResearchSubjectSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ResearchSubjectSurrogate.implicitRules,
           this@ResearchSubjectSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@ResearchSubjectSurrogate.language, this@ResearchSubjectSurrogate._language)
-      text = this@ResearchSubjectSurrogate.text
-      contained = this@ResearchSubjectSurrogate.contained
-      extension = this@ResearchSubjectSurrogate.extension
-      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension
-      identifier = this@ResearchSubjectSurrogate.identifier
+        Code.of(this@ResearchSubjectSurrogate.language, this@ResearchSubjectSurrogate._language),
+      text = this@ResearchSubjectSurrogate.text,
+      contained = this@ResearchSubjectSurrogate.contained ?: mutableListOf(),
+      extension = this@ResearchSubjectSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ResearchSubjectSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ResearchSubjectSurrogate.status?.let {
-            com.google.fhir.model.r4b.ResearchSubject.ResearchSubjectStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.ResearchSubject.ResearchSubjectStatus.fromCode(
+            this@ResearchSubjectSurrogate.status!!
+          ),
           this@ResearchSubjectSurrogate._status,
-        )
-      period = this@ResearchSubjectSurrogate.period
-      study = this@ResearchSubjectSurrogate.study
-      individual = this@ResearchSubjectSurrogate.individual
+        ),
+      period = this@ResearchSubjectSurrogate.period,
+      study = this@ResearchSubjectSurrogate.study,
+      individual = this@ResearchSubjectSurrogate.individual,
       assignedArm =
         R4bString.of(
           this@ResearchSubjectSurrogate.assignedArm,
           this@ResearchSubjectSurrogate._assignedArm,
-        )
+        ),
       actualArm =
         R4bString.of(
           this@ResearchSubjectSurrogate.actualArm,
           this@ResearchSubjectSurrogate._actualArm,
-        )
-      consent = this@ResearchSubjectSurrogate.consent
-    }
+        ),
+      consent = this@ResearchSubjectSurrogate.consent,
+    )
 
   public companion object {
     public fun fromModel(model: ResearchSubject): ResearchSubjectSurrogate =
       with(model) {
-        ResearchSubjectSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          period = this@with.period
-          study = this@with.study
-          individual = this@with.individual
-          assignedArm = this@with.assignedArm?.value
-          _assignedArm = this@with.assignedArm?.toElement()
-          actualArm = this@with.actualArm?.value
-          _actualArm = this@with.actualArm?.toElement()
-          consent = this@with.consent
-        }
+        ResearchSubjectSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          period = this@with.period,
+          study = this@with.study,
+          individual = this@with.individual,
+          assignedArm = this@with.assignedArm?.value,
+          _assignedArm = this@with.assignedArm?.toElement(),
+          actualArm = this@with.actualArm?.value,
+          _actualArm = this@with.actualArm?.toElement(),
+          consent = this@with.consent,
+        )
       }
   }
 }

@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.NutritionProductNutrientSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductProductCharacteristicSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class NutritionProduct(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class NutritionProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,26 +127,26 @@ public data class NutritionProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The current state of the product.
    *
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<NutritionProductStatus>? = null,
+  public var status: Enumeration<NutritionProductStatus>,
   /**
    * Nutrition products can have different classifications - according to its nutritional
    * properties, preparation methods, etc.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** The code assigned to the product, for example a manufacturer number or other terminology. */
   public var code: CodeableConcept? = null,
   /**
    * The organisation (manufacturer, representative or legal authorisation holder) that is
    * responsible for the device.
    */
-  public var manufacturer: List<Reference?>? = null,
+  public var manufacturer: MutableList<Reference> = mutableListOf(),
   /**
    * The product's nutritional information expressed by the nutrients.
    *
@@ -157,20 +157,20 @@ public data class NutritionProduct(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var nutrient: List<Nutrient>? = null,
+  public var nutrient: MutableList<Nutrient> = mutableListOf(),
   /** Ingredients contained in this product. */
-  public var ingredient: List<Ingredient>? = null,
+  public var ingredient: MutableList<Ingredient> = mutableListOf(),
   /** Allergens that are known or suspected to be a part of this nutrition product. */
-  public var knownAllergen: List<CodeableReference?>? = null,
+  public var knownAllergen: MutableList<CodeableReference> = mutableListOf(),
   /** Specifies descriptive properties of the nutrition product. */
-  public var productCharacteristic: List<ProductCharacteristic>? = null,
+  public var productCharacteristic: MutableList<ProductCharacteristic> = mutableListOf(),
   /**
    * Conveys instance-level information about this product item. One or several physical, countable
    * instances or occurrences of the product.
    */
   public var instance: Instance? = null,
   /** Comments made about the product. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** The product's nutritional information expressed by the nutrients. */
   @Serializable(with = NutritionProductNutrientSerializer::class)
@@ -192,7 +192,7 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -211,13 +211,13 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The (relevant) nutrients in the product. */
     public var item: CodeableReference? = null,
     /**
      * The amount of nutrient expressed in one or more units: X per pack / per serving / per dose.
      */
-    public var amount: List<Ratio?>? = null,
+    public var amount: MutableList<Ratio> = mutableListOf(),
   ) : BackboneElement()
 
   /** Ingredients contained in this product. */
@@ -240,7 +240,7 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -259,11 +259,11 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The ingredient contained in the product. */
-    public var item: CodeableReference? = null,
+    public var item: CodeableReference,
     /** The amount of ingredient that is in the product. */
-    public var amount: List<Ratio?>? = null,
+    public var amount: MutableList<Ratio> = mutableListOf(),
   ) : BackboneElement()
 
   /** Specifies descriptive properties of the nutrition product. */
@@ -286,7 +286,7 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -305,19 +305,19 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A code specifying which characteristic of the product is being described (for example,
      * colour, shape).
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * The actual characteristic value corresponding to the type.
      *
      * The description should be provided as a CodeableConcept, SimpleQuantity or an image. The
      * description can be a string only when these others are not available.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : BackboneElement() {
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
@@ -349,19 +349,19 @@ public data class NutritionProduct(
       public data class Boolean(public val `value`: com.google.fhir.model.r4b.Boolean) : Value
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           stringValue: com.google.fhir.model.r4b.String?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
           base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
         ): Value? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (stringValue != null) return String(stringValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
           if (booleanValue != null) return Boolean(booleanValue)
           return null
         }
@@ -392,7 +392,7 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -411,14 +411,14 @@ public data class NutritionProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The amount of items or instances that the resource considers, for instance when referring to
      * 2 identical units together.
      */
     public var quantity: Quantity? = null,
     /** The identifier for the physical instance, typically a serial number. */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** The identification of the batch or lot of the product. */
     public var lotNumber: String? = null,
     /**

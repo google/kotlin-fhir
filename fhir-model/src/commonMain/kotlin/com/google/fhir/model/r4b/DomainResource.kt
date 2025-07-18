@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** A resource that includes narrative, extensions, and contained resources. */
@@ -94,7 +94,7 @@ public abstract class DomainResource : Resource() {
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  public abstract var contained: List<Resource?>?
+  public abstract var contained: MutableList<Resource>
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -108,7 +108,7 @@ public abstract class DomainResource : Resource() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public abstract var extension: List<Extension?>?
+  public abstract var extension: MutableList<Extension>
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -128,5 +128,5 @@ public abstract class DomainResource : Resource() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public abstract var modifierExtension: List<Extension?>?
+  public abstract var modifierExtension: MutableList<Extension>
 }

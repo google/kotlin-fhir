@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.SubscriptionStatusNotificationEventSerializer
 import com.google.fhir.model.r4b.serializers.SubscriptionStatusSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -92,7 +92,7 @@ public data class SubscriptionStatus(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -105,7 +105,7 @@ public data class SubscriptionStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -124,11 +124,11 @@ public data class SubscriptionStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The status of the subscription, which marks the server state for managing the subscription. */
   public var status: Enumeration<SubscriptionStatus>? = null,
   /** The type of event being conveyed with this notificaiton. */
-  public var type: Enumeration<SubscriptionNotificationType>? = null,
+  public var type: Enumeration<SubscriptionNotificationType>,
   /**
    * The total number of actual events which have been generated since the Subscription was created
    * (inclusive of this notification) - regardless of how many have been successfully communicated.
@@ -136,9 +136,9 @@ public data class SubscriptionStatus(
    */
   public var eventsSinceSubscriptionStart: String? = null,
   /** Detailed information about events relevant to this subscription notification. */
-  public var notificationEvent: List<NotificationEvent>? = null,
+  public var notificationEvent: MutableList<NotificationEvent> = mutableListOf(),
   /** The reference to the Subscription which generated this notification. */
-  public var subscription: Reference? = null,
+  public var subscription: Reference,
   /**
    * The reference to the SubscriptionTopic for the Subscription which generated this notification.
    *
@@ -151,7 +151,7 @@ public data class SubscriptionStatus(
    *
    * Recommended practice: clear errors when status is updated.
    */
-  public var error: List<CodeableConcept?>? = null,
+  public var error: MutableList<CodeableConcept> = mutableListOf(),
 ) : DomainResource() {
   /** Detailed information about events relevant to this subscription notification. */
   @Serializable(with = SubscriptionStatusNotificationEventSerializer::class)
@@ -173,7 +173,7 @@ public data class SubscriptionStatus(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -192,12 +192,12 @@ public data class SubscriptionStatus(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The sequential number of this event in this subscription context. Note that this value is a
      * 64-bit integer value, encoded as a string.
      */
-    public var eventNumber: String? = null,
+    public var eventNumber: String,
     /** The actual time this event occured on the server. */
     public var timestamp: Instant? = null,
     /**
@@ -210,7 +210,7 @@ public data class SubscriptionStatus(
      * additional resources included with the event (e.g., the Patient relevant to an Encounter),
      * however it MAY refer to non-FHIR objects.
      */
-    public var additionalContext: List<Reference?>? = null,
+    public var additionalContext: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** The status of a subscription. */

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** Base StructureDefinition for xhtml Type */
 public data class Xhtml(
@@ -38,23 +38,19 @@ public data class Xhtml(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Actual xhtml */
-  public var `value`: String? = null,
+  public var `value`: String,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
   }
 
   public companion object {
-    public fun of(`value`: String?, element: Element?): Xhtml? =
-      if (value == null && element == null) {
-        null
-      } else {
-        Xhtml(element?.id, element?.extension, value)
-      }
+    public fun of(`value`: String, element: Element?): Xhtml =
+      Xhtml(element?.id, element?.extension ?: mutableListOf(), value)
   }
 }

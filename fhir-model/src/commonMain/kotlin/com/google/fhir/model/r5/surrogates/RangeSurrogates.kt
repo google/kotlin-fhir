@@ -26,34 +26,34 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RangeSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var low: Quantity? = null,
   public var high: Quantity? = null,
 ) {
   public fun toModel(): Range =
-    Range().apply {
-      id = this@RangeSurrogate.id
-      extension = this@RangeSurrogate.extension
-      low = this@RangeSurrogate.low
-      high = this@RangeSurrogate.high
-    }
+    Range(
+      id = this@RangeSurrogate.id,
+      extension = this@RangeSurrogate.extension ?: mutableListOf(),
+      low = this@RangeSurrogate.low,
+      high = this@RangeSurrogate.high,
+    )
 
   public companion object {
     public fun fromModel(model: Range): RangeSurrogate =
       with(model) {
-        RangeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          low = this@with.low
-          high = this@with.high
-        }
+        RangeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          low = this@with.low,
+          high = this@with.high,
+        )
       }
   }
 }

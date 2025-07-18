@@ -40,15 +40,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var genomeAssembly: CodeableConcept? = null,
   public var chromosome: CodeableConcept? = null,
   public var sequenceCodeableConcept: CodeableConcept? = null,
@@ -65,12 +65,15 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var _strand: Element? = null,
 ) {
   public fun toModel(): MolecularSequence.Relative.StartingSequence =
-    MolecularSequence.Relative.StartingSequence().apply {
-      id = this@MolecularSequenceRelativeStartingSequenceSurrogate.id
-      extension = this@MolecularSequenceRelativeStartingSequenceSurrogate.extension
-      modifierExtension = this@MolecularSequenceRelativeStartingSequenceSurrogate.modifierExtension
-      genomeAssembly = this@MolecularSequenceRelativeStartingSequenceSurrogate.genomeAssembly
-      chromosome = this@MolecularSequenceRelativeStartingSequenceSurrogate.chromosome
+    MolecularSequence.Relative.StartingSequence(
+      id = this@MolecularSequenceRelativeStartingSequenceSurrogate.id,
+      extension =
+        this@MolecularSequenceRelativeStartingSequenceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MolecularSequenceRelativeStartingSequenceSurrogate.modifierExtension
+          ?: mutableListOf(),
+      genomeAssembly = this@MolecularSequenceRelativeStartingSequenceSurrogate.genomeAssembly,
+      chromosome = this@MolecularSequenceRelativeStartingSequenceSurrogate.chromosome,
       sequence =
         MolecularSequence.Relative.StartingSequence.Sequence?.from(
           this@MolecularSequenceRelativeStartingSequenceSurrogate.sequenceCodeableConcept,
@@ -79,57 +82,57 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
             this@MolecularSequenceRelativeStartingSequenceSurrogate._sequenceString,
           ),
           this@MolecularSequenceRelativeStartingSequenceSurrogate.sequenceReference,
-        )
+        ),
       windowStart =
         Integer.of(
           this@MolecularSequenceRelativeStartingSequenceSurrogate.windowStart,
           this@MolecularSequenceRelativeStartingSequenceSurrogate._windowStart,
-        )
+        ),
       windowEnd =
         Integer.of(
           this@MolecularSequenceRelativeStartingSequenceSurrogate.windowEnd,
           this@MolecularSequenceRelativeStartingSequenceSurrogate._windowEnd,
-        )
+        ),
       orientation =
-        Enumeration.of(
-          this@MolecularSequenceRelativeStartingSequenceSurrogate.orientation?.let {
-            com.google.fhir.model.r5.MolecularSequence.OrientationType.fromCode(it)
-          },
-          this@MolecularSequenceRelativeStartingSequenceSurrogate._orientation,
-        )
+        this@MolecularSequenceRelativeStartingSequenceSurrogate.orientation?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.MolecularSequence.OrientationType.fromCode(it!!),
+            this@MolecularSequenceRelativeStartingSequenceSurrogate._orientation,
+          )
+        },
       strand =
-        Enumeration.of(
-          this@MolecularSequenceRelativeStartingSequenceSurrogate.strand?.let {
-            com.google.fhir.model.r5.MolecularSequence.StrandType.fromCode(it)
-          },
-          this@MolecularSequenceRelativeStartingSequenceSurrogate._strand,
-        )
-    }
+        this@MolecularSequenceRelativeStartingSequenceSurrogate.strand?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.MolecularSequence.StrandType.fromCode(it!!),
+            this@MolecularSequenceRelativeStartingSequenceSurrogate._strand,
+          )
+        },
+    )
 
   public companion object {
     public fun fromModel(
       model: MolecularSequence.Relative.StartingSequence
     ): MolecularSequenceRelativeStartingSequenceSurrogate =
       with(model) {
-        MolecularSequenceRelativeStartingSequenceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          genomeAssembly = this@with.genomeAssembly
-          chromosome = this@with.chromosome
-          sequenceCodeableConcept = this@with.sequence?.asCodeableConcept()?.value
-          sequenceString = this@with.sequence?.asString()?.value?.value
-          _sequenceString = this@with.sequence?.asString()?.value?.toElement()
-          sequenceReference = this@with.sequence?.asReference()?.value
-          windowStart = this@with.windowStart?.value
-          _windowStart = this@with.windowStart?.toElement()
-          windowEnd = this@with.windowEnd?.value
-          _windowEnd = this@with.windowEnd?.toElement()
-          orientation = this@with.orientation?.value?.getCode()
-          _orientation = this@with.orientation?.toElement()
-          strand = this@with.strand?.value?.getCode()
-          _strand = this@with.strand?.toElement()
-        }
+        MolecularSequenceRelativeStartingSequenceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          genomeAssembly = this@with.genomeAssembly,
+          chromosome = this@with.chromosome,
+          sequenceCodeableConcept = this@with.sequence?.asCodeableConcept()?.value,
+          sequenceString = this@with.sequence?.asString()?.value?.value,
+          _sequenceString = this@with.sequence?.asString()?.value?.toElement(),
+          sequenceReference = this@with.sequence?.asReference()?.value,
+          windowStart = this@with.windowStart?.value,
+          _windowStart = this@with.windowStart?.toElement(),
+          windowEnd = this@with.windowEnd?.value,
+          _windowEnd = this@with.windowEnd?.toElement(),
+          orientation = this@with.orientation?.value?.getCode(),
+          _orientation = this@with.orientation?.toElement(),
+          strand = this@with.strand?.value?.getCode(),
+          _strand = this@with.strand?.toElement(),
+        )
       }
   }
 }
@@ -137,8 +140,8 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
 @Serializable
 internal data class MolecularSequenceRelativeEditSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var start: Int? = null,
   public var _start: Element? = null,
   public var end: Int? = null,
@@ -149,50 +152,51 @@ internal data class MolecularSequenceRelativeEditSurrogate(
   public var _replacedSequence: Element? = null,
 ) {
   public fun toModel(): MolecularSequence.Relative.Edit =
-    MolecularSequence.Relative.Edit().apply {
-      id = this@MolecularSequenceRelativeEditSurrogate.id
-      extension = this@MolecularSequenceRelativeEditSurrogate.extension
-      modifierExtension = this@MolecularSequenceRelativeEditSurrogate.modifierExtension
+    MolecularSequence.Relative.Edit(
+      id = this@MolecularSequenceRelativeEditSurrogate.id,
+      extension = this@MolecularSequenceRelativeEditSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MolecularSequenceRelativeEditSurrogate.modifierExtension ?: mutableListOf(),
       start =
         Integer.of(
           this@MolecularSequenceRelativeEditSurrogate.start,
           this@MolecularSequenceRelativeEditSurrogate._start,
-        )
+        ),
       end =
         Integer.of(
           this@MolecularSequenceRelativeEditSurrogate.end,
           this@MolecularSequenceRelativeEditSurrogate._end,
-        )
+        ),
       replacementSequence =
         R5String.of(
           this@MolecularSequenceRelativeEditSurrogate.replacementSequence,
           this@MolecularSequenceRelativeEditSurrogate._replacementSequence,
-        )
+        ),
       replacedSequence =
         R5String.of(
           this@MolecularSequenceRelativeEditSurrogate.replacedSequence,
           this@MolecularSequenceRelativeEditSurrogate._replacedSequence,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: MolecularSequence.Relative.Edit
     ): MolecularSequenceRelativeEditSurrogate =
       with(model) {
-        MolecularSequenceRelativeEditSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          start = this@with.start?.value
-          _start = this@with.start?.toElement()
-          end = this@with.end?.value
-          _end = this@with.end?.toElement()
-          replacementSequence = this@with.replacementSequence?.value
-          _replacementSequence = this@with.replacementSequence?.toElement()
-          replacedSequence = this@with.replacedSequence?.value
-          _replacedSequence = this@with.replacedSequence?.toElement()
-        }
+        MolecularSequenceRelativeEditSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          start = this@with.start?.value,
+          _start = this@with.start?.toElement(),
+          end = this@with.end?.value,
+          _end = this@with.end?.toElement(),
+          replacementSequence = this@with.replacementSequence?.value,
+          _replacementSequence = this@with.replacementSequence?.toElement(),
+          replacedSequence = this@with.replacedSequence?.value,
+          _replacedSequence = this@with.replacedSequence?.toElement(),
+        )
       }
   }
 }
@@ -200,45 +204,46 @@ internal data class MolecularSequenceRelativeEditSurrogate(
 @Serializable
 internal data class MolecularSequenceRelativeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var coordinateSystem: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var coordinateSystem: CodeableConcept,
   public var ordinalPosition: Int? = null,
   public var _ordinalPosition: Element? = null,
   public var sequenceRange: Range? = null,
   public var startingSequence: MolecularSequence.Relative.StartingSequence? = null,
-  public var edit: List<MolecularSequence.Relative.Edit>? = null,
+  public var edit: MutableList<MolecularSequence.Relative.Edit>? = null,
 ) {
   public fun toModel(): MolecularSequence.Relative =
-    MolecularSequence.Relative().apply {
-      id = this@MolecularSequenceRelativeSurrogate.id
-      extension = this@MolecularSequenceRelativeSurrogate.extension
-      modifierExtension = this@MolecularSequenceRelativeSurrogate.modifierExtension
-      coordinateSystem = this@MolecularSequenceRelativeSurrogate.coordinateSystem
+    MolecularSequence.Relative(
+      id = this@MolecularSequenceRelativeSurrogate.id,
+      extension = this@MolecularSequenceRelativeSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MolecularSequenceRelativeSurrogate.modifierExtension ?: mutableListOf(),
+      coordinateSystem = this@MolecularSequenceRelativeSurrogate.coordinateSystem,
       ordinalPosition =
         Integer.of(
           this@MolecularSequenceRelativeSurrogate.ordinalPosition,
           this@MolecularSequenceRelativeSurrogate._ordinalPosition,
-        )
-      sequenceRange = this@MolecularSequenceRelativeSurrogate.sequenceRange
-      startingSequence = this@MolecularSequenceRelativeSurrogate.startingSequence
-      edit = this@MolecularSequenceRelativeSurrogate.edit
-    }
+        ),
+      sequenceRange = this@MolecularSequenceRelativeSurrogate.sequenceRange,
+      startingSequence = this@MolecularSequenceRelativeSurrogate.startingSequence,
+      edit = this@MolecularSequenceRelativeSurrogate.edit ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: MolecularSequence.Relative): MolecularSequenceRelativeSurrogate =
       with(model) {
-        MolecularSequenceRelativeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          coordinateSystem = this@with.coordinateSystem
-          ordinalPosition = this@with.ordinalPosition?.value
-          _ordinalPosition = this@with.ordinalPosition?.toElement()
-          sequenceRange = this@with.sequenceRange
-          startingSequence = this@with.startingSequence
-          edit = this@with.edit
-        }
+        MolecularSequenceRelativeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          coordinateSystem = this@with.coordinateSystem,
+          ordinalPosition = this@with.ordinalPosition?.value,
+          _ordinalPosition = this@with.ordinalPosition?.toElement(),
+          sequenceRange = this@with.sequenceRange,
+          startingSequence = this@with.startingSequence,
+          edit = this@with.edit.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -252,86 +257,89 @@ internal data class MolecularSequenceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var subject: Reference? = null,
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference>? = null,
   public var specimen: Reference? = null,
   public var device: Reference? = null,
   public var performer: Reference? = null,
   public var literal: KotlinString? = null,
   public var _literal: Element? = null,
-  public var formatted: List<Attachment?>? = null,
-  public var relative: List<MolecularSequence.Relative>? = null,
+  public var formatted: MutableList<Attachment>? = null,
+  public var relative: MutableList<MolecularSequence.Relative>? = null,
 ) {
   public fun toModel(): MolecularSequence =
-    MolecularSequence().apply {
-      id = this@MolecularSequenceSurrogate.id
-      meta = this@MolecularSequenceSurrogate.meta
+    MolecularSequence(
+      id = this@MolecularSequenceSurrogate.id,
+      meta = this@MolecularSequenceSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MolecularSequenceSurrogate.implicitRules,
           this@MolecularSequenceSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@MolecularSequenceSurrogate.language, this@MolecularSequenceSurrogate._language)
-      text = this@MolecularSequenceSurrogate.text
-      contained = this@MolecularSequenceSurrogate.contained
-      extension = this@MolecularSequenceSurrogate.extension
-      modifierExtension = this@MolecularSequenceSurrogate.modifierExtension
-      identifier = this@MolecularSequenceSurrogate.identifier
+        Code.of(
+          this@MolecularSequenceSurrogate.language,
+          this@MolecularSequenceSurrogate._language,
+        ),
+      text = this@MolecularSequenceSurrogate.text,
+      contained = this@MolecularSequenceSurrogate.contained ?: mutableListOf(),
+      extension = this@MolecularSequenceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MolecularSequenceSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MolecularSequenceSurrogate.identifier ?: mutableListOf(),
       type =
-        Enumeration.of(
-          this@MolecularSequenceSurrogate.type?.let {
-            com.google.fhir.model.r5.MolecularSequence.SequenceType.fromCode(it)
-          },
-          this@MolecularSequenceSurrogate._type,
-        )
-      subject = this@MolecularSequenceSurrogate.subject
-      focus = this@MolecularSequenceSurrogate.focus
-      specimen = this@MolecularSequenceSurrogate.specimen
-      device = this@MolecularSequenceSurrogate.device
-      performer = this@MolecularSequenceSurrogate.performer
+        this@MolecularSequenceSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.MolecularSequence.SequenceType.fromCode(it!!),
+            this@MolecularSequenceSurrogate._type,
+          )
+        },
+      subject = this@MolecularSequenceSurrogate.subject,
+      focus = this@MolecularSequenceSurrogate.focus ?: mutableListOf(),
+      specimen = this@MolecularSequenceSurrogate.specimen,
+      device = this@MolecularSequenceSurrogate.device,
+      performer = this@MolecularSequenceSurrogate.performer,
       literal =
         R5String.of(
           this@MolecularSequenceSurrogate.literal,
           this@MolecularSequenceSurrogate._literal,
-        )
-      formatted = this@MolecularSequenceSurrogate.formatted
-      relative = this@MolecularSequenceSurrogate.relative
-    }
+        ),
+      formatted = this@MolecularSequenceSurrogate.formatted ?: mutableListOf(),
+      relative = this@MolecularSequenceSurrogate.relative ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: MolecularSequence): MolecularSequenceSurrogate =
       with(model) {
-        MolecularSequenceSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          subject = this@with.subject
-          focus = this@with.focus
-          specimen = this@with.specimen
-          device = this@with.device
-          performer = this@with.performer
-          literal = this@with.literal?.value
-          _literal = this@with.literal?.toElement()
-          formatted = this@with.formatted
-          relative = this@with.relative
-        }
+        MolecularSequenceSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          subject = this@with.subject,
+          focus = this@with.focus.takeUnless { it.all { it == null } },
+          specimen = this@with.specimen,
+          device = this@with.device,
+          performer = this@with.performer,
+          literal = this@with.literal?.value,
+          _literal = this@with.literal?.toElement(),
+          formatted = this@with.formatted.takeUnless { it.all { it == null } },
+          relative = this@with.relative.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

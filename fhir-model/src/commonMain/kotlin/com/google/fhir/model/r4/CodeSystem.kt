@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r4.serializers.CodeSystemPropertySerializer
 import com.google.fhir.model.r4.serializers.CodeSystemSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class CodeSystem(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class CodeSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class CodeSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this code system when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -161,7 +161,7 @@ public data class CodeSystem(
    * the logical URI. Note that HL7 defines at least three identifiers for many of its code
    * systems - the FHIR canonical URL, the OID and the V2 Table 0396 mnemonic code.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the code system when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the code
@@ -195,7 +195,7 @@ public data class CodeSystem(
    *
    * Allows filtering of code systems that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this code system is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -229,7 +229,7 @@ public data class CodeSystem(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the code system from a consumer's perspective.
    *
@@ -250,14 +250,14 @@ public data class CodeSystem(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the code system is intended to be used.
    *
    * It may be possible for the code system to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this code system is needed and why it has been designed as it has.
    *
@@ -321,7 +321,7 @@ public data class CodeSystem(
    * The extent of the content of the code system (the concepts and codes it defines) are
    * represented in this resource instance.
    */
-  public var content: Enumeration<CodeSystemContentMode>? = null,
+  public var content: Enumeration<CodeSystemContentMode>,
   /**
    * The canonical URL of the code system that this code system supplement is adding designations
    * and properties to.
@@ -345,12 +345,12 @@ public data class CodeSystem(
    * terminology engine that will make them available for use in value set filters. For this reason,
    * they are generally only seen in high value published terminologies.
    */
-  public var filter: List<Filter>? = null,
+  public var filter: MutableList<Filter> = mutableListOf(),
   /**
    * A property defines an additional slot through which additional information can be provided
    * about a concept.
    */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
   /**
    * Concepts that are in the code system. The concept definitions are inherently hierarchical, but
    * the definitions must be consulted to determine what the meanings of the hierarchical
@@ -359,7 +359,7 @@ public data class CodeSystem(
    * If this is empty, it means that the code system resource does not represent the content of the
    * code system.
    */
-  public var concept: List<Concept>? = null,
+  public var concept: MutableList<Concept> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A filter that can be used in a value set compose statement when selecting concepts using a
@@ -384,7 +384,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -403,18 +403,18 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The code that identifies this filter when it is used as a filter in
      * [ValueSet](valueset.html#).compose.include.filter.
      */
-    public var code: Code? = null,
+    public var code: Code,
     /** A description of how or why the filter is used. */
     public var description: String? = null,
     /** A list of operators that can be used with the filter. */
-    public var `operator`: List<Enumeration<FilterOperator>>? = null,
+    public var `operator`: MutableList<Enumeration<FilterOperator>> = mutableListOf(),
     /** A description of what the value for the filter should be. */
-    public var `value`: String? = null,
+    public var `value`: String,
   ) : BackboneElement()
 
   /**
@@ -440,7 +440,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -459,12 +459,12 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A code that is used to identify the property. The code is used internally (in
      * CodeSystem.concept.property.code) and also externally, such as in property filters.
      */
-    public var code: Code? = null,
+    public var code: Code,
     /**
      * Reference to the formal meaning of the property. One possible source of meaning is the
      * [Concept Properties](codesystem-concept-properties.html) code system.
@@ -476,7 +476,7 @@ public data class CodeSystem(
      * The type of the property value. Properties of type "code" contain a code defined by the code
      * system (e.g. a reference to another defined concept).
      */
-    public var type: Enumeration<PropertyType>? = null,
+    public var type: Enumeration<PropertyType>,
   ) : BackboneElement()
 
   /**
@@ -503,7 +503,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -522,9 +522,9 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code - a text symbol - that uniquely identifies the concept within the code system. */
-    public var code: Code? = null,
+    public var code: Code,
     /**
      * A human readable string that is the recommended default way to present this concept to a
      * user.
@@ -544,14 +544,14 @@ public data class CodeSystem(
      * equivalent to a special designation with an implied ```designation.use``` of "primary code"
      * and a language equal to the [Resource Language](resource.html#language).
      */
-    public var designation: List<Designation>? = null,
+    public var designation: MutableList<Designation> = mutableListOf(),
     /** A property value for this concept. */
-    public var `property`: List<Property>? = null,
+    public var `property`: MutableList<Property> = mutableListOf(),
     /**
      * Defines children of a concept to produce a hierarchy of concepts. The nature of the
      * relationships is variable (is-a/contains/categorizes) - see hierarchyMeaning.
      */
-    public var concept: List<Concept?>? = null,
+    public var concept: MutableList<Concept> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Additional representations for the concept - other languages, aliases, specialized purposes,
@@ -576,7 +576,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -595,7 +595,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The language this designation is defined for.
        *
@@ -610,7 +610,7 @@ public data class CodeSystem(
        */
       public var use: Coding? = null,
       /** The text value for this designation. */
-      public var `value`: String? = null,
+      public var `value`: String,
     ) : BackboneElement()
 
     /** A property value for this concept. */
@@ -633,7 +633,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -652,11 +652,11 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A code that is a reference to CodeSystem.property.code. */
-      public var code: Code? = null,
+      public var code: Code,
       /** The value of this property. */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       public sealed interface Value {
         public fun asCode(): Code? = this as? Code
@@ -688,9 +688,9 @@ public data class CodeSystem(
         public data class Decimal(public val `value`: com.google.fhir.model.r4.Decimal) : Value
 
         public companion object {
-          public fun from(
+          internal fun from(
             codeValue: com.google.fhir.model.r4.Code?,
-            CodingValue: com.google.fhir.model.r4.Coding?,
+            codingValue: com.google.fhir.model.r4.Coding?,
             stringValue: com.google.fhir.model.r4.String?,
             integerValue: com.google.fhir.model.r4.Integer?,
             booleanValue: com.google.fhir.model.r4.Boolean?,
@@ -698,7 +698,7 @@ public data class CodeSystem(
             decimalValue: com.google.fhir.model.r4.Decimal?,
           ): Value? {
             if (codeValue != null) return Code(codeValue)
-            if (CodingValue != null) return Coding(CodingValue)
+            if (codingValue != null) return Coding(codingValue)
             if (stringValue != null) return String(stringValue)
             if (integerValue != null) return Integer(integerValue)
             if (booleanValue != null) return Boolean(booleanValue)

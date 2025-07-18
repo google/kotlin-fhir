@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.MeasureGroupStratifierSerializer
 import com.google.fhir.model.r4.serializers.MeasureSerializer
 import com.google.fhir.model.r4.serializers.MeasureSupplementalDataSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Measure(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Measure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class Measure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this measure when it is referenced in a specification,
    * model, design or an instance; also called its canonical identifier. This SHOULD be globally
@@ -156,7 +156,7 @@ public data class Measure(
    * type, and can then identify this measure outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the measure when it is referenced in a
    * specification, model, design or instance. This is an arbitrary value managed by the measure
@@ -197,7 +197,7 @@ public data class Measure(
    *
    * Allows filtering of measures that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this measure is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -241,7 +241,7 @@ public data class Measure(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the measure from a consumer's perspective.
    *
@@ -262,14 +262,14 @@ public data class Measure(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the measure is intended to be used.
    *
    * It may be possible for the measure to be used in jurisdictions other than those for which it
    * was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this measure is needed and why it has been designed as it has.
    *
@@ -312,32 +312,32 @@ public data class Measure(
    * Descriptive topics related to the content of the measure. Topics provide a high-level
    * categorization grouping types of measures that can be useful for filtering and searching.
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /** A reference to a Library resource containing the formal logic used by the measure. */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /**
    * Notices and disclaimers regarding the use of the measure or related to intellectual property
    * (such as code systems) referenced by the measure.
@@ -358,7 +358,7 @@ public data class Measure(
    * Indicates whether the measure is used to examine a process, an outcome over time, a
    * patient-reported outcome, or a structure measure such as utilization.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A description of the risk adjustment factors that may impact the resulting score for the
    * measure and how they may be accounted for when computing and reporting measure results.
@@ -401,14 +401,14 @@ public data class Measure(
    */
   public var improvementNotation: CodeableConcept? = null,
   /** Provides a description of an individual term used within the measure. */
-  public var definition: List<Markdown?>? = null,
+  public var definition: MutableList<Markdown> = mutableListOf(),
   /**
    * Additional guidance for the measure including how it can be used in a clinical context, and the
    * intent of the measure.
    */
   public var guidance: Markdown? = null,
   /** A group of population criteria for the measure. */
-  public var group: List<Group>? = null,
+  public var group: MutableList<Group> = mutableListOf(),
   /**
    * The supplemental data criteria for the measure report, specified as either the name of a valid
    * CQL expression within a referenced library, or a valid FHIR Resource Path.
@@ -417,7 +417,7 @@ public data class Measure(
    * evaluatedResources bundle. See the MeasureReport resource or the Quality Reporting topic for
    * more information.
    */
-  public var supplementalData: List<SupplementalData>? = null,
+  public var supplementalData: MutableList<SupplementalData> = mutableListOf(),
 ) : DomainResource() {
   /** A group of population criteria for the measure. */
   @Serializable(with = MeasureGroupSerializer::class)
@@ -439,7 +439,7 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -458,7 +458,7 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates a meaning for the group. This can be as simple as a unique identifier, or it can
      * establish meaning in a broader context by drawing from a terminology, allowing groups to be
@@ -468,12 +468,12 @@ public data class Measure(
     /** The human readable description of this population group. */
     public var description: String? = null,
     /** A population criteria for the measure. */
-    public var population: List<Population>? = null,
+    public var population: MutableList<Population> = mutableListOf(),
     /**
      * The stratifier criteria for the measure report, specified as either the name of a valid CQL
      * expression defined within a referenced library or a valid FHIR Resource Path.
      */
-    public var stratifier: List<Stratifier>? = null,
+    public var stratifier: MutableList<Stratifier> = mutableListOf(),
   ) : BackboneElement() {
     /** A population criteria for the measure. */
     @Serializable(with = MeasureGroupPopulationSerializer::class)
@@ -495,7 +495,7 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -514,7 +514,7 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of population criteria. */
       public var code: CodeableConcept? = null,
       /** The human readable description of this population criteria. */
@@ -529,7 +529,7 @@ public data class Measure(
        * observation resources included in the evaluatedResources bundle for each patient. See the
        * MeasureReport resource or the Quality Reporting topic for more information.
        */
-      public var criteria: Expression? = null,
+      public var criteria: Expression,
     ) : BackboneElement()
 
     /**
@@ -555,7 +555,7 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -574,7 +574,7 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates a meaning for the stratifier. This can be as simple as a unique identifier, or it
        * can establish meaning in a broader context by drawing from a terminology, allowing
@@ -596,7 +596,7 @@ public data class Measure(
        *
        * Stratifiers are defined either as a single criteria, or as a set of component criteria.
        */
-      public var component: List<Component>? = null,
+      public var component: MutableList<Component> = mutableListOf(),
     ) : BackboneElement() {
       /**
        * A component of the stratifier criteria for the measure report, specified as either the name
@@ -622,7 +622,7 @@ public data class Measure(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -641,7 +641,7 @@ public data class Measure(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Indicates a meaning for the stratifier component. This can be as simple as a unique
          * identifier, or it can establish meaning in a broader context by drawing from a
@@ -655,7 +655,7 @@ public data class Measure(
          * typically the name of an expression defined within a referenced library, but it may also
          * be a path to a stratifier element.
          */
-        public var criteria: Expression? = null,
+        public var criteria: Expression,
       ) : BackboneElement()
     }
   }
@@ -683,7 +683,7 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -702,7 +702,7 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates a meaning for the supplemental data. This can be as simple as a unique identifier,
      * or it can establish meaning in a broader context by drawing from a terminology, allowing
@@ -715,7 +715,7 @@ public data class Measure(
      * Risk adjustment factor indicates the data is additional information used to calculate risk
      * adjustment factors when applying a risk model to the measure calculation.
      */
-    public var usage: List<CodeableConcept?>? = null,
+    public var usage: MutableList<CodeableConcept> = mutableListOf(),
     /** The human readable description of this supplemental data. */
     public var description: String? = null,
     /**
@@ -723,7 +723,7 @@ public data class Measure(
      * defined within a referenced library, but it may also be a path to a specific data element.
      * The criteria defines the data to be returned for this element.
      */
-    public var criteria: Expression? = null,
+    public var criteria: Expression,
   ) : BackboneElement()
 
   public sealed interface Subject {
@@ -738,12 +738,12 @@ public data class Measure(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
       ): Subject? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }

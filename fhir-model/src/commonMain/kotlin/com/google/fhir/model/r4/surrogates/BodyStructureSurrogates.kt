@@ -38,7 +38,7 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -51,74 +51,75 @@ internal data class BodyStructureSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var morphology: CodeableConcept? = null,
   public var location: CodeableConcept? = null,
-  public var locationQualifier: List<CodeableConcept?>? = null,
+  public var locationQualifier: MutableList<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var image: List<Attachment?>? = null,
-  public var patient: Reference? = null,
+  public var image: MutableList<Attachment>? = null,
+  public var patient: Reference,
 ) {
   public fun toModel(): BodyStructure =
-    BodyStructure().apply {
-      id = this@BodyStructureSurrogate.id
-      meta = this@BodyStructureSurrogate.meta
+    BodyStructure(
+      id = this@BodyStructureSurrogate.id,
+      meta = this@BodyStructureSurrogate.meta,
       implicitRules =
         Uri.of(
           this@BodyStructureSurrogate.implicitRules,
           this@BodyStructureSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@BodyStructureSurrogate.language, this@BodyStructureSurrogate._language)
-      text = this@BodyStructureSurrogate.text
-      contained = this@BodyStructureSurrogate.contained
-      extension = this@BodyStructureSurrogate.extension
-      modifierExtension = this@BodyStructureSurrogate.modifierExtension
-      identifier = this@BodyStructureSurrogate.identifier
-      active = R4Boolean.of(this@BodyStructureSurrogate.active, this@BodyStructureSurrogate._active)
-      morphology = this@BodyStructureSurrogate.morphology
-      location = this@BodyStructureSurrogate.location
-      locationQualifier = this@BodyStructureSurrogate.locationQualifier
+        Code.of(this@BodyStructureSurrogate.language, this@BodyStructureSurrogate._language),
+      text = this@BodyStructureSurrogate.text,
+      contained = this@BodyStructureSurrogate.contained ?: mutableListOf(),
+      extension = this@BodyStructureSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@BodyStructureSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@BodyStructureSurrogate.identifier ?: mutableListOf(),
+      active =
+        R4Boolean.of(this@BodyStructureSurrogate.active, this@BodyStructureSurrogate._active),
+      morphology = this@BodyStructureSurrogate.morphology,
+      location = this@BodyStructureSurrogate.location,
+      locationQualifier = this@BodyStructureSurrogate.locationQualifier ?: mutableListOf(),
       description =
         R4String.of(
           this@BodyStructureSurrogate.description,
           this@BodyStructureSurrogate._description,
-        )
-      image = this@BodyStructureSurrogate.image
-      patient = this@BodyStructureSurrogate.patient
-    }
+        ),
+      image = this@BodyStructureSurrogate.image ?: mutableListOf(),
+      patient = this@BodyStructureSurrogate.patient,
+    )
 
   public companion object {
     public fun fromModel(model: BodyStructure): BodyStructureSurrogate =
       with(model) {
-        BodyStructureSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          morphology = this@with.morphology
-          location = this@with.location
-          locationQualifier = this@with.locationQualifier
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          image = this@with.image
-          patient = this@with.patient
-        }
+        BodyStructureSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          morphology = this@with.morphology,
+          location = this@with.location,
+          locationQualifier = this@with.locationQualifier.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          image = this@with.image.takeUnless { it.all { it == null } },
+          patient = this@with.patient,
+        )
       }
   }
 }

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.MetaSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class Meta(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The version specific identifier, as it appears in the version portion of the URL. This value
    * changes when the resource is created, updated, or deleted.
@@ -88,7 +88,7 @@ public data class Meta(
    * It is up to the server and/or other infrastructure of policy to determine whether/how these
    * claims are verified and/or updated over time. The list of profile URLs is a set.
    */
-  public var profile: List<Canonical?>? = null,
+  public var profile: MutableList<Canonical> = mutableListOf(),
   /**
    * Security labels applied to this resource. These tags connect specific resources to the overall
    * security policy and infrastructure.
@@ -97,7 +97,7 @@ public data class Meta(
    * list of security labels is a set. Uniqueness is based the system/code, and version and display
    * are ignored.
    */
-  public var security: List<Coding?>? = null,
+  public var security: MutableList<Coding> = mutableListOf(),
   /**
    * Tags applied to this resource. Tags are intended to be used to identify and relate resources to
    * process and workflow, and applications are not required to consider the tags when interpreting
@@ -106,5 +106,5 @@ public data class Meta(
    * The tags can be updated without changing the stated version of the resource. The list of tags
    * is a set. Uniqueness is based the system/code, and version and display are ignored.
    */
-  public var tag: List<Coding?>? = null,
+  public var tag: MutableList<Coding> = mutableListOf(),
 ) : Element()

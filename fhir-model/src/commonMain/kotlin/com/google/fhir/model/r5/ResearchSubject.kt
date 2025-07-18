@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.ResearchSubjectProgressSerializer
 import com.google.fhir.model.r5.serializers.ResearchSubjectSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class ResearchSubject(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class ResearchSubject(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,11 +130,11 @@ public data class ResearchSubject(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifiers assigned to this research subject for a study. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The publication state of the resource (not of the subject). */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * The current state (status) of the subject and resons for status change where appropriate.
    *
@@ -148,13 +148,13 @@ public data class ResearchSubject(
    * It is likely that more than one "state" pattern will be recorded for a subject and a type has
    * been introduced to allow this simultaneous recording.
    */
-  public var progress: List<Progress>? = null,
+  public var progress: MutableList<Progress> = mutableListOf(),
   /** The dates the subject began and ended their participation in the study. */
   public var period: Period? = null,
   /** Reference to the study the subject is participating in. */
-  public var study: Reference? = null,
+  public var study: Reference,
   /** The record of the person, animal or other entity involved in the study. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The name of the arm in the study the subject is expected to follow as part of this study.
    *
@@ -164,7 +164,7 @@ public data class ResearchSubject(
   /** The name of the arm in the study the subject actually followed as part of this study. */
   public var actualComparisonGroup: Id? = null,
   /** A record of the patient's informed agreement to participate in the study. */
-  public var consent: List<Reference?>? = null,
+  public var consent: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** The current state (status) of the subject and resons for status change where appropriate. */
   @Serializable(with = ResearchSubjectProgressSerializer::class)
@@ -186,7 +186,7 @@ public data class ResearchSubject(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -205,7 +205,7 @@ public data class ResearchSubject(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifies the aspect of the subject's journey that the state refers to. */
     public var type: CodeableConcept? = null,
     /** The current state of the subject. */

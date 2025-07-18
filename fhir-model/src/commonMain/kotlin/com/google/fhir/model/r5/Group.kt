@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.GroupCharacteristicSerializer
 import com.google.fhir.model.r5.serializers.GroupMemberSerializer
 import com.google.fhir.model.r5.serializers.GroupSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class Group(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class Group(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class Group(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this participant by one of the applications involved. These
    * identifiers remain constant as the resource is updated and propagates from server to server.
@@ -142,7 +142,7 @@ public data class Group(
    * multiple resource instances with the same identifier can exist - possibly even with different
    * resource types.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates whether the record for the group is available for use or is merely being retained for
    * historical purposes.
@@ -156,7 +156,7 @@ public data class Group(
    * RelatedPerson, or Specimen for the other types.), or a Group of the resources of the
    * appropriate type.
    */
-  public var type: Enumeration<GroupType>? = null,
+  public var type: Enumeration<GroupType>,
   /**
    * Basis for membership in the Group:
    * * 'definitional': The Group.characteristics specified are both necessary and sufficient to
@@ -167,7 +167,7 @@ public data class Group(
    * * 'enumerated': The Group.characteristics are necessary but not sufficient to determine
    *   membership. Membership is determined by being listed as one of the Group.member.
    */
-  public var membership: Code? = null,
+  public var membership: Code,
   /**
    * Provides a specific type of resource the group includes; e.g. "cow", "syringe", etc.
    *
@@ -198,9 +198,9 @@ public data class Group(
    *
    * All the identified characteristics must be true for an entity to a member of the group.
    */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
   /** Identifies the resource instances that are members of the group. */
-  public var member: List<Member>? = null,
+  public var member: MutableList<Member> = mutableListOf(),
 ) : DomainResource() {
   /** Identifies traits whose presence r absence is shared by members of the group. */
   @Serializable(with = GroupCharacteristicSerializer::class)
@@ -222,7 +222,7 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -241,9 +241,9 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code that identifies the kind of trait being asserted. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * The value of the trait that holds (or does not hold - see 'exclude') for members of the
      * group.
@@ -251,14 +251,14 @@ public data class Group(
      * For Range, it means members of the group have a value that falls somewhere within the
      * specified range.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
     /**
      * If true, indicates the characteristic is one that is NOT held by members of the group.
      *
      * This is labeled as "Is Modifier" because applications cannot wrongly include excluded members
      * as included or vice versa.
      */
-    public var exclude: Boolean? = null,
+    public var exclude: Boolean,
     /**
      * The period over which the characteristic is tested; e.g. the patient had an operation during
      * the month of June.
@@ -289,18 +289,18 @@ public data class Group(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
         ): Value? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -327,7 +327,7 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -346,12 +346,12 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A reference to the entity that is a member of the group. Must be consistent with Group.type.
      * If the entity is another group, then the type must be the same.
      */
-    public var entity: Reference? = null,
+    public var entity: Reference,
     /** The period that the member was in the group, if known. */
     public var period: Period? = null,
     /**

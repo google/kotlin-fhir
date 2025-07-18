@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.CompositionRelatesToSerializer
 import com.google.fhir.model.r4b.serializers.CompositionSectionSerializer
 import com.google.fhir.model.r4b.serializers.CompositionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -103,7 +103,7 @@ public data class Composition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -116,7 +116,7 @@ public data class Composition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class Composition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A version-independent identifier for the Composition. This identifier stays constant as the
    * composition is changed over time.
@@ -158,7 +158,7 @@ public data class Composition(
    * status for explicitly noting whether this business rule is in effect. This would be handled by
    * an extension if required.
    */
-  public var status: Enumeration<CompositionStatus>? = null,
+  public var status: Enumeration<CompositionStatus>,
   /**
    * Specifies the particular kind of composition (e.g. History and Physical, Discharge Summary,
    * Progress Note). This usually equates to the purpose of making the composition.
@@ -166,7 +166,7 @@ public data class Composition(
    * For Composition type, LOINC is ubiquitous and strongly endorsed by HL7. Most implementation
    * guides will require a specific LOINC code, or use LOINC as an extensible binding.
    */
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   /**
    * A categorization for the type of the composition - helps for indexing and searching. This may
    * be implied by or derived from the code specified in the Composition Type.
@@ -174,7 +174,7 @@ public data class Composition(
    * This is a metadata field from
    * [XDS/MHD](http://wiki.ihe.net/index.php?title=Mobile_access_to_Health_Documents_(MHD)).
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Who or what the composition is about. The composition can be about a person, (patient or
    * healthcare practitioner), a device (e.g. a machine) or even a group of subjects (such as a
@@ -191,12 +191,12 @@ public data class Composition(
    * The Last Modified Date on the composition may be after the date of the document was attested
    * without being changed.
    */
-  public var date: DateTime? = null,
+  public var date: DateTime,
   /**
    * Identifies who is responsible for the information in the composition, not necessarily who typed
    * it in.
    */
-  public var author: List<Reference?>? = null,
+  public var author: MutableList<Reference> = mutableListOf(),
   /**
    * Official human-readable label for the composition.
    *
@@ -205,7 +205,7 @@ public data class Composition(
    * there are no known cases where it is useful for title to be omitted, so it is mandatory here.
    * Feedback on this requirement is welcome during the trial use period.
    */
-  public var title: String? = null,
+  public var title: String,
   /**
    * The code specifying the level of confidentiality of the Composition.
    *
@@ -220,7 +220,7 @@ public data class Composition(
    *
    * Only list each attester once.
    */
-  public var attester: List<Attester>? = null,
+  public var attester: MutableList<Attester> = mutableListOf(),
   /**
    * Identifies the organization or group who is responsible for ongoing maintenance of and access
    * to the composition/document information.
@@ -238,16 +238,16 @@ public data class Composition(
    *
    * A document is a version specific composition.
    */
-  public var relatesTo: List<RelatesTo>? = null,
+  public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
   /**
    * The clinical service, such as a colonoscopy or an appendectomy, being documented.
    *
    * The event needs to be consistent with the type element, though can provide further information
    * if desired.
    */
-  public var event: List<Event>? = null,
+  public var event: MutableList<Event> = mutableListOf(),
   /** The root of the sections that make up the composition. */
-  public var section: List<Section>? = null,
+  public var section: MutableList<Section> = mutableListOf(),
 ) : DomainResource() {
   /** A participant who has attested to the accuracy of the composition/document. */
   @Serializable(with = CompositionAttesterSerializer::class)
@@ -269,7 +269,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,9 +288,9 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of attestation the authenticator offers. */
-    public var mode: Enumeration<CompositionAttestationMode>? = null,
+    public var mode: Enumeration<CompositionAttestationMode>,
     /** When the composition was attested by the party. */
     public var time: DateTime? = null,
     /** Who attested the composition in the specified way. */
@@ -320,7 +320,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -339,16 +339,16 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of relationship that this composition has with anther composition or document.
      *
      * If this document appends another document, then the document cannot be fully understood
      * without also accessing the referenced document.
      */
-    public var code: Enumeration<DocumentRelationshipType>? = null,
+    public var code: Enumeration<DocumentRelationshipType>,
     /** The target composition/document of this relationship. */
-    public var target: Target? = null,
+    public var target: Target,
   ) : BackboneElement() {
     public sealed interface Target {
       public fun asIdentifier(): Identifier? = this as? Identifier
@@ -361,12 +361,12 @@ public data class Composition(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Target
 
       public companion object {
-        public fun from(
-          IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          identifierValue: com.google.fhir.model.r4b.Identifier?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
         ): Target? {
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (identifierValue != null) return Identifier(identifierValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -393,7 +393,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -412,7 +412,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * This list of codes represents the main clinical acts, such as a colonoscopy or an
      * appendectomy, being documented. In some cases, the event is inherent in the typeCode, such as
@@ -425,7 +425,7 @@ public data class Composition(
      * practiceSettingCode or typeCode, as such a conflict would create an ambiguous situation. This
      * short list of codes is provided to be used as key words for certain types of queries.
      */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The period of time covered by the documentation. There is no assertion that the documentation
      * is a complete representation for this period, only that it documents events during this time.
@@ -435,7 +435,7 @@ public data class Composition(
      * The description and/or reference of the event(s) being documented. For example, this could be
      * used to document such a colonoscopy or an appendectomy.
      */
-    public var detail: List<Reference?>? = null,
+    public var detail: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** The root of the sections that make up the composition. */
@@ -458,7 +458,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -477,7 +477,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The label for this particular section. This will be part of the rendered content for the
      * document, and is often used to build a table of contents.
@@ -506,7 +506,7 @@ public data class Composition(
      * Identifies who is responsible for the information in this section, not necessarily who typed
      * it in.
      */
-    public var author: List<Reference?>? = null,
+    public var author: MutableList<Reference> = mutableListOf(),
     /**
      * The actual focus of the section when it is not the subject of the composition, but instead
      * represents something or someone associated with the subject such as (for a patient subject) a
@@ -556,7 +556,7 @@ public data class Composition(
      *
      * If there are no entries in the list, an emptyReason SHOULD be provided.
      */
-    public var entry: List<Reference?>? = null,
+    public var entry: MutableList<Reference> = mutableListOf(),
     /**
      * If the section is empty, why the list is empty. An empty section typically has some text
      * explaining the empty reason.
@@ -573,7 +573,7 @@ public data class Composition(
      * Nested sections are primarily used to help human readers navigate to particular portions of
      * the document.
      */
-    public var section: List<Section?>? = null,
+    public var section: MutableList<Section> = mutableListOf(),
   ) : BackboneElement()
 
   /** The way in which a person authenticated a composition. */

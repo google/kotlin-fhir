@@ -38,66 +38,68 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var substance: CodeableConcept? = null,
-  public var strength: Ratio? = null,
+  public var strength: Ratio,
   public var strengthLowLimit: Ratio? = null,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
-  public var country: List<CodeableConcept?>? = null,
+  public var country: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength =
-    MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength().apply {
-      id = this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.id
+    MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength(
+      id = this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.id,
       extension =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
-          .extension
+          .extension ?: mutableListOf(),
       modifierExtension =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
-          .modifierExtension
+          .modifierExtension ?: mutableListOf(),
       substance =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
-          .substance
+          .substance,
       strength =
-        this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.strength
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
+          .strength,
       strengthLowLimit =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
-          .strengthLowLimit
+          .strengthLowLimit,
       measurementPoint =
         R4String.of(
           this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
             .measurementPoint,
           this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
             ._measurementPoint,
-        )
+        ),
       country =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.country
-    }
+          ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength
     ): MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate =
       with(model) {
-        MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          substance = this@with.substance
-          strength = this@with.strength
-          strengthLowLimit = this@with.strengthLowLimit
-          measurementPoint = this@with.measurementPoint?.value
-          _measurementPoint = this@with.measurementPoint?.toElement()
-          country = this@with.country
-        }
+        MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          substance = this@with.substance,
+          strength = this@with.strength,
+          strengthLowLimit = this@with.strengthLowLimit,
+          measurementPoint = this@with.measurementPoint?.value,
+          _measurementPoint = this@with.measurementPoint?.toElement(),
+          country = this@with.country.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -105,60 +107,67 @@ internal data class MedicinalProductIngredientSpecifiedSubstanceStrengthReferenc
 @Serializable
 internal data class MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var presentation: Ratio? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var presentation: Ratio,
   public var presentationLowLimit: Ratio? = null,
   public var concentration: Ratio? = null,
   public var concentrationLowLimit: Ratio? = null,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
-  public var country: List<CodeableConcept?>? = null,
+  public var country: MutableList<CodeableConcept>? = null,
   public var referenceStrength:
-    List<MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength>? =
+    MutableList<MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength>? =
     null,
 ) {
   public fun toModel(): MedicinalProductIngredient.SpecifiedSubstance.Strength =
-    MedicinalProductIngredient.SpecifiedSubstance.Strength().apply {
-      id = this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.id
-      extension = this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.extension
+    MedicinalProductIngredient.SpecifiedSubstance.Strength(
+      id = this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.id,
+      extension =
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.modifierExtension
-      presentation = this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.presentation
+          ?: mutableListOf(),
+      presentation =
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.presentation,
       presentationLowLimit =
-        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.presentationLowLimit
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.presentationLowLimit,
       concentration =
-        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.concentration
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.concentration,
       concentrationLowLimit =
-        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.concentrationLowLimit
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.concentrationLowLimit,
       measurementPoint =
         R4String.of(
           this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.measurementPoint,
           this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate._measurementPoint,
-        )
-      country = this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.country
+        ),
+      country =
+        this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.country
+          ?: mutableListOf(),
       referenceStrength =
         this@MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate.referenceStrength
-    }
+          ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductIngredient.SpecifiedSubstance.Strength
     ): MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate =
       with(model) {
-        MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          presentation = this@with.presentation
-          presentationLowLimit = this@with.presentationLowLimit
-          concentration = this@with.concentration
-          concentrationLowLimit = this@with.concentrationLowLimit
-          measurementPoint = this@with.measurementPoint?.value
-          _measurementPoint = this@with.measurementPoint?.toElement()
-          country = this@with.country
-          referenceStrength = this@with.referenceStrength
-        }
+        MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          presentation = this@with.presentation,
+          presentationLowLimit = this@with.presentationLowLimit,
+          concentration = this@with.concentration,
+          concentrationLowLimit = this@with.concentrationLowLimit,
+          measurementPoint = this@with.measurementPoint?.value,
+          _measurementPoint = this@with.measurementPoint?.toElement(),
+          country = this@with.country.takeUnless { it.all { it == null } },
+          referenceStrength = this@with.referenceStrength.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -166,39 +175,42 @@ internal data class MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogat
 @Serializable
 internal data class MedicinalProductIngredientSpecifiedSubstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: CodeableConcept? = null,
-  public var group: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var group: CodeableConcept,
   public var confidentiality: CodeableConcept? = null,
-  public var strength: List<MedicinalProductIngredient.SpecifiedSubstance.Strength>? = null,
+  public var strength: MutableList<MedicinalProductIngredient.SpecifiedSubstance.Strength>? = null,
 ) {
   public fun toModel(): MedicinalProductIngredient.SpecifiedSubstance =
-    MedicinalProductIngredient.SpecifiedSubstance().apply {
-      id = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.id
-      extension = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.extension
+    MedicinalProductIngredient.SpecifiedSubstance(
+      id = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.id,
+      extension =
+        this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.modifierExtension
-      code = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.code
-      group = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.group
-      confidentiality = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.confidentiality
-      strength = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.strength
-    }
+          ?: mutableListOf(),
+      code = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.code,
+      group = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.group,
+      confidentiality = this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.confidentiality,
+      strength =
+        this@MedicinalProductIngredientSpecifiedSubstanceSurrogate.strength ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductIngredient.SpecifiedSubstance
     ): MedicinalProductIngredientSpecifiedSubstanceSurrogate =
       with(model) {
-        MedicinalProductIngredientSpecifiedSubstanceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          group = this@with.group
-          confidentiality = this@with.confidentiality
-          strength = this@with.strength
-        }
+        MedicinalProductIngredientSpecifiedSubstanceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          group = this@with.group,
+          confidentiality = this@with.confidentiality,
+          strength = this@with.strength.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -206,32 +218,33 @@ internal data class MedicinalProductIngredientSpecifiedSubstanceSurrogate(
 @Serializable
 internal data class MedicinalProductIngredientSubstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: CodeableConcept? = null,
-  public var strength: List<MedicinalProductIngredient.SpecifiedSubstance.Strength?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var strength: MutableList<MedicinalProductIngredient.SpecifiedSubstance.Strength>? = null,
 ) {
   public fun toModel(): MedicinalProductIngredient.Substance =
-    MedicinalProductIngredient.Substance().apply {
-      id = this@MedicinalProductIngredientSubstanceSurrogate.id
-      extension = this@MedicinalProductIngredientSubstanceSurrogate.extension
-      modifierExtension = this@MedicinalProductIngredientSubstanceSurrogate.modifierExtension
-      code = this@MedicinalProductIngredientSubstanceSurrogate.code
-      strength = this@MedicinalProductIngredientSubstanceSurrogate.strength
-    }
+    MedicinalProductIngredient.Substance(
+      id = this@MedicinalProductIngredientSubstanceSurrogate.id,
+      extension = this@MedicinalProductIngredientSubstanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductIngredientSubstanceSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@MedicinalProductIngredientSubstanceSurrogate.code,
+      strength = this@MedicinalProductIngredientSubstanceSurrogate.strength ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductIngredient.Substance
     ): MedicinalProductIngredientSubstanceSurrogate =
       with(model) {
-        MedicinalProductIngredientSubstanceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          strength = this@with.strength
-        }
+        MedicinalProductIngredientSubstanceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          strength = this@with.strength.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -245,69 +258,71 @@ internal data class MedicinalProductIngredientSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
-  public var role: CodeableConcept? = null,
+  public var role: CodeableConcept,
   public var allergenicIndicator: KotlinBoolean? = null,
   public var _allergenicIndicator: Element? = null,
-  public var manufacturer: List<Reference?>? = null,
-  public var specifiedSubstance: List<MedicinalProductIngredient.SpecifiedSubstance>? = null,
+  public var manufacturer: MutableList<Reference>? = null,
+  public var specifiedSubstance: MutableList<MedicinalProductIngredient.SpecifiedSubstance>? = null,
   public var substance: MedicinalProductIngredient.Substance? = null,
 ) {
   public fun toModel(): MedicinalProductIngredient =
-    MedicinalProductIngredient().apply {
-      id = this@MedicinalProductIngredientSurrogate.id
-      meta = this@MedicinalProductIngredientSurrogate.meta
+    MedicinalProductIngredient(
+      id = this@MedicinalProductIngredientSurrogate.id,
+      meta = this@MedicinalProductIngredientSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicinalProductIngredientSurrogate.implicitRules,
           this@MedicinalProductIngredientSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicinalProductIngredientSurrogate.language,
           this@MedicinalProductIngredientSurrogate._language,
-        )
-      text = this@MedicinalProductIngredientSurrogate.text
-      contained = this@MedicinalProductIngredientSurrogate.contained
-      extension = this@MedicinalProductIngredientSurrogate.extension
-      modifierExtension = this@MedicinalProductIngredientSurrogate.modifierExtension
-      identifier = this@MedicinalProductIngredientSurrogate.identifier
-      role = this@MedicinalProductIngredientSurrogate.role
+        ),
+      text = this@MedicinalProductIngredientSurrogate.text,
+      contained = this@MedicinalProductIngredientSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicinalProductIngredientSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MedicinalProductIngredientSurrogate.identifier,
+      role = this@MedicinalProductIngredientSurrogate.role,
       allergenicIndicator =
         R4Boolean.of(
           this@MedicinalProductIngredientSurrogate.allergenicIndicator,
           this@MedicinalProductIngredientSurrogate._allergenicIndicator,
-        )
-      manufacturer = this@MedicinalProductIngredientSurrogate.manufacturer
-      specifiedSubstance = this@MedicinalProductIngredientSurrogate.specifiedSubstance
-      substance = this@MedicinalProductIngredientSurrogate.substance
-    }
+        ),
+      manufacturer = this@MedicinalProductIngredientSurrogate.manufacturer ?: mutableListOf(),
+      specifiedSubstance =
+        this@MedicinalProductIngredientSurrogate.specifiedSubstance ?: mutableListOf(),
+      substance = this@MedicinalProductIngredientSurrogate.substance,
+    )
 
   public companion object {
     public fun fromModel(model: MedicinalProductIngredient): MedicinalProductIngredientSurrogate =
       with(model) {
-        MedicinalProductIngredientSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          role = this@with.role
-          allergenicIndicator = this@with.allergenicIndicator?.value
-          _allergenicIndicator = this@with.allergenicIndicator?.toElement()
-          manufacturer = this@with.manufacturer
-          specifiedSubstance = this@with.specifiedSubstance
-          substance = this@with.substance
-        }
+        MedicinalProductIngredientSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier,
+          role = this@with.role,
+          allergenicIndicator = this@with.allergenicIndicator?.value,
+          _allergenicIndicator = this@with.allergenicIndicator?.toElement(),
+          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          specifiedSubstance = this@with.specifiedSubstance.takeUnless { it.all { it == null } },
+          substance = this@with.substance,
+        )
       }
   }
 }

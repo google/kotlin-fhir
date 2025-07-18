@@ -28,7 +28,6 @@ import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.TypeVariableName
-import com.squareup.kotlinpoet.asTypeName
 import kotlin.text.substringAfterLast
 
 /**
@@ -72,9 +71,8 @@ object EnumerationFileSpecGenerator {
                 ParameterSpec.builder(
                     name = "extension",
                     type =
-                      List::class.asTypeName()
-                        .parameterizedBy(extensionClassName.copy(nullable = true))
-                        .copy(nullable = true),
+                      ClassName("kotlin.collections", "MutableList")
+                        .parameterizedBy(extensionClassName),
                   )
                   .addKdoc(
                     """
@@ -85,7 +83,7 @@ object EnumerationFileSpecGenerator {
                       .trimIndent()
                       .sanitizeKDoc()
                   )
-                  .defaultValue("null")
+                  .defaultValue("mutableListOf()")
                   .build()
               )
               .addParameter(
@@ -107,9 +105,7 @@ object EnumerationFileSpecGenerator {
             PropertySpec.builder(
                 name = "extension",
                 type =
-                  List::class.asTypeName()
-                    .parameterizedBy(extensionClassName.copy(nullable = true))
-                    .copy(nullable = true),
+                  ClassName("kotlin.collections", "MutableList").parameterizedBy(extensionClassName),
               )
               .initializer("extension")
               .mutable(true)
@@ -131,7 +127,7 @@ object EnumerationFileSpecGenerator {
             FunSpec.builder("toElement")
               .returns(elementClassName.copy(nullable = true))
               .addStatement(
-                "if (id != null || extension != null) { return Element(id, extension) }"
+                "if (id != null || extension.isNotEmpty()) { return Element(id, extension) }"
               )
               .addStatement("return null")
               .build()
@@ -141,17 +137,13 @@ object EnumerationFileSpecGenerator {
               .addFunction(
                 FunSpec.builder("of")
                   .addTypeVariable(typeVariable)
-                  .addParameter(
-                    ParameterSpec.builder("value", typeVariable.copy(nullable = true)).build()
-                  )
+                  .addParameter(ParameterSpec.builder("value", typeVariable).build())
                   .addParameter(
                     ParameterSpec.builder("element", elementClassName.copy(nullable = true)).build()
                   )
-                  .returns(
-                    ClassName("", "Enumeration").parameterizedBy(typeVariable).copy(nullable = true)
-                  )
+                  .returns(ClassName("", "Enumeration").parameterizedBy(typeVariable))
                   .addStatement(
-                    "return if (value == null && element == null) { null } else { Enumeration(element?.id, element?.extension, value = value) }"
+                    "return Enumeration(element?.id, element?.extension ?: mutableListOf(), value = value)"
                   )
                   .build()
               )

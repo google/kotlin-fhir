@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.FlagSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -92,7 +92,7 @@ public data class Flag(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -105,7 +105,7 @@ public data class Flag(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -124,7 +124,7 @@ public data class Flag(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this flag by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -136,14 +136,14 @@ public data class Flag(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Supports basic workflow.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FlagStatus>? = null,
+  public var status: Enumeration<FlagStatus>,
   /**
    * Allows a flag to be divided into different categories like clinical, administrative etc.
    * Intended to be used as a means of filtering which flags are displayed to particular user or in
@@ -151,19 +151,19 @@ public data class Flag(
    *
    * The value set will often need to be adjusted based on local business rules and usage context.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The coded value or textual component of the flag to display to the user.
    *
    * If non-coded, use CodeableConcept.text. This element should always be included in the
    * narrative.
    */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * The patient, location, group, organization, or practitioner etc. this is about record this flag
    * is associated with.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The period of time from the activation of the flag to inactivation of the flag. If the flag is
    * active, the end of the period should be unspecified.

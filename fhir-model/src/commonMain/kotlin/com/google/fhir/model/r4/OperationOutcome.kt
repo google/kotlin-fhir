@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.OperationOutcomeIssueSerializer
 import com.google.fhir.model.r4.serializers.OperationOutcomeSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -92,7 +92,7 @@ public data class OperationOutcome(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -105,7 +105,7 @@ public data class OperationOutcome(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -124,9 +124,9 @@ public data class OperationOutcome(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An error, warning, or information message that results from a system action. */
-  public var issue: List<Issue>? = null,
+  public var issue: MutableList<Issue> = mutableListOf(),
 ) : DomainResource() {
   /** An error, warning, or information message that results from a system action. */
   @Serializable(with = OperationOutcomeIssueSerializer::class)
@@ -148,7 +148,7 @@ public data class OperationOutcome(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -167,20 +167,20 @@ public data class OperationOutcome(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates whether the issue indicates a variation from successful processing.
      *
      * This is labeled as "Is Modifier" because applications should not confuse hints and warnings
      * with errors.
      */
-    public var severity: Enumeration<IssueSeverity>? = null,
+    public var severity: Enumeration<IssueSeverity>,
     /**
      * Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the
      * most applicable code from the IssueType value set, and may additional provide its own code
      * for the error in the details element.
      */
-    public var code: Enumeration<IssueType>? = null,
+    public var code: Enumeration<IssueType>,
     /**
      * Additional details about the error. This may be a text description of the error or a system
      * code that identifies the error.
@@ -207,7 +207,7 @@ public data class OperationOutcome(
      * SHALL resolve to a single node. This element is deprecated, and is being replaced by
      * expression.
      */
-    public var location: List<String?>? = null,
+    public var location: MutableList<String> = mutableListOf(),
     /**
      * A [simple subset of FHIRPath](fhirpath.html#simple) limited to element names, repetition
      * indicators and the default child accessor that identifies one of the elements in the resource
@@ -216,7 +216,7 @@ public data class OperationOutcome(
      * The root of the FHIRPath is the resource or bundle that generated OperationOutcome. Each
      * FHIRPath SHALL resolve to a single node.
      */
-    public var expression: List<String?>? = null,
+    public var expression: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
   /** How the issue affects the success of the action. */

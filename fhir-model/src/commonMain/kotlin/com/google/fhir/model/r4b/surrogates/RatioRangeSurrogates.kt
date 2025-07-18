@@ -26,37 +26,37 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RatioRangeSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var lowNumerator: Quantity? = null,
   public var highNumerator: Quantity? = null,
   public var denominator: Quantity? = null,
 ) {
   public fun toModel(): RatioRange =
-    RatioRange().apply {
-      id = this@RatioRangeSurrogate.id
-      extension = this@RatioRangeSurrogate.extension
-      lowNumerator = this@RatioRangeSurrogate.lowNumerator
-      highNumerator = this@RatioRangeSurrogate.highNumerator
-      denominator = this@RatioRangeSurrogate.denominator
-    }
+    RatioRange(
+      id = this@RatioRangeSurrogate.id,
+      extension = this@RatioRangeSurrogate.extension ?: mutableListOf(),
+      lowNumerator = this@RatioRangeSurrogate.lowNumerator,
+      highNumerator = this@RatioRangeSurrogate.highNumerator,
+      denominator = this@RatioRangeSurrogate.denominator,
+    )
 
   public companion object {
     public fun fromModel(model: RatioRange): RatioRangeSurrogate =
       with(model) {
-        RatioRangeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          lowNumerator = this@with.lowNumerator
-          highNumerator = this@with.highNumerator
-          denominator = this@with.denominator
-        }
+        RatioRangeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          lowNumerator = this@with.lowNumerator,
+          highNumerator = this@with.highNumerator,
+          denominator = this@with.denominator,
+        )
       }
   }
 }

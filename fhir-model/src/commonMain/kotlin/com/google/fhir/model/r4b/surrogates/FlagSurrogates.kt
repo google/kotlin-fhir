@@ -36,7 +36,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,67 +49,67 @@ internal data class FlagSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var code: CodeableConcept? = null,
-  public var subject: Reference? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var code: CodeableConcept,
+  public var subject: Reference,
   public var period: Period? = null,
   public var encounter: Reference? = null,
   public var author: Reference? = null,
 ) {
   public fun toModel(): Flag =
-    Flag().apply {
-      id = this@FlagSurrogate.id
-      meta = this@FlagSurrogate.meta
-      implicitRules = Uri.of(this@FlagSurrogate.implicitRules, this@FlagSurrogate._implicitRules)
-      language = Code.of(this@FlagSurrogate.language, this@FlagSurrogate._language)
-      text = this@FlagSurrogate.text
-      contained = this@FlagSurrogate.contained
-      extension = this@FlagSurrogate.extension
-      modifierExtension = this@FlagSurrogate.modifierExtension
-      identifier = this@FlagSurrogate.identifier
+    Flag(
+      id = this@FlagSurrogate.id,
+      meta = this@FlagSurrogate.meta,
+      implicitRules = Uri.of(this@FlagSurrogate.implicitRules, this@FlagSurrogate._implicitRules),
+      language = Code.of(this@FlagSurrogate.language, this@FlagSurrogate._language),
+      text = this@FlagSurrogate.text,
+      contained = this@FlagSurrogate.contained ?: mutableListOf(),
+      extension = this@FlagSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@FlagSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@FlagSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@FlagSurrogate.status?.let { com.google.fhir.model.r4b.Flag.FlagStatus.fromCode(it) },
+          com.google.fhir.model.r4b.Flag.FlagStatus.fromCode(this@FlagSurrogate.status!!),
           this@FlagSurrogate._status,
-        )
-      category = this@FlagSurrogate.category
-      code = this@FlagSurrogate.code
-      subject = this@FlagSurrogate.subject
-      period = this@FlagSurrogate.period
-      encounter = this@FlagSurrogate.encounter
-      author = this@FlagSurrogate.author
-    }
+        ),
+      category = this@FlagSurrogate.category ?: mutableListOf(),
+      code = this@FlagSurrogate.code,
+      subject = this@FlagSurrogate.subject,
+      period = this@FlagSurrogate.period,
+      encounter = this@FlagSurrogate.encounter,
+      author = this@FlagSurrogate.author,
+    )
 
   public companion object {
     public fun fromModel(model: Flag): FlagSurrogate =
       with(model) {
-        FlagSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          code = this@with.code
-          subject = this@with.subject
-          period = this@with.period
-          encounter = this@with.encounter
-          author = this@with.author
-        }
+        FlagSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          subject = this@with.subject,
+          period = this@with.period,
+          encounter = this@with.encounter,
+          author = this@with.author,
+        )
       }
   }
 }

@@ -41,42 +41,43 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class InventoryReportInventoryListingItemSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var category: CodeableConcept? = null,
-  public var quantity: Quantity? = null,
-  public var item: CodeableReference? = null,
+  public var quantity: Quantity,
+  public var item: CodeableReference,
 ) {
   public fun toModel(): InventoryReport.InventoryListing.Item =
-    InventoryReport.InventoryListing.Item().apply {
-      id = this@InventoryReportInventoryListingItemSurrogate.id
-      extension = this@InventoryReportInventoryListingItemSurrogate.extension
-      modifierExtension = this@InventoryReportInventoryListingItemSurrogate.modifierExtension
-      category = this@InventoryReportInventoryListingItemSurrogate.category
-      quantity = this@InventoryReportInventoryListingItemSurrogate.quantity
-      item = this@InventoryReportInventoryListingItemSurrogate.item
-    }
+    InventoryReport.InventoryListing.Item(
+      id = this@InventoryReportInventoryListingItemSurrogate.id,
+      extension = this@InventoryReportInventoryListingItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryReportInventoryListingItemSurrogate.modifierExtension ?: mutableListOf(),
+      category = this@InventoryReportInventoryListingItemSurrogate.category,
+      quantity = this@InventoryReportInventoryListingItemSurrogate.quantity,
+      item = this@InventoryReportInventoryListingItemSurrogate.item,
+    )
 
   public companion object {
     public fun fromModel(
       model: InventoryReport.InventoryListing.Item
     ): InventoryReportInventoryListingItemSurrogate =
       with(model) {
-        InventoryReportInventoryListingItemSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          category = this@with.category
-          quantity = this@with.quantity
-          item = this@with.item
-        }
+        InventoryReportInventoryListingItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          category = this@with.category,
+          quantity = this@with.quantity,
+          item = this@with.item,
+        )
       }
   }
 }
@@ -84,44 +85,45 @@ internal data class InventoryReportInventoryListingItemSurrogate(
 @Serializable
 internal data class InventoryReportInventoryListingSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var location: Reference? = null,
   public var itemStatus: CodeableConcept? = null,
   public var countingDateTime: String? = null,
   public var _countingDateTime: Element? = null,
-  public var item: List<InventoryReport.InventoryListing.Item>? = null,
+  public var item: MutableList<InventoryReport.InventoryListing.Item>? = null,
 ) {
   public fun toModel(): InventoryReport.InventoryListing =
-    InventoryReport.InventoryListing().apply {
-      id = this@InventoryReportInventoryListingSurrogate.id
-      extension = this@InventoryReportInventoryListingSurrogate.extension
-      modifierExtension = this@InventoryReportInventoryListingSurrogate.modifierExtension
-      location = this@InventoryReportInventoryListingSurrogate.location
-      itemStatus = this@InventoryReportInventoryListingSurrogate.itemStatus
+    InventoryReport.InventoryListing(
+      id = this@InventoryReportInventoryListingSurrogate.id,
+      extension = this@InventoryReportInventoryListingSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryReportInventoryListingSurrogate.modifierExtension ?: mutableListOf(),
+      location = this@InventoryReportInventoryListingSurrogate.location,
+      itemStatus = this@InventoryReportInventoryListingSurrogate.itemStatus,
       countingDateTime =
         DateTime.of(
           FhirDateTime.fromString(this@InventoryReportInventoryListingSurrogate.countingDateTime),
           this@InventoryReportInventoryListingSurrogate._countingDateTime,
-        )
-      item = this@InventoryReportInventoryListingSurrogate.item
-    }
+        ),
+      item = this@InventoryReportInventoryListingSurrogate.item ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: InventoryReport.InventoryListing
     ): InventoryReportInventoryListingSurrogate =
       with(model) {
-        InventoryReportInventoryListingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          location = this@with.location
-          itemStatus = this@with.itemStatus
-          countingDateTime = this@with.countingDateTime?.value?.toString()
-          _countingDateTime = this@with.countingDateTime?.toElement()
-          item = this@with.item
-        }
+        InventoryReportInventoryListingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          location = this@with.location,
+          itemStatus = this@with.itemStatus,
+          countingDateTime = this@with.countingDateTime?.value?.toString(),
+          _countingDateTime = this@with.countingDateTime?.toElement(),
+          item = this@with.item.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -135,10 +137,10 @@ internal data class InventoryReportSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var countType: String? = null,
@@ -149,80 +151,80 @@ internal data class InventoryReportSurrogate(
   public var _reportedDateTime: Element? = null,
   public var reporter: Reference? = null,
   public var reportingPeriod: Period? = null,
-  public var inventoryListing: List<InventoryReport.InventoryListing>? = null,
-  public var note: List<Annotation?>? = null,
+  public var inventoryListing: MutableList<InventoryReport.InventoryListing>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): InventoryReport =
-    InventoryReport().apply {
-      id = this@InventoryReportSurrogate.id
-      meta = this@InventoryReportSurrogate.meta
+    InventoryReport(
+      id = this@InventoryReportSurrogate.id,
+      meta = this@InventoryReportSurrogate.meta,
       implicitRules =
         Uri.of(
           this@InventoryReportSurrogate.implicitRules,
           this@InventoryReportSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@InventoryReportSurrogate.language, this@InventoryReportSurrogate._language)
-      text = this@InventoryReportSurrogate.text
-      contained = this@InventoryReportSurrogate.contained
-      extension = this@InventoryReportSurrogate.extension
-      modifierExtension = this@InventoryReportSurrogate.modifierExtension
-      identifier = this@InventoryReportSurrogate.identifier
+        Code.of(this@InventoryReportSurrogate.language, this@InventoryReportSurrogate._language),
+      text = this@InventoryReportSurrogate.text,
+      contained = this@InventoryReportSurrogate.contained ?: mutableListOf(),
+      extension = this@InventoryReportSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InventoryReportSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InventoryReportSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@InventoryReportSurrogate.status?.let {
-            com.google.fhir.model.r5.InventoryReport.InventoryReportStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.InventoryReport.InventoryReportStatus.fromCode(
+            this@InventoryReportSurrogate.status!!
+          ),
           this@InventoryReportSurrogate._status,
-        )
+        ),
       countType =
         Enumeration.of(
-          this@InventoryReportSurrogate.countType?.let {
-            com.google.fhir.model.r5.InventoryReport.InventoryCountType.fromCode(it)
-          },
+          com.google.fhir.model.r5.InventoryReport.InventoryCountType.fromCode(
+            this@InventoryReportSurrogate.countType!!
+          ),
           this@InventoryReportSurrogate._countType,
-        )
-      operationType = this@InventoryReportSurrogate.operationType
-      operationTypeReason = this@InventoryReportSurrogate.operationTypeReason
+        ),
+      operationType = this@InventoryReportSurrogate.operationType,
+      operationTypeReason = this@InventoryReportSurrogate.operationTypeReason,
       reportedDateTime =
         DateTime.of(
           FhirDateTime.fromString(this@InventoryReportSurrogate.reportedDateTime),
           this@InventoryReportSurrogate._reportedDateTime,
-        )
-      reporter = this@InventoryReportSurrogate.reporter
-      reportingPeriod = this@InventoryReportSurrogate.reportingPeriod
-      inventoryListing = this@InventoryReportSurrogate.inventoryListing
-      note = this@InventoryReportSurrogate.note
-    }
+        )!!,
+      reporter = this@InventoryReportSurrogate.reporter,
+      reportingPeriod = this@InventoryReportSurrogate.reportingPeriod,
+      inventoryListing = this@InventoryReportSurrogate.inventoryListing ?: mutableListOf(),
+      note = this@InventoryReportSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: InventoryReport): InventoryReportSurrogate =
       with(model) {
-        InventoryReportSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          countType = this@with.countType?.value?.getCode()
-          _countType = this@with.countType?.toElement()
-          operationType = this@with.operationType
-          operationTypeReason = this@with.operationTypeReason
-          reportedDateTime = this@with.reportedDateTime?.value?.toString()
-          _reportedDateTime = this@with.reportedDateTime?.toElement()
-          reporter = this@with.reporter
-          reportingPeriod = this@with.reportingPeriod
-          inventoryListing = this@with.inventoryListing
-          note = this@with.note
-        }
+        InventoryReportSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          countType = this@with.countType.value?.getCode(),
+          _countType = this@with.countType.toElement(),
+          operationType = this@with.operationType,
+          operationTypeReason = this@with.operationTypeReason,
+          reportedDateTime = this@with.reportedDateTime.value?.toString(),
+          _reportedDateTime = this@with.reportedDateTime.toElement(),
+          reporter = this@with.reporter,
+          reportingPeriod = this@with.reportingPeriod,
+          inventoryListing = this@with.inventoryListing.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

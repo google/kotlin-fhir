@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.ActivityDefinitionDynamicValueSerial
 import com.google.fhir.model.r5.serializers.ActivityDefinitionParticipantSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class ActivityDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class ActivityDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class ActivityDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this activity definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -159,7 +159,7 @@ public data class ActivityDefinition(
    * type, and can then identify this activity definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the activity definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -214,7 +214,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this activity definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -270,7 +270,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the activity definition from a consumer's
    * perspective.
@@ -292,7 +292,7 @@ public data class ActivityDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the activity definition is intended to be used.
    *
@@ -304,7 +304,7 @@ public data class ActivityDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this activity definition is needed and why it has been designed as it has.
    *
@@ -376,14 +376,14 @@ public data class ActivityDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#topic and
    * useContext.valueCodeableConcept indicating the topic)
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the content.
@@ -391,7 +391,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the content for use in some setting.
@@ -399,18 +399,18 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * A reference to a Library resource containing any formal logic used by the activity definition.
    */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /**
    * A description of the kind of resource the activity definition is representing. For example, a
    * MedicationRequest, a ServiceRequest, or a CommunicationRequest.
@@ -477,7 +477,7 @@ public data class ActivityDefinition(
    */
   public var location: CodeableReference? = null,
   /** Indicates who should participate in performing the action described. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** Identifies the food, drug or other product being consumed or supplied in the activity. */
   public var product: Product? = null,
   /** Identifies the quantity expected to be consumed at once (per dose, per meal, etc.). */
@@ -488,26 +488,26 @@ public data class ActivityDefinition(
    *
    * If a dosage instruction is used, the definition should not specify timing or quantity.
    */
-  public var dosage: List<Dosage?>? = null,
+  public var dosage: MutableList<Dosage> = mutableListOf(),
   /**
    * Indicates the sites on the subject's body where the procedure should be performed (I.e. the
    * target sites).
    *
    * Only used if not implicit in the code found in ServiceRequest.type.
    */
-  public var bodySite: List<CodeableConcept?>? = null,
+  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Defines specimen requirements for the action to be performed, such as required specimens for a
    * lab test.
    */
-  public var specimenRequirement: List<Canonical?>? = null,
+  public var specimenRequirement: MutableList<Canonical> = mutableListOf(),
   /**
    * Defines observation requirements for the action to be performed, such as body weight or surface
    * area.
    */
-  public var observationRequirement: List<Canonical?>? = null,
+  public var observationRequirement: MutableList<Canonical> = mutableListOf(),
   /** Defines the observations that are expected to be produced by the action. */
-  public var observationResultRequirement: List<Canonical?>? = null,
+  public var observationResultRequirement: MutableList<Canonical> = mutableListOf(),
   /**
    * A reference to a StructureMap resource that defines a transform that can be executed to produce
    * the intent resource using the ActivityDefinition instance as the input.
@@ -526,7 +526,7 @@ public data class ActivityDefinition(
    * Note that if both a transform and dynamic values are specified, the dynamic values will be
    * applied to the result of the transform.
    */
-  public var dynamicValue: List<DynamicValue>? = null,
+  public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who should participate in performing the action described. */
   @Serializable(with = ActivityDefinitionParticipantSerializer::class)
@@ -548,7 +548,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -567,7 +567,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of participant in the action. */
     public var type: Enumeration<ActivityParticipantType>? = null,
     /** The type of participant in the action. */
@@ -610,7 +610,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -629,7 +629,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The path to the element to be customized. This is the path on the resource that will hold the
      * result of the calculation defined by the expression. The specified path SHALL be a FHIRPath
@@ -642,14 +642,14 @@ public data class ActivityDefinition(
      * The path attribute contains a [Simple FHIRPath Subset](fhirpath.html#simple) that allows path
      * traversal, but not calculation.
      */
-    public var path: String? = null,
+    public var path: String,
     /**
      * An expression specifying the value of the customized element.
      *
      * The expression may be inlined, or may be a reference to a named expression within a logic
      * library referenced by the library element.
      */
-    public var expression: Expression? = null,
+    public var expression: Expression,
   ) : BackboneElement()
 
   public sealed interface VersionAlgorithm {
@@ -664,12 +664,12 @@ public data class ActivityDefinition(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }
@@ -691,13 +691,13 @@ public data class ActivityDefinition(
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Subject
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r5.Reference?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
       ): Subject? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
         return null
       }
@@ -726,16 +726,16 @@ public data class ActivityDefinition(
       ActivityDefinition.Timing
 
     public companion object {
-      public fun from(
-        TimingValue: com.google.fhir.model.r5.Timing?,
-        AgeValue: com.google.fhir.model.r5.Age?,
-        RangeValue: com.google.fhir.model.r5.Range?,
-        DurationValue: com.google.fhir.model.r5.Duration?,
+      internal fun from(
+        timingValue: com.google.fhir.model.r5.Timing?,
+        ageValue: com.google.fhir.model.r5.Age?,
+        rangeValue: com.google.fhir.model.r5.Range?,
+        durationValue: com.google.fhir.model.r5.Duration?,
       ): ActivityDefinition.Timing? {
-        if (TimingValue != null) return Timing(TimingValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (RangeValue != null) return Range(RangeValue)
-        if (DurationValue != null) return Duration(DurationValue)
+        if (timingValue != null) return Timing(timingValue)
+        if (ageValue != null) return Age(ageValue)
+        if (rangeValue != null) return Range(rangeValue)
+        if (durationValue != null) return Duration(durationValue)
         return null
       }
     }
@@ -753,12 +753,12 @@ public data class ActivityDefinition(
     ) : AsNeeded
 
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
-        CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
       ): AsNeeded? {
         if (booleanValue != null) return Boolean(booleanValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }
@@ -776,12 +776,12 @@ public data class ActivityDefinition(
     ) : Product
 
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
-        CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r5.Reference?,
+        codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
       ): Product? {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.DeviceRequestParameterSerializer
 import com.google.fhir.model.r4b.serializers.DeviceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class DeviceRequest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class DeviceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,9 +128,9 @@ public data class DeviceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifiers assigned to this order by the orderer or by the receiver. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this DeviceRequest.
@@ -142,18 +142,18 @@ public data class DeviceRequest(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this DeviceRequest.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** Plan/proposal/order fulfilled by this request. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The request takes the place of the referenced completed or terminated request(s). */
-  public var priorRequest: List<Reference?>? = null,
+  public var priorRequest: MutableList<Reference> = mutableListOf(),
   /** Composite request this is part of. */
   public var groupIdentifier: Identifier? = null,
   /**
@@ -164,15 +164,15 @@ public data class DeviceRequest(
    */
   public var status: Enumeration<DeviceRequestStatus>? = null,
   /** Whether the request is a proposal, plan, an original order or a reflex order. */
-  public var intent: Enumeration<RequestIntent>? = null,
+  public var intent: Enumeration<RequestIntent>,
   /** Indicates how quickly the {{title}} should be addressed with respect to other requests. */
   public var priority: Enumeration<RequestPriority>? = null,
   /** The details of the device to be used. */
-  public var code: Code? = null,
+  public var code: Code,
   /** Specific parameters for the ordered item. For example, the prism value for lenses. */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
   /** The patient who will use the device. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** An encounter that provides additional context in which this request is made. */
   public var encounter: Reference? = null,
   /**
@@ -190,26 +190,26 @@ public data class DeviceRequest(
   /** The desired performer for doing the diagnostic testing. */
   public var performer: Reference? = null,
   /** Reason or justification for the use of this device. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** Reason or justification for the use of this device. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * required for delivering the requested service.
    */
-  public var insurance: List<Reference?>? = null,
+  public var insurance: MutableList<Reference> = mutableListOf(),
   /**
    * Additional clinical information about the patient that may influence the request fulfilment.
    * For example, this may include where on the subject's body the device will be used (i.e. the
    * target site).
    */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Details about this request that were not represented at all or sufficiently in one of the
    * attributes provided in a class. These may include for example a comment, an instruction, or a
    * note associated with the statement.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Key events in the history of the request.
    *
@@ -220,7 +220,7 @@ public data class DeviceRequest(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.
    */
-  public var relevantHistory: List<Reference?>? = null,
+  public var relevantHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Specific parameters for the ordered item. For example, the prism value for lenses. */
   @Serializable(with = DeviceRequestParameterSerializer::class)
@@ -242,7 +242,7 @@ public data class DeviceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -261,7 +261,7 @@ public data class DeviceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code or string that identifies the device detail being asserted. */
     public var code: CodeableConcept? = null,
     /**
@@ -291,15 +291,15 @@ public data class DeviceRequest(
       public data class Boolean(public val `value`: com.google.fhir.model.r4b.Boolean) : Value
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
         ): Value? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
           return null
         }
@@ -319,12 +319,12 @@ public data class DeviceRequest(
     ) : Code
 
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
       ): Code? {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }
@@ -344,14 +344,14 @@ public data class DeviceRequest(
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
       ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
         return null
       }
     }

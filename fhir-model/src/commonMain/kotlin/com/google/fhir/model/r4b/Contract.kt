@@ -35,7 +35,7 @@ import com.google.fhir.model.r4b.serializers.ContractTermOfferSerializer
 import com.google.fhir.model.r4b.serializers.ContractTermSecurityLabelSerializer
 import com.google.fhir.model.r4b.serializers.ContractTermSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -109,7 +109,7 @@ public data class Contract(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -122,7 +122,7 @@ public data class Contract(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,9 +141,9 @@ public data class Contract(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Unique identifier for this Contract or a derivative that references a Source Contract. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Canonical identifier for this contract, represented as a URI (globally unique).
    *
@@ -208,21 +208,21 @@ public data class Contract(
    * Contract.signer if the subject is an adult; has a legal interest in the contract; and
    * incompetent to participate in the contract agreement.
    */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /**
    * A formally or informally recognized grouping of people, principals, organizations, or
    * jurisdictions formed for the purpose of achieving some form of collective action such as the
    * promulgation, administration and enforcement of contracts and policies.
    */
-  public var authority: List<Reference?>? = null,
+  public var authority: MutableList<Reference> = mutableListOf(),
   /**
    * Recognized governance framework or system operating with a circumscribed scope in accordance
    * with specified principles, policies, processes or procedures for managing rights, actions, or
    * behaviors of parties or principals relative to resources.
    */
-  public var domain: List<Reference?>? = null,
+  public var domain: MutableList<Reference> = mutableListOf(),
   /** Sites in which the contract is complied with, exercised, or in force. */
-  public var site: List<Reference?>? = null,
+  public var site: MutableList<Reference> = mutableListOf(),
   /**
    * A natural language name identifying this Contract definition, derivative, or instance in any
    * legal state. Provides additional information about its content. This name should be usable as
@@ -246,7 +246,7 @@ public data class Contract(
    * Alternative representation of the title for this Contract definition, derivative, or instance
    * in any legal state., e.g., a domain specific contract number related to legislation.
    */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /**
    * The individual or organization that authored the Contract definition, derivative, or instance
    * in any legal state.
@@ -273,7 +273,7 @@ public data class Contract(
    * Sub-category for the Contract that distinguishes the kinds of systems that would be interested
    * in the Contract within the context of the Contract's scope.
    */
-  public var subType: List<CodeableConcept?>? = null,
+  public var subType: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Precusory content developed with a focus and intent of supporting the formation a Contract
    * instance, which may be associated with and transformable into a Contract.
@@ -283,12 +283,12 @@ public data class Contract(
    * One or more Contract Provisions, which may be related and conveyed as a group, and may contain
    * nested groups.
    */
-  public var term: List<Term>? = null,
+  public var term: MutableList<Term> = mutableListOf(),
   /**
    * Information that may be needed by/relevant to the performer in their execution of this term
    * action.
    */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Links to Provenance records for past versions of this Contract definition, derivative, or
    * instance, which identify key state transitions or updates that are likely to be relevant to a
@@ -296,7 +296,7 @@ public data class Contract(
    * that was changed in the update.
    * http://build.fhir.org/provenance-definitions.html#Provenance.entity.
    */
-  public var relevantHistory: List<Reference?>? = null,
+  public var relevantHistory: MutableList<Reference> = mutableListOf(),
   /**
    * Parties with legal standing in the Contract, including the principal parties, the grantor(s)
    * and grantee(s), which are any person or organization bound by the contract, and any ancillary
@@ -313,7 +313,7 @@ public data class Contract(
    * Contract.terms, stipulating, extending, or limiting the Contract.period of applicability or
    * valuation of items under consideration.
    */
-  public var signer: List<Signer>? = null,
+  public var signer: MutableList<Signer> = mutableListOf(),
   /**
    * The "patient friendly language" versionof the Contract in whole or in parts. "Patient friendly
    * language" means the representation of the Contract and Contract Provisions in a manner that is
@@ -321,11 +321,11 @@ public data class Contract(
    * communication styles that ensure that those agreeing to or signing the Contract understand the
    * roles, actions, obligations, responsibilities, and implication of the agreement.
    */
-  public var friendly: List<Friendly>? = null,
+  public var friendly: MutableList<Friendly> = mutableListOf(),
   /** List of Legal expressions or representations of this Contract. */
-  public var legal: List<Legal>? = null,
+  public var legal: MutableList<Legal> = mutableListOf(),
   /** List of Computable Policy Rule Language Representations of this Contract. */
-  public var rule: List<Rule>? = null,
+  public var rule: MutableList<Rule> = mutableListOf(),
   /**
    * Legally binding Contract: This is the signed and legally recognized representation of the
    * Contract, which is considered the "source of truth" and which would be the basis for legal
@@ -356,7 +356,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -375,12 +375,12 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Precusory content structure and use, i.e., a boilerplate, template, application for a
      * contract such as an insurance policy or benefits under a program, e.g., workers compensation.
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** Detailed Precusory content type. */
     public var subType: CodeableConcept? = null,
     /** The individual or organization that published the Contract precursor content. */
@@ -395,7 +395,7 @@ public data class Contract(
      * amended | appended | cancelled | disputed | entered-in-error | executable | executed |
      * negotiable | offered | policy | rejected | renewed | revoked | resolved | terminated.
      */
-    public var publicationStatus: Enumeration<ContractPublicationStatus>? = null,
+    public var publicationStatus: Enumeration<ContractPublicationStatus>,
     /**
      * A copyright statement relating to Contract precursor content. Copyright statements are
      * generally legal restrictions on the use and publishing of the Contract precursor content.
@@ -426,7 +426,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -445,7 +445,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Unique identifier for this particular Contract Provision. */
     public var identifier: Identifier? = null,
     /** When this Contract Provision was issued. */
@@ -468,11 +468,11 @@ public data class Contract(
      * Security labels that protect the handling of information about the term and its elements,
      * which may be specifically identified..
      */
-    public var securityLabel: List<SecurityLabel>? = null,
+    public var securityLabel: MutableList<SecurityLabel> = mutableListOf(),
     /** The matter of concern in the context of this provision of the agrement. */
-    public var offer: Offer? = null,
+    public var offer: Offer,
     /** Contract Term Asset List. */
-    public var asset: List<Asset>? = null,
+    public var asset: MutableList<Asset> = mutableListOf(),
     /**
      * An actor taking a role in an activity for which it can be assigned some degree of
      * responsibility for the activity taking place.
@@ -482,9 +482,9 @@ public data class Contract(
      * users, or in events that involve more than one user, hardware device, software, or system
      * process. However, only one user may be the initiator/requestor for the event.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
     /** Nested group of Contract Provisions. */
-    public var group: List<Term?>? = null,
+    public var group: MutableList<Term> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Security labels that protect the handling of information about the term and its elements,
@@ -509,7 +509,7 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -528,24 +528,24 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Number used to link this term or term element to the applicable Security Label. */
-      public var number: List<UnsignedInt?>? = null,
+      public var number: MutableList<UnsignedInt> = mutableListOf(),
       /**
        * Security label privacy tag that species the level of confidentiality protection required
        * for this term and/or term elements.
        */
-      public var classification: Coding? = null,
+      public var classification: Coding,
       /**
        * Security label privacy tag that species the applicable privacy and security policies
        * governing this term and/or term elements.
        */
-      public var category: List<Coding?>? = null,
+      public var category: MutableList<Coding> = mutableListOf(),
       /**
        * Security label privacy tag that species the manner in which term and/or term elements are
        * to be protected.
        */
-      public var control: List<Coding?>? = null,
+      public var control: MutableList<Coding> = mutableListOf(),
     ) : BackboneElement()
 
     /** The matter of concern in the context of this provision of the agrement. */
@@ -568,7 +568,7 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -587,11 +587,11 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Unique identifier for this particular Contract Provision. */
-      public var identifier: List<Identifier?>? = null,
+      public var identifier: MutableList<Identifier> = mutableListOf(),
       /** Offer Recipient. */
-      public var party: List<Party>? = null,
+      public var party: MutableList<Party> = mutableListOf(),
       /**
        * The owner of an asset has the residual control rights over the asset: the right to decide
        * all usages of the asset in any way not inconsistent with a prior contract, custom, or law
@@ -629,18 +629,18 @@ public data class Contract(
        */
       public var decision: CodeableConcept? = null,
       /** How the decision about a Contract was conveyed. */
-      public var decisionMode: List<CodeableConcept?>? = null,
+      public var decisionMode: MutableList<CodeableConcept> = mutableListOf(),
       /** Response to offer text. */
-      public var answer: List<Answer>? = null,
+      public var answer: MutableList<Answer> = mutableListOf(),
       /** Human readable form of this Contract Offer. */
       public var text: String? = null,
       /**
        * The id of the clause or question text of the offer in the referenced
        * questionnaire/response.
        */
-      public var linkId: List<String?>? = null,
+      public var linkId: MutableList<String> = mutableListOf(),
       /** Security labels that protects the offer. */
-      public var securityLabelNumber: List<UnsignedInt?>? = null,
+      public var securityLabelNumber: MutableList<UnsignedInt> = mutableListOf(),
     ) : BackboneElement() {
       /** Offer Recipient. */
       @Serializable(with = ContractTermOfferPartySerializer::class)
@@ -662,7 +662,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -681,11 +681,11 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Participant in the offer. */
-        public var reference: List<Reference?>? = null,
+        public var reference: MutableList<Reference> = mutableListOf(),
         /** How the party participates in the offer. */
-        public var role: CodeableConcept? = null,
+        public var role: CodeableConcept,
       ) : BackboneElement()
 
       /** Response to offer text. */
@@ -708,7 +708,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -727,13 +727,13 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Response to an offer clause or question text, which enables selection of values to be
          * agreed to, e.g., the period of participation, the date of occupancy of a rental,
          * warrently duration, or whether biospecimen may be used for further research.
          */
-        public var `value`: Value? = null,
+        public var `value`: Value,
       ) : BackboneElement() {
         public sealed interface Value {
           public fun asBoolean(): Boolean? = this as? Boolean
@@ -789,7 +789,7 @@ public data class Contract(
             Value
 
           public companion object {
-            public fun from(
+            internal fun from(
               booleanValue: com.google.fhir.model.r4b.Boolean?,
               decimalValue: com.google.fhir.model.r4b.Decimal?,
               integerValue: com.google.fhir.model.r4b.Integer?,
@@ -798,10 +798,10 @@ public data class Contract(
               timeValue: com.google.fhir.model.r4b.Time?,
               stringValue: com.google.fhir.model.r4b.String?,
               uriValue: com.google.fhir.model.r4b.Uri?,
-              AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-              CodingValue: com.google.fhir.model.r4b.Coding?,
-              QuantityValue: com.google.fhir.model.r4b.Quantity?,
-              ReferenceValue: com.google.fhir.model.r4b.Reference?,
+              attachmentValue: com.google.fhir.model.r4b.Attachment?,
+              codingValue: com.google.fhir.model.r4b.Coding?,
+              quantityValue: com.google.fhir.model.r4b.Quantity?,
+              referenceValue: com.google.fhir.model.r4b.Reference?,
             ): Value? {
               if (booleanValue != null) return Boolean(booleanValue)
               if (decimalValue != null) return Decimal(decimalValue)
@@ -811,10 +811,10 @@ public data class Contract(
               if (timeValue != null) return Time(timeValue)
               if (stringValue != null) return String(stringValue)
               if (uriValue != null) return Uri(uriValue)
-              if (AttachmentValue != null) return Attachment(AttachmentValue)
-              if (CodingValue != null) return Coding(CodingValue)
-              if (QuantityValue != null) return Quantity(QuantityValue)
-              if (ReferenceValue != null) return Reference(ReferenceValue)
+              if (attachmentValue != null) return Attachment(attachmentValue)
+              if (codingValue != null) return Coding(codingValue)
+              if (quantityValue != null) return Quantity(quantityValue)
+              if (referenceValue != null) return Reference(referenceValue)
               return null
             }
           }
@@ -842,7 +842,7 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -861,33 +861,33 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Differentiates the kind of the asset . */
       public var scope: CodeableConcept? = null,
       /** Target entity type about which the term may be concerned. */
-      public var type: List<CodeableConcept?>? = null,
+      public var type: MutableList<CodeableConcept> = mutableListOf(),
       /** Associated entities. */
-      public var typeReference: List<Reference?>? = null,
+      public var typeReference: MutableList<Reference> = mutableListOf(),
       /** May be a subtype or part of an offered asset. */
-      public var subtype: List<CodeableConcept?>? = null,
+      public var subtype: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Specifies the applicability of the term to an asset resource instance, and instances it
        * refers to orinstances that refer to it, and/or are owned by the offeree.
        */
       public var relationship: Coding? = null,
       /** Circumstance of the asset. */
-      public var context: List<Context>? = null,
+      public var context: MutableList<Context> = mutableListOf(),
       /**
        * Description of the quality and completeness of the asset that imay be a factor in its
        * valuation.
        */
       public var condition: String? = null,
       /** Type of Asset availability for use or ownership. */
-      public var periodType: List<CodeableConcept?>? = null,
+      public var periodType: MutableList<CodeableConcept> = mutableListOf(),
       /** Asset relevant contractual time period. */
-      public var period: List<Period?>? = null,
+      public var period: MutableList<Period> = mutableListOf(),
       /** Time period of asset use. */
-      public var usePeriod: List<Period?>? = null,
+      public var usePeriod: MutableList<Period> = mutableListOf(),
       /**
        * Clause or question text (Prose Object) concerning the asset in a linked form, such as a
        * QuestionnaireResponse used in the formation of the contract.
@@ -897,13 +897,13 @@ public data class Contract(
        * Id [identifier??] of the clause or question text about the asset in the referenced form or
        * QuestionnaireResponse.
        */
-      public var linkId: List<String?>? = null,
+      public var linkId: MutableList<String> = mutableListOf(),
       /** Response to assets. */
-      public var answer: List<Offer.Answer?>? = null,
+      public var answer: MutableList<Offer.Answer> = mutableListOf(),
       /** Security labels that protects the asset. */
-      public var securityLabelNumber: List<UnsignedInt?>? = null,
+      public var securityLabelNumber: MutableList<UnsignedInt> = mutableListOf(),
       /** Contract Valued Item List. */
-      public var valuedItem: List<ValuedItem>? = null,
+      public var valuedItem: MutableList<ValuedItem> = mutableListOf(),
     ) : BackboneElement() {
       /** Circumstance of the asset. */
       @Serializable(with = ContractTermAssetContextSerializer::class)
@@ -925,7 +925,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -944,7 +944,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Asset context reference may include the creator, custodian, or owning Person or
          * Organization (e.g., bank, repository), location held, e.g., building, jurisdiction.
@@ -954,7 +954,7 @@ public data class Contract(
          * Coded representation of the context generally or of the Referenced entity, such as the
          * asset holder type or location.
          */
-        public var code: List<CodeableConcept?>? = null,
+        public var code: MutableList<CodeableConcept> = mutableListOf(),
         /** Context description. */
         public var text: String? = null,
       ) : BackboneElement()
@@ -979,7 +979,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -998,7 +998,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Specific type of Contract Valued Item that may be priced. */
         public var entity: Entity? = null,
         /** Identifies a Contract Valued Item instance. */
@@ -1043,9 +1043,9 @@ public data class Contract(
          * Id of the clause or question text related to the context of this valuedItem in the
          * referenced form or QuestionnaireResponse.
          */
-        public var linkId: List<String?>? = null,
+        public var linkId: MutableList<String> = mutableListOf(),
         /** A set of security labels that define which terms are controlled by this condition. */
-        public var securityLabelNumber: List<UnsignedInt?>? = null,
+        public var securityLabelNumber: MutableList<UnsignedInt> = mutableListOf(),
       ) : BackboneElement() {
         public sealed interface Entity {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
@@ -1060,12 +1060,12 @@ public data class Contract(
             Entity
 
           public companion object {
-            public fun from(
-              CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-              ReferenceValue: com.google.fhir.model.r4b.Reference?,
+            internal fun from(
+              codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+              referenceValue: com.google.fhir.model.r4b.Reference?,
             ): Entity? {
-              if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-              if (ReferenceValue != null) return Reference(ReferenceValue)
+              if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+              if (referenceValue != null) return Reference(referenceValue)
               return null
             }
           }
@@ -1096,7 +1096,7 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1115,45 +1115,45 @@ public data class Contract(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** True if the term prohibits the action. */
       public var doNotPerform: Boolean? = null,
       /**
        * Activity or service obligation to be done or not done, performed or not performed,
        * effectuated or not by this Contract term.
        */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** Entity of the action. */
-      public var subject: List<Subject>? = null,
+      public var subject: MutableList<Subject> = mutableListOf(),
       /** Reason or purpose for the action stipulated by this Contract Provision. */
-      public var intent: CodeableConcept? = null,
+      public var intent: CodeableConcept,
       /**
        * Id [identifier??] of the clause or question text related to this action in the referenced
        * form or QuestionnaireResponse.
        */
-      public var linkId: List<String?>? = null,
+      public var linkId: MutableList<String> = mutableListOf(),
       /** Current state of the term action. */
-      public var status: CodeableConcept? = null,
+      public var status: CodeableConcept,
       /** Encounter or Episode with primary association to specified term activity. */
       public var context: Reference? = null,
       /**
        * Id [identifier??] of the clause or question text related to the requester of this action in
        * the referenced form or QuestionnaireResponse.
        */
-      public var contextLinkId: List<String?>? = null,
+      public var contextLinkId: MutableList<String> = mutableListOf(),
       /** When action happens. */
       public var occurrence: Occurrence? = null,
       /** Who or what initiated the action and has responsibility for its activation. */
-      public var requester: List<Reference?>? = null,
+      public var requester: MutableList<Reference> = mutableListOf(),
       /**
        * Id [identifier??] of the clause or question text related to the requester of this action in
        * the referenced form or QuestionnaireResponse.
        */
-      public var requesterLinkId: List<String?>? = null,
+      public var requesterLinkId: MutableList<String> = mutableListOf(),
       /**
        * The type of individual that is desired or required to perform or not perform the action.
        */
-      public var performerType: List<CodeableConcept?>? = null,
+      public var performerType: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * The type of role or competency of an individual desired or required to perform or not
        * perform the action.
@@ -1165,31 +1165,31 @@ public data class Contract(
        * Id [identifier??] of the clause or question text related to the reason type or reference of
        * this action in the referenced form or QuestionnaireResponse.
        */
-      public var performerLinkId: List<String?>? = null,
+      public var performerLinkId: MutableList<String> = mutableListOf(),
       /**
        * Rationale for the action to be performed or not performed. Describes why the action is
        * permitted or prohibited.
        */
-      public var reasonCode: List<CodeableConcept?>? = null,
+      public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Indicates another resource whose existence justifies permitting or not permitting this
        * action.
        */
-      public var reasonReference: List<Reference?>? = null,
+      public var reasonReference: MutableList<Reference> = mutableListOf(),
       /** Describes why the action is to be performed or not performed in textual form. */
-      public var reason: List<String?>? = null,
+      public var reason: MutableList<String> = mutableListOf(),
       /**
        * Id [identifier??] of the clause or question text related to the reason type or reference of
        * this action in the referenced form or QuestionnaireResponse.
        */
-      public var reasonLinkId: List<String?>? = null,
+      public var reasonLinkId: MutableList<String> = mutableListOf(),
       /**
        * Comments made about the term action made by the requester, performer, subject or other
        * participants.
        */
-      public var note: List<Annotation?>? = null,
+      public var note: MutableList<Annotation> = mutableListOf(),
       /** Security labels that protects the action. */
-      public var securityLabelNumber: List<UnsignedInt?>? = null,
+      public var securityLabelNumber: MutableList<UnsignedInt> = mutableListOf(),
     ) : BackboneElement() {
       /** Entity of the action. */
       @Serializable(with = ContractTermActionSubjectSerializer::class)
@@ -1211,7 +1211,7 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1230,9 +1230,9 @@ public data class Contract(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The entity the action is performed or not performed on or for. */
-        public var reference: List<Reference?>? = null,
+        public var reference: MutableList<Reference> = mutableListOf(),
         /** Role type of agent assigned roles in this Contract. */
         public var role: CodeableConcept? = null,
       ) : BackboneElement()
@@ -1252,14 +1252,14 @@ public data class Contract(
         public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
         public companion object {
-          public fun from(
+          internal fun from(
             dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-            PeriodValue: com.google.fhir.model.r4b.Period?,
-            TimingValue: com.google.fhir.model.r4b.Timing?,
+            periodValue: com.google.fhir.model.r4b.Period?,
+            timingValue: com.google.fhir.model.r4b.Timing?,
           ): Occurrence? {
             if (dateTimeValue != null) return DateTime(dateTimeValue)
-            if (PeriodValue != null) return Period(PeriodValue)
-            if (TimingValue != null) return Timing(TimingValue)
+            if (periodValue != null) return Period(periodValue)
+            if (timingValue != null) return Timing(timingValue)
             return null
           }
         }
@@ -1278,12 +1278,12 @@ public data class Contract(
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Topic
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
         ): Topic? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -1314,7 +1314,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1333,13 +1333,13 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Role of this Contract signer, e.g. notary, grantee. */
-    public var type: Coding? = null,
+    public var type: Coding,
     /** Party which is a signator to this Contract. */
-    public var party: Reference? = null,
+    public var party: Reference,
     /** Legally binding Contract DSIG signature contents in Base64. */
-    public var signature: List<Signature?>? = null,
+    public var signature: MutableList<Signature> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -1368,7 +1368,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1387,12 +1387,12 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Human readable rendering of this Contract in a format and representation intended to enhance
      * comprehension and ensure understandability.
      */
-    public var content: Content? = null,
+    public var content: Content,
   ) : BackboneElement() {
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
@@ -1406,12 +1406,12 @@ public data class Contract(
         Content
 
       public companion object {
-        public fun from(
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
         ): Content? {
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -1438,7 +1438,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1457,9 +1457,9 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Contract legal text in human renderable form. */
-    public var content: Content? = null,
+    public var content: Content,
   ) : BackboneElement() {
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
@@ -1473,12 +1473,12 @@ public data class Contract(
         Content
 
       public companion object {
-        public fun from(
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
         ): Content? {
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -1505,7 +1505,7 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1524,9 +1524,9 @@ public data class Contract(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Computable Contract conveyed using a policy rule language (e.g. XACML, DKAL, SecPal). */
-    public var content: Content? = null,
+    public var content: Content,
   ) : BackboneElement() {
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
@@ -1540,12 +1540,12 @@ public data class Contract(
         Content
 
       public companion object {
-        public fun from(
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
         ): Content? {
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -1564,12 +1564,12 @@ public data class Contract(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Topic
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
       ): Topic? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }
@@ -1587,12 +1587,12 @@ public data class Contract(
       LegallyBinding
 
     public companion object {
-      public fun from(
-        AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
+      internal fun from(
+        attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
       ): LegallyBinding? {
-        if (AttachmentValue != null) return Attachment(AttachmentValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (attachmentValue != null) return Attachment(attachmentValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }

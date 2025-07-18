@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.AppointmentParticipantSerializer
 import com.google.fhir.model.r4b.serializers.AppointmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class Appointment(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class Appointment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,13 +127,13 @@ public data class Appointment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * This records identifiers associated with this appointment concern that are defined by business
    * processes and/or used to refer to it when a direct URL reference to the resource itself is not
    * appropriate (e.g. in CDA documents, or in written / printed documentation).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The overall status of the Appointment. Each of the participants has their own participation
    * status which indicates their involvement in the process, however this status indicates the
@@ -146,7 +146,7 @@ public data class Appointment(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that mark the Appointment as not currently valid.
    */
-  public var status: Enumeration<AppointmentStatus>? = null,
+  public var status: Enumeration<AppointmentStatus>,
   /**
    * The coded reason for the appointment being cancelled. This is often used in
    * reporting/billing/futher processing to determine if further actions are required, or specific
@@ -154,33 +154,33 @@ public data class Appointment(
    */
   public var cancelationReason: CodeableConcept? = null,
   /** A broad categorization of the service that is to be performed during this appointment. */
-  public var serviceCategory: List<CodeableConcept?>? = null,
+  public var serviceCategory: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The specific service that is to be performed during this appointment.
    *
    * For a provider to provider appointment the code "FOLLOWUP" may be appropriate, as this is
    * expected to be discussing some patient that was seen in the past.
    */
-  public var serviceType: List<CodeableConcept?>? = null,
+  public var serviceType: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The specialty of a practitioner that would be required to perform the service requested in this
    * appointment.
    */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /** The style of appointment or patient that has been booked in the slot (not service type). */
   public var appointmentType: CodeableConcept? = null,
   /**
    * The coded reason that this appointment is being scheduled. This is more clinical than
    * administrative.
    */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Reason the appointment has been scheduled to take place, as specified using information from
    * another resource. When the patient arrives and the encounter begins it may be used as the
    * admission diagnosis. The indication will typically be a Condition (with other resources
    * referenced in the evidence.detail), or a Procedure.
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * The priority of the appointment. Can be used to make informed decisions if needing to
    * re-prioritize appointments. (The iCal Standard specifies 0 as undefined, 1 as highest, 9 as
@@ -199,7 +199,7 @@ public data class Appointment(
    */
   public var description: String? = null,
   /** Additional information to support the appointment provided when making the appointment. */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /** Date/Time that the appointment is to take place. */
   public var start: Instant? = null,
   /** Date/Time that the appointment is to conclude. */
@@ -213,7 +213,7 @@ public data class Appointment(
    */
   public var minutesDuration: PositiveInt? = null,
   /** The slots from the participants' schedules that will be filled by the appointment. */
-  public var slot: List<Reference?>? = null,
+  public var slot: MutableList<Reference> = mutableListOf(),
   /**
    * The date that this appointment was initially created. This could be different to the
    * meta.lastModified value on the initial entry, as this could have been before the resource was
@@ -244,9 +244,9 @@ public data class Appointment(
    * The service request this appointment is allocated to assess (e.g. incoming referral or
    * procedure request).
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** List of participants involved in the appointment. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /**
    * A set of date ranges (potentially including times) that the appointment is preferred to be
    * scheduled within.
@@ -257,7 +257,7 @@ public data class Appointment(
    *
    * This does not introduce a capacity for recurring appointments.
    */
-  public var requestedPeriod: List<Period?>? = null,
+  public var requestedPeriod: MutableList<Period> = mutableListOf(),
 ) : DomainResource() {
   /** List of participants involved in the appointment. */
   @Serializable(with = AppointmentParticipantSerializer::class)
@@ -279,7 +279,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -298,7 +298,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Role of participant in the appointment.
      *
@@ -311,7 +311,7 @@ public data class Appointment(
      * This value SHALL be the same when creating an AppointmentResponse so that they can be
      * matched, and subsequently update the Appointment.
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /** A Person, Location/HealthcareService or Device that is participating in the appointment. */
     public var actor: Reference? = null,
     /**
@@ -321,7 +321,7 @@ public data class Appointment(
      */
     public var required: Enumeration<ParticipantRequired>? = null,
     /** Participation status of the actor. */
-    public var status: Enumeration<ParticipationStatus>? = null,
+    public var status: Enumeration<ParticipationStatus>,
     /** Participation period of the actor. */
     public var period: Period? = null,
   ) : BackboneElement()

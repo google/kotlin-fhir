@@ -40,7 +40,7 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,71 +53,71 @@ internal data class ScheduleSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
-  public var serviceCategory: List<CodeableConcept?>? = null,
-  public var serviceType: List<CodeableReference?>? = null,
-  public var specialty: List<CodeableConcept?>? = null,
+  public var serviceCategory: MutableList<CodeableConcept>? = null,
+  public var serviceType: MutableList<CodeableReference>? = null,
+  public var specialty: MutableList<CodeableConcept>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var actor: List<Reference?>? = null,
+  public var actor: MutableList<Reference>? = null,
   public var planningHorizon: Period? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
 ) {
   public fun toModel(): Schedule =
-    Schedule().apply {
-      id = this@ScheduleSurrogate.id
-      meta = this@ScheduleSurrogate.meta
+    Schedule(
+      id = this@ScheduleSurrogate.id,
+      meta = this@ScheduleSurrogate.meta,
       implicitRules =
-        Uri.of(this@ScheduleSurrogate.implicitRules, this@ScheduleSurrogate._implicitRules)
-      language = Code.of(this@ScheduleSurrogate.language, this@ScheduleSurrogate._language)
-      text = this@ScheduleSurrogate.text
-      contained = this@ScheduleSurrogate.contained
-      extension = this@ScheduleSurrogate.extension
-      modifierExtension = this@ScheduleSurrogate.modifierExtension
-      identifier = this@ScheduleSurrogate.identifier
-      active = R5Boolean.of(this@ScheduleSurrogate.active, this@ScheduleSurrogate._active)
-      serviceCategory = this@ScheduleSurrogate.serviceCategory
-      serviceType = this@ScheduleSurrogate.serviceType
-      specialty = this@ScheduleSurrogate.specialty
-      name = R5String.of(this@ScheduleSurrogate.name, this@ScheduleSurrogate._name)
-      actor = this@ScheduleSurrogate.actor
-      planningHorizon = this@ScheduleSurrogate.planningHorizon
-      comment = Markdown.of(this@ScheduleSurrogate.comment, this@ScheduleSurrogate._comment)
-    }
+        Uri.of(this@ScheduleSurrogate.implicitRules, this@ScheduleSurrogate._implicitRules),
+      language = Code.of(this@ScheduleSurrogate.language, this@ScheduleSurrogate._language),
+      text = this@ScheduleSurrogate.text,
+      contained = this@ScheduleSurrogate.contained ?: mutableListOf(),
+      extension = this@ScheduleSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ScheduleSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ScheduleSurrogate.identifier ?: mutableListOf(),
+      active = R5Boolean.of(this@ScheduleSurrogate.active, this@ScheduleSurrogate._active),
+      serviceCategory = this@ScheduleSurrogate.serviceCategory ?: mutableListOf(),
+      serviceType = this@ScheduleSurrogate.serviceType ?: mutableListOf(),
+      specialty = this@ScheduleSurrogate.specialty ?: mutableListOf(),
+      name = R5String.of(this@ScheduleSurrogate.name, this@ScheduleSurrogate._name),
+      actor = this@ScheduleSurrogate.actor ?: mutableListOf(),
+      planningHorizon = this@ScheduleSurrogate.planningHorizon,
+      comment = Markdown.of(this@ScheduleSurrogate.comment, this@ScheduleSurrogate._comment),
+    )
 
   public companion object {
     public fun fromModel(model: Schedule): ScheduleSurrogate =
       with(model) {
-        ScheduleSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          serviceCategory = this@with.serviceCategory
-          serviceType = this@with.serviceType
-          specialty = this@with.specialty
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          actor = this@with.actor
-          planningHorizon = this@with.planningHorizon
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-        }
+        ScheduleSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          serviceCategory = this@with.serviceCategory.takeUnless { it.all { it == null } },
+          serviceType = this@with.serviceType.takeUnless { it.all { it == null } },
+          specialty = this@with.specialty.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          actor = this@with.actor.takeUnless { it.all { it == null } },
+          planningHorizon = this@with.planningHorizon,
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+        )
       }
   }
 }

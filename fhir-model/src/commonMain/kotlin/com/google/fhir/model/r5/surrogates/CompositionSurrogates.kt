@@ -43,46 +43,46 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CompositionAttesterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var mode: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var mode: CodeableConcept,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
   public var party: Reference? = null,
 ) {
   public fun toModel(): Composition.Attester =
-    Composition.Attester().apply {
-      id = this@CompositionAttesterSurrogate.id
-      extension = this@CompositionAttesterSurrogate.extension
-      modifierExtension = this@CompositionAttesterSurrogate.modifierExtension
-      mode = this@CompositionAttesterSurrogate.mode
+    Composition.Attester(
+      id = this@CompositionAttesterSurrogate.id,
+      extension = this@CompositionAttesterSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CompositionAttesterSurrogate.modifierExtension ?: mutableListOf(),
+      mode = this@CompositionAttesterSurrogate.mode,
       time =
         DateTime.of(
           FhirDateTime.fromString(this@CompositionAttesterSurrogate.time),
           this@CompositionAttesterSurrogate._time,
-        )
-      party = this@CompositionAttesterSurrogate.party
-    }
+        ),
+      party = this@CompositionAttesterSurrogate.party,
+    )
 
   public companion object {
     public fun fromModel(model: Composition.Attester): CompositionAttesterSurrogate =
       with(model) {
-        CompositionAttesterSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          mode = this@with.mode
-          time = this@with.time?.value?.toString()
-          _time = this@with.time?.toElement()
-          party = this@with.party
-        }
+        CompositionAttesterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          mode = this@with.mode,
+          time = this@with.time?.value?.toString(),
+          _time = this@with.time?.toElement(),
+          party = this@with.party,
+        )
       }
   }
 }
@@ -90,30 +90,30 @@ internal data class CompositionAttesterSurrogate(
 @Serializable
 internal data class CompositionEventSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var period: Period? = null,
-  public var detail: List<CodeableReference?>? = null,
+  public var detail: MutableList<CodeableReference>? = null,
 ) {
   public fun toModel(): Composition.Event =
-    Composition.Event().apply {
-      id = this@CompositionEventSurrogate.id
-      extension = this@CompositionEventSurrogate.extension
-      modifierExtension = this@CompositionEventSurrogate.modifierExtension
-      period = this@CompositionEventSurrogate.period
-      detail = this@CompositionEventSurrogate.detail
-    }
+    Composition.Event(
+      id = this@CompositionEventSurrogate.id,
+      extension = this@CompositionEventSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CompositionEventSurrogate.modifierExtension ?: mutableListOf(),
+      period = this@CompositionEventSurrogate.period,
+      detail = this@CompositionEventSurrogate.detail ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Composition.Event): CompositionEventSurrogate =
       with(model) {
-        CompositionEventSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          period = this@with.period
-          detail = this@with.detail
-        }
+        CompositionEventSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          period = this@with.period,
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -121,54 +121,57 @@ internal data class CompositionEventSurrogate(
 @Serializable
 internal data class CompositionSectionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var code: CodeableConcept? = null,
-  public var author: List<Reference?>? = null,
+  public var author: MutableList<Reference>? = null,
   public var focus: Reference? = null,
   public var text: Narrative? = null,
   public var orderedBy: CodeableConcept? = null,
-  public var entry: List<Reference?>? = null,
+  public var entry: MutableList<Reference>? = null,
   public var emptyReason: CodeableConcept? = null,
-  public var section: List<Composition.Section?>? = null,
+  public var section: MutableList<Composition.Section>? = null,
 ) {
   public fun toModel(): Composition.Section =
-    Composition.Section().apply {
-      id = this@CompositionSectionSurrogate.id
-      extension = this@CompositionSectionSurrogate.extension
-      modifierExtension = this@CompositionSectionSurrogate.modifierExtension
+    Composition.Section(
+      id = this@CompositionSectionSurrogate.id,
+      extension = this@CompositionSectionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CompositionSectionSurrogate.modifierExtension ?: mutableListOf(),
       title =
-        R5String.of(this@CompositionSectionSurrogate.title, this@CompositionSectionSurrogate._title)
-      code = this@CompositionSectionSurrogate.code
-      author = this@CompositionSectionSurrogate.author
-      focus = this@CompositionSectionSurrogate.focus
-      text = this@CompositionSectionSurrogate.text
-      orderedBy = this@CompositionSectionSurrogate.orderedBy
-      entry = this@CompositionSectionSurrogate.entry
-      emptyReason = this@CompositionSectionSurrogate.emptyReason
-      section = this@CompositionSectionSurrogate.section
-    }
+        R5String.of(
+          this@CompositionSectionSurrogate.title,
+          this@CompositionSectionSurrogate._title,
+        ),
+      code = this@CompositionSectionSurrogate.code,
+      author = this@CompositionSectionSurrogate.author ?: mutableListOf(),
+      focus = this@CompositionSectionSurrogate.focus,
+      text = this@CompositionSectionSurrogate.text,
+      orderedBy = this@CompositionSectionSurrogate.orderedBy,
+      entry = this@CompositionSectionSurrogate.entry ?: mutableListOf(),
+      emptyReason = this@CompositionSectionSurrogate.emptyReason,
+      section = this@CompositionSectionSurrogate.section ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Composition.Section): CompositionSectionSurrogate =
       with(model) {
-        CompositionSectionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          code = this@with.code
-          author = this@with.author
-          focus = this@with.focus
-          text = this@with.text
-          orderedBy = this@with.orderedBy
-          entry = this@with.entry
-          emptyReason = this@with.emptyReason
-          section = this@with.section
-        }
+        CompositionSectionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          code = this@with.code,
+          author = this@with.author.takeUnless { it.all { it == null } },
+          focus = this@with.focus,
+          text = this@with.text,
+          orderedBy = this@with.orderedBy,
+          entry = this@with.entry.takeUnless { it.all { it == null } },
+          emptyReason = this@with.emptyReason,
+          section = this@with.section.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -182,117 +185,117 @@ internal data class CompositionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var type: CodeableConcept? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var subject: List<Reference?>? = null,
+  public var type: CodeableConcept,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var subject: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var author: List<Reference?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var author: MutableList<Reference>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var note: List<Annotation?>? = null,
-  public var attester: List<Composition.Attester>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var attester: MutableList<Composition.Attester>? = null,
   public var custodian: Reference? = null,
-  public var relatesTo: List<RelatedArtifact?>? = null,
-  public var event: List<Composition.Event>? = null,
-  public var section: List<Composition.Section>? = null,
+  public var relatesTo: MutableList<RelatedArtifact>? = null,
+  public var event: MutableList<Composition.Event>? = null,
+  public var section: MutableList<Composition.Section>? = null,
 ) {
   public fun toModel(): Composition =
-    Composition().apply {
-      id = this@CompositionSurrogate.id
-      meta = this@CompositionSurrogate.meta
+    Composition(
+      id = this@CompositionSurrogate.id,
+      meta = this@CompositionSurrogate.meta,
       implicitRules =
-        Uri.of(this@CompositionSurrogate.implicitRules, this@CompositionSurrogate._implicitRules)
-      language = Code.of(this@CompositionSurrogate.language, this@CompositionSurrogate._language)
-      text = this@CompositionSurrogate.text
-      contained = this@CompositionSurrogate.contained
-      extension = this@CompositionSurrogate.extension
-      modifierExtension = this@CompositionSurrogate.modifierExtension
-      url = Uri.of(this@CompositionSurrogate.url, this@CompositionSurrogate._url)
-      identifier = this@CompositionSurrogate.identifier
-      version = R5String.of(this@CompositionSurrogate.version, this@CompositionSurrogate._version)
+        Uri.of(this@CompositionSurrogate.implicitRules, this@CompositionSurrogate._implicitRules),
+      language = Code.of(this@CompositionSurrogate.language, this@CompositionSurrogate._language),
+      text = this@CompositionSurrogate.text,
+      contained = this@CompositionSurrogate.contained ?: mutableListOf(),
+      extension = this@CompositionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CompositionSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@CompositionSurrogate.url, this@CompositionSurrogate._url),
+      identifier = this@CompositionSurrogate.identifier ?: mutableListOf(),
+      version = R5String.of(this@CompositionSurrogate.version, this@CompositionSurrogate._version),
       status =
         Enumeration.of(
-          this@CompositionSurrogate.status?.let {
-            com.google.fhir.model.r5.Composition.CompositionStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.Composition.CompositionStatus.fromCode(
+            this@CompositionSurrogate.status!!
+          ),
           this@CompositionSurrogate._status,
-        )
-      type = this@CompositionSurrogate.type
-      category = this@CompositionSurrogate.category
-      subject = this@CompositionSurrogate.subject
-      encounter = this@CompositionSurrogate.encounter
+        ),
+      type = this@CompositionSurrogate.type,
+      category = this@CompositionSurrogate.category ?: mutableListOf(),
+      subject = this@CompositionSurrogate.subject ?: mutableListOf(),
+      encounter = this@CompositionSurrogate.encounter,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@CompositionSurrogate.date),
           this@CompositionSurrogate._date,
-        )
-      useContext = this@CompositionSurrogate.useContext
-      author = this@CompositionSurrogate.author
-      name = R5String.of(this@CompositionSurrogate.name, this@CompositionSurrogate._name)
-      title = R5String.of(this@CompositionSurrogate.title, this@CompositionSurrogate._title)
-      note = this@CompositionSurrogate.note
-      attester = this@CompositionSurrogate.attester
-      custodian = this@CompositionSurrogate.custodian
-      relatesTo = this@CompositionSurrogate.relatesTo
-      event = this@CompositionSurrogate.event
-      section = this@CompositionSurrogate.section
-    }
+        )!!,
+      useContext = this@CompositionSurrogate.useContext ?: mutableListOf(),
+      author = this@CompositionSurrogate.author ?: mutableListOf(),
+      name = R5String.of(this@CompositionSurrogate.name, this@CompositionSurrogate._name),
+      title = R5String.of(this@CompositionSurrogate.title, this@CompositionSurrogate._title)!!,
+      note = this@CompositionSurrogate.note ?: mutableListOf(),
+      attester = this@CompositionSurrogate.attester ?: mutableListOf(),
+      custodian = this@CompositionSurrogate.custodian,
+      relatesTo = this@CompositionSurrogate.relatesTo ?: mutableListOf(),
+      event = this@CompositionSurrogate.event ?: mutableListOf(),
+      section = this@CompositionSurrogate.section ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Composition): CompositionSurrogate =
       with(model) {
-        CompositionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type
-          category = this@with.category
-          subject = this@with.subject
-          encounter = this@with.encounter
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          useContext = this@with.useContext
-          author = this@with.author
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          note = this@with.note
-          attester = this@with.attester
-          custodian = this@with.custodian
-          relatesTo = this@with.relatesTo
-          event = this@with.event
-          section = this@with.section
-        }
+        CompositionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          type = this@with.type,
+          category = this@with.category.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeUnless { it.all { it == null } },
+          encounter = this@with.encounter,
+          date = this@with.date.value?.toString(),
+          _date = this@with.date.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          author = this@with.author.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title.value,
+          _title = this@with.title.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+          attester = this@with.attester.takeUnless { it.all { it == null } },
+          custodian = this@with.custodian,
+          relatesTo = this@with.relatesTo.takeUnless { it.all { it == null } },
+          event = this@with.event.takeUnless { it.all { it == null } },
+          section = this@with.section.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

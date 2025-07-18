@@ -44,7 +44,7 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -57,18 +57,18 @@ internal data class AppointmentResponseSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var appointment: Reference? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var appointment: Reference,
   public var proposedNewTime: KotlinBoolean? = null,
   public var _proposedNewTime: Element? = null,
   public var start: String? = null,
   public var _start: Element? = null,
   public var end: String? = null,
   public var _end: Element? = null,
-  public var participantType: List<CodeableConcept?>? = null,
+  public var participantType: MutableList<CodeableConcept>? = null,
   public var actor: Reference? = null,
   public var participantStatus: String? = null,
   public var _participantStatus: Element? = null,
@@ -82,106 +82,106 @@ internal data class AppointmentResponseSurrogate(
   public var _recurrenceId: Element? = null,
 ) {
   public fun toModel(): AppointmentResponse =
-    AppointmentResponse().apply {
-      id = this@AppointmentResponseSurrogate.id
-      meta = this@AppointmentResponseSurrogate.meta
+    AppointmentResponse(
+      id = this@AppointmentResponseSurrogate.id,
+      meta = this@AppointmentResponseSurrogate.meta,
       implicitRules =
         Uri.of(
           this@AppointmentResponseSurrogate.implicitRules,
           this@AppointmentResponseSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@AppointmentResponseSurrogate.language,
           this@AppointmentResponseSurrogate._language,
-        )
-      text = this@AppointmentResponseSurrogate.text
-      contained = this@AppointmentResponseSurrogate.contained
-      extension = this@AppointmentResponseSurrogate.extension
-      modifierExtension = this@AppointmentResponseSurrogate.modifierExtension
-      identifier = this@AppointmentResponseSurrogate.identifier
-      appointment = this@AppointmentResponseSurrogate.appointment
+        ),
+      text = this@AppointmentResponseSurrogate.text,
+      contained = this@AppointmentResponseSurrogate.contained ?: mutableListOf(),
+      extension = this@AppointmentResponseSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AppointmentResponseSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@AppointmentResponseSurrogate.identifier ?: mutableListOf(),
+      appointment = this@AppointmentResponseSurrogate.appointment,
       proposedNewTime =
         R5Boolean.of(
           this@AppointmentResponseSurrogate.proposedNewTime,
           this@AppointmentResponseSurrogate._proposedNewTime,
-        )
+        ),
       start =
         Instant.of(
           FhirDateTime.fromString(this@AppointmentResponseSurrogate.start),
           this@AppointmentResponseSurrogate._start,
-        )
+        ),
       end =
         Instant.of(
           FhirDateTime.fromString(this@AppointmentResponseSurrogate.end),
           this@AppointmentResponseSurrogate._end,
-        )
-      participantType = this@AppointmentResponseSurrogate.participantType
-      actor = this@AppointmentResponseSurrogate.actor
+        ),
+      participantType = this@AppointmentResponseSurrogate.participantType ?: mutableListOf(),
+      actor = this@AppointmentResponseSurrogate.actor,
       participantStatus =
         Enumeration.of(
-          this@AppointmentResponseSurrogate.participantStatus?.let {
-            com.google.fhir.model.r5.AppointmentResponse.ParticipantStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.AppointmentResponse.ParticipantStatus.fromCode(
+            this@AppointmentResponseSurrogate.participantStatus!!
+          ),
           this@AppointmentResponseSurrogate._participantStatus,
-        )
+        ),
       comment =
         Markdown.of(
           this@AppointmentResponseSurrogate.comment,
           this@AppointmentResponseSurrogate._comment,
-        )
+        ),
       recurring =
         R5Boolean.of(
           this@AppointmentResponseSurrogate.recurring,
           this@AppointmentResponseSurrogate._recurring,
-        )
+        ),
       occurrenceDate =
         Date.of(
           FhirDate.fromString(this@AppointmentResponseSurrogate.occurrenceDate),
           this@AppointmentResponseSurrogate._occurrenceDate,
-        )
+        ),
       recurrenceId =
         PositiveInt.of(
           this@AppointmentResponseSurrogate.recurrenceId,
           this@AppointmentResponseSurrogate._recurrenceId,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: AppointmentResponse): AppointmentResponseSurrogate =
       with(model) {
-        AppointmentResponseSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          appointment = this@with.appointment
-          proposedNewTime = this@with.proposedNewTime?.value
-          _proposedNewTime = this@with.proposedNewTime?.toElement()
-          start = this@with.start?.value?.toString()
-          _start = this@with.start?.toElement()
-          end = this@with.end?.value?.toString()
-          _end = this@with.end?.toElement()
-          participantType = this@with.participantType
-          actor = this@with.actor
-          participantStatus = this@with.participantStatus?.value?.getCode()
-          _participantStatus = this@with.participantStatus?.toElement()
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-          recurring = this@with.recurring?.value
-          _recurring = this@with.recurring?.toElement()
-          occurrenceDate = this@with.occurrenceDate?.value?.toString()
-          _occurrenceDate = this@with.occurrenceDate?.toElement()
-          recurrenceId = this@with.recurrenceId?.value
-          _recurrenceId = this@with.recurrenceId?.toElement()
-        }
+        AppointmentResponseSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          appointment = this@with.appointment,
+          proposedNewTime = this@with.proposedNewTime?.value,
+          _proposedNewTime = this@with.proposedNewTime?.toElement(),
+          start = this@with.start?.value?.toString(),
+          _start = this@with.start?.toElement(),
+          end = this@with.end?.value?.toString(),
+          _end = this@with.end?.toElement(),
+          participantType = this@with.participantType.takeUnless { it.all { it == null } },
+          actor = this@with.actor,
+          participantStatus = this@with.participantStatus.value?.getCode(),
+          _participantStatus = this@with.participantStatus.toElement(),
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+          recurring = this@with.recurring?.value,
+          _recurring = this@with.recurring?.toElement(),
+          occurrenceDate = this@with.occurrenceDate?.value?.toString(),
+          _occurrenceDate = this@with.occurrenceDate?.toElement(),
+          recurrenceId = this@with.recurrenceId?.value,
+          _recurrenceId = this@with.recurrenceId?.toElement(),
+        )
       }
   }
 }

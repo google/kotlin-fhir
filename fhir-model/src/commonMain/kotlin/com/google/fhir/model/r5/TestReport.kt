@@ -30,7 +30,7 @@ import com.google.fhir.model.r5.serializers.TestReportTeardownSerializer
 import com.google.fhir.model.r5.serializers.TestReportTestActionSerializer
 import com.google.fhir.model.r5.serializers.TestReportTestSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -103,7 +103,7 @@ public data class TestReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class TestReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class TestReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier for the TestReport assigned for external purposes outside the context of FHIR. */
   public var identifier: Identifier? = null,
   /**
@@ -153,19 +153,19 @@ public data class TestReport(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<TestReportStatus>? = null,
+  public var status: Enumeration<TestReportStatus>,
   /**
    * Ideally this is an absolute URL that is used to identify the version-specific TestScript that
    * was executed, matching the `TestScript.url`.
    */
-  public var testScript: Canonical? = null,
+  public var testScript: Canonical,
   /**
    * The overall result from the execution of the TestScript.
    *
    * The pass and fail result represents a completed test script execution. The pending result
    * represents a test script execution that has not yet started or is currently in progress.
    */
-  public var result: Enumeration<TestReportResult>? = null,
+  public var result: Enumeration<TestReportResult>,
   /**
    * The final score (percentage of tests passed) resulting from the execution of the TestScript.
    */
@@ -184,11 +184,11 @@ public data class TestReport(
    */
   public var issued: DateTime? = null,
   /** A participant in the test execution, either the execution engine, a client, or a server. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** The results of the series of required setup operations before the tests were executed. */
   public var setup: Setup? = null,
   /** A test executed from the test script. */
-  public var test: List<Test>? = null,
+  public var test: MutableList<Test> = mutableListOf(),
   /**
    * The results of the series of operations required to clean up after all the tests were executed
    * (successfully or otherwise).
@@ -215,7 +215,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -234,11 +234,11 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of participant. */
-    public var type: Enumeration<TestReportParticipantType>? = null,
+    public var type: Enumeration<TestReportParticipantType>,
     /** The uri of the participant. An absolute URL is preferred. */
-    public var uri: Uri? = null,
+    public var uri: Uri,
     /** The display name of the participant. */
     public var display: String? = null,
   ) : BackboneElement()
@@ -263,7 +263,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -282,14 +282,14 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Action would contain either an operation or an assertion.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestReportSetupActionSerializer::class)
@@ -311,7 +311,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -330,7 +330,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The operation performed. */
       public var operation: Operation? = null,
       /** The results of the assertion performed on the previous operations. */
@@ -356,7 +356,7 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -375,9 +375,9 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The result of this operation. */
-        public var result: Enumeration<TestReportActionResult>? = null,
+        public var result: Enumeration<TestReportActionResult>,
         /** An explanatory message associated with the result. */
         public var message: Markdown? = null,
         /** A link to further details on the result. */
@@ -404,7 +404,7 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -423,9 +423,9 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The result of this assertion. */
-        public var result: Enumeration<TestReportActionResult>? = null,
+        public var result: Enumeration<TestReportActionResult>,
         /** An explanatory message associated with the result. */
         public var message: Markdown? = null,
         /** A link to further details on the result. */
@@ -437,7 +437,7 @@ public data class TestReport(
          * defined test requirements and documentation. These links provide traceability from the
          * executable/executed TestScript and TestReport tests to these requirements.
          */
-        public var requirement: List<Requirement>? = null,
+        public var requirement: MutableList<Requirement> = mutableListOf(),
       ) : BackboneElement() {
         /**
          * Links or references providing traceability to the testing requirements for this assert.
@@ -461,7 +461,7 @@ public data class TestReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -480,7 +480,7 @@ public data class TestReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Link or reference providing traceability to the testing requirement for this test. */
           public var link: Link? = null,
         ) : BackboneElement() {
@@ -495,7 +495,7 @@ public data class TestReport(
               Link
 
             public companion object {
-              public fun from(
+              internal fun from(
                 uriValue: com.google.fhir.model.r5.Uri?,
                 canonicalValue: com.google.fhir.model.r5.Canonical?,
               ): Link? {
@@ -530,7 +530,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -549,7 +549,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The name of this test used for tracking/logging purposes by test engines. */
     public var name: String? = null,
     /** A short description of the test used by test engines for tracking and reporting purposes. */
@@ -560,7 +560,7 @@ public data class TestReport(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestReportTestActionSerializer::class)
@@ -582,7 +582,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -601,7 +601,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** An operation would involve a REST request to a server. */
       public var operation: Setup.Action.Operation? = null,
       /** The results of the assertion performed on the previous operations. */
@@ -632,7 +632,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -651,14 +651,14 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The teardown action will only contain an operation.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /** The teardown action will only contain an operation. */
     @Serializable(with = TestReportTeardownActionSerializer::class)
@@ -680,7 +680,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -699,9 +699,9 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** An operation would involve a REST request to a server. */
-      public var operation: Setup.Action.Operation? = null,
+      public var operation: Setup.Action.Operation,
     ) : BackboneElement()
   }
 

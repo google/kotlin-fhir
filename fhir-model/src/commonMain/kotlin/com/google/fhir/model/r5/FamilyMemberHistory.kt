@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.FamilyMemberHistoryParticipantSerial
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryProcedureSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistorySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class FamilyMemberHistory(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class FamilyMemberHistory(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class FamilyMemberHistory(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this family member history by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -143,26 +143,26 @@ public data class FamilyMemberHistory(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this FamilyMemberHistory.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this FamilyMemberHistory.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /**
    * A code specifying the status of the record of the family history of a specific family member.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FamilyHistoryStatus>? = null,
+  public var status: Enumeration<FamilyHistoryStatus>,
   /** Describes why the family member's history is not available. */
   public var dataAbsentReason: CodeableConcept? = null,
   /**
@@ -170,7 +170,7 @@ public data class FamilyMemberHistory(
    *
    * This is not the family member.
    */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /**
    * The date (and possibly time) when the family member history was recorded or last updated.
    *
@@ -182,13 +182,13 @@ public data class FamilyMemberHistory(
    * Indicates who or what participated in the activities related to the family member history and
    * how they were involved.
    */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /**
    * This will either be a name or a description; e.g. "Aunt Susan", "my cousin with the red hair".
    */
   public var name: String? = null,
   /** The type of relationship this person has to the patient (father, mother, brother etc.). */
-  public var relationship: CodeableConcept? = null,
+  public var relationship: CodeableConcept,
   /**
    * The birth sex of the family member.
    *
@@ -227,24 +227,24 @@ public data class FamilyMemberHistory(
    *
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * This property allows a non condition-specific note to the made about the related person.
    * Ideally, the note would be in the condition property, but this is not always possible.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The significant Conditions (or condition) that the family member had. This is a repeating
    * section to allow a system to represent more than one condition per resource, though there is
    * nothing stopping multiple resources - one per condition.
    */
-  public var condition: List<Condition>? = null,
+  public var condition: MutableList<Condition> = mutableListOf(),
   /**
    * The significant Procedures (or procedure) that the family member had. This is a repeating
    * section to allow a system to represent more than one procedure per resource, though there is
    * nothing stopping multiple resources - one per procedure.
    */
-  public var procedure: List<Procedure>? = null,
+  public var procedure: MutableList<Procedure> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Indicates who or what participated in the activities related to the family member history and
@@ -269,7 +269,7 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,7 +288,7 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of involvement of the actor in the activities related to the family
      * member history.
@@ -297,7 +297,7 @@ public data class FamilyMemberHistory(
     /**
      * Indicates who or what participated in the activities related to the family member history.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /**
@@ -324,7 +324,7 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -343,13 +343,13 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less
      * specific string like 'cancer' depending on how much is known about the condition and the
      * capabilities of the creating system.
      */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * Indicates what happened following the condition. If the condition resulted in death, deceased
      * date is captured on the relation.
@@ -366,7 +366,7 @@ public data class FamilyMemberHistory(
      */
     public var onset: Onset? = null,
     /** An area where general notes can be placed about this specific condition. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Onset {
       public fun asAge(): Age? = this as? Age
@@ -386,15 +386,15 @@ public data class FamilyMemberHistory(
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Onset
 
       public companion object {
-        public fun from(
-          AgeValue: com.google.fhir.model.r5.Age?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
+        internal fun from(
+          ageValue: com.google.fhir.model.r5.Age?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          periodValue: com.google.fhir.model.r5.Period?,
           stringValue: com.google.fhir.model.r5.String?,
         ): Onset? {
-          if (AgeValue != null) return Age(AgeValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (ageValue != null) return Age(ageValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (periodValue != null) return Period(periodValue)
           if (stringValue != null) return String(stringValue)
           return null
         }
@@ -426,7 +426,7 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -445,13 +445,13 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The actual procedure specified. Could be a coded procedure or a less specific string
      * depending on how much is known about the procedure and the capabilities of the creating
      * system.
      */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * Indicates what happened following the procedure. If the procedure resulted in death, deceased
      * date is captured on the relation.
@@ -469,7 +469,7 @@ public data class FamilyMemberHistory(
      */
     public var performed: Performed? = null,
     /** An area where general notes can be placed about this specific procedure. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Performed {
       public fun asAge(): Age? = this as? Age
@@ -493,16 +493,16 @@ public data class FamilyMemberHistory(
       public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Performed
 
       public companion object {
-        public fun from(
-          AgeValue: com.google.fhir.model.r5.Age?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
+        internal fun from(
+          ageValue: com.google.fhir.model.r5.Age?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          periodValue: com.google.fhir.model.r5.Period?,
           stringValue: com.google.fhir.model.r5.String?,
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
         ): Performed? {
-          if (AgeValue != null) return Age(AgeValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (ageValue != null) return Age(ageValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (periodValue != null) return Period(periodValue)
           if (stringValue != null) return String(stringValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           return null
@@ -525,12 +525,12 @@ public data class FamilyMemberHistory(
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Born
 
     public companion object {
-      public fun from(
-        PeriodValue: com.google.fhir.model.r5.Period?,
+      internal fun from(
+        periodValue: com.google.fhir.model.r5.Period?,
         dateValue: com.google.fhir.model.r5.Date?,
         stringValue: com.google.fhir.model.r5.String?,
       ): Born? {
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         if (dateValue != null) return Date(dateValue)
         if (stringValue != null) return String(stringValue)
         return null
@@ -555,13 +555,13 @@ public data class FamilyMemberHistory(
       FamilyMemberHistory.Age
 
     public companion object {
-      public fun from(
-        AgeValue: com.google.fhir.model.r5.Age?,
-        RangeValue: com.google.fhir.model.r5.Range?,
+      internal fun from(
+        ageValue: com.google.fhir.model.r5.Age?,
+        rangeValue: com.google.fhir.model.r5.Range?,
         stringValue: com.google.fhir.model.r5.String?,
       ): FamilyMemberHistory.Age? {
-        if (AgeValue != null) return Age(AgeValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (ageValue != null) return Age(ageValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (stringValue != null) return String(stringValue)
         return null
       }
@@ -590,16 +590,16 @@ public data class FamilyMemberHistory(
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Deceased
 
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
-        AgeValue: com.google.fhir.model.r5.Age?,
-        RangeValue: com.google.fhir.model.r5.Range?,
+        ageValue: com.google.fhir.model.r5.Age?,
+        rangeValue: com.google.fhir.model.r5.Range?,
         dateValue: com.google.fhir.model.r5.Date?,
         stringValue: com.google.fhir.model.r5.String?,
       ): Deceased? {
         if (booleanValue != null) return Boolean(booleanValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (ageValue != null) return Age(ageValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (dateValue != null) return Date(dateValue)
         if (stringValue != null) return String(stringValue)
         return null

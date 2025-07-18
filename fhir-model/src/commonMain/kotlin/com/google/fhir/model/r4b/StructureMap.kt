@@ -28,7 +28,7 @@ import com.google.fhir.model.r4b.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapStructureSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class StructureMap(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class StructureMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class StructureMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this structure map when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -150,7 +150,7 @@ public data class StructureMap(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * A formal identifier that is used to identify this structure map when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -159,7 +159,7 @@ public data class StructureMap(
    * type, and can then identify this structure map outside of FHIR, where it is not possible to use
    * the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the structure map when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the
@@ -179,7 +179,7 @@ public data class StructureMap(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the structure map.
    *
@@ -192,7 +192,7 @@ public data class StructureMap(
    *
    * Allows filtering of structure maps that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this structure map is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -226,7 +226,7 @@ public data class StructureMap(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the structure map from a consumer's perspective.
    *
@@ -247,14 +247,14 @@ public data class StructureMap(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the structure map is intended to be used.
    *
    * It may be possible for the structure map to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this structure map is needed and why it has been designed as it has.
    *
@@ -276,11 +276,11 @@ public data class StructureMap(
    * It is not necessary for a structure map to identify any dependent structures, though not
    * listing them may restrict its usefulness.
    */
-  public var structure: List<Structure>? = null,
+  public var structure: MutableList<Structure> = mutableListOf(),
   /** Other maps used by this map (canonical URLs). */
-  public var `import`: List<Canonical?>? = null,
+  public var `import`: MutableList<Canonical> = mutableListOf(),
   /** Organizes the mapping into manageable chunks for human review/ease of maintenance. */
-  public var group: List<Group>? = null,
+  public var group: MutableList<Group> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A structure definition used by this map. The structure definition may describe instances that
@@ -305,7 +305,7 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -324,11 +324,11 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The canonical reference to the structure. */
-    public var url: Canonical? = null,
+    public var url: Canonical,
     /** How the referenced structure is used in this mapping. */
-    public var mode: Enumeration<StructureMapModelMode>? = null,
+    public var mode: Enumeration<StructureMapModelMode>,
     /**
      * The name used for this type in the map.
      *
@@ -359,7 +359,7 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -378,9 +378,9 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A unique name for the group for the convenience of human readers. */
-    public var name: Id? = null,
+    public var name: Id,
     /** Another group that this group adds rules to. */
     public var extends: Id? = null,
     /**
@@ -389,7 +389,7 @@ public data class StructureMap(
      * Not applicable if the underlying model is untyped. There can only be one default mapping for
      * any particular type combination.
      */
-    public var typeMode: Enumeration<StructureMapGroupTypeMode>? = null,
+    public var typeMode: Enumeration<StructureMapGroupTypeMode>,
     /**
      * Additional supporting documentation that explains the purpose of the group and the types of
      * mappings within it.
@@ -401,9 +401,9 @@ public data class StructureMap(
      *
      * If no inputs are named, then the entry mappings are type based.
      */
-    public var input: List<Input>? = null,
+    public var input: MutableList<Input> = mutableListOf(),
     /** Transform Rule from source to target. */
-    public var rule: List<Rule>? = null,
+    public var rule: MutableList<Rule> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A name assigned to an instance of data. The instance must be provided when the mapping is
@@ -428,7 +428,7 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -447,13 +447,13 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Name for this instance of data. */
-      public var name: Id? = null,
+      public var name: Id,
       /** Type for this instance of data. */
       public var type: String? = null,
       /** Mode for this instance of data. */
-      public var mode: Enumeration<StructureMapInputMode>? = null,
+      public var mode: Enumeration<StructureMapInputMode>,
       /** Documentation for this instance of data. */
       public var documentation: String? = null,
     ) : BackboneElement()
@@ -478,7 +478,7 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -497,17 +497,17 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Name of the rule for internal references. */
-      public var name: Id? = null,
+      public var name: Id,
       /** Source inputs to the mapping. */
-      public var source: List<Source>? = null,
+      public var source: MutableList<Source> = mutableListOf(),
       /** Content to create because of this mapping rule. */
-      public var target: List<Target>? = null,
+      public var target: MutableList<Target> = mutableListOf(),
       /** Rules contained in this rule. */
-      public var rule: List<Rule?>? = null,
+      public var rule: MutableList<Rule> = mutableListOf(),
       /** Which other rules to apply in the context of this rule. */
-      public var dependent: List<Dependent>? = null,
+      public var dependent: MutableList<Dependent> = mutableListOf(),
       /** Documentation for this instance of data. */
       public var documentation: String? = null,
     ) : BackboneElement() {
@@ -531,7 +531,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -550,9 +550,9 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Type or variable this rule applies to. */
-        public var context: Id? = null,
+        public var context: Id,
         /**
          * Specified minimum cardinality for the element. This is optional; if present, it acts an
          * implicit check on the input content.
@@ -848,7 +848,7 @@ public data class StructureMap(
           public data class Meta(public val `value`: com.google.fhir.model.r4b.Meta) : DefaultValue
 
           public companion object {
-            public fun from(
+            internal fun from(
               base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
               booleanValue: com.google.fhir.model.r4b.Boolean?,
               canonicalValue: com.google.fhir.model.r4b.Canonical?,
@@ -868,37 +868,37 @@ public data class StructureMap(
               uriValue: com.google.fhir.model.r4b.Uri?,
               urlValue: com.google.fhir.model.r4b.Url?,
               uuidValue: com.google.fhir.model.r4b.Uuid?,
-              AddressValue: com.google.fhir.model.r4b.Address?,
-              AgeValue: com.google.fhir.model.r4b.Age?,
-              AnnotationValue: com.google.fhir.model.r4b.Annotation?,
-              AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-              CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-              CodingValue: com.google.fhir.model.r4b.Coding?,
-              ContactPointValue: com.google.fhir.model.r4b.ContactPoint?,
-              CountValue: com.google.fhir.model.r4b.Count?,
-              DistanceValue: com.google.fhir.model.r4b.Distance?,
-              DurationValue: com.google.fhir.model.r4b.Duration?,
-              HumanNameValue: com.google.fhir.model.r4b.HumanName?,
-              IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-              MoneyValue: com.google.fhir.model.r4b.Money?,
-              PeriodValue: com.google.fhir.model.r4b.Period?,
-              QuantityValue: com.google.fhir.model.r4b.Quantity?,
-              RangeValue: com.google.fhir.model.r4b.Range?,
-              RatioValue: com.google.fhir.model.r4b.Ratio?,
-              ReferenceValue: com.google.fhir.model.r4b.Reference?,
-              SampledDataValue: com.google.fhir.model.r4b.SampledData?,
-              SignatureValue: com.google.fhir.model.r4b.Signature?,
-              TimingValue: com.google.fhir.model.r4b.Timing?,
-              ContactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
-              ContributorValue: com.google.fhir.model.r4b.Contributor?,
-              DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-              ExpressionValue: com.google.fhir.model.r4b.Expression?,
-              ParameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
-              RelatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
-              TriggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
-              UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
-              DosageValue: com.google.fhir.model.r4b.Dosage?,
-              MetaValue: com.google.fhir.model.r4b.Meta?,
+              addressValue: com.google.fhir.model.r4b.Address?,
+              ageValue: com.google.fhir.model.r4b.Age?,
+              annotationValue: com.google.fhir.model.r4b.Annotation?,
+              attachmentValue: com.google.fhir.model.r4b.Attachment?,
+              codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+              codingValue: com.google.fhir.model.r4b.Coding?,
+              contactPointValue: com.google.fhir.model.r4b.ContactPoint?,
+              countValue: com.google.fhir.model.r4b.Count?,
+              distanceValue: com.google.fhir.model.r4b.Distance?,
+              durationValue: com.google.fhir.model.r4b.Duration?,
+              humanNameValue: com.google.fhir.model.r4b.HumanName?,
+              identifierValue: com.google.fhir.model.r4b.Identifier?,
+              moneyValue: com.google.fhir.model.r4b.Money?,
+              periodValue: com.google.fhir.model.r4b.Period?,
+              quantityValue: com.google.fhir.model.r4b.Quantity?,
+              rangeValue: com.google.fhir.model.r4b.Range?,
+              ratioValue: com.google.fhir.model.r4b.Ratio?,
+              referenceValue: com.google.fhir.model.r4b.Reference?,
+              sampledDataValue: com.google.fhir.model.r4b.SampledData?,
+              signatureValue: com.google.fhir.model.r4b.Signature?,
+              timingValue: com.google.fhir.model.r4b.Timing?,
+              contactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
+              contributorValue: com.google.fhir.model.r4b.Contributor?,
+              dataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
+              expressionValue: com.google.fhir.model.r4b.Expression?,
+              parameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
+              relatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
+              triggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
+              usageContextValue: com.google.fhir.model.r4b.UsageContext?,
+              dosageValue: com.google.fhir.model.r4b.Dosage?,
+              metaValue: com.google.fhir.model.r4b.Meta?,
             ): DefaultValue? {
               if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
               if (booleanValue != null) return Boolean(booleanValue)
@@ -919,38 +919,38 @@ public data class StructureMap(
               if (uriValue != null) return Uri(uriValue)
               if (urlValue != null) return Url(urlValue)
               if (uuidValue != null) return Uuid(uuidValue)
-              if (AddressValue != null) return Address(AddressValue)
-              if (AgeValue != null) return Age(AgeValue)
-              if (AnnotationValue != null) return Annotation(AnnotationValue)
-              if (AttachmentValue != null) return Attachment(AttachmentValue)
-              if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-              if (CodingValue != null) return Coding(CodingValue)
-              if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-              if (CountValue != null) return Count(CountValue)
-              if (DistanceValue != null) return Distance(DistanceValue)
-              if (DurationValue != null) return Duration(DurationValue)
-              if (HumanNameValue != null) return HumanName(HumanNameValue)
-              if (IdentifierValue != null) return Identifier(IdentifierValue)
-              if (MoneyValue != null) return Money(MoneyValue)
-              if (PeriodValue != null) return Period(PeriodValue)
-              if (QuantityValue != null) return Quantity(QuantityValue)
-              if (RangeValue != null) return Range(RangeValue)
-              if (RatioValue != null) return Ratio(RatioValue)
-              if (ReferenceValue != null) return Reference(ReferenceValue)
-              if (SampledDataValue != null) return SampledData(SampledDataValue)
-              if (SignatureValue != null) return Signature(SignatureValue)
-              if (TimingValue != null) return Timing(TimingValue)
-              if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-              if (ContributorValue != null) return Contributor(ContributorValue)
-              if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-              if (ExpressionValue != null) return Expression(ExpressionValue)
-              if (ParameterDefinitionValue != null)
-                return ParameterDefinition(ParameterDefinitionValue)
-              if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-              if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-              if (UsageContextValue != null) return UsageContext(UsageContextValue)
-              if (DosageValue != null) return Dosage(DosageValue)
-              if (MetaValue != null) return Meta(MetaValue)
+              if (addressValue != null) return Address(addressValue)
+              if (ageValue != null) return Age(ageValue)
+              if (annotationValue != null) return Annotation(annotationValue)
+              if (attachmentValue != null) return Attachment(attachmentValue)
+              if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+              if (codingValue != null) return Coding(codingValue)
+              if (contactPointValue != null) return ContactPoint(contactPointValue)
+              if (countValue != null) return Count(countValue)
+              if (distanceValue != null) return Distance(distanceValue)
+              if (durationValue != null) return Duration(durationValue)
+              if (humanNameValue != null) return HumanName(humanNameValue)
+              if (identifierValue != null) return Identifier(identifierValue)
+              if (moneyValue != null) return Money(moneyValue)
+              if (periodValue != null) return Period(periodValue)
+              if (quantityValue != null) return Quantity(quantityValue)
+              if (rangeValue != null) return Range(rangeValue)
+              if (ratioValue != null) return Ratio(ratioValue)
+              if (referenceValue != null) return Reference(referenceValue)
+              if (sampledDataValue != null) return SampledData(sampledDataValue)
+              if (signatureValue != null) return Signature(signatureValue)
+              if (timingValue != null) return Timing(timingValue)
+              if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+              if (contributorValue != null) return Contributor(contributorValue)
+              if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+              if (expressionValue != null) return Expression(expressionValue)
+              if (parameterDefinitionValue != null)
+                return ParameterDefinition(parameterDefinitionValue)
+              if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+              if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+              if (usageContextValue != null) return UsageContext(usageContextValue)
+              if (dosageValue != null) return Dosage(dosageValue)
+              if (metaValue != null) return Meta(metaValue)
               return null
             }
           }
@@ -977,7 +977,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -996,7 +996,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Type or variable this rule applies to. */
         public var context: Id? = null,
         /** How to interpret the context. */
@@ -1006,13 +1006,13 @@ public data class StructureMap(
         /** Named context for field, if desired, and a field is specified. */
         public var variable: Id? = null,
         /** If field is a list, how to manage the list. */
-        public var listMode: List<Enumeration<StructureMapTargetListMode>>? = null,
+        public var listMode: MutableList<Enumeration<StructureMapTargetListMode>> = mutableListOf(),
         /** Internal rule reference for shared list items. */
         public var listRuleId: Id? = null,
         /** How the data is copied / created. */
         public var transform: Enumeration<StructureMapTransform>? = null,
         /** Parameters to the transform. */
-        public var parameter: List<Parameter>? = null,
+        public var parameter: MutableList<Parameter> = mutableListOf(),
       ) : BackboneElement() {
         /** Parameters to the transform. */
         @Serializable(with = StructureMapGroupRuleTargetParameterSerializer::class)
@@ -1034,7 +1034,7 @@ public data class StructureMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1053,9 +1053,9 @@ public data class StructureMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Parameter value - variable or literal. */
-          public var `value`: Value? = null,
+          public var `value`: Value,
         ) : BackboneElement() {
           public sealed interface Value {
             public fun asId(): Id? = this as? Id
@@ -1082,7 +1082,7 @@ public data class StructureMap(
               Value
 
             public companion object {
-              public fun from(
+              internal fun from(
                 idValue: com.google.fhir.model.r4b.Id?,
                 stringValue: com.google.fhir.model.r4b.String?,
                 booleanValue: com.google.fhir.model.r4b.Boolean?,
@@ -1121,7 +1121,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1140,11 +1140,11 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Name of a rule or group to apply. */
-        public var name: Id? = null,
+        public var name: Id,
         /** Variable to pass to the rule or group. */
-        public var variable: List<String?>? = null,
+        public var variable: MutableList<String> = mutableListOf(),
       ) : BackboneElement()
     }
   }

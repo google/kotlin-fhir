@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.InvoiceLineItemSerializer
 import com.google.fhir.model.r5.serializers.InvoiceParticipantSerializer
 import com.google.fhir.model.r5.serializers.InvoiceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Invoice(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class Invoice(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,14 +130,14 @@ public data class Invoice(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier of this Invoice, often used for reference in correspondence about this invoice or
    * for tracking of payments.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The current state of the Invoice. */
-  public var status: Enumeration<InvoiceStatus>? = null,
+  public var status: Enumeration<InvoiceStatus>,
   /**
    * In case of Invoice cancellation a reason must be given (entered in error, superseded by
    * corrected invoice etc.).
@@ -168,7 +168,7 @@ public data class Invoice(
   /** Date/time(s) range of services included in this invoice. */
   public var period: Period? = null,
   /** Indicates who or what performed or participated in the charged service. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /**
    * The organizationissuing the Invoice.
    *
@@ -189,13 +189,13 @@ public data class Invoice(
    * Each line item represents one charge for goods and services rendered. Details
    * such.ofType(date), code and amount are found in the referenced ChargeItem resource.
    */
-  public var lineItem: List<LineItem>? = null,
+  public var lineItem: MutableList<LineItem> = mutableListOf(),
   /**
    * The total amount for the Invoice may be calculated as the sum of the line items with
    * surcharges/deductions that apply in certain conditions. The priceComponent element can be used
    * to offer transparency to the recipient of the Invoice of how the total price was calculated.
    */
-  public var totalPriceComponent: List<MonetaryComponent?>? = null,
+  public var totalPriceComponent: MutableList<MonetaryComponent> = mutableListOf(),
   /**
    * Invoice total , taxes excluded.
    *
@@ -222,7 +222,7 @@ public data class Invoice(
    */
   public var paymentTerms: Markdown? = null,
   /** Comments made about the invoice by the issuer, subject, or other participants. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what performed or participated in the charged service. */
   @Serializable(with = InvoiceParticipantSerializer::class)
@@ -244,7 +244,7 @@ public data class Invoice(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -263,7 +263,7 @@ public data class Invoice(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Describes the type of involvement (e.g. transcriptionist, creator etc.). If the invoice has
      * been created automatically, the Participant may be a billing engine or another kind of
@@ -271,7 +271,7 @@ public data class Invoice(
      */
     public var role: CodeableConcept? = null,
     /** The device, practitioner, etc. who performed or participated in the service. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /**
@@ -297,7 +297,7 @@ public data class Invoice(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -316,7 +316,7 @@ public data class Invoice(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Sequence in which the items appear on the invoice. */
     public var sequence: PositiveInt? = null,
     /** Date/time(s) range when this service was delivered or completed. */
@@ -326,7 +326,7 @@ public data class Invoice(
      * details are required for the lineItem, inline billing codes can be added using the
      * CodeableConcept data type instead of the Reference.
      */
-    public var chargeItem: ChargeItem? = null,
+    public var chargeItem: ChargeItem,
     /**
      * The price for a ChargeItem may be calculated as a base price with surcharges/deductions that
      * apply in certain conditions. A ChargeItemDefinition resource that defines the prices, factors
@@ -334,7 +334,7 @@ public data class Invoice(
      * priceComponent element can be used to offer transparency to the recipient of the Invoice as
      * to how the prices have been calculated.
      */
-    public var priceComponent: List<MonetaryComponent?>? = null,
+    public var priceComponent: MutableList<MonetaryComponent> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
@@ -346,12 +346,12 @@ public data class Invoice(
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateValue: com.google.fhir.model.r5.Date?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
+          periodValue: com.google.fhir.model.r5.Period?,
         ): Serviced? {
           if (dateValue != null) return Date(dateValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -370,12 +370,12 @@ public data class Invoice(
       ) : ChargeItem
 
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        internal fun from(
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ): ChargeItem? {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           return null
         }
       }
@@ -392,12 +392,12 @@ public data class Invoice(
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Invoice.Period
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateValue: com.google.fhir.model.r5.Date?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
+        periodValue: com.google.fhir.model.r5.Period?,
       ): Invoice.Period? {
         if (dateValue != null) return Date(dateValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         return null
       }
     }

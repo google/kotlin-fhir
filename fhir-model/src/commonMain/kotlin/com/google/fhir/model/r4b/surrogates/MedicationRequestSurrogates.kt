@@ -47,40 +47,42 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var quantity: Quantity? = null,
   public var duration: Duration? = null,
 ) {
   public fun toModel(): MedicationRequest.DispenseRequest.InitialFill =
-    MedicationRequest.DispenseRequest.InitialFill().apply {
-      id = this@MedicationRequestDispenseRequestInitialFillSurrogate.id
-      extension = this@MedicationRequestDispenseRequestInitialFillSurrogate.extension
+    MedicationRequest.DispenseRequest.InitialFill(
+      id = this@MedicationRequestDispenseRequestInitialFillSurrogate.id,
+      extension =
+        this@MedicationRequestDispenseRequestInitialFillSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@MedicationRequestDispenseRequestInitialFillSurrogate.modifierExtension
-      quantity = this@MedicationRequestDispenseRequestInitialFillSurrogate.quantity
-      duration = this@MedicationRequestDispenseRequestInitialFillSurrogate.duration
-    }
+          ?: mutableListOf(),
+      quantity = this@MedicationRequestDispenseRequestInitialFillSurrogate.quantity,
+      duration = this@MedicationRequestDispenseRequestInitialFillSurrogate.duration,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicationRequest.DispenseRequest.InitialFill
     ): MedicationRequestDispenseRequestInitialFillSurrogate =
       with(model) {
-        MedicationRequestDispenseRequestInitialFillSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          quantity = this@with.quantity
-          duration = this@with.duration
-        }
+        MedicationRequestDispenseRequestInitialFillSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          duration = this@with.duration,
+        )
       }
   }
 }
@@ -88,8 +90,8 @@ internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
 @Serializable
 internal data class MedicationRequestDispenseRequestSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var initialFill: MedicationRequest.DispenseRequest.InitialFill? = null,
   public var dispenseInterval: Duration? = null,
   public var validityPeriod: Period? = null,
@@ -100,41 +102,43 @@ internal data class MedicationRequestDispenseRequestSurrogate(
   public var performer: Reference? = null,
 ) {
   public fun toModel(): MedicationRequest.DispenseRequest =
-    MedicationRequest.DispenseRequest().apply {
-      id = this@MedicationRequestDispenseRequestSurrogate.id
-      extension = this@MedicationRequestDispenseRequestSurrogate.extension
-      modifierExtension = this@MedicationRequestDispenseRequestSurrogate.modifierExtension
-      initialFill = this@MedicationRequestDispenseRequestSurrogate.initialFill
-      dispenseInterval = this@MedicationRequestDispenseRequestSurrogate.dispenseInterval
-      validityPeriod = this@MedicationRequestDispenseRequestSurrogate.validityPeriod
+    MedicationRequest.DispenseRequest(
+      id = this@MedicationRequestDispenseRequestSurrogate.id,
+      extension = this@MedicationRequestDispenseRequestSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationRequestDispenseRequestSurrogate.modifierExtension ?: mutableListOf(),
+      initialFill = this@MedicationRequestDispenseRequestSurrogate.initialFill,
+      dispenseInterval = this@MedicationRequestDispenseRequestSurrogate.dispenseInterval,
+      validityPeriod = this@MedicationRequestDispenseRequestSurrogate.validityPeriod,
       numberOfRepeatsAllowed =
         UnsignedInt.of(
           this@MedicationRequestDispenseRequestSurrogate.numberOfRepeatsAllowed,
           this@MedicationRequestDispenseRequestSurrogate._numberOfRepeatsAllowed,
-        )
-      quantity = this@MedicationRequestDispenseRequestSurrogate.quantity
-      expectedSupplyDuration = this@MedicationRequestDispenseRequestSurrogate.expectedSupplyDuration
-      performer = this@MedicationRequestDispenseRequestSurrogate.performer
-    }
+        ),
+      quantity = this@MedicationRequestDispenseRequestSurrogate.quantity,
+      expectedSupplyDuration =
+        this@MedicationRequestDispenseRequestSurrogate.expectedSupplyDuration,
+      performer = this@MedicationRequestDispenseRequestSurrogate.performer,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicationRequest.DispenseRequest
     ): MedicationRequestDispenseRequestSurrogate =
       with(model) {
-        MedicationRequestDispenseRequestSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          initialFill = this@with.initialFill
-          dispenseInterval = this@with.dispenseInterval
-          validityPeriod = this@with.validityPeriod
-          numberOfRepeatsAllowed = this@with.numberOfRepeatsAllowed?.value
-          _numberOfRepeatsAllowed = this@with.numberOfRepeatsAllowed?.toElement()
-          quantity = this@with.quantity
-          expectedSupplyDuration = this@with.expectedSupplyDuration
-          performer = this@with.performer
-        }
+        MedicationRequestDispenseRequestSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          initialFill = this@with.initialFill,
+          dispenseInterval = this@with.dispenseInterval,
+          validityPeriod = this@with.validityPeriod,
+          numberOfRepeatsAllowed = this@with.numberOfRepeatsAllowed?.value,
+          _numberOfRepeatsAllowed = this@with.numberOfRepeatsAllowed?.toElement(),
+          quantity = this@with.quantity,
+          expectedSupplyDuration = this@with.expectedSupplyDuration,
+          performer = this@with.performer,
+        )
       }
   }
 }
@@ -142,43 +146,44 @@ internal data class MedicationRequestDispenseRequestSurrogate(
 @Serializable
 internal data class MedicationRequestSubstitutionSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var allowedBoolean: KotlinBoolean? = null,
   public var _allowedBoolean: Element? = null,
   public var allowedCodeableConcept: CodeableConcept? = null,
   public var reason: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicationRequest.Substitution =
-    MedicationRequest.Substitution().apply {
-      id = this@MedicationRequestSubstitutionSurrogate.id
-      extension = this@MedicationRequestSubstitutionSurrogate.extension
-      modifierExtension = this@MedicationRequestSubstitutionSurrogate.modifierExtension
+    MedicationRequest.Substitution(
+      id = this@MedicationRequestSubstitutionSurrogate.id,
+      extension = this@MedicationRequestSubstitutionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationRequestSubstitutionSurrogate.modifierExtension ?: mutableListOf(),
       allowed =
-        MedicationRequest.Substitution.Allowed?.from(
+        MedicationRequest.Substitution.Allowed.from(
           R4bBoolean.of(
             this@MedicationRequestSubstitutionSurrogate.allowedBoolean,
             this@MedicationRequestSubstitutionSurrogate._allowedBoolean,
           ),
           this@MedicationRequestSubstitutionSurrogate.allowedCodeableConcept,
-        )
-      reason = this@MedicationRequestSubstitutionSurrogate.reason
-    }
+        )!!,
+      reason = this@MedicationRequestSubstitutionSurrogate.reason,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicationRequest.Substitution
     ): MedicationRequestSubstitutionSurrogate =
       with(model) {
-        MedicationRequestSubstitutionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          allowedBoolean = this@with.allowed?.asBoolean()?.value?.value
-          _allowedBoolean = this@with.allowed?.asBoolean()?.value?.toElement()
-          allowedCodeableConcept = this@with.allowed?.asCodeableConcept()?.value
-          reason = this@with.reason
-        }
+        MedicationRequestSubstitutionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          allowedBoolean = this@with.allowed?.asBoolean()?.value?.value,
+          _allowedBoolean = this@with.allowed?.asBoolean()?.value?.toElement(),
+          allowedCodeableConcept = this@with.allowed?.asCodeableConcept()?.value,
+          reason = this@with.reason,
+        )
       }
   }
 }
@@ -192,16 +197,16 @@ internal data class MedicationRequestSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
   public var intent: String? = null,
   public var _intent: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var priority: String? = null,
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
@@ -211,77 +216,80 @@ internal data class MedicationRequestSurrogate(
   public var reportedReference: Reference? = null,
   public var medicationCodeableConcept: CodeableConcept? = null,
   public var medicationReference: Reference? = null,
-  public var subject: Reference? = null,
+  public var subject: Reference,
   public var encounter: Reference? = null,
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference>? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
   public var performer: Reference? = null,
   public var performerType: CodeableConcept? = null,
   public var recorder: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var instantiatesCanonical: List<String?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<String?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var basedOn: List<Reference?>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var instantiatesCanonical: MutableList<String?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<String?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var courseOfTherapyType: CodeableConcept? = null,
-  public var insurance: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var dosageInstruction: List<Dosage?>? = null,
+  public var insurance: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var dosageInstruction: MutableList<Dosage>? = null,
   public var dispenseRequest: MedicationRequest.DispenseRequest? = null,
   public var substitution: MedicationRequest.Substitution? = null,
   public var priorPrescription: Reference? = null,
-  public var detectedIssue: List<Reference?>? = null,
-  public var eventHistory: List<Reference?>? = null,
+  public var detectedIssue: MutableList<Reference>? = null,
+  public var eventHistory: MutableList<Reference>? = null,
 ) {
   public fun toModel(): MedicationRequest =
-    MedicationRequest().apply {
-      id = this@MedicationRequestSurrogate.id
-      meta = this@MedicationRequestSurrogate.meta
+    MedicationRequest(
+      id = this@MedicationRequestSurrogate.id,
+      meta = this@MedicationRequestSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicationRequestSurrogate.implicitRules,
           this@MedicationRequestSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@MedicationRequestSurrogate.language, this@MedicationRequestSurrogate._language)
-      text = this@MedicationRequestSurrogate.text
-      contained = this@MedicationRequestSurrogate.contained
-      extension = this@MedicationRequestSurrogate.extension
-      modifierExtension = this@MedicationRequestSurrogate.modifierExtension
-      identifier = this@MedicationRequestSurrogate.identifier
+        Code.of(
+          this@MedicationRequestSurrogate.language,
+          this@MedicationRequestSurrogate._language,
+        ),
+      text = this@MedicationRequestSurrogate.text,
+      contained = this@MedicationRequestSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicationRequestSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicationRequestSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MedicationRequestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@MedicationRequestSurrogate.status?.let {
-            com.google.fhir.model.r4b.MedicationRequest.MedicationRequestStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.MedicationRequest.MedicationRequestStatus.fromCode(
+            this@MedicationRequestSurrogate.status!!
+          ),
           this@MedicationRequestSurrogate._status,
-        )
-      statusReason = this@MedicationRequestSurrogate.statusReason
+        ),
+      statusReason = this@MedicationRequestSurrogate.statusReason,
       intent =
         Enumeration.of(
-          this@MedicationRequestSurrogate.intent?.let {
-            com.google.fhir.model.r4b.MedicationRequest.MedicationRequestIntent.fromCode(it)
-          },
+          com.google.fhir.model.r4b.MedicationRequest.MedicationRequestIntent.fromCode(
+            this@MedicationRequestSurrogate.intent!!
+          ),
           this@MedicationRequestSurrogate._intent,
-        )
-      category = this@MedicationRequestSurrogate.category
+        ),
+      category = this@MedicationRequestSurrogate.category ?: mutableListOf(),
       priority =
-        Enumeration.of(
-          this@MedicationRequestSurrogate.priority?.let {
-            com.google.fhir.model.r4b.MedicationRequest.MedicationRequestPriority.fromCode(it)
-          },
-          this@MedicationRequestSurrogate._priority,
-        )
+        this@MedicationRequestSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.MedicationRequest.MedicationRequestPriority.fromCode(it!!),
+            this@MedicationRequestSurrogate._priority,
+          )
+        },
       doNotPerform =
         R4bBoolean.of(
           this@MedicationRequestSurrogate.doNotPerform,
           this@MedicationRequestSurrogate._doNotPerform,
-        )
+        ),
       reported =
         MedicationRequest.Reported?.from(
           R4bBoolean.of(
@@ -289,32 +297,33 @@ internal data class MedicationRequestSurrogate(
             this@MedicationRequestSurrogate._reportedBoolean,
           ),
           this@MedicationRequestSurrogate.reportedReference,
-        )
+        ),
       medication =
-        MedicationRequest.Medication?.from(
+        MedicationRequest.Medication.from(
           this@MedicationRequestSurrogate.medicationCodeableConcept,
           this@MedicationRequestSurrogate.medicationReference,
-        )
-      subject = this@MedicationRequestSurrogate.subject
-      encounter = this@MedicationRequestSurrogate.encounter
-      supportingInformation = this@MedicationRequestSurrogate.supportingInformation
+        )!!,
+      subject = this@MedicationRequestSurrogate.subject,
+      encounter = this@MedicationRequestSurrogate.encounter,
+      supportingInformation =
+        this@MedicationRequestSurrogate.supportingInformation ?: mutableListOf(),
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationRequestSurrogate.authoredOn),
           this@MedicationRequestSurrogate._authoredOn,
-        )
-      requester = this@MedicationRequestSurrogate.requester
-      performer = this@MedicationRequestSurrogate.performer
-      performerType = this@MedicationRequestSurrogate.performerType
-      recorder = this@MedicationRequestSurrogate.recorder
-      reasonCode = this@MedicationRequestSurrogate.reasonCode
-      reasonReference = this@MedicationRequestSurrogate.reasonReference
+        ),
+      requester = this@MedicationRequestSurrogate.requester,
+      performer = this@MedicationRequestSurrogate.performer,
+      performerType = this@MedicationRequestSurrogate.performerType,
+      recorder = this@MedicationRequestSurrogate.recorder,
+      reasonCode = this@MedicationRequestSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@MedicationRequestSurrogate.reasonReference ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@MedicationRequestSurrogate.instantiatesCanonical == null &&
             this@MedicationRequestSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@MedicationRequestSurrogate.instantiatesCanonical
               ?: List(this@MedicationRequestSurrogate._instantiatesCanonical!!.size) { null })
@@ -322,14 +331,15 @@ internal data class MedicationRequestSurrogate(
               this@MedicationRequestSurrogate._instantiatesCanonical
                 ?: List(this@MedicationRequestSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@MedicationRequestSurrogate.instantiatesUri == null &&
             this@MedicationRequestSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@MedicationRequestSurrogate.instantiatesUri
               ?: List(this@MedicationRequestSurrogate._instantiatesUri!!.size) { null })
@@ -337,84 +347,98 @@ internal data class MedicationRequestSurrogate(
               this@MedicationRequestSurrogate._instantiatesUri
                 ?: List(this@MedicationRequestSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      basedOn = this@MedicationRequestSurrogate.basedOn
-      groupIdentifier = this@MedicationRequestSurrogate.groupIdentifier
-      courseOfTherapyType = this@MedicationRequestSurrogate.courseOfTherapyType
-      insurance = this@MedicationRequestSurrogate.insurance
-      note = this@MedicationRequestSurrogate.note
-      dosageInstruction = this@MedicationRequestSurrogate.dosageInstruction
-      dispenseRequest = this@MedicationRequestSurrogate.dispenseRequest
-      substitution = this@MedicationRequestSurrogate.substitution
-      priorPrescription = this@MedicationRequestSurrogate.priorPrescription
-      detectedIssue = this@MedicationRequestSurrogate.detectedIssue
-      eventHistory = this@MedicationRequestSurrogate.eventHistory
-    }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      basedOn = this@MedicationRequestSurrogate.basedOn ?: mutableListOf(),
+      groupIdentifier = this@MedicationRequestSurrogate.groupIdentifier,
+      courseOfTherapyType = this@MedicationRequestSurrogate.courseOfTherapyType,
+      insurance = this@MedicationRequestSurrogate.insurance ?: mutableListOf(),
+      note = this@MedicationRequestSurrogate.note ?: mutableListOf(),
+      dosageInstruction = this@MedicationRequestSurrogate.dosageInstruction ?: mutableListOf(),
+      dispenseRequest = this@MedicationRequestSurrogate.dispenseRequest,
+      substitution = this@MedicationRequestSurrogate.substitution,
+      priorPrescription = this@MedicationRequestSurrogate.priorPrescription,
+      detectedIssue = this@MedicationRequestSurrogate.detectedIssue ?: mutableListOf(),
+      eventHistory = this@MedicationRequestSurrogate.eventHistory ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: MedicationRequest): MedicationRequestSurrogate =
       with(model) {
-        MedicationRequestSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          category = this@with.category
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          doNotPerform = this@with.doNotPerform?.value
-          _doNotPerform = this@with.doNotPerform?.toElement()
-          reportedBoolean = this@with.reported?.asBoolean()?.value?.value
-          _reportedBoolean = this@with.reported?.asBoolean()?.value?.toElement()
-          reportedReference = this@with.reported?.asReference()?.value
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value
-          medicationReference = this@with.medication?.asReference()?.value
-          subject = this@with.subject
-          encounter = this@with.encounter
-          supportingInformation = this@with.supportingInformation
-          authoredOn = this@with.authoredOn?.value?.toString()
-          _authoredOn = this@with.authoredOn?.toElement()
-          requester = this@with.requester
-          performer = this@with.performer
-          performerType = this@with.performerType
-          recorder = this@with.recorder
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
+        MedicationRequestSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          statusReason = this@with.statusReason,
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          doNotPerform = this@with.doNotPerform?.value,
+          _doNotPerform = this@with.doNotPerform?.toElement(),
+          reportedBoolean = this@with.reported?.asBoolean()?.value?.value,
+          _reportedBoolean = this@with.reported?.asBoolean()?.value?.toElement(),
+          reportedReference = this@with.reported?.asReference()?.value,
+          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value,
+          medicationReference = this@with.medication?.asReference()?.value,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          supportingInformation =
+            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          authoredOn = this@with.authoredOn?.value?.toString(),
+          _authoredOn = this@with.authoredOn?.toElement(),
+          requester = this@with.requester,
+          performer = this@with.performer,
+          performerType = this@with.performerType,
+          recorder = this@with.recorder,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          basedOn = this@with.basedOn
-          groupIdentifier = this@with.groupIdentifier
-          courseOfTherapyType = this@with.courseOfTherapyType
-          insurance = this@with.insurance
-          note = this@with.note
-          dosageInstruction = this@with.dosageInstruction
-          dispenseRequest = this@with.dispenseRequest
-          substitution = this@with.substitution
-          priorPrescription = this@with.priorPrescription
-          detectedIssue = this@with.detectedIssue
-          eventHistory = this@with.eventHistory
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          groupIdentifier = this@with.groupIdentifier,
+          courseOfTherapyType = this@with.courseOfTherapyType,
+          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          dosageInstruction = this@with.dosageInstruction.takeUnless { it.all { it == null } },
+          dispenseRequest = this@with.dispenseRequest,
+          substitution = this@with.substitution,
+          priorPrescription = this@with.priorPrescription,
+          detectedIssue = this@with.detectedIssue.takeUnless { it.all { it == null } },
+          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -44,39 +44,40 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationDispensePerformerSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var function: CodeableConcept? = null,
-  public var actor: Reference? = null,
+  public var actor: Reference,
 ) {
   public fun toModel(): MedicationDispense.Performer =
-    MedicationDispense.Performer().apply {
-      id = this@MedicationDispensePerformerSurrogate.id
-      extension = this@MedicationDispensePerformerSurrogate.extension
-      modifierExtension = this@MedicationDispensePerformerSurrogate.modifierExtension
-      function = this@MedicationDispensePerformerSurrogate.function
-      actor = this@MedicationDispensePerformerSurrogate.actor
-    }
+    MedicationDispense.Performer(
+      id = this@MedicationDispensePerformerSurrogate.id,
+      extension = this@MedicationDispensePerformerSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationDispensePerformerSurrogate.modifierExtension ?: mutableListOf(),
+      function = this@MedicationDispensePerformerSurrogate.function,
+      actor = this@MedicationDispensePerformerSurrogate.actor,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicationDispense.Performer
     ): MedicationDispensePerformerSurrogate =
       with(model) {
-        MedicationDispensePerformerSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          function = this@with.function
-          actor = this@with.actor
-        }
+        MedicationDispensePerformerSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          function = this@with.function,
+          actor = this@with.actor,
+        )
       }
   }
 }
@@ -84,44 +85,45 @@ internal data class MedicationDispensePerformerSurrogate(
 @Serializable
 internal data class MedicationDispenseSubstitutionSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var wasSubstituted: KotlinBoolean? = null,
   public var _wasSubstituted: Element? = null,
   public var type: CodeableConcept? = null,
-  public var reason: List<CodeableConcept?>? = null,
+  public var reason: MutableList<CodeableConcept>? = null,
   public var responsibleParty: Reference? = null,
 ) {
   public fun toModel(): MedicationDispense.Substitution =
-    MedicationDispense.Substitution().apply {
-      id = this@MedicationDispenseSubstitutionSurrogate.id
-      extension = this@MedicationDispenseSubstitutionSurrogate.extension
-      modifierExtension = this@MedicationDispenseSubstitutionSurrogate.modifierExtension
+    MedicationDispense.Substitution(
+      id = this@MedicationDispenseSubstitutionSurrogate.id,
+      extension = this@MedicationDispenseSubstitutionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationDispenseSubstitutionSurrogate.modifierExtension ?: mutableListOf(),
       wasSubstituted =
         R5Boolean.of(
           this@MedicationDispenseSubstitutionSurrogate.wasSubstituted,
           this@MedicationDispenseSubstitutionSurrogate._wasSubstituted,
-        )
-      type = this@MedicationDispenseSubstitutionSurrogate.type
-      reason = this@MedicationDispenseSubstitutionSurrogate.reason
-      responsibleParty = this@MedicationDispenseSubstitutionSurrogate.responsibleParty
-    }
+        )!!,
+      type = this@MedicationDispenseSubstitutionSurrogate.type,
+      reason = this@MedicationDispenseSubstitutionSurrogate.reason ?: mutableListOf(),
+      responsibleParty = this@MedicationDispenseSubstitutionSurrogate.responsibleParty,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicationDispense.Substitution
     ): MedicationDispenseSubstitutionSurrogate =
       with(model) {
-        MedicationDispenseSubstitutionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          wasSubstituted = this@with.wasSubstituted?.value
-          _wasSubstituted = this@with.wasSubstituted?.toElement()
-          type = this@with.type
-          reason = this@with.reason
-          responsibleParty = this@with.responsibleParty
-        }
+        MedicationDispenseSubstitutionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          wasSubstituted = this@with.wasSubstituted.value,
+          _wasSubstituted = this@with.wasSubstituted.toElement(),
+          type = this@with.type,
+          reason = this@with.reason.takeUnless { it.all { it == null } },
+          responsibleParty = this@with.responsibleParty,
+        )
       }
   }
 }
@@ -135,25 +137,25 @@ internal data class MedicationDispenseSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var notPerformedReason: CodeableReference? = null,
   public var statusChanged: String? = null,
   public var _statusChanged: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var medication: CodeableReference? = null,
-  public var subject: Reference? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var medication: CodeableReference,
+  public var subject: Reference,
   public var encounter: Reference? = null,
-  public var supportingInformation: List<Reference?>? = null,
-  public var performer: List<MedicationDispense.Performer>? = null,
+  public var supportingInformation: MutableList<Reference>? = null,
+  public var performer: MutableList<MedicationDispense.Performer>? = null,
   public var location: Reference? = null,
-  public var authorizingPrescription: List<Reference?>? = null,
+  public var authorizingPrescription: MutableList<Reference>? = null,
   public var type: CodeableConcept? = null,
   public var quantity: Quantity? = null,
   public var daysSupply: Quantity? = null,
@@ -164,135 +166,139 @@ internal data class MedicationDispenseSurrogate(
   public var whenHandedOver: String? = null,
   public var _whenHandedOver: Element? = null,
   public var destination: Reference? = null,
-  public var `receiver`: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var `receiver`: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
   public var renderedDosageInstruction: String? = null,
   public var _renderedDosageInstruction: Element? = null,
-  public var dosageInstruction: List<Dosage?>? = null,
+  public var dosageInstruction: MutableList<Dosage>? = null,
   public var substitution: MedicationDispense.Substitution? = null,
-  public var eventHistory: List<Reference?>? = null,
+  public var eventHistory: MutableList<Reference>? = null,
 ) {
   public fun toModel(): MedicationDispense =
-    MedicationDispense().apply {
-      id = this@MedicationDispenseSurrogate.id
-      meta = this@MedicationDispenseSurrogate.meta
+    MedicationDispense(
+      id = this@MedicationDispenseSurrogate.id,
+      meta = this@MedicationDispenseSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicationDispenseSurrogate.implicitRules,
           this@MedicationDispenseSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicationDispenseSurrogate.language,
           this@MedicationDispenseSurrogate._language,
-        )
-      text = this@MedicationDispenseSurrogate.text
-      contained = this@MedicationDispenseSurrogate.contained
-      extension = this@MedicationDispenseSurrogate.extension
-      modifierExtension = this@MedicationDispenseSurrogate.modifierExtension
-      identifier = this@MedicationDispenseSurrogate.identifier
-      basedOn = this@MedicationDispenseSurrogate.basedOn
-      partOf = this@MedicationDispenseSurrogate.partOf
+        ),
+      text = this@MedicationDispenseSurrogate.text,
+      contained = this@MedicationDispenseSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicationDispenseSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicationDispenseSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MedicationDispenseSurrogate.identifier ?: mutableListOf(),
+      basedOn = this@MedicationDispenseSurrogate.basedOn ?: mutableListOf(),
+      partOf = this@MedicationDispenseSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@MedicationDispenseSurrogate.status?.let {
-            com.google.fhir.model.r5.MedicationDispense.MedicationDispenseStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.MedicationDispense.MedicationDispenseStatus.fromCode(
+            this@MedicationDispenseSurrogate.status!!
+          ),
           this@MedicationDispenseSurrogate._status,
-        )
-      notPerformedReason = this@MedicationDispenseSurrogate.notPerformedReason
+        ),
+      notPerformedReason = this@MedicationDispenseSurrogate.notPerformedReason,
       statusChanged =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationDispenseSurrogate.statusChanged),
           this@MedicationDispenseSurrogate._statusChanged,
-        )
-      category = this@MedicationDispenseSurrogate.category
-      medication = this@MedicationDispenseSurrogate.medication
-      subject = this@MedicationDispenseSurrogate.subject
-      encounter = this@MedicationDispenseSurrogate.encounter
-      supportingInformation = this@MedicationDispenseSurrogate.supportingInformation
-      performer = this@MedicationDispenseSurrogate.performer
-      location = this@MedicationDispenseSurrogate.location
-      authorizingPrescription = this@MedicationDispenseSurrogate.authorizingPrescription
-      type = this@MedicationDispenseSurrogate.type
-      quantity = this@MedicationDispenseSurrogate.quantity
-      daysSupply = this@MedicationDispenseSurrogate.daysSupply
+        ),
+      category = this@MedicationDispenseSurrogate.category ?: mutableListOf(),
+      medication = this@MedicationDispenseSurrogate.medication,
+      subject = this@MedicationDispenseSurrogate.subject,
+      encounter = this@MedicationDispenseSurrogate.encounter,
+      supportingInformation =
+        this@MedicationDispenseSurrogate.supportingInformation ?: mutableListOf(),
+      performer = this@MedicationDispenseSurrogate.performer ?: mutableListOf(),
+      location = this@MedicationDispenseSurrogate.location,
+      authorizingPrescription =
+        this@MedicationDispenseSurrogate.authorizingPrescription ?: mutableListOf(),
+      type = this@MedicationDispenseSurrogate.type,
+      quantity = this@MedicationDispenseSurrogate.quantity,
+      daysSupply = this@MedicationDispenseSurrogate.daysSupply,
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationDispenseSurrogate.recorded),
           this@MedicationDispenseSurrogate._recorded,
-        )
+        ),
       whenPrepared =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationDispenseSurrogate.whenPrepared),
           this@MedicationDispenseSurrogate._whenPrepared,
-        )
+        ),
       whenHandedOver =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationDispenseSurrogate.whenHandedOver),
           this@MedicationDispenseSurrogate._whenHandedOver,
-        )
-      destination = this@MedicationDispenseSurrogate.destination
-      `receiver` = this@MedicationDispenseSurrogate.`receiver`
-      note = this@MedicationDispenseSurrogate.note
+        ),
+      destination = this@MedicationDispenseSurrogate.destination,
+      `receiver` = this@MedicationDispenseSurrogate.`receiver` ?: mutableListOf(),
+      note = this@MedicationDispenseSurrogate.note ?: mutableListOf(),
       renderedDosageInstruction =
         Markdown.of(
           this@MedicationDispenseSurrogate.renderedDosageInstruction,
           this@MedicationDispenseSurrogate._renderedDosageInstruction,
-        )
-      dosageInstruction = this@MedicationDispenseSurrogate.dosageInstruction
-      substitution = this@MedicationDispenseSurrogate.substitution
-      eventHistory = this@MedicationDispenseSurrogate.eventHistory
-    }
+        ),
+      dosageInstruction = this@MedicationDispenseSurrogate.dosageInstruction ?: mutableListOf(),
+      substitution = this@MedicationDispenseSurrogate.substitution,
+      eventHistory = this@MedicationDispenseSurrogate.eventHistory ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: MedicationDispense): MedicationDispenseSurrogate =
       with(model) {
-        MedicationDispenseSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          notPerformedReason = this@with.notPerformedReason
-          statusChanged = this@with.statusChanged?.value?.toString()
-          _statusChanged = this@with.statusChanged?.toElement()
-          category = this@with.category
-          medication = this@with.medication
-          subject = this@with.subject
-          encounter = this@with.encounter
-          supportingInformation = this@with.supportingInformation
-          performer = this@with.performer
-          location = this@with.location
-          authorizingPrescription = this@with.authorizingPrescription
-          type = this@with.type
-          quantity = this@with.quantity
-          daysSupply = this@with.daysSupply
-          recorded = this@with.recorded?.value?.toString()
-          _recorded = this@with.recorded?.toElement()
-          whenPrepared = this@with.whenPrepared?.value?.toString()
-          _whenPrepared = this@with.whenPrepared?.toElement()
-          whenHandedOver = this@with.whenHandedOver?.value?.toString()
-          _whenHandedOver = this@with.whenHandedOver?.toElement()
-          destination = this@with.destination
-          `receiver` = this@with.`receiver`
-          note = this@with.note
-          renderedDosageInstruction = this@with.renderedDosageInstruction?.value
-          _renderedDosageInstruction = this@with.renderedDosageInstruction?.toElement()
-          dosageInstruction = this@with.dosageInstruction
-          substitution = this@with.substitution
-          eventHistory = this@with.eventHistory
-        }
+        MedicationDispenseSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          notPerformedReason = this@with.notPerformedReason,
+          statusChanged = this@with.statusChanged?.value?.toString(),
+          _statusChanged = this@with.statusChanged?.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          medication = this@with.medication,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          supportingInformation =
+            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          location = this@with.location,
+          authorizingPrescription =
+            this@with.authorizingPrescription.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          quantity = this@with.quantity,
+          daysSupply = this@with.daysSupply,
+          recorded = this@with.recorded?.value?.toString(),
+          _recorded = this@with.recorded?.toElement(),
+          whenPrepared = this@with.whenPrepared?.value?.toString(),
+          _whenPrepared = this@with.whenPrepared?.toElement(),
+          whenHandedOver = this@with.whenHandedOver?.value?.toString(),
+          _whenHandedOver = this@with.whenHandedOver?.toElement(),
+          destination = this@with.destination,
+          `receiver` = this@with.`receiver`.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          renderedDosageInstruction = this@with.renderedDosageInstruction?.value,
+          _renderedDosageInstruction = this@with.renderedDosageInstruction?.toElement(),
+          dosageInstruction = this@with.dosageInstruction.takeUnless { it.all { it == null } },
+          substitution = this@with.substitution,
+          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

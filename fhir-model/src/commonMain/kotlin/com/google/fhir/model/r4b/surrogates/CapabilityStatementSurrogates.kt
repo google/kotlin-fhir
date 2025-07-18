@@ -47,15 +47,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CapabilityStatementSoftwareSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var version: KotlinString? = null,
@@ -64,43 +64,44 @@ internal data class CapabilityStatementSoftwareSurrogate(
   public var _releaseDate: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Software =
-    CapabilityStatement.Software().apply {
-      id = this@CapabilityStatementSoftwareSurrogate.id
-      extension = this@CapabilityStatementSoftwareSurrogate.extension
-      modifierExtension = this@CapabilityStatementSoftwareSurrogate.modifierExtension
+    CapabilityStatement.Software(
+      id = this@CapabilityStatementSoftwareSurrogate.id,
+      extension = this@CapabilityStatementSoftwareSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementSoftwareSurrogate.modifierExtension ?: mutableListOf(),
       name =
         R4bString.of(
           this@CapabilityStatementSoftwareSurrogate.name,
           this@CapabilityStatementSoftwareSurrogate._name,
-        )
+        )!!,
       version =
         R4bString.of(
           this@CapabilityStatementSoftwareSurrogate.version,
           this@CapabilityStatementSoftwareSurrogate._version,
-        )
+        ),
       releaseDate =
         DateTime.of(
           FhirDateTime.fromString(this@CapabilityStatementSoftwareSurrogate.releaseDate),
           this@CapabilityStatementSoftwareSurrogate._releaseDate,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Software
     ): CapabilityStatementSoftwareSurrogate =
       with(model) {
-        CapabilityStatementSoftwareSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          releaseDate = this@with.releaseDate?.value?.toString()
-          _releaseDate = this@with.releaseDate?.toElement()
-        }
+        CapabilityStatementSoftwareSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          releaseDate = this@with.releaseDate?.value?.toString(),
+          _releaseDate = this@with.releaseDate?.toElement(),
+        )
       }
   }
 }
@@ -108,8 +109,8 @@ internal data class CapabilityStatementSoftwareSurrogate(
 @Serializable
 internal data class CapabilityStatementImplementationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var url: KotlinString? = null,
@@ -117,38 +118,39 @@ internal data class CapabilityStatementImplementationSurrogate(
   public var custodian: Reference? = null,
 ) {
   public fun toModel(): CapabilityStatement.Implementation =
-    CapabilityStatement.Implementation().apply {
-      id = this@CapabilityStatementImplementationSurrogate.id
-      extension = this@CapabilityStatementImplementationSurrogate.extension
-      modifierExtension = this@CapabilityStatementImplementationSurrogate.modifierExtension
+    CapabilityStatement.Implementation(
+      id = this@CapabilityStatementImplementationSurrogate.id,
+      extension = this@CapabilityStatementImplementationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementImplementationSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4bString.of(
           this@CapabilityStatementImplementationSurrogate.description,
           this@CapabilityStatementImplementationSurrogate._description,
-        )
+        )!!,
       url =
         Url.of(
           this@CapabilityStatementImplementationSurrogate.url,
           this@CapabilityStatementImplementationSurrogate._url,
-        )
-      custodian = this@CapabilityStatementImplementationSurrogate.custodian
-    }
+        ),
+      custodian = this@CapabilityStatementImplementationSurrogate.custodian,
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Implementation
     ): CapabilityStatementImplementationSurrogate =
       with(model) {
-        CapabilityStatementImplementationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          custodian = this@with.custodian
-        }
+        CapabilityStatementImplementationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description.value,
+          _description = this@with.description.toElement(),
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          custodian = this@with.custodian,
+        )
       }
   }
 }
@@ -156,47 +158,48 @@ internal data class CapabilityStatementImplementationSurrogate(
 @Serializable
 internal data class CapabilityStatementRestSecuritySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var cors: KotlinBoolean? = null,
   public var _cors: Element? = null,
-  public var service: List<CodeableConcept?>? = null,
+  public var service: MutableList<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest.Security =
-    CapabilityStatement.Rest.Security().apply {
-      id = this@CapabilityStatementRestSecuritySurrogate.id
-      extension = this@CapabilityStatementRestSecuritySurrogate.extension
-      modifierExtension = this@CapabilityStatementRestSecuritySurrogate.modifierExtension
+    CapabilityStatement.Rest.Security(
+      id = this@CapabilityStatementRestSecuritySurrogate.id,
+      extension = this@CapabilityStatementRestSecuritySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestSecuritySurrogate.modifierExtension ?: mutableListOf(),
       cors =
         R4bBoolean.of(
           this@CapabilityStatementRestSecuritySurrogate.cors,
           this@CapabilityStatementRestSecuritySurrogate._cors,
-        )
-      service = this@CapabilityStatementRestSecuritySurrogate.service
+        ),
+      service = this@CapabilityStatementRestSecuritySurrogate.service ?: mutableListOf(),
       description =
         Markdown.of(
           this@CapabilityStatementRestSecuritySurrogate.description,
           this@CapabilityStatementRestSecuritySurrogate._description,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Rest.Security
     ): CapabilityStatementRestSecuritySurrogate =
       with(model) {
-        CapabilityStatementRestSecuritySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          cors = this@with.cors?.value
-          _cors = this@with.cors?.toElement()
-          service = this@with.service
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-        }
+        CapabilityStatementRestSecuritySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          cors = this@with.cors?.value,
+          _cors = this@with.cors?.toElement(),
+          service = this@with.service.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+        )
       }
   }
 }
@@ -204,46 +207,49 @@ internal data class CapabilityStatementRestSecuritySurrogate(
 @Serializable
 internal data class CapabilityStatementRestResourceInteractionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest.Resource.Interaction =
-    CapabilityStatement.Rest.Resource.Interaction().apply {
-      id = this@CapabilityStatementRestResourceInteractionSurrogate.id
-      extension = this@CapabilityStatementRestResourceInteractionSurrogate.extension
-      modifierExtension = this@CapabilityStatementRestResourceInteractionSurrogate.modifierExtension
+    CapabilityStatement.Rest.Resource.Interaction(
+      id = this@CapabilityStatementRestResourceInteractionSurrogate.id,
+      extension =
+        this@CapabilityStatementRestResourceInteractionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceInteractionSurrogate.modifierExtension
+          ?: mutableListOf(),
       code =
         Enumeration.of(
-          this@CapabilityStatementRestResourceInteractionSurrogate.code?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.TypeRestfulInteraction.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CapabilityStatement.TypeRestfulInteraction.fromCode(
+            this@CapabilityStatementRestResourceInteractionSurrogate.code!!
+          ),
           this@CapabilityStatementRestResourceInteractionSurrogate._code,
-        )
+        ),
       documentation =
         Markdown.of(
           this@CapabilityStatementRestResourceInteractionSurrogate.documentation,
           this@CapabilityStatementRestResourceInteractionSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Rest.Resource.Interaction
     ): CapabilityStatementRestResourceInteractionSurrogate =
       with(model) {
-        CapabilityStatementRestResourceInteractionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code?.value?.getCode()
-          _code = this@with.code?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        CapabilityStatementRestResourceInteractionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -251,8 +257,8 @@ internal data class CapabilityStatementRestResourceInteractionSurrogate(
 @Serializable
 internal data class CapabilityStatementRestResourceSearchParamSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var definition: KotlinString? = null,
@@ -263,52 +269,55 @@ internal data class CapabilityStatementRestResourceSearchParamSurrogate(
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest.Resource.SearchParam =
-    CapabilityStatement.Rest.Resource.SearchParam().apply {
-      id = this@CapabilityStatementRestResourceSearchParamSurrogate.id
-      extension = this@CapabilityStatementRestResourceSearchParamSurrogate.extension
-      modifierExtension = this@CapabilityStatementRestResourceSearchParamSurrogate.modifierExtension
+    CapabilityStatement.Rest.Resource.SearchParam(
+      id = this@CapabilityStatementRestResourceSearchParamSurrogate.id,
+      extension =
+        this@CapabilityStatementRestResourceSearchParamSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceSearchParamSurrogate.modifierExtension
+          ?: mutableListOf(),
       name =
         R4bString.of(
           this@CapabilityStatementRestResourceSearchParamSurrogate.name,
           this@CapabilityStatementRestResourceSearchParamSurrogate._name,
-        )
+        )!!,
       definition =
         Canonical.of(
           this@CapabilityStatementRestResourceSearchParamSurrogate.definition,
           this@CapabilityStatementRestResourceSearchParamSurrogate._definition,
-        )
+        ),
       type =
         Enumeration.of(
-          this@CapabilityStatementRestResourceSearchParamSurrogate.type?.let {
-            com.google.fhir.model.r4b.SearchParamType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.SearchParamType.fromCode(
+            this@CapabilityStatementRestResourceSearchParamSurrogate.type!!
+          ),
           this@CapabilityStatementRestResourceSearchParamSurrogate._type,
-        )
+        ),
       documentation =
         Markdown.of(
           this@CapabilityStatementRestResourceSearchParamSurrogate.documentation,
           this@CapabilityStatementRestResourceSearchParamSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Rest.Resource.SearchParam
     ): CapabilityStatementRestResourceSearchParamSurrogate =
       with(model) {
-        CapabilityStatementRestResourceSearchParamSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          definition = this@with.definition?.value
-          _definition = this@with.definition?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        CapabilityStatementRestResourceSearchParamSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          definition = this@with.definition?.value,
+          _definition = this@with.definition?.toElement(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -316,8 +325,8 @@ internal data class CapabilityStatementRestResourceSearchParamSurrogate(
 @Serializable
 internal data class CapabilityStatementRestResourceOperationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var definition: KotlinString? = null,
@@ -326,43 +335,45 @@ internal data class CapabilityStatementRestResourceOperationSurrogate(
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest.Resource.Operation =
-    CapabilityStatement.Rest.Resource.Operation().apply {
-      id = this@CapabilityStatementRestResourceOperationSurrogate.id
-      extension = this@CapabilityStatementRestResourceOperationSurrogate.extension
-      modifierExtension = this@CapabilityStatementRestResourceOperationSurrogate.modifierExtension
+    CapabilityStatement.Rest.Resource.Operation(
+      id = this@CapabilityStatementRestResourceOperationSurrogate.id,
+      extension =
+        this@CapabilityStatementRestResourceOperationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceOperationSurrogate.modifierExtension ?: mutableListOf(),
       name =
         R4bString.of(
           this@CapabilityStatementRestResourceOperationSurrogate.name,
           this@CapabilityStatementRestResourceOperationSurrogate._name,
-        )
+        )!!,
       definition =
         Canonical.of(
           this@CapabilityStatementRestResourceOperationSurrogate.definition,
           this@CapabilityStatementRestResourceOperationSurrogate._definition,
-        )
+        )!!,
       documentation =
         Markdown.of(
           this@CapabilityStatementRestResourceOperationSurrogate.documentation,
           this@CapabilityStatementRestResourceOperationSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Rest.Resource.Operation
     ): CapabilityStatementRestResourceOperationSurrogate =
       with(model) {
-        CapabilityStatementRestResourceOperationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          definition = this@with.definition?.value
-          _definition = this@with.definition?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        CapabilityStatementRestResourceOperationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          definition = this@with.definition.value,
+          _definition = this@with.definition.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -370,17 +381,17 @@ internal data class CapabilityStatementRestResourceOperationSurrogate(
 @Serializable
 internal data class CapabilityStatementRestResourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var profile: KotlinString? = null,
   public var _profile: Element? = null,
-  public var supportedProfile: List<KotlinString?>? = null,
-  public var _supportedProfile: List<Element?>? = null,
+  public var supportedProfile: MutableList<KotlinString?>? = null,
+  public var _supportedProfile: MutableList<Element?>? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var interaction: List<CapabilityStatement.Rest.Resource.Interaction>? = null,
+  public var interaction: MutableList<CapabilityStatement.Rest.Resource.Interaction>? = null,
   public var versioning: KotlinString? = null,
   public var _versioning: Element? = null,
   public var readHistory: KotlinBoolean? = null,
@@ -395,38 +406,39 @@ internal data class CapabilityStatementRestResourceSurrogate(
   public var _conditionalUpdate: Element? = null,
   public var conditionalDelete: KotlinString? = null,
   public var _conditionalDelete: Element? = null,
-  public var referencePolicy: List<KotlinString?>? = null,
-  public var _referencePolicy: List<Element?>? = null,
-  public var searchInclude: List<KotlinString?>? = null,
-  public var _searchInclude: List<Element?>? = null,
-  public var searchRevInclude: List<KotlinString?>? = null,
-  public var _searchRevInclude: List<Element?>? = null,
-  public var searchParam: List<CapabilityStatement.Rest.Resource.SearchParam>? = null,
-  public var operation: List<CapabilityStatement.Rest.Resource.Operation>? = null,
+  public var referencePolicy: MutableList<KotlinString?>? = null,
+  public var _referencePolicy: MutableList<Element?>? = null,
+  public var searchInclude: MutableList<KotlinString?>? = null,
+  public var _searchInclude: MutableList<Element?>? = null,
+  public var searchRevInclude: MutableList<KotlinString?>? = null,
+  public var _searchRevInclude: MutableList<Element?>? = null,
+  public var searchParam: MutableList<CapabilityStatement.Rest.Resource.SearchParam>? = null,
+  public var operation: MutableList<CapabilityStatement.Rest.Resource.Operation>? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest.Resource =
-    CapabilityStatement.Rest.Resource().apply {
-      id = this@CapabilityStatementRestResourceSurrogate.id
-      extension = this@CapabilityStatementRestResourceSurrogate.extension
-      modifierExtension = this@CapabilityStatementRestResourceSurrogate.modifierExtension
+    CapabilityStatement.Rest.Resource(
+      id = this@CapabilityStatementRestResourceSurrogate.id,
+      extension = this@CapabilityStatementRestResourceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@CapabilityStatementRestResourceSurrogate.type?.let {
-            com.google.fhir.model.r4b.ResourceType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.ResourceType.fromCode(
+            this@CapabilityStatementRestResourceSurrogate.type!!
+          ),
           this@CapabilityStatementRestResourceSurrogate._type,
-        )
+        ),
       profile =
         Canonical.of(
           this@CapabilityStatementRestResourceSurrogate.profile,
           this@CapabilityStatementRestResourceSurrogate._profile,
-        )
+        ),
       supportedProfile =
         if (
           this@CapabilityStatementRestResourceSurrogate.supportedProfile == null &&
             this@CapabilityStatementRestResourceSurrogate._supportedProfile == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementRestResourceSurrogate.supportedProfile
               ?: List(this@CapabilityStatementRestResourceSurrogate._supportedProfile!!.size) {
@@ -438,61 +450,62 @@ internal data class CapabilityStatementRestResourceSurrogate(
                   null
                 }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       documentation =
         Markdown.of(
           this@CapabilityStatementRestResourceSurrogate.documentation,
           this@CapabilityStatementRestResourceSurrogate._documentation,
-        )
-      interaction = this@CapabilityStatementRestResourceSurrogate.interaction
+        ),
+      interaction = this@CapabilityStatementRestResourceSurrogate.interaction ?: mutableListOf(),
       versioning =
-        Enumeration.of(
-          this@CapabilityStatementRestResourceSurrogate.versioning?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.ResourceVersionPolicy.fromCode(it)
-          },
-          this@CapabilityStatementRestResourceSurrogate._versioning,
-        )
+        this@CapabilityStatementRestResourceSurrogate.versioning?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.CapabilityStatement.ResourceVersionPolicy.fromCode(it!!),
+            this@CapabilityStatementRestResourceSurrogate._versioning,
+          )
+        },
       readHistory =
         R4bBoolean.of(
           this@CapabilityStatementRestResourceSurrogate.readHistory,
           this@CapabilityStatementRestResourceSurrogate._readHistory,
-        )
+        ),
       updateCreate =
         R4bBoolean.of(
           this@CapabilityStatementRestResourceSurrogate.updateCreate,
           this@CapabilityStatementRestResourceSurrogate._updateCreate,
-        )
+        ),
       conditionalCreate =
         R4bBoolean.of(
           this@CapabilityStatementRestResourceSurrogate.conditionalCreate,
           this@CapabilityStatementRestResourceSurrogate._conditionalCreate,
-        )
+        ),
       conditionalRead =
-        Enumeration.of(
-          this@CapabilityStatementRestResourceSurrogate.conditionalRead?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.ConditionalReadStatus.fromCode(it)
-          },
-          this@CapabilityStatementRestResourceSurrogate._conditionalRead,
-        )
+        this@CapabilityStatementRestResourceSurrogate.conditionalRead?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.CapabilityStatement.ConditionalReadStatus.fromCode(it!!),
+            this@CapabilityStatementRestResourceSurrogate._conditionalRead,
+          )
+        },
       conditionalUpdate =
         R4bBoolean.of(
           this@CapabilityStatementRestResourceSurrogate.conditionalUpdate,
           this@CapabilityStatementRestResourceSurrogate._conditionalUpdate,
-        )
+        ),
       conditionalDelete =
-        Enumeration.of(
-          this@CapabilityStatementRestResourceSurrogate.conditionalDelete?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.ConditionalDeleteStatus.fromCode(it)
-          },
-          this@CapabilityStatementRestResourceSurrogate._conditionalDelete,
-        )
+        this@CapabilityStatementRestResourceSurrogate.conditionalDelete?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.CapabilityStatement.ConditionalDeleteStatus.fromCode(it!!),
+            this@CapabilityStatementRestResourceSurrogate._conditionalDelete,
+          )
+        },
       referencePolicy =
         if (
           this@CapabilityStatementRestResourceSurrogate.referencePolicy == null &&
             this@CapabilityStatementRestResourceSurrogate._referencePolicy == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementRestResourceSurrogate.referencePolicy
               ?: List(this@CapabilityStatementRestResourceSurrogate._referencePolicy!!.size) {
@@ -504,21 +517,24 @@ internal data class CapabilityStatementRestResourceSurrogate(
                   null
                 }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
-                  com.google.fhir.model.r4b.CapabilityStatement.ReferenceHandlingPolicy.fromCode(it)
+                value.let {
+                  com.google.fhir.model.r4b.CapabilityStatement.ReferenceHandlingPolicy.fromCode(
+                    it!!
+                  )!!
                 },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       searchInclude =
         if (
           this@CapabilityStatementRestResourceSurrogate.searchInclude == null &&
             this@CapabilityStatementRestResourceSurrogate._searchInclude == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementRestResourceSurrogate.searchInclude
               ?: List(this@CapabilityStatementRestResourceSurrogate._searchInclude!!.size) { null })
@@ -526,14 +542,15 @@ internal data class CapabilityStatementRestResourceSurrogate(
               this@CapabilityStatementRestResourceSurrogate._searchInclude
                 ?: List(this@CapabilityStatementRestResourceSurrogate.searchInclude!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4bString.of(value, element) }
-        }
+            .map { (value, element) -> R4bString.of(value, element)!! }
+            .toMutableList()
+        },
       searchRevInclude =
         if (
           this@CapabilityStatementRestResourceSurrogate.searchRevInclude == null &&
             this@CapabilityStatementRestResourceSurrogate._searchRevInclude == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementRestResourceSurrogate.searchRevInclude
               ?: List(this@CapabilityStatementRestResourceSurrogate._searchRevInclude!!.size) {
@@ -545,67 +562,90 @@ internal data class CapabilityStatementRestResourceSurrogate(
                   null
                 }
             )
-            .mapNotNull { (value, element) -> R4bString.of(value, element) }
-        }
-      searchParam = this@CapabilityStatementRestResourceSurrogate.searchParam
-      operation = this@CapabilityStatementRestResourceSurrogate.operation
-    }
+            .map { (value, element) -> R4bString.of(value, element)!! }
+            .toMutableList()
+        },
+      searchParam = this@CapabilityStatementRestResourceSurrogate.searchParam ?: mutableListOf(),
+      operation = this@CapabilityStatementRestResourceSurrogate.operation ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Rest.Resource
     ): CapabilityStatementRestResourceSurrogate =
       with(model) {
-        CapabilityStatementRestResourceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          profile = this@with.profile?.value
-          _profile = this@with.profile?.toElement()
+        CapabilityStatementRestResourceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          profile = this@with.profile?.value,
+          _profile = this@with.profile?.toElement(),
           supportedProfile =
-            this@with.supportedProfile?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.supportedProfile
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _supportedProfile =
             this@with.supportedProfile
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          interaction = this@with.interaction
-          versioning = this@with.versioning?.value?.getCode()
-          _versioning = this@with.versioning?.toElement()
-          readHistory = this@with.readHistory?.value
-          _readHistory = this@with.readHistory?.toElement()
-          updateCreate = this@with.updateCreate?.value
-          _updateCreate = this@with.updateCreate?.toElement()
-          conditionalCreate = this@with.conditionalCreate?.value
-          _conditionalCreate = this@with.conditionalCreate?.toElement()
-          conditionalRead = this@with.conditionalRead?.value?.getCode()
-          _conditionalRead = this@with.conditionalRead?.toElement()
-          conditionalUpdate = this@with.conditionalUpdate?.value
-          _conditionalUpdate = this@with.conditionalUpdate?.toElement()
-          conditionalDelete = this@with.conditionalDelete?.value?.getCode()
-          _conditionalDelete = this@with.conditionalDelete?.toElement()
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          interaction = this@with.interaction.takeUnless { it.all { it == null } },
+          versioning = this@with.versioning?.value?.getCode(),
+          _versioning = this@with.versioning?.toElement(),
+          readHistory = this@with.readHistory?.value,
+          _readHistory = this@with.readHistory?.toElement(),
+          updateCreate = this@with.updateCreate?.value,
+          _updateCreate = this@with.updateCreate?.toElement(),
+          conditionalCreate = this@with.conditionalCreate?.value,
+          _conditionalCreate = this@with.conditionalCreate?.toElement(),
+          conditionalRead = this@with.conditionalRead?.value?.getCode(),
+          _conditionalRead = this@with.conditionalRead?.toElement(),
+          conditionalUpdate = this@with.conditionalUpdate?.value,
+          _conditionalUpdate = this@with.conditionalUpdate?.toElement(),
+          conditionalDelete = this@with.conditionalDelete?.value?.getCode(),
+          _conditionalDelete = this@with.conditionalDelete?.toElement(),
           referencePolicy =
             this@with.referencePolicy
-              ?.map { it?.value?.getCode() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _referencePolicy =
-            this@with.referencePolicy?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.referencePolicy
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           searchInclude =
-            this@with.searchInclude?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.searchInclude
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _searchInclude =
-            this@with.searchInclude?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.searchInclude
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           searchRevInclude =
-            this@with.searchRevInclude?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.searchRevInclude
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _searchRevInclude =
             this@with.searchRevInclude
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          searchParam = this@with.searchParam
-          operation = this@with.operation
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          searchParam = this@with.searchParam.takeUnless { it.all { it == null } },
+          operation = this@with.operation.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -613,46 +653,47 @@ internal data class CapabilityStatementRestResourceSurrogate(
 @Serializable
 internal data class CapabilityStatementRestInteractionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest.Interaction =
-    CapabilityStatement.Rest.Interaction().apply {
-      id = this@CapabilityStatementRestInteractionSurrogate.id
-      extension = this@CapabilityStatementRestInteractionSurrogate.extension
-      modifierExtension = this@CapabilityStatementRestInteractionSurrogate.modifierExtension
+    CapabilityStatement.Rest.Interaction(
+      id = this@CapabilityStatementRestInteractionSurrogate.id,
+      extension = this@CapabilityStatementRestInteractionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestInteractionSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          this@CapabilityStatementRestInteractionSurrogate.code?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.SystemRestfulInteraction.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CapabilityStatement.SystemRestfulInteraction.fromCode(
+            this@CapabilityStatementRestInteractionSurrogate.code!!
+          ),
           this@CapabilityStatementRestInteractionSurrogate._code,
-        )
+        ),
       documentation =
         Markdown.of(
           this@CapabilityStatementRestInteractionSurrogate.documentation,
           this@CapabilityStatementRestInteractionSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Rest.Interaction
     ): CapabilityStatementRestInteractionSurrogate =
       with(model) {
-        CapabilityStatementRestInteractionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code?.value?.getCode()
-          _code = this@with.code?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        CapabilityStatementRestInteractionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -660,48 +701,49 @@ internal data class CapabilityStatementRestInteractionSurrogate(
 @Serializable
 internal data class CapabilityStatementRestSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
   public var security: CapabilityStatement.Rest.Security? = null,
-  public var resource: List<CapabilityStatement.Rest.Resource>? = null,
-  public var interaction: List<CapabilityStatement.Rest.Interaction>? = null,
-  public var searchParam: List<CapabilityStatement.Rest.Resource.SearchParam?>? = null,
-  public var operation: List<CapabilityStatement.Rest.Resource.Operation?>? = null,
-  public var compartment: List<KotlinString?>? = null,
-  public var _compartment: List<Element?>? = null,
+  public var resource: MutableList<CapabilityStatement.Rest.Resource>? = null,
+  public var interaction: MutableList<CapabilityStatement.Rest.Interaction>? = null,
+  public var searchParam: MutableList<CapabilityStatement.Rest.Resource.SearchParam>? = null,
+  public var operation: MutableList<CapabilityStatement.Rest.Resource.Operation>? = null,
+  public var compartment: MutableList<KotlinString?>? = null,
+  public var _compartment: MutableList<Element?>? = null,
 ) {
   public fun toModel(): CapabilityStatement.Rest =
-    CapabilityStatement.Rest().apply {
-      id = this@CapabilityStatementRestSurrogate.id
-      extension = this@CapabilityStatementRestSurrogate.extension
-      modifierExtension = this@CapabilityStatementRestSurrogate.modifierExtension
+    CapabilityStatement.Rest(
+      id = this@CapabilityStatementRestSurrogate.id,
+      extension = this@CapabilityStatementRestSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         Enumeration.of(
-          this@CapabilityStatementRestSurrogate.mode?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.RestfulCapabilityMode.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CapabilityStatement.RestfulCapabilityMode.fromCode(
+            this@CapabilityStatementRestSurrogate.mode!!
+          ),
           this@CapabilityStatementRestSurrogate._mode,
-        )
+        ),
       documentation =
         Markdown.of(
           this@CapabilityStatementRestSurrogate.documentation,
           this@CapabilityStatementRestSurrogate._documentation,
-        )
-      security = this@CapabilityStatementRestSurrogate.security
-      resource = this@CapabilityStatementRestSurrogate.resource
-      interaction = this@CapabilityStatementRestSurrogate.interaction
-      searchParam = this@CapabilityStatementRestSurrogate.searchParam
-      operation = this@CapabilityStatementRestSurrogate.operation
+        ),
+      security = this@CapabilityStatementRestSurrogate.security,
+      resource = this@CapabilityStatementRestSurrogate.resource ?: mutableListOf(),
+      interaction = this@CapabilityStatementRestSurrogate.interaction ?: mutableListOf(),
+      searchParam = this@CapabilityStatementRestSurrogate.searchParam ?: mutableListOf(),
+      operation = this@CapabilityStatementRestSurrogate.operation ?: mutableListOf(),
       compartment =
         if (
           this@CapabilityStatementRestSurrogate.compartment == null &&
             this@CapabilityStatementRestSurrogate._compartment == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementRestSurrogate.compartment
               ?: List(this@CapabilityStatementRestSurrogate._compartment!!.size) { null })
@@ -709,31 +751,39 @@ internal data class CapabilityStatementRestSurrogate(
               this@CapabilityStatementRestSurrogate._compartment
                 ?: List(this@CapabilityStatementRestSurrogate.compartment!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
-    }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: CapabilityStatement.Rest): CapabilityStatementRestSurrogate =
       with(model) {
-        CapabilityStatementRestSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          security = this@with.security
-          resource = this@with.resource
-          interaction = this@with.interaction
-          searchParam = this@with.searchParam
-          operation = this@with.operation
+        CapabilityStatementRestSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          security = this@with.security,
+          resource = this@with.resource.takeUnless { it.all { it == null } },
+          interaction = this@with.interaction.takeUnless { it.all { it == null } },
+          searchParam = this@with.searchParam.takeUnless { it.all { it == null } },
+          operation = this@with.operation.takeUnless { it.all { it == null } },
           compartment =
-            this@with.compartment?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.compartment
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _compartment =
-            this@with.compartment?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.compartment
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }
@@ -741,38 +791,39 @@ internal data class CapabilityStatementRestSurrogate(
 @Serializable
 internal data class CapabilityStatementMessagingEndpointSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var protocol: Coding? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var protocol: Coding,
   public var address: KotlinString? = null,
   public var _address: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Messaging.Endpoint =
-    CapabilityStatement.Messaging.Endpoint().apply {
-      id = this@CapabilityStatementMessagingEndpointSurrogate.id
-      extension = this@CapabilityStatementMessagingEndpointSurrogate.extension
-      modifierExtension = this@CapabilityStatementMessagingEndpointSurrogate.modifierExtension
-      protocol = this@CapabilityStatementMessagingEndpointSurrogate.protocol
+    CapabilityStatement.Messaging.Endpoint(
+      id = this@CapabilityStatementMessagingEndpointSurrogate.id,
+      extension = this@CapabilityStatementMessagingEndpointSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementMessagingEndpointSurrogate.modifierExtension ?: mutableListOf(),
+      protocol = this@CapabilityStatementMessagingEndpointSurrogate.protocol,
       address =
         Url.of(
           this@CapabilityStatementMessagingEndpointSurrogate.address,
           this@CapabilityStatementMessagingEndpointSurrogate._address,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Messaging.Endpoint
     ): CapabilityStatementMessagingEndpointSurrogate =
       with(model) {
-        CapabilityStatementMessagingEndpointSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          protocol = this@with.protocol
-          address = this@with.address?.value
-          _address = this@with.address?.toElement()
-        }
+        CapabilityStatementMessagingEndpointSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          protocol = this@with.protocol,
+          address = this@with.address.value,
+          _address = this@with.address.toElement(),
+        )
       }
   }
 }
@@ -780,47 +831,49 @@ internal data class CapabilityStatementMessagingEndpointSurrogate(
 @Serializable
 internal data class CapabilityStatementMessagingSupportedMessageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Messaging.SupportedMessage =
-    CapabilityStatement.Messaging.SupportedMessage().apply {
-      id = this@CapabilityStatementMessagingSupportedMessageSurrogate.id
-      extension = this@CapabilityStatementMessagingSupportedMessageSurrogate.extension
+    CapabilityStatement.Messaging.SupportedMessage(
+      id = this@CapabilityStatementMessagingSupportedMessageSurrogate.id,
+      extension =
+        this@CapabilityStatementMessagingSupportedMessageSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@CapabilityStatementMessagingSupportedMessageSurrogate.modifierExtension
+          ?: mutableListOf(),
       mode =
         Enumeration.of(
-          this@CapabilityStatementMessagingSupportedMessageSurrogate.mode?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.EventCapabilityMode.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CapabilityStatement.EventCapabilityMode.fromCode(
+            this@CapabilityStatementMessagingSupportedMessageSurrogate.mode!!
+          ),
           this@CapabilityStatementMessagingSupportedMessageSurrogate._mode,
-        )
+        ),
       definition =
         Canonical.of(
           this@CapabilityStatementMessagingSupportedMessageSurrogate.definition,
           this@CapabilityStatementMessagingSupportedMessageSurrogate._definition,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Messaging.SupportedMessage
     ): CapabilityStatementMessagingSupportedMessageSurrogate =
       with(model) {
-        CapabilityStatementMessagingSupportedMessageSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          definition = this@with.definition?.value
-          _definition = this@with.definition?.toElement()
-        }
+        CapabilityStatementMessagingSupportedMessageSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          definition = this@with.definition.value,
+          _definition = this@with.definition.toElement(),
+        )
       }
   }
 }
@@ -828,50 +881,52 @@ internal data class CapabilityStatementMessagingSupportedMessageSurrogate(
 @Serializable
 internal data class CapabilityStatementMessagingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var endpoint: List<CapabilityStatement.Messaging.Endpoint>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var endpoint: MutableList<CapabilityStatement.Messaging.Endpoint>? = null,
   public var reliableCache: Int? = null,
   public var _reliableCache: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var supportedMessage: List<CapabilityStatement.Messaging.SupportedMessage>? = null,
+  public var supportedMessage: MutableList<CapabilityStatement.Messaging.SupportedMessage>? = null,
 ) {
   public fun toModel(): CapabilityStatement.Messaging =
-    CapabilityStatement.Messaging().apply {
-      id = this@CapabilityStatementMessagingSurrogate.id
-      extension = this@CapabilityStatementMessagingSurrogate.extension
-      modifierExtension = this@CapabilityStatementMessagingSurrogate.modifierExtension
-      endpoint = this@CapabilityStatementMessagingSurrogate.endpoint
+    CapabilityStatement.Messaging(
+      id = this@CapabilityStatementMessagingSurrogate.id,
+      extension = this@CapabilityStatementMessagingSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementMessagingSurrogate.modifierExtension ?: mutableListOf(),
+      endpoint = this@CapabilityStatementMessagingSurrogate.endpoint ?: mutableListOf(),
       reliableCache =
         UnsignedInt.of(
           this@CapabilityStatementMessagingSurrogate.reliableCache,
           this@CapabilityStatementMessagingSurrogate._reliableCache,
-        )
+        ),
       documentation =
         Markdown.of(
           this@CapabilityStatementMessagingSurrogate.documentation,
           this@CapabilityStatementMessagingSurrogate._documentation,
-        )
-      supportedMessage = this@CapabilityStatementMessagingSurrogate.supportedMessage
-    }
+        ),
+      supportedMessage =
+        this@CapabilityStatementMessagingSurrogate.supportedMessage ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Messaging
     ): CapabilityStatementMessagingSurrogate =
       with(model) {
-        CapabilityStatementMessagingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          endpoint = this@with.endpoint
-          reliableCache = this@with.reliableCache?.value
-          _reliableCache = this@with.reliableCache?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          supportedMessage = this@with.supportedMessage
-        }
+        CapabilityStatementMessagingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          reliableCache = this@with.reliableCache?.value,
+          _reliableCache = this@with.reliableCache?.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          supportedMessage = this@with.supportedMessage.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -879,8 +934,8 @@ internal data class CapabilityStatementMessagingSurrogate(
 @Serializable
 internal data class CapabilityStatementDocumentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var documentation: KotlinString? = null,
@@ -889,45 +944,46 @@ internal data class CapabilityStatementDocumentSurrogate(
   public var _profile: Element? = null,
 ) {
   public fun toModel(): CapabilityStatement.Document =
-    CapabilityStatement.Document().apply {
-      id = this@CapabilityStatementDocumentSurrogate.id
-      extension = this@CapabilityStatementDocumentSurrogate.extension
-      modifierExtension = this@CapabilityStatementDocumentSurrogate.modifierExtension
+    CapabilityStatement.Document(
+      id = this@CapabilityStatementDocumentSurrogate.id,
+      extension = this@CapabilityStatementDocumentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementDocumentSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         Enumeration.of(
-          this@CapabilityStatementDocumentSurrogate.mode?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.DocumentMode.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CapabilityStatement.DocumentMode.fromCode(
+            this@CapabilityStatementDocumentSurrogate.mode!!
+          ),
           this@CapabilityStatementDocumentSurrogate._mode,
-        )
+        ),
       documentation =
         Markdown.of(
           this@CapabilityStatementDocumentSurrogate.documentation,
           this@CapabilityStatementDocumentSurrogate._documentation,
-        )
+        ),
       profile =
         Canonical.of(
           this@CapabilityStatementDocumentSurrogate.profile,
           this@CapabilityStatementDocumentSurrogate._profile,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: CapabilityStatement.Document
     ): CapabilityStatementDocumentSurrogate =
       with(model) {
-        CapabilityStatementDocumentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          profile = this@with.profile?.value
-          _profile = this@with.profile?.toElement()
-        }
+        CapabilityStatementDocumentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          profile = this@with.profile.value,
+          _profile = this@with.profile.toElement(),
+        )
       }
   }
 }
@@ -941,9 +997,9 @@ internal data class CapabilityStatementSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var version: KotlinString? = null,
@@ -960,122 +1016,122 @@ internal data class CapabilityStatementSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
-  public var instantiates: List<KotlinString?>? = null,
-  public var _instantiates: List<Element?>? = null,
-  public var imports: List<KotlinString?>? = null,
-  public var _imports: List<Element?>? = null,
+  public var instantiates: MutableList<KotlinString?>? = null,
+  public var _instantiates: MutableList<Element?>? = null,
+  public var imports: MutableList<KotlinString?>? = null,
+  public var _imports: MutableList<Element?>? = null,
   public var software: CapabilityStatement.Software? = null,
   public var implementation: CapabilityStatement.Implementation? = null,
   public var fhirVersion: KotlinString? = null,
   public var _fhirVersion: Element? = null,
-  public var format: List<KotlinString?>? = null,
-  public var _format: List<Element?>? = null,
-  public var patchFormat: List<KotlinString?>? = null,
-  public var _patchFormat: List<Element?>? = null,
-  public var implementationGuide: List<KotlinString?>? = null,
-  public var _implementationGuide: List<Element?>? = null,
-  public var rest: List<CapabilityStatement.Rest>? = null,
-  public var messaging: List<CapabilityStatement.Messaging>? = null,
-  public var document: List<CapabilityStatement.Document>? = null,
+  public var format: MutableList<KotlinString?>? = null,
+  public var _format: MutableList<Element?>? = null,
+  public var patchFormat: MutableList<KotlinString?>? = null,
+  public var _patchFormat: MutableList<Element?>? = null,
+  public var implementationGuide: MutableList<KotlinString?>? = null,
+  public var _implementationGuide: MutableList<Element?>? = null,
+  public var rest: MutableList<CapabilityStatement.Rest>? = null,
+  public var messaging: MutableList<CapabilityStatement.Messaging>? = null,
+  public var document: MutableList<CapabilityStatement.Document>? = null,
 ) {
   public fun toModel(): CapabilityStatement =
-    CapabilityStatement().apply {
-      id = this@CapabilityStatementSurrogate.id
-      meta = this@CapabilityStatementSurrogate.meta
+    CapabilityStatement(
+      id = this@CapabilityStatementSurrogate.id,
+      meta = this@CapabilityStatementSurrogate.meta,
       implicitRules =
         Uri.of(
           this@CapabilityStatementSurrogate.implicitRules,
           this@CapabilityStatementSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@CapabilityStatementSurrogate.language,
           this@CapabilityStatementSurrogate._language,
-        )
-      text = this@CapabilityStatementSurrogate.text
-      contained = this@CapabilityStatementSurrogate.contained
-      extension = this@CapabilityStatementSurrogate.extension
-      modifierExtension = this@CapabilityStatementSurrogate.modifierExtension
-      url = Uri.of(this@CapabilityStatementSurrogate.url, this@CapabilityStatementSurrogate._url)
+        ),
+      text = this@CapabilityStatementSurrogate.text,
+      contained = this@CapabilityStatementSurrogate.contained ?: mutableListOf(),
+      extension = this@CapabilityStatementSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CapabilityStatementSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@CapabilityStatementSurrogate.url, this@CapabilityStatementSurrogate._url),
       version =
         R4bString.of(
           this@CapabilityStatementSurrogate.version,
           this@CapabilityStatementSurrogate._version,
-        )
+        ),
       name =
         R4bString.of(
           this@CapabilityStatementSurrogate.name,
           this@CapabilityStatementSurrogate._name,
-        )
+        ),
       title =
         R4bString.of(
           this@CapabilityStatementSurrogate.title,
           this@CapabilityStatementSurrogate._title,
-        )
+        ),
       status =
         Enumeration.of(
-          this@CapabilityStatementSurrogate.status?.let {
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+            this@CapabilityStatementSurrogate.status!!
+          ),
           this@CapabilityStatementSurrogate._status,
-        )
+        ),
       experimental =
         R4bBoolean.of(
           this@CapabilityStatementSurrogate.experimental,
           this@CapabilityStatementSurrogate._experimental,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@CapabilityStatementSurrogate.date),
           this@CapabilityStatementSurrogate._date,
-        )
+        )!!,
       publisher =
         R4bString.of(
           this@CapabilityStatementSurrogate.publisher,
           this@CapabilityStatementSurrogate._publisher,
-        )
-      contact = this@CapabilityStatementSurrogate.contact
+        ),
+      contact = this@CapabilityStatementSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@CapabilityStatementSurrogate.description,
           this@CapabilityStatementSurrogate._description,
-        )
-      useContext = this@CapabilityStatementSurrogate.useContext
-      jurisdiction = this@CapabilityStatementSurrogate.jurisdiction
+        ),
+      useContext = this@CapabilityStatementSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@CapabilityStatementSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
         Markdown.of(
           this@CapabilityStatementSurrogate.purpose,
           this@CapabilityStatementSurrogate._purpose,
-        )
+        ),
       copyright =
         Markdown.of(
           this@CapabilityStatementSurrogate.copyright,
           this@CapabilityStatementSurrogate._copyright,
-        )
+        ),
       kind =
         Enumeration.of(
-          this@CapabilityStatementSurrogate.kind?.let {
-            com.google.fhir.model.r4b.CapabilityStatement.CapabilityStatementKind.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CapabilityStatement.CapabilityStatementKind.fromCode(
+            this@CapabilityStatementSurrogate.kind!!
+          ),
           this@CapabilityStatementSurrogate._kind,
-        )
+        ),
       instantiates =
         if (
           this@CapabilityStatementSurrogate.instantiates == null &&
             this@CapabilityStatementSurrogate._instantiates == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementSurrogate.instantiates
               ?: List(this@CapabilityStatementSurrogate._instantiates!!.size) { null })
@@ -1083,14 +1139,15 @@ internal data class CapabilityStatementSurrogate(
               this@CapabilityStatementSurrogate._instantiates
                 ?: List(this@CapabilityStatementSurrogate.instantiates!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       imports =
         if (
           this@CapabilityStatementSurrogate.imports == null &&
             this@CapabilityStatementSurrogate._imports == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementSurrogate.imports
               ?: List(this@CapabilityStatementSurrogate._imports!!.size) { null })
@@ -1098,23 +1155,24 @@ internal data class CapabilityStatementSurrogate(
               this@CapabilityStatementSurrogate._imports
                 ?: List(this@CapabilityStatementSurrogate.imports!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
-      software = this@CapabilityStatementSurrogate.software
-      implementation = this@CapabilityStatementSurrogate.implementation
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
+      software = this@CapabilityStatementSurrogate.software,
+      implementation = this@CapabilityStatementSurrogate.implementation,
       fhirVersion =
         Enumeration.of(
-          this@CapabilityStatementSurrogate.fhirVersion?.let {
-            com.google.fhir.model.r4b.FHIRVersion.fromCode(it)
-          },
+          com.google.fhir.model.r4b.FHIRVersion.fromCode(
+            this@CapabilityStatementSurrogate.fhirVersion!!
+          ),
           this@CapabilityStatementSurrogate._fhirVersion,
-        )
+        ),
       format =
         if (
           this@CapabilityStatementSurrogate.format == null &&
             this@CapabilityStatementSurrogate._format == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementSurrogate.format
               ?: List(this@CapabilityStatementSurrogate._format!!.size) { null })
@@ -1122,14 +1180,15 @@ internal data class CapabilityStatementSurrogate(
               this@CapabilityStatementSurrogate._format
                 ?: List(this@CapabilityStatementSurrogate.format!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
-        }
+            .map { (value, element) -> Code.of(value, element)!! }
+            .toMutableList()
+        },
       patchFormat =
         if (
           this@CapabilityStatementSurrogate.patchFormat == null &&
             this@CapabilityStatementSurrogate._patchFormat == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementSurrogate.patchFormat
               ?: List(this@CapabilityStatementSurrogate._patchFormat!!.size) { null })
@@ -1137,14 +1196,15 @@ internal data class CapabilityStatementSurrogate(
               this@CapabilityStatementSurrogate._patchFormat
                 ?: List(this@CapabilityStatementSurrogate.patchFormat!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
-        }
+            .map { (value, element) -> Code.of(value, element)!! }
+            .toMutableList()
+        },
       implementationGuide =
         if (
           this@CapabilityStatementSurrogate.implementationGuide == null &&
             this@CapabilityStatementSurrogate._implementationGuide == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CapabilityStatementSurrogate.implementationGuide
               ?: List(this@CapabilityStatementSurrogate._implementationGuide!!.size) { null })
@@ -1152,81 +1212,112 @@ internal data class CapabilityStatementSurrogate(
               this@CapabilityStatementSurrogate._implementationGuide
                 ?: List(this@CapabilityStatementSurrogate.implementationGuide!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
-      rest = this@CapabilityStatementSurrogate.rest
-      messaging = this@CapabilityStatementSurrogate.messaging
-      document = this@CapabilityStatementSurrogate.document
-    }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
+      rest = this@CapabilityStatementSurrogate.rest ?: mutableListOf(),
+      messaging = this@CapabilityStatementSurrogate.messaging ?: mutableListOf(),
+      document = this@CapabilityStatementSurrogate.document ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: CapabilityStatement): CapabilityStatementSurrogate =
       with(model) {
-        CapabilityStatementSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          kind = this@with.kind?.value?.getCode()
-          _kind = this@with.kind?.toElement()
+        CapabilityStatementSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date.value?.toString(),
+          _date = this@with.date.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          kind = this@with.kind.value?.getCode(),
+          _kind = this@with.kind.toElement(),
           instantiates =
-            this@with.instantiates?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiates
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiates =
-            this@with.instantiates?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          imports = this@with.imports?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiates
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          imports =
+            this@with.imports.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _imports =
-            this@with.imports?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          software = this@with.software
-          implementation = this@with.implementation
-          fhirVersion = this@with.fhirVersion?.value?.getCode()
-          _fhirVersion = this@with.fhirVersion?.toElement()
-          format = this@with.format?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _format = this@with.format?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.imports
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          software = this@with.software,
+          implementation = this@with.implementation,
+          fhirVersion = this@with.fhirVersion.value?.getCode(),
+          _fhirVersion = this@with.fhirVersion.toElement(),
+          format =
+            this@with.format.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _format =
+            this@with.format
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           patchFormat =
-            this@with.patchFormat?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.patchFormat
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _patchFormat =
-            this@with.patchFormat?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.patchFormat
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           implementationGuide =
-            this@with.implementationGuide?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.implementationGuide
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _implementationGuide =
             this@with.implementationGuide
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          rest = this@with.rest
-          messaging = this@with.messaging
-          document = this@with.document
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          rest = this@with.rest.takeUnless { it.all { it == null } },
+          messaging = this@with.messaging.takeUnless { it.all { it == null } },
+          document = this@with.document.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

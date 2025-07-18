@@ -88,7 +88,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -96,39 +96,39 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class TransportRestrictionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var repetitions: Int? = null,
   public var _repetitions: Element? = null,
   public var period: Period? = null,
-  public var recipient: List<Reference?>? = null,
+  public var recipient: MutableList<Reference>? = null,
 ) {
   public fun toModel(): Transport.Restriction =
-    Transport.Restriction().apply {
-      id = this@TransportRestrictionSurrogate.id
-      extension = this@TransportRestrictionSurrogate.extension
-      modifierExtension = this@TransportRestrictionSurrogate.modifierExtension
+    Transport.Restriction(
+      id = this@TransportRestrictionSurrogate.id,
+      extension = this@TransportRestrictionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TransportRestrictionSurrogate.modifierExtension ?: mutableListOf(),
       repetitions =
         PositiveInt.of(
           this@TransportRestrictionSurrogate.repetitions,
           this@TransportRestrictionSurrogate._repetitions,
-        )
-      period = this@TransportRestrictionSurrogate.period
-      recipient = this@TransportRestrictionSurrogate.recipient
-    }
+        ),
+      period = this@TransportRestrictionSurrogate.period,
+      recipient = this@TransportRestrictionSurrogate.recipient ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Transport.Restriction): TransportRestrictionSurrogate =
       with(model) {
-        TransportRestrictionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          repetitions = this@with.repetitions?.value
-          _repetitions = this@with.repetitions?.toElement()
-          period = this@with.period
-          recipient = this@with.recipient
-        }
+        TransportRestrictionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          repetitions = this@with.repetitions?.value,
+          _repetitions = this@with.repetitions?.toElement(),
+          period = this@with.period,
+          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -136,9 +136,9 @@ internal data class TransportRestrictionSurrogate(
 @Serializable
 internal data class TransportInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
   public var valueBoolean: KotlinBoolean? = null,
@@ -215,13 +215,13 @@ internal data class TransportInputSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): Transport.Input =
-    Transport.Input().apply {
-      id = this@TransportInputSurrogate.id
-      extension = this@TransportInputSurrogate.extension
-      modifierExtension = this@TransportInputSurrogate.modifierExtension
-      type = this@TransportInputSurrogate.type
+    Transport.Input(
+      id = this@TransportInputSurrogate.id,
+      extension = this@TransportInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TransportInputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TransportInputSurrogate.type,
       `value` =
-        Transport.Input.Value?.from(
+        Transport.Input.Value.from(
           Base64Binary.of(
             this@TransportInputSurrogate.valueBase64Binary,
             this@TransportInputSurrogate._valueBase64Binary,
@@ -315,92 +315,92 @@ internal data class TransportInputSurrogate(
           this@TransportInputSurrogate.valueExtendedContactDetail,
           this@TransportInputSurrogate.valueDosage,
           this@TransportInputSurrogate.valueMeta,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Transport.Input): TransportInputSurrogate =
       with(model) {
-        TransportInputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value
-          _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueRatioRange = this@with.`value`?.asRatioRange()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueAvailability = this@with.`value`?.asAvailability()?.value
-          valueExtendedContactDetail = this@with.`value`?.asExtendedContactDetail()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-          valueMeta = this@with.`value`?.asMeta()?.value
-        }
+        TransportInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueRatioRange = this@with.`value`?.asRatioRange()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueAvailability = this@with.`value`?.asAvailability()?.value,
+          valueExtendedContactDetail = this@with.`value`?.asExtendedContactDetail()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+          valueMeta = this@with.`value`?.asMeta()?.value,
+        )
       }
   }
 }
@@ -408,9 +408,9 @@ internal data class TransportInputSurrogate(
 @Serializable
 internal data class TransportOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
   public var valueBoolean: KotlinBoolean? = null,
@@ -487,13 +487,13 @@ internal data class TransportOutputSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): Transport.Output =
-    Transport.Output().apply {
-      id = this@TransportOutputSurrogate.id
-      extension = this@TransportOutputSurrogate.extension
-      modifierExtension = this@TransportOutputSurrogate.modifierExtension
-      type = this@TransportOutputSurrogate.type
+    Transport.Output(
+      id = this@TransportOutputSurrogate.id,
+      extension = this@TransportOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TransportOutputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TransportOutputSurrogate.type,
       `value` =
-        Transport.Output.Value?.from(
+        Transport.Output.Value.from(
           Base64Binary.of(
             this@TransportOutputSurrogate.valueBase64Binary,
             this@TransportOutputSurrogate._valueBase64Binary,
@@ -596,92 +596,92 @@ internal data class TransportOutputSurrogate(
           this@TransportOutputSurrogate.valueExtendedContactDetail,
           this@TransportOutputSurrogate.valueDosage,
           this@TransportOutputSurrogate.valueMeta,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Transport.Output): TransportOutputSurrogate =
       with(model) {
-        TransportOutputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value
-          _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueRatioRange = this@with.`value`?.asRatioRange()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueAvailability = this@with.`value`?.asAvailability()?.value
-          valueExtendedContactDetail = this@with.`value`?.asExtendedContactDetail()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-          valueMeta = this@with.`value`?.asMeta()?.value
-        }
+        TransportOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueRatioRange = this@with.`value`?.asRatioRange()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueAvailability = this@with.`value`?.asAvailability()?.value,
+          valueExtendedContactDetail = this@with.`value`?.asExtendedContactDetail()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+          valueMeta = this@with.`value`?.asMeta()?.value,
+        )
       }
   }
 }
@@ -695,17 +695,17 @@ internal data class TransportSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesUri: KotlinString? = null,
   public var _instantiatesUri: Element? = null,
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -726,157 +726,157 @@ internal data class TransportSurrogate(
   public var lastModified: KotlinString? = null,
   public var _lastModified: Element? = null,
   public var requester: Reference? = null,
-  public var performerType: List<CodeableConcept?>? = null,
+  public var performerType: MutableList<CodeableConcept>? = null,
   public var owner: Reference? = null,
   public var location: Reference? = null,
-  public var insurance: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var relevantHistory: List<Reference?>? = null,
+  public var insurance: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var relevantHistory: MutableList<Reference>? = null,
   public var restriction: Transport.Restriction? = null,
-  public var input: List<Transport.Input>? = null,
-  public var output: List<Transport.Output>? = null,
-  public var requestedLocation: Reference? = null,
-  public var currentLocation: Reference? = null,
+  public var input: MutableList<Transport.Input>? = null,
+  public var output: MutableList<Transport.Output>? = null,
+  public var requestedLocation: Reference,
+  public var currentLocation: Reference,
   public var reason: CodeableReference? = null,
   public var history: Reference? = null,
 ) {
   public fun toModel(): Transport =
-    Transport().apply {
-      id = this@TransportSurrogate.id
-      meta = this@TransportSurrogate.meta
+    Transport(
+      id = this@TransportSurrogate.id,
+      meta = this@TransportSurrogate.meta,
       implicitRules =
-        Uri.of(this@TransportSurrogate.implicitRules, this@TransportSurrogate._implicitRules)
-      language = Code.of(this@TransportSurrogate.language, this@TransportSurrogate._language)
-      text = this@TransportSurrogate.text
-      contained = this@TransportSurrogate.contained
-      extension = this@TransportSurrogate.extension
-      modifierExtension = this@TransportSurrogate.modifierExtension
-      identifier = this@TransportSurrogate.identifier
+        Uri.of(this@TransportSurrogate.implicitRules, this@TransportSurrogate._implicitRules),
+      language = Code.of(this@TransportSurrogate.language, this@TransportSurrogate._language),
+      text = this@TransportSurrogate.text,
+      contained = this@TransportSurrogate.contained ?: mutableListOf(),
+      extension = this@TransportSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TransportSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@TransportSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         Canonical.of(
           this@TransportSurrogate.instantiatesCanonical,
           this@TransportSurrogate._instantiatesCanonical,
-        )
+        ),
       instantiatesUri =
-        Uri.of(this@TransportSurrogate.instantiatesUri, this@TransportSurrogate._instantiatesUri)
-      basedOn = this@TransportSurrogate.basedOn
-      groupIdentifier = this@TransportSurrogate.groupIdentifier
-      partOf = this@TransportSurrogate.partOf
+        Uri.of(this@TransportSurrogate.instantiatesUri, this@TransportSurrogate._instantiatesUri),
+      basedOn = this@TransportSurrogate.basedOn ?: mutableListOf(),
+      groupIdentifier = this@TransportSurrogate.groupIdentifier,
+      partOf = this@TransportSurrogate.partOf ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@TransportSurrogate.status?.let {
-            com.google.fhir.model.r5.Transport.TransportStatus.fromCode(it)
-          },
-          this@TransportSurrogate._status,
-        )
-      statusReason = this@TransportSurrogate.statusReason
+        this@TransportSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Transport.TransportStatus.fromCode(it!!),
+            this@TransportSurrogate._status,
+          )
+        },
+      statusReason = this@TransportSurrogate.statusReason,
       intent =
         Enumeration.of(
-          this@TransportSurrogate.intent?.let {
-            com.google.fhir.model.r5.Transport.TransportIntent.fromCode(it)
-          },
+          com.google.fhir.model.r5.Transport.TransportIntent.fromCode(
+            this@TransportSurrogate.intent!!
+          ),
           this@TransportSurrogate._intent,
-        )
+        ),
       priority =
-        Enumeration.of(
-          this@TransportSurrogate.priority?.let {
-            com.google.fhir.model.r5.Transport.TransportPriority.fromCode(it)
-          },
-          this@TransportSurrogate._priority,
-        )
-      code = this@TransportSurrogate.code
+        this@TransportSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Transport.TransportPriority.fromCode(it!!),
+            this@TransportSurrogate._priority,
+          )
+        },
+      code = this@TransportSurrogate.code,
       description =
-        R5String.of(this@TransportSurrogate.description, this@TransportSurrogate._description)
-      focus = this@TransportSurrogate.focus
-      `for` = this@TransportSurrogate.`for`
-      encounter = this@TransportSurrogate.encounter
+        R5String.of(this@TransportSurrogate.description, this@TransportSurrogate._description),
+      focus = this@TransportSurrogate.focus,
+      `for` = this@TransportSurrogate.`for`,
+      encounter = this@TransportSurrogate.encounter,
       completionTime =
         DateTime.of(
           FhirDateTime.fromString(this@TransportSurrogate.completionTime),
           this@TransportSurrogate._completionTime,
-        )
+        ),
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@TransportSurrogate.authoredOn),
           this@TransportSurrogate._authoredOn,
-        )
+        ),
       lastModified =
         DateTime.of(
           FhirDateTime.fromString(this@TransportSurrogate.lastModified),
           this@TransportSurrogate._lastModified,
-        )
-      requester = this@TransportSurrogate.requester
-      performerType = this@TransportSurrogate.performerType
-      owner = this@TransportSurrogate.owner
-      location = this@TransportSurrogate.location
-      insurance = this@TransportSurrogate.insurance
-      note = this@TransportSurrogate.note
-      relevantHistory = this@TransportSurrogate.relevantHistory
-      restriction = this@TransportSurrogate.restriction
-      input = this@TransportSurrogate.input
-      output = this@TransportSurrogate.output
-      requestedLocation = this@TransportSurrogate.requestedLocation
-      currentLocation = this@TransportSurrogate.currentLocation
-      reason = this@TransportSurrogate.reason
-      history = this@TransportSurrogate.history
-    }
+        ),
+      requester = this@TransportSurrogate.requester,
+      performerType = this@TransportSurrogate.performerType ?: mutableListOf(),
+      owner = this@TransportSurrogate.owner,
+      location = this@TransportSurrogate.location,
+      insurance = this@TransportSurrogate.insurance ?: mutableListOf(),
+      note = this@TransportSurrogate.note ?: mutableListOf(),
+      relevantHistory = this@TransportSurrogate.relevantHistory ?: mutableListOf(),
+      restriction = this@TransportSurrogate.restriction,
+      input = this@TransportSurrogate.input ?: mutableListOf(),
+      output = this@TransportSurrogate.output ?: mutableListOf(),
+      requestedLocation = this@TransportSurrogate.requestedLocation,
+      currentLocation = this@TransportSurrogate.currentLocation,
+      reason = this@TransportSurrogate.reason,
+      history = this@TransportSurrogate.history,
+    )
 
   public companion object {
     public fun fromModel(model: Transport): TransportSurrogate =
       with(model) {
-        TransportSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          instantiatesCanonical = this@with.instantiatesCanonical?.value
-          _instantiatesCanonical = this@with.instantiatesCanonical?.toElement()
-          instantiatesUri = this@with.instantiatesUri?.value
-          _instantiatesUri = this@with.instantiatesUri?.toElement()
-          basedOn = this@with.basedOn
-          groupIdentifier = this@with.groupIdentifier
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          code = this@with.code
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          focus = this@with.focus
-          `for` = this@with.`for`
-          encounter = this@with.encounter
-          completionTime = this@with.completionTime?.value?.toString()
-          _completionTime = this@with.completionTime?.toElement()
-          authoredOn = this@with.authoredOn?.value?.toString()
-          _authoredOn = this@with.authoredOn?.toElement()
-          lastModified = this@with.lastModified?.value?.toString()
-          _lastModified = this@with.lastModified?.toElement()
-          requester = this@with.requester
-          performerType = this@with.performerType
-          owner = this@with.owner
-          location = this@with.location
-          insurance = this@with.insurance
-          note = this@with.note
-          relevantHistory = this@with.relevantHistory
-          restriction = this@with.restriction
-          input = this@with.input
-          output = this@with.output
-          requestedLocation = this@with.requestedLocation
-          currentLocation = this@with.currentLocation
-          reason = this@with.reason
-          history = this@with.history
-        }
+        TransportSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          instantiatesCanonical = this@with.instantiatesCanonical?.value,
+          _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
+          instantiatesUri = this@with.instantiatesUri?.value,
+          _instantiatesUri = this@with.instantiatesUri?.toElement(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          groupIdentifier = this@with.groupIdentifier,
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          statusReason = this@with.statusReason,
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          code = this@with.code,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          focus = this@with.focus,
+          `for` = this@with.`for`,
+          encounter = this@with.encounter,
+          completionTime = this@with.completionTime?.value?.toString(),
+          _completionTime = this@with.completionTime?.toElement(),
+          authoredOn = this@with.authoredOn?.value?.toString(),
+          _authoredOn = this@with.authoredOn?.toElement(),
+          lastModified = this@with.lastModified?.value?.toString(),
+          _lastModified = this@with.lastModified?.toElement(),
+          requester = this@with.requester,
+          performerType = this@with.performerType.takeUnless { it.all { it == null } },
+          owner = this@with.owner,
+          location = this@with.location,
+          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          restriction = this@with.restriction,
+          input = this@with.input.takeUnless { it.all { it == null } },
+          output = this@with.output.takeUnless { it.all { it == null } },
+          requestedLocation = this@with.requestedLocation,
+          currentLocation = this@with.currentLocation,
+          reason = this@with.reason,
+          history = this@with.history,
+        )
       }
   }
 }

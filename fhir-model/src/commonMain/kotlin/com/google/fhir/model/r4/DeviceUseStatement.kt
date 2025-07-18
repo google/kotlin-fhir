@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.DeviceUseStatementSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class DeviceUseStatement(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class DeviceUseStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,11 +127,11 @@ public data class DeviceUseStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An external identifier for this statement such as an IRI. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this DeviceUseStatement. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A code representing the patient or other source's judgment about the state of the device used
    * that this statement is about. Generally this will be active or completed.
@@ -144,9 +144,9 @@ public data class DeviceUseStatement(
    * This element is labeled as a modifier because the status contains the codes that mark the
    * statement as not currently valid.
    */
-  public var status: Enumeration<DeviceUseStatementStatus>? = null,
+  public var status: Enumeration<DeviceUseStatementStatus>,
   /** The patient who used the device. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * Allows linking the DeviceUseStatement to the underlying Request, or to other information that
    * supports or is used to derive the DeviceUseStatement.
@@ -155,7 +155,7 @@ public data class DeviceUseStatement(
    * request or from an observation or a claim. it should be noted that the amount of information
    * that is available varies from the type resource that you derive the DeviceUseStatement from.
    */
-  public var derivedFrom: List<Reference?>? = null,
+  public var derivedFrom: MutableList<Reference> = mutableListOf(),
   /** How often the device was used. */
   public var timing: Timing? = null,
   /** The time at which the statement was made/recorded. */
@@ -163,11 +163,11 @@ public data class DeviceUseStatement(
   /** Who reported the device was being used by the patient. */
   public var source: Reference? = null,
   /** The details of the device used. */
-  public var device: Reference? = null,
+  public var device: Reference,
   /** Reason or justification for the use of the device. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates another resource whose existence justifies this DeviceUseStatement. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Indicates the anotomic location on the subject's body where the device was used ( i.e. the
    * target).
@@ -178,7 +178,7 @@ public data class DeviceUseStatement(
    * the attributes provided in a class. These may include for example a comment, an instruction, or
    * a note associated with the statement.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
@@ -197,13 +197,13 @@ public data class DeviceUseStatement(
       DeviceUseStatement.Timing
 
     public companion object {
-      public fun from(
-        TimingValue: com.google.fhir.model.r4.Timing?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
+      internal fun from(
+        timingValue: com.google.fhir.model.r4.Timing?,
+        periodValue: com.google.fhir.model.r4.Period?,
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
       ): DeviceUseStatement.Timing? {
-        if (TimingValue != null) return Timing(TimingValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (timingValue != null) return Timing(timingValue)
+        if (periodValue != null) return Period(periodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         return null
       }

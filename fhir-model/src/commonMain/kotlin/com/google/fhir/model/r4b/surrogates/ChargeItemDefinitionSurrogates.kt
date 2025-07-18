@@ -50,15 +50,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ChargeItemDefinitionApplicabilitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var language: KotlinString? = null,
@@ -67,43 +67,44 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
   public var _expression: Element? = null,
 ) {
   public fun toModel(): ChargeItemDefinition.Applicability =
-    ChargeItemDefinition.Applicability().apply {
-      id = this@ChargeItemDefinitionApplicabilitySurrogate.id
-      extension = this@ChargeItemDefinitionApplicabilitySurrogate.extension
-      modifierExtension = this@ChargeItemDefinitionApplicabilitySurrogate.modifierExtension
+    ChargeItemDefinition.Applicability(
+      id = this@ChargeItemDefinitionApplicabilitySurrogate.id,
+      extension = this@ChargeItemDefinitionApplicabilitySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ChargeItemDefinitionApplicabilitySurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4bString.of(
           this@ChargeItemDefinitionApplicabilitySurrogate.description,
           this@ChargeItemDefinitionApplicabilitySurrogate._description,
-        )
+        ),
       language =
         R4bString.of(
           this@ChargeItemDefinitionApplicabilitySurrogate.language,
           this@ChargeItemDefinitionApplicabilitySurrogate._language,
-        )
+        ),
       expression =
         R4bString.of(
           this@ChargeItemDefinitionApplicabilitySurrogate.expression,
           this@ChargeItemDefinitionApplicabilitySurrogate._expression,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: ChargeItemDefinition.Applicability
     ): ChargeItemDefinitionApplicabilitySurrogate =
       with(model) {
-        ChargeItemDefinitionApplicabilitySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          expression = this@with.expression?.value
-          _expression = this@with.expression?.toElement()
-        }
+        ChargeItemDefinitionApplicabilitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          expression = this@with.expression?.value,
+          _expression = this@with.expression?.toElement(),
+        )
       }
   }
 }
@@ -111,8 +112,8 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
 @Serializable
 internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var code: CodeableConcept? = null,
@@ -121,44 +122,44 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
   public var amount: Money? = null,
 ) {
   public fun toModel(): ChargeItemDefinition.PropertyGroup.PriceComponent =
-    ChargeItemDefinition.PropertyGroup.PriceComponent().apply {
-      id = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.id
-      extension = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.extension
+    ChargeItemDefinition.PropertyGroup.PriceComponent(
+      id = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.id,
+      extension =
+        this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.modifierExtension
+          ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.type?.let {
-            com.google.fhir.model.r4b.ChargeItemDefinition.ChargeItemDefinitionPriceComponentType
-              .fromCode(it)
-          },
+          com.google.fhir.model.r4b.ChargeItemDefinition.ChargeItemDefinitionPriceComponentType
+            .fromCode(this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.type!!),
           this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate._type,
-        )
-      code = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.code
+        ),
+      code = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.code,
       factor =
         Decimal.of(
           this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.factor,
           this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate._factor,
-        )
-      amount = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.amount
-    }
+        ),
+      amount = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.amount,
+    )
 
   public companion object {
     public fun fromModel(
       model: ChargeItemDefinition.PropertyGroup.PriceComponent
     ): ChargeItemDefinitionPropertyGroupPriceComponentSurrogate =
       with(model) {
-        ChargeItemDefinitionPropertyGroupPriceComponentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          code = this@with.code
-          factor = this@with.factor?.value
-          _factor = this@with.factor?.toElement()
-          amount = this@with.amount
-        }
+        ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          code = this@with.code,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          amount = this@with.amount,
+        )
       }
   }
 }
@@ -166,32 +167,35 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
 @Serializable
 internal data class ChargeItemDefinitionPropertyGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var applicability: List<ChargeItemDefinition.Applicability?>? = null,
-  public var priceComponent: List<ChargeItemDefinition.PropertyGroup.PriceComponent>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
+  public var priceComponent: MutableList<ChargeItemDefinition.PropertyGroup.PriceComponent>? = null,
 ) {
   public fun toModel(): ChargeItemDefinition.PropertyGroup =
-    ChargeItemDefinition.PropertyGroup().apply {
-      id = this@ChargeItemDefinitionPropertyGroupSurrogate.id
-      extension = this@ChargeItemDefinitionPropertyGroupSurrogate.extension
-      modifierExtension = this@ChargeItemDefinitionPropertyGroupSurrogate.modifierExtension
-      applicability = this@ChargeItemDefinitionPropertyGroupSurrogate.applicability
-      priceComponent = this@ChargeItemDefinitionPropertyGroupSurrogate.priceComponent
-    }
+    ChargeItemDefinition.PropertyGroup(
+      id = this@ChargeItemDefinitionPropertyGroupSurrogate.id,
+      extension = this@ChargeItemDefinitionPropertyGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ChargeItemDefinitionPropertyGroupSurrogate.modifierExtension ?: mutableListOf(),
+      applicability =
+        this@ChargeItemDefinitionPropertyGroupSurrogate.applicability ?: mutableListOf(),
+      priceComponent =
+        this@ChargeItemDefinitionPropertyGroupSurrogate.priceComponent ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: ChargeItemDefinition.PropertyGroup
     ): ChargeItemDefinitionPropertyGroupSurrogate =
       with(model) {
-        ChargeItemDefinitionPropertyGroupSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          applicability = this@with.applicability
-          priceComponent = this@with.priceComponent
-        }
+        ChargeItemDefinitionPropertyGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          applicability = this@with.applicability.takeUnless { it.all { it == null } },
+          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -205,22 +209,22 @@ internal data class ChargeItemDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var derivedFromUri: List<KotlinString?>? = null,
-  public var _derivedFromUri: List<Element?>? = null,
-  public var partOf: List<KotlinString?>? = null,
-  public var _partOf: List<Element?>? = null,
-  public var replaces: List<KotlinString?>? = null,
-  public var _replaces: List<Element?>? = null,
+  public var derivedFromUri: MutableList<KotlinString?>? = null,
+  public var _derivedFromUri: MutableList<Element?>? = null,
+  public var partOf: MutableList<KotlinString?>? = null,
+  public var _partOf: MutableList<Element?>? = null,
+  public var replaces: MutableList<KotlinString?>? = null,
+  public var _replaces: MutableList<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -229,11 +233,11 @@ internal data class ChargeItemDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var approvalDate: KotlinString? = null,
@@ -242,46 +246,47 @@ internal data class ChargeItemDefinitionSurrogate(
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
   public var code: CodeableConcept? = null,
-  public var instance: List<Reference?>? = null,
-  public var applicability: List<ChargeItemDefinition.Applicability>? = null,
-  public var propertyGroup: List<ChargeItemDefinition.PropertyGroup>? = null,
+  public var instance: MutableList<Reference>? = null,
+  public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
+  public var propertyGroup: MutableList<ChargeItemDefinition.PropertyGroup>? = null,
 ) {
   public fun toModel(): ChargeItemDefinition =
-    ChargeItemDefinition().apply {
-      id = this@ChargeItemDefinitionSurrogate.id
-      meta = this@ChargeItemDefinitionSurrogate.meta
+    ChargeItemDefinition(
+      id = this@ChargeItemDefinitionSurrogate.id,
+      meta = this@ChargeItemDefinitionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ChargeItemDefinitionSurrogate.implicitRules,
           this@ChargeItemDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@ChargeItemDefinitionSurrogate.language,
           this@ChargeItemDefinitionSurrogate._language,
-        )
-      text = this@ChargeItemDefinitionSurrogate.text
-      contained = this@ChargeItemDefinitionSurrogate.contained
-      extension = this@ChargeItemDefinitionSurrogate.extension
-      modifierExtension = this@ChargeItemDefinitionSurrogate.modifierExtension
-      url = Uri.of(this@ChargeItemDefinitionSurrogate.url, this@ChargeItemDefinitionSurrogate._url)
-      identifier = this@ChargeItemDefinitionSurrogate.identifier
+        ),
+      text = this@ChargeItemDefinitionSurrogate.text,
+      contained = this@ChargeItemDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@ChargeItemDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ChargeItemDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      url =
+        Uri.of(this@ChargeItemDefinitionSurrogate.url, this@ChargeItemDefinitionSurrogate._url)!!,
+      identifier = this@ChargeItemDefinitionSurrogate.identifier ?: mutableListOf(),
       version =
         R4bString.of(
           this@ChargeItemDefinitionSurrogate.version,
           this@ChargeItemDefinitionSurrogate._version,
-        )
+        ),
       title =
         R4bString.of(
           this@ChargeItemDefinitionSurrogate.title,
           this@ChargeItemDefinitionSurrogate._title,
-        )
+        ),
       derivedFromUri =
         if (
           this@ChargeItemDefinitionSurrogate.derivedFromUri == null &&
             this@ChargeItemDefinitionSurrogate._derivedFromUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ChargeItemDefinitionSurrogate.derivedFromUri
               ?: List(this@ChargeItemDefinitionSurrogate._derivedFromUri!!.size) { null })
@@ -289,14 +294,15 @@ internal data class ChargeItemDefinitionSurrogate(
               this@ChargeItemDefinitionSurrogate._derivedFromUri
                 ?: List(this@ChargeItemDefinitionSurrogate.derivedFromUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
       partOf =
         if (
           this@ChargeItemDefinitionSurrogate.partOf == null &&
             this@ChargeItemDefinitionSurrogate._partOf == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ChargeItemDefinitionSurrogate.partOf
               ?: List(this@ChargeItemDefinitionSurrogate._partOf!!.size) { null })
@@ -304,14 +310,15 @@ internal data class ChargeItemDefinitionSurrogate(
               this@ChargeItemDefinitionSurrogate._partOf
                 ?: List(this@ChargeItemDefinitionSurrogate.partOf!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       replaces =
         if (
           this@ChargeItemDefinitionSurrogate.replaces == null &&
             this@ChargeItemDefinitionSurrogate._replaces == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ChargeItemDefinitionSurrogate.replaces
               ?: List(this@ChargeItemDefinitionSurrogate._replaces!!.size) { null })
@@ -319,115 +326,137 @@ internal data class ChargeItemDefinitionSurrogate(
               this@ChargeItemDefinitionSurrogate._replaces
                 ?: List(this@ChargeItemDefinitionSurrogate.replaces!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       status =
         Enumeration.of(
-          this@ChargeItemDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+            this@ChargeItemDefinitionSurrogate.status!!
+          ),
           this@ChargeItemDefinitionSurrogate._status,
-        )
+        ),
       experimental =
         R4bBoolean.of(
           this@ChargeItemDefinitionSurrogate.experimental,
           this@ChargeItemDefinitionSurrogate._experimental,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ChargeItemDefinitionSurrogate.date),
           this@ChargeItemDefinitionSurrogate._date,
-        )
+        ),
       publisher =
         R4bString.of(
           this@ChargeItemDefinitionSurrogate.publisher,
           this@ChargeItemDefinitionSurrogate._publisher,
-        )
-      contact = this@ChargeItemDefinitionSurrogate.contact
+        ),
+      contact = this@ChargeItemDefinitionSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@ChargeItemDefinitionSurrogate.description,
           this@ChargeItemDefinitionSurrogate._description,
-        )
-      useContext = this@ChargeItemDefinitionSurrogate.useContext
-      jurisdiction = this@ChargeItemDefinitionSurrogate.jurisdiction
+        ),
+      useContext = this@ChargeItemDefinitionSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@ChargeItemDefinitionSurrogate.jurisdiction ?: mutableListOf(),
       copyright =
         Markdown.of(
           this@ChargeItemDefinitionSurrogate.copyright,
           this@ChargeItemDefinitionSurrogate._copyright,
-        )
+        ),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@ChargeItemDefinitionSurrogate.approvalDate),
           this@ChargeItemDefinitionSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@ChargeItemDefinitionSurrogate.lastReviewDate),
           this@ChargeItemDefinitionSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@ChargeItemDefinitionSurrogate.effectivePeriod
-      code = this@ChargeItemDefinitionSurrogate.code
-      instance = this@ChargeItemDefinitionSurrogate.instance
-      applicability = this@ChargeItemDefinitionSurrogate.applicability
-      propertyGroup = this@ChargeItemDefinitionSurrogate.propertyGroup
-    }
+        ),
+      effectivePeriod = this@ChargeItemDefinitionSurrogate.effectivePeriod,
+      code = this@ChargeItemDefinitionSurrogate.code,
+      instance = this@ChargeItemDefinitionSurrogate.instance ?: mutableListOf(),
+      applicability = this@ChargeItemDefinitionSurrogate.applicability ?: mutableListOf(),
+      propertyGroup = this@ChargeItemDefinitionSurrogate.propertyGroup ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ChargeItemDefinition): ChargeItemDefinitionSurrogate =
       with(model) {
-        ChargeItemDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
+        ChargeItemDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url.value,
+          _url = this@with.url.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
           derivedFromUri =
-            this@with.derivedFromUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFromUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _derivedFromUri =
-            this@with.derivedFromUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          partOf = this@with.partOf?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _partOf = this@with.partOf?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          replaces = this@with.replaces?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFromUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          partOf =
+            this@with.partOf.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _partOf =
+            this@with.partOf
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          replaces =
+            this@with.replaces
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _replaces =
-            this@with.replaces?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          code = this@with.code
-          instance = this@with.instance
-          applicability = this@with.applicability
-          propertyGroup = this@with.propertyGroup
-        }
+            this@with.replaces
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          code = this@with.code,
+          instance = this@with.instance.takeUnless { it.all { it == null } },
+          applicability = this@with.applicability.takeUnless { it.all { it == null } },
+          propertyGroup = this@with.propertyGroup.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** Base StructureDefinition for uuid type: A UUID, represented as a URI */
 public data class Uuid(
@@ -38,12 +38,12 @@ public data class Uuid(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Primitive value for uuid */
   override var `value`: String? = null,
 ) : Uri(id, extension, `value`) {
   override fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -51,10 +51,10 @@ public data class Uuid(
 
   public companion object {
     public fun of(`value`: String?, element: Element?): Uuid? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Uuid(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Uuid(element?.id, element?.extension, value)
+        null
       }
   }
 }

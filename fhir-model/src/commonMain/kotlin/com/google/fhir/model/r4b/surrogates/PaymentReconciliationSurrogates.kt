@@ -42,18 +42,18 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PaymentReconciliationDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
   public var predecessor: Identifier? = null,
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   public var request: Reference? = null,
   public var submitter: Reference? = null,
   public var response: Reference? = null,
@@ -64,47 +64,48 @@ internal data class PaymentReconciliationDetailSurrogate(
   public var amount: Money? = null,
 ) {
   public fun toModel(): PaymentReconciliation.Detail =
-    PaymentReconciliation.Detail().apply {
-      id = this@PaymentReconciliationDetailSurrogate.id
-      extension = this@PaymentReconciliationDetailSurrogate.extension
-      modifierExtension = this@PaymentReconciliationDetailSurrogate.modifierExtension
-      identifier = this@PaymentReconciliationDetailSurrogate.identifier
-      predecessor = this@PaymentReconciliationDetailSurrogate.predecessor
-      type = this@PaymentReconciliationDetailSurrogate.type
-      request = this@PaymentReconciliationDetailSurrogate.request
-      submitter = this@PaymentReconciliationDetailSurrogate.submitter
-      response = this@PaymentReconciliationDetailSurrogate.response
+    PaymentReconciliation.Detail(
+      id = this@PaymentReconciliationDetailSurrogate.id,
+      extension = this@PaymentReconciliationDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PaymentReconciliationDetailSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@PaymentReconciliationDetailSurrogate.identifier,
+      predecessor = this@PaymentReconciliationDetailSurrogate.predecessor,
+      type = this@PaymentReconciliationDetailSurrogate.type,
+      request = this@PaymentReconciliationDetailSurrogate.request,
+      submitter = this@PaymentReconciliationDetailSurrogate.submitter,
+      response = this@PaymentReconciliationDetailSurrogate.response,
       date =
         Date.of(
           FhirDate.fromString(this@PaymentReconciliationDetailSurrogate.date),
           this@PaymentReconciliationDetailSurrogate._date,
-        )
-      responsible = this@PaymentReconciliationDetailSurrogate.responsible
-      payee = this@PaymentReconciliationDetailSurrogate.payee
-      amount = this@PaymentReconciliationDetailSurrogate.amount
-    }
+        ),
+      responsible = this@PaymentReconciliationDetailSurrogate.responsible,
+      payee = this@PaymentReconciliationDetailSurrogate.payee,
+      amount = this@PaymentReconciliationDetailSurrogate.amount,
+    )
 
   public companion object {
     public fun fromModel(
       model: PaymentReconciliation.Detail
     ): PaymentReconciliationDetailSurrogate =
       with(model) {
-        PaymentReconciliationDetailSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          predecessor = this@with.predecessor
-          type = this@with.type
-          request = this@with.request
-          submitter = this@with.submitter
-          response = this@with.response
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          responsible = this@with.responsible
-          payee = this@with.payee
-          amount = this@with.amount
-        }
+        PaymentReconciliationDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier,
+          predecessor = this@with.predecessor,
+          type = this@with.type,
+          request = this@with.request,
+          submitter = this@with.submitter,
+          response = this@with.response,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          responsible = this@with.responsible,
+          payee = this@with.payee,
+          amount = this@with.amount,
+        )
       }
   }
 }
@@ -112,46 +113,47 @@ internal data class PaymentReconciliationDetailSurrogate(
 @Serializable
 internal data class PaymentReconciliationProcessNoteSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
 ) {
   public fun toModel(): PaymentReconciliation.ProcessNote =
-    PaymentReconciliation.ProcessNote().apply {
-      id = this@PaymentReconciliationProcessNoteSurrogate.id
-      extension = this@PaymentReconciliationProcessNoteSurrogate.extension
-      modifierExtension = this@PaymentReconciliationProcessNoteSurrogate.modifierExtension
+    PaymentReconciliation.ProcessNote(
+      id = this@PaymentReconciliationProcessNoteSurrogate.id,
+      extension = this@PaymentReconciliationProcessNoteSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PaymentReconciliationProcessNoteSurrogate.modifierExtension ?: mutableListOf(),
       type =
-        Enumeration.of(
-          this@PaymentReconciliationProcessNoteSurrogate.type?.let {
-            com.google.fhir.model.r4b.NoteType.fromCode(it)
-          },
-          this@PaymentReconciliationProcessNoteSurrogate._type,
-        )
+        this@PaymentReconciliationProcessNoteSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.NoteType.fromCode(it!!),
+            this@PaymentReconciliationProcessNoteSurrogate._type,
+          )
+        },
       text =
         R4bString.of(
           this@PaymentReconciliationProcessNoteSurrogate.text,
           this@PaymentReconciliationProcessNoteSurrogate._text,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: PaymentReconciliation.ProcessNote
     ): PaymentReconciliationProcessNoteSurrogate =
       with(model) {
-        PaymentReconciliationProcessNoteSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-        }
+        PaymentReconciliationProcessNoteSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          text = this@with.text?.value,
+          _text = this@with.text?.toElement(),
+        )
       }
   }
 }
@@ -165,10 +167,10 @@ internal data class PaymentReconciliationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var period: Period? = null,
@@ -183,106 +185,106 @@ internal data class PaymentReconciliationSurrogate(
   public var _disposition: Element? = null,
   public var paymentDate: KotlinString? = null,
   public var _paymentDate: Element? = null,
-  public var paymentAmount: Money? = null,
+  public var paymentAmount: Money,
   public var paymentIdentifier: Identifier? = null,
-  public var detail: List<PaymentReconciliation.Detail>? = null,
+  public var detail: MutableList<PaymentReconciliation.Detail>? = null,
   public var formCode: CodeableConcept? = null,
-  public var processNote: List<PaymentReconciliation.ProcessNote>? = null,
+  public var processNote: MutableList<PaymentReconciliation.ProcessNote>? = null,
 ) {
   public fun toModel(): PaymentReconciliation =
-    PaymentReconciliation().apply {
-      id = this@PaymentReconciliationSurrogate.id
-      meta = this@PaymentReconciliationSurrogate.meta
+    PaymentReconciliation(
+      id = this@PaymentReconciliationSurrogate.id,
+      meta = this@PaymentReconciliationSurrogate.meta,
       implicitRules =
         Uri.of(
           this@PaymentReconciliationSurrogate.implicitRules,
           this@PaymentReconciliationSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@PaymentReconciliationSurrogate.language,
           this@PaymentReconciliationSurrogate._language,
-        )
-      text = this@PaymentReconciliationSurrogate.text
-      contained = this@PaymentReconciliationSurrogate.contained
-      extension = this@PaymentReconciliationSurrogate.extension
-      modifierExtension = this@PaymentReconciliationSurrogate.modifierExtension
-      identifier = this@PaymentReconciliationSurrogate.identifier
+        ),
+      text = this@PaymentReconciliationSurrogate.text,
+      contained = this@PaymentReconciliationSurrogate.contained ?: mutableListOf(),
+      extension = this@PaymentReconciliationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@PaymentReconciliationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@PaymentReconciliationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@PaymentReconciliationSurrogate.status?.let {
-            com.google.fhir.model.r4b.PaymentReconciliation.PaymentReconciliationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PaymentReconciliation.PaymentReconciliationStatus.fromCode(
+            this@PaymentReconciliationSurrogate.status!!
+          ),
           this@PaymentReconciliationSurrogate._status,
-        )
-      period = this@PaymentReconciliationSurrogate.period
+        ),
+      period = this@PaymentReconciliationSurrogate.period,
       created =
         DateTime.of(
           FhirDateTime.fromString(this@PaymentReconciliationSurrogate.created),
           this@PaymentReconciliationSurrogate._created,
-        )
-      paymentIssuer = this@PaymentReconciliationSurrogate.paymentIssuer
-      request = this@PaymentReconciliationSurrogate.request
-      requestor = this@PaymentReconciliationSurrogate.requestor
+        )!!,
+      paymentIssuer = this@PaymentReconciliationSurrogate.paymentIssuer,
+      request = this@PaymentReconciliationSurrogate.request,
+      requestor = this@PaymentReconciliationSurrogate.requestor,
       outcome =
-        Enumeration.of(
-          this@PaymentReconciliationSurrogate.outcome?.let {
-            com.google.fhir.model.r4b.RemittanceOutcome.fromCode(it)
-          },
-          this@PaymentReconciliationSurrogate._outcome,
-        )
+        this@PaymentReconciliationSurrogate.outcome?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.RemittanceOutcome.fromCode(it!!),
+            this@PaymentReconciliationSurrogate._outcome,
+          )
+        },
       disposition =
         R4bString.of(
           this@PaymentReconciliationSurrogate.disposition,
           this@PaymentReconciliationSurrogate._disposition,
-        )
+        ),
       paymentDate =
         Date.of(
           FhirDate.fromString(this@PaymentReconciliationSurrogate.paymentDate),
           this@PaymentReconciliationSurrogate._paymentDate,
-        )
-      paymentAmount = this@PaymentReconciliationSurrogate.paymentAmount
-      paymentIdentifier = this@PaymentReconciliationSurrogate.paymentIdentifier
-      detail = this@PaymentReconciliationSurrogate.detail
-      formCode = this@PaymentReconciliationSurrogate.formCode
-      processNote = this@PaymentReconciliationSurrogate.processNote
-    }
+        )!!,
+      paymentAmount = this@PaymentReconciliationSurrogate.paymentAmount,
+      paymentIdentifier = this@PaymentReconciliationSurrogate.paymentIdentifier,
+      detail = this@PaymentReconciliationSurrogate.detail ?: mutableListOf(),
+      formCode = this@PaymentReconciliationSurrogate.formCode,
+      processNote = this@PaymentReconciliationSurrogate.processNote ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: PaymentReconciliation): PaymentReconciliationSurrogate =
       with(model) {
-        PaymentReconciliationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          period = this@with.period
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          paymentIssuer = this@with.paymentIssuer
-          request = this@with.request
-          requestor = this@with.requestor
-          outcome = this@with.outcome?.value?.getCode()
-          _outcome = this@with.outcome?.toElement()
-          disposition = this@with.disposition?.value
-          _disposition = this@with.disposition?.toElement()
-          paymentDate = this@with.paymentDate?.value?.toString()
-          _paymentDate = this@with.paymentDate?.toElement()
-          paymentAmount = this@with.paymentAmount
-          paymentIdentifier = this@with.paymentIdentifier
-          detail = this@with.detail
-          formCode = this@with.formCode
-          processNote = this@with.processNote
-        }
+        PaymentReconciliationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          period = this@with.period,
+          created = this@with.created.value?.toString(),
+          _created = this@with.created.toElement(),
+          paymentIssuer = this@with.paymentIssuer,
+          request = this@with.request,
+          requestor = this@with.requestor,
+          outcome = this@with.outcome?.value?.getCode(),
+          _outcome = this@with.outcome?.toElement(),
+          disposition = this@with.disposition?.value,
+          _disposition = this@with.disposition?.toElement(),
+          paymentDate = this@with.paymentDate.value?.toString(),
+          _paymentDate = this@with.paymentDate.toElement(),
+          paymentAmount = this@with.paymentAmount,
+          paymentIdentifier = this@with.paymentIdentifier,
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+          formCode = this@with.formCode,
+          processNote = this@with.processNote.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

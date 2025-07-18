@@ -50,15 +50,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EffectEvidenceSynthesisSampleSizeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var numberOfStudies: Int? = null,
@@ -67,43 +67,44 @@ internal data class EffectEvidenceSynthesisSampleSizeSurrogate(
   public var _numberOfParticipants: Element? = null,
 ) {
   public fun toModel(): EffectEvidenceSynthesis.SampleSize =
-    EffectEvidenceSynthesis.SampleSize().apply {
-      id = this@EffectEvidenceSynthesisSampleSizeSurrogate.id
-      extension = this@EffectEvidenceSynthesisSampleSizeSurrogate.extension
-      modifierExtension = this@EffectEvidenceSynthesisSampleSizeSurrogate.modifierExtension
+    EffectEvidenceSynthesis.SampleSize(
+      id = this@EffectEvidenceSynthesisSampleSizeSurrogate.id,
+      extension = this@EffectEvidenceSynthesisSampleSizeSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EffectEvidenceSynthesisSampleSizeSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4String.of(
           this@EffectEvidenceSynthesisSampleSizeSurrogate.description,
           this@EffectEvidenceSynthesisSampleSizeSurrogate._description,
-        )
+        ),
       numberOfStudies =
         Integer.of(
           this@EffectEvidenceSynthesisSampleSizeSurrogate.numberOfStudies,
           this@EffectEvidenceSynthesisSampleSizeSurrogate._numberOfStudies,
-        )
+        ),
       numberOfParticipants =
         Integer.of(
           this@EffectEvidenceSynthesisSampleSizeSurrogate.numberOfParticipants,
           this@EffectEvidenceSynthesisSampleSizeSurrogate._numberOfParticipants,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: EffectEvidenceSynthesis.SampleSize
     ): EffectEvidenceSynthesisSampleSizeSurrogate =
       with(model) {
-        EffectEvidenceSynthesisSampleSizeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          numberOfStudies = this@with.numberOfStudies?.value
-          _numberOfStudies = this@with.numberOfStudies?.toElement()
-          numberOfParticipants = this@with.numberOfParticipants?.value
-          _numberOfParticipants = this@with.numberOfParticipants?.toElement()
-        }
+        EffectEvidenceSynthesisSampleSizeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          numberOfStudies = this@with.numberOfStudies?.value,
+          _numberOfStudies = this@with.numberOfStudies?.toElement(),
+          numberOfParticipants = this@with.numberOfParticipants?.value,
+          _numberOfParticipants = this@with.numberOfParticipants?.toElement(),
+        )
       }
   }
 }
@@ -111,53 +112,55 @@ internal data class EffectEvidenceSynthesisSampleSizeSurrogate(
 @Serializable
 internal data class EffectEvidenceSynthesisResultsByExposureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var exposureState: KotlinString? = null,
   public var _exposureState: Element? = null,
   public var variantState: CodeableConcept? = null,
-  public var riskEvidenceSynthesis: Reference? = null,
+  public var riskEvidenceSynthesis: Reference,
 ) {
   public fun toModel(): EffectEvidenceSynthesis.ResultsByExposure =
-    EffectEvidenceSynthesis.ResultsByExposure().apply {
-      id = this@EffectEvidenceSynthesisResultsByExposureSurrogate.id
-      extension = this@EffectEvidenceSynthesisResultsByExposureSurrogate.extension
-      modifierExtension = this@EffectEvidenceSynthesisResultsByExposureSurrogate.modifierExtension
+    EffectEvidenceSynthesis.ResultsByExposure(
+      id = this@EffectEvidenceSynthesisResultsByExposureSurrogate.id,
+      extension =
+        this@EffectEvidenceSynthesisResultsByExposureSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EffectEvidenceSynthesisResultsByExposureSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4String.of(
           this@EffectEvidenceSynthesisResultsByExposureSurrogate.description,
           this@EffectEvidenceSynthesisResultsByExposureSurrogate._description,
-        )
+        ),
       exposureState =
-        Enumeration.of(
-          this@EffectEvidenceSynthesisResultsByExposureSurrogate.exposureState?.let {
-            com.google.fhir.model.r4.EffectEvidenceSynthesis.ExposureState.fromCode(it)
-          },
-          this@EffectEvidenceSynthesisResultsByExposureSurrogate._exposureState,
-        )
-      variantState = this@EffectEvidenceSynthesisResultsByExposureSurrogate.variantState
+        this@EffectEvidenceSynthesisResultsByExposureSurrogate.exposureState?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.EffectEvidenceSynthesis.ExposureState.fromCode(it!!),
+            this@EffectEvidenceSynthesisResultsByExposureSurrogate._exposureState,
+          )
+        },
+      variantState = this@EffectEvidenceSynthesisResultsByExposureSurrogate.variantState,
       riskEvidenceSynthesis =
-        this@EffectEvidenceSynthesisResultsByExposureSurrogate.riskEvidenceSynthesis
-    }
+        this@EffectEvidenceSynthesisResultsByExposureSurrogate.riskEvidenceSynthesis,
+    )
 
   public companion object {
     public fun fromModel(
       model: EffectEvidenceSynthesis.ResultsByExposure
     ): EffectEvidenceSynthesisResultsByExposureSurrogate =
       with(model) {
-        EffectEvidenceSynthesisResultsByExposureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          exposureState = this@with.exposureState?.value?.getCode()
-          _exposureState = this@with.exposureState?.toElement()
-          variantState = this@with.variantState
-          riskEvidenceSynthesis = this@with.riskEvidenceSynthesis
-        }
+        EffectEvidenceSynthesisResultsByExposureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          exposureState = this@with.exposureState?.value?.getCode(),
+          _exposureState = this@with.exposureState?.toElement(),
+          variantState = this@with.variantState,
+          riskEvidenceSynthesis = this@with.riskEvidenceSynthesis,
+        )
       }
   }
 }
@@ -165,8 +168,8 @@ internal data class EffectEvidenceSynthesisResultsByExposureSurrogate(
 @Serializable
 internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var level: Double? = null,
   public var _level: Element? = null,
@@ -176,46 +179,49 @@ internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrog
   public var _to: Element? = null,
 ) {
   public fun toModel(): EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate =
-    EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate().apply {
-      id = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.id
-      extension = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.extension
+    EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate(
+      id = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.id,
+      extension =
+        this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.modifierExtension
-      type = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.type
+          ?: mutableListOf(),
+      type = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.type,
       level =
         Decimal.of(
           this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.level,
           this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._level,
-        )
+        ),
       from =
         Decimal.of(
           this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.from,
           this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._from,
-        )
+        ),
       to =
         Decimal.of(
           this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.to,
           this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._to,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate
     ): EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate =
       with(model) {
-        EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          level = this@with.level?.value
-          _level = this@with.level?.toElement()
-          from = this@with.from?.value
-          _from = this@with.from?.toElement()
-          to = this@with.to?.value
-          _to = this@with.to?.toElement()
-        }
+        EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          level = this@with.level?.value,
+          _level = this@with.level?.toElement(),
+          from = this@with.from?.value,
+          _from = this@with.from?.toElement(),
+          to = this@with.to?.value,
+          _to = this@with.to?.toElement(),
+        )
       }
   }
 }
@@ -223,8 +229,8 @@ internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrog
 @Serializable
 internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var type: CodeableConcept? = null,
@@ -232,48 +238,51 @@ internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var unitOfMeasure: CodeableConcept? = null,
-  public var precisionEstimate: List<EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate>? =
+  public var precisionEstimate:
+    MutableList<EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate>? =
     null,
 ) {
   public fun toModel(): EffectEvidenceSynthesis.EffectEstimate =
-    EffectEvidenceSynthesis.EffectEstimate().apply {
-      id = this@EffectEvidenceSynthesisEffectEstimateSurrogate.id
-      extension = this@EffectEvidenceSynthesisEffectEstimateSurrogate.extension
-      modifierExtension = this@EffectEvidenceSynthesisEffectEstimateSurrogate.modifierExtension
+    EffectEvidenceSynthesis.EffectEstimate(
+      id = this@EffectEvidenceSynthesisEffectEstimateSurrogate.id,
+      extension = this@EffectEvidenceSynthesisEffectEstimateSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EffectEvidenceSynthesisEffectEstimateSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4String.of(
           this@EffectEvidenceSynthesisEffectEstimateSurrogate.description,
           this@EffectEvidenceSynthesisEffectEstimateSurrogate._description,
-        )
-      type = this@EffectEvidenceSynthesisEffectEstimateSurrogate.type
-      variantState = this@EffectEvidenceSynthesisEffectEstimateSurrogate.variantState
+        ),
+      type = this@EffectEvidenceSynthesisEffectEstimateSurrogate.type,
+      variantState = this@EffectEvidenceSynthesisEffectEstimateSurrogate.variantState,
       `value` =
         Decimal.of(
           this@EffectEvidenceSynthesisEffectEstimateSurrogate.`value`,
           this@EffectEvidenceSynthesisEffectEstimateSurrogate._value,
-        )
-      unitOfMeasure = this@EffectEvidenceSynthesisEffectEstimateSurrogate.unitOfMeasure
-      precisionEstimate = this@EffectEvidenceSynthesisEffectEstimateSurrogate.precisionEstimate
-    }
+        ),
+      unitOfMeasure = this@EffectEvidenceSynthesisEffectEstimateSurrogate.unitOfMeasure,
+      precisionEstimate =
+        this@EffectEvidenceSynthesisEffectEstimateSurrogate.precisionEstimate ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: EffectEvidenceSynthesis.EffectEstimate
     ): EffectEvidenceSynthesisEffectEstimateSurrogate =
       with(model) {
-        EffectEvidenceSynthesisEffectEstimateSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          type = this@with.type
-          variantState = this@with.variantState
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          unitOfMeasure = this@with.unitOfMeasure
-          precisionEstimate = this@with.precisionEstimate
-        }
+        EffectEvidenceSynthesisEffectEstimateSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          type = this@with.type,
+          variantState = this@with.variantState,
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          unitOfMeasure = this@with.unitOfMeasure,
+          precisionEstimate = this@with.precisionEstimate.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -281,36 +290,42 @@ internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
 @Serializable
 internal data class EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var rating: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var rating: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): EffectEvidenceSynthesis.Certainty.CertaintySubcomponent =
-    EffectEvidenceSynthesis.Certainty.CertaintySubcomponent().apply {
-      id = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id
-      extension = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+    EffectEvidenceSynthesis.Certainty.CertaintySubcomponent(
+      id = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id,
+      extension =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.modifierExtension
-      type = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type
-      rating = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating
-      note = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note
-    }
+          ?: mutableListOf(),
+      type = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type,
+      rating =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating
+          ?: mutableListOf(),
+      note =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: EffectEvidenceSynthesis.Certainty.CertaintySubcomponent
     ): EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate =
       with(model) {
-        EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          rating = this@with.rating
-          note = this@with.note
-        }
+        EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          rating = this@with.rating.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -318,36 +333,40 @@ internal data class EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurroga
 @Serializable
 internal data class EffectEvidenceSynthesisCertaintySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var rating: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var certaintySubcomponent: List<EffectEvidenceSynthesis.Certainty.CertaintySubcomponent>? =
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var rating: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var certaintySubcomponent:
+    MutableList<EffectEvidenceSynthesis.Certainty.CertaintySubcomponent>? =
     null,
 ) {
   public fun toModel(): EffectEvidenceSynthesis.Certainty =
-    EffectEvidenceSynthesis.Certainty().apply {
-      id = this@EffectEvidenceSynthesisCertaintySurrogate.id
-      extension = this@EffectEvidenceSynthesisCertaintySurrogate.extension
-      modifierExtension = this@EffectEvidenceSynthesisCertaintySurrogate.modifierExtension
-      rating = this@EffectEvidenceSynthesisCertaintySurrogate.rating
-      note = this@EffectEvidenceSynthesisCertaintySurrogate.note
-      certaintySubcomponent = this@EffectEvidenceSynthesisCertaintySurrogate.certaintySubcomponent
-    }
+    EffectEvidenceSynthesis.Certainty(
+      id = this@EffectEvidenceSynthesisCertaintySurrogate.id,
+      extension = this@EffectEvidenceSynthesisCertaintySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EffectEvidenceSynthesisCertaintySurrogate.modifierExtension ?: mutableListOf(),
+      rating = this@EffectEvidenceSynthesisCertaintySurrogate.rating ?: mutableListOf(),
+      note = this@EffectEvidenceSynthesisCertaintySurrogate.note ?: mutableListOf(),
+      certaintySubcomponent =
+        this@EffectEvidenceSynthesisCertaintySurrogate.certaintySubcomponent ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: EffectEvidenceSynthesis.Certainty
     ): EffectEvidenceSynthesisCertaintySurrogate =
       with(model) {
-        EffectEvidenceSynthesisCertaintySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          rating = this@with.rating
-          note = this@with.note
-          certaintySubcomponent = this@with.certaintySubcomponent
-        }
+        EffectEvidenceSynthesisCertaintySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          rating = this@with.rating.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          certaintySubcomponent =
+            this@with.certaintySubcomponent.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -361,12 +380,12 @@ internal data class EffectEvidenceSynthesisSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -379,12 +398,12 @@ internal data class EffectEvidenceSynthesisSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var note: List<Annotation?>? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var approvalDate: KotlinString? = null,
@@ -392,181 +411,183 @@ internal data class EffectEvidenceSynthesisSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: List<CodeableConcept?>? = null,
-  public var author: List<ContactDetail?>? = null,
-  public var editor: List<ContactDetail?>? = null,
-  public var reviewer: List<ContactDetail?>? = null,
-  public var endorser: List<ContactDetail?>? = null,
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var topic: MutableList<CodeableConcept>? = null,
+  public var author: MutableList<ContactDetail>? = null,
+  public var editor: MutableList<ContactDetail>? = null,
+  public var reviewer: MutableList<ContactDetail>? = null,
+  public var endorser: MutableList<ContactDetail>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
   public var synthesisType: CodeableConcept? = null,
   public var studyType: CodeableConcept? = null,
-  public var population: Reference? = null,
-  public var exposure: Reference? = null,
-  public var exposureAlternative: Reference? = null,
-  public var outcome: Reference? = null,
+  public var population: Reference,
+  public var exposure: Reference,
+  public var exposureAlternative: Reference,
+  public var outcome: Reference,
   public var sampleSize: EffectEvidenceSynthesis.SampleSize? = null,
-  public var resultsByExposure: List<EffectEvidenceSynthesis.ResultsByExposure>? = null,
-  public var effectEstimate: List<EffectEvidenceSynthesis.EffectEstimate>? = null,
-  public var certainty: List<EffectEvidenceSynthesis.Certainty>? = null,
+  public var resultsByExposure: MutableList<EffectEvidenceSynthesis.ResultsByExposure>? = null,
+  public var effectEstimate: MutableList<EffectEvidenceSynthesis.EffectEstimate>? = null,
+  public var certainty: MutableList<EffectEvidenceSynthesis.Certainty>? = null,
 ) {
   public fun toModel(): EffectEvidenceSynthesis =
-    EffectEvidenceSynthesis().apply {
-      id = this@EffectEvidenceSynthesisSurrogate.id
-      meta = this@EffectEvidenceSynthesisSurrogate.meta
+    EffectEvidenceSynthesis(
+      id = this@EffectEvidenceSynthesisSurrogate.id,
+      meta = this@EffectEvidenceSynthesisSurrogate.meta,
       implicitRules =
         Uri.of(
           this@EffectEvidenceSynthesisSurrogate.implicitRules,
           this@EffectEvidenceSynthesisSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@EffectEvidenceSynthesisSurrogate.language,
           this@EffectEvidenceSynthesisSurrogate._language,
-        )
-      text = this@EffectEvidenceSynthesisSurrogate.text
-      contained = this@EffectEvidenceSynthesisSurrogate.contained
-      extension = this@EffectEvidenceSynthesisSurrogate.extension
-      modifierExtension = this@EffectEvidenceSynthesisSurrogate.modifierExtension
+        ),
+      text = this@EffectEvidenceSynthesisSurrogate.text,
+      contained = this@EffectEvidenceSynthesisSurrogate.contained ?: mutableListOf(),
+      extension = this@EffectEvidenceSynthesisSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EffectEvidenceSynthesisSurrogate.modifierExtension ?: mutableListOf(),
       url =
         Uri.of(
           this@EffectEvidenceSynthesisSurrogate.url,
           this@EffectEvidenceSynthesisSurrogate._url,
-        )
-      identifier = this@EffectEvidenceSynthesisSurrogate.identifier
+        ),
+      identifier = this@EffectEvidenceSynthesisSurrogate.identifier ?: mutableListOf(),
       version =
         R4String.of(
           this@EffectEvidenceSynthesisSurrogate.version,
           this@EffectEvidenceSynthesisSurrogate._version,
-        )
+        ),
       name =
         R4String.of(
           this@EffectEvidenceSynthesisSurrogate.name,
           this@EffectEvidenceSynthesisSurrogate._name,
-        )
+        ),
       title =
         R4String.of(
           this@EffectEvidenceSynthesisSurrogate.title,
           this@EffectEvidenceSynthesisSurrogate._title,
-        )
+        ),
       status =
         Enumeration.of(
-          this@EffectEvidenceSynthesisSurrogate.status?.let {
-            com.google.fhir.model.r4.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.PublicationStatus.fromCode(
+            this@EffectEvidenceSynthesisSurrogate.status!!
+          ),
           this@EffectEvidenceSynthesisSurrogate._status,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@EffectEvidenceSynthesisSurrogate.date),
           this@EffectEvidenceSynthesisSurrogate._date,
-        )
+        ),
       publisher =
         R4String.of(
           this@EffectEvidenceSynthesisSurrogate.publisher,
           this@EffectEvidenceSynthesisSurrogate._publisher,
-        )
-      contact = this@EffectEvidenceSynthesisSurrogate.contact
+        ),
+      contact = this@EffectEvidenceSynthesisSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@EffectEvidenceSynthesisSurrogate.description,
           this@EffectEvidenceSynthesisSurrogate._description,
-        )
-      note = this@EffectEvidenceSynthesisSurrogate.note
-      useContext = this@EffectEvidenceSynthesisSurrogate.useContext
-      jurisdiction = this@EffectEvidenceSynthesisSurrogate.jurisdiction
+        ),
+      note = this@EffectEvidenceSynthesisSurrogate.note ?: mutableListOf(),
+      useContext = this@EffectEvidenceSynthesisSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@EffectEvidenceSynthesisSurrogate.jurisdiction ?: mutableListOf(),
       copyright =
         Markdown.of(
           this@EffectEvidenceSynthesisSurrogate.copyright,
           this@EffectEvidenceSynthesisSurrogate._copyright,
-        )
+        ),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@EffectEvidenceSynthesisSurrogate.approvalDate),
           this@EffectEvidenceSynthesisSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@EffectEvidenceSynthesisSurrogate.lastReviewDate),
           this@EffectEvidenceSynthesisSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@EffectEvidenceSynthesisSurrogate.effectivePeriod
-      topic = this@EffectEvidenceSynthesisSurrogate.topic
-      author = this@EffectEvidenceSynthesisSurrogate.author
-      editor = this@EffectEvidenceSynthesisSurrogate.editor
-      reviewer = this@EffectEvidenceSynthesisSurrogate.reviewer
-      endorser = this@EffectEvidenceSynthesisSurrogate.endorser
-      relatedArtifact = this@EffectEvidenceSynthesisSurrogate.relatedArtifact
-      synthesisType = this@EffectEvidenceSynthesisSurrogate.synthesisType
-      studyType = this@EffectEvidenceSynthesisSurrogate.studyType
-      population = this@EffectEvidenceSynthesisSurrogate.population
-      exposure = this@EffectEvidenceSynthesisSurrogate.exposure
-      exposureAlternative = this@EffectEvidenceSynthesisSurrogate.exposureAlternative
-      outcome = this@EffectEvidenceSynthesisSurrogate.outcome
-      sampleSize = this@EffectEvidenceSynthesisSurrogate.sampleSize
-      resultsByExposure = this@EffectEvidenceSynthesisSurrogate.resultsByExposure
-      effectEstimate = this@EffectEvidenceSynthesisSurrogate.effectEstimate
-      certainty = this@EffectEvidenceSynthesisSurrogate.certainty
-    }
+        ),
+      effectivePeriod = this@EffectEvidenceSynthesisSurrogate.effectivePeriod,
+      topic = this@EffectEvidenceSynthesisSurrogate.topic ?: mutableListOf(),
+      author = this@EffectEvidenceSynthesisSurrogate.author ?: mutableListOf(),
+      editor = this@EffectEvidenceSynthesisSurrogate.editor ?: mutableListOf(),
+      reviewer = this@EffectEvidenceSynthesisSurrogate.reviewer ?: mutableListOf(),
+      endorser = this@EffectEvidenceSynthesisSurrogate.endorser ?: mutableListOf(),
+      relatedArtifact = this@EffectEvidenceSynthesisSurrogate.relatedArtifact ?: mutableListOf(),
+      synthesisType = this@EffectEvidenceSynthesisSurrogate.synthesisType,
+      studyType = this@EffectEvidenceSynthesisSurrogate.studyType,
+      population = this@EffectEvidenceSynthesisSurrogate.population,
+      exposure = this@EffectEvidenceSynthesisSurrogate.exposure,
+      exposureAlternative = this@EffectEvidenceSynthesisSurrogate.exposureAlternative,
+      outcome = this@EffectEvidenceSynthesisSurrogate.outcome,
+      sampleSize = this@EffectEvidenceSynthesisSurrogate.sampleSize,
+      resultsByExposure =
+        this@EffectEvidenceSynthesisSurrogate.resultsByExposure ?: mutableListOf(),
+      effectEstimate = this@EffectEvidenceSynthesisSurrogate.effectEstimate ?: mutableListOf(),
+      certainty = this@EffectEvidenceSynthesisSurrogate.certainty ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: EffectEvidenceSynthesis): EffectEvidenceSynthesisSurrogate =
       with(model) {
-        EffectEvidenceSynthesisSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          note = this@with.note
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          topic = this@with.topic
-          author = this@with.author
-          editor = this@with.editor
-          reviewer = this@with.reviewer
-          endorser = this@with.endorser
-          relatedArtifact = this@with.relatedArtifact
-          synthesisType = this@with.synthesisType
-          studyType = this@with.studyType
-          population = this@with.population
-          exposure = this@with.exposure
-          exposureAlternative = this@with.exposureAlternative
-          outcome = this@with.outcome
-          sampleSize = this@with.sampleSize
-          resultsByExposure = this@with.resultsByExposure
-          effectEstimate = this@with.effectEstimate
-          certainty = this@with.certainty
-        }
+        EffectEvidenceSynthesisSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          topic = this@with.topic.takeUnless { it.all { it == null } },
+          author = this@with.author.takeUnless { it.all { it == null } },
+          editor = this@with.editor.takeUnless { it.all { it == null } },
+          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
+          endorser = this@with.endorser.takeUnless { it.all { it == null } },
+          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          synthesisType = this@with.synthesisType,
+          studyType = this@with.studyType,
+          population = this@with.population,
+          exposure = this@with.exposure,
+          exposureAlternative = this@with.exposureAlternative,
+          outcome = this@with.outcome,
+          sampleSize = this@with.sampleSize,
+          resultsByExposure = this@with.resultsByExposure.takeUnless { it.all { it == null } },
+          effectEstimate = this@with.effectEstimate.takeUnless { it.all { it == null } },
+          certainty = this@with.certainty.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

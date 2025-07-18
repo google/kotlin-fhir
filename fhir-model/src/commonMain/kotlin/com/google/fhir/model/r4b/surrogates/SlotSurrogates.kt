@@ -40,7 +40,7 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,15 +53,15 @@ internal data class SlotSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var serviceCategory: List<CodeableConcept?>? = null,
-  public var serviceType: List<CodeableConcept?>? = null,
-  public var specialty: List<CodeableConcept?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var serviceCategory: MutableList<CodeableConcept>? = null,
+  public var serviceType: MutableList<CodeableConcept>? = null,
+  public var specialty: MutableList<CodeableConcept>? = null,
   public var appointmentType: CodeableConcept? = null,
-  public var schedule: Reference? = null,
+  public var schedule: Reference,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var start: KotlinString? = null,
@@ -74,64 +74,64 @@ internal data class SlotSurrogate(
   public var _comment: Element? = null,
 ) {
   public fun toModel(): Slot =
-    Slot().apply {
-      id = this@SlotSurrogate.id
-      meta = this@SlotSurrogate.meta
-      implicitRules = Uri.of(this@SlotSurrogate.implicitRules, this@SlotSurrogate._implicitRules)
-      language = Code.of(this@SlotSurrogate.language, this@SlotSurrogate._language)
-      text = this@SlotSurrogate.text
-      contained = this@SlotSurrogate.contained
-      extension = this@SlotSurrogate.extension
-      modifierExtension = this@SlotSurrogate.modifierExtension
-      identifier = this@SlotSurrogate.identifier
-      serviceCategory = this@SlotSurrogate.serviceCategory
-      serviceType = this@SlotSurrogate.serviceType
-      specialty = this@SlotSurrogate.specialty
-      appointmentType = this@SlotSurrogate.appointmentType
-      schedule = this@SlotSurrogate.schedule
+    Slot(
+      id = this@SlotSurrogate.id,
+      meta = this@SlotSurrogate.meta,
+      implicitRules = Uri.of(this@SlotSurrogate.implicitRules, this@SlotSurrogate._implicitRules),
+      language = Code.of(this@SlotSurrogate.language, this@SlotSurrogate._language),
+      text = this@SlotSurrogate.text,
+      contained = this@SlotSurrogate.contained ?: mutableListOf(),
+      extension = this@SlotSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SlotSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@SlotSurrogate.identifier ?: mutableListOf(),
+      serviceCategory = this@SlotSurrogate.serviceCategory ?: mutableListOf(),
+      serviceType = this@SlotSurrogate.serviceType ?: mutableListOf(),
+      specialty = this@SlotSurrogate.specialty ?: mutableListOf(),
+      appointmentType = this@SlotSurrogate.appointmentType,
+      schedule = this@SlotSurrogate.schedule,
       status =
         Enumeration.of(
-          this@SlotSurrogate.status?.let { com.google.fhir.model.r4b.Slot.SlotStatus.fromCode(it) },
+          com.google.fhir.model.r4b.Slot.SlotStatus.fromCode(this@SlotSurrogate.status!!),
           this@SlotSurrogate._status,
-        )
+        ),
       start =
-        Instant.of(FhirDateTime.fromString(this@SlotSurrogate.start), this@SlotSurrogate._start)
-      end = Instant.of(FhirDateTime.fromString(this@SlotSurrogate.end), this@SlotSurrogate._end)
-      overbooked = R4bBoolean.of(this@SlotSurrogate.overbooked, this@SlotSurrogate._overbooked)
-      comment = R4bString.of(this@SlotSurrogate.comment, this@SlotSurrogate._comment)
-    }
+        Instant.of(FhirDateTime.fromString(this@SlotSurrogate.start), this@SlotSurrogate._start)!!,
+      end = Instant.of(FhirDateTime.fromString(this@SlotSurrogate.end), this@SlotSurrogate._end)!!,
+      overbooked = R4bBoolean.of(this@SlotSurrogate.overbooked, this@SlotSurrogate._overbooked),
+      comment = R4bString.of(this@SlotSurrogate.comment, this@SlotSurrogate._comment),
+    )
 
   public companion object {
     public fun fromModel(model: Slot): SlotSurrogate =
       with(model) {
-        SlotSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          serviceCategory = this@with.serviceCategory
-          serviceType = this@with.serviceType
-          specialty = this@with.specialty
-          appointmentType = this@with.appointmentType
-          schedule = this@with.schedule
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          start = this@with.start?.value?.toString()
-          _start = this@with.start?.toElement()
-          end = this@with.end?.value?.toString()
-          _end = this@with.end?.toElement()
-          overbooked = this@with.overbooked?.value
-          _overbooked = this@with.overbooked?.toElement()
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-        }
+        SlotSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          serviceCategory = this@with.serviceCategory.takeUnless { it.all { it == null } },
+          serviceType = this@with.serviceType.takeUnless { it.all { it == null } },
+          specialty = this@with.specialty.takeUnless { it.all { it == null } },
+          appointmentType = this@with.appointmentType,
+          schedule = this@with.schedule,
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          start = this@with.start.value?.toString(),
+          _start = this@with.start.toElement(),
+          end = this@with.end.value?.toString(),
+          _end = this@with.end.toElement(),
+          overbooked = this@with.overbooked?.value,
+          _overbooked = this@with.overbooked?.toElement(),
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+        )
       }
   }
 }

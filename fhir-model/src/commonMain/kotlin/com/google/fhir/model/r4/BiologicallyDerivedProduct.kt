@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductProcessing
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductSerializer
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductStorageSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class BiologicallyDerivedProduct(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,14 +130,14 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * This records identifiers associated with this biologically derived product instance that are
    * defined by business processes and/or used to refer to it when a direct URL reference to the
    * resource itself is not appropriate (e.g. in CDA documents, or in written / printed
    * documentation).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Broad category of this product. */
   public var productCategory: Enumeration<BiologicallyDerivedProductCategory>? = null,
   /** A code that identifies the kind of this biologically derived product (SNOMED Ctcode). */
@@ -145,7 +145,7 @@ public data class BiologicallyDerivedProduct(
   /** Whether the product is currently available. */
   public var status: Enumeration<BiologicallyDerivedProductStatus>? = null,
   /** Procedure request to obtain this biologically derived product. */
-  public var request: List<Reference?>? = null,
+  public var request: MutableList<Reference> = mutableListOf(),
   /** Number of discrete units within this product. */
   public var quantity: Integer? = null,
   /**
@@ -155,7 +155,7 @@ public data class BiologicallyDerivedProduct(
    * collected over several days from a single donor and the donation split into in multiple
    * containers which must be linked to the parent donation.
    */
-  public var parent: List<Reference?>? = null,
+  public var parent: MutableList<Reference> = mutableListOf(),
   /** How this product was collected. */
   public var collection: Collection? = null,
   /**
@@ -163,7 +163,7 @@ public data class BiologicallyDerivedProduct(
    * the product. For example adding anti-coagulants during the collection of Peripheral Blood Stem
    * Cells.
    */
-  public var processing: List<Processing>? = null,
+  public var processing: MutableList<Processing> = mutableListOf(),
   /**
    * Any manipulation of product post-collection that is intended to alter the product. For example
    * a buffy-coat enrichment or CD8 reduction of Peripheral Blood Stem Cells to make it more
@@ -171,7 +171,7 @@ public data class BiologicallyDerivedProduct(
    */
   public var manipulation: Manipulation? = null,
   /** Product storage. */
-  public var storage: List<Storage>? = null,
+  public var storage: MutableList<Storage> = mutableListOf(),
 ) : DomainResource() {
   /** How this product was collected. */
   @Serializable(with = BiologicallyDerivedProductCollectionSerializer::class)
@@ -193,7 +193,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -212,7 +212,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Healthcare professional who is performing the collection. */
     public var collector: Reference? = null,
     /**
@@ -233,12 +233,12 @@ public data class BiologicallyDerivedProduct(
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Collected
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
+          periodValue: com.google.fhir.model.r4.Period?,
         ): Collected? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -269,7 +269,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,7 +288,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Description of of processing. */
     public var description: String? = null,
     /** Procesing code. */
@@ -308,12 +308,12 @@ public data class BiologicallyDerivedProduct(
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Time
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
+          periodValue: com.google.fhir.model.r4.Period?,
         ): Time? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -344,7 +344,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -363,7 +363,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Description of manipulation. */
     public var description: String? = null,
     /** Time of manipulation. */
@@ -379,12 +379,12 @@ public data class BiologicallyDerivedProduct(
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Time
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
+          periodValue: com.google.fhir.model.r4.Period?,
         ): Time? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -411,7 +411,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -430,7 +430,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Description of storage. */
     public var description: String? = null,
     /** Storage temperature. */

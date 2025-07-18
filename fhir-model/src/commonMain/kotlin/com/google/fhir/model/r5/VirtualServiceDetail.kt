@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.VirtualServiceDetailSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** VirtualServiceDetail Type: Virtual Service Contact Details. */
@@ -43,7 +43,7 @@ public data class VirtualServiceDetail(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The type of virtual service to connect to (i.e. Teams, Zoom, Specific VMR technology,
    * WhatsApp).
@@ -66,7 +66,7 @@ public data class VirtualServiceDetail(
    * This web address can be used to provide additional details on the call, such as
    * alternative/regional call in numbers, or other associated services.
    */
-  public var additionalInfo: List<Url?>? = null,
+  public var additionalInfo: MutableList<Url> = mutableListOf(),
   /**
    * Maximum number of participants supported by the virtual service.
    *
@@ -107,17 +107,17 @@ public data class VirtualServiceDetail(
     ) : Address
 
     public companion object {
-      public fun from(
+      internal fun from(
         urlValue: com.google.fhir.model.r5.Url?,
         stringValue: com.google.fhir.model.r5.String?,
-        ContactPointValue: com.google.fhir.model.r5.ContactPoint?,
-        ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
+        contactPointValue: com.google.fhir.model.r5.ContactPoint?,
+        extendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
       ): Address? {
         if (urlValue != null) return Url(urlValue)
         if (stringValue != null) return String(stringValue)
-        if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-        if (ExtendedContactDetailValue != null)
-          return ExtendedContactDetail(ExtendedContactDetailValue)
+        if (contactPointValue != null) return ContactPoint(contactPointValue)
+        if (extendedContactDetailValue != null)
+          return ExtendedContactDetail(extendedContactDetailValue)
         return null
       }
     }

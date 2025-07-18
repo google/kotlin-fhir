@@ -46,39 +46,39 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ConsentPolicyBasisSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var reference: Reference? = null,
   public var url: String? = null,
   public var _url: Element? = null,
 ) {
   public fun toModel(): Consent.PolicyBasis =
-    Consent.PolicyBasis().apply {
-      id = this@ConsentPolicyBasisSurrogate.id
-      extension = this@ConsentPolicyBasisSurrogate.extension
-      modifierExtension = this@ConsentPolicyBasisSurrogate.modifierExtension
-      reference = this@ConsentPolicyBasisSurrogate.reference
-      url = Url.of(this@ConsentPolicyBasisSurrogate.url, this@ConsentPolicyBasisSurrogate._url)
-    }
+    Consent.PolicyBasis(
+      id = this@ConsentPolicyBasisSurrogate.id,
+      extension = this@ConsentPolicyBasisSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentPolicyBasisSurrogate.modifierExtension ?: mutableListOf(),
+      reference = this@ConsentPolicyBasisSurrogate.reference,
+      url = Url.of(this@ConsentPolicyBasisSurrogate.url, this@ConsentPolicyBasisSurrogate._url),
+    )
 
   public companion object {
     public fun fromModel(model: Consent.PolicyBasis): ConsentPolicyBasisSurrogate =
       with(model) {
-        ConsentPolicyBasisSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          reference = this@with.reference
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-        }
+        ConsentPolicyBasisSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          reference = this@with.reference,
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+        )
       }
   }
 }
@@ -86,35 +86,35 @@ internal data class ConsentPolicyBasisSurrogate(
 @Serializable
 internal data class ConsentVerificationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var verified: KotlinBoolean? = null,
   public var _verified: Element? = null,
   public var verificationType: CodeableConcept? = null,
   public var verifiedBy: Reference? = null,
   public var verifiedWith: Reference? = null,
-  public var verificationDate: List<String?>? = null,
-  public var _verificationDate: List<Element?>? = null,
+  public var verificationDate: MutableList<String?>? = null,
+  public var _verificationDate: MutableList<Element?>? = null,
 ) {
   public fun toModel(): Consent.Verification =
-    Consent.Verification().apply {
-      id = this@ConsentVerificationSurrogate.id
-      extension = this@ConsentVerificationSurrogate.extension
-      modifierExtension = this@ConsentVerificationSurrogate.modifierExtension
+    Consent.Verification(
+      id = this@ConsentVerificationSurrogate.id,
+      extension = this@ConsentVerificationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentVerificationSurrogate.modifierExtension ?: mutableListOf(),
       verified =
         R5Boolean.of(
           this@ConsentVerificationSurrogate.verified,
           this@ConsentVerificationSurrogate._verified,
-        )
-      verificationType = this@ConsentVerificationSurrogate.verificationType
-      verifiedBy = this@ConsentVerificationSurrogate.verifiedBy
-      verifiedWith = this@ConsentVerificationSurrogate.verifiedWith
+        )!!,
+      verificationType = this@ConsentVerificationSurrogate.verificationType,
+      verifiedBy = this@ConsentVerificationSurrogate.verifiedBy,
+      verifiedWith = this@ConsentVerificationSurrogate.verifiedWith,
       verificationDate =
         if (
           this@ConsentVerificationSurrogate.verificationDate == null &&
             this@ConsentVerificationSurrogate._verificationDate == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ConsentVerificationSurrogate.verificationDate
               ?: List(this@ConsentVerificationSurrogate._verificationDate!!.size) { null })
@@ -122,31 +122,35 @@ internal data class ConsentVerificationSurrogate(
               this@ConsentVerificationSurrogate._verificationDate
                 ?: List(this@ConsentVerificationSurrogate.verificationDate!!.size) { null }
             )
-            .mapNotNull { (value, element) -> DateTime.of(FhirDateTime.fromString(value), element) }
-        }
-    }
+            .map { (value, element) -> DateTime.of(FhirDateTime.fromString(value), element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: Consent.Verification): ConsentVerificationSurrogate =
       with(model) {
-        ConsentVerificationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          verified = this@with.verified?.value
-          _verified = this@with.verified?.toElement()
-          verificationType = this@with.verificationType
-          verifiedBy = this@with.verifiedBy
-          verifiedWith = this@with.verifiedWith
+        ConsentVerificationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          verified = this@with.verified.value,
+          _verified = this@with.verified.toElement(),
+          verificationType = this@with.verificationType,
+          verifiedBy = this@with.verifiedBy,
+          verifiedWith = this@with.verifiedWith,
           verificationDate =
             this@with.verificationDate
-              ?.map { it?.value?.toString() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.toString() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _verificationDate =
             this@with.verificationDate
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }
@@ -154,30 +158,30 @@ internal data class ConsentVerificationSurrogate(
 @Serializable
 internal data class ConsentProvisionActorSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var role: CodeableConcept? = null,
   public var reference: Reference? = null,
 ) {
   public fun toModel(): Consent.Provision.Actor =
-    Consent.Provision.Actor().apply {
-      id = this@ConsentProvisionActorSurrogate.id
-      extension = this@ConsentProvisionActorSurrogate.extension
-      modifierExtension = this@ConsentProvisionActorSurrogate.modifierExtension
-      role = this@ConsentProvisionActorSurrogate.role
-      reference = this@ConsentProvisionActorSurrogate.reference
-    }
+    Consent.Provision.Actor(
+      id = this@ConsentProvisionActorSurrogate.id,
+      extension = this@ConsentProvisionActorSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentProvisionActorSurrogate.modifierExtension ?: mutableListOf(),
+      role = this@ConsentProvisionActorSurrogate.role,
+      reference = this@ConsentProvisionActorSurrogate.reference,
+    )
 
   public companion object {
     public fun fromModel(model: Consent.Provision.Actor): ConsentProvisionActorSurrogate =
       with(model) {
-        ConsentProvisionActorSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          role = this@with.role
-          reference = this@with.reference
-        }
+        ConsentProvisionActorSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          role = this@with.role,
+          reference = this@with.reference,
+        )
       }
   }
 }
@@ -185,38 +189,38 @@ internal data class ConsentProvisionActorSurrogate(
 @Serializable
 internal data class ConsentProvisionDataSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var meaning: String? = null,
   public var _meaning: Element? = null,
-  public var reference: Reference? = null,
+  public var reference: Reference,
 ) {
   public fun toModel(): Consent.Provision.Data =
-    Consent.Provision.Data().apply {
-      id = this@ConsentProvisionDataSurrogate.id
-      extension = this@ConsentProvisionDataSurrogate.extension
-      modifierExtension = this@ConsentProvisionDataSurrogate.modifierExtension
+    Consent.Provision.Data(
+      id = this@ConsentProvisionDataSurrogate.id,
+      extension = this@ConsentProvisionDataSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentProvisionDataSurrogate.modifierExtension ?: mutableListOf(),
       meaning =
         Enumeration.of(
-          this@ConsentProvisionDataSurrogate.meaning?.let {
-            com.google.fhir.model.r5.Consent.ConsentDataMeaning.fromCode(it)
-          },
+          com.google.fhir.model.r5.Consent.ConsentDataMeaning.fromCode(
+            this@ConsentProvisionDataSurrogate.meaning!!
+          ),
           this@ConsentProvisionDataSurrogate._meaning,
-        )
-      reference = this@ConsentProvisionDataSurrogate.reference
-    }
+        ),
+      reference = this@ConsentProvisionDataSurrogate.reference,
+    )
 
   public companion object {
     public fun fromModel(model: Consent.Provision.Data): ConsentProvisionDataSurrogate =
       with(model) {
-        ConsentProvisionDataSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          meaning = this@with.meaning?.value?.getCode()
-          _meaning = this@with.meaning?.toElement()
-          reference = this@with.reference
-        }
+        ConsentProvisionDataSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          meaning = this@with.meaning.value?.getCode(),
+          _meaning = this@with.meaning.toElement(),
+          reference = this@with.reference,
+        )
       }
   }
 }
@@ -224,60 +228,60 @@ internal data class ConsentProvisionDataSurrogate(
 @Serializable
 internal data class ConsentProvisionSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var period: Period? = null,
-  public var actor: List<Consent.Provision.Actor>? = null,
-  public var action: List<CodeableConcept?>? = null,
-  public var securityLabel: List<Coding?>? = null,
-  public var purpose: List<Coding?>? = null,
-  public var documentType: List<Coding?>? = null,
-  public var resourceType: List<Coding?>? = null,
-  public var code: List<CodeableConcept?>? = null,
+  public var actor: MutableList<Consent.Provision.Actor>? = null,
+  public var action: MutableList<CodeableConcept>? = null,
+  public var securityLabel: MutableList<Coding>? = null,
+  public var purpose: MutableList<Coding>? = null,
+  public var documentType: MutableList<Coding>? = null,
+  public var resourceType: MutableList<Coding>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
   public var dataPeriod: Period? = null,
-  public var `data`: List<Consent.Provision.Data>? = null,
+  public var `data`: MutableList<Consent.Provision.Data>? = null,
   public var expression: Expression? = null,
-  public var provision: List<Consent.Provision?>? = null,
+  public var provision: MutableList<Consent.Provision>? = null,
 ) {
   public fun toModel(): Consent.Provision =
-    Consent.Provision().apply {
-      id = this@ConsentProvisionSurrogate.id
-      extension = this@ConsentProvisionSurrogate.extension
-      modifierExtension = this@ConsentProvisionSurrogate.modifierExtension
-      period = this@ConsentProvisionSurrogate.period
-      actor = this@ConsentProvisionSurrogate.actor
-      action = this@ConsentProvisionSurrogate.action
-      securityLabel = this@ConsentProvisionSurrogate.securityLabel
-      purpose = this@ConsentProvisionSurrogate.purpose
-      documentType = this@ConsentProvisionSurrogate.documentType
-      resourceType = this@ConsentProvisionSurrogate.resourceType
-      code = this@ConsentProvisionSurrogate.code
-      dataPeriod = this@ConsentProvisionSurrogate.dataPeriod
-      `data` = this@ConsentProvisionSurrogate.`data`
-      expression = this@ConsentProvisionSurrogate.expression
-      provision = this@ConsentProvisionSurrogate.provision
-    }
+    Consent.Provision(
+      id = this@ConsentProvisionSurrogate.id,
+      extension = this@ConsentProvisionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentProvisionSurrogate.modifierExtension ?: mutableListOf(),
+      period = this@ConsentProvisionSurrogate.period,
+      actor = this@ConsentProvisionSurrogate.actor ?: mutableListOf(),
+      action = this@ConsentProvisionSurrogate.action ?: mutableListOf(),
+      securityLabel = this@ConsentProvisionSurrogate.securityLabel ?: mutableListOf(),
+      purpose = this@ConsentProvisionSurrogate.purpose ?: mutableListOf(),
+      documentType = this@ConsentProvisionSurrogate.documentType ?: mutableListOf(),
+      resourceType = this@ConsentProvisionSurrogate.resourceType ?: mutableListOf(),
+      code = this@ConsentProvisionSurrogate.code ?: mutableListOf(),
+      dataPeriod = this@ConsentProvisionSurrogate.dataPeriod,
+      `data` = this@ConsentProvisionSurrogate.`data` ?: mutableListOf(),
+      expression = this@ConsentProvisionSurrogate.expression,
+      provision = this@ConsentProvisionSurrogate.provision ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Consent.Provision): ConsentProvisionSurrogate =
       with(model) {
-        ConsentProvisionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          period = this@with.period
-          actor = this@with.actor
-          action = this@with.action
-          securityLabel = this@with.securityLabel
-          purpose = this@with.purpose
-          documentType = this@with.documentType
-          resourceType = this@with.resourceType
-          code = this@with.code
-          dataPeriod = this@with.dataPeriod
-          `data` = this@with.`data`
-          expression = this@with.expression
-          provision = this@with.provision
-        }
+        ConsentProvisionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          period = this@with.period,
+          actor = this@with.actor.takeUnless { it.all { it == null } },
+          action = this@with.action.takeUnless { it.all { it == null } },
+          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose.takeUnless { it.all { it == null } },
+          documentType = this@with.documentType.takeUnless { it.all { it == null } },
+          resourceType = this@with.resourceType.takeUnless { it.all { it == null } },
+          code = this@with.code.takeUnless { it.all { it == null } },
+          dataPeriod = this@with.dataPeriod,
+          `data` = this@with.`data`.takeUnless { it.all { it == null } },
+          expression = this@with.expression,
+          provision = this@with.provision.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -291,110 +295,108 @@ internal data class ConsentSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var subject: Reference? = null,
   public var date: String? = null,
   public var _date: Element? = null,
   public var period: Period? = null,
-  public var grantor: List<Reference?>? = null,
-  public var grantee: List<Reference?>? = null,
-  public var manager: List<Reference?>? = null,
-  public var controller: List<Reference?>? = null,
-  public var sourceAttachment: List<Attachment?>? = null,
-  public var sourceReference: List<Reference?>? = null,
-  public var regulatoryBasis: List<CodeableConcept?>? = null,
+  public var grantor: MutableList<Reference>? = null,
+  public var grantee: MutableList<Reference>? = null,
+  public var manager: MutableList<Reference>? = null,
+  public var controller: MutableList<Reference>? = null,
+  public var sourceAttachment: MutableList<Attachment>? = null,
+  public var sourceReference: MutableList<Reference>? = null,
+  public var regulatoryBasis: MutableList<CodeableConcept>? = null,
   public var policyBasis: Consent.PolicyBasis? = null,
-  public var policyText: List<Reference?>? = null,
-  public var verification: List<Consent.Verification>? = null,
+  public var policyText: MutableList<Reference>? = null,
+  public var verification: MutableList<Consent.Verification>? = null,
   public var decision: String? = null,
   public var _decision: Element? = null,
-  public var provision: List<Consent.Provision>? = null,
+  public var provision: MutableList<Consent.Provision>? = null,
 ) {
   public fun toModel(): Consent =
-    Consent().apply {
-      id = this@ConsentSurrogate.id
-      meta = this@ConsentSurrogate.meta
+    Consent(
+      id = this@ConsentSurrogate.id,
+      meta = this@ConsentSurrogate.meta,
       implicitRules =
-        Uri.of(this@ConsentSurrogate.implicitRules, this@ConsentSurrogate._implicitRules)
-      language = Code.of(this@ConsentSurrogate.language, this@ConsentSurrogate._language)
-      text = this@ConsentSurrogate.text
-      contained = this@ConsentSurrogate.contained
-      extension = this@ConsentSurrogate.extension
-      modifierExtension = this@ConsentSurrogate.modifierExtension
-      identifier = this@ConsentSurrogate.identifier
+        Uri.of(this@ConsentSurrogate.implicitRules, this@ConsentSurrogate._implicitRules),
+      language = Code.of(this@ConsentSurrogate.language, this@ConsentSurrogate._language),
+      text = this@ConsentSurrogate.text,
+      contained = this@ConsentSurrogate.contained ?: mutableListOf(),
+      extension = this@ConsentSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ConsentSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ConsentSurrogate.status?.let {
-            com.google.fhir.model.r5.Consent.ConsentState.fromCode(it)
-          },
+          com.google.fhir.model.r5.Consent.ConsentState.fromCode(this@ConsentSurrogate.status!!),
           this@ConsentSurrogate._status,
-        )
-      category = this@ConsentSurrogate.category
-      subject = this@ConsentSurrogate.subject
-      date = Date.of(FhirDate.fromString(this@ConsentSurrogate.date), this@ConsentSurrogate._date)
-      period = this@ConsentSurrogate.period
-      grantor = this@ConsentSurrogate.grantor
-      grantee = this@ConsentSurrogate.grantee
-      manager = this@ConsentSurrogate.manager
-      controller = this@ConsentSurrogate.controller
-      sourceAttachment = this@ConsentSurrogate.sourceAttachment
-      sourceReference = this@ConsentSurrogate.sourceReference
-      regulatoryBasis = this@ConsentSurrogate.regulatoryBasis
-      policyBasis = this@ConsentSurrogate.policyBasis
-      policyText = this@ConsentSurrogate.policyText
-      verification = this@ConsentSurrogate.verification
+        ),
+      category = this@ConsentSurrogate.category ?: mutableListOf(),
+      subject = this@ConsentSurrogate.subject,
+      date = Date.of(FhirDate.fromString(this@ConsentSurrogate.date), this@ConsentSurrogate._date),
+      period = this@ConsentSurrogate.period,
+      grantor = this@ConsentSurrogate.grantor ?: mutableListOf(),
+      grantee = this@ConsentSurrogate.grantee ?: mutableListOf(),
+      manager = this@ConsentSurrogate.manager ?: mutableListOf(),
+      controller = this@ConsentSurrogate.controller ?: mutableListOf(),
+      sourceAttachment = this@ConsentSurrogate.sourceAttachment ?: mutableListOf(),
+      sourceReference = this@ConsentSurrogate.sourceReference ?: mutableListOf(),
+      regulatoryBasis = this@ConsentSurrogate.regulatoryBasis ?: mutableListOf(),
+      policyBasis = this@ConsentSurrogate.policyBasis,
+      policyText = this@ConsentSurrogate.policyText ?: mutableListOf(),
+      verification = this@ConsentSurrogate.verification ?: mutableListOf(),
       decision =
-        Enumeration.of(
-          this@ConsentSurrogate.decision?.let {
-            com.google.fhir.model.r5.Consent.ConsentProvisionType.fromCode(it)
-          },
-          this@ConsentSurrogate._decision,
-        )
-      provision = this@ConsentSurrogate.provision
-    }
+        this@ConsentSurrogate.decision?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Consent.ConsentProvisionType.fromCode(it!!),
+            this@ConsentSurrogate._decision,
+          )
+        },
+      provision = this@ConsentSurrogate.provision ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Consent): ConsentSurrogate =
       with(model) {
-        ConsentSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          subject = this@with.subject
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          period = this@with.period
-          grantor = this@with.grantor
-          grantee = this@with.grantee
-          manager = this@with.manager
-          controller = this@with.controller
-          sourceAttachment = this@with.sourceAttachment
-          sourceReference = this@with.sourceReference
-          regulatoryBasis = this@with.regulatoryBasis
-          policyBasis = this@with.policyBasis
-          policyText = this@with.policyText
-          verification = this@with.verification
-          decision = this@with.decision?.value?.getCode()
-          _decision = this@with.decision?.toElement()
-          provision = this@with.provision
-        }
+        ConsentSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          subject = this@with.subject,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          period = this@with.period,
+          grantor = this@with.grantor.takeUnless { it.all { it == null } },
+          grantee = this@with.grantee.takeUnless { it.all { it == null } },
+          manager = this@with.manager.takeUnless { it.all { it == null } },
+          controller = this@with.controller.takeUnless { it.all { it == null } },
+          sourceAttachment = this@with.sourceAttachment.takeUnless { it.all { it == null } },
+          sourceReference = this@with.sourceReference.takeUnless { it.all { it == null } },
+          regulatoryBasis = this@with.regulatoryBasis.takeUnless { it.all { it == null } },
+          policyBasis = this@with.policyBasis,
+          policyText = this@with.policyText.takeUnless { it.all { it == null } },
+          verification = this@with.verification.takeUnless { it.all { it == null } },
+          decision = this@with.decision?.value?.getCode(),
+          _decision = this@with.decision?.toElement(),
+          provision = this@with.provision.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

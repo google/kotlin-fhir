@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentContentSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class ArtifactAssessment(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class ArtifactAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class ArtifactAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A formal identifier that is used to identify this artifact assessment when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -138,7 +138,7 @@ public data class ArtifactAssessment(
    * type, and can then identify this activity definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A short title for the assessment for use in displaying and selecting. */
   public var title: String? = null,
   /**
@@ -182,9 +182,9 @@ public data class ArtifactAssessment(
    * A reference to a resource, canonical resource, or non-FHIR resource which the comment or
    * assessment is about.
    */
-  public var artifact: Artifact? = null,
+  public var artifact: Artifact,
   /** A component comment, classifier, or rating of the artifact. */
-  public var content: List<Content>? = null,
+  public var content: MutableList<Content> = mutableListOf(),
   /** Indicates the workflow status of the comment or change request. */
   public var workflowStatus: Enumeration<WorkflowStatus>? = null,
   /** Indicates the disposition of the responsible party to the comment or change request. */
@@ -210,7 +210,7 @@ public data class ArtifactAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -229,7 +229,7 @@ public data class ArtifactAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of information this component of the content represents. */
     public var informationType: Enumeration<InformationType>? = null,
     /** A brief summary of the content of this component. */
@@ -237,7 +237,7 @@ public data class ArtifactAssessment(
     /** Indicates what type of content this component represents. */
     public var type: CodeableConcept? = null,
     /** Represents a rating, classifier, or assessment of the artifact. */
-    public var classifier: List<CodeableConcept?>? = null,
+    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
     /** A quantitative rating of the artifact. */
     public var quantity: Quantity? = null,
     /** Indicates who or what authored the content. */
@@ -249,16 +249,16 @@ public data class ArtifactAssessment(
      * The target element is used to point the comment to aspect of the artifact, such as a text
      * range within a CQL library (e.g. #content?0:0-120:80).
      */
-    public var path: List<Uri?>? = null,
+    public var path: MutableList<Uri> = mutableListOf(),
     /**
      * Additional related artifacts that provide supporting documentation, additional evidence, or
      * further information related to the content.
      */
-    public var relatedArtifact: List<RelatedArtifact?>? = null,
+    public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
     /** Acceptable to publicly share the comment, classifier or rating. */
     public var freeToShare: Boolean? = null,
     /** If the informationType is container, the components of the content. */
-    public var component: List<Content?>? = null,
+    public var component: MutableList<Content> = mutableListOf(),
   ) : BackboneElement()
 
   public sealed interface CiteAs {
@@ -271,11 +271,11 @@ public data class ArtifactAssessment(
     public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : CiteAs
 
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r5.Reference?,
         markdownValue: com.google.fhir.model.r5.Markdown?,
       ): CiteAs? {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (markdownValue != null) return Markdown(markdownValue)
         return null
       }
@@ -296,12 +296,12 @@ public data class ArtifactAssessment(
     public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Artifact
 
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r5.Reference?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
         uriValue: com.google.fhir.model.r5.Uri?,
       ): Artifact? {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
         if (uriValue != null) return Uri(uriValue)
         return null

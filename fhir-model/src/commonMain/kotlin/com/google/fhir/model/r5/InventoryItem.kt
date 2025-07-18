@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.InventoryItemNameSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemResponsibleOrganizationSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class InventoryItem(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class InventoryItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,34 +131,34 @@ public data class InventoryItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier for the inventory item. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Status of the item entry. */
-  public var status: Enumeration<InventoryItemStatus>? = null,
+  public var status: Enumeration<InventoryItemStatus>,
   /** Category or class of the item. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Code designating the specific type of item. */
-  public var code: List<CodeableConcept?>? = null,
+  public var code: MutableList<CodeableConcept> = mutableListOf(),
   /** The item name(s) - the brand name, or common name, functional name, generic name. */
-  public var name: List<Name>? = null,
+  public var name: MutableList<Name> = mutableListOf(),
   /** Organization(s) responsible for the product. */
-  public var responsibleOrganization: List<ResponsibleOrganization>? = null,
+  public var responsibleOrganization: MutableList<ResponsibleOrganization> = mutableListOf(),
   /** The descriptive characteristics of the inventory item. */
   public var description: Description? = null,
   /**
    * The usage status e.g. recalled, in use, discarded... This can be used to indicate that the
    * items have been taken out of inventory, or are in use, etc.
    */
-  public var inventoryStatus: List<CodeableConcept?>? = null,
+  public var inventoryStatus: MutableList<CodeableConcept> = mutableListOf(),
   /** The base unit of measure - the unit in which the product is used or counted. */
   public var baseUnit: CodeableConcept? = null,
   /** Net content or amount present in the item. */
   public var netContent: Quantity? = null,
   /** Association with other items or products. */
-  public var association: List<Association>? = null,
+  public var association: MutableList<Association> = mutableListOf(),
   /** The descriptive or identifying characteristics of the item. */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
   /** Instances or occurrences of the product. */
   public var instance: Instance? = null,
   /** Link to a product resource used in clinical workflows. */
@@ -184,7 +184,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -203,13 +203,13 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of name e.g. 'brand-name', 'functional-name', 'common-name'. */
-    public var nameType: Coding? = null,
+    public var nameType: Coding,
     /** The language that the item name is expressed in. */
-    public var language: Code? = null,
+    public var language: Code,
     /** The name or designation that the item is given. */
-    public var name: String? = null,
+    public var name: String,
   ) : BackboneElement()
 
   /** Organization(s) responsible for the product. */
@@ -232,7 +232,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -251,14 +251,14 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The role of the organization e.g. manufacturer, distributor, etc. */
-    public var role: CodeableConcept? = null,
+    public var role: CodeableConcept,
     /**
      * An organization that has an association with the item, e.g. manufacturer, distributor,
      * responsible, etc.
      */
-    public var organization: Reference? = null,
+    public var organization: Reference,
   ) : BackboneElement()
 
   /** The descriptive characteristics of the inventory item. */
@@ -281,7 +281,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -300,7 +300,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The language for the item description, when an item must be described in different languages
      * and those languages may be authoritative and not translations of a 'main' language.
@@ -330,7 +330,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -349,21 +349,21 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * This attribute defined the type of association when establishing associations or relations
      * between items, e.g. 'packaged within' or 'used with' or 'to be mixed with.
      */
-    public var associationType: CodeableConcept? = null,
+    public var associationType: CodeableConcept,
     /** The related item or product. */
-    public var relatedItem: Reference? = null,
+    public var relatedItem: Reference,
     /**
      * The quantity of the related product in this product - Numerator is the quantity of the
      * related product. Denominator is the quantity of the present product. For example a value of
      * 20 means that this product contains 20 units of the related product; a value of 1:20 means
      * the inverse - that the contained product contains 20 units of the present product.
      */
-    public var quantity: Ratio? = null,
+    public var quantity: Ratio,
   ) : BackboneElement()
 
   /** The descriptive or identifying characteristics of the item. */
@@ -386,7 +386,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -405,9 +405,9 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of characteristic that is being defined. */
-    public var characteristicType: CodeableConcept? = null,
+    public var characteristicType: CodeableConcept,
     /**
      * The value of the attribute.
      *
@@ -415,7 +415,7 @@ public data class InventoryItem(
      * information. CodeableConcept.text is used when the characteristic is discrete and could
      * otherwise be coded but for which there is no code available.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : BackboneElement() {
     public sealed interface Value {
       public fun asString(): String? = this as? String
@@ -473,20 +473,20 @@ public data class InventoryItem(
       ) : Value
 
       public companion object {
-        public fun from(
+        internal fun from(
           stringValue: com.google.fhir.model.r5.String?,
           integerValue: com.google.fhir.model.r5.Integer?,
           decimalValue: com.google.fhir.model.r5.Decimal?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
           urlValue: com.google.fhir.model.r5.Url?,
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          RatioValue: com.google.fhir.model.r5.Ratio?,
-          AnnotationValue: com.google.fhir.model.r5.Annotation?,
-          AddressValue: com.google.fhir.model.r5.Address?,
-          DurationValue: com.google.fhir.model.r5.Duration?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          ratioValue: com.google.fhir.model.r5.Ratio?,
+          annotationValue: com.google.fhir.model.r5.Annotation?,
+          addressValue: com.google.fhir.model.r5.Address?,
+          durationValue: com.google.fhir.model.r5.Duration?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ): Value? {
           if (stringValue != null) return String(stringValue)
           if (integerValue != null) return Integer(integerValue)
@@ -494,13 +494,13 @@ public data class InventoryItem(
           if (booleanValue != null) return Boolean(booleanValue)
           if (urlValue != null) return Url(urlValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (AnnotationValue != null) return Annotation(AnnotationValue)
-          if (AddressValue != null) return Address(AddressValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (annotationValue != null) return Annotation(annotationValue)
+          if (addressValue != null) return Address(addressValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           return null
         }
       }
@@ -527,7 +527,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -546,9 +546,9 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The identifier for the physical instance, typically a serial number. */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** The lot or batch number of the item. */
     public var lotNumber: String? = null,
     /** The expiry date or date and time for the product. */

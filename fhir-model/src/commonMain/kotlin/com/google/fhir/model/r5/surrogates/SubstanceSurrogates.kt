@@ -43,43 +43,43 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceIngredientSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var quantity: Ratio? = null,
   public var substanceCodeableConcept: CodeableConcept? = null,
   public var substanceReference: Reference? = null,
 ) {
   public fun toModel(): Substance.Ingredient =
-    Substance.Ingredient().apply {
-      id = this@SubstanceIngredientSurrogate.id
-      extension = this@SubstanceIngredientSurrogate.extension
-      modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension
-      quantity = this@SubstanceIngredientSurrogate.quantity
+    Substance.Ingredient(
+      id = this@SubstanceIngredientSurrogate.id,
+      extension = this@SubstanceIngredientSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      quantity = this@SubstanceIngredientSurrogate.quantity,
       substance =
-        Substance.Ingredient.Substance?.from(
+        Substance.Ingredient.Substance.from(
           this@SubstanceIngredientSurrogate.substanceCodeableConcept,
           this@SubstanceIngredientSurrogate.substanceReference,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Substance.Ingredient): SubstanceIngredientSurrogate =
       with(model) {
-        SubstanceIngredientSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          quantity = this@with.quantity
-          substanceCodeableConcept = this@with.substance?.asCodeableConcept()?.value
-          substanceReference = this@with.substance?.asReference()?.value
-        }
+        SubstanceIngredientSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          substanceCodeableConcept = this@with.substance?.asCodeableConcept()?.value,
+          substanceReference = this@with.substance?.asReference()?.value,
+        )
       }
   }
 }
@@ -93,84 +93,85 @@ internal data class SubstanceSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var instance: KotlinBoolean? = null,
   public var _instance: Element? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var code: CodeableReference? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var code: CodeableReference,
   public var description: String? = null,
   public var _description: Element? = null,
   public var expiry: String? = null,
   public var _expiry: Element? = null,
   public var quantity: Quantity? = null,
-  public var ingredient: List<Substance.Ingredient>? = null,
+  public var ingredient: MutableList<Substance.Ingredient>? = null,
 ) {
   public fun toModel(): Substance =
-    Substance().apply {
-      id = this@SubstanceSurrogate.id
-      meta = this@SubstanceSurrogate.meta
+    Substance(
+      id = this@SubstanceSurrogate.id,
+      meta = this@SubstanceSurrogate.meta,
       implicitRules =
-        Uri.of(this@SubstanceSurrogate.implicitRules, this@SubstanceSurrogate._implicitRules)
-      language = Code.of(this@SubstanceSurrogate.language, this@SubstanceSurrogate._language)
-      text = this@SubstanceSurrogate.text
-      contained = this@SubstanceSurrogate.contained
-      extension = this@SubstanceSurrogate.extension
-      modifierExtension = this@SubstanceSurrogate.modifierExtension
-      identifier = this@SubstanceSurrogate.identifier
-      instance = R5Boolean.of(this@SubstanceSurrogate.instance, this@SubstanceSurrogate._instance)
+        Uri.of(this@SubstanceSurrogate.implicitRules, this@SubstanceSurrogate._implicitRules),
+      language = Code.of(this@SubstanceSurrogate.language, this@SubstanceSurrogate._language),
+      text = this@SubstanceSurrogate.text,
+      contained = this@SubstanceSurrogate.contained ?: mutableListOf(),
+      extension = this@SubstanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubstanceSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@SubstanceSurrogate.identifier ?: mutableListOf(),
+      instance =
+        R5Boolean.of(this@SubstanceSurrogate.instance, this@SubstanceSurrogate._instance)!!,
       status =
-        Enumeration.of(
-          this@SubstanceSurrogate.status?.let {
-            com.google.fhir.model.r5.Substance.FHIRSubstanceStatus.fromCode(it)
-          },
-          this@SubstanceSurrogate._status,
-        )
-      category = this@SubstanceSurrogate.category
-      code = this@SubstanceSurrogate.code
+        this@SubstanceSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Substance.FHIRSubstanceStatus.fromCode(it!!),
+            this@SubstanceSurrogate._status,
+          )
+        },
+      category = this@SubstanceSurrogate.category ?: mutableListOf(),
+      code = this@SubstanceSurrogate.code,
       description =
-        Markdown.of(this@SubstanceSurrogate.description, this@SubstanceSurrogate._description)
+        Markdown.of(this@SubstanceSurrogate.description, this@SubstanceSurrogate._description),
       expiry =
         DateTime.of(
           FhirDateTime.fromString(this@SubstanceSurrogate.expiry),
           this@SubstanceSurrogate._expiry,
-        )
-      quantity = this@SubstanceSurrogate.quantity
-      ingredient = this@SubstanceSurrogate.ingredient
-    }
+        ),
+      quantity = this@SubstanceSurrogate.quantity,
+      ingredient = this@SubstanceSurrogate.ingredient ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Substance): SubstanceSurrogate =
       with(model) {
-        SubstanceSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          instance = this@with.instance?.value
-          _instance = this@with.instance?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          code = this@with.code
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          expiry = this@with.expiry?.value?.toString()
-          _expiry = this@with.expiry?.toElement()
-          quantity = this@with.quantity
-          ingredient = this@with.ingredient
-        }
+        SubstanceSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          instance = this@with.instance.value,
+          _instance = this@with.instance.toElement(),
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          expiry = this@with.expiry?.value?.toString(),
+          _expiry = this@with.expiry?.toElement(),
+          quantity = this@with.quantity,
+          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -82,7 +82,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -90,8 +90,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ParametersParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var valueBase64Binary: KotlinString? = null,
@@ -164,15 +164,18 @@ internal data class ParametersParameterSurrogate(
   public var valueDosage: Dosage? = null,
   public var valueMeta: Meta? = null,
   public var resource: Resource? = null,
-  public var part: List<Parameters.Parameter?>? = null,
+  public var part: MutableList<Parameters.Parameter>? = null,
 ) {
   public fun toModel(): Parameters.Parameter =
-    Parameters.Parameter().apply {
-      id = this@ParametersParameterSurrogate.id
-      extension = this@ParametersParameterSurrogate.extension
-      modifierExtension = this@ParametersParameterSurrogate.modifierExtension
+    Parameters.Parameter(
+      id = this@ParametersParameterSurrogate.id,
+      extension = this@ParametersParameterSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ParametersParameterSurrogate.modifierExtension ?: mutableListOf(),
       name =
-        R4String.of(this@ParametersParameterSurrogate.name, this@ParametersParameterSurrogate._name)
+        R4String.of(
+          this@ParametersParameterSurrogate.name,
+          this@ParametersParameterSurrogate._name,
+        )!!,
       `value` =
         Parameters.Parameter.Value?.from(
           Base64Binary.of(
@@ -282,92 +285,92 @@ internal data class ParametersParameterSurrogate(
           this@ParametersParameterSurrogate.valueUsageContext,
           this@ParametersParameterSurrogate.valueDosage,
           this@ParametersParameterSurrogate.valueMeta,
-        )
-      resource = this@ParametersParameterSurrogate.resource
-      part = this@ParametersParameterSurrogate.part
-    }
+        ),
+      resource = this@ParametersParameterSurrogate.resource,
+      part = this@ParametersParameterSurrogate.part ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Parameters.Parameter): ParametersParameterSurrogate =
       with(model) {
-        ParametersParameterSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueContributor = this@with.`value`?.asContributor()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-          valueMeta = this@with.`value`?.asMeta()?.value
-          resource = this@with.resource
-          part = this@with.part
-        }
+        ParametersParameterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueContributor = this@with.`value`?.asContributor()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+          valueMeta = this@with.`value`?.asMeta()?.value,
+          resource = this@with.resource,
+          part = this@with.part.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -380,30 +383,30 @@ internal data class ParametersSurrogate(
   public var _implicitRules: Element? = null,
   public var language: KotlinString? = null,
   public var _language: Element? = null,
-  public var parameter: List<Parameters.Parameter>? = null,
+  public var parameter: MutableList<Parameters.Parameter>? = null,
 ) {
   public fun toModel(): Parameters =
-    Parameters().apply {
-      id = this@ParametersSurrogate.id
-      meta = this@ParametersSurrogate.meta
+    Parameters(
+      id = this@ParametersSurrogate.id,
+      meta = this@ParametersSurrogate.meta,
       implicitRules =
-        Uri.of(this@ParametersSurrogate.implicitRules, this@ParametersSurrogate._implicitRules)
-      language = Code.of(this@ParametersSurrogate.language, this@ParametersSurrogate._language)
-      parameter = this@ParametersSurrogate.parameter
-    }
+        Uri.of(this@ParametersSurrogate.implicitRules, this@ParametersSurrogate._implicitRules),
+      language = Code.of(this@ParametersSurrogate.language, this@ParametersSurrogate._language),
+      parameter = this@ParametersSurrogate.parameter ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Parameters): ParametersSurrogate =
       with(model) {
-        ParametersSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          parameter = this@with.parameter
-        }
+        ParametersSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.GuidanceResponseSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class GuidanceResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class GuidanceResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class GuidanceResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The identifier of the request associated with this response. If an identifier was given as part
    * of the request, it will be reproduced here to enable the requester to more easily identify the
@@ -137,9 +137,9 @@ public data class GuidanceResponse(
    */
   public var requestIdentifier: Identifier? = null,
   /** Allows a service to provide unique, business identifiers for the response. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** An identifier, CodeableConcept or canonical reference to the guidance that was requested. */
-  public var module: Module? = null,
+  public var module: Module,
   /**
    * The status of the response. If the evaluation is completed successfully, the status will
    * indicate success. However, in order to complete the evaluation, the engine may require more
@@ -152,7 +152,7 @@ public data class GuidanceResponse(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<GuidanceResponseStatus>? = null,
+  public var status: Enumeration<GuidanceResponseStatus>,
   /** The patient for which the request was processed. */
   public var subject: Reference? = null,
   /**
@@ -183,9 +183,9 @@ public data class GuidanceResponse(
    * [http://hl7.org/fhir/StructureDefinition/targetPath](http://hl7.org/fhir/extensions/StructureDefinition-targetPath.html)
    * extensions to indicate the specific elements relevant to providing the reason for the guidance.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /** Provides a mechanism to communicate additional information about the response. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Messages resulting from the evaluation of the artifact or artifacts. As part of evaluating the
    * request, the engine may produce informational or warning messages. These messages will be
@@ -200,14 +200,14 @@ public data class GuidanceResponse(
    */
   public var outputParameters: Reference? = null,
   /** The actions, if any, produced by the evaluation of the artifact. */
-  public var result: List<Reference?>? = null,
+  public var result: MutableList<Reference> = mutableListOf(),
   /**
    * If the evaluation could not be completed due to lack of information, or additional information
    * would potentially result in a more accurate response, this element will a description of the
    * data required in order to proceed with the evaluation. A subsequent request to the service
    * should include this data.
    */
-  public var dataRequirement: List<DataRequirement?>? = null,
+  public var dataRequirement: MutableList<DataRequirement> = mutableListOf(),
 ) : DomainResource() {
   public sealed interface Module {
     public fun asUri(): Uri? = this as? Uri
@@ -225,14 +225,14 @@ public data class GuidanceResponse(
     ) : Module
 
     public companion object {
-      public fun from(
+      internal fun from(
         uriValue: com.google.fhir.model.r5.Uri?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
-        CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
       ): Module? {
         if (uriValue != null) return Uri(uriValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

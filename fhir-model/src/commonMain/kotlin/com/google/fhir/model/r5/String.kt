@@ -19,7 +19,7 @@
 package com.google.fhir.model.r5
 
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** string Type: A sequence of Unicode characters */
 public open class String(
@@ -37,12 +37,12 @@ public open class String(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  open override var extension: List<Extension?>? = null,
+  open override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public open var `value`: kotlin.String? = null,
 ) : PrimitiveType() {
   public open fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -50,10 +50,10 @@ public open class String(
 
   public companion object {
     public fun of(`value`: kotlin.String?, element: Element?): String? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        String(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        String(element?.id, element?.extension, value)
+        null
       }
   }
 }

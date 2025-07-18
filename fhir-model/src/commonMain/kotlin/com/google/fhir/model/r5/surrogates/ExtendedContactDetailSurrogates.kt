@@ -31,46 +31,46 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ExtendedContactDetailSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var purpose: CodeableConcept? = null,
-  public var name: List<HumanName?>? = null,
-  public var telecom: List<ContactPoint?>? = null,
+  public var name: MutableList<HumanName>? = null,
+  public var telecom: MutableList<ContactPoint>? = null,
   public var address: Address? = null,
   public var organization: Reference? = null,
   public var period: Period? = null,
 ) {
   public fun toModel(): ExtendedContactDetail =
-    ExtendedContactDetail().apply {
-      id = this@ExtendedContactDetailSurrogate.id
-      extension = this@ExtendedContactDetailSurrogate.extension
-      purpose = this@ExtendedContactDetailSurrogate.purpose
-      name = this@ExtendedContactDetailSurrogate.name
-      telecom = this@ExtendedContactDetailSurrogate.telecom
-      address = this@ExtendedContactDetailSurrogate.address
-      organization = this@ExtendedContactDetailSurrogate.organization
-      period = this@ExtendedContactDetailSurrogate.period
-    }
+    ExtendedContactDetail(
+      id = this@ExtendedContactDetailSurrogate.id,
+      extension = this@ExtendedContactDetailSurrogate.extension ?: mutableListOf(),
+      purpose = this@ExtendedContactDetailSurrogate.purpose,
+      name = this@ExtendedContactDetailSurrogate.name ?: mutableListOf(),
+      telecom = this@ExtendedContactDetailSurrogate.telecom ?: mutableListOf(),
+      address = this@ExtendedContactDetailSurrogate.address,
+      organization = this@ExtendedContactDetailSurrogate.organization,
+      period = this@ExtendedContactDetailSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(model: ExtendedContactDetail): ExtendedContactDetailSurrogate =
       with(model) {
-        ExtendedContactDetailSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          purpose = this@with.purpose
-          name = this@with.name
-          telecom = this@with.telecom
-          address = this@with.address
-          organization = this@with.organization
-          period = this@with.period
-        }
+        ExtendedContactDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose,
+          name = this@with.name.takeUnless { it.all { it == null } },
+          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          address = this@with.address,
+          organization = this@with.organization,
+          period = this@with.period,
+        )
       }
   }
 }

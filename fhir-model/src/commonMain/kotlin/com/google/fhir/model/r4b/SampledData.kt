@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.SampledDataSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,18 +46,18 @@ public data class SampledData(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The base quantity that a measured value of zero represents. In addition, this provides the
    * units of the entire measurement series.
    */
-  public var origin: Quantity? = null,
+  public var origin: Quantity,
   /**
    * The length of time between sampling times, measured in milliseconds.
    *
    * This is usually a whole number.
    */
-  public var period: Decimal? = null,
+  public var period: Decimal,
   /**
    * A correction factor that is applied to the sampled data points before they are added to the
    * origin.
@@ -81,7 +81,7 @@ public data class SampledData(
    * If there is more than one dimension, the code for the type of data will define the meaning of
    * the dimensions (typically ECG data).
    */
-  public var dimensions: PositiveInt? = null,
+  public var dimensions: PositiveInt,
   /**
    * A series of data points which are decimal values separated by a single space (character u20).
    * The special values "E" (error), "L" (below detection limit) and "U" (above detection limit) can

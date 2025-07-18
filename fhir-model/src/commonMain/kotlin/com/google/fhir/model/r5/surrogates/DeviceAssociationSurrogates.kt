@@ -35,40 +35,41 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceAssociationOperationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var status: CodeableConcept? = null,
-  public var `operator`: List<Reference?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var status: CodeableConcept,
+  public var `operator`: MutableList<Reference>? = null,
   public var period: Period? = null,
 ) {
   public fun toModel(): DeviceAssociation.Operation =
-    DeviceAssociation.Operation().apply {
-      id = this@DeviceAssociationOperationSurrogate.id
-      extension = this@DeviceAssociationOperationSurrogate.extension
-      modifierExtension = this@DeviceAssociationOperationSurrogate.modifierExtension
-      status = this@DeviceAssociationOperationSurrogate.status
-      `operator` = this@DeviceAssociationOperationSurrogate.`operator`
-      period = this@DeviceAssociationOperationSurrogate.period
-    }
+    DeviceAssociation.Operation(
+      id = this@DeviceAssociationOperationSurrogate.id,
+      extension = this@DeviceAssociationOperationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DeviceAssociationOperationSurrogate.modifierExtension ?: mutableListOf(),
+      status = this@DeviceAssociationOperationSurrogate.status,
+      `operator` = this@DeviceAssociationOperationSurrogate.`operator` ?: mutableListOf(),
+      period = this@DeviceAssociationOperationSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(model: DeviceAssociation.Operation): DeviceAssociationOperationSurrogate =
       with(model) {
-        DeviceAssociationOperationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          status = this@with.status
-          `operator` = this@with.`operator`
-          period = this@with.period
-        }
+        DeviceAssociationOperationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          status = this@with.status,
+          `operator` = this@with.`operator`.takeUnless { it.all { it == null } },
+          period = this@with.period,
+        )
       }
   }
 }
@@ -82,69 +83,72 @@ internal data class DeviceAssociationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var device: Reference? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var status: CodeableConcept? = null,
-  public var statusReason: List<CodeableConcept?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var device: Reference,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var status: CodeableConcept,
+  public var statusReason: MutableList<CodeableConcept>? = null,
   public var subject: Reference? = null,
   public var bodyStructure: Reference? = null,
   public var period: Period? = null,
-  public var operation: List<DeviceAssociation.Operation>? = null,
+  public var operation: MutableList<DeviceAssociation.Operation>? = null,
 ) {
   public fun toModel(): DeviceAssociation =
-    DeviceAssociation().apply {
-      id = this@DeviceAssociationSurrogate.id
-      meta = this@DeviceAssociationSurrogate.meta
+    DeviceAssociation(
+      id = this@DeviceAssociationSurrogate.id,
+      meta = this@DeviceAssociationSurrogate.meta,
       implicitRules =
         Uri.of(
           this@DeviceAssociationSurrogate.implicitRules,
           this@DeviceAssociationSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@DeviceAssociationSurrogate.language, this@DeviceAssociationSurrogate._language)
-      text = this@DeviceAssociationSurrogate.text
-      contained = this@DeviceAssociationSurrogate.contained
-      extension = this@DeviceAssociationSurrogate.extension
-      modifierExtension = this@DeviceAssociationSurrogate.modifierExtension
-      identifier = this@DeviceAssociationSurrogate.identifier
-      device = this@DeviceAssociationSurrogate.device
-      category = this@DeviceAssociationSurrogate.category
-      status = this@DeviceAssociationSurrogate.status
-      statusReason = this@DeviceAssociationSurrogate.statusReason
-      subject = this@DeviceAssociationSurrogate.subject
-      bodyStructure = this@DeviceAssociationSurrogate.bodyStructure
-      period = this@DeviceAssociationSurrogate.period
-      operation = this@DeviceAssociationSurrogate.operation
-    }
+        Code.of(
+          this@DeviceAssociationSurrogate.language,
+          this@DeviceAssociationSurrogate._language,
+        ),
+      text = this@DeviceAssociationSurrogate.text,
+      contained = this@DeviceAssociationSurrogate.contained ?: mutableListOf(),
+      extension = this@DeviceAssociationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DeviceAssociationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DeviceAssociationSurrogate.identifier ?: mutableListOf(),
+      device = this@DeviceAssociationSurrogate.device,
+      category = this@DeviceAssociationSurrogate.category ?: mutableListOf(),
+      status = this@DeviceAssociationSurrogate.status,
+      statusReason = this@DeviceAssociationSurrogate.statusReason ?: mutableListOf(),
+      subject = this@DeviceAssociationSurrogate.subject,
+      bodyStructure = this@DeviceAssociationSurrogate.bodyStructure,
+      period = this@DeviceAssociationSurrogate.period,
+      operation = this@DeviceAssociationSurrogate.operation ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DeviceAssociation): DeviceAssociationSurrogate =
       with(model) {
-        DeviceAssociationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          device = this@with.device
-          category = this@with.category
-          status = this@with.status
-          statusReason = this@with.statusReason
-          subject = this@with.subject
-          bodyStructure = this@with.bodyStructure
-          period = this@with.period
-          operation = this@with.operation
-        }
+        DeviceAssociationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          device = this@with.device,
+          category = this@with.category.takeUnless { it.all { it == null } },
+          status = this@with.status,
+          statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
+          subject = this@with.subject,
+          bodyStructure = this@with.bodyStructure,
+          period = this@with.period,
+          operation = this@with.operation.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

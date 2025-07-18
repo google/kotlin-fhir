@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.DeviceMetricCalibrationSerializer
 import com.google.fhir.model.r5.serializers.DeviceMetricSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class DeviceMetric(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class DeviceMetric(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class DeviceMetric(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Instance identifiers assigned to a device, by the device or gateway software, manufacturers,
    * other organizations or owners. For example, handle ID.
@@ -139,13 +139,13 @@ public data class DeviceMetric(
    * For identifiers assigned to a device by the device or gateway software, the `system` element of
    * the identifier should be set to any identifier of the device.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Describes the type of the metric. For example: Heart Rate, PEEP Setting, etc.
    *
    * DeviceMetric.type can be referred to either IEEE 11073-10101 or LOINC.
    */
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   /**
    * Describes the unit that an observed value determined for this metric will have. For example:
    * Percent, Seconds, etc.
@@ -159,7 +159,7 @@ public data class DeviceMetric(
    * Note if this is not the top level device - also know as the source device, it may be referenced
    * in the device.parent element.
    */
-  public var device: Reference? = null,
+  public var device: Reference,
   /** Indicates current operational state of the device. For example: On, Off, Standby, etc. */
   public var operationalStatus: Enumeration<DeviceMetricOperationalStatus>? = null,
   /**
@@ -173,7 +173,7 @@ public data class DeviceMetric(
    * Indicates the category of the observation generation process. A DeviceMetric can be for example
    * a setting, measurement, or calculation.
    */
-  public var category: Enumeration<DeviceMetricCategory>? = null,
+  public var category: Enumeration<DeviceMetricCategory>,
   /**
    * The frequency at which the metric is taken or recorded. Devices measure metrics at a wide range
    * of frequencies; for example, an ECG might sample measurements in the millisecond range, while
@@ -184,7 +184,7 @@ public data class DeviceMetric(
    */
   public var measurementFrequency: Quantity? = null,
   /** Describes the calibrations that have been performed or that are required to be performed. */
-  public var calibration: List<Calibration>? = null,
+  public var calibration: MutableList<Calibration> = mutableListOf(),
 ) : DomainResource() {
   /** Describes the calibrations that have been performed or that are required to be performed. */
   @Serializable(with = DeviceMetricCalibrationSerializer::class)
@@ -206,7 +206,7 @@ public data class DeviceMetric(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -225,7 +225,7 @@ public data class DeviceMetric(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Describes the type of the calibration method. */
     public var type: Enumeration<DeviceMetricCalibrationType>? = null,
     /** Describes the state of the calibration. */

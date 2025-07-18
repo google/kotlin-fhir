@@ -31,14 +31,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CodingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var system: KotlinString? = null,
   public var _system: Element? = null,
   public var version: KotlinString? = null,
@@ -51,34 +51,34 @@ internal data class CodingSurrogate(
   public var _userSelected: Element? = null,
 ) {
   public fun toModel(): Coding =
-    Coding().apply {
-      id = this@CodingSurrogate.id
-      extension = this@CodingSurrogate.extension
-      system = Uri.of(this@CodingSurrogate.system, this@CodingSurrogate._system)
-      version = R4bString.of(this@CodingSurrogate.version, this@CodingSurrogate._version)
-      code = Code.of(this@CodingSurrogate.code, this@CodingSurrogate._code)
-      display = R4bString.of(this@CodingSurrogate.display, this@CodingSurrogate._display)
+    Coding(
+      id = this@CodingSurrogate.id,
+      extension = this@CodingSurrogate.extension ?: mutableListOf(),
+      system = Uri.of(this@CodingSurrogate.system, this@CodingSurrogate._system),
+      version = R4bString.of(this@CodingSurrogate.version, this@CodingSurrogate._version),
+      code = Code.of(this@CodingSurrogate.code, this@CodingSurrogate._code),
+      display = R4bString.of(this@CodingSurrogate.display, this@CodingSurrogate._display),
       userSelected =
-        R4bBoolean.of(this@CodingSurrogate.userSelected, this@CodingSurrogate._userSelected)
-    }
+        R4bBoolean.of(this@CodingSurrogate.userSelected, this@CodingSurrogate._userSelected),
+    )
 
   public companion object {
     public fun fromModel(model: Coding): CodingSurrogate =
       with(model) {
-        CodingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          system = this@with.system?.value
-          _system = this@with.system?.toElement()
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          code = this@with.code?.value
-          _code = this@with.code?.toElement()
-          display = this@with.display?.value
-          _display = this@with.display?.toElement()
-          userSelected = this@with.userSelected?.value
-          _userSelected = this@with.userSelected?.toElement()
-        }
+        CodingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          system = this@with.system?.value,
+          _system = this@with.system?.toElement(),
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          code = this@with.code?.value,
+          _code = this@with.code?.toElement(),
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
+          userSelected = this@with.userSelected?.value,
+          _userSelected = this@with.userSelected?.toElement(),
+        )
       }
   }
 }

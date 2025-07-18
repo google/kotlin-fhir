@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ServiceRequestSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class ServiceRequest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class ServiceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,7 +126,7 @@ public data class ServiceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers assigned to this order instance by the orderer and/or the receiver and/or order
    * fulfiller.
@@ -136,7 +136,7 @@ public data class ServiceRequest(
    * the order (known as the 'Filler' in HL7 v2). For further discussion and examples see the
    * resource notes section below.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this ServiceRequest.
@@ -148,18 +148,18 @@ public data class ServiceRequest(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this ServiceRequest.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** Plan/proposal/order fulfilled by this request. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The request takes the place of the referenced completed or terminated request(s). */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * A shared identifier common to all service requests that were authorized more or less
    * simultaneously by a single author, representing the composite or group identifier.
@@ -179,14 +179,14 @@ public data class ServiceRequest(
    * event (see [Event Pattern](event.html) for general discussion) or using the [Task](task.html)
    * resource.
    */
-  public var status: Enumeration<ServiceRequestStatus>? = null,
+  public var status: Enumeration<ServiceRequestStatus>,
   /**
    * Whether the request is a proposal, plan, an original order or a reflex order.
    *
    * This element is labeled as a modifier because the intent alters when and how the resource is
    * actually applicable.
    */
-  public var intent: Enumeration<ServiceRequestIntent>? = null,
+  public var intent: Enumeration<ServiceRequestIntent>,
   /**
    * A code that classifies the service for searching, sorting and display purposes (e.g. "Surgical
    * Procedure").
@@ -195,7 +195,7 @@ public data class ServiceRequest(
    * retrieving or displaying the resource. The level of granularity is defined by the category
    * concepts in the value set.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Indicates how quickly the ServiceRequest should be addressed with respect to other requests.
    */
@@ -227,7 +227,7 @@ public data class ServiceRequest(
    * For information from the medical record intended to support the delivery of the requested
    * services, use the `supportingInformation` element.
    */
-  public var orderDetail: List<CodeableConcept?>? = null,
+  public var orderDetail: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An amount of service being requested which can be a quantity ( for example $1,500 home
    * modification), a ratio ( for example, 20 half day visits per month), or a range (2.0 to 1.8 Gy
@@ -239,7 +239,7 @@ public data class ServiceRequest(
    * be requested on animals, groups of humans or animals, devices such as dialysis machines, or
    * even locations (typically for environmental scans).
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * An encounter that provides additional information about the healthcare context in which this
    * request is made.
@@ -278,17 +278,17 @@ public data class ServiceRequest(
    * [request-performerOrder extension](extension-request-performerorder.html). Use CareTeam to
    * represent a group of performers (for example, Practitioner A *and* Practitioner B).
    */
-  public var performer: List<Reference?>? = null,
+  public var performer: MutableList<Reference> = mutableListOf(),
   /**
    * The preferred location(s) where the procedure should actually happen in coded or free text
    * form. E.g. at home or nursing day care center.
    */
-  public var locationCode: List<CodeableConcept?>? = null,
+  public var locationCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A reference to the the preferred location(s) where the procedure should actually happen. E.g.
    * at home or nursing day care center.
    */
-  public var locationReference: List<Reference?>? = null,
+  public var locationReference: MutableList<Reference> = mutableListOf(),
   /**
    * An explanation or justification for why this service is being requested in coded or textual
    * form. This is often for billing purposes. May relate to the resources referred to in
@@ -299,7 +299,7 @@ public data class ServiceRequest(
    * element if the data is free (uncoded) text as shown in the
    * [CT Scan example](servicerequest-example-di.html).
    */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Indicates another resource that provides a justification for why this service is being
    * requested. May relate to the resources referred to in `supportingInfo`.
@@ -314,12 +314,12 @@ public data class ServiceRequest(
    * `ServiceRequest.reasonCode` if the data is free (uncoded) text as shown in the
    * [CT Scan example](servicerequest-example-di.html).
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * needed for delivering the requested service.
    */
-  public var insurance: List<Reference?>? = null,
+  public var insurance: MutableList<Reference> = mutableListOf(),
   /**
    * Additional clinical information about the patient or specimen that may influence the services
    * or their interpretations. This information includes diagnosis, clinical findings and other
@@ -331,7 +331,7 @@ public data class ServiceRequest(
    * To represent information about how the services are to be delivered use the `instructions`
    * element.
    */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * One or more specimens that the laboratory procedure will use.
    *
@@ -341,7 +341,7 @@ public data class ServiceRequest(
    * first with an unknown specimen, then the [Specimen](specimen.html) resource points to the
    * ServiceRequest.
    */
-  public var specimen: List<Reference?>? = null,
+  public var specimen: MutableList<Reference> = mutableListOf(),
   /**
    * Anatomic location where the procedure should be performed. This is the target site.
    *
@@ -350,12 +350,12 @@ public data class ServiceRequest(
    * identify and track separately) then use the standard extension
    * [procedure-targetBodyStructure](extension-procedure-targetbodystructure.html).
    */
-  public var bodySite: List<CodeableConcept?>? = null,
+  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Any other notes and comments made about the service request. For example, internal billing
    * notes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Instructions in terms that are understood by the patient or consumer. */
   public var patientInstruction: String? = null,
   /**
@@ -368,7 +368,7 @@ public data class ServiceRequest(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.
    */
-  public var relevantHistory: List<Reference?>? = null,
+  public var relevantHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   public sealed interface Quantity {
     public fun asQuantity(): Quantity? = this as? Quantity
@@ -387,14 +387,14 @@ public data class ServiceRequest(
       ServiceRequest.Quantity
 
     public companion object {
-      public fun from(
-        QuantityValue: com.google.fhir.model.r4.Quantity?,
-        RatioValue: com.google.fhir.model.r4.Ratio?,
-        RangeValue: com.google.fhir.model.r4.Range?,
+      internal fun from(
+        quantityValue: com.google.fhir.model.r4.Quantity?,
+        ratioValue: com.google.fhir.model.r4.Ratio?,
+        rangeValue: com.google.fhir.model.r4.Range?,
       ): ServiceRequest.Quantity? {
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        if (RatioValue != null) return Ratio(RatioValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (quantityValue != null) return Quantity(quantityValue)
+        if (ratioValue != null) return Ratio(ratioValue)
+        if (rangeValue != null) return Range(rangeValue)
         return null
       }
     }
@@ -414,14 +414,14 @@ public data class ServiceRequest(
     public data class Timing(public val `value`: com.google.fhir.model.r4.Timing) : Occurrence
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
-        TimingValue: com.google.fhir.model.r4.Timing?,
+        periodValue: com.google.fhir.model.r4.Period?,
+        timingValue: com.google.fhir.model.r4.Timing?,
       ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
         return null
       }
     }
@@ -439,12 +439,12 @@ public data class ServiceRequest(
     ) : AsNeeded
 
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r4.Boolean?,
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
       ): AsNeeded? {
         if (booleanValue != null) return Boolean(booleanValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

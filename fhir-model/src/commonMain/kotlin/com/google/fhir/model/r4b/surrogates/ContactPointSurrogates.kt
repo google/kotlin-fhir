@@ -31,14 +31,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ContactPointSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var system: KotlinString? = null,
   public var _system: Element? = null,
   public var `value`: KotlinString? = null,
@@ -50,44 +50,44 @@ internal data class ContactPointSurrogate(
   public var period: Period? = null,
 ) {
   public fun toModel(): ContactPoint =
-    ContactPoint().apply {
-      id = this@ContactPointSurrogate.id
-      extension = this@ContactPointSurrogate.extension
+    ContactPoint(
+      id = this@ContactPointSurrogate.id,
+      extension = this@ContactPointSurrogate.extension ?: mutableListOf(),
       system =
-        Enumeration.of(
-          this@ContactPointSurrogate.system?.let {
-            com.google.fhir.model.r4b.ContactPoint.ContactPointSystem.fromCode(it)
-          },
-          this@ContactPointSurrogate._system,
-        )
-      `value` = R4bString.of(this@ContactPointSurrogate.`value`, this@ContactPointSurrogate._value)
+        this@ContactPointSurrogate.system?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.ContactPoint.ContactPointSystem.fromCode(it!!),
+            this@ContactPointSurrogate._system,
+          )
+        },
+      `value` = R4bString.of(this@ContactPointSurrogate.`value`, this@ContactPointSurrogate._value),
       use =
-        Enumeration.of(
-          this@ContactPointSurrogate.use?.let {
-            com.google.fhir.model.r4b.ContactPoint.ContactPointUse.fromCode(it)
-          },
-          this@ContactPointSurrogate._use,
-        )
-      rank = PositiveInt.of(this@ContactPointSurrogate.rank, this@ContactPointSurrogate._rank)
-      period = this@ContactPointSurrogate.period
-    }
+        this@ContactPointSurrogate.use?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.ContactPoint.ContactPointUse.fromCode(it!!),
+            this@ContactPointSurrogate._use,
+          )
+        },
+      rank = PositiveInt.of(this@ContactPointSurrogate.rank, this@ContactPointSurrogate._rank),
+      period = this@ContactPointSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(model: ContactPoint): ContactPointSurrogate =
       with(model) {
-        ContactPointSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          system = this@with.system?.value?.getCode()
-          _system = this@with.system?.toElement()
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          use = this@with.use?.value?.getCode()
-          _use = this@with.use?.toElement()
-          rank = this@with.rank?.value
-          _rank = this@with.rank?.toElement()
-          period = this@with.period
-        }
+        ContactPointSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          system = this@with.system?.value?.getCode(),
+          _system = this@with.system?.toElement(),
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          use = this@with.use?.value?.getCode(),
+          _use = this@with.use?.toElement(),
+          rank = this@with.rank?.value,
+          _rank = this@with.rank?.toElement(),
+          period = this@with.period,
+        )
       }
   }
 }

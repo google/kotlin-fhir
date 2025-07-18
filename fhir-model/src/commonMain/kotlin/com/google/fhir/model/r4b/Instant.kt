@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** Base StructureDefinition for instant Type: An instant in time - known at least to the second */
 public data class Instant(
@@ -38,12 +38,12 @@ public data class Instant(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public var `value`: FhirDateTime? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -51,10 +51,10 @@ public data class Instant(
 
   public companion object {
     public fun of(`value`: FhirDateTime?, element: Element?): Instant? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Instant(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Instant(element?.id, element?.extension, value)
+        null
       }
   }
 }

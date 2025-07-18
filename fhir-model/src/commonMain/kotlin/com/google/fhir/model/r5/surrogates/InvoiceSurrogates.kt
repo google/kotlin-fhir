@@ -47,37 +47,37 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class InvoiceParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var role: CodeableConcept? = null,
-  public var actor: Reference? = null,
+  public var actor: Reference,
 ) {
   public fun toModel(): Invoice.Participant =
-    Invoice.Participant().apply {
-      id = this@InvoiceParticipantSurrogate.id
-      extension = this@InvoiceParticipantSurrogate.extension
-      modifierExtension = this@InvoiceParticipantSurrogate.modifierExtension
-      role = this@InvoiceParticipantSurrogate.role
-      actor = this@InvoiceParticipantSurrogate.actor
-    }
+    Invoice.Participant(
+      id = this@InvoiceParticipantSurrogate.id,
+      extension = this@InvoiceParticipantSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InvoiceParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      role = this@InvoiceParticipantSurrogate.role,
+      actor = this@InvoiceParticipantSurrogate.actor,
+    )
 
   public companion object {
     public fun fromModel(model: Invoice.Participant): InvoiceParticipantSurrogate =
       with(model) {
-        InvoiceParticipantSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          role = this@with.role
-          actor = this@with.actor
-        }
+        InvoiceParticipantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          role = this@with.role,
+          actor = this@with.actor,
+        )
       }
   }
 }
@@ -85,8 +85,8 @@ internal data class InvoiceParticipantSurrogate(
 @Serializable
 internal data class InvoiceLineItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var servicedDate: KotlinString? = null,
@@ -94,18 +94,18 @@ internal data class InvoiceLineItemSurrogate(
   public var servicedPeriod: Period? = null,
   public var chargeItemReference: Reference? = null,
   public var chargeItemCodeableConcept: CodeableConcept? = null,
-  public var priceComponent: List<MonetaryComponent?>? = null,
+  public var priceComponent: MutableList<MonetaryComponent>? = null,
 ) {
   public fun toModel(): Invoice.LineItem =
-    Invoice.LineItem().apply {
-      id = this@InvoiceLineItemSurrogate.id
-      extension = this@InvoiceLineItemSurrogate.extension
-      modifierExtension = this@InvoiceLineItemSurrogate.modifierExtension
+    Invoice.LineItem(
+      id = this@InvoiceLineItemSurrogate.id,
+      extension = this@InvoiceLineItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InvoiceLineItemSurrogate.modifierExtension ?: mutableListOf(),
       sequence =
         PositiveInt.of(
           this@InvoiceLineItemSurrogate.sequence,
           this@InvoiceLineItemSurrogate._sequence,
-        )
+        ),
       serviced =
         Invoice.LineItem.Serviced?.from(
           Date.of(
@@ -113,31 +113,31 @@ internal data class InvoiceLineItemSurrogate(
             this@InvoiceLineItemSurrogate._servicedDate,
           ),
           this@InvoiceLineItemSurrogate.servicedPeriod,
-        )
+        ),
       chargeItem =
-        Invoice.LineItem.ChargeItem?.from(
+        Invoice.LineItem.ChargeItem.from(
           this@InvoiceLineItemSurrogate.chargeItemReference,
           this@InvoiceLineItemSurrogate.chargeItemCodeableConcept,
-        )
-      priceComponent = this@InvoiceLineItemSurrogate.priceComponent
-    }
+        )!!,
+      priceComponent = this@InvoiceLineItemSurrogate.priceComponent ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Invoice.LineItem): InvoiceLineItemSurrogate =
       with(model) {
-        InvoiceLineItemSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          sequence = this@with.sequence?.value
-          _sequence = this@with.sequence?.toElement()
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString()
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement()
-          servicedPeriod = this@with.serviced?.asPeriod()?.value
-          chargeItemReference = this@with.chargeItem?.asReference()?.value
-          chargeItemCodeableConcept = this@with.chargeItem?.asCodeableConcept()?.value
-          priceComponent = this@with.priceComponent
-        }
+        InvoiceLineItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence?.value,
+          _sequence = this@with.sequence?.toElement(),
+          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.serviced?.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.serviced?.asPeriod()?.value,
+          chargeItemReference = this@with.chargeItem?.asReference()?.value,
+          chargeItemCodeableConcept = this@with.chargeItem?.asCodeableConcept()?.value,
+          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -151,10 +151,10 @@ internal data class InvoiceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var cancelledReason: KotlinString? = null,
@@ -169,51 +169,49 @@ internal data class InvoiceSurrogate(
   public var periodDate: KotlinString? = null,
   public var _periodDate: Element? = null,
   public var periodPeriod: Period? = null,
-  public var participant: List<Invoice.Participant>? = null,
+  public var participant: MutableList<Invoice.Participant>? = null,
   public var issuer: Reference? = null,
   public var account: Reference? = null,
-  public var lineItem: List<Invoice.LineItem>? = null,
-  public var totalPriceComponent: List<MonetaryComponent?>? = null,
+  public var lineItem: MutableList<Invoice.LineItem>? = null,
+  public var totalPriceComponent: MutableList<MonetaryComponent>? = null,
   public var totalNet: Money? = null,
   public var totalGross: Money? = null,
   public var paymentTerms: KotlinString? = null,
   public var _paymentTerms: Element? = null,
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): Invoice =
-    Invoice().apply {
-      id = this@InvoiceSurrogate.id
-      meta = this@InvoiceSurrogate.meta
+    Invoice(
+      id = this@InvoiceSurrogate.id,
+      meta = this@InvoiceSurrogate.meta,
       implicitRules =
-        Uri.of(this@InvoiceSurrogate.implicitRules, this@InvoiceSurrogate._implicitRules)
-      language = Code.of(this@InvoiceSurrogate.language, this@InvoiceSurrogate._language)
-      text = this@InvoiceSurrogate.text
-      contained = this@InvoiceSurrogate.contained
-      extension = this@InvoiceSurrogate.extension
-      modifierExtension = this@InvoiceSurrogate.modifierExtension
-      identifier = this@InvoiceSurrogate.identifier
+        Uri.of(this@InvoiceSurrogate.implicitRules, this@InvoiceSurrogate._implicitRules),
+      language = Code.of(this@InvoiceSurrogate.language, this@InvoiceSurrogate._language),
+      text = this@InvoiceSurrogate.text,
+      contained = this@InvoiceSurrogate.contained ?: mutableListOf(),
+      extension = this@InvoiceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InvoiceSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InvoiceSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@InvoiceSurrogate.status?.let {
-            com.google.fhir.model.r5.Invoice.InvoiceStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.Invoice.InvoiceStatus.fromCode(this@InvoiceSurrogate.status!!),
           this@InvoiceSurrogate._status,
-        )
+        ),
       cancelledReason =
-        R5String.of(this@InvoiceSurrogate.cancelledReason, this@InvoiceSurrogate._cancelledReason)
-      type = this@InvoiceSurrogate.type
-      subject = this@InvoiceSurrogate.subject
-      recipient = this@InvoiceSurrogate.recipient
+        R5String.of(this@InvoiceSurrogate.cancelledReason, this@InvoiceSurrogate._cancelledReason),
+      type = this@InvoiceSurrogate.type,
+      subject = this@InvoiceSurrogate.subject,
+      recipient = this@InvoiceSurrogate.recipient,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@InvoiceSurrogate.date),
           this@InvoiceSurrogate._date,
-        )
+        ),
       creation =
         DateTime.of(
           FhirDateTime.fromString(this@InvoiceSurrogate.creation),
           this@InvoiceSurrogate._creation,
-        )
+        ),
       period =
         Invoice.Period?.from(
           Date.of(
@@ -221,59 +219,59 @@ internal data class InvoiceSurrogate(
             this@InvoiceSurrogate._periodDate,
           ),
           this@InvoiceSurrogate.periodPeriod,
-        )
-      participant = this@InvoiceSurrogate.participant
-      issuer = this@InvoiceSurrogate.issuer
-      account = this@InvoiceSurrogate.account
-      lineItem = this@InvoiceSurrogate.lineItem
-      totalPriceComponent = this@InvoiceSurrogate.totalPriceComponent
-      totalNet = this@InvoiceSurrogate.totalNet
-      totalGross = this@InvoiceSurrogate.totalGross
+        ),
+      participant = this@InvoiceSurrogate.participant ?: mutableListOf(),
+      issuer = this@InvoiceSurrogate.issuer,
+      account = this@InvoiceSurrogate.account,
+      lineItem = this@InvoiceSurrogate.lineItem ?: mutableListOf(),
+      totalPriceComponent = this@InvoiceSurrogate.totalPriceComponent ?: mutableListOf(),
+      totalNet = this@InvoiceSurrogate.totalNet,
+      totalGross = this@InvoiceSurrogate.totalGross,
       paymentTerms =
-        Markdown.of(this@InvoiceSurrogate.paymentTerms, this@InvoiceSurrogate._paymentTerms)
-      note = this@InvoiceSurrogate.note
-    }
+        Markdown.of(this@InvoiceSurrogate.paymentTerms, this@InvoiceSurrogate._paymentTerms),
+      note = this@InvoiceSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Invoice): InvoiceSurrogate =
       with(model) {
-        InvoiceSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          cancelledReason = this@with.cancelledReason?.value
-          _cancelledReason = this@with.cancelledReason?.toElement()
-          type = this@with.type
-          subject = this@with.subject
-          recipient = this@with.recipient
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          creation = this@with.creation?.value?.toString()
-          _creation = this@with.creation?.toElement()
-          periodDate = this@with.period?.asDate()?.value?.value?.toString()
-          _periodDate = this@with.period?.asDate()?.value?.toElement()
-          periodPeriod = this@with.period?.asPeriod()?.value
-          participant = this@with.participant
-          issuer = this@with.issuer
-          account = this@with.account
-          lineItem = this@with.lineItem
-          totalPriceComponent = this@with.totalPriceComponent
-          totalNet = this@with.totalNet
-          totalGross = this@with.totalGross
-          paymentTerms = this@with.paymentTerms?.value
-          _paymentTerms = this@with.paymentTerms?.toElement()
-          note = this@with.note
-        }
+        InvoiceSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          cancelledReason = this@with.cancelledReason?.value,
+          _cancelledReason = this@with.cancelledReason?.toElement(),
+          type = this@with.type,
+          subject = this@with.subject,
+          recipient = this@with.recipient,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          creation = this@with.creation?.value?.toString(),
+          _creation = this@with.creation?.toElement(),
+          periodDate = this@with.period?.asDate()?.value?.value?.toString(),
+          _periodDate = this@with.period?.asDate()?.value?.toElement(),
+          periodPeriod = this@with.period?.asPeriod()?.value,
+          participant = this@with.participant.takeUnless { it.all { it == null } },
+          issuer = this@with.issuer,
+          account = this@with.account,
+          lineItem = this@with.lineItem.takeUnless { it.all { it == null } },
+          totalPriceComponent = this@with.totalPriceComponent.takeUnless { it.all { it == null } },
+          totalNet = this@with.totalNet,
+          totalGross = this@with.totalGross,
+          paymentTerms = this@with.paymentTerms?.value,
+          _paymentTerms = this@with.paymentTerms?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.EndpointSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class Endpoint(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class Endpoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,19 +127,19 @@ public data class Endpoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for the organization that is used to identify the endpoint across multiple disparate
    * systems.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * active | suspended | error | off | test.
    *
    * This element is labeled as a modifier because the status contains codes that mark the endpoint
    * as not currently valid.
    */
-  public var status: Enumeration<EndpointStatus>? = null,
+  public var status: Enumeration<EndpointStatus>,
   /**
    * A coded value that represents the technical details of the usage of this endpoint, such as what
    * WSDLs should be used in what way. (e.g. XDS.b/DICOM/cds-hook).
@@ -147,7 +147,7 @@ public data class Endpoint(
    * For additional connectivity details for the protocol, extensions will be used at this point, as
    * in the XDS example.
    */
-  public var connectionType: Coding? = null,
+  public var connectionType: Coding,
   /** A friendly name that this endpoint can be referred to with. */
   public var name: String? = null,
   /**
@@ -165,7 +165,7 @@ public data class Endpoint(
    * Contact details for a human to contact about the subscription. The primary use of this for
    * system administrator troubleshooting.
    */
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint> = mutableListOf(),
   /** The interval during which the endpoint is expected to be operational. */
   public var period: Period? = null,
   /**
@@ -175,7 +175,7 @@ public data class Endpoint(
    * indicates the specific document/schema that is being transferred; e.g. DischargeSummary or
    * CarePlan.
    */
-  public var payloadType: List<CodeableConcept?>? = null,
+  public var payloadType: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The mime type to send the payload in - e.g. application/fhir+xml, application/fhir+json. If the
    * mime type is not specified, then the sender could send any content (including no content
@@ -184,7 +184,7 @@ public data class Endpoint(
    * Sending the payload has obvious security consequences. The server is responsible for ensuring
    * that the content is appropriately secured.
    */
-  public var payloadMimeType: List<Code?>? = null,
+  public var payloadMimeType: MutableList<Code> = mutableListOf(),
   /**
    * The uri that describes the actual end-point to connect to.
    *
@@ -202,14 +202,14 @@ public data class Endpoint(
    * and not
    * "https://pacs.hospital.org/wado-rs/studies/1.2.250.1.59.40211.12345678.678910/series/1.2.250.1.59.40211.789001276.14556172.67789/instances/...".
    */
-  public var address: Url? = null,
+  public var address: Url,
   /**
    * Additional headers / information to send as part of the notification.
    *
    * Exactly what these mean depends on the channel type. The can convey additional information to
    * the recipient and/or meet security requirements.
    */
-  public var `header`: List<String?>? = null,
+  public var `header`: MutableList<String> = mutableListOf(),
 ) : DomainResource() {
   /** The status of the endpoint. */
   public enum class EndpointStatus(

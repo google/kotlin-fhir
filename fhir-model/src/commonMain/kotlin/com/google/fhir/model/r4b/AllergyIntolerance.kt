@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.AllergyIntoleranceReactionSerializer
 import com.google.fhir.model.r4b.serializers.AllergyIntoleranceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class AllergyIntolerance(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class AllergyIntolerance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class AllergyIntolerance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this AllergyIntolerance by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -139,7 +139,7 @@ public data class AllergyIntolerance(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The clinical status of the allergy or intolerance.
    *
@@ -187,7 +187,7 @@ public data class AllergyIntolerance(
    * modifier to get allergies that don't have a category. Additionally, category should be used
    * with caution because category can be subjective based on the sender.
    */
-  public var category: List<Enumeration<AllergyIntoleranceCategory>>? = null,
+  public var category: MutableList<Enumeration<AllergyIntoleranceCategory>> = mutableListOf(),
   /**
    * Estimate of the potential clinical harm, or seriousness, of the reaction to the identified
    * substance.
@@ -241,7 +241,7 @@ public data class AllergyIntolerance(
    */
   public var code: CodeableConcept? = null,
   /** The patient who has the allergy or intolerance. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The encounter when the allergy or intolerance was asserted. */
   public var encounter: Reference? = null,
   /** Estimated or actual date, date-time, or age when allergy or intolerance was identified. */
@@ -279,9 +279,9 @@ public data class AllergyIntolerance(
    * episode notes and descriptions, use AllergyIntolerance.event.description and
    * AllergyIntolerance.event.notes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Details about each adverse reaction event linked to exposure to the identified substance. */
-  public var reaction: List<Reaction>? = null,
+  public var reaction: MutableList<Reaction> = mutableListOf(),
 ) : DomainResource() {
   /** Details about each adverse reaction event linked to exposure to the identified substance. */
   @Serializable(with = AllergyIntoleranceReactionSerializer::class)
@@ -303,7 +303,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -322,7 +322,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identification of the specific substance (or pharmaceutical product) considered to be
      * responsible for the Adverse Reaction event. Note: the substance for a specific reaction may
@@ -354,7 +354,7 @@ public data class AllergyIntolerance(
      * screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.
      * Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.
      */
-    public var manifestation: List<CodeableConcept?>? = null,
+    public var manifestation: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Text description about the reaction as a whole, including details of the manifestation if
      * required.
@@ -390,7 +390,7 @@ public data class AllergyIntolerance(
      * captured in the description. For example: Clinical records are no longer available, recorded
      * based on information provided to the patient by her mother and her mother is deceased.
      */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement()
 
   public sealed interface Onset {
@@ -415,17 +415,17 @@ public data class AllergyIntolerance(
     public data class String(public val `value`: com.google.fhir.model.r4b.String) : Onset
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        AgeValue: com.google.fhir.model.r4b.Age?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        RangeValue: com.google.fhir.model.r4b.Range?,
+        ageValue: com.google.fhir.model.r4b.Age?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        rangeValue: com.google.fhir.model.r4b.Range?,
         stringValue: com.google.fhir.model.r4b.String?,
       ): Onset? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (ageValue != null) return Age(ageValue)
+        if (periodValue != null) return Period(periodValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (stringValue != null) return String(stringValue)
         return null
       }

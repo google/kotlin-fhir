@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ProductShelfLifeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,7 +66,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * This describes the shelf life, taking into account various scenarios such as shelf life of the
    * packaged Medicinal Product itself, shelf life after transformation where necessary and shelf
@@ -85,7 +85,7 @@ public data class ProductShelfLife(
    * Special precautions for storage, if any, can be specified using an appropriate controlled
    * vocabulary The controlled term and the controlled term identifier shall be specified.
    */
-  public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+  public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
 ) : BackboneType() {
   public sealed interface Period {
     public fun asDuration(): Duration? = this as? Duration
@@ -97,11 +97,11 @@ public data class ProductShelfLife(
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Period
 
     public companion object {
-      public fun from(
-        DurationValue: com.google.fhir.model.r5.Duration?,
+      internal fun from(
+        durationValue: com.google.fhir.model.r5.Duration?,
         stringValue: com.google.fhir.model.r5.String?,
       ): Period? {
-        if (DurationValue != null) return Duration(DurationValue)
+        if (durationValue != null) return Duration(durationValue)
         if (stringValue != null) return String(stringValue)
         return null
       }

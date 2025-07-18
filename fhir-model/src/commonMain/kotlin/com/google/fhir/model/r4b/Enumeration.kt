@@ -18,7 +18,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.Enum
 import kotlin.String
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * A FHIR Enumeration type bound to a specific set of codes. It represents a constrained code value
@@ -38,23 +38,19 @@ public data class Enumeration<T : Enum<*>>(
    * resource. To make the use of extensions safe and manageable, there is a strict set of
    * governance applied to the definition and use of extensions.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public var `value`: T? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
   }
 
   public companion object {
-    public fun <T : Enum<*>> of(`value`: T?, element: Element?): Enumeration<T>? =
-      if (value == null && element == null) {
-        null
-      } else {
-        Enumeration(element?.id, element?.extension, value = value)
-      }
+    public fun <T : Enum<*>> of(`value`: T, element: Element?): Enumeration<T> =
+      Enumeration(element?.id, element?.extension ?: mutableListOf(), value = value)
   }
 }

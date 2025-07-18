@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicSeria
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicTimeFromStartSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class EvidenceVariable(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class EvidenceVariable(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,7 +126,7 @@ public data class EvidenceVariable(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this evidence variable when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -154,7 +154,7 @@ public data class EvidenceVariable(
    * type, and can then identify this evidence variable outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the evidence variable when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -201,7 +201,7 @@ public data class EvidenceVariable(
    *
    * Allows filtering of evidence variables that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * The date (and optionally time) when the evidence variable was published. The date must change
    * when the business version changes and it must change if the status code changes. In addition,
@@ -225,7 +225,7 @@ public data class EvidenceVariable(
    */
   public var description: Markdown? = null,
   /** A human-readable string to clarify or explain concepts about the resource. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -235,7 +235,7 @@ public data class EvidenceVariable(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * The name of the organization or individual that published the evidence variable.
    *
@@ -253,7 +253,7 @@ public data class EvidenceVariable(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
@@ -261,21 +261,21 @@ public data class EvidenceVariable(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for internal coherence of the content.
    *
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    *
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
@@ -283,14 +283,14 @@ public data class EvidenceVariable(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * True if the actual variable measured, false if a conceptual representation of the intended
    * variable.
@@ -306,14 +306,14 @@ public data class EvidenceVariable(
    * criteria, ranging from simple codes, all the way to using an expression language to express the
    * criteria.
    */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
   /** Used for an outcome to classify. */
   public var handling: Enumeration<EvidenceVariableHandling>? = null,
   /**
    * A grouping (or set of values) described along with other groupings to specify the set of
    * groupings allowed for the variable.
    */
-  public var category: List<Category>? = null,
+  public var category: MutableList<Category> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A characteristic that defines the members of the evidence element. Multiple characteristics are
@@ -338,7 +338,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -357,7 +357,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A short, natural language description of the characteristic that could be used to communicate
      * the criteria to an end-user.
@@ -368,7 +368,7 @@ public data class EvidenceVariable(
      * observation), Expressions ( using an expression language such as FHIRPath or CQL) or
      * DataRequirements (such as Diabetes diagnosis onset in the last year).
      */
-    public var definition: Definition? = null,
+    public var definition: Definition,
     /** Method used for describing characteristic. */
     public var method: CodeableConcept? = null,
     /** Device used for determining characteristic. */
@@ -400,7 +400,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -419,7 +419,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A short, natural language description. */
       public var description: String? = null,
       /** Used to express the observation at a defined amount of time after the study start. */
@@ -427,7 +427,7 @@ public data class EvidenceVariable(
       /** Used to express the observation within a period after the study start. */
       public var range: Range? = null,
       /** A human-readable string to clarify or explain concepts about the resource. */
-      public var note: List<Annotation?>? = null,
+      public var note: MutableList<Annotation> = mutableListOf(),
     ) : BackboneElement()
 
     public sealed interface Definition {
@@ -453,16 +453,16 @@ public data class EvidenceVariable(
         Definition
 
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          referenceValue: com.google.fhir.model.r4b.Reference?,
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          ExpressionValue: com.google.fhir.model.r4b.Expression?,
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          expressionValue: com.google.fhir.model.r4b.Expression?,
         ): Definition? {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (referenceValue != null) return Reference(referenceValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ExpressionValue != null) return Expression(ExpressionValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (expressionValue != null) return Expression(expressionValue)
           return null
         }
       }
@@ -492,7 +492,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -511,7 +511,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A human-readable title or representation of the grouping. */
     public var name: String? = null,
     /** Value or set of values that define the grouping. */
@@ -533,14 +533,14 @@ public data class EvidenceVariable(
       public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : Value
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
         ): Value? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
           return null
         }
       }

@@ -86,7 +86,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -94,43 +94,43 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Slicing.Discriminator =
-    ElementDefinition.Slicing.Discriminator().apply {
-      id = this@ElementDefinitionSlicingDiscriminatorSurrogate.id
-      extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension
+    ElementDefinition.Slicing.Discriminator(
+      id = this@ElementDefinitionSlicingDiscriminatorSurrogate.id,
+      extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@ElementDefinitionSlicingDiscriminatorSurrogate.type?.let {
-            com.google.fhir.model.r5.ElementDefinition.DiscriminatorType.fromCode(it)
-          },
+          com.google.fhir.model.r5.ElementDefinition.DiscriminatorType.fromCode(
+            this@ElementDefinitionSlicingDiscriminatorSurrogate.type!!
+          ),
           this@ElementDefinitionSlicingDiscriminatorSurrogate._type,
-        )
+        ),
       path =
         R5String.of(
           this@ElementDefinitionSlicingDiscriminatorSurrogate.path,
           this@ElementDefinitionSlicingDiscriminatorSurrogate._path,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: ElementDefinition.Slicing.Discriminator
     ): ElementDefinitionSlicingDiscriminatorSurrogate =
       with(model) {
-        ElementDefinitionSlicingDiscriminatorSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          path = this@with.path?.value
-          _path = this@with.path?.toElement()
-        }
+        ElementDefinitionSlicingDiscriminatorSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          path = this@with.path.value,
+          _path = this@with.path.toElement(),
+        )
       }
   }
 }
@@ -138,8 +138,8 @@ internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
 @Serializable
 internal data class ElementDefinitionSlicingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var discriminator: List<ElementDefinition.Slicing.Discriminator>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var discriminator: MutableList<ElementDefinition.Slicing.Discriminator>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var ordered: KotlinBoolean? = null,
@@ -148,43 +148,43 @@ internal data class ElementDefinitionSlicingSurrogate(
   public var _rules: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Slicing =
-    ElementDefinition.Slicing().apply {
-      id = this@ElementDefinitionSlicingSurrogate.id
-      extension = this@ElementDefinitionSlicingSurrogate.extension
-      discriminator = this@ElementDefinitionSlicingSurrogate.discriminator
+    ElementDefinition.Slicing(
+      id = this@ElementDefinitionSlicingSurrogate.id,
+      extension = this@ElementDefinitionSlicingSurrogate.extension ?: mutableListOf(),
+      discriminator = this@ElementDefinitionSlicingSurrogate.discriminator ?: mutableListOf(),
       description =
         R5String.of(
           this@ElementDefinitionSlicingSurrogate.description,
           this@ElementDefinitionSlicingSurrogate._description,
-        )
+        ),
       ordered =
         R5Boolean.of(
           this@ElementDefinitionSlicingSurrogate.ordered,
           this@ElementDefinitionSlicingSurrogate._ordered,
-        )
+        ),
       rules =
         Enumeration.of(
-          this@ElementDefinitionSlicingSurrogate.rules?.let {
-            com.google.fhir.model.r5.ElementDefinition.SlicingRules.fromCode(it)
-          },
+          com.google.fhir.model.r5.ElementDefinition.SlicingRules.fromCode(
+            this@ElementDefinitionSlicingSurrogate.rules!!
+          ),
           this@ElementDefinitionSlicingSurrogate._rules,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Slicing): ElementDefinitionSlicingSurrogate =
       with(model) {
-        ElementDefinitionSlicingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          discriminator = this@with.discriminator
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          ordered = this@with.ordered?.value
-          _ordered = this@with.ordered?.toElement()
-          rules = this@with.rules?.value?.getCode()
-          _rules = this@with.rules?.toElement()
-        }
+        ElementDefinitionSlicingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          discriminator = this@with.discriminator.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          ordered = this@with.ordered?.value,
+          _ordered = this@with.ordered?.toElement(),
+          rules = this@with.rules.value?.getCode(),
+          _rules = this@with.rules.toElement(),
+        )
       }
   }
 }
@@ -192,7 +192,7 @@ internal data class ElementDefinitionSlicingSurrogate(
 @Serializable
 internal data class ElementDefinitionBaseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var min: Int? = null,
@@ -201,39 +201,39 @@ internal data class ElementDefinitionBaseSurrogate(
   public var _max: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Base =
-    ElementDefinition.Base().apply {
-      id = this@ElementDefinitionBaseSurrogate.id
-      extension = this@ElementDefinitionBaseSurrogate.extension
+    ElementDefinition.Base(
+      id = this@ElementDefinitionBaseSurrogate.id,
+      extension = this@ElementDefinitionBaseSurrogate.extension ?: mutableListOf(),
       path =
         R5String.of(
           this@ElementDefinitionBaseSurrogate.path,
           this@ElementDefinitionBaseSurrogate._path,
-        )
+        )!!,
       min =
         UnsignedInt.of(
           this@ElementDefinitionBaseSurrogate.min,
           this@ElementDefinitionBaseSurrogate._min,
-        )
+        )!!,
       max =
         R5String.of(
           this@ElementDefinitionBaseSurrogate.max,
           this@ElementDefinitionBaseSurrogate._max,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Base): ElementDefinitionBaseSurrogate =
       with(model) {
-        ElementDefinitionBaseSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          path = this@with.path?.value
-          _path = this@with.path?.toElement()
-          min = this@with.min?.value
-          _min = this@with.min?.toElement()
-          max = this@with.max?.value
-          _max = this@with.max?.toElement()
-        }
+        ElementDefinitionBaseSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          path = this@with.path.value,
+          _path = this@with.path.toElement(),
+          min = this@with.min.value,
+          _min = this@with.min.toElement(),
+          max = this@with.max.value,
+          _max = this@with.max.toElement(),
+        )
       }
   }
 }
@@ -241,30 +241,33 @@ internal data class ElementDefinitionBaseSurrogate(
 @Serializable
 internal data class ElementDefinitionTypeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var profile: List<KotlinString?>? = null,
-  public var _profile: List<Element?>? = null,
-  public var targetProfile: List<KotlinString?>? = null,
-  public var _targetProfile: List<Element?>? = null,
-  public var aggregation: List<KotlinString?>? = null,
-  public var _aggregation: List<Element?>? = null,
+  public var profile: MutableList<KotlinString?>? = null,
+  public var _profile: MutableList<Element?>? = null,
+  public var targetProfile: MutableList<KotlinString?>? = null,
+  public var _targetProfile: MutableList<Element?>? = null,
+  public var aggregation: MutableList<KotlinString?>? = null,
+  public var _aggregation: MutableList<Element?>? = null,
   public var versioning: KotlinString? = null,
   public var _versioning: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Type =
-    ElementDefinition.Type().apply {
-      id = this@ElementDefinitionTypeSurrogate.id
-      extension = this@ElementDefinitionTypeSurrogate.extension
+    ElementDefinition.Type(
+      id = this@ElementDefinitionTypeSurrogate.id,
+      extension = this@ElementDefinitionTypeSurrogate.extension ?: mutableListOf(),
       code =
-        Uri.of(this@ElementDefinitionTypeSurrogate.code, this@ElementDefinitionTypeSurrogate._code)
+        Uri.of(
+          this@ElementDefinitionTypeSurrogate.code,
+          this@ElementDefinitionTypeSurrogate._code,
+        )!!,
       profile =
         if (
           this@ElementDefinitionTypeSurrogate.profile == null &&
             this@ElementDefinitionTypeSurrogate._profile == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionTypeSurrogate.profile
               ?: List(this@ElementDefinitionTypeSurrogate._profile!!.size) { null })
@@ -272,14 +275,15 @@ internal data class ElementDefinitionTypeSurrogate(
               this@ElementDefinitionTypeSurrogate._profile
                 ?: List(this@ElementDefinitionTypeSurrogate.profile!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       targetProfile =
         if (
           this@ElementDefinitionTypeSurrogate.targetProfile == null &&
             this@ElementDefinitionTypeSurrogate._targetProfile == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionTypeSurrogate.targetProfile
               ?: List(this@ElementDefinitionTypeSurrogate._targetProfile!!.size) { null })
@@ -287,14 +291,15 @@ internal data class ElementDefinitionTypeSurrogate(
               this@ElementDefinitionTypeSurrogate._targetProfile
                 ?: List(this@ElementDefinitionTypeSurrogate.targetProfile!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       aggregation =
         if (
           this@ElementDefinitionTypeSurrogate.aggregation == null &&
             this@ElementDefinitionTypeSurrogate._aggregation == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionTypeSurrogate.aggregation
               ?: List(this@ElementDefinitionTypeSurrogate._aggregation!!.size) { null })
@@ -302,48 +307,66 @@ internal data class ElementDefinitionTypeSurrogate(
               this@ElementDefinitionTypeSurrogate._aggregation
                 ?: List(this@ElementDefinitionTypeSurrogate.aggregation!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
-                  com.google.fhir.model.r5.ElementDefinition.AggregationMode.fromCode(it)
+                value.let {
+                  com.google.fhir.model.r5.ElementDefinition.AggregationMode.fromCode(it!!)!!
                 },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       versioning =
-        Enumeration.of(
-          this@ElementDefinitionTypeSurrogate.versioning?.let {
-            com.google.fhir.model.r5.ElementDefinition.ReferenceVersionRules.fromCode(it)
-          },
-          this@ElementDefinitionTypeSurrogate._versioning,
-        )
-    }
+        this@ElementDefinitionTypeSurrogate.versioning?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.ElementDefinition.ReferenceVersionRules.fromCode(it!!),
+            this@ElementDefinitionTypeSurrogate._versioning,
+          )
+        },
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Type): ElementDefinitionTypeSurrogate =
       with(model) {
-        ElementDefinitionTypeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          code = this@with.code?.value
-          _code = this@with.code?.toElement()
-          profile = this@with.profile?.map { it?.value }?.takeUnless { it.all { it == null } }
+        ElementDefinitionTypeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          profile =
+            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _profile =
-            this@with.profile?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.profile
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           targetProfile =
-            this@with.targetProfile?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.targetProfile
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _targetProfile =
-            this@with.targetProfile?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.targetProfile
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           aggregation =
             this@with.aggregation
-              ?.map { it?.value?.getCode() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _aggregation =
-            this@with.aggregation?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          versioning = this@with.versioning?.value?.getCode()
-          _versioning = this@with.versioning?.toElement()
-        }
+            this@with.aggregation
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          versioning = this@with.versioning?.value?.getCode(),
+          _versioning = this@with.versioning?.toElement(),
+        )
       }
   }
 }
@@ -351,7 +374,7 @@ internal data class ElementDefinitionTypeSurrogate(
 @Serializable
 internal data class ElementDefinitionExampleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
   public var valueBase64Binary: KotlinString? = null,
@@ -430,16 +453,16 @@ internal data class ElementDefinitionExampleSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): ElementDefinition.Example =
-    ElementDefinition.Example().apply {
-      id = this@ElementDefinitionExampleSurrogate.id
-      extension = this@ElementDefinitionExampleSurrogate.extension
+    ElementDefinition.Example(
+      id = this@ElementDefinitionExampleSurrogate.id,
+      extension = this@ElementDefinitionExampleSurrogate.extension ?: mutableListOf(),
       label =
         R5String.of(
           this@ElementDefinitionExampleSurrogate.label,
           this@ElementDefinitionExampleSurrogate._label,
-        )
+        )!!,
       `value` =
-        ElementDefinition.Example.Value?.from(
+        ElementDefinition.Example.Value.from(
           Base64Binary.of(
             this@ElementDefinitionExampleSurrogate.valueBase64Binary,
             this@ElementDefinitionExampleSurrogate._valueBase64Binary,
@@ -554,92 +577,92 @@ internal data class ElementDefinitionExampleSurrogate(
           this@ElementDefinitionExampleSurrogate.valueExtendedContactDetail,
           this@ElementDefinitionExampleSurrogate.valueDosage,
           this@ElementDefinitionExampleSurrogate.valueMeta,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Example): ElementDefinitionExampleSurrogate =
       with(model) {
-        ElementDefinitionExampleSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          label = this@with.label?.value
-          _label = this@with.label?.toElement()
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value
-          _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueRatioRange = this@with.`value`?.asRatioRange()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueAvailability = this@with.`value`?.asAvailability()?.value
-          valueExtendedContactDetail = this@with.`value`?.asExtendedContactDetail()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-          valueMeta = this@with.`value`?.asMeta()?.value
-        }
+        ElementDefinitionExampleSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          label = this@with.label.value,
+          _label = this@with.label.toElement(),
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCodeableReference = this@with.`value`?.asCodeableReference()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueRatioRange = this@with.`value`?.asRatioRange()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueAvailability = this@with.`value`?.asAvailability()?.value,
+          valueExtendedContactDetail = this@with.`value`?.asExtendedContactDetail()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+          valueMeta = this@with.`value`?.asMeta()?.value,
+        )
       }
   }
 }
@@ -647,7 +670,7 @@ internal data class ElementDefinitionExampleSurrogate(
 @Serializable
 internal data class ElementDefinitionConstraintSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var key: KotlinString? = null,
   public var _key: Element? = null,
   public var requirements: KotlinString? = null,
@@ -664,71 +687,71 @@ internal data class ElementDefinitionConstraintSurrogate(
   public var _source: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Constraint =
-    ElementDefinition.Constraint().apply {
-      id = this@ElementDefinitionConstraintSurrogate.id
-      extension = this@ElementDefinitionConstraintSurrogate.extension
+    ElementDefinition.Constraint(
+      id = this@ElementDefinitionConstraintSurrogate.id,
+      extension = this@ElementDefinitionConstraintSurrogate.extension ?: mutableListOf(),
       key =
         Id.of(
           this@ElementDefinitionConstraintSurrogate.key,
           this@ElementDefinitionConstraintSurrogate._key,
-        )
+        )!!,
       requirements =
         Markdown.of(
           this@ElementDefinitionConstraintSurrogate.requirements,
           this@ElementDefinitionConstraintSurrogate._requirements,
-        )
+        ),
       severity =
         Enumeration.of(
-          this@ElementDefinitionConstraintSurrogate.severity?.let {
-            com.google.fhir.model.r5.ElementDefinition.ConstraintSeverity.fromCode(it)
-          },
+          com.google.fhir.model.r5.ElementDefinition.ConstraintSeverity.fromCode(
+            this@ElementDefinitionConstraintSurrogate.severity!!
+          ),
           this@ElementDefinitionConstraintSurrogate._severity,
-        )
+        ),
       suppress =
         R5Boolean.of(
           this@ElementDefinitionConstraintSurrogate.suppress,
           this@ElementDefinitionConstraintSurrogate._suppress,
-        )
+        ),
       human =
         R5String.of(
           this@ElementDefinitionConstraintSurrogate.human,
           this@ElementDefinitionConstraintSurrogate._human,
-        )
+        )!!,
       expression =
         R5String.of(
           this@ElementDefinitionConstraintSurrogate.expression,
           this@ElementDefinitionConstraintSurrogate._expression,
-        )
+        ),
       source =
         Canonical.of(
           this@ElementDefinitionConstraintSurrogate.source,
           this@ElementDefinitionConstraintSurrogate._source,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: ElementDefinition.Constraint
     ): ElementDefinitionConstraintSurrogate =
       with(model) {
-        ElementDefinitionConstraintSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          key = this@with.key?.value
-          _key = this@with.key?.toElement()
-          requirements = this@with.requirements?.value
-          _requirements = this@with.requirements?.toElement()
-          severity = this@with.severity?.value?.getCode()
-          _severity = this@with.severity?.toElement()
-          suppress = this@with.suppress?.value
-          _suppress = this@with.suppress?.toElement()
-          human = this@with.human?.value
-          _human = this@with.human?.toElement()
-          expression = this@with.expression?.value
-          _expression = this@with.expression?.toElement()
-          source = this@with.source?.value
-          _source = this@with.source?.toElement()
-        }
+        ElementDefinitionConstraintSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          key = this@with.key.value,
+          _key = this@with.key.toElement(),
+          requirements = this@with.requirements?.value,
+          _requirements = this@with.requirements?.toElement(),
+          severity = this@with.severity.value?.getCode(),
+          _severity = this@with.severity.toElement(),
+          suppress = this@with.suppress?.value,
+          _suppress = this@with.suppress?.toElement(),
+          human = this@with.human.value,
+          _human = this@with.human.toElement(),
+          expression = this@with.expression?.value,
+          _expression = this@with.expression?.toElement(),
+          source = this@with.source?.value,
+          _source = this@with.source?.toElement(),
+        )
       }
   }
 }
@@ -736,7 +759,7 @@ internal data class ElementDefinitionConstraintSurrogate(
 @Serializable
 internal data class ElementDefinitionBindingAdditionalSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var valueSet: KotlinString? = null,
@@ -745,64 +768,64 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
   public var _documentation: Element? = null,
   public var shortDoco: KotlinString? = null,
   public var _shortDoco: Element? = null,
-  public var usage: List<UsageContext?>? = null,
+  public var usage: MutableList<UsageContext>? = null,
   public var any: KotlinBoolean? = null,
   public var _any: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Binding.Additional =
-    ElementDefinition.Binding.Additional().apply {
-      id = this@ElementDefinitionBindingAdditionalSurrogate.id
-      extension = this@ElementDefinitionBindingAdditionalSurrogate.extension
+    ElementDefinition.Binding.Additional(
+      id = this@ElementDefinitionBindingAdditionalSurrogate.id,
+      extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: mutableListOf(),
       purpose =
         Enumeration.of(
-          this@ElementDefinitionBindingAdditionalSurrogate.purpose?.let {
-            com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurpose.fromCode(it)
-          },
+          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurpose.fromCode(
+            this@ElementDefinitionBindingAdditionalSurrogate.purpose!!
+          ),
           this@ElementDefinitionBindingAdditionalSurrogate._purpose,
-        )
+        ),
       valueSet =
         Canonical.of(
           this@ElementDefinitionBindingAdditionalSurrogate.valueSet,
           this@ElementDefinitionBindingAdditionalSurrogate._valueSet,
-        )
+        )!!,
       documentation =
         Markdown.of(
           this@ElementDefinitionBindingAdditionalSurrogate.documentation,
           this@ElementDefinitionBindingAdditionalSurrogate._documentation,
-        )
+        ),
       shortDoco =
         R5String.of(
           this@ElementDefinitionBindingAdditionalSurrogate.shortDoco,
           this@ElementDefinitionBindingAdditionalSurrogate._shortDoco,
-        )
-      usage = this@ElementDefinitionBindingAdditionalSurrogate.usage
+        ),
+      usage = this@ElementDefinitionBindingAdditionalSurrogate.usage ?: mutableListOf(),
       any =
         R5Boolean.of(
           this@ElementDefinitionBindingAdditionalSurrogate.any,
           this@ElementDefinitionBindingAdditionalSurrogate._any,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: ElementDefinition.Binding.Additional
     ): ElementDefinitionBindingAdditionalSurrogate =
       with(model) {
-        ElementDefinitionBindingAdditionalSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          purpose = this@with.purpose?.value?.getCode()
-          _purpose = this@with.purpose?.toElement()
-          valueSet = this@with.valueSet?.value
-          _valueSet = this@with.valueSet?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          shortDoco = this@with.shortDoco?.value
-          _shortDoco = this@with.shortDoco?.toElement()
-          usage = this@with.usage
-          any = this@with.any?.value
-          _any = this@with.any?.toElement()
-        }
+        ElementDefinitionBindingAdditionalSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose.value?.getCode(),
+          _purpose = this@with.purpose.toElement(),
+          valueSet = this@with.valueSet.value,
+          _valueSet = this@with.valueSet.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          shortDoco = this@with.shortDoco?.value,
+          _shortDoco = this@with.shortDoco?.toElement(),
+          usage = this@with.usage.takeUnless { it.all { it == null } },
+          any = this@with.any?.value,
+          _any = this@with.any?.toElement(),
+        )
       }
   }
 }
@@ -810,53 +833,53 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
 @Serializable
 internal data class ElementDefinitionBindingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var strength: KotlinString? = null,
   public var _strength: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var valueSet: KotlinString? = null,
   public var _valueSet: Element? = null,
-  public var additional: List<ElementDefinition.Binding.Additional>? = null,
+  public var additional: MutableList<ElementDefinition.Binding.Additional>? = null,
 ) {
   public fun toModel(): ElementDefinition.Binding =
-    ElementDefinition.Binding().apply {
-      id = this@ElementDefinitionBindingSurrogate.id
-      extension = this@ElementDefinitionBindingSurrogate.extension
+    ElementDefinition.Binding(
+      id = this@ElementDefinitionBindingSurrogate.id,
+      extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          this@ElementDefinitionBindingSurrogate.strength?.let {
-            com.google.fhir.model.r5.BindingStrength.fromCode(it)
-          },
+          com.google.fhir.model.r5.BindingStrength.fromCode(
+            this@ElementDefinitionBindingSurrogate.strength!!
+          ),
           this@ElementDefinitionBindingSurrogate._strength,
-        )
+        ),
       description =
         Markdown.of(
           this@ElementDefinitionBindingSurrogate.description,
           this@ElementDefinitionBindingSurrogate._description,
-        )
+        ),
       valueSet =
         Canonical.of(
           this@ElementDefinitionBindingSurrogate.valueSet,
           this@ElementDefinitionBindingSurrogate._valueSet,
-        )
-      additional = this@ElementDefinitionBindingSurrogate.additional
-    }
+        ),
+      additional = this@ElementDefinitionBindingSurrogate.additional ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Binding): ElementDefinitionBindingSurrogate =
       with(model) {
-        ElementDefinitionBindingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          strength = this@with.strength?.value?.getCode()
-          _strength = this@with.strength?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          valueSet = this@with.valueSet?.value
-          _valueSet = this@with.valueSet?.toElement()
-          additional = this@with.additional
-        }
+        ElementDefinitionBindingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          strength = this@with.strength.value?.getCode(),
+          _strength = this@with.strength.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          valueSet = this@with.valueSet?.value,
+          _valueSet = this@with.valueSet?.toElement(),
+          additional = this@with.additional.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -864,7 +887,7 @@ internal data class ElementDefinitionBindingSurrogate(
 @Serializable
 internal data class ElementDefinitionMappingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var identity: KotlinString? = null,
   public var _identity: Element? = null,
   public var language: KotlinString? = null,
@@ -875,46 +898,46 @@ internal data class ElementDefinitionMappingSurrogate(
   public var _comment: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Mapping =
-    ElementDefinition.Mapping().apply {
-      id = this@ElementDefinitionMappingSurrogate.id
-      extension = this@ElementDefinitionMappingSurrogate.extension
+    ElementDefinition.Mapping(
+      id = this@ElementDefinitionMappingSurrogate.id,
+      extension = this@ElementDefinitionMappingSurrogate.extension ?: mutableListOf(),
       identity =
         Id.of(
           this@ElementDefinitionMappingSurrogate.identity,
           this@ElementDefinitionMappingSurrogate._identity,
-        )
+        )!!,
       language =
         Code.of(
           this@ElementDefinitionMappingSurrogate.language,
           this@ElementDefinitionMappingSurrogate._language,
-        )
+        ),
       map =
         R5String.of(
           this@ElementDefinitionMappingSurrogate.map,
           this@ElementDefinitionMappingSurrogate._map,
-        )
+        )!!,
       comment =
         Markdown.of(
           this@ElementDefinitionMappingSurrogate.comment,
           this@ElementDefinitionMappingSurrogate._comment,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Mapping): ElementDefinitionMappingSurrogate =
       with(model) {
-        ElementDefinitionMappingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          identity = this@with.identity?.value
-          _identity = this@with.identity?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          map = this@with.map?.value
-          _map = this@with.map?.toElement()
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-        }
+        ElementDefinitionMappingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          identity = this@with.identity.value,
+          _identity = this@with.identity.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          map = this@with.map.value,
+          _map = this@with.map.toElement(),
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+        )
       }
   }
 }
@@ -922,19 +945,19 @@ internal data class ElementDefinitionMappingSurrogate(
 @Serializable
 internal data class ElementDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
-  public var representation: List<KotlinString?>? = null,
-  public var _representation: List<Element?>? = null,
+  public var representation: MutableList<KotlinString?>? = null,
+  public var _representation: MutableList<Element?>? = null,
   public var sliceName: KotlinString? = null,
   public var _sliceName: Element? = null,
   public var sliceIsConstraining: KotlinBoolean? = null,
   public var _sliceIsConstraining: Element? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
-  public var code: List<Coding?>? = null,
+  public var code: MutableList<Coding>? = null,
   public var slicing: ElementDefinition.Slicing? = null,
   public var short: KotlinString? = null,
   public var _short: Element? = null,
@@ -944,8 +967,8 @@ internal data class ElementDefinitionSurrogate(
   public var _comment: Element? = null,
   public var requirements: KotlinString? = null,
   public var _requirements: Element? = null,
-  public var alias: List<KotlinString?>? = null,
-  public var _alias: List<Element?>? = null,
+  public var alias: MutableList<KotlinString?>? = null,
+  public var _alias: MutableList<Element?>? = null,
   public var min: Int? = null,
   public var _min: Element? = null,
   public var max: KotlinString? = null,
@@ -953,7 +976,7 @@ internal data class ElementDefinitionSurrogate(
   public var base: ElementDefinition.Base? = null,
   public var contentReference: KotlinString? = null,
   public var _contentReference: Element? = null,
-  public var type: List<ElementDefinition.Type>? = null,
+  public var type: MutableList<ElementDefinition.Type>? = null,
   public var defaultValueBase64Binary: KotlinString? = null,
   public var _defaultValueBase64Binary: Element? = null,
   public var defaultValueBoolean: KotlinBoolean? = null,
@@ -1106,7 +1129,7 @@ internal data class ElementDefinitionSurrogate(
   public var fixedExtendedContactDetail: ExtendedContactDetail? = null,
   public var fixedDosage: Dosage? = null,
   public var fixedMeta: Meta? = null,
-  public var example: List<ElementDefinition.Example>? = null,
+  public var example: MutableList<ElementDefinition.Example>? = null,
   public var minValueDate: KotlinString? = null,
   public var _minValueDate: Element? = null,
   public var minValueDateTime: KotlinString? = null,
@@ -1147,13 +1170,13 @@ internal data class ElementDefinitionSurrogate(
   public var maxValueQuantity: Quantity? = null,
   public var maxLength: Int? = null,
   public var _maxLength: Element? = null,
-  public var condition: List<KotlinString?>? = null,
-  public var _condition: List<Element?>? = null,
-  public var constraint: List<ElementDefinition.Constraint>? = null,
+  public var condition: MutableList<KotlinString?>? = null,
+  public var _condition: MutableList<Element?>? = null,
+  public var constraint: MutableList<ElementDefinition.Constraint>? = null,
   public var mustHaveValue: KotlinBoolean? = null,
   public var _mustHaveValue: Element? = null,
-  public var valueAlternatives: List<KotlinString?>? = null,
-  public var _valueAlternatives: List<Element?>? = null,
+  public var valueAlternatives: MutableList<KotlinString?>? = null,
+  public var _valueAlternatives: MutableList<Element?>? = null,
   public var mustSupport: KotlinBoolean? = null,
   public var _mustSupport: Element? = null,
   public var isModifier: KotlinBoolean? = null,
@@ -1163,21 +1186,21 @@ internal data class ElementDefinitionSurrogate(
   public var isSummary: KotlinBoolean? = null,
   public var _isSummary: Element? = null,
   public var binding: ElementDefinition.Binding? = null,
-  public var mapping: List<ElementDefinition.Mapping>? = null,
+  public var mapping: MutableList<ElementDefinition.Mapping>? = null,
 ) {
   public fun toModel(): ElementDefinition =
-    ElementDefinition().apply {
-      id = this@ElementDefinitionSurrogate.id
-      extension = this@ElementDefinitionSurrogate.extension
-      modifierExtension = this@ElementDefinitionSurrogate.modifierExtension
+    ElementDefinition(
+      id = this@ElementDefinitionSurrogate.id,
+      extension = this@ElementDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ElementDefinitionSurrogate.modifierExtension ?: mutableListOf(),
       path =
-        R5String.of(this@ElementDefinitionSurrogate.path, this@ElementDefinitionSurrogate._path)
+        R5String.of(this@ElementDefinitionSurrogate.path, this@ElementDefinitionSurrogate._path)!!,
       representation =
         if (
           this@ElementDefinitionSurrogate.representation == null &&
             this@ElementDefinitionSurrogate._representation == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionSurrogate.representation
               ?: List(this@ElementDefinitionSurrogate._representation!!.size) { null })
@@ -1185,52 +1208,53 @@ internal data class ElementDefinitionSurrogate(
               this@ElementDefinitionSurrogate._representation
                 ?: List(this@ElementDefinitionSurrogate.representation!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
-                  com.google.fhir.model.r5.ElementDefinition.PropertyRepresentation.fromCode(it)
+                value.let {
+                  com.google.fhir.model.r5.ElementDefinition.PropertyRepresentation.fromCode(it!!)!!
                 },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       sliceName =
         R5String.of(
           this@ElementDefinitionSurrogate.sliceName,
           this@ElementDefinitionSurrogate._sliceName,
-        )
+        ),
       sliceIsConstraining =
         R5Boolean.of(
           this@ElementDefinitionSurrogate.sliceIsConstraining,
           this@ElementDefinitionSurrogate._sliceIsConstraining,
-        )
+        ),
       label =
-        R5String.of(this@ElementDefinitionSurrogate.label, this@ElementDefinitionSurrogate._label)
-      code = this@ElementDefinitionSurrogate.code
-      slicing = this@ElementDefinitionSurrogate.slicing
+        R5String.of(this@ElementDefinitionSurrogate.label, this@ElementDefinitionSurrogate._label),
+      code = this@ElementDefinitionSurrogate.code ?: mutableListOf(),
+      slicing = this@ElementDefinitionSurrogate.slicing,
       short =
-        R5String.of(this@ElementDefinitionSurrogate.short, this@ElementDefinitionSurrogate._short)
+        R5String.of(this@ElementDefinitionSurrogate.short, this@ElementDefinitionSurrogate._short),
       definition =
         Markdown.of(
           this@ElementDefinitionSurrogate.definition,
           this@ElementDefinitionSurrogate._definition,
-        )
+        ),
       comment =
         Markdown.of(
           this@ElementDefinitionSurrogate.comment,
           this@ElementDefinitionSurrogate._comment,
-        )
+        ),
       requirements =
         Markdown.of(
           this@ElementDefinitionSurrogate.requirements,
           this@ElementDefinitionSurrogate._requirements,
-        )
+        ),
       alias =
         if (
           this@ElementDefinitionSurrogate.alias == null &&
             this@ElementDefinitionSurrogate._alias == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionSurrogate.alias
               ?: List(this@ElementDefinitionSurrogate._alias!!.size) { null })
@@ -1238,18 +1262,19 @@ internal data class ElementDefinitionSurrogate(
               this@ElementDefinitionSurrogate._alias
                 ?: List(this@ElementDefinitionSurrogate.alias!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R5String.of(value, element) }
-        }
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
       min =
-        UnsignedInt.of(this@ElementDefinitionSurrogate.min, this@ElementDefinitionSurrogate._min)
-      max = R5String.of(this@ElementDefinitionSurrogate.max, this@ElementDefinitionSurrogate._max)
-      base = this@ElementDefinitionSurrogate.base
+        UnsignedInt.of(this@ElementDefinitionSurrogate.min, this@ElementDefinitionSurrogate._min),
+      max = R5String.of(this@ElementDefinitionSurrogate.max, this@ElementDefinitionSurrogate._max),
+      base = this@ElementDefinitionSurrogate.base,
       contentReference =
         Uri.of(
           this@ElementDefinitionSurrogate.contentReference,
           this@ElementDefinitionSurrogate._contentReference,
-        )
-      type = this@ElementDefinitionSurrogate.type
+        ),
+      type = this@ElementDefinitionSurrogate.type ?: mutableListOf(),
       defaultValue =
         ElementDefinition.DefaultValue?.from(
           Base64Binary.of(
@@ -1366,17 +1391,17 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.defaultValueExtendedContactDetail,
           this@ElementDefinitionSurrogate.defaultValueDosage,
           this@ElementDefinitionSurrogate.defaultValueMeta,
-        )
+        ),
       meaningWhenMissing =
         Markdown.of(
           this@ElementDefinitionSurrogate.meaningWhenMissing,
           this@ElementDefinitionSurrogate._meaningWhenMissing,
-        )
+        ),
       orderMeaning =
         R5String.of(
           this@ElementDefinitionSurrogate.orderMeaning,
           this@ElementDefinitionSurrogate._orderMeaning,
-        )
+        ),
       fixed =
         ElementDefinition.Fixed?.from(
           Base64Binary.of(
@@ -1490,8 +1515,8 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.fixedExtendedContactDetail,
           this@ElementDefinitionSurrogate.fixedDosage,
           this@ElementDefinitionSurrogate.fixedMeta,
-        )
-      example = this@ElementDefinitionSurrogate.example
+        ),
+      example = this@ElementDefinitionSurrogate.example ?: mutableListOf(),
       minValue =
         ElementDefinition.MinValue?.from(
           Date.of(
@@ -1531,7 +1556,7 @@ internal data class ElementDefinitionSurrogate(
             this@ElementDefinitionSurrogate._minValueUnsignedInt,
           ),
           this@ElementDefinitionSurrogate.minValueQuantity,
-        )
+        ),
       maxValue =
         ElementDefinition.MaxValue?.from(
           Date.of(
@@ -1571,18 +1596,18 @@ internal data class ElementDefinitionSurrogate(
             this@ElementDefinitionSurrogate._maxValueUnsignedInt,
           ),
           this@ElementDefinitionSurrogate.maxValueQuantity,
-        )
+        ),
       maxLength =
         Integer.of(
           this@ElementDefinitionSurrogate.maxLength,
           this@ElementDefinitionSurrogate._maxLength,
-        )
+        ),
       condition =
         if (
           this@ElementDefinitionSurrogate.condition == null &&
             this@ElementDefinitionSurrogate._condition == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionSurrogate.condition
               ?: List(this@ElementDefinitionSurrogate._condition!!.size) { null })
@@ -1590,20 +1615,21 @@ internal data class ElementDefinitionSurrogate(
               this@ElementDefinitionSurrogate._condition
                 ?: List(this@ElementDefinitionSurrogate.condition!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Id.of(value, element) }
-        }
-      constraint = this@ElementDefinitionSurrogate.constraint
+            .map { (value, element) -> Id.of(value, element)!! }
+            .toMutableList()
+        },
+      constraint = this@ElementDefinitionSurrogate.constraint ?: mutableListOf(),
       mustHaveValue =
         R5Boolean.of(
           this@ElementDefinitionSurrogate.mustHaveValue,
           this@ElementDefinitionSurrogate._mustHaveValue,
-        )
+        ),
       valueAlternatives =
         if (
           this@ElementDefinitionSurrogate.valueAlternatives == null &&
             this@ElementDefinitionSurrogate._valueAlternatives == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ElementDefinitionSurrogate.valueAlternatives
               ?: List(this@ElementDefinitionSurrogate._valueAlternatives!!.size) { null })
@@ -1611,290 +1637,315 @@ internal data class ElementDefinitionSurrogate(
               this@ElementDefinitionSurrogate._valueAlternatives
                 ?: List(this@ElementDefinitionSurrogate.valueAlternatives!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       mustSupport =
         R5Boolean.of(
           this@ElementDefinitionSurrogate.mustSupport,
           this@ElementDefinitionSurrogate._mustSupport,
-        )
+        ),
       isModifier =
         R5Boolean.of(
           this@ElementDefinitionSurrogate.isModifier,
           this@ElementDefinitionSurrogate._isModifier,
-        )
+        ),
       isModifierReason =
         R5String.of(
           this@ElementDefinitionSurrogate.isModifierReason,
           this@ElementDefinitionSurrogate._isModifierReason,
-        )
+        ),
       isSummary =
         R5Boolean.of(
           this@ElementDefinitionSurrogate.isSummary,
           this@ElementDefinitionSurrogate._isSummary,
-        )
-      binding = this@ElementDefinitionSurrogate.binding
-      mapping = this@ElementDefinitionSurrogate.mapping
-    }
+        ),
+      binding = this@ElementDefinitionSurrogate.binding,
+      mapping = this@ElementDefinitionSurrogate.mapping ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ElementDefinition): ElementDefinitionSurrogate =
       with(model) {
-        ElementDefinitionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          path = this@with.path?.value
-          _path = this@with.path?.toElement()
+        ElementDefinitionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          path = this@with.path.value,
+          _path = this@with.path.toElement(),
           representation =
             this@with.representation
-              ?.map { it?.value?.getCode() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _representation =
-            this@with.representation?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          sliceName = this@with.sliceName?.value
-          _sliceName = this@with.sliceName?.toElement()
-          sliceIsConstraining = this@with.sliceIsConstraining?.value
-          _sliceIsConstraining = this@with.sliceIsConstraining?.toElement()
-          label = this@with.label?.value
-          _label = this@with.label?.toElement()
-          code = this@with.code
-          slicing = this@with.slicing
-          short = this@with.short?.value
-          _short = this@with.short?.toElement()
-          definition = this@with.definition?.value
-          _definition = this@with.definition?.toElement()
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-          requirements = this@with.requirements?.value
-          _requirements = this@with.requirements?.toElement()
-          alias = this@with.alias?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _alias = this@with.alias?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          min = this@with.min?.value
-          _min = this@with.min?.toElement()
-          max = this@with.max?.value
-          _max = this@with.max?.toElement()
-          base = this@with.base
-          contentReference = this@with.contentReference?.value
-          _contentReference = this@with.contentReference?.toElement()
-          type = this@with.type
-          defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.value
-          _defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.toElement()
-          defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.value
-          _defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.toElement()
-          defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.value
-          _defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.toElement()
-          defaultValueCode = this@with.defaultValue?.asCode()?.value?.value
-          _defaultValueCode = this@with.defaultValue?.asCode()?.value?.toElement()
-          defaultValueDate = this@with.defaultValue?.asDate()?.value?.value?.toString()
-          _defaultValueDate = this@with.defaultValue?.asDate()?.value?.toElement()
-          defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.value?.toString()
-          _defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.toElement()
-          defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.value
-          _defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.toElement()
-          defaultValueId = this@with.defaultValue?.asId()?.value?.value
-          _defaultValueId = this@with.defaultValue?.asId()?.value?.toElement()
-          defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.value?.toString()
-          _defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.toElement()
-          defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.value
-          _defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.toElement()
-          defaultValueInteger64 = this@with.defaultValue?.asInteger64()?.value?.value
-          _defaultValueInteger64 = this@with.defaultValue?.asInteger64()?.value?.toElement()
-          defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.value
-          _defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.toElement()
-          defaultValueOid = this@with.defaultValue?.asOid()?.value?.value
-          _defaultValueOid = this@with.defaultValue?.asOid()?.value?.toElement()
-          defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.value
-          _defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.toElement()
-          defaultValueString = this@with.defaultValue?.asString()?.value?.value
-          _defaultValueString = this@with.defaultValue?.asString()?.value?.toElement()
-          defaultValueTime = this@with.defaultValue?.asTime()?.value?.value
-          _defaultValueTime = this@with.defaultValue?.asTime()?.value?.toElement()
-          defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.value
-          _defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.toElement()
-          defaultValueUri = this@with.defaultValue?.asUri()?.value?.value
-          _defaultValueUri = this@with.defaultValue?.asUri()?.value?.toElement()
-          defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.value
-          _defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.toElement()
-          defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.value
-          _defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.toElement()
-          defaultValueAddress = this@with.defaultValue?.asAddress()?.value
-          defaultValueAge = this@with.defaultValue?.asAge()?.value
-          defaultValueAnnotation = this@with.defaultValue?.asAnnotation()?.value
-          defaultValueAttachment = this@with.defaultValue?.asAttachment()?.value
-          defaultValueCodeableConcept = this@with.defaultValue?.asCodeableConcept()?.value
-          defaultValueCodeableReference = this@with.defaultValue?.asCodeableReference()?.value
-          defaultValueCoding = this@with.defaultValue?.asCoding()?.value
-          defaultValueContactPoint = this@with.defaultValue?.asContactPoint()?.value
-          defaultValueCount = this@with.defaultValue?.asCount()?.value
-          defaultValueDistance = this@with.defaultValue?.asDistance()?.value
-          defaultValueDuration = this@with.defaultValue?.asDuration()?.value
-          defaultValueHumanName = this@with.defaultValue?.asHumanName()?.value
-          defaultValueIdentifier = this@with.defaultValue?.asIdentifier()?.value
-          defaultValueMoney = this@with.defaultValue?.asMoney()?.value
-          defaultValuePeriod = this@with.defaultValue?.asPeriod()?.value
-          defaultValueQuantity = this@with.defaultValue?.asQuantity()?.value
-          defaultValueRange = this@with.defaultValue?.asRange()?.value
-          defaultValueRatio = this@with.defaultValue?.asRatio()?.value
-          defaultValueRatioRange = this@with.defaultValue?.asRatioRange()?.value
-          defaultValueReference = this@with.defaultValue?.asReference()?.value
-          defaultValueSampledData = this@with.defaultValue?.asSampledData()?.value
-          defaultValueSignature = this@with.defaultValue?.asSignature()?.value
-          defaultValueTiming = this@with.defaultValue?.asTiming()?.value
-          defaultValueContactDetail = this@with.defaultValue?.asContactDetail()?.value
-          defaultValueDataRequirement = this@with.defaultValue?.asDataRequirement()?.value
-          defaultValueExpression = this@with.defaultValue?.asExpression()?.value
-          defaultValueParameterDefinition = this@with.defaultValue?.asParameterDefinition()?.value
-          defaultValueRelatedArtifact = this@with.defaultValue?.asRelatedArtifact()?.value
-          defaultValueTriggerDefinition = this@with.defaultValue?.asTriggerDefinition()?.value
-          defaultValueUsageContext = this@with.defaultValue?.asUsageContext()?.value
-          defaultValueAvailability = this@with.defaultValue?.asAvailability()?.value
+            this@with.representation
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          sliceName = this@with.sliceName?.value,
+          _sliceName = this@with.sliceName?.toElement(),
+          sliceIsConstraining = this@with.sliceIsConstraining?.value,
+          _sliceIsConstraining = this@with.sliceIsConstraining?.toElement(),
+          label = this@with.label?.value,
+          _label = this@with.label?.toElement(),
+          code = this@with.code.takeUnless { it.all { it == null } },
+          slicing = this@with.slicing,
+          short = this@with.short?.value,
+          _short = this@with.short?.toElement(),
+          definition = this@with.definition?.value,
+          _definition = this@with.definition?.toElement(),
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+          requirements = this@with.requirements?.value,
+          _requirements = this@with.requirements?.toElement(),
+          alias =
+            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _alias =
+            this@with.alias
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          min = this@with.min?.value,
+          _min = this@with.min?.toElement(),
+          max = this@with.max?.value,
+          _max = this@with.max?.toElement(),
+          base = this@with.base,
+          contentReference = this@with.contentReference?.value,
+          _contentReference = this@with.contentReference?.toElement(),
+          type = this@with.type.takeUnless { it.all { it == null } },
+          defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.value,
+          _defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.toElement(),
+          defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.value,
+          _defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.toElement(),
+          defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.value,
+          _defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.toElement(),
+          defaultValueCode = this@with.defaultValue?.asCode()?.value?.value,
+          _defaultValueCode = this@with.defaultValue?.asCode()?.value?.toElement(),
+          defaultValueDate = this@with.defaultValue?.asDate()?.value?.value?.toString(),
+          _defaultValueDate = this@with.defaultValue?.asDate()?.value?.toElement(),
+          defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.value?.toString(),
+          _defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.toElement(),
+          defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.value,
+          _defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.toElement(),
+          defaultValueId = this@with.defaultValue?.asId()?.value?.value,
+          _defaultValueId = this@with.defaultValue?.asId()?.value?.toElement(),
+          defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.value?.toString(),
+          _defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.toElement(),
+          defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.value,
+          _defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.toElement(),
+          defaultValueInteger64 = this@with.defaultValue?.asInteger64()?.value?.value,
+          _defaultValueInteger64 = this@with.defaultValue?.asInteger64()?.value?.toElement(),
+          defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.value,
+          _defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.toElement(),
+          defaultValueOid = this@with.defaultValue?.asOid()?.value?.value,
+          _defaultValueOid = this@with.defaultValue?.asOid()?.value?.toElement(),
+          defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.value,
+          _defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.toElement(),
+          defaultValueString = this@with.defaultValue?.asString()?.value?.value,
+          _defaultValueString = this@with.defaultValue?.asString()?.value?.toElement(),
+          defaultValueTime = this@with.defaultValue?.asTime()?.value?.value,
+          _defaultValueTime = this@with.defaultValue?.asTime()?.value?.toElement(),
+          defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.value,
+          _defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.toElement(),
+          defaultValueUri = this@with.defaultValue?.asUri()?.value?.value,
+          _defaultValueUri = this@with.defaultValue?.asUri()?.value?.toElement(),
+          defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.value,
+          _defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.toElement(),
+          defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.value,
+          _defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.toElement(),
+          defaultValueAddress = this@with.defaultValue?.asAddress()?.value,
+          defaultValueAge = this@with.defaultValue?.asAge()?.value,
+          defaultValueAnnotation = this@with.defaultValue?.asAnnotation()?.value,
+          defaultValueAttachment = this@with.defaultValue?.asAttachment()?.value,
+          defaultValueCodeableConcept = this@with.defaultValue?.asCodeableConcept()?.value,
+          defaultValueCodeableReference = this@with.defaultValue?.asCodeableReference()?.value,
+          defaultValueCoding = this@with.defaultValue?.asCoding()?.value,
+          defaultValueContactPoint = this@with.defaultValue?.asContactPoint()?.value,
+          defaultValueCount = this@with.defaultValue?.asCount()?.value,
+          defaultValueDistance = this@with.defaultValue?.asDistance()?.value,
+          defaultValueDuration = this@with.defaultValue?.asDuration()?.value,
+          defaultValueHumanName = this@with.defaultValue?.asHumanName()?.value,
+          defaultValueIdentifier = this@with.defaultValue?.asIdentifier()?.value,
+          defaultValueMoney = this@with.defaultValue?.asMoney()?.value,
+          defaultValuePeriod = this@with.defaultValue?.asPeriod()?.value,
+          defaultValueQuantity = this@with.defaultValue?.asQuantity()?.value,
+          defaultValueRange = this@with.defaultValue?.asRange()?.value,
+          defaultValueRatio = this@with.defaultValue?.asRatio()?.value,
+          defaultValueRatioRange = this@with.defaultValue?.asRatioRange()?.value,
+          defaultValueReference = this@with.defaultValue?.asReference()?.value,
+          defaultValueSampledData = this@with.defaultValue?.asSampledData()?.value,
+          defaultValueSignature = this@with.defaultValue?.asSignature()?.value,
+          defaultValueTiming = this@with.defaultValue?.asTiming()?.value,
+          defaultValueContactDetail = this@with.defaultValue?.asContactDetail()?.value,
+          defaultValueDataRequirement = this@with.defaultValue?.asDataRequirement()?.value,
+          defaultValueExpression = this@with.defaultValue?.asExpression()?.value,
+          defaultValueParameterDefinition = this@with.defaultValue?.asParameterDefinition()?.value,
+          defaultValueRelatedArtifact = this@with.defaultValue?.asRelatedArtifact()?.value,
+          defaultValueTriggerDefinition = this@with.defaultValue?.asTriggerDefinition()?.value,
+          defaultValueUsageContext = this@with.defaultValue?.asUsageContext()?.value,
+          defaultValueAvailability = this@with.defaultValue?.asAvailability()?.value,
           defaultValueExtendedContactDetail =
-            this@with.defaultValue?.asExtendedContactDetail()?.value
-          defaultValueDosage = this@with.defaultValue?.asDosage()?.value
-          defaultValueMeta = this@with.defaultValue?.asMeta()?.value
-          meaningWhenMissing = this@with.meaningWhenMissing?.value
-          _meaningWhenMissing = this@with.meaningWhenMissing?.toElement()
-          orderMeaning = this@with.orderMeaning?.value
-          _orderMeaning = this@with.orderMeaning?.toElement()
-          fixedBase64Binary = this@with.fixed?.asBase64Binary()?.value?.value
-          _fixedBase64Binary = this@with.fixed?.asBase64Binary()?.value?.toElement()
-          fixedBoolean = this@with.fixed?.asBoolean()?.value?.value
-          _fixedBoolean = this@with.fixed?.asBoolean()?.value?.toElement()
-          fixedCanonical = this@with.fixed?.asCanonical()?.value?.value
-          _fixedCanonical = this@with.fixed?.asCanonical()?.value?.toElement()
-          fixedCode = this@with.fixed?.asCode()?.value?.value
-          _fixedCode = this@with.fixed?.asCode()?.value?.toElement()
-          fixedDate = this@with.fixed?.asDate()?.value?.value?.toString()
-          _fixedDate = this@with.fixed?.asDate()?.value?.toElement()
-          fixedDateTime = this@with.fixed?.asDateTime()?.value?.value?.toString()
-          _fixedDateTime = this@with.fixed?.asDateTime()?.value?.toElement()
-          fixedDecimal = this@with.fixed?.asDecimal()?.value?.value
-          _fixedDecimal = this@with.fixed?.asDecimal()?.value?.toElement()
-          fixedId = this@with.fixed?.asId()?.value?.value
-          _fixedId = this@with.fixed?.asId()?.value?.toElement()
-          fixedInstant = this@with.fixed?.asInstant()?.value?.value?.toString()
-          _fixedInstant = this@with.fixed?.asInstant()?.value?.toElement()
-          fixedInteger = this@with.fixed?.asInteger()?.value?.value
-          _fixedInteger = this@with.fixed?.asInteger()?.value?.toElement()
-          fixedInteger64 = this@with.fixed?.asInteger64()?.value?.value
-          _fixedInteger64 = this@with.fixed?.asInteger64()?.value?.toElement()
-          fixedMarkdown = this@with.fixed?.asMarkdown()?.value?.value
-          _fixedMarkdown = this@with.fixed?.asMarkdown()?.value?.toElement()
-          fixedOid = this@with.fixed?.asOid()?.value?.value
-          _fixedOid = this@with.fixed?.asOid()?.value?.toElement()
-          fixedPositiveInt = this@with.fixed?.asPositiveInt()?.value?.value
-          _fixedPositiveInt = this@with.fixed?.asPositiveInt()?.value?.toElement()
-          fixedString = this@with.fixed?.asString()?.value?.value
-          _fixedString = this@with.fixed?.asString()?.value?.toElement()
-          fixedTime = this@with.fixed?.asTime()?.value?.value
-          _fixedTime = this@with.fixed?.asTime()?.value?.toElement()
-          fixedUnsignedInt = this@with.fixed?.asUnsignedInt()?.value?.value
-          _fixedUnsignedInt = this@with.fixed?.asUnsignedInt()?.value?.toElement()
-          fixedUri = this@with.fixed?.asUri()?.value?.value
-          _fixedUri = this@with.fixed?.asUri()?.value?.toElement()
-          fixedUrl = this@with.fixed?.asUrl()?.value?.value
-          _fixedUrl = this@with.fixed?.asUrl()?.value?.toElement()
-          fixedUuid = this@with.fixed?.asUuid()?.value?.value
-          _fixedUuid = this@with.fixed?.asUuid()?.value?.toElement()
-          fixedAddress = this@with.fixed?.asAddress()?.value
-          fixedAge = this@with.fixed?.asAge()?.value
-          fixedAnnotation = this@with.fixed?.asAnnotation()?.value
-          fixedAttachment = this@with.fixed?.asAttachment()?.value
-          fixedCodeableConcept = this@with.fixed?.asCodeableConcept()?.value
-          fixedCodeableReference = this@with.fixed?.asCodeableReference()?.value
-          fixedCoding = this@with.fixed?.asCoding()?.value
-          fixedContactPoint = this@with.fixed?.asContactPoint()?.value
-          fixedCount = this@with.fixed?.asCount()?.value
-          fixedDistance = this@with.fixed?.asDistance()?.value
-          fixedDuration = this@with.fixed?.asDuration()?.value
-          fixedHumanName = this@with.fixed?.asHumanName()?.value
-          fixedIdentifier = this@with.fixed?.asIdentifier()?.value
-          fixedMoney = this@with.fixed?.asMoney()?.value
-          fixedPeriod = this@with.fixed?.asPeriod()?.value
-          fixedQuantity = this@with.fixed?.asQuantity()?.value
-          fixedRange = this@with.fixed?.asRange()?.value
-          fixedRatio = this@with.fixed?.asRatio()?.value
-          fixedRatioRange = this@with.fixed?.asRatioRange()?.value
-          fixedReference = this@with.fixed?.asReference()?.value
-          fixedSampledData = this@with.fixed?.asSampledData()?.value
-          fixedSignature = this@with.fixed?.asSignature()?.value
-          fixedTiming = this@with.fixed?.asTiming()?.value
-          fixedContactDetail = this@with.fixed?.asContactDetail()?.value
-          fixedDataRequirement = this@with.fixed?.asDataRequirement()?.value
-          fixedExpression = this@with.fixed?.asExpression()?.value
-          fixedParameterDefinition = this@with.fixed?.asParameterDefinition()?.value
-          fixedRelatedArtifact = this@with.fixed?.asRelatedArtifact()?.value
-          fixedTriggerDefinition = this@with.fixed?.asTriggerDefinition()?.value
-          fixedUsageContext = this@with.fixed?.asUsageContext()?.value
-          fixedAvailability = this@with.fixed?.asAvailability()?.value
-          fixedExtendedContactDetail = this@with.fixed?.asExtendedContactDetail()?.value
-          fixedDosage = this@with.fixed?.asDosage()?.value
-          fixedMeta = this@with.fixed?.asMeta()?.value
-          example = this@with.example
-          minValueDate = this@with.minValue?.asDate()?.value?.value?.toString()
-          _minValueDate = this@with.minValue?.asDate()?.value?.toElement()
-          minValueDateTime = this@with.minValue?.asDateTime()?.value?.value?.toString()
-          _minValueDateTime = this@with.minValue?.asDateTime()?.value?.toElement()
-          minValueInstant = this@with.minValue?.asInstant()?.value?.value?.toString()
-          _minValueInstant = this@with.minValue?.asInstant()?.value?.toElement()
-          minValueTime = this@with.minValue?.asTime()?.value?.value
-          _minValueTime = this@with.minValue?.asTime()?.value?.toElement()
-          minValueDecimal = this@with.minValue?.asDecimal()?.value?.value
-          _minValueDecimal = this@with.minValue?.asDecimal()?.value?.toElement()
-          minValueInteger = this@with.minValue?.asInteger()?.value?.value
-          _minValueInteger = this@with.minValue?.asInteger()?.value?.toElement()
-          minValueInteger64 = this@with.minValue?.asInteger64()?.value?.value
-          _minValueInteger64 = this@with.minValue?.asInteger64()?.value?.toElement()
-          minValuePositiveInt = this@with.minValue?.asPositiveInt()?.value?.value
-          _minValuePositiveInt = this@with.minValue?.asPositiveInt()?.value?.toElement()
-          minValueUnsignedInt = this@with.minValue?.asUnsignedInt()?.value?.value
-          _minValueUnsignedInt = this@with.minValue?.asUnsignedInt()?.value?.toElement()
-          minValueQuantity = this@with.minValue?.asQuantity()?.value
-          maxValueDate = this@with.maxValue?.asDate()?.value?.value?.toString()
-          _maxValueDate = this@with.maxValue?.asDate()?.value?.toElement()
-          maxValueDateTime = this@with.maxValue?.asDateTime()?.value?.value?.toString()
-          _maxValueDateTime = this@with.maxValue?.asDateTime()?.value?.toElement()
-          maxValueInstant = this@with.maxValue?.asInstant()?.value?.value?.toString()
-          _maxValueInstant = this@with.maxValue?.asInstant()?.value?.toElement()
-          maxValueTime = this@with.maxValue?.asTime()?.value?.value
-          _maxValueTime = this@with.maxValue?.asTime()?.value?.toElement()
-          maxValueDecimal = this@with.maxValue?.asDecimal()?.value?.value
-          _maxValueDecimal = this@with.maxValue?.asDecimal()?.value?.toElement()
-          maxValueInteger = this@with.maxValue?.asInteger()?.value?.value
-          _maxValueInteger = this@with.maxValue?.asInteger()?.value?.toElement()
-          maxValueInteger64 = this@with.maxValue?.asInteger64()?.value?.value
-          _maxValueInteger64 = this@with.maxValue?.asInteger64()?.value?.toElement()
-          maxValuePositiveInt = this@with.maxValue?.asPositiveInt()?.value?.value
-          _maxValuePositiveInt = this@with.maxValue?.asPositiveInt()?.value?.toElement()
-          maxValueUnsignedInt = this@with.maxValue?.asUnsignedInt()?.value?.value
-          _maxValueUnsignedInt = this@with.maxValue?.asUnsignedInt()?.value?.toElement()
-          maxValueQuantity = this@with.maxValue?.asQuantity()?.value
-          maxLength = this@with.maxLength?.value
-          _maxLength = this@with.maxLength?.toElement()
-          condition = this@with.condition?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.defaultValue?.asExtendedContactDetail()?.value,
+          defaultValueDosage = this@with.defaultValue?.asDosage()?.value,
+          defaultValueMeta = this@with.defaultValue?.asMeta()?.value,
+          meaningWhenMissing = this@with.meaningWhenMissing?.value,
+          _meaningWhenMissing = this@with.meaningWhenMissing?.toElement(),
+          orderMeaning = this@with.orderMeaning?.value,
+          _orderMeaning = this@with.orderMeaning?.toElement(),
+          fixedBase64Binary = this@with.fixed?.asBase64Binary()?.value?.value,
+          _fixedBase64Binary = this@with.fixed?.asBase64Binary()?.value?.toElement(),
+          fixedBoolean = this@with.fixed?.asBoolean()?.value?.value,
+          _fixedBoolean = this@with.fixed?.asBoolean()?.value?.toElement(),
+          fixedCanonical = this@with.fixed?.asCanonical()?.value?.value,
+          _fixedCanonical = this@with.fixed?.asCanonical()?.value?.toElement(),
+          fixedCode = this@with.fixed?.asCode()?.value?.value,
+          _fixedCode = this@with.fixed?.asCode()?.value?.toElement(),
+          fixedDate = this@with.fixed?.asDate()?.value?.value?.toString(),
+          _fixedDate = this@with.fixed?.asDate()?.value?.toElement(),
+          fixedDateTime = this@with.fixed?.asDateTime()?.value?.value?.toString(),
+          _fixedDateTime = this@with.fixed?.asDateTime()?.value?.toElement(),
+          fixedDecimal = this@with.fixed?.asDecimal()?.value?.value,
+          _fixedDecimal = this@with.fixed?.asDecimal()?.value?.toElement(),
+          fixedId = this@with.fixed?.asId()?.value?.value,
+          _fixedId = this@with.fixed?.asId()?.value?.toElement(),
+          fixedInstant = this@with.fixed?.asInstant()?.value?.value?.toString(),
+          _fixedInstant = this@with.fixed?.asInstant()?.value?.toElement(),
+          fixedInteger = this@with.fixed?.asInteger()?.value?.value,
+          _fixedInteger = this@with.fixed?.asInteger()?.value?.toElement(),
+          fixedInteger64 = this@with.fixed?.asInteger64()?.value?.value,
+          _fixedInteger64 = this@with.fixed?.asInteger64()?.value?.toElement(),
+          fixedMarkdown = this@with.fixed?.asMarkdown()?.value?.value,
+          _fixedMarkdown = this@with.fixed?.asMarkdown()?.value?.toElement(),
+          fixedOid = this@with.fixed?.asOid()?.value?.value,
+          _fixedOid = this@with.fixed?.asOid()?.value?.toElement(),
+          fixedPositiveInt = this@with.fixed?.asPositiveInt()?.value?.value,
+          _fixedPositiveInt = this@with.fixed?.asPositiveInt()?.value?.toElement(),
+          fixedString = this@with.fixed?.asString()?.value?.value,
+          _fixedString = this@with.fixed?.asString()?.value?.toElement(),
+          fixedTime = this@with.fixed?.asTime()?.value?.value,
+          _fixedTime = this@with.fixed?.asTime()?.value?.toElement(),
+          fixedUnsignedInt = this@with.fixed?.asUnsignedInt()?.value?.value,
+          _fixedUnsignedInt = this@with.fixed?.asUnsignedInt()?.value?.toElement(),
+          fixedUri = this@with.fixed?.asUri()?.value?.value,
+          _fixedUri = this@with.fixed?.asUri()?.value?.toElement(),
+          fixedUrl = this@with.fixed?.asUrl()?.value?.value,
+          _fixedUrl = this@with.fixed?.asUrl()?.value?.toElement(),
+          fixedUuid = this@with.fixed?.asUuid()?.value?.value,
+          _fixedUuid = this@with.fixed?.asUuid()?.value?.toElement(),
+          fixedAddress = this@with.fixed?.asAddress()?.value,
+          fixedAge = this@with.fixed?.asAge()?.value,
+          fixedAnnotation = this@with.fixed?.asAnnotation()?.value,
+          fixedAttachment = this@with.fixed?.asAttachment()?.value,
+          fixedCodeableConcept = this@with.fixed?.asCodeableConcept()?.value,
+          fixedCodeableReference = this@with.fixed?.asCodeableReference()?.value,
+          fixedCoding = this@with.fixed?.asCoding()?.value,
+          fixedContactPoint = this@with.fixed?.asContactPoint()?.value,
+          fixedCount = this@with.fixed?.asCount()?.value,
+          fixedDistance = this@with.fixed?.asDistance()?.value,
+          fixedDuration = this@with.fixed?.asDuration()?.value,
+          fixedHumanName = this@with.fixed?.asHumanName()?.value,
+          fixedIdentifier = this@with.fixed?.asIdentifier()?.value,
+          fixedMoney = this@with.fixed?.asMoney()?.value,
+          fixedPeriod = this@with.fixed?.asPeriod()?.value,
+          fixedQuantity = this@with.fixed?.asQuantity()?.value,
+          fixedRange = this@with.fixed?.asRange()?.value,
+          fixedRatio = this@with.fixed?.asRatio()?.value,
+          fixedRatioRange = this@with.fixed?.asRatioRange()?.value,
+          fixedReference = this@with.fixed?.asReference()?.value,
+          fixedSampledData = this@with.fixed?.asSampledData()?.value,
+          fixedSignature = this@with.fixed?.asSignature()?.value,
+          fixedTiming = this@with.fixed?.asTiming()?.value,
+          fixedContactDetail = this@with.fixed?.asContactDetail()?.value,
+          fixedDataRequirement = this@with.fixed?.asDataRequirement()?.value,
+          fixedExpression = this@with.fixed?.asExpression()?.value,
+          fixedParameterDefinition = this@with.fixed?.asParameterDefinition()?.value,
+          fixedRelatedArtifact = this@with.fixed?.asRelatedArtifact()?.value,
+          fixedTriggerDefinition = this@with.fixed?.asTriggerDefinition()?.value,
+          fixedUsageContext = this@with.fixed?.asUsageContext()?.value,
+          fixedAvailability = this@with.fixed?.asAvailability()?.value,
+          fixedExtendedContactDetail = this@with.fixed?.asExtendedContactDetail()?.value,
+          fixedDosage = this@with.fixed?.asDosage()?.value,
+          fixedMeta = this@with.fixed?.asMeta()?.value,
+          example = this@with.example.takeUnless { it.all { it == null } },
+          minValueDate = this@with.minValue?.asDate()?.value?.value?.toString(),
+          _minValueDate = this@with.minValue?.asDate()?.value?.toElement(),
+          minValueDateTime = this@with.minValue?.asDateTime()?.value?.value?.toString(),
+          _minValueDateTime = this@with.minValue?.asDateTime()?.value?.toElement(),
+          minValueInstant = this@with.minValue?.asInstant()?.value?.value?.toString(),
+          _minValueInstant = this@with.minValue?.asInstant()?.value?.toElement(),
+          minValueTime = this@with.minValue?.asTime()?.value?.value,
+          _minValueTime = this@with.minValue?.asTime()?.value?.toElement(),
+          minValueDecimal = this@with.minValue?.asDecimal()?.value?.value,
+          _minValueDecimal = this@with.minValue?.asDecimal()?.value?.toElement(),
+          minValueInteger = this@with.minValue?.asInteger()?.value?.value,
+          _minValueInteger = this@with.minValue?.asInteger()?.value?.toElement(),
+          minValueInteger64 = this@with.minValue?.asInteger64()?.value?.value,
+          _minValueInteger64 = this@with.minValue?.asInteger64()?.value?.toElement(),
+          minValuePositiveInt = this@with.minValue?.asPositiveInt()?.value?.value,
+          _minValuePositiveInt = this@with.minValue?.asPositiveInt()?.value?.toElement(),
+          minValueUnsignedInt = this@with.minValue?.asUnsignedInt()?.value?.value,
+          _minValueUnsignedInt = this@with.minValue?.asUnsignedInt()?.value?.toElement(),
+          minValueQuantity = this@with.minValue?.asQuantity()?.value,
+          maxValueDate = this@with.maxValue?.asDate()?.value?.value?.toString(),
+          _maxValueDate = this@with.maxValue?.asDate()?.value?.toElement(),
+          maxValueDateTime = this@with.maxValue?.asDateTime()?.value?.value?.toString(),
+          _maxValueDateTime = this@with.maxValue?.asDateTime()?.value?.toElement(),
+          maxValueInstant = this@with.maxValue?.asInstant()?.value?.value?.toString(),
+          _maxValueInstant = this@with.maxValue?.asInstant()?.value?.toElement(),
+          maxValueTime = this@with.maxValue?.asTime()?.value?.value,
+          _maxValueTime = this@with.maxValue?.asTime()?.value?.toElement(),
+          maxValueDecimal = this@with.maxValue?.asDecimal()?.value?.value,
+          _maxValueDecimal = this@with.maxValue?.asDecimal()?.value?.toElement(),
+          maxValueInteger = this@with.maxValue?.asInteger()?.value?.value,
+          _maxValueInteger = this@with.maxValue?.asInteger()?.value?.toElement(),
+          maxValueInteger64 = this@with.maxValue?.asInteger64()?.value?.value,
+          _maxValueInteger64 = this@with.maxValue?.asInteger64()?.value?.toElement(),
+          maxValuePositiveInt = this@with.maxValue?.asPositiveInt()?.value?.value,
+          _maxValuePositiveInt = this@with.maxValue?.asPositiveInt()?.value?.toElement(),
+          maxValueUnsignedInt = this@with.maxValue?.asUnsignedInt()?.value?.value,
+          _maxValueUnsignedInt = this@with.maxValue?.asUnsignedInt()?.value?.toElement(),
+          maxValueQuantity = this@with.maxValue?.asQuantity()?.value,
+          maxLength = this@with.maxLength?.value,
+          _maxLength = this@with.maxLength?.toElement(),
+          condition =
+            this@with.condition
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _condition =
-            this@with.condition?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          constraint = this@with.constraint
-          mustHaveValue = this@with.mustHaveValue?.value
-          _mustHaveValue = this@with.mustHaveValue?.toElement()
+            this@with.condition
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          constraint = this@with.constraint.takeUnless { it.all { it == null } },
+          mustHaveValue = this@with.mustHaveValue?.value,
+          _mustHaveValue = this@with.mustHaveValue?.toElement(),
           valueAlternatives =
-            this@with.valueAlternatives?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.valueAlternatives
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _valueAlternatives =
             this@with.valueAlternatives
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          mustSupport = this@with.mustSupport?.value
-          _mustSupport = this@with.mustSupport?.toElement()
-          isModifier = this@with.isModifier?.value
-          _isModifier = this@with.isModifier?.toElement()
-          isModifierReason = this@with.isModifierReason?.value
-          _isModifierReason = this@with.isModifierReason?.toElement()
-          isSummary = this@with.isSummary?.value
-          _isSummary = this@with.isSummary?.toElement()
-          binding = this@with.binding
-          mapping = this@with.mapping
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          mustSupport = this@with.mustSupport?.value,
+          _mustSupport = this@with.mustSupport?.toElement(),
+          isModifier = this@with.isModifier?.value,
+          _isModifier = this@with.isModifier?.toElement(),
+          isModifierReason = this@with.isModifierReason?.value,
+          _isModifierReason = this@with.isModifierReason?.toElement(),
+          isSummary = this@with.isSummary?.value,
+          _isSummary = this@with.isSummary?.toElement(),
+          binding = this@with.binding,
+          mapping = this@with.mapping.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

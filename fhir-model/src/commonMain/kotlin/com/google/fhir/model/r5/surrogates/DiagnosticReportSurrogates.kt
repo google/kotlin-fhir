@@ -43,39 +43,40 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DiagnosticReportSupportingInfoSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
-  public var reference: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var reference: Reference,
 ) {
   public fun toModel(): DiagnosticReport.SupportingInfo =
-    DiagnosticReport.SupportingInfo().apply {
-      id = this@DiagnosticReportSupportingInfoSurrogate.id
-      extension = this@DiagnosticReportSupportingInfoSurrogate.extension
-      modifierExtension = this@DiagnosticReportSupportingInfoSurrogate.modifierExtension
-      type = this@DiagnosticReportSupportingInfoSurrogate.type
-      reference = this@DiagnosticReportSupportingInfoSurrogate.reference
-    }
+    DiagnosticReport.SupportingInfo(
+      id = this@DiagnosticReportSupportingInfoSurrogate.id,
+      extension = this@DiagnosticReportSupportingInfoSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DiagnosticReportSupportingInfoSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@DiagnosticReportSupportingInfoSurrogate.type,
+      reference = this@DiagnosticReportSupportingInfoSurrogate.reference,
+    )
 
   public companion object {
     public fun fromModel(
       model: DiagnosticReport.SupportingInfo
     ): DiagnosticReportSupportingInfoSurrogate =
       with(model) {
-        DiagnosticReportSupportingInfoSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          reference = this@with.reference
-        }
+        DiagnosticReportSupportingInfoSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          reference = this@with.reference,
+        )
       }
   }
 }
@@ -83,36 +84,36 @@ internal data class DiagnosticReportSupportingInfoSurrogate(
 @Serializable
 internal data class DiagnosticReportMediaSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
-  public var link: Reference? = null,
+  public var link: Reference,
 ) {
   public fun toModel(): DiagnosticReport.Media =
-    DiagnosticReport.Media().apply {
-      id = this@DiagnosticReportMediaSurrogate.id
-      extension = this@DiagnosticReportMediaSurrogate.extension
-      modifierExtension = this@DiagnosticReportMediaSurrogate.modifierExtension
+    DiagnosticReport.Media(
+      id = this@DiagnosticReportMediaSurrogate.id,
+      extension = this@DiagnosticReportMediaSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DiagnosticReportMediaSurrogate.modifierExtension ?: mutableListOf(),
       comment =
         R5String.of(
           this@DiagnosticReportMediaSurrogate.comment,
           this@DiagnosticReportMediaSurrogate._comment,
-        )
-      link = this@DiagnosticReportMediaSurrogate.link
-    }
+        ),
+      link = this@DiagnosticReportMediaSurrogate.link,
+    )
 
   public companion object {
     public fun fromModel(model: DiagnosticReport.Media): DiagnosticReportMediaSurrogate =
       with(model) {
-        DiagnosticReportMediaSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-          link = this@with.link
-        }
+        DiagnosticReportMediaSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+          link = this@with.link,
+        )
       }
   }
 }
@@ -126,15 +127,15 @@ internal data class DiagnosticReportSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var basedOn: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var basedOn: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var code: CodeableConcept? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var code: CodeableConcept,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
   public var effectiveDateTime: KotlinString? = null,
@@ -142,48 +143,48 @@ internal data class DiagnosticReportSurrogate(
   public var effectivePeriod: Period? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
-  public var performer: List<Reference?>? = null,
-  public var resultsInterpreter: List<Reference?>? = null,
-  public var specimen: List<Reference?>? = null,
-  public var result: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var study: List<Reference?>? = null,
-  public var supportingInfo: List<DiagnosticReport.SupportingInfo>? = null,
-  public var media: List<DiagnosticReport.Media>? = null,
+  public var performer: MutableList<Reference>? = null,
+  public var resultsInterpreter: MutableList<Reference>? = null,
+  public var specimen: MutableList<Reference>? = null,
+  public var result: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var study: MutableList<Reference>? = null,
+  public var supportingInfo: MutableList<DiagnosticReport.SupportingInfo>? = null,
+  public var media: MutableList<DiagnosticReport.Media>? = null,
   public var composition: Reference? = null,
   public var conclusion: KotlinString? = null,
   public var _conclusion: Element? = null,
-  public var conclusionCode: List<CodeableConcept?>? = null,
-  public var presentedForm: List<Attachment?>? = null,
+  public var conclusionCode: MutableList<CodeableConcept>? = null,
+  public var presentedForm: MutableList<Attachment>? = null,
 ) {
   public fun toModel(): DiagnosticReport =
-    DiagnosticReport().apply {
-      id = this@DiagnosticReportSurrogate.id
-      meta = this@DiagnosticReportSurrogate.meta
+    DiagnosticReport(
+      id = this@DiagnosticReportSurrogate.id,
+      meta = this@DiagnosticReportSurrogate.meta,
       implicitRules =
         Uri.of(
           this@DiagnosticReportSurrogate.implicitRules,
           this@DiagnosticReportSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@DiagnosticReportSurrogate.language, this@DiagnosticReportSurrogate._language)
-      text = this@DiagnosticReportSurrogate.text
-      contained = this@DiagnosticReportSurrogate.contained
-      extension = this@DiagnosticReportSurrogate.extension
-      modifierExtension = this@DiagnosticReportSurrogate.modifierExtension
-      identifier = this@DiagnosticReportSurrogate.identifier
-      basedOn = this@DiagnosticReportSurrogate.basedOn
+        Code.of(this@DiagnosticReportSurrogate.language, this@DiagnosticReportSurrogate._language),
+      text = this@DiagnosticReportSurrogate.text,
+      contained = this@DiagnosticReportSurrogate.contained ?: mutableListOf(),
+      extension = this@DiagnosticReportSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DiagnosticReportSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DiagnosticReportSurrogate.identifier ?: mutableListOf(),
+      basedOn = this@DiagnosticReportSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@DiagnosticReportSurrogate.status?.let {
-            com.google.fhir.model.r5.DiagnosticReport.DiagnosticReportStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.DiagnosticReport.DiagnosticReportStatus.fromCode(
+            this@DiagnosticReportSurrogate.status!!
+          ),
           this@DiagnosticReportSurrogate._status,
-        )
-      category = this@DiagnosticReportSurrogate.category
-      code = this@DiagnosticReportSurrogate.code
-      subject = this@DiagnosticReportSurrogate.subject
-      encounter = this@DiagnosticReportSurrogate.encounter
+        ),
+      category = this@DiagnosticReportSurrogate.category ?: mutableListOf(),
+      code = this@DiagnosticReportSurrogate.code,
+      subject = this@DiagnosticReportSurrogate.subject,
+      encounter = this@DiagnosticReportSurrogate.encounter,
       effective =
         DiagnosticReport.Effective?.from(
           DateTime.of(
@@ -191,71 +192,71 @@ internal data class DiagnosticReportSurrogate(
             this@DiagnosticReportSurrogate._effectiveDateTime,
           ),
           this@DiagnosticReportSurrogate.effectivePeriod,
-        )
+        ),
       issued =
         Instant.of(
           FhirDateTime.fromString(this@DiagnosticReportSurrogate.issued),
           this@DiagnosticReportSurrogate._issued,
-        )
-      performer = this@DiagnosticReportSurrogate.performer
-      resultsInterpreter = this@DiagnosticReportSurrogate.resultsInterpreter
-      specimen = this@DiagnosticReportSurrogate.specimen
-      result = this@DiagnosticReportSurrogate.result
-      note = this@DiagnosticReportSurrogate.note
-      study = this@DiagnosticReportSurrogate.study
-      supportingInfo = this@DiagnosticReportSurrogate.supportingInfo
-      media = this@DiagnosticReportSurrogate.media
-      composition = this@DiagnosticReportSurrogate.composition
+        ),
+      performer = this@DiagnosticReportSurrogate.performer ?: mutableListOf(),
+      resultsInterpreter = this@DiagnosticReportSurrogate.resultsInterpreter ?: mutableListOf(),
+      specimen = this@DiagnosticReportSurrogate.specimen ?: mutableListOf(),
+      result = this@DiagnosticReportSurrogate.result ?: mutableListOf(),
+      note = this@DiagnosticReportSurrogate.note ?: mutableListOf(),
+      study = this@DiagnosticReportSurrogate.study ?: mutableListOf(),
+      supportingInfo = this@DiagnosticReportSurrogate.supportingInfo ?: mutableListOf(),
+      media = this@DiagnosticReportSurrogate.media ?: mutableListOf(),
+      composition = this@DiagnosticReportSurrogate.composition,
       conclusion =
         Markdown.of(
           this@DiagnosticReportSurrogate.conclusion,
           this@DiagnosticReportSurrogate._conclusion,
-        )
-      conclusionCode = this@DiagnosticReportSurrogate.conclusionCode
-      presentedForm = this@DiagnosticReportSurrogate.presentedForm
-    }
+        ),
+      conclusionCode = this@DiagnosticReportSurrogate.conclusionCode ?: mutableListOf(),
+      presentedForm = this@DiagnosticReportSurrogate.presentedForm ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DiagnosticReport): DiagnosticReportSurrogate =
       with(model) {
-        DiagnosticReportSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          code = this@with.code
-          subject = this@with.subject
-          encounter = this@with.encounter
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString()
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement()
-          effectivePeriod = this@with.effective?.asPeriod()?.value
-          issued = this@with.issued?.value?.toString()
-          _issued = this@with.issued?.toElement()
-          performer = this@with.performer
-          resultsInterpreter = this@with.resultsInterpreter
-          specimen = this@with.specimen
-          result = this@with.result
-          note = this@with.note
-          study = this@with.study
-          supportingInfo = this@with.supportingInfo
-          media = this@with.media
-          composition = this@with.composition
-          conclusion = this@with.conclusion?.value
-          _conclusion = this@with.conclusion?.toElement()
-          conclusionCode = this@with.conclusionCode
-          presentedForm = this@with.presentedForm
-        }
+        DiagnosticReportSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.effective?.asPeriod()?.value,
+          issued = this@with.issued?.value?.toString(),
+          _issued = this@with.issued?.toElement(),
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          resultsInterpreter = this@with.resultsInterpreter.takeUnless { it.all { it == null } },
+          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          result = this@with.result.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          study = this@with.study.takeUnless { it.all { it == null } },
+          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
+          media = this@with.media.takeUnless { it.all { it == null } },
+          composition = this@with.composition,
+          conclusion = this@with.conclusion?.value,
+          _conclusion = this@with.conclusion?.toElement(),
+          conclusionCode = this@with.conclusionCode.takeUnless { it.all { it == null } },
+          presentedForm = this@with.presentedForm.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

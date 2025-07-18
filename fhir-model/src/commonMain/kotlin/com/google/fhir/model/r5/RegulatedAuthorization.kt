@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.RegulatedAuthorizationCaseSerializer
 import com.google.fhir.model.r5.serializers.RegulatedAuthorizationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class RegulatedAuthorization(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class RegulatedAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,11 +131,11 @@ public data class RegulatedAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier for the authorization, typically assigned by the authorizing body. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The product type, treatment, facility or activity that is being authorized. */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /**
    * Overall type of this authorization, for example drug marketing approval, orphan drug
    * designation.
@@ -146,7 +146,7 @@ public data class RegulatedAuthorization(
   /**
    * The territory (e.g., country, jurisdiction etc.) in which the authorization has been granted.
    */
-  public var region: List<CodeableConcept?>? = null,
+  public var region: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The status that is authorised e.g. approved. Intermediate states and actions can be tracked
    * with cases and applications.
@@ -161,14 +161,14 @@ public data class RegulatedAuthorization(
    */
   public var validityPeriod: Period? = null,
   /** Condition for which the use of the regulated product applies. */
-  public var indication: List<CodeableReference?>? = null,
+  public var indication: MutableList<CodeableReference> = mutableListOf(),
   /** The intended use of the product, e.g. prevention, treatment, diagnosis. */
   public var intendedUse: CodeableConcept? = null,
   /**
    * The legal or regulatory framework against which this authorization is granted, or other reasons
    * for it.
    */
-  public var basis: List<CodeableConcept?>? = null,
+  public var basis: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The organization that has been granted this authorization, by some authoritative body (the
    * 'regulator').
@@ -180,7 +180,7 @@ public data class RegulatedAuthorization(
    */
   public var regulator: Reference? = null,
   /** Additional information or supporting documentation about the authorization. */
-  public var attachedDocument: List<Reference?>? = null,
+  public var attachedDocument: MutableList<Reference> = mutableListOf(),
   /**
    * The case or regulatory procedure for granting or amending a regulated authorization. An
    * authorization is granted in response to submissions/applications by those seeking
@@ -216,7 +216,7 @@ public data class RegulatedAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -235,7 +235,7 @@ public data class RegulatedAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifier by which this case can be referenced. */
     public var identifier: Identifier? = null,
     /** The defining type of case. */
@@ -250,7 +250,7 @@ public data class RegulatedAuthorization(
      * modify the submission or the authorization. The applications can be considered as steps
      * within the longer running case or procedure for this authorization process.
      */
-    public var application: List<Case?>? = null,
+    public var application: MutableList<Case> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Date {
       public fun asPeriod(): Period? = this as? Period
@@ -262,11 +262,11 @@ public data class RegulatedAuthorization(
       public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Date
 
       public companion object {
-        public fun from(
-          PeriodValue: com.google.fhir.model.r5.Period?,
+        internal fun from(
+          periodValue: com.google.fhir.model.r5.Period?,
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
         ): Date? {
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           return null
         }

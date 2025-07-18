@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.MedicationBatchSerializer
 import com.google.fhir.model.r4.serializers.MedicationIngredientSerializer
 import com.google.fhir.model.r4.serializers.MedicationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class Medication(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class Medication(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,13 +129,13 @@ public data class Medication(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifier for this medication.
    *
    * The serial number could be included as an identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A code (or set of codes) that specify this medication, or a textual description if no code is
    * available. Usage note: This could be a standard medication code such as a code from RxNorm,
@@ -191,7 +191,7 @@ public data class Medication(
    * mean that all ingredients are specified. It is possible to specify both inactive and active
    * ingredients.
    */
-  public var ingredient: List<Ingredient>? = null,
+  public var ingredient: MutableList<Ingredient> = mutableListOf(),
   /** Information that only applies to packages (not products). */
   public var batch: Batch? = null,
 ) : DomainResource() {
@@ -215,7 +215,7 @@ public data class Medication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -234,12 +234,12 @@ public data class Medication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The actual ingredient - either a substance (simple ingredient) or another medication of a
      * medication.
      */
-    public var item: Item? = null,
+    public var item: Item,
     /** Indication of whether this ingredient affects the therapeutic action of the drug. */
     public var isActive: Boolean? = null,
     /**
@@ -261,12 +261,12 @@ public data class Medication(
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Item
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r4.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r4.Reference?,
         ): Item? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -293,7 +293,7 @@ public data class Medication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -312,7 +312,7 @@ public data class Medication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The assigned lot number of a batch of the specified product. */
     public var lotNumber: String? = null,
     /** When this specific batch of product will expire. */

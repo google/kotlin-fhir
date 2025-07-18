@@ -39,31 +39,31 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EndpointPayloadSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: List<CodeableConcept?>? = null,
-  public var mimeType: List<KotlinString?>? = null,
-  public var _mimeType: List<Element?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var mimeType: MutableList<KotlinString?>? = null,
+  public var _mimeType: MutableList<Element?>? = null,
 ) {
   public fun toModel(): Endpoint.Payload =
-    Endpoint.Payload().apply {
-      id = this@EndpointPayloadSurrogate.id
-      extension = this@EndpointPayloadSurrogate.extension
-      modifierExtension = this@EndpointPayloadSurrogate.modifierExtension
-      type = this@EndpointPayloadSurrogate.type
+    Endpoint.Payload(
+      id = this@EndpointPayloadSurrogate.id,
+      extension = this@EndpointPayloadSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EndpointPayloadSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@EndpointPayloadSurrogate.type ?: mutableListOf(),
       mimeType =
         if (
           this@EndpointPayloadSurrogate.mimeType == null &&
             this@EndpointPayloadSurrogate._mimeType == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@EndpointPayloadSurrogate.mimeType
               ?: List(this@EndpointPayloadSurrogate._mimeType!!.size) { null })
@@ -71,22 +71,31 @@ internal data class EndpointPayloadSurrogate(
               this@EndpointPayloadSurrogate._mimeType
                 ?: List(this@EndpointPayloadSurrogate.mimeType!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
-        }
-    }
+            .map { (value, element) -> Code.of(value, element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: Endpoint.Payload): EndpointPayloadSurrogate =
       with(model) {
-        EndpointPayloadSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          mimeType = this@with.mimeType?.map { it?.value }?.takeUnless { it.all { it == null } }
+        EndpointPayloadSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.takeUnless { it.all { it == null } },
+          mimeType =
+            this@with.mimeType
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _mimeType =
-            this@with.mimeType?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.mimeType
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }
@@ -100,102 +109,111 @@ internal data class EndpointSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var connectionType: List<CodeableConcept?>? = null,
+  public var connectionType: MutableList<CodeableConcept>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var environmentType: List<CodeableConcept?>? = null,
+  public var environmentType: MutableList<CodeableConcept>? = null,
   public var managingOrganization: Reference? = null,
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint>? = null,
   public var period: Period? = null,
-  public var payload: List<Endpoint.Payload>? = null,
+  public var payload: MutableList<Endpoint.Payload>? = null,
   public var address: KotlinString? = null,
   public var _address: Element? = null,
-  public var `header`: List<KotlinString?>? = null,
-  public var _header: List<Element?>? = null,
+  public var `header`: MutableList<KotlinString?>? = null,
+  public var _header: MutableList<Element?>? = null,
 ) {
   public fun toModel(): Endpoint =
-    Endpoint().apply {
-      id = this@EndpointSurrogate.id
-      meta = this@EndpointSurrogate.meta
+    Endpoint(
+      id = this@EndpointSurrogate.id,
+      meta = this@EndpointSurrogate.meta,
       implicitRules =
-        Uri.of(this@EndpointSurrogate.implicitRules, this@EndpointSurrogate._implicitRules)
-      language = Code.of(this@EndpointSurrogate.language, this@EndpointSurrogate._language)
-      text = this@EndpointSurrogate.text
-      contained = this@EndpointSurrogate.contained
-      extension = this@EndpointSurrogate.extension
-      modifierExtension = this@EndpointSurrogate.modifierExtension
-      identifier = this@EndpointSurrogate.identifier
+        Uri.of(this@EndpointSurrogate.implicitRules, this@EndpointSurrogate._implicitRules),
+      language = Code.of(this@EndpointSurrogate.language, this@EndpointSurrogate._language),
+      text = this@EndpointSurrogate.text,
+      contained = this@EndpointSurrogate.contained ?: mutableListOf(),
+      extension = this@EndpointSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EndpointSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@EndpointSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@EndpointSurrogate.status?.let {
-            com.google.fhir.model.r5.Endpoint.EndpointStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.Endpoint.EndpointStatus.fromCode(
+            this@EndpointSurrogate.status!!
+          ),
           this@EndpointSurrogate._status,
-        )
-      connectionType = this@EndpointSurrogate.connectionType
-      name = R5String.of(this@EndpointSurrogate.name, this@EndpointSurrogate._name)
+        ),
+      connectionType = this@EndpointSurrogate.connectionType ?: mutableListOf(),
+      name = R5String.of(this@EndpointSurrogate.name, this@EndpointSurrogate._name),
       description =
-        R5String.of(this@EndpointSurrogate.description, this@EndpointSurrogate._description)
-      environmentType = this@EndpointSurrogate.environmentType
-      managingOrganization = this@EndpointSurrogate.managingOrganization
-      contact = this@EndpointSurrogate.contact
-      period = this@EndpointSurrogate.period
-      payload = this@EndpointSurrogate.payload
-      address = Url.of(this@EndpointSurrogate.address, this@EndpointSurrogate._address)
+        R5String.of(this@EndpointSurrogate.description, this@EndpointSurrogate._description),
+      environmentType = this@EndpointSurrogate.environmentType ?: mutableListOf(),
+      managingOrganization = this@EndpointSurrogate.managingOrganization,
+      contact = this@EndpointSurrogate.contact ?: mutableListOf(),
+      period = this@EndpointSurrogate.period,
+      payload = this@EndpointSurrogate.payload ?: mutableListOf(),
+      address = Url.of(this@EndpointSurrogate.address, this@EndpointSurrogate._address)!!,
       `header` =
         if (this@EndpointSurrogate.`header` == null && this@EndpointSurrogate._header == null) {
-          null
+          mutableListOf()
         } else {
           (this@EndpointSurrogate.`header` ?: List(this@EndpointSurrogate._header!!.size) { null })
             .zip(
               this@EndpointSurrogate._header
                 ?: List(this@EndpointSurrogate.`header`!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R5String.of(value, element) }
-        }
-    }
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: Endpoint): EndpointSurrogate =
       with(model) {
-        EndpointSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          connectionType = this@with.connectionType
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          environmentType = this@with.environmentType
-          managingOrganization = this@with.managingOrganization
-          contact = this@with.contact
-          period = this@with.period
-          payload = this@with.payload
-          address = this@with.address?.value
-          _address = this@with.address?.toElement()
-          `header` = this@with.`header`?.map { it?.value }?.takeUnless { it.all { it == null } }
+        EndpointSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          connectionType = this@with.connectionType.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          environmentType = this@with.environmentType.takeUnless { it.all { it == null } },
+          managingOrganization = this@with.managingOrganization,
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          period = this@with.period,
+          payload = this@with.payload.takeUnless { it.all { it == null } },
+          address = this@with.address.value,
+          _address = this@with.address.toElement(),
+          `header` =
+            this@with.`header`
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _header =
-            this@with.`header`?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.`header`
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }

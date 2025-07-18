@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.SubstanceIngredientSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceInstanceSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class Substance(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class Substance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,14 +125,14 @@ public data class Substance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique identifier for the substance.
    *
    * This identifier is associated with the kind of substance in contrast to the
    * Substance.instance.identifier which is associated with the package/container.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A code to indicate if the substance is actively used. */
   public var status: Enumeration<FHIRSubstanceStatus>? = null,
   /**
@@ -143,14 +143,14 @@ public data class Substance(
    * fine-grained filtering can be performed using the metadata and/or terminology hierarchy in
    * Substance.code.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A code (or set of codes) that identify this substance.
    *
    * This could be a reference to an externally defined code. It could also be a locally assigned
    * code (e.g. a formulary), optionally with translations to the standard drug codes.
    */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * A description of the substance - its appearance, handling requirements, and other usage notes.
    */
@@ -159,9 +159,9 @@ public data class Substance(
    * Substance may be used to describe a kind of substance, or a specific package/container of the
    * substance: an instance.
    */
-  public var instance: List<Instance>? = null,
+  public var instance: MutableList<Instance> = mutableListOf(),
   /** A substance can be composed of other substances. */
-  public var ingredient: List<Ingredient>? = null,
+  public var ingredient: MutableList<Ingredient> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Substance may be used to describe a kind of substance, or a specific package/container of the
@@ -186,7 +186,7 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -205,7 +205,7 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifier associated with the package/container (usually a label affixed directly). */
     public var identifier: Identifier? = null,
     /**
@@ -237,7 +237,7 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -256,11 +256,11 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The amount of the ingredient in the substance - a concentration ratio. */
     public var quantity: Ratio? = null,
     /** Another substance that is a component of this substance. */
-    public var substance: Substance? = null,
+    public var substance: Substance,
   ) : BackboneElement() {
     public sealed interface Substance {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
@@ -275,12 +275,12 @@ public data class Substance(
         Substance
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
         ): Substance? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }

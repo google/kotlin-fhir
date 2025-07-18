@@ -32,14 +32,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AgeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var comparator: KotlinString? = null,
@@ -52,39 +52,39 @@ internal data class AgeSurrogate(
   public var _code: Element? = null,
 ) {
   public fun toModel(): Age =
-    Age().apply {
-      id = this@AgeSurrogate.id
-      extension = this@AgeSurrogate.extension
-      `value` = Decimal.of(this@AgeSurrogate.`value`, this@AgeSurrogate._value)
+    Age(
+      id = this@AgeSurrogate.id,
+      extension = this@AgeSurrogate.extension ?: mutableListOf(),
+      `value` = Decimal.of(this@AgeSurrogate.`value`, this@AgeSurrogate._value),
       comparator =
-        Enumeration.of(
-          this@AgeSurrogate.comparator?.let {
-            com.google.fhir.model.r4b.Quantity.QuantityComparator.fromCode(it)
-          },
-          this@AgeSurrogate._comparator,
-        )
-      unit = R4bString.of(this@AgeSurrogate.unit, this@AgeSurrogate._unit)
-      system = Uri.of(this@AgeSurrogate.system, this@AgeSurrogate._system)
-      code = Code.of(this@AgeSurrogate.code, this@AgeSurrogate._code)
-    }
+        this@AgeSurrogate.comparator?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.Quantity.QuantityComparator.fromCode(it!!),
+            this@AgeSurrogate._comparator,
+          )
+        },
+      unit = R4bString.of(this@AgeSurrogate.unit, this@AgeSurrogate._unit),
+      system = Uri.of(this@AgeSurrogate.system, this@AgeSurrogate._system),
+      code = Code.of(this@AgeSurrogate.code, this@AgeSurrogate._code),
+    )
 
   public companion object {
     public fun fromModel(model: Age): AgeSurrogate =
       with(model) {
-        AgeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          comparator = this@with.comparator?.value?.getCode()
-          _comparator = this@with.comparator?.toElement()
-          unit = this@with.unit?.value
-          _unit = this@with.unit?.toElement()
-          system = this@with.system?.value
-          _system = this@with.system?.toElement()
-          code = this@with.code?.value
-          _code = this@with.code?.toElement()
-        }
+        AgeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          comparator = this@with.comparator?.value?.getCode(),
+          _comparator = this@with.comparator?.toElement(),
+          unit = this@with.unit?.value,
+          _unit = this@with.unit?.toElement(),
+          system = this@with.system?.value,
+          _system = this@with.system?.toElement(),
+          code = this@with.code?.value,
+          _code = this@with.code?.toElement(),
+        )
       }
   }
 }

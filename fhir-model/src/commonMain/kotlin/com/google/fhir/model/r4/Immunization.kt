@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedSerialize
 import com.google.fhir.model.r4.serializers.ImmunizationReactionSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Immunization(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Immunization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,9 +130,9 @@ public data class Immunization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this immunization record. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates the current status of the immunization event.
    *
@@ -140,7 +140,7 @@ public data class Immunization(
    * element is labeled as a modifier because the status contains codes that mark the resource as
    * not currently valid.
    */
-  public var status: Enumeration<ImmunizationStatus>? = null,
+  public var status: Enumeration<ImmunizationStatus>,
   /**
    * Indicates the reason the immunization event was not performed.
    *
@@ -149,9 +149,9 @@ public data class Immunization(
    */
   public var statusReason: CodeableConcept? = null,
   /** Vaccine that was administered or was to be administered. */
-  public var vaccineCode: CodeableConcept? = null,
+  public var vaccineCode: CodeableConcept,
   /** The patient who either received or did not receive the immunization. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /**
    * The visit or admission or other contact between patient and health care provider the
    * immunization was performed as part of.
@@ -169,7 +169,7 @@ public data class Immunization(
    * this, often, only the first dose (typically a provider supervised dose) is recorded with the
    * occurrence indicating the date/time of the first dose.
    */
-  public var occurrence: Occurrence? = null,
+  public var occurrence: Occurrence,
   /**
    * The date the occurrence of the immunization was first captured in the record - potentially
    * significantly after the occurrence of the event.
@@ -205,15 +205,15 @@ public data class Immunization(
   /** The quantity of vaccine product that was administered. */
   public var doseQuantity: Quantity? = null,
   /** Indicates who performed the immunization event. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** Extra information about the immunization that is not conveyed by the other attributes. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Reasons why the vaccine was administered. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Condition, Observation or DiagnosticReport that supports why the immunization was administered.
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Indication if a dose is considered to be subpotent. By default, a dose should be considered to
    * be potent.
@@ -226,14 +226,14 @@ public data class Immunization(
    */
   public var isSubpotent: Boolean? = null,
   /** Reason why a dose is considered to be subpotent. */
-  public var subpotentReason: List<CodeableConcept?>? = null,
+  public var subpotentReason: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Educational material presented to the patient (or guardian) at the time of vaccine
    * administration.
    */
-  public var education: List<Education>? = null,
+  public var education: MutableList<Education> = mutableListOf(),
   /** Indicates a patient's eligibility for a funding program. */
-  public var programEligibility: List<CodeableConcept?>? = null,
+  public var programEligibility: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Indicates the source of the vaccine actually administered. This may be different than the
    * patient eligibility (e.g. the patient may be eligible for a publically purchased vaccine but
@@ -247,11 +247,11 @@ public data class Immunization(
    * the case, it should be recorded as a new AllergyIntolerance resource instance as most systems
    * will not query against past Immunization.reaction elements.
    */
-  public var reaction: List<Reaction>? = null,
+  public var reaction: MutableList<Reaction> = mutableListOf(),
   /**
    * The protocol (set of recommendations) being followed by the provider who administered the dose.
    */
-  public var protocolApplied: List<ProtocolApplied>? = null,
+  public var protocolApplied: MutableList<ProtocolApplied> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who performed the immunization event. */
   @Serializable(with = ImmunizationPerformerSerializer::class)
@@ -273,7 +273,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -292,7 +292,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Describes the type of performance (e.g. ordering provider, administering provider, etc.). */
     public var function: CodeableConcept? = null,
     /**
@@ -300,7 +300,7 @@ public data class Immunization(
      *
      * When the individual practitioner who performed the action is known, it is best to send.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /**
@@ -326,7 +326,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -345,7 +345,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifier of the material presented to the patient. */
     public var documentType: String? = null,
     /**
@@ -379,7 +379,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -398,7 +398,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Date of reaction to the immunization. */
     public var date: DateTime? = null,
     /** Details of the reaction. */
@@ -429,7 +429,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -448,7 +448,7 @@ public data class Immunization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * One possible path to achieve presumed immunity against a disease - within the context of an
      * authority.
@@ -457,14 +457,14 @@ public data class Immunization(
     /** Indicates the authority who published the protocol (e.g. ACIP) that is being followed. */
     public var authority: Reference? = null,
     /** The vaccine preventable disease the dose is being administered against. */
-    public var targetDisease: List<CodeableConcept?>? = null,
+    public var targetDisease: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Nominal position in a series.
      *
      * The use of an integer is preferred if known. A string should only be used in cases where an
      * integer is not available (such as when documenting a recurring booster dose).
      */
-    public var doseNumber: DoseNumber? = null,
+    public var doseNumber: DoseNumber,
     /**
      * The recommended number of doses to achieve immunity.
      *
@@ -484,7 +484,7 @@ public data class Immunization(
       public data class String(public val `value`: com.google.fhir.model.r4.String) : DoseNumber
 
       public companion object {
-        public fun from(
+        internal fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
         ): DoseNumber? {
@@ -506,7 +506,7 @@ public data class Immunization(
       public data class String(public val `value`: com.google.fhir.model.r4.String) : SeriesDoses
 
       public companion object {
-        public fun from(
+        internal fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
         ): SeriesDoses? {
@@ -528,7 +528,7 @@ public data class Immunization(
     public data class String(public val `value`: com.google.fhir.model.r4.String) : Occurrence
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
         stringValue: com.google.fhir.model.r4.String?,
       ): Occurrence? {

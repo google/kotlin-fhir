@@ -35,7 +35,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -48,68 +48,70 @@ internal data class MedicinalProductManufacturedSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var manufacturedDoseForm: CodeableConcept? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var manufacturedDoseForm: CodeableConcept,
   public var unitOfPresentation: CodeableConcept? = null,
-  public var quantity: Quantity? = null,
-  public var manufacturer: List<Reference?>? = null,
-  public var ingredient: List<Reference?>? = null,
+  public var quantity: Quantity,
+  public var manufacturer: MutableList<Reference>? = null,
+  public var ingredient: MutableList<Reference>? = null,
   public var physicalCharacteristics: ProdCharacteristic? = null,
-  public var otherCharacteristics: List<CodeableConcept?>? = null,
+  public var otherCharacteristics: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): MedicinalProductManufactured =
-    MedicinalProductManufactured().apply {
-      id = this@MedicinalProductManufacturedSurrogate.id
-      meta = this@MedicinalProductManufacturedSurrogate.meta
+    MedicinalProductManufactured(
+      id = this@MedicinalProductManufacturedSurrogate.id,
+      meta = this@MedicinalProductManufacturedSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicinalProductManufacturedSurrogate.implicitRules,
           this@MedicinalProductManufacturedSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicinalProductManufacturedSurrogate.language,
           this@MedicinalProductManufacturedSurrogate._language,
-        )
-      text = this@MedicinalProductManufacturedSurrogate.text
-      contained = this@MedicinalProductManufacturedSurrogate.contained
-      extension = this@MedicinalProductManufacturedSurrogate.extension
-      modifierExtension = this@MedicinalProductManufacturedSurrogate.modifierExtension
-      manufacturedDoseForm = this@MedicinalProductManufacturedSurrogate.manufacturedDoseForm
-      unitOfPresentation = this@MedicinalProductManufacturedSurrogate.unitOfPresentation
-      quantity = this@MedicinalProductManufacturedSurrogate.quantity
-      manufacturer = this@MedicinalProductManufacturedSurrogate.manufacturer
-      ingredient = this@MedicinalProductManufacturedSurrogate.ingredient
-      physicalCharacteristics = this@MedicinalProductManufacturedSurrogate.physicalCharacteristics
-      otherCharacteristics = this@MedicinalProductManufacturedSurrogate.otherCharacteristics
-    }
+        ),
+      text = this@MedicinalProductManufacturedSurrogate.text,
+      contained = this@MedicinalProductManufacturedSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicinalProductManufacturedSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductManufacturedSurrogate.modifierExtension ?: mutableListOf(),
+      manufacturedDoseForm = this@MedicinalProductManufacturedSurrogate.manufacturedDoseForm,
+      unitOfPresentation = this@MedicinalProductManufacturedSurrogate.unitOfPresentation,
+      quantity = this@MedicinalProductManufacturedSurrogate.quantity,
+      manufacturer = this@MedicinalProductManufacturedSurrogate.manufacturer ?: mutableListOf(),
+      ingredient = this@MedicinalProductManufacturedSurrogate.ingredient ?: mutableListOf(),
+      physicalCharacteristics = this@MedicinalProductManufacturedSurrogate.physicalCharacteristics,
+      otherCharacteristics =
+        this@MedicinalProductManufacturedSurrogate.otherCharacteristics ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductManufactured
     ): MedicinalProductManufacturedSurrogate =
       with(model) {
-        MedicinalProductManufacturedSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          manufacturedDoseForm = this@with.manufacturedDoseForm
-          unitOfPresentation = this@with.unitOfPresentation
-          quantity = this@with.quantity
-          manufacturer = this@with.manufacturer
-          ingredient = this@with.ingredient
-          physicalCharacteristics = this@with.physicalCharacteristics
-          otherCharacteristics = this@with.otherCharacteristics
-        }
+        MedicinalProductManufacturedSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          manufacturedDoseForm = this@with.manufacturedDoseForm,
+          unitOfPresentation = this@with.unitOfPresentation,
+          quantity = this@with.quantity,
+          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          physicalCharacteristics = this@with.physicalCharacteristics,
+          otherCharacteristics = this@with.otherCharacteristics.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

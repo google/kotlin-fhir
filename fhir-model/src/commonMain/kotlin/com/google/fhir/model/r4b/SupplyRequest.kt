@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.SupplyRequestParameterSerializer
 import com.google.fhir.model.r4b.serializers.SupplyRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class SupplyRequest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class SupplyRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,7 +125,7 @@ public data class SupplyRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this SupplyRequest by the author and/or other systems. These
    * identifiers remain constant as the resource is updated and propagates from server to server.
@@ -133,7 +133,7 @@ public data class SupplyRequest(
    * The identifier.type element is used to distinguish between the identifiers assigned by the
    * requester/placer and the performer/filler.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Status of the supply request. */
   public var status: Enumeration<SupplyRequestStatus>? = null,
   /**
@@ -153,11 +153,11 @@ public data class SupplyRequest(
    * along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit
    * instructions.
    */
-  public var item: Item? = null,
+  public var item: Item,
   /** The amount that is being ordered of the indicated item. */
-  public var quantity: Quantity? = null,
+  public var quantity: Quantity,
   /** Specific parameters for the ordered item. For example, the size of the indicated item. */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
   /** When the request should be fulfilled. */
   public var occurrence: Occurrence? = null,
   /** When the request was made. */
@@ -165,11 +165,11 @@ public data class SupplyRequest(
   /** The device, practitioner, etc. who initiated the request. */
   public var requester: Reference? = null,
   /** Who is intended to fulfill the request. */
-  public var supplier: List<Reference?>? = null,
+  public var supplier: MutableList<Reference> = mutableListOf(),
   /** The reason why the supply item was requested. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** The reason why the supply item was requested. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /** Where the supply is expected to come from. */
   public var deliverFrom: Reference? = null,
   /** Where the supply is destined to go. */
@@ -195,7 +195,7 @@ public data class SupplyRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -214,7 +214,7 @@ public data class SupplyRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code or string that identifies the device detail being asserted. */
     public var code: CodeableConcept? = null,
     /**
@@ -244,15 +244,15 @@ public data class SupplyRequest(
       public data class Boolean(public val `value`: com.google.fhir.model.r4b.Boolean) : Value
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
         ): Value? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
           return null
         }
@@ -272,12 +272,12 @@ public data class SupplyRequest(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Item
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
       ): Item? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }
@@ -297,14 +297,14 @@ public data class SupplyRequest(
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
       ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
         return null
       }
     }

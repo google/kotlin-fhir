@@ -41,43 +41,43 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AccountCoverageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var coverage: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var coverage: Reference,
   public var priority: Int? = null,
   public var _priority: Element? = null,
 ) {
   public fun toModel(): Account.Coverage =
-    Account.Coverage().apply {
-      id = this@AccountCoverageSurrogate.id
-      extension = this@AccountCoverageSurrogate.extension
-      modifierExtension = this@AccountCoverageSurrogate.modifierExtension
-      coverage = this@AccountCoverageSurrogate.coverage
+    Account.Coverage(
+      id = this@AccountCoverageSurrogate.id,
+      extension = this@AccountCoverageSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AccountCoverageSurrogate.modifierExtension ?: mutableListOf(),
+      coverage = this@AccountCoverageSurrogate.coverage,
       priority =
         PositiveInt.of(
           this@AccountCoverageSurrogate.priority,
           this@AccountCoverageSurrogate._priority,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Account.Coverage): AccountCoverageSurrogate =
       with(model) {
-        AccountCoverageSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          coverage = this@with.coverage
-          priority = this@with.priority?.value
-          _priority = this@with.priority?.toElement()
-        }
+        AccountCoverageSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          coverage = this@with.coverage,
+          priority = this@with.priority?.value,
+          _priority = this@with.priority?.toElement(),
+        )
       }
   }
 }
@@ -85,36 +85,39 @@ internal data class AccountCoverageSurrogate(
 @Serializable
 internal data class AccountGuarantorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var party: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var party: Reference,
   public var onHold: KotlinBoolean? = null,
   public var _onHold: Element? = null,
   public var period: Period? = null,
 ) {
   public fun toModel(): Account.Guarantor =
-    Account.Guarantor().apply {
-      id = this@AccountGuarantorSurrogate.id
-      extension = this@AccountGuarantorSurrogate.extension
-      modifierExtension = this@AccountGuarantorSurrogate.modifierExtension
-      party = this@AccountGuarantorSurrogate.party
+    Account.Guarantor(
+      id = this@AccountGuarantorSurrogate.id,
+      extension = this@AccountGuarantorSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AccountGuarantorSurrogate.modifierExtension ?: mutableListOf(),
+      party = this@AccountGuarantorSurrogate.party,
       onHold =
-        R4bBoolean.of(this@AccountGuarantorSurrogate.onHold, this@AccountGuarantorSurrogate._onHold)
-      period = this@AccountGuarantorSurrogate.period
-    }
+        R4bBoolean.of(
+          this@AccountGuarantorSurrogate.onHold,
+          this@AccountGuarantorSurrogate._onHold,
+        ),
+      period = this@AccountGuarantorSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(model: Account.Guarantor): AccountGuarantorSurrogate =
       with(model) {
-        AccountGuarantorSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          party = this@with.party
-          onHold = this@with.onHold?.value
-          _onHold = this@with.onHold?.toElement()
-          period = this@with.period
-        }
+        AccountGuarantorSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          party = this@with.party,
+          onHold = this@with.onHold?.value,
+          _onHold = this@with.onHold?.toElement(),
+          period = this@with.period,
+        )
       }
   }
 }
@@ -128,84 +131,82 @@ internal data class AccountSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference>? = null,
   public var servicePeriod: Period? = null,
-  public var coverage: List<Account.Coverage>? = null,
+  public var coverage: MutableList<Account.Coverage>? = null,
   public var owner: Reference? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var guarantor: List<Account.Guarantor>? = null,
+  public var guarantor: MutableList<Account.Guarantor>? = null,
   public var partOf: Reference? = null,
 ) {
   public fun toModel(): Account =
-    Account().apply {
-      id = this@AccountSurrogate.id
-      meta = this@AccountSurrogate.meta
+    Account(
+      id = this@AccountSurrogate.id,
+      meta = this@AccountSurrogate.meta,
       implicitRules =
-        Uri.of(this@AccountSurrogate.implicitRules, this@AccountSurrogate._implicitRules)
-      language = Code.of(this@AccountSurrogate.language, this@AccountSurrogate._language)
-      text = this@AccountSurrogate.text
-      contained = this@AccountSurrogate.contained
-      extension = this@AccountSurrogate.extension
-      modifierExtension = this@AccountSurrogate.modifierExtension
-      identifier = this@AccountSurrogate.identifier
+        Uri.of(this@AccountSurrogate.implicitRules, this@AccountSurrogate._implicitRules),
+      language = Code.of(this@AccountSurrogate.language, this@AccountSurrogate._language),
+      text = this@AccountSurrogate.text,
+      contained = this@AccountSurrogate.contained ?: mutableListOf(),
+      extension = this@AccountSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AccountSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@AccountSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@AccountSurrogate.status?.let {
-            com.google.fhir.model.r4b.Account.AccountStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.Account.AccountStatus.fromCode(this@AccountSurrogate.status!!),
           this@AccountSurrogate._status,
-        )
-      type = this@AccountSurrogate.type
-      name = R4bString.of(this@AccountSurrogate.name, this@AccountSurrogate._name)
-      subject = this@AccountSurrogate.subject
-      servicePeriod = this@AccountSurrogate.servicePeriod
-      coverage = this@AccountSurrogate.coverage
-      owner = this@AccountSurrogate.owner
+        ),
+      type = this@AccountSurrogate.type,
+      name = R4bString.of(this@AccountSurrogate.name, this@AccountSurrogate._name),
+      subject = this@AccountSurrogate.subject ?: mutableListOf(),
+      servicePeriod = this@AccountSurrogate.servicePeriod,
+      coverage = this@AccountSurrogate.coverage ?: mutableListOf(),
+      owner = this@AccountSurrogate.owner,
       description =
-        R4bString.of(this@AccountSurrogate.description, this@AccountSurrogate._description)
-      guarantor = this@AccountSurrogate.guarantor
-      partOf = this@AccountSurrogate.partOf
-    }
+        R4bString.of(this@AccountSurrogate.description, this@AccountSurrogate._description),
+      guarantor = this@AccountSurrogate.guarantor ?: mutableListOf(),
+      partOf = this@AccountSurrogate.partOf,
+    )
 
   public companion object {
     public fun fromModel(model: Account): AccountSurrogate =
       with(model) {
-        AccountSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          subject = this@with.subject
-          servicePeriod = this@with.servicePeriod
-          coverage = this@with.coverage
-          owner = this@with.owner
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          guarantor = this@with.guarantor
-          partOf = this@with.partOf
-        }
+        AccountSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          type = this@with.type,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          subject = this@with.subject.takeUnless { it.all { it == null } },
+          servicePeriod = this@with.servicePeriod,
+          coverage = this@with.coverage.takeUnless { it.all { it == null } },
+          owner = this@with.owner,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          guarantor = this@with.guarantor.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf,
+        )
       }
   }
 }

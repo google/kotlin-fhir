@@ -19,7 +19,7 @@
 package com.google.fhir.model.r4
 
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * Base StructureDefinition for markdown type: A string that may contain Github Flavored Markdown
@@ -40,12 +40,12 @@ public data class Markdown(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Primitive value for markdown */
   override var `value`: kotlin.String? = null,
 ) : String(id, extension, `value`) {
   override fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -53,10 +53,10 @@ public data class Markdown(
 
   public companion object {
     public fun of(`value`: kotlin.String?, element: Element?): Markdown? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Markdown(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Markdown(element?.id, element?.extension, value)
+        null
       }
   }
 }

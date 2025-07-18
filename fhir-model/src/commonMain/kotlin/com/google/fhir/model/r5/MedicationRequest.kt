@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.MedicationRequestSerializer
 import com.google.fhir.model.r5.serializers.MedicationRequestSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class MedicationRequest(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class MedicationRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class MedicationRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this medication request that are defined by business processes
    * and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -143,9 +143,9 @@ public data class MedicationRequest(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A plan or request that is fulfilled in whole or in part by this medication request. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** Reference to an order/prescription that is being replaced by this MedicationRequest. */
   public var priorPrescription: Reference? = null,
   /**
@@ -166,7 +166,7 @@ public data class MedicationRequest(
    * Clinical decision support systems should take the status into account when determining which
    * medications to include in their algorithms.
    */
-  public var status: Enumeration<MedicationRequestStatus>? = null,
+  public var status: Enumeration<MedicationRequestStatus>,
   /**
    * Captures the reason for the current state of the MedicationRequest.
    *
@@ -190,7 +190,7 @@ public data class MedicationRequest(
    * This element is labeled as a modifier because the intent alters when and how the resource is
    * actually applicable.
    */
-  public var intent: Enumeration<MedicationRequestIntent>? = null,
+  public var intent: Enumeration<MedicationRequestIntent>,
   /**
    * An arbitrary categorization or grouping of the medication request. It could be used for
    * indicating where meds are intended to be administered, eg. in an inpatient setting or in a
@@ -200,7 +200,7 @@ public data class MedicationRequest(
    * types of requests. The examplar value set represents where the meds are intended to be
    * administered and is just one example of request categorization.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Indicates how quickly the Medication Request should be addressed with respect to other
    * requests.
@@ -225,20 +225,20 @@ public data class MedicationRequest(
    * if you require form or lot number or if the medication is compounded or extemporaneously
    * prepared, then you must reference the Medication resource.
    */
-  public var medication: CodeableReference? = null,
+  public var medication: CodeableReference,
   /**
    * The individual or group for whom the medication has been requested.
    *
    * The subject on a medication request is mandatory. For the secondary use case where the actual
    * subject is not provided, there still must be an anonymized subject specified.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The person or organization who provided the information about this request, if the source is
    * someone other than the requestor. This is often used when the MedicationRequest is reported by
    * another person.
    */
-  public var informationSource: List<Reference?>? = null,
+  public var informationSource: MutableList<Reference> = mutableListOf(),
   /**
    * The Encounter during which this [x] was created or to which the creation of this record is
    * tightly associated.
@@ -256,7 +256,7 @@ public data class MedicationRequest(
    * This attribute can be used to reference a MedicationStatement about the patients' medication
    * use.
    */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /** The date (and perhaps time) when the prescription was initially written or authored on. */
   public var authoredOn: DateTime? = null,
   /**
@@ -286,12 +286,12 @@ public data class MedicationRequest(
    * the administration. Both the IV Pump and the practitioner that set the rate or bolus on the
    * pump can be listed as performers.
    */
-  public var performer: List<Reference?>? = null,
+  public var performer: MutableList<Reference> = mutableListOf(),
   /**
    * The intended type of device that is to be used for the administration of the medication (for
    * example, PCA Pump).
    */
-  public var device: List<CodeableReference?>? = null,
+  public var device: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The person who entered the order on behalf of another individual for example in the case of a
    * verbal or a telephone order.
@@ -303,7 +303,7 @@ public data class MedicationRequest(
    * This could be a diagnosis code. If a full condition record exists or additional detail is
    * needed, use reasonReference.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The description of the overall pattern of the administration of the medication to the patient.
    *
@@ -314,11 +314,11 @@ public data class MedicationRequest(
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * required for delivering the requested service.
    */
-  public var insurance: List<Reference?>? = null,
+  public var insurance: MutableList<Reference> = mutableListOf(),
   /**
    * Extra information about the prescription that could not be conveyed by the other attributes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The full representation of the dose of the medication included in all dosage instructions. To
    * be used when multiple dosage instructions are included to represent complex dosing such as
@@ -363,7 +363,7 @@ public data class MedicationRequest(
    * to accomplish the above requirements. You may use List or Composition for other business
    * requirements, but not to address the specific requirements of grouping medication orders.
    */
-  public var dosageInstruction: List<Dosage?>? = null,
+  public var dosageInstruction: MutableList<Dosage> = mutableListOf(),
   /**
    * Indicates the specific details for the dispense or medication supply part of a medication
    * request (also known as a Medication Prescription or Medication Order). Note that this
@@ -389,7 +389,7 @@ public data class MedicationRequest(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.).
    */
-  public var eventHistory: List<Reference?>? = null,
+  public var eventHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Indicates the specific details for the dispense or medication supply part of a medication
@@ -416,7 +416,7 @@ public data class MedicationRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -435,7 +435,7 @@ public data class MedicationRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates the quantity or duration for the first dispense of the medication.
      *
@@ -487,7 +487,7 @@ public data class MedicationRequest(
      * Provides additional information to the dispenser, for example, counselling to be provided to
      * the patient.
      */
-    public var dispenserInstruction: List<Annotation?>? = null,
+    public var dispenserInstruction: MutableList<Annotation> = mutableListOf(),
     /**
      * Provides information about the type of adherence packaging to be supplied for the medication
      * dispense.
@@ -514,7 +514,7 @@ public data class MedicationRequest(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -533,7 +533,7 @@ public data class MedicationRequest(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The amount or quantity to provide as part of the first dispense. */
       public var quantity: Quantity? = null,
       /** The length of time that the first dispense is expected to last. */
@@ -565,7 +565,7 @@ public data class MedicationRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -584,14 +584,14 @@ public data class MedicationRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * True if the prescriber allows a different drug to be dispensed from what was prescribed.
      *
      * This element is labeled as a modifier because whether substitution is allow or not, it cannot
      * be ignored.
      */
-    public var allowed: Allowed? = null,
+    public var allowed: Allowed,
     /**
      * Indicates the reason for the substitution, or why substitution must or must not be performed.
      */
@@ -609,12 +609,12 @@ public data class MedicationRequest(
       ) : Allowed
 
       public companion object {
-        public fun from(
+        internal fun from(
           booleanValue: com.google.fhir.model.r5.Boolean?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ): Allowed? {
           if (booleanValue != null) return Boolean(booleanValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           return null
         }
       }

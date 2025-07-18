@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteO
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class AdministrableProductDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class AdministrableProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,15 +132,15 @@ public data class AdministrableProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An identifier for the administrable product. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of this administrable product. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of administrable products that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * References a product from which one or more of the constituent parts of that product can be
    * prepared and used as described by this administrable product. If this administrable product
@@ -149,7 +149,7 @@ public data class AdministrableProductDefinition(
    * the 'producedFrom' which refers to the specific components of the product that are used in this
    * preparation, rather than the product as a whole.
    */
-  public var formOf: List<Reference?>? = null,
+  public var formOf: MutableList<Reference> = mutableListOf(),
   /**
    * The dose form of the final product after necessary reconstitution or processing. Contrasts to
    * the manufactured dose form (see ManufacturedItemDefinition). If the manufactured form was
@@ -172,7 +172,7 @@ public data class AdministrableProductDefinition(
    * powder available as part of an overall product, but not involve applying the also supplied
    * cream.
    */
-  public var producedFrom: List<Reference?>? = null,
+  public var producedFrom: MutableList<Reference> = mutableListOf(),
   /**
    * The ingredients of this administrable medicinal product. This is only needed if the ingredients
    * are not specified either using ManufacturedItemDefiniton (via
@@ -180,7 +180,7 @@ public data class AdministrableProductDefinition(
    * this, or using by incoming references from the Ingredient resource, to state in detail which
    * substances exist within this. This element allows a basic coded ingredient to be used.
    */
-  public var ingredient: List<CodeableConcept?>? = null,
+  public var ingredient: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A device that is integral to the medicinal product, in effect being considered as an
    * "ingredient" of the medicinal product. This is not intended for devices that are just
@@ -195,13 +195,13 @@ public data class AdministrableProductDefinition(
    */
   public var description: Markdown? = null,
   /** Characteristics e.g. a product's onset of action. */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
   /**
    * The path by which the product is taken into or makes contact with the body. In some regions
    * this is referred to as the licenced or approved route. RouteOfAdministration cannot be used
    * when the 'formOf' product already uses MedicinalProductDefinition.route (and vice versa).
    */
-  public var routeOfAdministration: List<RouteOfAdministration>? = null,
+  public var routeOfAdministration: MutableList<RouteOfAdministration> = mutableListOf(),
 ) : DomainResource() {
   /** Characteristics e.g. a product's onset of action. */
   @Serializable(with = AdministrableProductDefinitionPropertySerializer::class)
@@ -223,7 +223,7 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -242,9 +242,9 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code expressing the type of characteristic. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** A value for the characteristic. */
     public var `value`: Value? = null,
     /** The status of characteristic e.g. assigned or pending. */
@@ -282,22 +282,22 @@ public data class AdministrableProductDefinition(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
           dateValue: com.google.fhir.model.r5.Date?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
           markdownValue: com.google.fhir.model.r5.Markdown?,
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
         ): Value? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (markdownValue != null) return Markdown(markdownValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -328,7 +328,7 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -347,9 +347,9 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Coded expression for the route. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * The first dose (dose quantity) administered can be specified for the product, using a
      * numerical value and its unit of measurement.
@@ -370,7 +370,7 @@ public data class AdministrableProductDefinition(
     /** The maximum treatment period during which the product can be administered. */
     public var maxTreatmentPeriod: Duration? = null,
     /** A species for which this route applies. */
-    public var targetSpecies: List<TargetSpecies>? = null,
+    public var targetSpecies: MutableList<TargetSpecies> = mutableListOf(),
   ) : BackboneElement() {
     /** A species for which this route applies. */
     @Serializable(
@@ -394,7 +394,7 @@ public data class AdministrableProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -413,11 +413,11 @@ public data class AdministrableProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Coded expression for the species. */
-      public var code: CodeableConcept? = null,
+      public var code: CodeableConcept,
       /** A species specific time during which consumption of animal product is not appropriate. */
-      public var withdrawalPeriod: List<WithdrawalPeriod>? = null,
+      public var withdrawalPeriod: MutableList<WithdrawalPeriod> = mutableListOf(),
     ) : BackboneElement() {
       /** A species specific time during which consumption of animal product is not appropriate. */
       @Serializable(
@@ -442,7 +442,7 @@ public data class AdministrableProductDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -461,14 +461,14 @@ public data class AdministrableProductDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Coded expression for the type of tissue for which the withdrawal period applies, e.g.
          * meat, milk.
          */
-        public var tissue: CodeableConcept? = null,
+        public var tissue: CodeableConcept,
         /** A value for the time. */
-        public var `value`: Quantity? = null,
+        public var `value`: Quantity,
         /** Extra information about the withdrawal period. */
         public var supportingInformation: String? = null,
       ) : BackboneElement()

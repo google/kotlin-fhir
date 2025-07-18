@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.BundleEntrySerializer
 import com.google.fhir.model.r4b.serializers.BundleLinkSerializer
 import com.google.fhir.model.r4b.serializers.BundleSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -89,7 +89,7 @@ public data class Bundle(
    * transaction). This is primarily defined so that there can be specific rules for some of the
    * bundle types.
    */
-  public var type: Enumeration<BundleType>? = null,
+  public var type: Enumeration<BundleType>,
   /**
    * The date/time that the bundle was assembled - i.e. when the resources were placed in the
    * bundle.
@@ -143,12 +143,12 @@ public data class Bundle(
    * Bundle.entry.link, and no defined function in a transaction - the meaning is implementation
    * specific.
    */
-  public var link: List<Link>? = null,
+  public var link: MutableList<Link> = mutableListOf(),
   /**
    * An entry in a bundle resource - will either contain a resource or information about a resource
    * (transactions and history only).
    */
-  public var entry: List<Entry>? = null,
+  public var entry: MutableList<Entry> = mutableListOf(),
   /**
    * Digital Signature - base64 encoded. XML-DSig or a JWT.
    *
@@ -178,7 +178,7 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -197,14 +197,14 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A name which details the functional use for this link - see
      * [http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1](http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1).
      */
-    public var relation: String? = null,
+    public var relation: String,
     /** The reference details for the link. */
-    public var url: Uri? = null,
+    public var url: Uri,
   ) : BackboneElement()
 
   /**
@@ -230,7 +230,7 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -249,9 +249,9 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A series of links that provide context to this entry. */
-    public var link: List<Link?>? = null,
+    public var link: MutableList<Link> = mutableListOf(),
     /**
      * The Absolute URL for the resource. The fullUrl SHALL NOT disagree with the id in the
      * resource - i.e. if the fullUrl is not a urn:uuid, the URL shall be version-independent URL
@@ -313,7 +313,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -332,7 +332,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Why this entry is in the result set - whether it's included as a match or because of an
        * _include requirement, or to convey information or warning information about the search
@@ -379,7 +379,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -398,19 +398,19 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * In a transaction or batch, this is the HTTP action to be executed for this entry. In a
        * history bundle, this indicates the HTTP action that occurred.
        */
-      public var method: Enumeration<HTTPVerb>? = null,
+      public var method: Enumeration<HTTPVerb>,
       /**
        * The URL for this entry, relative to the root (the address to which the request is posted).
        *
        * E.g. for a Patient Create, the method would be "POST" and the URL would be "Patient". For a
        * Patient Update, the method would be PUT and the URL would be "Patient/[id]".
        */
-      public var url: Uri? = null,
+      public var url: Uri,
       /**
        * If the ETag values match, return a 304 Not Modified status. See the API documentation for
        * ["Conditional Read"](http.html#cread).
@@ -459,7 +459,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -478,13 +478,13 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The status code returned by processing this entry. The status SHALL start with a 3 digit
        * HTTP code (e.g. 404) and may contain the standard HTTP description associated with the
        * status code.
        */
-      public var status: String? = null,
+      public var status: String,
       /**
        * The location header created by processing this operation, populated if the operation
        * returns a location.

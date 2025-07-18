@@ -38,15 +38,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceMetricCalibrationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
   public var state: String? = null,
@@ -55,45 +55,46 @@ internal data class DeviceMetricCalibrationSurrogate(
   public var _time: Element? = null,
 ) {
   public fun toModel(): DeviceMetric.Calibration =
-    DeviceMetric.Calibration().apply {
-      id = this@DeviceMetricCalibrationSurrogate.id
-      extension = this@DeviceMetricCalibrationSurrogate.extension
-      modifierExtension = this@DeviceMetricCalibrationSurrogate.modifierExtension
+    DeviceMetric.Calibration(
+      id = this@DeviceMetricCalibrationSurrogate.id,
+      extension = this@DeviceMetricCalibrationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DeviceMetricCalibrationSurrogate.modifierExtension ?: mutableListOf(),
       type =
-        Enumeration.of(
-          this@DeviceMetricCalibrationSurrogate.type?.let {
-            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricCalibrationType.fromCode(it)
-          },
-          this@DeviceMetricCalibrationSurrogate._type,
-        )
+        this@DeviceMetricCalibrationSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricCalibrationType.fromCode(it!!),
+            this@DeviceMetricCalibrationSurrogate._type,
+          )
+        },
       state =
-        Enumeration.of(
-          this@DeviceMetricCalibrationSurrogate.state?.let {
-            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricCalibrationState.fromCode(it)
-          },
-          this@DeviceMetricCalibrationSurrogate._state,
-        )
+        this@DeviceMetricCalibrationSurrogate.state?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricCalibrationState.fromCode(it!!),
+            this@DeviceMetricCalibrationSurrogate._state,
+          )
+        },
       time =
         Instant.of(
           FhirDateTime.fromString(this@DeviceMetricCalibrationSurrogate.time),
           this@DeviceMetricCalibrationSurrogate._time,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: DeviceMetric.Calibration): DeviceMetricCalibrationSurrogate =
       with(model) {
-        DeviceMetricCalibrationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          state = this@with.state?.value?.getCode()
-          _state = this@with.state?.toElement()
-          time = this@with.time?.value?.toString()
-          _time = this@with.time?.toElement()
-        }
+        DeviceMetricCalibrationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          state = this@with.state?.value?.getCode(),
+          _state = this@with.state?.toElement(),
+          time = this@with.time?.value?.toString(),
+          _time = this@with.time?.toElement(),
+        )
       }
   }
 }
@@ -107,11 +108,11 @@ internal data class DeviceMetricSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var type: CodeableConcept? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var type: CodeableConcept,
   public var unit: CodeableConcept? = null,
   public var source: Reference? = null,
   public var parent: Reference? = null,
@@ -122,77 +123,77 @@ internal data class DeviceMetricSurrogate(
   public var category: String? = null,
   public var _category: Element? = null,
   public var measurementPeriod: Timing? = null,
-  public var calibration: List<DeviceMetric.Calibration>? = null,
+  public var calibration: MutableList<DeviceMetric.Calibration>? = null,
 ) {
   public fun toModel(): DeviceMetric =
-    DeviceMetric().apply {
-      id = this@DeviceMetricSurrogate.id
-      meta = this@DeviceMetricSurrogate.meta
+    DeviceMetric(
+      id = this@DeviceMetricSurrogate.id,
+      meta = this@DeviceMetricSurrogate.meta,
       implicitRules =
-        Uri.of(this@DeviceMetricSurrogate.implicitRules, this@DeviceMetricSurrogate._implicitRules)
-      language = Code.of(this@DeviceMetricSurrogate.language, this@DeviceMetricSurrogate._language)
-      text = this@DeviceMetricSurrogate.text
-      contained = this@DeviceMetricSurrogate.contained
-      extension = this@DeviceMetricSurrogate.extension
-      modifierExtension = this@DeviceMetricSurrogate.modifierExtension
-      identifier = this@DeviceMetricSurrogate.identifier
-      type = this@DeviceMetricSurrogate.type
-      unit = this@DeviceMetricSurrogate.unit
-      source = this@DeviceMetricSurrogate.source
-      parent = this@DeviceMetricSurrogate.parent
+        Uri.of(this@DeviceMetricSurrogate.implicitRules, this@DeviceMetricSurrogate._implicitRules),
+      language = Code.of(this@DeviceMetricSurrogate.language, this@DeviceMetricSurrogate._language),
+      text = this@DeviceMetricSurrogate.text,
+      contained = this@DeviceMetricSurrogate.contained ?: mutableListOf(),
+      extension = this@DeviceMetricSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DeviceMetricSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DeviceMetricSurrogate.identifier ?: mutableListOf(),
+      type = this@DeviceMetricSurrogate.type,
+      unit = this@DeviceMetricSurrogate.unit,
+      source = this@DeviceMetricSurrogate.source,
+      parent = this@DeviceMetricSurrogate.parent,
       operationalStatus =
-        Enumeration.of(
-          this@DeviceMetricSurrogate.operationalStatus?.let {
-            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricOperationalStatus.fromCode(it)
-          },
-          this@DeviceMetricSurrogate._operationalStatus,
-        )
+        this@DeviceMetricSurrogate.operationalStatus?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricOperationalStatus.fromCode(it!!),
+            this@DeviceMetricSurrogate._operationalStatus,
+          )
+        },
       color =
-        Enumeration.of(
-          this@DeviceMetricSurrogate.color?.let {
-            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricColor.fromCode(it)
-          },
-          this@DeviceMetricSurrogate._color,
-        )
+        this@DeviceMetricSurrogate.color?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricColor.fromCode(it!!),
+            this@DeviceMetricSurrogate._color,
+          )
+        },
       category =
         Enumeration.of(
-          this@DeviceMetricSurrogate.category?.let {
-            com.google.fhir.model.r4b.DeviceMetric.DeviceMetricCategory.fromCode(it)
-          },
+          com.google.fhir.model.r4b.DeviceMetric.DeviceMetricCategory.fromCode(
+            this@DeviceMetricSurrogate.category!!
+          ),
           this@DeviceMetricSurrogate._category,
-        )
-      measurementPeriod = this@DeviceMetricSurrogate.measurementPeriod
-      calibration = this@DeviceMetricSurrogate.calibration
-    }
+        ),
+      measurementPeriod = this@DeviceMetricSurrogate.measurementPeriod,
+      calibration = this@DeviceMetricSurrogate.calibration ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DeviceMetric): DeviceMetricSurrogate =
       with(model) {
-        DeviceMetricSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          type = this@with.type
-          unit = this@with.unit
-          source = this@with.source
-          parent = this@with.parent
-          operationalStatus = this@with.operationalStatus?.value?.getCode()
-          _operationalStatus = this@with.operationalStatus?.toElement()
-          color = this@with.color?.value?.getCode()
-          _color = this@with.color?.toElement()
-          category = this@with.category?.value?.getCode()
-          _category = this@with.category?.toElement()
-          measurementPeriod = this@with.measurementPeriod
-          calibration = this@with.calibration
-        }
+        DeviceMetricSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          unit = this@with.unit,
+          source = this@with.source,
+          parent = this@with.parent,
+          operationalStatus = this@with.operationalStatus?.value?.getCode(),
+          _operationalStatus = this@with.operationalStatus?.toElement(),
+          color = this@with.color?.value?.getCode(),
+          _color = this@with.color?.toElement(),
+          category = this@with.category.value?.getCode(),
+          _category = this@with.category.toElement(),
+          measurementPeriod = this@with.measurementPeriod,
+          calibration = this@with.calibration.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

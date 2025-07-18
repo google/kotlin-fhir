@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.CareTeamParticipantSerializer
 import com.google.fhir.model.r4b.serializers.CareTeamSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class CareTeam(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class CareTeam(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class CareTeam(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this care team by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -139,7 +139,7 @@ public data class CareTeam(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates the current state of the care team.
    *
@@ -153,7 +153,7 @@ public data class CareTeam(
    *
    * There may be multiple axis of categorization and one team may serve multiple purposes.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A label for human use intended to distinguish like teams. E.g. the "red" vs. "green" trauma
    * teams.
@@ -177,22 +177,22 @@ public data class CareTeam(
   /** Indicates when the team did (or is intended to) come into effect and end. */
   public var period: Period? = null,
   /** Identifies all people and organizations who are expected to be involved in the care team. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** Describes why the care team exists. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** Condition(s) that this care team addresses. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /** The organization responsible for the care team. */
-  public var managingOrganization: List<Reference?>? = null,
+  public var managingOrganization: MutableList<Reference> = mutableListOf(),
   /**
    * A central contact detail for the care team (that applies to all members).
    *
    * The ContactPoint.use code of home is not appropriate to use. These contacts are not the contact
    * details of individual care team members.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /** Comments made about the CareTeam. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Identifies all people and organizations who are expected to be involved in the care team. */
   @Serializable(with = CareTeamParticipantSerializer::class)
@@ -214,7 +214,7 @@ public data class CareTeam(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -233,7 +233,7 @@ public data class CareTeam(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates specific responsibility of an individual within the care team, such as "Primary
      * care physician", "Trained social worker counselor", "Caregiver", etc.
@@ -242,7 +242,7 @@ public data class CareTeam(
      * only within the context of the care team. General relationships should be handled as
      * properties of the Patient resource directly.
      */
-    public var role: List<CodeableConcept?>? = null,
+    public var role: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The specific person or organization who is participating/expected to participate in the care
      * team.

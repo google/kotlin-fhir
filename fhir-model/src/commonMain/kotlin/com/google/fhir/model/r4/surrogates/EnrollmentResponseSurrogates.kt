@@ -37,7 +37,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -50,10 +50,10 @@ internal data class EnrollmentResponseSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var request: Reference? = null,
@@ -67,80 +67,80 @@ internal data class EnrollmentResponseSurrogate(
   public var requestProvider: Reference? = null,
 ) {
   public fun toModel(): EnrollmentResponse =
-    EnrollmentResponse().apply {
-      id = this@EnrollmentResponseSurrogate.id
-      meta = this@EnrollmentResponseSurrogate.meta
+    EnrollmentResponse(
+      id = this@EnrollmentResponseSurrogate.id,
+      meta = this@EnrollmentResponseSurrogate.meta,
       implicitRules =
         Uri.of(
           this@EnrollmentResponseSurrogate.implicitRules,
           this@EnrollmentResponseSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@EnrollmentResponseSurrogate.language,
           this@EnrollmentResponseSurrogate._language,
-        )
-      text = this@EnrollmentResponseSurrogate.text
-      contained = this@EnrollmentResponseSurrogate.contained
-      extension = this@EnrollmentResponseSurrogate.extension
-      modifierExtension = this@EnrollmentResponseSurrogate.modifierExtension
-      identifier = this@EnrollmentResponseSurrogate.identifier
+        ),
+      text = this@EnrollmentResponseSurrogate.text,
+      contained = this@EnrollmentResponseSurrogate.contained ?: mutableListOf(),
+      extension = this@EnrollmentResponseSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EnrollmentResponseSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@EnrollmentResponseSurrogate.identifier ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@EnrollmentResponseSurrogate.status?.let {
-            com.google.fhir.model.r4.EnrollmentResponse.EnrollmentResponseStatus.fromCode(it)
-          },
-          this@EnrollmentResponseSurrogate._status,
-        )
-      request = this@EnrollmentResponseSurrogate.request
+        this@EnrollmentResponseSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.EnrollmentResponse.EnrollmentResponseStatus.fromCode(it!!),
+            this@EnrollmentResponseSurrogate._status,
+          )
+        },
+      request = this@EnrollmentResponseSurrogate.request,
       outcome =
-        Enumeration.of(
-          this@EnrollmentResponseSurrogate.outcome?.let {
-            com.google.fhir.model.r4.RemittanceOutcome.fromCode(it)
-          },
-          this@EnrollmentResponseSurrogate._outcome,
-        )
+        this@EnrollmentResponseSurrogate.outcome?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.RemittanceOutcome.fromCode(it!!),
+            this@EnrollmentResponseSurrogate._outcome,
+          )
+        },
       disposition =
         R4String.of(
           this@EnrollmentResponseSurrogate.disposition,
           this@EnrollmentResponseSurrogate._disposition,
-        )
+        ),
       created =
         DateTime.of(
           FhirDateTime.fromString(this@EnrollmentResponseSurrogate.created),
           this@EnrollmentResponseSurrogate._created,
-        )
-      organization = this@EnrollmentResponseSurrogate.organization
-      requestProvider = this@EnrollmentResponseSurrogate.requestProvider
-    }
+        ),
+      organization = this@EnrollmentResponseSurrogate.organization,
+      requestProvider = this@EnrollmentResponseSurrogate.requestProvider,
+    )
 
   public companion object {
     public fun fromModel(model: EnrollmentResponse): EnrollmentResponseSurrogate =
       with(model) {
-        EnrollmentResponseSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          request = this@with.request
-          outcome = this@with.outcome?.value?.getCode()
-          _outcome = this@with.outcome?.toElement()
-          disposition = this@with.disposition?.value
-          _disposition = this@with.disposition?.toElement()
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          organization = this@with.organization
-          requestProvider = this@with.requestProvider
-        }
+        EnrollmentResponseSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          request = this@with.request,
+          outcome = this@with.outcome?.value?.getCode(),
+          _outcome = this@with.outcome?.toElement(),
+          disposition = this@with.disposition?.value,
+          _disposition = this@with.disposition?.toElement(),
+          created = this@with.created?.value?.toString(),
+          _created = this@with.created?.toElement(),
+          organization = this@with.organization,
+          requestProvider = this@with.requestProvider,
+        )
       }
   }
 }

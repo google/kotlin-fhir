@@ -40,15 +40,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var category: CodeableConcept? = null,
   public var isDefining: KotlinBoolean? = null,
@@ -56,35 +56,38 @@ internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
   public var amount: Quantity? = null,
 ) {
   public fun toModel(): SubstancePolymer.MonomerSet.StartingMaterial =
-    SubstancePolymer.MonomerSet.StartingMaterial().apply {
-      id = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.id
-      extension = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.extension
-      modifierExtension = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.modifierExtension
-      code = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.code
-      category = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.category
+    SubstancePolymer.MonomerSet.StartingMaterial(
+      id = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.id,
+      extension =
+        this@SubstancePolymerMonomerSetStartingMaterialSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstancePolymerMonomerSetStartingMaterialSurrogate.modifierExtension
+          ?: mutableListOf(),
+      code = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.code,
+      category = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.category,
       isDefining =
         R5Boolean.of(
           this@SubstancePolymerMonomerSetStartingMaterialSurrogate.isDefining,
           this@SubstancePolymerMonomerSetStartingMaterialSurrogate._isDefining,
-        )
-      amount = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.amount
-    }
+        ),
+      amount = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.amount,
+    )
 
   public companion object {
     public fun fromModel(
       model: SubstancePolymer.MonomerSet.StartingMaterial
     ): SubstancePolymerMonomerSetStartingMaterialSurrogate =
       with(model) {
-        SubstancePolymerMonomerSetStartingMaterialSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          category = this@with.category
-          isDefining = this@with.isDefining?.value
-          _isDefining = this@with.isDefining?.toElement()
-          amount = this@with.amount
-        }
+        SubstancePolymerMonomerSetStartingMaterialSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          category = this@with.category,
+          isDefining = this@with.isDefining?.value,
+          _isDefining = this@with.isDefining?.toElement(),
+          amount = this@with.amount,
+        )
       }
   }
 }
@@ -92,30 +95,32 @@ internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
 @Serializable
 internal data class SubstancePolymerMonomerSetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var ratioType: CodeableConcept? = null,
-  public var startingMaterial: List<SubstancePolymer.MonomerSet.StartingMaterial>? = null,
+  public var startingMaterial: MutableList<SubstancePolymer.MonomerSet.StartingMaterial>? = null,
 ) {
   public fun toModel(): SubstancePolymer.MonomerSet =
-    SubstancePolymer.MonomerSet().apply {
-      id = this@SubstancePolymerMonomerSetSurrogate.id
-      extension = this@SubstancePolymerMonomerSetSurrogate.extension
-      modifierExtension = this@SubstancePolymerMonomerSetSurrogate.modifierExtension
-      ratioType = this@SubstancePolymerMonomerSetSurrogate.ratioType
-      startingMaterial = this@SubstancePolymerMonomerSetSurrogate.startingMaterial
-    }
+    SubstancePolymer.MonomerSet(
+      id = this@SubstancePolymerMonomerSetSurrogate.id,
+      extension = this@SubstancePolymerMonomerSetSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstancePolymerMonomerSetSurrogate.modifierExtension ?: mutableListOf(),
+      ratioType = this@SubstancePolymerMonomerSetSurrogate.ratioType,
+      startingMaterial =
+        this@SubstancePolymerMonomerSetSurrogate.startingMaterial ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SubstancePolymer.MonomerSet): SubstancePolymerMonomerSetSurrogate =
       with(model) {
-        SubstancePolymerMonomerSetSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          ratioType = this@with.ratioType
-          startingMaterial = this@with.startingMaterial
-        }
+        SubstancePolymerMonomerSetSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          ratioType = this@with.ratioType,
+          startingMaterial = this@with.startingMaterial.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -123,8 +128,8 @@ internal data class SubstancePolymerMonomerSetSurrogate(
 @Serializable
 internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var average: Int? = null,
   public var _average: Element? = null,
@@ -134,46 +139,49 @@ internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrog
   public var _high: Element? = null,
 ) {
   public fun toModel(): SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation =
-    SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation().apply {
-      id = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.id
-      extension = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.extension
+    SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation(
+      id = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.id,
+      extension =
+        this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.modifierExtension
-      type = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.type
+          ?: mutableListOf(),
+      type = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.type,
       average =
         Integer.of(
           this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.average,
           this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate._average,
-        )
+        ),
       low =
         Integer.of(
           this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.low,
           this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate._low,
-        )
+        ),
       high =
         Integer.of(
           this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.high,
           this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate._high,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation
     ): SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate =
       with(model) {
-        SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          average = this@with.average?.value
-          _average = this@with.average?.toElement()
-          low = this@with.low?.value
-          _low = this@with.low?.toElement()
-          high = this@with.high?.value
-          _high = this@with.high?.toElement()
-        }
+        SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          average = this@with.average?.value,
+          _average = this@with.average?.toElement(),
+          low = this@with.low?.value,
+          _low = this@with.low?.toElement(),
+          high = this@with.high?.value,
+          _high = this@with.high?.toElement(),
+        )
       }
   }
 }
@@ -181,8 +189,8 @@ internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrog
 @Serializable
 internal data class SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var representation: KotlinString? = null,
   public var _representation: Element? = null,
@@ -190,36 +198,39 @@ internal data class SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurr
   public var attachment: Attachment? = null,
 ) {
   public fun toModel(): SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation =
-    SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation().apply {
-      id = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.id
-      extension = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.extension
+    SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation(
+      id = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.id,
+      extension =
+        this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.modifierExtension
-      type = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.type
+          ?: mutableListOf(),
+      type = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.type,
       representation =
         R5String.of(
           this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.representation,
           this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate._representation,
-        )
-      format = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.format
-      attachment = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.attachment
-    }
+        ),
+      format = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.format,
+      attachment = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.attachment,
+    )
 
   public companion object {
     public fun fromModel(
       model: SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation
     ): SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate =
       with(model) {
-        SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          representation = this@with.representation?.value
-          _representation = this@with.representation?.toElement()
-          format = this@with.format
-          attachment = this@with.attachment
-        }
+        SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          representation = this@with.representation?.value,
+          _representation = this@with.representation?.toElement(),
+          format = this@with.format,
+          attachment = this@with.attachment,
+        )
       }
   }
 }
@@ -227,58 +238,62 @@ internal data class SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurr
 @Serializable
 internal data class SubstancePolymerRepeatRepeatUnitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var unit: KotlinString? = null,
   public var _unit: Element? = null,
   public var orientation: CodeableConcept? = null,
   public var amount: Int? = null,
   public var _amount: Element? = null,
   public var degreeOfPolymerisation:
-    List<SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation>? =
+    MutableList<SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation>? =
     null,
   public var structuralRepresentation:
-    List<SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation>? =
+    MutableList<SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation>? =
     null,
 ) {
   public fun toModel(): SubstancePolymer.Repeat.RepeatUnit =
-    SubstancePolymer.Repeat.RepeatUnit().apply {
-      id = this@SubstancePolymerRepeatRepeatUnitSurrogate.id
-      extension = this@SubstancePolymerRepeatRepeatUnitSurrogate.extension
-      modifierExtension = this@SubstancePolymerRepeatRepeatUnitSurrogate.modifierExtension
+    SubstancePolymer.Repeat.RepeatUnit(
+      id = this@SubstancePolymerRepeatRepeatUnitSurrogate.id,
+      extension = this@SubstancePolymerRepeatRepeatUnitSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstancePolymerRepeatRepeatUnitSurrogate.modifierExtension ?: mutableListOf(),
       unit =
         R5String.of(
           this@SubstancePolymerRepeatRepeatUnitSurrogate.unit,
           this@SubstancePolymerRepeatRepeatUnitSurrogate._unit,
-        )
-      orientation = this@SubstancePolymerRepeatRepeatUnitSurrogate.orientation
+        ),
+      orientation = this@SubstancePolymerRepeatRepeatUnitSurrogate.orientation,
       amount =
         Integer.of(
           this@SubstancePolymerRepeatRepeatUnitSurrogate.amount,
           this@SubstancePolymerRepeatRepeatUnitSurrogate._amount,
-        )
-      degreeOfPolymerisation = this@SubstancePolymerRepeatRepeatUnitSurrogate.degreeOfPolymerisation
+        ),
+      degreeOfPolymerisation =
+        this@SubstancePolymerRepeatRepeatUnitSurrogate.degreeOfPolymerisation ?: mutableListOf(),
       structuralRepresentation =
-        this@SubstancePolymerRepeatRepeatUnitSurrogate.structuralRepresentation
-    }
+        this@SubstancePolymerRepeatRepeatUnitSurrogate.structuralRepresentation ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: SubstancePolymer.Repeat.RepeatUnit
     ): SubstancePolymerRepeatRepeatUnitSurrogate =
       with(model) {
-        SubstancePolymerRepeatRepeatUnitSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          unit = this@with.unit?.value
-          _unit = this@with.unit?.toElement()
-          orientation = this@with.orientation
-          amount = this@with.amount?.value
-          _amount = this@with.amount?.toElement()
-          degreeOfPolymerisation = this@with.degreeOfPolymerisation
-          structuralRepresentation = this@with.structuralRepresentation
-        }
+        SubstancePolymerRepeatRepeatUnitSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          unit = this@with.unit?.value,
+          _unit = this@with.unit?.toElement(),
+          orientation = this@with.orientation,
+          amount = this@with.amount?.value,
+          _amount = this@with.amount?.toElement(),
+          degreeOfPolymerisation =
+            this@with.degreeOfPolymerisation.takeUnless { it.all { it == null } },
+          structuralRepresentation =
+            this@with.structuralRepresentation.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -286,39 +301,39 @@ internal data class SubstancePolymerRepeatRepeatUnitSurrogate(
 @Serializable
 internal data class SubstancePolymerRepeatSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var averageMolecularFormula: KotlinString? = null,
   public var _averageMolecularFormula: Element? = null,
   public var repeatUnitAmountType: CodeableConcept? = null,
-  public var repeatUnit: List<SubstancePolymer.Repeat.RepeatUnit>? = null,
+  public var repeatUnit: MutableList<SubstancePolymer.Repeat.RepeatUnit>? = null,
 ) {
   public fun toModel(): SubstancePolymer.Repeat =
-    SubstancePolymer.Repeat().apply {
-      id = this@SubstancePolymerRepeatSurrogate.id
-      extension = this@SubstancePolymerRepeatSurrogate.extension
-      modifierExtension = this@SubstancePolymerRepeatSurrogate.modifierExtension
+    SubstancePolymer.Repeat(
+      id = this@SubstancePolymerRepeatSurrogate.id,
+      extension = this@SubstancePolymerRepeatSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubstancePolymerRepeatSurrogate.modifierExtension ?: mutableListOf(),
       averageMolecularFormula =
         R5String.of(
           this@SubstancePolymerRepeatSurrogate.averageMolecularFormula,
           this@SubstancePolymerRepeatSurrogate._averageMolecularFormula,
-        )
-      repeatUnitAmountType = this@SubstancePolymerRepeatSurrogate.repeatUnitAmountType
-      repeatUnit = this@SubstancePolymerRepeatSurrogate.repeatUnit
-    }
+        ),
+      repeatUnitAmountType = this@SubstancePolymerRepeatSurrogate.repeatUnitAmountType,
+      repeatUnit = this@SubstancePolymerRepeatSurrogate.repeatUnit ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SubstancePolymer.Repeat): SubstancePolymerRepeatSurrogate =
       with(model) {
-        SubstancePolymerRepeatSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          averageMolecularFormula = this@with.averageMolecularFormula?.value
-          _averageMolecularFormula = this@with.averageMolecularFormula?.toElement()
-          repeatUnitAmountType = this@with.repeatUnitAmountType
-          repeatUnit = this@with.repeatUnit
-        }
+        SubstancePolymerRepeatSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          averageMolecularFormula = this@with.averageMolecularFormula?.value,
+          _averageMolecularFormula = this@with.averageMolecularFormula?.toElement(),
+          repeatUnitAmountType = this@with.repeatUnitAmountType,
+          repeatUnit = this@with.repeatUnit.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -332,69 +347,71 @@ internal data class SubstancePolymerSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
   public var `class`: CodeableConcept? = null,
   public var geometry: CodeableConcept? = null,
-  public var copolymerConnectivity: List<CodeableConcept?>? = null,
+  public var copolymerConnectivity: MutableList<CodeableConcept>? = null,
   public var modification: KotlinString? = null,
   public var _modification: Element? = null,
-  public var monomerSet: List<SubstancePolymer.MonomerSet>? = null,
-  public var repeat: List<SubstancePolymer.Repeat>? = null,
+  public var monomerSet: MutableList<SubstancePolymer.MonomerSet>? = null,
+  public var repeat: MutableList<SubstancePolymer.Repeat>? = null,
 ) {
   public fun toModel(): SubstancePolymer =
-    SubstancePolymer().apply {
-      id = this@SubstancePolymerSurrogate.id
-      meta = this@SubstancePolymerSurrogate.meta
+    SubstancePolymer(
+      id = this@SubstancePolymerSurrogate.id,
+      meta = this@SubstancePolymerSurrogate.meta,
       implicitRules =
         Uri.of(
           this@SubstancePolymerSurrogate.implicitRules,
           this@SubstancePolymerSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@SubstancePolymerSurrogate.language, this@SubstancePolymerSurrogate._language)
-      text = this@SubstancePolymerSurrogate.text
-      contained = this@SubstancePolymerSurrogate.contained
-      extension = this@SubstancePolymerSurrogate.extension
-      modifierExtension = this@SubstancePolymerSurrogate.modifierExtension
-      identifier = this@SubstancePolymerSurrogate.identifier
-      `class` = this@SubstancePolymerSurrogate.`class`
-      geometry = this@SubstancePolymerSurrogate.geometry
-      copolymerConnectivity = this@SubstancePolymerSurrogate.copolymerConnectivity
+        Code.of(this@SubstancePolymerSurrogate.language, this@SubstancePolymerSurrogate._language),
+      text = this@SubstancePolymerSurrogate.text,
+      contained = this@SubstancePolymerSurrogate.contained ?: mutableListOf(),
+      extension = this@SubstancePolymerSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubstancePolymerSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@SubstancePolymerSurrogate.identifier,
+      `class` = this@SubstancePolymerSurrogate.`class`,
+      geometry = this@SubstancePolymerSurrogate.geometry,
+      copolymerConnectivity =
+        this@SubstancePolymerSurrogate.copolymerConnectivity ?: mutableListOf(),
       modification =
         R5String.of(
           this@SubstancePolymerSurrogate.modification,
           this@SubstancePolymerSurrogate._modification,
-        )
-      monomerSet = this@SubstancePolymerSurrogate.monomerSet
-      repeat = this@SubstancePolymerSurrogate.repeat
-    }
+        ),
+      monomerSet = this@SubstancePolymerSurrogate.monomerSet ?: mutableListOf(),
+      repeat = this@SubstancePolymerSurrogate.repeat ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SubstancePolymer): SubstancePolymerSurrogate =
       with(model) {
-        SubstancePolymerSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          `class` = this@with.`class`
-          geometry = this@with.geometry
-          copolymerConnectivity = this@with.copolymerConnectivity
-          modification = this@with.modification?.value
-          _modification = this@with.modification?.toElement()
-          monomerSet = this@with.monomerSet
-          repeat = this@with.repeat
-        }
+        SubstancePolymerSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier,
+          `class` = this@with.`class`,
+          geometry = this@with.geometry,
+          copolymerConnectivity =
+            this@with.copolymerConnectivity.takeUnless { it.all { it == null } },
+          modification = this@with.modification?.value,
+          _modification = this@with.modification?.toElement(),
+          monomerSet = this@with.monomerSet.takeUnless { it.all { it == null } },
+          repeat = this@with.repeat.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

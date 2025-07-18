@@ -36,7 +36,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,55 +49,55 @@ internal data class BasicSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var code: CodeableConcept? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var code: CodeableConcept,
   public var subject: Reference? = null,
   public var created: String? = null,
   public var _created: Element? = null,
   public var author: Reference? = null,
 ) {
   public fun toModel(): Basic =
-    Basic().apply {
-      id = this@BasicSurrogate.id
-      meta = this@BasicSurrogate.meta
-      implicitRules = Uri.of(this@BasicSurrogate.implicitRules, this@BasicSurrogate._implicitRules)
-      language = Code.of(this@BasicSurrogate.language, this@BasicSurrogate._language)
-      text = this@BasicSurrogate.text
-      contained = this@BasicSurrogate.contained
-      extension = this@BasicSurrogate.extension
-      modifierExtension = this@BasicSurrogate.modifierExtension
-      identifier = this@BasicSurrogate.identifier
-      code = this@BasicSurrogate.code
-      subject = this@BasicSurrogate.subject
+    Basic(
+      id = this@BasicSurrogate.id,
+      meta = this@BasicSurrogate.meta,
+      implicitRules = Uri.of(this@BasicSurrogate.implicitRules, this@BasicSurrogate._implicitRules),
+      language = Code.of(this@BasicSurrogate.language, this@BasicSurrogate._language),
+      text = this@BasicSurrogate.text,
+      contained = this@BasicSurrogate.contained ?: mutableListOf(),
+      extension = this@BasicSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@BasicSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@BasicSurrogate.identifier ?: mutableListOf(),
+      code = this@BasicSurrogate.code,
+      subject = this@BasicSurrogate.subject,
       created =
-        Date.of(FhirDate.fromString(this@BasicSurrogate.created), this@BasicSurrogate._created)
-      author = this@BasicSurrogate.author
-    }
+        Date.of(FhirDate.fromString(this@BasicSurrogate.created), this@BasicSurrogate._created),
+      author = this@BasicSurrogate.author,
+    )
 
   public companion object {
     public fun fromModel(model: Basic): BasicSurrogate =
       with(model) {
-        BasicSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          code = this@with.code
-          subject = this@with.subject
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          author = this@with.author
-        }
+        BasicSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          subject = this@with.subject,
+          created = this@with.created?.value?.toString(),
+          _created = this@with.created?.toElement(),
+          author = this@with.author,
+        )
       }
   }
 }

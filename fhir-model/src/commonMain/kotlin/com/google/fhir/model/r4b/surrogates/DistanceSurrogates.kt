@@ -32,14 +32,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DistanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var comparator: KotlinString? = null,
@@ -52,39 +52,39 @@ internal data class DistanceSurrogate(
   public var _code: Element? = null,
 ) {
   public fun toModel(): Distance =
-    Distance().apply {
-      id = this@DistanceSurrogate.id
-      extension = this@DistanceSurrogate.extension
-      `value` = Decimal.of(this@DistanceSurrogate.`value`, this@DistanceSurrogate._value)
+    Distance(
+      id = this@DistanceSurrogate.id,
+      extension = this@DistanceSurrogate.extension ?: mutableListOf(),
+      `value` = Decimal.of(this@DistanceSurrogate.`value`, this@DistanceSurrogate._value),
       comparator =
-        Enumeration.of(
-          this@DistanceSurrogate.comparator?.let {
-            com.google.fhir.model.r4b.Quantity.QuantityComparator.fromCode(it)
-          },
-          this@DistanceSurrogate._comparator,
-        )
-      unit = R4bString.of(this@DistanceSurrogate.unit, this@DistanceSurrogate._unit)
-      system = Uri.of(this@DistanceSurrogate.system, this@DistanceSurrogate._system)
-      code = Code.of(this@DistanceSurrogate.code, this@DistanceSurrogate._code)
-    }
+        this@DistanceSurrogate.comparator?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.Quantity.QuantityComparator.fromCode(it!!),
+            this@DistanceSurrogate._comparator,
+          )
+        },
+      unit = R4bString.of(this@DistanceSurrogate.unit, this@DistanceSurrogate._unit),
+      system = Uri.of(this@DistanceSurrogate.system, this@DistanceSurrogate._system),
+      code = Code.of(this@DistanceSurrogate.code, this@DistanceSurrogate._code),
+    )
 
   public companion object {
     public fun fromModel(model: Distance): DistanceSurrogate =
       with(model) {
-        DistanceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          comparator = this@with.comparator?.value?.getCode()
-          _comparator = this@with.comparator?.toElement()
-          unit = this@with.unit?.value
-          _unit = this@with.unit?.toElement()
-          system = this@with.system?.value
-          _system = this@with.system?.toElement()
-          code = this@with.code?.value
-          _code = this@with.code?.toElement()
-        }
+        DistanceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          comparator = this@with.comparator?.value?.getCode(),
+          _comparator = this@with.comparator?.toElement(),
+          unit = this@with.unit?.value,
+          _unit = this@with.unit?.toElement(),
+          system = this@with.system?.value,
+          _system = this@with.system?.toElement(),
+          code = this@with.code?.value,
+          _code = this@with.code?.toElement(),
+        )
       }
   }
 }

@@ -27,15 +27,15 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PopulationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var ageRange: Range? = null,
   public var ageCodeableConcept: CodeableConcept? = null,
   public var gender: CodeableConcept? = null,
@@ -43,33 +43,33 @@ internal data class PopulationSurrogate(
   public var physiologicalCondition: CodeableConcept? = null,
 ) {
   public fun toModel(): Population =
-    Population().apply {
-      id = this@PopulationSurrogate.id
-      extension = this@PopulationSurrogate.extension
-      modifierExtension = this@PopulationSurrogate.modifierExtension
+    Population(
+      id = this@PopulationSurrogate.id,
+      extension = this@PopulationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@PopulationSurrogate.modifierExtension ?: mutableListOf(),
       age =
         Population.Age?.from(
           this@PopulationSurrogate.ageRange,
           this@PopulationSurrogate.ageCodeableConcept,
-        )
-      gender = this@PopulationSurrogate.gender
-      race = this@PopulationSurrogate.race
-      physiologicalCondition = this@PopulationSurrogate.physiologicalCondition
-    }
+        ),
+      gender = this@PopulationSurrogate.gender,
+      race = this@PopulationSurrogate.race,
+      physiologicalCondition = this@PopulationSurrogate.physiologicalCondition,
+    )
 
   public companion object {
     public fun fromModel(model: Population): PopulationSurrogate =
       with(model) {
-        PopulationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          ageRange = this@with.age?.asRange()?.value
-          ageCodeableConcept = this@with.age?.asCodeableConcept()?.value
-          gender = this@with.gender
-          race = this@with.race
-          physiologicalCondition = this@with.physiologicalCondition
-        }
+        PopulationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          ageRange = this@with.age?.asRange()?.value,
+          ageCodeableConcept = this@with.age?.asCodeableConcept()?.value,
+          gender = this@with.gender,
+          race = this@with.race,
+          physiologicalCondition = this@with.physiologicalCondition,
+        )
       }
   }
 }

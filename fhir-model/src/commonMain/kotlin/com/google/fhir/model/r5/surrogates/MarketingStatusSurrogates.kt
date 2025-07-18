@@ -30,52 +30,52 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MarketingStatusSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var country: CodeableConcept? = null,
   public var jurisdiction: CodeableConcept? = null,
-  public var status: CodeableConcept? = null,
+  public var status: CodeableConcept,
   public var dateRange: Period? = null,
   public var restoreDate: String? = null,
   public var _restoreDate: Element? = null,
 ) {
   public fun toModel(): MarketingStatus =
-    MarketingStatus().apply {
-      id = this@MarketingStatusSurrogate.id
-      extension = this@MarketingStatusSurrogate.extension
-      modifierExtension = this@MarketingStatusSurrogate.modifierExtension
-      country = this@MarketingStatusSurrogate.country
-      jurisdiction = this@MarketingStatusSurrogate.jurisdiction
-      status = this@MarketingStatusSurrogate.status
-      dateRange = this@MarketingStatusSurrogate.dateRange
+    MarketingStatus(
+      id = this@MarketingStatusSurrogate.id,
+      extension = this@MarketingStatusSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MarketingStatusSurrogate.modifierExtension ?: mutableListOf(),
+      country = this@MarketingStatusSurrogate.country,
+      jurisdiction = this@MarketingStatusSurrogate.jurisdiction,
+      status = this@MarketingStatusSurrogate.status,
+      dateRange = this@MarketingStatusSurrogate.dateRange,
       restoreDate =
         DateTime.of(
           FhirDateTime.fromString(this@MarketingStatusSurrogate.restoreDate),
           this@MarketingStatusSurrogate._restoreDate,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: MarketingStatus): MarketingStatusSurrogate =
       with(model) {
-        MarketingStatusSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          country = this@with.country
-          jurisdiction = this@with.jurisdiction
-          status = this@with.status
-          dateRange = this@with.dateRange
-          restoreDate = this@with.restoreDate?.value?.toString()
-          _restoreDate = this@with.restoreDate?.toElement()
-        }
+        MarketingStatusSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          country = this@with.country,
+          jurisdiction = this@with.jurisdiction,
+          status = this@with.status,
+          dateRange = this@with.dateRange,
+          restoreDate = this@with.restoreDate?.value?.toString(),
+          _restoreDate = this@with.restoreDate?.toElement(),
+        )
       }
   }
 }

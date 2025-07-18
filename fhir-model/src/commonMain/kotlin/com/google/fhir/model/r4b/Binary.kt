@@ -72,7 +72,7 @@ public data class Binary(
    */
   override var language: Code? = null,
   /** MimeType of the binary content represented as a standard MimeType (BCP 13). */
-  public var contentType: Code? = null,
+  public var contentType: Code,
   /**
    * This element identifies another resource that can be used as a proxy of the security
    * sensitivity to use when deciding and enforcing access control rules for the Binary resource.

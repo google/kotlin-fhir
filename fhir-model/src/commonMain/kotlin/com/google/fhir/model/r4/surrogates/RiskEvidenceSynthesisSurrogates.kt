@@ -50,15 +50,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RiskEvidenceSynthesisSampleSizeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var numberOfStudies: Int? = null,
@@ -67,43 +67,44 @@ internal data class RiskEvidenceSynthesisSampleSizeSurrogate(
   public var _numberOfParticipants: Element? = null,
 ) {
   public fun toModel(): RiskEvidenceSynthesis.SampleSize =
-    RiskEvidenceSynthesis.SampleSize().apply {
-      id = this@RiskEvidenceSynthesisSampleSizeSurrogate.id
-      extension = this@RiskEvidenceSynthesisSampleSizeSurrogate.extension
-      modifierExtension = this@RiskEvidenceSynthesisSampleSizeSurrogate.modifierExtension
+    RiskEvidenceSynthesis.SampleSize(
+      id = this@RiskEvidenceSynthesisSampleSizeSurrogate.id,
+      extension = this@RiskEvidenceSynthesisSampleSizeSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RiskEvidenceSynthesisSampleSizeSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4String.of(
           this@RiskEvidenceSynthesisSampleSizeSurrogate.description,
           this@RiskEvidenceSynthesisSampleSizeSurrogate._description,
-        )
+        ),
       numberOfStudies =
         Integer.of(
           this@RiskEvidenceSynthesisSampleSizeSurrogate.numberOfStudies,
           this@RiskEvidenceSynthesisSampleSizeSurrogate._numberOfStudies,
-        )
+        ),
       numberOfParticipants =
         Integer.of(
           this@RiskEvidenceSynthesisSampleSizeSurrogate.numberOfParticipants,
           this@RiskEvidenceSynthesisSampleSizeSurrogate._numberOfParticipants,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: RiskEvidenceSynthesis.SampleSize
     ): RiskEvidenceSynthesisSampleSizeSurrogate =
       with(model) {
-        RiskEvidenceSynthesisSampleSizeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          numberOfStudies = this@with.numberOfStudies?.value
-          _numberOfStudies = this@with.numberOfStudies?.toElement()
-          numberOfParticipants = this@with.numberOfParticipants?.value
-          _numberOfParticipants = this@with.numberOfParticipants?.toElement()
-        }
+        RiskEvidenceSynthesisSampleSizeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          numberOfStudies = this@with.numberOfStudies?.value,
+          _numberOfStudies = this@with.numberOfStudies?.toElement(),
+          numberOfParticipants = this@with.numberOfParticipants?.value,
+          _numberOfParticipants = this@with.numberOfParticipants?.toElement(),
+        )
       }
   }
 }
@@ -111,8 +112,8 @@ internal data class RiskEvidenceSynthesisSampleSizeSurrogate(
 @Serializable
 internal data class RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var level: Double? = null,
   public var _level: Element? = null,
@@ -122,46 +123,49 @@ internal data class RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
   public var _to: Element? = null,
 ) {
   public fun toModel(): RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate =
-    RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate().apply {
-      id = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.id
-      extension = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.extension
+    RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate(
+      id = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.id,
+      extension =
+        this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.modifierExtension
-      type = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.type
+          ?: mutableListOf(),
+      type = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.type,
       level =
         Decimal.of(
           this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.level,
           this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._level,
-        )
+        ),
       from =
         Decimal.of(
           this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.from,
           this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._from,
-        )
+        ),
       to =
         Decimal.of(
           this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.to,
           this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._to,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate
     ): RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate =
       with(model) {
-        RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          level = this@with.level?.value
-          _level = this@with.level?.toElement()
-          from = this@with.from?.value
-          _from = this@with.from?.toElement()
-          to = this@with.to?.value
-          _to = this@with.to?.toElement()
-        }
+        RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          level = this@with.level?.value,
+          _level = this@with.level?.toElement(),
+          from = this@with.from?.value,
+          _from = this@with.from?.toElement(),
+          to = this@with.to?.value,
+          _to = this@with.to?.toElement(),
+        )
       }
   }
 }
@@ -169,8 +173,8 @@ internal data class RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
 @Serializable
 internal data class RiskEvidenceSynthesisRiskEstimateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var type: CodeableConcept? = null,
@@ -181,59 +185,62 @@ internal data class RiskEvidenceSynthesisRiskEstimateSurrogate(
   public var _denominatorCount: Element? = null,
   public var numeratorCount: Int? = null,
   public var _numeratorCount: Element? = null,
-  public var precisionEstimate: List<RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate>? = null,
+  public var precisionEstimate: MutableList<RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate>? =
+    null,
 ) {
   public fun toModel(): RiskEvidenceSynthesis.RiskEstimate =
-    RiskEvidenceSynthesis.RiskEstimate().apply {
-      id = this@RiskEvidenceSynthesisRiskEstimateSurrogate.id
-      extension = this@RiskEvidenceSynthesisRiskEstimateSurrogate.extension
-      modifierExtension = this@RiskEvidenceSynthesisRiskEstimateSurrogate.modifierExtension
+    RiskEvidenceSynthesis.RiskEstimate(
+      id = this@RiskEvidenceSynthesisRiskEstimateSurrogate.id,
+      extension = this@RiskEvidenceSynthesisRiskEstimateSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RiskEvidenceSynthesisRiskEstimateSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R4String.of(
           this@RiskEvidenceSynthesisRiskEstimateSurrogate.description,
           this@RiskEvidenceSynthesisRiskEstimateSurrogate._description,
-        )
-      type = this@RiskEvidenceSynthesisRiskEstimateSurrogate.type
+        ),
+      type = this@RiskEvidenceSynthesisRiskEstimateSurrogate.type,
       `value` =
         Decimal.of(
           this@RiskEvidenceSynthesisRiskEstimateSurrogate.`value`,
           this@RiskEvidenceSynthesisRiskEstimateSurrogate._value,
-        )
-      unitOfMeasure = this@RiskEvidenceSynthesisRiskEstimateSurrogate.unitOfMeasure
+        ),
+      unitOfMeasure = this@RiskEvidenceSynthesisRiskEstimateSurrogate.unitOfMeasure,
       denominatorCount =
         Integer.of(
           this@RiskEvidenceSynthesisRiskEstimateSurrogate.denominatorCount,
           this@RiskEvidenceSynthesisRiskEstimateSurrogate._denominatorCount,
-        )
+        ),
       numeratorCount =
         Integer.of(
           this@RiskEvidenceSynthesisRiskEstimateSurrogate.numeratorCount,
           this@RiskEvidenceSynthesisRiskEstimateSurrogate._numeratorCount,
-        )
-      precisionEstimate = this@RiskEvidenceSynthesisRiskEstimateSurrogate.precisionEstimate
-    }
+        ),
+      precisionEstimate =
+        this@RiskEvidenceSynthesisRiskEstimateSurrogate.precisionEstimate ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: RiskEvidenceSynthesis.RiskEstimate
     ): RiskEvidenceSynthesisRiskEstimateSurrogate =
       with(model) {
-        RiskEvidenceSynthesisRiskEstimateSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          type = this@with.type
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          unitOfMeasure = this@with.unitOfMeasure
-          denominatorCount = this@with.denominatorCount?.value
-          _denominatorCount = this@with.denominatorCount?.toElement()
-          numeratorCount = this@with.numeratorCount?.value
-          _numeratorCount = this@with.numeratorCount?.toElement()
-          precisionEstimate = this@with.precisionEstimate
-        }
+        RiskEvidenceSynthesisRiskEstimateSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          type = this@with.type,
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          unitOfMeasure = this@with.unitOfMeasure,
+          denominatorCount = this@with.denominatorCount?.value,
+          _denominatorCount = this@with.denominatorCount?.toElement(),
+          numeratorCount = this@with.numeratorCount?.value,
+          _numeratorCount = this@with.numeratorCount?.toElement(),
+          precisionEstimate = this@with.precisionEstimate.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -241,36 +248,41 @@ internal data class RiskEvidenceSynthesisRiskEstimateSurrogate(
 @Serializable
 internal data class RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var rating: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var rating: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): RiskEvidenceSynthesis.Certainty.CertaintySubcomponent =
-    RiskEvidenceSynthesis.Certainty.CertaintySubcomponent().apply {
-      id = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id
-      extension = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+    RiskEvidenceSynthesis.Certainty.CertaintySubcomponent(
+      id = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id,
+      extension =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.modifierExtension
-      type = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type
-      rating = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating
-      note = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note
-    }
+          ?: mutableListOf(),
+      type = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type,
+      rating =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating ?: mutableListOf(),
+      note =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: RiskEvidenceSynthesis.Certainty.CertaintySubcomponent
     ): RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate =
       with(model) {
-        RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          rating = this@with.rating
-          note = this@with.note
-        }
+        RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          rating = this@with.rating.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -278,36 +290,40 @@ internal data class RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate
 @Serializable
 internal data class RiskEvidenceSynthesisCertaintySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var rating: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var certaintySubcomponent: List<RiskEvidenceSynthesis.Certainty.CertaintySubcomponent>? =
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var rating: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var certaintySubcomponent:
+    MutableList<RiskEvidenceSynthesis.Certainty.CertaintySubcomponent>? =
     null,
 ) {
   public fun toModel(): RiskEvidenceSynthesis.Certainty =
-    RiskEvidenceSynthesis.Certainty().apply {
-      id = this@RiskEvidenceSynthesisCertaintySurrogate.id
-      extension = this@RiskEvidenceSynthesisCertaintySurrogate.extension
-      modifierExtension = this@RiskEvidenceSynthesisCertaintySurrogate.modifierExtension
-      rating = this@RiskEvidenceSynthesisCertaintySurrogate.rating
-      note = this@RiskEvidenceSynthesisCertaintySurrogate.note
-      certaintySubcomponent = this@RiskEvidenceSynthesisCertaintySurrogate.certaintySubcomponent
-    }
+    RiskEvidenceSynthesis.Certainty(
+      id = this@RiskEvidenceSynthesisCertaintySurrogate.id,
+      extension = this@RiskEvidenceSynthesisCertaintySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RiskEvidenceSynthesisCertaintySurrogate.modifierExtension ?: mutableListOf(),
+      rating = this@RiskEvidenceSynthesisCertaintySurrogate.rating ?: mutableListOf(),
+      note = this@RiskEvidenceSynthesisCertaintySurrogate.note ?: mutableListOf(),
+      certaintySubcomponent =
+        this@RiskEvidenceSynthesisCertaintySurrogate.certaintySubcomponent ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: RiskEvidenceSynthesis.Certainty
     ): RiskEvidenceSynthesisCertaintySurrogate =
       with(model) {
-        RiskEvidenceSynthesisCertaintySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          rating = this@with.rating
-          note = this@with.note
-          certaintySubcomponent = this@with.certaintySubcomponent
-        }
+        RiskEvidenceSynthesisCertaintySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          rating = this@with.rating.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          certaintySubcomponent =
+            this@with.certaintySubcomponent.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -321,12 +337,12 @@ internal data class RiskEvidenceSynthesisSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -339,12 +355,12 @@ internal data class RiskEvidenceSynthesisSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var note: List<Annotation?>? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var approvalDate: KotlinString? = null,
@@ -352,172 +368,172 @@ internal data class RiskEvidenceSynthesisSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: List<CodeableConcept?>? = null,
-  public var author: List<ContactDetail?>? = null,
-  public var editor: List<ContactDetail?>? = null,
-  public var reviewer: List<ContactDetail?>? = null,
-  public var endorser: List<ContactDetail?>? = null,
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var topic: MutableList<CodeableConcept>? = null,
+  public var author: MutableList<ContactDetail>? = null,
+  public var editor: MutableList<ContactDetail>? = null,
+  public var reviewer: MutableList<ContactDetail>? = null,
+  public var endorser: MutableList<ContactDetail>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
   public var synthesisType: CodeableConcept? = null,
   public var studyType: CodeableConcept? = null,
-  public var population: Reference? = null,
+  public var population: Reference,
   public var exposure: Reference? = null,
-  public var outcome: Reference? = null,
+  public var outcome: Reference,
   public var sampleSize: RiskEvidenceSynthesis.SampleSize? = null,
   public var riskEstimate: RiskEvidenceSynthesis.RiskEstimate? = null,
-  public var certainty: List<RiskEvidenceSynthesis.Certainty>? = null,
+  public var certainty: MutableList<RiskEvidenceSynthesis.Certainty>? = null,
 ) {
   public fun toModel(): RiskEvidenceSynthesis =
-    RiskEvidenceSynthesis().apply {
-      id = this@RiskEvidenceSynthesisSurrogate.id
-      meta = this@RiskEvidenceSynthesisSurrogate.meta
+    RiskEvidenceSynthesis(
+      id = this@RiskEvidenceSynthesisSurrogate.id,
+      meta = this@RiskEvidenceSynthesisSurrogate.meta,
       implicitRules =
         Uri.of(
           this@RiskEvidenceSynthesisSurrogate.implicitRules,
           this@RiskEvidenceSynthesisSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@RiskEvidenceSynthesisSurrogate.language,
           this@RiskEvidenceSynthesisSurrogate._language,
-        )
-      text = this@RiskEvidenceSynthesisSurrogate.text
-      contained = this@RiskEvidenceSynthesisSurrogate.contained
-      extension = this@RiskEvidenceSynthesisSurrogate.extension
-      modifierExtension = this@RiskEvidenceSynthesisSurrogate.modifierExtension
+        ),
+      text = this@RiskEvidenceSynthesisSurrogate.text,
+      contained = this@RiskEvidenceSynthesisSurrogate.contained ?: mutableListOf(),
+      extension = this@RiskEvidenceSynthesisSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@RiskEvidenceSynthesisSurrogate.modifierExtension ?: mutableListOf(),
       url =
-        Uri.of(this@RiskEvidenceSynthesisSurrogate.url, this@RiskEvidenceSynthesisSurrogate._url)
-      identifier = this@RiskEvidenceSynthesisSurrogate.identifier
+        Uri.of(this@RiskEvidenceSynthesisSurrogate.url, this@RiskEvidenceSynthesisSurrogate._url),
+      identifier = this@RiskEvidenceSynthesisSurrogate.identifier ?: mutableListOf(),
       version =
         R4String.of(
           this@RiskEvidenceSynthesisSurrogate.version,
           this@RiskEvidenceSynthesisSurrogate._version,
-        )
+        ),
       name =
         R4String.of(
           this@RiskEvidenceSynthesisSurrogate.name,
           this@RiskEvidenceSynthesisSurrogate._name,
-        )
+        ),
       title =
         R4String.of(
           this@RiskEvidenceSynthesisSurrogate.title,
           this@RiskEvidenceSynthesisSurrogate._title,
-        )
+        ),
       status =
         Enumeration.of(
-          this@RiskEvidenceSynthesisSurrogate.status?.let {
-            com.google.fhir.model.r4.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.PublicationStatus.fromCode(
+            this@RiskEvidenceSynthesisSurrogate.status!!
+          ),
           this@RiskEvidenceSynthesisSurrogate._status,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@RiskEvidenceSynthesisSurrogate.date),
           this@RiskEvidenceSynthesisSurrogate._date,
-        )
+        ),
       publisher =
         R4String.of(
           this@RiskEvidenceSynthesisSurrogate.publisher,
           this@RiskEvidenceSynthesisSurrogate._publisher,
-        )
-      contact = this@RiskEvidenceSynthesisSurrogate.contact
+        ),
+      contact = this@RiskEvidenceSynthesisSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@RiskEvidenceSynthesisSurrogate.description,
           this@RiskEvidenceSynthesisSurrogate._description,
-        )
-      note = this@RiskEvidenceSynthesisSurrogate.note
-      useContext = this@RiskEvidenceSynthesisSurrogate.useContext
-      jurisdiction = this@RiskEvidenceSynthesisSurrogate.jurisdiction
+        ),
+      note = this@RiskEvidenceSynthesisSurrogate.note ?: mutableListOf(),
+      useContext = this@RiskEvidenceSynthesisSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@RiskEvidenceSynthesisSurrogate.jurisdiction ?: mutableListOf(),
       copyright =
         Markdown.of(
           this@RiskEvidenceSynthesisSurrogate.copyright,
           this@RiskEvidenceSynthesisSurrogate._copyright,
-        )
+        ),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@RiskEvidenceSynthesisSurrogate.approvalDate),
           this@RiskEvidenceSynthesisSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@RiskEvidenceSynthesisSurrogate.lastReviewDate),
           this@RiskEvidenceSynthesisSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@RiskEvidenceSynthesisSurrogate.effectivePeriod
-      topic = this@RiskEvidenceSynthesisSurrogate.topic
-      author = this@RiskEvidenceSynthesisSurrogate.author
-      editor = this@RiskEvidenceSynthesisSurrogate.editor
-      reviewer = this@RiskEvidenceSynthesisSurrogate.reviewer
-      endorser = this@RiskEvidenceSynthesisSurrogate.endorser
-      relatedArtifact = this@RiskEvidenceSynthesisSurrogate.relatedArtifact
-      synthesisType = this@RiskEvidenceSynthesisSurrogate.synthesisType
-      studyType = this@RiskEvidenceSynthesisSurrogate.studyType
-      population = this@RiskEvidenceSynthesisSurrogate.population
-      exposure = this@RiskEvidenceSynthesisSurrogate.exposure
-      outcome = this@RiskEvidenceSynthesisSurrogate.outcome
-      sampleSize = this@RiskEvidenceSynthesisSurrogate.sampleSize
-      riskEstimate = this@RiskEvidenceSynthesisSurrogate.riskEstimate
-      certainty = this@RiskEvidenceSynthesisSurrogate.certainty
-    }
+        ),
+      effectivePeriod = this@RiskEvidenceSynthesisSurrogate.effectivePeriod,
+      topic = this@RiskEvidenceSynthesisSurrogate.topic ?: mutableListOf(),
+      author = this@RiskEvidenceSynthesisSurrogate.author ?: mutableListOf(),
+      editor = this@RiskEvidenceSynthesisSurrogate.editor ?: mutableListOf(),
+      reviewer = this@RiskEvidenceSynthesisSurrogate.reviewer ?: mutableListOf(),
+      endorser = this@RiskEvidenceSynthesisSurrogate.endorser ?: mutableListOf(),
+      relatedArtifact = this@RiskEvidenceSynthesisSurrogate.relatedArtifact ?: mutableListOf(),
+      synthesisType = this@RiskEvidenceSynthesisSurrogate.synthesisType,
+      studyType = this@RiskEvidenceSynthesisSurrogate.studyType,
+      population = this@RiskEvidenceSynthesisSurrogate.population,
+      exposure = this@RiskEvidenceSynthesisSurrogate.exposure,
+      outcome = this@RiskEvidenceSynthesisSurrogate.outcome,
+      sampleSize = this@RiskEvidenceSynthesisSurrogate.sampleSize,
+      riskEstimate = this@RiskEvidenceSynthesisSurrogate.riskEstimate,
+      certainty = this@RiskEvidenceSynthesisSurrogate.certainty ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: RiskEvidenceSynthesis): RiskEvidenceSynthesisSurrogate =
       with(model) {
-        RiskEvidenceSynthesisSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          note = this@with.note
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          topic = this@with.topic
-          author = this@with.author
-          editor = this@with.editor
-          reviewer = this@with.reviewer
-          endorser = this@with.endorser
-          relatedArtifact = this@with.relatedArtifact
-          synthesisType = this@with.synthesisType
-          studyType = this@with.studyType
-          population = this@with.population
-          exposure = this@with.exposure
-          outcome = this@with.outcome
-          sampleSize = this@with.sampleSize
-          riskEstimate = this@with.riskEstimate
-          certainty = this@with.certainty
-        }
+        RiskEvidenceSynthesisSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          topic = this@with.topic.takeUnless { it.all { it == null } },
+          author = this@with.author.takeUnless { it.all { it == null } },
+          editor = this@with.editor.takeUnless { it.all { it == null } },
+          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
+          endorser = this@with.endorser.takeUnless { it.all { it == null } },
+          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          synthesisType = this@with.synthesisType,
+          studyType = this@with.studyType,
+          population = this@with.population,
+          exposure = this@with.exposure,
+          outcome = this@with.outcome,
+          sampleSize = this@with.sampleSize,
+          riskEstimate = this@with.riskEstimate,
+          certainty = this@with.certainty.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

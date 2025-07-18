@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.EncounterHistoryLocationSerializer
 import com.google.fhir.model.r5.serializers.EncounterHistorySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class EncounterHistory(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -108,7 +108,7 @@ public data class EncounterHistory(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class EncounterHistory(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The Encounter associated with this set of historic values.
    *
@@ -137,7 +137,7 @@ public data class EncounterHistory(
    */
   public var encounter: Reference? = null,
   /** Identifier(s) by which this encounter is known. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * planned | in-progress | on-hold | discharged | completed | cancelled | discontinued |
    * entered-in-error | unknown.
@@ -145,21 +145,21 @@ public data class EncounterHistory(
    * Note that internal business rules will determine the appropriate transitions that may occur
    * between statuses (and also classes).
    */
-  public var status: Enumeration<EncounterStatus>? = null,
+  public var status: Enumeration<EncounterStatus>,
   /**
    * Concepts representing classification of patient encounter such as ambulatory (outpatient),
    * inpatient, emergency, home health or others due to local variations.
    */
-  public var `class`: CodeableConcept? = null,
+  public var `class`: CodeableConcept,
   /**
    * Specific type of encounter (e.g. e-mail consultation, surgical day-care, skilled nursing,
    * rehabilitation).
    *
    * Since there are many ways to further classify encounters, this element is 0..*.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /** Broad categorization of the service that is to be provided (e.g. cardiology). */
-  public var serviceType: List<CodeableReference?>? = null,
+  public var serviceType: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The patient or group related to this encounter. In some use-cases the patient MAY not be
    * present, such as a case meeting about a patient between several practitioners or a careteam.
@@ -206,7 +206,7 @@ public data class EncounterHistory(
    * Virtual encounters can be recorded in the Encounter by specifying a location reference to a
    * location of type "kind" such as "client's home" and an encounter.class = "virtual".
    */
-  public var location: List<Location>? = null,
+  public var location: MutableList<Location> = mutableListOf(),
 ) : DomainResource() {
   /**
    * The location of the patient at this point in the encounter, the multiple cardinality permits
@@ -231,7 +231,7 @@ public data class EncounterHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -250,9 +250,9 @@ public data class EncounterHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The location where the encounter takes place. */
-    public var location: Reference? = null,
+    public var location: Reference,
     /**
      * This will be used to specify the required levels (bed/ward/room/etc.) desired to be recorded
      * to simplify either messaging or query.

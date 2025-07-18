@@ -37,52 +37,52 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubscriptionChannelSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var endpoint: KotlinString? = null,
   public var _endpoint: Element? = null,
   public var payload: KotlinString? = null,
   public var _payload: Element? = null,
-  public var `header`: List<KotlinString?>? = null,
-  public var _header: List<Element?>? = null,
+  public var `header`: MutableList<KotlinString?>? = null,
+  public var _header: MutableList<Element?>? = null,
 ) {
   public fun toModel(): Subscription.Channel =
-    Subscription.Channel().apply {
-      id = this@SubscriptionChannelSurrogate.id
-      extension = this@SubscriptionChannelSurrogate.extension
-      modifierExtension = this@SubscriptionChannelSurrogate.modifierExtension
+    Subscription.Channel(
+      id = this@SubscriptionChannelSurrogate.id,
+      extension = this@SubscriptionChannelSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubscriptionChannelSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@SubscriptionChannelSurrogate.type?.let {
-            com.google.fhir.model.r4b.Subscription.SubscriptionChannelType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.Subscription.SubscriptionChannelType.fromCode(
+            this@SubscriptionChannelSurrogate.type!!
+          ),
           this@SubscriptionChannelSurrogate._type,
-        )
+        ),
       endpoint =
         Url.of(
           this@SubscriptionChannelSurrogate.endpoint,
           this@SubscriptionChannelSurrogate._endpoint,
-        )
+        ),
       payload =
         Code.of(
           this@SubscriptionChannelSurrogate.payload,
           this@SubscriptionChannelSurrogate._payload,
-        )
+        ),
       `header` =
         if (
           this@SubscriptionChannelSurrogate.`header` == null &&
             this@SubscriptionChannelSurrogate._header == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@SubscriptionChannelSurrogate.`header`
               ?: List(this@SubscriptionChannelSurrogate._header!!.size) { null })
@@ -90,27 +90,36 @@ internal data class SubscriptionChannelSurrogate(
               this@SubscriptionChannelSurrogate._header
                 ?: List(this@SubscriptionChannelSurrogate.`header`!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4bString.of(value, element) }
-        }
-    }
+            .map { (value, element) -> R4bString.of(value, element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: Subscription.Channel): SubscriptionChannelSurrogate =
       with(model) {
-        SubscriptionChannelSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          endpoint = this@with.endpoint?.value
-          _endpoint = this@with.endpoint?.toElement()
-          payload = this@with.payload?.value
-          _payload = this@with.payload?.toElement()
-          `header` = this@with.`header`?.map { it?.value }?.takeUnless { it.all { it == null } }
+        SubscriptionChannelSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          endpoint = this@with.endpoint?.value,
+          _endpoint = this@with.endpoint?.toElement(),
+          payload = this@with.payload?.value,
+          _payload = this@with.payload?.toElement(),
+          `header` =
+            this@with.`header`
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _header =
-            this@with.`header`?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.`header`
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }
@@ -124,12 +133,12 @@ internal data class SubscriptionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint>? = null,
   public var end: KotlinString? = null,
   public var _end: Element? = null,
   public var reason: KotlinString? = null,
@@ -138,66 +147,67 @@ internal data class SubscriptionSurrogate(
   public var _criteria: Element? = null,
   public var error: KotlinString? = null,
   public var _error: Element? = null,
-  public var channel: Subscription.Channel? = null,
+  public var channel: Subscription.Channel,
 ) {
   public fun toModel(): Subscription =
-    Subscription().apply {
-      id = this@SubscriptionSurrogate.id
-      meta = this@SubscriptionSurrogate.meta
+    Subscription(
+      id = this@SubscriptionSurrogate.id,
+      meta = this@SubscriptionSurrogate.meta,
       implicitRules =
-        Uri.of(this@SubscriptionSurrogate.implicitRules, this@SubscriptionSurrogate._implicitRules)
-      language = Code.of(this@SubscriptionSurrogate.language, this@SubscriptionSurrogate._language)
-      text = this@SubscriptionSurrogate.text
-      contained = this@SubscriptionSurrogate.contained
-      extension = this@SubscriptionSurrogate.extension
-      modifierExtension = this@SubscriptionSurrogate.modifierExtension
+        Uri.of(this@SubscriptionSurrogate.implicitRules, this@SubscriptionSurrogate._implicitRules),
+      language = Code.of(this@SubscriptionSurrogate.language, this@SubscriptionSurrogate._language),
+      text = this@SubscriptionSurrogate.text,
+      contained = this@SubscriptionSurrogate.contained ?: mutableListOf(),
+      extension = this@SubscriptionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@SubscriptionSurrogate.status?.let {
-            com.google.fhir.model.r4b.Subscription.SubscriptionStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.Subscription.SubscriptionStatus.fromCode(
+            this@SubscriptionSurrogate.status!!
+          ),
           this@SubscriptionSurrogate._status,
-        )
-      contact = this@SubscriptionSurrogate.contact
+        ),
+      contact = this@SubscriptionSurrogate.contact ?: mutableListOf(),
       end =
         Instant.of(
           FhirDateTime.fromString(this@SubscriptionSurrogate.end),
           this@SubscriptionSurrogate._end,
-        )
-      reason = R4bString.of(this@SubscriptionSurrogate.reason, this@SubscriptionSurrogate._reason)
+        ),
+      reason =
+        R4bString.of(this@SubscriptionSurrogate.reason, this@SubscriptionSurrogate._reason)!!,
       criteria =
-        R4bString.of(this@SubscriptionSurrogate.criteria, this@SubscriptionSurrogate._criteria)
-      error = R4bString.of(this@SubscriptionSurrogate.error, this@SubscriptionSurrogate._error)
-      channel = this@SubscriptionSurrogate.channel
-    }
+        R4bString.of(this@SubscriptionSurrogate.criteria, this@SubscriptionSurrogate._criteria)!!,
+      error = R4bString.of(this@SubscriptionSurrogate.error, this@SubscriptionSurrogate._error),
+      channel = this@SubscriptionSurrogate.channel,
+    )
 
   public companion object {
     public fun fromModel(model: Subscription): SubscriptionSurrogate =
       with(model) {
-        SubscriptionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          contact = this@with.contact
-          end = this@with.end?.value?.toString()
-          _end = this@with.end?.toElement()
-          reason = this@with.reason?.value
-          _reason = this@with.reason?.toElement()
-          criteria = this@with.criteria?.value
-          _criteria = this@with.criteria?.toElement()
-          error = this@with.error?.value
-          _error = this@with.error?.toElement()
-          channel = this@with.channel
-        }
+        SubscriptionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          end = this@with.end?.value?.toString(),
+          _end = this@with.end?.toElement(),
+          reason = this@with.reason.value,
+          _reason = this@with.reason.toElement(),
+          criteria = this@with.criteria.value,
+          _criteria = this@with.criteria.toElement(),
+          error = this@with.error?.value,
+          _error = this@with.error?.toElement(),
+          channel = this@with.channel,
+        )
       }
   }
 }

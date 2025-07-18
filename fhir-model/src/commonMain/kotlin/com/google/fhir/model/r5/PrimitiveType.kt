@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * PrimitiveType Type: The base type for all re-useable types defined that have a simple property.
@@ -44,5 +44,5 @@ public sealed class PrimitiveType : DataType() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  abstract override var extension: List<Extension?>?
+  abstract override var extension: MutableList<Extension>
 }

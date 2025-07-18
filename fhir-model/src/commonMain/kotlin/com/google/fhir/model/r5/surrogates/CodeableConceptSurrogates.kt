@@ -28,36 +28,36 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CodeableConceptSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var coding: List<Coding?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var coding: MutableList<Coding>? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
 ) {
   public fun toModel(): CodeableConcept =
-    CodeableConcept().apply {
-      id = this@CodeableConceptSurrogate.id
-      extension = this@CodeableConceptSurrogate.extension
-      coding = this@CodeableConceptSurrogate.coding
-      text = R5String.of(this@CodeableConceptSurrogate.text, this@CodeableConceptSurrogate._text)
-    }
+    CodeableConcept(
+      id = this@CodeableConceptSurrogate.id,
+      extension = this@CodeableConceptSurrogate.extension ?: mutableListOf(),
+      coding = this@CodeableConceptSurrogate.coding ?: mutableListOf(),
+      text = R5String.of(this@CodeableConceptSurrogate.text, this@CodeableConceptSurrogate._text),
+    )
 
   public companion object {
     public fun fromModel(model: CodeableConcept): CodeableConceptSurrogate =
       with(model) {
-        CodeableConceptSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          coding = this@with.coding
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-        }
+        CodeableConceptSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          coding = this@with.coding.takeUnless { it.all { it == null } },
+          text = this@with.text?.value,
+          _text = this@with.text?.toElement(),
+        )
       }
   }
 }

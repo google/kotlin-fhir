@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.RequirementsSerializer
 import com.google.fhir.model.r5.serializers.RequirementsStatementSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class Requirements(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class Requirements(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class Requirements(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this Requirements when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -153,7 +153,7 @@ public data class Requirements(
    * A formal identifier that is used to identify this Requirements when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the Requirements when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the
@@ -199,7 +199,7 @@ public data class Requirements(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this Requirements is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -240,7 +240,7 @@ public data class Requirements(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the requirements.
    *
@@ -257,7 +257,7 @@ public data class Requirements(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the Requirements is intended to be used.
    *
@@ -269,7 +269,7 @@ public data class Requirements(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.).
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this Requirements is needed and why it has been designed as it has.
    *
@@ -300,21 +300,21 @@ public data class Requirements(
    *
    * Existing statements (by key) may be narrowed or clarified, and additional statements added.
    */
-  public var derivedFrom: List<Canonical?>? = null,
+  public var derivedFrom: MutableList<Canonical> = mutableListOf(),
   /**
    * A reference to another artifact that created this set of requirements. This could be a Profile,
    * etc., or external regulation, or business requirements expressed elsewhere.
    */
-  public var reference: List<Url?>? = null,
+  public var reference: MutableList<Url> = mutableListOf(),
   /**
    * An actor these requirements are in regard to.
    *
    * If more than one actor is specified, then it's up to the statements to describe in narrative if
    * they don't apply to all actors.
    */
-  public var actor: List<Canonical?>? = null,
+  public var actor: MutableList<Canonical> = mutableListOf(),
   /** The actual statement of requirement, in markdown format. */
-  public var statement: List<Statement>? = null,
+  public var statement: MutableList<Statement> = mutableListOf(),
 ) : DomainResource() {
   /** The actual statement of requirement, in markdown format. */
   @Serializable(with = RequirementsStatementSerializer::class)
@@ -336,7 +336,7 @@ public data class Requirements(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -355,13 +355,13 @@ public data class Requirements(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Key that identifies this statement (unique within this resource).
      *
      * Refer directly to the statement by {url}#{key}
      */
-    public var key: Id? = null,
+    public var key: Id,
     /**
      * A short human usable label for this statement.
      *
@@ -376,7 +376,7 @@ public data class Requirements(
      * The requirement needs to express the conformance verbs directly in the markdown content. It's
      * not unusual to mix verbs in a single sentence (e.g. System SHALL do X and SHOULD do Y)
      */
-    public var conformance: List<Code?>? = null,
+    public var conformance: MutableList<Code> = mutableListOf(),
     /**
      * This boolean flag is set to true of the text of the requirement is conditional on something
      * e.g. it includes lanauage like 'if x then y'. This conditionality flag is introduced for
@@ -386,7 +386,7 @@ public data class Requirements(
      */
     public var conditionality: Boolean? = null,
     /** The actual requirement for human consumption. */
-    public var requirement: Markdown? = null,
+    public var requirement: Markdown,
     /**
      * Another statement on one of the requirements that this requirement clarifies or restricts.
      *
@@ -410,17 +410,17 @@ public data class Requirements(
      * This is for use when the requirement is met be a pre-existing artifact e.g. a rule that's met
      * by the base FHIR spec, or a national implementation guide.
      */
-    public var satisfiedBy: List<Url?>? = null,
+    public var satisfiedBy: MutableList<Url> = mutableListOf(),
     /**
      * A reference to another artifact that created this requirement. This could be a Profile, etc.,
      * or external regulation, or business requirements expressed elsewhere.
      */
-    public var reference: List<Url?>? = null,
+    public var reference: MutableList<Url> = mutableListOf(),
     /**
      * Who asked for this statement to be a requirement. By default, it's assumed that the publisher
      * knows who it is if it matters.
      */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   public sealed interface VersionAlgorithm {
@@ -435,12 +435,12 @@ public data class Requirements(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

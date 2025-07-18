@@ -51,43 +51,45 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var additiveCodeableConcept: CodeableConcept? = null,
   public var additiveReference: Reference? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
-    SpecimenDefinition.TypeTested.Container.Additive().apply {
-      id = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.id
-      extension = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension
+    SpecimenDefinition.TypeTested.Container.Additive(
+      id = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.id,
+      extension =
+        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
+          ?: mutableListOf(),
       additive =
-        SpecimenDefinition.TypeTested.Container.Additive.Additive?.from(
+        SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
           this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additiveCodeableConcept,
           this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additiveReference,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: SpecimenDefinition.TypeTested.Container.Additive
     ): SpecimenDefinitionTypeTestedContainerAdditiveSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerAdditiveSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          additiveCodeableConcept = this@with.additive?.asCodeableConcept()?.value
-          additiveReference = this@with.additive?.asReference()?.value
-        }
+        SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          additiveCodeableConcept = this@with.additive?.asCodeableConcept()?.value,
+          additiveReference = this@with.additive?.asReference()?.value,
+        )
       }
   }
 }
@@ -95,8 +97,8 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var material: CodeableConcept? = null,
   public var type: CodeableConcept? = null,
   public var cap: CodeableConcept? = null,
@@ -106,24 +108,25 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var minimumVolumeQuantity: Quantity? = null,
   public var minimumVolumeString: KotlinString? = null,
   public var _minimumVolumeString: Element? = null,
-  public var additive: List<SpecimenDefinition.TypeTested.Container.Additive>? = null,
+  public var additive: MutableList<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container =
-    SpecimenDefinition.TypeTested.Container().apply {
-      id = this@SpecimenDefinitionTypeTestedContainerSurrogate.id
-      extension = this@SpecimenDefinitionTypeTestedContainerSurrogate.extension
-      modifierExtension = this@SpecimenDefinitionTypeTestedContainerSurrogate.modifierExtension
-      material = this@SpecimenDefinitionTypeTestedContainerSurrogate.material
-      type = this@SpecimenDefinitionTypeTestedContainerSurrogate.type
-      cap = this@SpecimenDefinitionTypeTestedContainerSurrogate.cap
+    SpecimenDefinition.TypeTested.Container(
+      id = this@SpecimenDefinitionTypeTestedContainerSurrogate.id,
+      extension = this@SpecimenDefinitionTypeTestedContainerSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SpecimenDefinitionTypeTestedContainerSurrogate.modifierExtension ?: mutableListOf(),
+      material = this@SpecimenDefinitionTypeTestedContainerSurrogate.material,
+      type = this@SpecimenDefinitionTypeTestedContainerSurrogate.type,
+      cap = this@SpecimenDefinitionTypeTestedContainerSurrogate.cap,
       description =
         Markdown.of(
           this@SpecimenDefinitionTypeTestedContainerSurrogate.description,
           this@SpecimenDefinitionTypeTestedContainerSurrogate._description,
-        )
-      capacity = this@SpecimenDefinitionTypeTestedContainerSurrogate.capacity
+        ),
+      capacity = this@SpecimenDefinitionTypeTestedContainerSurrogate.capacity,
       minimumVolume =
         SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
           this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolumeQuantity,
@@ -131,37 +134,37 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
             this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolumeString,
             this@SpecimenDefinitionTypeTestedContainerSurrogate._minimumVolumeString,
           ),
-        )
-      additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive
+        ),
+      additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive ?: mutableListOf(),
       preparation =
         Markdown.of(
           this@SpecimenDefinitionTypeTestedContainerSurrogate.preparation,
           this@SpecimenDefinitionTypeTestedContainerSurrogate._preparation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: SpecimenDefinition.TypeTested.Container
     ): SpecimenDefinitionTypeTestedContainerSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          material = this@with.material
-          type = this@with.type
-          cap = this@with.cap
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          capacity = this@with.capacity
-          minimumVolumeQuantity = this@with.minimumVolume?.asQuantity()?.value
-          minimumVolumeString = this@with.minimumVolume?.asString()?.value?.value
-          _minimumVolumeString = this@with.minimumVolume?.asString()?.value?.toElement()
-          additive = this@with.additive
-          preparation = this@with.preparation?.value
-          _preparation = this@with.preparation?.toElement()
-        }
+        SpecimenDefinitionTypeTestedContainerSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          material = this@with.material,
+          type = this@with.type,
+          cap = this@with.cap,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          capacity = this@with.capacity,
+          minimumVolumeQuantity = this@with.minimumVolume?.asQuantity()?.value,
+          minimumVolumeString = this@with.minimumVolume?.asString()?.value?.value,
+          _minimumVolumeString = this@with.minimumVolume?.asString()?.value?.toElement(),
+          additive = this@with.additive.takeUnless { it.all { it == null } },
+          preparation = this@with.preparation?.value,
+          _preparation = this@with.preparation?.toElement(),
+        )
       }
   }
 }
@@ -169,8 +172,8 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var temperatureQualifier: CodeableConcept? = null,
   public var temperatureRange: Range? = null,
   public var maxDuration: Duration? = null,
@@ -178,35 +181,37 @@ internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public var _instruction: Element? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Handling =
-    SpecimenDefinition.TypeTested.Handling().apply {
-      id = this@SpecimenDefinitionTypeTestedHandlingSurrogate.id
-      extension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.extension
-      modifierExtension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.modifierExtension
-      temperatureQualifier = this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureQualifier
-      temperatureRange = this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureRange
-      maxDuration = this@SpecimenDefinitionTypeTestedHandlingSurrogate.maxDuration
+    SpecimenDefinition.TypeTested.Handling(
+      id = this@SpecimenDefinitionTypeTestedHandlingSurrogate.id,
+      extension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SpecimenDefinitionTypeTestedHandlingSurrogate.modifierExtension ?: mutableListOf(),
+      temperatureQualifier =
+        this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureQualifier,
+      temperatureRange = this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureRange,
+      maxDuration = this@SpecimenDefinitionTypeTestedHandlingSurrogate.maxDuration,
       instruction =
         Markdown.of(
           this@SpecimenDefinitionTypeTestedHandlingSurrogate.instruction,
           this@SpecimenDefinitionTypeTestedHandlingSurrogate._instruction,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: SpecimenDefinition.TypeTested.Handling
     ): SpecimenDefinitionTypeTestedHandlingSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedHandlingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          temperatureQualifier = this@with.temperatureQualifier
-          temperatureRange = this@with.temperatureRange
-          maxDuration = this@with.maxDuration
-          instruction = this@with.instruction?.value
-          _instruction = this@with.instruction?.toElement()
-        }
+        SpecimenDefinitionTypeTestedHandlingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          temperatureQualifier = this@with.temperatureQualifier,
+          temperatureRange = this@with.temperatureRange,
+          maxDuration = this@with.maxDuration,
+          instruction = this@with.instruction?.value,
+          _instruction = this@with.instruction?.toElement(),
+        )
       }
   }
 }
@@ -214,8 +219,8 @@ internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var isDerived: KotlinBoolean? = null,
   public var _isDerived: Element? = null,
   public var type: CodeableConcept? = null,
@@ -227,69 +232,72 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var retentionTime: Duration? = null,
   public var singleUse: KotlinBoolean? = null,
   public var _singleUse: Element? = null,
-  public var rejectionCriterion: List<CodeableConcept?>? = null,
-  public var handling: List<SpecimenDefinition.TypeTested.Handling>? = null,
-  public var testingDestination: List<CodeableConcept?>? = null,
+  public var rejectionCriterion: MutableList<CodeableConcept>? = null,
+  public var handling: MutableList<SpecimenDefinition.TypeTested.Handling>? = null,
+  public var testingDestination: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested =
-    SpecimenDefinition.TypeTested().apply {
-      id = this@SpecimenDefinitionTypeTestedSurrogate.id
-      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension
-      modifierExtension = this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension
+    SpecimenDefinition.TypeTested(
+      id = this@SpecimenDefinitionTypeTestedSurrogate.id,
+      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: mutableListOf(),
       isDerived =
         R5Boolean.of(
           this@SpecimenDefinitionTypeTestedSurrogate.isDerived,
           this@SpecimenDefinitionTypeTestedSurrogate._isDerived,
-        )
-      type = this@SpecimenDefinitionTypeTestedSurrogate.type
+        ),
+      type = this@SpecimenDefinitionTypeTestedSurrogate.type,
       preference =
         Enumeration.of(
-          this@SpecimenDefinitionTypeTestedSurrogate.preference?.let {
-            com.google.fhir.model.r5.SpecimenDefinition.SpecimenContainedPreference.fromCode(it)
-          },
+          com.google.fhir.model.r5.SpecimenDefinition.SpecimenContainedPreference.fromCode(
+            this@SpecimenDefinitionTypeTestedSurrogate.preference!!
+          ),
           this@SpecimenDefinitionTypeTestedSurrogate._preference,
-        )
-      container = this@SpecimenDefinitionTypeTestedSurrogate.container
+        ),
+      container = this@SpecimenDefinitionTypeTestedSurrogate.container,
       requirement =
         Markdown.of(
           this@SpecimenDefinitionTypeTestedSurrogate.requirement,
           this@SpecimenDefinitionTypeTestedSurrogate._requirement,
-        )
-      retentionTime = this@SpecimenDefinitionTypeTestedSurrogate.retentionTime
+        ),
+      retentionTime = this@SpecimenDefinitionTypeTestedSurrogate.retentionTime,
       singleUse =
         R5Boolean.of(
           this@SpecimenDefinitionTypeTestedSurrogate.singleUse,
           this@SpecimenDefinitionTypeTestedSurrogate._singleUse,
-        )
-      rejectionCriterion = this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion
-      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling
-      testingDestination = this@SpecimenDefinitionTypeTestedSurrogate.testingDestination
-    }
+        ),
+      rejectionCriterion =
+        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: mutableListOf(),
+      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: mutableListOf(),
+      testingDestination =
+        this@SpecimenDefinitionTypeTestedSurrogate.testingDestination ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: SpecimenDefinition.TypeTested
     ): SpecimenDefinitionTypeTestedSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          isDerived = this@with.isDerived?.value
-          _isDerived = this@with.isDerived?.toElement()
-          type = this@with.type
-          preference = this@with.preference?.value?.getCode()
-          _preference = this@with.preference?.toElement()
-          container = this@with.container
-          requirement = this@with.requirement?.value
-          _requirement = this@with.requirement?.toElement()
-          retentionTime = this@with.retentionTime
-          singleUse = this@with.singleUse?.value
-          _singleUse = this@with.singleUse?.toElement()
-          rejectionCriterion = this@with.rejectionCriterion
-          handling = this@with.handling
-          testingDestination = this@with.testingDestination
-        }
+        SpecimenDefinitionTypeTestedSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          isDerived = this@with.isDerived?.value,
+          _isDerived = this@with.isDerived?.toElement(),
+          type = this@with.type,
+          preference = this@with.preference.value?.getCode(),
+          _preference = this@with.preference.toElement(),
+          container = this@with.container,
+          requirement = this@with.requirement?.value,
+          _requirement = this@with.requirement?.toElement(),
+          retentionTime = this@with.retentionTime,
+          singleUse = this@with.singleUse?.value,
+          _singleUse = this@with.singleUse?.toElement(),
+          rejectionCriterion = this@with.rejectionCriterion.takeUnless { it.all { it == null } },
+          handling = this@with.handling.takeUnless { it.all { it == null } },
+          testingDestination = this@with.testingDestination.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -303,9 +311,9 @@ internal data class SpecimenDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var identifier: Identifier? = null,
@@ -318,10 +326,10 @@ internal data class SpecimenDefinitionSurrogate(
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var derivedFromCanonical: List<KotlinString?>? = null,
-  public var _derivedFromCanonical: List<Element?>? = null,
-  public var derivedFromUri: List<KotlinString?>? = null,
-  public var _derivedFromUri: List<Element?>? = null,
+  public var derivedFromCanonical: MutableList<KotlinString?>? = null,
+  public var _derivedFromCanonical: MutableList<Element?>? = null,
+  public var derivedFromUri: MutableList<KotlinString?>? = null,
+  public var _derivedFromUri: MutableList<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -332,11 +340,11 @@ internal data class SpecimenDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -349,37 +357,37 @@ internal data class SpecimenDefinitionSurrogate(
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
   public var typeCollected: CodeableConcept? = null,
-  public var patientPreparation: List<CodeableConcept?>? = null,
+  public var patientPreparation: MutableList<CodeableConcept>? = null,
   public var timeAspect: KotlinString? = null,
   public var _timeAspect: Element? = null,
-  public var collection: List<CodeableConcept?>? = null,
-  public var typeTested: List<SpecimenDefinition.TypeTested>? = null,
+  public var collection: MutableList<CodeableConcept>? = null,
+  public var typeTested: MutableList<SpecimenDefinition.TypeTested>? = null,
 ) {
   public fun toModel(): SpecimenDefinition =
-    SpecimenDefinition().apply {
-      id = this@SpecimenDefinitionSurrogate.id
-      meta = this@SpecimenDefinitionSurrogate.meta
+    SpecimenDefinition(
+      id = this@SpecimenDefinitionSurrogate.id,
+      meta = this@SpecimenDefinitionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@SpecimenDefinitionSurrogate.implicitRules,
           this@SpecimenDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@SpecimenDefinitionSurrogate.language,
           this@SpecimenDefinitionSurrogate._language,
-        )
-      text = this@SpecimenDefinitionSurrogate.text
-      contained = this@SpecimenDefinitionSurrogate.contained
-      extension = this@SpecimenDefinitionSurrogate.extension
-      modifierExtension = this@SpecimenDefinitionSurrogate.modifierExtension
-      url = Uri.of(this@SpecimenDefinitionSurrogate.url, this@SpecimenDefinitionSurrogate._url)
-      identifier = this@SpecimenDefinitionSurrogate.identifier
+        ),
+      text = this@SpecimenDefinitionSurrogate.text,
+      contained = this@SpecimenDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@SpecimenDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SpecimenDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@SpecimenDefinitionSurrogate.url, this@SpecimenDefinitionSurrogate._url),
+      identifier = this@SpecimenDefinitionSurrogate.identifier,
       version =
         R5String.of(
           this@SpecimenDefinitionSurrogate.version,
           this@SpecimenDefinitionSurrogate._version,
-        )
+        ),
       versionAlgorithm =
         SpecimenDefinition.VersionAlgorithm?.from(
           R5String.of(
@@ -387,17 +395,20 @@ internal data class SpecimenDefinitionSurrogate(
             this@SpecimenDefinitionSurrogate._versionAlgorithmString,
           ),
           this@SpecimenDefinitionSurrogate.versionAlgorithmCoding,
-        )
+        ),
       name =
-        R5String.of(this@SpecimenDefinitionSurrogate.name, this@SpecimenDefinitionSurrogate._name)
+        R5String.of(this@SpecimenDefinitionSurrogate.name, this@SpecimenDefinitionSurrogate._name),
       title =
-        R5String.of(this@SpecimenDefinitionSurrogate.title, this@SpecimenDefinitionSurrogate._title)
+        R5String.of(
+          this@SpecimenDefinitionSurrogate.title,
+          this@SpecimenDefinitionSurrogate._title,
+        ),
       derivedFromCanonical =
         if (
           this@SpecimenDefinitionSurrogate.derivedFromCanonical == null &&
             this@SpecimenDefinitionSurrogate._derivedFromCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@SpecimenDefinitionSurrogate.derivedFromCanonical
               ?: List(this@SpecimenDefinitionSurrogate._derivedFromCanonical!!.size) { null })
@@ -405,14 +416,15 @@ internal data class SpecimenDefinitionSurrogate(
               this@SpecimenDefinitionSurrogate._derivedFromCanonical
                 ?: List(this@SpecimenDefinitionSurrogate.derivedFromCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       derivedFromUri =
         if (
           this@SpecimenDefinitionSurrogate.derivedFromUri == null &&
             this@SpecimenDefinitionSurrogate._derivedFromUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@SpecimenDefinitionSurrogate.derivedFromUri
               ?: List(this@SpecimenDefinitionSurrogate._derivedFromUri!!.size) { null })
@@ -420,149 +432,162 @@ internal data class SpecimenDefinitionSurrogate(
               this@SpecimenDefinitionSurrogate._derivedFromUri
                 ?: List(this@SpecimenDefinitionSurrogate.derivedFromUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
       status =
         Enumeration.of(
-          this@SpecimenDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(
+            this@SpecimenDefinitionSurrogate.status!!
+          ),
           this@SpecimenDefinitionSurrogate._status,
-        )
+        ),
       experimental =
         R5Boolean.of(
           this@SpecimenDefinitionSurrogate.experimental,
           this@SpecimenDefinitionSurrogate._experimental,
-        )
+        ),
       subject =
         SpecimenDefinition.Subject?.from(
           this@SpecimenDefinitionSurrogate.subjectCodeableConcept,
           this@SpecimenDefinitionSurrogate.subjectReference,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@SpecimenDefinitionSurrogate.date),
           this@SpecimenDefinitionSurrogate._date,
-        )
+        ),
       publisher =
         R5String.of(
           this@SpecimenDefinitionSurrogate.publisher,
           this@SpecimenDefinitionSurrogate._publisher,
-        )
-      contact = this@SpecimenDefinitionSurrogate.contact
+        ),
+      contact = this@SpecimenDefinitionSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@SpecimenDefinitionSurrogate.description,
           this@SpecimenDefinitionSurrogate._description,
-        )
-      useContext = this@SpecimenDefinitionSurrogate.useContext
-      jurisdiction = this@SpecimenDefinitionSurrogate.jurisdiction
+        ),
+      useContext = this@SpecimenDefinitionSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@SpecimenDefinitionSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
         Markdown.of(
           this@SpecimenDefinitionSurrogate.purpose,
           this@SpecimenDefinitionSurrogate._purpose,
-        )
+        ),
       copyright =
         Markdown.of(
           this@SpecimenDefinitionSurrogate.copyright,
           this@SpecimenDefinitionSurrogate._copyright,
-        )
+        ),
       copyrightLabel =
         R5String.of(
           this@SpecimenDefinitionSurrogate.copyrightLabel,
           this@SpecimenDefinitionSurrogate._copyrightLabel,
-        )
+        ),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@SpecimenDefinitionSurrogate.approvalDate),
           this@SpecimenDefinitionSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@SpecimenDefinitionSurrogate.lastReviewDate),
           this@SpecimenDefinitionSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@SpecimenDefinitionSurrogate.effectivePeriod
-      typeCollected = this@SpecimenDefinitionSurrogate.typeCollected
-      patientPreparation = this@SpecimenDefinitionSurrogate.patientPreparation
+        ),
+      effectivePeriod = this@SpecimenDefinitionSurrogate.effectivePeriod,
+      typeCollected = this@SpecimenDefinitionSurrogate.typeCollected,
+      patientPreparation = this@SpecimenDefinitionSurrogate.patientPreparation ?: mutableListOf(),
       timeAspect =
         R5String.of(
           this@SpecimenDefinitionSurrogate.timeAspect,
           this@SpecimenDefinitionSurrogate._timeAspect,
-        )
-      collection = this@SpecimenDefinitionSurrogate.collection
-      typeTested = this@SpecimenDefinitionSurrogate.typeTested
-    }
+        ),
+      collection = this@SpecimenDefinitionSurrogate.collection ?: mutableListOf(),
+      typeTested = this@SpecimenDefinitionSurrogate.typeTested ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SpecimenDefinition): SpecimenDefinitionSurrogate =
       with(model) {
-        SpecimenDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
+        SpecimenDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier,
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
+          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
           derivedFromCanonical =
-            this@with.derivedFromCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFromCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _derivedFromCanonical =
             this@with.derivedFromCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           derivedFromUri =
-            this@with.derivedFromUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFromUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _derivedFromUri =
-            this@with.derivedFromUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value
-          subjectReference = this@with.subject?.asReference()?.value
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          copyrightLabel = this@with.copyrightLabel?.value
-          _copyrightLabel = this@with.copyrightLabel?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          typeCollected = this@with.typeCollected
-          patientPreparation = this@with.patientPreparation
-          timeAspect = this@with.timeAspect?.value
-          _timeAspect = this@with.timeAspect?.toElement()
-          collection = this@with.collection
-          typeTested = this@with.typeTested
-        }
+            this@with.derivedFromUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value,
+          subjectReference = this@with.subject?.asReference()?.value,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          copyrightLabel = this@with.copyrightLabel?.value,
+          _copyrightLabel = this@with.copyrightLabel?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          typeCollected = this@with.typeCollected,
+          patientPreparation = this@with.patientPreparation.takeUnless { it.all { it == null } },
+          timeAspect = this@with.timeAspect?.value,
+          _timeAspect = this@with.timeAspect?.toElement(),
+          collection = this@with.collection.takeUnless { it.all { it == null } },
+          typeTested = this@with.typeTested.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

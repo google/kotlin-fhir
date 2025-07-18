@@ -40,7 +40,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,10 +53,10 @@ internal data class PaymentNoticeSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var request: Reference? = null,
@@ -64,87 +64,87 @@ internal data class PaymentNoticeSurrogate(
   public var created: String? = null,
   public var _created: Element? = null,
   public var provider: Reference? = null,
-  public var payment: Reference? = null,
+  public var payment: Reference,
   public var paymentDate: String? = null,
   public var _paymentDate: Element? = null,
   public var payee: Reference? = null,
-  public var recipient: Reference? = null,
-  public var amount: Money? = null,
+  public var recipient: Reference,
+  public var amount: Money,
   public var paymentStatus: CodeableConcept? = null,
 ) {
   public fun toModel(): PaymentNotice =
-    PaymentNotice().apply {
-      id = this@PaymentNoticeSurrogate.id
-      meta = this@PaymentNoticeSurrogate.meta
+    PaymentNotice(
+      id = this@PaymentNoticeSurrogate.id,
+      meta = this@PaymentNoticeSurrogate.meta,
       implicitRules =
         Uri.of(
           this@PaymentNoticeSurrogate.implicitRules,
           this@PaymentNoticeSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@PaymentNoticeSurrogate.language, this@PaymentNoticeSurrogate._language)
-      text = this@PaymentNoticeSurrogate.text
-      contained = this@PaymentNoticeSurrogate.contained
-      extension = this@PaymentNoticeSurrogate.extension
-      modifierExtension = this@PaymentNoticeSurrogate.modifierExtension
-      identifier = this@PaymentNoticeSurrogate.identifier
+        Code.of(this@PaymentNoticeSurrogate.language, this@PaymentNoticeSurrogate._language),
+      text = this@PaymentNoticeSurrogate.text,
+      contained = this@PaymentNoticeSurrogate.contained ?: mutableListOf(),
+      extension = this@PaymentNoticeSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@PaymentNoticeSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@PaymentNoticeSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@PaymentNoticeSurrogate.status?.let {
-            com.google.fhir.model.r4b.PaymentNotice.PaymentNoticeStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PaymentNotice.PaymentNoticeStatus.fromCode(
+            this@PaymentNoticeSurrogate.status!!
+          ),
           this@PaymentNoticeSurrogate._status,
-        )
-      request = this@PaymentNoticeSurrogate.request
-      response = this@PaymentNoticeSurrogate.response
+        ),
+      request = this@PaymentNoticeSurrogate.request,
+      response = this@PaymentNoticeSurrogate.response,
       created =
         DateTime.of(
           FhirDateTime.fromString(this@PaymentNoticeSurrogate.created),
           this@PaymentNoticeSurrogate._created,
-        )
-      provider = this@PaymentNoticeSurrogate.provider
-      payment = this@PaymentNoticeSurrogate.payment
+        )!!,
+      provider = this@PaymentNoticeSurrogate.provider,
+      payment = this@PaymentNoticeSurrogate.payment,
       paymentDate =
         Date.of(
           FhirDate.fromString(this@PaymentNoticeSurrogate.paymentDate),
           this@PaymentNoticeSurrogate._paymentDate,
-        )
-      payee = this@PaymentNoticeSurrogate.payee
-      recipient = this@PaymentNoticeSurrogate.recipient
-      amount = this@PaymentNoticeSurrogate.amount
-      paymentStatus = this@PaymentNoticeSurrogate.paymentStatus
-    }
+        ),
+      payee = this@PaymentNoticeSurrogate.payee,
+      recipient = this@PaymentNoticeSurrogate.recipient,
+      amount = this@PaymentNoticeSurrogate.amount,
+      paymentStatus = this@PaymentNoticeSurrogate.paymentStatus,
+    )
 
   public companion object {
     public fun fromModel(model: PaymentNotice): PaymentNoticeSurrogate =
       with(model) {
-        PaymentNoticeSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          request = this@with.request
-          response = this@with.response
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          provider = this@with.provider
-          payment = this@with.payment
-          paymentDate = this@with.paymentDate?.value?.toString()
-          _paymentDate = this@with.paymentDate?.toElement()
-          payee = this@with.payee
-          recipient = this@with.recipient
-          amount = this@with.amount
-          paymentStatus = this@with.paymentStatus
-        }
+        PaymentNoticeSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          request = this@with.request,
+          response = this@with.response,
+          created = this@with.created.value?.toString(),
+          _created = this@with.created.toElement(),
+          provider = this@with.provider,
+          payment = this@with.payment,
+          paymentDate = this@with.paymentDate?.value?.toString(),
+          _paymentDate = this@with.paymentDate?.toElement(),
+          payee = this@with.payee,
+          recipient = this@with.recipient,
+          amount = this@with.amount,
+          paymentStatus = this@with.paymentStatus,
+        )
       }
   }
 }

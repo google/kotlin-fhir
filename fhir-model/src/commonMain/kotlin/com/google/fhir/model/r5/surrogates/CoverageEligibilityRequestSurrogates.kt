@@ -47,50 +47,51 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CoverageEligibilityRequestEventSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var whenDateTime: KotlinString? = null,
   public var _whenDateTime: Element? = null,
   public var whenPeriod: Period? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.Event =
-    CoverageEligibilityRequest.Event().apply {
-      id = this@CoverageEligibilityRequestEventSurrogate.id
-      extension = this@CoverageEligibilityRequestEventSurrogate.extension
-      modifierExtension = this@CoverageEligibilityRequestEventSurrogate.modifierExtension
-      type = this@CoverageEligibilityRequestEventSurrogate.type
+    CoverageEligibilityRequest.Event(
+      id = this@CoverageEligibilityRequestEventSurrogate.id,
+      extension = this@CoverageEligibilityRequestEventSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageEligibilityRequestEventSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@CoverageEligibilityRequestEventSurrogate.type,
       `when` =
-        CoverageEligibilityRequest.Event.When?.from(
+        CoverageEligibilityRequest.Event.When.from(
           DateTime.of(
             FhirDateTime.fromString(this@CoverageEligibilityRequestEventSurrogate.whenDateTime),
             this@CoverageEligibilityRequestEventSurrogate._whenDateTime,
           ),
           this@CoverageEligibilityRequestEventSurrogate.whenPeriod,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: CoverageEligibilityRequest.Event
     ): CoverageEligibilityRequestEventSurrogate =
       with(model) {
-        CoverageEligibilityRequestEventSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          whenDateTime = this@with.`when`?.asDateTime()?.value?.value?.toString()
-          _whenDateTime = this@with.`when`?.asDateTime()?.value?.toElement()
-          whenPeriod = this@with.`when`?.asPeriod()?.value
-        }
+        CoverageEligibilityRequestEventSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          whenDateTime = this@with.`when`?.asDateTime()?.value?.value?.toString(),
+          _whenDateTime = this@with.`when`?.asDateTime()?.value?.toElement(),
+          whenPeriod = this@with.`when`?.asPeriod()?.value,
+        )
       }
   }
 }
@@ -98,47 +99,49 @@ internal data class CoverageEligibilityRequestEventSurrogate(
 @Serializable
 internal data class CoverageEligibilityRequestSupportingInfoSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var information: Reference? = null,
+  public var information: Reference,
   public var appliesToAll: KotlinBoolean? = null,
   public var _appliesToAll: Element? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.SupportingInfo =
-    CoverageEligibilityRequest.SupportingInfo().apply {
-      id = this@CoverageEligibilityRequestSupportingInfoSurrogate.id
-      extension = this@CoverageEligibilityRequestSupportingInfoSurrogate.extension
-      modifierExtension = this@CoverageEligibilityRequestSupportingInfoSurrogate.modifierExtension
+    CoverageEligibilityRequest.SupportingInfo(
+      id = this@CoverageEligibilityRequestSupportingInfoSurrogate.id,
+      extension =
+        this@CoverageEligibilityRequestSupportingInfoSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageEligibilityRequestSupportingInfoSurrogate.modifierExtension ?: mutableListOf(),
       sequence =
         PositiveInt.of(
           this@CoverageEligibilityRequestSupportingInfoSurrogate.sequence,
           this@CoverageEligibilityRequestSupportingInfoSurrogate._sequence,
-        )
-      information = this@CoverageEligibilityRequestSupportingInfoSurrogate.information
+        )!!,
+      information = this@CoverageEligibilityRequestSupportingInfoSurrogate.information,
       appliesToAll =
         R5Boolean.of(
           this@CoverageEligibilityRequestSupportingInfoSurrogate.appliesToAll,
           this@CoverageEligibilityRequestSupportingInfoSurrogate._appliesToAll,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CoverageEligibilityRequest.SupportingInfo
     ): CoverageEligibilityRequestSupportingInfoSurrogate =
       with(model) {
-        CoverageEligibilityRequestSupportingInfoSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          sequence = this@with.sequence?.value
-          _sequence = this@with.sequence?.toElement()
-          information = this@with.information
-          appliesToAll = this@with.appliesToAll?.value
-          _appliesToAll = this@with.appliesToAll?.toElement()
-        }
+        CoverageEligibilityRequestSupportingInfoSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence.value,
+          _sequence = this@with.sequence.toElement(),
+          information = this@with.information,
+          appliesToAll = this@with.appliesToAll?.value,
+          _appliesToAll = this@with.appliesToAll?.toElement(),
+        )
       }
   }
 }
@@ -146,47 +149,48 @@ internal data class CoverageEligibilityRequestSupportingInfoSurrogate(
 @Serializable
 internal data class CoverageEligibilityRequestInsuranceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var focal: KotlinBoolean? = null,
   public var _focal: Element? = null,
-  public var coverage: Reference? = null,
+  public var coverage: Reference,
   public var businessArrangement: KotlinString? = null,
   public var _businessArrangement: Element? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.Insurance =
-    CoverageEligibilityRequest.Insurance().apply {
-      id = this@CoverageEligibilityRequestInsuranceSurrogate.id
-      extension = this@CoverageEligibilityRequestInsuranceSurrogate.extension
-      modifierExtension = this@CoverageEligibilityRequestInsuranceSurrogate.modifierExtension
+    CoverageEligibilityRequest.Insurance(
+      id = this@CoverageEligibilityRequestInsuranceSurrogate.id,
+      extension = this@CoverageEligibilityRequestInsuranceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageEligibilityRequestInsuranceSurrogate.modifierExtension ?: mutableListOf(),
       focal =
         R5Boolean.of(
           this@CoverageEligibilityRequestInsuranceSurrogate.focal,
           this@CoverageEligibilityRequestInsuranceSurrogate._focal,
-        )
-      coverage = this@CoverageEligibilityRequestInsuranceSurrogate.coverage
+        ),
+      coverage = this@CoverageEligibilityRequestInsuranceSurrogate.coverage,
       businessArrangement =
         R5String.of(
           this@CoverageEligibilityRequestInsuranceSurrogate.businessArrangement,
           this@CoverageEligibilityRequestInsuranceSurrogate._businessArrangement,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CoverageEligibilityRequest.Insurance
     ): CoverageEligibilityRequestInsuranceSurrogate =
       with(model) {
-        CoverageEligibilityRequestInsuranceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          focal = this@with.focal?.value
-          _focal = this@with.focal?.toElement()
-          coverage = this@with.coverage
-          businessArrangement = this@with.businessArrangement?.value
-          _businessArrangement = this@with.businessArrangement?.toElement()
-        }
+        CoverageEligibilityRequestInsuranceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          focal = this@with.focal?.value,
+          _focal = this@with.focal?.toElement(),
+          coverage = this@with.coverage,
+          businessArrangement = this@with.businessArrangement?.value,
+          _businessArrangement = this@with.businessArrangement?.toElement(),
+        )
       }
   }
 }
@@ -194,35 +198,37 @@ internal data class CoverageEligibilityRequestInsuranceSurrogate(
 @Serializable
 internal data class CoverageEligibilityRequestItemDiagnosisSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var diagnosisCodeableConcept: CodeableConcept? = null,
   public var diagnosisReference: Reference? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.Item.Diagnosis =
-    CoverageEligibilityRequest.Item.Diagnosis().apply {
-      id = this@CoverageEligibilityRequestItemDiagnosisSurrogate.id
-      extension = this@CoverageEligibilityRequestItemDiagnosisSurrogate.extension
-      modifierExtension = this@CoverageEligibilityRequestItemDiagnosisSurrogate.modifierExtension
+    CoverageEligibilityRequest.Item.Diagnosis(
+      id = this@CoverageEligibilityRequestItemDiagnosisSurrogate.id,
+      extension =
+        this@CoverageEligibilityRequestItemDiagnosisSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageEligibilityRequestItemDiagnosisSurrogate.modifierExtension ?: mutableListOf(),
       diagnosis =
         CoverageEligibilityRequest.Item.Diagnosis.Diagnosis?.from(
           this@CoverageEligibilityRequestItemDiagnosisSurrogate.diagnosisCodeableConcept,
           this@CoverageEligibilityRequestItemDiagnosisSurrogate.diagnosisReference,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: CoverageEligibilityRequest.Item.Diagnosis
     ): CoverageEligibilityRequestItemDiagnosisSurrogate =
       with(model) {
-        CoverageEligibilityRequestItemDiagnosisSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          diagnosisCodeableConcept = this@with.diagnosis?.asCodeableConcept()?.value
-          diagnosisReference = this@with.diagnosis?.asReference()?.value
-        }
+        CoverageEligibilityRequestItemDiagnosisSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          diagnosisCodeableConcept = this@with.diagnosis?.asCodeableConcept()?.value,
+          diagnosisReference = this@with.diagnosis?.asReference()?.value,
+        )
       }
   }
 }
@@ -230,31 +236,32 @@ internal data class CoverageEligibilityRequestItemDiagnosisSurrogate(
 @Serializable
 internal data class CoverageEligibilityRequestItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var supportingInfoSequence: List<Int?>? = null,
-  public var _supportingInfoSequence: List<Element?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var supportingInfoSequence: MutableList<Int?>? = null,
+  public var _supportingInfoSequence: MutableList<Element?>? = null,
   public var category: CodeableConcept? = null,
   public var productOrService: CodeableConcept? = null,
-  public var modifier: List<CodeableConcept?>? = null,
+  public var modifier: MutableList<CodeableConcept>? = null,
   public var provider: Reference? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var facility: Reference? = null,
-  public var diagnosis: List<CoverageEligibilityRequest.Item.Diagnosis>? = null,
-  public var detail: List<Reference?>? = null,
+  public var diagnosis: MutableList<CoverageEligibilityRequest.Item.Diagnosis>? = null,
+  public var detail: MutableList<Reference>? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest.Item =
-    CoverageEligibilityRequest.Item().apply {
-      id = this@CoverageEligibilityRequestItemSurrogate.id
-      extension = this@CoverageEligibilityRequestItemSurrogate.extension
-      modifierExtension = this@CoverageEligibilityRequestItemSurrogate.modifierExtension
+    CoverageEligibilityRequest.Item(
+      id = this@CoverageEligibilityRequestItemSurrogate.id,
+      extension = this@CoverageEligibilityRequestItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageEligibilityRequestItemSurrogate.modifierExtension ?: mutableListOf(),
       supportingInfoSequence =
         if (
           this@CoverageEligibilityRequestItemSurrogate.supportingInfoSequence == null &&
             this@CoverageEligibilityRequestItemSurrogate._supportingInfoSequence == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CoverageEligibilityRequestItemSurrogate.supportingInfoSequence
               ?: List(this@CoverageEligibilityRequestItemSurrogate._supportingInfoSequence!!.size) {
@@ -268,46 +275,50 @@ internal data class CoverageEligibilityRequestItemSurrogate(
                   null
                 }
             )
-            .mapNotNull { (value, element) -> PositiveInt.of(value, element) }
-        }
-      category = this@CoverageEligibilityRequestItemSurrogate.category
-      productOrService = this@CoverageEligibilityRequestItemSurrogate.productOrService
-      modifier = this@CoverageEligibilityRequestItemSurrogate.modifier
-      provider = this@CoverageEligibilityRequestItemSurrogate.provider
-      quantity = this@CoverageEligibilityRequestItemSurrogate.quantity
-      unitPrice = this@CoverageEligibilityRequestItemSurrogate.unitPrice
-      facility = this@CoverageEligibilityRequestItemSurrogate.facility
-      diagnosis = this@CoverageEligibilityRequestItemSurrogate.diagnosis
-      detail = this@CoverageEligibilityRequestItemSurrogate.detail
-    }
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      category = this@CoverageEligibilityRequestItemSurrogate.category,
+      productOrService = this@CoverageEligibilityRequestItemSurrogate.productOrService,
+      modifier = this@CoverageEligibilityRequestItemSurrogate.modifier ?: mutableListOf(),
+      provider = this@CoverageEligibilityRequestItemSurrogate.provider,
+      quantity = this@CoverageEligibilityRequestItemSurrogate.quantity,
+      unitPrice = this@CoverageEligibilityRequestItemSurrogate.unitPrice,
+      facility = this@CoverageEligibilityRequestItemSurrogate.facility,
+      diagnosis = this@CoverageEligibilityRequestItemSurrogate.diagnosis ?: mutableListOf(),
+      detail = this@CoverageEligibilityRequestItemSurrogate.detail ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: CoverageEligibilityRequest.Item
     ): CoverageEligibilityRequestItemSurrogate =
       with(model) {
-        CoverageEligibilityRequestItemSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
+        CoverageEligibilityRequestItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           supportingInfoSequence =
             this@with.supportingInfoSequence
-              ?.map { it?.value }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _supportingInfoSequence =
             this@with.supportingInfoSequence
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          category = this@with.category
-          productOrService = this@with.productOrService
-          modifier = this@with.modifier
-          provider = this@with.provider
-          quantity = this@with.quantity
-          unitPrice = this@with.unitPrice
-          facility = this@with.facility
-          diagnosis = this@with.diagnosis
-          detail = this@with.detail
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          category = this@with.category,
+          productOrService = this@with.productOrService,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          provider = this@with.provider,
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          facility = this@with.facility,
+          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -321,17 +332,17 @@ internal data class CoverageEligibilityRequestSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var priority: CodeableConcept? = null,
-  public var purpose: List<KotlinString?>? = null,
-  public var _purpose: List<Element?>? = null,
-  public var patient: Reference? = null,
-  public var event: List<CoverageEligibilityRequest.Event>? = null,
+  public var purpose: MutableList<KotlinString?>? = null,
+  public var _purpose: MutableList<Element?>? = null,
+  public var patient: Reference,
+  public var event: MutableList<CoverageEligibilityRequest.Event>? = null,
   public var servicedDate: KotlinString? = null,
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
@@ -339,47 +350,46 @@ internal data class CoverageEligibilityRequestSurrogate(
   public var _created: Element? = null,
   public var enterer: Reference? = null,
   public var provider: Reference? = null,
-  public var insurer: Reference? = null,
+  public var insurer: Reference,
   public var facility: Reference? = null,
-  public var supportingInfo: List<CoverageEligibilityRequest.SupportingInfo>? = null,
-  public var insurance: List<CoverageEligibilityRequest.Insurance>? = null,
-  public var item: List<CoverageEligibilityRequest.Item>? = null,
+  public var supportingInfo: MutableList<CoverageEligibilityRequest.SupportingInfo>? = null,
+  public var insurance: MutableList<CoverageEligibilityRequest.Insurance>? = null,
+  public var item: MutableList<CoverageEligibilityRequest.Item>? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest =
-    CoverageEligibilityRequest().apply {
-      id = this@CoverageEligibilityRequestSurrogate.id
-      meta = this@CoverageEligibilityRequestSurrogate.meta
+    CoverageEligibilityRequest(
+      id = this@CoverageEligibilityRequestSurrogate.id,
+      meta = this@CoverageEligibilityRequestSurrogate.meta,
       implicitRules =
         Uri.of(
           this@CoverageEligibilityRequestSurrogate.implicitRules,
           this@CoverageEligibilityRequestSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@CoverageEligibilityRequestSurrogate.language,
           this@CoverageEligibilityRequestSurrogate._language,
-        )
-      text = this@CoverageEligibilityRequestSurrogate.text
-      contained = this@CoverageEligibilityRequestSurrogate.contained
-      extension = this@CoverageEligibilityRequestSurrogate.extension
-      modifierExtension = this@CoverageEligibilityRequestSurrogate.modifierExtension
-      identifier = this@CoverageEligibilityRequestSurrogate.identifier
+        ),
+      text = this@CoverageEligibilityRequestSurrogate.text,
+      contained = this@CoverageEligibilityRequestSurrogate.contained ?: mutableListOf(),
+      extension = this@CoverageEligibilityRequestSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageEligibilityRequestSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@CoverageEligibilityRequestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@CoverageEligibilityRequestSurrogate.status?.let {
-            com.google.fhir.model.r5.CoverageEligibilityRequest.EligibilityRequestStatus.fromCode(
-              it
-            )
-          },
+          com.google.fhir.model.r5.CoverageEligibilityRequest.EligibilityRequestStatus.fromCode(
+            this@CoverageEligibilityRequestSurrogate.status!!
+          ),
           this@CoverageEligibilityRequestSurrogate._status,
-        )
-      priority = this@CoverageEligibilityRequestSurrogate.priority
+        ),
+      priority = this@CoverageEligibilityRequestSurrogate.priority,
       purpose =
         if (
           this@CoverageEligibilityRequestSurrogate.purpose == null &&
             this@CoverageEligibilityRequestSurrogate._purpose == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CoverageEligibilityRequestSurrogate.purpose
               ?: List(this@CoverageEligibilityRequestSurrogate._purpose!!.size) { null })
@@ -387,18 +397,19 @@ internal data class CoverageEligibilityRequestSurrogate(
               this@CoverageEligibilityRequestSurrogate._purpose
                 ?: List(this@CoverageEligibilityRequestSurrogate.purpose!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
+                value.let {
                   com.google.fhir.model.r5.CoverageEligibilityRequest.EligibilityRequestPurpose
-                    .fromCode(it)
+                    .fromCode(it!!)!!
                 },
                 element,
               )
             }
-        }
-      patient = this@CoverageEligibilityRequestSurrogate.patient
-      event = this@CoverageEligibilityRequestSurrogate.event
+            .toMutableList()
+        },
+      patient = this@CoverageEligibilityRequestSurrogate.patient,
+      event = this@CoverageEligibilityRequestSurrogate.event ?: mutableListOf(),
       serviced =
         CoverageEligibilityRequest.Serviced?.from(
           Date.of(
@@ -406,58 +417,65 @@ internal data class CoverageEligibilityRequestSurrogate(
             this@CoverageEligibilityRequestSurrogate._servicedDate,
           ),
           this@CoverageEligibilityRequestSurrogate.servicedPeriod,
-        )
+        ),
       created =
         DateTime.of(
           FhirDateTime.fromString(this@CoverageEligibilityRequestSurrogate.created),
           this@CoverageEligibilityRequestSurrogate._created,
-        )
-      enterer = this@CoverageEligibilityRequestSurrogate.enterer
-      provider = this@CoverageEligibilityRequestSurrogate.provider
-      insurer = this@CoverageEligibilityRequestSurrogate.insurer
-      facility = this@CoverageEligibilityRequestSurrogate.facility
-      supportingInfo = this@CoverageEligibilityRequestSurrogate.supportingInfo
-      insurance = this@CoverageEligibilityRequestSurrogate.insurance
-      item = this@CoverageEligibilityRequestSurrogate.item
-    }
+        )!!,
+      enterer = this@CoverageEligibilityRequestSurrogate.enterer,
+      provider = this@CoverageEligibilityRequestSurrogate.provider,
+      insurer = this@CoverageEligibilityRequestSurrogate.insurer,
+      facility = this@CoverageEligibilityRequestSurrogate.facility,
+      supportingInfo = this@CoverageEligibilityRequestSurrogate.supportingInfo ?: mutableListOf(),
+      insurance = this@CoverageEligibilityRequestSurrogate.insurance ?: mutableListOf(),
+      item = this@CoverageEligibilityRequestSurrogate.item ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: CoverageEligibilityRequest): CoverageEligibilityRequestSurrogate =
       with(model) {
-        CoverageEligibilityRequestSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          priority = this@with.priority
+        CoverageEligibilityRequestSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          priority = this@with.priority,
           purpose =
-            this@with.purpose?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
+            this@with.purpose
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _purpose =
-            this@with.purpose?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          patient = this@with.patient
-          event = this@with.event
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString()
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement()
-          servicedPeriod = this@with.serviced?.asPeriod()?.value
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          enterer = this@with.enterer
-          provider = this@with.provider
-          insurer = this@with.insurer
-          facility = this@with.facility
-          supportingInfo = this@with.supportingInfo
-          insurance = this@with.insurance
-          item = this@with.item
-        }
+            this@with.purpose
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          patient = this@with.patient,
+          event = this@with.event.takeUnless { it.all { it == null } },
+          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.serviced?.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.serviced?.asPeriod()?.value,
+          created = this@with.created.value?.toString(),
+          _created = this@with.created.toElement(),
+          enterer = this@with.enterer,
+          provider = this@with.provider,
+          insurer = this@with.insurer,
+          facility = this@with.facility,
+          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          item = this@with.item.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -30,7 +30,7 @@ import com.google.fhir.model.r5.serializers.NutritionOrderSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderSupplementScheduleSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderSupplementSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -106,7 +106,7 @@ public data class NutritionOrder(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -119,7 +119,7 @@ public data class NutritionOrder(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,14 +138,14 @@ public data class NutritionOrder(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers assigned to this order by the order sender or by the order receiver.
    *
    * The Identifier.type element can be to indicate filler vs. placer if needed. This is explained
    * in further detail [here](servicerequest.html#notes).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this NutritionOrder.
@@ -157,21 +157,21 @@ public data class NutritionOrder(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this NutritionOrder.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /**
    * The URL pointing to a protocol, guideline, orderset or other definition that is adhered to in
    * whole or in part by this NutritionOrder.
    */
-  public var instantiates: List<Uri?>? = null,
+  public var instantiates: MutableList<Uri> = mutableListOf(),
   /** A plan or request that is fulfilled in whole or in part by this nutrition order. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A shared identifier common to all nutrition orders that were authorized more or less
    * simultaneously by a single author, representing the composite or group identifier.
@@ -185,7 +185,7 @@ public data class NutritionOrder(
    * labeled as a modifier because the status contains codes that mark the resource as not currently
    * valid.
    */
-  public var status: Enumeration<NutritionOrderStatus>? = null,
+  public var status: Enumeration<NutritionOrderStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the NutrionOrder and where the
    * request fits into the workflow chain.
@@ -196,7 +196,7 @@ public data class NutritionOrder(
    * Expectation is that the set of codes is mutually exclusive or a strict all-encompassing
    * hierarchy.
    */
-  public var intent: Enumeration<NutritiionOrderIntent>? = null,
+  public var intent: Enumeration<NutritiionOrderIntent>,
   /**
    * Indicates how quickly the Nutrition Order should be addressed with respect to other requests.
    */
@@ -205,7 +205,7 @@ public data class NutritionOrder(
    * The person or set of individuals who needs the nutrition order for an oral diet, nutritional
    * supplement and/or enteral or formula feeding.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * An encounter that provides additional information about the healthcare context in which this
    * request is made.
@@ -215,16 +215,16 @@ public data class NutritionOrder(
    * Information to support fulfilling (i.e. dispensing or administering) of the nutrition, for
    * example, patient height and weight).
    */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /** The date and time that this nutrition order was requested. */
-  public var dateTime: DateTime? = null,
+  public var dateTime: DateTime,
   /**
    * The practitioner that holds legal responsibility for ordering the diet, nutritional supplement,
    * or formula feedings.
    */
   public var orderer: Reference? = null,
   /** The specified desired performer of the nutrition order. */
-  public var performer: List<CodeableReference?>? = null,
+  public var performer: MutableList<CodeableReference> = mutableListOf(),
   /**
    * A link to a record of allergies or intolerances which should be included in the nutrition
    * order.
@@ -232,7 +232,7 @@ public data class NutritionOrder(
    * Information on a patient's food allergies and intolerances to inform healthcare personnel about
    * the type of foods that the patient shouldn't receive or consume.
    */
-  public var allergyIntolerance: List<Reference?>? = null,
+  public var allergyIntolerance: MutableList<Reference> = mutableListOf(),
   /**
    * This modifier is used to convey order-specific modifiers about the type of food that should be
    * given. These can be derived from patient allergies, intolerances, or preferences such as Halal,
@@ -242,7 +242,7 @@ public data class NutritionOrder(
    * Information on a patient's food preferences that inform healthcare personnel about the food
    * that the patient should receive or consume.
    */
-  public var foodPreferenceModifier: List<CodeableConcept?>? = null,
+  public var foodPreferenceModifier: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * This modifier is used to convey Order-specific modifier about the type of oral food or oral
    * fluids that should not be given. These can be derived from patient allergies, intolerances, or
@@ -256,7 +256,7 @@ public data class NutritionOrder(
    * Information on a patient's food allergies, intolerances and preferences to inform healthcare
    * personnel about the type of foods that the patient shouldn't receive or consume.
    */
-  public var excludeFoodModifier: List<CodeableConcept?>? = null,
+  public var excludeFoodModifier: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * This modifier is used to convey whether a food item is allowed to be brought in by the patient
    * and/or family. If set to true, indicates that the receiving system does not need to supply the
@@ -269,7 +269,7 @@ public data class NutritionOrder(
    * Oral nutritional products given in order to add further nutritional value to the patient's
    * diet.
    */
-  public var supplement: List<Supplement>? = null,
+  public var supplement: MutableList<Supplement> = mutableListOf(),
   /**
    * Feeding provided through the gastrointestinal tract via a tube, catheter, or stoma that
    * delivers nutrition distal to the oral cavity.
@@ -282,7 +282,7 @@ public data class NutritionOrder(
    * represented in the `.oralDiet.instruction`, `supplement.instruction`, or
    * `enteralFormula.administrationInstruction` elements.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Diet given orally in contrast to enteral (tube) feeding. */
   @Serializable(with = NutritionOrderOralDietSerializer::class)
@@ -304,7 +304,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -323,26 +323,26 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The kind of diet or dietary restriction such as fiber restricted diet or diabetic diet. */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /** Schedule information for an oral diet. */
     public var schedule: Schedule? = null,
     /**
      * Class that defines the quantity and type of nutrient modifications (for example carbohydrate,
      * fiber or sodium) required for the oral diet.
      */
-    public var nutrient: List<Nutrient>? = null,
+    public var nutrient: MutableList<Nutrient> = mutableListOf(),
     /**
      * Class that describes any texture modifications required for the patient to safely consume
      * various types of solid foods.
      */
-    public var texture: List<Texture>? = null,
+    public var texture: MutableList<Texture> = mutableListOf(),
     /**
      * The required consistency (e.g. honey-thick, nectar-thick, thin, thickened.) of liquids or
      * fluids served to the patient.
      */
-    public var fluidConsistencyType: List<CodeableConcept?>? = null,
+    public var fluidConsistencyType: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Free text or additional instructions or information pertaining to the oral diet.
      *
@@ -371,7 +371,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -390,12 +390,12 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The time period and frequency at which the diet should be given. The diet should be given
        * for the combination of all schedules if more than one schedule is present.
        */
-      public var timing: List<Timing?>? = null,
+      public var timing: MutableList<Timing> = mutableListOf(),
       /**
        * Indicates whether the product is only taken when needed within a specific dosing schedule.
        */
@@ -429,7 +429,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -448,7 +448,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The nutrient that is being modified such as carbohydrate or sodium. */
       public var modifier: CodeableConcept? = null,
       /** The quantity of the specified nutrient to include in diet. */
@@ -478,7 +478,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -497,7 +497,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Any texture modifications (for solid foods) that should be made, e.g. easy to chew,
        * chopped, ground, and pureed.
@@ -538,7 +538,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -557,7 +557,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The kind of nutritional supplement product required such as a high protein or pediatric clear
      * liquid supplement.
@@ -597,7 +597,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -616,12 +616,12 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The time period and frequency at which the supplement should be given. The supplement
        * should be given for the combination of all schedules if more than one schedule is present.
        */
-      public var timing: List<Timing?>? = null,
+      public var timing: MutableList<Timing> = mutableListOf(),
       /**
        * Indicates whether the supplement is only taken when needed within a specific dosing
        * schedule.
@@ -658,7 +658,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -677,7 +677,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of enteral or infant formula such as an adult standard formula with fiber or a
      * soy-based infant formula.
@@ -691,9 +691,9 @@ public data class NutritionOrder(
     /**
      * The intended type of device that is to be used for the administration of the enteral formula.
      */
-    public var deliveryDevice: List<CodeableReference?>? = null,
+    public var deliveryDevice: MutableList<CodeableReference> = mutableListOf(),
     /** Indicates modular components to be provided in addition or mixed with the base formula. */
-    public var additive: List<Additive>? = null,
+    public var additive: MutableList<Additive> = mutableListOf(),
     /**
      * The amount of energy (calories) that the formula should provide per specified volume,
      * typically per mL or fluid oz. For example, an infant may require a formula that provides 24
@@ -715,7 +715,7 @@ public data class NutritionOrder(
      * See implementation notes below for further discussion on how to order continuous vs bolus
      * enteral feeding using this resource.
      */
-    public var administration: List<Administration>? = null,
+    public var administration: MutableList<Administration> = mutableListOf(),
     /**
      * The maximum total quantity of formula that may be administered to a subject over the period
      * of time, e.g. 1440 mL over 24 hours.
@@ -750,7 +750,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -769,7 +769,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates the type of modular component such as protein, carbohydrate, fat or fiber to be
        * provided in addition to or mixed with the base formula.
@@ -806,7 +806,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -825,7 +825,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Schedule information for an enteral formula. */
       public var schedule: Schedule? = null,
       /**
@@ -862,7 +862,7 @@ public data class NutritionOrder(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -881,13 +881,13 @@ public data class NutritionOrder(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The time period and frequency at which the enteral formula should be given. The enteral
          * formula should be given for the combination of all schedules if more than one schedule is
          * present.
          */
-        public var timing: List<Timing?>? = null,
+        public var timing: MutableList<Timing> = mutableListOf(),
         /**
          * Indicates whether the enteral formula is only taken when needed within a specific dosing
          * schedule.
@@ -910,12 +910,12 @@ public data class NutritionOrder(
         public data class Ratio(public val `value`: com.google.fhir.model.r5.Ratio) : Rate
 
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
-            RatioValue: com.google.fhir.model.r5.Ratio?,
+          internal fun from(
+            quantityValue: com.google.fhir.model.r5.Quantity?,
+            ratioValue: com.google.fhir.model.r5.Ratio?,
           ): Rate? {
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (RatioValue != null) return Ratio(RatioValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (ratioValue != null) return Ratio(ratioValue)
             return null
           }
         }
