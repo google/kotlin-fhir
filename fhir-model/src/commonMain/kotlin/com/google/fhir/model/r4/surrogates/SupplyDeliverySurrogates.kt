@@ -40,43 +40,44 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SupplyDeliverySuppliedItemSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var quantity: Quantity? = null,
   public var itemCodeableConcept: CodeableConcept? = null,
   public var itemReference: Reference? = null,
 ) {
   public fun toModel(): SupplyDelivery.SuppliedItem =
-    SupplyDelivery.SuppliedItem().apply {
-      id = this@SupplyDeliverySuppliedItemSurrogate.id
-      extension = this@SupplyDeliverySuppliedItemSurrogate.extension
-      modifierExtension = this@SupplyDeliverySuppliedItemSurrogate.modifierExtension
-      quantity = this@SupplyDeliverySuppliedItemSurrogate.quantity
+    SupplyDelivery.SuppliedItem(
+      id = this@SupplyDeliverySuppliedItemSurrogate.id,
+      extension = this@SupplyDeliverySuppliedItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SupplyDeliverySuppliedItemSurrogate.modifierExtension ?: mutableListOf(),
+      quantity = this@SupplyDeliverySuppliedItemSurrogate.quantity,
       item =
         SupplyDelivery.SuppliedItem.Item?.from(
           this@SupplyDeliverySuppliedItemSurrogate.itemCodeableConcept,
           this@SupplyDeliverySuppliedItemSurrogate.itemReference,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: SupplyDelivery.SuppliedItem): SupplyDeliverySuppliedItemSurrogate =
       with(model) {
-        SupplyDeliverySuppliedItemSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          quantity = this@with.quantity
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value
-          itemReference = this@with.item?.asReference()?.value
-        }
+        SupplyDeliverySuppliedItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+          itemReference = this@with.item?.asReference()?.value,
+        )
       }
   }
 }
@@ -90,12 +91,12 @@ internal data class SupplyDeliverySurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var patient: Reference? = null,
@@ -107,36 +108,36 @@ internal data class SupplyDeliverySurrogate(
   public var occurrenceTiming: Timing? = null,
   public var supplier: Reference? = null,
   public var destination: Reference? = null,
-  public var `receiver`: List<Reference?>? = null,
+  public var `receiver`: MutableList<Reference>? = null,
 ) {
   public fun toModel(): SupplyDelivery =
-    SupplyDelivery().apply {
-      id = this@SupplyDeliverySurrogate.id
-      meta = this@SupplyDeliverySurrogate.meta
+    SupplyDelivery(
+      id = this@SupplyDeliverySurrogate.id,
+      meta = this@SupplyDeliverySurrogate.meta,
       implicitRules =
         Uri.of(
           this@SupplyDeliverySurrogate.implicitRules,
           this@SupplyDeliverySurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@SupplyDeliverySurrogate.language, this@SupplyDeliverySurrogate._language)
-      text = this@SupplyDeliverySurrogate.text
-      contained = this@SupplyDeliverySurrogate.contained
-      extension = this@SupplyDeliverySurrogate.extension
-      modifierExtension = this@SupplyDeliverySurrogate.modifierExtension
-      identifier = this@SupplyDeliverySurrogate.identifier
-      basedOn = this@SupplyDeliverySurrogate.basedOn
-      partOf = this@SupplyDeliverySurrogate.partOf
+        Code.of(this@SupplyDeliverySurrogate.language, this@SupplyDeliverySurrogate._language),
+      text = this@SupplyDeliverySurrogate.text,
+      contained = this@SupplyDeliverySurrogate.contained ?: mutableListOf(),
+      extension = this@SupplyDeliverySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SupplyDeliverySurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@SupplyDeliverySurrogate.identifier ?: mutableListOf(),
+      basedOn = this@SupplyDeliverySurrogate.basedOn ?: mutableListOf(),
+      partOf = this@SupplyDeliverySurrogate.partOf ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@SupplyDeliverySurrogate.status?.let {
-            com.google.fhir.model.r4.SupplyDelivery.SupplyDeliveryStatus.fromCode(it)
-          },
-          this@SupplyDeliverySurrogate._status,
-        )
-      patient = this@SupplyDeliverySurrogate.patient
-      type = this@SupplyDeliverySurrogate.type
-      suppliedItem = this@SupplyDeliverySurrogate.suppliedItem
+        this@SupplyDeliverySurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.SupplyDelivery.SupplyDeliveryStatus.fromCode(it!!),
+            this@SupplyDeliverySurrogate._status,
+          )
+        },
+      patient = this@SupplyDeliverySurrogate.patient,
+      type = this@SupplyDeliverySurrogate.type,
+      suppliedItem = this@SupplyDeliverySurrogate.suppliedItem,
       occurrence =
         SupplyDelivery.Occurrence?.from(
           DateTime.of(
@@ -145,42 +146,42 @@ internal data class SupplyDeliverySurrogate(
           ),
           this@SupplyDeliverySurrogate.occurrencePeriod,
           this@SupplyDeliverySurrogate.occurrenceTiming,
-        )
-      supplier = this@SupplyDeliverySurrogate.supplier
-      destination = this@SupplyDeliverySurrogate.destination
-      `receiver` = this@SupplyDeliverySurrogate.`receiver`
-    }
+        ),
+      supplier = this@SupplyDeliverySurrogate.supplier,
+      destination = this@SupplyDeliverySurrogate.destination,
+      `receiver` = this@SupplyDeliverySurrogate.`receiver` ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SupplyDelivery): SupplyDeliverySurrogate =
       with(model) {
-        SupplyDeliverySurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          patient = this@with.patient
-          type = this@with.type
-          suppliedItem = this@with.suppliedItem
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value
-          supplier = this@with.supplier
-          destination = this@with.destination
-          `receiver` = this@with.`receiver`
-        }
+        SupplyDeliverySurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          patient = this@with.patient,
+          type = this@with.type,
+          suppliedItem = this@with.suppliedItem,
+          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
+          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          supplier = this@with.supplier,
+          destination = this@with.destination,
+          `receiver` = this@with.`receiver`.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.RelatedArtifactSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,9 +46,9 @@ public data class RelatedArtifact(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The type of relationship to the related artifact. */
-  public var type: Enumeration<RelatedArtifactType>? = null,
+  public var type: Enumeration<RelatedArtifactType>,
   /**
    * A short label that can be used to reference the citation from elsewhere in the containing
    * artifact, such as a footnote index.

@@ -39,15 +39,15 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ResearchSubjectProgressSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var subjectState: CodeableConcept? = null,
   public var milestone: CodeableConcept? = null,
@@ -58,42 +58,43 @@ internal data class ResearchSubjectProgressSurrogate(
   public var _endDate: Element? = null,
 ) {
   public fun toModel(): ResearchSubject.Progress =
-    ResearchSubject.Progress().apply {
-      id = this@ResearchSubjectProgressSurrogate.id
-      extension = this@ResearchSubjectProgressSurrogate.extension
-      modifierExtension = this@ResearchSubjectProgressSurrogate.modifierExtension
-      type = this@ResearchSubjectProgressSurrogate.type
-      subjectState = this@ResearchSubjectProgressSurrogate.subjectState
-      milestone = this@ResearchSubjectProgressSurrogate.milestone
-      reason = this@ResearchSubjectProgressSurrogate.reason
+    ResearchSubject.Progress(
+      id = this@ResearchSubjectProgressSurrogate.id,
+      extension = this@ResearchSubjectProgressSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchSubjectProgressSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ResearchSubjectProgressSurrogate.type,
+      subjectState = this@ResearchSubjectProgressSurrogate.subjectState,
+      milestone = this@ResearchSubjectProgressSurrogate.milestone,
+      reason = this@ResearchSubjectProgressSurrogate.reason,
       startDate =
         DateTime.of(
           FhirDateTime.fromString(this@ResearchSubjectProgressSurrogate.startDate),
           this@ResearchSubjectProgressSurrogate._startDate,
-        )
+        ),
       endDate =
         DateTime.of(
           FhirDateTime.fromString(this@ResearchSubjectProgressSurrogate.endDate),
           this@ResearchSubjectProgressSurrogate._endDate,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: ResearchSubject.Progress): ResearchSubjectProgressSurrogate =
       with(model) {
-        ResearchSubjectProgressSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          subjectState = this@with.subjectState
-          milestone = this@with.milestone
-          reason = this@with.reason
-          startDate = this@with.startDate?.value?.toString()
-          _startDate = this@with.startDate?.toElement()
-          endDate = this@with.endDate?.value?.toString()
-          _endDate = this@with.endDate?.toElement()
-        }
+        ResearchSubjectProgressSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          subjectState = this@with.subjectState,
+          milestone = this@with.milestone,
+          reason = this@with.reason,
+          startDate = this@with.startDate?.value?.toString(),
+          _startDate = this@with.startDate?.toElement(),
+          endDate = this@with.endDate?.value?.toString(),
+          _endDate = this@with.endDate?.toElement(),
+        )
       }
   }
 }
@@ -107,89 +108,89 @@ internal data class ResearchSubjectSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var progress: List<ResearchSubject.Progress>? = null,
+  public var progress: MutableList<ResearchSubject.Progress>? = null,
   public var period: Period? = null,
-  public var study: Reference? = null,
-  public var subject: Reference? = null,
+  public var study: Reference,
+  public var subject: Reference,
   public var assignedComparisonGroup: String? = null,
   public var _assignedComparisonGroup: Element? = null,
   public var actualComparisonGroup: String? = null,
   public var _actualComparisonGroup: Element? = null,
-  public var consent: List<Reference?>? = null,
+  public var consent: MutableList<Reference>? = null,
 ) {
   public fun toModel(): ResearchSubject =
-    ResearchSubject().apply {
-      id = this@ResearchSubjectSurrogate.id
-      meta = this@ResearchSubjectSurrogate.meta
+    ResearchSubject(
+      id = this@ResearchSubjectSurrogate.id,
+      meta = this@ResearchSubjectSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ResearchSubjectSurrogate.implicitRules,
           this@ResearchSubjectSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@ResearchSubjectSurrogate.language, this@ResearchSubjectSurrogate._language)
-      text = this@ResearchSubjectSurrogate.text
-      contained = this@ResearchSubjectSurrogate.contained
-      extension = this@ResearchSubjectSurrogate.extension
-      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension
-      identifier = this@ResearchSubjectSurrogate.identifier
+        Code.of(this@ResearchSubjectSurrogate.language, this@ResearchSubjectSurrogate._language),
+      text = this@ResearchSubjectSurrogate.text,
+      contained = this@ResearchSubjectSurrogate.contained ?: mutableListOf(),
+      extension = this@ResearchSubjectSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ResearchSubjectSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ResearchSubjectSurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(
+            this@ResearchSubjectSurrogate.status!!
+          ),
           this@ResearchSubjectSurrogate._status,
-        )
-      progress = this@ResearchSubjectSurrogate.progress
-      period = this@ResearchSubjectSurrogate.period
-      study = this@ResearchSubjectSurrogate.study
-      subject = this@ResearchSubjectSurrogate.subject
+        ),
+      progress = this@ResearchSubjectSurrogate.progress ?: mutableListOf(),
+      period = this@ResearchSubjectSurrogate.period,
+      study = this@ResearchSubjectSurrogate.study,
+      subject = this@ResearchSubjectSurrogate.subject,
       assignedComparisonGroup =
         Id.of(
           this@ResearchSubjectSurrogate.assignedComparisonGroup,
           this@ResearchSubjectSurrogate._assignedComparisonGroup,
-        )
+        ),
       actualComparisonGroup =
         Id.of(
           this@ResearchSubjectSurrogate.actualComparisonGroup,
           this@ResearchSubjectSurrogate._actualComparisonGroup,
-        )
-      consent = this@ResearchSubjectSurrogate.consent
-    }
+        ),
+      consent = this@ResearchSubjectSurrogate.consent ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ResearchSubject): ResearchSubjectSurrogate =
       with(model) {
-        ResearchSubjectSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          progress = this@with.progress
-          period = this@with.period
-          study = this@with.study
-          subject = this@with.subject
-          assignedComparisonGroup = this@with.assignedComparisonGroup?.value
-          _assignedComparisonGroup = this@with.assignedComparisonGroup?.toElement()
-          actualComparisonGroup = this@with.actualComparisonGroup?.value
-          _actualComparisonGroup = this@with.actualComparisonGroup?.toElement()
-          consent = this@with.consent
-        }
+        ResearchSubjectSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          progress = this@with.progress.takeUnless { it.all { it == null } },
+          period = this@with.period,
+          study = this@with.study,
+          subject = this@with.subject,
+          assignedComparisonGroup = this@with.assignedComparisonGroup?.value,
+          _assignedComparisonGroup = this@with.assignedComparisonGroup?.toElement(),
+          actualComparisonGroup = this@with.actualComparisonGroup?.value,
+          _actualComparisonGroup = this@with.actualComparisonGroup?.toElement(),
+          consent = this@with.consent.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.MessageHeaderResponseSerializer
 import com.google.fhir.model.r4.serializers.MessageHeaderSerializer
 import com.google.fhir.model.r4.serializers.MessageHeaderSourceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class MessageHeader(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class MessageHeader(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class MessageHeader(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Code that identifies the event this message represents and connects it with its definition.
    * Events defined as part of the FHIR specification have the system value
@@ -141,14 +141,14 @@ public data class MessageHeader(
    * The time of the event will be found in the focus resource. The time of the message will be
    * found in [Bundle.timestamp](bundle-definitions.html#Bundle.timestamp).
    */
-  public var event: Event? = null,
+  public var event: Event,
   /**
    * The destination application which the message is intended for.
    *
    * There SHOULD be at least one destination, but in some circumstances, the source system is
    * unaware of any particular destination system.
    */
-  public var destination: List<Destination>? = null,
+  public var destination: MutableList<Destination> = mutableListOf(),
   /**
    * Identifies the sending system to allow the use of a trust relationship.
    *
@@ -173,7 +173,7 @@ public data class MessageHeader(
    */
   public var author: Reference? = null,
   /** The source application from which this message originated. */
-  public var source: Source? = null,
+  public var source: Source,
   /**
    * The person or organization that accepts overall responsibility for the contents of the message.
    * The implication is that the message event happened under the policies of the responsible party.
@@ -200,7 +200,7 @@ public data class MessageHeader(
    * Multiple repetitions are allowed to cater for merges and other situations with multiple focal
    * targets.
    */
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference> = mutableListOf(),
   /** Permanent link to the MessageDefinition for this message. */
   public var definition: Canonical? = null,
 ) : DomainResource() {
@@ -224,7 +224,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -243,7 +243,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Human-readable name for the target system. */
     public var name: String? = null,
     /**
@@ -257,7 +257,7 @@ public data class MessageHeader(
      * The id may be a non-resolvable URI for systems that do not use standard network-based
      * addresses.
      */
-    public var endpoint: Url? = null,
+    public var endpoint: Url,
     /**
      * Allows data conveyed by a message to be addressed to a particular person or department when
      * routing to a specific application isn't sufficient.
@@ -285,7 +285,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -304,7 +304,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Human-readable name for the source system. */
     public var name: String? = null,
     /** May include configuration or other information useful in debugging. */
@@ -325,7 +325,7 @@ public data class MessageHeader(
      * The id may be a non-resolvable URI for systems that do not use standard network-based
      * addresses.
      */
-    public var endpoint: Url? = null,
+    public var endpoint: Url,
   ) : BackboneElement()
 
   /**
@@ -351,7 +351,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -370,9 +370,9 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The MessageHeader.id of the message to which this message is a response. */
-    public var identifier: Id? = null,
+    public var identifier: Id,
     /**
      * Code that identifies the type of response to the message - whether it was successful or not,
      * and whether it should be resent or not.
@@ -380,7 +380,7 @@ public data class MessageHeader(
      * This is a generic response to the request message. Specific data for the response will be
      * found in MessageHeader.focus.
      */
-    public var code: Enumeration<ResponseType>? = null,
+    public var code: Enumeration<ResponseType>,
     /**
      * Full details of any issues found in the message.
      *
@@ -400,11 +400,11 @@ public data class MessageHeader(
     public data class Uri(public val `value`: com.google.fhir.model.r4.Uri) : Event
 
     public companion object {
-      public fun from(
-        CodingValue: com.google.fhir.model.r4.Coding?,
+      internal fun from(
+        codingValue: com.google.fhir.model.r4.Coding?,
         uriValue: com.google.fhir.model.r4.Uri?,
       ): Event? {
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         if (uriValue != null) return Uri(uriValue)
         return null
       }

@@ -44,53 +44,55 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var amount: Double? = null,
   public var _amount: Element? = null,
   public var base: KotlinString? = null,
   public var _base: Element? = null,
 ) {
   public fun toModel(): VisionPrescription.LensSpecification.Prism =
-    VisionPrescription.LensSpecification.Prism().apply {
-      id = this@VisionPrescriptionLensSpecificationPrismSurrogate.id
-      extension = this@VisionPrescriptionLensSpecificationPrismSurrogate.extension
-      modifierExtension = this@VisionPrescriptionLensSpecificationPrismSurrogate.modifierExtension
+    VisionPrescription.LensSpecification.Prism(
+      id = this@VisionPrescriptionLensSpecificationPrismSurrogate.id,
+      extension =
+        this@VisionPrescriptionLensSpecificationPrismSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@VisionPrescriptionLensSpecificationPrismSurrogate.modifierExtension ?: mutableListOf(),
       amount =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationPrismSurrogate.amount,
           this@VisionPrescriptionLensSpecificationPrismSurrogate._amount,
-        )
+        )!!,
       base =
         Enumeration.of(
-          this@VisionPrescriptionLensSpecificationPrismSurrogate.base?.let {
-            com.google.fhir.model.r5.VisionPrescription.VisionBase.fromCode(it)
-          },
+          com.google.fhir.model.r5.VisionPrescription.VisionBase.fromCode(
+            this@VisionPrescriptionLensSpecificationPrismSurrogate.base!!
+          ),
           this@VisionPrescriptionLensSpecificationPrismSurrogate._base,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: VisionPrescription.LensSpecification.Prism
     ): VisionPrescriptionLensSpecificationPrismSurrogate =
       with(model) {
-        VisionPrescriptionLensSpecificationPrismSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          amount = this@with.amount?.value
-          _amount = this@with.amount?.toElement()
-          base = this@with.base?.value?.getCode()
-          _base = this@with.base?.toElement()
-        }
+        VisionPrescriptionLensSpecificationPrismSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          amount = this@with.amount.value,
+          _amount = this@with.amount.toElement(),
+          base = this@with.base.value?.getCode(),
+          _base = this@with.base.toElement(),
+        )
       }
   }
 }
@@ -98,9 +100,9 @@ internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
 @Serializable
 internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var product: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var product: CodeableConcept,
   public var eye: KotlinString? = null,
   public var _eye: Element? = null,
   public var sphere: Double? = null,
@@ -109,7 +111,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var _cylinder: Element? = null,
   public var axis: Int? = null,
   public var _axis: Element? = null,
-  public var prism: List<VisionPrescription.LensSpecification.Prism>? = null,
+  public var prism: MutableList<VisionPrescription.LensSpecification.Prism>? = null,
   public var add: Double? = null,
   public var _add: Element? = null,
   public var power: Double? = null,
@@ -123,105 +125,106 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var _color: Element? = null,
   public var brand: KotlinString? = null,
   public var _brand: Element? = null,
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): VisionPrescription.LensSpecification =
-    VisionPrescription.LensSpecification().apply {
-      id = this@VisionPrescriptionLensSpecificationSurrogate.id
-      extension = this@VisionPrescriptionLensSpecificationSurrogate.extension
-      modifierExtension = this@VisionPrescriptionLensSpecificationSurrogate.modifierExtension
-      product = this@VisionPrescriptionLensSpecificationSurrogate.product
+    VisionPrescription.LensSpecification(
+      id = this@VisionPrescriptionLensSpecificationSurrogate.id,
+      extension = this@VisionPrescriptionLensSpecificationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@VisionPrescriptionLensSpecificationSurrogate.modifierExtension ?: mutableListOf(),
+      product = this@VisionPrescriptionLensSpecificationSurrogate.product,
       eye =
         Enumeration.of(
-          this@VisionPrescriptionLensSpecificationSurrogate.eye?.let {
-            com.google.fhir.model.r5.VisionPrescription.VisionEyes.fromCode(it)
-          },
+          com.google.fhir.model.r5.VisionPrescription.VisionEyes.fromCode(
+            this@VisionPrescriptionLensSpecificationSurrogate.eye!!
+          ),
           this@VisionPrescriptionLensSpecificationSurrogate._eye,
-        )
+        ),
       sphere =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.sphere,
           this@VisionPrescriptionLensSpecificationSurrogate._sphere,
-        )
+        ),
       cylinder =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.cylinder,
           this@VisionPrescriptionLensSpecificationSurrogate._cylinder,
-        )
+        ),
       axis =
         Integer.of(
           this@VisionPrescriptionLensSpecificationSurrogate.axis,
           this@VisionPrescriptionLensSpecificationSurrogate._axis,
-        )
-      prism = this@VisionPrescriptionLensSpecificationSurrogate.prism
+        ),
+      prism = this@VisionPrescriptionLensSpecificationSurrogate.prism ?: mutableListOf(),
       add =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.add,
           this@VisionPrescriptionLensSpecificationSurrogate._add,
-        )
+        ),
       power =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.power,
           this@VisionPrescriptionLensSpecificationSurrogate._power,
-        )
+        ),
       backCurve =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.backCurve,
           this@VisionPrescriptionLensSpecificationSurrogate._backCurve,
-        )
+        ),
       diameter =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.diameter,
           this@VisionPrescriptionLensSpecificationSurrogate._diameter,
-        )
-      duration = this@VisionPrescriptionLensSpecificationSurrogate.duration
+        ),
+      duration = this@VisionPrescriptionLensSpecificationSurrogate.duration,
       color =
         R5String.of(
           this@VisionPrescriptionLensSpecificationSurrogate.color,
           this@VisionPrescriptionLensSpecificationSurrogate._color,
-        )
+        ),
       brand =
         R5String.of(
           this@VisionPrescriptionLensSpecificationSurrogate.brand,
           this@VisionPrescriptionLensSpecificationSurrogate._brand,
-        )
-      note = this@VisionPrescriptionLensSpecificationSurrogate.note
-    }
+        ),
+      note = this@VisionPrescriptionLensSpecificationSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: VisionPrescription.LensSpecification
     ): VisionPrescriptionLensSpecificationSurrogate =
       with(model) {
-        VisionPrescriptionLensSpecificationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          product = this@with.product
-          eye = this@with.eye?.value?.getCode()
-          _eye = this@with.eye?.toElement()
-          sphere = this@with.sphere?.value
-          _sphere = this@with.sphere?.toElement()
-          cylinder = this@with.cylinder?.value
-          _cylinder = this@with.cylinder?.toElement()
-          axis = this@with.axis?.value
-          _axis = this@with.axis?.toElement()
-          prism = this@with.prism
-          add = this@with.add?.value
-          _add = this@with.add?.toElement()
-          power = this@with.power?.value
-          _power = this@with.power?.toElement()
-          backCurve = this@with.backCurve?.value
-          _backCurve = this@with.backCurve?.toElement()
-          diameter = this@with.diameter?.value
-          _diameter = this@with.diameter?.toElement()
-          duration = this@with.duration
-          color = this@with.color?.value
-          _color = this@with.color?.toElement()
-          brand = this@with.brand?.value
-          _brand = this@with.brand?.toElement()
-          note = this@with.note
-        }
+        VisionPrescriptionLensSpecificationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          product = this@with.product,
+          eye = this@with.eye.value?.getCode(),
+          _eye = this@with.eye.toElement(),
+          sphere = this@with.sphere?.value,
+          _sphere = this@with.sphere?.toElement(),
+          cylinder = this@with.cylinder?.value,
+          _cylinder = this@with.cylinder?.toElement(),
+          axis = this@with.axis?.value,
+          _axis = this@with.axis?.toElement(),
+          prism = this@with.prism.takeUnless { it.all { it == null } },
+          add = this@with.add?.value,
+          _add = this@with.add?.toElement(),
+          power = this@with.power?.value,
+          _power = this@with.power?.toElement(),
+          backCurve = this@with.backCurve?.value,
+          _backCurve = this@with.backCurve?.toElement(),
+          diameter = this@with.diameter?.value,
+          _diameter = this@with.diameter?.toElement(),
+          duration = this@with.duration,
+          color = this@with.color?.value,
+          _color = this@with.color?.toElement(),
+          brand = this@with.brand?.value,
+          _brand = this@with.brand?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -235,89 +238,89 @@ internal data class VisionPrescriptionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
-  public var patient: Reference? = null,
+  public var patient: Reference,
   public var encounter: Reference? = null,
   public var dateWritten: KotlinString? = null,
   public var _dateWritten: Element? = null,
-  public var prescriber: Reference? = null,
-  public var lensSpecification: List<VisionPrescription.LensSpecification>? = null,
+  public var prescriber: Reference,
+  public var lensSpecification: MutableList<VisionPrescription.LensSpecification>? = null,
 ) {
   public fun toModel(): VisionPrescription =
-    VisionPrescription().apply {
-      id = this@VisionPrescriptionSurrogate.id
-      meta = this@VisionPrescriptionSurrogate.meta
+    VisionPrescription(
+      id = this@VisionPrescriptionSurrogate.id,
+      meta = this@VisionPrescriptionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@VisionPrescriptionSurrogate.implicitRules,
           this@VisionPrescriptionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@VisionPrescriptionSurrogate.language,
           this@VisionPrescriptionSurrogate._language,
-        )
-      text = this@VisionPrescriptionSurrogate.text
-      contained = this@VisionPrescriptionSurrogate.contained
-      extension = this@VisionPrescriptionSurrogate.extension
-      modifierExtension = this@VisionPrescriptionSurrogate.modifierExtension
-      identifier = this@VisionPrescriptionSurrogate.identifier
+        ),
+      text = this@VisionPrescriptionSurrogate.text,
+      contained = this@VisionPrescriptionSurrogate.contained ?: mutableListOf(),
+      extension = this@VisionPrescriptionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@VisionPrescriptionSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@VisionPrescriptionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@VisionPrescriptionSurrogate.status?.let {
-            com.google.fhir.model.r5.VisionPrescription.VisionStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.VisionPrescription.VisionStatus.fromCode(
+            this@VisionPrescriptionSurrogate.status!!
+          ),
           this@VisionPrescriptionSurrogate._status,
-        )
+        ),
       created =
         DateTime.of(
           FhirDateTime.fromString(this@VisionPrescriptionSurrogate.created),
           this@VisionPrescriptionSurrogate._created,
-        )
-      patient = this@VisionPrescriptionSurrogate.patient
-      encounter = this@VisionPrescriptionSurrogate.encounter
+        )!!,
+      patient = this@VisionPrescriptionSurrogate.patient,
+      encounter = this@VisionPrescriptionSurrogate.encounter,
       dateWritten =
         DateTime.of(
           FhirDateTime.fromString(this@VisionPrescriptionSurrogate.dateWritten),
           this@VisionPrescriptionSurrogate._dateWritten,
-        )
-      prescriber = this@VisionPrescriptionSurrogate.prescriber
-      lensSpecification = this@VisionPrescriptionSurrogate.lensSpecification
-    }
+        )!!,
+      prescriber = this@VisionPrescriptionSurrogate.prescriber,
+      lensSpecification = this@VisionPrescriptionSurrogate.lensSpecification ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: VisionPrescription): VisionPrescriptionSurrogate =
       with(model) {
-        VisionPrescriptionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          patient = this@with.patient
-          encounter = this@with.encounter
-          dateWritten = this@with.dateWritten?.value?.toString()
-          _dateWritten = this@with.dateWritten?.toElement()
-          prescriber = this@with.prescriber
-          lensSpecification = this@with.lensSpecification
-        }
+        VisionPrescriptionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          created = this@with.created.value?.toString(),
+          _created = this@with.created.toElement(),
+          patient = this@with.patient,
+          encounter = this@with.encounter,
+          dateWritten = this@with.dateWritten.value?.toString(),
+          _dateWritten = this@with.dateWritten.toElement(),
+          prescriber = this@with.prescriber,
+          lensSpecification = this@with.lensSpecification.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

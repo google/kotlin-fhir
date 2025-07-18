@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.DataRequirementDateFilterSerializer
 import com.google.fhir.model.r4.serializers.DataRequirementSerializer
 import com.google.fhir.model.r4.serializers.DataRequirementSortSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -49,14 +49,14 @@ public data class DataRequirement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The type of the required data, specified as the type name of a resource. For profiles, this
    * value is set to the type of the base resource of the profile.
    */
-  public var type: Enumeration<FHIRAllTypes>? = null,
+  public var type: Enumeration<FHIRAllTypes>,
   /** The profile of the required data, specified as the uri of the profile definition. */
-  public var profile: List<Canonical?>? = null,
+  public var profile: MutableList<Canonical> = mutableListOf(),
   /**
    * The intended subjects of the data requirement. If this element is not provided, a Patient
    * subject is assumed.
@@ -77,19 +77,19 @@ public data class DataRequirement(
    * The path SHALL consist only of identifiers, constant indexers, and .resolve() (see the
    * [Simple FHIRPath Profile](fhirpath.html#simple) for full details).
    */
-  public var mustSupport: List<String?>? = null,
+  public var mustSupport: MutableList<String> = mutableListOf(),
   /**
    * Code filters specify additional constraints on the data, specifying the value set of interest
    * for a particular element of the data. Each code filter defines an additional constraint on the
    * data, i.e. code filters are AND'ed, not OR'ed.
    */
-  public var codeFilter: List<CodeFilter>? = null,
+  public var codeFilter: MutableList<CodeFilter> = mutableListOf(),
   /**
    * Date filters specify additional constraints on the data in terms of the applicable date range
    * for specific elements. Each date filter specifies an additional constraint on the data, i.e.
    * date filters are AND'ed, not OR'ed.
    */
-  public var dateFilter: List<DateFilter>? = null,
+  public var dateFilter: MutableList<DateFilter> = mutableListOf(),
   /**
    * Specifies a maximum number of results that are required (uses the _count search parameter).
    *
@@ -104,7 +104,7 @@ public data class DataRequirement(
    * such as "the most recent 5" or "the highest 5". When multiple sorts are specified, they are
    * applied in the order they appear in the resource.
    */
-  public var sort: List<Sort>? = null,
+  public var sort: MutableList<Sort> = mutableListOf(),
 ) : Element() {
   /**
    * Code filters specify additional constraints on the data, specifying the value set of interest
@@ -130,7 +130,7 @@ public data class DataRequirement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * The code-valued attribute of the filter. The specified path SHALL be a FHIRPath resolveable
      * on the specified type of the DataRequirement, and SHALL consist only of identifiers, constant
@@ -161,7 +161,7 @@ public data class DataRequirement(
      * the specified codes. If codes are specified in addition to a value set, the filter returns
      * items matching a code in the value set or one of the specified codes.
      */
-    public var code: List<Coding?>? = null,
+    public var code: MutableList<Coding> = mutableListOf(),
   ) : Element()
 
   /**
@@ -188,7 +188,7 @@ public data class DataRequirement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * The date-valued attribute of the filter. The specified path SHALL be a FHIRPath resolveable
      * on the specified type of the DataRequirement, and SHALL consist only of identifiers, constant
@@ -231,14 +231,14 @@ public data class DataRequirement(
       public data class Duration(public val `value`: com.google.fhir.model.r4.Duration) : Value
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
-          DurationValue: com.google.fhir.model.r4.Duration?,
+          periodValue: com.google.fhir.model.r4.Period?,
+          durationValue: com.google.fhir.model.r4.Duration?,
         ): Value? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (DurationValue != null) return Duration(DurationValue)
+          if (periodValue != null) return Period(periodValue)
+          if (durationValue != null) return Duration(durationValue)
           return null
         }
       }
@@ -265,16 +265,16 @@ public data class DataRequirement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * The attribute of the sort. The specified path must be resolvable from the type of the
      * required data. The path is allowed to contain qualifiers (.) to traverse sub-elements, as
      * well as indexers ([x]) to traverse multiple-cardinality sub-elements. Note that the index
      * must be an integer constant.
      */
-    public var path: String? = null,
+    public var path: String,
     /** The direction of the sort, ascending or descending. */
-    public var direction: Enumeration<SortDirection>? = null,
+    public var direction: Enumeration<SortDirection>,
   ) : Element()
 
   public sealed interface Subject {
@@ -289,12 +289,12 @@ public data class DataRequirement(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
       ): Subject? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }

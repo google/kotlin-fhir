@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.GraphDefinitionLinkSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionNodeSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class GraphDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class GraphDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class GraphDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this graph definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -156,7 +156,7 @@ public data class GraphDefinition(
    * A formal identifier that is used to identify this GraphDefinition when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the graph definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -186,7 +186,7 @@ public data class GraphDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the capability statement.
    *
@@ -202,7 +202,7 @@ public data class GraphDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this graph definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -246,7 +246,7 @@ public data class GraphDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the graph definition from a consumer's perspective.
    *
@@ -267,7 +267,7 @@ public data class GraphDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the graph definition is intended to be used.
    *
@@ -279,7 +279,7 @@ public data class GraphDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this graph definition is needed and why it has been designed as it has.
    *
@@ -312,9 +312,9 @@ public data class GraphDefinition(
    */
   public var start: Id? = null,
   /** Potential target for the link. */
-  public var node: List<Node>? = null,
+  public var node: MutableList<Node> = mutableListOf(),
   /** Links this graph makes rules about. */
-  public var link: List<Link>? = null,
+  public var link: MutableList<Link> = mutableListOf(),
 ) : DomainResource() {
   /** Potential target for the link. */
   @Serializable(with = GraphDefinitionNodeSerializer::class)
@@ -336,7 +336,7 @@ public data class GraphDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -355,13 +355,13 @@ public data class GraphDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Internal ID of node - target for link references. */
-    public var nodeId: Id? = null,
+    public var nodeId: Id,
     /** Information about why this node is of interest in this graph definition. */
     public var description: String? = null,
     /** Type of resource this link refers to. */
-    public var type: Enumeration<FHIRTypes>? = null,
+    public var type: Enumeration<FHIRTypes>,
     /** Profile for the target resource. */
     public var profile: Canonical? = null,
   ) : BackboneElement()
@@ -386,7 +386,7 @@ public data class GraphDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -405,7 +405,7 @@ public data class GraphDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Information about why this link is of interest in this graph definition. */
     public var description: String? = null,
     /** Minimum occurrences for this link. */
@@ -413,7 +413,7 @@ public data class GraphDefinition(
     /** Maximum occurrences for this link. */
     public var max: String? = null,
     /** The source node for this link. */
-    public var sourceId: Id? = null,
+    public var sourceId: Id,
     /**
      * A FHIRPath expression that identifies one of FHIR References to other resources.
      *
@@ -425,7 +425,7 @@ public data class GraphDefinition(
     /** Which slice (if profiled). */
     public var sliceName: String? = null,
     /** The target node for this link. */
-    public var targetId: Id? = null,
+    public var targetId: Id,
     /**
      * A set of parameters to look up.
      *
@@ -433,7 +433,7 @@ public data class GraphDefinition(
      */
     public var params: String? = null,
     /** Compartment Consistency Rules. */
-    public var compartment: List<Compartment>? = null,
+    public var compartment: MutableList<Compartment> = mutableListOf(),
   ) : BackboneElement() {
     /** Compartment Consistency Rules. */
     @Serializable(with = GraphDefinitionLinkCompartmentSerializer::class)
@@ -455,7 +455,7 @@ public data class GraphDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -474,18 +474,18 @@ public data class GraphDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Defines how the compartment rule is used - whether it it is used to test whether resources
        * are subject to the rule, or whether it is a rule that must be followed.
        *
        * All conditional rules are evaluated; if they are true, then the rules are evaluated.
        */
-      public var use: Enumeration<GraphCompartmentUse>? = null,
+      public var use: Enumeration<GraphCompartmentUse>,
       /** identical | matching | different | no-rule | custom. */
-      public var rule: Enumeration<GraphCompartmentRule>? = null,
+      public var rule: Enumeration<GraphCompartmentRule>,
       /** Identifies the compartment. */
-      public var code: Enumeration<CompartmentCode>? = null,
+      public var code: Enumeration<CompartmentCode>,
       /** Custom rule, as a FHIRPath expression. */
       public var expression: String? = null,
       /** Documentation for FHIRPath expression. */
@@ -505,12 +505,12 @@ public data class GraphDefinition(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.AddressSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class Address(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The purpose of this address.
    *
@@ -80,7 +80,7 @@ public data class Address(
    * This component contains the house number, apartment number, street name, street direction, P.O.
    * Box number, delivery hints, and similar address information.
    */
-  public var line: List<String?>? = null,
+  public var line: MutableList<String> = mutableListOf(),
   /** The name of the city, town, suburb, village or other community or delivery center. */
   public var city: String? = null,
   /**

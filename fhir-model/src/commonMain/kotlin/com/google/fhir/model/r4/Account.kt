@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.AccountCoverageSerializer
 import com.google.fhir.model.r4.serializers.AccountGuarantorSerializer
 import com.google.fhir.model.r4.serializers.AccountSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Account(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Account(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,19 +128,19 @@ public data class Account(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique identifier used to reference the account. Might or might not be intended for human use
    * (e.g. credit card number).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates whether the account is presently used/usable or not.
    *
    * This element is labeled as a modifier because the status contains the codes inactive and
    * entered-in-error that mark the Account as not currently valid.
    */
-  public var status: Enumeration<AccountStatus>? = null,
+  public var status: Enumeration<AccountStatus>,
   /** Categorizes the account for reporting and searching purposes. */
   public var type: CodeableConcept? = null,
   /** Name used for the account when displaying it to humans in reports, etc. */
@@ -154,7 +154,7 @@ public data class Account(
    * as group services (patients not tracked, and costs charged to another body), or might not be
    * allocated.
    */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /**
    * The date range of services associated with this account.
    *
@@ -172,7 +172,7 @@ public data class Account(
    * billable items charged to the account, and in which order. Where the order is important, a
    * local/jurisdictional extension may be defined to specify the order for the type of charge.
    */
-  public var coverage: List<Coverage>? = null,
+  public var coverage: MutableList<Coverage> = mutableListOf(),
   /**
    * Indicates the service area, hospital, department, etc. with responsibility for managing the
    * Account.
@@ -181,7 +181,7 @@ public data class Account(
   /** Provides additional information about what the account tracks and how it is used. */
   public var description: String? = null,
   /** The parties responsible for balancing the account if other payment options fall short. */
-  public var guarantor: List<Guarantor>? = null,
+  public var guarantor: MutableList<Guarantor> = mutableListOf(),
   /** Reference to a parent Account. */
   public var partOf: Reference? = null,
 ) : DomainResource() {
@@ -208,7 +208,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -227,7 +227,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The party(s) that contribute to payment (or part of) of the charges applied to this account
      * (including self-pay).
@@ -235,7 +235,7 @@ public data class Account(
      * A coverage may only be responsible for specific types of charges, and the sequence of the
      * coverages in the account could be important when processing billing.
      */
-    public var coverage: Reference? = null,
+    public var coverage: Reference,
     /**
      * The priority of the coverage in the context of this account.
      *
@@ -266,7 +266,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -285,9 +285,9 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The entity who is responsible. */
-    public var party: Reference? = null,
+    public var party: Reference,
     /**
      * A guarantor may be placed on credit hold or otherwise have their role temporarily suspended.
      */

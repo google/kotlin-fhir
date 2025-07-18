@@ -84,7 +84,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -92,8 +92,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class StructureMapStructureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var mode: KotlinString? = null,
@@ -104,50 +104,50 @@ internal data class StructureMapStructureSurrogate(
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): StructureMap.Structure =
-    StructureMap.Structure().apply {
-      id = this@StructureMapStructureSurrogate.id
-      extension = this@StructureMapStructureSurrogate.extension
-      modifierExtension = this@StructureMapStructureSurrogate.modifierExtension
+    StructureMap.Structure(
+      id = this@StructureMapStructureSurrogate.id,
+      extension = this@StructureMapStructureSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@StructureMapStructureSurrogate.modifierExtension ?: mutableListOf(),
       url =
         Canonical.of(
           this@StructureMapStructureSurrogate.url,
           this@StructureMapStructureSurrogate._url,
-        )
+        )!!,
       mode =
         Enumeration.of(
-          this@StructureMapStructureSurrogate.mode?.let {
-            com.google.fhir.model.r4b.StructureMap.StructureMapModelMode.fromCode(it)
-          },
+          com.google.fhir.model.r4b.StructureMap.StructureMapModelMode.fromCode(
+            this@StructureMapStructureSurrogate.mode!!
+          ),
           this@StructureMapStructureSurrogate._mode,
-        )
+        ),
       alias =
         R4bString.of(
           this@StructureMapStructureSurrogate.alias,
           this@StructureMapStructureSurrogate._alias,
-        )
+        ),
       documentation =
         R4bString.of(
           this@StructureMapStructureSurrogate.documentation,
           this@StructureMapStructureSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: StructureMap.Structure): StructureMapStructureSurrogate =
       with(model) {
-        StructureMapStructureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          alias = this@with.alias?.value
-          _alias = this@with.alias?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        StructureMapStructureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url.value,
+          _url = this@with.url.toElement(),
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          alias = this@with.alias?.value,
+          _alias = this@with.alias?.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -155,8 +155,8 @@ internal data class StructureMapStructureSurrogate(
 @Serializable
 internal data class StructureMapGroupInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var type: KotlinString? = null,
@@ -167,47 +167,50 @@ internal data class StructureMapGroupInputSurrogate(
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): StructureMap.Group.Input =
-    StructureMap.Group.Input().apply {
-      id = this@StructureMapGroupInputSurrogate.id
-      extension = this@StructureMapGroupInputSurrogate.extension
-      modifierExtension = this@StructureMapGroupInputSurrogate.modifierExtension
+    StructureMap.Group.Input(
+      id = this@StructureMapGroupInputSurrogate.id,
+      extension = this@StructureMapGroupInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@StructureMapGroupInputSurrogate.modifierExtension ?: mutableListOf(),
       name =
-        Id.of(this@StructureMapGroupInputSurrogate.name, this@StructureMapGroupInputSurrogate._name)
+        Id.of(
+          this@StructureMapGroupInputSurrogate.name,
+          this@StructureMapGroupInputSurrogate._name,
+        )!!,
       type =
         R4bString.of(
           this@StructureMapGroupInputSurrogate.type,
           this@StructureMapGroupInputSurrogate._type,
-        )
+        ),
       mode =
         Enumeration.of(
-          this@StructureMapGroupInputSurrogate.mode?.let {
-            com.google.fhir.model.r4b.StructureMap.StructureMapInputMode.fromCode(it)
-          },
+          com.google.fhir.model.r4b.StructureMap.StructureMapInputMode.fromCode(
+            this@StructureMapGroupInputSurrogate.mode!!
+          ),
           this@StructureMapGroupInputSurrogate._mode,
-        )
+        ),
       documentation =
         R4bString.of(
           this@StructureMapGroupInputSurrogate.documentation,
           this@StructureMapGroupInputSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: StructureMap.Group.Input): StructureMapGroupInputSurrogate =
       with(model) {
-        StructureMapGroupInputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          type = this@with.type?.value
-          _type = this@with.type?.toElement()
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        StructureMapGroupInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          type = this@with.type?.value,
+          _type = this@with.type?.toElement(),
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -215,8 +218,8 @@ internal data class StructureMapGroupInputSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleSourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var context: KotlinString? = null,
   public var _context: Element? = null,
   public var min: Int? = null,
@@ -308,30 +311,31 @@ internal data class StructureMapGroupRuleSourceSurrogate(
   public var _logMessage: Element? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Source =
-    StructureMap.Group.Rule.Source().apply {
-      id = this@StructureMapGroupRuleSourceSurrogate.id
-      extension = this@StructureMapGroupRuleSourceSurrogate.extension
-      modifierExtension = this@StructureMapGroupRuleSourceSurrogate.modifierExtension
+    StructureMap.Group.Rule.Source(
+      id = this@StructureMapGroupRuleSourceSurrogate.id,
+      extension = this@StructureMapGroupRuleSourceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@StructureMapGroupRuleSourceSurrogate.modifierExtension ?: mutableListOf(),
       context =
         Id.of(
           this@StructureMapGroupRuleSourceSurrogate.context,
           this@StructureMapGroupRuleSourceSurrogate._context,
-        )
+        )!!,
       min =
         Integer.of(
           this@StructureMapGroupRuleSourceSurrogate.min,
           this@StructureMapGroupRuleSourceSurrogate._min,
-        )
+        ),
       max =
         R4bString.of(
           this@StructureMapGroupRuleSourceSurrogate.max,
           this@StructureMapGroupRuleSourceSurrogate._max,
-        )
+        ),
       type =
         R4bString.of(
           this@StructureMapGroupRuleSourceSurrogate.type,
           this@StructureMapGroupRuleSourceSurrogate._type,
-        )
+        ),
       defaultValue =
         StructureMap.Group.Rule.Source.DefaultValue?.from(
           Base64Binary.of(
@@ -441,140 +445,140 @@ internal data class StructureMapGroupRuleSourceSurrogate(
           this@StructureMapGroupRuleSourceSurrogate.defaultValueUsageContext,
           this@StructureMapGroupRuleSourceSurrogate.defaultValueDosage,
           this@StructureMapGroupRuleSourceSurrogate.defaultValueMeta,
-        )
+        ),
       element =
         R4bString.of(
           this@StructureMapGroupRuleSourceSurrogate.element,
           this@StructureMapGroupRuleSourceSurrogate._element,
-        )
+        ),
       listMode =
-        Enumeration.of(
-          this@StructureMapGroupRuleSourceSurrogate.listMode?.let {
-            com.google.fhir.model.r4b.StructureMap.StructureMapSourceListMode.fromCode(it)
-          },
-          this@StructureMapGroupRuleSourceSurrogate._listMode,
-        )
+        this@StructureMapGroupRuleSourceSurrogate.listMode?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.StructureMap.StructureMapSourceListMode.fromCode(it!!),
+            this@StructureMapGroupRuleSourceSurrogate._listMode,
+          )
+        },
       variable =
         Id.of(
           this@StructureMapGroupRuleSourceSurrogate.variable,
           this@StructureMapGroupRuleSourceSurrogate._variable,
-        )
+        ),
       condition =
         R4bString.of(
           this@StructureMapGroupRuleSourceSurrogate.condition,
           this@StructureMapGroupRuleSourceSurrogate._condition,
-        )
+        ),
       check =
         R4bString.of(
           this@StructureMapGroupRuleSourceSurrogate.check,
           this@StructureMapGroupRuleSourceSurrogate._check,
-        )
+        ),
       logMessage =
         R4bString.of(
           this@StructureMapGroupRuleSourceSurrogate.logMessage,
           this@StructureMapGroupRuleSourceSurrogate._logMessage,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: StructureMap.Group.Rule.Source
     ): StructureMapGroupRuleSourceSurrogate =
       with(model) {
-        StructureMapGroupRuleSourceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          context = this@with.context?.value
-          _context = this@with.context?.toElement()
-          min = this@with.min?.value
-          _min = this@with.min?.toElement()
-          max = this@with.max?.value
-          _max = this@with.max?.toElement()
-          type = this@with.type?.value
-          _type = this@with.type?.toElement()
-          defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.value
-          _defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.toElement()
-          defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.value
-          _defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.toElement()
-          defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.value
-          _defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.toElement()
-          defaultValueCode = this@with.defaultValue?.asCode()?.value?.value
-          _defaultValueCode = this@with.defaultValue?.asCode()?.value?.toElement()
-          defaultValueDate = this@with.defaultValue?.asDate()?.value?.value?.toString()
-          _defaultValueDate = this@with.defaultValue?.asDate()?.value?.toElement()
-          defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.value?.toString()
-          _defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.toElement()
-          defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.value
-          _defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.toElement()
-          defaultValueId = this@with.defaultValue?.asId()?.value?.value
-          _defaultValueId = this@with.defaultValue?.asId()?.value?.toElement()
-          defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.value?.toString()
-          _defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.toElement()
-          defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.value
-          _defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.toElement()
-          defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.value
-          _defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.toElement()
-          defaultValueOid = this@with.defaultValue?.asOid()?.value?.value
-          _defaultValueOid = this@with.defaultValue?.asOid()?.value?.toElement()
-          defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.value
-          _defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.toElement()
-          defaultValueString = this@with.defaultValue?.asString()?.value?.value
-          _defaultValueString = this@with.defaultValue?.asString()?.value?.toElement()
-          defaultValueTime = this@with.defaultValue?.asTime()?.value?.value
-          _defaultValueTime = this@with.defaultValue?.asTime()?.value?.toElement()
-          defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.value
-          _defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.toElement()
-          defaultValueUri = this@with.defaultValue?.asUri()?.value?.value
-          _defaultValueUri = this@with.defaultValue?.asUri()?.value?.toElement()
-          defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.value
-          _defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.toElement()
-          defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.value
-          _defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.toElement()
-          defaultValueAddress = this@with.defaultValue?.asAddress()?.value
-          defaultValueAge = this@with.defaultValue?.asAge()?.value
-          defaultValueAnnotation = this@with.defaultValue?.asAnnotation()?.value
-          defaultValueAttachment = this@with.defaultValue?.asAttachment()?.value
-          defaultValueCodeableConcept = this@with.defaultValue?.asCodeableConcept()?.value
-          defaultValueCoding = this@with.defaultValue?.asCoding()?.value
-          defaultValueContactPoint = this@with.defaultValue?.asContactPoint()?.value
-          defaultValueCount = this@with.defaultValue?.asCount()?.value
-          defaultValueDistance = this@with.defaultValue?.asDistance()?.value
-          defaultValueDuration = this@with.defaultValue?.asDuration()?.value
-          defaultValueHumanName = this@with.defaultValue?.asHumanName()?.value
-          defaultValueIdentifier = this@with.defaultValue?.asIdentifier()?.value
-          defaultValueMoney = this@with.defaultValue?.asMoney()?.value
-          defaultValuePeriod = this@with.defaultValue?.asPeriod()?.value
-          defaultValueQuantity = this@with.defaultValue?.asQuantity()?.value
-          defaultValueRange = this@with.defaultValue?.asRange()?.value
-          defaultValueRatio = this@with.defaultValue?.asRatio()?.value
-          defaultValueReference = this@with.defaultValue?.asReference()?.value
-          defaultValueSampledData = this@with.defaultValue?.asSampledData()?.value
-          defaultValueSignature = this@with.defaultValue?.asSignature()?.value
-          defaultValueTiming = this@with.defaultValue?.asTiming()?.value
-          defaultValueContactDetail = this@with.defaultValue?.asContactDetail()?.value
-          defaultValueContributor = this@with.defaultValue?.asContributor()?.value
-          defaultValueDataRequirement = this@with.defaultValue?.asDataRequirement()?.value
-          defaultValueExpression = this@with.defaultValue?.asExpression()?.value
-          defaultValueParameterDefinition = this@with.defaultValue?.asParameterDefinition()?.value
-          defaultValueRelatedArtifact = this@with.defaultValue?.asRelatedArtifact()?.value
-          defaultValueTriggerDefinition = this@with.defaultValue?.asTriggerDefinition()?.value
-          defaultValueUsageContext = this@with.defaultValue?.asUsageContext()?.value
-          defaultValueDosage = this@with.defaultValue?.asDosage()?.value
-          defaultValueMeta = this@with.defaultValue?.asMeta()?.value
-          element = this@with.element?.value
-          _element = this@with.element?.toElement()
-          listMode = this@with.listMode?.value?.getCode()
-          _listMode = this@with.listMode?.toElement()
-          variable = this@with.variable?.value
-          _variable = this@with.variable?.toElement()
-          condition = this@with.condition?.value
-          _condition = this@with.condition?.toElement()
-          check = this@with.check?.value
-          _check = this@with.check?.toElement()
-          logMessage = this@with.logMessage?.value
-          _logMessage = this@with.logMessage?.toElement()
-        }
+        StructureMapGroupRuleSourceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          context = this@with.context.value,
+          _context = this@with.context.toElement(),
+          min = this@with.min?.value,
+          _min = this@with.min?.toElement(),
+          max = this@with.max?.value,
+          _max = this@with.max?.toElement(),
+          type = this@with.type?.value,
+          _type = this@with.type?.toElement(),
+          defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.value,
+          _defaultValueBase64Binary = this@with.defaultValue?.asBase64Binary()?.value?.toElement(),
+          defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.value,
+          _defaultValueBoolean = this@with.defaultValue?.asBoolean()?.value?.toElement(),
+          defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.value,
+          _defaultValueCanonical = this@with.defaultValue?.asCanonical()?.value?.toElement(),
+          defaultValueCode = this@with.defaultValue?.asCode()?.value?.value,
+          _defaultValueCode = this@with.defaultValue?.asCode()?.value?.toElement(),
+          defaultValueDate = this@with.defaultValue?.asDate()?.value?.value?.toString(),
+          _defaultValueDate = this@with.defaultValue?.asDate()?.value?.toElement(),
+          defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.value?.toString(),
+          _defaultValueDateTime = this@with.defaultValue?.asDateTime()?.value?.toElement(),
+          defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.value,
+          _defaultValueDecimal = this@with.defaultValue?.asDecimal()?.value?.toElement(),
+          defaultValueId = this@with.defaultValue?.asId()?.value?.value,
+          _defaultValueId = this@with.defaultValue?.asId()?.value?.toElement(),
+          defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.value?.toString(),
+          _defaultValueInstant = this@with.defaultValue?.asInstant()?.value?.toElement(),
+          defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.value,
+          _defaultValueInteger = this@with.defaultValue?.asInteger()?.value?.toElement(),
+          defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.value,
+          _defaultValueMarkdown = this@with.defaultValue?.asMarkdown()?.value?.toElement(),
+          defaultValueOid = this@with.defaultValue?.asOid()?.value?.value,
+          _defaultValueOid = this@with.defaultValue?.asOid()?.value?.toElement(),
+          defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.value,
+          _defaultValuePositiveInt = this@with.defaultValue?.asPositiveInt()?.value?.toElement(),
+          defaultValueString = this@with.defaultValue?.asString()?.value?.value,
+          _defaultValueString = this@with.defaultValue?.asString()?.value?.toElement(),
+          defaultValueTime = this@with.defaultValue?.asTime()?.value?.value,
+          _defaultValueTime = this@with.defaultValue?.asTime()?.value?.toElement(),
+          defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.value,
+          _defaultValueUnsignedInt = this@with.defaultValue?.asUnsignedInt()?.value?.toElement(),
+          defaultValueUri = this@with.defaultValue?.asUri()?.value?.value,
+          _defaultValueUri = this@with.defaultValue?.asUri()?.value?.toElement(),
+          defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.value,
+          _defaultValueUrl = this@with.defaultValue?.asUrl()?.value?.toElement(),
+          defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.value,
+          _defaultValueUuid = this@with.defaultValue?.asUuid()?.value?.toElement(),
+          defaultValueAddress = this@with.defaultValue?.asAddress()?.value,
+          defaultValueAge = this@with.defaultValue?.asAge()?.value,
+          defaultValueAnnotation = this@with.defaultValue?.asAnnotation()?.value,
+          defaultValueAttachment = this@with.defaultValue?.asAttachment()?.value,
+          defaultValueCodeableConcept = this@with.defaultValue?.asCodeableConcept()?.value,
+          defaultValueCoding = this@with.defaultValue?.asCoding()?.value,
+          defaultValueContactPoint = this@with.defaultValue?.asContactPoint()?.value,
+          defaultValueCount = this@with.defaultValue?.asCount()?.value,
+          defaultValueDistance = this@with.defaultValue?.asDistance()?.value,
+          defaultValueDuration = this@with.defaultValue?.asDuration()?.value,
+          defaultValueHumanName = this@with.defaultValue?.asHumanName()?.value,
+          defaultValueIdentifier = this@with.defaultValue?.asIdentifier()?.value,
+          defaultValueMoney = this@with.defaultValue?.asMoney()?.value,
+          defaultValuePeriod = this@with.defaultValue?.asPeriod()?.value,
+          defaultValueQuantity = this@with.defaultValue?.asQuantity()?.value,
+          defaultValueRange = this@with.defaultValue?.asRange()?.value,
+          defaultValueRatio = this@with.defaultValue?.asRatio()?.value,
+          defaultValueReference = this@with.defaultValue?.asReference()?.value,
+          defaultValueSampledData = this@with.defaultValue?.asSampledData()?.value,
+          defaultValueSignature = this@with.defaultValue?.asSignature()?.value,
+          defaultValueTiming = this@with.defaultValue?.asTiming()?.value,
+          defaultValueContactDetail = this@with.defaultValue?.asContactDetail()?.value,
+          defaultValueContributor = this@with.defaultValue?.asContributor()?.value,
+          defaultValueDataRequirement = this@with.defaultValue?.asDataRequirement()?.value,
+          defaultValueExpression = this@with.defaultValue?.asExpression()?.value,
+          defaultValueParameterDefinition = this@with.defaultValue?.asParameterDefinition()?.value,
+          defaultValueRelatedArtifact = this@with.defaultValue?.asRelatedArtifact()?.value,
+          defaultValueTriggerDefinition = this@with.defaultValue?.asTriggerDefinition()?.value,
+          defaultValueUsageContext = this@with.defaultValue?.asUsageContext()?.value,
+          defaultValueDosage = this@with.defaultValue?.asDosage()?.value,
+          defaultValueMeta = this@with.defaultValue?.asMeta()?.value,
+          element = this@with.element?.value,
+          _element = this@with.element?.toElement(),
+          listMode = this@with.listMode?.value?.getCode(),
+          _listMode = this@with.listMode?.toElement(),
+          variable = this@with.variable?.value,
+          _variable = this@with.variable?.toElement(),
+          condition = this@with.condition?.value,
+          _condition = this@with.condition?.toElement(),
+          check = this@with.check?.value,
+          _check = this@with.check?.toElement(),
+          logMessage = this@with.logMessage?.value,
+          _logMessage = this@with.logMessage?.toElement(),
+        )
       }
   }
 }
@@ -582,8 +586,8 @@ internal data class StructureMapGroupRuleSourceSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleTargetParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var valueId: KotlinString? = null,
   public var _valueId: Element? = null,
   public var valueString: KotlinString? = null,
@@ -596,12 +600,13 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
   public var _valueDecimal: Element? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Target.Parameter =
-    StructureMap.Group.Rule.Target.Parameter().apply {
-      id = this@StructureMapGroupRuleTargetParameterSurrogate.id
-      extension = this@StructureMapGroupRuleTargetParameterSurrogate.extension
-      modifierExtension = this@StructureMapGroupRuleTargetParameterSurrogate.modifierExtension
+    StructureMap.Group.Rule.Target.Parameter(
+      id = this@StructureMapGroupRuleTargetParameterSurrogate.id,
+      extension = this@StructureMapGroupRuleTargetParameterSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@StructureMapGroupRuleTargetParameterSurrogate.modifierExtension ?: mutableListOf(),
       `value` =
-        StructureMap.Group.Rule.Target.Parameter.Value?.from(
+        StructureMap.Group.Rule.Target.Parameter.Value.from(
           Id.of(
             this@StructureMapGroupRuleTargetParameterSurrogate.valueId,
             this@StructureMapGroupRuleTargetParameterSurrogate._valueId,
@@ -622,29 +627,29 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
             this@StructureMapGroupRuleTargetParameterSurrogate.valueDecimal,
             this@StructureMapGroupRuleTargetParameterSurrogate._valueDecimal,
           ),
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: StructureMap.Group.Rule.Target.Parameter
     ): StructureMapGroupRuleTargetParameterSurrogate =
       with(model) {
-        StructureMapGroupRuleTargetParameterSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-        }
+        StructureMapGroupRuleTargetParameterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+        )
       }
   }
 }
@@ -652,8 +657,8 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var context: KotlinString? = null,
   public var _context: Element? = null,
   public var contextType: KotlinString? = null,
@@ -662,47 +667,48 @@ internal data class StructureMapGroupRuleTargetSurrogate(
   public var _element: Element? = null,
   public var variable: KotlinString? = null,
   public var _variable: Element? = null,
-  public var listMode: List<KotlinString?>? = null,
-  public var _listMode: List<Element?>? = null,
+  public var listMode: MutableList<KotlinString?>? = null,
+  public var _listMode: MutableList<Element?>? = null,
   public var listRuleId: KotlinString? = null,
   public var _listRuleId: Element? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
-  public var parameter: List<StructureMap.Group.Rule.Target.Parameter>? = null,
+  public var parameter: MutableList<StructureMap.Group.Rule.Target.Parameter>? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Target =
-    StructureMap.Group.Rule.Target().apply {
-      id = this@StructureMapGroupRuleTargetSurrogate.id
-      extension = this@StructureMapGroupRuleTargetSurrogate.extension
-      modifierExtension = this@StructureMapGroupRuleTargetSurrogate.modifierExtension
+    StructureMap.Group.Rule.Target(
+      id = this@StructureMapGroupRuleTargetSurrogate.id,
+      extension = this@StructureMapGroupRuleTargetSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@StructureMapGroupRuleTargetSurrogate.modifierExtension ?: mutableListOf(),
       context =
         Id.of(
           this@StructureMapGroupRuleTargetSurrogate.context,
           this@StructureMapGroupRuleTargetSurrogate._context,
-        )
+        ),
       contextType =
-        Enumeration.of(
-          this@StructureMapGroupRuleTargetSurrogate.contextType?.let {
-            com.google.fhir.model.r4b.StructureMap.StructureMapContextType.fromCode(it)
-          },
-          this@StructureMapGroupRuleTargetSurrogate._contextType,
-        )
+        this@StructureMapGroupRuleTargetSurrogate.contextType?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.StructureMap.StructureMapContextType.fromCode(it!!),
+            this@StructureMapGroupRuleTargetSurrogate._contextType,
+          )
+        },
       element =
         R4bString.of(
           this@StructureMapGroupRuleTargetSurrogate.element,
           this@StructureMapGroupRuleTargetSurrogate._element,
-        )
+        ),
       variable =
         Id.of(
           this@StructureMapGroupRuleTargetSurrogate.variable,
           this@StructureMapGroupRuleTargetSurrogate._variable,
-        )
+        ),
       listMode =
         if (
           this@StructureMapGroupRuleTargetSurrogate.listMode == null &&
             this@StructureMapGroupRuleTargetSurrogate._listMode == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@StructureMapGroupRuleTargetSurrogate.listMode
               ?: List(this@StructureMapGroupRuleTargetSurrogate._listMode!!.size) { null })
@@ -710,57 +716,65 @@ internal data class StructureMapGroupRuleTargetSurrogate(
               this@StructureMapGroupRuleTargetSurrogate._listMode
                 ?: List(this@StructureMapGroupRuleTargetSurrogate.listMode!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
-                  com.google.fhir.model.r4b.StructureMap.StructureMapTargetListMode.fromCode(it)
+                value.let {
+                  com.google.fhir.model.r4b.StructureMap.StructureMapTargetListMode.fromCode(it!!)!!
                 },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       listRuleId =
         Id.of(
           this@StructureMapGroupRuleTargetSurrogate.listRuleId,
           this@StructureMapGroupRuleTargetSurrogate._listRuleId,
-        )
+        ),
       transform =
-        Enumeration.of(
-          this@StructureMapGroupRuleTargetSurrogate.transform?.let {
-            com.google.fhir.model.r4b.StructureMap.StructureMapTransform.fromCode(it)
-          },
-          this@StructureMapGroupRuleTargetSurrogate._transform,
-        )
-      parameter = this@StructureMapGroupRuleTargetSurrogate.parameter
-    }
+        this@StructureMapGroupRuleTargetSurrogate.transform?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.StructureMap.StructureMapTransform.fromCode(it!!),
+            this@StructureMapGroupRuleTargetSurrogate._transform,
+          )
+        },
+      parameter = this@StructureMapGroupRuleTargetSurrogate.parameter ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: StructureMap.Group.Rule.Target
     ): StructureMapGroupRuleTargetSurrogate =
       with(model) {
-        StructureMapGroupRuleTargetSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          context = this@with.context?.value
-          _context = this@with.context?.toElement()
-          contextType = this@with.contextType?.value?.getCode()
-          _contextType = this@with.contextType?.toElement()
-          element = this@with.element?.value
-          _element = this@with.element?.toElement()
-          variable = this@with.variable?.value
-          _variable = this@with.variable?.toElement()
+        StructureMapGroupRuleTargetSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          context = this@with.context?.value,
+          _context = this@with.context?.toElement(),
+          contextType = this@with.contextType?.value?.getCode(),
+          _contextType = this@with.contextType?.toElement(),
+          element = this@with.element?.value,
+          _element = this@with.element?.toElement(),
+          variable = this@with.variable?.value,
+          _variable = this@with.variable?.toElement(),
           listMode =
-            this@with.listMode?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
+            this@with.listMode
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _listMode =
-            this@with.listMode?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          listRuleId = this@with.listRuleId?.value
-          _listRuleId = this@with.listRuleId?.toElement()
-          transform = this@with.transform?.value?.getCode()
-          _transform = this@with.transform?.toElement()
-          parameter = this@with.parameter
-        }
+            this@with.listMode
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          listRuleId = this@with.listRuleId?.value,
+          _listRuleId = this@with.listRuleId?.toElement(),
+          transform = this@with.transform?.value?.getCode(),
+          _transform = this@with.transform?.toElement(),
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -768,29 +782,30 @@ internal data class StructureMapGroupRuleTargetSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleDependentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var variable: List<KotlinString?>? = null,
-  public var _variable: List<Element?>? = null,
+  public var variable: MutableList<KotlinString?>? = null,
+  public var _variable: MutableList<Element?>? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Dependent =
-    StructureMap.Group.Rule.Dependent().apply {
-      id = this@StructureMapGroupRuleDependentSurrogate.id
-      extension = this@StructureMapGroupRuleDependentSurrogate.extension
-      modifierExtension = this@StructureMapGroupRuleDependentSurrogate.modifierExtension
+    StructureMap.Group.Rule.Dependent(
+      id = this@StructureMapGroupRuleDependentSurrogate.id,
+      extension = this@StructureMapGroupRuleDependentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@StructureMapGroupRuleDependentSurrogate.modifierExtension ?: mutableListOf(),
       name =
         Id.of(
           this@StructureMapGroupRuleDependentSurrogate.name,
           this@StructureMapGroupRuleDependentSurrogate._name,
-        )
+        )!!,
       variable =
         if (
           this@StructureMapGroupRuleDependentSurrogate.variable == null &&
             this@StructureMapGroupRuleDependentSurrogate._variable == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@StructureMapGroupRuleDependentSurrogate.variable
               ?: List(this@StructureMapGroupRuleDependentSurrogate._variable!!.size) { null })
@@ -798,25 +813,34 @@ internal data class StructureMapGroupRuleDependentSurrogate(
               this@StructureMapGroupRuleDependentSurrogate._variable
                 ?: List(this@StructureMapGroupRuleDependentSurrogate.variable!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4bString.of(value, element) }
-        }
-    }
+            .map { (value, element) -> R4bString.of(value, element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(
       model: StructureMap.Group.Rule.Dependent
     ): StructureMapGroupRuleDependentSurrogate =
       with(model) {
-        StructureMapGroupRuleDependentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          variable = this@with.variable?.map { it?.value }?.takeUnless { it.all { it == null } }
+        StructureMapGroupRuleDependentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          variable =
+            this@with.variable
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _variable =
-            this@with.variable?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.variable
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }
@@ -824,51 +848,54 @@ internal data class StructureMapGroupRuleDependentSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var source: List<StructureMap.Group.Rule.Source>? = null,
-  public var target: List<StructureMap.Group.Rule.Target>? = null,
-  public var rule: List<StructureMap.Group.Rule?>? = null,
-  public var dependent: List<StructureMap.Group.Rule.Dependent>? = null,
+  public var source: MutableList<StructureMap.Group.Rule.Source>? = null,
+  public var target: MutableList<StructureMap.Group.Rule.Target>? = null,
+  public var rule: MutableList<StructureMap.Group.Rule>? = null,
+  public var dependent: MutableList<StructureMap.Group.Rule.Dependent>? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule =
-    StructureMap.Group.Rule().apply {
-      id = this@StructureMapGroupRuleSurrogate.id
-      extension = this@StructureMapGroupRuleSurrogate.extension
-      modifierExtension = this@StructureMapGroupRuleSurrogate.modifierExtension
+    StructureMap.Group.Rule(
+      id = this@StructureMapGroupRuleSurrogate.id,
+      extension = this@StructureMapGroupRuleSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@StructureMapGroupRuleSurrogate.modifierExtension ?: mutableListOf(),
       name =
-        Id.of(this@StructureMapGroupRuleSurrogate.name, this@StructureMapGroupRuleSurrogate._name)
-      source = this@StructureMapGroupRuleSurrogate.source
-      target = this@StructureMapGroupRuleSurrogate.target
-      rule = this@StructureMapGroupRuleSurrogate.rule
-      dependent = this@StructureMapGroupRuleSurrogate.dependent
+        Id.of(
+          this@StructureMapGroupRuleSurrogate.name,
+          this@StructureMapGroupRuleSurrogate._name,
+        )!!,
+      source = this@StructureMapGroupRuleSurrogate.source ?: mutableListOf(),
+      target = this@StructureMapGroupRuleSurrogate.target ?: mutableListOf(),
+      rule = this@StructureMapGroupRuleSurrogate.rule ?: mutableListOf(),
+      dependent = this@StructureMapGroupRuleSurrogate.dependent ?: mutableListOf(),
       documentation =
         R4bString.of(
           this@StructureMapGroupRuleSurrogate.documentation,
           this@StructureMapGroupRuleSurrogate._documentation,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: StructureMap.Group.Rule): StructureMapGroupRuleSurrogate =
       with(model) {
-        StructureMapGroupRuleSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          source = this@with.source
-          target = this@with.target
-          rule = this@with.rule
-          dependent = this@with.dependent
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-        }
+        StructureMapGroupRuleSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          source = this@with.source.takeUnless { it.all { it == null } },
+          target = this@with.target.takeUnless { it.all { it == null } },
+          rule = this@with.rule.takeUnless { it.all { it == null } },
+          dependent = this@with.dependent.takeUnless { it.all { it == null } },
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
       }
   }
 }
@@ -876,8 +903,8 @@ internal data class StructureMapGroupRuleSurrogate(
 @Serializable
 internal data class StructureMapGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var extends: KotlinString? = null,
@@ -886,51 +913,51 @@ internal data class StructureMapGroupSurrogate(
   public var _typeMode: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var input: List<StructureMap.Group.Input>? = null,
-  public var rule: List<StructureMap.Group.Rule>? = null,
+  public var input: MutableList<StructureMap.Group.Input>? = null,
+  public var rule: MutableList<StructureMap.Group.Rule>? = null,
 ) {
   public fun toModel(): StructureMap.Group =
-    StructureMap.Group().apply {
-      id = this@StructureMapGroupSurrogate.id
-      extension = this@StructureMapGroupSurrogate.extension
-      modifierExtension = this@StructureMapGroupSurrogate.modifierExtension
-      name = Id.of(this@StructureMapGroupSurrogate.name, this@StructureMapGroupSurrogate._name)
+    StructureMap.Group(
+      id = this@StructureMapGroupSurrogate.id,
+      extension = this@StructureMapGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@StructureMapGroupSurrogate.modifierExtension ?: mutableListOf(),
+      name = Id.of(this@StructureMapGroupSurrogate.name, this@StructureMapGroupSurrogate._name)!!,
       extends =
-        Id.of(this@StructureMapGroupSurrogate.extends, this@StructureMapGroupSurrogate._extends)
+        Id.of(this@StructureMapGroupSurrogate.extends, this@StructureMapGroupSurrogate._extends),
       typeMode =
         Enumeration.of(
-          this@StructureMapGroupSurrogate.typeMode?.let {
-            com.google.fhir.model.r4b.StructureMap.StructureMapGroupTypeMode.fromCode(it)
-          },
+          com.google.fhir.model.r4b.StructureMap.StructureMapGroupTypeMode.fromCode(
+            this@StructureMapGroupSurrogate.typeMode!!
+          ),
           this@StructureMapGroupSurrogate._typeMode,
-        )
+        ),
       documentation =
         R4bString.of(
           this@StructureMapGroupSurrogate.documentation,
           this@StructureMapGroupSurrogate._documentation,
-        )
-      input = this@StructureMapGroupSurrogate.input
-      rule = this@StructureMapGroupSurrogate.rule
-    }
+        ),
+      input = this@StructureMapGroupSurrogate.input ?: mutableListOf(),
+      rule = this@StructureMapGroupSurrogate.rule ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: StructureMap.Group): StructureMapGroupSurrogate =
       with(model) {
-        StructureMapGroupSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          extends = this@with.extends?.value
-          _extends = this@with.extends?.toElement()
-          typeMode = this@with.typeMode?.value?.getCode()
-          _typeMode = this@with.typeMode?.toElement()
-          documentation = this@with.documentation?.value
-          _documentation = this@with.documentation?.toElement()
-          input = this@with.input
-          rule = this@with.rule
-        }
+        StructureMapGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          extends = this@with.extends?.value,
+          _extends = this@with.extends?.toElement(),
+          typeMode = this@with.typeMode.value?.getCode(),
+          _typeMode = this@with.typeMode.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          input = this@with.input.takeUnless { it.all { it == null } },
+          rule = this@with.rule.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -944,12 +971,12 @@ internal data class StructureMapSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -964,70 +991,72 @@ internal data class StructureMapSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
-  public var structure: List<StructureMap.Structure>? = null,
-  public var `import`: List<KotlinString?>? = null,
-  public var _import: List<Element?>? = null,
-  public var group: List<StructureMap.Group>? = null,
+  public var structure: MutableList<StructureMap.Structure>? = null,
+  public var `import`: MutableList<KotlinString?>? = null,
+  public var _import: MutableList<Element?>? = null,
+  public var group: MutableList<StructureMap.Group>? = null,
 ) {
   public fun toModel(): StructureMap =
-    StructureMap().apply {
-      id = this@StructureMapSurrogate.id
-      meta = this@StructureMapSurrogate.meta
+    StructureMap(
+      id = this@StructureMapSurrogate.id,
+      meta = this@StructureMapSurrogate.meta,
       implicitRules =
-        Uri.of(this@StructureMapSurrogate.implicitRules, this@StructureMapSurrogate._implicitRules)
-      language = Code.of(this@StructureMapSurrogate.language, this@StructureMapSurrogate._language)
-      text = this@StructureMapSurrogate.text
-      contained = this@StructureMapSurrogate.contained
-      extension = this@StructureMapSurrogate.extension
-      modifierExtension = this@StructureMapSurrogate.modifierExtension
-      url = Uri.of(this@StructureMapSurrogate.url, this@StructureMapSurrogate._url)
-      identifier = this@StructureMapSurrogate.identifier
+        Uri.of(this@StructureMapSurrogate.implicitRules, this@StructureMapSurrogate._implicitRules),
+      language = Code.of(this@StructureMapSurrogate.language, this@StructureMapSurrogate._language),
+      text = this@StructureMapSurrogate.text,
+      contained = this@StructureMapSurrogate.contained ?: mutableListOf(),
+      extension = this@StructureMapSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@StructureMapSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@StructureMapSurrogate.url, this@StructureMapSurrogate._url)!!,
+      identifier = this@StructureMapSurrogate.identifier ?: mutableListOf(),
       version =
-        R4bString.of(this@StructureMapSurrogate.version, this@StructureMapSurrogate._version)
-      name = R4bString.of(this@StructureMapSurrogate.name, this@StructureMapSurrogate._name)
-      title = R4bString.of(this@StructureMapSurrogate.title, this@StructureMapSurrogate._title)
+        R4bString.of(this@StructureMapSurrogate.version, this@StructureMapSurrogate._version),
+      name = R4bString.of(this@StructureMapSurrogate.name, this@StructureMapSurrogate._name)!!,
+      title = R4bString.of(this@StructureMapSurrogate.title, this@StructureMapSurrogate._title),
       status =
         Enumeration.of(
-          this@StructureMapSurrogate.status?.let {
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@StructureMapSurrogate.status!!),
           this@StructureMapSurrogate._status,
-        )
+        ),
       experimental =
         R4bBoolean.of(
           this@StructureMapSurrogate.experimental,
           this@StructureMapSurrogate._experimental,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@StructureMapSurrogate.date),
           this@StructureMapSurrogate._date,
-        )
+        ),
       publisher =
-        R4bString.of(this@StructureMapSurrogate.publisher, this@StructureMapSurrogate._publisher)
-      contact = this@StructureMapSurrogate.contact
+        R4bString.of(this@StructureMapSurrogate.publisher, this@StructureMapSurrogate._publisher),
+      contact = this@StructureMapSurrogate.contact ?: mutableListOf(),
       description =
-        Markdown.of(this@StructureMapSurrogate.description, this@StructureMapSurrogate._description)
-      useContext = this@StructureMapSurrogate.useContext
-      jurisdiction = this@StructureMapSurrogate.jurisdiction
-      purpose = Markdown.of(this@StructureMapSurrogate.purpose, this@StructureMapSurrogate._purpose)
+        Markdown.of(
+          this@StructureMapSurrogate.description,
+          this@StructureMapSurrogate._description,
+        ),
+      useContext = this@StructureMapSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@StructureMapSurrogate.jurisdiction ?: mutableListOf(),
+      purpose =
+        Markdown.of(this@StructureMapSurrogate.purpose, this@StructureMapSurrogate._purpose),
       copyright =
-        Markdown.of(this@StructureMapSurrogate.copyright, this@StructureMapSurrogate._copyright)
-      structure = this@StructureMapSurrogate.structure
+        Markdown.of(this@StructureMapSurrogate.copyright, this@StructureMapSurrogate._copyright),
+      structure = this@StructureMapSurrogate.structure ?: mutableListOf(),
       `import` =
         if (
           this@StructureMapSurrogate.`import` == null && this@StructureMapSurrogate._import == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@StructureMapSurrogate.`import`
               ?: List(this@StructureMapSurrogate._import!!.size) { null })
@@ -1035,57 +1064,66 @@ internal data class StructureMapSurrogate(
               this@StructureMapSurrogate._import
                 ?: List(this@StructureMapSurrogate.`import`!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
-      group = this@StructureMapSurrogate.group
-    }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
+      group = this@StructureMapSurrogate.group ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: StructureMap): StructureMapSurrogate =
       with(model) {
-        StructureMapSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          structure = this@with.structure
-          `import` = this@with.`import`?.map { it?.value }?.takeUnless { it.all { it == null } }
+        StructureMapSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url.value,
+          _url = this@with.url.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          structure = this@with.structure.takeUnless { it.all { it == null } },
+          `import` =
+            this@with.`import`
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _import =
-            this@with.`import`?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          group = this@with.group
-        }
+            this@with.`import`
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          group = this@with.group.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

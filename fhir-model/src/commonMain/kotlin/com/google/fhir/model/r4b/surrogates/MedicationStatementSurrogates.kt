@@ -40,7 +40,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,19 +53,19 @@ internal data class MedicationStatementSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var statusReason: List<CodeableConcept?>? = null,
+  public var statusReason: MutableList<CodeableConcept>? = null,
   public var category: CodeableConcept? = null,
   public var medicationCodeableConcept: CodeableConcept? = null,
   public var medicationReference: Reference? = null,
-  public var subject: Reference? = null,
+  public var subject: Reference,
   public var context: Reference? = null,
   public var effectiveDateTime: String? = null,
   public var _effectiveDateTime: Element? = null,
@@ -73,49 +73,49 @@ internal data class MedicationStatementSurrogate(
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var informationSource: Reference? = null,
-  public var derivedFrom: List<Reference?>? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var dosage: List<Dosage?>? = null,
+  public var derivedFrom: MutableList<Reference>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var dosage: MutableList<Dosage>? = null,
 ) {
   public fun toModel(): MedicationStatement =
-    MedicationStatement().apply {
-      id = this@MedicationStatementSurrogate.id
-      meta = this@MedicationStatementSurrogate.meta
+    MedicationStatement(
+      id = this@MedicationStatementSurrogate.id,
+      meta = this@MedicationStatementSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicationStatementSurrogate.implicitRules,
           this@MedicationStatementSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicationStatementSurrogate.language,
           this@MedicationStatementSurrogate._language,
-        )
-      text = this@MedicationStatementSurrogate.text
-      contained = this@MedicationStatementSurrogate.contained
-      extension = this@MedicationStatementSurrogate.extension
-      modifierExtension = this@MedicationStatementSurrogate.modifierExtension
-      identifier = this@MedicationStatementSurrogate.identifier
-      basedOn = this@MedicationStatementSurrogate.basedOn
-      partOf = this@MedicationStatementSurrogate.partOf
+        ),
+      text = this@MedicationStatementSurrogate.text,
+      contained = this@MedicationStatementSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicationStatementSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicationStatementSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MedicationStatementSurrogate.identifier ?: mutableListOf(),
+      basedOn = this@MedicationStatementSurrogate.basedOn ?: mutableListOf(),
+      partOf = this@MedicationStatementSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@MedicationStatementSurrogate.status?.let {
-            com.google.fhir.model.r4b.MedicationStatement.MedicationStatementStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.MedicationStatement.MedicationStatementStatus.fromCode(
+            this@MedicationStatementSurrogate.status!!
+          ),
           this@MedicationStatementSurrogate._status,
-        )
-      statusReason = this@MedicationStatementSurrogate.statusReason
-      category = this@MedicationStatementSurrogate.category
+        ),
+      statusReason = this@MedicationStatementSurrogate.statusReason ?: mutableListOf(),
+      category = this@MedicationStatementSurrogate.category,
       medication =
-        MedicationStatement.Medication?.from(
+        MedicationStatement.Medication.from(
           this@MedicationStatementSurrogate.medicationCodeableConcept,
           this@MedicationStatementSurrogate.medicationReference,
-        )
-      subject = this@MedicationStatementSurrogate.subject
-      context = this@MedicationStatementSurrogate.context
+        )!!,
+      subject = this@MedicationStatementSurrogate.subject,
+      context = this@MedicationStatementSurrogate.context,
       effective =
         MedicationStatement.Effective?.from(
           DateTime.of(
@@ -123,57 +123,57 @@ internal data class MedicationStatementSurrogate(
             this@MedicationStatementSurrogate._effectiveDateTime,
           ),
           this@MedicationStatementSurrogate.effectivePeriod,
-        )
+        ),
       dateAsserted =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationStatementSurrogate.dateAsserted),
           this@MedicationStatementSurrogate._dateAsserted,
-        )
-      informationSource = this@MedicationStatementSurrogate.informationSource
-      derivedFrom = this@MedicationStatementSurrogate.derivedFrom
-      reasonCode = this@MedicationStatementSurrogate.reasonCode
-      reasonReference = this@MedicationStatementSurrogate.reasonReference
-      note = this@MedicationStatementSurrogate.note
-      dosage = this@MedicationStatementSurrogate.dosage
-    }
+        ),
+      informationSource = this@MedicationStatementSurrogate.informationSource,
+      derivedFrom = this@MedicationStatementSurrogate.derivedFrom ?: mutableListOf(),
+      reasonCode = this@MedicationStatementSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@MedicationStatementSurrogate.reasonReference ?: mutableListOf(),
+      note = this@MedicationStatementSurrogate.note ?: mutableListOf(),
+      dosage = this@MedicationStatementSurrogate.dosage ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: MedicationStatement): MedicationStatementSurrogate =
       with(model) {
-        MedicationStatementSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          category = this@with.category
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value
-          medicationReference = this@with.medication?.asReference()?.value
-          subject = this@with.subject
-          context = this@with.context
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString()
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement()
-          effectivePeriod = this@with.effective?.asPeriod()?.value
-          dateAsserted = this@with.dateAsserted?.value?.toString()
-          _dateAsserted = this@with.dateAsserted?.toElement()
-          informationSource = this@with.informationSource
-          derivedFrom = this@with.derivedFrom
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          note = this@with.note
-          dosage = this@with.dosage
-        }
+        MedicationStatementSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
+          category = this@with.category,
+          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value,
+          medicationReference = this@with.medication?.asReference()?.value,
+          subject = this@with.subject,
+          context = this@with.context,
+          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.effective?.asPeriod()?.value,
+          dateAsserted = this@with.dateAsserted?.value?.toString(),
+          _dateAsserted = this@with.dateAsserted?.toElement(),
+          informationSource = this@with.informationSource,
+          derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          dosage = this@with.dosage.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

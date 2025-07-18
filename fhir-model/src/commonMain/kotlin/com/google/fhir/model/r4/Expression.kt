@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ExpressionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class Expression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * A brief, natural language description of the condition that effectively communicates the
    * intended semantics.
@@ -59,7 +59,7 @@ public data class Expression(
    */
   public var name: Id? = null,
   /** The media type of the language for the expression. */
-  public var language: Enumeration<ExpressionLanguage>? = null,
+  public var language: Enumeration<ExpressionLanguage>,
   /** An expression in the specified language that returns a value. */
   public var expression: String? = null,
   /**

@@ -28,44 +28,44 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NarrativeSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var div: String? = null,
   public var _div: Element? = null,
 ) {
   public fun toModel(): Narrative =
-    Narrative().apply {
-      id = this@NarrativeSurrogate.id
-      extension = this@NarrativeSurrogate.extension
+    Narrative(
+      id = this@NarrativeSurrogate.id,
+      extension = this@NarrativeSurrogate.extension ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@NarrativeSurrogate.status?.let {
-            com.google.fhir.model.r5.Narrative.NarrativeStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.Narrative.NarrativeStatus.fromCode(
+            this@NarrativeSurrogate.status!!
+          ),
           this@NarrativeSurrogate._status,
-        )
-      div = Xhtml.of(this@NarrativeSurrogate.div, this@NarrativeSurrogate._div)
-    }
+        ),
+      div = Xhtml.of(this@NarrativeSurrogate.div!!, this@NarrativeSurrogate._div)!!,
+    )
 
   public companion object {
     public fun fromModel(model: Narrative): NarrativeSurrogate =
       with(model) {
-        NarrativeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          div = this@with.div?.value
-          _div = this@with.div?.toElement()
-        }
+        NarrativeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          div = this@with.div.value,
+          _div = this@with.div.toElement(),
+        )
       }
   }
 }

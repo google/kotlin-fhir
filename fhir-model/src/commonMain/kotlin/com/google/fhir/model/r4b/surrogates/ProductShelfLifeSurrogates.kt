@@ -28,43 +28,45 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProductShelfLifeSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
-  public var type: CodeableConcept? = null,
-  public var period: Quantity? = null,
-  public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+  public var type: CodeableConcept,
+  public var period: Quantity,
+  public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): ProductShelfLife =
-    ProductShelfLife().apply {
-      id = this@ProductShelfLifeSurrogate.id
-      extension = this@ProductShelfLifeSurrogate.extension
-      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension
-      identifier = this@ProductShelfLifeSurrogate.identifier
-      type = this@ProductShelfLifeSurrogate.type
-      period = this@ProductShelfLifeSurrogate.period
-      specialPrecautionsForStorage = this@ProductShelfLifeSurrogate.specialPrecautionsForStorage
-    }
+    ProductShelfLife(
+      id = this@ProductShelfLifeSurrogate.id,
+      extension = this@ProductShelfLifeSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ProductShelfLifeSurrogate.identifier,
+      type = this@ProductShelfLifeSurrogate.type,
+      period = this@ProductShelfLifeSurrogate.period,
+      specialPrecautionsForStorage =
+        this@ProductShelfLifeSurrogate.specialPrecautionsForStorage ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ProductShelfLife): ProductShelfLifeSurrogate =
       with(model) {
-        ProductShelfLifeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          type = this@with.type
-          period = this@with.period
-          specialPrecautionsForStorage = this@with.specialPrecautionsForStorage
-        }
+        ProductShelfLifeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier,
+          type = this@with.type,
+          period = this@with.period,
+          specialPrecautionsForStorage =
+            this@with.specialPrecautionsForStorage.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

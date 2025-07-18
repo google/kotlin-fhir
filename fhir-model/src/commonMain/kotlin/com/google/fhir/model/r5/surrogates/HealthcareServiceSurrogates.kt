@@ -41,45 +41,46 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class HealthcareServiceEligibilitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
 ) {
   public fun toModel(): HealthcareService.Eligibility =
-    HealthcareService.Eligibility().apply {
-      id = this@HealthcareServiceEligibilitySurrogate.id
-      extension = this@HealthcareServiceEligibilitySurrogate.extension
-      modifierExtension = this@HealthcareServiceEligibilitySurrogate.modifierExtension
-      code = this@HealthcareServiceEligibilitySurrogate.code
+    HealthcareService.Eligibility(
+      id = this@HealthcareServiceEligibilitySurrogate.id,
+      extension = this@HealthcareServiceEligibilitySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@HealthcareServiceEligibilitySurrogate.modifierExtension ?: mutableListOf(),
+      code = this@HealthcareServiceEligibilitySurrogate.code,
       comment =
         Markdown.of(
           this@HealthcareServiceEligibilitySurrogate.comment,
           this@HealthcareServiceEligibilitySurrogate._comment,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: HealthcareService.Eligibility
     ): HealthcareServiceEligibilitySurrogate =
       with(model) {
-        HealthcareServiceEligibilitySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-        }
+        HealthcareServiceEligibilitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+        )
       }
   }
 }
@@ -93,18 +94,18 @@ internal data class HealthcareServiceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var providedBy: Reference? = null,
-  public var offeredIn: List<Reference?>? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var type: List<CodeableConcept?>? = null,
-  public var specialty: List<CodeableConcept?>? = null,
-  public var location: List<Reference?>? = null,
+  public var offeredIn: MutableList<Reference>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var specialty: MutableList<CodeableConcept>? = null,
+  public var location: MutableList<Reference>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var comment: KotlinString? = null,
@@ -112,119 +113,124 @@ internal data class HealthcareServiceSurrogate(
   public var extraDetails: KotlinString? = null,
   public var _extraDetails: Element? = null,
   public var photo: Attachment? = null,
-  public var contact: List<ExtendedContactDetail?>? = null,
-  public var coverageArea: List<Reference?>? = null,
-  public var serviceProvisionCode: List<CodeableConcept?>? = null,
-  public var eligibility: List<HealthcareService.Eligibility>? = null,
-  public var program: List<CodeableConcept?>? = null,
-  public var characteristic: List<CodeableConcept?>? = null,
-  public var communication: List<CodeableConcept?>? = null,
-  public var referralMethod: List<CodeableConcept?>? = null,
+  public var contact: MutableList<ExtendedContactDetail>? = null,
+  public var coverageArea: MutableList<Reference>? = null,
+  public var serviceProvisionCode: MutableList<CodeableConcept>? = null,
+  public var eligibility: MutableList<HealthcareService.Eligibility>? = null,
+  public var program: MutableList<CodeableConcept>? = null,
+  public var characteristic: MutableList<CodeableConcept>? = null,
+  public var communication: MutableList<CodeableConcept>? = null,
+  public var referralMethod: MutableList<CodeableConcept>? = null,
   public var appointmentRequired: KotlinBoolean? = null,
   public var _appointmentRequired: Element? = null,
-  public var availability: List<Availability?>? = null,
-  public var endpoint: List<Reference?>? = null,
+  public var availability: MutableList<Availability>? = null,
+  public var endpoint: MutableList<Reference>? = null,
 ) {
   public fun toModel(): HealthcareService =
-    HealthcareService().apply {
-      id = this@HealthcareServiceSurrogate.id
-      meta = this@HealthcareServiceSurrogate.meta
+    HealthcareService(
+      id = this@HealthcareServiceSurrogate.id,
+      meta = this@HealthcareServiceSurrogate.meta,
       implicitRules =
         Uri.of(
           this@HealthcareServiceSurrogate.implicitRules,
           this@HealthcareServiceSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@HealthcareServiceSurrogate.language, this@HealthcareServiceSurrogate._language)
-      text = this@HealthcareServiceSurrogate.text
-      contained = this@HealthcareServiceSurrogate.contained
-      extension = this@HealthcareServiceSurrogate.extension
-      modifierExtension = this@HealthcareServiceSurrogate.modifierExtension
-      identifier = this@HealthcareServiceSurrogate.identifier
+        Code.of(
+          this@HealthcareServiceSurrogate.language,
+          this@HealthcareServiceSurrogate._language,
+        ),
+      text = this@HealthcareServiceSurrogate.text,
+      contained = this@HealthcareServiceSurrogate.contained ?: mutableListOf(),
+      extension = this@HealthcareServiceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@HealthcareServiceSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@HealthcareServiceSurrogate.identifier ?: mutableListOf(),
       active =
         R5Boolean.of(
           this@HealthcareServiceSurrogate.active,
           this@HealthcareServiceSurrogate._active,
-        )
-      providedBy = this@HealthcareServiceSurrogate.providedBy
-      offeredIn = this@HealthcareServiceSurrogate.offeredIn
-      category = this@HealthcareServiceSurrogate.category
-      type = this@HealthcareServiceSurrogate.type
-      specialty = this@HealthcareServiceSurrogate.specialty
-      location = this@HealthcareServiceSurrogate.location
+        ),
+      providedBy = this@HealthcareServiceSurrogate.providedBy,
+      offeredIn = this@HealthcareServiceSurrogate.offeredIn ?: mutableListOf(),
+      category = this@HealthcareServiceSurrogate.category ?: mutableListOf(),
+      type = this@HealthcareServiceSurrogate.type ?: mutableListOf(),
+      specialty = this@HealthcareServiceSurrogate.specialty ?: mutableListOf(),
+      location = this@HealthcareServiceSurrogate.location ?: mutableListOf(),
       name =
-        R5String.of(this@HealthcareServiceSurrogate.name, this@HealthcareServiceSurrogate._name)
+        R5String.of(this@HealthcareServiceSurrogate.name, this@HealthcareServiceSurrogate._name),
       comment =
         Markdown.of(
           this@HealthcareServiceSurrogate.comment,
           this@HealthcareServiceSurrogate._comment,
-        )
+        ),
       extraDetails =
         Markdown.of(
           this@HealthcareServiceSurrogate.extraDetails,
           this@HealthcareServiceSurrogate._extraDetails,
-        )
-      photo = this@HealthcareServiceSurrogate.photo
-      contact = this@HealthcareServiceSurrogate.contact
-      coverageArea = this@HealthcareServiceSurrogate.coverageArea
-      serviceProvisionCode = this@HealthcareServiceSurrogate.serviceProvisionCode
-      eligibility = this@HealthcareServiceSurrogate.eligibility
-      program = this@HealthcareServiceSurrogate.program
-      characteristic = this@HealthcareServiceSurrogate.characteristic
-      communication = this@HealthcareServiceSurrogate.communication
-      referralMethod = this@HealthcareServiceSurrogate.referralMethod
+        ),
+      photo = this@HealthcareServiceSurrogate.photo,
+      contact = this@HealthcareServiceSurrogate.contact ?: mutableListOf(),
+      coverageArea = this@HealthcareServiceSurrogate.coverageArea ?: mutableListOf(),
+      serviceProvisionCode =
+        this@HealthcareServiceSurrogate.serviceProvisionCode ?: mutableListOf(),
+      eligibility = this@HealthcareServiceSurrogate.eligibility ?: mutableListOf(),
+      program = this@HealthcareServiceSurrogate.program ?: mutableListOf(),
+      characteristic = this@HealthcareServiceSurrogate.characteristic ?: mutableListOf(),
+      communication = this@HealthcareServiceSurrogate.communication ?: mutableListOf(),
+      referralMethod = this@HealthcareServiceSurrogate.referralMethod ?: mutableListOf(),
       appointmentRequired =
         R5Boolean.of(
           this@HealthcareServiceSurrogate.appointmentRequired,
           this@HealthcareServiceSurrogate._appointmentRequired,
-        )
-      availability = this@HealthcareServiceSurrogate.availability
-      endpoint = this@HealthcareServiceSurrogate.endpoint
-    }
+        ),
+      availability = this@HealthcareServiceSurrogate.availability ?: mutableListOf(),
+      endpoint = this@HealthcareServiceSurrogate.endpoint ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: HealthcareService): HealthcareServiceSurrogate =
       with(model) {
-        HealthcareServiceSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          providedBy = this@with.providedBy
-          offeredIn = this@with.offeredIn
-          category = this@with.category
-          type = this@with.type
-          specialty = this@with.specialty
-          location = this@with.location
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-          extraDetails = this@with.extraDetails?.value
-          _extraDetails = this@with.extraDetails?.toElement()
-          photo = this@with.photo
-          contact = this@with.contact
-          coverageArea = this@with.coverageArea
-          serviceProvisionCode = this@with.serviceProvisionCode
-          eligibility = this@with.eligibility
-          program = this@with.program
-          characteristic = this@with.characteristic
-          communication = this@with.communication
-          referralMethod = this@with.referralMethod
-          appointmentRequired = this@with.appointmentRequired?.value
-          _appointmentRequired = this@with.appointmentRequired?.toElement()
-          availability = this@with.availability
-          endpoint = this@with.endpoint
-        }
+        HealthcareServiceSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          providedBy = this@with.providedBy,
+          offeredIn = this@with.offeredIn.takeUnless { it.all { it == null } },
+          category = this@with.category.takeUnless { it.all { it == null } },
+          type = this@with.type.takeUnless { it.all { it == null } },
+          specialty = this@with.specialty.takeUnless { it.all { it == null } },
+          location = this@with.location.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+          extraDetails = this@with.extraDetails?.value,
+          _extraDetails = this@with.extraDetails?.toElement(),
+          photo = this@with.photo,
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          coverageArea = this@with.coverageArea.takeUnless { it.all { it == null } },
+          serviceProvisionCode =
+            this@with.serviceProvisionCode.takeUnless { it.all { it == null } },
+          eligibility = this@with.eligibility.takeUnless { it.all { it == null } },
+          program = this@with.program.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          communication = this@with.communication.takeUnless { it.all { it == null } },
+          referralMethod = this@with.referralMethod.takeUnless { it.all { it == null } },
+          appointmentRequired = this@with.appointmentRequired?.value,
+          _appointmentRequired = this@with.appointmentRequired?.toElement(),
+          availability = this@with.availability.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

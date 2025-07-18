@@ -40,7 +40,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,57 +53,57 @@ internal data class EndpointSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var connectionType: Coding? = null,
+  public var connectionType: Coding,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var managingOrganization: Reference? = null,
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint>? = null,
   public var period: Period? = null,
-  public var payloadType: List<CodeableConcept?>? = null,
-  public var payloadMimeType: List<KotlinString?>? = null,
-  public var _payloadMimeType: List<Element?>? = null,
+  public var payloadType: MutableList<CodeableConcept>? = null,
+  public var payloadMimeType: MutableList<KotlinString?>? = null,
+  public var _payloadMimeType: MutableList<Element?>? = null,
   public var address: KotlinString? = null,
   public var _address: Element? = null,
-  public var `header`: List<KotlinString?>? = null,
-  public var _header: List<Element?>? = null,
+  public var `header`: MutableList<KotlinString?>? = null,
+  public var _header: MutableList<Element?>? = null,
 ) {
   public fun toModel(): Endpoint =
-    Endpoint().apply {
-      id = this@EndpointSurrogate.id
-      meta = this@EndpointSurrogate.meta
+    Endpoint(
+      id = this@EndpointSurrogate.id,
+      meta = this@EndpointSurrogate.meta,
       implicitRules =
-        Uri.of(this@EndpointSurrogate.implicitRules, this@EndpointSurrogate._implicitRules)
-      language = Code.of(this@EndpointSurrogate.language, this@EndpointSurrogate._language)
-      text = this@EndpointSurrogate.text
-      contained = this@EndpointSurrogate.contained
-      extension = this@EndpointSurrogate.extension
-      modifierExtension = this@EndpointSurrogate.modifierExtension
-      identifier = this@EndpointSurrogate.identifier
+        Uri.of(this@EndpointSurrogate.implicitRules, this@EndpointSurrogate._implicitRules),
+      language = Code.of(this@EndpointSurrogate.language, this@EndpointSurrogate._language),
+      text = this@EndpointSurrogate.text,
+      contained = this@EndpointSurrogate.contained ?: mutableListOf(),
+      extension = this@EndpointSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EndpointSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@EndpointSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@EndpointSurrogate.status?.let {
-            com.google.fhir.model.r4.Endpoint.EndpointStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.Endpoint.EndpointStatus.fromCode(
+            this@EndpointSurrogate.status!!
+          ),
           this@EndpointSurrogate._status,
-        )
-      connectionType = this@EndpointSurrogate.connectionType
-      name = R4String.of(this@EndpointSurrogate.name, this@EndpointSurrogate._name)
-      managingOrganization = this@EndpointSurrogate.managingOrganization
-      contact = this@EndpointSurrogate.contact
-      period = this@EndpointSurrogate.period
-      payloadType = this@EndpointSurrogate.payloadType
+        ),
+      connectionType = this@EndpointSurrogate.connectionType,
+      name = R4String.of(this@EndpointSurrogate.name, this@EndpointSurrogate._name),
+      managingOrganization = this@EndpointSurrogate.managingOrganization,
+      contact = this@EndpointSurrogate.contact ?: mutableListOf(),
+      period = this@EndpointSurrogate.period,
+      payloadType = this@EndpointSurrogate.payloadType ?: mutableListOf(),
       payloadMimeType =
         if (
           this@EndpointSurrogate.payloadMimeType == null &&
             this@EndpointSurrogate._payloadMimeType == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@EndpointSurrogate.payloadMimeType
               ?: List(this@EndpointSurrogate._payloadMimeType!!.size) { null })
@@ -111,56 +111,73 @@ internal data class EndpointSurrogate(
               this@EndpointSurrogate._payloadMimeType
                 ?: List(this@EndpointSurrogate.payloadMimeType!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Code.of(value, element) }
-        }
-      address = Url.of(this@EndpointSurrogate.address, this@EndpointSurrogate._address)
+            .map { (value, element) -> Code.of(value, element)!! }
+            .toMutableList()
+        },
+      address = Url.of(this@EndpointSurrogate.address, this@EndpointSurrogate._address)!!,
       `header` =
         if (this@EndpointSurrogate.`header` == null && this@EndpointSurrogate._header == null) {
-          null
+          mutableListOf()
         } else {
           (this@EndpointSurrogate.`header` ?: List(this@EndpointSurrogate._header!!.size) { null })
             .zip(
               this@EndpointSurrogate._header
                 ?: List(this@EndpointSurrogate.`header`!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
-    }
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
+    )
 
   public companion object {
     public fun fromModel(model: Endpoint): EndpointSurrogate =
       with(model) {
-        EndpointSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          connectionType = this@with.connectionType
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          managingOrganization = this@with.managingOrganization
-          contact = this@with.contact
-          period = this@with.period
-          payloadType = this@with.payloadType
+        EndpointSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          connectionType = this@with.connectionType,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          managingOrganization = this@with.managingOrganization,
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          period = this@with.period,
+          payloadType = this@with.payloadType.takeUnless { it.all { it == null } },
           payloadMimeType =
-            this@with.payloadMimeType?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.payloadMimeType
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _payloadMimeType =
-            this@with.payloadMimeType?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          address = this@with.address?.value
-          _address = this@with.address?.toElement()
-          `header` = this@with.`header`?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.payloadMimeType
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          address = this@with.address.value,
+          _address = this@with.address.toElement(),
+          `header` =
+            this@with.`header`
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _header =
-            this@with.`header`?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-        }
+            this@with.`header`
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
       }
   }
 }

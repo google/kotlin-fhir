@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.MarketingStatusSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class MarketingStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -67,7 +67,7 @@ public data class MarketingStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The country in which the marketing authorisation has been granted shall be specified It should
    * be specified using the ISO 3166 ‑ 1 alpha-2 code elements.
@@ -84,7 +84,7 @@ public data class MarketingStatus(
    * This attribute provides information on the status of the marketing of the medicinal product See
    * ISO/TS 20443 for more information and examples.
    */
-  public var status: CodeableConcept? = null,
+  public var status: CodeableConcept,
   /**
    * The date when the Medicinal Product is placed on the market by the Marketing Authorisation
    * Holder (or where applicable, the manufacturer/distributor) in a country and/or jurisdiction

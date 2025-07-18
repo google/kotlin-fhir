@@ -40,49 +40,49 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var device: List<CodeableReference?>? = null,
-  public var `value`: List<Quantity?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var device: MutableList<CodeableReference>? = null,
+  public var `value`: MutableList<Quantity>? = null,
 ) {
   public fun toModel():
     BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark =
-    BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark().apply {
+    BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark(
       id =
-        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.id
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.id,
       extension =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .extension
+          .extension ?: mutableListOf(),
       modifierExtension =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .modifierExtension
+          .modifierExtension ?: mutableListOf(),
       device =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .device
+          .device ?: mutableListOf(),
       `value` =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .`value`
-    }
+          .`value` ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark
     ): BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate =
       with(model) {
-        BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          device = this@with.device
-          `value` = this@with.`value`
-        }
+        BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          device = this@with.device.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -90,45 +90,53 @@ internal data class BodyStructureIncludedStructureBodyLandmarkOrientationDistanc
 @Serializable
 internal data class BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var landmarkDescription: List<CodeableConcept?>? = null,
-  public var clockFacePosition: List<CodeableConcept?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var landmarkDescription: MutableList<CodeableConcept>? = null,
+  public var clockFacePosition: MutableList<CodeableConcept>? = null,
   public var distanceFromLandmark:
-    List<BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark>? =
+    MutableList<BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark>? =
     null,
-  public var surfaceOrientation: List<CodeableConcept?>? = null,
+  public var surfaceOrientation: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): BodyStructure.IncludedStructure.BodyLandmarkOrientation =
-    BodyStructure.IncludedStructure.BodyLandmarkOrientation().apply {
-      id = this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.id
-      extension = this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.extension
+    BodyStructure.IncludedStructure.BodyLandmarkOrientation(
+      id = this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.id,
+      extension =
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.modifierExtension
+          ?: mutableListOf(),
       landmarkDescription =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.landmarkDescription
+          ?: mutableListOf(),
       clockFacePosition =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.clockFacePosition
+          ?: mutableListOf(),
       distanceFromLandmark =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.distanceFromLandmark
+          ?: mutableListOf(),
       surfaceOrientation =
         this@BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate.surfaceOrientation
-    }
+          ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: BodyStructure.IncludedStructure.BodyLandmarkOrientation
     ): BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate =
       with(model) {
-        BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          landmarkDescription = this@with.landmarkDescription
-          clockFacePosition = this@with.clockFacePosition
-          distanceFromLandmark = this@with.distanceFromLandmark
-          surfaceOrientation = this@with.surfaceOrientation
-        }
+        BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          landmarkDescription = this@with.landmarkDescription.takeUnless { it.all { it == null } },
+          clockFacePosition = this@with.clockFacePosition.takeUnless { it.all { it == null } },
+          distanceFromLandmark =
+            this@with.distanceFromLandmark.takeUnless { it.all { it == null } },
+          surfaceOrientation = this@with.surfaceOrientation.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -136,43 +144,47 @@ internal data class BodyStructureIncludedStructureBodyLandmarkOrientationSurroga
 @Serializable
 internal data class BodyStructureIncludedStructureSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var structure: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var structure: CodeableConcept,
   public var laterality: CodeableConcept? = null,
   public var bodyLandmarkOrientation:
-    List<BodyStructure.IncludedStructure.BodyLandmarkOrientation>? =
+    MutableList<BodyStructure.IncludedStructure.BodyLandmarkOrientation>? =
     null,
-  public var spatialReference: List<Reference?>? = null,
-  public var qualifier: List<CodeableConcept?>? = null,
+  public var spatialReference: MutableList<Reference>? = null,
+  public var qualifier: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): BodyStructure.IncludedStructure =
-    BodyStructure.IncludedStructure().apply {
-      id = this@BodyStructureIncludedStructureSurrogate.id
-      extension = this@BodyStructureIncludedStructureSurrogate.extension
-      modifierExtension = this@BodyStructureIncludedStructureSurrogate.modifierExtension
-      structure = this@BodyStructureIncludedStructureSurrogate.structure
-      laterality = this@BodyStructureIncludedStructureSurrogate.laterality
-      bodyLandmarkOrientation = this@BodyStructureIncludedStructureSurrogate.bodyLandmarkOrientation
-      spatialReference = this@BodyStructureIncludedStructureSurrogate.spatialReference
-      qualifier = this@BodyStructureIncludedStructureSurrogate.qualifier
-    }
+    BodyStructure.IncludedStructure(
+      id = this@BodyStructureIncludedStructureSurrogate.id,
+      extension = this@BodyStructureIncludedStructureSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@BodyStructureIncludedStructureSurrogate.modifierExtension ?: mutableListOf(),
+      structure = this@BodyStructureIncludedStructureSurrogate.structure,
+      laterality = this@BodyStructureIncludedStructureSurrogate.laterality,
+      bodyLandmarkOrientation =
+        this@BodyStructureIncludedStructureSurrogate.bodyLandmarkOrientation ?: mutableListOf(),
+      spatialReference =
+        this@BodyStructureIncludedStructureSurrogate.spatialReference ?: mutableListOf(),
+      qualifier = this@BodyStructureIncludedStructureSurrogate.qualifier ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: BodyStructure.IncludedStructure
     ): BodyStructureIncludedStructureSurrogate =
       with(model) {
-        BodyStructureIncludedStructureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          structure = this@with.structure
-          laterality = this@with.laterality
-          bodyLandmarkOrientation = this@with.bodyLandmarkOrientation
-          spatialReference = this@with.spatialReference
-          qualifier = this@with.qualifier
-        }
+        BodyStructureIncludedStructureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          structure = this@with.structure,
+          laterality = this@with.laterality,
+          bodyLandmarkOrientation =
+            this@with.bodyLandmarkOrientation.takeUnless { it.all { it == null } },
+          spatialReference = this@with.spatialReference.takeUnless { it.all { it == null } },
+          qualifier = this@with.qualifier.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -186,74 +198,75 @@ internal data class BodyStructureSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var morphology: CodeableConcept? = null,
-  public var includedStructure: List<BodyStructure.IncludedStructure>? = null,
-  public var excludedStructure: List<BodyStructure.IncludedStructure?>? = null,
+  public var includedStructure: MutableList<BodyStructure.IncludedStructure>? = null,
+  public var excludedStructure: MutableList<BodyStructure.IncludedStructure>? = null,
   public var description: String? = null,
   public var _description: Element? = null,
-  public var image: List<Attachment?>? = null,
-  public var patient: Reference? = null,
+  public var image: MutableList<Attachment>? = null,
+  public var patient: Reference,
 ) {
   public fun toModel(): BodyStructure =
-    BodyStructure().apply {
-      id = this@BodyStructureSurrogate.id
-      meta = this@BodyStructureSurrogate.meta
+    BodyStructure(
+      id = this@BodyStructureSurrogate.id,
+      meta = this@BodyStructureSurrogate.meta,
       implicitRules =
         Uri.of(
           this@BodyStructureSurrogate.implicitRules,
           this@BodyStructureSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@BodyStructureSurrogate.language, this@BodyStructureSurrogate._language)
-      text = this@BodyStructureSurrogate.text
-      contained = this@BodyStructureSurrogate.contained
-      extension = this@BodyStructureSurrogate.extension
-      modifierExtension = this@BodyStructureSurrogate.modifierExtension
-      identifier = this@BodyStructureSurrogate.identifier
-      active = R5Boolean.of(this@BodyStructureSurrogate.active, this@BodyStructureSurrogate._active)
-      morphology = this@BodyStructureSurrogate.morphology
-      includedStructure = this@BodyStructureSurrogate.includedStructure
-      excludedStructure = this@BodyStructureSurrogate.excludedStructure
+        Code.of(this@BodyStructureSurrogate.language, this@BodyStructureSurrogate._language),
+      text = this@BodyStructureSurrogate.text,
+      contained = this@BodyStructureSurrogate.contained ?: mutableListOf(),
+      extension = this@BodyStructureSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@BodyStructureSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@BodyStructureSurrogate.identifier ?: mutableListOf(),
+      active =
+        R5Boolean.of(this@BodyStructureSurrogate.active, this@BodyStructureSurrogate._active),
+      morphology = this@BodyStructureSurrogate.morphology,
+      includedStructure = this@BodyStructureSurrogate.includedStructure ?: mutableListOf(),
+      excludedStructure = this@BodyStructureSurrogate.excludedStructure ?: mutableListOf(),
       description =
         Markdown.of(
           this@BodyStructureSurrogate.description,
           this@BodyStructureSurrogate._description,
-        )
-      image = this@BodyStructureSurrogate.image
-      patient = this@BodyStructureSurrogate.patient
-    }
+        ),
+      image = this@BodyStructureSurrogate.image ?: mutableListOf(),
+      patient = this@BodyStructureSurrogate.patient,
+    )
 
   public companion object {
     public fun fromModel(model: BodyStructure): BodyStructureSurrogate =
       with(model) {
-        BodyStructureSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          morphology = this@with.morphology
-          includedStructure = this@with.includedStructure
-          excludedStructure = this@with.excludedStructure
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          image = this@with.image
-          patient = this@with.patient
-        }
+        BodyStructureSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          morphology = this@with.morphology,
+          includedStructure = this@with.includedStructure.takeUnless { it.all { it == null } },
+          excludedStructure = this@with.excludedStructure.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          image = this@with.image.takeUnless { it.all { it == null } },
+          patient = this@with.patient,
+        )
       }
   }
 }

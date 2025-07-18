@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.AccountProcedureSerializer
 import com.google.fhir.model.r5.serializers.AccountRelatedAccountSerializer
 import com.google.fhir.model.r5.serializers.AccountSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class Account(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class Account(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,19 +134,19 @@ public data class Account(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique identifier used to reference the account. Might or might not be intended for human use
    * (e.g. credit card number).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates whether the account is presently used/usable or not.
    *
    * This element is labeled as a modifier because the status contains the codes inactive and
    * entered-in-error that mark the Account as not currently valid.
    */
-  public var status: Enumeration<AccountStatus>? = null,
+  public var status: Enumeration<AccountStatus>,
   /**
    * The BillingStatus tracks the lifecycle of the account through the billing process. It indicates
    * how transactions are treated when they are allocated to the account.
@@ -165,7 +165,7 @@ public data class Account(
    * as group services (patients not tracked, and costs charged to another body), or might not be
    * allocated.
    */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /**
    * The date range of services associated with this account.
    *
@@ -183,7 +183,7 @@ public data class Account(
    * billable items charged to the account, and in which order. Where the order is important, a
    * local/jurisdictional extension may be defined to specify the order for the type of charge.
    */
-  public var coverage: List<Coverage>? = null,
+  public var coverage: MutableList<Coverage> = mutableListOf(),
   /**
    * Indicates the service area, hospital, department, etc. with responsibility for managing the
    * Account.
@@ -192,21 +192,21 @@ public data class Account(
   /** Provides additional information about what the account tracks and how it is used. */
   public var description: Markdown? = null,
   /** The parties responsible for balancing the account if other payment options fall short. */
-  public var guarantor: List<Guarantor>? = null,
+  public var guarantor: MutableList<Guarantor> = mutableListOf(),
   /**
    * When using an account for billing a specific Encounter the set of diagnoses that are relevant
    * for billing are stored here on the account where they are able to be sequenced appropriately
    * prior to processing to produce claim(s).
    */
-  public var diagnosis: List<Diagnosis>? = null,
+  public var diagnosis: MutableList<Diagnosis> = mutableListOf(),
   /**
    * When using an account for billing a specific Encounter the set of procedures that are relevant
    * for billing are stored here on the account where they are able to be sequenced appropriately
    * prior to processing to produce claim(s).
    */
-  public var procedure: List<Procedure>? = null,
+  public var procedure: MutableList<Procedure> = mutableListOf(),
   /** Other associated accounts related to this account. */
-  public var relatedAccount: List<RelatedAccount>? = null,
+  public var relatedAccount: MutableList<RelatedAccount> = mutableListOf(),
   /** The default currency for the account. */
   public var currency: CodeableConcept? = null,
   /**
@@ -215,7 +215,7 @@ public data class Account(
    * The balances with a `term` that is not current are usually generated/updated by an invoicing or
    * similar process.
    */
-  public var balance: List<Balance>? = null,
+  public var balance: MutableList<Balance> = mutableListOf(),
   /**
    * Time the balance amount was calculated.
    *
@@ -247,7 +247,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -266,7 +266,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The party(s) that contribute to payment (or part of) of the charges applied to this account
      * (including self-pay).
@@ -274,7 +274,7 @@ public data class Account(
      * A coverage may only be responsible for specific types of charges, and the sequence of the
      * coverages in the account could be important when processing billing.
      */
-    public var coverage: Reference? = null,
+    public var coverage: Reference,
     /**
      * The priority of the coverage in the context of this account.
      *
@@ -305,7 +305,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -324,9 +324,9 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The entity who is responsible. */
-    public var party: Reference? = null,
+    public var party: Reference,
     /**
      * A guarantor may be placed on credit hold or otherwise have their role temporarily suspended.
      */
@@ -359,7 +359,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -378,24 +378,24 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Ranking of the diagnosis (for each type). */
     public var sequence: PositiveInt? = null,
     /** The diagnosis relevant to the account. */
-    public var condition: CodeableReference? = null,
+    public var condition: CodeableReference,
     /** Ranking of the diagnosis (for each type). */
     public var dateOfDiagnosis: DateTime? = null,
     /**
      * Type that this diagnosis has relevant to the account (e.g. admission, billing, discharge …).
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /** Was the Diagnosis present on Admission in the related Encounter. */
     public var onAdmission: Boolean? = null,
     /**
      * The package code can be used to group diagnoses that may be priced or delivered as a single
      * product. Such as DRGs.
      */
-    public var packageCode: List<CodeableConcept?>? = null,
+    public var packageCode: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -422,7 +422,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -441,25 +441,25 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Ranking of the procedure (for each type). */
     public var sequence: PositiveInt? = null,
     /** The procedure relevant to the account. */
-    public var code: CodeableReference? = null,
+    public var code: CodeableReference,
     /**
      * Date of the procedure when using a coded procedure. If using a reference to a procedure, then
      * the date on the procedure should be used.
      */
     public var dateOfService: DateTime? = null,
     /** How this procedure value should be used in charging the account. */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The package code can be used to group procedures that may be priced or delivered as a single
      * product. Such as DRGs.
      */
-    public var packageCode: List<CodeableConcept?>? = null,
+    public var packageCode: MutableList<CodeableConcept> = mutableListOf(),
     /** Any devices that were associated with the procedure relevant to the account. */
-    public var device: List<Reference?>? = null,
+    public var device: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** Other associated accounts related to this account. */
@@ -482,7 +482,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -501,11 +501,11 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Relationship of the associated Account. */
     public var relationship: CodeableConcept? = null,
     /** Reference to an associated Account. */
-    public var account: Reference? = null,
+    public var account: Reference,
   ) : BackboneElement()
 
   /**
@@ -533,7 +533,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -552,7 +552,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Who is expected to pay this part of the balance. */
     public var aggregate: CodeableConcept? = null,
     /**
@@ -566,7 +566,7 @@ public data class Account(
      */
     public var estimate: Boolean? = null,
     /** The actual balance value calculated for the age defined in the term property. */
-    public var amount: Money? = null,
+    public var amount: Money,
   ) : BackboneElement()
 
   /** Indicates whether the account is available to be used. */

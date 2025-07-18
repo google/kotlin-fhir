@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.DeviceAssociationOperationSerializer
 import com.google.fhir.model.r5.serializers.DeviceAssociationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class DeviceAssociation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -108,7 +108,7 @@ public data class DeviceAssociation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,17 +127,17 @@ public data class DeviceAssociation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Instance identifier. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Reference to the devices associated with the patient or group. */
-  public var device: Reference? = null,
+  public var device: Reference,
   /** Describes the relationship between the device and subject. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates the state of the Device association. */
-  public var status: CodeableConcept? = null,
+  public var status: CodeableConcept,
   /** The reasons given for the current association status. */
-  public var statusReason: List<CodeableConcept?>? = null,
+  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
   /** The individual, group of individuals or device that the device is on or associated with. */
   public var subject: Reference? = null,
   /** Current anatomical location of the device in/on subject. */
@@ -145,7 +145,7 @@ public data class DeviceAssociation(
   /** Begin and end dates and times for the device association. */
   public var period: Period? = null,
   /** The details about the device when it is in use to describe its operation. */
-  public var operation: List<Operation>? = null,
+  public var operation: MutableList<Operation> = mutableListOf(),
 ) : DomainResource() {
   /** The details about the device when it is in use to describe its operation. */
   @Serializable(with = DeviceAssociationOperationSerializer::class)
@@ -167,7 +167,7 @@ public data class DeviceAssociation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -186,11 +186,11 @@ public data class DeviceAssociation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Device operational condition corresponding to the association. */
-    public var status: CodeableConcept? = null,
+    public var status: CodeableConcept,
     /** The individual performing the action enabled by the device. */
-    public var `operator`: List<Reference?>? = null,
+    public var `operator`: MutableList<Reference> = mutableListOf(),
     /** Begin and end dates and times for the device's operation. */
     public var period: Period? = null,
   ) : BackboneElement()

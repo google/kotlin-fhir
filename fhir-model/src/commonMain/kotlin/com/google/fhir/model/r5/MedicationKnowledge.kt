@@ -38,7 +38,7 @@ import com.google.fhir.model.r5.serializers.MedicationKnowledgeSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineEnvironmentalSettingSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -111,7 +111,7 @@ public data class MedicationKnowledge(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -124,7 +124,7 @@ public data class MedicationKnowledge(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -143,13 +143,13 @@ public data class MedicationKnowledge(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifier for this medication.
    *
    * This is a business identifier, not a resource identifier (see discussion).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A code that specifies this medication, or a textual description if no code is available. Usage
    * note: This could be a standard medication code such as a code from RxNorm, SNOMED CT, IDMP etc.
@@ -187,54 +187,54 @@ public data class MedicationKnowledge(
    * The codes could have varying granularity from a country or group of countries down to a
    * specific district.
    */
-  public var intendedJurisdiction: List<CodeableConcept?>? = null,
+  public var intendedJurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * All of the names for a medication, for example, the name(s) given to a medication in different
    * countries. For example, acetaminophen and paracetamol or salbutamol and albuterol.
    */
-  public var name: List<String?>? = null,
+  public var name: MutableList<String> = mutableListOf(),
   /**
    * Associated or related medications. For example, if the medication is a branded product (e.g.
    * Crestor), this is the Therapeutic Moeity (e.g. Rosuvastatin) or if this is a generic medication
    * (e.g. Rosuvastatin), this would link to a branded product (e.g. Crestor.
    */
-  public var relatedMedicationKnowledge: List<RelatedMedicationKnowledge>? = null,
+  public var relatedMedicationKnowledge: MutableList<RelatedMedicationKnowledge> = mutableListOf(),
   /** Links to associated medications that could be prescribed, dispensed or administered. */
-  public var associatedMedication: List<Reference?>? = null,
+  public var associatedMedication: MutableList<Reference> = mutableListOf(),
   /**
    * Category of the medication or product (e.g. branded product, therapeutic moeity, generic
    * product, innovator product, etc.).
    */
-  public var productType: List<CodeableConcept?>? = null,
+  public var productType: MutableList<CodeableConcept> = mutableListOf(),
   /** Associated documentation about the medication. */
-  public var monograph: List<Monograph>? = null,
+  public var monograph: MutableList<Monograph> = mutableListOf(),
   /** The instructions for preparing the medication. */
   public var preparationInstruction: Markdown? = null,
   /** The price of the medication. */
-  public var cost: List<Cost>? = null,
+  public var cost: MutableList<Cost> = mutableListOf(),
   /** The program under which the medication is reviewed. */
-  public var monitoringProgram: List<MonitoringProgram>? = null,
+  public var monitoringProgram: MutableList<MonitoringProgram> = mutableListOf(),
   /**
    * Guidelines or protocols that are applicable for the administration of the medication based on
    * indication.
    */
-  public var indicationGuideline: List<IndicationGuideline>? = null,
+  public var indicationGuideline: MutableList<IndicationGuideline> = mutableListOf(),
   /** Categorization of the medication within a formulary or classification system. */
-  public var medicineClassification: List<MedicineClassification>? = null,
+  public var medicineClassification: MutableList<MedicineClassification> = mutableListOf(),
   /** Information that only applies to packages (not products). */
-  public var packaging: List<Packaging>? = null,
+  public var packaging: MutableList<Packaging> = mutableListOf(),
   /**
    * Potential clinical issue with or between medication(s) (for example, drug-drug interaction,
    * drug-disease contraindication, drug-allergy interaction, etc.).
    */
-  public var clinicalUseIssue: List<Reference?>? = null,
+  public var clinicalUseIssue: MutableList<Reference> = mutableListOf(),
   /**
    * Information on how the medication should be stored, for example, refrigeration temperatures and
    * length of stability at a given temperature.
    */
-  public var storageGuideline: List<StorageGuideline>? = null,
+  public var storageGuideline: MutableList<StorageGuideline> = mutableListOf(),
   /** Regulatory information about a medication. */
-  public var regulatory: List<Regulatory>? = null,
+  public var regulatory: MutableList<Regulatory> = mutableListOf(),
   /**
    * Along with the link to a Medicinal Product Definition resource, this information provides
    * common definitional elements that are needed to understand the specific medication that is
@@ -266,7 +266,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -285,11 +285,11 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The category of the associated medication knowledge reference. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** Associated documentation about the associated medication knowledge. */
-    public var reference: List<Reference?>? = null,
+    public var reference: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** Associated documentation about the medication. */
@@ -312,7 +312,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -331,7 +331,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The category of documentation about the medication. (e.g. professional monograph, patient
      * education monograph).
@@ -361,7 +361,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -380,21 +380,21 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The date range for which the cost information of the medication is effective. */
-    public var effectiveDate: List<Period?>? = null,
+    public var effectiveDate: MutableList<Period> = mutableListOf(),
     /**
      * The category of the cost information. For example, manufacturers' cost, patient cost, claim
      * reimbursement cost, actual acquisition cost.
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** The source or owner that assigns the price to the medication. */
     public var source: String? = null,
     /**
      * The price or representation of the cost (for example, Band A, Band B or $, $$) of the
      * medication.
      */
-    public var cost: Cost? = null,
+    public var cost: Cost,
   ) : BackboneElement() {
     public sealed interface Cost {
       public fun asMoney(): Money? = this as? Money
@@ -408,12 +408,12 @@ public data class MedicationKnowledge(
       ) : Cost
 
       public companion object {
-        public fun from(
-          MoneyValue: com.google.fhir.model.r5.Money?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        internal fun from(
+          moneyValue: com.google.fhir.model.r5.Money?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
         ): Cost? {
-          if (MoneyValue != null) return Money(MoneyValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (moneyValue != null) return Money(moneyValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           return null
         }
       }
@@ -440,7 +440,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -459,7 +459,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Type of program under which the medication is monitored. */
     public var type: CodeableConcept? = null,
     /** Name of the reviewing program. */
@@ -489,7 +489,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -508,14 +508,14 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indication or reason for use of the medication that applies to the specific administration
      * guideline.
      */
-    public var indication: List<CodeableReference?>? = null,
+    public var indication: MutableList<CodeableReference> = mutableListOf(),
     /** The guidelines for the dosage of the medication for the indication. */
-    public var dosingGuideline: List<DosingGuideline>? = null,
+    public var dosingGuideline: MutableList<DosingGuideline> = mutableListOf(),
   ) : BackboneElement() {
     /** The guidelines for the dosage of the medication for the indication. */
     @Serializable(with = MedicationKnowledgeIndicationGuidelineDosingGuidelineSerializer::class)
@@ -537,7 +537,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -556,14 +556,14 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The overall intention of the treatment, for example, prophylactic, supporative, curative,
        * etc.
        */
       public var treatmentIntent: CodeableConcept? = null,
       /** Dosage for the medication for the specific guidelines. */
-      public var dosage: List<Dosage>? = null,
+      public var dosage: MutableList<Dosage> = mutableListOf(),
       /**
        * The type of the treatment that the guideline applies to, for example, long term therapy,
        * first line treatment, etc.
@@ -573,7 +573,7 @@ public data class MedicationKnowledge(
        * Characteristics of the patient that are relevant to the administration guidelines (for
        * example, height, weight, gender, etc.).
        */
-      public var patientCharacteristic: List<PatientCharacteristic>? = null,
+      public var patientCharacteristic: MutableList<PatientCharacteristic> = mutableListOf(),
     ) : BackboneElement() {
       /** Dosage for the medication for the specific guidelines. */
       @Serializable(
@@ -597,7 +597,7 @@ public data class MedicationKnowledge(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -616,14 +616,14 @@ public data class MedicationKnowledge(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The type or category of dosage for a given medication (for example, prophylaxis,
          * maintenance, therapeutic, etc.).
          */
-        public var type: CodeableConcept? = null,
+        public var type: CodeableConcept,
         /** Dosage for the medication for the specific guidelines. */
-        public var dosage: List<com.google.fhir.model.r5.Dosage?>? = null,
+        public var dosage: MutableList<com.google.fhir.model.r5.Dosage> = mutableListOf(),
       ) : BackboneElement()
 
       /**
@@ -652,7 +652,7 @@ public data class MedicationKnowledge(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -671,12 +671,12 @@ public data class MedicationKnowledge(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The categorization of the specific characteristic that is relevant to the administration
          * guideline (e.g. height, weight, gender).
          */
-        public var type: CodeableConcept? = null,
+        public var type: CodeableConcept,
         /** The specific characteristic (e.g. height, weight, gender, etc.). */
         public var `value`: Value? = null,
       ) : BackboneElement() {
@@ -696,14 +696,14 @@ public data class MedicationKnowledge(
           public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Value
 
           public companion object {
-            public fun from(
-              CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-              QuantityValue: com.google.fhir.model.r5.Quantity?,
-              RangeValue: com.google.fhir.model.r5.Range?,
+            internal fun from(
+              codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+              quantityValue: com.google.fhir.model.r5.Quantity?,
+              rangeValue: com.google.fhir.model.r5.Range?,
             ): Value? {
-              if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-              if (QuantityValue != null) return Quantity(QuantityValue)
-              if (RangeValue != null) return Range(RangeValue)
+              if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+              if (quantityValue != null) return Quantity(quantityValue)
+              if (rangeValue != null) return Range(rangeValue)
               return null
             }
           }
@@ -732,7 +732,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -751,19 +751,19 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of category for the medication (for example, therapeutic classification, therapeutic
      * sub-classification).
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** Either a textual source of the classification or a reference to an online source. */
     public var source: Source? = null,
     /**
      * Specific category assigned to the medication (e.g. anti-infective, anti-hypertensive,
      * antibiotic, etc.).
      */
-    public var classification: List<CodeableConcept?>? = null,
+    public var classification: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Source {
       public fun asString(): String? = this as? String
@@ -775,7 +775,7 @@ public data class MedicationKnowledge(
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Source
 
       public companion object {
-        public fun from(
+        internal fun from(
           stringValue: com.google.fhir.model.r5.String?,
           uriValue: com.google.fhir.model.r5.Uri?,
         ): Source? {
@@ -807,7 +807,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -826,9 +826,9 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The cost of the packaged medication. */
-    public var cost: List<Cost?>? = null,
+    public var cost: MutableList<Cost> = mutableListOf(),
     /**
      * A reference to a PackagedProductDefinition that provides the details of the product that is
      * in the packaging and is being priced.
@@ -859,7 +859,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -878,11 +878,11 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Reference to additional information about the storage guidelines. */
     public var reference: Uri? = null,
     /** Additional notes about the storage. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
     /** Duration that the medication remains stable if the environmentalSetting is respected. */
     public var stabilityDuration: Duration? = null,
     /**
@@ -890,7 +890,7 @@ public data class MedicationKnowledge(
      * other substances. Environment settings may involve temperature, humidity, or exposure to
      * light.
      */
-    public var environmentalSetting: List<EnvironmentalSetting>? = null,
+    public var environmentalSetting: MutableList<EnvironmentalSetting> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Describes a setting/value on the environment for the adequate storage of the medication and
@@ -916,7 +916,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -935,13 +935,13 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Identifies the category or type of setting (e.g., type of location, temperature, humidity).
        */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** Value associated to the setting. E.g., 40° – 50°F for temperature. */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
@@ -959,14 +959,14 @@ public data class MedicationKnowledge(
         ) : Value
 
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
-            RangeValue: com.google.fhir.model.r5.Range?,
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          internal fun from(
+            quantityValue: com.google.fhir.model.r5.Quantity?,
+            rangeValue: com.google.fhir.model.r5.Range?,
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           ): Value? {
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (RangeValue != null) return Range(RangeValue)
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (rangeValue != null) return Range(rangeValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
             return null
           }
         }
@@ -994,7 +994,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1013,15 +1013,15 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The authority that is specifying the regulations. */
-    public var regulatoryAuthority: Reference? = null,
+    public var regulatoryAuthority: Reference,
     /**
      * Specifies if changes are allowed when dispensing a medication from a regulatory perspective.
      */
-    public var substitution: List<Substitution>? = null,
+    public var substitution: MutableList<Substitution> = mutableListOf(),
     /** Specifies the schedule of a medication in jurisdiction. */
-    public var schedule: List<CodeableConcept?>? = null,
+    public var schedule: MutableList<CodeableConcept> = mutableListOf(),
     /** The maximum number of units of the medication that can be dispensed in a period. */
     public var maxDispense: MaxDispense? = null,
   ) : BackboneElement() {
@@ -1047,7 +1047,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1066,11 +1066,11 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Specifies the type of substitution allowed. */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** Specifies if regulation allows for changes in the medication when dispensing. */
-      public var allowed: Boolean? = null,
+      public var allowed: Boolean,
     ) : BackboneElement()
 
     /** The maximum number of units of the medication that can be dispensed in a period. */
@@ -1093,7 +1093,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1112,9 +1112,9 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The maximum number of units of the medication that can be dispensed. */
-      public var quantity: Quantity? = null,
+      public var quantity: Quantity,
       /** The period that applies to the maximum number of units. */
       public var period: Duration? = null,
     ) : BackboneElement()
@@ -1144,7 +1144,7 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1163,9 +1163,9 @@ public data class MedicationKnowledge(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Associated definitions for this medication. */
-    public var definition: List<Reference?>? = null,
+    public var definition: MutableList<Reference> = mutableListOf(),
     /**
      * Describes the form of the item. Powder; tablets; capsule.
      *
@@ -1175,11 +1175,11 @@ public data class MedicationKnowledge(
      */
     public var doseForm: CodeableConcept? = null,
     /** The intended or approved route of administration. */
-    public var intendedRoute: List<CodeableConcept?>? = null,
+    public var intendedRoute: MutableList<CodeableConcept> = mutableListOf(),
     /** Identifies a particular constituent of interest in the product. */
-    public var ingredient: List<Ingredient>? = null,
+    public var ingredient: MutableList<Ingredient> = mutableListOf(),
     /** Specifies descriptive properties of the medicine, such as color, shape, imprints, etc. */
-    public var drugCharacteristic: List<DrugCharacteristic>? = null,
+    public var drugCharacteristic: MutableList<DrugCharacteristic> = mutableListOf(),
   ) : BackboneElement() {
     /** Identifies a particular constituent of interest in the product. */
     @Serializable(with = MedicationKnowledgeDefinitionalIngredientSerializer::class)
@@ -1201,7 +1201,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1220,9 +1220,9 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A reference to the resource that provides information about the ingredient. */
-      public var item: CodeableReference? = null,
+      public var item: CodeableReference,
       /** Indication of whether this ingredient affects the therapeutic action of the drug. */
       public var type: CodeableConcept? = null,
       /**
@@ -1250,14 +1250,14 @@ public data class MedicationKnowledge(
           Strength
 
         public companion object {
-          public fun from(
-            RatioValue: com.google.fhir.model.r5.Ratio?,
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
+          internal fun from(
+            ratioValue: com.google.fhir.model.r5.Ratio?,
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+            quantityValue: com.google.fhir.model.r5.Quantity?,
           ): Strength? {
-            if (RatioValue != null) return Ratio(RatioValue)
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
+            if (ratioValue != null) return Ratio(ratioValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+            if (quantityValue != null) return Quantity(quantityValue)
             return null
           }
         }
@@ -1284,7 +1284,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1303,7 +1303,7 @@ public data class MedicationKnowledge(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A code specifying which characteristic of the medicine is being described (for example,
        * colour, shape, imprint).
@@ -1343,18 +1343,18 @@ public data class MedicationKnowledge(
           Value
 
         public companion object {
-          public fun from(
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          internal fun from(
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             stringValue: com.google.fhir.model.r5.String?,
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
+            quantityValue: com.google.fhir.model.r5.Quantity?,
             base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
-            AttachmentValue: com.google.fhir.model.r5.Attachment?,
+            attachmentValue: com.google.fhir.model.r5.Attachment?,
           ): Value? {
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
             if (stringValue != null) return String(stringValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
+            if (quantityValue != null) return Quantity(quantityValue)
             if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
-            if (AttachmentValue != null) return Attachment(AttachmentValue)
+            if (attachmentValue != null) return Attachment(attachmentValue)
             return null
           }
         }

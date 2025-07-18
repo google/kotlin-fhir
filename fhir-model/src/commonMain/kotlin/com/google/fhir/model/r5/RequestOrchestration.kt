@@ -27,7 +27,7 @@ import com.google.fhir.model.r5.serializers.RequestOrchestrationActionRelatedAct
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -103,7 +103,7 @@ public data class RequestOrchestration(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class RequestOrchestration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,21 +135,21 @@ public data class RequestOrchestration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Allows a service to provide a unique, business identifier for the request. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A canonical URL referencing a FHIR-defined protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this request.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * A URL referencing an externally defined protocol, guideline, orderset or other definition that
    * is adhered to in whole or in part by this request.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this request. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * Completed or terminated request(s) whose function is taken by this new request.
    *
@@ -157,7 +157,7 @@ public data class RequestOrchestration(
    * or because the previous request was completed, but the need for the action described by the
    * request remains ongoing.
    */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * A shared identifier common to multiple independent Request instances that were
    * activated/authorized more or less simultaneously by a single author. The presence of the same
@@ -175,12 +175,12 @@ public data class RequestOrchestration(
    * The current state of the request. For request orchestrations, the status reflects the status of
    * all the requests in the orchestration.
    */
-  public var status: Enumeration<RequestStatus>? = null,
+  public var status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the request and where the
    * request fits into the workflow chain.
    */
-  public var intent: Enumeration<RequestIntent>? = null,
+  public var intent: Enumeration<RequestIntent>,
   /** Indicates how quickly the request should be addressed with respect to other requests. */
   public var priority: Enumeration<RequestPriority>? = null,
   /**
@@ -200,15 +200,15 @@ public data class RequestOrchestration(
   /** Provides a reference to the author of the request orchestration. */
   public var author: Reference? = null,
   /** Describes the reason for the request orchestration in coded or textual form. */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Goals that are intended to be achieved by following the requests in this RequestOrchestration.
    */
-  public var goal: List<Reference?>? = null,
+  public var goal: MutableList<Reference> = mutableListOf(),
   /** Provides a mechanism to communicate additional information about the response. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** The actions, if any, produced by the evaluation of the artifact. */
-  public var action: List<Action>? = null,
+  public var action: MutableList<Action> = mutableListOf(),
 ) : DomainResource() {
   /** The actions, if any, produced by the evaluation of the artifact. */
   @Serializable(with = RequestOrchestrationActionSerializer::class)
@@ -230,7 +230,7 @@ public data class RequestOrchestration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -249,7 +249,7 @@ public data class RequestOrchestration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The linkId of the action from the PlanDefinition that corresponds to this action in the
      * RequestOrchestration resource.
@@ -276,28 +276,28 @@ public data class RequestOrchestration(
      * A code that provides meaning for the action or action group. For example, a section may have
      * a LOINC code for a section of a documentation template.
      */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Didactic or other informational resources associated with the action that can be provided to
      * the CDS recipient. Information resources can include inline text commentary and links to web
      * resources.
      */
-    public var documentation: List<RelatedArtifact?>? = null,
+    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
     /** Goals that are intended to be achieved by following the requests in this action. */
-    public var goal: List<Reference?>? = null,
+    public var goal: MutableList<Reference> = mutableListOf(),
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
      *
      * When multiple conditions of the same kind are present, the effects are combined using AND
      * semantics, so the overall condition is true only if all of the conditions are true.
      */
-    public var condition: List<Condition>? = null,
+    public var condition: MutableList<Condition> = mutableListOf(),
     /** Defines input data requirements for the action. */
-    public var input: List<Input>? = null,
+    public var input: MutableList<Input> = mutableListOf(),
     /** Defines the outputs of the action, if any. */
-    public var output: List<Output>? = null,
+    public var output: MutableList<Output> = mutableListOf(),
     /** A relationship to another action such as "before" or "30-60 minutes after start of". */
-    public var relatedAction: List<RelatedAction>? = null,
+    public var relatedAction: MutableList<RelatedAction> = mutableListOf(),
     /**
      * An optional value describing when the action should be performed.
      *
@@ -322,7 +322,7 @@ public data class RequestOrchestration(
      * participants (in the same way they are specified in ActivityDefinition and PlanDefinition
      * resources) as well as identifying specific participants when they are known.
      */
-    public var participant: List<Participant>? = null,
+    public var participant: MutableList<Participant> = mutableListOf(),
     /** The type of action to perform (create, update, remove). */
     public var type: CodeableConcept? = null,
     /** Defines the grouping behavior for the action and its children. */
@@ -373,9 +373,9 @@ public data class RequestOrchestration(
      * by the dynamicValues specified here. In addition, if both a transform and dynamic values are
      * specific, the dynamic values are applied to the result of the transform.
      */
-    public var dynamicValue: List<DynamicValue>? = null,
+    public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
     /** Sub actions. */
-    public var action: List<Action?>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
@@ -399,7 +399,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -418,7 +418,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The kind of condition.
        *
@@ -426,7 +426,7 @@ public data class RequestOrchestration(
        * is applied to a given context. Start and stop criteria are carried through application and
        * used to describe enter/exit criteria for an action.
        */
-      public var kind: Enumeration<ActionConditionKind>? = null,
+      public var kind: Enumeration<ActionConditionKind>,
       /**
        * An expression that returns true or false, indicating whether or not the condition is
        * satisfied.
@@ -457,7 +457,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -476,7 +476,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
@@ -515,7 +515,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -534,7 +534,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
@@ -573,7 +573,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -592,11 +592,11 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The element id of the target related action. */
-      public var targetId: Id? = null,
+      public var targetId: Id,
       /** The relationship of this action to the related action. */
-      public var relationship: Enumeration<ActionRelationshipType>? = null,
+      public var relationship: Enumeration<ActionRelationshipType>,
       /** The relationship of the end of this action to the related action. */
       public var endRelationship: Enumeration<ActionRelationshipType>? = null,
       /**
@@ -615,12 +615,12 @@ public data class RequestOrchestration(
         public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Offset
 
         public companion object {
-          public fun from(
-            DurationValue: com.google.fhir.model.r5.Duration?,
-            RangeValue: com.google.fhir.model.r5.Range?,
+          internal fun from(
+            durationValue: com.google.fhir.model.r5.Duration?,
+            rangeValue: com.google.fhir.model.r5.Range?,
           ): Offset? {
-            if (DurationValue != null) return Duration(DurationValue)
-            if (RangeValue != null) return Range(RangeValue)
+            if (durationValue != null) return Duration(durationValue)
+            if (rangeValue != null) return Range(rangeValue)
             return null
           }
         }
@@ -647,7 +647,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -666,7 +666,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of participant in the action. */
       public var type: Enumeration<ActivityParticipantType>? = null,
       /** The type of participant in the action. */
@@ -697,12 +697,12 @@ public data class RequestOrchestration(
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Actor
 
         public companion object {
-          public fun from(
+          internal fun from(
             canonicalValue: com.google.fhir.model.r5.Canonical?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
+            referenceValue: com.google.fhir.model.r5.Reference?,
           ): Actor? {
             if (canonicalValue != null) return Canonical(canonicalValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
+            if (referenceValue != null) return Reference(referenceValue)
             return null
           }
         }
@@ -734,7 +734,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -753,7 +753,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The path to the element to be customized. This is the path on the resource that will hold
        * the result of the calculation defined by the expression. The specified path SHALL be a
@@ -807,20 +807,20 @@ public data class RequestOrchestration(
       public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Action.Timing
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          AgeValue: com.google.fhir.model.r5.Age?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-          DurationValue: com.google.fhir.model.r5.Duration?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          TimingValue: com.google.fhir.model.r5.Timing?,
+          ageValue: com.google.fhir.model.r5.Age?,
+          periodValue: com.google.fhir.model.r5.Period?,
+          durationValue: com.google.fhir.model.r5.Duration?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          timingValue: com.google.fhir.model.r5.Timing?,
         ): Action.Timing? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (TimingValue != null) return Timing(TimingValue)
+          if (ageValue != null) return Age(ageValue)
+          if (periodValue != null) return Period(periodValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (timingValue != null) return Timing(timingValue)
           return null
         }
       }
@@ -837,7 +837,7 @@ public data class RequestOrchestration(
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Definition
 
       public companion object {
-        public fun from(
+        internal fun from(
           canonicalValue: com.google.fhir.model.r5.Canonical?,
           uriValue: com.google.fhir.model.r5.Uri?,
         ): Definition? {

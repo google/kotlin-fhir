@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ActorDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class ActorDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class ActorDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class ActorDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this actor definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -152,7 +152,7 @@ public data class ActorDefinition(
    * A formal identifier that is used to identify this actor definition when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the actor definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -198,7 +198,7 @@ public data class ActorDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this actor definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -242,7 +242,7 @@ public data class ActorDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the actor.
    *
@@ -259,7 +259,7 @@ public data class ActorDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the actor definition is intended to be used.
    *
@@ -271,7 +271,7 @@ public data class ActorDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this actor definition is needed and why it has been designed as it has.
    *
@@ -299,7 +299,7 @@ public data class ActorDefinition(
    */
   public var copyrightLabel: String? = null,
   /** Whether the actor represents a human or an appliction. */
-  public var type: Enumeration<ExampleScenarioActorType>? = null,
+  public var type: Enumeration<ExampleScenarioActorType>,
   /**
    * Documentation about the functionality of the actor.
    *
@@ -308,14 +308,14 @@ public data class ActorDefinition(
    */
   public var documentation: Markdown? = null,
   /** A reference to additional documentation about the actor, but description and documentation. */
-  public var reference: List<Url?>? = null,
+  public var reference: MutableList<Url> = mutableListOf(),
   /** The capability statement for the actor (if the concept is applicable). */
   public var capabilities: Canonical? = null,
   /**
    * A url that identifies the definition of this actor in another IG (which IG must be listed in
    * the dependencies). This actor inherits all the obligations etc. as defined in the other IG.
    */
-  public var derivedFrom: List<Canonical?>? = null,
+  public var derivedFrom: MutableList<Canonical> = mutableListOf(),
 ) : DomainResource() {
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
@@ -329,12 +329,12 @@ public data class ActorDefinition(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

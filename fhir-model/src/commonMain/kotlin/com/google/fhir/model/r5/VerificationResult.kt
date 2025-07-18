@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.VerificationResultPrimarySourceSeria
 import com.google.fhir.model.r5.serializers.VerificationResultSerializer
 import com.google.fhir.model.r5.serializers.VerificationResultValidatorSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class VerificationResult(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class VerificationResult(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,18 +128,18 @@ public data class VerificationResult(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A resource that was validated. */
-  public var target: List<Reference?>? = null,
+  public var target: MutableList<Reference> = mutableListOf(),
   /** The fhirpath location(s) within the resource that was validated. */
-  public var targetLocation: List<String?>? = null,
+  public var targetLocation: MutableList<String> = mutableListOf(),
   /** The frequency with which the target must be validated (none; initial; periodic). */
   public var need: CodeableConcept? = null,
   /**
    * The validation status of the target (attested; validated; in process; requires revalidation;
    * validation failed; revalidation failed).
    */
-  public var status: Enumeration<Status>? = null,
+  public var status: Enumeration<Status>,
   /** When the validation status was updated. */
   public var statusDate: DateTime? = null,
   /** What the target is validated against (nothing; primary source; multiple sources). */
@@ -148,7 +148,7 @@ public data class VerificationResult(
    * The primary process by which the target is validated (edit check; value set; primary source;
    * multiple sources; standalone; in context).
    */
-  public var validationProcess: List<CodeableConcept?>? = null,
+  public var validationProcess: MutableList<CodeableConcept> = mutableListOf(),
   /** Frequency of revalidation. */
   public var frequency: Timing? = null,
   /** The date/time validation was last completed (including failed validations). */
@@ -158,11 +158,11 @@ public data class VerificationResult(
   /** The result if validation fails (fatal; warning; record only; none). */
   public var failureAction: CodeableConcept? = null,
   /** Information about the primary source(s) involved in validation. */
-  public var primarySource: List<PrimarySource>? = null,
+  public var primarySource: MutableList<PrimarySource> = mutableListOf(),
   /** Information about the entity attesting to information. */
   public var attestation: Attestation? = null,
   /** Information about the entity validating information. */
-  public var validator: List<Validator>? = null,
+  public var validator: MutableList<Validator> = mutableListOf(),
 ) : DomainResource() {
   /** Information about the primary source(s) involved in validation. */
   @Serializable(with = VerificationResultPrimarySourceSerializer::class)
@@ -184,7 +184,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -203,7 +203,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Reference to the primary source. */
     public var who: Reference? = null,
     /**
@@ -211,9 +211,9 @@ public data class VerificationResult(
      * Service; Relationship owner; Registration Authority; legal source; issuing source;
      * authoritative source).
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /** Method for communicating with the primary source (manual; API; Push). */
-    public var communicationMethod: List<CodeableConcept?>? = null,
+    public var communicationMethod: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Status of the validation of the target against the primary source (successful; failed;
      * unknown).
@@ -227,7 +227,7 @@ public data class VerificationResult(
      * Type of alerts/updates the primary source can send (specific requested changes; any changes;
      * as defined by source).
      */
-    public var pushTypeAvailable: List<CodeableConcept?>? = null,
+    public var pushTypeAvailable: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /** Information about the entity attesting to information. */
@@ -250,7 +250,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -269,7 +269,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The individual or organization attesting to information. */
     public var who: Reference? = null,
     /** When the who is asserting on behalf of another (organization or individual). */
@@ -314,7 +314,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -333,9 +333,9 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Reference to the organization validating information. */
-    public var organization: Reference? = null,
+    public var organization: Reference,
     /** A digital identity certificate associated with the validator. */
     public var identityCertificate: String? = null,
     /** Signed assertion by the validator that they have validated the information. */

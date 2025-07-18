@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.ObservationDefinitionQualifiedInterv
 import com.google.fhir.model.r4.serializers.ObservationDefinitionQuantitativeDetailsSerializer
 import com.google.fhir.model.r4.serializers.ObservationDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class ObservationDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A code that classifies the general type of observation.
    *
@@ -137,16 +137,16 @@ public data class ObservationDefinition(
    * ObservationDefinition. The level of granularity is defined by the category concepts in the
    * value set.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Describes what will be observed. Sometimes this is called the observation "name". */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /** A unique identifier assigned to this ObservationDefinition artifact. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The data types allowed for the value element of the instance observations conforming to this
    * ObservationDefinition.
    */
-  public var permittedDataType: List<Enumeration<ObservationDataType>>? = null,
+  public var permittedDataType: MutableList<Enumeration<ObservationDataType>> = mutableListOf(),
   /**
    * Multiple results allowed for observations conforming to this ObservationDefinition.
    *
@@ -171,7 +171,7 @@ public data class ObservationDefinition(
    * Multiple ranges of results qualified by different contexts for ordinal or continuous
    * observations conforming to this ObservationDefinition.
    */
-  public var qualifiedInterval: List<QualifiedInterval>? = null,
+  public var qualifiedInterval: MutableList<QualifiedInterval> = mutableListOf(),
   /**
    * The set of valid coded results for the observations conforming to this ObservationDefinition.
    */
@@ -209,7 +209,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -228,7 +228,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Customary unit used to report quantitative results of observations conforming to this
      * ObservationDefinition.
@@ -273,7 +273,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -292,7 +292,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The category of interval of values for continuous or ordinal observations conforming to this
      * ObservationDefinition.
@@ -310,7 +310,7 @@ public data class ObservationDefinition(
      *
      * If this element is not present then the global population is assumed.
      */
-    public var appliesTo: List<CodeableConcept?>? = null,
+    public var appliesTo: MutableList<CodeableConcept> = mutableListOf(),
     /** Sex of the population the range applies to. */
     public var gender: Enumeration<AdministrativeGender>? = null,
     /**

@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.PaymentReconciliationAllocationSeria
 import com.google.fhir.model.r5.serializers.PaymentReconciliationProcessNoteSerializer
 import com.google.fhir.model.r5.serializers.PaymentReconciliationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class PaymentReconciliation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class PaymentReconciliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,18 +130,18 @@ public data class PaymentReconciliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this payment reconciliation. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Code to indicate the nature of the payment such as payment, adjustment. */
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<PaymentReconciliationStatus>? = null,
+  public var status: Enumeration<PaymentReconciliationStatus>,
   /**
    * The workflow or activity which gave rise to or during which the payment ocurred such as a
    * kiosk, deposit on account, periodic payment etc.
@@ -152,7 +152,7 @@ public data class PaymentReconciliation(
    */
   public var period: Period? = null,
   /** The date when the resource was created. */
-  public var created: DateTime? = null,
+  public var created: DateTime,
   /** Payment enterer if not the actual payment issuer. */
   public var enterer: Reference? = null,
   /** The type of the source such as patient or insurance. */
@@ -179,7 +179,7 @@ public data class PaymentReconciliation(
   /** A human readable description of the status of the request for the reconciliation. */
   public var disposition: String? = null,
   /** The date of payment as indicated on the financial instrument. */
-  public var date: Date? = null,
+  public var date: Date,
   /**
    * The location of the site or device for electronic transfers or physical location for cash
    * payments.
@@ -213,7 +213,7 @@ public data class PaymentReconciliation(
    */
   public var returnedAmount: Money? = null,
   /** Total payment amount as indicated on the financial instrument. */
-  public var amount: Money? = null,
+  public var amount: Money,
   /**
    * Issuer's unique identifier for the payment instrument.
    *
@@ -221,7 +221,7 @@ public data class PaymentReconciliation(
    */
   public var paymentIdentifier: Identifier? = null,
   /** Distribution of the payment amount for a previously acknowledged payable. */
-  public var allocation: List<Allocation>? = null,
+  public var allocation: MutableList<Allocation> = mutableListOf(),
   /**
    * A code for the form to be used for printing the content.
    *
@@ -229,7 +229,7 @@ public data class PaymentReconciliation(
    */
   public var formCode: CodeableConcept? = null,
   /** A note that describes or explains the processing in a human readable form. */
-  public var processNote: List<ProcessNote>? = null,
+  public var processNote: MutableList<ProcessNote> = mutableListOf(),
 ) : DomainResource() {
   /** Distribution of the payment amount for a previously acknowledged payable. */
   @Serializable(with = PaymentReconciliationAllocationSerializer::class)
@@ -251,7 +251,7 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -270,7 +270,7 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Unique identifier for the current payment item for the referenced payable. */
     public var identifier: Identifier? = null,
     /** Unique identifier for the prior payment item for the referenced payable. */
@@ -329,13 +329,13 @@ public data class PaymentReconciliation(
         TargetItem
 
       public companion object {
-        public fun from(
+        internal fun from(
           stringValue: com.google.fhir.model.r5.String?,
-          IdentifierValue: com.google.fhir.model.r5.Identifier?,
+          identifierValue: com.google.fhir.model.r5.Identifier?,
           positiveIntValue: com.google.fhir.model.r5.PositiveInt?,
         ): TargetItem? {
           if (stringValue != null) return String(stringValue)
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
+          if (identifierValue != null) return Identifier(identifierValue)
           if (positiveIntValue != null) return PositiveInt(positiveIntValue)
           return null
         }
@@ -363,7 +363,7 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -382,7 +382,7 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The business purpose of the note text. */
     public var type: Enumeration<NoteType>? = null,
     /** The explanation or description associated with the processing. */

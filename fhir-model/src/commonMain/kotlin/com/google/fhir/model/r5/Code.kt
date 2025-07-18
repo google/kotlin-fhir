@@ -19,7 +19,7 @@
 package com.google.fhir.model.r5
 
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * code type: A string which has at least one character and no leading or trailing whitespace and
@@ -40,12 +40,12 @@ public data class Code(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Primitive value for code */
   override var `value`: kotlin.String? = null,
 ) : String(id, extension, `value`) {
   override fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -53,10 +53,10 @@ public data class Code(
 
   public companion object {
     public fun of(`value`: kotlin.String?, element: Element?): Code? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Code(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Code(element?.id, element?.extension, value)
+        null
       }
   }
 }

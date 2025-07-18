@@ -32,15 +32,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SampledDataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var origin: Quantity? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var origin: Quantity,
   public var period: Double? = null,
   public var _period: Element? = null,
   public var factor: Double? = null,
@@ -55,41 +55,44 @@ internal data class SampledDataSurrogate(
   public var _data: Element? = null,
 ) {
   public fun toModel(): SampledData =
-    SampledData().apply {
-      id = this@SampledDataSurrogate.id
-      extension = this@SampledDataSurrogate.extension
-      origin = this@SampledDataSurrogate.origin
-      period = Decimal.of(this@SampledDataSurrogate.period, this@SampledDataSurrogate._period)
-      factor = Decimal.of(this@SampledDataSurrogate.factor, this@SampledDataSurrogate._factor)
+    SampledData(
+      id = this@SampledDataSurrogate.id,
+      extension = this@SampledDataSurrogate.extension ?: mutableListOf(),
+      origin = this@SampledDataSurrogate.origin,
+      period = Decimal.of(this@SampledDataSurrogate.period, this@SampledDataSurrogate._period)!!,
+      factor = Decimal.of(this@SampledDataSurrogate.factor, this@SampledDataSurrogate._factor),
       lowerLimit =
-        Decimal.of(this@SampledDataSurrogate.lowerLimit, this@SampledDataSurrogate._lowerLimit)
+        Decimal.of(this@SampledDataSurrogate.lowerLimit, this@SampledDataSurrogate._lowerLimit),
       upperLimit =
-        Decimal.of(this@SampledDataSurrogate.upperLimit, this@SampledDataSurrogate._upperLimit)
+        Decimal.of(this@SampledDataSurrogate.upperLimit, this@SampledDataSurrogate._upperLimit),
       dimensions =
-        PositiveInt.of(this@SampledDataSurrogate.dimensions, this@SampledDataSurrogate._dimensions)
-      `data` = R4String.of(this@SampledDataSurrogate.`data`, this@SampledDataSurrogate._data)
-    }
+        PositiveInt.of(
+          this@SampledDataSurrogate.dimensions,
+          this@SampledDataSurrogate._dimensions,
+        )!!,
+      `data` = R4String.of(this@SampledDataSurrogate.`data`, this@SampledDataSurrogate._data),
+    )
 
   public companion object {
     public fun fromModel(model: SampledData): SampledDataSurrogate =
       with(model) {
-        SampledDataSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          origin = this@with.origin
-          period = this@with.period?.value
-          _period = this@with.period?.toElement()
-          factor = this@with.factor?.value
-          _factor = this@with.factor?.toElement()
-          lowerLimit = this@with.lowerLimit?.value
-          _lowerLimit = this@with.lowerLimit?.toElement()
-          upperLimit = this@with.upperLimit?.value
-          _upperLimit = this@with.upperLimit?.toElement()
-          dimensions = this@with.dimensions?.value
-          _dimensions = this@with.dimensions?.toElement()
-          `data` = this@with.`data`?.value
-          _data = this@with.`data`?.toElement()
-        }
+        SampledDataSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          origin = this@with.origin,
+          period = this@with.period.value,
+          _period = this@with.period.toElement(),
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          lowerLimit = this@with.lowerLimit?.value,
+          _lowerLimit = this@with.lowerLimit?.toElement(),
+          upperLimit = this@with.upperLimit?.value,
+          _upperLimit = this@with.upperLimit?.toElement(),
+          dimensions = this@with.dimensions.value,
+          _dimensions = this@with.dimensions.toElement(),
+          `data` = this@with.`data`?.value,
+          _data = this@with.`data`?.toElement(),
+        )
       }
   }
 }

@@ -36,14 +36,14 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DosageDoseAndRateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var doseRange: Range? = null,
   public var doseQuantity: Quantity? = null,
@@ -52,36 +52,36 @@ internal data class DosageDoseAndRateSurrogate(
   public var rateQuantity: Quantity? = null,
 ) {
   public fun toModel(): Dosage.DoseAndRate =
-    Dosage.DoseAndRate().apply {
-      id = this@DosageDoseAndRateSurrogate.id
-      extension = this@DosageDoseAndRateSurrogate.extension
-      type = this@DosageDoseAndRateSurrogate.type
+    Dosage.DoseAndRate(
+      id = this@DosageDoseAndRateSurrogate.id,
+      extension = this@DosageDoseAndRateSurrogate.extension ?: mutableListOf(),
+      type = this@DosageDoseAndRateSurrogate.type,
       dose =
         Dosage.DoseAndRate.Dose?.from(
           this@DosageDoseAndRateSurrogate.doseRange,
           this@DosageDoseAndRateSurrogate.doseQuantity,
-        )
+        ),
       rate =
         Dosage.DoseAndRate.Rate?.from(
           this@DosageDoseAndRateSurrogate.rateRatio,
           this@DosageDoseAndRateSurrogate.rateRange,
           this@DosageDoseAndRateSurrogate.rateQuantity,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Dosage.DoseAndRate): DosageDoseAndRateSurrogate =
       with(model) {
-        DosageDoseAndRateSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type
-          doseRange = this@with.dose?.asRange()?.value
-          doseQuantity = this@with.dose?.asQuantity()?.value
-          rateRatio = this@with.rate?.asRatio()?.value
-          rateRange = this@with.rate?.asRange()?.value
-          rateQuantity = this@with.rate?.asQuantity()?.value
-        }
+        DosageDoseAndRateSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          doseRange = this@with.dose?.asRange()?.value,
+          doseQuantity = this@with.dose?.asQuantity()?.value,
+          rateRatio = this@with.rate?.asRatio()?.value,
+          rateRange = this@with.rate?.asRange()?.value,
+          rateQuantity = this@with.rate?.asQuantity()?.value,
+        )
       }
   }
 }
@@ -89,13 +89,13 @@ internal data class DosageDoseAndRateSurrogate(
 @Serializable
 internal data class DosageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var additionalInstruction: List<CodeableConcept?>? = null,
+  public var additionalInstruction: MutableList<CodeableConcept>? = null,
   public var patientInstruction: KotlinString? = null,
   public var _patientInstruction: Element? = null,
   public var timing: Timing? = null,
@@ -105,25 +105,25 @@ internal data class DosageSurrogate(
   public var site: CodeableConcept? = null,
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
-  public var doseAndRate: List<Dosage.DoseAndRate>? = null,
+  public var doseAndRate: MutableList<Dosage.DoseAndRate>? = null,
   public var maxDosePerPeriod: Ratio? = null,
   public var maxDosePerAdministration: Quantity? = null,
   public var maxDosePerLifetime: Quantity? = null,
 ) {
   public fun toModel(): Dosage =
-    Dosage().apply {
-      id = this@DosageSurrogate.id
-      extension = this@DosageSurrogate.extension
-      modifierExtension = this@DosageSurrogate.modifierExtension
-      sequence = Integer.of(this@DosageSurrogate.sequence, this@DosageSurrogate._sequence)
-      text = R4bString.of(this@DosageSurrogate.text, this@DosageSurrogate._text)
-      additionalInstruction = this@DosageSurrogate.additionalInstruction
+    Dosage(
+      id = this@DosageSurrogate.id,
+      extension = this@DosageSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DosageSurrogate.modifierExtension ?: mutableListOf(),
+      sequence = Integer.of(this@DosageSurrogate.sequence, this@DosageSurrogate._sequence),
+      text = R4bString.of(this@DosageSurrogate.text, this@DosageSurrogate._text),
+      additionalInstruction = this@DosageSurrogate.additionalInstruction ?: mutableListOf(),
       patientInstruction =
         R4bString.of(
           this@DosageSurrogate.patientInstruction,
           this@DosageSurrogate._patientInstruction,
-        )
-      timing = this@DosageSurrogate.timing
+        ),
+      timing = this@DosageSurrogate.timing,
       asNeeded =
         Dosage.AsNeeded?.from(
           R4bBoolean.of(
@@ -131,42 +131,43 @@ internal data class DosageSurrogate(
             this@DosageSurrogate._asNeededBoolean,
           ),
           this@DosageSurrogate.asNeededCodeableConcept,
-        )
-      site = this@DosageSurrogate.site
-      route = this@DosageSurrogate.route
-      method = this@DosageSurrogate.method
-      doseAndRate = this@DosageSurrogate.doseAndRate
-      maxDosePerPeriod = this@DosageSurrogate.maxDosePerPeriod
-      maxDosePerAdministration = this@DosageSurrogate.maxDosePerAdministration
-      maxDosePerLifetime = this@DosageSurrogate.maxDosePerLifetime
-    }
+        ),
+      site = this@DosageSurrogate.site,
+      route = this@DosageSurrogate.route,
+      method = this@DosageSurrogate.method,
+      doseAndRate = this@DosageSurrogate.doseAndRate ?: mutableListOf(),
+      maxDosePerPeriod = this@DosageSurrogate.maxDosePerPeriod,
+      maxDosePerAdministration = this@DosageSurrogate.maxDosePerAdministration,
+      maxDosePerLifetime = this@DosageSurrogate.maxDosePerLifetime,
+    )
 
   public companion object {
     public fun fromModel(model: Dosage): DosageSurrogate =
       with(model) {
-        DosageSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          sequence = this@with.sequence?.value
-          _sequence = this@with.sequence?.toElement()
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-          additionalInstruction = this@with.additionalInstruction
-          patientInstruction = this@with.patientInstruction?.value
-          _patientInstruction = this@with.patientInstruction?.toElement()
-          timing = this@with.timing
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement()
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value
-          site = this@with.site
-          route = this@with.route
-          method = this@with.method
-          doseAndRate = this@with.doseAndRate
-          maxDosePerPeriod = this@with.maxDosePerPeriod
-          maxDosePerAdministration = this@with.maxDosePerAdministration
-          maxDosePerLifetime = this@with.maxDosePerLifetime
-        }
+        DosageSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence?.value,
+          _sequence = this@with.sequence?.toElement(),
+          text = this@with.text?.value,
+          _text = this@with.text?.toElement(),
+          additionalInstruction =
+            this@with.additionalInstruction.takeUnless { it.all { it == null } },
+          patientInstruction = this@with.patientInstruction?.value,
+          _patientInstruction = this@with.patientInstruction?.toElement(),
+          timing = this@with.timing,
+          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value,
+          site = this@with.site,
+          route = this@with.route,
+          method = this@with.method,
+          doseAndRate = this@with.doseAndRate.takeUnless { it.all { it == null } },
+          maxDosePerPeriod = this@with.maxDosePerPeriod,
+          maxDosePerAdministration = this@with.maxDosePerAdministration,
+          maxDosePerLifetime = this@with.maxDosePerLifetime,
+        )
       }
   }
 }

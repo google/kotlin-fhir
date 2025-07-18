@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.CatalogEntryRelatedEntrySerializer
 import com.google.fhir.model.r4b.serializers.CatalogEntrySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class CatalogEntry(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class CatalogEntry(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,22 +125,22 @@ public data class CatalogEntry(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Used in supporting different identifiers for the same product, e.g. manufacturer code and
    * retailer code.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The type of item - medication, device, service, protocol or other. */
   public var type: CodeableConcept? = null,
   /** Whether the entry represents an orderable item. */
-  public var orderable: Boolean? = null,
+  public var orderable: Boolean,
   /** The item in a catalog or definition. */
-  public var referencedItem: Reference? = null,
+  public var referencedItem: Reference,
   /** Used in supporting related concepts, e.g. NDC to RxNorm. */
-  public var additionalIdentifier: List<Identifier?>? = null,
+  public var additionalIdentifier: MutableList<Identifier> = mutableListOf(),
   /** Classes of devices, or ATC for medication. */
-  public var classification: List<CodeableConcept?>? = null,
+  public var classification: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Used to support catalog exchange even for unsupported products, e.g. getting list of
    * medications even if not prescribable.
@@ -158,11 +158,11 @@ public data class CatalogEntry(
    */
   public var lastUpdated: DateTime? = null,
   /** Used for examplefor Out of Formulary, or any specifics. */
-  public var additionalCharacteristic: List<CodeableConcept?>? = null,
+  public var additionalCharacteristic: MutableList<CodeableConcept> = mutableListOf(),
   /** User for example for ATC classification, or. */
-  public var additionalClassification: List<CodeableConcept?>? = null,
+  public var additionalClassification: MutableList<CodeableConcept> = mutableListOf(),
   /** Used for example, to point to a substance, or to a device used to administer a medication. */
-  public var relatedEntry: List<RelatedEntry>? = null,
+  public var relatedEntry: MutableList<RelatedEntry> = mutableListOf(),
 ) : DomainResource() {
   /** Used for example, to point to a substance, or to a device used to administer a medication. */
   @Serializable(with = CatalogEntryRelatedEntrySerializer::class)
@@ -184,7 +184,7 @@ public data class CatalogEntry(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -203,14 +203,14 @@ public data class CatalogEntry(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of relation to the related item: child, parent, packageContent, containerPackage,
      * usedIn, uses, requires, etc.
      */
-    public var relationtype: Enumeration<CatalogEntryRelationType>? = null,
+    public var relationtype: Enumeration<CatalogEntryRelationType>,
     /** The reference to the related item. */
-    public var item: Reference? = null,
+    public var item: Reference,
   ) : BackboneElement()
 
   /** The type of relations between entries. */

@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.MedicationStatementAdherenceSerializ
 import com.google.fhir.model.r5.serializers.MedicationStatementSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -115,7 +115,7 @@ public data class MedicationStatement(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -128,7 +128,7 @@ public data class MedicationStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -147,7 +147,7 @@ public data class MedicationStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this Medication Statement that are defined by business processes
    * and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -156,9 +156,9 @@ public data class MedicationStatement(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A larger event of which this particular MedicationStatement is a component or step. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code representing the status of recording the medication statement.
    *
@@ -170,12 +170,12 @@ public data class MedicationStatement(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationStatementStatus>? = null,
+  public var status: Enumeration<MedicationStatementStatus>,
   /**
    * Type of medication statement (for example, drug classification like ATC, where meds would be
    * administered, legal category of the medication.).
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Identifies the medication being administered. This is either a link to a resource representing
    * the details of the medication or a simple attribute carrying a code that identifies the
@@ -185,9 +185,9 @@ public data class MedicationStatement(
    * information is required, then the use of the medication resource is recommended. For example,
    * if you require form or lot number, then you must reference the Medication resource.
    */
-  public var medication: CodeableReference? = null,
+  public var medication: CodeableReference,
   /** The person, animal or group who is/was taking the medication. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter that establishes the context for this MedicationStatement. */
   public var encounter: Reference? = null,
   /**
@@ -210,7 +210,7 @@ public data class MedicationStatement(
    * Note: Use derivedFrom when a MedicationStatement is derived from other resources, e.g. Claim or
    * MedicationRequest.
    */
-  public var informationSource: List<Reference?>? = null,
+  public var informationSource: MutableList<Reference> = mutableListOf(),
   /**
    * Allows linking the MedicationStatement to the underlying MedicationRequest, or to other
    * information that supports or is used to derive the MedicationStatement.
@@ -221,24 +221,24 @@ public data class MedicationStatement(
    * it should be noted that the amount of information that is available varies from the type
    * resource that you derive the MedicationStatement from.
    */
-  public var derivedFrom: List<Reference?>? = null,
+  public var derivedFrom: MutableList<Reference> = mutableListOf(),
   /**
    * A concept, Condition or observation that supports why the medication is being/was taken.
    *
    * This could be a diagnosis code. If a full condition record exists or additional detail is
    * needed, use reasonForUseReference.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Provides extra information about the Medication Statement that is not conveyed by the other
    * attributes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Link to information that is relevant to a medication statement, for example, illicit drug use,
    * gestational age, etc.
    */
-  public var relatedClinicalInformation: List<Reference?>? = null,
+  public var relatedClinicalInformation: MutableList<Reference> = mutableListOf(),
   /**
    * The full representation of the dose of the medication included in all dosage instructions. To
    * be used when multiple dosage instructions are included to represent complex dosing such as
@@ -254,7 +254,7 @@ public data class MedicationStatement(
    * specificity may only be populated where the patient brings in their labeled container or where
    * the Medication Statement is derived from a MedicationRequest.
    */
-  public var dosage: List<Dosage?>? = null,
+  public var dosage: MutableList<Dosage> = mutableListOf(),
   /**
    * Indicates whether the medication is or is not being consumed or administered.
    *
@@ -285,7 +285,7 @@ public data class MedicationStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -304,9 +304,9 @@ public data class MedicationStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Type of the adherence for the medication. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * Captures the reason for the current use or adherence of a medication.
      *
@@ -330,14 +330,14 @@ public data class MedicationStatement(
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Effective
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        TimingValue: com.google.fhir.model.r5.Timing?,
+        periodValue: com.google.fhir.model.r5.Period?,
+        timingValue: com.google.fhir.model.r5.Timing?,
       ): Effective? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
         return null
       }
     }

@@ -52,46 +52,49 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class InventoryItemNameSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var nameType: Coding? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var nameType: Coding,
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
 ) {
   public fun toModel(): InventoryItem.Name =
-    InventoryItem.Name().apply {
-      id = this@InventoryItemNameSurrogate.id
-      extension = this@InventoryItemNameSurrogate.extension
-      modifierExtension = this@InventoryItemNameSurrogate.modifierExtension
-      nameType = this@InventoryItemNameSurrogate.nameType
+    InventoryItem.Name(
+      id = this@InventoryItemNameSurrogate.id,
+      extension = this@InventoryItemNameSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InventoryItemNameSurrogate.modifierExtension ?: mutableListOf(),
+      nameType = this@InventoryItemNameSurrogate.nameType,
       language =
-        Code.of(this@InventoryItemNameSurrogate.language, this@InventoryItemNameSurrogate._language)
+        Code.of(
+          this@InventoryItemNameSurrogate.language,
+          this@InventoryItemNameSurrogate._language,
+        )!!,
       name =
-        R5String.of(this@InventoryItemNameSurrogate.name, this@InventoryItemNameSurrogate._name)
-    }
+        R5String.of(this@InventoryItemNameSurrogate.name, this@InventoryItemNameSurrogate._name)!!,
+    )
 
   public companion object {
     public fun fromModel(model: InventoryItem.Name): InventoryItemNameSurrogate =
       with(model) {
-        InventoryItemNameSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          nameType = this@with.nameType
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-        }
+        InventoryItemNameSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          nameType = this@with.nameType,
+          language = this@with.language.value,
+          _language = this@with.language.toElement(),
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+        )
       }
   }
 }
@@ -99,32 +102,33 @@ internal data class InventoryItemNameSurrogate(
 @Serializable
 internal data class InventoryItemResponsibleOrganizationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var role: CodeableConcept? = null,
-  public var organization: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var role: CodeableConcept,
+  public var organization: Reference,
 ) {
   public fun toModel(): InventoryItem.ResponsibleOrganization =
-    InventoryItem.ResponsibleOrganization().apply {
-      id = this@InventoryItemResponsibleOrganizationSurrogate.id
-      extension = this@InventoryItemResponsibleOrganizationSurrogate.extension
-      modifierExtension = this@InventoryItemResponsibleOrganizationSurrogate.modifierExtension
-      role = this@InventoryItemResponsibleOrganizationSurrogate.role
-      organization = this@InventoryItemResponsibleOrganizationSurrogate.organization
-    }
+    InventoryItem.ResponsibleOrganization(
+      id = this@InventoryItemResponsibleOrganizationSurrogate.id,
+      extension = this@InventoryItemResponsibleOrganizationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryItemResponsibleOrganizationSurrogate.modifierExtension ?: mutableListOf(),
+      role = this@InventoryItemResponsibleOrganizationSurrogate.role,
+      organization = this@InventoryItemResponsibleOrganizationSurrogate.organization,
+    )
 
   public companion object {
     public fun fromModel(
       model: InventoryItem.ResponsibleOrganization
     ): InventoryItemResponsibleOrganizationSurrogate =
       with(model) {
-        InventoryItemResponsibleOrganizationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          role = this@with.role
-          organization = this@with.organization
-        }
+        InventoryItemResponsibleOrganizationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          role = this@with.role,
+          organization = this@with.organization,
+        )
       }
   }
 }
@@ -132,42 +136,43 @@ internal data class InventoryItemResponsibleOrganizationSurrogate(
 @Serializable
 internal data class InventoryItemDescriptionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
 ) {
   public fun toModel(): InventoryItem.Description =
-    InventoryItem.Description().apply {
-      id = this@InventoryItemDescriptionSurrogate.id
-      extension = this@InventoryItemDescriptionSurrogate.extension
-      modifierExtension = this@InventoryItemDescriptionSurrogate.modifierExtension
+    InventoryItem.Description(
+      id = this@InventoryItemDescriptionSurrogate.id,
+      extension = this@InventoryItemDescriptionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryItemDescriptionSurrogate.modifierExtension ?: mutableListOf(),
       language =
         Code.of(
           this@InventoryItemDescriptionSurrogate.language,
           this@InventoryItemDescriptionSurrogate._language,
-        )
+        ),
       description =
         R5String.of(
           this@InventoryItemDescriptionSurrogate.description,
           this@InventoryItemDescriptionSurrogate._description,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: InventoryItem.Description): InventoryItemDescriptionSurrogate =
       with(model) {
-        InventoryItemDescriptionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-        }
+        InventoryItemDescriptionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+        )
       }
   }
 }
@@ -175,33 +180,34 @@ internal data class InventoryItemDescriptionSurrogate(
 @Serializable
 internal data class InventoryItemAssociationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var associationType: CodeableConcept? = null,
-  public var relatedItem: Reference? = null,
-  public var quantity: Ratio? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var associationType: CodeableConcept,
+  public var relatedItem: Reference,
+  public var quantity: Ratio,
 ) {
   public fun toModel(): InventoryItem.Association =
-    InventoryItem.Association().apply {
-      id = this@InventoryItemAssociationSurrogate.id
-      extension = this@InventoryItemAssociationSurrogate.extension
-      modifierExtension = this@InventoryItemAssociationSurrogate.modifierExtension
-      associationType = this@InventoryItemAssociationSurrogate.associationType
-      relatedItem = this@InventoryItemAssociationSurrogate.relatedItem
-      quantity = this@InventoryItemAssociationSurrogate.quantity
-    }
+    InventoryItem.Association(
+      id = this@InventoryItemAssociationSurrogate.id,
+      extension = this@InventoryItemAssociationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryItemAssociationSurrogate.modifierExtension ?: mutableListOf(),
+      associationType = this@InventoryItemAssociationSurrogate.associationType,
+      relatedItem = this@InventoryItemAssociationSurrogate.relatedItem,
+      quantity = this@InventoryItemAssociationSurrogate.quantity,
+    )
 
   public companion object {
     public fun fromModel(model: InventoryItem.Association): InventoryItemAssociationSurrogate =
       with(model) {
-        InventoryItemAssociationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          associationType = this@with.associationType
-          relatedItem = this@with.relatedItem
-          quantity = this@with.quantity
-        }
+        InventoryItemAssociationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          associationType = this@with.associationType,
+          relatedItem = this@with.relatedItem,
+          quantity = this@with.quantity,
+        )
       }
   }
 }
@@ -209,9 +215,9 @@ internal data class InventoryItemAssociationSurrogate(
 @Serializable
 internal data class InventoryItemCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var characteristicType: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var characteristicType: CodeableConcept,
   public var valueString: KotlinString? = null,
   public var _valueString: Element? = null,
   public var valueInteger: Int? = null,
@@ -233,13 +239,14 @@ internal data class InventoryItemCharacteristicSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): InventoryItem.Characteristic =
-    InventoryItem.Characteristic().apply {
-      id = this@InventoryItemCharacteristicSurrogate.id
-      extension = this@InventoryItemCharacteristicSurrogate.extension
-      modifierExtension = this@InventoryItemCharacteristicSurrogate.modifierExtension
-      characteristicType = this@InventoryItemCharacteristicSurrogate.characteristicType
+    InventoryItem.Characteristic(
+      id = this@InventoryItemCharacteristicSurrogate.id,
+      extension = this@InventoryItemCharacteristicSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryItemCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      characteristicType = this@InventoryItemCharacteristicSurrogate.characteristicType,
       `value` =
-        InventoryItem.Characteristic.Value?.from(
+        InventoryItem.Characteristic.Value.from(
           R5String.of(
             this@InventoryItemCharacteristicSurrogate.valueString,
             this@InventoryItemCharacteristicSurrogate._valueString,
@@ -271,39 +278,39 @@ internal data class InventoryItemCharacteristicSurrogate(
           this@InventoryItemCharacteristicSurrogate.valueAddress,
           this@InventoryItemCharacteristicSurrogate.valueDuration,
           this@InventoryItemCharacteristicSurrogate.valueCodeableConcept,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: InventoryItem.Characteristic
     ): InventoryItemCharacteristicSurrogate =
       with(model) {
-        InventoryItemCharacteristicSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          characteristicType = this@with.characteristicType
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-        }
+        InventoryItemCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          characteristicType = this@with.characteristicType,
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -311,9 +318,9 @@ internal data class InventoryItemCharacteristicSurrogate(
 @Serializable
 internal data class InventoryItemInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var lotNumber: KotlinString? = null,
   public var _lotNumber: Element? = null,
   public var expiry: KotlinString? = null,
@@ -322,40 +329,40 @@ internal data class InventoryItemInstanceSurrogate(
   public var location: Reference? = null,
 ) {
   public fun toModel(): InventoryItem.Instance =
-    InventoryItem.Instance().apply {
-      id = this@InventoryItemInstanceSurrogate.id
-      extension = this@InventoryItemInstanceSurrogate.extension
-      modifierExtension = this@InventoryItemInstanceSurrogate.modifierExtension
-      identifier = this@InventoryItemInstanceSurrogate.identifier
+    InventoryItem.Instance(
+      id = this@InventoryItemInstanceSurrogate.id,
+      extension = this@InventoryItemInstanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InventoryItemInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InventoryItemInstanceSurrogate.identifier ?: mutableListOf(),
       lotNumber =
         R5String.of(
           this@InventoryItemInstanceSurrogate.lotNumber,
           this@InventoryItemInstanceSurrogate._lotNumber,
-        )
+        ),
       expiry =
         DateTime.of(
           FhirDateTime.fromString(this@InventoryItemInstanceSurrogate.expiry),
           this@InventoryItemInstanceSurrogate._expiry,
-        )
-      subject = this@InventoryItemInstanceSurrogate.subject
-      location = this@InventoryItemInstanceSurrogate.location
-    }
+        ),
+      subject = this@InventoryItemInstanceSurrogate.subject,
+      location = this@InventoryItemInstanceSurrogate.location,
+    )
 
   public companion object {
     public fun fromModel(model: InventoryItem.Instance): InventoryItemInstanceSurrogate =
       with(model) {
-        InventoryItemInstanceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          lotNumber = this@with.lotNumber?.value
-          _lotNumber = this@with.lotNumber?.toElement()
-          expiry = this@with.expiry?.value?.toString()
-          _expiry = this@with.expiry?.toElement()
-          subject = this@with.subject
-          location = this@with.location
-        }
+        InventoryItemInstanceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          lotNumber = this@with.lotNumber?.value,
+          _lotNumber = this@with.lotNumber?.toElement(),
+          expiry = this@with.expiry?.value?.toString(),
+          _expiry = this@with.expiry?.toElement(),
+          subject = this@with.subject,
+          location = this@with.location,
+        )
       }
   }
 }
@@ -369,92 +376,94 @@ internal data class InventoryItemSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var code: List<CodeableConcept?>? = null,
-  public var name: List<InventoryItem.Name>? = null,
-  public var responsibleOrganization: List<InventoryItem.ResponsibleOrganization>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var name: MutableList<InventoryItem.Name>? = null,
+  public var responsibleOrganization: MutableList<InventoryItem.ResponsibleOrganization>? = null,
   public var description: InventoryItem.Description? = null,
-  public var inventoryStatus: List<CodeableConcept?>? = null,
+  public var inventoryStatus: MutableList<CodeableConcept>? = null,
   public var baseUnit: CodeableConcept? = null,
   public var netContent: Quantity? = null,
-  public var association: List<InventoryItem.Association>? = null,
-  public var characteristic: List<InventoryItem.Characteristic>? = null,
+  public var association: MutableList<InventoryItem.Association>? = null,
+  public var characteristic: MutableList<InventoryItem.Characteristic>? = null,
   public var instance: InventoryItem.Instance? = null,
   public var productReference: Reference? = null,
 ) {
   public fun toModel(): InventoryItem =
-    InventoryItem().apply {
-      id = this@InventoryItemSurrogate.id
-      meta = this@InventoryItemSurrogate.meta
+    InventoryItem(
+      id = this@InventoryItemSurrogate.id,
+      meta = this@InventoryItemSurrogate.meta,
       implicitRules =
         Uri.of(
           this@InventoryItemSurrogate.implicitRules,
           this@InventoryItemSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@InventoryItemSurrogate.language, this@InventoryItemSurrogate._language)
-      text = this@InventoryItemSurrogate.text
-      contained = this@InventoryItemSurrogate.contained
-      extension = this@InventoryItemSurrogate.extension
-      modifierExtension = this@InventoryItemSurrogate.modifierExtension
-      identifier = this@InventoryItemSurrogate.identifier
+        Code.of(this@InventoryItemSurrogate.language, this@InventoryItemSurrogate._language),
+      text = this@InventoryItemSurrogate.text,
+      contained = this@InventoryItemSurrogate.contained ?: mutableListOf(),
+      extension = this@InventoryItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InventoryItemSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InventoryItemSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@InventoryItemSurrogate.status?.let {
-            com.google.fhir.model.r5.InventoryItem.InventoryItemStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.InventoryItem.InventoryItemStatus.fromCode(
+            this@InventoryItemSurrogate.status!!
+          ),
           this@InventoryItemSurrogate._status,
-        )
-      category = this@InventoryItemSurrogate.category
-      code = this@InventoryItemSurrogate.code
-      name = this@InventoryItemSurrogate.name
-      responsibleOrganization = this@InventoryItemSurrogate.responsibleOrganization
-      description = this@InventoryItemSurrogate.description
-      inventoryStatus = this@InventoryItemSurrogate.inventoryStatus
-      baseUnit = this@InventoryItemSurrogate.baseUnit
-      netContent = this@InventoryItemSurrogate.netContent
-      association = this@InventoryItemSurrogate.association
-      characteristic = this@InventoryItemSurrogate.characteristic
-      instance = this@InventoryItemSurrogate.instance
-      productReference = this@InventoryItemSurrogate.productReference
-    }
+        ),
+      category = this@InventoryItemSurrogate.category ?: mutableListOf(),
+      code = this@InventoryItemSurrogate.code ?: mutableListOf(),
+      name = this@InventoryItemSurrogate.name ?: mutableListOf(),
+      responsibleOrganization =
+        this@InventoryItemSurrogate.responsibleOrganization ?: mutableListOf(),
+      description = this@InventoryItemSurrogate.description,
+      inventoryStatus = this@InventoryItemSurrogate.inventoryStatus ?: mutableListOf(),
+      baseUnit = this@InventoryItemSurrogate.baseUnit,
+      netContent = this@InventoryItemSurrogate.netContent,
+      association = this@InventoryItemSurrogate.association ?: mutableListOf(),
+      characteristic = this@InventoryItemSurrogate.characteristic ?: mutableListOf(),
+      instance = this@InventoryItemSurrogate.instance,
+      productReference = this@InventoryItemSurrogate.productReference,
+    )
 
   public companion object {
     public fun fromModel(model: InventoryItem): InventoryItemSurrogate =
       with(model) {
-        InventoryItemSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          code = this@with.code
-          name = this@with.name
-          responsibleOrganization = this@with.responsibleOrganization
-          description = this@with.description
-          inventoryStatus = this@with.inventoryStatus
-          baseUnit = this@with.baseUnit
-          netContent = this@with.netContent
-          association = this@with.association
-          characteristic = this@with.characteristic
-          instance = this@with.instance
-          productReference = this@with.productReference
-        }
+        InventoryItemSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          code = this@with.code.takeUnless { it.all { it == null } },
+          name = this@with.name.takeUnless { it.all { it == null } },
+          responsibleOrganization =
+            this@with.responsibleOrganization.takeUnless { it.all { it == null } },
+          description = this@with.description,
+          inventoryStatus = this@with.inventoryStatus.takeUnless { it.all { it == null } },
+          baseUnit = this@with.baseUnit,
+          netContent = this@with.netContent,
+          association = this@with.association.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          instance = this@with.instance,
+          productReference = this@with.productReference,
+        )
       }
   }
 }

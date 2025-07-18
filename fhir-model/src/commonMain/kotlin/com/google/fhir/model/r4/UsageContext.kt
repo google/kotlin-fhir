@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.UsageContextSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -49,14 +49,14 @@ public data class UsageContext(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** A code that identifies the type of context being specified by this usage context. */
-  public var code: Coding? = null,
+  public var code: Coding,
   /**
    * A value that defines the context specified in this context of use. The interpretation of the
    * value is defined by the code.
    */
-  public var `value`: Value? = null,
+  public var `value`: Value,
 ) : Element() {
   public sealed interface Value {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
@@ -78,16 +78,16 @@ public data class UsageContext(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Value
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        QuantityValue: com.google.fhir.model.r4.Quantity?,
-        RangeValue: com.google.fhir.model.r4.Range?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        quantityValue: com.google.fhir.model.r4.Quantity?,
+        rangeValue: com.google.fhir.model.r4.Range?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
       ): Value? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        if (RangeValue != null) return Range(RangeValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (quantityValue != null) return Quantity(quantityValue)
+        if (rangeValue != null) return Range(rangeValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }

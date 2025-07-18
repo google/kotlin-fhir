@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.PlanDefinitionGoalSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionGoalTargetSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -109,7 +109,7 @@ public data class PlanDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -122,7 +122,7 @@ public data class PlanDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,7 +141,7 @@ public data class PlanDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this plan definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -169,7 +169,7 @@ public data class PlanDefinition(
    * type, and can then identify this plan definition outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the plan definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -228,7 +228,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this plan definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -284,7 +284,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the plan definition from a consumer's perspective.
    *
@@ -305,7 +305,7 @@ public data class PlanDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the plan definition is intended to be used.
    *
@@ -317,7 +317,7 @@ public data class PlanDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this plan definition is needed and why it has been designed as it has.
    *
@@ -388,14 +388,14 @@ public data class PlanDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#topic and
    * useContext.valueCodeableConcept indicating the topic)
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the content.
@@ -403,7 +403,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the content for use in some setting.
@@ -411,28 +411,28 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /** A reference to a Library resource containing any formal logic used by the plan definition. */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /**
    * A goal describes an expected outcome that activities within the plan are intended to achieve.
    * For example, weight loss, restoring an activity of daily living, obtaining herd immunity via
    * immunization, meeting a process improvement objective, meeting the acceptance criteria for a
    * test as specified by a quality specification, etc.
    */
-  public var goal: List<Goal>? = null,
+  public var goal: MutableList<Goal> = mutableListOf(),
   /**
    * Actors represent the individuals or groups involved in the execution of the defined set of
    * activities.
    */
-  public var actor: List<Actor>? = null,
+  public var actor: MutableList<Actor> = mutableListOf(),
   /**
    * An action or group of actions to be taken as part of the plan. For example, in clinical care,
    * an action would be to prescribe a particular indicated medication, or perform a particular test
@@ -445,7 +445,7 @@ public data class PlanDefinition(
    * unless otherwise documented in the specific elements. See the PlanDefinition resource for more
    * detailed information.
    */
-  public var action: List<Action>? = null,
+  public var action: MutableList<Action> = mutableListOf(),
   /**
    * If a CodeableConcept is present, it indicates the pre-condition for performing the service. For
    * example "pain", "on flare-up", etc.
@@ -477,7 +477,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -496,7 +496,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates a category the goal falls within. */
     public var category: CodeableConcept? = null,
     /**
@@ -505,7 +505,7 @@ public data class PlanDefinition(
      *
      * If no code is available, use CodeableConcept.text.
      */
-    public var description: CodeableConcept? = null,
+    public var description: CodeableConcept,
     /**
      * Identifies the expected level of importance associated with reaching/sustaining the defined
      * goal.
@@ -514,15 +514,15 @@ public data class PlanDefinition(
     /** The event after which the goal should begin being pursued. */
     public var start: CodeableConcept? = null,
     /** Identifies problems, conditions, issues, or concerns the goal is intended to address. */
-    public var addresses: List<CodeableConcept?>? = null,
+    public var addresses: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Didactic or other informational resources associated with the goal that provide further
      * supporting information about the goal. Information resources can include inline text
      * commentary and links to web resources.
      */
-    public var documentation: List<RelatedArtifact?>? = null,
+    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
     /** Indicates what should be done and within what timeframe. */
-    public var target: List<Target>? = null,
+    public var target: MutableList<Target> = mutableListOf(),
   ) : BackboneElement() {
     /** Indicates what should be done and within what timeframe. */
     @Serializable(with = PlanDefinitionGoalTargetSerializer::class)
@@ -544,7 +544,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -563,7 +563,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The parameter whose value is to be tracked, e.g. body weight, blood pressure, or hemoglobin
        * A1c level.
@@ -617,22 +617,22 @@ public data class PlanDefinition(
         public data class Ratio(public val `value`: com.google.fhir.model.r5.Ratio) : Detail
 
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
-            RangeValue: com.google.fhir.model.r5.Range?,
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          internal fun from(
+            quantityValue: com.google.fhir.model.r5.Quantity?,
+            rangeValue: com.google.fhir.model.r5.Range?,
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             stringValue: com.google.fhir.model.r5.String?,
             booleanValue: com.google.fhir.model.r5.Boolean?,
             integerValue: com.google.fhir.model.r5.Integer?,
-            RatioValue: com.google.fhir.model.r5.Ratio?,
+            ratioValue: com.google.fhir.model.r5.Ratio?,
           ): Detail? {
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (RangeValue != null) return Range(RangeValue)
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (rangeValue != null) return Range(rangeValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
             if (stringValue != null) return String(stringValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (integerValue != null) return Integer(integerValue)
-            if (RatioValue != null) return Ratio(RatioValue)
+            if (ratioValue != null) return Ratio(ratioValue)
             return null
           }
         }
@@ -663,7 +663,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -682,13 +682,13 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A descriptive label for the actor. */
     public var title: String? = null,
     /** A description of how the actor fits into the overall actions of the plan definition. */
     public var description: Markdown? = null,
     /** The characteristics of the candidates that could serve as the actor. */
-    public var option: List<Option>? = null,
+    public var option: MutableList<Option> = mutableListOf(),
   ) : BackboneElement() {
     /** The characteristics of the candidates that could serve as the actor. */
     @Serializable(with = PlanDefinitionActorOptionSerializer::class)
@@ -710,7 +710,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -729,7 +729,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of participant in the action. */
       public var type: Enumeration<ActivityParticipantType>? = null,
       /** The type of participant in the action. */
@@ -771,7 +771,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -790,7 +790,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An identifier that is unique within the PlanDefinition to allow linkage within the realized
      * CarePlan and/or RequestOrchestration.
@@ -829,20 +829,20 @@ public data class PlanDefinition(
      * This is different than the clinical evidence documentation, it's an actual business
      * description of the reason for performing the action.
      */
-    public var reason: List<CodeableConcept?>? = null,
+    public var reason: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Didactic or other informational resources associated with the action that can be provided to
      * the CDS recipient. Information resources can include inline text commentary and links to web
      * resources.
      */
-    public var documentation: List<RelatedArtifact?>? = null,
+    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
     /**
      * Identifies goals that this action supports. The reference must be to a goal element defined
      * within this plan definition. In pharmaceutical quality, a goal represents acceptance criteria
      * (Goal) for a given action (Test), so the goalId would be the unique id of a defined goal
      * element establishing the acceptance criteria for the action.
      */
-    public var goalId: List<Id?>? = null,
+    public var goalId: MutableList<Id> = mutableListOf(),
     /**
      * A code, group definition, or canonical reference that describes the intended subject of the
      * action and its children, if any. Canonical references are allowed to support the definition
@@ -863,25 +863,25 @@ public data class PlanDefinition(
      * A description of when the action should be triggered. When multiple triggers are specified on
      * an action, any triggering event invokes the action.
      */
-    public var trigger: List<TriggerDefinition?>? = null,
+    public var trigger: MutableList<TriggerDefinition> = mutableListOf(),
     /**
      * An expression that describes applicability criteria or start/stop conditions for the action.
      *
      * When multiple conditions of the same kind are present, the effects are combined using AND
      * semantics, so the overall condition is true only if all the conditions are true.
      */
-    public var condition: List<Condition>? = null,
+    public var condition: MutableList<Condition> = mutableListOf(),
     /** Defines input data requirements for the action. */
-    public var input: List<Input>? = null,
+    public var input: MutableList<Input> = mutableListOf(),
     /** Defines the outputs of the action, if any. */
-    public var output: List<Output>? = null,
+    public var output: MutableList<Output> = mutableListOf(),
     /**
      * A relationship to another action such as "before" or "30-60 minutes after start of".
      *
      * When an action depends on multiple actions, the meaning is that all actions are dependencies,
      * rather than that any of the actions are a dependency.
      */
-    public var relatedAction: List<RelatedAction>? = null,
+    public var relatedAction: MutableList<RelatedAction> = mutableListOf(),
     /**
      * An optional value describing when the action should be performed.
      *
@@ -905,7 +905,7 @@ public data class PlanDefinition(
      */
     public var location: CodeableReference? = null,
     /** Indicates who should participate in performing the action described. */
-    public var participant: List<Participant>? = null,
+    public var participant: MutableList<Participant> = mutableListOf(),
     /** The type of action to perform (create, update, remove). */
     public var type: CodeableConcept? = null,
     /** Defines the grouping behavior for the action and its children. */
@@ -950,14 +950,14 @@ public data class PlanDefinition(
      * by the dynamicValues specified here. In addition, if both a transform and dynamic values are
      * specific, the dynamic values are applied to the result of the transform.
      */
-    public var dynamicValue: List<DynamicValue>? = null,
+    public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
     /**
      * Sub actions that are contained within the action. The behavior of this action determines the
      * functionality of the sub-actions. For example, a selection behavior of at-most-one indicates
      * that of the sub-actions, at most one may be chosen as part of realizing the action
      * definition.
      */
-    public var action: List<Action?>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * An expression that describes applicability criteria or start/stop conditions for the action.
@@ -981,7 +981,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1000,7 +1000,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The kind of condition.
        *
@@ -1008,7 +1008,7 @@ public data class PlanDefinition(
        * is applied to a given context. Start and stop criteria are carried through application and
        * used to describe enter/exit criteria for an action.
        */
-      public var kind: Enumeration<ActionConditionKind>? = null,
+      public var kind: Enumeration<ActionConditionKind>,
       /**
        * An expression that returns true or false, indicating whether the condition is satisfied.
        *
@@ -1038,7 +1038,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1057,7 +1057,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
@@ -1096,7 +1096,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1115,7 +1115,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
@@ -1154,7 +1154,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1173,11 +1173,11 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The element id of the target related action. */
-      public var targetId: Id? = null,
+      public var targetId: Id,
       /** The relationship of the start of this action to the related action. */
-      public var relationship: Enumeration<ActionRelationshipType>? = null,
+      public var relationship: Enumeration<ActionRelationshipType>,
       /** The relationship of the end of this action to the related action. */
       public var endRelationship: Enumeration<ActionRelationshipType>? = null,
       /**
@@ -1196,12 +1196,12 @@ public data class PlanDefinition(
         public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Offset
 
         public companion object {
-          public fun from(
-            DurationValue: com.google.fhir.model.r5.Duration?,
-            RangeValue: com.google.fhir.model.r5.Range?,
+          internal fun from(
+            durationValue: com.google.fhir.model.r5.Duration?,
+            rangeValue: com.google.fhir.model.r5.Range?,
           ): Offset? {
-            if (DurationValue != null) return Duration(DurationValue)
-            if (RangeValue != null) return Range(RangeValue)
+            if (durationValue != null) return Duration(durationValue)
+            if (rangeValue != null) return Range(rangeValue)
             return null
           }
         }
@@ -1228,7 +1228,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1247,7 +1247,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A reference to the id element of the actor who will participate in this action. */
       public var actorId: String? = null,
       /** The type of participant in the action. */
@@ -1294,7 +1294,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1313,7 +1313,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The path to the element to be customized. This is the path on the resource that will hold
        * the result of the calculation defined by the expression. The specified path SHALL be a
@@ -1355,13 +1355,13 @@ public data class PlanDefinition(
       public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Subject
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
           canonicalValue: com.google.fhir.model.r5.Canonical?,
         ): Subject? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
           return null
         }
@@ -1387,16 +1387,16 @@ public data class PlanDefinition(
       public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Action.Timing
 
       public companion object {
-        public fun from(
-          AgeValue: com.google.fhir.model.r5.Age?,
-          DurationValue: com.google.fhir.model.r5.Duration?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          TimingValue: com.google.fhir.model.r5.Timing?,
+        internal fun from(
+          ageValue: com.google.fhir.model.r5.Age?,
+          durationValue: com.google.fhir.model.r5.Duration?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          timingValue: com.google.fhir.model.r5.Timing?,
         ): Action.Timing? {
-          if (AgeValue != null) return Age(AgeValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (TimingValue != null) return Timing(TimingValue)
+          if (ageValue != null) return Age(ageValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (timingValue != null) return Timing(timingValue)
           return null
         }
       }
@@ -1413,7 +1413,7 @@ public data class PlanDefinition(
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Definition
 
       public companion object {
-        public fun from(
+        internal fun from(
           canonicalValue: com.google.fhir.model.r5.Canonical?,
           uriValue: com.google.fhir.model.r5.Uri?,
         ): Definition? {
@@ -1437,12 +1437,12 @@ public data class PlanDefinition(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }
@@ -1464,13 +1464,13 @@ public data class PlanDefinition(
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Subject
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r5.Reference?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
       ): Subject? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
         return null
       }
@@ -1489,12 +1489,12 @@ public data class PlanDefinition(
     ) : AsNeeded
 
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
-        CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
       ): AsNeeded? {
         if (booleanValue != null) return Boolean(booleanValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

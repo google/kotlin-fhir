@@ -44,43 +44,43 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class InsurancePlanContactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var purpose: CodeableConcept? = null,
   public var name: HumanName? = null,
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint>? = null,
   public var address: Address? = null,
 ) {
   public fun toModel(): InsurancePlan.Contact =
-    InsurancePlan.Contact().apply {
-      id = this@InsurancePlanContactSurrogate.id
-      extension = this@InsurancePlanContactSurrogate.extension
-      modifierExtension = this@InsurancePlanContactSurrogate.modifierExtension
-      purpose = this@InsurancePlanContactSurrogate.purpose
-      name = this@InsurancePlanContactSurrogate.name
-      telecom = this@InsurancePlanContactSurrogate.telecom
-      address = this@InsurancePlanContactSurrogate.address
-    }
+    InsurancePlan.Contact(
+      id = this@InsurancePlanContactSurrogate.id,
+      extension = this@InsurancePlanContactSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InsurancePlanContactSurrogate.modifierExtension ?: mutableListOf(),
+      purpose = this@InsurancePlanContactSurrogate.purpose,
+      name = this@InsurancePlanContactSurrogate.name,
+      telecom = this@InsurancePlanContactSurrogate.telecom ?: mutableListOf(),
+      address = this@InsurancePlanContactSurrogate.address,
+    )
 
   public companion object {
     public fun fromModel(model: InsurancePlan.Contact): InsurancePlanContactSurrogate =
       with(model) {
-        InsurancePlanContactSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          purpose = this@with.purpose
-          name = this@with.name
-          telecom = this@with.telecom
-          address = this@with.address
-        }
+        InsurancePlanContactSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose,
+          name = this@with.name,
+          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          address = this@with.address,
+        )
       }
   }
 }
@@ -88,32 +88,33 @@ internal data class InsurancePlanContactSurrogate(
 @Serializable
 internal data class InsurancePlanCoverageBenefitLimitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var `value`: Quantity? = null,
   public var code: CodeableConcept? = null,
 ) {
   public fun toModel(): InsurancePlan.Coverage.Benefit.Limit =
-    InsurancePlan.Coverage.Benefit.Limit().apply {
-      id = this@InsurancePlanCoverageBenefitLimitSurrogate.id
-      extension = this@InsurancePlanCoverageBenefitLimitSurrogate.extension
-      modifierExtension = this@InsurancePlanCoverageBenefitLimitSurrogate.modifierExtension
-      `value` = this@InsurancePlanCoverageBenefitLimitSurrogate.`value`
-      code = this@InsurancePlanCoverageBenefitLimitSurrogate.code
-    }
+    InsurancePlan.Coverage.Benefit.Limit(
+      id = this@InsurancePlanCoverageBenefitLimitSurrogate.id,
+      extension = this@InsurancePlanCoverageBenefitLimitSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InsurancePlanCoverageBenefitLimitSurrogate.modifierExtension ?: mutableListOf(),
+      `value` = this@InsurancePlanCoverageBenefitLimitSurrogate.`value`,
+      code = this@InsurancePlanCoverageBenefitLimitSurrogate.code,
+    )
 
   public companion object {
     public fun fromModel(
       model: InsurancePlan.Coverage.Benefit.Limit
     ): InsurancePlanCoverageBenefitLimitSurrogate =
       with(model) {
-        InsurancePlanCoverageBenefitLimitSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          `value` = this@with.`value`
-          code = this@with.code
-        }
+        InsurancePlanCoverageBenefitLimitSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`,
+          code = this@with.code,
+        )
       }
   }
 }
@@ -121,41 +122,42 @@ internal data class InsurancePlanCoverageBenefitLimitSurrogate(
 @Serializable
 internal data class InsurancePlanCoverageBenefitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var requirement: KotlinString? = null,
   public var _requirement: Element? = null,
-  public var limit: List<InsurancePlan.Coverage.Benefit.Limit>? = null,
+  public var limit: MutableList<InsurancePlan.Coverage.Benefit.Limit>? = null,
 ) {
   public fun toModel(): InsurancePlan.Coverage.Benefit =
-    InsurancePlan.Coverage.Benefit().apply {
-      id = this@InsurancePlanCoverageBenefitSurrogate.id
-      extension = this@InsurancePlanCoverageBenefitSurrogate.extension
-      modifierExtension = this@InsurancePlanCoverageBenefitSurrogate.modifierExtension
-      type = this@InsurancePlanCoverageBenefitSurrogate.type
+    InsurancePlan.Coverage.Benefit(
+      id = this@InsurancePlanCoverageBenefitSurrogate.id,
+      extension = this@InsurancePlanCoverageBenefitSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InsurancePlanCoverageBenefitSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@InsurancePlanCoverageBenefitSurrogate.type,
       requirement =
         R4String.of(
           this@InsurancePlanCoverageBenefitSurrogate.requirement,
           this@InsurancePlanCoverageBenefitSurrogate._requirement,
-        )
-      limit = this@InsurancePlanCoverageBenefitSurrogate.limit
-    }
+        ),
+      limit = this@InsurancePlanCoverageBenefitSurrogate.limit ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: InsurancePlan.Coverage.Benefit
     ): InsurancePlanCoverageBenefitSurrogate =
       with(model) {
-        InsurancePlanCoverageBenefitSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          requirement = this@with.requirement?.value
-          _requirement = this@with.requirement?.toElement()
-          limit = this@with.limit
-        }
+        InsurancePlanCoverageBenefitSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          requirement = this@with.requirement?.value,
+          _requirement = this@with.requirement?.toElement(),
+          limit = this@with.limit.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -163,33 +165,33 @@ internal data class InsurancePlanCoverageBenefitSurrogate(
 @Serializable
 internal data class InsurancePlanCoverageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
-  public var network: List<Reference?>? = null,
-  public var benefit: List<InsurancePlan.Coverage.Benefit>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var network: MutableList<Reference>? = null,
+  public var benefit: MutableList<InsurancePlan.Coverage.Benefit>? = null,
 ) {
   public fun toModel(): InsurancePlan.Coverage =
-    InsurancePlan.Coverage().apply {
-      id = this@InsurancePlanCoverageSurrogate.id
-      extension = this@InsurancePlanCoverageSurrogate.extension
-      modifierExtension = this@InsurancePlanCoverageSurrogate.modifierExtension
-      type = this@InsurancePlanCoverageSurrogate.type
-      network = this@InsurancePlanCoverageSurrogate.network
-      benefit = this@InsurancePlanCoverageSurrogate.benefit
-    }
+    InsurancePlan.Coverage(
+      id = this@InsurancePlanCoverageSurrogate.id,
+      extension = this@InsurancePlanCoverageSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InsurancePlanCoverageSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@InsurancePlanCoverageSurrogate.type,
+      network = this@InsurancePlanCoverageSurrogate.network ?: mutableListOf(),
+      benefit = this@InsurancePlanCoverageSurrogate.benefit ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: InsurancePlan.Coverage): InsurancePlanCoverageSurrogate =
       with(model) {
-        InsurancePlanCoverageSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          network = this@with.network
-          benefit = this@with.benefit
-        }
+        InsurancePlanCoverageSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          network = this@with.network.takeUnless { it.all { it == null } },
+          benefit = this@with.benefit.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -197,8 +199,8 @@ internal data class InsurancePlanCoverageSurrogate(
 @Serializable
 internal data class InsurancePlanPlanGeneralCostSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var groupSize: Int? = null,
   public var _groupSize: Element? = null,
@@ -207,40 +209,41 @@ internal data class InsurancePlanPlanGeneralCostSurrogate(
   public var _comment: Element? = null,
 ) {
   public fun toModel(): InsurancePlan.Plan.GeneralCost =
-    InsurancePlan.Plan.GeneralCost().apply {
-      id = this@InsurancePlanPlanGeneralCostSurrogate.id
-      extension = this@InsurancePlanPlanGeneralCostSurrogate.extension
-      modifierExtension = this@InsurancePlanPlanGeneralCostSurrogate.modifierExtension
-      type = this@InsurancePlanPlanGeneralCostSurrogate.type
+    InsurancePlan.Plan.GeneralCost(
+      id = this@InsurancePlanPlanGeneralCostSurrogate.id,
+      extension = this@InsurancePlanPlanGeneralCostSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InsurancePlanPlanGeneralCostSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@InsurancePlanPlanGeneralCostSurrogate.type,
       groupSize =
         PositiveInt.of(
           this@InsurancePlanPlanGeneralCostSurrogate.groupSize,
           this@InsurancePlanPlanGeneralCostSurrogate._groupSize,
-        )
-      cost = this@InsurancePlanPlanGeneralCostSurrogate.cost
+        ),
+      cost = this@InsurancePlanPlanGeneralCostSurrogate.cost,
       comment =
         R4String.of(
           this@InsurancePlanPlanGeneralCostSurrogate.comment,
           this@InsurancePlanPlanGeneralCostSurrogate._comment,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: InsurancePlan.Plan.GeneralCost
     ): InsurancePlanPlanGeneralCostSurrogate =
       with(model) {
-        InsurancePlanPlanGeneralCostSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          groupSize = this@with.groupSize?.value
-          _groupSize = this@with.groupSize?.toElement()
-          cost = this@with.cost
-          comment = this@with.comment?.value
-          _comment = this@with.comment?.toElement()
-        }
+        InsurancePlanPlanGeneralCostSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          groupSize = this@with.groupSize?.value,
+          _groupSize = this@with.groupSize?.toElement(),
+          cost = this@with.cost,
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+        )
       }
   }
 }
@@ -248,38 +251,41 @@ internal data class InsurancePlanPlanGeneralCostSurrogate(
 @Serializable
 internal data class InsurancePlanPlanSpecificCostBenefitCostSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var applicability: CodeableConcept? = null,
-  public var qualifiers: List<CodeableConcept?>? = null,
+  public var qualifiers: MutableList<CodeableConcept>? = null,
   public var `value`: Quantity? = null,
 ) {
   public fun toModel(): InsurancePlan.Plan.SpecificCost.Benefit.Cost =
-    InsurancePlan.Plan.SpecificCost.Benefit.Cost().apply {
-      id = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.id
-      extension = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.extension
-      modifierExtension = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.modifierExtension
-      type = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.type
-      applicability = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.applicability
-      qualifiers = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.qualifiers
-      `value` = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.`value`
-    }
+    InsurancePlan.Plan.SpecificCost.Benefit.Cost(
+      id = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.id,
+      extension =
+        this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.type,
+      applicability = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.applicability,
+      qualifiers =
+        this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.qualifiers ?: mutableListOf(),
+      `value` = this@InsurancePlanPlanSpecificCostBenefitCostSurrogate.`value`,
+    )
 
   public companion object {
     public fun fromModel(
       model: InsurancePlan.Plan.SpecificCost.Benefit.Cost
     ): InsurancePlanPlanSpecificCostBenefitCostSurrogate =
       with(model) {
-        InsurancePlanPlanSpecificCostBenefitCostSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          applicability = this@with.applicability
-          qualifiers = this@with.qualifiers
-          `value` = this@with.`value`
-        }
+        InsurancePlanPlanSpecificCostBenefitCostSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          applicability = this@with.applicability,
+          qualifiers = this@with.qualifiers.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`,
+        )
       }
   }
 }
@@ -287,32 +293,33 @@ internal data class InsurancePlanPlanSpecificCostBenefitCostSurrogate(
 @Serializable
 internal data class InsurancePlanPlanSpecificCostBenefitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
-  public var cost: List<InsurancePlan.Plan.SpecificCost.Benefit.Cost>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var cost: MutableList<InsurancePlan.Plan.SpecificCost.Benefit.Cost>? = null,
 ) {
   public fun toModel(): InsurancePlan.Plan.SpecificCost.Benefit =
-    InsurancePlan.Plan.SpecificCost.Benefit().apply {
-      id = this@InsurancePlanPlanSpecificCostBenefitSurrogate.id
-      extension = this@InsurancePlanPlanSpecificCostBenefitSurrogate.extension
-      modifierExtension = this@InsurancePlanPlanSpecificCostBenefitSurrogate.modifierExtension
-      type = this@InsurancePlanPlanSpecificCostBenefitSurrogate.type
-      cost = this@InsurancePlanPlanSpecificCostBenefitSurrogate.cost
-    }
+    InsurancePlan.Plan.SpecificCost.Benefit(
+      id = this@InsurancePlanPlanSpecificCostBenefitSurrogate.id,
+      extension = this@InsurancePlanPlanSpecificCostBenefitSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InsurancePlanPlanSpecificCostBenefitSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@InsurancePlanPlanSpecificCostBenefitSurrogate.type,
+      cost = this@InsurancePlanPlanSpecificCostBenefitSurrogate.cost ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: InsurancePlan.Plan.SpecificCost.Benefit
     ): InsurancePlanPlanSpecificCostBenefitSurrogate =
       with(model) {
-        InsurancePlanPlanSpecificCostBenefitSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          cost = this@with.cost
-        }
+        InsurancePlanPlanSpecificCostBenefitSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          cost = this@with.cost.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -320,32 +327,33 @@ internal data class InsurancePlanPlanSpecificCostBenefitSurrogate(
 @Serializable
 internal data class InsurancePlanPlanSpecificCostSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var category: CodeableConcept? = null,
-  public var benefit: List<InsurancePlan.Plan.SpecificCost.Benefit>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var category: CodeableConcept,
+  public var benefit: MutableList<InsurancePlan.Plan.SpecificCost.Benefit>? = null,
 ) {
   public fun toModel(): InsurancePlan.Plan.SpecificCost =
-    InsurancePlan.Plan.SpecificCost().apply {
-      id = this@InsurancePlanPlanSpecificCostSurrogate.id
-      extension = this@InsurancePlanPlanSpecificCostSurrogate.extension
-      modifierExtension = this@InsurancePlanPlanSpecificCostSurrogate.modifierExtension
-      category = this@InsurancePlanPlanSpecificCostSurrogate.category
-      benefit = this@InsurancePlanPlanSpecificCostSurrogate.benefit
-    }
+    InsurancePlan.Plan.SpecificCost(
+      id = this@InsurancePlanPlanSpecificCostSurrogate.id,
+      extension = this@InsurancePlanPlanSpecificCostSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InsurancePlanPlanSpecificCostSurrogate.modifierExtension ?: mutableListOf(),
+      category = this@InsurancePlanPlanSpecificCostSurrogate.category,
+      benefit = this@InsurancePlanPlanSpecificCostSurrogate.benefit ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: InsurancePlan.Plan.SpecificCost
     ): InsurancePlanPlanSpecificCostSurrogate =
       with(model) {
-        InsurancePlanPlanSpecificCostSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          category = this@with.category
-          benefit = this@with.benefit
-        }
+        InsurancePlanPlanSpecificCostSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          category = this@with.category,
+          benefit = this@with.benefit.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -353,42 +361,42 @@ internal data class InsurancePlanPlanSpecificCostSurrogate(
 @Serializable
 internal data class InsurancePlanPlanSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var type: CodeableConcept? = null,
-  public var coverageArea: List<Reference?>? = null,
-  public var network: List<Reference?>? = null,
-  public var generalCost: List<InsurancePlan.Plan.GeneralCost>? = null,
-  public var specificCost: List<InsurancePlan.Plan.SpecificCost>? = null,
+  public var coverageArea: MutableList<Reference>? = null,
+  public var network: MutableList<Reference>? = null,
+  public var generalCost: MutableList<InsurancePlan.Plan.GeneralCost>? = null,
+  public var specificCost: MutableList<InsurancePlan.Plan.SpecificCost>? = null,
 ) {
   public fun toModel(): InsurancePlan.Plan =
-    InsurancePlan.Plan().apply {
-      id = this@InsurancePlanPlanSurrogate.id
-      extension = this@InsurancePlanPlanSurrogate.extension
-      modifierExtension = this@InsurancePlanPlanSurrogate.modifierExtension
-      identifier = this@InsurancePlanPlanSurrogate.identifier
-      type = this@InsurancePlanPlanSurrogate.type
-      coverageArea = this@InsurancePlanPlanSurrogate.coverageArea
-      network = this@InsurancePlanPlanSurrogate.network
-      generalCost = this@InsurancePlanPlanSurrogate.generalCost
-      specificCost = this@InsurancePlanPlanSurrogate.specificCost
-    }
+    InsurancePlan.Plan(
+      id = this@InsurancePlanPlanSurrogate.id,
+      extension = this@InsurancePlanPlanSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InsurancePlanPlanSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InsurancePlanPlanSurrogate.identifier ?: mutableListOf(),
+      type = this@InsurancePlanPlanSurrogate.type,
+      coverageArea = this@InsurancePlanPlanSurrogate.coverageArea ?: mutableListOf(),
+      network = this@InsurancePlanPlanSurrogate.network ?: mutableListOf(),
+      generalCost = this@InsurancePlanPlanSurrogate.generalCost ?: mutableListOf(),
+      specificCost = this@InsurancePlanPlanSurrogate.specificCost ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: InsurancePlan.Plan): InsurancePlanPlanSurrogate =
       with(model) {
-        InsurancePlanPlanSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          type = this@with.type
-          coverageArea = this@with.coverageArea
-          network = this@with.network
-          generalCost = this@with.generalCost
-          specificCost = this@with.specificCost
-        }
+        InsurancePlanPlanSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          coverageArea = this@with.coverageArea.takeUnless { it.all { it == null } },
+          network = this@with.network.takeUnless { it.all { it == null } },
+          generalCost = this@with.generalCost.takeUnless { it.all { it == null } },
+          specificCost = this@with.specificCost.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -402,57 +410,57 @@ internal data class InsurancePlanSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var alias: List<KotlinString?>? = null,
-  public var _alias: List<Element?>? = null,
+  public var alias: MutableList<KotlinString?>? = null,
+  public var _alias: MutableList<Element?>? = null,
   public var period: Period? = null,
   public var ownedBy: Reference? = null,
   public var administeredBy: Reference? = null,
-  public var coverageArea: List<Reference?>? = null,
-  public var contact: List<InsurancePlan.Contact>? = null,
-  public var endpoint: List<Reference?>? = null,
-  public var network: List<Reference?>? = null,
-  public var coverage: List<InsurancePlan.Coverage>? = null,
-  public var plan: List<InsurancePlan.Plan>? = null,
+  public var coverageArea: MutableList<Reference>? = null,
+  public var contact: MutableList<InsurancePlan.Contact>? = null,
+  public var endpoint: MutableList<Reference>? = null,
+  public var network: MutableList<Reference>? = null,
+  public var coverage: MutableList<InsurancePlan.Coverage>? = null,
+  public var plan: MutableList<InsurancePlan.Plan>? = null,
 ) {
   public fun toModel(): InsurancePlan =
-    InsurancePlan().apply {
-      id = this@InsurancePlanSurrogate.id
-      meta = this@InsurancePlanSurrogate.meta
+    InsurancePlan(
+      id = this@InsurancePlanSurrogate.id,
+      meta = this@InsurancePlanSurrogate.meta,
       implicitRules =
         Uri.of(
           this@InsurancePlanSurrogate.implicitRules,
           this@InsurancePlanSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@InsurancePlanSurrogate.language, this@InsurancePlanSurrogate._language)
-      text = this@InsurancePlanSurrogate.text
-      contained = this@InsurancePlanSurrogate.contained
-      extension = this@InsurancePlanSurrogate.extension
-      modifierExtension = this@InsurancePlanSurrogate.modifierExtension
-      identifier = this@InsurancePlanSurrogate.identifier
+        Code.of(this@InsurancePlanSurrogate.language, this@InsurancePlanSurrogate._language),
+      text = this@InsurancePlanSurrogate.text,
+      contained = this@InsurancePlanSurrogate.contained ?: mutableListOf(),
+      extension = this@InsurancePlanSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InsurancePlanSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InsurancePlanSurrogate.identifier ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@InsurancePlanSurrogate.status?.let {
-            com.google.fhir.model.r4.PublicationStatus.fromCode(it)
-          },
-          this@InsurancePlanSurrogate._status,
-        )
-      type = this@InsurancePlanSurrogate.type
-      name = R4String.of(this@InsurancePlanSurrogate.name, this@InsurancePlanSurrogate._name)
+        this@InsurancePlanSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.PublicationStatus.fromCode(it!!),
+            this@InsurancePlanSurrogate._status,
+          )
+        },
+      type = this@InsurancePlanSurrogate.type ?: mutableListOf(),
+      name = R4String.of(this@InsurancePlanSurrogate.name, this@InsurancePlanSurrogate._name),
       alias =
         if (
           this@InsurancePlanSurrogate.alias == null && this@InsurancePlanSurrogate._alias == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@InsurancePlanSurrogate.alias
               ?: List(this@InsurancePlanSurrogate._alias!!.size) { null })
@@ -460,51 +468,58 @@ internal data class InsurancePlanSurrogate(
               this@InsurancePlanSurrogate._alias
                 ?: List(this@InsurancePlanSurrogate.alias!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
-      period = this@InsurancePlanSurrogate.period
-      ownedBy = this@InsurancePlanSurrogate.ownedBy
-      administeredBy = this@InsurancePlanSurrogate.administeredBy
-      coverageArea = this@InsurancePlanSurrogate.coverageArea
-      contact = this@InsurancePlanSurrogate.contact
-      endpoint = this@InsurancePlanSurrogate.endpoint
-      network = this@InsurancePlanSurrogate.network
-      coverage = this@InsurancePlanSurrogate.coverage
-      plan = this@InsurancePlanSurrogate.plan
-    }
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
+      period = this@InsurancePlanSurrogate.period,
+      ownedBy = this@InsurancePlanSurrogate.ownedBy,
+      administeredBy = this@InsurancePlanSurrogate.administeredBy,
+      coverageArea = this@InsurancePlanSurrogate.coverageArea ?: mutableListOf(),
+      contact = this@InsurancePlanSurrogate.contact ?: mutableListOf(),
+      endpoint = this@InsurancePlanSurrogate.endpoint ?: mutableListOf(),
+      network = this@InsurancePlanSurrogate.network ?: mutableListOf(),
+      coverage = this@InsurancePlanSurrogate.coverage ?: mutableListOf(),
+      plan = this@InsurancePlanSurrogate.plan ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: InsurancePlan): InsurancePlanSurrogate =
       with(model) {
-        InsurancePlanSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          alias = this@with.alias?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _alias = this@with.alias?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          period = this@with.period
-          ownedBy = this@with.ownedBy
-          administeredBy = this@with.administeredBy
-          coverageArea = this@with.coverageArea
-          contact = this@with.contact
-          endpoint = this@with.endpoint
-          network = this@with.network
-          coverage = this@with.coverage
-          plan = this@with.plan
-        }
+        InsurancePlanSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          type = this@with.type.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          alias =
+            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _alias =
+            this@with.alias
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          period = this@with.period,
+          ownedBy = this@with.ownedBy,
+          administeredBy = this@with.administeredBy,
+          coverageArea = this@with.coverageArea.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          network = this@with.network.takeUnless { it.all { it == null } },
+          coverage = this@with.coverage.takeUnless { it.all { it == null } },
+          plan = this@with.plan.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

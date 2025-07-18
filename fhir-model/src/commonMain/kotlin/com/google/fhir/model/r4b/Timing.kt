@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.TimingRepeatSerializer
 import com.google.fhir.model.r4b.serializers.TimingSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -51,7 +51,7 @@ public data class Timing(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -70,9 +70,9 @@ public data class Timing(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifies specific times when the event occurs. */
-  public var event: List<DateTime?>? = null,
+  public var event: MutableList<DateTime> = mutableListOf(),
   /** A set of rules that describe when the event is scheduled. */
   public var repeat: Repeat? = null,
   /**
@@ -110,7 +110,7 @@ public data class Timing(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * Either a duration for the length of the timing schedule, a range of possible length, or outer
      * bounds for start and/or end limits of the timing schedule.
@@ -180,7 +180,7 @@ public data class Timing(
      * If no days are specified, the action is assumed to happen every day as otherwise specified.
      * The elements frequency and period cannot be used as well as dayOfWeek.
      */
-    public var dayOfWeek: List<Enumeration<DayOfWeek>>? = null,
+    public var dayOfWeek: MutableList<Enumeration<DayOfWeek>> = mutableListOf(),
     /**
      * Specified time of day for action to take place.
      *
@@ -188,14 +188,14 @@ public data class Timing(
      * by dayofWeek) on the specified times. The elements when, frequency and period cannot be used
      * as well as timeOfDay.
      */
-    public var timeOfDay: List<Time?>? = null,
+    public var timeOfDay: MutableList<Time> = mutableListOf(),
     /**
      * An approximate time period during the day, potentially linked to an event of daily living
      * that indicates when the action should occur.
      *
      * When more than one event is listed, the event is tied to the union of the specified events.
      */
-    public var `when`: List<Enumeration<EventTiming>>? = null,
+    public var `when`: MutableList<Enumeration<EventTiming>> = mutableListOf(),
     /**
      * The number of minutes from the event. If the event code does not indicate whether the minutes
      * is before or after the event, then the offset is assumed to be after the event.
@@ -216,14 +216,14 @@ public data class Timing(
       public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Bounds
 
       public companion object {
-        public fun from(
-          DurationValue: com.google.fhir.model.r4b.Duration?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          PeriodValue: com.google.fhir.model.r4b.Period?,
+        internal fun from(
+          durationValue: com.google.fhir.model.r4b.Duration?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          periodValue: com.google.fhir.model.r4b.Period?,
         ): Bounds? {
-          if (DurationValue != null) return Duration(DurationValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }

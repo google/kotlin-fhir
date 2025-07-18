@@ -84,7 +84,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -92,39 +92,39 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class TaskRestrictionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var repetitions: Int? = null,
   public var _repetitions: Element? = null,
   public var period: Period? = null,
-  public var recipient: List<Reference?>? = null,
+  public var recipient: MutableList<Reference>? = null,
 ) {
   public fun toModel(): Task.Restriction =
-    Task.Restriction().apply {
-      id = this@TaskRestrictionSurrogate.id
-      extension = this@TaskRestrictionSurrogate.extension
-      modifierExtension = this@TaskRestrictionSurrogate.modifierExtension
+    Task.Restriction(
+      id = this@TaskRestrictionSurrogate.id,
+      extension = this@TaskRestrictionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TaskRestrictionSurrogate.modifierExtension ?: mutableListOf(),
       repetitions =
         PositiveInt.of(
           this@TaskRestrictionSurrogate.repetitions,
           this@TaskRestrictionSurrogate._repetitions,
-        )
-      period = this@TaskRestrictionSurrogate.period
-      recipient = this@TaskRestrictionSurrogate.recipient
-    }
+        ),
+      period = this@TaskRestrictionSurrogate.period,
+      recipient = this@TaskRestrictionSurrogate.recipient ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Task.Restriction): TaskRestrictionSurrogate =
       with(model) {
-        TaskRestrictionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          repetitions = this@with.repetitions?.value
-          _repetitions = this@with.repetitions?.toElement()
-          period = this@with.period
-          recipient = this@with.recipient
-        }
+        TaskRestrictionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          repetitions = this@with.repetitions?.value,
+          _repetitions = this@with.repetitions?.toElement(),
+          period = this@with.period,
+          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -132,9 +132,9 @@ internal data class TaskRestrictionSurrogate(
 @Serializable
 internal data class TaskInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
   public var valueBoolean: KotlinBoolean? = null,
@@ -206,13 +206,13 @@ internal data class TaskInputSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): Task.Input =
-    Task.Input().apply {
-      id = this@TaskInputSurrogate.id
-      extension = this@TaskInputSurrogate.extension
-      modifierExtension = this@TaskInputSurrogate.modifierExtension
-      type = this@TaskInputSurrogate.type
+    Task.Input(
+      id = this@TaskInputSurrogate.id,
+      extension = this@TaskInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TaskInputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TaskInputSurrogate.type,
       `value` =
-        Task.Input.Value?.from(
+        Task.Input.Value.from(
           Base64Binary.of(
             this@TaskInputSurrogate.valueBase64Binary,
             this@TaskInputSurrogate._valueBase64Binary,
@@ -287,87 +287,87 @@ internal data class TaskInputSurrogate(
           this@TaskInputSurrogate.valueUsageContext,
           this@TaskInputSurrogate.valueDosage,
           this@TaskInputSurrogate.valueMeta,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Task.Input): TaskInputSurrogate =
       with(model) {
-        TaskInputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueContributor = this@with.`value`?.asContributor()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-          valueMeta = this@with.`value`?.asMeta()?.value
-        }
+        TaskInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueContributor = this@with.`value`?.asContributor()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+          valueMeta = this@with.`value`?.asMeta()?.value,
+        )
       }
   }
 }
@@ -375,9 +375,9 @@ internal data class TaskInputSurrogate(
 @Serializable
 internal data class TaskOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
   public var valueBoolean: KotlinBoolean? = null,
@@ -449,13 +449,13 @@ internal data class TaskOutputSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): Task.Output =
-    Task.Output().apply {
-      id = this@TaskOutputSurrogate.id
-      extension = this@TaskOutputSurrogate.extension
-      modifierExtension = this@TaskOutputSurrogate.modifierExtension
-      type = this@TaskOutputSurrogate.type
+    Task.Output(
+      id = this@TaskOutputSurrogate.id,
+      extension = this@TaskOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TaskOutputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TaskOutputSurrogate.type,
       `value` =
-        Task.Output.Value?.from(
+        Task.Output.Value.from(
           Base64Binary.of(
             this@TaskOutputSurrogate.valueBase64Binary,
             this@TaskOutputSurrogate._valueBase64Binary,
@@ -533,87 +533,87 @@ internal data class TaskOutputSurrogate(
           this@TaskOutputSurrogate.valueUsageContext,
           this@TaskOutputSurrogate.valueDosage,
           this@TaskOutputSurrogate.valueMeta,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Task.Output): TaskOutputSurrogate =
       with(model) {
-        TaskOutputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement()
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement()
-          valueCode = this@with.`value`?.asCode()?.value?.value
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueId = this@with.`value`?.asId()?.value?.value
-          _valueId = this@with.`value`?.asId()?.value?.toElement()
-          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString()
-          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement()
-          valueOid = this@with.`value`?.asOid()?.value?.value
-          _valueOid = this@with.`value`?.asOid()?.value?.toElement()
-          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value
-          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value
-          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueUrl = this@with.`value`?.asUrl()?.value?.value
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement()
-          valueUuid = this@with.`value`?.asUuid()?.value?.value
-          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement()
-          valueAddress = this@with.`value`?.asAddress()?.value
-          valueAge = this@with.`value`?.asAge()?.value
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueContactPoint = this@with.`value`?.asContactPoint()?.value
-          valueCount = this@with.`value`?.asCount()?.value
-          valueDistance = this@with.`value`?.asDistance()?.value
-          valueDuration = this@with.`value`?.asDuration()?.value
-          valueHumanName = this@with.`value`?.asHumanName()?.value
-          valueIdentifier = this@with.`value`?.asIdentifier()?.value
-          valueMoney = this@with.`value`?.asMoney()?.value
-          valuePeriod = this@with.`value`?.asPeriod()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueRatio = this@with.`value`?.asRatio()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          valueSampledData = this@with.`value`?.asSampledData()?.value
-          valueSignature = this@with.`value`?.asSignature()?.value
-          valueTiming = this@with.`value`?.asTiming()?.value
-          valueContactDetail = this@with.`value`?.asContactDetail()?.value
-          valueContributor = this@with.`value`?.asContributor()?.value
-          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value
-          valueExpression = this@with.`value`?.asExpression()?.value
-          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value
-          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value
-          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value
-          valueUsageContext = this@with.`value`?.asUsageContext()?.value
-          valueDosage = this@with.`value`?.asDosage()?.value
-          valueMeta = this@with.`value`?.asMeta()?.value
-        }
+        TaskOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
+          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          valueCode = this@with.`value`?.asCode()?.value?.value,
+          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueId = this@with.`value`?.asId()?.value?.value,
+          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          valueInstant = this@with.`value`?.asInstant()?.value?.value?.toString(),
+          _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
+          valueOid = this@with.`value`?.asOid()?.value?.value,
+          _valueOid = this@with.`value`?.asOid()?.value?.toElement(),
+          valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.value,
+          _valuePositiveInt = this@with.`value`?.asPositiveInt()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.value,
+          _valueUnsignedInt = this@with.`value`?.asUnsignedInt()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueUrl = this@with.`value`?.asUrl()?.value?.value,
+          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
+          valueUuid = this@with.`value`?.asUuid()?.value?.value,
+          _valueUuid = this@with.`value`?.asUuid()?.value?.toElement(),
+          valueAddress = this@with.`value`?.asAddress()?.value,
+          valueAge = this@with.`value`?.asAge()?.value,
+          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueContactPoint = this@with.`value`?.asContactPoint()?.value,
+          valueCount = this@with.`value`?.asCount()?.value,
+          valueDistance = this@with.`value`?.asDistance()?.value,
+          valueDuration = this@with.`value`?.asDuration()?.value,
+          valueHumanName = this@with.`value`?.asHumanName()?.value,
+          valueIdentifier = this@with.`value`?.asIdentifier()?.value,
+          valueMoney = this@with.`value`?.asMoney()?.value,
+          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueRatio = this@with.`value`?.asRatio()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          valueSampledData = this@with.`value`?.asSampledData()?.value,
+          valueSignature = this@with.`value`?.asSignature()?.value,
+          valueTiming = this@with.`value`?.asTiming()?.value,
+          valueContactDetail = this@with.`value`?.asContactDetail()?.value,
+          valueContributor = this@with.`value`?.asContributor()?.value,
+          valueDataRequirement = this@with.`value`?.asDataRequirement()?.value,
+          valueExpression = this@with.`value`?.asExpression()?.value,
+          valueParameterDefinition = this@with.`value`?.asParameterDefinition()?.value,
+          valueRelatedArtifact = this@with.`value`?.asRelatedArtifact()?.value,
+          valueTriggerDefinition = this@with.`value`?.asTriggerDefinition()?.value,
+          valueUsageContext = this@with.`value`?.asUsageContext()?.value,
+          valueDosage = this@with.`value`?.asDosage()?.value,
+          valueMeta = this@with.`value`?.asMeta()?.value,
+        )
       }
   }
 }
@@ -627,17 +627,17 @@ internal data class TaskSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesUri: KotlinString? = null,
   public var _instantiatesUri: Element? = null,
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -658,142 +658,142 @@ internal data class TaskSurrogate(
   public var lastModified: KotlinString? = null,
   public var _lastModified: Element? = null,
   public var requester: Reference? = null,
-  public var performerType: List<CodeableConcept?>? = null,
+  public var performerType: MutableList<CodeableConcept>? = null,
   public var owner: Reference? = null,
   public var location: Reference? = null,
   public var reasonCode: CodeableConcept? = null,
   public var reasonReference: Reference? = null,
-  public var insurance: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var relevantHistory: List<Reference?>? = null,
+  public var insurance: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var relevantHistory: MutableList<Reference>? = null,
   public var restriction: Task.Restriction? = null,
-  public var input: List<Task.Input>? = null,
-  public var output: List<Task.Output>? = null,
+  public var input: MutableList<Task.Input>? = null,
+  public var output: MutableList<Task.Output>? = null,
 ) {
   public fun toModel(): Task =
-    Task().apply {
-      id = this@TaskSurrogate.id
-      meta = this@TaskSurrogate.meta
-      implicitRules = Uri.of(this@TaskSurrogate.implicitRules, this@TaskSurrogate._implicitRules)
-      language = Code.of(this@TaskSurrogate.language, this@TaskSurrogate._language)
-      text = this@TaskSurrogate.text
-      contained = this@TaskSurrogate.contained
-      extension = this@TaskSurrogate.extension
-      modifierExtension = this@TaskSurrogate.modifierExtension
-      identifier = this@TaskSurrogate.identifier
+    Task(
+      id = this@TaskSurrogate.id,
+      meta = this@TaskSurrogate.meta,
+      implicitRules = Uri.of(this@TaskSurrogate.implicitRules, this@TaskSurrogate._implicitRules),
+      language = Code.of(this@TaskSurrogate.language, this@TaskSurrogate._language),
+      text = this@TaskSurrogate.text,
+      contained = this@TaskSurrogate.contained ?: mutableListOf(),
+      extension = this@TaskSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TaskSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@TaskSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         Canonical.of(
           this@TaskSurrogate.instantiatesCanonical,
           this@TaskSurrogate._instantiatesCanonical,
-        )
+        ),
       instantiatesUri =
-        Uri.of(this@TaskSurrogate.instantiatesUri, this@TaskSurrogate._instantiatesUri)
-      basedOn = this@TaskSurrogate.basedOn
-      groupIdentifier = this@TaskSurrogate.groupIdentifier
-      partOf = this@TaskSurrogate.partOf
+        Uri.of(this@TaskSurrogate.instantiatesUri, this@TaskSurrogate._instantiatesUri),
+      basedOn = this@TaskSurrogate.basedOn ?: mutableListOf(),
+      groupIdentifier = this@TaskSurrogate.groupIdentifier,
+      partOf = this@TaskSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@TaskSurrogate.status?.let { com.google.fhir.model.r4.Task.TaskStatus.fromCode(it) },
+          com.google.fhir.model.r4.Task.TaskStatus.fromCode(this@TaskSurrogate.status!!),
           this@TaskSurrogate._status,
-        )
-      statusReason = this@TaskSurrogate.statusReason
-      businessStatus = this@TaskSurrogate.businessStatus
+        ),
+      statusReason = this@TaskSurrogate.statusReason,
+      businessStatus = this@TaskSurrogate.businessStatus,
       intent =
         Enumeration.of(
-          this@TaskSurrogate.intent?.let { com.google.fhir.model.r4.Task.TaskIntent.fromCode(it) },
+          com.google.fhir.model.r4.Task.TaskIntent.fromCode(this@TaskSurrogate.intent!!),
           this@TaskSurrogate._intent,
-        )
+        ),
       priority =
-        Enumeration.of(
-          this@TaskSurrogate.priority?.let {
-            com.google.fhir.model.r4.Task.TaskPriority.fromCode(it)
-          },
-          this@TaskSurrogate._priority,
-        )
-      code = this@TaskSurrogate.code
-      description = R4String.of(this@TaskSurrogate.description, this@TaskSurrogate._description)
-      focus = this@TaskSurrogate.focus
-      `for` = this@TaskSurrogate.`for`
-      encounter = this@TaskSurrogate.encounter
-      executionPeriod = this@TaskSurrogate.executionPeriod
+        this@TaskSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Task.TaskPriority.fromCode(it!!),
+            this@TaskSurrogate._priority,
+          )
+        },
+      code = this@TaskSurrogate.code,
+      description = R4String.of(this@TaskSurrogate.description, this@TaskSurrogate._description),
+      focus = this@TaskSurrogate.focus,
+      `for` = this@TaskSurrogate.`for`,
+      encounter = this@TaskSurrogate.encounter,
+      executionPeriod = this@TaskSurrogate.executionPeriod,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@TaskSurrogate.authoredOn),
           this@TaskSurrogate._authoredOn,
-        )
+        ),
       lastModified =
         DateTime.of(
           FhirDateTime.fromString(this@TaskSurrogate.lastModified),
           this@TaskSurrogate._lastModified,
-        )
-      requester = this@TaskSurrogate.requester
-      performerType = this@TaskSurrogate.performerType
-      owner = this@TaskSurrogate.owner
-      location = this@TaskSurrogate.location
-      reasonCode = this@TaskSurrogate.reasonCode
-      reasonReference = this@TaskSurrogate.reasonReference
-      insurance = this@TaskSurrogate.insurance
-      note = this@TaskSurrogate.note
-      relevantHistory = this@TaskSurrogate.relevantHistory
-      restriction = this@TaskSurrogate.restriction
-      input = this@TaskSurrogate.input
-      output = this@TaskSurrogate.output
-    }
+        ),
+      requester = this@TaskSurrogate.requester,
+      performerType = this@TaskSurrogate.performerType ?: mutableListOf(),
+      owner = this@TaskSurrogate.owner,
+      location = this@TaskSurrogate.location,
+      reasonCode = this@TaskSurrogate.reasonCode,
+      reasonReference = this@TaskSurrogate.reasonReference,
+      insurance = this@TaskSurrogate.insurance ?: mutableListOf(),
+      note = this@TaskSurrogate.note ?: mutableListOf(),
+      relevantHistory = this@TaskSurrogate.relevantHistory ?: mutableListOf(),
+      restriction = this@TaskSurrogate.restriction,
+      input = this@TaskSurrogate.input ?: mutableListOf(),
+      output = this@TaskSurrogate.output ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Task): TaskSurrogate =
       with(model) {
-        TaskSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          instantiatesCanonical = this@with.instantiatesCanonical?.value
-          _instantiatesCanonical = this@with.instantiatesCanonical?.toElement()
-          instantiatesUri = this@with.instantiatesUri?.value
-          _instantiatesUri = this@with.instantiatesUri?.toElement()
-          basedOn = this@with.basedOn
-          groupIdentifier = this@with.groupIdentifier
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          businessStatus = this@with.businessStatus
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          code = this@with.code
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          focus = this@with.focus
-          `for` = this@with.`for`
-          encounter = this@with.encounter
-          executionPeriod = this@with.executionPeriod
-          authoredOn = this@with.authoredOn?.value?.toString()
-          _authoredOn = this@with.authoredOn?.toElement()
-          lastModified = this@with.lastModified?.value?.toString()
-          _lastModified = this@with.lastModified?.toElement()
-          requester = this@with.requester
-          performerType = this@with.performerType
-          owner = this@with.owner
-          location = this@with.location
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          insurance = this@with.insurance
-          note = this@with.note
-          relevantHistory = this@with.relevantHistory
-          restriction = this@with.restriction
-          input = this@with.input
-          output = this@with.output
-        }
+        TaskSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          instantiatesCanonical = this@with.instantiatesCanonical?.value,
+          _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
+          instantiatesUri = this@with.instantiatesUri?.value,
+          _instantiatesUri = this@with.instantiatesUri?.toElement(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          groupIdentifier = this@with.groupIdentifier,
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          statusReason = this@with.statusReason,
+          businessStatus = this@with.businessStatus,
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          code = this@with.code,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          focus = this@with.focus,
+          `for` = this@with.`for`,
+          encounter = this@with.encounter,
+          executionPeriod = this@with.executionPeriod,
+          authoredOn = this@with.authoredOn?.value?.toString(),
+          _authoredOn = this@with.authoredOn?.toElement(),
+          lastModified = this@with.lastModified?.value?.toString(),
+          _lastModified = this@with.lastModified?.toElement(),
+          requester = this@with.requester,
+          performerType = this@with.performerType.takeUnless { it.all { it == null } },
+          owner = this@with.owner,
+          location = this@with.location,
+          reasonCode = this@with.reasonCode,
+          reasonReference = this@with.reasonReference,
+          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          restriction = this@with.restriction,
+          input = this@with.input.takeUnless { it.all { it == null } },
+          output = this@with.output.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

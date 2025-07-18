@@ -27,7 +27,7 @@ import com.google.fhir.model.r5.serializers.ResearchStudyProgressStatusSerialize
 import com.google.fhir.model.r5.serializers.ResearchStudyRecruitmentSerializer
 import com.google.fhir.model.r5.serializers.ResearchStudySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -105,7 +105,7 @@ public data class ResearchStudy(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class ResearchStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,11 +137,11 @@ public data class ResearchStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Canonical identifier for this study resource, represented as a globally unique URI. */
   public var url: Uri? = null,
   /** Identifiers assigned to this research study by the sponsor or other systems. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The business version for the study record. */
   public var version: String? = null,
   /** Name for this study (computer friendly). */
@@ -149,18 +149,18 @@ public data class ResearchStudy(
   /** The human readable name of the research study. */
   public var title: String? = null,
   /** Additional names for the study. */
-  public var label: List<Label>? = null,
+  public var label: MutableList<Label> = mutableListOf(),
   /** The set of steps expected to be performed as part of the execution of the study. */
-  public var protocol: List<Reference?>? = null,
+  public var protocol: MutableList<Reference> = mutableListOf(),
   /** A larger research study of which this particular study is a component or step. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * Citations, references, URLs and other related documents. When using relatedArtifact to share
    * URLs, the relatedArtifact.type will often be set to one of "documentation" or "supported-with"
    * and the URL value will often be in relatedArtifact.document.url but another possible location
    * is relatedArtifact.resource when it is a canonical URL.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * The date (and optionally time) when the ResearchStudy Resource was last significantly changed.
    * The date must change when the business version changes and it must change if the status code
@@ -169,7 +169,7 @@ public data class ResearchStudy(
    */
   public var date: DateTime? = null,
   /** The publication state of the resource (not of the study). */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * The type of study based upon the intent of the study activities. A classification of the intent
    * of the study.
@@ -184,25 +184,25 @@ public data class ResearchStudy(
    * Codes categorizing the type of study such as investigational vs. observational, type of
    * blinding, type of randomization, safety vs. efficacy, etc.
    */
-  public var studyDesign: List<CodeableConcept?>? = null,
+  public var studyDesign: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The medication(s), food(s), therapy(ies), device(s) or other concerns or interventions that the
    * study is seeking to gain more information about.
    */
-  public var focus: List<CodeableReference?>? = null,
+  public var focus: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The condition that is the focus of the study. For example, In a study to examine risk factors
    * for Lupus, might have as an inclusion criterion "healthy volunteer", but the target condition
    * code would be a Lupus SNOMED code.
    */
-  public var condition: List<CodeableConcept?>? = null,
+  public var condition: MutableList<CodeableConcept> = mutableListOf(),
   /** Key terms to aid in searching for or filtering the study. */
-  public var keyword: List<CodeableConcept?>? = null,
+  public var keyword: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A country, state or other area where the study is taking place rather than its precise
    * geographic location or address.
    */
-  public var region: List<CodeableConcept?>? = null,
+  public var region: MutableList<CodeableConcept> = mutableListOf(),
   /** A brief text for explaining the study. */
   public var descriptionSummary: Markdown? = null,
   /** A detailed and human-readable narrative of the study. E.g., study abstract. */
@@ -213,24 +213,24 @@ public data class ResearchStudy(
    */
   public var period: Period? = null,
   /** A facility in which study activities are conducted. */
-  public var site: List<Reference?>? = null,
+  public var site: MutableList<Reference> = mutableListOf(),
   /** Comments made about the study by the performer, subject or other participants. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Additional grouping mechanism or categorization of a research study. Example: FDA regulated
    * device, FDA regulated drug, MPG Paragraph 23b (a German legal requirement), IRB-exempt, etc.
    * Implementation Note: do not use the classifier element to support existing semantics that are
    * already supported thru explicit elements in the resource.
    */
-  public var classifier: List<CodeableConcept?>? = null,
+  public var classifier: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Sponsors, collaborators, and other parties.
    *
    * For a Sponsor or a PrincipalInvestigator use the dedicated attributes provided.
    */
-  public var associatedParty: List<AssociatedParty>? = null,
+  public var associatedParty: MutableList<AssociatedParty> = mutableListOf(),
   /** Status of study with time for that status. */
-  public var progressStatus: List<ProgressStatus>? = null,
+  public var progressStatus: MutableList<ProgressStatus> = mutableListOf(),
   /** A description and/or code explaining the premature termination of the study. */
   public var whyStopped: CodeableConcept? = null,
   /** Target or actual group of participants enrolled in study. */
@@ -244,12 +244,12 @@ public data class ResearchStudy(
    * In many clinical trials this is refered to as the ARM of the study, but such a term is not used
    * in other sorts of trials even when there is a comparison between two or more groups.
    */
-  public var comparisonGroup: List<ComparisonGroup>? = null,
+  public var comparisonGroup: MutableList<ComparisonGroup> = mutableListOf(),
   /**
    * A goal that the study is aiming to achieve in terms of a scientific question to be answered by
    * the analysis of data collected during the study.
    */
-  public var objective: List<Objective>? = null,
+  public var objective: MutableList<Objective> = mutableListOf(),
   /**
    * An "outcome measure", "endpoint", "effect measure" or "measure of effect" is a specific
    * measurement or observation used to quantify the effect of experimental variables on the
@@ -261,12 +261,12 @@ public data class ResearchStudy(
    * assessed is the outcomeMeasure. Examples: Time to Local Recurrence (TLR), Disease-free Survival
    * (DFS), 30 Day Mortality, Systolic BP
    */
-  public var outcomeMeasure: List<OutcomeMeasure>? = null,
+  public var outcomeMeasure: MutableList<OutcomeMeasure> = mutableListOf(),
   /**
    * Link to one or more sets of results generated by the study. Could also link to a research
    * registry holding the results such as ClinicalTrials.gov.
    */
-  public var result: List<Reference?>? = null,
+  public var result: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Additional names for the study. */
   @Serializable(with = ResearchStudyLabelSerializer::class)
@@ -288,7 +288,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -307,7 +307,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Kind of name. */
     public var type: CodeableConcept? = null,
     /** The name. */
@@ -334,7 +334,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -353,20 +353,20 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Name of associated party. */
     public var name: String? = null,
     /** Type of association. */
-    public var role: CodeableConcept? = null,
+    public var role: CodeableConcept,
     /**
      * Identifies the start date and the end date of the associated party in the role.
      *
      * The cardinality is 0..* due to the fact that an associated party may be intermittently active
      * in a given role over multiple time periods.
      */
-    public var period: List<Period?>? = null,
+    public var period: MutableList<Period> = mutableListOf(),
     /** A categorization other than role for the associated party. */
-    public var classifier: List<CodeableConcept?>? = null,
+    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Individual or organization associated with study (use practitionerRole to specify their
      * organisation).
@@ -396,7 +396,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -415,9 +415,9 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Label for status or state (e.g. recruitment status). */
-    public var state: CodeableConcept? = null,
+    public var state: CodeableConcept,
     /**
      * An indication of whether or not the date is a known date when the state changed or will
      * change. A value of true indicates a known date. A value of false indicates an estimated date.
@@ -447,7 +447,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -466,7 +466,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Estimated total number of participants to be enrolled. */
     public var targetNumber: UnsignedInt? = null,
     /** Actual total number of participants enrolled in study. */
@@ -502,7 +502,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -521,14 +521,14 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Allows the comparisonGroup for the study and the comparisonGroup for the subject to be linked
      * easily.
      */
     public var linkId: Id? = null,
     /** Unique, human-readable label for this comparisonGroup of the study. */
-    public var name: String? = null,
+    public var name: String,
     /**
      * Categorization of study comparisonGroup, e.g. experimental, active comparator, placebo
      * comparater.
@@ -540,7 +540,7 @@ public data class ResearchStudy(
      */
     public var description: Markdown? = null,
     /** Interventions or exposures in this comparisonGroup or cohort. */
-    public var intendedExposure: List<Reference?>? = null,
+    public var intendedExposure: MutableList<Reference> = mutableListOf(),
     /** Group of participants who were enrolled in study comparisonGroup. */
     public var observedGroup: Reference? = null,
   ) : BackboneElement()
@@ -568,7 +568,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -587,7 +587,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Unique, human-readable label for this objective of the study. */
     public var name: String? = null,
     /** The kind of study objective. */
@@ -624,7 +624,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -643,14 +643,14 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Label for the outcome. */
     public var name: String? = null,
     /**
      * The parameter or characteristic being assessed as one of the values by which the study is
      * assessed.
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /** Description of the outcome. */
     public var description: Markdown? = null,
     /** Structured outcome definition. */

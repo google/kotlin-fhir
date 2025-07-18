@@ -47,7 +47,7 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -60,32 +60,32 @@ internal data class ServiceRequestSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var instantiatesCanonical: List<KotlinString?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<KotlinString?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var replaces: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<KotlinString?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var replaces: MutableList<Reference>? = null,
   public var requisition: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var intent: KotlinString? = null,
   public var _intent: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
   public var code: CodeableConcept? = null,
-  public var orderDetail: List<CodeableConcept?>? = null,
+  public var orderDetail: MutableList<CodeableConcept>? = null,
   public var quantityQuantity: Quantity? = null,
   public var quantityRatio: Ratio? = null,
   public var quantityRange: Range? = null,
-  public var subject: Reference? = null,
+  public var subject: Reference,
   public var encounter: Reference? = null,
   public var occurrenceDateTime: KotlinString? = null,
   public var _occurrenceDateTime: Element? = null,
@@ -98,42 +98,42 @@ internal data class ServiceRequestSurrogate(
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
   public var performerType: CodeableConcept? = null,
-  public var performer: List<Reference?>? = null,
-  public var locationCode: List<CodeableConcept?>? = null,
-  public var locationReference: List<Reference?>? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var insurance: List<Reference?>? = null,
-  public var supportingInfo: List<Reference?>? = null,
-  public var specimen: List<Reference?>? = null,
-  public var bodySite: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var performer: MutableList<Reference>? = null,
+  public var locationCode: MutableList<CodeableConcept>? = null,
+  public var locationReference: MutableList<Reference>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var insurance: MutableList<Reference>? = null,
+  public var supportingInfo: MutableList<Reference>? = null,
+  public var specimen: MutableList<Reference>? = null,
+  public var bodySite: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
   public var patientInstruction: KotlinString? = null,
   public var _patientInstruction: Element? = null,
-  public var relevantHistory: List<Reference?>? = null,
+  public var relevantHistory: MutableList<Reference>? = null,
 ) {
   public fun toModel(): ServiceRequest =
-    ServiceRequest().apply {
-      id = this@ServiceRequestSurrogate.id
-      meta = this@ServiceRequestSurrogate.meta
+    ServiceRequest(
+      id = this@ServiceRequestSurrogate.id,
+      meta = this@ServiceRequestSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ServiceRequestSurrogate.implicitRules,
           this@ServiceRequestSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@ServiceRequestSurrogate.language, this@ServiceRequestSurrogate._language)
-      text = this@ServiceRequestSurrogate.text
-      contained = this@ServiceRequestSurrogate.contained
-      extension = this@ServiceRequestSurrogate.extension
-      modifierExtension = this@ServiceRequestSurrogate.modifierExtension
-      identifier = this@ServiceRequestSurrogate.identifier
+        Code.of(this@ServiceRequestSurrogate.language, this@ServiceRequestSurrogate._language),
+      text = this@ServiceRequestSurrogate.text,
+      contained = this@ServiceRequestSurrogate.contained ?: mutableListOf(),
+      extension = this@ServiceRequestSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ServiceRequestSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ServiceRequestSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@ServiceRequestSurrogate.instantiatesCanonical == null &&
             this@ServiceRequestSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ServiceRequestSurrogate.instantiatesCanonical
               ?: List(this@ServiceRequestSurrogate._instantiatesCanonical!!.size) { null })
@@ -141,14 +141,15 @@ internal data class ServiceRequestSurrogate(
               this@ServiceRequestSurrogate._instantiatesCanonical
                 ?: List(this@ServiceRequestSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@ServiceRequestSurrogate.instantiatesUri == null &&
             this@ServiceRequestSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ServiceRequestSurrogate.instantiatesUri
               ?: List(this@ServiceRequestSurrogate._instantiatesUri!!.size) { null })
@@ -156,48 +157,49 @@ internal data class ServiceRequestSurrogate(
               this@ServiceRequestSurrogate._instantiatesUri
                 ?: List(this@ServiceRequestSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      basedOn = this@ServiceRequestSurrogate.basedOn
-      replaces = this@ServiceRequestSurrogate.replaces
-      requisition = this@ServiceRequestSurrogate.requisition
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      basedOn = this@ServiceRequestSurrogate.basedOn ?: mutableListOf(),
+      replaces = this@ServiceRequestSurrogate.replaces ?: mutableListOf(),
+      requisition = this@ServiceRequestSurrogate.requisition,
       status =
         Enumeration.of(
-          this@ServiceRequestSurrogate.status?.let {
-            com.google.fhir.model.r4b.ServiceRequest.ServiceRequestStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.ServiceRequest.ServiceRequestStatus.fromCode(
+            this@ServiceRequestSurrogate.status!!
+          ),
           this@ServiceRequestSurrogate._status,
-        )
+        ),
       intent =
         Enumeration.of(
-          this@ServiceRequestSurrogate.intent?.let {
-            com.google.fhir.model.r4b.ServiceRequest.ServiceRequestIntent.fromCode(it)
-          },
+          com.google.fhir.model.r4b.ServiceRequest.ServiceRequestIntent.fromCode(
+            this@ServiceRequestSurrogate.intent!!
+          ),
           this@ServiceRequestSurrogate._intent,
-        )
-      category = this@ServiceRequestSurrogate.category
+        ),
+      category = this@ServiceRequestSurrogate.category ?: mutableListOf(),
       priority =
-        Enumeration.of(
-          this@ServiceRequestSurrogate.priority?.let {
-            com.google.fhir.model.r4b.ServiceRequest.ServiceRequestPriority.fromCode(it)
-          },
-          this@ServiceRequestSurrogate._priority,
-        )
+        this@ServiceRequestSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.ServiceRequest.ServiceRequestPriority.fromCode(it!!),
+            this@ServiceRequestSurrogate._priority,
+          )
+        },
       doNotPerform =
         R4bBoolean.of(
           this@ServiceRequestSurrogate.doNotPerform,
           this@ServiceRequestSurrogate._doNotPerform,
-        )
-      code = this@ServiceRequestSurrogate.code
-      orderDetail = this@ServiceRequestSurrogate.orderDetail
+        ),
+      code = this@ServiceRequestSurrogate.code,
+      orderDetail = this@ServiceRequestSurrogate.orderDetail ?: mutableListOf(),
       quantity =
         ServiceRequest.Quantity?.from(
           this@ServiceRequestSurrogate.quantityQuantity,
           this@ServiceRequestSurrogate.quantityRatio,
           this@ServiceRequestSurrogate.quantityRange,
-        )
-      subject = this@ServiceRequestSurrogate.subject
-      encounter = this@ServiceRequestSurrogate.encounter
+        ),
+      subject = this@ServiceRequestSurrogate.subject,
+      encounter = this@ServiceRequestSurrogate.encounter,
       occurrence =
         ServiceRequest.Occurrence?.from(
           DateTime.of(
@@ -206,7 +208,7 @@ internal data class ServiceRequestSurrogate(
           ),
           this@ServiceRequestSurrogate.occurrencePeriod,
           this@ServiceRequestSurrogate.occurrenceTiming,
-        )
+        ),
       asNeeded =
         ServiceRequest.AsNeeded?.from(
           R4bBoolean.of(
@@ -214,101 +216,113 @@ internal data class ServiceRequestSurrogate(
             this@ServiceRequestSurrogate._asNeededBoolean,
           ),
           this@ServiceRequestSurrogate.asNeededCodeableConcept,
-        )
+        ),
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@ServiceRequestSurrogate.authoredOn),
           this@ServiceRequestSurrogate._authoredOn,
-        )
-      requester = this@ServiceRequestSurrogate.requester
-      performerType = this@ServiceRequestSurrogate.performerType
-      performer = this@ServiceRequestSurrogate.performer
-      locationCode = this@ServiceRequestSurrogate.locationCode
-      locationReference = this@ServiceRequestSurrogate.locationReference
-      reasonCode = this@ServiceRequestSurrogate.reasonCode
-      reasonReference = this@ServiceRequestSurrogate.reasonReference
-      insurance = this@ServiceRequestSurrogate.insurance
-      supportingInfo = this@ServiceRequestSurrogate.supportingInfo
-      specimen = this@ServiceRequestSurrogate.specimen
-      bodySite = this@ServiceRequestSurrogate.bodySite
-      note = this@ServiceRequestSurrogate.note
+        ),
+      requester = this@ServiceRequestSurrogate.requester,
+      performerType = this@ServiceRequestSurrogate.performerType,
+      performer = this@ServiceRequestSurrogate.performer ?: mutableListOf(),
+      locationCode = this@ServiceRequestSurrogate.locationCode ?: mutableListOf(),
+      locationReference = this@ServiceRequestSurrogate.locationReference ?: mutableListOf(),
+      reasonCode = this@ServiceRequestSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@ServiceRequestSurrogate.reasonReference ?: mutableListOf(),
+      insurance = this@ServiceRequestSurrogate.insurance ?: mutableListOf(),
+      supportingInfo = this@ServiceRequestSurrogate.supportingInfo ?: mutableListOf(),
+      specimen = this@ServiceRequestSurrogate.specimen ?: mutableListOf(),
+      bodySite = this@ServiceRequestSurrogate.bodySite ?: mutableListOf(),
+      note = this@ServiceRequestSurrogate.note ?: mutableListOf(),
       patientInstruction =
         R4bString.of(
           this@ServiceRequestSurrogate.patientInstruction,
           this@ServiceRequestSurrogate._patientInstruction,
-        )
-      relevantHistory = this@ServiceRequestSurrogate.relevantHistory
-    }
+        ),
+      relevantHistory = this@ServiceRequestSurrogate.relevantHistory ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ServiceRequest): ServiceRequestSurrogate =
       with(model) {
-        ServiceRequestSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
+        ServiceRequestSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          basedOn = this@with.basedOn
-          replaces = this@with.replaces
-          requisition = this@with.requisition
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          category = this@with.category
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          doNotPerform = this@with.doNotPerform?.value
-          _doNotPerform = this@with.doNotPerform?.toElement()
-          code = this@with.code
-          orderDetail = this@with.orderDetail
-          quantityQuantity = this@with.quantity?.asQuantity()?.value
-          quantityRatio = this@with.quantity?.asRatio()?.value
-          quantityRange = this@with.quantity?.asRange()?.value
-          subject = this@with.subject
-          encounter = this@with.encounter
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement()
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value
-          authoredOn = this@with.authoredOn?.value?.toString()
-          _authoredOn = this@with.authoredOn?.toElement()
-          requester = this@with.requester
-          performerType = this@with.performerType
-          performer = this@with.performer
-          locationCode = this@with.locationCode
-          locationReference = this@with.locationReference
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          insurance = this@with.insurance
-          supportingInfo = this@with.supportingInfo
-          specimen = this@with.specimen
-          bodySite = this@with.bodySite
-          note = this@with.note
-          patientInstruction = this@with.patientInstruction?.value
-          _patientInstruction = this@with.patientInstruction?.toElement()
-          relevantHistory = this@with.relevantHistory
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          requisition = this@with.requisition,
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          doNotPerform = this@with.doNotPerform?.value,
+          _doNotPerform = this@with.doNotPerform?.toElement(),
+          code = this@with.code,
+          orderDetail = this@with.orderDetail.takeUnless { it.all { it == null } },
+          quantityQuantity = this@with.quantity?.asQuantity()?.value,
+          quantityRatio = this@with.quantity?.asRatio()?.value,
+          quantityRange = this@with.quantity?.asRange()?.value,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
+          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value,
+          authoredOn = this@with.authoredOn?.value?.toString(),
+          _authoredOn = this@with.authoredOn?.toElement(),
+          requester = this@with.requester,
+          performerType = this@with.performerType,
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          locationCode = this@with.locationCode.takeUnless { it.all { it == null } },
+          locationReference = this@with.locationReference.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
+          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          patientInstruction = this@with.patientInstruction?.value,
+          _patientInstruction = this@with.patientInstruction?.toElement(),
+          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.MessageDefinitionAllowedResponseSeri
 import com.google.fhir.model.r5.serializers.MessageDefinitionFocusSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class MessageDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class MessageDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class MessageDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The business identifier that is used to reference the MessageDefinition and *is* expected to be
    * consistent from server to server.
@@ -156,7 +156,7 @@ public data class MessageDefinition(
    * type, and can then identify this message definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the message definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -195,7 +195,7 @@ public data class MessageDefinition(
    */
   public var title: String? = null,
   /** A MessageDefinition that is superseded by this definition. */
-  public var replaces: List<Canonical?>? = null,
+  public var replaces: MutableList<Canonical> = mutableListOf(),
   /**
    * The status of this message definition. Enables tracking the life-cycle of the content.
    *
@@ -204,7 +204,7 @@ public data class MessageDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this message definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -227,7 +227,7 @@ public data class MessageDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public var date: DateTime,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the message definition.
@@ -248,7 +248,7 @@ public data class MessageDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the message definition from a consumer's
    * perspective.
@@ -270,7 +270,7 @@ public data class MessageDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the message definition is intended to be used.
    *
@@ -282,7 +282,7 @@ public data class MessageDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this message definition is needed and why it has been designed as it has.
    *
@@ -316,16 +316,16 @@ public data class MessageDefinition(
    * It should be possible to use MessageDefinition to describe a message to be used by certain
    * steps in a particular protocol as part of a PlanDefinition or ActivityDefinition.
    */
-  public var parent: List<Canonical?>? = null,
+  public var parent: MutableList<Canonical> = mutableListOf(),
   /** Event code or link to the EventDefinition. */
-  public var event: Event? = null,
+  public var event: Event,
   /** The impact of the content of the message. */
   public var category: Enumeration<MessageSignificanceCategory>? = null,
   /**
    * Identifies the resource (or resources) that are being addressed by the event. For example, the
    * Encounter for an admit message or two Account records for a merge.
    */
-  public var focus: List<Focus>? = null,
+  public var focus: MutableList<Focus> = mutableListOf(),
   /**
    * Declare at a message definition level whether a response is required or only upon error or
    * success, or never.
@@ -342,7 +342,7 @@ public data class MessageDefinition(
    * request message. To define a complete workflow scenario, look to the [[PlanDefinition]]
    * resource which allows the definition of complex orchestrations, conditionality, etc.
    */
-  public var allowedResponse: List<AllowedResponse>? = null,
+  public var allowedResponse: MutableList<AllowedResponse> = mutableListOf(),
   /**
    * Graph is Canonical reference to a GraphDefinition. If a URL is provided, it is the canonical
    * reference to a GraphDefinition that it controls what additional resources are to be added to
@@ -374,7 +374,7 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -393,14 +393,14 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The kind of resource that must be the focus for this message.
      *
      * Multiple focuses addressing different resources may occasionally occur. E.g. to link or
      * unlink a resource from a particular account or encounter, etc.
      */
-    public var code: Enumeration<ResourceType>? = null,
+    public var code: Enumeration<ResourceType>,
     /**
      * A profile that reflects constraints for the focal resource (and potentially for related
      * resources).
@@ -414,7 +414,7 @@ public data class MessageDefinition(
      * Identifies the minimum number of resources of this type that must be pointed to by a message
      * in order for it to be valid against this MessageDefinition.
      */
-    public var min: UnsignedInt? = null,
+    public var min: UnsignedInt,
     /**
      * Identifies the maximum number of resources of this type that must be pointed to by a message
      * in order for it to be valid against this MessageDefinition.
@@ -444,7 +444,7 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -463,9 +463,9 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A reference to the message definition that must be adhered to by this supported response. */
-    public var message: Canonical? = null,
+    public var message: Canonical,
     /**
      * Provides a description of the circumstances in which this response should be used (as opposed
      * to one of the alternative responses).
@@ -485,12 +485,12 @@ public data class MessageDefinition(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }
@@ -506,11 +506,11 @@ public data class MessageDefinition(
     public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Event
 
     public companion object {
-      public fun from(
-        CodingValue: com.google.fhir.model.r5.Coding?,
+      internal fun from(
+        codingValue: com.google.fhir.model.r5.Coding?,
         uriValue: com.google.fhir.model.r5.Uri?,
       ): Event? {
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         if (uriValue != null) return Uri(uriValue)
         return null
       }

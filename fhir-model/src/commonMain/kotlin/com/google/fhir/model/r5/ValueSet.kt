@@ -32,7 +32,7 @@ import com.google.fhir.model.r5.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r5.serializers.ValueSetScopeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -109,7 +109,7 @@ public data class ValueSet(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -122,7 +122,7 @@ public data class ValueSet(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,7 +141,7 @@ public data class ValueSet(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this value set when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -169,7 +169,7 @@ public data class ValueSet(
    * type, and can then identify this value set outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the value set when it is referenced in
    * a specification, model, design or instance. This is an arbitrary value managed by the value set
@@ -221,7 +221,7 @@ public data class ValueSet(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this value set is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -259,7 +259,7 @@ public data class ValueSet(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the value set from a consumer's perspective. The
    * textual description specifies the span of meanings for concepts to be included within the Value
@@ -280,7 +280,7 @@ public data class ValueSet(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the value set is intended to be used.
    *
@@ -292,7 +292,7 @@ public data class ValueSet(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * If this is set to 'true', then no new versions of the content logical definition can be
    * created. Note: Other metadata might still change.
@@ -373,14 +373,14 @@ public data class ValueSet(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#topic and
    * useContext.valueCodeableConcept indicating the topic)
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * ValueSet.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the ValueSet. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the ValueSet.
@@ -388,7 +388,7 @@ public data class ValueSet(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the ValueSet for use in some setting.
@@ -396,7 +396,7 @@ public data class ValueSet(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, dependencies, bibliographic
    * references, and predecessor and successor artifacts.
@@ -404,7 +404,7 @@ public data class ValueSet(
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * A set of criteria that define the contents of the value set by including or excluding codes
    * selected from the specified code system(s) that the value set draws from. This is also known as
@@ -454,7 +454,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -473,7 +473,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The Locked Date is the effective date that is used to determine the version of all referenced
      * Code Systems and Value Set Definitions included in the compose that are not already tied to a
@@ -511,7 +511,7 @@ public data class ValueSet(
      * or more value sets are listed, the codes must be in all the value sets. E.g. each include is
      * 'include all the codes that meet all these conditions'.
      */
-    public var include: List<Include>? = null,
+    public var include: MutableList<Include> = mutableListOf(),
     /**
      * Exclude one or more codes from the value set based on code system filters and/or other value
      * sets.
@@ -519,7 +519,7 @@ public data class ValueSet(
      * Usually this is used to selectively exclude codes that were included by subsumption in the
      * inclusions. Any display names specified for the codes are ignored.
      */
-    public var exclude: List<Include?>? = null,
+    public var exclude: MutableList<Include> = mutableListOf(),
     /**
      * A property to return in the expansion, if the client doesn't ask for any particular
      * properties. May be either a code from the code system definition (convenient) or a the formal
@@ -528,7 +528,7 @@ public data class ValueSet(
      *
      * Note that property names can clash, so using a URI is recommended.
      */
-    public var `property`: List<String?>? = null,
+    public var `property`: MutableList<String> = mutableListOf(),
   ) : BackboneElement() {
     /** Include one or more codes from a code system or other value set(s). */
     @Serializable(with = ValueSetComposeIncludeSerializer::class)
@@ -550,7 +550,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -569,7 +569,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * An absolute URI which is the code system from which the selected codes come from.
        *
@@ -596,7 +596,7 @@ public data class ValueSet(
        * significance. Typically, the order of an expansion follows that defined in the compose
        * element.
        */
-      public var concept: List<Concept>? = null,
+      public var concept: MutableList<Concept> = mutableListOf(),
       /**
        * Select concepts by specifying a matching criterion based on the properties (including
        * relationships) defined by the system, or on filters defined by the system. If multiple
@@ -607,7 +607,7 @@ public data class ValueSet(
        * underlying code system defines the logical concepts but not the literal codes for the
        * concepts. In such cases, the literal definitions may be provided by a third party.
        */
-      public var filter: List<Filter>? = null,
+      public var filter: MutableList<Filter> = mutableListOf(),
       /**
        * Selects the concepts found in this value set (based on its value set definition). This is
        * an absolute URI that is a reference to ValueSet.url. If multiple value sets are specified
@@ -619,7 +619,7 @@ public data class ValueSet(
        * FHIR ValueSet resource; in this case, whatever is referred to is an implicit definition of
        * a value set that needs to be clear about how versions are resolved.
        */
-      public var valueSet: List<Canonical?>? = null,
+      public var valueSet: MutableList<Canonical> = mutableListOf(),
       /**
        * A copyright statement for the specific code system asserted by the containing
        * ValueSet.compose.include element's system value (if the associated
@@ -648,7 +648,7 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -667,13 +667,13 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Specifies a code for the concept to be included or excluded.
          *
          * Expressions are allowed if defined by the underlying code system.
          */
-        public var code: Code? = null,
+        public var code: Code,
         /**
          * The text to display to the user for this concept in the context of this valueset. If no
          * display is provided, then applications using the value set use the display specified for
@@ -692,7 +692,7 @@ public data class ValueSet(
          * equivalent to a special designation with an implied ```designation.use``` of "primary
          * code" and a language equal to the [Resource Language](resource.html#language).
          */
-        public var designation: List<Designation>? = null,
+        public var designation: MutableList<Designation> = mutableListOf(),
       ) : BackboneElement() {
         /**
          * Additional representations for this concept when used in this value set - other
@@ -717,7 +717,7 @@ public data class ValueSet(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -736,7 +736,7 @@ public data class ValueSet(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /**
            * The language this designation is defined for.
            *
@@ -757,9 +757,9 @@ public data class ValueSet(
            * This was added rather than increasing the cardinality of .use to 0..* in order to
            * maintain backward compatibility.
            */
-          public var additionalUse: List<Coding?>? = null,
+          public var additionalUse: MutableList<Coding> = mutableListOf(),
           /** The text value for this designation. */
-          public var `value`: String? = null,
+          public var `value`: String,
         ) : BackboneElement()
       }
 
@@ -787,7 +787,7 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -806,9 +806,9 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** A code that identifies a property or a filter defined in the code system. */
-        public var `property`: Code? = null,
+        public var `property`: Code,
         /**
          * The kind of operation to perform as a part of the filter criteria.
          *
@@ -816,7 +816,7 @@ public data class ValueSet(
          * selected property. In case filter.property represents a filter of the system, the
          * operation SHALL match one of the CodeSystem.filter.operator values.
          */
-        public var op: Enumeration<FilterOperator>? = null,
+        public var op: Enumeration<FilterOperator>,
         /**
          * The match value may be either a code defined by the system, or a string value, which is a
          * regex match on the literal string of the property value (if the filter represents a
@@ -827,7 +827,7 @@ public data class ValueSet(
          * Use regex matching with care - full regex matching on every SNOMED CT term is
          * prohibitive, for example.
          */
-        public var `value`: String? = null,
+        public var `value`: String,
       ) : BackboneElement()
     }
   }
@@ -855,7 +855,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -874,7 +874,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An identifier that uniquely identifies this expansion of the valueset, based on a unique
      * combination of the provided parameters, the system default parameters, and the underlying
@@ -902,7 +902,7 @@ public data class ValueSet(
      * This SHOULD be a fully populated instant, but in some circumstances, value sets are expanded
      * by hand, and the expansion is published without that precision.
      */
-    public var timestamp: DateTime? = null,
+    public var timestamp: DateTime,
     /**
      * The total number of concepts in the expansion. If the number of concept nodes in this
      * resource is less than the stated number, then the server can return more using the offset
@@ -932,14 +932,14 @@ public data class ValueSet(
      * specified version then this version SHALL be provided as a parameter in the expansion (note
      * that not all code systems have a version).
      */
-    public var parameter: List<Parameter>? = null,
+    public var parameter: MutableList<Parameter> = mutableListOf(),
     /**
      * A property defines an additional slot through which additional information can be provided
      * about a concept.
      */
-    public var `property`: List<Property>? = null,
+    public var `property`: MutableList<Property> = mutableListOf(),
     /** The codes that are contained in the value set expansion. */
-    public var contains: List<Contains>? = null,
+    public var contains: MutableList<Contains> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A parameter that controlled the expansion process. These parameters may be used by users of
@@ -965,7 +965,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -984,7 +984,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Name of the input parameter to the $expand operation; may be a server-assigned name for
        * additional default or other server-supplied parameters used to control the expansion
@@ -992,7 +992,7 @@ public data class ValueSet(
        *
        * The names are assigned at the discretion of the server.
        */
-      public var name: String? = null,
+      public var name: String,
       /** The value of the parameter. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
@@ -1026,7 +1026,7 @@ public data class ValueSet(
         public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Value
 
         public companion object {
-          public fun from(
+          internal fun from(
             stringValue: com.google.fhir.model.r5.String?,
             booleanValue: com.google.fhir.model.r5.Boolean?,
             integerValue: com.google.fhir.model.r5.Integer?,
@@ -1071,7 +1071,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1090,12 +1090,12 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A code that is used to identify the property. The code is used in
        * ValueSet.expansion.contains.property.code.
        */
-      public var code: Code? = null,
+      public var code: Code,
       /**
        * Reference to the formal meaning of the property. One possible source of meaning is the
        * [Concept Properties](codesystem-concept-properties.html) code system.
@@ -1123,7 +1123,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1142,7 +1142,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * An absolute URI which is the code system in which the code for this item in the expansion
        * is defined.
@@ -1191,9 +1191,9 @@ public data class ValueSet(
        *
        * The designations provided must be based on the value set and code system definitions.
        */
-      public var designation: List<Compose.Include.Concept.Designation?>? = null,
+      public var designation: MutableList<Compose.Include.Concept.Designation> = mutableListOf(),
       /** A property value for this concept. */
-      public var `property`: List<Property>? = null,
+      public var `property`: MutableList<Property> = mutableListOf(),
       /**
        * Other codes and entries contained under this entry in the hierarchy.
        *
@@ -1202,7 +1202,7 @@ public data class ValueSet(
        * exists to provide navigational assistance for helping human users to locate codes in the
        * expansion.
        */
-      public var contains: List<Contains?>? = null,
+      public var contains: MutableList<Contains> = mutableListOf(),
     ) : BackboneElement() {
       /** A property value for this concept. */
       @Serializable(with = ValueSetExpansionContainsPropertySerializer::class)
@@ -1224,7 +1224,7 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1243,13 +1243,13 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** A code that is a reference to ValueSet.expansion.property.code. */
-        public var code: Code? = null,
+        public var code: Code,
         /** The value of this property. */
-        public var `value`: Value? = null,
+        public var `value`: Value,
         /** A subproperty value for this concept. */
-        public var subProperty: List<SubProperty>? = null,
+        public var subProperty: MutableList<SubProperty> = mutableListOf(),
       ) : BackboneElement() {
         /** A subproperty value for this concept. */
         @Serializable(with = ValueSetExpansionContainsPropertySubPropertySerializer::class)
@@ -1271,7 +1271,7 @@ public data class ValueSet(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1290,11 +1290,11 @@ public data class ValueSet(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** A code that is a reference to ValueSet.expansion.property.code. */
-          public var code: Code? = null,
+          public var code: Code,
           /** The value of this subproperty. */
-          public var `value`: Value? = null,
+          public var `value`: Value,
         ) : BackboneElement() {
           public sealed interface Value {
             public fun asCode(): Code? = this as? Code
@@ -1327,9 +1327,9 @@ public data class ValueSet(
             public data class Decimal(public val `value`: com.google.fhir.model.r5.Decimal) : Value
 
             public companion object {
-              public fun from(
+              internal fun from(
                 codeValue: com.google.fhir.model.r5.Code?,
-                CodingValue: com.google.fhir.model.r5.Coding?,
+                codingValue: com.google.fhir.model.r5.Coding?,
                 stringValue: com.google.fhir.model.r5.String?,
                 integerValue: com.google.fhir.model.r5.Integer?,
                 booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -1337,7 +1337,7 @@ public data class ValueSet(
                 decimalValue: com.google.fhir.model.r5.Decimal?,
               ): Value? {
                 if (codeValue != null) return Code(codeValue)
-                if (CodingValue != null) return Coding(CodingValue)
+                if (codingValue != null) return Coding(codingValue)
                 if (stringValue != null) return String(stringValue)
                 if (integerValue != null) return Integer(integerValue)
                 if (booleanValue != null) return Boolean(booleanValue)
@@ -1379,9 +1379,9 @@ public data class ValueSet(
           public data class Decimal(public val `value`: com.google.fhir.model.r5.Decimal) : Value
 
           public companion object {
-            public fun from(
+            internal fun from(
               codeValue: com.google.fhir.model.r5.Code?,
-              CodingValue: com.google.fhir.model.r5.Coding?,
+              codingValue: com.google.fhir.model.r5.Coding?,
               stringValue: com.google.fhir.model.r5.String?,
               integerValue: com.google.fhir.model.r5.Integer?,
               booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -1389,7 +1389,7 @@ public data class ValueSet(
               decimalValue: com.google.fhir.model.r5.Decimal?,
             ): Value? {
               if (codeValue != null) return Code(codeValue)
-              if (CodingValue != null) return Coding(CodingValue)
+              if (codingValue != null) return Coding(codingValue)
               if (stringValue != null) return String(stringValue)
               if (integerValue != null) return Integer(integerValue)
               if (booleanValue != null) return Boolean(booleanValue)
@@ -1426,7 +1426,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1445,7 +1445,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Criteria describing which concepts or codes should be included and why. */
     public var inclusionCriteria: String? = null,
     /** Criteria describing which concepts or codes should be excluded and why. */
@@ -1464,12 +1464,12 @@ public data class ValueSet(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

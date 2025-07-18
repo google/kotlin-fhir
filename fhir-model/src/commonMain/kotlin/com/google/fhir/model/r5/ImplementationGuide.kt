@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.ImplementationGuideManifestResourceS
 import com.google.fhir.model.r5.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -109,7 +109,7 @@ public data class ImplementationGuide(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -122,7 +122,7 @@ public data class ImplementationGuide(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,7 +141,7 @@ public data class ImplementationGuide(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this implementation guide when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -161,12 +161,12 @@ public data class ImplementationGuide(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * A formal identifier that is used to identify this implementation guide when it is represented
    * in other formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the implementation guide when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -196,7 +196,7 @@ public data class ImplementationGuide(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the implementation guide.
    *
@@ -212,7 +212,7 @@ public data class ImplementationGuide(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this implementation guide is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -256,7 +256,7 @@ public data class ImplementationGuide(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the implementation guide from a consumer's
    * perspective.
@@ -278,7 +278,7 @@ public data class ImplementationGuide(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the implementation guide is intended to be used.
    *
@@ -290,7 +290,7 @@ public data class ImplementationGuide(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this implementation guide is needed and why it has been designed as it has.
    *
@@ -327,7 +327,7 @@ public data class ImplementationGuide(
    * implementation guides published through HL7 or the FHIR foundation, the FHIR product director
    * assigns package IDs.
    */
-  public var packageId: Id? = null,
+  public var packageId: Id,
   /**
    * The license that applies to this Implementation Guide, using an SPDX license code, or
    * 'not-open-source'.
@@ -345,19 +345,19 @@ public data class ImplementationGuide(
    * implementation matures and different implementation communities are stuck at different versions
    * by regulation or market dynamics.
    */
-  public var fhirVersion: List<Enumeration<FHIRVersion>>? = null,
+  public var fhirVersion: MutableList<Enumeration<FHIRVersion>> = mutableListOf(),
   /**
    * Another implementation guide that this implementation depends on. Typically, an implementation
    * guide uses value sets, profiles etc.defined in other implementation guides.
    */
-  public var dependsOn: List<DependsOn>? = null,
+  public var dependsOn: MutableList<DependsOn> = mutableListOf(),
   /**
    * A set of profiles that all resources covered by this implementation guide must conform to.
    *
    * See [Default Profiles](implementationguide.html#default) for a discussion of which resources
    * are 'covered' by an implementation guide.
    */
-  public var global: List<Global>? = null,
+  public var global: MutableList<Global> = mutableListOf(),
   /**
    * The information needed by an IG publisher tool to publish the whole implementation guide.
    *
@@ -391,7 +391,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -410,14 +410,14 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A canonical reference to the Implementation guide for the dependency.
      *
      * Usually, A canonical reference to the implementation guide is the same as the master location
      * at which the implementation guide is published.
      */
-    public var uri: Canonical? = null,
+    public var uri: Canonical,
     /** The NPM package name for the Implementation Guide that this IG depends on. */
     public var packageId: Id? = null,
     /**
@@ -456,7 +456,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -475,7 +475,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of resource that all instances must conform to.
      *
@@ -483,9 +483,9 @@ public data class ImplementationGuide(
      * denormalization so that a system processing the implementation guide resource knows which
      * resources the profile applies to even if the profile itself is not available.
      */
-    public var type: Enumeration<ResourceType>? = null,
+    public var type: Enumeration<ResourceType>,
     /** A reference to the profile that all instances must conform to. */
-    public var profile: Canonical? = null,
+    public var profile: Canonical,
   ) : BackboneElement()
 
   /** The information needed by an IG publisher tool to publish the whole implementation guide. */
@@ -508,7 +508,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -527,20 +527,20 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A logical group of resources. Logical groups can be used when building pages.
      *
      * Groupings are arbitrary sub-divisions of content. Typically, they are used to help build
      * Table of Contents automatically.
      */
-    public var grouping: List<Grouping>? = null,
+    public var grouping: MutableList<Grouping> = mutableListOf(),
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public var resource: List<Resource>? = null,
+    public var resource: MutableList<Resource> = mutableListOf(),
     /**
      * A page / section in the implementation guide. The root page is the implementation guide home
      * page.
@@ -556,9 +556,9 @@ public data class ImplementationGuide(
      * see [confluence](https://confluence.hl7.org/display/FHIR/Implementation+Guide+Parameters) for
      * the parameters defined by the HL7 IG publisher.
      */
-    public var parameter: List<Parameter>? = null,
+    public var parameter: MutableList<Parameter> = mutableListOf(),
     /** A template for building resources. */
-    public var template: List<Template>? = null,
+    public var template: MutableList<Template> = mutableListOf(),
   ) : BackboneElement() {
     /** A logical group of resources. Logical groups can be used when building pages. */
     @Serializable(with = ImplementationGuideDefinitionGroupingSerializer::class)
@@ -580,7 +580,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -599,12 +599,12 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The human-readable title to display for the package of resources when rendering the
        * implementation guide.
        */
-      public var name: String? = null,
+      public var name: String,
       /** Human readable text describing the package. */
       public var description: Markdown? = null,
     ) : BackboneElement()
@@ -633,7 +633,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -652,7 +652,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Where this resource is found.
        *
@@ -661,7 +661,7 @@ public data class ImplementationGuide(
        * tooling, use a URI that may point to a resource, or to one of various alternative
        * representations (e.g. spreadsheet). The tooling will convert this when it publishes it.
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
       /**
        * Indicates the FHIR Version(s) this artifact is intended to apply to. If no versions are
        * specified, the resource is assumed to apply to all the versions stated in
@@ -675,7 +675,7 @@ public data class ImplementationGuide(
        * [http://hl7.org/fhir/StructureDefinition/structuredefinition-applicable-version](http://hl7.org/fhir/extensions/StructureDefinition-structuredefinition-applicable-version.html)
        * extension.
        */
-      public var fhirVersion: List<Enumeration<FHIRVersion>>? = null,
+      public var fhirVersion: MutableList<Enumeration<FHIRVersion>> = mutableListOf(),
       /**
        * A human assigned name for the resource. All resources SHOULD have a name, but the name may
        * be extracted from the resource (e.g. ValueSet.name).
@@ -699,7 +699,7 @@ public data class ImplementationGuide(
        * * OperationDefinition -> Parameters
        * * Questionnaire -> QuestionnaireResponse.
        */
-      public var profile: List<Canonical?>? = null,
+      public var profile: MutableList<Canonical> = mutableListOf(),
       /**
        * Reference to the id of the grouping this resource appears in.
        *
@@ -731,7 +731,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -750,7 +750,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates the URL or the actual content to provide for the page.
        *
@@ -765,20 +765,20 @@ public data class ImplementationGuide(
        * This SHALL be a local reference, expressed with respect to the root of the IG output
        * folder. No suffix is required. If no suffix is specified, .html will be appended.
        */
-      public var name: Url? = null,
+      public var name: Url,
       /**
        * A short title used to represent this page in navigational structures such as table of
        * contents, bread crumbs, etc.
        */
-      public var title: String? = null,
+      public var title: String,
       /** A code that indicates how the page is generated. */
-      public var generation: Enumeration<GuidePageGeneration>? = null,
+      public var generation: Enumeration<GuidePageGeneration>,
       /**
        * Nested Pages/Sections under this page.
        *
        * The implementation guide breadcrumbs may be generated from this structure.
        */
-      public var page: List<Page?>? = null,
+      public var page: MutableList<Page> = mutableListOf(),
     ) : BackboneElement() {
       public sealed interface Source {
         public fun asUrl(): Url? = this as? Url
@@ -794,7 +794,7 @@ public data class ImplementationGuide(
         public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : Source
 
         public companion object {
-          public fun from(
+          internal fun from(
             urlValue: com.google.fhir.model.r5.Url?,
             stringValue: com.google.fhir.model.r5.String?,
             markdownValue: com.google.fhir.model.r5.Markdown?,
@@ -831,7 +831,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -850,11 +850,11 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A tool-specific code that defines the parameter. */
-      public var code: Coding? = null,
+      public var code: Coding,
       /** Value for named type. */
-      public var `value`: String? = null,
+      public var `value`: String,
     ) : BackboneElement()
 
     /** A template for building resources. */
@@ -877,7 +877,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -896,11 +896,11 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Type of template specified. */
-      public var code: Code? = null,
+      public var code: Code,
       /** The source location for the template. */
-      public var source: String? = null,
+      public var source: String,
       /** The scope in which the template applies. */
       public var scope: String? = null,
     ) : BackboneElement()
@@ -926,7 +926,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -945,7 +945,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A pointer to official web page, PDF or other rendering of the implementation guide. */
     public var rendering: Url? = null,
     /**
@@ -953,16 +953,16 @@ public data class ImplementationGuide(
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public var resource: List<Resource>? = null,
+    public var resource: MutableList<Resource> = mutableListOf(),
     /** Information about a page within the IG. */
-    public var page: List<Page>? = null,
+    public var page: MutableList<Page> = mutableListOf(),
     /** Indicates a relative path to an image that exists within the IG. */
-    public var image: List<String?>? = null,
+    public var image: MutableList<String> = mutableListOf(),
     /**
      * Indicates the relative path of an additional non-page, non-image file that is part of the
      * IG - e.g. zip, jar and similar files that could be the target of a hyperlink in a derived IG.
      */
-    public var other: List<String?>? = null,
+    public var other: MutableList<String> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
@@ -988,7 +988,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1007,7 +1007,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Where this resource is found.
        *
@@ -1016,7 +1016,7 @@ public data class ImplementationGuide(
        * tooling, use a URI that may point to a resource, or to one of various alternative
        * representations (e.g. spreadsheet). The tooling will convert this when it publishes it.
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
       /** If true, indicates the resource is an example instance. */
       public var isExample: Boolean? = null,
       /**
@@ -1028,7 +1028,7 @@ public data class ImplementationGuide(
        * * OperationDefinition -> Parameters
        * * Questionnaire -> QuestionnaireResponse.
        */
-      public var profile: List<Canonical?>? = null,
+      public var profile: MutableList<Canonical> = mutableListOf(),
       /**
        * The relative path for primary page for this resource within the IG.
        *
@@ -1057,7 +1057,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1076,13 +1076,13 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Relative path to the page.
        *
        * Appending 'rendering' + "/" + this should resolve to the page.
        */
-      public var name: String? = null,
+      public var name: String,
       /** Label for the page intended for human display. */
       public var title: String? = null,
       /**
@@ -1090,7 +1090,7 @@ public data class ImplementationGuide(
        *
        * Appending 'rendering' + "/" + page.name + "#" + page.anchor should resolve to the anchor.
        */
-      public var anchor: List<String?>? = null,
+      public var anchor: MutableList<String> = mutableListOf(),
     ) : BackboneElement()
   }
 
@@ -1106,12 +1106,12 @@ public data class ImplementationGuide(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

@@ -31,14 +31,14 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MonetaryComponentSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
   public var code: CodeableConcept? = null,
@@ -47,35 +47,35 @@ internal data class MonetaryComponentSurrogate(
   public var amount: Money? = null,
 ) {
   public fun toModel(): MonetaryComponent =
-    MonetaryComponent().apply {
-      id = this@MonetaryComponentSurrogate.id
-      extension = this@MonetaryComponentSurrogate.extension
+    MonetaryComponent(
+      id = this@MonetaryComponentSurrogate.id,
+      extension = this@MonetaryComponentSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@MonetaryComponentSurrogate.type?.let {
-            com.google.fhir.model.r5.MonetaryComponent.PriceComponentType.fromCode(it)
-          },
+          com.google.fhir.model.r5.MonetaryComponent.PriceComponentType.fromCode(
+            this@MonetaryComponentSurrogate.type!!
+          ),
           this@MonetaryComponentSurrogate._type,
-        )
-      code = this@MonetaryComponentSurrogate.code
+        ),
+      code = this@MonetaryComponentSurrogate.code,
       factor =
-        Decimal.of(this@MonetaryComponentSurrogate.factor, this@MonetaryComponentSurrogate._factor)
-      amount = this@MonetaryComponentSurrogate.amount
-    }
+        Decimal.of(this@MonetaryComponentSurrogate.factor, this@MonetaryComponentSurrogate._factor),
+      amount = this@MonetaryComponentSurrogate.amount,
+    )
 
   public companion object {
     public fun fromModel(model: MonetaryComponent): MonetaryComponentSurrogate =
       with(model) {
-        MonetaryComponentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          code = this@with.code
-          factor = this@with.factor?.value
-          _factor = this@with.factor?.toElement()
-          amount = this@with.amount
-        }
+        MonetaryComponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          code = this@with.code,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          amount = this@with.amount,
+        )
       }
   }
 }

@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.SpecimenContainerSerializer
 import com.google.fhir.model.r4.serializers.SpecimenProcessingSerializer
 import com.google.fhir.model.r4.serializers.SpecimenSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class Specimen(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class Specimen(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,9 +126,9 @@ public data class Specimen(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Id for specimen. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier assigned by the lab when accessioning specimen(s). This is not necessarily the
    * same as the specimen identifier, depending on local lab procedures.
@@ -164,34 +164,34 @@ public data class Specimen(
    * processing step (e.g. an aliquot or isolate or extracted nucleic acids from clinical samples)
    * or one of many specimens that were combined to create a pooled sample.
    */
-  public var parent: List<Reference?>? = null,
+  public var parent: MutableList<Reference> = mutableListOf(),
   /**
    * Details concerning a service request that required a specimen to be collected.
    *
    * The request may be explicit or implied such with a ServiceRequest that requires a blood draw.
    */
-  public var request: List<Reference?>? = null,
+  public var request: MutableList<Reference> = mutableListOf(),
   /** Details concerning the specimen collection. */
   public var collection: Collection? = null,
   /** Details concerning processing and processing steps for the specimen. */
-  public var processing: List<Processing>? = null,
+  public var processing: MutableList<Processing> = mutableListOf(),
   /**
    * The container holding the specimen. The recursive nature of containers; i.e. blood in tube in
    * tray in rack is not addressed here.
    */
-  public var container: List<Container>? = null,
+  public var container: MutableList<Container> = mutableListOf(),
   /**
    * A mode or state of being that describes the nature of the specimen.
    *
    * Specimen condition is an observation made about the specimen. It's a point-in-time assessment.
    * It can be used to assess its quality or appropriateness for a specific test.
    */
-  public var condition: List<CodeableConcept?>? = null,
+  public var condition: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * To communicate any details or issues about the specimen or during the specimen collection. (for
    * example: broken vial, sent with patient, frozen).
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Details concerning the specimen collection. */
   @Serializable(with = SpecimenCollectionSerializer::class)
@@ -213,7 +213,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -232,7 +232,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Person who collected the specimen. */
     public var collector: Reference? = null,
     /** Time when specimen was collected from subject - the physiologically relevant time. */
@@ -276,12 +276,12 @@ public data class Specimen(
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Collected
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
+          periodValue: com.google.fhir.model.r4.Period?,
         ): Collected? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -300,12 +300,12 @@ public data class Specimen(
         FastingStatus
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-          DurationValue: com.google.fhir.model.r4.Duration?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+          durationValue: com.google.fhir.model.r4.Duration?,
         ): FastingStatus? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (DurationValue != null) return Duration(DurationValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (durationValue != null) return Duration(durationValue)
           return null
         }
       }
@@ -332,7 +332,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -351,13 +351,13 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Textual description of procedure. */
     public var description: String? = null,
     /** A coded value specifying the procedure used to process the specimen. */
     public var procedure: CodeableConcept? = null,
     /** Material used in the processing step. */
-    public var additive: List<Reference?>? = null,
+    public var additive: MutableList<Reference> = mutableListOf(),
     /**
      * A record of the time or period when the specimen processing occurred. For example the time of
      * sample fixation or the period of time the sample was in formalin.
@@ -374,12 +374,12 @@ public data class Specimen(
       public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Time
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
+          periodValue: com.google.fhir.model.r4.Period?,
         ): Time? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -409,7 +409,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -428,12 +428,12 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Id for container. There may be multiple; a manufacturer's bar code, lab assigned identifier,
      * etc. The container ID may differ from the specimen id in some circumstances.
      */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** Textual description of the container. */
     public var description: String? = null,
     /** The type of container associated with the specimen (e.g. slide, aliquot, etc.). */
@@ -464,12 +464,12 @@ public data class Specimen(
         Additive
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r4.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r4.Reference?,
         ): Additive? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }

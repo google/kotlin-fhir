@@ -28,7 +28,7 @@ import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepOperationS
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -104,7 +104,7 @@ public data class ExampleScenario(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class ExampleScenario(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class ExampleScenario(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this example scenario when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -164,7 +164,7 @@ public data class ExampleScenario(
    * type, and can then identify this example scenario outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the example scenario when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -208,7 +208,7 @@ public data class ExampleScenario(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this example scenario is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -252,7 +252,7 @@ public data class ExampleScenario(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the ExampleScenario from a consumer's perspective.
    *
@@ -269,7 +269,7 @@ public data class ExampleScenario(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the example scenario is intended to be used.
    *
@@ -281,7 +281,7 @@ public data class ExampleScenario(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * What the example scenario resource is created for. This should not be used to show the business
    * purpose of the scenario itself, but the purpose of documenting a scenario.
@@ -310,15 +310,15 @@ public data class ExampleScenario(
    */
   public var copyrightLabel: String? = null,
   /** A system or person who shares or receives an instance within the scenario. */
-  public var actor: List<Actor>? = null,
+  public var actor: MutableList<Actor> = mutableListOf(),
   /** A single data collection that is shared as part of the scenario. */
-  public var instance: List<Instance>? = null,
+  public var instance: MutableList<Instance> = mutableListOf(),
   /**
    * A group of operations that represents a significant step within a scenario.
    *
    * Some scenarios might describe only one process.
    */
-  public var process: List<Process>? = null,
+  public var process: MutableList<Process> = mutableListOf(),
 ) : DomainResource() {
   /** A system or person who shares or receives an instance within the scenario. */
   @Serializable(with = ExampleScenarioActorSerializer::class)
@@ -340,7 +340,7 @@ public data class ExampleScenario(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -359,13 +359,13 @@ public data class ExampleScenario(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A unique string within the scenario that is used to reference the actor. */
-    public var key: String? = null,
+    public var key: String,
     /** The category of actor - person or system. */
-    public var type: Enumeration<ExampleScenarioActorType>? = null,
+    public var type: Enumeration<ExampleScenarioActorType>,
     /** The human-readable name for the actor used when rendering the scenario. */
-    public var title: String? = null,
+    public var title: String,
     /** An explanation of who/what the actor is and its role in the scenario. */
     public var description: Markdown? = null,
   ) : BackboneElement()
@@ -390,7 +390,7 @@ public data class ExampleScenario(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -409,14 +409,14 @@ public data class ExampleScenario(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A unique string within the scenario that is used to reference the instance. */
-    public var key: String? = null,
+    public var key: String,
     /**
      * A code indicating the kind of data structure (FHIR resource or some other standard) this is
      * an instance of.
      */
-    public var structureType: Coding? = null,
+    public var structureType: Coding,
     /**
      * Conveys the version of the data structure instantiated. I.e. what release of FHIR, X12,
      * OpenEHR, etc. is instance compliant with.
@@ -425,7 +425,7 @@ public data class ExampleScenario(
     /** Refers to a profile, template or other ruleset the instance adheres to. */
     public var structureProfile: StructureProfile? = null,
     /** A short descriptive label the instance to be used in tables or diagrams. */
-    public var title: String? = null,
+    public var title: String,
     /** An explanation of what the instance contains and what it's for. */
     public var description: Markdown? = null,
     /**
@@ -441,12 +441,12 @@ public data class ExampleScenario(
      *
      * Not used if an instance doesn't change
      */
-    public var version: List<Version>? = null,
+    public var version: MutableList<Version> = mutableListOf(),
     /**
      * References to other instances that can be found within this instance (e.g. the observations
      * contained in a bundle).
      */
-    public var containedInstance: List<ContainedInstance>? = null,
+    public var containedInstance: MutableList<ContainedInstance> = mutableListOf(),
   ) : BackboneElement() {
     /** Represents the instance as it was at a specific time-point. */
     @Serializable(with = ExampleScenarioInstanceVersionSerializer::class)
@@ -468,7 +468,7 @@ public data class ExampleScenario(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -487,13 +487,13 @@ public data class ExampleScenario(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A unique string within the instance that is used to reference the version of the instance.
        */
-      public var key: String? = null,
+      public var key: String,
       /** A short descriptive label the version to be used in tables or diagrams. */
-      public var title: String? = null,
+      public var title: String,
       /** An explanation of what this specific version of the instance contains and represents. */
       public var description: Markdown? = null,
       /**
@@ -529,7 +529,7 @@ public data class ExampleScenario(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -548,9 +548,9 @@ public data class ExampleScenario(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A reference to the key of an instance found within this one. */
-      public var instanceReference: String? = null,
+      public var instanceReference: String,
       /**
        * A reference to the key of a specific version of an instance in this instance.
        *
@@ -570,7 +570,7 @@ public data class ExampleScenario(
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : StructureProfile
 
       public companion object {
-        public fun from(
+        internal fun from(
           canonicalValue: com.google.fhir.model.r5.Canonical?,
           uriValue: com.google.fhir.model.r5.Uri?,
         ): StructureProfile? {
@@ -602,7 +602,7 @@ public data class ExampleScenario(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -621,9 +621,9 @@ public data class ExampleScenario(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A short descriptive label the process to be used in tables or diagrams. */
-    public var title: String? = null,
+    public var title: String,
     /** An explanation of what the process represents and what it does. */
     public var description: Markdown? = null,
     /**
@@ -639,7 +639,7 @@ public data class ExampleScenario(
      */
     public var postConditions: Markdown? = null,
     /** A significant action that occurs as part of the process. */
-    public var step: List<Step>? = null,
+    public var step: MutableList<Step> = mutableListOf(),
   ) : BackboneElement() {
     /** A significant action that occurs as part of the process. */
     @Serializable(with = ExampleScenarioProcessStepSerializer::class)
@@ -661,7 +661,7 @@ public data class ExampleScenario(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -680,7 +680,7 @@ public data class ExampleScenario(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The sequential number of the step, e.g. 1.2.5.
        *
@@ -698,7 +698,7 @@ public data class ExampleScenario(
        * Indicates an alternative step that can be taken instead of the sub-process, scenario or
        * operation. E.g. to represent non-happy-path/exceptional/atypical circumstances.
        */
-      public var alternative: List<Alternative>? = null,
+      public var alternative: MutableList<Alternative> = mutableListOf(),
       /**
        * If true, indicates that, following this step, there is a pause in the flow and the
        * subsequent step will occur at some later time (triggered by some event).
@@ -725,7 +725,7 @@ public data class ExampleScenario(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -744,11 +744,11 @@ public data class ExampleScenario(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The standardized type of action (FHIR or otherwise). */
         public var type: Coding? = null,
         /** A short descriptive label the step to be used in tables or diagrams. */
-        public var title: String? = null,
+        public var title: String,
         /**
          * The system that invokes the action/transmits the data.
          *
@@ -823,7 +823,7 @@ public data class ExampleScenario(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -842,12 +842,12 @@ public data class ExampleScenario(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The label to display for the alternative that gives a sense of the circumstance in which
          * the alternative should be invoked.
          */
-        public var title: String? = null,
+        public var title: String,
         /**
          * A human-readable description of the alternative explaining when the alternative should
          * occur rather than the base step.
@@ -857,7 +857,7 @@ public data class ExampleScenario(
          * Indicates the operation, sub-process or scenario that happens if the alternative option
          * is selected.
          */
-        public var step: List<Step?>? = null,
+        public var step: MutableList<Step> = mutableListOf(),
       ) : BackboneElement()
     }
   }
@@ -874,12 +874,12 @@ public data class ExampleScenario(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

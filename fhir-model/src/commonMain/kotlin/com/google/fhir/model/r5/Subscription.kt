@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.SubscriptionFilterBySerializer
 import com.google.fhir.model.r5.serializers.SubscriptionParameterSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Subscription(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class Subscription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,12 +130,12 @@ public data class Subscription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A formal identifier that is used to identify this code system when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A natural language name identifying the subscription. */
   public var name: String? = null,
   /**
@@ -148,14 +148,14 @@ public data class Subscription(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<SubscriptionStatusCodes>? = null,
+  public var status: Enumeration<SubscriptionStatusCodes>,
   /** The reference to the subscription topic to be notified about. */
-  public var topic: Canonical? = null,
+  public var topic: Canonical,
   /**
    * Contact details for a human to contact about the subscription. The primary use of this for
    * system administrator troubleshooting.
    */
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint> = mutableListOf(),
   /**
    * The time for the server to turn the subscription off.
    *
@@ -174,9 +174,9 @@ public data class Subscription(
    * filters are applied, evaluates to true if all the conditions applicable to that resource are
    * met; otherwise it returns false (i.e., logical AND).
    */
-  public var filterBy: List<FilterBy>? = null,
+  public var filterBy: MutableList<FilterBy> = mutableListOf(),
   /** The type of channel to send notifications on. */
-  public var channelType: Coding? = null,
+  public var channelType: Coding,
   /**
    * The url that describes the actual end-point to send notifications to.
    *
@@ -195,7 +195,7 @@ public data class Subscription(
    * headers in the outgoing notifications for rest-hook type subscriptions. Note that names are not
    * required to be unique, but channel definitions can impose restrictions.
    */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
   /**
    * If present, a 'heartbeat' notification (keep-alive) is sent via this channel with an interval
    * period equal to this elements integer value in seconds. If not present, a heartbeat
@@ -255,7 +255,7 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -274,7 +274,7 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A resource listed in the `SubscriptionTopic` this `Subscription` references
      * (`SubscriptionTopic.canFilterBy.resource`). This element can be used to differentiate filters
@@ -282,7 +282,7 @@ public data class Subscription(
      */
     public var resourceType: Uri? = null,
     /** The filter as defined in the `SubscriptionTopic.canFilterBy.filterParameter` element. */
-    public var filterParameter: String? = null,
+    public var filterParameter: String,
     /**
      * Comparator applied to this filter parameter.
      *
@@ -299,7 +299,7 @@ public data class Subscription(
      * The literal value or resource path as is legal in search - for example, `Patient/123` or
      * `le1950`.
      */
-    public var `value`: String? = null,
+    public var `value`: String,
   ) : BackboneElement()
 
   /** Channel-dependent information to send as part of the notification (e.g., HTTP Headers). */
@@ -322,7 +322,7 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -341,19 +341,19 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Parameter name for information passed to the channel for notifications, for example in the
      * case of a REST hook wanting to pass through an authorization header, the name would be
      * Authorization.
      */
-    public var name: String? = null,
+    public var name: String,
     /**
      * Parameter value for information passed to the channel for notifications, for example in the
      * case of a REST hook wanting to pass through an authorization header, the value would be
      * `Bearer 0193...`.
      */
-    public var `value`: String? = null,
+    public var `value`: String,
   ) : BackboneElement()
 
   /** What Search Comparator Codes are supported in search. */

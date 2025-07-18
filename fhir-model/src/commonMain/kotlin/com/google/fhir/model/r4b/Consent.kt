@@ -26,7 +26,7 @@ import com.google.fhir.model.r4b.serializers.ConsentSerializer
 import com.google.fhir.model.r4b.serializers.ConsentVerificationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class Consent(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class Consent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class Consent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique identifier for this copy of the Consent Statement.
    *
@@ -141,24 +141,24 @@ public data class Consent(
    * elsewhere as the identifier for a consent record (e.g. a CDA consent document) then the consent
    * details are expected to be the same.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates the current state of this consent.
    *
    * This element is labeled as a modifier because the status contains the codes rejected and
    * entered-in-error that mark the Consent as not currently valid.
    */
-  public var status: Enumeration<ConsentState>? = null,
+  public var status: Enumeration<ConsentState>,
   /**
    * A selector of the type of consent being presented: ADR, Privacy, Treatment, Research. This list
    * is now extensible.
    */
-  public var scope: CodeableConcept? = null,
+  public var scope: CodeableConcept,
   /**
    * A classification of the type of consents found in the statement. This element supports indexing
    * and retrieval of consent statements.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The patient/healthcare consumer to whom this consent applies.
    *
@@ -182,9 +182,9 @@ public data class Consent(
    * Commonly, the patient the consent pertains to is the consentor, but particularly for young and
    * old people, it may be some other person - e.g. a legal guardian.
    */
-  public var performer: List<Reference?>? = null,
+  public var performer: MutableList<Reference> = mutableListOf(),
   /** The organization that manages the consent, and the framework within which it is executed. */
-  public var organization: List<Reference?>? = null,
+  public var organization: MutableList<Reference> = mutableListOf(),
   /**
    * The source on which this consent statement is based. The source might be a scanned original
    * paper form, or a reference to a consent that links back to such a source, a reference to a
@@ -199,7 +199,7 @@ public data class Consent(
    * The references to the policies that are included in this consent scope. Policies may be
    * organizational, but are often defined jurisdictionally, or in law.
    */
-  public var policy: List<Policy>? = null,
+  public var policy: MutableList<Policy> = mutableListOf(),
   /**
    * A reference to the specific base computable regulation or policy.
    *
@@ -211,7 +211,7 @@ public data class Consent(
    * Whether a treatment instruction (e.g. artificial respiration yes or no) was verified with the
    * patient, his/her family or another authorized person.
    */
-  public var verification: List<Verification>? = null,
+  public var verification: MutableList<Verification> = mutableListOf(),
   /**
    * An exception to the base policy of this consent. An exception can be an addition or removal of
    * access permissions.
@@ -241,7 +241,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -260,7 +260,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Entity or Organization having regulatory jurisdiction or accountability for enforcing
      * policies pertaining to Consent Directives.
@@ -299,7 +299,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -318,9 +318,9 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Has the instruction been verified. */
-    public var verified: Boolean? = null,
+    public var verified: Boolean,
     /** Who verified the instruction (Patient, Relative or other Authorized Person). */
     public var verifiedWith: Reference? = null,
     /** Date verification was collected. */
@@ -350,7 +350,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -369,7 +369,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Action to take - permit or deny - when the rule conditions are met. Not permitted in root
      * rule, required in all nested rules.
@@ -381,7 +381,7 @@ public data class Consent(
      * Who or what is controlled by this rule. Use group to identify a set of actors by some
      * property they share (e.g. 'admitting officers').
      */
-    public var actor: List<Actor>? = null,
+    public var actor: MutableList<Actor> = mutableListOf(),
     /**
      * Actions controlled by this Rule.
      *
@@ -389,7 +389,7 @@ public data class Consent(
      * element). At present, the only action in the understood and tested scope of this resource is
      * 'read'.
      */
-    public var action: List<CodeableConcept?>? = null,
+    public var action: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * A security label, comprised of 0..* security label fields (Privacy tags), which define which
      * resources are controlled by this exception.
@@ -399,14 +399,14 @@ public data class Consent(
      * security labels, subsumption logic applies. When the purpose of use tag is on the data,
      * access request purpose of use shall not conflict.
      */
-    public var securityLabel: List<Coding?>? = null,
+    public var securityLabel: MutableList<Coding> = mutableListOf(),
     /**
      * The context of the activities a user is taking - why the user is accessing the data - that
      * are controlled by this rule.
      *
      * When the purpose of use tag is on the data, access request purpose of use shall not conflict.
      */
-    public var purpose: List<Coding?>? = null,
+    public var purpose: MutableList<Coding> = mutableListOf(),
     /**
      * The class of information covered by this rule. The type can be a FHIR resource type, a
      * profile on a type, or a CDA document, or some other type that indicates what sort of
@@ -416,13 +416,13 @@ public data class Consent(
      * refer to profiles or document types defined in a standard or an implementation guide
      * somewhere.
      */
-    public var `class`: List<Coding?>? = null,
+    public var `class`: MutableList<Coding> = mutableListOf(),
     /**
      * If this code is found in an instance, then the rule applies.
      *
      * Typical use of this is a Document code with class = CDA.
      */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Clinical or Operational Relevant period of time that bounds the data controlled by this rule.
      *
@@ -431,9 +431,9 @@ public data class Consent(
      */
     public var dataPeriod: Period? = null,
     /** The resources controlled by this rule if specific resources are referenced. */
-    public var `data`: List<Data>? = null,
+    public var `data`: MutableList<Data> = mutableListOf(),
     /** Rules which provide exceptions to the base rule or subrules. */
-    public var provision: List<Provision?>? = null,
+    public var provision: MutableList<Provision> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Who or what is controlled by this rule. Use group to identify a set of actors by some
@@ -458,7 +458,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -477,16 +477,16 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * How the individual is involved in the resources content that is described in the exception.
        */
-      public var role: CodeableConcept? = null,
+      public var role: CodeableConcept,
       /**
        * The resource that identifies the actor. To identify actors by type, use group to identify a
        * set of actors by some property they share (e.g. 'admitting officers').
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
     ) : BackboneElement()
 
     /** The resources controlled by this rule if specific resources are referenced. */
@@ -509,7 +509,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -528,14 +528,14 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** How the resource reference is interpreted when testing consent restrictions. */
-      public var meaning: Enumeration<ConsentDataMeaning>? = null,
+      public var meaning: Enumeration<ConsentDataMeaning>,
       /**
        * A reference to a specific resource that defines which resources are covered by this
        * consent.
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
     ) : BackboneElement()
   }
 
@@ -549,12 +549,12 @@ public data class Consent(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Source
 
     public companion object {
-      public fun from(
-        AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
+      internal fun from(
+        attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
       ): Source? {
-        if (AttachmentValue != null) return Attachment(AttachmentValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (attachmentValue != null) return Attachment(attachmentValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }

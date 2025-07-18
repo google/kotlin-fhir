@@ -34,7 +34,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -47,63 +47,64 @@ internal data class MedicinalProductUndesirableEffectSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var subject: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var subject: MutableList<Reference>? = null,
   public var symptomConditionEffect: CodeableConcept? = null,
   public var classification: CodeableConcept? = null,
   public var frequencyOfOccurrence: CodeableConcept? = null,
-  public var population: List<Population?>? = null,
+  public var population: MutableList<Population>? = null,
 ) {
   public fun toModel(): MedicinalProductUndesirableEffect =
-    MedicinalProductUndesirableEffect().apply {
-      id = this@MedicinalProductUndesirableEffectSurrogate.id
-      meta = this@MedicinalProductUndesirableEffectSurrogate.meta
+    MedicinalProductUndesirableEffect(
+      id = this@MedicinalProductUndesirableEffectSurrogate.id,
+      meta = this@MedicinalProductUndesirableEffectSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicinalProductUndesirableEffectSurrogate.implicitRules,
           this@MedicinalProductUndesirableEffectSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicinalProductUndesirableEffectSurrogate.language,
           this@MedicinalProductUndesirableEffectSurrogate._language,
-        )
-      text = this@MedicinalProductUndesirableEffectSurrogate.text
-      contained = this@MedicinalProductUndesirableEffectSurrogate.contained
-      extension = this@MedicinalProductUndesirableEffectSurrogate.extension
-      modifierExtension = this@MedicinalProductUndesirableEffectSurrogate.modifierExtension
-      subject = this@MedicinalProductUndesirableEffectSurrogate.subject
+        ),
+      text = this@MedicinalProductUndesirableEffectSurrogate.text,
+      contained = this@MedicinalProductUndesirableEffectSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicinalProductUndesirableEffectSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductUndesirableEffectSurrogate.modifierExtension ?: mutableListOf(),
+      subject = this@MedicinalProductUndesirableEffectSurrogate.subject ?: mutableListOf(),
       symptomConditionEffect =
-        this@MedicinalProductUndesirableEffectSurrogate.symptomConditionEffect
-      classification = this@MedicinalProductUndesirableEffectSurrogate.classification
-      frequencyOfOccurrence = this@MedicinalProductUndesirableEffectSurrogate.frequencyOfOccurrence
-      population = this@MedicinalProductUndesirableEffectSurrogate.population
-    }
+        this@MedicinalProductUndesirableEffectSurrogate.symptomConditionEffect,
+      classification = this@MedicinalProductUndesirableEffectSurrogate.classification,
+      frequencyOfOccurrence = this@MedicinalProductUndesirableEffectSurrogate.frequencyOfOccurrence,
+      population = this@MedicinalProductUndesirableEffectSurrogate.population ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductUndesirableEffect
     ): MedicinalProductUndesirableEffectSurrogate =
       with(model) {
-        MedicinalProductUndesirableEffectSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          subject = this@with.subject
-          symptomConditionEffect = this@with.symptomConditionEffect
-          classification = this@with.classification
-          frequencyOfOccurrence = this@with.frequencyOfOccurrence
-          population = this@with.population
-        }
+        MedicinalProductUndesirableEffectSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeUnless { it.all { it == null } },
+          symptomConditionEffect = this@with.symptomConditionEffect,
+          classification = this@with.classification,
+          frequencyOfOccurrence = this@with.frequencyOfOccurrence,
+          population = this@with.population.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

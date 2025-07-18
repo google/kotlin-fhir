@@ -44,15 +44,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class LocationPositionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var longitude: Double? = null,
   public var _longitude: Element? = null,
   public var latitude: Double? = null,
@@ -61,41 +61,41 @@ internal data class LocationPositionSurrogate(
   public var _altitude: Element? = null,
 ) {
   public fun toModel(): Location.Position =
-    Location.Position().apply {
-      id = this@LocationPositionSurrogate.id
-      extension = this@LocationPositionSurrogate.extension
-      modifierExtension = this@LocationPositionSurrogate.modifierExtension
+    Location.Position(
+      id = this@LocationPositionSurrogate.id,
+      extension = this@LocationPositionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@LocationPositionSurrogate.modifierExtension ?: mutableListOf(),
       longitude =
         Decimal.of(
           this@LocationPositionSurrogate.longitude,
           this@LocationPositionSurrogate._longitude,
-        )
+        )!!,
       latitude =
         Decimal.of(
           this@LocationPositionSurrogate.latitude,
           this@LocationPositionSurrogate._latitude,
-        )
+        )!!,
       altitude =
         Decimal.of(
           this@LocationPositionSurrogate.altitude,
           this@LocationPositionSurrogate._altitude,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Location.Position): LocationPositionSurrogate =
       with(model) {
-        LocationPositionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          longitude = this@with.longitude?.value
-          _longitude = this@with.longitude?.toElement()
-          latitude = this@with.latitude?.value
-          _latitude = this@with.latitude?.toElement()
-          altitude = this@with.altitude?.value
-          _altitude = this@with.altitude?.toElement()
-        }
+        LocationPositionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          longitude = this@with.longitude.value,
+          _longitude = this@with.longitude.toElement(),
+          latitude = this@with.latitude.value,
+          _latitude = this@with.latitude.toElement(),
+          altitude = this@with.altitude?.value,
+          _altitude = this@with.altitude?.toElement(),
+        )
       }
   }
 }
@@ -109,124 +109,131 @@ internal data class LocationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var operationalStatus: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var alias: List<KotlinString?>? = null,
-  public var _alias: List<Element?>? = null,
+  public var alias: MutableList<KotlinString?>? = null,
+  public var _alias: MutableList<Element?>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
-  public var type: List<CodeableConcept?>? = null,
-  public var contact: List<ExtendedContactDetail?>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var contact: MutableList<ExtendedContactDetail>? = null,
   public var address: Address? = null,
   public var form: CodeableConcept? = null,
   public var position: Location.Position? = null,
   public var managingOrganization: Reference? = null,
   public var partOf: Reference? = null,
-  public var characteristic: List<CodeableConcept?>? = null,
-  public var hoursOfOperation: List<Availability?>? = null,
-  public var virtualService: List<VirtualServiceDetail?>? = null,
-  public var endpoint: List<Reference?>? = null,
+  public var characteristic: MutableList<CodeableConcept>? = null,
+  public var hoursOfOperation: MutableList<Availability>? = null,
+  public var virtualService: MutableList<VirtualServiceDetail>? = null,
+  public var endpoint: MutableList<Reference>? = null,
 ) {
   public fun toModel(): Location =
-    Location().apply {
-      id = this@LocationSurrogate.id
-      meta = this@LocationSurrogate.meta
+    Location(
+      id = this@LocationSurrogate.id,
+      meta = this@LocationSurrogate.meta,
       implicitRules =
-        Uri.of(this@LocationSurrogate.implicitRules, this@LocationSurrogate._implicitRules)
-      language = Code.of(this@LocationSurrogate.language, this@LocationSurrogate._language)
-      text = this@LocationSurrogate.text
-      contained = this@LocationSurrogate.contained
-      extension = this@LocationSurrogate.extension
-      modifierExtension = this@LocationSurrogate.modifierExtension
-      identifier = this@LocationSurrogate.identifier
+        Uri.of(this@LocationSurrogate.implicitRules, this@LocationSurrogate._implicitRules),
+      language = Code.of(this@LocationSurrogate.language, this@LocationSurrogate._language),
+      text = this@LocationSurrogate.text,
+      contained = this@LocationSurrogate.contained ?: mutableListOf(),
+      extension = this@LocationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@LocationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@LocationSurrogate.identifier ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@LocationSurrogate.status?.let {
-            com.google.fhir.model.r5.Location.LocationStatus.fromCode(it)
-          },
-          this@LocationSurrogate._status,
-        )
-      operationalStatus = this@LocationSurrogate.operationalStatus
-      name = R5String.of(this@LocationSurrogate.name, this@LocationSurrogate._name)
+        this@LocationSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Location.LocationStatus.fromCode(it!!),
+            this@LocationSurrogate._status,
+          )
+        },
+      operationalStatus = this@LocationSurrogate.operationalStatus,
+      name = R5String.of(this@LocationSurrogate.name, this@LocationSurrogate._name),
       alias =
         if (this@LocationSurrogate.alias == null && this@LocationSurrogate._alias == null) {
-          null
+          mutableListOf()
         } else {
           (this@LocationSurrogate.alias ?: List(this@LocationSurrogate._alias!!.size) { null })
             .zip(
               this@LocationSurrogate._alias ?: List(this@LocationSurrogate.alias!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R5String.of(value, element) }
-        }
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
       description =
-        Markdown.of(this@LocationSurrogate.description, this@LocationSurrogate._description)
+        Markdown.of(this@LocationSurrogate.description, this@LocationSurrogate._description),
       mode =
-        Enumeration.of(
-          this@LocationSurrogate.mode?.let {
-            com.google.fhir.model.r5.Location.LocationMode.fromCode(it)
-          },
-          this@LocationSurrogate._mode,
-        )
-      type = this@LocationSurrogate.type
-      contact = this@LocationSurrogate.contact
-      address = this@LocationSurrogate.address
-      form = this@LocationSurrogate.form
-      position = this@LocationSurrogate.position
-      managingOrganization = this@LocationSurrogate.managingOrganization
-      partOf = this@LocationSurrogate.partOf
-      characteristic = this@LocationSurrogate.characteristic
-      hoursOfOperation = this@LocationSurrogate.hoursOfOperation
-      virtualService = this@LocationSurrogate.virtualService
-      endpoint = this@LocationSurrogate.endpoint
-    }
+        this@LocationSurrogate.mode?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Location.LocationMode.fromCode(it!!),
+            this@LocationSurrogate._mode,
+          )
+        },
+      type = this@LocationSurrogate.type ?: mutableListOf(),
+      contact = this@LocationSurrogate.contact ?: mutableListOf(),
+      address = this@LocationSurrogate.address,
+      form = this@LocationSurrogate.form,
+      position = this@LocationSurrogate.position,
+      managingOrganization = this@LocationSurrogate.managingOrganization,
+      partOf = this@LocationSurrogate.partOf,
+      characteristic = this@LocationSurrogate.characteristic ?: mutableListOf(),
+      hoursOfOperation = this@LocationSurrogate.hoursOfOperation ?: mutableListOf(),
+      virtualService = this@LocationSurrogate.virtualService ?: mutableListOf(),
+      endpoint = this@LocationSurrogate.endpoint ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Location): LocationSurrogate =
       with(model) {
-        LocationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          operationalStatus = this@with.operationalStatus
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          alias = this@with.alias?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _alias = this@with.alias?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          type = this@with.type
-          contact = this@with.contact
-          address = this@with.address
-          form = this@with.form
-          position = this@with.position
-          managingOrganization = this@with.managingOrganization
-          partOf = this@with.partOf
-          characteristic = this@with.characteristic
-          hoursOfOperation = this@with.hoursOfOperation
-          virtualService = this@with.virtualService
-          endpoint = this@with.endpoint
-        }
+        LocationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          operationalStatus = this@with.operationalStatus,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          alias =
+            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _alias =
+            this@with.alias
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          mode = this@with.mode?.value?.getCode(),
+          _mode = this@with.mode?.toElement(),
+          type = this@with.type.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          address = this@with.address,
+          form = this@with.form,
+          position = this@with.position,
+          managingOrganization = this@with.managingOrganization,
+          partOf = this@with.partOf,
+          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          hoursOfOperation = this@with.hoursOfOperation.takeUnless { it.all { it == null } },
+          virtualService = this@with.virtualService.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

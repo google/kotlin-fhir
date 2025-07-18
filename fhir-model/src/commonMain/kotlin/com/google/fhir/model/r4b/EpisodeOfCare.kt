@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.EpisodeOfCareSerializer
 import com.google.fhir.model.r4b.serializers.EpisodeOfCareStatusHistorySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class EpisodeOfCare(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class EpisodeOfCare(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,24 +130,24 @@ public data class EpisodeOfCare(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The EpisodeOfCare may be known by different identifiers for different contexts of use, such as
    * when an external agency is tracking the Episode for funding purposes.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * planned | waitlist | active | onhold | finished | cancelled.
    *
    * This element is labeled as a modifier because the status contains codes that mark the episode
    * as not currently valid.
    */
-  public var status: Enumeration<EpisodeOfCareStatus>? = null,
+  public var status: Enumeration<EpisodeOfCareStatus>,
   /**
    * The history of statuses that the EpisodeOfCare has been through (without requiring processing
    * the history of the resource).
    */
-  public var statusHistory: List<StatusHistory>? = null,
+  public var statusHistory: MutableList<StatusHistory> = mutableListOf(),
   /**
    * A classification of the type of episode of care; e.g. specialist referral, disease management,
    * type of funded care.
@@ -155,30 +155,30 @@ public data class EpisodeOfCare(
    * The type can be very important in processing as this could be used in determining if the
    * EpisodeOfCare is relevant to specific government reporting, or other types of classifications.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /** The list of diagnosis relevant to this episode of care. */
-  public var diagnosis: List<Diagnosis>? = null,
+  public var diagnosis: MutableList<Diagnosis> = mutableListOf(),
   /** The patient who is the focus of this episode of care. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The organization that has assumed the specific responsibilities for the specified duration. */
   public var managingOrganization: Reference? = null,
   /** The interval during which the managing organization assumes the defined responsibility. */
   public var period: Period? = null,
   /** Referral Request(s) that are fulfilled by this EpisodeOfCare, incoming referrals. */
-  public var referralRequest: List<Reference?>? = null,
+  public var referralRequest: MutableList<Reference> = mutableListOf(),
   /** The practitioner that is the care manager/care coordinator for this patient. */
   public var careManager: Reference? = null,
   /**
    * The list of practitioners that may be facilitating this episode of care for specific purposes.
    */
-  public var team: List<Reference?>? = null,
+  public var team: MutableList<Reference> = mutableListOf(),
   /**
    * The set of accounts that may be used for billing for this EpisodeOfCare.
    *
    * The billing system may choose to allocate billable items associated with the EpisodeOfCare to
    * different referenced Accounts based on internal business rules.
    */
-  public var account: List<Reference?>? = null,
+  public var account: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /**
    * The history of statuses that the EpisodeOfCare has been through (without requiring processing
@@ -203,7 +203,7 @@ public data class EpisodeOfCare(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -222,11 +222,11 @@ public data class EpisodeOfCare(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** planned | waitlist | active | onhold | finished | cancelled. */
-    public var status: Enumeration<EpisodeOfCareStatus>? = null,
+    public var status: Enumeration<EpisodeOfCareStatus>,
     /** The period during this EpisodeOfCare that the specific status applied. */
-    public var period: Period? = null,
+    public var period: Period,
   ) : BackboneElement()
 
   /** The list of diagnosis relevant to this episode of care. */
@@ -249,7 +249,7 @@ public data class EpisodeOfCare(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -268,12 +268,12 @@ public data class EpisodeOfCare(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A list of conditions/problems/diagnoses that this episode of care is intended to be providing
      * care for.
      */
-    public var condition: Reference? = null,
+    public var condition: Reference,
     /**
      * Role that this diagnosis has within the episode of care (e.g. admission, billing, discharge
      * …).

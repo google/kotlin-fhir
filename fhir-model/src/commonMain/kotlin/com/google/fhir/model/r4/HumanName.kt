@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.HumanNameSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,7 +46,7 @@ public data class HumanName(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifies the purpose for this name.
    *
@@ -78,17 +78,17 @@ public data class HumanName(
    * be separated into multiple given names but often aren't due to paractical limitations. This
    * element is not called "first name" since given names do not always come first.
    */
-  public var given: List<String?>? = null,
+  public var given: MutableList<String> = mutableListOf(),
   /**
    * Part of the name that is acquired as a title due to academic, legal, employment or nobility
    * status, etc. and that appears at the start of the name.
    */
-  public var prefix: List<String?>? = null,
+  public var prefix: MutableList<String> = mutableListOf(),
   /**
    * Part of the name that is acquired as a title due to academic, legal, employment or nobility
    * status, etc. and that appears at the end of the name.
    */
-  public var suffix: List<String?>? = null,
+  public var suffix: MutableList<String> = mutableListOf(),
   /** Indicates the period of time when this name was valid for the named person. */
   public var period: Period? = null,
 ) : Element() {

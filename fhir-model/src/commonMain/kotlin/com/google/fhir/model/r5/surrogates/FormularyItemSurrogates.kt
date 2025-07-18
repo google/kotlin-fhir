@@ -34,7 +34,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -47,59 +47,59 @@ internal data class FormularyItemSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var code: CodeableConcept? = null,
   public var status: String? = null,
   public var _status: Element? = null,
 ) {
   public fun toModel(): FormularyItem =
-    FormularyItem().apply {
-      id = this@FormularyItemSurrogate.id
-      meta = this@FormularyItemSurrogate.meta
+    FormularyItem(
+      id = this@FormularyItemSurrogate.id,
+      meta = this@FormularyItemSurrogate.meta,
       implicitRules =
         Uri.of(
           this@FormularyItemSurrogate.implicitRules,
           this@FormularyItemSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@FormularyItemSurrogate.language, this@FormularyItemSurrogate._language)
-      text = this@FormularyItemSurrogate.text
-      contained = this@FormularyItemSurrogate.contained
-      extension = this@FormularyItemSurrogate.extension
-      modifierExtension = this@FormularyItemSurrogate.modifierExtension
-      identifier = this@FormularyItemSurrogate.identifier
-      code = this@FormularyItemSurrogate.code
+        Code.of(this@FormularyItemSurrogate.language, this@FormularyItemSurrogate._language),
+      text = this@FormularyItemSurrogate.text,
+      contained = this@FormularyItemSurrogate.contained ?: mutableListOf(),
+      extension = this@FormularyItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@FormularyItemSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@FormularyItemSurrogate.identifier ?: mutableListOf(),
+      code = this@FormularyItemSurrogate.code,
       status =
-        Enumeration.of(
-          this@FormularyItemSurrogate.status?.let {
-            com.google.fhir.model.r5.FormularyItem.FormularyItemStatus.fromCode(it)
-          },
-          this@FormularyItemSurrogate._status,
-        )
-    }
+        this@FormularyItemSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.FormularyItem.FormularyItemStatus.fromCode(it!!),
+            this@FormularyItemSurrogate._status,
+          )
+        },
+    )
 
   public companion object {
     public fun fromModel(model: FormularyItem): FormularyItemSurrogate =
       with(model) {
-        FormularyItemSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          code = this@with.code
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-        }
+        FormularyItemSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+        )
       }
   }
 }
