@@ -22,7 +22,7 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getSurrogatePropertyNamesAndTypes
+import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
@@ -47,8 +47,7 @@ import kotlinx.serialization.Serializable
  * See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
-class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
-
+class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
   fun generate(modelClassName: ClassName, elements: List<Element>): TypeSpec {
     val typeSpec =
       TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
@@ -74,532 +73,610 @@ class SurrogateTypeSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
           //  of fields in the surrogate class.
           val filteredElements = elements.filter { it.id != "ElementDefinition.pattern[x]" }
 
-          val properties =
+          val propertyParameterPairs =
             filteredElements.flatMap { element ->
-              element.getSurrogatePropertyNamesAndTypes(modelClassName).map {
-                PropertySpec.builder(it.key, it.value).initializer(it.key).mutable().build()
+              element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
+                val property =
+                  PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
+                val parameter =
+                  ParameterSpec.builder(it.first, it.second)
+                    .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+                    .build()
+                Pair(property, parameter)
               }
             }
-          addProperties(properties)
+
+          addProperties(propertyParameterPairs.map { it.first })
+
           primaryConstructor(
             FunSpec.constructorBuilder()
-              .apply {
-                properties.forEach {
-                  addParameter(
-                    ParameterSpec.builder(name = it.name, type = it.type)
-                      .defaultValue("null")
-                      .build()
-                  )
-                }
-              }
+              .apply { propertyParameterPairs.forEach { addParameter(it.second) } }
               .build()
           )
 
-          addConverterToDataClass(modelClassName, filteredElements, valueSetMap)
-          addConverterFromDataClass(modelClassName, filteredElements, valueSetMap)
+          addConverterToModelClass(modelClassName, filteredElements)
+          addConverterFromModelClass(modelClassName, filteredElements)
         }
         .build()
     return typeSpec
   }
-}
 
-/**
- * Adds a [FunSpec] to convert the surrogate class to the data class (e.g.
- * `PatientSurrogate.toPatient`).
- */
-private fun TypeSpec.Builder.addConverterToDataClass(
-  modelClassName: ClassName,
-  elements: List<Element>,
-  valueSetMap: Map<String, ValueSet>,
-) {
-  addFunction(
-    FunSpec.builder("toModel")
-      .returns(modelClassName)
-      .addCode(
-        CodeBlock.builder()
-          .add("return %T().apply{\n", modelClassName)
-          .apply {
-            indent()
-            elements.forEach { element ->
-              add("%N = ", element.getElementName())
-              addCodeToBuildProperty(
-                modelClassName,
-                modelClassName.toSurrogateClassName(),
-                element,
-                valueSetMap,
-              )
-              add("\n")
-            }
-            unindent()
-          }
-          .add("}\n")
-          .build()
-      )
-      .build()
-  )
-}
-
-/**
- * Adds a companion object with a [FunSpec] to convert the data class to the surrogate class (e.g.
- * `PatientSurrogate.fromPatient`).
- */
-private fun TypeSpec.Builder.addConverterFromDataClass(
-  modelClassName: ClassName,
-  elements: List<Element>,
-  valueSetMap: Map<String, ValueSet>,
-) {
-  addType(
-    TypeSpec.companionObjectBuilder()
-      .addFunction(
-        FunSpec.builder("fromModel")
-          .addParameter(ParameterSpec("model", modelClassName))
-          .returns(modelClassName.toSurrogateClassName())
-          .addCode(
-            CodeBlock.builder()
-              .add("return with(model){\n")
-              .indent()
-              .add("%T().apply{\n", modelClassName.toSurrogateClassName())
-              .apply {
-                indent()
-                elements.forEach { element ->
-                  addCodeToBuildPropertiesInSurrogate(modelClassName, element, valueSetMap)
-                }
-                unindent()
+  /**
+   * Adds a [FunSpec] to convert the surrogate class to the model class (e.g.
+   * `PatientSurrogate.toPatient`).
+   */
+  private fun TypeSpec.Builder.addConverterToModelClass(
+    modelClassName: ClassName,
+    elements: List<Element>,
+  ) {
+    addFunction(
+      FunSpec.builder("toModel")
+        .returns(modelClassName)
+        .addCode(
+          CodeBlock.builder()
+            .add("return %T(\n", modelClassName)
+            .apply {
+              indent()
+              elements.forEach { element ->
+                add("%N = ", element.getElementName())
+                addParamToModelClassConstructor(
+                  modelClassName,
+                  modelClassName.toSurrogateClassName(),
+                  element,
+                )
+                add(",\n")
               }
-              .add("}\n")
-              .unindent()
-              .add("}\n")
-              .build()
-          )
-          .build()
-      )
-      .build()
-  )
-}
+              unindent()
+            }
+            .add(")\n")
+            .build()
+        )
+        .build()
+    )
+  }
 
-/**
- * Adds code to build a property in the data class from the corresponding property or properties in
- * the surrogate class. This function handles the following cases:
- * - **Choice of types:** A choice of types is represented in the data class by a sealed interface
- *   with subtypes for each possible data type. The generated sealed interface has a convenience
- *   method `from` for constructing the appropriate subclass. For example, for the
- *   `Patient.deceased[x]` element, the following code will be generated (with a trailing comma in
- *   the parameter list):
- * ```
- * Patient.Deceased?.from(Boolean.of(deceasedBoolean, _deceasedBoolean), DateTime.of(deceasedDateTime, _deceasedDateTime), )
- * ```
- * - **List of primitive type:** Lists of primitive types are represented by two lists in the
- *   surrogate class. One list contains the Kotlin primitive values, and the other contains the
- *   `Element`s. To construct a single list of the FHIR data type, the two lists are zipped
- *   together. For example, for the `HumanName.given` element, the following code will be generated:
- * ```
- * given?.zip(_given ?: List(given!!.size) { null })?.mapNotNull{ (value, element) -> String.of(value, element) }
- * ```
- * - **List of complex type:** Lists of complex types can be directly assigned since the data types
- *   in the data class and surrogate class are the same. The generated code simply includes the
- *   property name.
- * - **Primitive type:** Primitive types are represented in the surrogate class by two fields
- *   corresponding to the two JSON properties. For example, for the element `Patient.birthDate` the
- *   following code will be generated:
- * ```
- * Date.of(birthDate, _birthDate)
- * ```
- * - **Complex type:** Complex types can be directly assigned since the data types in the data class
- *   and the surrogate class are the same. The generated code simply includes the property name.
- */
-private fun CodeBlock.Builder.addCodeToBuildProperty(
-  modelClassName: ClassName,
-  surrogateClassName: ClassName,
-  element: Element,
-  valueSetMap: Map<String, ValueSet>,
-) {
-  val propertyName = element.getElementName()
-  if (element.type != null && element.type.size > 1) {
-    // A single property (sealed interface) constructed from a choice of types
-    add("%T.from(", element.getTypeName(modelClassName))
-    for (type in element.type) {
-      addCodeToBuildChoiceTypeProperty(
+  /**
+   * Adds a companion object with a [FunSpec] to convert the model class to the surrogate class
+   * (e.g. `PatientSurrogate.fromPatient`).
+   */
+  private fun TypeSpec.Builder.addConverterFromModelClass(
+    modelClassName: ClassName,
+    elements: List<Element>,
+  ) {
+    addType(
+      TypeSpec.companionObjectBuilder()
+        .addFunction(
+          FunSpec.builder("fromModel")
+            .addParameter(ParameterSpec("model", modelClassName))
+            .returns(modelClassName.toSurrogateClassName())
+            .addCode(
+              CodeBlock.builder()
+                .add("return with(model){\n")
+                .indent()
+                .add("%T(\n", modelClassName.toSurrogateClassName())
+                .apply {
+                  indent()
+                  elements.forEach { element ->
+                    addParamToSurrogateClassConstructor(modelClassName, element)
+                  }
+                  unindent()
+                }
+                .add(")\n")
+                .unindent()
+                .add("}\n")
+                .build()
+            )
+            .build()
+        )
+        .build()
+    )
+  }
+
+  /**
+   * Adds code to build a property in the data class from the corresponding property or properties
+   * in the surrogate class. This function handles the following cases:
+   * - **Choice of types:** A choice of types is represented in the data class by a sealed interface
+   *   with subtypes for each possible data type. The generated sealed interface has a convenience
+   *   method `from` for constructing the appropriate subclass. For example, for the
+   *   `Patient.deceased[x]` element, the following code will be generated (with a trailing comma in
+   *   the parameter list):
+   * ```
+   * Patient.Deceased?.from(Boolean.of(deceasedBoolean, _deceasedBoolean), DateTime.of(deceasedDateTime, _deceasedDateTime), )
+   * ```
+   * - **List of primitive type:** Lists of primitive types are represented by two lists in the
+   *   surrogate class. One list contains the Kotlin primitive values, and the other contains the
+   *   `Element`s. To construct a single list of the FHIR data type, the two lists are zipped
+   *   together. For example, for the `HumanName.given` element, the following code will be
+   *   generated:
+   * ```
+   * given?.zip(_given ?: List(given!!.size) { null })?.mapNotNull{ (value, element) -> String.of(value, element) }
+   * ```
+   * - **List of complex type:** Lists of complex types can be directly assigned since the data
+   *   types in the data class and surrogate class are the same. The generated code simply includes
+   *   the property name.
+   * - **Primitive type:** Primitive types are represented in the surrogate class by two fields
+   *   corresponding to the two JSON properties. For example, for the element `Patient.birthDate`
+   *   the following code will be generated:
+   * ```
+   * Date.of(birthDate, _birthDate)
+   * ```
+   * - **Complex type:** Complex types can be directly assigned since the data types in the data
+   *   class and the surrogate class are the same. The generated code simply includes the property
+   *   name.
+   */
+  private fun CodeBlock.Builder.addParamToModelClassConstructor(
+    modelClassName: ClassName,
+    surrogateClassName: ClassName,
+    element: Element,
+  ) {
+    val propertyName = element.getElementName()
+    if (element.type != null && element.type.size > 1) {
+      val notNull =
+        if (element.min == 1) {
+          "!!"
+        } else {
+          ""
+        }
+      add("%T.from(", element.getTypeName(modelClassName))
+      for (type in element.type) {
+        addChoiceTypeParamToModelClassConstructor(modelClassName, surrogateClassName, element, type)
+        add(", ")
+      }
+      add(")${notNull}")
+    } else if ((element.max == "*" || propertyName == "extension")) {
+      if (FhirPathType.containsFhirTypeCode(element.type?.singleOrNull()?.code ?: "")) {
+        // A list of primitive type
+        val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
+        val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
+        if (element.typeIsEnumeratedCode(valueSetMap)) {
+          val enumClass = element.getEnumClass(modelClassName)
+          add(
+            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %L.fromCode(it!!)!! }, element) }.toMutableList() }",
+            surrogateClassName,
+            propertyName,
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            propertyName,
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            propertyName,
+            ClassName(modelClassName.packageName, "Enumeration"),
+            enumClass,
+          )
+        } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+          add(
+            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value, element)!! }.toMutableList() }",
+            surrogateClassName,
+            propertyName,
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            propertyName,
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            propertyName,
+            ClassName(modelClassName.packageName, element.type.single().code.capitalized()),
+          )
+        } else {
+          // Call FhirDateTime.fromString
+          add(
+            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(%T.fromString(value), element)!! }.toMutableList() }",
+            surrogateClassName,
+            propertyName,
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            propertyName,
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            "_$propertyName",
+            surrogateClassName,
+            propertyName,
+            ClassName(modelClassName.packageName, element.type.single().code.capitalized()),
+            typeInDataClass,
+          )
+        }
+      } else {
+        // A list of complex type
+        add("this@%T.%N ?: mutableListOf()", surrogateClassName, propertyName)
+      }
+    } else {
+      // A single property - not a list or a choice of types
+      addParamToModelClassConstructor(
         modelClassName,
         surrogateClassName,
+        propertyName,
+        element.type?.singleOrNull(),
         element,
-        type,
-        valueSetMap,
       )
-      add(", ")
     }
-    add(")")
-  } else if ((element.max == "*" || propertyName == "extension")) {
-    if (FhirPathType.containsFhirTypeCode(element.type?.singleOrNull()?.code ?: "")) {
-      // A list of primitive type
-      val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
-      val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
+  }
 
-      if (element.typeIsEnumeratedCode(valueSetMap)) {
-        val enumClass = element.getEnumClass(modelClassName)
+  /**
+   * Adds code to build a property in the data class from the corresponding property or properties
+   * in the surrogate class.
+   *
+   * Properties of complex type and BackboneElements (e.g. the `period` property in
+   * `HumanNameSurrogate` class with complex type `Narrative`) have the same property name in the
+   * data class and the surrogate class. Copying them from the surrogate class to the data class
+   * only requires the property name.
+   *
+   * Properties of primitive type, however, have two corresponding properties in the surrogate
+   * class. As a result, the `of` function in the generated class for the FHIR primitive type (e.g.
+   * `Date.of` in `Date.kt`) is used to construct the property in the data class.
+   *
+   * For example, the following code will be generated for the `birthDate` field in the `Patient`
+   * class:
+   * ```
+   * Date.of(
+   *   FhirDate.fromString(this@PatientSurrogate.birthDate),
+   *   this@PatientSurrogate._birthDate,
+   * )
+   * ```
+   *
+   * If the underlying types in the data class and the surrogate class are different, an additional
+   * conversion is carried out:
+   * ```
+   * DateTime.of(FhirDateTime.fromString(start), _start)
+   * ```
+   */
+  private fun CodeBlock.Builder.addParamToModelClassConstructor(
+    modelClassName: ClassName,
+    surrogateClassName: ClassName,
+    propertyName: String,
+    type: Type?,
+    element: Element,
+  ) {
+    if (element.typeIsEnumeratedCode(valueSetMap)) {
+      val enumClass = element.getEnumClass(modelClassName)
+      if (element.min == 0) {
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value?.let { %L.fromCode(it) }, element) } }",
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-          surrogateClassName,
-          "_$propertyName",
+          "this@%T.%N?.let { %T.of(%L.fromCode(it!!), this@%T.%N) }",
           surrogateClassName,
           propertyName,
           ClassName(modelClassName.packageName, "Enumeration"),
           enumClass,
+          surrogateClassName,
+          "_$propertyName",
         )
-      } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+      } else {
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(value, element) } }",
+          "%T.of(%L.fromCode(this@%T.%N!!), this@%T.%N)",
+          ClassName(modelClassName.packageName, "Enumeration"),
+          enumClass,
           surrogateClassName,
           propertyName,
           surrogateClassName,
           "_$propertyName",
+        )
+      }
+    } else if (type != null && FhirPathType.containsFhirTypeCode(type.code)) {
+      val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
+      val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
+      val notNullAssertion =
+        if (element.min == 1) {
+          "!!"
+        } else {
+          ""
+        }
+
+      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+        // Xhtml element in the data model can never be null but the field in the surrogate class is
+        // nullable. See the NarrativeSurrogate class for example.
+        val notNullAssertionXhtml =
+          if (type.code == "xhtml") {
+            "!!"
+          } else {
+            ""
+          }
+        add(
+          "%T.of(this@%T.%N${notNullAssertionXhtml}, this@%T.%N)${notNullAssertion}",
+          ClassName(modelClassName.packageName, type.code.capitalized()),
           surrogateClassName,
           propertyName,
           surrogateClassName,
           "_$propertyName",
-          surrogateClassName,
-          "_$propertyName",
-          surrogateClassName,
-          propertyName,
-          ClassName(modelClassName.packageName, element.type.single().code.capitalized()),
         )
       } else {
         // Call FhirDateTime.fromString
         add(
-          "if(this@%T.%N == null && this@%T.%N == null) { null } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).mapNotNull{ (value, element) -> %T.of(%T.fromString(value), element) } }",
+          "%T.of(%T.fromString(this@%T.%N), this@%T.%N)${notNullAssertion}",
+          ClassName(modelClassName.packageName, type.code.capitalized()),
+          fhirPathType.getTypeInDataClass(modelClassName.packageName),
           surrogateClassName,
           propertyName,
           surrogateClassName,
           "_$propertyName",
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-          surrogateClassName,
-          "_$propertyName",
-          surrogateClassName,
-          propertyName,
-          ClassName(modelClassName.packageName, element.type.single().code.capitalized()),
-          typeInDataClass,
         )
       }
     } else {
-      // A list of complex type
       add("this@%T.%N", surrogateClassName, propertyName)
     }
-  } else {
-    // A single property - not a list or a choice of types
-    addCodeToBuildProperty(
-      modelClassName,
-      surrogateClassName,
-      propertyName,
-      element.type?.singleOrNull(),
-      element,
-      valueSetMap,
-    )
   }
-}
 
-/**
- * Adds code to build a property in the data class from the corresponding property or properties in
- * the surrogate class.
- *
- * Properties of complex type and BackboneElements (e.g. the `period` property in
- * `HumanNameSurrogate` class with complex type `Narrative`) have the same property name in the data
- * class and the surrogate class. Copying them from the surrogate class to the data class only
- * requires the property name.
- *
- * Properties of primitive type, however, have two corresponding properties in the surrogate class.
- * As a result, the `of` function in the generated class for the FHIR primitive type (e.g. `Date.of`
- * in `Date.kt`) is used to construct the property in the data class.
- *
- * For example, the following code will be generated for the `birthDate` field in the `Patient`
- * class:
- * ```
- * Date.of(birthDate, _birthDate)
- * ```
- *
- * If the underlying types in the data class and the surrogate class are different, an additional
- * conversion is carried out:
- * ```
- * DateTime.of(FhirDateTime.fromString(start), _start)
- * ```
- */
-private fun CodeBlock.Builder.addCodeToBuildProperty(
-  modelClassName: ClassName,
-  surrogateClassName: ClassName,
-  propertyName: String,
-  type: Type?,
-  element: Element,
-  valueSetMap: Map<String, ValueSet>,
-) {
-
-  if (element.typeIsEnumeratedCode(valueSetMap)) {
-    val enumClass = element.getEnumClass(modelClassName)
-    add(
-      "%T.of(this@%T.%N?.let { %L.fromCode(it) }, this@%T.%N)",
-      ClassName(modelClassName.packageName, "Enumeration"),
-      surrogateClassName,
-      propertyName,
-      enumClass,
-      surrogateClassName,
-      "_$propertyName",
-    )
-  } else if (type != null && FhirPathType.containsFhirTypeCode(type.code)) {
-    val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
-    val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-    if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-      add(
-        "%T.of(this@%T.%N, this@%T.%N)",
-        ClassName(modelClassName.packageName, type.code.capitalized()),
-        surrogateClassName,
-        propertyName,
-        surrogateClassName,
-        "_$propertyName",
-      )
-    } else {
-      // Call FhirDateTime.fromString
-      add(
-        "%T.of(%T.fromString(this@%T.%N), this@%T.%N)",
-        ClassName(modelClassName.packageName, type.code.capitalized()),
-        fhirPathType.getTypeInDataClass(modelClassName.packageName),
-        surrogateClassName,
-        propertyName,
-        surrogateClassName,
-        "_$propertyName",
-      )
-    }
-  } else {
-    add("this@%T.%N", surrogateClassName, propertyName)
+  private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
+    val elementBasePath: String? = base?.path
+    val bindingNameString = this.bidingName?.normalizeEnumName()
+    val enumClassName =
+      if (path != elementBasePath && !elementBasePath.isNullOrBlank())
+        "${elementBasePath.substringBefore(".")}.$bindingNameString"
+      else bindingNameString
+    val enumClassPackageName =
+      if (this.isCommonBinding || enumClassName?.contains(".") == true) {
+        modelClassName.packageName
+      } else {
+        // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
+        modelClassName.packageName + "." + modelClassName.simpleNames.first()
+      }
+    val enumClass = ClassName(enumClassPackageName, enumClassName!!)
+    return enumClass
   }
-}
 
-private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
-  val elementBasePath: String? = base?.path
-  val bindingNameString = this.bidingName?.normalizeEnumName()
-  val enumClassName =
-    if (path != elementBasePath && !elementBasePath.isNullOrBlank())
-      "${elementBasePath.substringBefore(".")}.$bindingNameString"
-    else bindingNameString
-  val enumClassPackageName =
-    if (this.isCommonBinding || enumClassName?.contains(".") == true) {
-      modelClassName.packageName
-    } else {
-      // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
-      modelClassName.packageName + "." + modelClassName.simpleNames.first()
-    }
-  val enumClass = ClassName(enumClassPackageName, enumClassName!!)
-  return enumClass
-}
-
-/**
- * Adds code to build a property in the data class of [type] from a choice of data types in the
- * surrogate class.
- *
- * Properties with a choice of data types are represented in the data class by sealed interfaces.
- * For example, the `Patient.deceased[x]` element is represented by a sealed interface `Deceased`
- * nested under `Patient` class with two subclasses `Boolean` and `DateTime`. However, for ease of
- * serialization/deserialization properties with a choice of data types in the surrogate class are
- * represented by multiple fields, each representing a possible data type. For example, the same
- * element is represented in the surrogate class by `patientBoolean` and `patientDateTime` fields
- * (as well as `_patientBoolean` and `_patientDateTime` fields).
- *
- * This function generates the code that translates the property or properties in the surrogate
- * class for a single [type] in the [element] with a choice of data types. For example, for the
- * `boolean` type of the `Patient.deceased[x]` element, this function will generate the following
- * code:
- * ```
- * Boolean.of(patientDeceased, _patientDeceased)
- * ```
- */
-private fun CodeBlock.Builder.addCodeToBuildChoiceTypeProperty(
-  modelClassName: ClassName,
-  surrogateClassName: ClassName,
-  element: Element,
-  type: Type,
-  valueSetMap: Map<String, ValueSet>,
-) {
-  // The property name in the surrogate class is the element name concatenated with the type code
-  // e.g. `Patient.deceasedBoolean`
-  val propertyName = "${element.getElementName()}${type.code.capitalized()}"
-  addCodeToBuildProperty(
-    modelClassName,
-    surrogateClassName,
-    propertyName,
-    type,
-    element,
-    valueSetMap,
-  )
-}
-
-/**
- * Adds code to build properties in the surrogate class from the corresponding property in the data
- * class. This function handles the following cases:
- * - **Choice of types:** A choice of types is represented in the data class by a sealed interface
- *   with subtypes for each possible data type. This is deconstructed in the surrogate class by
- *   type, making use of the convenience function generated in each sealed interface `asDataType`.
- *   Additionally, primitiv types are further deconstructed into two fields, each representing a
- *   JSON property in the JSON representation. For example, for the `Annotation.author[x]` element,
- *   the following code is generated:
- * ```
- * authorReference = author?.asReference()?.value,
- * authorString = author?.asString()?.value?.value,
- * _authorString = author?.asString()?.value?.toElement(),
- * ```
- * - **List of primitive type:** Lists of primitive types are deconstructed into two lists in the
- *   surrogate class. One list contains the Kotlin primitive values, and the other contains the
- *   `Element`s. For example, for the `HumanName.given` element, the following code will be
- *   generated:
- * ```
- * given = given?.map{ it.value },
- * _given = given?.map{ it.toElement() }?.takeUnless { it.all { it == null } },
- * ```
- * - **List of complex type:** Lists of complex types can be directly assigned since the data types
- *   in the data class and surrogate class are the same. The generated code simply includes the
- *   property name.
- * - **Primitive type:** Primitive types are deconstructed into two fields in the surrogate class.
- *   For example, for the element `Patient.birthDate` the following code will be generated:
- * ```
- * birthDate = birthDate?.value,
- * _birthDate = birthDate?.toElement(),
- * ```
- * - **Complex type:** Complex types can be directly assigned since the data types in the data class
- *   and the surrogate class are the same. The generated code simply includes the property name.
- */
-private fun CodeBlock.Builder.addCodeToBuildPropertiesInSurrogate(
-  modelClassName: ClassName,
-  element: Element,
-  valueSetMap: Map<String, ValueSet>,
-) {
-  val propertyName = element.getElementName()
-  if (element.type != null && element.type.size > 1) {
-    // Build properties in the surrogate class for each type in a choice of types
-    for (type in element.type) {
-      addCodeToBuildChoiceTypePropertiesInSurrogate(
-        modelClassName.packageName,
-        propertyName,
-        type.code,
-      )
-    }
-  } else if (element.max == "*" || propertyName == "extension") {
-    if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
-      // A list of primitive type is deconstructed into two lists
-      val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
+  /**
+   * Adds code to build a property in the data class of [type] from a choice of data types in the
+   * surrogate class.
+   *
+   * Properties with a choice of data types are represented in the data class by sealed interfaces.
+   * For example, the `Patient.deceased[x]` element is represented by a sealed interface `Deceased`
+   * nested under `Patient` class with two subclasses `Boolean` and `DateTime`. However, for ease of
+   * serialization/deserialization properties with a choice of data types in the surrogate class are
+   * represented by multiple fields, each representing a possible data type. For example, the same
+   * element is represented in the surrogate class by `patientBoolean` and `patientDateTime` fields
+   * (as well as `_patientBoolean` and `_patientDateTime` fields).
+   *
+   * This function generates the code that translates the property or properties in the surrogate
+   * class for a single [type] in the [element] with a choice of data types. For example, for the
+   * `boolean` type of the `Patient.deceased[x]` element, this function will generate the following
+   * code:
+   * ```
+   * Boolean.of(patientDeceased, _patientDeceased)
+   * ```
+   */
+  private fun CodeBlock.Builder.addChoiceTypeParamToModelClassConstructor(
+    modelClassName: ClassName,
+    surrogateClassName: ClassName,
+    element: Element,
+    type: Type,
+  ) {
+    // The property name in the surrogate class is the element name concatenated with the type code
+    // e.g. `Patient.deceasedBoolean`
+    val propertyName = "${element.getElementName()}${type.code.capitalized()}"
+    if (FhirPathType.containsFhirTypeCode(type.code)) {
+      val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
       val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-      if (element.typeIsEnumeratedCode(valueSetMap)) {
+      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add(
-          "%N = this@with.%N?.map{ it?.value?.getCode() }?.takeUnless { it.all { it == null } }\n",
+          "%T.of(this@%T.%N, this@%T.%N)",
+          ClassName(modelClassName.packageName, type.code.capitalized()),
+          surrogateClassName,
           propertyName,
-          propertyName,
+          surrogateClassName,
+          "_$propertyName",
         )
-      } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+      } else {
+        // Call FhirDateTime.fromString
         add(
-          "%N = this@with.%N?.map{ it?.value }?.takeUnless { it.all { it == null } }\n",
+          "%T.of(%T.fromString(this@%T.%N), this@%T.%N)",
+          ClassName(modelClassName.packageName, type.code.capitalized()),
+          fhirPathType.getTypeInDataClass(modelClassName.packageName),
+          surrogateClassName,
           propertyName,
+          surrogateClassName,
+          "_$propertyName",
+        )
+      }
+    } else {
+      add("this@%T.%N", surrogateClassName, propertyName)
+    }
+  }
+
+  /**
+   * Adds code to build properties in the surrogate class from the corresponding property in the
+   * data class. This function handles the following cases:
+   * - **Choice of types:** A choice of types is represented in the data class by a sealed interface
+   *   with subtypes for each possible data type. This is deconstructed in the surrogate class by
+   *   type, making use of the convenience function generated in each sealed interface `asDataType`.
+   *   Additionally, primitiv types are further deconstructed into two fields, each representing a
+   *   JSON property in the JSON representation. For example, for the `Annotation.author[x]`
+   *   element, the following code is generated:
+   * ```
+   * authorReference = author?.asReference()?.value,
+   * authorString = author?.asString()?.value?.value,
+   * _authorString = author?.asString()?.value?.toElement(),
+   * ```
+   * - **List of primitive type:** Lists of primitive types are deconstructed into two lists in the
+   *   surrogate class. One list contains the Kotlin primitive values, and the other contains the
+   *   `Element`s. For example, for the `HumanName.given` element, the following code will be
+   *   generated:
+   * ```
+   * given = given?.map{ it.value },
+   * _given = given?.map{ it.toElement() }?.takeUnless { it.all { it == null } },
+   * ```
+   * - **List of complex type:** Lists of complex types can be directly assigned since the data
+   *   types in the data class and surrogate class are the same. The generated code simply includes
+   *   the property name.
+   * - **Primitive type:** Primitive types are deconstructed into two fields in the surrogate class.
+   *   For example, for the element `Patient.birthDate` the following code will be generated:
+   * ```
+   * birthDate = birthDate?.value,
+   * _birthDate = birthDate?.toElement(),
+   * ```
+   * - **Complex type:** Complex types can be directly assigned since the data types in the data
+   *   class and the surrogate class are the same. The generated code simply includes the property
+   *   name.
+   */
+  private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
+    modelClassName: ClassName,
+    element: Element,
+  ) {
+    val propertyName = element.getElementName()
+    if (element.type != null && element.type.size > 1) {
+      // Build properties in the surrogate class for each type in a choice of types
+      for (type in element.type) {
+        addParamToSurrogateClassConstructor(modelClassName.packageName, propertyName, type.code)
+      }
+    } else if (element.max == "*" || propertyName == "extension") {
+      if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
+        // A list of primitive type is deconstructed into two lists
+        val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
+        val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
+        if (element.typeIsEnumeratedCode(valueSetMap)) {
+          add(
+            "%N = this@with.%N.map{ it.value?.getCode() }.toMutableList().takeUnless { it.all { it == null } },\n",
+            propertyName,
+            propertyName,
+          )
+        } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+          add(
+            "%N = this@with.%N.map{ it.value }.toMutableList().takeUnless { it.all { it == null } },\n",
+            propertyName,
+            propertyName,
+          )
+        } else {
+          // Call FhirDateTime.toString
+          add(
+            "%N = this@with.%N.map{ it.value?.toString() }.toMutableList().takeUnless { it.all { it == null } },\n",
+            propertyName,
+            propertyName,
+          )
+        }
+        add(
+          "%N = this@with.%N.map{ it.toElement() }.takeUnless { it.all { it == null } }?.map{ it ?: Element() }?.toMutableList(),\n",
+          "_$propertyName",
           propertyName,
         )
       } else {
-        // Call FhirDateTime.toString
+        // A list of complex type is simply assigned
+        add("%N = this@with.%N.takeUnless { it.all { it == null } },\n", propertyName, propertyName)
+      }
+    } else {
+      if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
+        // A single primitive value is deconstructed into two properties
+        val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
+        val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
+
+        val isRequired = element.min == 1 && element.max == "1"
+        if (element.typeIsEnumeratedCode(valueSetMap)) {
+          // Call getCode() if the type of the property is an enum type
+          add(
+            "%N = this@with.%N${
+              if (isRequired) {
+                ".value"
+              } else {
+                "?.value"
+              }
+            }?.getCode(),\n",
+            propertyName,
+            propertyName,
+          )
+        } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+          add(
+            "%N = this@with.%N${
+              if (isRequired) {
+                ""
+              } else {
+                "?"
+              }
+            }.value,\n",
+            propertyName,
+            propertyName,
+          )
+        } else {
+          // Call FhirDateTime.toString
+          add(
+            "%N = this@with.%N${
+              if (isRequired) {
+                ""
+              } else {
+                "?"
+              }
+            }.value?.toString(),\n",
+            propertyName,
+            propertyName,
+          )
+        }
         add(
-          "%N = this@with.%N?.map{ it?.value?.toString() }?.takeUnless { it.all { it == null } }\n",
+          "%N = this@with.%N${
+            if (isRequired) {
+              ""
+            } else {
+              "?"
+            }
+          }.toElement(),\n",
+          "_$propertyName",
           propertyName,
+        )
+      } else {
+        // A single complex type is simply assigned
+        add("%N = this@with.%N,\n", propertyName, propertyName)
+      }
+    }
+  }
+
+  /**
+   * Adds code to build properties in the surrogate class for a given data type in a choice of data
+   * types.
+   *
+   * For primitive types, two properties are extracted from the single property of the sealed
+   * interface after type conversion. For example, the following code will be generated for the
+   * `Patient.deceased[x]` element and the boolean type:
+   * ```
+   * deceasedBoolean = deceased?.asBoolean()?.value?.value,
+   * _deceasedBoolean = deceased?.asBoolean()?.value?.toElement(),
+   * ```
+   *
+   * For complex types, only one property is extracted since the JSON representation does not
+   * include the additional JSON property with the '_' prefix. For example, the following code, will
+   * be generated for the `Annotation.author[x]` element and the reference type:
+   * ```
+   * authorReference = author?.asReference()?.value,
+   * ```
+   */
+  private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
+    packageName: String,
+    propertyName: String,
+    typeCode: String,
+  ) {
+    if (FhirPathType.containsFhirTypeCode(typeCode)) {
+      val fhirPathType = FhirPathType.getFromFhirTypeCode(typeCode)!!
+      val typeInDataClass = fhirPathType.getTypeInDataClass(packageName)
+      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
+        add(
+          "%N = this@with.%N?.%N()?.value?.value,\n",
+          "$propertyName${typeCode.capitalized()}",
           propertyName,
+          "as${typeCode.capitalized()}",
+        )
+      } else {
+        add(
+          "%N = this@with.%N?.%N()?.value?.value?.toString(),\n",
+          "$propertyName${typeCode.capitalized()}",
+          propertyName,
+          "as${typeCode.capitalized()}",
         )
       }
       add(
-        "%N = this@with.%N?.map{ it?.toElement() }?.takeUnless { it.all { it == null } }\n",
-        "_$propertyName",
-        propertyName,
-      )
-    } else {
-      // A list of complex type is simply assigned
-      add("%N = this@with.%N\n", propertyName, propertyName)
-    }
-  } else {
-    if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
-      // A single primitive value is deconstructed into two properties
-      val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
-      val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-
-      if (element.typeIsEnumeratedCode(valueSetMap)) {
-        // Call getCode() if the type of the property is an enum type
-        add("%N = this@with.%N?.value?.getCode()\n", propertyName, propertyName)
-      } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-        add("%N = this@with.%N?.value\n", propertyName, propertyName)
-      } else {
-        // Call FhirDateTime.toString
-        add("%N = this@with.%N?.value?.toString()\n", propertyName, propertyName)
-      }
-      add("%N = this@with.%N?.toElement()\n", "_$propertyName", propertyName)
-    } else {
-      // A single complex type is simply assigned
-      add("%N = this@with.%N\n", propertyName, propertyName)
-    }
-  }
-}
-
-/**
- * Adds code to build properties in the surrogate class for a given data type in a choice of data
- * types.
- *
- * For primitive types, two properties are extracted from the single property of the sealed
- * interface after type conversion. For example, the following code will be generated for the
- * `Patient.deceased[x]` element and the boolean type:
- * ```
- * deceasedBoolean = deceased?.asBoolean()?.value?.value,
- * _deceasedBoolean = deceased?.asBoolean()?.value?.toElement(),
- * ```
- *
- * For complex types, only one property is extracted since the JSON representation does not include
- * the additional JSON property with the '_' prefix. For example, the following code, will be
- * generated for the `Annotation.author[x]` element and the reference type:
- * ```
- * authorReference = author?.asReference()?.value,
- * ```
- */
-private fun CodeBlock.Builder.addCodeToBuildChoiceTypePropertiesInSurrogate(
-  packageName: String,
-  propertyName: String,
-  typeCode: String,
-) {
-  if (FhirPathType.containsFhirTypeCode(typeCode)) {
-    val fhirPathType = FhirPathType.getFromFhirTypeCode(typeCode)!!
-    val typeInDataClass = fhirPathType.getTypeInDataClass(packageName)
-    if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-      add(
-        "%N = this@with.%N?.%N()?.value?.value\n",
-        "$propertyName${typeCode.capitalized()}",
+        "%N = this@with.%N?.%N()?.value?.toElement(),\n",
+        "_$propertyName${typeCode.capitalized()}",
         propertyName,
         "as${typeCode.capitalized()}",
       )
     } else {
       add(
-        "%N = this@with.%N?.%N()?.value?.value?.toString()\n",
+        "%N = this@with.%N?.%N()?.value,\n",
         "$propertyName${typeCode.capitalized()}",
         propertyName,
         "as${typeCode.capitalized()}",
       )
     }
-    add(
-      "%N = this@with.%N?.%N()?.value?.toElement()\n",
-      "_$propertyName${typeCode.capitalized()}",
-      propertyName,
-      "as${typeCode.capitalized()}",
-    )
-  } else {
-    add(
-      "%N = this@with.%N?.%N()?.value\n",
-      "$propertyName${typeCode.capitalized()}",
-      propertyName,
-      "as${typeCode.capitalized()}",
-    )
   }
 }
 

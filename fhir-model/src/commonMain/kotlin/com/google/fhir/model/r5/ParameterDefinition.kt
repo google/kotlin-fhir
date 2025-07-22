@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ParameterDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,14 +47,14 @@ public data class ParameterDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The name of the parameter used to allow access to the value of the parameter in evaluation
    * contexts.
    */
   public var name: Code? = null,
   /** Whether the parameter is input or output for the module. */
-  public var use: Enumeration<ParameterUse>? = null,
+  public var use: Enumeration<ParameterUse>,
   /** The minimum number of times this parameter SHALL appear in the request or response. */
   public var min: Integer? = null,
   /** The maximum number of times this element is permitted to appear in the request or response. */
@@ -62,7 +62,7 @@ public data class ParameterDefinition(
   /** A brief discussion of what the parameter is for and how it is used by the module. */
   public var documentation: String? = null,
   /** The type of the parameter. */
-  public var type: Enumeration<FHIRTypes>? = null,
+  public var type: Enumeration<FHIRTypes>,
   /**
    * If specified, this indicates a profile that the input data must conform to, or that the output
    * data will conform to.

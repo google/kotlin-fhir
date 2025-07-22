@@ -35,45 +35,43 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class LinkageItemSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
-  public var resource: Reference? = null,
+  public var resource: Reference,
 ) {
   public fun toModel(): Linkage.Item =
-    Linkage.Item().apply {
-      id = this@LinkageItemSurrogate.id
-      extension = this@LinkageItemSurrogate.extension
-      modifierExtension = this@LinkageItemSurrogate.modifierExtension
+    Linkage.Item(
+      id = this@LinkageItemSurrogate.id,
+      extension = this@LinkageItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@LinkageItemSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@LinkageItemSurrogate.type?.let {
-            com.google.fhir.model.r4b.Linkage.LinkageType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.Linkage.LinkageType.fromCode(this@LinkageItemSurrogate.type!!),
           this@LinkageItemSurrogate._type,
-        )
-      resource = this@LinkageItemSurrogate.resource
-    }
+        ),
+      resource = this@LinkageItemSurrogate.resource,
+    )
 
   public companion object {
     public fun fromModel(model: Linkage.Item): LinkageItemSurrogate =
       with(model) {
-        LinkageItemSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          resource = this@with.resource
-        }
+        LinkageItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          resource = this@with.resource,
+        )
       }
   }
 }
@@ -87,49 +85,49 @@ internal data class LinkageSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var author: Reference? = null,
-  public var item: List<Linkage.Item>? = null,
+  public var item: MutableList<Linkage.Item>? = null,
 ) {
   public fun toModel(): Linkage =
-    Linkage().apply {
-      id = this@LinkageSurrogate.id
-      meta = this@LinkageSurrogate.meta
+    Linkage(
+      id = this@LinkageSurrogate.id,
+      meta = this@LinkageSurrogate.meta,
       implicitRules =
-        Uri.of(this@LinkageSurrogate.implicitRules, this@LinkageSurrogate._implicitRules)
-      language = Code.of(this@LinkageSurrogate.language, this@LinkageSurrogate._language)
-      text = this@LinkageSurrogate.text
-      contained = this@LinkageSurrogate.contained
-      extension = this@LinkageSurrogate.extension
-      modifierExtension = this@LinkageSurrogate.modifierExtension
-      active = R4bBoolean.of(this@LinkageSurrogate.active, this@LinkageSurrogate._active)
-      author = this@LinkageSurrogate.author
-      item = this@LinkageSurrogate.item
-    }
+        Uri.of(this@LinkageSurrogate.implicitRules, this@LinkageSurrogate._implicitRules),
+      language = Code.of(this@LinkageSurrogate.language, this@LinkageSurrogate._language),
+      text = this@LinkageSurrogate.text,
+      contained = this@LinkageSurrogate.contained ?: mutableListOf(),
+      extension = this@LinkageSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@LinkageSurrogate.modifierExtension ?: mutableListOf(),
+      active = R4bBoolean.of(this@LinkageSurrogate.active, this@LinkageSurrogate._active),
+      author = this@LinkageSurrogate.author,
+      item = this@LinkageSurrogate.item ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Linkage): LinkageSurrogate =
       with(model) {
-        LinkageSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          author = this@with.author
-          item = this@with.item
-        }
+        LinkageSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          author = this@with.author,
+          item = this@with.item.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -37,14 +37,14 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AttachmentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var contentType: KotlinString? = null,
   public var _contentType: Element? = null,
   public var language: KotlinString? = null,
@@ -73,62 +73,62 @@ internal data class AttachmentSurrogate(
   public var _pages: Element? = null,
 ) {
   public fun toModel(): Attachment =
-    Attachment().apply {
-      id = this@AttachmentSurrogate.id
-      extension = this@AttachmentSurrogate.extension
+    Attachment(
+      id = this@AttachmentSurrogate.id,
+      extension = this@AttachmentSurrogate.extension ?: mutableListOf(),
       contentType =
-        Code.of(this@AttachmentSurrogate.contentType, this@AttachmentSurrogate._contentType)
-      language = Code.of(this@AttachmentSurrogate.language, this@AttachmentSurrogate._language)
-      `data` = Base64Binary.of(this@AttachmentSurrogate.`data`, this@AttachmentSurrogate._data)
-      url = Url.of(this@AttachmentSurrogate.url, this@AttachmentSurrogate._url)
-      size = Integer64.of(this@AttachmentSurrogate.size, this@AttachmentSurrogate._size)
-      hash = Base64Binary.of(this@AttachmentSurrogate.hash, this@AttachmentSurrogate._hash)
-      title = R5String.of(this@AttachmentSurrogate.title, this@AttachmentSurrogate._title)
+        Code.of(this@AttachmentSurrogate.contentType, this@AttachmentSurrogate._contentType),
+      language = Code.of(this@AttachmentSurrogate.language, this@AttachmentSurrogate._language),
+      `data` = Base64Binary.of(this@AttachmentSurrogate.`data`, this@AttachmentSurrogate._data),
+      url = Url.of(this@AttachmentSurrogate.url, this@AttachmentSurrogate._url),
+      size = Integer64.of(this@AttachmentSurrogate.size, this@AttachmentSurrogate._size),
+      hash = Base64Binary.of(this@AttachmentSurrogate.hash, this@AttachmentSurrogate._hash),
+      title = R5String.of(this@AttachmentSurrogate.title, this@AttachmentSurrogate._title),
       creation =
         DateTime.of(
           FhirDateTime.fromString(this@AttachmentSurrogate.creation),
           this@AttachmentSurrogate._creation,
-        )
-      height = PositiveInt.of(this@AttachmentSurrogate.height, this@AttachmentSurrogate._height)
-      width = PositiveInt.of(this@AttachmentSurrogate.width, this@AttachmentSurrogate._width)
-      frames = PositiveInt.of(this@AttachmentSurrogate.frames, this@AttachmentSurrogate._frames)
-      duration = Decimal.of(this@AttachmentSurrogate.duration, this@AttachmentSurrogate._duration)
-      pages = PositiveInt.of(this@AttachmentSurrogate.pages, this@AttachmentSurrogate._pages)
-    }
+        ),
+      height = PositiveInt.of(this@AttachmentSurrogate.height, this@AttachmentSurrogate._height),
+      width = PositiveInt.of(this@AttachmentSurrogate.width, this@AttachmentSurrogate._width),
+      frames = PositiveInt.of(this@AttachmentSurrogate.frames, this@AttachmentSurrogate._frames),
+      duration = Decimal.of(this@AttachmentSurrogate.duration, this@AttachmentSurrogate._duration),
+      pages = PositiveInt.of(this@AttachmentSurrogate.pages, this@AttachmentSurrogate._pages),
+    )
 
   public companion object {
     public fun fromModel(model: Attachment): AttachmentSurrogate =
       with(model) {
-        AttachmentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          contentType = this@with.contentType?.value
-          _contentType = this@with.contentType?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          `data` = this@with.`data`?.value
-          _data = this@with.`data`?.toElement()
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          size = this@with.size?.value
-          _size = this@with.size?.toElement()
-          hash = this@with.hash?.value
-          _hash = this@with.hash?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          creation = this@with.creation?.value?.toString()
-          _creation = this@with.creation?.toElement()
-          height = this@with.height?.value
-          _height = this@with.height?.toElement()
-          width = this@with.width?.value
-          _width = this@with.width?.toElement()
-          frames = this@with.frames?.value
-          _frames = this@with.frames?.toElement()
-          duration = this@with.duration?.value
-          _duration = this@with.duration?.toElement()
-          pages = this@with.pages?.value
-          _pages = this@with.pages?.toElement()
-        }
+        AttachmentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          contentType = this@with.contentType?.value,
+          _contentType = this@with.contentType?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          `data` = this@with.`data`?.value,
+          _data = this@with.`data`?.toElement(),
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          size = this@with.size?.value,
+          _size = this@with.size?.toElement(),
+          hash = this@with.hash?.value,
+          _hash = this@with.hash?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          creation = this@with.creation?.value?.toString(),
+          _creation = this@with.creation?.toElement(),
+          height = this@with.height?.value,
+          _height = this@with.height?.toElement(),
+          width = this@with.width?.value,
+          _width = this@with.width?.toElement(),
+          frames = this@with.frames?.value,
+          _frames = this@with.frames?.toElement(),
+          duration = this@with.duration?.value,
+          _duration = this@with.duration?.toElement(),
+          pages = this@with.pages?.value,
+          _pages = this@with.pages?.toElement(),
+        )
       }
   }
 }

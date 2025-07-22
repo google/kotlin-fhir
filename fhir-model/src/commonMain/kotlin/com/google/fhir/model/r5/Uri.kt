@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** uri Type: String of characters used to identify a name or a resource */
 public open class Uri(
@@ -38,12 +38,12 @@ public open class Uri(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  open override var extension: List<Extension?>? = null,
+  open override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public open var `value`: String? = null,
 ) : PrimitiveType() {
   public open fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -51,10 +51,10 @@ public open class Uri(
 
   public companion object {
     public fun of(`value`: String?, element: Element?): Uri? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Uri(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Uri(element?.id, element?.extension, value)
+        null
       }
   }
 }

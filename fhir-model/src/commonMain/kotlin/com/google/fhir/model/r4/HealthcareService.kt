@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.HealthcareServiceEligibilitySerializ
 import com.google.fhir.model.r4.serializers.HealthcareServiceNotAvailableSerializer
 import com.google.fhir.model.r4.serializers.HealthcareServiceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class HealthcareService(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class HealthcareService(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,9 +126,9 @@ public data class HealthcareService(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** External identifiers for this item. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * This flag is used to mark the record to not be used. This is not used when a center is closed
    * for maintenance, or for holidays, the notAvailable period is to be used for this.
@@ -151,13 +151,13 @@ public data class HealthcareService(
    * Selecting a Service Category then determines the list of relevant service types that can be
    * selected in the primary service type.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** The specific type of service that may be delivered or performed. */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /** Collection of specialties handled by the service site. This is more of a medical term. */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /** The location(s) where this healthcare service may be provided. */
-  public var location: List<Reference?>? = null,
+  public var location: MutableList<Reference> = mutableListOf(),
   /** Further description of the service as it would be presented to a consumer while searching. */
   public var name: String? = null,
   /**
@@ -180,7 +180,7 @@ public data class HealthcareService(
    *
    * If this is empty, then refer to the location's contacts.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * The location(s) that this service is available to (not where the service is provided).
    *
@@ -190,7 +190,7 @@ public data class HealthcareService(
    * often not managed by any specific organization. This could also include generic locations such
    * as "in-home".
    */
-  public var coverageArea: List<Reference?>? = null,
+  public var coverageArea: MutableList<Reference> = mutableListOf(),
   /**
    * The code(s) that detail the conditions under which the healthcare service is available/offered.
    *
@@ -198,25 +198,25 @@ public data class HealthcareService(
    * of costings that may apply to this healthcare service, such if the service may be available for
    * free, some discounts available, or fees apply.
    */
-  public var serviceProvisionCode: List<CodeableConcept?>? = null,
+  public var serviceProvisionCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Does this service have specific eligibility requirements that need to be met in order to use
    * the service?
    */
-  public var eligibility: List<Eligibility>? = null,
+  public var eligibility: MutableList<Eligibility> = mutableListOf(),
   /**
    * Programs that this service is applicable to.
    *
    * Programs are often defined externally to an Organization, commonly by governments; e.g. Home
    * and Community Care Programs, Homeless Program, ….
    */
-  public var program: List<CodeableConcept?>? = null,
+  public var program: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Collection of characteristics (attributes).
    *
    * These could be such things as is wheelchair accessible.
    */
-  public var characteristic: List<CodeableConcept?>? = null,
+  public var characteristic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Some services are specifically made available in multiple languages, this property permits a
    * directory to declare the languages this is offered in. Typically this is only provided where a
@@ -226,12 +226,12 @@ public data class HealthcareService(
    * not derived from the practitioners, and not all are required to use this language, just that
    * this language is available while scheduling.
    */
-  public var communication: List<CodeableConcept?>? = null,
+  public var communication: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Ways that the service accepts referrals, if this is not provided then it is implied that no
    * referral is required.
    */
-  public var referralMethod: List<CodeableConcept?>? = null,
+  public var referralMethod: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Indicates whether or not a prospective consumer will require an appointment for a particular
    * service at a site to be provided by the Organization. Indicates if an appointment is required
@@ -243,11 +243,11 @@ public data class HealthcareService(
    *
    * More detailed availability information may be provided in associated Schedule/Slot resources.
    */
-  public var availableTime: List<AvailableTime>? = null,
+  public var availableTime: MutableList<AvailableTime> = mutableListOf(),
   /**
    * The HealthcareService is not available during this period of time due to the provided reason.
    */
-  public var notAvailable: List<NotAvailable>? = null,
+  public var notAvailable: MutableList<NotAvailable> = mutableListOf(),
   /**
    * A description of site availability exceptions, e.g. public holiday availability. Succinctly
    * describing all possible exceptions to normal site availability as details in the available
@@ -258,7 +258,7 @@ public data class HealthcareService(
    * Technical endpoints providing access to services operated for the specific healthcare services
    * defined at this resource.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Does this service have specific eligibility requirements that need to be met in order to use
@@ -283,7 +283,7 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -302,7 +302,7 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Coded value for the eligibility. */
     public var code: CodeableConcept? = null,
     /**
@@ -338,7 +338,7 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -357,9 +357,9 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates which days of the week are available between the start and end Times. */
-    public var daysOfWeek: List<Enumeration<DaysOfWeek>>? = null,
+    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
     /** Is this always available? (hence times are irrelevant) e.g. 24 hour service. */
     public var allDay: Boolean? = null,
     /**
@@ -398,7 +398,7 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -417,9 +417,9 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The reason that can be presented to the user as to why this time is not available. */
-    public var description: String? = null,
+    public var description: String,
     /** Service is not available (seasonally or for a public holiday) from this date. */
     public var during: Period? = null,
   ) : BackboneElement()

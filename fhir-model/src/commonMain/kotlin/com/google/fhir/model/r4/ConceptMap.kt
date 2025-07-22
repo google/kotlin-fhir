@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.ConceptMapGroupSerializer
 import com.google.fhir.model.r4.serializers.ConceptMapGroupUnmappedSerializer
 import com.google.fhir.model.r4.serializers.ConceptMapSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ConceptMap(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ConceptMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class ConceptMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this concept map when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -192,7 +192,7 @@ public data class ConceptMap(
    *
    * Allows filtering of concept maps that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this concept map is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -226,7 +226,7 @@ public data class ConceptMap(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the concept map from a consumer's perspective.
    *
@@ -244,14 +244,14 @@ public data class ConceptMap(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the concept map is intended to be used.
    *
    * It may be possible for the concept map to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this concept map is needed and why it has been designed as it has.
    *
@@ -287,7 +287,7 @@ public data class ConceptMap(
    */
   public var target: Target? = null,
   /** A group of mappings that all have the same source and target system. */
-  public var group: List<Group>? = null,
+  public var group: MutableList<Group> = mutableListOf(),
 ) : DomainResource() {
   /** A group of mappings that all have the same source and target system. */
   @Serializable(with = ConceptMapGroupSerializer::class)
@@ -309,7 +309,7 @@ public data class ConceptMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -328,7 +328,7 @@ public data class ConceptMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An absolute URI that identifies the source system where the concepts to be mapped are
      * defined.
@@ -366,7 +366,7 @@ public data class ConceptMap(
      * value set, but a given concept may be mapped multiple times with different comments or
      * dependencies.
      */
-    public var element: List<Element>? = null,
+    public var element: MutableList<Element> = mutableListOf(),
     /**
      * What to do when there is no mapping for the source concept. "Unmapped" does not include codes
      * that are unmatched, and the unmapped element is ignored in a code is specified to have
@@ -397,7 +397,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -416,7 +416,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Identity (code or path) or the element/item being mapped. */
       public var code: Code? = null,
       /**
@@ -432,7 +432,7 @@ public data class ConceptMap(
        * Ideally there would only be one map, with equal or equivalent mapping. But multiple maps
        * are allowed for several narrower options, or to assert that other concepts are unmatched.
        */
-      public var target: List<Target>? = null,
+      public var target: MutableList<Target> = mutableListOf(),
     ) : BackboneElement() {
       /** A concept from the target value set that this concept maps to. */
       @Serializable(with = ConceptMapGroupElementTargetSerializer::class)
@@ -454,7 +454,7 @@ public data class ConceptMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -473,7 +473,7 @@ public data class ConceptMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Identity (code or path) or the element/item that the map refers to. */
         public var code: Code? = null,
         /**
@@ -491,7 +491,7 @@ public data class ConceptMap(
          * This element is labeled as a modifier because it may indicate that a target does not
          * apply.
          */
-        public var equivalence: Enumeration<ConceptMapEquivalence>? = null,
+        public var equivalence: Enumeration<ConceptMapEquivalence>,
         /**
          * A description of status/issues in mapping that conveys additional information not
          * represented in the structured data.
@@ -501,14 +501,14 @@ public data class ConceptMap(
          * A set of additional dependencies for this mapping to hold. This mapping is only
          * applicable if the specified element can be resolved, and it has the specified value.
          */
-        public var dependsOn: List<DependsOn>? = null,
+        public var dependsOn: MutableList<DependsOn> = mutableListOf(),
         /**
          * A set of additional outcomes from this mapping to other elements. To properly execute
          * this mapping, the specified element must be mapped to some data element or source that is
          * in context. The mapping may still be useful without a place for the additional data
          * elements, but the equivalence cannot be relied on.
          */
-        public var product: List<DependsOn?>? = null,
+        public var product: MutableList<DependsOn> = mutableListOf(),
       ) : BackboneElement() {
         /**
          * A set of additional dependencies for this mapping to hold. This mapping is only
@@ -533,7 +533,7 @@ public data class ConceptMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -552,13 +552,13 @@ public data class ConceptMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /**
            * A reference to an element that holds a coded value that corresponds to a code system
            * property. The idea is that the information model carries an element somewhere that is
            * labeled to correspond with a code system property.
            */
-          public var `property`: Uri? = null,
+          public var `property`: Uri,
           /**
            * An absolute URI that identifies the code system of the dependency code (if the
            * source/dependency is a value set that crosses code systems).
@@ -568,7 +568,7 @@ public data class ConceptMap(
            * Identity (code or path) or the element/item/ValueSet/text that the map depends on /
            * refers to.
            */
-          public var `value`: String? = null,
+          public var `value`: String,
           /**
            * The display for the code. The display is only provided to help editors when editing the
            * concept map.
@@ -604,7 +604,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -623,7 +623,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Defines which action to take if there is no match for the source concept in the target
        * system designated for the group. One of 3 actions are possible: use the unmapped code (this
@@ -631,7 +631,7 @@ public data class ConceptMap(
        * fixed code (a default code), or alternatively, a reference to a different concept map can
        * be provided (by canonical URL).
        */
-      public var mode: Enumeration<ConceptMapGroupUnmappedMode>? = null,
+      public var mode: Enumeration<ConceptMapGroupUnmappedMode>,
       /**
        * The fixed code to use when the mode = 'fixed' - all unmapped codes are mapped to a single
        * fixed code.
@@ -662,7 +662,7 @@ public data class ConceptMap(
     public data class Canonical(public val `value`: com.google.fhir.model.r4.Canonical) : Source
 
     public companion object {
-      public fun from(
+      internal fun from(
         uriValue: com.google.fhir.model.r4.Uri?,
         canonicalValue: com.google.fhir.model.r4.Canonical?,
       ): Source? {
@@ -683,7 +683,7 @@ public data class ConceptMap(
     public data class Canonical(public val `value`: com.google.fhir.model.r4.Canonical) : Target
 
     public companion object {
-      public fun from(
+      internal fun from(
         uriValue: com.google.fhir.model.r4.Uri?,
         canonicalValue: com.google.fhir.model.r4.Canonical?,
       ): Target? {

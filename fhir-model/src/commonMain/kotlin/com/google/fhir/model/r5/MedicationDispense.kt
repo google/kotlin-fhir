@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.MedicationDispenseSerializer
 import com.google.fhir.model.r5.serializers.MedicationDispenseSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class MedicationDispense(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class MedicationDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class MedicationDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this Medication Dispense that are defined by business processes
    * and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -142,9 +142,9 @@ public data class MedicationDispense(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A plan that is fulfilled in whole or in part by this MedicationDispense. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * The procedure or medication administration that triggered the dispense.
    *
@@ -152,14 +152,14 @@ public data class MedicationDispense(
    * is not expected that multiple procedures and/or multiple medication administrations would be
    * triggers.
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code specifying the state of the set of dispense events.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationDispenseStatus>? = null,
+  public var status: Enumeration<MedicationDispenseStatus>,
   /** Indicates the reason why a dispense was not performed. */
   public var notPerformedReason: CodeableReference? = null,
   /** The date (and maybe time) when the status of the dispense record changed. */
@@ -172,7 +172,7 @@ public data class MedicationDispense(
    * types of dispenses. Invariants can be used to bind to different value sets when profiling to
    * bind.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Identifies the medication supplied. This is either a link to a resource representing the
    * details of the medication or a simple attribute carrying a code that identifies the medication
@@ -182,13 +182,13 @@ public data class MedicationDispense(
    * information is required, then the use of the medication resource is recommended. For example,
    * if you require form or lot number, then you must reference the Medication resource.
    */
-  public var medication: CodeableReference? = null,
+  public var medication: CodeableReference,
   /**
    * A link to a resource representing the person or the group to whom the medication will be given.
    *
    * SubstanceAdministration->subject->Patient.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter that establishes the context for this event. */
   public var encounter: Reference? = null,
   /**
@@ -196,9 +196,9 @@ public data class MedicationDispense(
    * requirements that a specific lab test has been completed prior to dispensing or the patient's
    * weight at the time of dispensing is documented.
    */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /** Indicates who or what performed the event. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** The principal physical location where the dispense was performed. */
   public var location: Reference? = null,
   /**
@@ -206,7 +206,7 @@ public data class MedicationDispense(
    *
    * Maps to basedOn in Event logical model.
    */
-  public var authorizingPrescription: List<Reference?>? = null,
+  public var authorizingPrescription: MutableList<Reference> = mutableListOf(),
   /**
    * Indicates the type of dispensing event that is performed. For example, Trial Fill, Completion
    * of Trial, Partial Fill, Emergency Fill, Samples, etc.
@@ -235,9 +235,9 @@ public data class MedicationDispense(
    * delivered. This will usually be a patient or their caregiver, but some cases exist where it can
    * be a healthcare professional or a location.
    */
-  public var `receiver`: List<Reference?>? = null,
+  public var `receiver`: MutableList<Reference> = mutableListOf(),
   /** Extra information about the dispense that could not be conveyed in the other attributes. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The full representation of the dose of the medication included in all dosage instructions. To
    * be used when multiple dosage instructions are included to represent complex dosing such as
@@ -255,7 +255,7 @@ public data class MedicationDispense(
    * supplied to convey the different doses/rates. The pharmacist reviews the medication order prior
    * to dispense and updates the dosageInstruction based on the actual product being dispensed.
    */
-  public var dosageInstruction: List<Dosage?>? = null,
+  public var dosageInstruction: MutableList<Dosage> = mutableListOf(),
   /**
    * Indicates whether or not substitution was made as part of the dispense. In some cases,
    * substitution will be expected but does not happen, in other cases substitution is not expected
@@ -273,7 +273,7 @@ public data class MedicationDispense(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.).
    */
-  public var eventHistory: List<Reference?>? = null,
+  public var eventHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what performed the event. */
   @Serializable(with = MedicationDispensePerformerSerializer::class)
@@ -295,7 +295,7 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -314,7 +314,7 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of performer in the dispense. For example, date enterer, packager,
      * final checker.
@@ -324,7 +324,7 @@ public data class MedicationDispense(
      * The device, practitioner, etc. who performed the action. It should be assumed that the actor
      * is the dispenser of the medication.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /**
@@ -352,7 +352,7 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -371,15 +371,15 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** True if the dispenser dispensed a different drug or product from what was prescribed. */
-    public var wasSubstituted: Boolean? = null,
+    public var wasSubstituted: Boolean,
     /** A code signifying whether a different drug was dispensed from what was prescribed. */
     public var type: CodeableConcept? = null,
     /**
      * Indicates the reason for the substitution (or lack of substitution) from what was prescribed.
      */
-    public var reason: List<CodeableConcept?>? = null,
+    public var reason: MutableList<CodeableConcept> = mutableListOf(),
     /** The person or organization that has primary responsibility for the substitution. */
     public var responsibleParty: Reference? = null,
   ) : BackboneElement()

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ClinicalImpressionFindingSerializer
 import com.google.fhir.model.r5.serializers.ClinicalImpressionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class ClinicalImpression(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class ClinicalImpression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class ClinicalImpression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this clinical impression by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -145,14 +145,14 @@ public data class ClinicalImpression(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Identifies the workflow status of the assessment.
    *
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the clinical impression as not currently valid.
    */
-  public var status: Enumeration<ClinicalImpressionStatus>? = null,
+  public var status: Enumeration<ClinicalImpressionStatus>,
   /**
    * Captures the reason for the current state of the ClinicalImpression.
    *
@@ -166,7 +166,7 @@ public data class ClinicalImpression(
    */
   public var description: String? = null,
   /** The patient or group of individuals assessed as part of this record. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which this ClinicalImpression was created or to which the creation of this
    * record is tightly associated.
@@ -201,7 +201,7 @@ public data class ClinicalImpression(
    * e.g. The patient is a pregnant, has congestive heart failure, has an ‎Adenocarcinoma, and is
    * allergic to penicillin.
    */
-  public var problem: List<Reference?>? = null,
+  public var problem: MutableList<Reference> = mutableListOf(),
   /**
    * Change in the status/pattern of a subject's condition since previously assessed, such as
    * worsening, improving, or no change. It is a subjective assessment of the direction of the
@@ -212,19 +212,19 @@ public data class ClinicalImpression(
    * Reference to a specific published clinical protocol that was followed during this assessment,
    * and/or that provides evidence in support of the diagnosis.
    */
-  public var protocol: List<Uri?>? = null,
+  public var protocol: MutableList<Uri> = mutableListOf(),
   /** A text summary of the investigations and the diagnosis. */
   public var summary: String? = null,
   /**
    * Specific findings or diagnoses that were considered likely or relevant to ongoing treatment.
    */
-  public var finding: List<Finding>? = null,
+  public var finding: MutableList<Finding> = mutableListOf(),
   /** Estimate of likely outcome. */
-  public var prognosisCodeableConcept: List<CodeableConcept?>? = null,
+  public var prognosisCodeableConcept: MutableList<CodeableConcept> = mutableListOf(),
   /** RiskAssessment expressing likely outcome. */
-  public var prognosisReference: List<Reference?>? = null,
+  public var prognosisReference: MutableList<Reference> = mutableListOf(),
   /** Information supporting the clinical impression, which can contain investigation results. */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Commentary about the impression, typically recorded after the impression itself was made,
    * though supplemental notes by the original author could also appear.
@@ -232,7 +232,7 @@ public data class ClinicalImpression(
    * Don't use this element for content that should more properly appear as one of the specific
    * elements of the impression.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Specific findings or diagnoses that were considered likely or relevant to ongoing treatment.
@@ -256,7 +256,7 @@ public data class ClinicalImpression(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -275,7 +275,7 @@ public data class ClinicalImpression(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Specific text, code or reference for finding or diagnosis, which may include ruled-out or
      * resolved conditions.
@@ -295,12 +295,12 @@ public data class ClinicalImpression(
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Effective
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
+        periodValue: com.google.fhir.model.r5.Period?,
       ): Effective? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         return null
       }
     }

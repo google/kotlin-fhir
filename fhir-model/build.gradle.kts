@@ -108,6 +108,10 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
+            // Explicitly define the source directory `src/commonMain/kotlin` in order to ignore
+            // `build/generated` which would generate "redeclaration" error after the `codegen` sync
+            // task above.
+            kotlin.setSrcDirs(listOf(file("src/commonMain/kotlin")))
             dependencies {
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kotlinx.serialization.json)

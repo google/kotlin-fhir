@@ -28,43 +28,43 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PeriodSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var start: String? = null,
   public var _start: Element? = null,
   public var end: String? = null,
   public var _end: Element? = null,
 ) {
   public fun toModel(): Period =
-    Period().apply {
-      id = this@PeriodSurrogate.id
-      extension = this@PeriodSurrogate.extension
+    Period(
+      id = this@PeriodSurrogate.id,
+      extension = this@PeriodSurrogate.extension ?: mutableListOf(),
       start =
         DateTime.of(
           FhirDateTime.fromString(this@PeriodSurrogate.start),
           this@PeriodSurrogate._start,
-        )
+        ),
       end =
-        DateTime.of(FhirDateTime.fromString(this@PeriodSurrogate.end), this@PeriodSurrogate._end)
-    }
+        DateTime.of(FhirDateTime.fromString(this@PeriodSurrogate.end), this@PeriodSurrogate._end),
+    )
 
   public companion object {
     public fun fromModel(model: Period): PeriodSurrogate =
       with(model) {
-        PeriodSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          start = this@with.start?.value?.toString()
-          _start = this@with.start?.toElement()
-          end = this@with.end?.value?.toString()
-          _end = this@with.end?.toElement()
-        }
+        PeriodSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          start = this@with.start?.value?.toString(),
+          _start = this@with.start?.toElement(),
+          end = this@with.end?.value?.toString(),
+          _end = this@with.end?.toElement(),
+        )
       }
   }
 }

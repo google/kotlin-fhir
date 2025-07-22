@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationProcedu
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class MedicinalProductAuthorization(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class MedicinalProductAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,15 +126,15 @@ public data class MedicinalProductAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier for the marketing authorization, as assigned by a regulator. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The medicinal product that is being authorized. */
   public var subject: Reference? = null,
   /** The country in which the marketing authorization has been granted. */
-  public var country: List<CodeableConcept?>? = null,
+  public var country: MutableList<CodeableConcept> = mutableListOf(),
   /** Jurisdiction within a country. */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /** The status of the marketing authorization. */
   public var status: CodeableConcept? = null,
   /** The date at which the given status has become applicable. */
@@ -162,7 +162,8 @@ public data class MedicinalProductAuthorization(
   /** The legal framework against which this authorization is granted. */
   public var legalBasis: CodeableConcept? = null,
   /** Authorization in areas within a country. */
-  public var jurisdictionalAuthorization: List<JurisdictionalAuthorization>? = null,
+  public var jurisdictionalAuthorization: MutableList<JurisdictionalAuthorization> =
+    mutableListOf(),
   /** Marketing Authorization Holder. */
   public var holder: Reference? = null,
   /** Medicines Regulatory Agency. */
@@ -190,7 +191,7 @@ public data class MedicinalProductAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -209,13 +210,13 @@ public data class MedicinalProductAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The assigned number for the marketing authorization. */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** Country of authorization. */
     public var country: CodeableConcept? = null,
     /** Jurisdiction within a country. */
-    public var jurisdiction: List<CodeableConcept?>? = null,
+    public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
     /** The legal status of supply in a jurisdiction or region. */
     public var legalStatusOfSupply: CodeableConcept? = null,
     /** The start and expected end date of the authorization. */
@@ -242,7 +243,7 @@ public data class MedicinalProductAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -261,15 +262,15 @@ public data class MedicinalProductAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifier for this procedure. */
     public var identifier: Identifier? = null,
     /** Type of procedure. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** Date of procedure. */
     public var date: Date? = null,
     /** Applcations submitted to obtain a marketing authorization. */
-    public var application: List<Procedure?>? = null,
+    public var application: MutableList<Procedure> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Date {
       public fun asPeriod(): Period? = this as? Period
@@ -281,11 +282,11 @@ public data class MedicinalProductAuthorization(
       public data class DateTime(public val `value`: com.google.fhir.model.r4.DateTime) : Date
 
       public companion object {
-        public fun from(
-          PeriodValue: com.google.fhir.model.r4.Period?,
+        internal fun from(
+          periodValue: com.google.fhir.model.r4.Period?,
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
         ): Date? {
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           return null
         }

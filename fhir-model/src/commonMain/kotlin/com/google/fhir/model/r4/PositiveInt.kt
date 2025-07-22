@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * Base StructureDefinition for positiveInt type: An integer with a value that is positive (e.g. >0)
@@ -41,12 +41,12 @@ public data class PositiveInt(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Primitive value for positiveInt */
   override var `value`: Int? = null,
 ) : Integer(id, extension, `value`) {
   override fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -54,10 +54,10 @@ public data class PositiveInt(
 
   public companion object {
     public fun of(`value`: Int?, element: Element?): PositiveInt? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        PositiveInt(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        PositiveInt(element?.id, element?.extension, value)
+        null
       }
   }
 }

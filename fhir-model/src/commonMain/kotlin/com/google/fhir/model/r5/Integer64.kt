@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** integer64 Type: A very large whole number */
 public data class Integer64(
@@ -39,12 +39,12 @@ public data class Integer64(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public var `value`: Int? = null,
 ) : PrimitiveType() {
   public fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -52,10 +52,10 @@ public data class Integer64(
 
   public companion object {
     public fun of(`value`: Int?, element: Element?): Integer64? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        Integer64(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        Integer64(element?.id, element?.extension, value)
+        null
       }
   }
 }

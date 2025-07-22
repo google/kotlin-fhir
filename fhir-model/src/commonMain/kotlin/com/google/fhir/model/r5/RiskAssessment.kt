@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.RiskAssessmentPredictionSerializer
 import com.google.fhir.model.r5.serializers.RiskAssessmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class RiskAssessment(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class RiskAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,21 +129,21 @@ public data class RiskAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier assigned to the risk assessment. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A reference to the request that is fulfilled by this risk assessment. */
   public var basedOn: Reference? = null,
   /** A reference to a resource that this risk assessment is part of, such as a Procedure. */
   public var parent: Reference? = null,
   /** The status of the RiskAssessment, using the same statuses as an Observation. */
-  public var status: Enumeration<RiskAssessmentStatus>? = null,
+  public var status: Enumeration<RiskAssessmentStatus>,
   /** The algorithm, process or mechanism used to evaluate the risk. */
   public var method: CodeableConcept? = null,
   /** The type of the risk assessment performed. */
   public var code: CodeableConcept? = null,
   /** The patient or group the risk assessment applies to. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter where the assessment was performed. */
   public var encounter: Reference? = null,
   /** The date (and possibly time) the risk assessment was performed. */
@@ -158,23 +158,23 @@ public data class RiskAssessment(
    */
   public var performer: Reference? = null,
   /** The reason the risk assessment was performed. */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Indicates the source data considered as part of the assessment (for example, FamilyHistory,
    * Observations, Procedures, Conditions, etc.).
    */
-  public var basis: List<Reference?>? = null,
+  public var basis: MutableList<Reference> = mutableListOf(),
   /**
    * Describes the expected outcome for the subject.
    *
    * Multiple repetitions can be used to identify the same type of outcome in different timeframes
    * as well as different types of outcomes.
    */
-  public var prediction: List<Prediction>? = null,
+  public var prediction: MutableList<Prediction> = mutableListOf(),
   /** A description of the steps that might be taken to reduce the identified risk(s). */
   public var mitigation: String? = null,
   /** Additional comments about the risk assessment. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Describes the expected outcome for the subject. */
   @Serializable(with = RiskAssessmentPredictionSerializer::class)
@@ -196,7 +196,7 @@ public data class RiskAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -215,7 +215,7 @@ public data class RiskAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * One of the potential outcomes for the patient (e.g. remission, death, a particular
      * condition).
@@ -259,12 +259,12 @@ public data class RiskAssessment(
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Probability
 
       public companion object {
-        public fun from(
+        internal fun from(
           decimalValue: com.google.fhir.model.r5.Decimal?,
-          RangeValue: com.google.fhir.model.r5.Range?,
+          rangeValue: com.google.fhir.model.r5.Range?,
         ): Probability? {
           if (decimalValue != null) return Decimal(decimalValue)
-          if (RangeValue != null) return Range(RangeValue)
+          if (rangeValue != null) return Range(rangeValue)
           return null
         }
       }
@@ -280,12 +280,12 @@ public data class RiskAssessment(
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : When
 
       public companion object {
-        public fun from(
-          PeriodValue: com.google.fhir.model.r5.Period?,
-          RangeValue: com.google.fhir.model.r5.Range?,
+        internal fun from(
+          periodValue: com.google.fhir.model.r5.Period?,
+          rangeValue: com.google.fhir.model.r5.Range?,
         ): When? {
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (RangeValue != null) return Range(RangeValue)
+          if (periodValue != null) return Period(periodValue)
+          if (rangeValue != null) return Range(rangeValue)
           return null
         }
       }
@@ -302,12 +302,12 @@ public data class RiskAssessment(
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Occurrence
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
+        periodValue: com.google.fhir.model.r5.Period?,
       ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         return null
       }
     }

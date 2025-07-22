@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.BodyStructureIncludedStructureSerial
 import com.google.fhir.model.r5.serializers.BodyStructureSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class BodyStructure(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class BodyStructure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,9 +132,9 @@ public data class BodyStructure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier for this instance of the anatomical structure. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this body site is in active use.
    *
@@ -151,12 +151,12 @@ public data class BodyStructure(
    */
   public var morphology: CodeableConcept? = null,
   /** The anatomical location(s) or region(s) of the specimen, lesion, or body structure. */
-  public var includedStructure: List<IncludedStructure>? = null,
+  public var includedStructure: MutableList<IncludedStructure> = mutableListOf(),
   /**
    * The anatomical location(s) or region(s) not occupied or represented by the specimen, lesion, or
    * body structure.
    */
-  public var excludedStructure: List<IncludedStructure?>? = null,
+  public var excludedStructure: MutableList<IncludedStructure> = mutableListOf(),
   /**
    * A summary, characterization or explanation of the body structure.
    *
@@ -165,9 +165,9 @@ public data class BodyStructure(
    */
   public var description: Markdown? = null,
   /** Image or images used to identify a location. */
-  public var image: List<Attachment?>? = null,
+  public var image: MutableList<Attachment> = mutableListOf(),
   /** The person to which the body site belongs. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
 ) : DomainResource() {
   /** The anatomical location(s) or region(s) of the specimen, lesion, or body structure. */
   @Serializable(with = BodyStructureIncludedStructureSerializer::class)
@@ -189,7 +189,7 @@ public data class BodyStructure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -208,19 +208,19 @@ public data class BodyStructure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Code that represents the included structure. */
-    public var structure: CodeableConcept? = null,
+    public var structure: CodeableConcept,
     /** Code that represents the included structure laterality. */
     public var laterality: CodeableConcept? = null,
     /**
      * Body locations in relation to a specific body landmark (tatoo, scar, other body structure).
      */
-    public var bodyLandmarkOrientation: List<BodyLandmarkOrientation>? = null,
+    public var bodyLandmarkOrientation: MutableList<BodyLandmarkOrientation> = mutableListOf(),
     /** XY or XYZ-coordinate orientation for structure. */
-    public var spatialReference: List<Reference?>? = null,
+    public var spatialReference: MutableList<Reference> = mutableListOf(),
     /** Code that represents the included structure qualifier. */
-    public var qualifier: List<CodeableConcept?>? = null,
+    public var qualifier: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Body locations in relation to a specific body landmark (tatoo, scar, other body structure).
@@ -244,7 +244,7 @@ public data class BodyStructure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -263,18 +263,18 @@ public data class BodyStructure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A description of a landmark on the body used as a reference to locate something else. */
-      public var landmarkDescription: List<CodeableConcept?>? = null,
+      public var landmarkDescription: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * An description of the direction away from a landmark something is located based on a radial
        * clock dial.
        */
-      public var clockFacePosition: List<CodeableConcept?>? = null,
+      public var clockFacePosition: MutableList<CodeableConcept> = mutableListOf(),
       /** The distance in centimeters a certain observation is made from a body landmark. */
-      public var distanceFromLandmark: List<DistanceFromLandmark>? = null,
+      public var distanceFromLandmark: MutableList<DistanceFromLandmark> = mutableListOf(),
       /** The surface area a body location is in relation to a landmark. */
-      public var surfaceOrientation: List<CodeableConcept?>? = null,
+      public var surfaceOrientation: MutableList<CodeableConcept> = mutableListOf(),
     ) : BackboneElement() {
       /** The distance in centimeters a certain observation is made from a body landmark. */
       @Serializable(
@@ -299,7 +299,7 @@ public data class BodyStructure(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -318,11 +318,11 @@ public data class BodyStructure(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** An instrument, tool, analyzer, etc. used in the measurement. */
-        public var device: List<CodeableReference?>? = null,
+        public var device: MutableList<CodeableReference> = mutableListOf(),
         /** The measured distance (e.g., in cm) from a body landmark. */
-        public var `value`: List<Quantity?>? = null,
+        public var `value`: MutableList<Quantity> = mutableListOf(),
       ) : BackboneElement()
     }
   }

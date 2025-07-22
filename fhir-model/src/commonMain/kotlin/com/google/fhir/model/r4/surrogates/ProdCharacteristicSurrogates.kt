@@ -30,15 +30,15 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProdCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var height: Quantity? = null,
   public var width: Quantity? = null,
   public var depth: Quantity? = null,
@@ -47,32 +47,35 @@ internal data class ProdCharacteristicSurrogate(
   public var externalDiameter: Quantity? = null,
   public var shape: KotlinString? = null,
   public var _shape: Element? = null,
-  public var color: List<KotlinString?>? = null,
-  public var _color: List<Element?>? = null,
-  public var imprint: List<KotlinString?>? = null,
-  public var _imprint: List<Element?>? = null,
-  public var image: List<Attachment?>? = null,
+  public var color: MutableList<KotlinString?>? = null,
+  public var _color: MutableList<Element?>? = null,
+  public var imprint: MutableList<KotlinString?>? = null,
+  public var _imprint: MutableList<Element?>? = null,
+  public var image: MutableList<Attachment>? = null,
   public var scoring: CodeableConcept? = null,
 ) {
   public fun toModel(): ProdCharacteristic =
-    ProdCharacteristic().apply {
-      id = this@ProdCharacteristicSurrogate.id
-      extension = this@ProdCharacteristicSurrogate.extension
-      modifierExtension = this@ProdCharacteristicSurrogate.modifierExtension
-      height = this@ProdCharacteristicSurrogate.height
-      width = this@ProdCharacteristicSurrogate.width
-      depth = this@ProdCharacteristicSurrogate.depth
-      weight = this@ProdCharacteristicSurrogate.weight
-      nominalVolume = this@ProdCharacteristicSurrogate.nominalVolume
-      externalDiameter = this@ProdCharacteristicSurrogate.externalDiameter
+    ProdCharacteristic(
+      id = this@ProdCharacteristicSurrogate.id,
+      extension = this@ProdCharacteristicSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProdCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      height = this@ProdCharacteristicSurrogate.height,
+      width = this@ProdCharacteristicSurrogate.width,
+      depth = this@ProdCharacteristicSurrogate.depth,
+      weight = this@ProdCharacteristicSurrogate.weight,
+      nominalVolume = this@ProdCharacteristicSurrogate.nominalVolume,
+      externalDiameter = this@ProdCharacteristicSurrogate.externalDiameter,
       shape =
-        R4String.of(this@ProdCharacteristicSurrogate.shape, this@ProdCharacteristicSurrogate._shape)
+        R4String.of(
+          this@ProdCharacteristicSurrogate.shape,
+          this@ProdCharacteristicSurrogate._shape,
+        ),
       color =
         if (
           this@ProdCharacteristicSurrogate.color == null &&
             this@ProdCharacteristicSurrogate._color == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ProdCharacteristicSurrogate.color
               ?: List(this@ProdCharacteristicSurrogate._color!!.size) { null })
@@ -80,14 +83,15 @@ internal data class ProdCharacteristicSurrogate(
               this@ProdCharacteristicSurrogate._color
                 ?: List(this@ProdCharacteristicSurrogate.color!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
       imprint =
         if (
           this@ProdCharacteristicSurrogate.imprint == null &&
             this@ProdCharacteristicSurrogate._imprint == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ProdCharacteristicSurrogate.imprint
               ?: List(this@ProdCharacteristicSurrogate._imprint!!.size) { null })
@@ -95,35 +99,47 @@ internal data class ProdCharacteristicSurrogate(
               this@ProdCharacteristicSurrogate._imprint
                 ?: List(this@ProdCharacteristicSurrogate.imprint!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
-      image = this@ProdCharacteristicSurrogate.image
-      scoring = this@ProdCharacteristicSurrogate.scoring
-    }
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
+      image = this@ProdCharacteristicSurrogate.image ?: mutableListOf(),
+      scoring = this@ProdCharacteristicSurrogate.scoring,
+    )
 
   public companion object {
     public fun fromModel(model: ProdCharacteristic): ProdCharacteristicSurrogate =
       with(model) {
-        ProdCharacteristicSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          height = this@with.height
-          width = this@with.width
-          depth = this@with.depth
-          weight = this@with.weight
-          nominalVolume = this@with.nominalVolume
-          externalDiameter = this@with.externalDiameter
-          shape = this@with.shape?.value
-          _shape = this@with.shape?.toElement()
-          color = this@with.color?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _color = this@with.color?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          imprint = this@with.imprint?.map { it?.value }?.takeUnless { it.all { it == null } }
+        ProdCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          height = this@with.height,
+          width = this@with.width,
+          depth = this@with.depth,
+          weight = this@with.weight,
+          nominalVolume = this@with.nominalVolume,
+          externalDiameter = this@with.externalDiameter,
+          shape = this@with.shape?.value,
+          _shape = this@with.shape?.toElement(),
+          color =
+            this@with.color.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _color =
+            this@with.color
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          imprint =
+            this@with.imprint.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _imprint =
-            this@with.imprint?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          image = this@with.image
-          scoring = this@with.scoring
-        }
+            this@with.imprint
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          image = this@with.image.takeUnless { it.all { it == null } },
+          scoring = this@with.scoring,
+        )
       }
   }
 }

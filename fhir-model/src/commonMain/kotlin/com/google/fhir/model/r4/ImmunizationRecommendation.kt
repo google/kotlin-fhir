@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.ImmunizationRecommendationRecommenda
 import com.google.fhir.model.r4.serializers.ImmunizationRecommendationRecommendationSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationRecommendationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class ImmunizationRecommendation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class ImmunizationRecommendation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,17 +128,17 @@ public data class ImmunizationRecommendation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this particular recommendation record. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The patient the recommendation(s) are for. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The date the immunization recommendation(s) were created. */
-  public var date: DateTime? = null,
+  public var date: DateTime,
   /** Indicates the authority who published the protocol (e.g. ACIP). */
   public var authority: Reference? = null,
   /** Vaccine administration recommendations. */
-  public var recommendation: List<Recommendation>? = null,
+  public var recommendation: MutableList<Recommendation> = mutableListOf(),
 ) : DomainResource() {
   /** Vaccine administration recommendations. */
   @Serializable(with = ImmunizationRecommendationRecommendationSerializer::class)
@@ -160,7 +160,7 @@ public data class ImmunizationRecommendation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -179,22 +179,22 @@ public data class ImmunizationRecommendation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Vaccine(s) or vaccine group that pertain to the recommendation. */
-    public var vaccineCode: List<CodeableConcept?>? = null,
+    public var vaccineCode: MutableList<CodeableConcept> = mutableListOf(),
     /** The targeted disease for the recommendation. */
     public var targetDisease: CodeableConcept? = null,
     /** Vaccine(s) which should not be used to fulfill the recommendation. */
-    public var contraindicatedVaccineCode: List<CodeableConcept?>? = null,
+    public var contraindicatedVaccineCode: MutableList<CodeableConcept> = mutableListOf(),
     /** Indicates the patient status with respect to the path to immunity for the target disease. */
-    public var forecastStatus: CodeableConcept? = null,
+    public var forecastStatus: CodeableConcept,
     /** The reason for the assigned forecast status. */
-    public var forecastReason: List<CodeableConcept?>? = null,
+    public var forecastReason: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Vaccine date recommendations. For example, earliest date to administer, latest date to
      * administer, etc.
      */
-    public var dateCriterion: List<DateCriterion>? = null,
+    public var dateCriterion: MutableList<DateCriterion> = mutableListOf(),
     /** Contains the description about the protocol under which the vaccine was administered. */
     public var description: String? = null,
     /**
@@ -218,12 +218,12 @@ public data class ImmunizationRecommendation(
      */
     public var seriesDoses: SeriesDoses? = null,
     /** Immunization event history and/or evaluation that supports the status and recommendation. */
-    public var supportingImmunization: List<Reference?>? = null,
+    public var supportingImmunization: MutableList<Reference> = mutableListOf(),
     /**
      * Patient Information that supports the status and recommendation. This includes patient
      * observations, adverse reactions and allergy/intolerance information.
      */
-    public var supportingPatientInformation: List<Reference?>? = null,
+    public var supportingPatientInformation: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Vaccine date recommendations. For example, earliest date to administer, latest date to
@@ -248,7 +248,7 @@ public data class ImmunizationRecommendation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -267,14 +267,14 @@ public data class ImmunizationRecommendation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Date classification of recommendation. For example, earliest date to give, latest date to
        * give, etc.
        */
-      public var code: CodeableConcept? = null,
+      public var code: CodeableConcept,
       /** The date whose meaning is specified by dateCriterion.code. */
-      public var `value`: DateTime? = null,
+      public var `value`: DateTime,
     ) : BackboneElement()
 
     public sealed interface DoseNumber {
@@ -288,7 +288,7 @@ public data class ImmunizationRecommendation(
       public data class String(public val `value`: com.google.fhir.model.r4.String) : DoseNumber
 
       public companion object {
-        public fun from(
+        internal fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
         ): DoseNumber? {
@@ -310,7 +310,7 @@ public data class ImmunizationRecommendation(
       public data class String(public val `value`: com.google.fhir.model.r4.String) : SeriesDoses
 
       public companion object {
-        public fun from(
+        internal fun from(
           positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
           stringValue: com.google.fhir.model.r4.String?,
         ): SeriesDoses? {

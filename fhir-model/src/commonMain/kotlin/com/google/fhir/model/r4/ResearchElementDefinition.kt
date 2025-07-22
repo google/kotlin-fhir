@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.ResearchElementDefinitionCharacteristicSerializer
 import com.google.fhir.model.r4.serializers.ResearchElementDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class ResearchElementDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class ResearchElementDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class ResearchElementDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this research element definition when it is referenced
    * in a specification, model, design or an instance; also called its canonical identifier. This
@@ -156,7 +156,7 @@ public data class ResearchElementDefinition(
    * type, and can then identify this research element definition outside of FHIR, where it is not
    * possible to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the research element definition when it
    * is referenced in a specification, model, design or instance. This is an arbitrary value managed
@@ -204,7 +204,7 @@ public data class ResearchElementDefinition(
    *
    * Allows filtering of research element definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this research element definition is authored for testing
    * purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -251,7 +251,7 @@ public data class ResearchElementDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the research element definition from a consumer's
    * perspective.
@@ -266,7 +266,7 @@ public data class ResearchElementDefinition(
    */
   public var description: Markdown? = null,
   /** A human-readable string to clarify or explain concepts about the resource. */
-  public var comment: List<String?>? = null,
+  public var comment: MutableList<String> = mutableListOf(),
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -276,14 +276,14 @@ public data class ResearchElementDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the research element definition is intended to be used.
    *
    * It may be possible for the research element definition to be used in jurisdictions other than
    * those for which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this research element definition is needed and why it has been designed as
    * it has.
@@ -334,37 +334,37 @@ public data class ResearchElementDefinition(
    * high-level categorization grouping types of ResearchElementDefinitions that can be useful for
    * filtering and searching.
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * A reference to a Library resource containing the formal logic used by the
    * ResearchElementDefinition.
    */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /** The type of research element, a population, an exposure, or an outcome. */
-  public var type: Enumeration<ResearchElementType>? = null,
+  public var type: Enumeration<ResearchElementType>,
   /** The type of the outcome (e.g. Dichotomous, Continuous, or Descriptive). */
   public var variableType: Enumeration<VariableType>? = null,
   /**
@@ -375,7 +375,7 @@ public data class ResearchElementDefinition(
    * criteria, ranging from simple codes, all the way to using an expression language to express the
    * criteria.
    */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A characteristic that defines the members of the research element. Multiple characteristics are
@@ -400,7 +400,7 @@ public data class ResearchElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -419,18 +419,18 @@ public data class ResearchElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Define members of the research element using Codes (such as condition, medication, or
      * observation), Expressions ( using an expression language such as FHIRPath or CQL) or
      * DataRequirements (such as Diabetes diagnosis onset in the last year).
      */
-    public var definition: Definition? = null,
+    public var definition: Definition,
     /**
      * Use UsageContext to define the members of the population, such as Age Ranges, Genders,
      * Settings.
      */
-    public var usageContext: List<UsageContext?>? = null,
+    public var usageContext: MutableList<UsageContext> = mutableListOf(),
     /** When true, members with this characteristic are excluded from the element. */
     public var exclude: Boolean? = null,
     /** Specifies the UCUM unit for the outcome. */
@@ -476,16 +476,16 @@ public data class ResearchElementDefinition(
       ) : Definition
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           canonicalValue: com.google.fhir.model.r4.Canonical?,
-          ExpressionValue: com.google.fhir.model.r4.Expression?,
-          DataRequirementValue: com.google.fhir.model.r4.DataRequirement?,
+          expressionValue: com.google.fhir.model.r4.Expression?,
+          dataRequirementValue: com.google.fhir.model.r4.DataRequirement?,
         ): Definition? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
-          if (ExpressionValue != null) return Expression(ExpressionValue)
-          if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
+          if (expressionValue != null) return Expression(expressionValue)
+          if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
           return null
         }
       }
@@ -513,16 +513,16 @@ public data class ResearchElementDefinition(
         StudyEffective
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
-          DurationValue: com.google.fhir.model.r4.Duration?,
-          TimingValue: com.google.fhir.model.r4.Timing?,
+          periodValue: com.google.fhir.model.r4.Period?,
+          durationValue: com.google.fhir.model.r4.Duration?,
+          timingValue: com.google.fhir.model.r4.Timing?,
         ): StudyEffective? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (TimingValue != null) return Timing(TimingValue)
+          if (periodValue != null) return Period(periodValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (timingValue != null) return Timing(timingValue)
           return null
         }
       }
@@ -550,16 +550,16 @@ public data class ResearchElementDefinition(
         ParticipantEffective
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4.DateTime?,
-          PeriodValue: com.google.fhir.model.r4.Period?,
-          DurationValue: com.google.fhir.model.r4.Duration?,
-          TimingValue: com.google.fhir.model.r4.Timing?,
+          periodValue: com.google.fhir.model.r4.Period?,
+          durationValue: com.google.fhir.model.r4.Duration?,
+          timingValue: com.google.fhir.model.r4.Timing?,
         ): ParticipantEffective? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (TimingValue != null) return Timing(TimingValue)
+          if (periodValue != null) return Period(periodValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (timingValue != null) return Timing(timingValue)
           return null
         }
       }
@@ -578,12 +578,12 @@ public data class ResearchElementDefinition(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
       ): Subject? {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         return null
       }
     }

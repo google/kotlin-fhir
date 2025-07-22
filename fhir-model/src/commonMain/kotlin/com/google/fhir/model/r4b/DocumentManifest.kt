@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.DocumentManifestRelatedSerializer
 import com.google.fhir.model.r4b.serializers.DocumentManifestSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class DocumentManifest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class DocumentManifest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class DocumentManifest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A single identifier that uniquely identifies this manifest. Principally used to refer to the
    * manifest in non-FHIR contexts.
@@ -137,14 +137,14 @@ public data class DocumentManifest(
    * Other identifiers associated with the document manifest, including version independent
    * identifiers.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of this document manifest.
    *
    * This element is labeled as a modifier because the status contains the codes that mark the
    * manifest as not currently valid.
    */
-  public var status: Enumeration<DocumentReferenceStatus>? = null,
+  public var status: Enumeration<DocumentReferenceStatus>,
   /**
    * The code specifying the type of clinical activity that resulted in placing the associated
    * content into the DocumentManifest.
@@ -176,7 +176,7 @@ public data class DocumentManifest(
    *
    * Not necessarily who did the actual data entry (i.e. typist) or who was the source (informant).
    */
-  public var author: List<Reference?>? = null,
+  public var author: MutableList<Reference> = mutableListOf(),
   /**
    * A patient, practitioner, or organization for which this set of documents is intended.
    *
@@ -184,7 +184,7 @@ public data class DocumentManifest(
    * This element is just a statement of intent. If the recipient is a person, and it is not known
    * whether the person is a patient or a practitioner, RelatedPerson would be the default choice.
    */
-  public var recipient: List<Reference?>? = null,
+  public var recipient: MutableList<Reference> = mutableListOf(),
   /** Identifies the source system, application, or software that produced the document manifest. */
   public var source: Uri? = null,
   /**
@@ -202,13 +202,13 @@ public data class DocumentManifest(
    * be a set of DocumentReference Resources. The reference is to "Any" to support EN 13606 usage,
    * where an extract is DocumentManifest that references List and Composition resources.
    */
-  public var content: List<Reference?>? = null,
+  public var content: MutableList<Reference> = mutableListOf(),
   /**
    * Related identifiers or resources associated with the DocumentManifest.
    *
    * May be identifiers or resources that caused the DocumentManifest to be created.
    */
-  public var related: List<Related>? = null,
+  public var related: MutableList<Related> = mutableListOf(),
 ) : DomainResource() {
   /** Related identifiers or resources associated with the DocumentManifest. */
   @Serializable(with = DocumentManifestRelatedSerializer::class)
@@ -230,7 +230,7 @@ public data class DocumentManifest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -249,7 +249,7 @@ public data class DocumentManifest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Related identifier to this DocumentManifest. For example, Order numbers, accession numbers,
      * XDW workflow numbers.

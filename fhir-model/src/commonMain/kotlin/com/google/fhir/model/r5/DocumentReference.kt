@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.DocumentReferenceContentSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceRelatesToSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -105,7 +105,7 @@ public data class DocumentReference(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class DocumentReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class DocumentReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Other business identifiers associated with the document, including version independent
    * identifiers.
@@ -146,7 +146,7 @@ public data class DocumentReference(
    * corresponding to the format of the document. (e.g. for a DICOM standard document, a
    * 64-character numeric UID; for an HL7 CDA format, the CDA Document Id root and extension).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * An explicitly assigned identifer of a variation of the content in the DocumentReference.
    *
@@ -157,7 +157,7 @@ public data class DocumentReference(
    */
   public var version: String? = null,
   /** A procedure that is fulfilled in whole or in part by the creation of this media. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * The status of this document reference.
    *
@@ -167,7 +167,7 @@ public data class DocumentReference(
    * This element is labeled as a modifier because the status contains the codes that mark the
    * document or reference as not currently valid.
    */
-  public var status: Enumeration<DocumentReferenceStatus>? = null,
+  public var status: Enumeration<DocumentReferenceStatus>,
   /**
    * The status of the underlying document.
    *
@@ -175,7 +175,7 @@ public data class DocumentReference(
    */
   public var docStatus: Enumeration<ReferredDocumentStatus>? = null,
   /** Imaging modality used. This may include both acquisition and non-acquisition modalities. */
-  public var modality: List<CodeableConcept?>? = null,
+  public var modality: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Specifies the particular kind of document referenced (e.g. History and Physical, Discharge
    * Summary, Progress Note). This usually equates to the purpose of making the document referenced.
@@ -192,7 +192,7 @@ public data class DocumentReference(
    * broader perspective that groups similar documents based on how they would be used. This is a
    * primary key used in searching.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Who or what the document is about. The document can be about a person, (patient or healthcare
    * practitioner), a device (e.g. a machine) or even a group of subjects (such as a document about
@@ -202,7 +202,7 @@ public data class DocumentReference(
   /**
    * Describes the clinical encounter or type of care that the document content is associated with.
    */
-  public var context: List<Reference?>? = null,
+  public var context: MutableList<Reference> = mutableListOf(),
   /**
    * This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy,
    * being documented. In some cases, the event is inherent in the type Code, such as a "History and
@@ -214,9 +214,9 @@ public data class DocumentReference(
    * included, they shall not conflict with the values inherent in the class or type elements as
    * such a conflict would create an ambiguous situation.
    */
-  public var event: List<CodeableReference?>? = null,
+  public var event: MutableList<CodeableReference> = mutableListOf(),
   /** The anatomic structures included in the document. */
-  public var bodySite: List<CodeableReference?>? = null,
+  public var bodySite: MutableList<CodeableReference> = mutableListOf(),
   /** The kind of facility where the patient was seen. */
   public var facilityType: CodeableConcept? = null,
   /**
@@ -241,13 +241,13 @@ public data class DocumentReference(
    *
    * Not necessarily who did the actual data entry (i.e. typist) or who was the source (informant).
    */
-  public var author: List<Reference?>? = null,
+  public var author: MutableList<Reference> = mutableListOf(),
   /**
    * A participant who has authenticated the accuracy of the document.
    *
    * Only list each attester once.
    */
-  public var attester: List<Attester>? = null,
+  public var attester: MutableList<Attester> = mutableListOf(),
   /**
    * Identifies the organization or group who is responsible for ongoing maintenance of and access
    * to the document.
@@ -264,7 +264,7 @@ public data class DocumentReference(
    * This element is labeled as a modifier because documents that append to other documents are
    * incomplete on their own.
    */
-  public var relatesTo: List<RelatesTo>? = null,
+  public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
   /**
    * Human-readable description of the source document.
    *
@@ -293,7 +293,7 @@ public data class DocumentReference(
    * to Confidentiality, Sensitivity, Integrity, and Handling Caveats. Some values would come from a
    * local vocabulary as they are related to workflow roles and special projects.
    */
-  public var securityLabel: List<CodeableConcept?>? = null,
+  public var securityLabel: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The document and format referenced. If there are multiple content element repetitions, these
    * must all represent the same document in different format, or attachment metadata.
@@ -301,7 +301,7 @@ public data class DocumentReference(
    * content element shall not contain different versions of the same content. For version handling
    * use multiple DocumentReference with .relatesTo.
    */
-  public var content: List<Content>? = null,
+  public var content: MutableList<Content> = mutableListOf(),
 ) : DomainResource() {
   /** A participant who has authenticated the accuracy of the document. */
   @Serializable(with = DocumentReferenceAttesterSerializer::class)
@@ -323,7 +323,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -342,9 +342,9 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of attestation the authenticator offers. */
-    public var mode: CodeableConcept? = null,
+    public var mode: CodeableConcept,
     /** When the document was attested by the party. */
     public var time: DateTime? = null,
     /** Who attested the document in the specified way. */
@@ -371,7 +371,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -390,16 +390,16 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of relationship that this document has with anther document.
      *
      * If this document appends another document, then the document cannot be fully understood
      * without also accessing the referenced document.
      */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** The target document of this relationship. */
-    public var target: Reference? = null,
+    public var target: Reference,
   ) : BackboneElement()
 
   /**
@@ -425,7 +425,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -444,12 +444,12 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The document or URL of the document along with critical metadata to prove content has
      * integrity.
      */
-    public var attachment: Attachment? = null,
+    public var attachment: Attachment,
     /**
      * An identifier of the document constraints, encoding, structure, and template that the
      * document conforms to beyond the base format indicated in the mimeType.
@@ -460,7 +460,7 @@ public data class DocumentReference(
      * For FHIR content, .profile should indicate the structureDefinition profile canonical URI(s)
      * that the content complies with.
      */
-    public var profile: List<Profile>? = null,
+    public var profile: MutableList<Profile> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * An identifier of the document constraints, encoding, structure, and template that the
@@ -485,7 +485,7 @@ public data class DocumentReference(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -504,9 +504,9 @@ public data class DocumentReference(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Code|uri|canonical. */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       public sealed interface Value {
         public fun asCoding(): Coding? = this as? Coding
@@ -522,12 +522,12 @@ public data class DocumentReference(
         public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Value
 
         public companion object {
-          public fun from(
-            CodingValue: com.google.fhir.model.r5.Coding?,
+          internal fun from(
+            codingValue: com.google.fhir.model.r5.Coding?,
             uriValue: com.google.fhir.model.r5.Uri?,
             canonicalValue: com.google.fhir.model.r5.Canonical?,
           ): Value? {
-            if (CodingValue != null) return Coding(CodingValue)
+            if (codingValue != null) return Coding(codingValue)
             if (uriValue != null) return Uri(uriValue)
             if (canonicalValue != null) return Canonical(canonicalValue)
             return null

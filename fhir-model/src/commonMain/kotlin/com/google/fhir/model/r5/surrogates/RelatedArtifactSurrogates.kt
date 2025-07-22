@@ -35,17 +35,17 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RelatedArtifactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var classifier: List<CodeableConcept?>? = null,
+  public var classifier: MutableList<CodeableConcept>? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
   public var display: KotlinString? = null,
@@ -62,67 +62,71 @@ internal data class RelatedArtifactSurrogate(
   public var _publicationDate: Element? = null,
 ) {
   public fun toModel(): RelatedArtifact =
-    RelatedArtifact().apply {
-      id = this@RelatedArtifactSurrogate.id
-      extension = this@RelatedArtifactSurrogate.extension
+    RelatedArtifact(
+      id = this@RelatedArtifactSurrogate.id,
+      extension = this@RelatedArtifactSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@RelatedArtifactSurrogate.type?.let {
-            com.google.fhir.model.r5.RelatedArtifact.RelatedArtifactType.fromCode(it)
-          },
+          com.google.fhir.model.r5.RelatedArtifact.RelatedArtifactType.fromCode(
+            this@RelatedArtifactSurrogate.type!!
+          ),
           this@RelatedArtifactSurrogate._type,
-        )
-      classifier = this@RelatedArtifactSurrogate.classifier
-      label = R5String.of(this@RelatedArtifactSurrogate.label, this@RelatedArtifactSurrogate._label)
+        ),
+      classifier = this@RelatedArtifactSurrogate.classifier ?: mutableListOf(),
+      label =
+        R5String.of(this@RelatedArtifactSurrogate.label, this@RelatedArtifactSurrogate._label),
       display =
-        R5String.of(this@RelatedArtifactSurrogate.display, this@RelatedArtifactSurrogate._display)
+        R5String.of(this@RelatedArtifactSurrogate.display, this@RelatedArtifactSurrogate._display),
       citation =
-        Markdown.of(this@RelatedArtifactSurrogate.citation, this@RelatedArtifactSurrogate._citation)
-      document = this@RelatedArtifactSurrogate.document
+        Markdown.of(
+          this@RelatedArtifactSurrogate.citation,
+          this@RelatedArtifactSurrogate._citation,
+        ),
+      document = this@RelatedArtifactSurrogate.document,
       resource =
         Canonical.of(
           this@RelatedArtifactSurrogate.resource,
           this@RelatedArtifactSurrogate._resource,
-        )
-      resourceReference = this@RelatedArtifactSurrogate.resourceReference
+        ),
+      resourceReference = this@RelatedArtifactSurrogate.resourceReference,
       publicationStatus =
-        Enumeration.of(
-          this@RelatedArtifactSurrogate.publicationStatus?.let {
-            com.google.fhir.model.r5.RelatedArtifactPublicationStatus.fromCode(it)
-          },
-          this@RelatedArtifactSurrogate._publicationStatus,
-        )
+        this@RelatedArtifactSurrogate.publicationStatus?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RelatedArtifactPublicationStatus.fromCode(it!!),
+            this@RelatedArtifactSurrogate._publicationStatus,
+          )
+        },
       publicationDate =
         Date.of(
           FhirDate.fromString(this@RelatedArtifactSurrogate.publicationDate),
           this@RelatedArtifactSurrogate._publicationDate,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: RelatedArtifact): RelatedArtifactSurrogate =
       with(model) {
-        RelatedArtifactSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          classifier = this@with.classifier
-          label = this@with.label?.value
-          _label = this@with.label?.toElement()
-          display = this@with.display?.value
-          _display = this@with.display?.toElement()
-          citation = this@with.citation?.value
-          _citation = this@with.citation?.toElement()
-          document = this@with.document
-          resource = this@with.resource?.value
-          _resource = this@with.resource?.toElement()
-          resourceReference = this@with.resourceReference
-          publicationStatus = this@with.publicationStatus?.value?.getCode()
-          _publicationStatus = this@with.publicationStatus?.toElement()
-          publicationDate = this@with.publicationDate?.value?.toString()
-          _publicationDate = this@with.publicationDate?.toElement()
-        }
+        RelatedArtifactSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          label = this@with.label?.value,
+          _label = this@with.label?.toElement(),
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
+          citation = this@with.citation?.value,
+          _citation = this@with.citation?.toElement(),
+          document = this@with.document,
+          resource = this@with.resource?.value,
+          _resource = this@with.resource?.toElement(),
+          resourceReference = this@with.resourceReference,
+          publicationStatus = this@with.publicationStatus?.value?.getCode(),
+          _publicationStatus = this@with.publicationStatus?.toElement(),
+          publicationDate = this@with.publicationDate?.value?.toString(),
+          _publicationDate = this@with.publicationDate?.toElement(),
+        )
       }
   }
 }

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * Base StructureDefinition for BackboneElement Type: Base definition for all elements that are
@@ -45,7 +45,7 @@ public sealed class BackboneElement : Element() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  abstract override var extension: List<Extension?>?
+  abstract override var extension: MutableList<Extension>
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -65,5 +65,5 @@ public sealed class BackboneElement : Element() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public abstract var modifierExtension: List<Extension?>?
+  public abstract var modifierExtension: MutableList<Extension>
 }

@@ -40,7 +40,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,15 +53,15 @@ internal data class DeviceUseStatementSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var basedOn: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var basedOn: MutableList<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var subject: Reference? = null,
-  public var derivedFrom: List<Reference?>? = null,
+  public var subject: Reference,
+  public var derivedFrom: MutableList<Reference>? = null,
   public var timingTiming: Timing? = null,
   public var timingPeriod: Period? = null,
   public var timingDateTime: String? = null,
@@ -69,41 +69,41 @@ internal data class DeviceUseStatementSurrogate(
   public var recordedOn: String? = null,
   public var _recordedOn: Element? = null,
   public var source: Reference? = null,
-  public var device: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
+  public var device: Reference,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
   public var bodySite: CodeableConcept? = null,
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): DeviceUseStatement =
-    DeviceUseStatement().apply {
-      id = this@DeviceUseStatementSurrogate.id
-      meta = this@DeviceUseStatementSurrogate.meta
+    DeviceUseStatement(
+      id = this@DeviceUseStatementSurrogate.id,
+      meta = this@DeviceUseStatementSurrogate.meta,
       implicitRules =
         Uri.of(
           this@DeviceUseStatementSurrogate.implicitRules,
           this@DeviceUseStatementSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@DeviceUseStatementSurrogate.language,
           this@DeviceUseStatementSurrogate._language,
-        )
-      text = this@DeviceUseStatementSurrogate.text
-      contained = this@DeviceUseStatementSurrogate.contained
-      extension = this@DeviceUseStatementSurrogate.extension
-      modifierExtension = this@DeviceUseStatementSurrogate.modifierExtension
-      identifier = this@DeviceUseStatementSurrogate.identifier
-      basedOn = this@DeviceUseStatementSurrogate.basedOn
+        ),
+      text = this@DeviceUseStatementSurrogate.text,
+      contained = this@DeviceUseStatementSurrogate.contained ?: mutableListOf(),
+      extension = this@DeviceUseStatementSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DeviceUseStatementSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DeviceUseStatementSurrogate.identifier ?: mutableListOf(),
+      basedOn = this@DeviceUseStatementSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@DeviceUseStatementSurrogate.status?.let {
-            com.google.fhir.model.r4.DeviceUseStatement.DeviceUseStatementStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.DeviceUseStatement.DeviceUseStatementStatus.fromCode(
+            this@DeviceUseStatementSurrogate.status!!
+          ),
           this@DeviceUseStatementSurrogate._status,
-        )
-      subject = this@DeviceUseStatementSurrogate.subject
-      derivedFrom = this@DeviceUseStatementSurrogate.derivedFrom
+        ),
+      subject = this@DeviceUseStatementSurrogate.subject,
+      derivedFrom = this@DeviceUseStatementSurrogate.derivedFrom ?: mutableListOf(),
       timing =
         DeviceUseStatement.Timing?.from(
           this@DeviceUseStatementSurrogate.timingTiming,
@@ -112,53 +112,53 @@ internal data class DeviceUseStatementSurrogate(
             FhirDateTime.fromString(this@DeviceUseStatementSurrogate.timingDateTime),
             this@DeviceUseStatementSurrogate._timingDateTime,
           ),
-        )
+        ),
       recordedOn =
         DateTime.of(
           FhirDateTime.fromString(this@DeviceUseStatementSurrogate.recordedOn),
           this@DeviceUseStatementSurrogate._recordedOn,
-        )
-      source = this@DeviceUseStatementSurrogate.source
-      device = this@DeviceUseStatementSurrogate.device
-      reasonCode = this@DeviceUseStatementSurrogate.reasonCode
-      reasonReference = this@DeviceUseStatementSurrogate.reasonReference
-      bodySite = this@DeviceUseStatementSurrogate.bodySite
-      note = this@DeviceUseStatementSurrogate.note
-    }
+        ),
+      source = this@DeviceUseStatementSurrogate.source,
+      device = this@DeviceUseStatementSurrogate.device,
+      reasonCode = this@DeviceUseStatementSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@DeviceUseStatementSurrogate.reasonReference ?: mutableListOf(),
+      bodySite = this@DeviceUseStatementSurrogate.bodySite,
+      note = this@DeviceUseStatementSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DeviceUseStatement): DeviceUseStatementSurrogate =
       with(model) {
-        DeviceUseStatementSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          subject = this@with.subject
-          derivedFrom = this@with.derivedFrom
-          timingTiming = this@with.timing?.asTiming()?.value
-          timingPeriod = this@with.timing?.asPeriod()?.value
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement()
-          recordedOn = this@with.recordedOn?.value?.toString()
-          _recordedOn = this@with.recordedOn?.toElement()
-          source = this@with.source
-          device = this@with.device
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          bodySite = this@with.bodySite
-          note = this@with.note
-        }
+        DeviceUseStatementSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          subject = this@with.subject,
+          derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
+          timingTiming = this@with.timing?.asTiming()?.value,
+          timingPeriod = this@with.timing?.asPeriod()?.value,
+          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement(),
+          recordedOn = this@with.recordedOn?.value?.toString(),
+          _recordedOn = this@with.recordedOn?.toElement(),
+          source = this@with.source,
+          device = this@with.device,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          bodySite = this@with.bodySite,
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

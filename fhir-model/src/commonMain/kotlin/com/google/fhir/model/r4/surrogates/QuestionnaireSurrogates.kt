@@ -55,7 +55,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -63,8 +63,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class QuestionnaireItemEnableWhenSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var question: KotlinString? = null,
   public var _question: Element? = null,
   public var `operator`: KotlinString? = null,
@@ -88,24 +88,25 @@ internal data class QuestionnaireItemEnableWhenSurrogate(
   public var answerReference: Reference? = null,
 ) {
   public fun toModel(): Questionnaire.Item.EnableWhen =
-    Questionnaire.Item.EnableWhen().apply {
-      id = this@QuestionnaireItemEnableWhenSurrogate.id
-      extension = this@QuestionnaireItemEnableWhenSurrogate.extension
-      modifierExtension = this@QuestionnaireItemEnableWhenSurrogate.modifierExtension
+    Questionnaire.Item.EnableWhen(
+      id = this@QuestionnaireItemEnableWhenSurrogate.id,
+      extension = this@QuestionnaireItemEnableWhenSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@QuestionnaireItemEnableWhenSurrogate.modifierExtension ?: mutableListOf(),
       question =
         R4String.of(
           this@QuestionnaireItemEnableWhenSurrogate.question,
           this@QuestionnaireItemEnableWhenSurrogate._question,
-        )
+        )!!,
       `operator` =
         Enumeration.of(
-          this@QuestionnaireItemEnableWhenSurrogate.`operator`?.let {
-            com.google.fhir.model.r4.Questionnaire.QuestionnaireItemOperator.fromCode(it)
-          },
+          com.google.fhir.model.r4.Questionnaire.QuestionnaireItemOperator.fromCode(
+            this@QuestionnaireItemEnableWhenSurrogate.`operator`!!
+          ),
           this@QuestionnaireItemEnableWhenSurrogate._operator,
-        )
+        ),
       answer =
-        Questionnaire.Item.EnableWhen.Answer?.from(
+        Questionnaire.Item.EnableWhen.Answer.from(
           R4Boolean.of(
             this@QuestionnaireItemEnableWhenSurrogate.answerBoolean,
             this@QuestionnaireItemEnableWhenSurrogate._answerBoolean,
@@ -137,40 +138,40 @@ internal data class QuestionnaireItemEnableWhenSurrogate(
           this@QuestionnaireItemEnableWhenSurrogate.answerCoding,
           this@QuestionnaireItemEnableWhenSurrogate.answerQuantity,
           this@QuestionnaireItemEnableWhenSurrogate.answerReference,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: Questionnaire.Item.EnableWhen
     ): QuestionnaireItemEnableWhenSurrogate =
       with(model) {
-        QuestionnaireItemEnableWhenSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          question = this@with.question?.value
-          _question = this@with.question?.toElement()
-          `operator` = this@with.`operator`?.value?.getCode()
-          _operator = this@with.`operator`?.toElement()
-          answerBoolean = this@with.answer?.asBoolean()?.value?.value
-          _answerBoolean = this@with.answer?.asBoolean()?.value?.toElement()
-          answerDecimal = this@with.answer?.asDecimal()?.value?.value
-          _answerDecimal = this@with.answer?.asDecimal()?.value?.toElement()
-          answerInteger = this@with.answer?.asInteger()?.value?.value
-          _answerInteger = this@with.answer?.asInteger()?.value?.toElement()
-          answerDate = this@with.answer?.asDate()?.value?.value?.toString()
-          _answerDate = this@with.answer?.asDate()?.value?.toElement()
-          answerDateTime = this@with.answer?.asDateTime()?.value?.value?.toString()
-          _answerDateTime = this@with.answer?.asDateTime()?.value?.toElement()
-          answerTime = this@with.answer?.asTime()?.value?.value
-          _answerTime = this@with.answer?.asTime()?.value?.toElement()
-          answerString = this@with.answer?.asString()?.value?.value
-          _answerString = this@with.answer?.asString()?.value?.toElement()
-          answerCoding = this@with.answer?.asCoding()?.value
-          answerQuantity = this@with.answer?.asQuantity()?.value
-          answerReference = this@with.answer?.asReference()?.value
-        }
+        QuestionnaireItemEnableWhenSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          question = this@with.question.value,
+          _question = this@with.question.toElement(),
+          `operator` = this@with.`operator`.value?.getCode(),
+          _operator = this@with.`operator`.toElement(),
+          answerBoolean = this@with.answer?.asBoolean()?.value?.value,
+          _answerBoolean = this@with.answer?.asBoolean()?.value?.toElement(),
+          answerDecimal = this@with.answer?.asDecimal()?.value?.value,
+          _answerDecimal = this@with.answer?.asDecimal()?.value?.toElement(),
+          answerInteger = this@with.answer?.asInteger()?.value?.value,
+          _answerInteger = this@with.answer?.asInteger()?.value?.toElement(),
+          answerDate = this@with.answer?.asDate()?.value?.value?.toString(),
+          _answerDate = this@with.answer?.asDate()?.value?.toElement(),
+          answerDateTime = this@with.answer?.asDateTime()?.value?.value?.toString(),
+          _answerDateTime = this@with.answer?.asDateTime()?.value?.toElement(),
+          answerTime = this@with.answer?.asTime()?.value?.value,
+          _answerTime = this@with.answer?.asTime()?.value?.toElement(),
+          answerString = this@with.answer?.asString()?.value?.value,
+          _answerString = this@with.answer?.asString()?.value?.toElement(),
+          answerCoding = this@with.answer?.asCoding()?.value,
+          answerQuantity = this@with.answer?.asQuantity()?.value,
+          answerReference = this@with.answer?.asReference()?.value,
+        )
       }
   }
 }
@@ -178,8 +179,8 @@ internal data class QuestionnaireItemEnableWhenSurrogate(
 @Serializable
 internal data class QuestionnaireItemAnswerOptionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var valueInteger: Int? = null,
   public var _valueInteger: Element? = null,
   public var valueDate: KotlinString? = null,
@@ -194,12 +195,13 @@ internal data class QuestionnaireItemAnswerOptionSurrogate(
   public var _initialSelected: Element? = null,
 ) {
   public fun toModel(): Questionnaire.Item.AnswerOption =
-    Questionnaire.Item.AnswerOption().apply {
-      id = this@QuestionnaireItemAnswerOptionSurrogate.id
-      extension = this@QuestionnaireItemAnswerOptionSurrogate.extension
-      modifierExtension = this@QuestionnaireItemAnswerOptionSurrogate.modifierExtension
+    Questionnaire.Item.AnswerOption(
+      id = this@QuestionnaireItemAnswerOptionSurrogate.id,
+      extension = this@QuestionnaireItemAnswerOptionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@QuestionnaireItemAnswerOptionSurrogate.modifierExtension ?: mutableListOf(),
       `value` =
-        Questionnaire.Item.AnswerOption.Value?.from(
+        Questionnaire.Item.AnswerOption.Value.from(
           Integer.of(
             this@QuestionnaireItemAnswerOptionSurrogate.valueInteger,
             this@QuestionnaireItemAnswerOptionSurrogate._valueInteger,
@@ -218,36 +220,36 @@ internal data class QuestionnaireItemAnswerOptionSurrogate(
           ),
           this@QuestionnaireItemAnswerOptionSurrogate.valueCoding,
           this@QuestionnaireItemAnswerOptionSurrogate.valueReference,
-        )
+        )!!,
       initialSelected =
         R4Boolean.of(
           this@QuestionnaireItemAnswerOptionSurrogate.initialSelected,
           this@QuestionnaireItemAnswerOptionSurrogate._initialSelected,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: Questionnaire.Item.AnswerOption
     ): QuestionnaireItemAnswerOptionSurrogate =
       with(model) {
-        QuestionnaireItemAnswerOptionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          initialSelected = this@with.initialSelected?.value
-          _initialSelected = this@with.initialSelected?.toElement()
-        }
+        QuestionnaireItemAnswerOptionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          initialSelected = this@with.initialSelected?.value,
+          _initialSelected = this@with.initialSelected?.toElement(),
+        )
       }
   }
 }
@@ -255,8 +257,8 @@ internal data class QuestionnaireItemAnswerOptionSurrogate(
 @Serializable
 internal data class QuestionnaireItemInitialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
   public var valueDecimal: Double? = null,
@@ -279,12 +281,13 @@ internal data class QuestionnaireItemInitialSurrogate(
   public var valueReference: Reference? = null,
 ) {
   public fun toModel(): Questionnaire.Item.Initial =
-    Questionnaire.Item.Initial().apply {
-      id = this@QuestionnaireItemInitialSurrogate.id
-      extension = this@QuestionnaireItemInitialSurrogate.extension
-      modifierExtension = this@QuestionnaireItemInitialSurrogate.modifierExtension
+    Questionnaire.Item.Initial(
+      id = this@QuestionnaireItemInitialSurrogate.id,
+      extension = this@QuestionnaireItemInitialSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@QuestionnaireItemInitialSurrogate.modifierExtension ?: mutableListOf(),
       `value` =
-        Questionnaire.Item.Initial.Value?.from(
+        Questionnaire.Item.Initial.Value.from(
           R4Boolean.of(
             this@QuestionnaireItemInitialSurrogate.valueBoolean,
             this@QuestionnaireItemInitialSurrogate._valueBoolean,
@@ -321,37 +324,37 @@ internal data class QuestionnaireItemInitialSurrogate(
           this@QuestionnaireItemInitialSurrogate.valueCoding,
           this@QuestionnaireItemInitialSurrogate.valueQuantity,
           this@QuestionnaireItemInitialSurrogate.valueReference,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Questionnaire.Item.Initial): QuestionnaireItemInitialSurrogate =
       with(model) {
-        QuestionnaireItemInitialSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement()
-          valueInteger = this@with.`value`?.asInteger()?.value?.value
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement()
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString()
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement()
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString()
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement()
-          valueTime = this@with.`value`?.asTime()?.value?.value
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement()
-          valueString = this@with.`value`?.asString()?.value?.value
-          _valueString = this@with.`value`?.asString()?.value?.toElement()
-          valueUri = this@with.`value`?.asUri()?.value?.value
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement()
-          valueAttachment = this@with.`value`?.asAttachment()?.value
-          valueCoding = this@with.`value`?.asCoding()?.value
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-        }
+        QuestionnaireItemInitialSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
+          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          valueInteger = this@with.`value`?.asInteger()?.value?.value,
+          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
+          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
+          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          valueTime = this@with.`value`?.asTime()?.value?.value,
+          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
+          valueString = this@with.`value`?.asString()?.value?.value,
+          _valueString = this@with.`value`?.asString()?.value?.toElement(),
+          valueUri = this@with.`value`?.asUri()?.value?.value,
+          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
+          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          valueCoding = this@with.`value`?.asCoding()?.value,
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+        )
       }
   }
 }
@@ -359,20 +362,20 @@ internal data class QuestionnaireItemInitialSurrogate(
 @Serializable
 internal data class QuestionnaireItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
-  public var code: List<Coding?>? = null,
+  public var code: MutableList<Coding>? = null,
   public var prefix: KotlinString? = null,
   public var _prefix: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var enableWhen: List<Questionnaire.Item.EnableWhen>? = null,
+  public var enableWhen: MutableList<Questionnaire.Item.EnableWhen>? = null,
   public var enableBehavior: KotlinString? = null,
   public var _enableBehavior: Element? = null,
   public var required: KotlinBoolean? = null,
@@ -385,107 +388,113 @@ internal data class QuestionnaireItemSurrogate(
   public var _maxLength: Element? = null,
   public var answerValueSet: KotlinString? = null,
   public var _answerValueSet: Element? = null,
-  public var answerOption: List<Questionnaire.Item.AnswerOption>? = null,
-  public var initial: List<Questionnaire.Item.Initial>? = null,
-  public var item: List<Questionnaire.Item?>? = null,
+  public var answerOption: MutableList<Questionnaire.Item.AnswerOption>? = null,
+  public var initial: MutableList<Questionnaire.Item.Initial>? = null,
+  public var item: MutableList<Questionnaire.Item>? = null,
 ) {
   public fun toModel(): Questionnaire.Item =
-    Questionnaire.Item().apply {
-      id = this@QuestionnaireItemSurrogate.id
-      extension = this@QuestionnaireItemSurrogate.extension
-      modifierExtension = this@QuestionnaireItemSurrogate.modifierExtension
+    Questionnaire.Item(
+      id = this@QuestionnaireItemSurrogate.id,
+      extension = this@QuestionnaireItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@QuestionnaireItemSurrogate.modifierExtension ?: mutableListOf(),
       linkId =
-        R4String.of(this@QuestionnaireItemSurrogate.linkId, this@QuestionnaireItemSurrogate._linkId)
+        R4String.of(
+          this@QuestionnaireItemSurrogate.linkId,
+          this@QuestionnaireItemSurrogate._linkId,
+        )!!,
       definition =
         Uri.of(
           this@QuestionnaireItemSurrogate.definition,
           this@QuestionnaireItemSurrogate._definition,
-        )
-      code = this@QuestionnaireItemSurrogate.code
+        ),
+      code = this@QuestionnaireItemSurrogate.code ?: mutableListOf(),
       prefix =
-        R4String.of(this@QuestionnaireItemSurrogate.prefix, this@QuestionnaireItemSurrogate._prefix)
+        R4String.of(
+          this@QuestionnaireItemSurrogate.prefix,
+          this@QuestionnaireItemSurrogate._prefix,
+        ),
       text =
-        R4String.of(this@QuestionnaireItemSurrogate.text, this@QuestionnaireItemSurrogate._text)
+        R4String.of(this@QuestionnaireItemSurrogate.text, this@QuestionnaireItemSurrogate._text),
       type =
         Enumeration.of(
-          this@QuestionnaireItemSurrogate.type?.let {
-            com.google.fhir.model.r4.Questionnaire.QuestionnaireItemType.fromCode(it)
-          },
+          com.google.fhir.model.r4.Questionnaire.QuestionnaireItemType.fromCode(
+            this@QuestionnaireItemSurrogate.type!!
+          ),
           this@QuestionnaireItemSurrogate._type,
-        )
-      enableWhen = this@QuestionnaireItemSurrogate.enableWhen
+        ),
+      enableWhen = this@QuestionnaireItemSurrogate.enableWhen ?: mutableListOf(),
       enableBehavior =
-        Enumeration.of(
-          this@QuestionnaireItemSurrogate.enableBehavior?.let {
-            com.google.fhir.model.r4.Questionnaire.EnableWhenBehavior.fromCode(it)
-          },
-          this@QuestionnaireItemSurrogate._enableBehavior,
-        )
+        this@QuestionnaireItemSurrogate.enableBehavior?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Questionnaire.EnableWhenBehavior.fromCode(it!!),
+            this@QuestionnaireItemSurrogate._enableBehavior,
+          )
+        },
       required =
         R4Boolean.of(
           this@QuestionnaireItemSurrogate.required,
           this@QuestionnaireItemSurrogate._required,
-        )
+        ),
       repeats =
         R4Boolean.of(
           this@QuestionnaireItemSurrogate.repeats,
           this@QuestionnaireItemSurrogate._repeats,
-        )
+        ),
       readOnly =
         R4Boolean.of(
           this@QuestionnaireItemSurrogate.readOnly,
           this@QuestionnaireItemSurrogate._readOnly,
-        )
+        ),
       maxLength =
         Integer.of(
           this@QuestionnaireItemSurrogate.maxLength,
           this@QuestionnaireItemSurrogate._maxLength,
-        )
+        ),
       answerValueSet =
         Canonical.of(
           this@QuestionnaireItemSurrogate.answerValueSet,
           this@QuestionnaireItemSurrogate._answerValueSet,
-        )
-      answerOption = this@QuestionnaireItemSurrogate.answerOption
-      initial = this@QuestionnaireItemSurrogate.initial
-      item = this@QuestionnaireItemSurrogate.item
-    }
+        ),
+      answerOption = this@QuestionnaireItemSurrogate.answerOption ?: mutableListOf(),
+      initial = this@QuestionnaireItemSurrogate.initial ?: mutableListOf(),
+      item = this@QuestionnaireItemSurrogate.item ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Questionnaire.Item): QuestionnaireItemSurrogate =
       with(model) {
-        QuestionnaireItemSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          linkId = this@with.linkId?.value
-          _linkId = this@with.linkId?.toElement()
-          definition = this@with.definition?.value
-          _definition = this@with.definition?.toElement()
-          code = this@with.code
-          prefix = this@with.prefix?.value
-          _prefix = this@with.prefix?.toElement()
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          enableWhen = this@with.enableWhen
-          enableBehavior = this@with.enableBehavior?.value?.getCode()
-          _enableBehavior = this@with.enableBehavior?.toElement()
-          required = this@with.required?.value
-          _required = this@with.required?.toElement()
-          repeats = this@with.repeats?.value
-          _repeats = this@with.repeats?.toElement()
-          readOnly = this@with.readOnly?.value
-          _readOnly = this@with.readOnly?.toElement()
-          maxLength = this@with.maxLength?.value
-          _maxLength = this@with.maxLength?.toElement()
-          answerValueSet = this@with.answerValueSet?.value
-          _answerValueSet = this@with.answerValueSet?.toElement()
-          answerOption = this@with.answerOption
-          initial = this@with.initial
-          item = this@with.item
-        }
+        QuestionnaireItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId.value,
+          _linkId = this@with.linkId.toElement(),
+          definition = this@with.definition?.value,
+          _definition = this@with.definition?.toElement(),
+          code = this@with.code.takeUnless { it.all { it == null } },
+          prefix = this@with.prefix?.value,
+          _prefix = this@with.prefix?.toElement(),
+          text = this@with.text?.value,
+          _text = this@with.text?.toElement(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          enableWhen = this@with.enableWhen.takeUnless { it.all { it == null } },
+          enableBehavior = this@with.enableBehavior?.value?.getCode(),
+          _enableBehavior = this@with.enableBehavior?.toElement(),
+          required = this@with.required?.value,
+          _required = this@with.required?.toElement(),
+          repeats = this@with.repeats?.value,
+          _repeats = this@with.repeats?.toElement(),
+          readOnly = this@with.readOnly?.value,
+          _readOnly = this@with.readOnly?.toElement(),
+          maxLength = this@with.maxLength?.value,
+          _maxLength = this@with.maxLength?.toElement(),
+          answerValueSet = this@with.answerValueSet?.value,
+          _answerValueSet = this@with.answerValueSet?.toElement(),
+          answerOption = this@with.answerOption.takeUnless { it.all { it == null } },
+          initial = this@with.initial.takeUnless { it.all { it == null } },
+          item = this@with.item.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -499,35 +508,35 @@ internal data class QuestionnaireSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var derivedFrom: List<KotlinString?>? = null,
-  public var _derivedFrom: List<Element?>? = null,
+  public var derivedFrom: MutableList<KotlinString?>? = null,
+  public var _derivedFrom: MutableList<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectType: List<KotlinString?>? = null,
-  public var _subjectType: List<Element?>? = null,
+  public var subjectType: MutableList<KotlinString?>? = null,
+  public var _subjectType: MutableList<Element?>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -537,36 +546,36 @@ internal data class QuestionnaireSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var code: List<Coding?>? = null,
-  public var item: List<Questionnaire.Item>? = null,
+  public var code: MutableList<Coding>? = null,
+  public var item: MutableList<Questionnaire.Item>? = null,
 ) {
   public fun toModel(): Questionnaire =
-    Questionnaire().apply {
-      id = this@QuestionnaireSurrogate.id
-      meta = this@QuestionnaireSurrogate.meta
+    Questionnaire(
+      id = this@QuestionnaireSurrogate.id,
+      meta = this@QuestionnaireSurrogate.meta,
       implicitRules =
         Uri.of(
           this@QuestionnaireSurrogate.implicitRules,
           this@QuestionnaireSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@QuestionnaireSurrogate.language, this@QuestionnaireSurrogate._language)
-      text = this@QuestionnaireSurrogate.text
-      contained = this@QuestionnaireSurrogate.contained
-      extension = this@QuestionnaireSurrogate.extension
-      modifierExtension = this@QuestionnaireSurrogate.modifierExtension
-      url = Uri.of(this@QuestionnaireSurrogate.url, this@QuestionnaireSurrogate._url)
-      identifier = this@QuestionnaireSurrogate.identifier
+        Code.of(this@QuestionnaireSurrogate.language, this@QuestionnaireSurrogate._language),
+      text = this@QuestionnaireSurrogate.text,
+      contained = this@QuestionnaireSurrogate.contained ?: mutableListOf(),
+      extension = this@QuestionnaireSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@QuestionnaireSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@QuestionnaireSurrogate.url, this@QuestionnaireSurrogate._url),
+      identifier = this@QuestionnaireSurrogate.identifier ?: mutableListOf(),
       version =
-        R4String.of(this@QuestionnaireSurrogate.version, this@QuestionnaireSurrogate._version)
-      name = R4String.of(this@QuestionnaireSurrogate.name, this@QuestionnaireSurrogate._name)
-      title = R4String.of(this@QuestionnaireSurrogate.title, this@QuestionnaireSurrogate._title)
+        R4String.of(this@QuestionnaireSurrogate.version, this@QuestionnaireSurrogate._version),
+      name = R4String.of(this@QuestionnaireSurrogate.name, this@QuestionnaireSurrogate._name),
+      title = R4String.of(this@QuestionnaireSurrogate.title, this@QuestionnaireSurrogate._title),
       derivedFrom =
         if (
           this@QuestionnaireSurrogate.derivedFrom == null &&
             this@QuestionnaireSurrogate._derivedFrom == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@QuestionnaireSurrogate.derivedFrom
               ?: List(this@QuestionnaireSurrogate._derivedFrom!!.size) { null })
@@ -574,26 +583,25 @@ internal data class QuestionnaireSurrogate(
               this@QuestionnaireSurrogate._derivedFrom
                 ?: List(this@QuestionnaireSurrogate.derivedFrom!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       status =
         Enumeration.of(
-          this@QuestionnaireSurrogate.status?.let {
-            com.google.fhir.model.r4.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.PublicationStatus.fromCode(this@QuestionnaireSurrogate.status!!),
           this@QuestionnaireSurrogate._status,
-        )
+        ),
       experimental =
         R4Boolean.of(
           this@QuestionnaireSurrogate.experimental,
           this@QuestionnaireSurrogate._experimental,
-        )
+        ),
       subjectType =
         if (
           this@QuestionnaireSurrogate.subjectType == null &&
             this@QuestionnaireSurrogate._subjectType == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@QuestionnaireSurrogate.subjectType
               ?: List(this@QuestionnaireSurrogate._subjectType!!.size) { null })
@@ -601,105 +609,118 @@ internal data class QuestionnaireSurrogate(
               this@QuestionnaireSurrogate._subjectType
                 ?: List(this@QuestionnaireSurrogate.subjectType!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let { com.google.fhir.model.r4.ResourceType.fromCode(it) },
+                value.let { com.google.fhir.model.r4.ResourceType.fromCode(it!!)!! },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       date =
         DateTime.of(
           FhirDateTime.fromString(this@QuestionnaireSurrogate.date),
           this@QuestionnaireSurrogate._date,
-        )
+        ),
       publisher =
-        R4String.of(this@QuestionnaireSurrogate.publisher, this@QuestionnaireSurrogate._publisher)
-      contact = this@QuestionnaireSurrogate.contact
+        R4String.of(this@QuestionnaireSurrogate.publisher, this@QuestionnaireSurrogate._publisher),
+      contact = this@QuestionnaireSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@QuestionnaireSurrogate.description,
           this@QuestionnaireSurrogate._description,
-        )
-      useContext = this@QuestionnaireSurrogate.useContext
-      jurisdiction = this@QuestionnaireSurrogate.jurisdiction
+        ),
+      useContext = this@QuestionnaireSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@QuestionnaireSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
-        Markdown.of(this@QuestionnaireSurrogate.purpose, this@QuestionnaireSurrogate._purpose)
+        Markdown.of(this@QuestionnaireSurrogate.purpose, this@QuestionnaireSurrogate._purpose),
       copyright =
-        Markdown.of(this@QuestionnaireSurrogate.copyright, this@QuestionnaireSurrogate._copyright)
+        Markdown.of(this@QuestionnaireSurrogate.copyright, this@QuestionnaireSurrogate._copyright),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@QuestionnaireSurrogate.approvalDate),
           this@QuestionnaireSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@QuestionnaireSurrogate.lastReviewDate),
           this@QuestionnaireSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@QuestionnaireSurrogate.effectivePeriod
-      code = this@QuestionnaireSurrogate.code
-      item = this@QuestionnaireSurrogate.item
-    }
+        ),
+      effectivePeriod = this@QuestionnaireSurrogate.effectivePeriod,
+      code = this@QuestionnaireSurrogate.code ?: mutableListOf(),
+      item = this@QuestionnaireSurrogate.item ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Questionnaire): QuestionnaireSurrogate =
       with(model) {
-        QuestionnaireSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
+        QuestionnaireSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
           derivedFrom =
-            this@with.derivedFrom?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFrom
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _derivedFrom =
-            this@with.derivedFrom?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
+            this@with.derivedFrom
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
           subjectType =
             this@with.subjectType
-              ?.map { it?.value?.getCode() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _subjectType =
-            this@with.subjectType?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          code = this@with.code
-          item = this@with.item
-        }
+            this@with.subjectType
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          code = this@with.code.takeUnless { it.all { it == null } },
+          item = this@with.item.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

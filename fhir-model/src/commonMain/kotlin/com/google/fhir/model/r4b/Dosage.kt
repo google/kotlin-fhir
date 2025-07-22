@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.DosageDoseAndRateSerializer
 import com.google.fhir.model.r4b.serializers.DosageSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class Dosage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,7 +66,7 @@ public data class Dosage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Indicates the order in which the dosage instructions should be applied or interpreted. */
   public var sequence: Integer? = null,
   /** Free text dosage instructions e.g. SIG. */
@@ -80,7 +80,7 @@ public data class Dosage(
    * possibly via intraperitoneal port" or "immediately following drug x") should be populated in
    * dosage.text.
    */
-  public var additionalInstruction: List<CodeableConcept?>? = null,
+  public var additionalInstruction: MutableList<CodeableConcept> = mutableListOf(),
   /** Instructions in terms that are understood by the patient or consumer. */
   public var patientInstruction: String? = null,
   /**
@@ -117,7 +117,7 @@ public data class Dosage(
    */
   public var method: CodeableConcept? = null,
   /** The amount of medication administered. */
-  public var doseAndRate: List<DoseAndRate>? = null,
+  public var doseAndRate: MutableList<DoseAndRate> = mutableListOf(),
   /**
    * Upper limit on medication per unit of time.
    *
@@ -156,7 +156,7 @@ public data class Dosage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** The kind of dose or rate specified, for example, ordered or calculated. */
     public var type: CodeableConcept? = null,
     /**
@@ -204,12 +204,12 @@ public data class Dosage(
       public data class Quantity(public val `value`: com.google.fhir.model.r4b.Quantity) : Dose
 
       public companion object {
-        public fun from(
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
+        internal fun from(
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
         ): Dose? {
-          if (RangeValue != null) return Range(RangeValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           return null
         }
       }
@@ -229,14 +229,14 @@ public data class Dosage(
       public data class Quantity(public val `value`: com.google.fhir.model.r4b.Quantity) : Rate
 
       public companion object {
-        public fun from(
-          RatioValue: com.google.fhir.model.r4b.Ratio?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
+        internal fun from(
+          ratioValue: com.google.fhir.model.r4b.Ratio?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
         ): Rate? {
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           return null
         }
       }
@@ -255,12 +255,12 @@ public data class Dosage(
     ) : AsNeeded
 
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r4b.Boolean?,
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
       ): AsNeeded? {
         if (booleanValue != null) return Boolean(booleanValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

@@ -34,42 +34,43 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductInteractionInteractantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var itemReference: Reference? = null,
   public var itemCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicinalProductInteraction.Interactant =
-    MedicinalProductInteraction.Interactant().apply {
-      id = this@MedicinalProductInteractionInteractantSurrogate.id
-      extension = this@MedicinalProductInteractionInteractantSurrogate.extension
-      modifierExtension = this@MedicinalProductInteractionInteractantSurrogate.modifierExtension
+    MedicinalProductInteraction.Interactant(
+      id = this@MedicinalProductInteractionInteractantSurrogate.id,
+      extension = this@MedicinalProductInteractionInteractantSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductInteractionInteractantSurrogate.modifierExtension ?: mutableListOf(),
       item =
-        MedicinalProductInteraction.Interactant.Item?.from(
+        MedicinalProductInteraction.Interactant.Item.from(
           this@MedicinalProductInteractionInteractantSurrogate.itemReference,
           this@MedicinalProductInteractionInteractantSurrogate.itemCodeableConcept,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductInteraction.Interactant
     ): MedicinalProductInteractionInteractantSurrogate =
       with(model) {
-        MedicinalProductInteractionInteractantSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          itemReference = this@with.item?.asReference()?.value
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value
-        }
+        MedicinalProductInteractionInteractantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          itemReference = this@with.item?.asReference()?.value,
+          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -83,72 +84,73 @@ internal data class MedicinalProductInteractionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var subject: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var subject: MutableList<Reference>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var interactant: List<MedicinalProductInteraction.Interactant>? = null,
+  public var interactant: MutableList<MedicinalProductInteraction.Interactant>? = null,
   public var type: CodeableConcept? = null,
   public var effect: CodeableConcept? = null,
   public var incidence: CodeableConcept? = null,
   public var management: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicinalProductInteraction =
-    MedicinalProductInteraction().apply {
-      id = this@MedicinalProductInteractionSurrogate.id
-      meta = this@MedicinalProductInteractionSurrogate.meta
+    MedicinalProductInteraction(
+      id = this@MedicinalProductInteractionSurrogate.id,
+      meta = this@MedicinalProductInteractionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicinalProductInteractionSurrogate.implicitRules,
           this@MedicinalProductInteractionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicinalProductInteractionSurrogate.language,
           this@MedicinalProductInteractionSurrogate._language,
-        )
-      text = this@MedicinalProductInteractionSurrogate.text
-      contained = this@MedicinalProductInteractionSurrogate.contained
-      extension = this@MedicinalProductInteractionSurrogate.extension
-      modifierExtension = this@MedicinalProductInteractionSurrogate.modifierExtension
-      subject = this@MedicinalProductInteractionSurrogate.subject
+        ),
+      text = this@MedicinalProductInteractionSurrogate.text,
+      contained = this@MedicinalProductInteractionSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicinalProductInteractionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductInteractionSurrogate.modifierExtension ?: mutableListOf(),
+      subject = this@MedicinalProductInteractionSurrogate.subject ?: mutableListOf(),
       description =
         R4String.of(
           this@MedicinalProductInteractionSurrogate.description,
           this@MedicinalProductInteractionSurrogate._description,
-        )
-      interactant = this@MedicinalProductInteractionSurrogate.interactant
-      type = this@MedicinalProductInteractionSurrogate.type
-      effect = this@MedicinalProductInteractionSurrogate.effect
-      incidence = this@MedicinalProductInteractionSurrogate.incidence
-      management = this@MedicinalProductInteractionSurrogate.management
-    }
+        ),
+      interactant = this@MedicinalProductInteractionSurrogate.interactant ?: mutableListOf(),
+      type = this@MedicinalProductInteractionSurrogate.type,
+      effect = this@MedicinalProductInteractionSurrogate.effect,
+      incidence = this@MedicinalProductInteractionSurrogate.incidence,
+      management = this@MedicinalProductInteractionSurrogate.management,
+    )
 
   public companion object {
     public fun fromModel(model: MedicinalProductInteraction): MedicinalProductInteractionSurrogate =
       with(model) {
-        MedicinalProductInteractionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          subject = this@with.subject
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          interactant = this@with.interactant
-          type = this@with.type
-          effect = this@with.effect
-          incidence = this@with.incidence
-          management = this@with.management
-        }
+        MedicinalProductInteractionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          interactant = this@with.interactant.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          effect = this@with.effect,
+          incidence = this@with.incidence,
+          management = this@with.management,
+        )
       }
   }
 }

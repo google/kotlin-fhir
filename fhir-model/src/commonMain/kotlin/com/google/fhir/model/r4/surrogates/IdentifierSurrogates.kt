@@ -32,14 +32,14 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class IdentifierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
   public var type: CodeableConcept? = null,
@@ -51,39 +51,39 @@ internal data class IdentifierSurrogate(
   public var assigner: Reference? = null,
 ) {
   public fun toModel(): Identifier =
-    Identifier().apply {
-      id = this@IdentifierSurrogate.id
-      extension = this@IdentifierSurrogate.extension
+    Identifier(
+      id = this@IdentifierSurrogate.id,
+      extension = this@IdentifierSurrogate.extension ?: mutableListOf(),
       use =
-        Enumeration.of(
-          this@IdentifierSurrogate.use?.let {
-            com.google.fhir.model.r4.Identifier.IdentifierUse.fromCode(it)
-          },
-          this@IdentifierSurrogate._use,
-        )
-      type = this@IdentifierSurrogate.type
-      system = Uri.of(this@IdentifierSurrogate.system, this@IdentifierSurrogate._system)
-      `value` = R4String.of(this@IdentifierSurrogate.`value`, this@IdentifierSurrogate._value)
-      period = this@IdentifierSurrogate.period
-      assigner = this@IdentifierSurrogate.assigner
-    }
+        this@IdentifierSurrogate.use?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Identifier.IdentifierUse.fromCode(it!!),
+            this@IdentifierSurrogate._use,
+          )
+        },
+      type = this@IdentifierSurrogate.type,
+      system = Uri.of(this@IdentifierSurrogate.system, this@IdentifierSurrogate._system),
+      `value` = R4String.of(this@IdentifierSurrogate.`value`, this@IdentifierSurrogate._value),
+      period = this@IdentifierSurrogate.period,
+      assigner = this@IdentifierSurrogate.assigner,
+    )
 
   public companion object {
     public fun fromModel(model: Identifier): IdentifierSurrogate =
       with(model) {
-        IdentifierSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          use = this@with.use?.value?.getCode()
-          _use = this@with.use?.toElement()
-          type = this@with.type
-          system = this@with.system?.value
-          _system = this@with.system?.toElement()
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          period = this@with.period
-          assigner = this@with.assigner
-        }
+        IdentifierSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          use = this@with.use?.value?.getCode(),
+          _use = this@with.use?.toElement(),
+          type = this@with.type,
+          system = this@with.system?.value,
+          _system = this@with.system?.toElement(),
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          period = this@with.period,
+          assigner = this@with.assigner,
+        )
       }
   }
 }

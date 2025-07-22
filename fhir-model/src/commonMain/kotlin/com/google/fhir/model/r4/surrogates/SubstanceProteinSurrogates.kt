@@ -37,15 +37,15 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceProteinSubunitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var subunit: Int? = null,
   public var _subunit: Element? = null,
   public var sequence: KotlinString? = null,
@@ -61,61 +61,62 @@ internal data class SubstanceProteinSubunitSurrogate(
   public var _cTerminalModification: Element? = null,
 ) {
   public fun toModel(): SubstanceProtein.Subunit =
-    SubstanceProtein.Subunit().apply {
-      id = this@SubstanceProteinSubunitSurrogate.id
-      extension = this@SubstanceProteinSubunitSurrogate.extension
-      modifierExtension = this@SubstanceProteinSubunitSurrogate.modifierExtension
+    SubstanceProtein.Subunit(
+      id = this@SubstanceProteinSubunitSurrogate.id,
+      extension = this@SubstanceProteinSubunitSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceProteinSubunitSurrogate.modifierExtension ?: mutableListOf(),
       subunit =
         Integer.of(
           this@SubstanceProteinSubunitSurrogate.subunit,
           this@SubstanceProteinSubunitSurrogate._subunit,
-        )
+        ),
       sequence =
         R4String.of(
           this@SubstanceProteinSubunitSurrogate.sequence,
           this@SubstanceProteinSubunitSurrogate._sequence,
-        )
+        ),
       length =
         Integer.of(
           this@SubstanceProteinSubunitSurrogate.length,
           this@SubstanceProteinSubunitSurrogate._length,
-        )
-      sequenceAttachment = this@SubstanceProteinSubunitSurrogate.sequenceAttachment
-      nTerminalModificationId = this@SubstanceProteinSubunitSurrogate.nTerminalModificationId
+        ),
+      sequenceAttachment = this@SubstanceProteinSubunitSurrogate.sequenceAttachment,
+      nTerminalModificationId = this@SubstanceProteinSubunitSurrogate.nTerminalModificationId,
       nTerminalModification =
         R4String.of(
           this@SubstanceProteinSubunitSurrogate.nTerminalModification,
           this@SubstanceProteinSubunitSurrogate._nTerminalModification,
-        )
-      cTerminalModificationId = this@SubstanceProteinSubunitSurrogate.cTerminalModificationId
+        ),
+      cTerminalModificationId = this@SubstanceProteinSubunitSurrogate.cTerminalModificationId,
       cTerminalModification =
         R4String.of(
           this@SubstanceProteinSubunitSurrogate.cTerminalModification,
           this@SubstanceProteinSubunitSurrogate._cTerminalModification,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: SubstanceProtein.Subunit): SubstanceProteinSubunitSurrogate =
       with(model) {
-        SubstanceProteinSubunitSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          subunit = this@with.subunit?.value
-          _subunit = this@with.subunit?.toElement()
-          sequence = this@with.sequence?.value
-          _sequence = this@with.sequence?.toElement()
-          length = this@with.length?.value
-          _length = this@with.length?.toElement()
-          sequenceAttachment = this@with.sequenceAttachment
-          nTerminalModificationId = this@with.nTerminalModificationId
-          nTerminalModification = this@with.nTerminalModification?.value
-          _nTerminalModification = this@with.nTerminalModification?.toElement()
-          cTerminalModificationId = this@with.cTerminalModificationId
-          cTerminalModification = this@with.cTerminalModification?.value
-          _cTerminalModification = this@with.cTerminalModification?.toElement()
-        }
+        SubstanceProteinSubunitSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          subunit = this@with.subunit?.value,
+          _subunit = this@with.subunit?.toElement(),
+          sequence = this@with.sequence?.value,
+          _sequence = this@with.sequence?.toElement(),
+          length = this@with.length?.value,
+          _length = this@with.length?.toElement(),
+          sequenceAttachment = this@with.sequenceAttachment,
+          nTerminalModificationId = this@with.nTerminalModificationId,
+          nTerminalModification = this@with.nTerminalModification?.value,
+          _nTerminalModification = this@with.nTerminalModification?.toElement(),
+          cTerminalModificationId = this@with.cTerminalModificationId,
+          cTerminalModification = this@with.cTerminalModification?.value,
+          _cTerminalModification = this@with.cTerminalModification?.toElement(),
+        )
       }
   }
 }
@@ -129,43 +130,43 @@ internal data class SubstanceProteinSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var sequenceType: CodeableConcept? = null,
   public var numberOfSubunits: Int? = null,
   public var _numberOfSubunits: Element? = null,
-  public var disulfideLinkage: List<KotlinString?>? = null,
-  public var _disulfideLinkage: List<Element?>? = null,
-  public var subunit: List<SubstanceProtein.Subunit>? = null,
+  public var disulfideLinkage: MutableList<KotlinString?>? = null,
+  public var _disulfideLinkage: MutableList<Element?>? = null,
+  public var subunit: MutableList<SubstanceProtein.Subunit>? = null,
 ) {
   public fun toModel(): SubstanceProtein =
-    SubstanceProtein().apply {
-      id = this@SubstanceProteinSurrogate.id
-      meta = this@SubstanceProteinSurrogate.meta
+    SubstanceProtein(
+      id = this@SubstanceProteinSurrogate.id,
+      meta = this@SubstanceProteinSurrogate.meta,
       implicitRules =
         Uri.of(
           this@SubstanceProteinSurrogate.implicitRules,
           this@SubstanceProteinSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@SubstanceProteinSurrogate.language, this@SubstanceProteinSurrogate._language)
-      text = this@SubstanceProteinSurrogate.text
-      contained = this@SubstanceProteinSurrogate.contained
-      extension = this@SubstanceProteinSurrogate.extension
-      modifierExtension = this@SubstanceProteinSurrogate.modifierExtension
-      sequenceType = this@SubstanceProteinSurrogate.sequenceType
+        Code.of(this@SubstanceProteinSurrogate.language, this@SubstanceProteinSurrogate._language),
+      text = this@SubstanceProteinSurrogate.text,
+      contained = this@SubstanceProteinSurrogate.contained ?: mutableListOf(),
+      extension = this@SubstanceProteinSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubstanceProteinSurrogate.modifierExtension ?: mutableListOf(),
+      sequenceType = this@SubstanceProteinSurrogate.sequenceType,
       numberOfSubunits =
         Integer.of(
           this@SubstanceProteinSurrogate.numberOfSubunits,
           this@SubstanceProteinSurrogate._numberOfSubunits,
-        )
+        ),
       disulfideLinkage =
         if (
           this@SubstanceProteinSurrogate.disulfideLinkage == null &&
             this@SubstanceProteinSurrogate._disulfideLinkage == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@SubstanceProteinSurrogate.disulfideLinkage
               ?: List(this@SubstanceProteinSurrogate._disulfideLinkage!!.size) { null })
@@ -173,36 +174,42 @@ internal data class SubstanceProteinSurrogate(
               this@SubstanceProteinSurrogate._disulfideLinkage
                 ?: List(this@SubstanceProteinSurrogate.disulfideLinkage!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
-      subunit = this@SubstanceProteinSurrogate.subunit
-    }
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
+      subunit = this@SubstanceProteinSurrogate.subunit ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SubstanceProtein): SubstanceProteinSurrogate =
       with(model) {
-        SubstanceProteinSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          sequenceType = this@with.sequenceType
-          numberOfSubunits = this@with.numberOfSubunits?.value
-          _numberOfSubunits = this@with.numberOfSubunits?.toElement()
+        SubstanceProteinSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequenceType = this@with.sequenceType,
+          numberOfSubunits = this@with.numberOfSubunits?.value,
+          _numberOfSubunits = this@with.numberOfSubunits?.toElement(),
           disulfideLinkage =
-            this@with.disulfideLinkage?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.disulfideLinkage
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _disulfideLinkage =
             this@with.disulfideLinkage
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          subunit = this@with.subunit
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          subunit = this@with.subunit.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.OrganizationContactSerializer
 import com.google.fhir.model.r4b.serializers.OrganizationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Organization(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Organization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,12 +128,12 @@ public data class Organization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for the organization that is used to identify the organization across multiple
    * disparate systems.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether the organization's record is still in active use.
    *
@@ -161,7 +161,7 @@ public data class Organization(
    *
    * We expect that some jurisdictions will profile this optionality to be a single cardinality.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A name associated with the organization.
    *
@@ -176,7 +176,7 @@ public data class Organization(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the organization.
    */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /**
    * A contact detail for the organization.
    *
@@ -184,14 +184,14 @@ public data class Organization(
    * people who are employed by or represent the organization, but official contacts for the
    * organization itself.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * An address for the organization.
    *
    * Organization may have multiple addresses with different uses or applicable periods. The use
    * code 'home' is not to be used.
    */
-  public var address: List<Address?>? = null,
+  public var address: MutableList<Address> = mutableListOf(),
   /** The organization of which this organization forms a part. */
   public var partOf: Reference? = null,
   /**
@@ -200,9 +200,9 @@ public data class Organization(
    * Where multiple contacts for the same purpose are provided there is a standard extension that
    * can be used to determine which one is the preferred contact to use.
    */
-  public var contact: List<Contact>? = null,
+  public var contact: MutableList<Contact> = mutableListOf(),
   /** Technical endpoints providing access to services operated for the organization. */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Contact for the organization for a certain purpose. */
   @Serializable(with = OrganizationContactSerializer::class)
@@ -224,7 +224,7 @@ public data class Organization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -243,7 +243,7 @@ public data class Organization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates a purpose for which the contact can be reached. */
     public var purpose: CodeableConcept? = null,
     /** A name associated with the contact. */
@@ -252,7 +252,7 @@ public data class Organization(
      * A contact detail (e.g. a telephone number or an email address) by which the party may be
      * contacted.
      */
-    public var telecom: List<ContactPoint?>? = null,
+    public var telecom: MutableList<ContactPoint> = mutableListOf(),
     /** Visiting or postal addresses for the contact. */
     public var address: Address? = null,
   ) : BackboneElement()

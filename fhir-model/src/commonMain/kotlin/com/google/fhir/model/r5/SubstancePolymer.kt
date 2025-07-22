@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.SubstancePolymerRepeatRepeatUnitStru
 import com.google.fhir.model.r5.serializers.SubstancePolymerRepeatSerializer
 import com.google.fhir.model.r5.serializers.SubstancePolymerSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class SubstancePolymer(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class SubstancePolymer(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class SubstancePolymer(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A business idenfier for this polymer, but typically this is handled by a SubstanceDefinition
    * identifier.
@@ -142,16 +142,16 @@ public data class SubstancePolymer(
   /** Polymer geometry, e.g. linear, branched, cross-linked, network or dendritic. */
   public var geometry: CodeableConcept? = null,
   /** Descrtibes the copolymer sequence type (polymer connectivity). */
-  public var copolymerConnectivity: List<CodeableConcept?>? = null,
+  public var copolymerConnectivity: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Todo - this is intended to connect to a repeating full modification structure, also used by
    * Protein and Nucleic Acid . String is just a placeholder.
    */
   public var modification: String? = null,
   /** Todo. */
-  public var monomerSet: List<MonomerSet>? = null,
+  public var monomerSet: MutableList<MonomerSet> = mutableListOf(),
   /** Specifies and quantifies the repeated units and their configuration. */
-  public var repeat: List<Repeat>? = null,
+  public var repeat: MutableList<Repeat> = mutableListOf(),
 ) : DomainResource() {
   /** Todo. */
   @Serializable(with = SubstancePolymerMonomerSetSerializer::class)
@@ -173,7 +173,7 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -192,14 +192,14 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Captures the type of ratio to the entire polymer, e.g. Monomer/Polymer ratio, SRU/Polymer
      * Ratio.
      */
     public var ratioType: CodeableConcept? = null,
     /** The starting materials - monomer(s) used in the synthesis of the polymer. */
-    public var startingMaterial: List<StartingMaterial>? = null,
+    public var startingMaterial: MutableList<StartingMaterial> = mutableListOf(),
   ) : BackboneElement() {
     /** The starting materials - monomer(s) used in the synthesis of the polymer. */
     @Serializable(with = SubstancePolymerMonomerSetStartingMaterialSerializer::class)
@@ -221,7 +221,7 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -240,7 +240,7 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of substance for this starting material. */
       public var code: CodeableConcept? = null,
       /** Substance high level category, e.g. chemical substance. */
@@ -275,7 +275,7 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -294,7 +294,7 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A representation of an (average) molecular formula from a polymer. */
     public var averageMolecularFormula: String? = null,
     /**
@@ -303,7 +303,7 @@ public data class SubstancePolymer(
      */
     public var repeatUnitAmountType: CodeableConcept? = null,
     /** An SRU - Structural Repeat Unit. */
-    public var repeatUnit: List<RepeatUnit>? = null,
+    public var repeatUnit: MutableList<RepeatUnit> = mutableListOf(),
   ) : BackboneElement() {
     /** An SRU - Structural Repeat Unit. */
     @Serializable(with = SubstancePolymerRepeatRepeatUnitSerializer::class)
@@ -325,7 +325,7 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -344,7 +344,7 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Structural repeat units are essential elements for defining polymers. */
       public var unit: String? = null,
       /** The orientation of the polymerisation, e.g. head-tail, head-head, random. */
@@ -355,9 +355,9 @@ public data class SubstancePolymer(
        * Applies to homopolymer and block co-polymers where the degree of polymerisation within a
        * block can be described.
        */
-      public var degreeOfPolymerisation: List<DegreeOfPolymerisation>? = null,
+      public var degreeOfPolymerisation: MutableList<DegreeOfPolymerisation> = mutableListOf(),
       /** A graphical structure for this SRU. */
-      public var structuralRepresentation: List<StructuralRepresentation>? = null,
+      public var structuralRepresentation: MutableList<StructuralRepresentation> = mutableListOf(),
     ) : BackboneElement() {
       /**
        * Applies to homopolymer and block co-polymers where the degree of polymerisation within a
@@ -382,7 +382,7 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -401,7 +401,7 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The type of the degree of polymerisation shall be described, e.g. SRU/Polymer Ratio. */
         public var type: CodeableConcept? = null,
         /** An average amount of polymerisation. */
@@ -434,7 +434,7 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -453,7 +453,7 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The type of structure (e.g. Full, Partial, Representative). */
         public var type: CodeableConcept? = null,
         /**

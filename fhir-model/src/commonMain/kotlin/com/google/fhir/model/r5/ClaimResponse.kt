@@ -35,7 +35,7 @@ import com.google.fhir.model.r5.serializers.ClaimResponseProcessNoteSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseTotalSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -108,7 +108,7 @@ public data class ClaimResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -121,7 +121,7 @@ public data class ClaimResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -140,21 +140,21 @@ public data class ClaimResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this claim response. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Trace number for tracking purposes. May be defined at the jurisdiction level or between trading
    * partners.
    */
-  public var traceNumber: List<Identifier?>? = null,
+  public var traceNumber: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ClaimResponseStatus>? = null,
+  public var status: Enumeration<ClaimResponseStatus>,
   /**
    * A finer grained suite of claim type codes which may convey additional information such as
    * Inpatient vs Outpatient and/or a specialty service.
@@ -162,7 +162,7 @@ public data class ClaimResponse(
    * This may contain the local bill type codes, for example the US UB-04 bill type code or the CMS
    * bill type.
    */
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   /**
    * A finer grained suite of claim type codes which may convey additional information such as
    * Inpatient vs Outpatient and/or a specialty service.
@@ -182,14 +182,14 @@ public data class ClaimResponse(
    * 'what if' charges for health care goods and services under the identified policy and report
    * back what the Benefit payable would be had the services actually been provided.
    */
-  public var use: Enumeration<Use>? = null,
+  public var use: Enumeration<Use>,
   /**
    * The party to whom the professional services and/or products have been supplied or are being
    * considered and for whom actual for facast reimbursement is sought.
    */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The date this resource was created. */
-  public var created: DateTime? = null,
+  public var created: DateTime,
   /** The party responsible for authorization, adjudication and reimbursement. */
   public var insurer: Reference? = null,
   /**
@@ -212,7 +212,7 @@ public data class ClaimResponse(
    * processing has been performed (partial); or all of the adjudication processing has completed
    * without errors (complete).
    */
-  public var outcome: Enumeration<RemittanceOutcome>? = null,
+  public var outcome: Enumeration<RemittanceOutcome>,
   /**
    * The result of the claim, predetermination, or preauthorization adjudication.
    *
@@ -235,7 +235,7 @@ public data class ClaimResponse(
   /** The time frame during which this authorization is effective. */
   public var preAuthPeriod: Period? = null,
   /** Information code for an event with a corresponding date or period. */
-  public var event: List<Event>? = null,
+  public var event: MutableList<Event> = mutableListOf(),
   /** Type of Party to be reimbursed: subscriber, provider, other. */
   public var payeeType: CodeableConcept? = null,
   /**
@@ -245,7 +245,7 @@ public data class ClaimResponse(
    * initiated prior to or after the official completion of an encounter but still be tied to the
    * context of the encounter.
    */
-  public var encounter: List<Reference?>? = null,
+  public var encounter: MutableList<Reference> = mutableListOf(),
   /**
    * A package billing code or bundle code used to group products and services to a particular
    * health condition (such as heart attack) which is based on a predetermined grouping code system.
@@ -260,20 +260,20 @@ public data class ClaimResponse(
    * A claim line. Either a simple (a product or service) or a 'group' of details which can also be
    * a simple items or groups of sub-details.
    */
-  public var item: List<Item>? = null,
+  public var item: MutableList<Item> = mutableListOf(),
   /** The first-tier service adjudications for payor added product or service lines. */
-  public var addItem: List<AddItem>? = null,
+  public var addItem: MutableList<AddItem> = mutableListOf(),
   /**
    * The adjudication results which are presented at the header level rather than at the line-item
    * or add-item levels.
    */
-  public var adjudication: List<Item.Adjudication?>? = null,
+  public var adjudication: MutableList<Item.Adjudication> = mutableListOf(),
   /**
    * Categorized monetary totals for the adjudication.
    *
    * Totals for amounts submitted, co-pays, benefits payable etc.
    */
-  public var total: List<Total>? = null,
+  public var total: MutableList<Total> = mutableListOf(),
   /** Payment details for the adjudication of the claim. */
   public var payment: Payment? = null,
   /**
@@ -297,13 +297,13 @@ public data class ClaimResponse(
    */
   public var form: Attachment? = null,
   /** A note that describes or explains adjudication results in a human readable form. */
-  public var processNote: List<ProcessNote>? = null,
+  public var processNote: MutableList<ProcessNote> = mutableListOf(),
   /**
    * Request for additional supporting or authorizing information.
    *
    * For example: professional reports, documents, images, clinical resources, or accident reports.
    */
-  public var communicationRequest: List<Reference?>? = null,
+  public var communicationRequest: MutableList<Reference> = mutableListOf(),
   /**
    * Financial instruments for reimbursement for the health care products and services specified on
    * the claim.
@@ -316,14 +316,14 @@ public data class ClaimResponse(
    * 'subrogation=false', should provide a reference to the ClaimResponse containing the
    * adjudication results of the prior claim.
    */
-  public var insurance: List<Insurance>? = null,
+  public var insurance: MutableList<Insurance> = mutableListOf(),
   /**
    * Errors encountered during the processing of the adjudication.
    *
    * If the request contains errors then an error element should be provided and no adjudication
    * related sections (item, addItem, or payment) should be present.
    */
-  public var error: List<Error>? = null,
+  public var error: MutableList<Error> = mutableListOf(),
 ) : DomainResource() {
   /** Information code for an event with a corresponding date or period. */
   @Serializable(with = ClaimResponseEventSerializer::class)
@@ -345,7 +345,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -364,14 +364,14 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A coded event such as when a service is expected or a card printed. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * A date or period in the past or future indicating when the event occurred or is expectd to
      * occur.
      */
-    public var `when`: When? = null,
+    public var `when`: When,
   ) : BackboneElement() {
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
@@ -383,12 +383,12 @@ public data class ClaimResponse(
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : When
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
+          periodValue: com.google.fhir.model.r5.Period?,
         ): When? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -418,7 +418,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -437,16 +437,16 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A number to uniquely reference the claim item entries. */
-    public var itemSequence: PositiveInt? = null,
+    public var itemSequence: PositiveInt,
     /**
      * Trace number for tracking purposes. May be defined at the jurisdiction level or between
      * trading partners.
      */
-    public var traceNumber: List<Identifier?>? = null,
+    public var traceNumber: MutableList<Identifier> = mutableListOf(),
     /** The numbers associated with notes below which apply to the adjudication of this item. */
-    public var noteNumber: List<PositiveInt?>? = null,
+    public var noteNumber: MutableList<PositiveInt> = mutableListOf(),
     /** The high-level results of the adjudication if adjudication has been performed. */
     public var reviewOutcome: ReviewOutcome? = null,
     /**
@@ -454,12 +454,12 @@ public data class ClaimResponse(
      * items. If this item is a simple product or service then this is the result of the
      * adjudication of this item.
      */
-    public var adjudication: List<Adjudication>? = null,
+    public var adjudication: MutableList<Adjudication> = mutableListOf(),
     /**
      * A claim detail. Either a simple (a product or service) or a 'group' of sub-details which are
      * simple items.
      */
-    public var detail: List<Detail>? = null,
+    public var detail: MutableList<Detail> = mutableListOf(),
   ) : BackboneElement() {
     /** The high-level results of the adjudication if adjudication has been performed. */
     @Serializable(with = ClaimResponseItemReviewOutcomeSerializer::class)
@@ -481,7 +481,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -500,7 +500,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The result of the claim, predetermination, or preauthorization adjudication.
        *
@@ -515,7 +515,7 @@ public data class ClaimResponse(
        * The reasons for the result of the claim, predetermination, or preauthorization
        * adjudication.
        */
-      public var reason: List<CodeableConcept?>? = null,
+      public var reason: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Reference from the Insurer which is used in later communications which refers to this
        * adjudication.
@@ -551,7 +551,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -570,7 +570,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A code to indicate the information type of this adjudication record. Information types may
        * include the value submitted, maximum values or percentages allowed or payable under the
@@ -579,7 +579,7 @@ public data class ClaimResponse(
        *
        * For example codes indicating: Co-Pay, deductible, eligible, benefit, tax, etc.
        */
-      public var category: CodeableConcept? = null,
+      public var category: CodeableConcept,
       /**
        * A code supporting the understanding of the adjudication result and explaining variance from
        * expected amount.
@@ -625,7 +625,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -644,22 +644,22 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A number to uniquely reference the claim detail entry. */
-      public var detailSequence: PositiveInt? = null,
+      public var detailSequence: PositiveInt,
       /**
        * Trace number for tracking purposes. May be defined at the jurisdiction level or between
        * trading partners.
        */
-      public var traceNumber: List<Identifier?>? = null,
+      public var traceNumber: MutableList<Identifier> = mutableListOf(),
       /** The numbers associated with notes below which apply to the adjudication of this item. */
-      public var noteNumber: List<PositiveInt?>? = null,
+      public var noteNumber: MutableList<PositiveInt> = mutableListOf(),
       /** The high-level results of the adjudication if adjudication has been performed. */
       public var reviewOutcome: ReviewOutcome? = null,
       /** The adjudication results. */
-      public var adjudication: List<Adjudication?>? = null,
+      public var adjudication: MutableList<Adjudication> = mutableListOf(),
       /** A sub-detail adjudication of a simple product or service. */
-      public var subDetail: List<SubDetail>? = null,
+      public var subDetail: MutableList<SubDetail> = mutableListOf(),
     ) : BackboneElement() {
       /** A sub-detail adjudication of a simple product or service. */
       @Serializable(with = ClaimResponseItemDetailSubDetailSerializer::class)
@@ -681,7 +681,7 @@ public data class ClaimResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -700,20 +700,20 @@ public data class ClaimResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** A number to uniquely reference the claim sub-detail entry. */
-        public var subDetailSequence: PositiveInt? = null,
+        public var subDetailSequence: PositiveInt,
         /**
          * Trace number for tracking purposes. May be defined at the jurisdiction level or between
          * trading partners.
          */
-        public var traceNumber: List<Identifier?>? = null,
+        public var traceNumber: MutableList<Identifier> = mutableListOf(),
         /** The numbers associated with notes below which apply to the adjudication of this item. */
-        public var noteNumber: List<PositiveInt?>? = null,
+        public var noteNumber: MutableList<PositiveInt> = mutableListOf(),
         /** The high-level results of the adjudication if adjudication has been performed. */
         public var reviewOutcome: ReviewOutcome? = null,
         /** The adjudication results. */
-        public var adjudication: List<Adjudication?>? = null,
+        public var adjudication: MutableList<Adjudication> = mutableListOf(),
       ) : BackboneElement()
     }
   }
@@ -738,7 +738,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -757,26 +757,26 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Claim items which this service line is intended to replace. */
-    public var itemSequence: List<PositiveInt?>? = null,
+    public var itemSequence: MutableList<PositiveInt> = mutableListOf(),
     /**
      * The sequence number of the details within the claim item which this line is intended to
      * replace.
      */
-    public var detailSequence: List<PositiveInt?>? = null,
+    public var detailSequence: MutableList<PositiveInt> = mutableListOf(),
     /**
      * The sequence number of the sub-details within the details within the claim item which this
      * line is intended to replace.
      */
-    public var subdetailSequence: List<PositiveInt?>? = null,
+    public var subdetailSequence: MutableList<PositiveInt> = mutableListOf(),
     /**
      * Trace number for tracking purposes. May be defined at the jurisdiction level or between
      * trading partners.
      */
-    public var traceNumber: List<Identifier?>? = null,
+    public var traceNumber: MutableList<Identifier> = mutableListOf(),
     /** The providers who are authorized for the services rendered to the patient. */
-    public var provider: List<Reference?>? = null,
+    public var provider: MutableList<Reference> = mutableListOf(),
     /** The type of revenue or cost center providing the product and/or service. */
     public var revenue: CodeableConcept? = null,
     /**
@@ -799,20 +799,20 @@ public data class ClaimResponse(
      */
     public var productOrServiceEnd: CodeableConcept? = null,
     /** Request or Referral for Goods or Service to be rendered. */
-    public var request: List<Reference?>? = null,
+    public var request: MutableList<Reference> = mutableListOf(),
     /**
      * Item typification or modifiers codes to convey additional context for the product or service.
      *
      * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for Medical
      * whether the treatment was outside the clinic or outside of office hours.
      */
-    public var modifier: List<CodeableConcept?>? = null,
+    public var modifier: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Identifies the program under which this may be recovered.
      *
      * For example: Neonatal program, child dental program or drug users recovery program.
      */
-    public var programCode: List<CodeableConcept?>? = null,
+    public var programCode: MutableList<CodeableConcept> = mutableListOf(),
     /** The date or dates when the service or product was supplied, performed or completed. */
     public var serviced: Serviced? = null,
     /** Where the product or service was provided. */
@@ -843,15 +843,15 @@ public data class ClaimResponse(
      */
     public var net: Money? = null,
     /** Physical location where the service is performed or applies. */
-    public var bodySite: List<BodySite>? = null,
+    public var bodySite: MutableList<BodySite> = mutableListOf(),
     /** The numbers associated with notes below which apply to the adjudication of this item. */
-    public var noteNumber: List<PositiveInt?>? = null,
+    public var noteNumber: MutableList<PositiveInt> = mutableListOf(),
     /** The high-level results of the adjudication if adjudication has been performed. */
     public var reviewOutcome: Item.ReviewOutcome? = null,
     /** The adjudication results. */
-    public var adjudication: List<Item.Adjudication?>? = null,
+    public var adjudication: MutableList<Item.Adjudication> = mutableListOf(),
     /** The second-tier service adjudications for payor added services. */
-    public var detail: List<Detail>? = null,
+    public var detail: MutableList<Detail> = mutableListOf(),
   ) : BackboneElement() {
     /** Physical location where the service is performed or applies. */
     @Serializable(with = ClaimResponseAddItemBodySiteSerializer::class)
@@ -873,7 +873,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -892,16 +892,16 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Physical service site on the patient (limb, tooth, etc.).
        *
        * For example: Providing a tooth code allows an insurer to identify a provider performing a
        * filling on a tooth that was previously removed.
        */
-      public var site: List<CodeableReference?>? = null,
+      public var site: MutableList<CodeableReference> = mutableListOf(),
       /** A region or surface of the bodySite, e.g. limb region or tooth surface(s). */
-      public var subSite: List<CodeableConcept?>? = null,
+      public var subSite: MutableList<CodeableConcept> = mutableListOf(),
     ) : BackboneElement()
 
     /** The second-tier service adjudications for payor added services. */
@@ -924,7 +924,7 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -943,12 +943,12 @@ public data class ClaimResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Trace number for tracking purposes. May be defined at the jurisdiction level or between
        * trading partners.
        */
-      public var traceNumber: List<Identifier?>? = null,
+      public var traceNumber: MutableList<Identifier> = mutableListOf(),
       /** The type of revenue or cost center providing the product and/or service. */
       public var revenue: CodeableConcept? = null,
       /**
@@ -977,7 +977,7 @@ public data class ClaimResponse(
        * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for
        * Medical whether the treatment was outside the clinic or outside of office hours.
        */
-      public var modifier: List<CodeableConcept?>? = null,
+      public var modifier: MutableList<CodeableConcept> = mutableListOf(),
       /** The number of repetitions of a service or product. */
       public var quantity: Quantity? = null,
       /**
@@ -1004,13 +1004,13 @@ public data class ClaimResponse(
        */
       public var net: Money? = null,
       /** The numbers associated with notes below which apply to the adjudication of this item. */
-      public var noteNumber: List<PositiveInt?>? = null,
+      public var noteNumber: MutableList<PositiveInt> = mutableListOf(),
       /** The high-level results of the adjudication if adjudication has been performed. */
       public var reviewOutcome: Item.ReviewOutcome? = null,
       /** The adjudication results. */
-      public var adjudication: List<Item.Adjudication?>? = null,
+      public var adjudication: MutableList<Item.Adjudication> = mutableListOf(),
       /** The third-tier service adjudications for payor added services. */
-      public var subDetail: List<SubDetail>? = null,
+      public var subDetail: MutableList<SubDetail> = mutableListOf(),
     ) : BackboneElement() {
       /** The third-tier service adjudications for payor added services. */
       @Serializable(with = ClaimResponseAddItemDetailSubDetailSerializer::class)
@@ -1032,7 +1032,7 @@ public data class ClaimResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1051,12 +1051,12 @@ public data class ClaimResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Trace number for tracking purposes. May be defined at the jurisdiction level or between
          * trading partners.
          */
-        public var traceNumber: List<Identifier?>? = null,
+        public var traceNumber: MutableList<Identifier> = mutableListOf(),
         /** The type of revenue or cost center providing the product and/or service. */
         public var revenue: CodeableConcept? = null,
         /**
@@ -1087,7 +1087,7 @@ public data class ClaimResponse(
          * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for
          * Medical whether the treatment was outside the clinic or outside of office hours.
          */
-        public var modifier: List<CodeableConcept?>? = null,
+        public var modifier: MutableList<CodeableConcept> = mutableListOf(),
         /** The number of repetitions of a service or product. */
         public var quantity: Quantity? = null,
         /**
@@ -1114,11 +1114,11 @@ public data class ClaimResponse(
          */
         public var net: Money? = null,
         /** The numbers associated with notes below which apply to the adjudication of this item. */
-        public var noteNumber: List<PositiveInt?>? = null,
+        public var noteNumber: MutableList<PositiveInt> = mutableListOf(),
         /** The high-level results of the adjudication if adjudication has been performed. */
         public var reviewOutcome: Item.ReviewOutcome? = null,
         /** The adjudication results. */
-        public var adjudication: List<Item.Adjudication?>? = null,
+        public var adjudication: MutableList<Item.Adjudication> = mutableListOf(),
       ) : BackboneElement()
     }
 
@@ -1132,12 +1132,12 @@ public data class ClaimResponse(
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateValue: com.google.fhir.model.r5.Date?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
+          periodValue: com.google.fhir.model.r5.Period?,
         ): Serviced? {
           if (dateValue != null) return Date(dateValue)
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           return null
         }
       }
@@ -1160,14 +1160,14 @@ public data class ClaimResponse(
         Location
 
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          AddressValue: com.google.fhir.model.r5.Address?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          addressValue: com.google.fhir.model.r5.Address?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
         ): Location? {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (AddressValue != null) return Address(AddressValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (addressValue != null) return Address(addressValue)
+          if (referenceValue != null) return Reference(referenceValue)
           return null
         }
       }
@@ -1194,7 +1194,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1213,7 +1213,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A code to indicate the information type of this adjudication record. Information types may
      * include: the value submitted, maximum values or percentages allowed or payable under the
@@ -1222,9 +1222,9 @@ public data class ClaimResponse(
      *
      * For example codes indicating: Co-Pay, deductible, eligible, benefit, tax, etc.
      */
-    public var category: CodeableConcept? = null,
+    public var category: CodeableConcept,
     /** Monetary total amount associated with the category. */
-    public var amount: Money? = null,
+    public var amount: Money,
   ) : BackboneElement()
 
   /** Payment details for the adjudication of the claim. */
@@ -1247,7 +1247,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1266,9 +1266,9 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Whether this represents partial or complete payment of the benefits payable. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * Total amount of all adjustments to this payment included in this transaction which are not
      * related to this claim's adjudication.
@@ -1283,7 +1283,7 @@ public data class ClaimResponse(
     /** Estimated date the payment will be issued or the actual issue date of payment. */
     public var date: Date? = null,
     /** Benefits payable less any payment adjustment. */
-    public var amount: Money? = null,
+    public var amount: Money,
     /**
      * Issuer's unique identifier for the payment instrument.
      *
@@ -1312,7 +1312,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1331,13 +1331,13 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A number to uniquely identify a note entry. */
     public var number: PositiveInt? = null,
     /** The business purpose of the note text. */
     public var type: CodeableConcept? = null,
     /** The explanation or description associated with the processing. */
-    public var text: String? = null,
+    public var text: String,
     /**
      * A code to define the language used in the text of the note.
      *
@@ -1369,7 +1369,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1388,12 +1388,12 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A number to uniquely identify insurance entries and provide a sequence of coverages to convey
      * coordination of benefit order.
      */
-    public var sequence: PositiveInt? = null,
+    public var sequence: PositiveInt,
     /**
      * A flag to indicate that this Coverage is to be used for adjudication of this claim when set
      * to true.
@@ -1405,13 +1405,13 @@ public data class ClaimResponse(
      * this claim. Other claims would be created to request adjudication against the other listed
      * policies.
      */
-    public var focal: Boolean? = null,
+    public var focal: Boolean,
     /**
      * Reference to the insurance card level information contained in the Coverage resource. The
      * coverage issuing insurer will use these details to locate the patient's actual coverage
      * within the insurer's information system.
      */
-    public var coverage: Reference? = null,
+    public var coverage: Reference,
     /**
      * A business agreement number established between the provider and the insurer for special
      * business processing purposes.
@@ -1446,7 +1446,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1465,7 +1465,7 @@ public data class ClaimResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The sequence number of the line item submitted which contains the error. This value is
      * omitted when the error occurs outside of the item structure.
@@ -1486,7 +1486,7 @@ public data class ClaimResponse(
      * An error code, from a specified code system, which details why the claim could not be
      * adjudicated.
      */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * A [simple subset of FHIRPath](fhirpath.html#simple) limited to element names, repetition
      * indicators and the default child accessor that identifies one of the elements in the resource
@@ -1495,7 +1495,7 @@ public data class ClaimResponse(
      * The root of the FHIRPath is the resource or bundle that generated OperationOutcome. Each
      * FHIRPath SHALL resolve to a single node.
      */
-    public var expression: List<String?>? = null,
+    public var expression: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
   /** This value set includes Status codes. */

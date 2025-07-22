@@ -29,27 +29,27 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProductShelfLifeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var periodDuration: Duration? = null,
   public var periodString: KotlinString? = null,
   public var _periodString: Element? = null,
-  public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+  public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): ProductShelfLife =
-    ProductShelfLife().apply {
-      id = this@ProductShelfLifeSurrogate.id
-      extension = this@ProductShelfLifeSurrogate.extension
-      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension
-      type = this@ProductShelfLifeSurrogate.type
+    ProductShelfLife(
+      id = this@ProductShelfLifeSurrogate.id,
+      extension = this@ProductShelfLifeSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ProductShelfLifeSurrogate.type,
       period =
         ProductShelfLife.Period?.from(
           this@ProductShelfLifeSurrogate.periodDuration,
@@ -57,23 +57,25 @@ internal data class ProductShelfLifeSurrogate(
             this@ProductShelfLifeSurrogate.periodString,
             this@ProductShelfLifeSurrogate._periodString,
           ),
-        )
-      specialPrecautionsForStorage = this@ProductShelfLifeSurrogate.specialPrecautionsForStorage
-    }
+        ),
+      specialPrecautionsForStorage =
+        this@ProductShelfLifeSurrogate.specialPrecautionsForStorage ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ProductShelfLife): ProductShelfLifeSurrogate =
       with(model) {
-        ProductShelfLifeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          periodDuration = this@with.period?.asDuration()?.value
-          periodString = this@with.period?.asString()?.value?.value
-          _periodString = this@with.period?.asString()?.value?.toElement()
-          specialPrecautionsForStorage = this@with.specialPrecautionsForStorage
-        }
+        ProductShelfLifeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          periodDuration = this@with.period?.asDuration()?.value,
+          periodString = this@with.period?.asString()?.value?.value,
+          _periodString = this@with.period?.asString()?.value?.toElement(),
+          specialPrecautionsForStorage =
+            this@with.specialPrecautionsForStorage.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

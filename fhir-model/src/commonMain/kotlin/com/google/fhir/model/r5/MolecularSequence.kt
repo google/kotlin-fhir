@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSequenceSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class MolecularSequence(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class MolecularSequence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,9 +128,9 @@ public data class MolecularSequence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier for this particular sequence instance. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Amino Acid Sequence/ DNA Sequence / RNA Sequence. */
   public var type: Enumeration<SequenceType>? = null,
   /** Indicates the subject this sequence is associated too. */
@@ -141,7 +141,7 @@ public data class MolecularSequence(
    * For example, in trio testing, the subject would be the child (proband) and the focus would be
    * the parent.
    */
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference> = mutableListOf(),
   /** Specimen used for sequencing. */
   public var specimen: Reference? = null,
   /** The method for sequencing, for example, chip information. */
@@ -154,9 +154,9 @@ public data class MolecularSequence(
    * Sequence that was observed as file content. Can be an actual file contents, or referenced by a
    * URL to an external system.
    */
-  public var formatted: List<Attachment?>? = null,
+  public var formatted: MutableList<Attachment> = mutableListOf(),
   /** A sequence defined relative to another sequence. */
-  public var relative: List<Relative>? = null,
+  public var relative: MutableList<Relative> = mutableListOf(),
 ) : DomainResource() {
   /** A sequence defined relative to another sequence. */
   @Serializable(with = MolecularSequenceRelativeSerializer::class)
@@ -178,7 +178,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -197,13 +197,13 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * These are different ways of identifying nucleotides or amino acids within a sequence.
      * Different databases and file types may use different systems. For detail definitions, see
      * https://loinc.org/92822-6/ for more detail.
      */
-    public var coordinateSystem: CodeableConcept? = null,
+    public var coordinateSystem: CodeableConcept,
     /**
      * Indicates the order in which the sequence should be considered when putting multiple
      * 'relative' elements together.
@@ -220,7 +220,7 @@ public data class MolecularSequence(
      */
     public var startingSequence: StartingSequence? = null,
     /** Changes in sequence from the starting sequence. */
-    public var edit: List<Edit>? = null,
+    public var edit: MutableList<Edit> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A sequence that is used as a starting sequence to describe variants that are present in a
@@ -245,7 +245,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -264,7 +264,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The genome assembly used for starting sequence, e.g. GRCh38. */
       public var genomeAssembly: CodeableConcept? = null,
       /**
@@ -322,14 +322,14 @@ public data class MolecularSequence(
           Sequence
 
         public companion object {
-          public fun from(
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          internal fun from(
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             stringValue: com.google.fhir.model.r5.String?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
+            referenceValue: com.google.fhir.model.r5.Reference?,
           ): Sequence? {
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
             if (stringValue != null) return String(stringValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
+            if (referenceValue != null) return Reference(referenceValue)
             return null
           }
         }
@@ -356,7 +356,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -375,7 +375,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Start position of the edit on the starting sequence. If the coordinate system is either
        * 0-based or 1-based, then start position is inclusive.

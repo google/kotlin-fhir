@@ -30,7 +30,7 @@ import com.google.fhir.model.r4.serializers.TerminologyCapabilitiesSoftwareSeria
 import com.google.fhir.model.r4.serializers.TerminologyCapabilitiesTranslationSerializer
 import com.google.fhir.model.r4.serializers.TerminologyCapabilitiesValidateCodeSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -105,7 +105,7 @@ public data class TerminologyCapabilities(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -118,7 +118,7 @@ public data class TerminologyCapabilities(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class TerminologyCapabilities(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this terminology capabilities when it is referenced in
    * a specification, model, design or an instance; also called its canonical identifier. This
@@ -193,7 +193,7 @@ public data class TerminologyCapabilities(
    * not intended for use with actual capability statements, but where capability statements are
    * used to describe possible or desired systems.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this terminology capabilities is authored for testing purposes
    * (or education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -212,7 +212,7 @@ public data class TerminologyCapabilities(
    * added as extensions or be found by consulting Provenances associated with past versions of the
    * resource.
    */
-  public var date: DateTime? = null,
+  public var date: DateTime,
   /**
    * The name of the organization or individual that published the terminology capabilities.
    *
@@ -229,7 +229,7 @@ public data class TerminologyCapabilities(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the terminology capabilities from a consumer's
    * perspective. Typically, this is used when the capability statement describes a desired rather
@@ -254,14 +254,14 @@ public data class TerminologyCapabilities(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the terminology capabilities is intended to be used.
    *
    * It may be possible for the terminology capabilities to be used in jurisdictions other than
    * those for which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this terminology capabilities is needed and why it has been designed as it
    * has.
@@ -283,7 +283,7 @@ public data class TerminologyCapabilities(
    * software, a particular product (kind, not instance of software) or a class of implementation
    * (e.g. a desired purchase).
    */
-  public var kind: Enumeration<CapabilityStatementKind>? = null,
+  public var kind: Enumeration<CapabilityStatementKind>,
   /**
    * Software that is covered by this terminology capability statement. It is used when the
    * statement describes the capabilities of a particular software version, independent of an
@@ -305,7 +305,7 @@ public data class TerminologyCapabilities(
    * The code system - identified by its system URL - may also be declared explicitly as a Code
    * System Resource at /CodeSystem, but it might not be.
    */
-  public var codeSystem: List<CodeSystem>? = null,
+  public var codeSystem: MutableList<CodeSystem> = mutableListOf(),
   /** Information about the [ValueSet/$expand](valueset-operation-expand.html) operation. */
   public var expansion: Expansion? = null,
   /**
@@ -351,7 +351,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -370,9 +370,9 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Name the software is known by. */
-    public var name: String? = null,
+    public var name: String,
     /**
      * The version identifier for the software covered by this statement.
      *
@@ -405,7 +405,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -424,12 +424,12 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Information about the specific installation that this terminology capability statement
      * relates to.
      */
-    public var description: String? = null,
+    public var description: String,
     /** An absolute base URL for the implementation. */
     public var url: Url? = null,
   ) : BackboneElement()
@@ -458,7 +458,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -477,7 +477,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** URI for the Code System. */
     public var uri: Canonical? = null,
     /**
@@ -485,7 +485,7 @@ public data class TerminologyCapabilities(
      *
      * Language translations might not be available for all codes.
      */
-    public var version: List<Version>? = null,
+    public var version: MutableList<Version> = mutableListOf(),
     /** True if subsumption is supported for this version of the code system. */
     public var subsumption: Boolean? = null,
   ) : BackboneElement() {
@@ -509,7 +509,7 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -528,7 +528,7 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** For version-less code systems, there should be a single version with no identifier. */
       public var code: String? = null,
       /** If this is the default version for this code system. */
@@ -536,11 +536,11 @@ public data class TerminologyCapabilities(
       /** If the compositional grammar defined by the code system is supported. */
       public var compositional: Boolean? = null,
       /** Language Displays supported. */
-      public var language: List<Code?>? = null,
+      public var language: MutableList<Code> = mutableListOf(),
       /** Filter Properties supported. */
-      public var filter: List<Filter>? = null,
+      public var filter: MutableList<Filter> = mutableListOf(),
       /** Properties supported for $lookup. */
-      public var `property`: List<Code?>? = null,
+      public var `property`: MutableList<Code> = mutableListOf(),
     ) : BackboneElement() {
       /** Filter Properties supported. */
       @Serializable(with = TerminologyCapabilitiesCodeSystemVersionFilterSerializer::class)
@@ -562,7 +562,7 @@ public data class TerminologyCapabilities(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -581,11 +581,11 @@ public data class TerminologyCapabilities(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Code of the property supported. */
-        public var code: Code? = null,
+        public var code: Code,
         /** Operations supported for the property. */
-        public var op: List<Code?>? = null,
+        public var op: MutableList<Code> = mutableListOf(),
       ) : BackboneElement()
     }
   }
@@ -610,7 +610,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -629,7 +629,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Whether the server can return nested value sets. */
     public var hierarchical: Boolean? = null,
     /** Whether the server supports paging on expansion. */
@@ -637,7 +637,7 @@ public data class TerminologyCapabilities(
     /** Allow request for incomplete expansions? */
     public var incomplete: Boolean? = null,
     /** Supported expansion parameter. */
-    public var parameter: List<Parameter>? = null,
+    public var parameter: MutableList<Parameter> = mutableListOf(),
     /**
      * Documentation about text searching works.
      *
@@ -667,7 +667,7 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -686,9 +686,9 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Expansion Parameter name. */
-      public var name: Code? = null,
+      public var name: Code,
       /** Description of support for parameter. */
       public var documentation: String? = null,
     ) : BackboneElement()
@@ -717,7 +717,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -736,9 +736,9 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Whether translations are validated. */
-    public var translations: Boolean? = null,
+    public var translations: Boolean,
   ) : BackboneElement()
 
   /**
@@ -763,7 +763,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -782,9 +782,9 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Whether the client must identify the map. */
-    public var needsMap: Boolean? = null,
+    public var needsMap: Boolean,
   ) : BackboneElement()
 
   /** Whether the $closure operation is supported. */
@@ -807,7 +807,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -826,7 +826,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** If cross-system closure is supported. */
     public var translation: Boolean? = null,
   ) : BackboneElement()

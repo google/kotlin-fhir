@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ContributorSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,13 +46,13 @@ public data class Contributor(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The type of contributor. */
-  public var type: Enumeration<ContributorType>? = null,
+  public var type: Enumeration<ContributorType>,
   /** The name of the individual or organization responsible for the contribution. */
-  public var name: String? = null,
+  public var name: String,
   /** Contact details to assist a user in finding and communicating with the contributor. */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
 ) : Element() {
   /** The type of contributor. */
   public enum class ContributorType(

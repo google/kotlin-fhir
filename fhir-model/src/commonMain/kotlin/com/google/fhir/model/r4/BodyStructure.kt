@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.BodyStructureSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class BodyStructure(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class BodyStructure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,9 +126,9 @@ public data class BodyStructure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier for this instance of the anatomical structure. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this body site is in active use.
    *
@@ -150,7 +150,7 @@ public data class BodyStructure(
    * Qualifier to refine the anatomical location. These include qualifiers for laterality, relative
    * location, directionality, number, and plane.
    */
-  public var locationQualifier: List<CodeableConcept?>? = null,
+  public var locationQualifier: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A summary, characterization or explanation of the body structure.
    *
@@ -159,7 +159,7 @@ public data class BodyStructure(
    */
   public var description: String? = null,
   /** Image or images used to identify a location. */
-  public var image: List<Attachment?>? = null,
+  public var image: MutableList<Attachment> = mutableListOf(),
   /** The person to which the body site belongs. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
 ) : DomainResource()

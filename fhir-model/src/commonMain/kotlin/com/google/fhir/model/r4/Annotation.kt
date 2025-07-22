@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.AnnotationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class Annotation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The individual responsible for making the annotation.
    *
@@ -57,7 +57,7 @@ public data class Annotation(
   /** Indicates when this particular annotation was made. */
   public var time: DateTime? = null,
   /** The text of the annotation in markdown format. */
-  public var text: Markdown? = null,
+  public var text: Markdown,
 ) : Element() {
   public sealed interface Author {
     public fun asReference(): Reference? = this as? Reference
@@ -69,11 +69,11 @@ public data class Annotation(
     public data class String(public val `value`: com.google.fhir.model.r4.String) : Author
 
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r4.Reference?,
         stringValue: com.google.fhir.model.r4.String?,
       ): Author? {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (stringValue != null) return String(stringValue)
         return null
       }

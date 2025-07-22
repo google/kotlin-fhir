@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.LocationPositionSerializer
 import com.google.fhir.model.r5.serializers.LocationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class Location(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class Location(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,9 +129,9 @@ public data class Location(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Unique code or number identifying the location to its users. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status property covers the general availability of the resource, not the current value
    * which may be covered by the operationStatus, or by a schedule/slots if they are configured for
@@ -158,7 +158,7 @@ public data class Location(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the location.
    */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /** Description of the Location, which helps in finding or referencing the place. */
   public var description: Markdown? = null,
   /**
@@ -169,7 +169,7 @@ public data class Location(
    */
   public var mode: Enumeration<LocationMode>? = null,
   /** Indicates the type of function performed at the location. */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The contact details of communication devices available at the location. This can include
    * addresses, phone numbers, fax numbers, mobile numbers, email addresses and web sites.
@@ -182,7 +182,7 @@ public data class Location(
    *
    * If this is empty (or the type of interest is empty), refer to the organization's contacts.
    */
-  public var contact: List<ExtendedContactDetail?>? = null,
+  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
   /**
    * Physical location.
    *
@@ -215,7 +215,7 @@ public data class Location(
    *
    * These could be such things as is wheelchair accessible.
    */
-  public var characteristic: List<CodeableConcept?>? = null,
+  public var characteristic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * What days/times during a week is this location usually open, and any exceptions where the
    * location is not available.
@@ -233,7 +233,7 @@ public data class Location(
    *
    * The availableStartTime is the opening time, and the availableEndTime is the closing time.
    */
-  public var hoursOfOperation: List<Availability?>? = null,
+  public var hoursOfOperation: MutableList<Availability> = mutableListOf(),
   /**
    * Connection details of a virtual service (e.g. shared conference call facility with dedicated
    * number/details).
@@ -246,9 +246,9 @@ public data class Location(
    * Implementers may consider using Appointment.virtualService for virtual meeting rooms that are
    * generated on-demand.
    */
-  public var virtualService: List<VirtualServiceDetail?>? = null,
+  public var virtualService: MutableList<VirtualServiceDetail> = mutableListOf(),
   /** Technical endpoints providing access to services operated for the location. */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /**
    * The absolute geographic location of the Location, expressed using the WGS84 datum (This is the
@@ -273,7 +273,7 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -292,17 +292,17 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Longitude. The value domain and the interpretation are the same as for the text of the
      * longitude element in KML (see notes on Location main page).
      */
-    public var longitude: Decimal? = null,
+    public var longitude: Decimal,
     /**
      * Latitude. The value domain and the interpretation are the same as for the text of the
      * latitude element in KML (see notes on Location main page).
      */
-    public var latitude: Decimal? = null,
+    public var latitude: Decimal,
     /**
      * Altitude. The value domain and the interpretation are the same as for the text of the
      * altitude element in KML (see notes on Location main page).

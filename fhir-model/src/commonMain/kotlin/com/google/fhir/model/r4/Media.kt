@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MediaSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class Media(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class Media(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,7 +126,7 @@ public data class Media(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with the image - these may include identifiers for the image itself,
    * identifiers for the context of its collection (e.g. series ids) and context ids such as
@@ -134,9 +134,9 @@ public data class Media(
    *
    * The identifier label and use can be used to determine what kind of identifier it is.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A procedure that is fulfilled in whole or in part by the creation of this media. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A larger event of which this particular event is a component or step.
    *
@@ -144,7 +144,7 @@ public data class Media(
    *
    * [The allowed reference resources may be adjusted as appropriate for the event resource].
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * The current state of the {{title}}.
    *
@@ -154,7 +154,7 @@ public data class Media(
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<MediaStatus>? = null,
+  public var status: Enumeration<MediaStatus>,
   /**
    * A code that classifies whether the media is an image, video or audio recording or some other
    * media category.
@@ -195,7 +195,7 @@ public data class Media(
    *
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Indicates the site on the subject's body where the observation was made (i.e. the target site).
    *
@@ -244,14 +244,14 @@ public data class Media(
    * that covers a period of time (video/sound), the content.creationTime is the end time. Creation
    * time is used for tracking, organizing versions and searching.
    */
-  public var content: Attachment? = null,
+  public var content: Attachment,
   /**
    * Comments made about the media by the performer, subject or other participants.
    *
    * Not to be used for observations, conclusions, etc. Instead use an
    * [Observation](observation.html) based on the Media/ImagingStudy resource.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   public sealed interface Created {
     public fun asDateTime(): DateTime? = this as? DateTime
@@ -263,12 +263,12 @@ public data class Media(
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Created
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
+        periodValue: com.google.fhir.model.r4.Period?,
       ): Created? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         return null
       }
     }

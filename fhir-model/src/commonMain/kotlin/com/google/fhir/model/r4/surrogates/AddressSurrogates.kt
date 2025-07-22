@@ -29,22 +29,22 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AddressSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var line: List<KotlinString?>? = null,
-  public var _line: List<Element?>? = null,
+  public var line: MutableList<KotlinString?>? = null,
+  public var _line: MutableList<Element?>? = null,
   public var city: KotlinString? = null,
   public var _city: Element? = null,
   public var district: KotlinString? = null,
@@ -58,66 +58,73 @@ internal data class AddressSurrogate(
   public var period: Period? = null,
 ) {
   public fun toModel(): Address =
-    Address().apply {
-      id = this@AddressSurrogate.id
-      extension = this@AddressSurrogate.extension
+    Address(
+      id = this@AddressSurrogate.id,
+      extension = this@AddressSurrogate.extension ?: mutableListOf(),
       use =
-        Enumeration.of(
-          this@AddressSurrogate.use?.let {
-            com.google.fhir.model.r4.Address.AddressUse.fromCode(it)
-          },
-          this@AddressSurrogate._use,
-        )
+        this@AddressSurrogate.use?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Address.AddressUse.fromCode(it!!),
+            this@AddressSurrogate._use,
+          )
+        },
       type =
-        Enumeration.of(
-          this@AddressSurrogate.type?.let {
-            com.google.fhir.model.r4.Address.AddressType.fromCode(it)
-          },
-          this@AddressSurrogate._type,
-        )
-      text = R4String.of(this@AddressSurrogate.text, this@AddressSurrogate._text)
+        this@AddressSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Address.AddressType.fromCode(it!!),
+            this@AddressSurrogate._type,
+          )
+        },
+      text = R4String.of(this@AddressSurrogate.text, this@AddressSurrogate._text),
       line =
         if (this@AddressSurrogate.line == null && this@AddressSurrogate._line == null) {
-          null
+          mutableListOf()
         } else {
           (this@AddressSurrogate.line ?: List(this@AddressSurrogate._line!!.size) { null })
             .zip(this@AddressSurrogate._line ?: List(this@AddressSurrogate.line!!.size) { null })
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
-      city = R4String.of(this@AddressSurrogate.city, this@AddressSurrogate._city)
-      district = R4String.of(this@AddressSurrogate.district, this@AddressSurrogate._district)
-      state = R4String.of(this@AddressSurrogate.state, this@AddressSurrogate._state)
-      postalCode = R4String.of(this@AddressSurrogate.postalCode, this@AddressSurrogate._postalCode)
-      country = R4String.of(this@AddressSurrogate.country, this@AddressSurrogate._country)
-      period = this@AddressSurrogate.period
-    }
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
+      city = R4String.of(this@AddressSurrogate.city, this@AddressSurrogate._city),
+      district = R4String.of(this@AddressSurrogate.district, this@AddressSurrogate._district),
+      state = R4String.of(this@AddressSurrogate.state, this@AddressSurrogate._state),
+      postalCode = R4String.of(this@AddressSurrogate.postalCode, this@AddressSurrogate._postalCode),
+      country = R4String.of(this@AddressSurrogate.country, this@AddressSurrogate._country),
+      period = this@AddressSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(model: Address): AddressSurrogate =
       with(model) {
-        AddressSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          use = this@with.use?.value?.getCode()
-          _use = this@with.use?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          text = this@with.text?.value
-          _text = this@with.text?.toElement()
-          line = this@with.line?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _line = this@with.line?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          city = this@with.city?.value
-          _city = this@with.city?.toElement()
-          district = this@with.district?.value
-          _district = this@with.district?.toElement()
-          state = this@with.state?.value
-          _state = this@with.state?.toElement()
-          postalCode = this@with.postalCode?.value
-          _postalCode = this@with.postalCode?.toElement()
-          country = this@with.country?.value
-          _country = this@with.country?.toElement()
-          period = this@with.period
-        }
+        AddressSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          use = this@with.use?.value?.getCode(),
+          _use = this@with.use?.toElement(),
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          text = this@with.text?.value,
+          _text = this@with.text?.toElement(),
+          line =
+            this@with.line.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _line =
+            this@with.line
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          city = this@with.city?.value,
+          _city = this@with.city?.toElement(),
+          district = this@with.district?.value,
+          _district = this@with.district?.toElement(),
+          state = this@with.state?.value,
+          _state = this@with.state?.toElement(),
+          postalCode = this@with.postalCode?.value,
+          _postalCode = this@with.postalCode?.toElement(),
+          country = this@with.country?.value,
+          _country = this@with.country?.toElement(),
+          period = this@with.period,
+        )
       }
   }
 }

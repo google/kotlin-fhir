@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.CoverageCostToBeneficiarySerializer
 import com.google.fhir.model.r5.serializers.CoveragePaymentBySerializer
 import com.google.fhir.model.r5.serializers.CoverageSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class Coverage(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class Coverage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class Coverage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The identifier of the coverage as issued by the insurer.
    *
@@ -141,18 +141,18 @@ public data class Coverage(
    * of the Coverage.SubscriberID and the Coverage.dependant. Note that not all insurers issue
    * unique member IDs therefore searches may result in multiple responses.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the coverage as not currently valid.
    */
-  public var status: Enumeration<CoverageStatus>? = null,
+  public var status: Enumeration<CoverageStatus>,
   /** The nature of the coverage be it insurance, or cash payment such as self-pay. */
-  public var kind: Enumeration<CoverageKind>? = null,
+  public var kind: Enumeration<CoverageKind>,
   /** Link to the paying party and optionally what specifically they will be responsible to pay. */
-  public var paymentBy: List<PaymentBy>? = null,
+  public var paymentBy: MutableList<PaymentBy> = mutableListOf(),
   /**
    * The type of coverage: social program, medical plan, accident coverage (workers compensation,
    * auto), group health or payment by an individual or organization.
@@ -174,12 +174,12 @@ public data class Coverage(
    */
   public var subscriber: Reference? = null,
   /** The insurer assigned ID for the Subscriber. */
-  public var subscriberId: List<Identifier?>? = null,
+  public var subscriberId: MutableList<Identifier> = mutableListOf(),
   /**
    * The party who benefits from the insurance coverage; the patient when products and/or services
    * are provided.
    */
-  public var beneficiary: Reference? = null,
+  public var beneficiary: Reference,
   /**
    * A designator for a dependent under the coverage.
    *
@@ -211,7 +211,7 @@ public data class Coverage(
    * For example, class may be used to identify a class of coverage or employer group, policy, or
    * plan.
    */
-  public var `class`: List<Class>? = null,
+  public var `class`: MutableList<Class> = mutableListOf(),
   /**
    * The order of applicability of this coverage relative to other coverages which are currently in
    * force. Note, there may be gaps in the numbering and this does not imply primary, secondary etc.
@@ -235,7 +235,7 @@ public data class Coverage(
    * For example by knowing the patient visit co-pay, the provider can collect the amount prior to
    * undertaking treatment.
    */
-  public var costToBeneficiary: List<CostToBeneficiary>? = null,
+  public var costToBeneficiary: MutableList<CostToBeneficiary> = mutableListOf(),
   /**
    * When 'subrogation=true' this insurance instance has been included not for adjudication but to
    * provide insurers with the details to recover costs.
@@ -245,7 +245,7 @@ public data class Coverage(
    */
   public var subrogation: Boolean? = null,
   /** The policy(s) which constitute this insurance coverage. */
-  public var contract: List<Reference?>? = null,
+  public var contract: MutableList<Reference> = mutableListOf(),
   /** The insurance plan details, benefits and costs, which constitute this insurance coverage. */
   public var insurancePlan: Reference? = null,
 ) : DomainResource() {
@@ -269,7 +269,7 @@ public data class Coverage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,9 +288,9 @@ public data class Coverage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The list of parties providing non-insurance payment for the treatment costs. */
-    public var party: Reference? = null,
+    public var party: Reference,
     /** Description of the financial responsibility. */
     public var responsibility: String? = null,
   ) : BackboneElement()
@@ -315,7 +315,7 @@ public data class Coverage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -334,19 +334,19 @@ public data class Coverage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of classification for which an insurer-specific class label or number and optional
      * name is provided. For example, type may be used to identify a class of coverage or employer
      * group, policy, or plan.
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * The alphanumeric identifier associated with the insurer issued label.
      *
      * For example, the Group or Plan number.
      */
-    public var `value`: Identifier? = null,
+    public var `value`: Identifier,
     /** A short description for the class. */
     public var name: String? = null,
   ) : BackboneElement()
@@ -374,7 +374,7 @@ public data class Coverage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -393,7 +393,7 @@ public data class Coverage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The category of patient centric costs associated with treatment.
      *
@@ -429,7 +429,7 @@ public data class Coverage(
      * A suite of codes indicating exceptions or reductions to patient costs and their effective
      * periods.
      */
-    public var exception: List<Exception>? = null,
+    public var exception: MutableList<Exception> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A suite of codes indicating exceptions or reductions to patient costs and their effective
@@ -454,7 +454,7 @@ public data class Coverage(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -473,9 +473,9 @@ public data class Coverage(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The code for the specific exception. */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** The timeframe the exception is in force. */
       public var period: Period? = null,
     ) : BackboneElement()
@@ -490,12 +490,12 @@ public data class Coverage(
       public data class Money(public val `value`: com.google.fhir.model.r5.Money) : Value
 
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          MoneyValue: com.google.fhir.model.r5.Money?,
+        internal fun from(
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          moneyValue: com.google.fhir.model.r5.Money?,
         ): Value? {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (MoneyValue != null) return Money(MoneyValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (moneyValue != null) return Money(moneyValue)
           return null
         }
       }

@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.AuditEventSerializer
 import com.google.fhir.model.r5.serializers.AuditEventSourceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class AuditEvent(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class AuditEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,11 +134,11 @@ public data class AuditEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Classification of the type of event. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Describes what happened. The most specific code for the event. */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /** Indicator for type of action performed during the event that generated the audit. */
   public var action: Enumeration<AuditEventAction>? = null,
   /**
@@ -160,7 +160,7 @@ public data class AuditEvent(
    * In a distributed system, some sort of common time base (e.g. an NTP [RFC1305] server) is a good
    * implementation tactic.
    */
-  public var recorded: Instant? = null,
+  public var recorded: Instant,
   /**
    * Indicates whether the event succeeded or failed. A free text descripiton can be given in
    * outcome.text.
@@ -177,12 +177,12 @@ public data class AuditEvent(
    * use AuditEvent.authorization. For example, during a machine-to-machine transfer it might not be
    * obvious to the audit system who caused the event, but it does know why.
    */
-  public var authorization: List<CodeableConcept?>? = null,
+  public var authorization: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Allows tracing of authorizatino for the events and tracking whether proposals/recommendations
    * were acted upon.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * The patient element is available to enable deterministic tracking of activities that involve
    * the patient as the subject of the data used in an activity.
@@ -207,7 +207,7 @@ public data class AuditEvent(
    * the known actors using the network. The agent with a network detail would be the responsible
    * agent for use of that network.
    */
-  public var agent: List<Agent>? = null,
+  public var agent: MutableList<Agent> = mutableListOf(),
   /**
    * The actor that is reporting the event.
    *
@@ -215,7 +215,7 @@ public data class AuditEvent(
    * actors, but may also be different. The actor may be a human such as a medical-records clerk
    * disclosing data manually, that clerk would be the source for the record of disclosure.
    */
-  public var source: Source? = null,
+  public var source: Source,
   /**
    * Specific instances of data or objects that have been accessed.
    *
@@ -223,7 +223,7 @@ public data class AuditEvent(
    * identification are sufficient to document the entire auditable event. Because events may have
    * more than one entity, this group can be a repeating set of values.
    */
-  public var entity: List<Entity>? = null,
+  public var entity: MutableList<Entity> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Indicates whether the event succeeded or failed. A free text descripiton can be given in
@@ -248,7 +248,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -267,7 +267,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates whether the event succeeded or failed.
      *
@@ -275,14 +275,14 @@ public data class AuditEvent(
      * of a radiological study. For the purpose of establishing accountability, these distinctions
      * are not relevant.
      */
-    public var code: Coding? = null,
+    public var code: Coding,
     /**
      * Additional details about the error. This may be a text description of the error or a system
      * code that identifies the error.
      *
      * A human readable description of the error issue SHOULD be placed in details.text.
      */
-    public var detail: List<CodeableConcept?>? = null,
+    public var detail: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /** An actor taking an active role in the event or activity that is logged. */
@@ -305,7 +305,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -324,7 +324,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The Functional Role of the user when performing the event.
      *
@@ -337,14 +337,14 @@ public data class AuditEvent(
      *
      * For example: Chief-of-Radiology, Nurse, Physician, Medical-Student, etc.
      */
-    public var role: List<CodeableConcept?>? = null,
+    public var role: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Reference to who this agent is that was involved in the event.
      *
      * Where a User ID is available it will go into who.identifier. Where a name of the user (human
      * readable) it will go into who.display.
      */
-    public var who: Reference? = null,
+    public var who: Reference,
     /**
      * Indicator that the user is or is not the requestor, or initiator, for the event being
      * audited.
@@ -364,7 +364,7 @@ public data class AuditEvent(
      * placed into the policy element Where a policy engine (e.g. XACML) holds policy logic, the
      * unique policy identifier is placed into the policy element.
      */
-    public var policy: List<Uri?>? = null,
+    public var policy: MutableList<Uri> = mutableListOf(),
     /**
      * When the event utilizes a network there should be an agent describing the local system, and
      * an agent describing remote system, with the network interface details.
@@ -383,7 +383,7 @@ public data class AuditEvent(
      * AuditEvent.authorization. For example, during a machine-to-machine transfer it might not be
      * obvious to the audit system who caused the event, but it does know why.
      */
-    public var authorization: List<CodeableConcept?>? = null,
+    public var authorization: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Network {
       public fun asReference(): Reference? = this as? Reference
@@ -399,12 +399,12 @@ public data class AuditEvent(
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Network
 
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
+        internal fun from(
+          referenceValue: com.google.fhir.model.r5.Reference?,
           uriValue: com.google.fhir.model.r5.Uri?,
           stringValue: com.google.fhir.model.r5.String?,
         ): Network? {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+          if (referenceValue != null) return Reference(referenceValue)
           if (uriValue != null) return Uri(uriValue)
           if (stringValue != null) return String(stringValue)
           return null
@@ -433,7 +433,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -452,16 +452,16 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Logical source location within the healthcare enterprise network. For example, a hospital or
      * other provider location within a multi-entity provider group.
      */
     public var site: Reference? = null,
     /** Identifier of the source where the event was detected. */
-    public var observer: Reference? = null,
+    public var observer: Reference,
     /** Code specifying the type of source where event originated. */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /** Specific instances of data or objects that have been accessed. */
@@ -484,7 +484,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -503,7 +503,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies a specific instance of the entity. The reference should be version specific. This
      * is allowed to be a Parameters resource.
@@ -518,7 +518,7 @@ public data class AuditEvent(
      *
      * Copied from entity meta security tags.
      */
-    public var securityLabel: List<CodeableConcept?>? = null,
+    public var securityLabel: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The query parameters for a query-type entities.
      *
@@ -534,7 +534,7 @@ public data class AuditEvent(
      */
     public var query: Base64Binary? = null,
     /** Tagged value pairs for conveying additional information about the entity. */
-    public var detail: List<Detail>? = null,
+    public var detail: MutableList<Detail> = mutableListOf(),
     /**
      * The entity is attributed to an agent to express the agent's responsibility for that entity in
      * the activity. This is most used to indicate when persistence media (the entity) are used by
@@ -550,7 +550,7 @@ public data class AuditEvent(
      * resource server. Thus it explains the provenance of that Entity's use in the context of this
      * AuditEvent activity.
      */
-    public var agent: List<Agent?>? = null,
+    public var agent: MutableList<Agent> = mutableListOf(),
   ) : BackboneElement() {
     /** Tagged value pairs for conveying additional information about the entity. */
     @Serializable(with = AuditEventEntityDetailSerializer::class)
@@ -572,7 +572,7 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -591,11 +591,11 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of extra detail provided in the value. */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** The value of the extra detail. */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
@@ -646,29 +646,29 @@ public data class AuditEvent(
           Value
 
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          internal fun from(
+            quantityValue: com.google.fhir.model.r5.Quantity?,
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             stringValue: com.google.fhir.model.r5.String?,
             booleanValue: com.google.fhir.model.r5.Boolean?,
             integerValue: com.google.fhir.model.r5.Integer?,
-            RangeValue: com.google.fhir.model.r5.Range?,
-            RatioValue: com.google.fhir.model.r5.Ratio?,
+            rangeValue: com.google.fhir.model.r5.Range?,
+            ratioValue: com.google.fhir.model.r5.Ratio?,
             timeValue: com.google.fhir.model.r5.Time?,
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
-            PeriodValue: com.google.fhir.model.r5.Period?,
+            periodValue: com.google.fhir.model.r5.Period?,
             base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
           ): Value? {
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
             if (stringValue != null) return String(stringValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (integerValue != null) return Integer(integerValue)
-            if (RangeValue != null) return Range(RangeValue)
-            if (RatioValue != null) return Ratio(RatioValue)
+            if (rangeValue != null) return Range(rangeValue)
+            if (ratioValue != null) return Ratio(ratioValue)
             if (timeValue != null) return Time(timeValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
-            if (PeriodValue != null) return Period(PeriodValue)
+            if (periodValue != null) return Period(periodValue)
             if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
             return null
           }
@@ -687,11 +687,11 @@ public data class AuditEvent(
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Occurred
 
     public companion object {
-      public fun from(
-        PeriodValue: com.google.fhir.model.r5.Period?,
+      internal fun from(
+        periodValue: com.google.fhir.model.r5.Period?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
       ): Occurred? {
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         return null
       }

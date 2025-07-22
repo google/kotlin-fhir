@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.PractitionerRoleSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class PractitionerRole(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class PractitionerRole(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class PractitionerRole(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business Identifiers that are specific to a role/location.
    *
@@ -138,7 +138,7 @@ public data class PractitionerRole(
    * reasons). A specific identifier may be included multiple times in the same PractitionerRole
    * instance with different identifier validity periods.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this practitioner role record is in active use. Some systems may use this property to
    * mark non-active practitioners, such as those that are not currently employed.
@@ -167,7 +167,7 @@ public data class PractitionerRole(
    *
    * A person may have more than one role.
    */
-  public var code: List<CodeableConcept?>? = null,
+  public var code: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The specialty of a practitioner that describes the functional role they are practicing at a
    * given organization or location.
@@ -177,26 +177,26 @@ public data class PractitionerRole(
    * would be represented in the Practitioner.qualifications property. Note that qualifications may
    * or might not relate to or be required by the practicing specialty.
    */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /** The location(s) at which this practitioner provides care. */
-  public var location: List<Reference?>? = null,
+  public var location: MutableList<Reference> = mutableListOf(),
   /**
    * The list of healthcare services that this worker provides for this role's
    * Organization/Location(s).
    */
-  public var healthcareService: List<Reference?>? = null,
+  public var healthcareService: MutableList<Reference> = mutableListOf(),
   /**
    * The contact details of communication devices available relevant to the specific
    * PractitionerRole. This can include addresses, phone numbers, fax numbers, mobile numbers, email
    * addresses and web sites.
    */
-  public var contact: List<ExtendedContactDetail?>? = null,
+  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
   /**
    * Collection of characteristics (attributes).
    *
    * These could be such things as is the service mode used by this role.
    */
-  public var characteristic: List<CodeableConcept?>? = null,
+  public var characteristic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A language the practitioner can use in patient communication. The practitioner may know several
    * languages (listed in practitioner.communication), however these are the languages that could be
@@ -212,7 +212,7 @@ public data class PractitionerRole(
    * HealthcareService and PractitionerRole only include languages that are available for
    * interacting with patients.
    */
-  public var communication: List<CodeableConcept?>? = null,
+  public var communication: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A collection of times the practitioner is available or performing this role at the location
    * and/or healthcareservice.
@@ -227,11 +227,11 @@ public data class PractitionerRole(
    * The NotAvailableTime(s) included indicate the general days/periods where the practitioner is
    * not available (for things such as vacation time, or public holidays).
    */
-  public var availability: List<Availability?>? = null,
+  public var availability: MutableList<Availability> = mutableListOf(),
   /**
    * Technical endpoints providing access to services operated for the practitioner with this role.
    * Commonly used for locating scheduling services, or identifying where to send referrals
    * electronically.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource()

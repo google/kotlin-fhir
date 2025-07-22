@@ -46,7 +46,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -59,12 +59,12 @@ internal data class MediaSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept? = null,
@@ -78,7 +78,7 @@ internal data class MediaSurrogate(
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var `operator`: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
   public var bodySite: CodeableConcept? = null,
   public var deviceName: KotlinString? = null,
   public var _deviceName: Element? = null,
@@ -91,34 +91,32 @@ internal data class MediaSurrogate(
   public var _frames: Element? = null,
   public var duration: Double? = null,
   public var _duration: Element? = null,
-  public var content: Attachment? = null,
-  public var note: List<Annotation?>? = null,
+  public var content: Attachment,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): Media =
-    Media().apply {
-      id = this@MediaSurrogate.id
-      meta = this@MediaSurrogate.meta
-      implicitRules = Uri.of(this@MediaSurrogate.implicitRules, this@MediaSurrogate._implicitRules)
-      language = Code.of(this@MediaSurrogate.language, this@MediaSurrogate._language)
-      text = this@MediaSurrogate.text
-      contained = this@MediaSurrogate.contained
-      extension = this@MediaSurrogate.extension
-      modifierExtension = this@MediaSurrogate.modifierExtension
-      identifier = this@MediaSurrogate.identifier
-      basedOn = this@MediaSurrogate.basedOn
-      partOf = this@MediaSurrogate.partOf
+    Media(
+      id = this@MediaSurrogate.id,
+      meta = this@MediaSurrogate.meta,
+      implicitRules = Uri.of(this@MediaSurrogate.implicitRules, this@MediaSurrogate._implicitRules),
+      language = Code.of(this@MediaSurrogate.language, this@MediaSurrogate._language),
+      text = this@MediaSurrogate.text,
+      contained = this@MediaSurrogate.contained ?: mutableListOf(),
+      extension = this@MediaSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MediaSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MediaSurrogate.identifier ?: mutableListOf(),
+      basedOn = this@MediaSurrogate.basedOn ?: mutableListOf(),
+      partOf = this@MediaSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@MediaSurrogate.status?.let {
-            com.google.fhir.model.r4.Media.MediaStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.Media.MediaStatus.fromCode(this@MediaSurrogate.status!!),
           this@MediaSurrogate._status,
-        )
-      type = this@MediaSurrogate.type
-      modality = this@MediaSurrogate.modality
-      view = this@MediaSurrogate.view
-      subject = this@MediaSurrogate.subject
-      encounter = this@MediaSurrogate.encounter
+        ),
+      type = this@MediaSurrogate.type,
+      modality = this@MediaSurrogate.modality,
+      view = this@MediaSurrogate.view,
+      subject = this@MediaSurrogate.subject,
+      encounter = this@MediaSurrogate.encounter,
       created =
         Media.Created?.from(
           DateTime.of(
@@ -126,68 +124,71 @@ internal data class MediaSurrogate(
             this@MediaSurrogate._createdDateTime,
           ),
           this@MediaSurrogate.createdPeriod,
-        )
+        ),
       issued =
-        Instant.of(FhirDateTime.fromString(this@MediaSurrogate.issued), this@MediaSurrogate._issued)
-      `operator` = this@MediaSurrogate.`operator`
-      reasonCode = this@MediaSurrogate.reasonCode
-      bodySite = this@MediaSurrogate.bodySite
-      deviceName = R4String.of(this@MediaSurrogate.deviceName, this@MediaSurrogate._deviceName)
-      device = this@MediaSurrogate.device
-      height = PositiveInt.of(this@MediaSurrogate.height, this@MediaSurrogate._height)
-      width = PositiveInt.of(this@MediaSurrogate.width, this@MediaSurrogate._width)
-      frames = PositiveInt.of(this@MediaSurrogate.frames, this@MediaSurrogate._frames)
-      duration = Decimal.of(this@MediaSurrogate.duration, this@MediaSurrogate._duration)
-      content = this@MediaSurrogate.content
-      note = this@MediaSurrogate.note
-    }
+        Instant.of(
+          FhirDateTime.fromString(this@MediaSurrogate.issued),
+          this@MediaSurrogate._issued,
+        ),
+      `operator` = this@MediaSurrogate.`operator`,
+      reasonCode = this@MediaSurrogate.reasonCode ?: mutableListOf(),
+      bodySite = this@MediaSurrogate.bodySite,
+      deviceName = R4String.of(this@MediaSurrogate.deviceName, this@MediaSurrogate._deviceName),
+      device = this@MediaSurrogate.device,
+      height = PositiveInt.of(this@MediaSurrogate.height, this@MediaSurrogate._height),
+      width = PositiveInt.of(this@MediaSurrogate.width, this@MediaSurrogate._width),
+      frames = PositiveInt.of(this@MediaSurrogate.frames, this@MediaSurrogate._frames),
+      duration = Decimal.of(this@MediaSurrogate.duration, this@MediaSurrogate._duration),
+      content = this@MediaSurrogate.content,
+      note = this@MediaSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Media): MediaSurrogate =
       with(model) {
-        MediaSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type
-          modality = this@with.modality
-          view = this@with.view
-          subject = this@with.subject
-          encounter = this@with.encounter
-          createdDateTime = this@with.created?.asDateTime()?.value?.value?.toString()
-          _createdDateTime = this@with.created?.asDateTime()?.value?.toElement()
-          createdPeriod = this@with.created?.asPeriod()?.value
-          issued = this@with.issued?.value?.toString()
-          _issued = this@with.issued?.toElement()
-          `operator` = this@with.`operator`
-          reasonCode = this@with.reasonCode
-          bodySite = this@with.bodySite
-          deviceName = this@with.deviceName?.value
-          _deviceName = this@with.deviceName?.toElement()
-          device = this@with.device
-          height = this@with.height?.value
-          _height = this@with.height?.toElement()
-          width = this@with.width?.value
-          _width = this@with.width?.toElement()
-          frames = this@with.frames?.value
-          _frames = this@with.frames?.toElement()
-          duration = this@with.duration?.value
-          _duration = this@with.duration?.toElement()
-          content = this@with.content
-          note = this@with.note
-        }
+        MediaSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          type = this@with.type,
+          modality = this@with.modality,
+          view = this@with.view,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          createdDateTime = this@with.created?.asDateTime()?.value?.value?.toString(),
+          _createdDateTime = this@with.created?.asDateTime()?.value?.toElement(),
+          createdPeriod = this@with.created?.asPeriod()?.value,
+          issued = this@with.issued?.value?.toString(),
+          _issued = this@with.issued?.toElement(),
+          `operator` = this@with.`operator`,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          bodySite = this@with.bodySite,
+          deviceName = this@with.deviceName?.value,
+          _deviceName = this@with.deviceName?.toElement(),
+          device = this@with.device,
+          height = this@with.height?.value,
+          _height = this@with.height?.toElement(),
+          width = this@with.width?.value,
+          _width = this@with.width?.toElement(),
+          frames = this@with.frames?.value,
+          _frames = this@with.frames?.toElement(),
+          duration = this@with.duration?.value,
+          _duration = this@with.duration?.toElement(),
+          content = this@with.content,
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

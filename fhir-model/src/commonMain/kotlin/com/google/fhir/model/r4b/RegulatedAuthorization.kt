@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationCaseSerialize
 import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class RegulatedAuthorization(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class RegulatedAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,11 +129,11 @@ public data class RegulatedAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier for the authorization, typically assigned by the authorizing body. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The product type, treatment, facility or activity that is being authorized. */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /**
    * Overall type of this authorization, for example drug marketing approval, orphan drug
    * designation.
@@ -144,7 +144,7 @@ public data class RegulatedAuthorization(
   /**
    * The territory (e.g., country, jurisdiction etc.) in which the authorization has been granted.
    */
-  public var region: List<CodeableConcept?>? = null,
+  public var region: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The status that is authorised e.g. approved. Intermediate states and actions can be tracked
    * with cases and applications.
@@ -166,7 +166,7 @@ public data class RegulatedAuthorization(
    * The legal or regulatory framework against which this authorization is granted, or other reasons
    * for it.
    */
-  public var basis: List<CodeableConcept?>? = null,
+  public var basis: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The organization that has been granted this authorization, by some authoritative body (the
    * 'regulator').
@@ -212,7 +212,7 @@ public data class RegulatedAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -231,7 +231,7 @@ public data class RegulatedAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifier by which this case can be referenced. */
     public var identifier: Identifier? = null,
     /** The defining type of case. */
@@ -246,7 +246,7 @@ public data class RegulatedAuthorization(
      * modify the submission or the authorization. The applications can be considered as steps
      * within the longer running case or procedure for this authorization process.
      */
-    public var application: List<Case?>? = null,
+    public var application: MutableList<Case> = mutableListOf(),
   ) : BackboneElement() {
     public sealed interface Date {
       public fun asPeriod(): Period? = this as? Period
@@ -258,11 +258,11 @@ public data class RegulatedAuthorization(
       public data class DateTime(public val `value`: com.google.fhir.model.r4b.DateTime) : Date
 
       public companion object {
-        public fun from(
-          PeriodValue: com.google.fhir.model.r4b.Period?,
+        internal fun from(
+          periodValue: com.google.fhir.model.r4b.Period?,
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         ): Date? {
-          if (PeriodValue != null) return Period(PeriodValue)
+          if (periodValue != null) return Period(periodValue)
           if (dateTimeValue != null) return DateTime(dateTimeValue)
           return null
         }

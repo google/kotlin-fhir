@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.OperationDefinitionParameterReferenc
 import com.google.fhir.model.r5.serializers.OperationDefinitionParameterSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class OperationDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class OperationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class OperationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this operation definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -157,7 +157,7 @@ public data class OperationDefinition(
    * A formal identifier that is used to identify this implementation guide when it is represented
    * in other formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the operation definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -187,7 +187,7 @@ public data class OperationDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * no-whitespace name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the operation definition.
    *
@@ -203,13 +203,13 @@ public data class OperationDefinition(
    * Unknown does not represent 'other' - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * Whether this is an operation or a named query.
    *
    * Named queries are invoked differently, and have different capabilities.
    */
-  public var kind: Enumeration<OperationKind>? = null,
+  public var kind: Enumeration<OperationKind>,
   /**
    * A Boolean value to indicate that this operation definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended for genuine usage.
@@ -253,7 +253,7 @@ public data class OperationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the operation definition from a consumer's
    * perspective.
@@ -275,7 +275,7 @@ public data class OperationDefinition(
    * When multiple useContexts are specified, there is no expectation that all or even any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the operation definition is intended to be used.
    *
@@ -287,7 +287,7 @@ public data class OperationDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this operation definition is needed and why it has been designed as it has.
    *
@@ -335,7 +335,7 @@ public data class OperationDefinition(
    * for the internal HL7 rules around codes, which are useful additional advice for all
    * implementers
    */
-  public var code: Code? = null,
+  public var code: Code,
   /** Additional information about how to use this operation or named query. */
   public var comment: Markdown? = null,
   /**
@@ -351,23 +351,23 @@ public data class OperationDefinition(
    * If the type is an abstract resource ("Resource" or "DomainResource") then the operation can be
    * invoked on any concrete specialization.
    */
-  public var resource: List<Enumeration<FHIRTypes>>? = null,
+  public var resource: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
   /**
    * Indicates whether this operation or named query can be invoked at the system level (e.g.
    * without needing to choose a resource type for the context).
    */
-  public var system: Boolean? = null,
+  public var system: Boolean,
   /**
    * Indicates whether this operation or named query can be invoked at the resource type level for
    * any given resource type level (e.g. without needing to choose a specific resource id for the
    * context).
    */
-  public var type: Boolean? = null,
+  public var type: Boolean,
   /**
    * Indicates whether this operation can be invoked on a particular instance of one of the given
    * types.
    */
-  public var instance: Boolean? = null,
+  public var instance: Boolean,
   /**
    * Additional validation information for the in parameters - a single profile that covers all the
    * parameters. The profile is a constraint on the parameters resource as a whole.
@@ -394,7 +394,7 @@ public data class OperationDefinition(
    * Query Definitions only have one output parameter, named "result". This might not be described,
    * but can be to allow a profile to be defined.
    */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
   /**
    * Defines an appropriate combination of parameters to use when invoking this operation, to help
    * code generators when generating overloaded parameter sets for this operation.
@@ -402,7 +402,7 @@ public data class OperationDefinition(
    * The combinations are suggestions as to which sets of parameters to use together, but the
    * combinations are not intended to be authoritative.
    */
-  public var overload: List<Overload>? = null,
+  public var overload: MutableList<Overload> = mutableListOf(),
 ) : DomainResource() {
   /** The parameters for the operation/query. */
   @Serializable(with = OperationDefinitionParameterSerializer::class)
@@ -424,7 +424,7 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -443,7 +443,7 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The name of used to identify the parameter.
      *
@@ -451,25 +451,25 @@ public data class OperationDefinition(
      * and underscore. Note that for search parameters (type = string, with a search type), the name
      * may be altered by the search modifiers.
      */
-    public var name: Code? = null,
+    public var name: Code,
     /**
      * Whether this is an input or an output parameter.
      *
      * If a parameter name is used for both an input and an output parameter, the parameter should
      * be defined twice.
      */
-    public var use: Enumeration<OperationParameterUse>? = null,
+    public var use: Enumeration<OperationParameterUse>,
     /**
      * If present, indicates that the parameter applies when the operation is being invoked at the
      * specified level.
      */
-    public var scope: List<Enumeration<OperationParameterScope>>? = null,
+    public var scope: MutableList<Enumeration<OperationParameterScope>> = mutableListOf(),
     /** The minimum number of times this parameter SHALL appear in the request or response. */
-    public var min: Integer? = null,
+    public var min: Integer,
     /**
      * The maximum number of times this element is permitted to appear in the request or response.
      */
-    public var max: String? = null,
+    public var max: String,
     /** Describes the meaning or use of this parameter. */
     public var documentation: Markdown? = null,
     /**
@@ -486,7 +486,7 @@ public data class OperationDefinition(
      * In previous versions of FHIR, there was an extension for this:
      * http://hl7.org/fhir/StructureDefinition/operationdefinition-allowed-type
      */
-    public var allowedType: List<Enumeration<FHIRAllTypes>>? = null,
+    public var allowedType: MutableList<Enumeration<FHIRAllTypes>> = mutableListOf(),
     /**
      * Used when the type is "Reference" or "canonical", and identifies a profile structure or
      * implementation Guide that applies to the target of the reference this parameter refers to. If
@@ -499,7 +499,7 @@ public data class OperationDefinition(
      * Often, these profiles are the base definitions from the spec (e.g.
      * http://hl7.org/fhir/StructureDefinition/Patient).
      */
-    public var targetProfile: List<Canonical?>? = null,
+    public var targetProfile: MutableList<Canonical> = mutableListOf(),
     /**
      * How the parameter is understood if/when it used as search parameter. This is only used if the
      * parameter is a string.
@@ -519,14 +519,14 @@ public data class OperationDefinition(
      *
      * Resolution applies if the referenced parameter exists.
      */
-    public var referencedFrom: List<ReferencedFrom>? = null,
+    public var referencedFrom: MutableList<ReferencedFrom> = mutableListOf(),
     /**
      * The parts of a nested Parameter.
      *
      * Query Definitions only have one output parameter, named "result". This might not be
      * described, but can be to allow a profile to be defined.
      */
-    public var part: List<Parameter?>? = null,
+    public var part: MutableList<Parameter> = mutableListOf(),
   ) : BackboneElement() {
     /** Binds to a value set if this parameter is coded (code, Coding, CodeableConcept). */
     @Serializable(with = OperationDefinitionParameterBindingSerializer::class)
@@ -548,7 +548,7 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -567,14 +567,14 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates the degree of conformance expectations associated with this binding - that is,
        * the degree to which the provided value set must be adhered to in the instances.
        *
        * For further discussion, see [Using Terminologies](terminologies.html).
        */
-      public var strength: Enumeration<BindingStrength>? = null,
+      public var strength: Enumeration<BindingStrength>,
       /**
        * Points to the value set or external definition (e.g. implicit value set) that identifies
        * the set of codes to be used.
@@ -582,7 +582,7 @@ public data class OperationDefinition(
        * For value sets with a referenceResource, the display can contain the value set description.
        * The reference may be version-specific or not.
        */
-      public var valueSet: Canonical? = null,
+      public var valueSet: Canonical,
     ) : BackboneElement()
 
     /**
@@ -608,7 +608,7 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -627,12 +627,12 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The name of the parameter or dot-separated path of parameter names pointing to the resource
        * parameter that is expected to contain a reference to this resource.
        */
-      public var source: String? = null,
+      public var source: String,
       /**
        * The id of the element in the referencing resource that is expected to resolve to this
        * resource.
@@ -664,7 +664,7 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -683,9 +683,9 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Name of parameter to include in overload. */
-    public var parameterName: List<String?>? = null,
+    public var parameterName: MutableList<String> = mutableListOf(),
     /** Comments to go on overload. */
     public var comment: String? = null,
   ) : BackboneElement()
@@ -702,12 +702,12 @@ public data class OperationDefinition(
       VersionAlgorithm
 
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
+        codingValue: com.google.fhir.model.r5.Coding?,
       ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
+        if (codingValue != null) return Coding(codingValue)
         return null
       }
     }

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ExtendedContactDetailSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class ExtendedContactDetail(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The purpose/type of contact.
    *
@@ -60,9 +60,9 @@ public data class ExtendedContactDetail(
    * If there is no named individual, the telecom/address information is not generally monitored by
    * a specific individual.
    */
-  public var name: List<HumanName?>? = null,
+  public var name: MutableList<HumanName> = mutableListOf(),
   /** The contact details application for the purpose defined. */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * Address for the contact.
    *

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.GoalSerializer
 import com.google.fhir.model.r4.serializers.GoalTargetSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Goal(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Goal(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class Goal(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this goal by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -140,18 +140,18 @@ public data class Goal(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The state of the goal throughout its lifecycle.
    *
    * This element is labeled as a modifier because the lifecycleStatus contains codes that mark the
    * resource as not currently valid.
    */
-  public var lifecycleStatus: Enumeration<GoalLifecycleStatus>? = null,
+  public var lifecycleStatus: Enumeration<GoalLifecycleStatus>,
   /** Describes the progression, or lack thereof, towards the goal against the target. */
   public var achievementStatus: CodeableConcept? = null,
   /** Indicates a category the goal falls within. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Identifies the mutually agreed level of importance associated with reaching/sustaining the
    * goal.
@@ -170,9 +170,9 @@ public data class Goal(
    *
    * If no code is available, use CodeableConcept.text.
    */
-  public var description: CodeableConcept? = null,
+  public var description: CodeableConcept,
   /** Identifies the patient, group or organization for whom the goal is being established. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The date or event after which the goal should begin being pursued. */
   public var start: Start? = null,
   /**
@@ -181,7 +181,7 @@ public data class Goal(
    * When multiple targets are present for a single goal instance, all targets must be met for the
    * overall goal to be met.
    */
-  public var target: List<Target>? = null,
+  public var target: MutableList<Target> = mutableListOf(),
   /**
    * Identifies when the current status. I.e. When initially created, when achieved, when cancelled,
    * etc.
@@ -207,20 +207,20 @@ public data class Goal(
    * The identified conditions and other health record elements that are intended to be addressed by
    * the goal.
    */
-  public var addresses: List<Reference?>? = null,
+  public var addresses: MutableList<Reference> = mutableListOf(),
   /**
    * Any comments related to the goal.
    *
    * May be used for progress notes, concerns or other related information that doesn't actually
    * describe the goal itself.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Identifies the change (or lack of change) at the point when the status of the goal is assessed.
    *
    * Note that this should not duplicate the goal status.
    */
-  public var outcomeCode: List<CodeableConcept?>? = null,
+  public var outcomeCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Details of what's changed (or not changed).
    *
@@ -229,7 +229,7 @@ public data class Goal(
    * then the care plan’s activity outcome could be calories consumed whereas goal outcome is an
    * observation for the actual body weight measured.
    */
-  public var outcomeReference: List<Reference?>? = null,
+  public var outcomeReference: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates what should be done by when. */
   @Serializable(with = GoalTargetSerializer::class)
@@ -251,7 +251,7 @@ public data class Goal(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -270,7 +270,7 @@ public data class Goal(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The parameter whose value is being tracked, e.g. body weight, blood pressure, or hemoglobin
      * A1c level.
@@ -322,22 +322,22 @@ public data class Goal(
       public data class Ratio(public val `value`: com.google.fhir.model.r4.Ratio) : Detail
 
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r4.Quantity?,
-          RangeValue: com.google.fhir.model.r4.Range?,
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        internal fun from(
+          quantityValue: com.google.fhir.model.r4.Quantity?,
+          rangeValue: com.google.fhir.model.r4.Range?,
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
           stringValue: com.google.fhir.model.r4.String?,
           booleanValue: com.google.fhir.model.r4.Boolean?,
           integerValue: com.google.fhir.model.r4.Integer?,
-          RatioValue: com.google.fhir.model.r4.Ratio?,
+          ratioValue: com.google.fhir.model.r4.Ratio?,
         ): Detail? {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (stringValue != null) return String(stringValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (integerValue != null) return Integer(integerValue)
-          if (RatioValue != null) return Ratio(RatioValue)
+          if (ratioValue != null) return Ratio(ratioValue)
           return null
         }
       }
@@ -353,12 +353,12 @@ public data class Goal(
       public data class Duration(public val `value`: com.google.fhir.model.r4.Duration) : Due
 
       public companion object {
-        public fun from(
+        internal fun from(
           dateValue: com.google.fhir.model.r4.Date?,
-          DurationValue: com.google.fhir.model.r4.Duration?,
+          durationValue: com.google.fhir.model.r4.Duration?,
         ): Due? {
           if (dateValue != null) return Date(dateValue)
-          if (DurationValue != null) return Duration(DurationValue)
+          if (durationValue != null) return Duration(durationValue)
           return null
         }
       }
@@ -377,12 +377,12 @@ public data class Goal(
     ) : Start
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateValue: com.google.fhir.model.r4.Date?,
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
       ): Start? {
         if (dateValue != null) return Date(dateValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

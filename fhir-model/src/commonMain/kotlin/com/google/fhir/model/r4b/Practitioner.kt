@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.PractitionerQualificationSerializer
 import com.google.fhir.model.r4b.serializers.PractitionerSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class Practitioner(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class Practitioner(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,9 +125,9 @@ public data class Practitioner(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An identifier that applies to this person in this role. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this practitioner's record is in active use.
    *
@@ -149,7 +149,7 @@ public data class Practitioner(
    * 4. Use = official
    * 5. Other order as decided by internal business rules.
    */
-  public var name: List<HumanName?>? = null,
+  public var name: MutableList<HumanName> = mutableListOf(),
   /**
    * A contact detail for the practitioner, e.g. a telephone number or an email address.
    *
@@ -157,7 +157,7 @@ public data class Practitioner(
    * need to have options for contacting the person urgently and to help with identification. These
    * typically will have home numbers, or mobile numbers that are not role specific.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * Address(es) of the practitioner that are not role specific (typically home address). Work
    * addresses are not typically entered in this property as they are usually role dependent.
@@ -165,7 +165,7 @@ public data class Practitioner(
    * The PractitionerRole does not have an address value on it, as it is expected that the location
    * property be used for this purpose (which has an address).
    */
-  public var address: List<Address?>? = null,
+  public var address: MutableList<Address> = mutableListOf(),
   /**
    * Administrative Gender - the gender that the person is considered to have for administration and
    * record keeping purposes.
@@ -174,13 +174,13 @@ public data class Practitioner(
   /** The date of birth for the practitioner. */
   public var birthDate: Date? = null,
   /** Image of the person. */
-  public var photo: List<Attachment?>? = null,
+  public var photo: MutableList<Attachment> = mutableListOf(),
   /**
    * The official certifications, training, and licenses that authorize or otherwise pertain to the
    * provision of care by the practitioner. For example, a medical license issued by a medical board
    * authorizing the practitioner to practice medicine within a certian locality.
    */
-  public var qualification: List<Qualification>? = null,
+  public var qualification: MutableList<Qualification> = mutableListOf(),
   /**
    * A language the practitioner can use in patient communication.
    *
@@ -188,7 +188,7 @@ public data class Practitioner(
    * However not all systems code this but instead have it as free text. Hence CodeableConcept
    * instead of code as the data type.
    */
-  public var communication: List<CodeableConcept?>? = null,
+  public var communication: MutableList<CodeableConcept> = mutableListOf(),
 ) : DomainResource() {
   /**
    * The official certifications, training, and licenses that authorize or otherwise pertain to the
@@ -214,7 +214,7 @@ public data class Practitioner(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -233,11 +233,11 @@ public data class Practitioner(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** An identifier that applies to this person's qualification in this role. */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** Coded representation of the qualification. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** Period during which the qualification is valid. */
     public var period: Period? = null,
     /** Organization that regulates and issues the qualification. */

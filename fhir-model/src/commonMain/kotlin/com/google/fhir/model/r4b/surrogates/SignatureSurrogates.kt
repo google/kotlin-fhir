@@ -32,18 +32,18 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SignatureSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var type: List<Coding?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var type: MutableList<Coding>? = null,
   public var `when`: String? = null,
   public var _when: Element? = null,
-  public var who: Reference? = null,
+  public var who: Reference,
   public var onBehalfOf: Reference? = null,
   public var targetFormat: String? = null,
   public var _targetFormat: Element? = null,
@@ -53,41 +53,41 @@ internal data class SignatureSurrogate(
   public var _data: Element? = null,
 ) {
   public fun toModel(): Signature =
-    Signature().apply {
-      id = this@SignatureSurrogate.id
-      extension = this@SignatureSurrogate.extension
-      type = this@SignatureSurrogate.type
+    Signature(
+      id = this@SignatureSurrogate.id,
+      extension = this@SignatureSurrogate.extension ?: mutableListOf(),
+      type = this@SignatureSurrogate.type ?: mutableListOf(),
       `when` =
         Instant.of(
           FhirDateTime.fromString(this@SignatureSurrogate.`when`),
           this@SignatureSurrogate._when,
-        )
-      who = this@SignatureSurrogate.who
-      onBehalfOf = this@SignatureSurrogate.onBehalfOf
+        )!!,
+      who = this@SignatureSurrogate.who,
+      onBehalfOf = this@SignatureSurrogate.onBehalfOf,
       targetFormat =
-        Code.of(this@SignatureSurrogate.targetFormat, this@SignatureSurrogate._targetFormat)
-      sigFormat = Code.of(this@SignatureSurrogate.sigFormat, this@SignatureSurrogate._sigFormat)
-      `data` = Base64Binary.of(this@SignatureSurrogate.`data`, this@SignatureSurrogate._data)
-    }
+        Code.of(this@SignatureSurrogate.targetFormat, this@SignatureSurrogate._targetFormat),
+      sigFormat = Code.of(this@SignatureSurrogate.sigFormat, this@SignatureSurrogate._sigFormat),
+      `data` = Base64Binary.of(this@SignatureSurrogate.`data`, this@SignatureSurrogate._data),
+    )
 
   public companion object {
     public fun fromModel(model: Signature): SignatureSurrogate =
       with(model) {
-        SignatureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type
-          `when` = this@with.`when`?.value?.toString()
-          _when = this@with.`when`?.toElement()
-          who = this@with.who
-          onBehalfOf = this@with.onBehalfOf
-          targetFormat = this@with.targetFormat?.value
-          _targetFormat = this@with.targetFormat?.toElement()
-          sigFormat = this@with.sigFormat?.value
-          _sigFormat = this@with.sigFormat?.toElement()
-          `data` = this@with.`data`?.value
-          _data = this@with.`data`?.toElement()
-        }
+        SignatureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.takeUnless { it.all { it == null } },
+          `when` = this@with.`when`.value?.toString(),
+          _when = this@with.`when`.toElement(),
+          who = this@with.who,
+          onBehalfOf = this@with.onBehalfOf,
+          targetFormat = this@with.targetFormat?.value,
+          _targetFormat = this@with.targetFormat?.toElement(),
+          sigFormat = this@with.sigFormat?.value,
+          _sigFormat = this@with.sigFormat?.toElement(),
+          `data` = this@with.`data`?.value,
+          _data = this@with.`data`?.toElement(),
+        )
       }
   }
 }

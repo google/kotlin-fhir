@@ -43,16 +43,16 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class GroupCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
@@ -64,13 +64,13 @@ internal data class GroupCharacteristicSurrogate(
   public var period: Period? = null,
 ) {
   public fun toModel(): Group.Characteristic =
-    Group.Characteristic().apply {
-      id = this@GroupCharacteristicSurrogate.id
-      extension = this@GroupCharacteristicSurrogate.extension
-      modifierExtension = this@GroupCharacteristicSurrogate.modifierExtension
-      code = this@GroupCharacteristicSurrogate.code
+    Group.Characteristic(
+      id = this@GroupCharacteristicSurrogate.id,
+      extension = this@GroupCharacteristicSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GroupCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@GroupCharacteristicSurrogate.code,
       `value` =
-        Group.Characteristic.Value?.from(
+        Group.Characteristic.Value.from(
           this@GroupCharacteristicSurrogate.valueCodeableConcept,
           R4bBoolean.of(
             this@GroupCharacteristicSurrogate.valueBoolean,
@@ -79,33 +79,33 @@ internal data class GroupCharacteristicSurrogate(
           this@GroupCharacteristicSurrogate.valueQuantity,
           this@GroupCharacteristicSurrogate.valueRange,
           this@GroupCharacteristicSurrogate.valueReference,
-        )
+        )!!,
       exclude =
         R4bBoolean.of(
           this@GroupCharacteristicSurrogate.exclude,
           this@GroupCharacteristicSurrogate._exclude,
-        )
-      period = this@GroupCharacteristicSurrogate.period
-    }
+        )!!,
+      period = this@GroupCharacteristicSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(model: Group.Characteristic): GroupCharacteristicSurrogate =
       with(model) {
-        GroupCharacteristicSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement()
-          valueQuantity = this@with.`value`?.asQuantity()?.value
-          valueRange = this@with.`value`?.asRange()?.value
-          valueReference = this@with.`value`?.asReference()?.value
-          exclude = this@with.exclude?.value
-          _exclude = this@with.exclude?.toElement()
-          period = this@with.period
-        }
+        GroupCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
+          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          valueRange = this@with.`value`?.asRange()?.value,
+          valueReference = this@with.`value`?.asReference()?.value,
+          exclude = this@with.exclude.value,
+          _exclude = this@with.exclude.toElement(),
+          period = this@with.period,
+        )
       }
   }
 }
@@ -113,36 +113,36 @@ internal data class GroupCharacteristicSurrogate(
 @Serializable
 internal data class GroupMemberSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var entity: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var entity: Reference,
   public var period: Period? = null,
   public var inactive: KotlinBoolean? = null,
   public var _inactive: Element? = null,
 ) {
   public fun toModel(): Group.Member =
-    Group.Member().apply {
-      id = this@GroupMemberSurrogate.id
-      extension = this@GroupMemberSurrogate.extension
-      modifierExtension = this@GroupMemberSurrogate.modifierExtension
-      entity = this@GroupMemberSurrogate.entity
-      period = this@GroupMemberSurrogate.period
+    Group.Member(
+      id = this@GroupMemberSurrogate.id,
+      extension = this@GroupMemberSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GroupMemberSurrogate.modifierExtension ?: mutableListOf(),
+      entity = this@GroupMemberSurrogate.entity,
+      period = this@GroupMemberSurrogate.period,
       inactive =
-        R4bBoolean.of(this@GroupMemberSurrogate.inactive, this@GroupMemberSurrogate._inactive)
-    }
+        R4bBoolean.of(this@GroupMemberSurrogate.inactive, this@GroupMemberSurrogate._inactive),
+    )
 
   public companion object {
     public fun fromModel(model: Group.Member): GroupMemberSurrogate =
       with(model) {
-        GroupMemberSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          entity = this@with.entity
-          period = this@with.period
-          inactive = this@with.inactive?.value
-          _inactive = this@with.inactive?.toElement()
-        }
+        GroupMemberSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          entity = this@with.entity,
+          period = this@with.period,
+          inactive = this@with.inactive?.value,
+          _inactive = this@with.inactive?.toElement(),
+        )
       }
   }
 }
@@ -156,10 +156,10 @@ internal data class GroupSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var type: KotlinString? = null,
@@ -172,65 +172,65 @@ internal data class GroupSurrogate(
   public var quantity: Int? = null,
   public var _quantity: Element? = null,
   public var managingEntity: Reference? = null,
-  public var characteristic: List<Group.Characteristic>? = null,
-  public var member: List<Group.Member>? = null,
+  public var characteristic: MutableList<Group.Characteristic>? = null,
+  public var member: MutableList<Group.Member>? = null,
 ) {
   public fun toModel(): Group =
-    Group().apply {
-      id = this@GroupSurrogate.id
-      meta = this@GroupSurrogate.meta
-      implicitRules = Uri.of(this@GroupSurrogate.implicitRules, this@GroupSurrogate._implicitRules)
-      language = Code.of(this@GroupSurrogate.language, this@GroupSurrogate._language)
-      text = this@GroupSurrogate.text
-      contained = this@GroupSurrogate.contained
-      extension = this@GroupSurrogate.extension
-      modifierExtension = this@GroupSurrogate.modifierExtension
-      identifier = this@GroupSurrogate.identifier
-      active = R4bBoolean.of(this@GroupSurrogate.active, this@GroupSurrogate._active)
+    Group(
+      id = this@GroupSurrogate.id,
+      meta = this@GroupSurrogate.meta,
+      implicitRules = Uri.of(this@GroupSurrogate.implicitRules, this@GroupSurrogate._implicitRules),
+      language = Code.of(this@GroupSurrogate.language, this@GroupSurrogate._language),
+      text = this@GroupSurrogate.text,
+      contained = this@GroupSurrogate.contained ?: mutableListOf(),
+      extension = this@GroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GroupSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@GroupSurrogate.identifier ?: mutableListOf(),
+      active = R4bBoolean.of(this@GroupSurrogate.active, this@GroupSurrogate._active),
       type =
         Enumeration.of(
-          this@GroupSurrogate.type?.let { com.google.fhir.model.r4b.Group.GroupType.fromCode(it) },
+          com.google.fhir.model.r4b.Group.GroupType.fromCode(this@GroupSurrogate.type!!),
           this@GroupSurrogate._type,
-        )
-      `actual` = R4bBoolean.of(this@GroupSurrogate.`actual`, this@GroupSurrogate._actual)
-      code = this@GroupSurrogate.code
-      name = R4bString.of(this@GroupSurrogate.name, this@GroupSurrogate._name)
-      quantity = UnsignedInt.of(this@GroupSurrogate.quantity, this@GroupSurrogate._quantity)
-      managingEntity = this@GroupSurrogate.managingEntity
-      characteristic = this@GroupSurrogate.characteristic
-      member = this@GroupSurrogate.member
-    }
+        ),
+      `actual` = R4bBoolean.of(this@GroupSurrogate.`actual`, this@GroupSurrogate._actual)!!,
+      code = this@GroupSurrogate.code,
+      name = R4bString.of(this@GroupSurrogate.name, this@GroupSurrogate._name),
+      quantity = UnsignedInt.of(this@GroupSurrogate.quantity, this@GroupSurrogate._quantity),
+      managingEntity = this@GroupSurrogate.managingEntity,
+      characteristic = this@GroupSurrogate.characteristic ?: mutableListOf(),
+      member = this@GroupSurrogate.member ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Group): GroupSurrogate =
       with(model) {
-        GroupSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          active = this@with.active?.value
-          _active = this@with.active?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          `actual` = this@with.`actual`?.value
-          _actual = this@with.`actual`?.toElement()
-          code = this@with.code
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          quantity = this@with.quantity?.value
-          _quantity = this@with.quantity?.toElement()
-          managingEntity = this@with.managingEntity
-          characteristic = this@with.characteristic
-          member = this@with.member
-        }
+        GroupSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          active = this@with.active?.value,
+          _active = this@with.active?.toElement(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          `actual` = this@with.`actual`.value,
+          _actual = this@with.`actual`.toElement(),
+          code = this@with.code,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          quantity = this@with.quantity?.value,
+          _quantity = this@with.quantity?.toElement(),
+          managingEntity = this@with.managingEntity,
+          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          member = this@with.member.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -43,43 +43,43 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SpecimenFeatureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
 ) {
   public fun toModel(): Specimen.Feature =
-    Specimen.Feature().apply {
-      id = this@SpecimenFeatureSurrogate.id
-      extension = this@SpecimenFeatureSurrogate.extension
-      modifierExtension = this@SpecimenFeatureSurrogate.modifierExtension
-      type = this@SpecimenFeatureSurrogate.type
+    Specimen.Feature(
+      id = this@SpecimenFeatureSurrogate.id,
+      extension = this@SpecimenFeatureSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SpecimenFeatureSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@SpecimenFeatureSurrogate.type,
       description =
         R5String.of(
           this@SpecimenFeatureSurrogate.description,
           this@SpecimenFeatureSurrogate._description,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: Specimen.Feature): SpecimenFeatureSurrogate =
       with(model) {
-        SpecimenFeatureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-        }
+        SpecimenFeatureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          description = this@with.description.value,
+          _description = this@with.description.toElement(),
+        )
       }
   }
 }
@@ -87,8 +87,8 @@ internal data class SpecimenFeatureSurrogate(
 @Serializable
 internal data class SpecimenCollectionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var collector: Reference? = null,
   public var collectedDateTime: KotlinString? = null,
   public var _collectedDateTime: Element? = null,
@@ -103,11 +103,11 @@ internal data class SpecimenCollectionSurrogate(
   public var fastingStatusDuration: Duration? = null,
 ) {
   public fun toModel(): Specimen.Collection =
-    Specimen.Collection().apply {
-      id = this@SpecimenCollectionSurrogate.id
-      extension = this@SpecimenCollectionSurrogate.extension
-      modifierExtension = this@SpecimenCollectionSurrogate.modifierExtension
-      collector = this@SpecimenCollectionSurrogate.collector
+    Specimen.Collection(
+      id = this@SpecimenCollectionSurrogate.id,
+      extension = this@SpecimenCollectionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SpecimenCollectionSurrogate.modifierExtension ?: mutableListOf(),
+      collector = this@SpecimenCollectionSurrogate.collector,
       collected =
         Specimen.Collection.Collected?.from(
           DateTime.of(
@@ -115,40 +115,40 @@ internal data class SpecimenCollectionSurrogate(
             this@SpecimenCollectionSurrogate._collectedDateTime,
           ),
           this@SpecimenCollectionSurrogate.collectedPeriod,
-        )
-      duration = this@SpecimenCollectionSurrogate.duration
-      quantity = this@SpecimenCollectionSurrogate.quantity
-      method = this@SpecimenCollectionSurrogate.method
-      device = this@SpecimenCollectionSurrogate.device
-      procedure = this@SpecimenCollectionSurrogate.procedure
-      bodySite = this@SpecimenCollectionSurrogate.bodySite
+        ),
+      duration = this@SpecimenCollectionSurrogate.duration,
+      quantity = this@SpecimenCollectionSurrogate.quantity,
+      method = this@SpecimenCollectionSurrogate.method,
+      device = this@SpecimenCollectionSurrogate.device,
+      procedure = this@SpecimenCollectionSurrogate.procedure,
+      bodySite = this@SpecimenCollectionSurrogate.bodySite,
       fastingStatus =
         Specimen.Collection.FastingStatus?.from(
           this@SpecimenCollectionSurrogate.fastingStatusCodeableConcept,
           this@SpecimenCollectionSurrogate.fastingStatusDuration,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Specimen.Collection): SpecimenCollectionSurrogate =
       with(model) {
-        SpecimenCollectionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          collector = this@with.collector
-          collectedDateTime = this@with.collected?.asDateTime()?.value?.value?.toString()
-          _collectedDateTime = this@with.collected?.asDateTime()?.value?.toElement()
-          collectedPeriod = this@with.collected?.asPeriod()?.value
-          duration = this@with.duration
-          quantity = this@with.quantity
-          method = this@with.method
-          device = this@with.device
-          procedure = this@with.procedure
-          bodySite = this@with.bodySite
-          fastingStatusCodeableConcept = this@with.fastingStatus?.asCodeableConcept()?.value
-          fastingStatusDuration = this@with.fastingStatus?.asDuration()?.value
-        }
+        SpecimenCollectionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          collector = this@with.collector,
+          collectedDateTime = this@with.collected?.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.collected?.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.collected?.asPeriod()?.value,
+          duration = this@with.duration,
+          quantity = this@with.quantity,
+          method = this@with.method,
+          device = this@with.device,
+          procedure = this@with.procedure,
+          bodySite = this@with.bodySite,
+          fastingStatusCodeableConcept = this@with.fastingStatus?.asCodeableConcept()?.value,
+          fastingStatusDuration = this@with.fastingStatus?.asDuration()?.value,
+        )
       }
   }
 }
@@ -156,28 +156,28 @@ internal data class SpecimenCollectionSurrogate(
 @Serializable
 internal data class SpecimenProcessingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var method: CodeableConcept? = null,
-  public var additive: List<Reference?>? = null,
+  public var additive: MutableList<Reference>? = null,
   public var timeDateTime: KotlinString? = null,
   public var _timeDateTime: Element? = null,
   public var timePeriod: Period? = null,
 ) {
   public fun toModel(): Specimen.Processing =
-    Specimen.Processing().apply {
-      id = this@SpecimenProcessingSurrogate.id
-      extension = this@SpecimenProcessingSurrogate.extension
-      modifierExtension = this@SpecimenProcessingSurrogate.modifierExtension
+    Specimen.Processing(
+      id = this@SpecimenProcessingSurrogate.id,
+      extension = this@SpecimenProcessingSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SpecimenProcessingSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R5String.of(
           this@SpecimenProcessingSurrogate.description,
           this@SpecimenProcessingSurrogate._description,
-        )
-      method = this@SpecimenProcessingSurrogate.method
-      additive = this@SpecimenProcessingSurrogate.additive
+        ),
+      method = this@SpecimenProcessingSurrogate.method,
+      additive = this@SpecimenProcessingSurrogate.additive ?: mutableListOf(),
       time =
         Specimen.Processing.Time?.from(
           DateTime.of(
@@ -185,24 +185,24 @@ internal data class SpecimenProcessingSurrogate(
             this@SpecimenProcessingSurrogate._timeDateTime,
           ),
           this@SpecimenProcessingSurrogate.timePeriod,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Specimen.Processing): SpecimenProcessingSurrogate =
       with(model) {
-        SpecimenProcessingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          method = this@with.method
-          additive = this@with.additive
-          timeDateTime = this@with.time?.asDateTime()?.value?.value?.toString()
-          _timeDateTime = this@with.time?.asDateTime()?.value?.toElement()
-          timePeriod = this@with.time?.asPeriod()?.value
-        }
+        SpecimenProcessingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          method = this@with.method,
+          additive = this@with.additive.takeUnless { it.all { it == null } },
+          timeDateTime = this@with.time?.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.time?.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.time?.asPeriod()?.value,
+        )
       }
   }
 }
@@ -210,33 +210,33 @@ internal data class SpecimenProcessingSurrogate(
 @Serializable
 internal data class SpecimenContainerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var device: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var device: Reference,
   public var location: Reference? = null,
   public var specimenQuantity: Quantity? = null,
 ) {
   public fun toModel(): Specimen.Container =
-    Specimen.Container().apply {
-      id = this@SpecimenContainerSurrogate.id
-      extension = this@SpecimenContainerSurrogate.extension
-      modifierExtension = this@SpecimenContainerSurrogate.modifierExtension
-      device = this@SpecimenContainerSurrogate.device
-      location = this@SpecimenContainerSurrogate.location
-      specimenQuantity = this@SpecimenContainerSurrogate.specimenQuantity
-    }
+    Specimen.Container(
+      id = this@SpecimenContainerSurrogate.id,
+      extension = this@SpecimenContainerSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SpecimenContainerSurrogate.modifierExtension ?: mutableListOf(),
+      device = this@SpecimenContainerSurrogate.device,
+      location = this@SpecimenContainerSurrogate.location,
+      specimenQuantity = this@SpecimenContainerSurrogate.specimenQuantity,
+    )
 
   public companion object {
     public fun fromModel(model: Specimen.Container): SpecimenContainerSurrogate =
       with(model) {
-        SpecimenContainerSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          device = this@with.device
-          location = this@with.location
-          specimenQuantity = this@with.specimenQuantity
-        }
+        SpecimenContainerSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          device = this@with.device,
+          location = this@with.location,
+          specimenQuantity = this@with.specimenQuantity,
+        )
       }
   }
 }
@@ -250,10 +250,10 @@ internal data class SpecimenSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var accessionIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -261,91 +261,91 @@ internal data class SpecimenSurrogate(
   public var subject: Reference? = null,
   public var receivedTime: KotlinString? = null,
   public var _receivedTime: Element? = null,
-  public var parent: List<Reference?>? = null,
-  public var request: List<Reference?>? = null,
+  public var parent: MutableList<Reference>? = null,
+  public var request: MutableList<Reference>? = null,
   public var combined: KotlinString? = null,
   public var _combined: Element? = null,
-  public var role: List<CodeableConcept?>? = null,
-  public var feature: List<Specimen.Feature>? = null,
+  public var role: MutableList<CodeableConcept>? = null,
+  public var feature: MutableList<Specimen.Feature>? = null,
   public var collection: Specimen.Collection? = null,
-  public var processing: List<Specimen.Processing>? = null,
-  public var container: List<Specimen.Container>? = null,
-  public var condition: List<CodeableConcept?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var processing: MutableList<Specimen.Processing>? = null,
+  public var container: MutableList<Specimen.Container>? = null,
+  public var condition: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): Specimen =
-    Specimen().apply {
-      id = this@SpecimenSurrogate.id
-      meta = this@SpecimenSurrogate.meta
+    Specimen(
+      id = this@SpecimenSurrogate.id,
+      meta = this@SpecimenSurrogate.meta,
       implicitRules =
-        Uri.of(this@SpecimenSurrogate.implicitRules, this@SpecimenSurrogate._implicitRules)
-      language = Code.of(this@SpecimenSurrogate.language, this@SpecimenSurrogate._language)
-      text = this@SpecimenSurrogate.text
-      contained = this@SpecimenSurrogate.contained
-      extension = this@SpecimenSurrogate.extension
-      modifierExtension = this@SpecimenSurrogate.modifierExtension
-      identifier = this@SpecimenSurrogate.identifier
-      accessionIdentifier = this@SpecimenSurrogate.accessionIdentifier
+        Uri.of(this@SpecimenSurrogate.implicitRules, this@SpecimenSurrogate._implicitRules),
+      language = Code.of(this@SpecimenSurrogate.language, this@SpecimenSurrogate._language),
+      text = this@SpecimenSurrogate.text,
+      contained = this@SpecimenSurrogate.contained ?: mutableListOf(),
+      extension = this@SpecimenSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SpecimenSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@SpecimenSurrogate.identifier ?: mutableListOf(),
+      accessionIdentifier = this@SpecimenSurrogate.accessionIdentifier,
       status =
-        Enumeration.of(
-          this@SpecimenSurrogate.status?.let {
-            com.google.fhir.model.r5.Specimen.SpecimenStatus.fromCode(it)
-          },
-          this@SpecimenSurrogate._status,
-        )
-      type = this@SpecimenSurrogate.type
-      subject = this@SpecimenSurrogate.subject
+        this@SpecimenSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Specimen.SpecimenStatus.fromCode(it!!),
+            this@SpecimenSurrogate._status,
+          )
+        },
+      type = this@SpecimenSurrogate.type,
+      subject = this@SpecimenSurrogate.subject,
       receivedTime =
         DateTime.of(
           FhirDateTime.fromString(this@SpecimenSurrogate.receivedTime),
           this@SpecimenSurrogate._receivedTime,
-        )
-      parent = this@SpecimenSurrogate.parent
-      request = this@SpecimenSurrogate.request
-      combined = Code.of(this@SpecimenSurrogate.combined, this@SpecimenSurrogate._combined)
-      role = this@SpecimenSurrogate.role
-      feature = this@SpecimenSurrogate.feature
-      collection = this@SpecimenSurrogate.collection
-      processing = this@SpecimenSurrogate.processing
-      container = this@SpecimenSurrogate.container
-      condition = this@SpecimenSurrogate.condition
-      note = this@SpecimenSurrogate.note
-    }
+        ),
+      parent = this@SpecimenSurrogate.parent ?: mutableListOf(),
+      request = this@SpecimenSurrogate.request ?: mutableListOf(),
+      combined = Code.of(this@SpecimenSurrogate.combined, this@SpecimenSurrogate._combined),
+      role = this@SpecimenSurrogate.role ?: mutableListOf(),
+      feature = this@SpecimenSurrogate.feature ?: mutableListOf(),
+      collection = this@SpecimenSurrogate.collection,
+      processing = this@SpecimenSurrogate.processing ?: mutableListOf(),
+      container = this@SpecimenSurrogate.container ?: mutableListOf(),
+      condition = this@SpecimenSurrogate.condition ?: mutableListOf(),
+      note = this@SpecimenSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Specimen): SpecimenSurrogate =
       with(model) {
-        SpecimenSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          accessionIdentifier = this@with.accessionIdentifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type
-          subject = this@with.subject
-          receivedTime = this@with.receivedTime?.value?.toString()
-          _receivedTime = this@with.receivedTime?.toElement()
-          parent = this@with.parent
-          request = this@with.request
-          combined = this@with.combined?.value
-          _combined = this@with.combined?.toElement()
-          role = this@with.role
-          feature = this@with.feature
-          collection = this@with.collection
-          processing = this@with.processing
-          container = this@with.container
-          condition = this@with.condition
-          note = this@with.note
-        }
+        SpecimenSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          accessionIdentifier = this@with.accessionIdentifier,
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          type = this@with.type,
+          subject = this@with.subject,
+          receivedTime = this@with.receivedTime?.value?.toString(),
+          _receivedTime = this@with.receivedTime?.toElement(),
+          parent = this@with.parent.takeUnless { it.all { it == null } },
+          request = this@with.request.takeUnless { it.all { it == null } },
+          combined = this@with.combined?.value,
+          _combined = this@with.combined?.toElement(),
+          role = this@with.role.takeUnless { it.all { it == null } },
+          feature = this@with.feature.takeUnless { it.all { it == null } },
+          collection = this@with.collection,
+          processing = this@with.processing.takeUnless { it.all { it == null } },
+          container = this@with.container.takeUnless { it.all { it == null } },
+          condition = this@with.condition.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

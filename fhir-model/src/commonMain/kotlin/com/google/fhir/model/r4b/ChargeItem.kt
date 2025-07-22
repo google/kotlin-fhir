@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.ChargeItemPerformerSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class ChargeItem(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class ChargeItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,19 +129,19 @@ public data class ChargeItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifiers assigned to this event performer or other systems. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * References the (external) source of pricing information, rules of application for the code this
    * ChargeItem uses.
    */
-  public var definitionUri: List<Uri?>? = null,
+  public var definitionUri: MutableList<Uri> = mutableListOf(),
   /**
    * References the source of pricing information, rules of application for the code this ChargeItem
    * uses.
    */
-  public var definitionCanonical: List<Canonical?>? = null,
+  public var definitionCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The current state of the ChargeItem.
    *
@@ -151,13 +151,13 @@ public data class ChargeItem(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the charge item as not currently valid.
    */
-  public var status: Enumeration<ChargeItemStatus>? = null,
+  public var status: Enumeration<ChargeItemStatus>,
   /** ChargeItems can be grouped to larger ChargeItems covering the whole set. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /** A code that identifies the charge, like a billing code. */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /** The individual or set of individuals the action is being or was performed on. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter or episode of care that establishes the context for this event. */
   public var context: Reference? = null,
   /**
@@ -167,7 +167,7 @@ public data class ChargeItem(
    */
   public var occurrence: Occurrence? = null,
   /** Indicates who or what performed or participated in the charged service. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /**
    * The organization requesting the service.
    *
@@ -206,7 +206,7 @@ public data class ChargeItem(
    * extension [bodySite](extension-bodysite.html). May be a summary code, or a reference to a very
    * precise definition of the location, or both.
    */
-  public var bodysite: List<CodeableConcept?>? = null,
+  public var bodysite: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Factor overriding the factor determined by the rules associated with the code.
    *
@@ -252,9 +252,9 @@ public data class ChargeItem(
    * If the application of the charge item requires a reason to be given, it can be captured here.
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reason: List<CodeableConcept?>? = null,
+  public var reason: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicated the rendered service that caused this charge. */
-  public var service: List<Reference?>? = null,
+  public var service: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies the device, food, drug or other product being charged either by type code or
    * reference to an instance.
@@ -268,11 +268,11 @@ public data class ChargeItem(
    * to decide based on the Encounter/EpisodeOfCare/Patient/Coverage context and the type of
    * ChargeItem, which Account is appropriate.
    */
-  public var account: List<Reference?>? = null,
+  public var account: MutableList<Reference> = mutableListOf(),
   /** Comments made about the event by the performer, subject or other participants. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Further information supporting this charge. */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what performed or participated in the charged service. */
   @Serializable(with = ChargeItemPerformerSerializer::class)
@@ -294,7 +294,7 @@ public data class ChargeItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -313,14 +313,14 @@ public data class ChargeItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Describes the type of performance or participation(e.g. primary surgeon, anesthesiologiest,
      * etc.).
      */
     public var function: CodeableConcept? = null,
     /** The device, practitioner, etc. who performed or participated in the service. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   public sealed interface Occurrence {
@@ -337,14 +337,14 @@ public data class ChargeItem(
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
       ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
         return null
       }
     }
@@ -362,12 +362,12 @@ public data class ChargeItem(
     ) : Product
 
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
       ): Product? {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
         return null
       }
     }

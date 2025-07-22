@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.ProvenanceEntitySerializer
 import com.google.fhir.model.r5.serializers.ProvenanceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -105,7 +105,7 @@ public data class Provenance(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class Provenance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class Provenance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The Reference(s) that were generated or updated by the activity described in this resource. A
    * provenance can point to more than one target if multiple resources were created/updated by the
@@ -150,7 +150,7 @@ public data class Provenance(
    * then the provenance, or it may submit both using a single transaction. See the notes on
    * transaction for further discussion.
    */
-  public var target: List<Reference?>? = null,
+  public var target: MutableList<Reference> = mutableListOf(),
   /**
    * The period during which the activity occurred.
    *
@@ -173,11 +173,11 @@ public data class Provenance(
    * placed into the policy element Where a policy engine (e.g. XACML) holds policy logic, the
    * unique policy identifier is placed into the policy element.
    */
-  public var policy: List<Uri?>? = null,
+  public var policy: MutableList<Uri> = mutableListOf(),
   /** Where the activity occurred, if relevant. */
   public var location: Reference? = null,
   /** The authorization (e.g., PurposeOfUse) that was used during the event being recorded. */
-  public var authorization: List<CodeableReference?>? = null,
+  public var authorization: MutableList<CodeableReference> = mutableListOf(),
   /**
    * An activity is something that occurs over a period of time and acts upon or with entities; it
    * may include consuming, processing, transforming, modifying, relocating, using, or generating
@@ -188,7 +188,7 @@ public data class Provenance(
    * Allows tracing of authorizatino for the events and tracking whether proposals/recommendations
    * were acted upon.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * The patient element is available to enable deterministic tracking of activities that involve
    * the patient as the subject of the data used in an activity.
@@ -207,14 +207,14 @@ public data class Provenance(
    * Several agents may be associated (i.e. has some responsibility for an activity) with an
    * activity and vice-versa.
    */
-  public var agent: List<Agent>? = null,
+  public var agent: MutableList<Agent> = mutableListOf(),
   /** An entity used in this activity. */
-  public var entity: List<Entity>? = null,
+  public var entity: MutableList<Entity> = mutableListOf(),
   /**
    * A digital signature on the target Reference(s). The signer should match a Provenance.agent. The
    * purpose of the signature is indicated.
    */
-  public var signature: List<Signature?>? = null,
+  public var signature: MutableList<Signature> = mutableListOf(),
 ) : DomainResource() {
   /**
    * An actor taking a role in an activity for which it can be assigned some degree of
@@ -239,7 +239,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -258,7 +258,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The Functional Role of the agent with respect to the activity.
      *
@@ -271,9 +271,9 @@ public data class Provenance(
      *
      * For example: Chief-of-Radiology, Nurse, Physician, Medical-Student, etc.
      */
-    public var role: List<CodeableConcept?>? = null,
+    public var role: MutableList<CodeableConcept> = mutableListOf(),
     /** Indicates who or what performed in the event. */
-    public var who: Reference? = null,
+    public var who: Reference,
     /**
      * The agent that delegated authority to perform the activity performed by the agent.who
      * element.
@@ -301,7 +301,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -320,15 +320,15 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** How the entity was used during the activity. */
-    public var role: Enumeration<ProvenanceEntityRole>? = null,
+    public var role: Enumeration<ProvenanceEntityRole>,
     /**
      * Identity of the Entity used. May be a logical or physical uri and maybe absolute or relative.
      *
      * whatIdentity should be used for entities that are not a Resource type.
      */
-    public var what: Reference? = null,
+    public var what: Reference,
     /**
      * The entity is attributed to an agent to express the agent's responsibility for that entity,
      * possibly along with other agents. This description can be understood as shorthand for saying
@@ -343,7 +343,7 @@ public data class Provenance(
      * server. Thus it explains the Provenance of that Entity's use in the context of this
      * Provenance activity.
      */
-    public var agent: List<Agent?>? = null,
+    public var agent: MutableList<Agent> = mutableListOf(),
   ) : BackboneElement()
 
   public sealed interface Occurred {
@@ -356,11 +356,11 @@ public data class Provenance(
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Occurred
 
     public companion object {
-      public fun from(
-        PeriodValue: com.google.fhir.model.r5.Period?,
+      internal fun from(
+        periodValue: com.google.fhir.model.r5.Period?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
       ): Occurred? {
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         return null
       }

@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductIngredientSpecifiedS
 import com.google.fhir.model.r4.serializers.MedicinalProductIngredientSpecifiedSubstanceStrengthSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductIngredientSubstanceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class MedicinalProductIngredient(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class MedicinalProductIngredient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,20 +127,20 @@ public data class MedicinalProductIngredient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The identifier(s) of this Ingredient that are assigned by business processes and/or used to
    * refer to it when a direct URL reference to the resource itself is not appropriate.
    */
   public var identifier: Identifier? = null,
   /** Ingredient role e.g. Active ingredient, excipient. */
-  public var role: CodeableConcept? = null,
+  public var role: CodeableConcept,
   /** If the ingredient is a known or suspected allergen. */
   public var allergenicIndicator: Boolean? = null,
   /** Manufacturer of this Ingredient. */
-  public var manufacturer: List<Reference?>? = null,
+  public var manufacturer: MutableList<Reference> = mutableListOf(),
   /** A specified substance that comprises this ingredient. */
-  public var specifiedSubstance: List<SpecifiedSubstance>? = null,
+  public var specifiedSubstance: MutableList<SpecifiedSubstance> = mutableListOf(),
   /** The ingredient substance. */
   public var substance: Substance? = null,
 ) : DomainResource() {
@@ -164,7 +164,7 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -183,18 +183,18 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The specified substance. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** The group of specified substance, e.g. group 1 to 4. */
-    public var group: CodeableConcept? = null,
+    public var group: CodeableConcept,
     /** Confidentiality level of the specified substance as the ingredient. */
     public var confidentiality: CodeableConcept? = null,
     /**
      * Quantity of the substance or specified substance present in the manufactured item or
      * pharmaceutical product.
      */
-    public var strength: List<Strength>? = null,
+    public var strength: MutableList<Strength> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Quantity of the substance or specified substance present in the manufactured item or
@@ -219,7 +219,7 @@ public data class MedicinalProductIngredient(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -238,12 +238,12 @@ public data class MedicinalProductIngredient(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The quantity of substance in the unit of presentation, or in the volume (or mass) of the
        * single pharmaceutical product or manufactured item.
        */
-      public var presentation: Ratio? = null,
+      public var presentation: Ratio,
       /**
        * A lower limit for the quantity of substance in the unit of presentation. For use when there
        * is a range of strengths, this is the lower limit, with the presentation attribute becoming
@@ -260,9 +260,9 @@ public data class MedicinalProductIngredient(
       /** For when strength is measured at a particular point or distance. */
       public var measurementPoint: String? = null,
       /** The country or countries for which the strength range applies. */
-      public var country: List<CodeableConcept?>? = null,
+      public var country: MutableList<CodeableConcept> = mutableListOf(),
       /** Strength expressed in terms of a reference substance. */
-      public var referenceStrength: List<ReferenceStrength>? = null,
+      public var referenceStrength: MutableList<ReferenceStrength> = mutableListOf(),
     ) : BackboneElement() {
       /** Strength expressed in terms of a reference substance. */
       @Serializable(
@@ -287,7 +287,7 @@ public data class MedicinalProductIngredient(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -306,17 +306,17 @@ public data class MedicinalProductIngredient(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Relevant reference substance. */
         public var substance: CodeableConcept? = null,
         /** Strength expressed in terms of a reference substance. */
-        public var strength: Ratio? = null,
+        public var strength: Ratio,
         /** Strength expressed in terms of a reference substance. */
         public var strengthLowLimit: Ratio? = null,
         /** For when strength is measured at a particular point or distance. */
         public var measurementPoint: String? = null,
         /** The country or countries for which the strength range applies. */
-        public var country: List<CodeableConcept?>? = null,
+        public var country: MutableList<CodeableConcept> = mutableListOf(),
       ) : BackboneElement()
     }
   }
@@ -341,7 +341,7 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -360,13 +360,13 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The ingredient substance. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * Quantity of the substance or specified substance present in the manufactured item or
      * pharmaceutical product.
      */
-    public var strength: List<SpecifiedSubstance.Strength?>? = null,
+    public var strength: MutableList<SpecifiedSubstance.Strength> = mutableListOf(),
   ) : BackboneElement()
 }

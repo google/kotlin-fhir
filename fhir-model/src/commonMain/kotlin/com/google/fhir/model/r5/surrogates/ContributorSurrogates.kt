@@ -29,47 +29,47 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ContributorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
 ) {
   public fun toModel(): Contributor =
-    Contributor().apply {
-      id = this@ContributorSurrogate.id
-      extension = this@ContributorSurrogate.extension
+    Contributor(
+      id = this@ContributorSurrogate.id,
+      extension = this@ContributorSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@ContributorSurrogate.type?.let {
-            com.google.fhir.model.r5.Contributor.ContributorType.fromCode(it)
-          },
+          com.google.fhir.model.r5.Contributor.ContributorType.fromCode(
+            this@ContributorSurrogate.type!!
+          ),
           this@ContributorSurrogate._type,
-        )
-      name = R5String.of(this@ContributorSurrogate.name, this@ContributorSurrogate._name)
-      contact = this@ContributorSurrogate.contact
-    }
+        ),
+      name = R5String.of(this@ContributorSurrogate.name, this@ContributorSurrogate._name)!!,
+      contact = this@ContributorSurrogate.contact ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Contributor): ContributorSurrogate =
       with(model) {
-        ContributorSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          contact = this@with.contact
-        }
+        ContributorSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
