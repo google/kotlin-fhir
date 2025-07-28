@@ -40,15 +40,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MessageHeaderDestinationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var target: Reference? = null,
@@ -57,38 +57,39 @@ internal data class MessageHeaderDestinationSurrogate(
   public var `receiver`: Reference? = null,
 ) {
   public fun toModel(): MessageHeader.Destination =
-    MessageHeader.Destination().apply {
-      id = this@MessageHeaderDestinationSurrogate.id
-      extension = this@MessageHeaderDestinationSurrogate.extension
-      modifierExtension = this@MessageHeaderDestinationSurrogate.modifierExtension
+    MessageHeader.Destination(
+      id = this@MessageHeaderDestinationSurrogate.id,
+      extension = this@MessageHeaderDestinationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MessageHeaderDestinationSurrogate.modifierExtension ?: mutableListOf(),
       name =
         R4bString.of(
           this@MessageHeaderDestinationSurrogate.name,
           this@MessageHeaderDestinationSurrogate._name,
-        )
-      target = this@MessageHeaderDestinationSurrogate.target
+        ),
+      target = this@MessageHeaderDestinationSurrogate.target,
       endpoint =
         Url.of(
           this@MessageHeaderDestinationSurrogate.endpoint,
           this@MessageHeaderDestinationSurrogate._endpoint,
-        )
-      `receiver` = this@MessageHeaderDestinationSurrogate.`receiver`
-    }
+        )!!,
+      `receiver` = this@MessageHeaderDestinationSurrogate.`receiver`,
+    )
 
   public companion object {
     public fun fromModel(model: MessageHeader.Destination): MessageHeaderDestinationSurrogate =
       with(model) {
-        MessageHeaderDestinationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          target = this@with.target
-          endpoint = this@with.endpoint?.value
-          _endpoint = this@with.endpoint?.toElement()
-          `receiver` = this@with.`receiver`
-        }
+        MessageHeaderDestinationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          target = this@with.target,
+          endpoint = this@with.endpoint.value,
+          _endpoint = this@with.endpoint.toElement(),
+          `receiver` = this@with.`receiver`,
+        )
       }
   }
 }
@@ -96,8 +97,8 @@ internal data class MessageHeaderDestinationSurrogate(
 @Serializable
 internal data class MessageHeaderSourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var software: KotlinString? = null,
@@ -109,50 +110,50 @@ internal data class MessageHeaderSourceSurrogate(
   public var _endpoint: Element? = null,
 ) {
   public fun toModel(): MessageHeader.Source =
-    MessageHeader.Source().apply {
-      id = this@MessageHeaderSourceSurrogate.id
-      extension = this@MessageHeaderSourceSurrogate.extension
-      modifierExtension = this@MessageHeaderSourceSurrogate.modifierExtension
+    MessageHeader.Source(
+      id = this@MessageHeaderSourceSurrogate.id,
+      extension = this@MessageHeaderSourceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MessageHeaderSourceSurrogate.modifierExtension ?: mutableListOf(),
       name =
         R4bString.of(
           this@MessageHeaderSourceSurrogate.name,
           this@MessageHeaderSourceSurrogate._name,
-        )
+        ),
       software =
         R4bString.of(
           this@MessageHeaderSourceSurrogate.software,
           this@MessageHeaderSourceSurrogate._software,
-        )
+        ),
       version =
         R4bString.of(
           this@MessageHeaderSourceSurrogate.version,
           this@MessageHeaderSourceSurrogate._version,
-        )
-      contact = this@MessageHeaderSourceSurrogate.contact
+        ),
+      contact = this@MessageHeaderSourceSurrogate.contact,
       endpoint =
         Url.of(
           this@MessageHeaderSourceSurrogate.endpoint,
           this@MessageHeaderSourceSurrogate._endpoint,
-        )
-    }
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(model: MessageHeader.Source): MessageHeaderSourceSurrogate =
       with(model) {
-        MessageHeaderSourceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          software = this@with.software?.value
-          _software = this@with.software?.toElement()
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          contact = this@with.contact
-          endpoint = this@with.endpoint?.value
-          _endpoint = this@with.endpoint?.toElement()
-        }
+        MessageHeaderSourceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          software = this@with.software?.value,
+          _software = this@with.software?.toElement(),
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          contact = this@with.contact,
+          endpoint = this@with.endpoint.value,
+          _endpoint = this@with.endpoint.toElement(),
+        )
       }
   }
 }
@@ -160,8 +161,8 @@ internal data class MessageHeaderSourceSurrogate(
 @Serializable
 internal data class MessageHeaderResponseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: KotlinString? = null,
   public var _identifier: Element? = null,
   public var code: KotlinString? = null,
@@ -169,63 +170,65 @@ internal data class MessageHeaderResponseSurrogate(
   public var details: Reference? = null,
 ) {
   public fun toModel(): MessageHeader.Response =
-    MessageHeader.Response().apply {
-      id = this@MessageHeaderResponseSurrogate.id
-      extension = this@MessageHeaderResponseSurrogate.extension
-      modifierExtension = this@MessageHeaderResponseSurrogate.modifierExtension
+    MessageHeader.Response(
+      id = this@MessageHeaderResponseSurrogate.id,
+      extension = this@MessageHeaderResponseSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MessageHeaderResponseSurrogate.modifierExtension ?: mutableListOf(),
       identifier =
         Id.of(
           this@MessageHeaderResponseSurrogate.identifier,
           this@MessageHeaderResponseSurrogate._identifier,
-        )
+        )!!,
       code =
         Enumeration.of(
-          this@MessageHeaderResponseSurrogate.code?.let {
-            com.google.fhir.model.r4b.MessageHeader.ResponseType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.MessageHeader.ResponseType.fromCode(
+            this@MessageHeaderResponseSurrogate.code!!
+          ),
           this@MessageHeaderResponseSurrogate._code,
-        )
-      details = this@MessageHeaderResponseSurrogate.details
-    }
+        ),
+      details = this@MessageHeaderResponseSurrogate.details,
+    )
 
   public companion object {
     public fun fromModel(model: MessageHeader.Response): MessageHeaderResponseSurrogate =
       with(model) {
-        MessageHeaderResponseSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier?.value
-          _identifier = this@with.identifier?.toElement()
-          code = this@with.code?.value?.getCode()
-          _code = this@with.code?.toElement()
-          details = this@with.details
-        }
+        MessageHeaderResponseSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.value,
+          _identifier = this@with.identifier.toElement(),
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          details = this@with.details,
+        )
       }
   }
 }
 
 @Serializable
-internal class MessageHeaderEventSurrogate {
-  public var eventCoding: Coding? = null
-
-  public var eventUri: KotlinString? = null
-
-  public var _eventUri: Element? = null
-
+internal data class MessageHeaderEventSurrogate(
+  public var eventCoding: Coding? = null,
+  public var eventUri: KotlinString? = null,
+  public var _eventUri: Element? = null,
+) {
   public fun toModel(): MessageHeader.Event =
-    MessageHeader.Event?.from(
+    MessageHeader.Event.from(
       this@MessageHeaderEventSurrogate.eventCoding,
       Uri.of(this@MessageHeaderEventSurrogate.eventUri, this@MessageHeaderEventSurrogate._eventUri),
-    ) ?: MessageHeader.Event.Null
+    )!!
 
   public companion object {
     public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =
       with(model) {
         MessageHeaderEventSurrogate().apply {
-          eventCoding = this@with.asCoding()?.value
-          eventUri = this@with.asUri()?.value?.value
-          _eventUri = this@with.asUri()?.value?.toElement()
+          MessageHeader.Event.from(
+            this@MessageHeaderEventSurrogate.eventCoding,
+            Uri.of(
+              this@MessageHeaderEventSurrogate.eventUri,
+              this@MessageHeaderEventSurrogate._eventUri,
+            ),
+          )!!
         }
       }
   }
@@ -240,81 +243,81 @@ internal data class MessageHeaderSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var destination: List<MessageHeader.Destination>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var destination: MutableList<MessageHeader.Destination>? = null,
   public var sender: Reference? = null,
   public var enterer: Reference? = null,
   public var author: Reference? = null,
-  public var source: MessageHeader.Source? = null,
+  public var source: MessageHeader.Source,
   public var responsible: Reference? = null,
   public var reason: CodeableConcept? = null,
   public var response: MessageHeader.Response? = null,
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference>? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
-  public var event: MessageHeader.Event? = null,
+  public var event: MessageHeader.Event,
 ) {
   public fun toModel(): MessageHeader =
-    MessageHeader().apply {
-      id = this@MessageHeaderSurrogate.id
-      meta = this@MessageHeaderSurrogate.meta
+    MessageHeader(
+      id = this@MessageHeaderSurrogate.id,
+      meta = this@MessageHeaderSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MessageHeaderSurrogate.implicitRules,
           this@MessageHeaderSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@MessageHeaderSurrogate.language, this@MessageHeaderSurrogate._language)
-      text = this@MessageHeaderSurrogate.text
-      contained = this@MessageHeaderSurrogate.contained
-      extension = this@MessageHeaderSurrogate.extension
-      modifierExtension = this@MessageHeaderSurrogate.modifierExtension
-      event = this@MessageHeaderSurrogate.event
-      destination = this@MessageHeaderSurrogate.destination
-      sender = this@MessageHeaderSurrogate.sender
-      enterer = this@MessageHeaderSurrogate.enterer
-      author = this@MessageHeaderSurrogate.author
-      source = this@MessageHeaderSurrogate.source
-      responsible = this@MessageHeaderSurrogate.responsible
-      reason = this@MessageHeaderSurrogate.reason
-      response = this@MessageHeaderSurrogate.response
-      focus = this@MessageHeaderSurrogate.focus
+        Code.of(this@MessageHeaderSurrogate.language, this@MessageHeaderSurrogate._language),
+      text = this@MessageHeaderSurrogate.text,
+      contained = this@MessageHeaderSurrogate.contained ?: mutableListOf(),
+      extension = this@MessageHeaderSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MessageHeaderSurrogate.modifierExtension ?: mutableListOf(),
+      event = this@MessageHeaderSurrogate.event,
+      destination = this@MessageHeaderSurrogate.destination ?: mutableListOf(),
+      sender = this@MessageHeaderSurrogate.sender,
+      enterer = this@MessageHeaderSurrogate.enterer,
+      author = this@MessageHeaderSurrogate.author,
+      source = this@MessageHeaderSurrogate.source,
+      responsible = this@MessageHeaderSurrogate.responsible,
+      reason = this@MessageHeaderSurrogate.reason,
+      response = this@MessageHeaderSurrogate.response,
+      focus = this@MessageHeaderSurrogate.focus ?: mutableListOf(),
       definition =
         Canonical.of(
           this@MessageHeaderSurrogate.definition,
           this@MessageHeaderSurrogate._definition,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: MessageHeader): MessageHeaderSurrogate =
       with(model) {
-        MessageHeaderSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          event = this@with.event
-          destination = this@with.destination
-          sender = this@with.sender
-          enterer = this@with.enterer
-          author = this@with.author
-          source = this@with.source
-          responsible = this@with.responsible
-          reason = this@with.reason
-          response = this@with.response
-          focus = this@with.focus
-          definition = this@with.definition?.value
-          _definition = this@with.definition?.toElement()
-        }
+        MessageHeaderSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          event = this@with.event,
+          destination = this@with.destination.takeUnless { it.all { it == null } },
+          sender = this@with.sender,
+          enterer = this@with.enterer,
+          author = this@with.author,
+          source = this@with.source,
+          responsible = this@with.responsible,
+          reason = this@with.reason,
+          response = this@with.response,
+          focus = this@with.focus.takeUnless { it.all { it == null } },
+          definition = this@with.definition?.value,
+          _definition = this@with.definition?.toElement(),
+        )
       }
   }
 }

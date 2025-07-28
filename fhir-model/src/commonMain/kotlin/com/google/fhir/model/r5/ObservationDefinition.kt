@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.ObservationDefinitionQualifiedValueS
 import com.google.fhir.model.r5.serializers.ObservationDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ObservationDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URL that is used to identify this ObservationDefinition when it is referenced in a
    * specification, model, design or an instance. This SHALL be a URL, SHOULD be globally unique,
@@ -195,7 +195,7 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A flag to indicate that this ObservationDefinition is authored for testing purposes (or
    * education/evaluation/marketing), and is not intended to be used for genuine usage.
@@ -232,7 +232,7 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the ObservationDefinition from the consumer's
    * perspective.
@@ -252,7 +252,7 @@ public data class ObservationDefinition(
    * When multiple usageContexts are specified, there is no expectation for whether all or any of
    * the contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A jurisdiction in which the ObservationDefinition is intended to be used.
    *
@@ -264,7 +264,7 @@ public data class ObservationDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explains why this ObservationDefinition is needed and why it has been designed as it has.
    *
@@ -326,19 +326,19 @@ public data class ObservationDefinition(
    * The canonical URL pointing to another FHIR-defined ObservationDefinition that is adhered to in
    * whole or in part by this definition.
    */
-  public var derivedFromCanonical: List<Canonical?>? = null,
+  public var derivedFromCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally-defined observation definition, guideline or other definition
    * that is adhered to in whole or in part by this definition.
    */
-  public var derivedFromUri: List<Uri?>? = null,
+  public var derivedFromUri: MutableList<Uri> = mutableListOf(),
   /**
    * A code that describes the intended kind of subject of Observation instances conforming to this
    * ObservationDefinition.
    *
    * Examples: person, animal, device, air, surface ….
    */
-  public var subject: List<CodeableConcept?>? = null,
+  public var subject: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The type of individual/organization/device that is expected to act upon instances of this
    * definition.
@@ -352,14 +352,14 @@ public data class ObservationDefinition(
    * ObservationDefinition. The level of granularity is defined by the category concepts in the
    * value set.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Describes what will be observed. Sometimes this is called the observation "name". */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * The data types allowed for the value element of the instance observations conforming to this
    * ObservationDefinition.
    */
-  public var permittedDataType: List<Enumeration<ObservationDataType>>? = null,
+  public var permittedDataType: MutableList<Enumeration<ObservationDataType>> = mutableListOf(),
   /**
    * Multiple results allowed for observations conforming to this ObservationDefinition.
    *
@@ -387,14 +387,14 @@ public data class ObservationDefinition(
    * Only used for in vitro observations. When multiple occurrences of specimen are present, they
    * are to be combined with a logical AND: all specified specimens are needed for the observation.
    */
-  public var specimen: List<Reference?>? = null,
+  public var specimen: MutableList<Reference> = mutableListOf(),
   /**
    * The measurement model of device or actual device used to produce observations of this type.
    *
    * When multiple occurrences of device are present, they are to be combined with a logical OR: at
    * least one of the specified devices is used to produce the observation.
    */
-  public var device: List<Reference?>? = null,
+  public var device: MutableList<Reference> = mutableListOf(),
   /**
    * The preferred name to be used when reporting the results of observations conforming to this
    * ObservationDefinition.
@@ -404,22 +404,22 @@ public data class ObservationDefinition(
    * Units allowed for the valueQuantity element in the instance observations conforming to this
    * ObservationDefinition.
    */
-  public var permittedUnit: List<Coding?>? = null,
+  public var permittedUnit: MutableList<Coding> = mutableListOf(),
   /**
    * A set of qualified values associated with a context and a set of conditions - provides a range
    * for quantitative and ordinal observations and a collection of value sets for qualitative
    * observations.
    */
-  public var qualifiedValue: List<QualifiedValue>? = null,
+  public var qualifiedValue: MutableList<QualifiedValue> = mutableListOf(),
   /**
    * This ObservationDefinition defines a group observation (e.g. a battery, a panel of tests, a set
    * of vital sign measurements) that includes the target as a member of the group.
    */
-  public var hasMember: List<Reference?>? = null,
+  public var hasMember: MutableList<Reference> = mutableListOf(),
   /**
    * Some observations have multiple component observations, expressed as separate code value pairs.
    */
-  public var component: List<Component>? = null,
+  public var component: MutableList<Component> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A set of qualified values associated with a context and a set of conditions - provides a range
@@ -445,7 +445,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -464,7 +464,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A concept defining the context for this set of qualified values. */
     public var context: CodeableConcept? = null,
     /**
@@ -472,7 +472,7 @@ public data class ObservationDefinition(
      *
      * If this element is not present then the global population is assumed.
      */
-    public var appliesTo: List<CodeableConcept?>? = null,
+    public var appliesTo: MutableList<CodeableConcept> = mutableListOf(),
     /** The gender this set of qualified values applies to. */
     public var gender: Enumeration<AdministrativeGender>? = null,
     /**
@@ -539,7 +539,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -558,24 +558,24 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Describes what will be observed. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * The data types allowed for the value element of the instance of this component observations.
      */
-    public var permittedDataType: List<Enumeration<ObservationDataType>>? = null,
+    public var permittedDataType: MutableList<Enumeration<ObservationDataType>> = mutableListOf(),
     /**
      * Units allowed for the valueQuantity element in the instance observations conforming to this
      * ObservationDefinition.
      */
-    public var permittedUnit: List<Coding?>? = null,
+    public var permittedUnit: MutableList<Coding> = mutableListOf(),
     /**
      * A set of qualified values associated with a context and a set of conditions - provides a
      * range for quantitative and ordinal observations and a collection of value sets for
      * qualitative observations.
      */
-    public var qualifiedValue: List<QualifiedValue?>? = null,
+    public var qualifiedValue: MutableList<QualifiedValue> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = ObservationDefinitionVersionAlgorithmSerializer::class)
@@ -590,16 +590,14 @@ public data class ObservationDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -609,35 +607,10 @@ public data class ObservationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Reference (Normal) Range for Ordinal and Continuous Observations. */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/observation-range-category",
-      "reference range",
-      "Reference (Normal) Range for Ordinal and Continuous Observations.",
-    ),
-    /**
-     * Critical Range for Ordinal and Continuous Observations. Results outside this range are
-     * critical.
-     */
-    Critical(
-      "critical",
-      "http://hl7.org/fhir/observation-range-category",
-      "critical range",
-      "Critical Range for Ordinal and Continuous Observations. Results outside this range are critical.",
-    ),
-    /**
-     * Absolute Range for Ordinal and Continuous Observations. Results outside this range are not
-     * possible.
-     */
-    Absolute(
-      "absolute",
-      "http://hl7.org/fhir/observation-range-category",
-      "absolute range",
-      "Absolute Range for Ordinal and Continuous Observations. Results outside this range are not possible.",
-    );
+    Reference("reference", "http://hl7.org/fhir/observation-range-category", "reference range"),
+    Critical("critical", "http://hl7.org/fhir/observation-range-category", "critical range"),
+    Absolute("absolute", "http://hl7.org/fhir/observation-range-category", "absolute range");
 
     override fun toString(): kotlin.String = code
 
@@ -646,8 +619,6 @@ public data class ObservationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationRangeCategory =
@@ -666,78 +637,22 @@ public data class ObservationDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A measured amount. */
-    Quantity(
-      "Quantity",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Quantity",
-      "A measured amount.",
-    ),
-    /** A coded concept from a reference terminology and/or text. */
+    Quantity("Quantity", "http://hl7.org/fhir/permitted-data-type", "Quantity"),
     CodeableConcept(
       "CodeableConcept",
       "http://hl7.org/fhir/permitted-data-type",
       "CodeableConcept",
-      "A coded concept from a reference terminology and/or text.",
     ),
-    /** A sequence of Unicode characters. */
-    String(
-      "string",
-      "http://hl7.org/fhir/permitted-data-type",
-      "string",
-      "A sequence of Unicode characters.",
-    ),
-    /** true or false. */
-    Boolean("boolean", "http://hl7.org/fhir/permitted-data-type", "boolean", "true or false."),
-    /** A signed integer. */
-    Integer("integer", "http://hl7.org/fhir/permitted-data-type", "integer", "A signed integer."),
-    /** A set of values bounded by low and high. */
-    Range(
-      "Range",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Range",
-      "A set of values bounded by low and high.",
-    ),
-    /** A ratio of two Quantity values - a numerator and a denominator. */
-    Ratio(
-      "Ratio",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Ratio",
-      "A ratio of two Quantity values - a numerator and a denominator.",
-    ),
-    /** A series of measurements taken by a device. */
-    SampledData(
-      "SampledData",
-      "http://hl7.org/fhir/permitted-data-type",
-      "SampledData",
-      "A series of measurements taken by a device.",
-    ),
-    /** A time during the day, in the format hh:mm:ss. */
-    Time(
-      "time",
-      "http://hl7.org/fhir/permitted-data-type",
-      "time",
-      "A time during the day, in the format hh:mm:ss.",
-    ),
-    /**
-     * A date, date-time or partial date (e.g. just year or year + month) as used in human
-     * communication.
-     */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/permitted-data-type",
-      "dateTime",
-      "A date, date-time or partial date (e.g. just year or year + month) as used in human communication.",
-    ),
-    /** A time range defined by start and end date/time. */
-    Period(
-      "Period",
-      "http://hl7.org/fhir/permitted-data-type",
-      "Period",
-      "A time range defined by start and end date/time.",
-    );
+    String("string", "http://hl7.org/fhir/permitted-data-type", "string"),
+    Boolean("boolean", "http://hl7.org/fhir/permitted-data-type", "boolean"),
+    Integer("integer", "http://hl7.org/fhir/permitted-data-type", "integer"),
+    Range("Range", "http://hl7.org/fhir/permitted-data-type", "Range"),
+    Ratio("Ratio", "http://hl7.org/fhir/permitted-data-type", "Ratio"),
+    SampledData("SampledData", "http://hl7.org/fhir/permitted-data-type", "SampledData"),
+    Time("time", "http://hl7.org/fhir/permitted-data-type", "time"),
+    DateTime("dateTime", "http://hl7.org/fhir/permitted-data-type", "dateTime"),
+    Period("Period", "http://hl7.org/fhir/permitted-data-type", "Period");
 
     override fun toString(): kotlin.String = code
 
@@ -746,8 +661,6 @@ public data class ObservationDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ObservationDataType =

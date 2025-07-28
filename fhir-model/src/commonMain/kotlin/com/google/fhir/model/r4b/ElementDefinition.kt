@@ -34,7 +34,7 @@ import com.google.fhir.model.r4b.serializers.ElementDefinitionSlicingDiscriminat
 import com.google.fhir.model.r4b.serializers.ElementDefinitionSlicingSerializer
 import com.google.fhir.model.r4b.serializers.ElementDefinitionTypeSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -60,7 +60,7 @@ public data class ElementDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -79,12 +79,12 @@ public data class ElementDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The path identifies the element and is expressed as a "."-separated list of ancestor elements,
    * beginning with the name of the resource or extension.
    */
-  public var path: String? = null,
+  public var path: String,
   /**
    * Codes that define how this element is represented in instances, when the deviation varies from
    * the normal case.
@@ -94,7 +94,7 @@ public data class ElementDefinition(
    * the base standard does). This element is used quite commonly in Logical models when the logical
    * models represent a specific serialization format (e.g. CDA, v2 etc.).
    */
-  public var representation: List<Enumeration<PropertyRepresentation>>? = null,
+  public var representation: MutableList<Enumeration<PropertyRepresentation>> = mutableListOf(),
   /**
    * The name of this element definition slice, when slicing is working. The name must be a token
    * with no dots or spaces. This is a unique name referring to a specific set of constraints
@@ -132,7 +132,7 @@ public data class ElementDefinition(
    * itself. The mappings may be used to provide more or less granular or structured equivalences in
    * the code system.
    */
-  public var code: List<Coding?>? = null,
+  public var code: MutableList<Coding> = mutableListOf(),
   /**
    * Indicates that the element is sliced into a set of alternative definitions (i.e. in a structure
    * definition, there are multiple different constraints on a single element in the base resource).
@@ -187,7 +187,7 @@ public data class ElementDefinition(
    */
   public var requirements: Markdown? = null,
   /** Identifies additional names by which this element might also be known. */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /** The minimum number of times this element SHALL appear in the instance. */
   public var min: UnsignedInt? = null,
   /** The maximum number of times this element is permitted to appear in the instance. */
@@ -224,7 +224,7 @@ public data class ElementDefinition(
    * is inherited from the resource. Abstract types are not permitted to appear as a type when
    * multiple types are listed. (I.e. Abstract types cannot be part of a choice).
    */
-  public var type: List<Type>? = null,
+  public var type: MutableList<Type> = mutableListOf(),
   /**
    * The value that should be used if there is no value stated in the instance (e.g. 'if not
    * otherwise specified, the abstract is false').
@@ -299,7 +299,7 @@ public data class ElementDefinition(
    * quantities would generally be unnecessary.) If the example value is fully populated, the
    * publication tool can generate an instance automatically.
    */
-  public var example: List<Example>? = null,
+  public var example: MutableList<Example> = mutableListOf(),
   /**
    * The minimum allowed value for the element. The value is inclusive. This is allowed for the
    * types date, dateTime, instant, time, decimal, integer, and Quantity.
@@ -339,7 +339,7 @@ public data class ElementDefinition(
    * A reference to an invariant that may make additional statements about the cardinality or value
    * in the instance.
    */
-  public var condition: List<Id?>? = null,
+  public var condition: MutableList<Id> = mutableListOf(),
   /**
    * Formal constraints such as co-occurrence and other constraints that can be computationally
    * evaluated within the context of the instance.
@@ -347,7 +347,7 @@ public data class ElementDefinition(
    * Constraints should be declared on the "context" element - the lowest element in the hierarchy
    * that is common to all nodes referenced by the constraint.
    */
-  public var constraint: List<Constraint>? = null,
+  public var constraint: MutableList<Constraint> = mutableListOf(),
   /**
    * If true, implementations that produce or consume resources SHALL provide "support" for the
    * element in some meaningful way. If false, the element may be ignored and not supported. If
@@ -414,7 +414,7 @@ public data class ElementDefinition(
    *
    * Mappings are not necessarily specific enough for safe translation.
    */
-  public var mapping: List<Mapping>? = null,
+  public var mapping: MutableList<Mapping> = mutableListOf(),
 ) : BackboneElement() {
   /**
    * Indicates that the element is sliced into a set of alternative definitions (i.e. in a structure
@@ -443,7 +443,7 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * Designates which child elements are used to discriminate between the slices when processing
      * an instance. If one or more discriminators are provided, the value of the child elements in
@@ -452,7 +452,7 @@ public data class ElementDefinition(
      *
      * If there is no discriminator, the content is hard to process, so this should be avoided.
      */
-    public var discriminator: List<Discriminator>? = null,
+    public var discriminator: MutableList<Discriminator> = mutableListOf(),
     /**
      * A human-readable text description of how the slicing works. If there is no discriminator,
      * this is required to be present to provide whatever information is possible about how the
@@ -478,7 +478,7 @@ public data class ElementDefinition(
      * wider contexts, but also means that the content of the resource is not closed, and
      * applications have to decide how to handle content not described by the profile.
      */
-    public var rules: Enumeration<SlicingRules>? = null,
+    public var rules: Enumeration<SlicingRules>,
   ) : Element() {
     /**
      * Designates which child elements are used to discriminate between the slices when processing
@@ -505,16 +505,16 @@ public data class ElementDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /** How the element value is interpreted when discrimination is evaluated. */
-      public var type: Enumeration<DiscriminatorType>? = null,
+      public var type: Enumeration<DiscriminatorType>,
       /**
        * A FHIRPath expression, using [the simple subset of FHIRPath](fhirpath.html#simple), that is
        * used to identify the element on which discrimination is based.
        *
        * The only FHIRPath functions that are allowed are as(type), resolve(), and extension(url).
        */
-      public var path: String? = null,
+      public var path: String,
     ) : Element()
   }
 
@@ -545,14 +545,14 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * The Path that identifies the base element - this matches the ElementDefinition.path for that
      * element. Across FHIR, there is only one base definition of any element - that is, an element
      * definition on a [StructureDefinition](structuredefinition.html#) without a
      * StructureDefinition.base.
      */
-    public var path: String? = null,
+    public var path: String,
     /**
      * Minimum cardinality of the base element identified by the path.
      *
@@ -560,7 +560,7 @@ public data class ElementDefinition(
      * elements of the base resource are generated differently (some reference implementations have
      * done this).
      */
-    public var min: UnsignedInt? = null,
+    public var min: UnsignedInt,
     /**
      * Maximum cardinality of the base element identified by the path.
      *
@@ -568,7 +568,7 @@ public data class ElementDefinition(
      * depending on whether the base element has max > 1. Also, some forms of code generation may
      * differ.
      */
-    public var max: String? = null,
+    public var max: String,
   ) : Element()
 
   /** The data type or resource that the value of this element is permitted to be. */
@@ -591,7 +591,7 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * URL of Data type or Resource that is a(or the) type used for this element. References are
      * URLs that are relative to http://hl7.org/fhir/StructureDefinition e.g. "string" is a
@@ -603,7 +603,7 @@ public data class ElementDefinition(
      * reference to the general definition of a resource (e.g.
      * http://hl7.org/fhir/StructureDefinition/Patient).
      */
-    public var code: Uri? = null,
+    public var code: Uri,
     /**
      * Identifies a profile structure or implementation Guide that applies to the datatype this
      * element refers to. If any profiles are specified, then the content must conform to at least
@@ -615,7 +615,7 @@ public data class ElementDefinition(
      * It is possible to profile backbone element (e.g. part of a resource), using the
      * [profile-element](extension-elementdefinition-profile-element.html) extension.
      */
-    public var profile: List<Canonical?>? = null,
+    public var profile: MutableList<Canonical> = mutableListOf(),
     /**
      * Used when the type is "Reference" or "canonical", and identifies a profile structure or
      * implementation Guide that applies to the target of the reference this element refers to. If
@@ -625,7 +625,7 @@ public data class ElementDefinition(
      * is specified, the target resource SHALL conform to at least one profile defined in the
      * implementation guide.
      */
-    public var targetProfile: List<Canonical?>? = null,
+    public var targetProfile: MutableList<Canonical> = mutableListOf(),
     /**
      * If the type is a reference to another resource, how the resource is or can be aggregated - is
      * it a contained resource, or a reference, and if the context is a bundle, is it included in
@@ -633,7 +633,7 @@ public data class ElementDefinition(
      *
      * See [Aggregation Rules](elementdefinition.html#aggregation) for further clarification.
      */
-    public var aggregation: List<Enumeration<AggregationMode>>? = null,
+    public var aggregation: MutableList<Enumeration<AggregationMode>> = mutableListOf(),
     /**
      * Whether this reference needs to be version specific or version independent, or whether either
      * can be used.
@@ -668,13 +668,13 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** Describes the purpose of this example amoung the set of examples. */
-    public var label: String? = null,
+    public var label: String,
     /**
      * The actual value for the element, which must be one of the types allowed for this element.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : Element() {
     @Serializable(with = ElementDefinitionExampleValueSerializer::class)
     public sealed interface Value {
@@ -907,10 +907,8 @@ public data class ElementDefinition(
 
       public data class Dosage(public val `value`: com.google.fhir.model.r4b.Dosage) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
+        internal fun from(
           base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
@@ -930,39 +928,39 @@ public data class ElementDefinition(
           uriValue: com.google.fhir.model.r4b.Uri?,
           urlValue: com.google.fhir.model.r4b.Url?,
           uuidValue: com.google.fhir.model.r4b.Uuid?,
-          AddressValue: com.google.fhir.model.r4b.Address?,
-          AgeValue: com.google.fhir.model.r4b.Age?,
-          AnnotationValue: com.google.fhir.model.r4b.Annotation?,
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          CodeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
-          CodingValue: com.google.fhir.model.r4b.Coding?,
-          ContactPointValue: com.google.fhir.model.r4b.ContactPoint?,
-          CountValue: com.google.fhir.model.r4b.Count?,
-          DistanceValue: com.google.fhir.model.r4b.Distance?,
-          DurationValue: com.google.fhir.model.r4b.Duration?,
-          HumanNameValue: com.google.fhir.model.r4b.HumanName?,
-          IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-          MoneyValue: com.google.fhir.model.r4b.Money?,
-          PeriodValue: com.google.fhir.model.r4b.Period?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          RatioValue: com.google.fhir.model.r4b.Ratio?,
-          RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          SampledDataValue: com.google.fhir.model.r4b.SampledData?,
-          SignatureValue: com.google.fhir.model.r4b.Signature?,
-          TimingValue: com.google.fhir.model.r4b.Timing?,
-          ContactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
-          ContributorValue: com.google.fhir.model.r4b.Contributor?,
-          DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-          ExpressionValue: com.google.fhir.model.r4b.Expression?,
-          ParameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
-          RelatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
-          TriggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
-          UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
-          DosageValue: com.google.fhir.model.r4b.Dosage?,
-        ): Value {
+          addressValue: com.google.fhir.model.r4b.Address?,
+          ageValue: com.google.fhir.model.r4b.Age?,
+          annotationValue: com.google.fhir.model.r4b.Annotation?,
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          codeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
+          codingValue: com.google.fhir.model.r4b.Coding?,
+          contactPointValue: com.google.fhir.model.r4b.ContactPoint?,
+          countValue: com.google.fhir.model.r4b.Count?,
+          distanceValue: com.google.fhir.model.r4b.Distance?,
+          durationValue: com.google.fhir.model.r4b.Duration?,
+          humanNameValue: com.google.fhir.model.r4b.HumanName?,
+          identifierValue: com.google.fhir.model.r4b.Identifier?,
+          moneyValue: com.google.fhir.model.r4b.Money?,
+          periodValue: com.google.fhir.model.r4b.Period?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          ratioValue: com.google.fhir.model.r4b.Ratio?,
+          ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
+          sampledDataValue: com.google.fhir.model.r4b.SampledData?,
+          signatureValue: com.google.fhir.model.r4b.Signature?,
+          timingValue: com.google.fhir.model.r4b.Timing?,
+          contactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
+          contributorValue: com.google.fhir.model.r4b.Contributor?,
+          dataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
+          expressionValue: com.google.fhir.model.r4b.Expression?,
+          parameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
+          relatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
+          triggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
+          usageContextValue: com.google.fhir.model.r4b.UsageContext?,
+          dosageValue: com.google.fhir.model.r4b.Dosage?,
+        ): Value? {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -982,39 +980,39 @@ public data class ElementDefinition(
           if (uriValue != null) return Uri(uriValue)
           if (urlValue != null) return Url(urlValue)
           if (uuidValue != null) return Uuid(uuidValue)
-          if (AddressValue != null) return Address(AddressValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (AnnotationValue != null) return Annotation(AnnotationValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (CodeableReferenceValue != null) return CodeableReference(CodeableReferenceValue)
-          if (CodingValue != null) return Coding(CodingValue)
-          if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-          if (CountValue != null) return Count(CountValue)
-          if (DistanceValue != null) return Distance(DistanceValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (HumanNameValue != null) return HumanName(HumanNameValue)
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
-          if (MoneyValue != null) return Money(MoneyValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (SampledDataValue != null) return SampledData(SampledDataValue)
-          if (SignatureValue != null) return Signature(SignatureValue)
-          if (TimingValue != null) return Timing(TimingValue)
-          if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-          if (ContributorValue != null) return Contributor(ContributorValue)
-          if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-          if (ExpressionValue != null) return Expression(ExpressionValue)
-          if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-          if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-          if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-          if (UsageContextValue != null) return UsageContext(UsageContextValue)
-          if (DosageValue != null) return Dosage(DosageValue)
-          return Null
+          if (addressValue != null) return Address(addressValue)
+          if (ageValue != null) return Age(ageValue)
+          if (annotationValue != null) return Annotation(annotationValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (codeableReferenceValue != null) return CodeableReference(codeableReferenceValue)
+          if (codingValue != null) return Coding(codingValue)
+          if (contactPointValue != null) return ContactPoint(contactPointValue)
+          if (countValue != null) return Count(countValue)
+          if (distanceValue != null) return Distance(distanceValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (humanNameValue != null) return HumanName(humanNameValue)
+          if (identifierValue != null) return Identifier(identifierValue)
+          if (moneyValue != null) return Money(moneyValue)
+          if (periodValue != null) return Period(periodValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (sampledDataValue != null) return SampledData(sampledDataValue)
+          if (signatureValue != null) return Signature(signatureValue)
+          if (timingValue != null) return Timing(timingValue)
+          if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+          if (contributorValue != null) return Contributor(contributorValue)
+          if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+          if (expressionValue != null) return Expression(expressionValue)
+          if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+          if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+          if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+          if (usageContextValue != null) return UsageContext(usageContextValue)
+          if (dosageValue != null) return Dosage(dosageValue)
+          return null
         }
       }
     }
@@ -1043,12 +1041,12 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * Allows identification of which elements have their cardinalities impacted by the constraint.
      * Will not be referenced for constraints that do not affect cardinality.
      */
-    public var key: Id? = null,
+    public var key: Id,
     /**
      * Description of why this constraint is necessary or appropriate.
      *
@@ -1060,14 +1058,14 @@ public data class ElementDefinition(
      *
      * This allows constraints to be asserted as "shall" (error) and "should" (warning).
      */
-    public var severity: Enumeration<ConstraintSeverity>? = null,
+    public var severity: Enumeration<ConstraintSeverity>,
     /**
      * Text that can be used to describe the constraint in messages identifying that the constraint
      * has been violated.
      *
      * Should be expressed in business terms as much as possible.
      */
-    public var human: String? = null,
+    public var human: String,
     /**
      * A [FHIRPath](fhirpath.html) expression of constraint that can be executed to see if this
      * constraint is met.
@@ -1117,14 +1115,14 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates the degree of conformance expectations associated with this binding - that is, the
      * degree to which the provided value set must be adhered to in the instances.
      *
      * For further discussion, see [Using Terminologies](terminologies.html).
      */
-    public var strength: Enumeration<BindingStrength>? = null,
+    public var strength: Enumeration<BindingStrength>,
     /** Describes the intended use of this particular set of codes. */
     public var description: String? = null,
     /**
@@ -1158,9 +1156,9 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** An internal reference to the definition of a mapping. */
-    public var identity: Id? = null,
+    public var identity: Id,
     /**
      * Identifies the computable language in which mapping.map is expressed.
      *
@@ -1174,7 +1172,7 @@ public data class ElementDefinition(
      * Multiple mappings may be possible and may include constraints on other resource elements that
      * identify when a particular mapping applies.
      */
-    public var map: String? = null,
+    public var map: String,
     /** Comments that provide information about the mapping or its use. */
     public var comment: String? = null,
   ) : Element()
@@ -1419,10 +1417,8 @@ public data class ElementDefinition(
 
     public data class Dosage(public val `value`: com.google.fhir.model.r4b.Dosage) : DefaultValue
 
-    public data object Null : DefaultValue
-
     public companion object {
-      public fun from(
+      internal fun from(
         base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
         booleanValue: com.google.fhir.model.r4b.Boolean?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
@@ -1442,39 +1438,39 @@ public data class ElementDefinition(
         uriValue: com.google.fhir.model.r4b.Uri?,
         urlValue: com.google.fhir.model.r4b.Url?,
         uuidValue: com.google.fhir.model.r4b.Uuid?,
-        AddressValue: com.google.fhir.model.r4b.Address?,
-        AgeValue: com.google.fhir.model.r4b.Age?,
-        AnnotationValue: com.google.fhir.model.r4b.Annotation?,
-        AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        CodeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
-        CodingValue: com.google.fhir.model.r4b.Coding?,
-        ContactPointValue: com.google.fhir.model.r4b.ContactPoint?,
-        CountValue: com.google.fhir.model.r4b.Count?,
-        DistanceValue: com.google.fhir.model.r4b.Distance?,
-        DurationValue: com.google.fhir.model.r4b.Duration?,
-        HumanNameValue: com.google.fhir.model.r4b.HumanName?,
-        IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-        MoneyValue: com.google.fhir.model.r4b.Money?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        QuantityValue: com.google.fhir.model.r4b.Quantity?,
-        RangeValue: com.google.fhir.model.r4b.Range?,
-        RatioValue: com.google.fhir.model.r4b.Ratio?,
-        RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        SampledDataValue: com.google.fhir.model.r4b.SampledData?,
-        SignatureValue: com.google.fhir.model.r4b.Signature?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
-        ContactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
-        ContributorValue: com.google.fhir.model.r4b.Contributor?,
-        DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-        ExpressionValue: com.google.fhir.model.r4b.Expression?,
-        ParameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
-        RelatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
-        TriggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
-        UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
-        DosageValue: com.google.fhir.model.r4b.Dosage?,
-      ): DefaultValue {
+        addressValue: com.google.fhir.model.r4b.Address?,
+        ageValue: com.google.fhir.model.r4b.Age?,
+        annotationValue: com.google.fhir.model.r4b.Annotation?,
+        attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        codeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
+        codingValue: com.google.fhir.model.r4b.Coding?,
+        contactPointValue: com.google.fhir.model.r4b.ContactPoint?,
+        countValue: com.google.fhir.model.r4b.Count?,
+        distanceValue: com.google.fhir.model.r4b.Distance?,
+        durationValue: com.google.fhir.model.r4b.Duration?,
+        humanNameValue: com.google.fhir.model.r4b.HumanName?,
+        identifierValue: com.google.fhir.model.r4b.Identifier?,
+        moneyValue: com.google.fhir.model.r4b.Money?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        quantityValue: com.google.fhir.model.r4b.Quantity?,
+        rangeValue: com.google.fhir.model.r4b.Range?,
+        ratioValue: com.google.fhir.model.r4b.Ratio?,
+        ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+        sampledDataValue: com.google.fhir.model.r4b.SampledData?,
+        signatureValue: com.google.fhir.model.r4b.Signature?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
+        contactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
+        contributorValue: com.google.fhir.model.r4b.Contributor?,
+        dataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
+        expressionValue: com.google.fhir.model.r4b.Expression?,
+        parameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
+        relatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
+        triggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
+        usageContextValue: com.google.fhir.model.r4b.UsageContext?,
+        dosageValue: com.google.fhir.model.r4b.Dosage?,
+      ): DefaultValue? {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -1494,39 +1490,39 @@ public data class ElementDefinition(
         if (uriValue != null) return Uri(uriValue)
         if (urlValue != null) return Url(urlValue)
         if (uuidValue != null) return Uuid(uuidValue)
-        if (AddressValue != null) return Address(AddressValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (AnnotationValue != null) return Annotation(AnnotationValue)
-        if (AttachmentValue != null) return Attachment(AttachmentValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (CodeableReferenceValue != null) return CodeableReference(CodeableReferenceValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-        if (CountValue != null) return Count(CountValue)
-        if (DistanceValue != null) return Distance(DistanceValue)
-        if (DurationValue != null) return Duration(DurationValue)
-        if (HumanNameValue != null) return HumanName(HumanNameValue)
-        if (IdentifierValue != null) return Identifier(IdentifierValue)
-        if (MoneyValue != null) return Money(MoneyValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        if (RangeValue != null) return Range(RangeValue)
-        if (RatioValue != null) return Ratio(RatioValue)
-        if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (SampledDataValue != null) return SampledData(SampledDataValue)
-        if (SignatureValue != null) return Signature(SignatureValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-        if (ContributorValue != null) return Contributor(ContributorValue)
-        if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-        if (ExpressionValue != null) return Expression(ExpressionValue)
-        if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-        if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-        if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-        if (UsageContextValue != null) return UsageContext(UsageContextValue)
-        if (DosageValue != null) return Dosage(DosageValue)
-        return Null
+        if (addressValue != null) return Address(addressValue)
+        if (ageValue != null) return Age(ageValue)
+        if (annotationValue != null) return Annotation(annotationValue)
+        if (attachmentValue != null) return Attachment(attachmentValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (codeableReferenceValue != null) return CodeableReference(codeableReferenceValue)
+        if (codingValue != null) return Coding(codingValue)
+        if (contactPointValue != null) return ContactPoint(contactPointValue)
+        if (countValue != null) return Count(countValue)
+        if (distanceValue != null) return Distance(distanceValue)
+        if (durationValue != null) return Duration(durationValue)
+        if (humanNameValue != null) return HumanName(humanNameValue)
+        if (identifierValue != null) return Identifier(identifierValue)
+        if (moneyValue != null) return Money(moneyValue)
+        if (periodValue != null) return Period(periodValue)
+        if (quantityValue != null) return Quantity(quantityValue)
+        if (rangeValue != null) return Range(rangeValue)
+        if (ratioValue != null) return Ratio(ratioValue)
+        if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        if (sampledDataValue != null) return SampledData(sampledDataValue)
+        if (signatureValue != null) return Signature(signatureValue)
+        if (timingValue != null) return Timing(timingValue)
+        if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+        if (contributorValue != null) return Contributor(contributorValue)
+        if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+        if (expressionValue != null) return Expression(expressionValue)
+        if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+        if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+        if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+        if (usageContextValue != null) return UsageContext(usageContextValue)
+        if (dosageValue != null) return Dosage(dosageValue)
+        return null
       }
     }
   }
@@ -1757,10 +1753,8 @@ public data class ElementDefinition(
 
     public data class Dosage(public val `value`: com.google.fhir.model.r4b.Dosage) : Fixed
 
-    public data object Null : Fixed
-
     public companion object {
-      public fun from(
+      internal fun from(
         base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
         booleanValue: com.google.fhir.model.r4b.Boolean?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
@@ -1780,39 +1774,39 @@ public data class ElementDefinition(
         uriValue: com.google.fhir.model.r4b.Uri?,
         urlValue: com.google.fhir.model.r4b.Url?,
         uuidValue: com.google.fhir.model.r4b.Uuid?,
-        AddressValue: com.google.fhir.model.r4b.Address?,
-        AgeValue: com.google.fhir.model.r4b.Age?,
-        AnnotationValue: com.google.fhir.model.r4b.Annotation?,
-        AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        CodeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
-        CodingValue: com.google.fhir.model.r4b.Coding?,
-        ContactPointValue: com.google.fhir.model.r4b.ContactPoint?,
-        CountValue: com.google.fhir.model.r4b.Count?,
-        DistanceValue: com.google.fhir.model.r4b.Distance?,
-        DurationValue: com.google.fhir.model.r4b.Duration?,
-        HumanNameValue: com.google.fhir.model.r4b.HumanName?,
-        IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-        MoneyValue: com.google.fhir.model.r4b.Money?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        QuantityValue: com.google.fhir.model.r4b.Quantity?,
-        RangeValue: com.google.fhir.model.r4b.Range?,
-        RatioValue: com.google.fhir.model.r4b.Ratio?,
-        RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        SampledDataValue: com.google.fhir.model.r4b.SampledData?,
-        SignatureValue: com.google.fhir.model.r4b.Signature?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
-        ContactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
-        ContributorValue: com.google.fhir.model.r4b.Contributor?,
-        DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-        ExpressionValue: com.google.fhir.model.r4b.Expression?,
-        ParameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
-        RelatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
-        TriggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
-        UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
-        DosageValue: com.google.fhir.model.r4b.Dosage?,
-      ): Fixed {
+        addressValue: com.google.fhir.model.r4b.Address?,
+        ageValue: com.google.fhir.model.r4b.Age?,
+        annotationValue: com.google.fhir.model.r4b.Annotation?,
+        attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        codeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
+        codingValue: com.google.fhir.model.r4b.Coding?,
+        contactPointValue: com.google.fhir.model.r4b.ContactPoint?,
+        countValue: com.google.fhir.model.r4b.Count?,
+        distanceValue: com.google.fhir.model.r4b.Distance?,
+        durationValue: com.google.fhir.model.r4b.Duration?,
+        humanNameValue: com.google.fhir.model.r4b.HumanName?,
+        identifierValue: com.google.fhir.model.r4b.Identifier?,
+        moneyValue: com.google.fhir.model.r4b.Money?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        quantityValue: com.google.fhir.model.r4b.Quantity?,
+        rangeValue: com.google.fhir.model.r4b.Range?,
+        ratioValue: com.google.fhir.model.r4b.Ratio?,
+        ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+        sampledDataValue: com.google.fhir.model.r4b.SampledData?,
+        signatureValue: com.google.fhir.model.r4b.Signature?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
+        contactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
+        contributorValue: com.google.fhir.model.r4b.Contributor?,
+        dataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
+        expressionValue: com.google.fhir.model.r4b.Expression?,
+        parameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
+        relatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
+        triggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
+        usageContextValue: com.google.fhir.model.r4b.UsageContext?,
+        dosageValue: com.google.fhir.model.r4b.Dosage?,
+      ): Fixed? {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -1832,39 +1826,39 @@ public data class ElementDefinition(
         if (uriValue != null) return Uri(uriValue)
         if (urlValue != null) return Url(urlValue)
         if (uuidValue != null) return Uuid(uuidValue)
-        if (AddressValue != null) return Address(AddressValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (AnnotationValue != null) return Annotation(AnnotationValue)
-        if (AttachmentValue != null) return Attachment(AttachmentValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (CodeableReferenceValue != null) return CodeableReference(CodeableReferenceValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-        if (CountValue != null) return Count(CountValue)
-        if (DistanceValue != null) return Distance(DistanceValue)
-        if (DurationValue != null) return Duration(DurationValue)
-        if (HumanNameValue != null) return HumanName(HumanNameValue)
-        if (IdentifierValue != null) return Identifier(IdentifierValue)
-        if (MoneyValue != null) return Money(MoneyValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        if (RangeValue != null) return Range(RangeValue)
-        if (RatioValue != null) return Ratio(RatioValue)
-        if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (SampledDataValue != null) return SampledData(SampledDataValue)
-        if (SignatureValue != null) return Signature(SignatureValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-        if (ContributorValue != null) return Contributor(ContributorValue)
-        if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-        if (ExpressionValue != null) return Expression(ExpressionValue)
-        if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-        if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-        if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-        if (UsageContextValue != null) return UsageContext(UsageContextValue)
-        if (DosageValue != null) return Dosage(DosageValue)
-        return Null
+        if (addressValue != null) return Address(addressValue)
+        if (ageValue != null) return Age(ageValue)
+        if (annotationValue != null) return Annotation(annotationValue)
+        if (attachmentValue != null) return Attachment(attachmentValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (codeableReferenceValue != null) return CodeableReference(codeableReferenceValue)
+        if (codingValue != null) return Coding(codingValue)
+        if (contactPointValue != null) return ContactPoint(contactPointValue)
+        if (countValue != null) return Count(countValue)
+        if (distanceValue != null) return Distance(distanceValue)
+        if (durationValue != null) return Duration(durationValue)
+        if (humanNameValue != null) return HumanName(humanNameValue)
+        if (identifierValue != null) return Identifier(identifierValue)
+        if (moneyValue != null) return Money(moneyValue)
+        if (periodValue != null) return Period(periodValue)
+        if (quantityValue != null) return Quantity(quantityValue)
+        if (rangeValue != null) return Range(rangeValue)
+        if (ratioValue != null) return Ratio(ratioValue)
+        if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        if (sampledDataValue != null) return SampledData(sampledDataValue)
+        if (signatureValue != null) return Signature(signatureValue)
+        if (timingValue != null) return Timing(timingValue)
+        if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+        if (contributorValue != null) return Contributor(contributorValue)
+        if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+        if (expressionValue != null) return Expression(expressionValue)
+        if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+        if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+        if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+        if (usageContextValue != null) return UsageContext(usageContextValue)
+        if (dosageValue != null) return Dosage(dosageValue)
+        return null
       }
     }
   }
@@ -2100,10 +2094,8 @@ public data class ElementDefinition(
 
     public data class Dosage(public val `value`: com.google.fhir.model.r4b.Dosage) : Pattern
 
-    public data object Null : Pattern
-
     public companion object {
-      public fun from(
+      internal fun from(
         base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
         booleanValue: com.google.fhir.model.r4b.Boolean?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
@@ -2123,39 +2115,39 @@ public data class ElementDefinition(
         uriValue: com.google.fhir.model.r4b.Uri?,
         urlValue: com.google.fhir.model.r4b.Url?,
         uuidValue: com.google.fhir.model.r4b.Uuid?,
-        AddressValue: com.google.fhir.model.r4b.Address?,
-        AgeValue: com.google.fhir.model.r4b.Age?,
-        AnnotationValue: com.google.fhir.model.r4b.Annotation?,
-        AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        CodeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
-        CodingValue: com.google.fhir.model.r4b.Coding?,
-        ContactPointValue: com.google.fhir.model.r4b.ContactPoint?,
-        CountValue: com.google.fhir.model.r4b.Count?,
-        DistanceValue: com.google.fhir.model.r4b.Distance?,
-        DurationValue: com.google.fhir.model.r4b.Duration?,
-        HumanNameValue: com.google.fhir.model.r4b.HumanName?,
-        IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-        MoneyValue: com.google.fhir.model.r4b.Money?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        QuantityValue: com.google.fhir.model.r4b.Quantity?,
-        RangeValue: com.google.fhir.model.r4b.Range?,
-        RatioValue: com.google.fhir.model.r4b.Ratio?,
-        RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        SampledDataValue: com.google.fhir.model.r4b.SampledData?,
-        SignatureValue: com.google.fhir.model.r4b.Signature?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
-        ContactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
-        ContributorValue: com.google.fhir.model.r4b.Contributor?,
-        DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-        ExpressionValue: com.google.fhir.model.r4b.Expression?,
-        ParameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
-        RelatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
-        TriggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
-        UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
-        DosageValue: com.google.fhir.model.r4b.Dosage?,
-      ): Pattern {
+        addressValue: com.google.fhir.model.r4b.Address?,
+        ageValue: com.google.fhir.model.r4b.Age?,
+        annotationValue: com.google.fhir.model.r4b.Annotation?,
+        attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        codeableReferenceValue: com.google.fhir.model.r4b.CodeableReference?,
+        codingValue: com.google.fhir.model.r4b.Coding?,
+        contactPointValue: com.google.fhir.model.r4b.ContactPoint?,
+        countValue: com.google.fhir.model.r4b.Count?,
+        distanceValue: com.google.fhir.model.r4b.Distance?,
+        durationValue: com.google.fhir.model.r4b.Duration?,
+        humanNameValue: com.google.fhir.model.r4b.HumanName?,
+        identifierValue: com.google.fhir.model.r4b.Identifier?,
+        moneyValue: com.google.fhir.model.r4b.Money?,
+        periodValue: com.google.fhir.model.r4b.Period?,
+        quantityValue: com.google.fhir.model.r4b.Quantity?,
+        rangeValue: com.google.fhir.model.r4b.Range?,
+        ratioValue: com.google.fhir.model.r4b.Ratio?,
+        ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+        sampledDataValue: com.google.fhir.model.r4b.SampledData?,
+        signatureValue: com.google.fhir.model.r4b.Signature?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
+        contactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
+        contributorValue: com.google.fhir.model.r4b.Contributor?,
+        dataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
+        expressionValue: com.google.fhir.model.r4b.Expression?,
+        parameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
+        relatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
+        triggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
+        usageContextValue: com.google.fhir.model.r4b.UsageContext?,
+        dosageValue: com.google.fhir.model.r4b.Dosage?,
+      ): Pattern? {
         if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
         if (booleanValue != null) return Boolean(booleanValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
@@ -2175,39 +2167,39 @@ public data class ElementDefinition(
         if (uriValue != null) return Uri(uriValue)
         if (urlValue != null) return Url(urlValue)
         if (uuidValue != null) return Uuid(uuidValue)
-        if (AddressValue != null) return Address(AddressValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (AnnotationValue != null) return Annotation(AnnotationValue)
-        if (AttachmentValue != null) return Attachment(AttachmentValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (CodeableReferenceValue != null) return CodeableReference(CodeableReferenceValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-        if (CountValue != null) return Count(CountValue)
-        if (DistanceValue != null) return Distance(DistanceValue)
-        if (DurationValue != null) return Duration(DurationValue)
-        if (HumanNameValue != null) return HumanName(HumanNameValue)
-        if (IdentifierValue != null) return Identifier(IdentifierValue)
-        if (MoneyValue != null) return Money(MoneyValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        if (RangeValue != null) return Range(RangeValue)
-        if (RatioValue != null) return Ratio(RatioValue)
-        if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (SampledDataValue != null) return SampledData(SampledDataValue)
-        if (SignatureValue != null) return Signature(SignatureValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-        if (ContributorValue != null) return Contributor(ContributorValue)
-        if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-        if (ExpressionValue != null) return Expression(ExpressionValue)
-        if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-        if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-        if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-        if (UsageContextValue != null) return UsageContext(UsageContextValue)
-        if (DosageValue != null) return Dosage(DosageValue)
-        return Null
+        if (addressValue != null) return Address(addressValue)
+        if (ageValue != null) return Age(ageValue)
+        if (annotationValue != null) return Annotation(annotationValue)
+        if (attachmentValue != null) return Attachment(attachmentValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (codeableReferenceValue != null) return CodeableReference(codeableReferenceValue)
+        if (codingValue != null) return Coding(codingValue)
+        if (contactPointValue != null) return ContactPoint(contactPointValue)
+        if (countValue != null) return Count(countValue)
+        if (distanceValue != null) return Distance(distanceValue)
+        if (durationValue != null) return Duration(durationValue)
+        if (humanNameValue != null) return HumanName(humanNameValue)
+        if (identifierValue != null) return Identifier(identifierValue)
+        if (moneyValue != null) return Money(moneyValue)
+        if (periodValue != null) return Period(periodValue)
+        if (quantityValue != null) return Quantity(quantityValue)
+        if (rangeValue != null) return Range(rangeValue)
+        if (ratioValue != null) return Ratio(ratioValue)
+        if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        if (sampledDataValue != null) return SampledData(sampledDataValue)
+        if (signatureValue != null) return Signature(signatureValue)
+        if (timingValue != null) return Timing(timingValue)
+        if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+        if (contributorValue != null) return Contributor(contributorValue)
+        if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+        if (expressionValue != null) return Expression(expressionValue)
+        if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+        if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+        if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+        if (usageContextValue != null) return UsageContext(usageContextValue)
+        if (dosageValue != null) return Dosage(dosageValue)
+        return null
       }
     }
   }
@@ -2252,10 +2244,8 @@ public data class ElementDefinition(
 
     public data class Quantity(public val `value`: com.google.fhir.model.r4b.Quantity) : MinValue
 
-    public data object Null : MinValue
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateValue: com.google.fhir.model.r4b.Date?,
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         instantValue: com.google.fhir.model.r4b.Instant?,
@@ -2264,8 +2254,8 @@ public data class ElementDefinition(
         integerValue: com.google.fhir.model.r4b.Integer?,
         positiveIntValue: com.google.fhir.model.r4b.PositiveInt?,
         unsignedIntValue: com.google.fhir.model.r4b.UnsignedInt?,
-        QuantityValue: com.google.fhir.model.r4b.Quantity?,
-      ): MinValue {
+        quantityValue: com.google.fhir.model.r4b.Quantity?,
+      ): MinValue? {
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (instantValue != null) return Instant(instantValue)
@@ -2274,8 +2264,8 @@ public data class ElementDefinition(
         if (integerValue != null) return Integer(integerValue)
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        return Null
+        if (quantityValue != null) return Quantity(quantityValue)
+        return null
       }
     }
   }
@@ -2320,10 +2310,8 @@ public data class ElementDefinition(
 
     public data class Quantity(public val `value`: com.google.fhir.model.r4b.Quantity) : MaxValue
 
-    public data object Null : MaxValue
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateValue: com.google.fhir.model.r4b.Date?,
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
         instantValue: com.google.fhir.model.r4b.Instant?,
@@ -2332,8 +2320,8 @@ public data class ElementDefinition(
         integerValue: com.google.fhir.model.r4b.Integer?,
         positiveIntValue: com.google.fhir.model.r4b.PositiveInt?,
         unsignedIntValue: com.google.fhir.model.r4b.UnsignedInt?,
-        QuantityValue: com.google.fhir.model.r4b.Quantity?,
-      ): MaxValue {
+        quantityValue: com.google.fhir.model.r4b.Quantity?,
+      ): MaxValue? {
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
         if (instantValue != null) return Instant(instantValue)
@@ -2342,8 +2330,8 @@ public data class ElementDefinition(
         if (integerValue != null) return Integer(integerValue)
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        return Null
+        if (quantityValue != null) return Quantity(quantityValue)
+        return null
       }
     }
   }
@@ -2353,33 +2341,10 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** No additional content is allowed other than that described by the slices in this profile. */
-    Closed(
-      "closed",
-      "http://hl7.org/fhir/resource-slicing-rules",
-      "Closed",
-      "No additional content is allowed other than that described by the slices in this profile.",
-    ),
-    /** Additional content is allowed anywhere in the list. */
-    Open(
-      "open",
-      "http://hl7.org/fhir/resource-slicing-rules",
-      "Open",
-      "Additional content is allowed anywhere in the list.",
-    ),
-    /**
-     * Additional content is allowed, but only at the end of the list. Note that using this requires
-     * that the slices be ordered, which makes it hard to share uses. This should only be done where
-     * absolutely required.
-     */
-    OpenAtEnd(
-      "openAtEnd",
-      "http://hl7.org/fhir/resource-slicing-rules",
-      "Open at End",
-      "Additional content is allowed, but only at the end of the list. Note that using this requires that the slices be ordered, which makes it hard to share uses. This should only be done where absolutely required.",
-    );
+    Closed("closed", "http://hl7.org/fhir/resource-slicing-rules", "Closed"),
+    Open("open", "http://hl7.org/fhir/resource-slicing-rules", "Open"),
+    OpenAtEnd("openAtEnd", "http://hl7.org/fhir/resource-slicing-rules", "Open at End");
 
     override fun toString(): kotlin.String = code
 
@@ -2388,8 +2353,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SlicingRules =
@@ -2407,51 +2370,12 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The slices have different values in the nominated element. */
-    Value(
-      "value",
-      "http://hl7.org/fhir/discriminator-type",
-      "Value",
-      "The slices have different values in the nominated element.",
-    ),
-    /** The slices are differentiated by the presence or absence of the nominated element. */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/discriminator-type",
-      "Exists",
-      "The slices are differentiated by the presence or absence of the nominated element.",
-    ),
-    /**
-     * The slices have different values in the nominated element, as determined by testing them
-     * against the applicable ElementDefinition.pattern[x].
-     */
-    Pattern(
-      "pattern",
-      "http://hl7.org/fhir/discriminator-type",
-      "Pattern",
-      "The slices have different values in the nominated element, as determined by testing them against the applicable ElementDefinition.pattern[x].",
-    ),
-    /** The slices are differentiated by type of the nominated element. */
-    Type(
-      "type",
-      "http://hl7.org/fhir/discriminator-type",
-      "Type",
-      "The slices are differentiated by type of the nominated element.",
-    ),
-    /**
-     * The slices are differentiated by conformance of the nominated element to a specified profile.
-     * Note that if the path specifies .resolve() then the profile is the target profile on the
-     * reference. In this case, validation by the possible profiles is required to differentiate the
-     * slices.
-     */
-    Profile(
-      "profile",
-      "http://hl7.org/fhir/discriminator-type",
-      "Profile",
-      "The slices are differentiated by conformance of the nominated element to a specified profile. Note that if the path specifies .resolve() then the profile is the target profile on the reference. In this case, validation by the possible profiles is required to differentiate the slices.",
-    );
+    Value("value", "http://hl7.org/fhir/discriminator-type", "Value"),
+    Exists("exists", "http://hl7.org/fhir/discriminator-type", "Exists"),
+    Pattern("pattern", "http://hl7.org/fhir/discriminator-type", "Pattern"),
+    Type("type", "http://hl7.org/fhir/discriminator-type", "Type"),
+    Profile("profile", "http://hl7.org/fhir/discriminator-type", "Profile");
 
     override fun toString(): kotlin.String = code
 
@@ -2460,8 +2384,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DiscriminatorType =
@@ -2481,35 +2403,10 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The reference is a local reference to a contained resource. */
-    Contained(
-      "contained",
-      "http://hl7.org/fhir/resource-aggregation-mode",
-      "Contained",
-      "The reference is a local reference to a contained resource.",
-    ),
-    /**
-     * The reference to a resource that has to be resolved externally to the resource that includes
-     * the reference.
-     */
-    Referenced(
-      "referenced",
-      "http://hl7.org/fhir/resource-aggregation-mode",
-      "Referenced",
-      "The reference to a resource that has to be resolved externally to the resource that includes the reference.",
-    ),
-    /**
-     * The resource the reference points to will be found in the same bundle as the resource that
-     * includes the reference.
-     */
-    Bundled(
-      "bundled",
-      "http://hl7.org/fhir/resource-aggregation-mode",
-      "Bundled",
-      "The resource the reference points to will be found in the same bundle as the resource that includes the reference.",
-    );
+    Contained("contained", "http://hl7.org/fhir/resource-aggregation-mode", "Contained"),
+    Referenced("referenced", "http://hl7.org/fhir/resource-aggregation-mode", "Referenced"),
+    Bundled("bundled", "http://hl7.org/fhir/resource-aggregation-mode", "Bundled");
 
     override fun toString(): kotlin.String = code
 
@@ -2518,8 +2415,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AggregationMode =
@@ -2540,29 +2435,18 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The reference may be either version independent or version specific. */
     Either(
       "either",
       "http://hl7.org/fhir/reference-version-rules",
       "Either Specific or independent",
-      "The reference may be either version independent or version specific.",
     ),
-    /** The reference must be version independent. */
     Independent(
       "independent",
       "http://hl7.org/fhir/reference-version-rules",
       "Version independent",
-      "The reference must be version independent.",
     ),
-    /** The reference must be version specific. */
-    Specific(
-      "specific",
-      "http://hl7.org/fhir/reference-version-rules",
-      "Version Specific",
-      "The reference must be version specific.",
-    );
+    Specific("specific", "http://hl7.org/fhir/reference-version-rules", "Version Specific");
 
     override fun toString(): kotlin.String = code
 
@@ -2571,8 +2455,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReferenceVersionRules =
@@ -2591,25 +2473,9 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** If the constraint is violated, the resource is not conformant. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/constraint-severity",
-      "Error",
-      "If the constraint is violated, the resource is not conformant.",
-    ),
-    /**
-     * If the constraint is violated, the resource is conformant, but it is not necessarily
-     * following best practice.
-     */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/constraint-severity",
-      "Warning",
-      "If the constraint is violated, the resource is conformant, but it is not necessarily following best practice.",
-    );
+    Error("error", "http://hl7.org/fhir/constraint-severity", "Error"),
+    Warning("warning", "http://hl7.org/fhir/constraint-severity", "Warning");
 
     override fun toString(): kotlin.String = code
 
@@ -2618,8 +2484,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConstraintSeverity =
@@ -2636,43 +2500,12 @@ public data class ElementDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** In XML, this property is represented as an attribute not an element. */
-    XmlAttr(
-      "xmlAttr",
-      "http://hl7.org/fhir/property-representation",
-      "XML Attribute",
-      "In XML, this property is represented as an attribute not an element.",
-    ),
-    /** This element is represented using the XML text attribute (primitives only). */
-    XmlText(
-      "xmlText",
-      "http://hl7.org/fhir/property-representation",
-      "XML Text",
-      "This element is represented using the XML text attribute (primitives only).",
-    ),
-    /** The type of this element is indicated using xsi:type. */
-    TypeAttr(
-      "typeAttr",
-      "http://hl7.org/fhir/property-representation",
-      "Type Attribute",
-      "The type of this element is indicated using xsi:type.",
-    ),
-    /** Use CDA narrative instead of XHTML. */
-    CdaText(
-      "cdaText",
-      "http://hl7.org/fhir/property-representation",
-      "CDA Text Format",
-      "Use CDA narrative instead of XHTML.",
-    ),
-    /** The property is represented using XHTML. */
-    Xhtml(
-      "xhtml",
-      "http://hl7.org/fhir/property-representation",
-      "XHTML",
-      "The property is represented using XHTML.",
-    );
+    XmlAttr("xmlAttr", "http://hl7.org/fhir/property-representation", "XML Attribute"),
+    XmlText("xmlText", "http://hl7.org/fhir/property-representation", "XML Text"),
+    TypeAttr("typeAttr", "http://hl7.org/fhir/property-representation", "Type Attribute"),
+    CdaText("cdaText", "http://hl7.org/fhir/property-representation", "CDA Text Format"),
+    Xhtml("xhtml", "http://hl7.org/fhir/property-representation", "XHTML");
 
     override fun toString(): kotlin.String = code
 
@@ -2681,8 +2514,6 @@ public data class ElementDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): PropertyRepresentation =

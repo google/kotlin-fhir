@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.EnrollmentRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class EnrollmentRequest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class EnrollmentRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,9 +127,9 @@ public data class EnrollmentRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The Response business identifier. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the resource instance.
    *
@@ -153,36 +153,11 @@ public data class EnrollmentRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): String = code
 
@@ -191,8 +166,6 @@ public data class EnrollmentRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EnrollmentRequestStatus =

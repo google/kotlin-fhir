@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.PopulationAgeSerializer
 import com.google.fhir.model.r4.serializers.PopulationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class Population(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -67,7 +67,7 @@ public data class Population(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The age of the specific population. */
   public var age: Age? = null,
   /** The gender of the specific population. */
@@ -89,16 +89,14 @@ public data class Population(
       public val `value`: com.google.fhir.model.r4.CodeableConcept
     ) : Age
 
-    public data object Null : Age
-
     public companion object {
-      public fun from(
-        RangeValue: com.google.fhir.model.r4.Range?,
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-      ): Age {
-        if (RangeValue != null) return Range(RangeValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return Null
+      internal fun from(
+        rangeValue: com.google.fhir.model.r4.Range?,
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+      ): Age? {
+        if (rangeValue != null) return Range(rangeValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        return null
       }
     }
   }

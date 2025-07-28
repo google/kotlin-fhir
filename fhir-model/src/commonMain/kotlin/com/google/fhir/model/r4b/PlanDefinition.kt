@@ -33,7 +33,7 @@ import com.google.fhir.model.r4b.serializers.PlanDefinitionGoalTargetSerializer
 import com.google.fhir.model.r4b.serializers.PlanDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.PlanDefinitionSubjectSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -109,7 +109,7 @@ public data class PlanDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -122,7 +122,7 @@ public data class PlanDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,7 +141,7 @@ public data class PlanDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this plan definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -169,7 +169,7 @@ public data class PlanDefinition(
    * type, and can then identify this plan definition outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the plan definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -215,7 +215,7 @@ public data class PlanDefinition(
    *
    * Allows filtering of plan definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this plan definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -261,7 +261,7 @@ public data class PlanDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the plan definition from a consumer's perspective.
    *
@@ -282,14 +282,14 @@ public data class PlanDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the plan definition is intended to be used.
    *
    * It may be possible for the plan definition to be used in jurisdictions other than those for
    * which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this plan definition is needed and why it has been designed as it has.
    *
@@ -333,39 +333,39 @@ public data class PlanDefinition(
    * Descriptive topics related to the content of the plan definition. Topics provide a high-level
    * categorization of the definition that can be useful for filtering and searching.
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /** A reference to a Library resource containing any formal logic used by the plan definition. */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /**
    * A goal describes an expected outcome that activities within the plan are intended to achieve.
    * For example, weight loss, restoring an activity of daily living, obtaining herd immunity via
    * immunization, meeting a process improvement objective, meeting the acceptance criteria for a
    * test as specified by a quality specification, etc.
    */
-  public var goal: List<Goal>? = null,
+  public var goal: MutableList<Goal> = mutableListOf(),
   /**
    * An action or group of actions to be taken as part of the plan. For example, in clinical care,
    * an action would be to prescribe a particular indicated medication, or perform a particular test
@@ -378,7 +378,7 @@ public data class PlanDefinition(
    * unless otherwise documented in the specific elements. See the PlanDefinition resource for more
    * detailed information.
    */
-  public var action: List<Action>? = null,
+  public var action: MutableList<Action> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A goal describes an expected outcome that activities within the plan are intended to achieve.
@@ -405,7 +405,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -424,7 +424,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates a category the goal falls within. */
     public var category: CodeableConcept? = null,
     /**
@@ -433,7 +433,7 @@ public data class PlanDefinition(
      *
      * If no code is available, use CodeableConcept.text.
      */
-    public var description: CodeableConcept? = null,
+    public var description: CodeableConcept,
     /**
      * Identifies the expected level of importance associated with reaching/sustaining the defined
      * goal.
@@ -442,15 +442,15 @@ public data class PlanDefinition(
     /** The event after which the goal should begin being pursued. */
     public var start: CodeableConcept? = null,
     /** Identifies problems, conditions, issues, or concerns the goal is intended to address. */
-    public var addresses: List<CodeableConcept?>? = null,
+    public var addresses: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Didactic or other informational resources associated with the goal that provide further
      * supporting information about the goal. Information resources can include inline text
      * commentary and links to web resources.
      */
-    public var documentation: List<RelatedArtifact?>? = null,
+    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
     /** Indicates what should be done and within what timeframe. */
-    public var target: List<Target>? = null,
+    public var target: MutableList<Target> = mutableListOf(),
   ) : BackboneElement() {
     /** Indicates what should be done and within what timeframe. */
     @Serializable(with = PlanDefinitionGoalTargetSerializer::class)
@@ -472,7 +472,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -491,7 +491,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The parameter whose value is to be tracked, e.g. body weight, blood pressure, or hemoglobin
        * A1c level.
@@ -525,18 +525,16 @@ public data class PlanDefinition(
           public val `value`: com.google.fhir.model.r4b.CodeableConcept
         ) : Detail
 
-        public data object Null : Detail
-
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r4b.Quantity?,
-            RangeValue: com.google.fhir.model.r4b.Range?,
-            CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          ): Detail {
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (RangeValue != null) return Range(RangeValue)
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            return Null
+          internal fun from(
+            quantityValue: com.google.fhir.model.r4b.Quantity?,
+            rangeValue: com.google.fhir.model.r4b.Range?,
+            codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          ): Detail? {
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (rangeValue != null) return Range(rangeValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+            return null
           }
         }
       }
@@ -568,7 +566,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -587,7 +585,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A user-visible prefix for the action. */
     public var prefix: String? = null,
     /**
@@ -611,27 +609,27 @@ public data class PlanDefinition(
      * pharmaceutical quality, an action (Test) such as pH could be classified as a physical
      * property.
      */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * A description of why this action is necessary or appropriate.
      *
      * This is different than the clinical evidence documentation, it's an actual business
      * description of the reason for performing the action.
      */
-    public var reason: List<CodeableConcept?>? = null,
+    public var reason: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Didactic or other informational resources associated with the action that can be provided to
      * the CDS recipient. Information resources can include inline text commentary and links to web
      * resources.
      */
-    public var documentation: List<RelatedArtifact?>? = null,
+    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
     /**
      * Identifies goals that this action supports. The reference must be to a goal element defined
      * within this plan definition. In pharmaceutical quality, a goal represents acceptance criteria
      * (Goal) for a given action (Test), so the goalId would be the unique id of a defined goal
      * element establishing the acceptance criteria for the action.
      */
-    public var goalId: List<Id?>? = null,
+    public var goalId: MutableList<Id> = mutableListOf(),
     /**
      * A code, group definition, or canonical reference that describes the intended subject of the
      * action and its children, if any. Canonical references are allowed to support the definition
@@ -649,29 +647,29 @@ public data class PlanDefinition(
      */
     public var subject: Subject? = null,
     /** A description of when the action should be triggered. */
-    public var trigger: List<TriggerDefinition?>? = null,
+    public var trigger: MutableList<TriggerDefinition> = mutableListOf(),
     /**
      * An expression that describes applicability criteria or start/stop conditions for the action.
      *
      * When multiple conditions of the same kind are present, the effects are combined using AND
      * semantics, so the overall condition is true only if all the conditions are true.
      */
-    public var condition: List<Condition>? = null,
+    public var condition: MutableList<Condition> = mutableListOf(),
     /** Defines input data requirements for the action. */
-    public var input: List<DataRequirement?>? = null,
+    public var input: MutableList<DataRequirement> = mutableListOf(),
     /** Defines the outputs of the action, if any. */
-    public var output: List<DataRequirement?>? = null,
+    public var output: MutableList<DataRequirement> = mutableListOf(),
     /**
      * A relationship to another action such as "before" or "30-60 minutes after start of".
      *
      * When an action depends on multiple actions, the meaning is that all actions are dependencies,
      * rather than that any of the actions are a dependency.
      */
-    public var relatedAction: List<RelatedAction>? = null,
+    public var relatedAction: MutableList<RelatedAction> = mutableListOf(),
     /** An optional value describing when the action should be performed. */
     public var timing: Timing? = null,
     /** Indicates who should participate in performing the action described. */
-    public var participant: List<Participant>? = null,
+    public var participant: MutableList<Participant> = mutableListOf(),
     /** The type of action to perform (create, update, remove). */
     public var type: CodeableConcept? = null,
     /** Defines the grouping behavior for the action and its children. */
@@ -713,14 +711,14 @@ public data class PlanDefinition(
      * by the dynamicValues specified here. In addition, if both a transform and dynamic values are
      * specific, the dynamic values are applied to the result of the transform.
      */
-    public var dynamicValue: List<DynamicValue>? = null,
+    public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
     /**
      * Sub actions that are contained within the action. The behavior of this action determines the
      * functionality of the sub-actions. For example, a selection behavior of at-most-one indicates
      * that of the sub-actions, at most one may be chosen as part of realizing the action
      * definition.
      */
-    public var action: List<Action?>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * An expression that describes applicability criteria or start/stop conditions for the action.
@@ -744,7 +742,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -763,7 +761,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The kind of condition.
        *
@@ -771,7 +769,7 @@ public data class PlanDefinition(
        * is applied to a given context. Start and stop criteria are carried through application and
        * used to describe enter/exit criteria for an action.
        */
-      public var kind: Enumeration<ActionConditionKind>? = null,
+      public var kind: Enumeration<ActionConditionKind>,
       /**
        * An expression that returns true or false, indicating whether the condition is satisfied.
        *
@@ -801,7 +799,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -820,11 +818,11 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The element id of the related action. */
-      public var actionId: Id? = null,
+      public var actionId: Id,
       /** The relationship of this action to the related action. */
-      public var relationship: Enumeration<ActionRelationshipType>? = null,
+      public var relationship: Enumeration<ActionRelationshipType>,
       /**
        * A duration or range of durations to apply to the relationship. For example, 30-60 minutes
        * before.
@@ -841,16 +839,14 @@ public data class PlanDefinition(
 
         public data class Range(public val `value`: com.google.fhir.model.r4b.Range) : Offset
 
-        public data object Null : Offset
-
         public companion object {
-          public fun from(
-            DurationValue: com.google.fhir.model.r4b.Duration?,
-            RangeValue: com.google.fhir.model.r4b.Range?,
-          ): Offset {
-            if (DurationValue != null) return Duration(DurationValue)
-            if (RangeValue != null) return Range(RangeValue)
-            return Null
+          internal fun from(
+            durationValue: com.google.fhir.model.r4b.Duration?,
+            rangeValue: com.google.fhir.model.r4b.Range?,
+          ): Offset? {
+            if (durationValue != null) return Duration(durationValue)
+            if (rangeValue != null) return Range(rangeValue)
+            return null
           }
         }
       }
@@ -876,7 +872,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -895,9 +891,9 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of participant in the action. */
-      public var type: Enumeration<ActionParticipantType>? = null,
+      public var type: Enumeration<ActionParticipantType>,
       /** The role the participant should play in performing the described action. */
       public var role: CodeableConcept? = null,
     ) : BackboneElement()
@@ -927,7 +923,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -946,7 +942,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The path to the element to be customized. This is the path on the resource that will hold
        * the result of the calculation defined by the expression. The specified path SHALL be a
@@ -990,18 +986,16 @@ public data class PlanDefinition(
       public data class Canonical(public val `value`: com.google.fhir.model.r4b.Canonical) :
         Subject
 
-      public data object Null : Subject
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
-        ): Subject {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
+        ): Subject? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
-          return Null
+          return null
         }
       }
     }
@@ -1036,24 +1030,22 @@ public data class PlanDefinition(
       public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) :
         Action.Timing
 
-      public data object Null : Action.Timing
-
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-          AgeValue: com.google.fhir.model.r4b.Age?,
-          PeriodValue: com.google.fhir.model.r4b.Period?,
-          DurationValue: com.google.fhir.model.r4b.Duration?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          TimingValue: com.google.fhir.model.r4b.Timing?,
-        ): Action.Timing {
+          ageValue: com.google.fhir.model.r4b.Age?,
+          periodValue: com.google.fhir.model.r4b.Period?,
+          durationValue: com.google.fhir.model.r4b.Duration?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          timingValue: com.google.fhir.model.r4b.Timing?,
+        ): Action.Timing? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (TimingValue != null) return Timing(TimingValue)
-          return Null
+          if (ageValue != null) return Age(ageValue)
+          if (periodValue != null) return Period(periodValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (timingValue != null) return Timing(timingValue)
+          return null
         }
       }
     }
@@ -1069,16 +1061,14 @@ public data class PlanDefinition(
 
       public data class Uri(public val `value`: com.google.fhir.model.r4b.Uri) : Definition
 
-      public data object Null : Definition
-
       public companion object {
-        public fun from(
+        internal fun from(
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
           uriValue: com.google.fhir.model.r4b.Uri?,
-        ): Definition {
+        ): Definition? {
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (uriValue != null) return Uri(uriValue)
-          return Null
+          return null
         }
       }
     }
@@ -1100,18 +1090,16 @@ public data class PlanDefinition(
 
     public data class Canonical(public val `value`: com.google.fhir.model.r4b.Canonical) : Subject
 
-    public data object Null : Subject
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
         canonicalValue: com.google.fhir.model.r4b.Canonical?,
-      ): Subject {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+      ): Subject? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return Null
+        return null
       }
     }
   }
@@ -1121,38 +1109,11 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1161,8 +1122,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =
@@ -1181,42 +1140,13 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Any group marked with this behavior should be displayed as a visual group to the end user.
-     */
-    Visual_Group(
-      "visual-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Visual Group",
-      "Any group marked with this behavior should be displayed as a visual group to the end user.",
-    ),
-    /**
-     * A group with this behavior logically groups its sub-elements, and may be shown as a visual
-     * group to the end user, but it is not required to do so.
-     */
-    Logical_Group(
-      "logical-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Logical Group",
-      "A group with this behavior logically groups its sub-elements, and may be shown as a visual group to the end user, but it is not required to do so.",
-    ),
-    /**
-     * A group of related alternative actions is a sentence group if the target referenced by the
-     * action is the same in all the actions and each action simply constitutes a different
-     * variation on how to specify the details for the target. For example, two actions that could
-     * be in a SentenceGroup are "aspirin, 500 mg, 2 times per day" and "aspirin, 300 mg, 3 times
-     * per day". In both cases, aspirin is the target referenced by the action, and the two actions
-     * represent different options for how aspirin might be ordered for the patient. Note that a
-     * SentenceGroup would almost always have an associated selection behavior of "AtMostOne",
-     * unless it's a required action, in which case, it would be "ExactlyOne".
-     */
+    Visual_Group("visual-group", "http://hl7.org/fhir/action-grouping-behavior", "Visual Group"),
+    Logical_Group("logical-group", "http://hl7.org/fhir/action-grouping-behavior", "Logical Group"),
     Sentence_Group(
       "sentence-group",
       "http://hl7.org/fhir/action-grouping-behavior",
       "Sentence Group",
-      "A group of related alternative actions is a sentence group if the target referenced by the action is the same in all the actions and each action simply constitutes a different variation on how to specify the details for the target. For example, two actions that could be in a SentenceGroup are \"aspirin, 500 mg, 2 times per day\" and \"aspirin, 300 mg, 3 times per day\". In both cases, aspirin is the target referenced by the action, and the two actions represent different options for how aspirin might be ordered for the patient. Note that a SentenceGroup would almost always have an associated selection behavior of \"AtMostOne\", unless it's a required action, in which case, it would be \"ExactlyOne\".",
     );
 
     override fun toString(): kotlin.String = code
@@ -1226,8 +1156,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionGroupingBehavior =
@@ -1246,56 +1174,13 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Any number of the actions in the group may be chosen, from zero to all. */
-    Any(
-      "any",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Any",
-      "Any number of the actions in the group may be chosen, from zero to all.",
-    ),
-    /** All the actions in the group must be selected as a single unit. */
-    All(
-      "all",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All",
-      "All the actions in the group must be selected as a single unit.",
-    ),
-    /**
-     * All the actions in the group are meant to be chosen as a single unit: either all must be
-     * selected by the end user, or none may be selected.
-     */
-    All_Or_None(
-      "all-or-none",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All Or None",
-      "All the actions in the group are meant to be chosen as a single unit: either all must be selected by the end user, or none may be selected.",
-    ),
-    /**
-     * The end user must choose one and only one of the selectable actions in the group. The user
-     * SHALL NOT choose none of the actions in the group.
-     */
-    Exactly_One(
-      "exactly-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Exactly One",
-      "The end user must choose one and only one of the selectable actions in the group. The user SHALL NOT choose none of the actions in the group.",
-    ),
-    /** The end user may choose zero or at most one of the actions in the group. */
-    At_Most_One(
-      "at-most-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "At Most One",
-      "The end user may choose zero or at most one of the actions in the group.",
-    ),
-    /** The end user must choose a minimum of one, and as many additional as desired. */
-    One_Or_More(
-      "one-or-more",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "One Or More",
-      "The end user must choose a minimum of one, and as many additional as desired.",
-    );
+    Any("any", "http://hl7.org/fhir/action-selection-behavior", "Any"),
+    All("all", "http://hl7.org/fhir/action-selection-behavior", "All"),
+    All_Or_None("all-or-none", "http://hl7.org/fhir/action-selection-behavior", "All Or None"),
+    Exactly_One("exactly-one", "http://hl7.org/fhir/action-selection-behavior", "Exactly One"),
+    At_Most_One("at-most-one", "http://hl7.org/fhir/action-selection-behavior", "At Most One"),
+    One_Or_More("one-or-more", "http://hl7.org/fhir/action-selection-behavior", "One Or More");
 
     override fun toString(): kotlin.String = code
 
@@ -1304,8 +1189,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionSelectionBehavior =
@@ -1327,36 +1210,13 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An action with this behavior must be included in the actions processed by the end user; the
-     * end user SHALL NOT choose not to include this action.
-     */
-    Must(
-      "must",
-      "http://hl7.org/fhir/action-required-behavior",
-      "Must",
-      "An action with this behavior must be included in the actions processed by the end user; the end user SHALL NOT choose not to include this action.",
-    ),
-    /**
-     * An action with this behavior may be included in the set of actions processed by the end user.
-     */
-    Could(
-      "could",
-      "http://hl7.org/fhir/action-required-behavior",
-      "Could",
-      "An action with this behavior may be included in the set of actions processed by the end user.",
-    ),
-    /**
-     * An action with this behavior must be included in the set of actions processed by the end
-     * user, unless the end user provides documentation as to why the action was not included.
-     */
+    Must("must", "http://hl7.org/fhir/action-required-behavior", "Must"),
+    Could("could", "http://hl7.org/fhir/action-required-behavior", "Could"),
     Must_Unless_Documented(
       "must-unless-documented",
       "http://hl7.org/fhir/action-required-behavior",
       "Must Unless Documented",
-      "An action with this behavior must be included in the set of actions processed by the end user, unless the end user provides documentation as to why the action was not included.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1366,8 +1226,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRequiredBehavior =
@@ -1386,31 +1244,9 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An action with this behavior is one of the most frequent action that is, or should be,
-     * included by an end user, for the particular context in which the action occurs. The system
-     * displaying the action to the end user should consider "pre-checking" such an action as a
-     * convenience for the user.
-     */
-    Yes(
-      "yes",
-      "http://hl7.org/fhir/action-precheck-behavior",
-      "Yes",
-      "An action with this behavior is one of the most frequent action that is, or should be, included by an end user, for the particular context in which the action occurs. The system displaying the action to the end user should consider \"pre-checking\" such an action as a convenience for the user.",
-    ),
-    /**
-     * An action with this behavior is one of the less frequent actions included by the end user,
-     * for the particular context in which the action occurs. The system displaying the actions to
-     * the end user would typically not "pre-check" such an action.
-     */
-    No(
-      "no",
-      "http://hl7.org/fhir/action-precheck-behavior",
-      "No",
-      "An action with this behavior is one of the less frequent actions included by the end user, for the particular context in which the action occurs. The system displaying the actions to the end user would typically not \"pre-check\" such an action.",
-    );
+    Yes("yes", "http://hl7.org/fhir/action-precheck-behavior", "Yes"),
+    No("no", "http://hl7.org/fhir/action-precheck-behavior", "No");
 
     override fun toString(): kotlin.String = code
 
@@ -1419,8 +1255,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionPrecheckBehavior =
@@ -1438,22 +1272,9 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action may only be selected one time. */
-    Single(
-      "single",
-      "http://hl7.org/fhir/action-cardinality-behavior",
-      "Single",
-      "The action may only be selected one time.",
-    ),
-    /** The action may be selected multiple times. */
-    Multiple(
-      "multiple",
-      "http://hl7.org/fhir/action-cardinality-behavior",
-      "Multiple",
-      "The action may be selected multiple times.",
-    );
+    Single("single", "http://hl7.org/fhir/action-cardinality-behavior", "Single"),
+    Multiple("multiple", "http://hl7.org/fhir/action-cardinality-behavior", "Multiple");
 
     override fun toString(): kotlin.String = code
 
@@ -1462,8 +1283,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionCardinalityBehavior =
@@ -1481,29 +1300,10 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The condition describes whether or not a given action is applicable. */
-    Applicability(
-      "applicability",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Applicability",
-      "The condition describes whether or not a given action is applicable.",
-    ),
-    /** The condition is a starting condition for the action. */
-    Start(
-      "start",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Start",
-      "The condition is a starting condition for the action.",
-    ),
-    /** The condition is a stop, or exit condition for the action. */
-    Stop(
-      "stop",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Stop",
-      "The condition is a stop, or exit condition for the action.",
-    );
+    Applicability("applicability", "http://hl7.org/fhir/action-condition-kind", "Applicability"),
+    Start("start", "http://hl7.org/fhir/action-condition-kind", "Start"),
+    Stop("stop", "http://hl7.org/fhir/action-condition-kind", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -1512,8 +1312,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionConditionKind =
@@ -1531,71 +1329,24 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action must be performed before the start of the related action. */
-    Before_Start(
-      "before-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before Start",
-      "The action must be performed before the start of the related action.",
-    ),
-    /** The action must be performed before the related action. */
-    Before(
-      "before",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before",
-      "The action must be performed before the related action.",
-    ),
-    /** The action must be performed before the end of the related action. */
-    Before_End(
-      "before-end",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before End",
-      "The action must be performed before the end of the related action.",
-    ),
-    /** The action must be performed concurrent with the start of the related action. */
+    Before_Start("before-start", "http://hl7.org/fhir/action-relationship-type", "Before Start"),
+    Before("before", "http://hl7.org/fhir/action-relationship-type", "Before"),
+    Before_End("before-end", "http://hl7.org/fhir/action-relationship-type", "Before End"),
     Concurrent_With_Start(
       "concurrent-with-start",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With Start",
-      "The action must be performed concurrent with the start of the related action.",
     ),
-    /** The action must be performed concurrent with the related action. */
-    Concurrent(
-      "concurrent",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Concurrent",
-      "The action must be performed concurrent with the related action.",
-    ),
-    /** The action must be performed concurrent with the end of the related action. */
+    Concurrent("concurrent", "http://hl7.org/fhir/action-relationship-type", "Concurrent"),
     Concurrent_With_End(
       "concurrent-with-end",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With End",
-      "The action must be performed concurrent with the end of the related action.",
     ),
-    /** The action must be performed after the start of the related action. */
-    After_Start(
-      "after-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After Start",
-      "The action must be performed after the start of the related action.",
-    ),
-    /** The action must be performed after the related action. */
-    After(
-      "after",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After",
-      "The action must be performed after the related action.",
-    ),
-    /** The action must be performed after the end of the related action. */
-    After_End(
-      "after-end",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After End",
-      "The action must be performed after the end of the related action.",
-    );
+    After_Start("after-start", "http://hl7.org/fhir/action-relationship-type", "After Start"),
+    After("after", "http://hl7.org/fhir/action-relationship-type", "After"),
+    After_End("after-end", "http://hl7.org/fhir/action-relationship-type", "After End");
 
     override fun toString(): kotlin.String = code
 
@@ -1604,8 +1355,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRelationshipType =
@@ -1630,36 +1379,15 @@ public data class PlanDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant is the patient under evaluation. */
-    Patient(
-      "patient",
-      "http://hl7.org/fhir/action-participant-type",
-      "Patient",
-      "The participant is the patient under evaluation.",
-    ),
-    /** The participant is a practitioner involved in the patient's care. */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/action-participant-type",
-      "Practitioner",
-      "The participant is a practitioner involved in the patient's care.",
-    ),
-    /** The participant is a person related to the patient. */
+    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient"),
+    Practitioner("practitioner", "http://hl7.org/fhir/action-participant-type", "Practitioner"),
     Related_Person(
       "related-person",
       "http://hl7.org/fhir/action-participant-type",
       "Related Person",
-      "The participant is a person related to the patient.",
     ),
-    /** The participant is a system or device used in the care of the patient. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/action-participant-type",
-      "Device",
-      "The participant is a system or device used in the care of the patient.",
-    );
+    Device("device", "http://hl7.org/fhir/action-participant-type", "Device");
 
     override fun toString(): kotlin.String = code
 
@@ -1668,8 +1396,6 @@ public data class PlanDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionParticipantType =

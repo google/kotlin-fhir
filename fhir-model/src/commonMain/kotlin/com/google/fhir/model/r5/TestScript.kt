@@ -40,7 +40,7 @@ import com.google.fhir.model.r5.serializers.TestScriptTestSerializer
 import com.google.fhir.model.r5.serializers.TestScriptVariableSerializer
 import com.google.fhir.model.r5.serializers.TestScriptVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -116,7 +116,7 @@ public data class TestScript(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -129,7 +129,7 @@ public data class TestScript(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -148,7 +148,7 @@ public data class TestScript(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this test script when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -176,7 +176,7 @@ public data class TestScript(
    * type, and can then identify this test script outside of FHIR, where it is not possible to use
    * the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the test script when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the test
@@ -206,7 +206,7 @@ public data class TestScript(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the test script.
    *
@@ -222,7 +222,7 @@ public data class TestScript(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this test script is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -264,7 +264,7 @@ public data class TestScript(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the test script from a consumer's perspective.
    *
@@ -285,7 +285,7 @@ public data class TestScript(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the test script is intended to be used.
    *
@@ -297,7 +297,7 @@ public data class TestScript(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this test script is needed and why it has been designed as it has.
    *
@@ -328,7 +328,7 @@ public data class TestScript(
    * script. Test engines could then use the origin-profile mapping to offer a filtered list of test
    * systems that can serve as the sender for the interaction.
    */
-  public var origin: List<Origin>? = null,
+  public var origin: MutableList<Origin> = mutableListOf(),
   /**
    * An abstract server used in operations within this test script in the destination element.
    *
@@ -336,7 +336,7 @@ public data class TestScript(
    * the script. Test engines could then use the destination-profile mapping to offer a filtered
    * list of test systems that can serve as the receiver for the interaction.
    */
-  public var destination: List<Destination>? = null,
+  public var destination: MutableList<Destination> = mutableListOf(),
   /**
    * The required capability must exist and are assumed to function correctly on the FHIR server
    * being tested.
@@ -346,18 +346,18 @@ public data class TestScript(
    * The scope indicates a conformance artifact that is tested by the test(s) within this test case
    * and the expectation of the test outcome(s) as well as the intended test phase inclusion.
    */
-  public var scope: List<Scope>? = null,
+  public var scope: MutableList<Scope> = mutableListOf(),
   /**
    * Fixture in the test script - by reference (uri). All fixtures are required for the test script
    * to execute.
    */
-  public var fixture: List<Fixture>? = null,
+  public var fixture: MutableList<Fixture> = mutableListOf(),
   /**
    * Reference to the profile to be used for validation.
    *
    * See the [Resource List](resourcelist.html) for complete list of resource types.
    */
-  public var profile: List<Canonical?>? = null,
+  public var profile: MutableList<Canonical> = mutableListOf(),
   /**
    * Variable is set based either on element value in response body or on header field value in the
    * response headers.
@@ -374,11 +374,11 @@ public data class TestScript(
    * operation calls and in "assert.value" during assertion evaluations. See example
    * testscript-search.xml.
    */
-  public var variable: List<Variable>? = null,
+  public var variable: MutableList<Variable> = mutableListOf(),
   /** A series of required setup operations before tests are executed. */
   public var setup: Setup? = null,
   /** A test in this script. */
-  public var test: List<Test>? = null,
+  public var test: MutableList<Test> = mutableListOf(),
   /**
    * A series of operations required to clean up after all the tests are executed (successfully or
    * otherwise).
@@ -405,7 +405,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -424,7 +424,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Abstract name given to an origin server in this test script. The name is provided as a number
      * starting at 1.
@@ -438,13 +438,13 @@ public data class TestScript(
      *
      * The origin indices provided elsewhere in the test script must be one of these origin indices.
      */
-    public var index: Integer? = null,
+    public var index: Integer,
     /**
      * The type of origin profile the test system supports.
      *
      * Must be a "sender"/"client" profile.
      */
-    public var profile: Coding? = null,
+    public var profile: Coding,
     /**
      * The explicit url path of the origin server used in this test script.
      *
@@ -474,7 +474,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -493,7 +493,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Abstract name given to a destination server in this test script. The name is provided as a
      * number starting at 1.
@@ -508,13 +508,13 @@ public data class TestScript(
      * The destination indices provided elsewhere in the test script must be one of these
      * destination indices.
      */
-    public var index: Integer? = null,
+    public var index: Integer,
     /**
      * The type of destination profile the test system supports.
      *
      * Must be a "receiver"/"server" profile.
      */
-    public var profile: Coding? = null,
+    public var profile: Coding,
     /**
      * The explicit url path of the destination server used in this test script.
      *
@@ -547,7 +547,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -566,9 +566,9 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A link to the FHIR specification that this test is covering. */
-    public var link: List<Link>? = null,
+    public var link: MutableList<Link> = mutableListOf(),
     /**
      * Capabilities that must exist and are assumed to function correctly on the FHIR server being
      * tested.
@@ -584,7 +584,7 @@ public data class TestScript(
      * whose "metadata.capabilities.validated" flag is true are the primary focus of the test
      * script.
      */
-    public var capability: List<Capability>? = null,
+    public var capability: MutableList<Capability> = mutableListOf(),
   ) : BackboneElement() {
     /** A link to the FHIR specification that this test is covering. */
     @Serializable(with = TestScriptMetadataLinkSerializer::class)
@@ -606,7 +606,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -625,9 +625,9 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** URL to a particular requirement or feature within the FHIR specification. */
-      public var url: Uri? = null,
+      public var url: Uri,
       /** Short description of the link. */
       public var description: String? = null,
     ) : BackboneElement()
@@ -655,7 +655,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -674,30 +674,30 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Whether or not the test execution will require the given capabilities of the server in
        * order for this test script to execute.
        */
-      public var required: Boolean? = null,
+      public var required: Boolean,
       /**
        * Whether or not the test execution will validate the given capabilities of the server in
        * order for this test script to execute.
        */
-      public var validated: Boolean? = null,
+      public var validated: Boolean,
       /**
        * Description of the capabilities that this test script is requiring the server to support.
        */
       public var description: String? = null,
       /** Which origin server these requirements apply to. */
-      public var origin: List<Integer?>? = null,
+      public var origin: MutableList<Integer> = mutableListOf(),
       /** Which server these requirements apply to. */
       public var destination: Integer? = null,
       /**
        * Links to the FHIR specification that describes this interaction and the resources involved
        * in more detail.
        */
-      public var link: List<Uri?>? = null,
+      public var link: MutableList<Uri> = mutableListOf(),
       /**
        * Minimum capabilities required of server for test script to execute successfully. If server
        * does not meet at a minimum the referenced capability statement, then all tests in this
@@ -706,7 +706,7 @@ public data class TestScript(
        * The conformance statement of the server has to contain at a minimum the contents of the
        * reference pointed to by this element.
        */
-      public var capabilities: Canonical? = null,
+      public var capabilities: Canonical,
     ) : BackboneElement()
   }
 
@@ -733,7 +733,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -752,12 +752,12 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The specific conformance artifact being tested. The canonical reference can be
      * version-specific.
      */
-    public var artifact: Canonical? = null,
+    public var artifact: Canonical,
     /**
      * The expectation of whether the test must pass for the system to be considered conformant with
      * the artifact: required - all tests are expected to pass, optional - all test are expected to
@@ -796,7 +796,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -815,19 +815,19 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Whether or not to implicitly create the fixture during setup. If true, the fixture is
      * automatically created on each server being tested during setup, therefore no create operation
      * is required for this fixture in the TestScript.setup section.
      */
-    public var autocreate: Boolean? = null,
+    public var autocreate: Boolean,
     /**
      * Whether or not to implicitly delete the fixture during teardown. If true, the fixture is
      * automatically deleted on each server being tested during teardown, therefore no delete
      * operation is required for this fixture in the TestScript.teardown section.
      */
-    public var autodelete: Boolean? = null,
+    public var autodelete: Boolean,
     /**
      * Reference to the resource (containing the contents of the resource needed for operations).
      * This is allowed to be a Parameters resource.
@@ -860,7 +860,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -879,7 +879,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Descriptive name for this variable.
      *
@@ -887,7 +887,7 @@ public data class TestScript(
      * "operation.requestHeader.value", and "operation.url" elements. These placeholders would need
      * to be replaced by the variable value before the operation is executed.
      */
-    public var name: String? = null,
+    public var name: String,
     /**
      * A default, hard-coded, or user-defined value for this variable.
      *
@@ -962,7 +962,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -981,14 +981,14 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Action would contain either an operation or an assertion.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestScriptSetupActionSerializer::class)
@@ -1010,7 +1010,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1029,7 +1029,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The operation to perform. */
       public var operation: Operation? = null,
       /**
@@ -1061,7 +1061,7 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1080,7 +1080,7 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Server interaction or operation type.
          *
@@ -1144,7 +1144,7 @@ public data class TestScript(
          * to match the standard RESTful client behavior. Set to false when communicating with a
          * server that does not support encoded url paths.
          */
-        public var encodeRequestUrl: Boolean? = null,
+        public var encodeRequestUrl: Boolean,
         /**
          * The HTTP method the test engine MUST use for this operation regardless of any other
          * operation details.
@@ -1191,7 +1191,7 @@ public data class TestScript(
          * [Conditional Create using "If-None-Exist"](http.html#2.1.0.11). See
          * [Invalid "Content-Type" header](http.html#2.1.0.13.1) for negative testing. - etc.
          */
-        public var requestHeader: List<RequestHeader>? = null,
+        public var requestHeader: MutableList<RequestHeader> = mutableListOf(),
         /**
          * The fixture id (maybe new) to map to the request.
          *
@@ -1261,7 +1261,7 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1280,13 +1280,13 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /**
            * The HTTP header field e.g. "Accept".
            *
            * If header element is specified, then field is required.
            */
-          public var `field`: String? = null,
+          public var `field`: String,
           /**
            * The value of the header e.g. "application/fhir+xml".
            *
@@ -1295,7 +1295,7 @@ public data class TestScript(
            * headers "as-is". Test engines do have to look for placeholders (${}) and replace the
            * variable placeholders with the variable values at runtime before sending the request.
            */
-          public var `value`: String? = null,
+          public var `value`: String,
         ) : BackboneElement()
       }
 
@@ -1322,7 +1322,7 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1341,7 +1341,7 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The label would be used for tracking/logging purposes by test engines.
          *
@@ -1530,7 +1530,7 @@ public data class TestScript(
          * If this element is specified and it is true, then assertion failures should not stop the
          * current test execution from proceeding.
          */
-        public var stopTestOnFail: Boolean? = null,
+        public var stopTestOnFail: Boolean,
         /**
          * The ID of the Profile to validate against.
          *
@@ -1555,7 +1555,7 @@ public data class TestScript(
          * something is optional (maybe a response header for example), but a server doesn’t do it,
          * we could choose to issue a warning.
          */
-        public var warningOnly: Boolean? = null,
+        public var warningOnly: Boolean,
         /**
          * Links or references providing traceability to the testing requirements for this assert.
          *
@@ -1563,7 +1563,7 @@ public data class TestScript(
          * defined test requirements and documentation. These links provide traceability from the
          * executable/executed TestScript and TestReport tests to these requirements.
          */
-        public var requirement: List<Requirement>? = null,
+        public var requirement: MutableList<Requirement> = mutableListOf(),
       ) : BackboneElement() {
         /**
          * Links or references providing traceability to the testing requirements for this assert.
@@ -1587,7 +1587,7 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1606,7 +1606,7 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Link or reference providing traceability to the testing requirement for this test. */
           public var link: Link? = null,
         ) : BackboneElement() {
@@ -1621,16 +1621,14 @@ public data class TestScript(
             public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) :
               Link
 
-            public data object Null : Link
-
             public companion object {
-              public fun from(
+              internal fun from(
                 uriValue: com.google.fhir.model.r5.Uri?,
                 canonicalValue: com.google.fhir.model.r5.Canonical?,
-              ): Link {
+              ): Link? {
                 if (uriValue != null) return Uri(uriValue)
                 if (canonicalValue != null) return Canonical(canonicalValue)
-                return Null
+                return null
               }
             }
           }
@@ -1659,7 +1657,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1678,7 +1676,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The name of this test used for tracking/logging purposes by test engines. */
     public var name: String? = null,
     /** A short description of the test used by test engines for tracking and reporting purposes. */
@@ -1689,7 +1687,7 @@ public data class TestScript(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestScriptTestActionSerializer::class)
@@ -1711,7 +1709,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1730,7 +1728,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** An operation would involve a REST request to a server. */
       public var operation: Setup.Action.Operation? = null,
       /**
@@ -1767,7 +1765,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1786,14 +1784,14 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The teardown action will only contain an operation.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: List<Action>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /** The teardown action will only contain an operation. */
     @Serializable(with = TestScriptTeardownActionSerializer::class)
@@ -1815,7 +1813,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1834,9 +1832,9 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** An operation would involve a REST request to a server. */
-      public var operation: Setup.Action.Operation? = null,
+      public var operation: Setup.Action.Operation,
     ) : BackboneElement()
   }
 
@@ -1852,16 +1850,14 @@ public data class TestScript(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -1871,22 +1867,14 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** HTTP DELETE operation. */
-    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE", "HTTP DELETE operation."),
-    /** HTTP GET operation. */
-    Get("get", "http://hl7.org/fhir/http-operations", "GET", "HTTP GET operation."),
-    /** HTTP OPTIONS operation. */
-    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS", "HTTP OPTIONS operation."),
-    /** HTTP PATCH operation. */
-    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH", "HTTP PATCH operation."),
-    /** HTTP POST operation. */
-    Post("post", "http://hl7.org/fhir/http-operations", "POST", "HTTP POST operation."),
-    /** HTTP PUT operation. */
-    Put("put", "http://hl7.org/fhir/http-operations", "PUT", "HTTP PUT operation."),
-    /** HTTP HEAD operation. */
-    Head("head", "http://hl7.org/fhir/http-operations", "HEAD", "HTTP HEAD operation.");
+    Delete("delete", "http://hl7.org/fhir/http-operations", "DELETE"),
+    Get("get", "http://hl7.org/fhir/http-operations", "GET"),
+    Options("options", "http://hl7.org/fhir/http-operations", "OPTIONS"),
+    Patch("patch", "http://hl7.org/fhir/http-operations", "PATCH"),
+    Post("post", "http://hl7.org/fhir/http-operations", "POST"),
+    Put("put", "http://hl7.org/fhir/http-operations", "PUT"),
+    Head("head", "http://hl7.org/fhir/http-operations", "HEAD");
 
     override fun toString(): kotlin.String = code
 
@@ -1895,8 +1883,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TestScriptRequestMethodCode =
@@ -1921,22 +1907,9 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The assertion is evaluated on the response. This is the default value. */
-    Response(
-      "response",
-      "http://hl7.org/fhir/assert-direction-codes",
-      "response",
-      "The assertion is evaluated on the response. This is the default value.",
-    ),
-    /** The assertion is evaluated on the request. */
-    Request(
-      "request",
-      "http://hl7.org/fhir/assert-direction-codes",
-      "request",
-      "The assertion is evaluated on the request.",
-    );
+    Response("response", "http://hl7.org/fhir/assert-direction-codes", "response"),
+    Request("request", "http://hl7.org/fhir/assert-direction-codes", "request");
 
     override fun toString(): kotlin.String = code
 
@@ -1945,8 +1918,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionDirectionType =
@@ -1964,45 +1935,11 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Mark the currently waiting test failed and proceed with the next assert if the stopTestOnFail
-     * is false or the next test in the TestScript if the stopTestOnFail is true.
-     */
-    Fail(
-      "fail",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Fail",
-      "Mark the currently waiting test failed and proceed with the next assert if the stopTestOnFail is false or the next test in the TestScript if the stopTestOnFail is true.",
-    ),
-    /**
-     * Mark the currently waiting test passed (if the test is not failed already) and proceed with
-     * the next action in the TestScript.
-     */
-    Pass(
-      "pass",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Pass",
-      "Mark the currently waiting test passed (if the test is not failed already) and proceed with the next action in the TestScript.",
-    ),
-    /** Mark this assert as skipped and proceed with the next action in the TestScript. */
-    Skip(
-      "skip",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Skip",
-      "Mark this assert as skipped and proceed with the next action in the TestScript.",
-    ),
-    /**
-     * Stop execution of this TestScript. The overall status of this TestScript is evaluated based
-     * on the status of the completed tests.
-     */
-    Stop(
-      "stop",
-      "http://hl7.org/fhir/assert-manual-completion-codes",
-      "Stop",
-      "Stop execution of this TestScript. The overall status of this TestScript is evaluated based on the status of the completed tests.",
-    );
+    Fail("fail", "http://hl7.org/fhir/assert-manual-completion-codes", "Fail"),
+    Pass("pass", "http://hl7.org/fhir/assert-manual-completion-codes", "Pass"),
+    Skip("skip", "http://hl7.org/fhir/assert-manual-completion-codes", "Skip"),
+    Stop("stop", "http://hl7.org/fhir/assert-manual-completion-codes", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -2011,8 +1948,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionManualCompletionType =
@@ -2034,91 +1969,19 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Default value. Equals comparison. */
-    Equals(
-      "equals",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "equals",
-      "Default value. Equals comparison.",
-    ),
-    /** Not equals comparison. */
-    NotEquals(
-      "notEquals",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notEquals",
-      "Not equals comparison.",
-    ),
-    /** Compare value within a known set of values. */
-    In(
-      "in",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "in",
-      "Compare value within a known set of values.",
-    ),
-    /** Compare value not within a known set of values. */
-    NotIn(
-      "notIn",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notIn",
-      "Compare value not within a known set of values.",
-    ),
-    /** Compare value to be greater than a known value. */
-    GreaterThan(
-      "greaterThan",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "greaterThan",
-      "Compare value to be greater than a known value.",
-    ),
-    /** Compare value to be less than a known value. */
-    LessThan(
-      "lessThan",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "lessThan",
-      "Compare value to be less than a known value.",
-    ),
-    /** Compare value is empty. */
-    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty", "Compare value is empty."),
-    /** Compare value is not empty. */
-    NotEmpty(
-      "notEmpty",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notEmpty",
-      "Compare value is not empty.",
-    ),
-    /** Compare value string contains a known value. */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "contains",
-      "Compare value string contains a known value.",
-    ),
-    /** Compare value string does not contain a known value. */
-    NotContains(
-      "notContains",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "notContains",
-      "Compare value string does not contain a known value.",
-    ),
-    /** Evaluate the FHIRPath expression as a boolean condition. */
-    Eval(
-      "eval",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "evaluate",
-      "Evaluate the FHIRPath expression as a boolean condition.",
-    ),
-    /**
-     * Manually evaluate the condition described by this assert. The test engine SHALL pause and
-     * provide an input mechanism to set the outcome of this assert to 'pass', 'fail', 'skip' or
-     * 'stop'.
-     */
-    ManualEval(
-      "manualEval",
-      "http://hl7.org/fhir/assert-operator-codes",
-      "manualEvaluate",
-      "Manually evaluate the condition described by this assert. The test engine SHALL pause and provide an input mechanism to set the outcome of this assert to 'pass', 'fail', 'skip' or 'stop'.",
-    );
+    Equals("equals", "http://hl7.org/fhir/assert-operator-codes", "equals"),
+    NotEquals("notEquals", "http://hl7.org/fhir/assert-operator-codes", "notEquals"),
+    In("in", "http://hl7.org/fhir/assert-operator-codes", "in"),
+    NotIn("notIn", "http://hl7.org/fhir/assert-operator-codes", "notIn"),
+    GreaterThan("greaterThan", "http://hl7.org/fhir/assert-operator-codes", "greaterThan"),
+    LessThan("lessThan", "http://hl7.org/fhir/assert-operator-codes", "lessThan"),
+    Empty("empty", "http://hl7.org/fhir/assert-operator-codes", "empty"),
+    NotEmpty("notEmpty", "http://hl7.org/fhir/assert-operator-codes", "notEmpty"),
+    Contains("contains", "http://hl7.org/fhir/assert-operator-codes", "contains"),
+    NotContains("notContains", "http://hl7.org/fhir/assert-operator-codes", "notContains"),
+    Eval("eval", "http://hl7.org/fhir/assert-operator-codes", "evaluate"),
+    ManualEval("manualEval", "http://hl7.org/fhir/assert-operator-codes", "manualEvaluate");
 
     override fun toString(): kotlin.String = code
 
@@ -2127,8 +1990,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionOperatorType =
@@ -2156,305 +2017,154 @@ public data class TestScript(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Response code is 100. */
-    Continue(
-      "continue",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Continue",
-      "Response code is 100.",
-    ),
-    /** Response code is 101. */
+    Continue("continue", "http://hl7.org/fhir/assert-response-code-types", "Continue"),
     SwitchingProtocols(
       "switchingProtocols",
       "http://hl7.org/fhir/assert-response-code-types",
       "Switching Protocols",
-      "Response code is 101.",
     ),
-    /** Response code is 200. */
-    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "OK", "Response code is 200."),
-    /** Response code is 201. */
-    Created(
-      "created",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Created",
-      "Response code is 201.",
-    ),
-    /** Response code is 202. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Accepted",
-      "Response code is 202.",
-    ),
-    /** Response code is 203. */
+    Okay("okay", "http://hl7.org/fhir/assert-response-code-types", "OK"),
+    Created("created", "http://hl7.org/fhir/assert-response-code-types", "Created"),
+    Accepted("accepted", "http://hl7.org/fhir/assert-response-code-types", "Accepted"),
     NonAuthoritativeInformation(
       "nonAuthoritativeInformation",
       "http://hl7.org/fhir/assert-response-code-types",
       "Non-Authoritative Information",
-      "Response code is 203.",
     ),
-    /** Response code is 204. */
-    NoContent(
-      "noContent",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "No Content",
-      "Response code is 204.",
-    ),
-    /** Response code is 205. */
-    ResetContent(
-      "resetContent",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Reset Content",
-      "Response code is 205.",
-    ),
-    /** Response code is 206. */
+    NoContent("noContent", "http://hl7.org/fhir/assert-response-code-types", "No Content"),
+    ResetContent("resetContent", "http://hl7.org/fhir/assert-response-code-types", "Reset Content"),
     PartialContent(
       "partialContent",
       "http://hl7.org/fhir/assert-response-code-types",
       "Partial Content",
-      "Response code is 206.",
     ),
-    /** Response code is 300. */
     MultipleChoices(
       "multipleChoices",
       "http://hl7.org/fhir/assert-response-code-types",
       "Multiple Choices",
-      "Response code is 300.",
     ),
-    /** Response code is 301. */
     MovedPermanently(
       "movedPermanently",
       "http://hl7.org/fhir/assert-response-code-types",
       "Moved Permanently",
-      "Response code is 301.",
     ),
-    /** Response code is 302. */
-    Found(
-      "found",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Found",
-      "Response code is 302.",
-    ),
-    /** Response code is 303. */
-    SeeOther(
-      "seeOther",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "See Other",
-      "Response code is 303.",
-    ),
-    /** Response code is 304. */
-    NotModified(
-      "notModified",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Not Modified",
-      "Response code is 304.",
-    ),
-    /** Response code is 305. */
-    UseProxy(
-      "useProxy",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Use Proxy",
-      "Response code is 305.",
-    ),
-    /** Response code is 307. */
+    Found("found", "http://hl7.org/fhir/assert-response-code-types", "Found"),
+    SeeOther("seeOther", "http://hl7.org/fhir/assert-response-code-types", "See Other"),
+    NotModified("notModified", "http://hl7.org/fhir/assert-response-code-types", "Not Modified"),
+    UseProxy("useProxy", "http://hl7.org/fhir/assert-response-code-types", "Use Proxy"),
     TemporaryRedirect(
       "temporaryRedirect",
       "http://hl7.org/fhir/assert-response-code-types",
       "Temporary Redirect",
-      "Response code is 307.",
     ),
-    /** Response code is 308. */
     PermanentRedirect(
       "permanentRedirect",
       "http://hl7.org/fhir/assert-response-code-types",
       "Permanent Redirect",
-      "Response code is 308.",
     ),
-    /** Response code is 400. */
-    BadRequest(
-      "badRequest",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Bad Request",
-      "Response code is 400.",
-    ),
-    /** Response code is 401. */
-    Unauthorized(
-      "unauthorized",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Unauthorized",
-      "Response code is 401.",
-    ),
-    /** Response code is 402. */
+    BadRequest("badRequest", "http://hl7.org/fhir/assert-response-code-types", "Bad Request"),
+    Unauthorized("unauthorized", "http://hl7.org/fhir/assert-response-code-types", "Unauthorized"),
     PaymentRequired(
       "paymentRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Payment Required",
-      "Response code is 402.",
     ),
-    /** Response code is 403. */
-    Forbidden(
-      "forbidden",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Forbidden",
-      "Response code is 403.",
-    ),
-    /** Response code is 404. */
-    NotFound(
-      "notFound",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Not Found",
-      "Response code is 404.",
-    ),
-    /** Response code is 405. */
+    Forbidden("forbidden", "http://hl7.org/fhir/assert-response-code-types", "Forbidden"),
+    NotFound("notFound", "http://hl7.org/fhir/assert-response-code-types", "Not Found"),
     MethodNotAllowed(
       "methodNotAllowed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Method Not Allowed",
-      "Response code is 405.",
     ),
-    /** Response code is 406. */
     NotAcceptable(
       "notAcceptable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Not Acceptable",
-      "Response code is 406.",
     ),
-    /** Response code is 407. */
     ProxyAuthenticationRequired(
       "proxyAuthenticationRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Proxy Authentication Required",
-      "Response code is 407.",
     ),
-    /** Response code is 408. */
     RequestTimeout(
       "requestTimeout",
       "http://hl7.org/fhir/assert-response-code-types",
       "Request Timeout",
-      "Response code is 408.",
     ),
-    /** Response code is 409. */
-    Conflict(
-      "conflict",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Conflict",
-      "Response code is 409.",
-    ),
-    /** Response code is 410. */
-    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "Gone", "Response code is 410."),
-    /** Response code is 411. */
+    Conflict("conflict", "http://hl7.org/fhir/assert-response-code-types", "Conflict"),
+    Gone("gone", "http://hl7.org/fhir/assert-response-code-types", "Gone"),
     LengthRequired(
       "lengthRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Length Required",
-      "Response code is 411.",
     ),
-    /** Response code is 412. */
     PreconditionFailed(
       "preconditionFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Precondition Failed",
-      "Response code is 412.",
     ),
-    /** Response code is 413. */
     ContentTooLarge(
       "contentTooLarge",
       "http://hl7.org/fhir/assert-response-code-types",
       "Content Too Large",
-      "Response code is 413.",
     ),
-    /** Response code is 414. */
-    UriTooLong(
-      "uriTooLong",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "URI Too Long",
-      "Response code is 414.",
-    ),
-    /** Response code is 415. */
+    UriTooLong("uriTooLong", "http://hl7.org/fhir/assert-response-code-types", "URI Too Long"),
     UnsupportedMediaType(
       "unsupportedMediaType",
       "http://hl7.org/fhir/assert-response-code-types",
       "Unsupported Media Type",
-      "Response code is 415.",
     ),
-    /** Response code is 416. */
     RangeNotSatisfiable(
       "rangeNotSatisfiable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Range Not Satisfiable",
-      "Response code is 416.",
     ),
-    /** Response code is 417. */
     ExpectationFailed(
       "expectationFailed",
       "http://hl7.org/fhir/assert-response-code-types",
       "Expectation Failed",
-      "Response code is 417.",
     ),
-    /** Response code is 421. */
     MisdirectedRequest(
       "misdirectedRequest",
       "http://hl7.org/fhir/assert-response-code-types",
       "Misdirected Request",
-      "Response code is 421.",
     ),
-    /** Response code is 422. */
     UnprocessableContent(
       "unprocessableContent",
       "http://hl7.org/fhir/assert-response-code-types",
       "Unprocessable Content",
-      "Response code is 422.",
     ),
-    /** Response code is 426. */
     UpgradeRequired(
       "upgradeRequired",
       "http://hl7.org/fhir/assert-response-code-types",
       "Upgrade Required",
-      "Response code is 426.",
     ),
-    /** Response code is 500. */
     InternalServerError(
       "internalServerError",
       "http://hl7.org/fhir/assert-response-code-types",
       "Internal Server Error",
-      "Response code is 500.",
     ),
-    /** Response code is 501. */
     NotImplemented(
       "notImplemented",
       "http://hl7.org/fhir/assert-response-code-types",
       "Not Implemented",
-      "Response code is 501.",
     ),
-    /** Response code is 502. */
-    BadGateway(
-      "badGateway",
-      "http://hl7.org/fhir/assert-response-code-types",
-      "Bad Gateway",
-      "Response code is 502.",
-    ),
-    /** Response code is 503. */
+    BadGateway("badGateway", "http://hl7.org/fhir/assert-response-code-types", "Bad Gateway"),
     ServiceUnavailable(
       "serviceUnavailable",
       "http://hl7.org/fhir/assert-response-code-types",
       "Service Unavailable",
-      "Response code is 503.",
     ),
-    /** Response code is 504. */
     GatewayTimeout(
       "gatewayTimeout",
       "http://hl7.org/fhir/assert-response-code-types",
       "Gateway Timeout",
-      "Response code is 504.",
     ),
-    /** Response code is 505. */
     httpVersionNotSupported(
       "httpVersionNotSupported",
       "http://hl7.org/fhir/assert-response-code-types",
       "HTTP Version Not Supported",
-      "Response code is 505.",
     );
 
     override fun toString(): kotlin.String = code
@@ -2464,8 +2174,6 @@ public data class TestScript(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AssertionResponseTypes =

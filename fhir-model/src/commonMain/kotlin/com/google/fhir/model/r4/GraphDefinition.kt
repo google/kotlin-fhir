@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.GraphDefinitionLinkTargetCompartment
 import com.google.fhir.model.r4.serializers.GraphDefinitionLinkTargetSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class GraphDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class GraphDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class GraphDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this graph definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -169,13 +169,13 @@ public data class GraphDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * The status of this graph definition. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of graph definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this graph definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -209,7 +209,7 @@ public data class GraphDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the graph definition from a consumer's perspective.
    *
@@ -230,14 +230,14 @@ public data class GraphDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the graph definition is intended to be used.
    *
    * It may be possible for the graph definition to be used in jurisdictions other than those for
    * which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this graph definition is needed and why it has been designed as it has.
    *
@@ -248,7 +248,7 @@ public data class GraphDefinition(
    */
   public var purpose: Markdown? = null,
   /** The type of FHIR resource at which instances of this graph start. */
-  public var start: Enumeration<ResourceType>? = null,
+  public var start: Enumeration<ResourceType>,
   /**
    * The profile that describes the use of the base resource.
    *
@@ -257,7 +257,7 @@ public data class GraphDefinition(
    */
   public var profile: Canonical? = null,
   /** Links this graph makes rules about. */
-  public var link: List<Link>? = null,
+  public var link: MutableList<Link> = mutableListOf(),
 ) : DomainResource() {
   /** Links this graph makes rules about. */
   @Serializable(with = GraphDefinitionLinkSerializer::class)
@@ -279,7 +279,7 @@ public data class GraphDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -298,7 +298,7 @@ public data class GraphDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A FHIR expression that identifies one of FHIR References to other resources.
      *
@@ -316,7 +316,7 @@ public data class GraphDefinition(
     /** Information about why this link is of interest in this graph definition. */
     public var description: String? = null,
     /** Potential target for the link. */
-    public var target: List<Target>? = null,
+    public var target: MutableList<Target> = mutableListOf(),
   ) : BackboneElement() {
     /** Potential target for the link. */
     @Serializable(with = GraphDefinitionLinkTargetSerializer::class)
@@ -338,7 +338,7 @@ public data class GraphDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -357,9 +357,9 @@ public data class GraphDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Type of resource this link refers to. */
-      public var type: Enumeration<ResourceType>? = null,
+      public var type: Enumeration<ResourceType>,
       /**
        * A set of parameters to look up.
        *
@@ -370,9 +370,9 @@ public data class GraphDefinition(
       /** Profile for the target resource. */
       public var profile: Canonical? = null,
       /** Compartment Consistency Rules. */
-      public var compartment: List<Compartment>? = null,
+      public var compartment: MutableList<Compartment> = mutableListOf(),
       /** Additional links from target resource. */
-      public var link: List<Link?>? = null,
+      public var link: MutableList<Link> = mutableListOf(),
     ) : BackboneElement() {
       /** Compartment Consistency Rules. */
       @Serializable(with = GraphDefinitionLinkTargetCompartmentSerializer::class)
@@ -394,7 +394,7 @@ public data class GraphDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -413,18 +413,18 @@ public data class GraphDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Defines how the compartment rule is used - whether it it is used to test whether
          * resources are subject to the rule, or whether it is a rule that must be followed.
          *
          * All conditional rules are evaluated; if they are true, then the rules are evaluated.
          */
-        public var use: Enumeration<GraphCompartmentUse>? = null,
+        public var use: Enumeration<GraphCompartmentUse>,
         /** Identifies the compartment. */
-        public var code: Enumeration<CompartmentCode>? = null,
+        public var code: Enumeration<CompartmentCode>,
         /** identical | matching | different | no-rule | custom. */
-        public var rule: Enumeration<GraphCompartmentRule>? = null,
+        public var rule: Enumeration<GraphCompartmentRule>,
         /** Custom rule, as a FHIRPath expression. */
         public var expression: String? = null,
         /** Documentation for FHIRPath expression. */
@@ -438,22 +438,9 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This compartment rule is a condition for whether the rule applies. */
-    Condition(
-      "condition",
-      "http://hl7.org/fhir/graph-compartment-use",
-      "Condition",
-      "This compartment rule is a condition for whether the rule applies.",
-    ),
-    /** This compartment rule is enforced on any relationships that meet the conditions. */
-    Requirement(
-      "requirement",
-      "http://hl7.org/fhir/graph-compartment-use",
-      "Requirement",
-      "This compartment rule is enforced on any relationships that meet the conditions.",
-    );
+    Condition("condition", "http://hl7.org/fhir/graph-compartment-use", "Condition"),
+    Requirement("requirement", "http://hl7.org/fhir/graph-compartment-use", "Requirement");
 
     override fun toString(): kotlin.String = code
 
@@ -462,8 +449,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GraphCompartmentUse =
@@ -480,43 +465,12 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The compartment definition is for the patient compartment. */
-    Patient(
-      "Patient",
-      "http://hl7.org/fhir/compartment-type",
-      "Patient",
-      "The compartment definition is for the patient compartment.",
-    ),
-    /** The compartment definition is for the encounter compartment. */
-    Encounter(
-      "Encounter",
-      "http://hl7.org/fhir/compartment-type",
-      "Encounter",
-      "The compartment definition is for the encounter compartment.",
-    ),
-    /** The compartment definition is for the related-person compartment. */
-    RelatedPerson(
-      "RelatedPerson",
-      "http://hl7.org/fhir/compartment-type",
-      "RelatedPerson",
-      "The compartment definition is for the related-person compartment.",
-    ),
-    /** The compartment definition is for the practitioner compartment. */
-    Practitioner(
-      "Practitioner",
-      "http://hl7.org/fhir/compartment-type",
-      "Practitioner",
-      "The compartment definition is for the practitioner compartment.",
-    ),
-    /** The compartment definition is for the device compartment. */
-    Device(
-      "Device",
-      "http://hl7.org/fhir/compartment-type",
-      "Device",
-      "The compartment definition is for the device compartment.",
-    );
+    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient"),
+    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter"),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner"),
+    Device("Device", "http://hl7.org/fhir/compartment-type", "Device");
 
     override fun toString(): kotlin.String = code
 
@@ -525,8 +479,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompartmentCode =
@@ -546,39 +498,11 @@ public data class GraphDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The compartment must be identical (the same literal reference). */
-    Identical(
-      "identical",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Identical",
-      "The compartment must be identical (the same literal reference).",
-    ),
-    /**
-     * The compartment must be the same - the record must be about the same patient, but the
-     * reference may be different.
-     */
-    Matching(
-      "matching",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Matching",
-      "The compartment must be the same - the record must be about the same patient, but the reference may be different.",
-    ),
-    /** The compartment must be different. */
-    Different(
-      "different",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Different",
-      "The compartment must be different.",
-    ),
-    /** The compartment rule is defined in the accompanying FHIRPath expression. */
-    Custom(
-      "custom",
-      "http://hl7.org/fhir/graph-compartment-rule",
-      "Custom",
-      "The compartment rule is defined in the accompanying FHIRPath expression.",
-    );
+    Identical("identical", "http://hl7.org/fhir/graph-compartment-rule", "Identical"),
+    Matching("matching", "http://hl7.org/fhir/graph-compartment-rule", "Matching"),
+    Different("different", "http://hl7.org/fhir/graph-compartment-rule", "Different"),
+    Custom("custom", "http://hl7.org/fhir/graph-compartment-rule", "Custom");
 
     override fun toString(): kotlin.String = code
 
@@ -587,8 +511,6 @@ public data class GraphDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GraphCompartmentRule =

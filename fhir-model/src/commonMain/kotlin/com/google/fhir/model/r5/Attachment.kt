@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.AttachmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Attachment Type: For referring to data content defined in other formats. */
@@ -43,7 +43,7 @@ public data class Attachment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifies the type of the data in the attachment and allows a method to be chosen to interpret
    * or render the data. Includes mime type parameters such as charset where appropriate.

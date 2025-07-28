@@ -27,7 +27,7 @@ import com.google.fhir.model.r4b.serializers.QuestionnaireItemInitialValueSerial
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class Questionnaire(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -115,7 +115,7 @@ public data class Questionnaire(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class Questionnaire(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this questionnaire when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -154,7 +154,7 @@ public data class Questionnaire(
    * type, and can then identify this questionnaire outside of FHIR, where it is not possible to use
    * the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the questionnaire when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the
@@ -183,13 +183,13 @@ public data class Questionnaire(
    */
   public var title: String? = null,
   /** The URL of a Questionnaire that this Questionnaire is based on. */
-  public var derivedFrom: List<Canonical?>? = null,
+  public var derivedFrom: MutableList<Canonical> = mutableListOf(),
   /**
    * The status of this questionnaire. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of questionnaires that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this questionnaire is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -202,7 +202,7 @@ public data class Questionnaire(
    *
    * If none are specified, then the subject is unlimited.
    */
-  public var subjectType: List<Enumeration<ResourceType>>? = null,
+  public var subjectType: MutableList<Enumeration<ResourceType>> = mutableListOf(),
   /**
    * The date (and optionally time) when the questionnaire was published. The date must change when
    * the business version changes and it must change if the status code changes. In addition, it
@@ -229,7 +229,7 @@ public data class Questionnaire(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the questionnaire from a consumer's perspective.
    *
@@ -250,14 +250,14 @@ public data class Questionnaire(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the questionnaire is intended to be used.
    *
    * It may be possible for the questionnaire to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this questionnaire is needed and why it has been designed as it has.
    *
@@ -299,14 +299,14 @@ public data class Questionnaire(
    * An identifier for this question or group of questions in a particular terminology such as
    * LOINC.
    */
-  public var code: List<Coding?>? = null,
+  public var code: MutableList<Coding> = mutableListOf(),
   /**
    * A particular question, question grouping or display text that is part of the questionnaire.
    *
    * The content of the questionnaire is constructed from an ordered, hierarchical collection of
    * items.
    */
-  public var item: List<Item>? = null,
+  public var item: MutableList<Item> = mutableListOf(),
 ) : DomainResource() {
   /** A particular question, question grouping or display text that is part of the questionnaire. */
   @Serializable(with = QuestionnaireItemSerializer::class)
@@ -328,7 +328,7 @@ public data class Questionnaire(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -347,7 +347,7 @@ public data class Questionnaire(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An identifier that is unique within the Questionnaire allowing linkage to the equivalent item
      * in a QuestionnaireResponse resource.
@@ -355,7 +355,7 @@ public data class Questionnaire(
      * This ''can'' be a meaningful identifier (e.g. a LOINC code) but is not intended to have any
      * meaning. GUIDs or sequential numbers are appropriate here.
      */
-    public var linkId: String? = null,
+    public var linkId: String,
     /**
      * This element is a URI that refers to an [ElementDefinition](elementdefinition.html) that
      * provides information about this item, including information that might otherwise be included
@@ -386,7 +386,7 @@ public data class Questionnaire(
      *
      * The value may come from the ElementDefinition referred to by .definition.
      */
-    public var code: List<Coding?>? = null,
+    public var code: MutableList<Coding> = mutableListOf(),
     /**
      * A short label for a particular group, question or set of display text within the
      * questionnaire used for reference by the individual completing the questionnaire.
@@ -413,7 +413,7 @@ public data class Questionnaire(
      * Additional constraints on the type of answer can be conveyed by extensions. The value may
      * come from the ElementDefinition referred to by .definition.
      */
-    public var type: Enumeration<QuestionnaireItemType>? = null,
+    public var type: Enumeration<QuestionnaireItemType>,
     /**
      * A constraint indicating that this item should only be enabled (displayed/allow answers to be
      * captured) when the specified condition is true.
@@ -425,7 +425,7 @@ public data class Questionnaire(
      * disabled, all of its descendants are disabled, regardless of what their own enableWhen logic
      * might evaluate to.
      */
-    public var enableWhen: List<EnableWhen>? = null,
+    public var enableWhen: MutableList<EnableWhen> = mutableListOf(),
     /**
      * Controls how multiple enableWhen values are interpreted - whether all or any must be true.
      *
@@ -493,7 +493,7 @@ public data class Questionnaire(
      * This element can be used when the value set machinery of answerValueSet is deemed too
      * cumbersome or when there's a need to capture possible answers that are not codes.
      */
-    public var answerOption: List<AnswerOption>? = null,
+    public var answerOption: MutableList<AnswerOption> = mutableListOf(),
     /**
      * One or more values that should be pre-populated in the answer when initially rendering the
      * questionnaire for user input.
@@ -504,14 +504,14 @@ public data class Questionnaire(
      * results. The data type of initial[x] must agree with the item.type, and only repeating items
      * can have more then one initial value.
      */
-    public var initial: List<Initial>? = null,
+    public var initial: MutableList<Initial> = mutableListOf(),
     /**
      * Text, questions and other groups to be nested beneath a question or group.
      *
      * There is no specified limit to the depth of nesting. However, Questionnaire authors are
      * encouraged to consider the impact on the user and user interface of overly deep nesting.
      */
-    public var item: List<Item?>? = null,
+    public var item: MutableList<Item> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A constraint indicating that this item should only be enabled (displayed/allow answers to be
@@ -536,7 +536,7 @@ public data class Questionnaire(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -555,7 +555,7 @@ public data class Questionnaire(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The linkId for the question whose answer (or lack of answer) governs whether this item is
        * enabled.
@@ -564,14 +564,14 @@ public data class Questionnaire(
        * refers to the nearest question occurrence reachable by tracing first the "ancestor" axis
        * and then the "preceding" axis and then the "following" axis.
        */
-      public var question: String? = null,
+      public var question: String,
       /** Specifies the criteria by which the question is enabled. */
-      public var `operator`: Enumeration<QuestionnaireItemOperator>? = null,
+      public var `operator`: Enumeration<QuestionnaireItemOperator>,
       /**
        * A value that the referenced question is tested using the specified operator in order for
        * the item to be enabled.
        */
-      public var answer: Answer? = null,
+      public var answer: Answer,
     ) : BackboneElement() {
       @Serializable(with = QuestionnaireItemEnableWhenAnswerSerializer::class)
       public sealed interface Answer {
@@ -616,10 +616,8 @@ public data class Questionnaire(
         public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
           Answer
 
-        public data object Null : Answer
-
         public companion object {
-          public fun from(
+          internal fun from(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             decimalValue: com.google.fhir.model.r4b.Decimal?,
             integerValue: com.google.fhir.model.r4b.Integer?,
@@ -627,10 +625,10 @@ public data class Questionnaire(
             dateTimeValue: com.google.fhir.model.r4b.DateTime?,
             timeValue: com.google.fhir.model.r4b.Time?,
             stringValue: com.google.fhir.model.r4b.String?,
-            CodingValue: com.google.fhir.model.r4b.Coding?,
-            QuantityValue: com.google.fhir.model.r4b.Quantity?,
-            ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          ): Answer {
+            codingValue: com.google.fhir.model.r4b.Coding?,
+            quantityValue: com.google.fhir.model.r4b.Quantity?,
+            referenceValue: com.google.fhir.model.r4b.Reference?,
+          ): Answer? {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -638,10 +636,10 @@ public data class Questionnaire(
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (timeValue != null) return Time(timeValue)
             if (stringValue != null) return String(stringValue)
-            if (CodingValue != null) return Coding(CodingValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (codingValue != null) return Coding(codingValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -667,7 +665,7 @@ public data class Questionnaire(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -686,13 +684,13 @@ public data class Questionnaire(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A potential answer that's allowed as the answer to this question.
        *
        * The data type of the value must agree with the item.type.
        */
-      public var `value`: Value? = null,
+      public var `value`: Value,
       /**
        * Indicates whether the answer value is selected when the list of possible answers is
        * initially shown.
@@ -728,24 +726,22 @@ public data class Questionnaire(
         public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
           Value
 
-        public data object Null : Value
-
         public companion object {
-          public fun from(
+          internal fun from(
             integerValue: com.google.fhir.model.r4b.Integer?,
             dateValue: com.google.fhir.model.r4b.Date?,
             timeValue: com.google.fhir.model.r4b.Time?,
             stringValue: com.google.fhir.model.r4b.String?,
-            CodingValue: com.google.fhir.model.r4b.Coding?,
-            ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          ): Value {
+            codingValue: com.google.fhir.model.r4b.Coding?,
+            referenceValue: com.google.fhir.model.r4b.Reference?,
+          ): Value? {
             if (integerValue != null) return Integer(integerValue)
             if (dateValue != null) return Date(dateValue)
             if (timeValue != null) return Time(timeValue)
             if (stringValue != null) return String(stringValue)
-            if (CodingValue != null) return Coding(CodingValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (codingValue != null) return Coding(codingValue)
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -774,7 +770,7 @@ public data class Questionnaire(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -793,13 +789,13 @@ public data class Questionnaire(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The actual value to for an initial answer.
        *
        * The type of the initial value must be consistent with the type of the item.
        */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = QuestionnaireItemInitialValueSerializer::class)
       public sealed interface Value {
@@ -853,10 +849,8 @@ public data class Questionnaire(
         public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
           Value
 
-        public data object Null : Value
-
         public companion object {
-          public fun from(
+          internal fun from(
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             decimalValue: com.google.fhir.model.r4b.Decimal?,
             integerValue: com.google.fhir.model.r4b.Integer?,
@@ -865,11 +859,11 @@ public data class Questionnaire(
             timeValue: com.google.fhir.model.r4b.Time?,
             stringValue: com.google.fhir.model.r4b.String?,
             uriValue: com.google.fhir.model.r4b.Uri?,
-            AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-            CodingValue: com.google.fhir.model.r4b.Coding?,
-            QuantityValue: com.google.fhir.model.r4b.Quantity?,
-            ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          ): Value {
+            attachmentValue: com.google.fhir.model.r4b.Attachment?,
+            codingValue: com.google.fhir.model.r4b.Coding?,
+            quantityValue: com.google.fhir.model.r4b.Quantity?,
+            referenceValue: com.google.fhir.model.r4b.Reference?,
+          ): Value? {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -878,11 +872,11 @@ public data class Questionnaire(
             if (timeValue != null) return Time(timeValue)
             if (stringValue != null) return String(stringValue)
             if (uriValue != null) return Uri(uriValue)
-            if (AttachmentValue != null) return Attachment(AttachmentValue)
-            if (CodingValue != null) return Coding(CodingValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (attachmentValue != null) return Attachment(attachmentValue)
+            if (codingValue != null) return Coding(codingValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -894,145 +888,24 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An item with no direct answer but should have at least one child item. */
-    Group(
-      "group",
-      "http://hl7.org/fhir/item-type",
-      "Group",
-      "An item with no direct answer but should have at least one child item.",
-    ),
-    /** Text for display that will not capture an answer or have child items. */
-    Display(
-      "display",
-      "http://hl7.org/fhir/item-type",
-      "Display",
-      "Text for display that will not capture an answer or have child items.",
-    ),
-    /**
-     * An item that defines a specific answer to be captured, and which may have child items. (the
-     * answer provided in the QuestionnaireResponse should be of the defined datatype).
-     */
-    Question(
-      "question",
-      "http://hl7.org/fhir/item-type",
-      "Question",
-      "An item that defines a specific answer to be captured, and which may have child items. (the answer provided in the QuestionnaireResponse should be of the defined datatype).",
-    ),
-    /** Question with a yes/no answer (valueBoolean). */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/item-type",
-      "Boolean",
-      "Question with a yes/no answer (valueBoolean).",
-    ),
-    /** Question with is a real number answer (valueDecimal). */
-    Decimal(
-      "decimal",
-      "http://hl7.org/fhir/item-type",
-      "Decimal",
-      "Question with is a real number answer (valueDecimal).",
-    ),
-    /** Question with an integer answer (valueInteger). */
-    Integer(
-      "integer",
-      "http://hl7.org/fhir/item-type",
-      "Integer",
-      "Question with an integer answer (valueInteger).",
-    ),
-    /** Question with a date answer (valueDate). */
-    Date(
-      "date",
-      "http://hl7.org/fhir/item-type",
-      "Date",
-      "Question with a date answer (valueDate).",
-    ),
-    /** Question with a date and time answer (valueDateTime). */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/item-type",
-      "Date Time",
-      "Question with a date and time answer (valueDateTime).",
-    ),
-    /** Question with a time (hour:minute:second) answer independent of date. (valueTime). */
-    Time(
-      "time",
-      "http://hl7.org/fhir/item-type",
-      "Time",
-      "Question with a time (hour:minute:second) answer independent of date. (valueTime).",
-    ),
-    /** Question with a short (few words to short sentence) free-text entry answer (valueString). */
-    String(
-      "string",
-      "http://hl7.org/fhir/item-type",
-      "String",
-      "Question with a short (few words to short sentence) free-text entry answer (valueString).",
-    ),
-    /** Question with a long (potentially multi-paragraph) free-text entry answer (valueString). */
-    Text(
-      "text",
-      "http://hl7.org/fhir/item-type",
-      "Text",
-      "Question with a long (potentially multi-paragraph) free-text entry answer (valueString).",
-    ),
-    /** Question with a URL (website, FTP site, etc.) answer (valueUri). */
-    Url(
-      "url",
-      "http://hl7.org/fhir/item-type",
-      "Url",
-      "Question with a URL (website, FTP site, etc.) answer (valueUri).",
-    ),
-    /**
-     * Question with a Coding drawn from a list of possible answers (specified in either the
-     * answerOption property, or via the valueset referenced in the answerValueSet property) as an
-     * answer (valueCoding).
-     */
-    Choice(
-      "choice",
-      "http://hl7.org/fhir/item-type",
-      "Choice",
-      "Question with a Coding drawn from a list of possible answers (specified in either the answerOption property, or via the valueset referenced in the answerValueSet property) as an answer (valueCoding).",
-    ),
-    /**
-     * Answer is a Coding drawn from a list of possible answers (as with the choice type) or a
-     * free-text entry in a string (valueCoding or valueString).
-     */
-    Open_Choice(
-      "open-choice",
-      "http://hl7.org/fhir/item-type",
-      "Open Choice",
-      "Answer is a Coding drawn from a list of possible answers (as with the choice type) or a free-text entry in a string (valueCoding or valueString).",
-    ),
-    /** Question with binary content such as an image, PDF, etc. as an answer (valueAttachment). */
-    Attachment(
-      "attachment",
-      "http://hl7.org/fhir/item-type",
-      "Attachment",
-      "Question with binary content such as an image, PDF, etc. as an answer (valueAttachment).",
-    ),
-    /**
-     * Question with a reference to another resource (practitioner, organization, etc.) as an answer
-     * (valueReference).
-     */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/item-type",
-      "Reference",
-      "Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).",
-    ),
-    /**
-     * Question with a combination of a numeric value and unit, potentially with a comparator (<, >,
-     * etc.) as an answer. (valueQuantity) There is an extension
-     * 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to define what
-     * unit should be captured (or the unit that has a ucum conversion from the provided unit).
-     */
-    Quantity(
-      "quantity",
-      "http://hl7.org/fhir/item-type",
-      "Quantity",
-      "Question with a combination of a numeric value and unit, potentially with a comparator (<, >, etc.) as an answer. (valueQuantity) There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to define what unit should be captured (or the unit that has a ucum conversion from the provided unit).",
-    );
+    Group("group", "http://hl7.org/fhir/item-type", "Group"),
+    Display("display", "http://hl7.org/fhir/item-type", "Display"),
+    Question("question", "http://hl7.org/fhir/item-type", "Question"),
+    Boolean("boolean", "http://hl7.org/fhir/item-type", "Boolean"),
+    Decimal("decimal", "http://hl7.org/fhir/item-type", "Decimal"),
+    Integer("integer", "http://hl7.org/fhir/item-type", "Integer"),
+    Date("date", "http://hl7.org/fhir/item-type", "Date"),
+    DateTime("dateTime", "http://hl7.org/fhir/item-type", "Date Time"),
+    Time("time", "http://hl7.org/fhir/item-type", "Time"),
+    String("string", "http://hl7.org/fhir/item-type", "String"),
+    Text("text", "http://hl7.org/fhir/item-type", "Text"),
+    Url("url", "http://hl7.org/fhir/item-type", "Url"),
+    Choice("choice", "http://hl7.org/fhir/item-type", "Choice"),
+    Open_Choice("open-choice", "http://hl7.org/fhir/item-type", "Open Choice"),
+    Attachment("attachment", "http://hl7.org/fhir/item-type", "Attachment"),
+    Reference("reference", "http://hl7.org/fhir/item-type", "Reference"),
+    Quantity("quantity", "http://hl7.org/fhir/item-type", "Quantity");
 
     override fun toString(): kotlin.String = code
 
@@ -1041,8 +914,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemType =
@@ -1075,22 +946,9 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Enable the question when all the enableWhen criteria are satisfied. */
-    All(
-      "all",
-      "http://hl7.org/fhir/questionnaire-enable-behavior",
-      "All",
-      "Enable the question when all the enableWhen criteria are satisfied.",
-    ),
-    /** Enable the question when any of the enableWhen criteria are satisfied. */
-    Any(
-      "any",
-      "http://hl7.org/fhir/questionnaire-enable-behavior",
-      "Any",
-      "Enable the question when any of the enableWhen criteria are satisfied.",
-    );
+    All("all", "http://hl7.org/fhir/questionnaire-enable-behavior", "All"),
+    Any("any", "http://hl7.org/fhir/questionnaire-enable-behavior", "Any");
 
     override fun toString(): kotlin.String = code
 
@@ -1099,8 +957,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EnableWhenBehavior =
@@ -1117,67 +973,18 @@ public data class Questionnaire(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * True if whether an answer exists is equal to the enableWhen answer (which must be a boolean).
-     */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Exists",
-      "True if whether an answer exists is equal to the enableWhen answer (which must be a boolean).",
-    ),
-    /** True if whether at least one answer has a value that is equal to the enableWhen answer. */
-    EqualTo(
-      "=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Equals",
-      "True if whether at least one answer has a value that is equal to the enableWhen answer.",
-    ),
-    /** True if whether at least no answer has a value that is equal to the enableWhen answer. */
-    NotEqualTo(
-      "!=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Not Equals",
-      "True if whether at least no answer has a value that is equal to the enableWhen answer.",
-    ),
-    /**
-     * True if whether at least no answer has a value that is greater than the enableWhen answer.
-     */
-    GreaterThan(
-      ">",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Greater Than",
-      "True if whether at least no answer has a value that is greater than the enableWhen answer.",
-    ),
-    /** True if whether at least no answer has a value that is less than the enableWhen answer. */
-    LessThan(
-      "<",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less Than",
-      "True if whether at least no answer has a value that is less than the enableWhen answer.",
-    ),
-    /**
-     * True if whether at least no answer has a value that is greater or equal to the enableWhen
-     * answer.
-     */
+    Exists("exists", "http://hl7.org/fhir/questionnaire-enable-operator", "Exists"),
+    EqualTo("=", "http://hl7.org/fhir/questionnaire-enable-operator", "Equals"),
+    NotEqualTo("!=", "http://hl7.org/fhir/questionnaire-enable-operator", "Not Equals"),
+    GreaterThan(">", "http://hl7.org/fhir/questionnaire-enable-operator", "Greater Than"),
+    LessThan("<", "http://hl7.org/fhir/questionnaire-enable-operator", "Less Than"),
     GreaterThanOrEqualTo(
       ">=",
       "http://hl7.org/fhir/questionnaire-enable-operator",
       "Greater or Equals",
-      "True if whether at least no answer has a value that is greater or equal to the enableWhen answer.",
     ),
-    /**
-     * True if whether at least no answer has a value that is less or equal to the enableWhen
-     * answer.
-     */
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/questionnaire-enable-operator",
-      "Less or Equals",
-      "True if whether at least no answer has a value that is less or equal to the enableWhen answer.",
-    );
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/questionnaire-enable-operator", "Less or Equals");
 
     override fun toString(): kotlin.String = code
 
@@ -1186,8 +993,6 @@ public data class Questionnaire(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireItemOperator =

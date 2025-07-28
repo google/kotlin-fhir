@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.ConsentSerializer
 import com.google.fhir.model.r5.serializers.ConsentVerificationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -103,7 +103,7 @@ public data class Consent(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class Consent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class Consent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique identifier for this copy of the Consent Statement.
    *
@@ -143,19 +143,19 @@ public data class Consent(
    * elsewhere as the identifier for a consent record (e.g. a CDA consent document) then the consent
    * details are expected to be the same.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates the current state of this Consent resource.
    *
    * This element is labeled as a modifier because the status contains the codes rejected and
    * entered-in-error that mark the Consent as not currently valid.
    */
-  public var status: Enumeration<ConsentState>? = null,
+  public var status: Enumeration<ConsentState>,
   /**
    * A classification of the type of consents found in the statement. This element supports indexing
    * and retrieval of consent statements.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** The patient/healthcare practitioner or group of persons to whom this consent applies. */
   public var subject: Reference? = null,
   /** Date the consent instance was agreed to. */
@@ -166,7 +166,7 @@ public data class Consent(
    */
   public var period: Period? = null,
   /** The entity responsible for granting the rights listed in a Consent Directive. */
-  public var grantor: List<Reference?>? = null,
+  public var grantor: MutableList<Reference> = mutableListOf(),
   /**
    * The entity responsible for complying with the Consent Directive, including any obligations or
    * limitations on authorizations and enforcement of prohibitions.
@@ -174,11 +174,11 @@ public data class Consent(
    * In a fully computable consent, both grantee and grantor will be listed as actors within the
    * consent. The Grantee and Grantor elements are for ease of search only.
    */
-  public var grantee: List<Reference?>? = null,
+  public var grantee: MutableList<Reference> = mutableListOf(),
   /** The actor that manages the consent through its lifecycle. */
-  public var manager: List<Reference?>? = null,
+  public var manager: MutableList<Reference> = mutableListOf(),
   /** The actor that controls/enforces the access according to the consent. */
-  public var controller: List<Reference?>? = null,
+  public var controller: MutableList<Reference> = mutableListOf(),
   /**
    * The source on which this consent statement is based. The source might be a scanned original
    * paper form.
@@ -187,7 +187,7 @@ public data class Consent(
    * consent repository (DocumentReference), or simply by an identifier (Identifier), e.g. a CDA
    * document id.
    */
-  public var sourceAttachment: List<Attachment?>? = null,
+  public var sourceAttachment: MutableList<Attachment> = mutableListOf(),
   /**
    * A reference to a consent that links back to such a source, a reference to a document repository
    * (e.g. XDS) that stores the original consent document.
@@ -196,9 +196,9 @@ public data class Consent(
    * consent repository (DocumentReference), or simply by an identifier (Identifier), e.g. a CDA
    * document id.
    */
-  public var sourceReference: List<Reference?>? = null,
+  public var sourceReference: MutableList<Reference> = mutableListOf(),
   /** A set of codes that indicate the regulatory basis (if any) that this consent supports. */
-  public var regulatoryBasis: List<CodeableConcept?>? = null,
+  public var regulatoryBasis: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A Reference or URL used to uniquely identify the policy the organization will enforce for this
    * Consent. This Reference or URL should be specific to the version of the policy and should be
@@ -206,19 +206,19 @@ public data class Consent(
    */
   public var policyBasis: PolicyBasis? = null,
   /** A Reference to the human readable policy explaining the basis for the Consent. */
-  public var policyText: List<Reference?>? = null,
+  public var policyText: MutableList<Reference> = mutableListOf(),
   /**
    * Whether a treatment instruction (e.g. artificial respiration: yes or no) was verified with the
    * patient, his/her family or another authorized person.
    */
-  public var verification: List<Verification>? = null,
+  public var verification: MutableList<Verification> = mutableListOf(),
   /** Action to take - permit or deny - as default. */
   public var decision: Enumeration<ConsentProvisionType>? = null,
   /**
    * An exception to the base policy of this consent. An exception can be an addition or removal of
    * access permissions.
    */
-  public var provision: List<Provision>? = null,
+  public var provision: MutableList<Provision> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A Reference or URL used to uniquely identify the policy the organization will enforce for this
@@ -244,7 +244,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -263,7 +263,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A Reference that identifies the policy the organization will enforce for this Consent.
      *
@@ -300,7 +300,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -319,9 +319,9 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Has the instruction been verified. */
-    public var verified: Boolean? = null,
+    public var verified: Boolean,
     /**
      * Extensible list of verification type starting with verification and re-validation.
      *
@@ -338,7 +338,7 @@ public data class Consent(
      *
      * Allows for history of verification/validation.
      */
-    public var verificationDate: List<DateTime?>? = null,
+    public var verificationDate: MutableList<DateTime> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -364,7 +364,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -383,7 +383,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Timeframe for this provision.
      *
@@ -395,7 +395,7 @@ public data class Consent(
      * Who or what is controlled by this provision. Use group to identify a set of actors by some
      * property they share (e.g. 'admitting officers').
      */
-    public var actor: List<Actor>? = null,
+    public var actor: MutableList<Actor> = mutableListOf(),
     /**
      * Actions controlled by this provision.
      *
@@ -403,7 +403,7 @@ public data class Consent(
      * element). At present, the only action in the understood and tested scope of this resource is
      * 'read'.
      */
-    public var action: List<CodeableConcept?>? = null,
+    public var action: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * A security label, comprised of 0..* security label fields (Privacy tags), which define which
      * resources are controlled by this exception.
@@ -413,14 +413,14 @@ public data class Consent(
      * security labels, subsumption logic applies. When the purpose of use tag is on the data,
      * access request purpose of use shall not conflict.
      */
-    public var securityLabel: List<Coding?>? = null,
+    public var securityLabel: MutableList<Coding> = mutableListOf(),
     /**
      * The context of the activities a user is taking - why the user is accessing the data - that
      * are controlled by this provision.
      *
      * When the purpose of use tag is on the data, access request purpose of use shall not conflict.
      */
-    public var purpose: List<Coding?>? = null,
+    public var purpose: MutableList<Coding> = mutableListOf(),
     /**
      * The documentType(s) covered by this provision. The type can be a CDA document, or some other
      * type that indicates what sort of information the consent relates to.
@@ -428,7 +428,7 @@ public data class Consent(
      * Multiple types are or'ed together. The intention of the documentType element is that the
      * codes refer to document types defined in a standard somewhere.
      */
-    public var documentType: List<Coding?>? = null,
+    public var documentType: MutableList<Coding> = mutableListOf(),
     /**
      * The resourceType(s) covered by this provision. The type can be a FHIR resource type or a
      * profile on a type that indicates what information the consent relates to.
@@ -437,9 +437,9 @@ public data class Consent(
      * codes refer to profiles or document types defined in a standard or an implementation guide
      * somewhere.
      */
-    public var resourceType: List<Coding?>? = null,
+    public var resourceType: MutableList<Coding> = mutableListOf(),
     /** If this code is found in an instance, then the provision applies. */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Clinical or Operational Relevant period of time that bounds the data controlled by this
      * provision.
@@ -449,7 +449,7 @@ public data class Consent(
      */
     public var dataPeriod: Period? = null,
     /** The resources controlled by this provision if specific resources are referenced. */
-    public var `data`: List<Data>? = null,
+    public var `data`: MutableList<Data> = mutableListOf(),
     /**
      * A computable (FHIRPath or other) definition of what is controlled by this consent.
      *
@@ -457,7 +457,7 @@ public data class Consent(
      */
     public var expression: Expression? = null,
     /** Provisions which provide exceptions to the base provision or subprovisions. */
-    public var provision: List<Provision?>? = null,
+    public var provision: MutableList<Provision> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Who or what is controlled by this provision. Use group to identify a set of actors by some
@@ -482,7 +482,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -501,7 +501,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * How the individual is involved in the resources content that is described in the exception.
        */
@@ -533,7 +533,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -552,14 +552,14 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** How the resource reference is interpreted when testing consent restrictions. */
-      public var meaning: Enumeration<ConsentDataMeaning>? = null,
+      public var meaning: Enumeration<ConsentDataMeaning>,
       /**
        * A reference to a specific resource that defines which resources are covered by this
        * consent.
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
     ) : BackboneElement()
   }
 
@@ -568,38 +568,11 @@ public data class Consent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The consent applies directly to the instance of the resource. */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "Instance",
-      "The consent applies directly to the instance of the resource.",
-    ),
-    /** The consent applies directly to the instance of the resource and instances it refers to. */
-    Related(
-      "related",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "Related",
-      "The consent applies directly to the instance of the resource and instances it refers to.",
-    ),
-    /**
-     * The consent applies directly to the instance of the resource and instances that refer to it.
-     */
-    Dependents(
-      "dependents",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "Dependents",
-      "The consent applies directly to the instance of the resource and instances that refer to it.",
-    ),
-    /** The consent applies to instances of resources that are authored by. */
-    Authoredby(
-      "authoredby",
-      "http://hl7.org/fhir/consent-data-meaning",
-      "AuthoredBy",
-      "The consent applies to instances of resources that are authored by.",
-    );
+    Instance("instance", "http://hl7.org/fhir/consent-data-meaning", "Instance"),
+    Related("related", "http://hl7.org/fhir/consent-data-meaning", "Related"),
+    Dependents("dependents", "http://hl7.org/fhir/consent-data-meaning", "Dependents"),
+    Authoredby("authoredby", "http://hl7.org/fhir/consent-data-meaning", "AuthoredBy");
 
     override fun toString(): String = code
 
@@ -608,8 +581,6 @@ public data class Consent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentDataMeaning =
@@ -628,50 +599,17 @@ public data class Consent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The consent is in development or awaiting use but is not yet intended to be acted upon. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/consent-state-codes",
-      "Pending",
-      "The consent is in development or awaiting use but is not yet intended to be acted upon.",
-    ),
-    /** The consent is to be followed and enforced. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/consent-state-codes",
-      "Active",
-      "The consent is to be followed and enforced.",
-    ),
-    /** The consent is terminated or replaced. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/consent-state-codes",
-      "Inactive",
-      "The consent is terminated or replaced.",
-    ),
-    /** The consent development has been terminated prior to completion. */
-    Not_Done(
-      "not-done",
-      "http://hl7.org/fhir/consent-state-codes",
-      "Abandoned",
-      "The consent development has been terminated prior to completion.",
-    ),
-    /** The consent was created wrongly (e.g. wrong patient) and should be ignored. */
+    Draft("draft", "http://hl7.org/fhir/consent-state-codes", "Pending"),
+    Active("active", "http://hl7.org/fhir/consent-state-codes", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/consent-state-codes", "Inactive"),
+    Not_Done("not-done", "http://hl7.org/fhir/consent-state-codes", "Abandoned"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/consent-state-codes",
       "Entered in Error",
-      "The consent was created wrongly (e.g. wrong patient) and should be ignored.",
     ),
-    /** The resource is in an indeterminate state. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/consent-state-codes",
-      "Unknown",
-      "The resource is in an indeterminate state.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/consent-state-codes", "Unknown");
 
     override fun toString(): String = code
 
@@ -680,8 +618,6 @@ public data class Consent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentState =
@@ -702,22 +638,9 @@ public data class Consent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Consent is denied for actions meeting these rules. */
-    Deny(
-      "deny",
-      "http://hl7.org/fhir/consent-provision-type",
-      "Deny",
-      "Consent is denied for actions meeting these rules.",
-    ),
-    /** Consent is provided for actions meeting these rules. */
-    Permit(
-      "permit",
-      "http://hl7.org/fhir/consent-provision-type",
-      "Permit",
-      "Consent is provided for actions meeting these rules.",
-    );
+    Deny("deny", "http://hl7.org/fhir/consent-provision-type", "Deny"),
+    Permit("permit", "http://hl7.org/fhir/consent-provision-type", "Permit");
 
     override fun toString(): String = code
 
@@ -726,8 +649,6 @@ public data class Consent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ConsentProvisionType =

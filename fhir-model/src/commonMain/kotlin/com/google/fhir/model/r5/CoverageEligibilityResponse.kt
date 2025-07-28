@@ -29,7 +29,7 @@ import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsurance
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseServicedSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -105,7 +105,7 @@ public data class CoverageEligibilityResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class CoverageEligibilityResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,33 +137,33 @@ public data class CoverageEligibilityResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this coverage eligiblity request. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<EligibilityResponseStatus>? = null,
+  public var status: Enumeration<EligibilityResponseStatus>,
   /**
    * Code to specify whether requesting: prior authorization requirements for some service
    * categories or billing codes; benefits for coverages specified or discovered; discovery and
    * return of coverages for the patient; and/or validation that the specified coverage is in-force
    * at the date/period specified or 'now' if not specified.
    */
-  public var purpose: List<Enumeration<EligibilityResponsePurpose>>? = null,
+  public var purpose: MutableList<Enumeration<EligibilityResponsePurpose>> = mutableListOf(),
   /**
    * The party who is the beneficiary of the supplied coverage and for whom eligibility is sought.
    */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** Information code for an event with a corresponding date or period. */
-  public var event: List<Event>? = null,
+  public var event: MutableList<Event> = mutableListOf(),
   /** The date or dates when the enclosed suite of services were performed or completed. */
   public var serviced: Serviced? = null,
   /** The date this resource was created. */
-  public var created: DateTime? = null,
+  public var created: DateTime,
   /**
    * The provider which is responsible for the request.
    *
@@ -173,7 +173,7 @@ public data class CoverageEligibilityResponse(
    */
   public var requestor: Reference? = null,
   /** Reference to the original request resource. */
-  public var request: Reference? = null,
+  public var request: Reference,
   /**
    * The outcome of the request processing.
    *
@@ -182,11 +182,11 @@ public data class CoverageEligibilityResponse(
    * the adjudication has been undertaken (partial) or that all of the adjudication has been
    * undertaken (complete).
    */
-  public var outcome: Enumeration<EligibilityOutcome>? = null,
+  public var outcome: Enumeration<EligibilityOutcome>,
   /** A human readable description of the status of the adjudication. */
   public var disposition: String? = null,
   /** The Insurer who issued the coverage in question and is the author of the response. */
-  public var insurer: Reference? = null,
+  public var insurer: Reference,
   /**
    * Financial instruments for reimbursement for the health care products and services.
    *
@@ -198,7 +198,7 @@ public data class CoverageEligibilityResponse(
    * 'subrogation=false', should provide a reference to the ClaimResponse containing the
    * adjudication results of the prior claim.
    */
-  public var insurance: List<Insurance>? = null,
+  public var insurance: MutableList<Insurance> = mutableListOf(),
   /**
    * A reference from the Insurer to which these services pertain to be used on further
    * communication and as proof that the request occurred.
@@ -211,7 +211,7 @@ public data class CoverageEligibilityResponse(
    */
   public var form: CodeableConcept? = null,
   /** Errors encountered during the processing of the request. */
-  public var error: List<Error>? = null,
+  public var error: MutableList<Error> = mutableListOf(),
 ) : DomainResource() {
   /** Information code for an event with a corresponding date or period. */
   @Serializable(with = CoverageEligibilityResponseEventSerializer::class)
@@ -233,7 +233,7 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -252,14 +252,14 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A coded event such as when a service is expected or a card printed. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * A date or period in the past or future indicating when the event occurred or is expectd to
      * occur.
      */
-    public var `when`: When? = null,
+    public var `when`: When,
   ) : BackboneElement() {
     @Serializable(with = CoverageEligibilityResponseEventWhenSerializer::class)
     public sealed interface When {
@@ -271,16 +271,14 @@ public data class CoverageEligibilityResponse(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : When
 
-      public data object Null : When
-
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-        ): When {
+          periodValue: com.google.fhir.model.r5.Period?,
+        ): When? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          return Null
+          if (periodValue != null) return Period(periodValue)
+          return null
         }
       }
     }
@@ -306,7 +304,7 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -325,13 +323,13 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Reference to the insurance card level information contained in the Coverage resource. The
      * coverage issuing insurer will use these details to locate the patient's actual coverage
      * within the insurer's information system.
      */
-    public var coverage: Reference? = null,
+    public var coverage: Reference,
     /**
      * Flag indicating if the coverage provided is inforce currently if no service date(s) specified
      * or for the whole duration of the service dates.
@@ -342,7 +340,7 @@ public data class CoverageEligibilityResponse(
     /**
      * Benefits and optionally current balances, and authorization details by category or service.
      */
-    public var item: List<Item>? = null,
+    public var item: MutableList<Item> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Benefits and optionally current balances, and authorization details by category or service.
@@ -366,7 +364,7 @@ public data class CoverageEligibilityResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -385,7 +383,7 @@ public data class CoverageEligibilityResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Code to identify the general type of benefits under which products and services are
        * provided.
@@ -407,7 +405,7 @@ public data class CoverageEligibilityResponse(
        * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for
        * Medical whether the treatment was outside the clinic or out of office hours.
        */
-      public var modifier: List<CodeableConcept?>? = null,
+      public var modifier: MutableList<CodeableConcept> = mutableListOf(),
       /** The practitioner who is eligible for the provision of the product or service. */
       public var provider: Reference? = null,
       /**
@@ -441,7 +439,7 @@ public data class CoverageEligibilityResponse(
        */
       public var term: CodeableConcept? = null,
       /** Benefits used to date. */
-      public var benefit: List<Benefit>? = null,
+      public var benefit: MutableList<Benefit> = mutableListOf(),
       /**
        * A boolean flag indicating whether a preauthorization is required prior to actual service
        * delivery.
@@ -450,7 +448,7 @@ public data class CoverageEligibilityResponse(
       /**
        * Codes or comments regarding information or actions associated with the preauthorization.
        */
-      public var authorizationSupporting: List<CodeableConcept?>? = null,
+      public var authorizationSupporting: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * A web location for obtaining requirements or descriptive information regarding the
        * preauthorization.
@@ -477,7 +475,7 @@ public data class CoverageEligibilityResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -496,13 +494,13 @@ public data class CoverageEligibilityResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Classification of benefit being provided.
          *
          * For example: deductible, visits, benefit amount.
          */
-        public var type: CodeableConcept? = null,
+        public var type: CodeableConcept,
         /** The quantity of the benefit which is permitted under the coverage. */
         public var allowed: Allowed? = null,
         /** The quantity of the benefit which have been consumed to date. */
@@ -525,18 +523,16 @@ public data class CoverageEligibilityResponse(
 
           public data class Money(public val `value`: com.google.fhir.model.r5.Money) : Allowed
 
-          public data object Null : Allowed
-
           public companion object {
-            public fun from(
+            internal fun from(
               unsignedIntValue: com.google.fhir.model.r5.UnsignedInt?,
               stringValue: com.google.fhir.model.r5.String?,
-              MoneyValue: com.google.fhir.model.r5.Money?,
-            ): Allowed {
+              moneyValue: com.google.fhir.model.r5.Money?,
+            ): Allowed? {
               if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
               if (stringValue != null) return String(stringValue)
-              if (MoneyValue != null) return Money(MoneyValue)
-              return Null
+              if (moneyValue != null) return Money(moneyValue)
+              return null
             }
           }
         }
@@ -556,18 +552,16 @@ public data class CoverageEligibilityResponse(
 
           public data class Money(public val `value`: com.google.fhir.model.r5.Money) : Used
 
-          public data object Null : Used
-
           public companion object {
-            public fun from(
+            internal fun from(
               unsignedIntValue: com.google.fhir.model.r5.UnsignedInt?,
               stringValue: com.google.fhir.model.r5.String?,
-              MoneyValue: com.google.fhir.model.r5.Money?,
-            ): Used {
+              moneyValue: com.google.fhir.model.r5.Money?,
+            ): Used? {
               if (unsignedIntValue != null) return UnsignedInt(unsignedIntValue)
               if (stringValue != null) return String(stringValue)
-              if (MoneyValue != null) return Money(MoneyValue)
-              return Null
+              if (moneyValue != null) return Money(moneyValue)
+              return null
             }
           }
         }
@@ -595,7 +589,7 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -614,12 +608,12 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An error code,from a specified code system, which details why the eligibility check could not
      * be performed.
      */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * A [simple subset of FHIRPath](fhirpath.html#simple) limited to element names, repetition
      * indicators and the default child accessor that identifies one of the elements in the resource
@@ -628,7 +622,7 @@ public data class CoverageEligibilityResponse(
      * The root of the FHIRPath is the resource or bundle that generated OperationOutcome. Each
      * FHIRPath SHALL resolve to a single node.
      */
-    public var expression: List<String?>? = null,
+    public var expression: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = CoverageEligibilityResponseServicedSerializer::class)
@@ -641,16 +635,14 @@ public data class CoverageEligibilityResponse(
 
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Serviced
 
-    public data object Null : Serviced
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateValue: com.google.fhir.model.r5.Date?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-      ): Serviced {
+        periodValue: com.google.fhir.model.r5.Period?,
+      ): Serviced? {
         if (dateValue != null) return Date(dateValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -660,36 +652,11 @@ public data class CoverageEligibilityResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -698,8 +665,6 @@ public data class CoverageEligibilityResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EligibilityResponseStatus =
@@ -719,44 +684,18 @@ public data class CoverageEligibilityResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The prior authorization requirements for the listed, or discovered if specified, converages
-     * for the categories of service and/or specifed biling codes are requested.
-     */
     Auth_Requirements(
       "auth-requirements",
       "http://hl7.org/fhir/eligibilityresponse-purpose",
       "Coverage auth-requirements",
-      "The prior authorization requirements for the listed, or discovered if specified, converages for the categories of service and/or specifed biling codes are requested.",
     ),
-    /**
-     * The plan benefits and optionally benefits consumed for the listed, or discovered if
-     * specified, converages are requested.
-     */
-    Benefits(
-      "benefits",
-      "http://hl7.org/fhir/eligibilityresponse-purpose",
-      "Coverage benefits",
-      "The plan benefits and optionally benefits consumed  for the listed, or discovered if specified, converages are requested.",
-    ),
-    /**
-     * The insurer is requested to report on any coverages which they are aware of in addition to
-     * any specifed.
-     */
-    Discovery(
-      "discovery",
-      "http://hl7.org/fhir/eligibilityresponse-purpose",
-      "Coverage Discovery",
-      "The insurer is requested to report on any coverages which they are aware of in addition to any specifed.",
-    ),
-    /** A check that the specified coverages are in-force is requested. */
+    Benefits("benefits", "http://hl7.org/fhir/eligibilityresponse-purpose", "Coverage benefits"),
+    Discovery("discovery", "http://hl7.org/fhir/eligibilityresponse-purpose", "Coverage Discovery"),
     Validation(
       "validation",
       "http://hl7.org/fhir/eligibilityresponse-purpose",
       "Coverage Validation",
-      "A check that the specified coverages are in-force is requested.",
     );
 
     override fun toString(): kotlin.String = code
@@ -766,8 +705,6 @@ public data class CoverageEligibilityResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EligibilityResponsePurpose =
@@ -787,40 +724,11 @@ public data class CoverageEligibilityResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.
-     */
-    Queued(
-      "queued",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Queued",
-      "The Claim/Pre-authorization/Pre-determination has been received but processing has not begun.",
-    ),
-    /** The processing has completed without errors */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Processing Complete",
-      "The processing has completed without errors",
-    ),
-    /** One or more errors have been detected in the Claim */
-    Error(
-      "error",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Error",
-      "One or more errors have been detected in the Claim",
-    ),
-    /**
-     * No errors have been detected in the Claim and some of the adjudication has been performed.
-     */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/eligibility-outcome",
-      "Partial Processing",
-      "No errors have been detected in the Claim and some of the adjudication has been performed.",
-    );
+    Queued("queued", "http://hl7.org/fhir/eligibility-outcome", "Queued"),
+    Complete("complete", "http://hl7.org/fhir/eligibility-outcome", "Processing Complete"),
+    Error("error", "http://hl7.org/fhir/eligibility-outcome", "Error"),
+    Partial("partial", "http://hl7.org/fhir/eligibility-outcome", "Partial Processing");
 
     override fun toString(): kotlin.String = code
 
@@ -829,8 +737,6 @@ public data class CoverageEligibilityResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EligibilityOutcome =

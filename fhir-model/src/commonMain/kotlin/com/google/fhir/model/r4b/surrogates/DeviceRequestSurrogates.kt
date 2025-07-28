@@ -45,23 +45,19 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class DeviceRequestParameterValueSurrogate {
-  public var valueCodeableConcept: CodeableConcept? = null
-
-  public var valueQuantity: Quantity? = null
-
-  public var valueRange: Range? = null
-
-  public var valueBoolean: KotlinBoolean? = null
-
-  public var _valueBoolean: Element? = null
-
-  public fun toModel(): DeviceRequest.Parameter.Value =
+internal data class DeviceRequestParameterValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+) {
+  public fun toModel(): DeviceRequest.Parameter.Value? =
     DeviceRequest.Parameter.Value?.from(
       this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
       this@DeviceRequestParameterValueSurrogate.valueQuantity,
@@ -70,7 +66,7 @@ internal class DeviceRequestParameterValueSurrogate {
         this@DeviceRequestParameterValueSurrogate.valueBoolean,
         this@DeviceRequestParameterValueSurrogate._valueBoolean,
       ),
-    ) ?: DeviceRequest.Parameter.Value.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -78,11 +74,15 @@ internal class DeviceRequestParameterValueSurrogate {
     ): DeviceRequestParameterValueSurrogate =
       with(model) {
         DeviceRequestParameterValueSurrogate().apply {
-          valueCodeableConcept = this@with.asCodeableConcept()?.value
-          valueQuantity = this@with.asQuantity()?.value
-          valueRange = this@with.asRange()?.value
-          valueBoolean = this@with.asBoolean()?.value?.value
-          _valueBoolean = this@with.asBoolean()?.value?.toElement()
+          DeviceRequest.Parameter.Value?.from(
+            this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
+            this@DeviceRequestParameterValueSurrogate.valueQuantity,
+            this@DeviceRequestParameterValueSurrogate.valueRange,
+            R4bBoolean.of(
+              this@DeviceRequestParameterValueSurrogate.valueBoolean,
+              this@DeviceRequestParameterValueSurrogate._valueBoolean,
+            ),
+          )
         }
       }
   }
@@ -91,68 +91,66 @@ internal class DeviceRequestParameterValueSurrogate {
 @Serializable
 internal data class DeviceRequestParameterSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var `value`: DeviceRequest.Parameter.Value? = null,
 ) {
   public fun toModel(): DeviceRequest.Parameter =
-    DeviceRequest.Parameter().apply {
-      id = this@DeviceRequestParameterSurrogate.id
-      extension = this@DeviceRequestParameterSurrogate.extension
-      modifierExtension = this@DeviceRequestParameterSurrogate.modifierExtension
-      code = this@DeviceRequestParameterSurrogate.code
-      `value` = this@DeviceRequestParameterSurrogate.`value`
-    }
+    DeviceRequest.Parameter(
+      id = this@DeviceRequestParameterSurrogate.id,
+      extension = this@DeviceRequestParameterSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DeviceRequestParameterSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@DeviceRequestParameterSurrogate.code,
+      `value` = this@DeviceRequestParameterSurrogate.`value`,
+    )
 
   public companion object {
     public fun fromModel(model: DeviceRequest.Parameter): DeviceRequestParameterSurrogate =
       with(model) {
-        DeviceRequestParameterSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          `value` = this@with.`value`
-        }
+        DeviceRequestParameterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          `value` = this@with.`value`,
+        )
       }
   }
 }
 
 @Serializable
-internal class DeviceRequestCodeSurrogate {
-  public var codeReference: Reference? = null
-
-  public var codeCodeableConcept: CodeableConcept? = null
-
+internal data class DeviceRequestCodeSurrogate(
+  public var codeReference: Reference? = null,
+  public var codeCodeableConcept: CodeableConcept? = null,
+) {
   public fun toModel(): DeviceRequest.Code =
-    DeviceRequest.Code?.from(
+    DeviceRequest.Code.from(
       this@DeviceRequestCodeSurrogate.codeReference,
       this@DeviceRequestCodeSurrogate.codeCodeableConcept,
-    ) ?: DeviceRequest.Code.Null
+    )!!
 
   public companion object {
     public fun fromModel(model: DeviceRequest.Code): DeviceRequestCodeSurrogate =
       with(model) {
         DeviceRequestCodeSurrogate().apply {
-          codeReference = this@with.asReference()?.value
-          codeCodeableConcept = this@with.asCodeableConcept()?.value
+          DeviceRequest.Code.from(
+            this@DeviceRequestCodeSurrogate.codeReference,
+            this@DeviceRequestCodeSurrogate.codeCodeableConcept,
+          )!!
         }
       }
   }
 }
 
 @Serializable
-internal class DeviceRequestOccurrenceSurrogate {
-  public var occurrenceDateTime: String? = null
-
-  public var _occurrenceDateTime: Element? = null
-
-  public var occurrencePeriod: Period? = null
-
-  public var occurrenceTiming: Timing? = null
-
-  public fun toModel(): DeviceRequest.Occurrence =
+internal data class DeviceRequestOccurrenceSurrogate(
+  public var occurrenceDateTime: String? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): DeviceRequest.Occurrence? =
     DeviceRequest.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@DeviceRequestOccurrenceSurrogate.occurrenceDateTime),
@@ -160,16 +158,20 @@ internal class DeviceRequestOccurrenceSurrogate {
       ),
       this@DeviceRequestOccurrenceSurrogate.occurrencePeriod,
       this@DeviceRequestOccurrenceSurrogate.occurrenceTiming,
-    ) ?: DeviceRequest.Occurrence.Null
+    )
 
   public companion object {
     public fun fromModel(model: DeviceRequest.Occurrence): DeviceRequestOccurrenceSurrogate =
       with(model) {
         DeviceRequestOccurrenceSurrogate().apply {
-          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.asPeriod()?.value
-          occurrenceTiming = this@with.asTiming()?.value
+          DeviceRequest.Occurrence?.from(
+            DateTime.of(
+              FhirDateTime.fromString(this@DeviceRequestOccurrenceSurrogate.occurrenceDateTime),
+              this@DeviceRequestOccurrenceSurrogate._occurrenceDateTime,
+            ),
+            this@DeviceRequestOccurrenceSurrogate.occurrencePeriod,
+            this@DeviceRequestOccurrenceSurrogate.occurrenceTiming,
+          )
         }
       }
   }
@@ -184,16 +186,16 @@ internal data class DeviceRequestSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var instantiatesCanonical: List<String?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<String?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var priorRequest: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var instantiatesCanonical: MutableList<String?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<String?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var priorRequest: MutableList<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: String? = null,
   public var _status: Element? = null,
@@ -201,45 +203,45 @@ internal data class DeviceRequestSurrogate(
   public var _intent: Element? = null,
   public var priority: String? = null,
   public var _priority: Element? = null,
-  public var parameter: List<DeviceRequest.Parameter>? = null,
-  public var subject: Reference? = null,
+  public var parameter: MutableList<DeviceRequest.Parameter>? = null,
+  public var subject: Reference,
   public var encounter: Reference? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
   public var performerType: CodeableConcept? = null,
   public var performer: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var insurance: List<Reference?>? = null,
-  public var supportingInfo: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var relevantHistory: List<Reference?>? = null,
-  public var code: DeviceRequest.Code? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var insurance: MutableList<Reference>? = null,
+  public var supportingInfo: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var relevantHistory: MutableList<Reference>? = null,
+  public var code: DeviceRequest.Code,
   public var occurrence: DeviceRequest.Occurrence? = null,
 ) {
   public fun toModel(): DeviceRequest =
-    DeviceRequest().apply {
-      id = this@DeviceRequestSurrogate.id
-      meta = this@DeviceRequestSurrogate.meta
+    DeviceRequest(
+      id = this@DeviceRequestSurrogate.id,
+      meta = this@DeviceRequestSurrogate.meta,
       implicitRules =
         Uri.of(
           this@DeviceRequestSurrogate.implicitRules,
           this@DeviceRequestSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@DeviceRequestSurrogate.language, this@DeviceRequestSurrogate._language)
-      text = this@DeviceRequestSurrogate.text
-      contained = this@DeviceRequestSurrogate.contained
-      extension = this@DeviceRequestSurrogate.extension
-      modifierExtension = this@DeviceRequestSurrogate.modifierExtension
-      identifier = this@DeviceRequestSurrogate.identifier
+        Code.of(this@DeviceRequestSurrogate.language, this@DeviceRequestSurrogate._language),
+      text = this@DeviceRequestSurrogate.text,
+      contained = this@DeviceRequestSurrogate.contained ?: mutableListOf(),
+      extension = this@DeviceRequestSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DeviceRequestSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DeviceRequestSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@DeviceRequestSurrogate.instantiatesCanonical == null &&
             this@DeviceRequestSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@DeviceRequestSurrogate.instantiatesCanonical
               ?: List(this@DeviceRequestSurrogate._instantiatesCanonical!!.size) { null })
@@ -247,14 +249,15 @@ internal data class DeviceRequestSurrogate(
               this@DeviceRequestSurrogate._instantiatesCanonical
                 ?: List(this@DeviceRequestSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@DeviceRequestSurrogate.instantiatesUri == null &&
             this@DeviceRequestSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@DeviceRequestSurrogate.instantiatesUri
               ?: List(this@DeviceRequestSurrogate._instantiatesUri!!.size) { null })
@@ -262,104 +265,117 @@ internal data class DeviceRequestSurrogate(
               this@DeviceRequestSurrogate._instantiatesUri
                 ?: List(this@DeviceRequestSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      basedOn = this@DeviceRequestSurrogate.basedOn
-      priorRequest = this@DeviceRequestSurrogate.priorRequest
-      groupIdentifier = this@DeviceRequestSurrogate.groupIdentifier
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      basedOn = this@DeviceRequestSurrogate.basedOn ?: mutableListOf(),
+      priorRequest = this@DeviceRequestSurrogate.priorRequest ?: mutableListOf(),
+      groupIdentifier = this@DeviceRequestSurrogate.groupIdentifier,
       status =
-        Enumeration.of(
-          this@DeviceRequestSurrogate.status?.let {
-            com.google.fhir.model.r4b.DeviceRequest.DeviceRequestStatus.fromCode(it)
-          },
-          this@DeviceRequestSurrogate._status,
-        )
+        this@DeviceRequestSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.DeviceRequest.DeviceRequestStatus.fromCode(it!!),
+            this@DeviceRequestSurrogate._status,
+          )
+        },
       intent =
         Enumeration.of(
-          this@DeviceRequestSurrogate.intent?.let {
-            com.google.fhir.model.r4b.DeviceRequest.RequestIntent.fromCode(it)
-          },
+          com.google.fhir.model.r4b.DeviceRequest.RequestIntent.fromCode(
+            this@DeviceRequestSurrogate.intent!!
+          ),
           this@DeviceRequestSurrogate._intent,
-        )
+        ),
       priority =
-        Enumeration.of(
-          this@DeviceRequestSurrogate.priority?.let {
-            com.google.fhir.model.r4b.DeviceRequest.RequestPriority.fromCode(it)
-          },
-          this@DeviceRequestSurrogate._priority,
-        )
-      code = this@DeviceRequestSurrogate.code
-      parameter = this@DeviceRequestSurrogate.parameter
-      subject = this@DeviceRequestSurrogate.subject
-      encounter = this@DeviceRequestSurrogate.encounter
-      occurrence = this@DeviceRequestSurrogate.occurrence
+        this@DeviceRequestSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.DeviceRequest.RequestPriority.fromCode(it!!),
+            this@DeviceRequestSurrogate._priority,
+          )
+        },
+      code = this@DeviceRequestSurrogate.code,
+      parameter = this@DeviceRequestSurrogate.parameter ?: mutableListOf(),
+      subject = this@DeviceRequestSurrogate.subject,
+      encounter = this@DeviceRequestSurrogate.encounter,
+      occurrence = this@DeviceRequestSurrogate.occurrence,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@DeviceRequestSurrogate.authoredOn),
           this@DeviceRequestSurrogate._authoredOn,
-        )
-      requester = this@DeviceRequestSurrogate.requester
-      performerType = this@DeviceRequestSurrogate.performerType
-      performer = this@DeviceRequestSurrogate.performer
-      reasonCode = this@DeviceRequestSurrogate.reasonCode
-      reasonReference = this@DeviceRequestSurrogate.reasonReference
-      insurance = this@DeviceRequestSurrogate.insurance
-      supportingInfo = this@DeviceRequestSurrogate.supportingInfo
-      note = this@DeviceRequestSurrogate.note
-      relevantHistory = this@DeviceRequestSurrogate.relevantHistory
-    }
+        ),
+      requester = this@DeviceRequestSurrogate.requester,
+      performerType = this@DeviceRequestSurrogate.performerType,
+      performer = this@DeviceRequestSurrogate.performer,
+      reasonCode = this@DeviceRequestSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@DeviceRequestSurrogate.reasonReference ?: mutableListOf(),
+      insurance = this@DeviceRequestSurrogate.insurance ?: mutableListOf(),
+      supportingInfo = this@DeviceRequestSurrogate.supportingInfo ?: mutableListOf(),
+      note = this@DeviceRequestSurrogate.note ?: mutableListOf(),
+      relevantHistory = this@DeviceRequestSurrogate.relevantHistory ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DeviceRequest): DeviceRequestSurrogate =
       with(model) {
-        DeviceRequestSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
+        DeviceRequestSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          basedOn = this@with.basedOn
-          priorRequest = this@with.priorRequest
-          groupIdentifier = this@with.groupIdentifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          code = this@with.code
-          parameter = this@with.parameter
-          subject = this@with.subject
-          encounter = this@with.encounter
-          occurrence = this@with.occurrence
-          authoredOn = this@with.authoredOn?.value?.toString()
-          _authoredOn = this@with.authoredOn?.toElement()
-          requester = this@with.requester
-          performerType = this@with.performerType
-          performer = this@with.performer
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          insurance = this@with.insurance
-          supportingInfo = this@with.supportingInfo
-          note = this@with.note
-          relevantHistory = this@with.relevantHistory
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          priorRequest = this@with.priorRequest.takeUnless { it.all { it == null } },
+          groupIdentifier = this@with.groupIdentifier,
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          code = this@with.code,
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          occurrence = this@with.occurrence,
+          authoredOn = this@with.authoredOn?.value?.toString(),
+          _authoredOn = this@with.authoredOn?.toElement(),
+          requester = this@with.requester,
+          performerType = this@with.performerType,
+          performer = this@with.performer,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

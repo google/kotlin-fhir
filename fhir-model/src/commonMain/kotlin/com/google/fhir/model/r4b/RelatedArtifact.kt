@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.RelatedArtifactSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,9 +46,9 @@ public data class RelatedArtifact(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The type of relationship to the related artifact. */
-  public var type: Enumeration<RelatedArtifactType>? = null,
+  public var type: Enumeration<RelatedArtifactType>,
   /**
    * A short label that can be used to reference the citation from elsewhere in the containing
    * artifact, such as a footnote index.
@@ -91,83 +91,15 @@ public data class RelatedArtifact(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Additional documentation for the knowledge resource. This would include additional
-     * instructions on usage as well as additional information on clinical context or
-     * appropriateness.
-     */
-    Documentation(
-      "documentation",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Documentation",
-      "Additional documentation for the knowledge resource. This would include additional instructions on usage as well as additional information on clinical context or appropriateness.",
-    ),
-    /**
-     * A summary of the justification for the knowledge resource including supporting evidence,
-     * relevant guidelines, or other clinically important information. This information is intended
-     * to provide a way to make the justification for the knowledge resource available to the
-     * consumer of interventions or results produced by the knowledge resource.
-     */
-    Justification(
-      "justification",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Justification",
-      "A summary of the justification for the knowledge resource including supporting evidence, relevant guidelines, or other clinically important information. This information is intended to provide a way to make the justification for the knowledge resource available to the consumer of interventions or results produced by the knowledge resource.",
-    ),
-    /**
-     * Bibliographic citation for papers, references, or other relevant material for the knowledge
-     * resource. This is intended to allow for citation of related material, but that was not
-     * necessarily specifically prepared in connection with this knowledge resource.
-     */
-    Citation(
-      "citation",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Citation",
-      "Bibliographic citation for papers, references, or other relevant material for the knowledge resource. This is intended to allow for citation of related material, but that was not necessarily specifically prepared in connection with this knowledge resource.",
-    ),
-    /** The previous version of the knowledge resource. */
-    Predecessor(
-      "predecessor",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Predecessor",
-      "The previous version of the knowledge resource.",
-    ),
-    /** The next version of the knowledge resource. */
-    Successor(
-      "successor",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Successor",
-      "The next version of the knowledge resource.",
-    ),
-    /**
-     * The knowledge resource is derived from the related artifact. This is intended to capture the
-     * relationship in which a particular knowledge resource is based on the content of another
-     * artifact, but is modified to capture either a different set of overall requirements, or a
-     * more specific set of requirements such as those involved in a particular institution or
-     * clinical setting.
-     */
-    Derived_From(
-      "derived-from",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Derived From",
-      "The knowledge resource is derived from the related artifact. This is intended to capture the relationship in which a particular knowledge resource is based on the content of another artifact, but is modified to capture either a different set of overall requirements, or a more specific set of requirements such as those involved in a particular institution or clinical setting.",
-    ),
-    /** The knowledge resource depends on the given related artifact. */
-    Depends_On(
-      "depends-on",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Depends On",
-      "The knowledge resource depends on the given related artifact.",
-    ),
-    /** The knowledge resource is composed of the given related artifact. */
-    Composed_Of(
-      "composed-of",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Composed Of",
-      "The knowledge resource is composed of the given related artifact.",
-    );
+    Documentation("documentation", "http://hl7.org/fhir/related-artifact-type", "Documentation"),
+    Justification("justification", "http://hl7.org/fhir/related-artifact-type", "Justification"),
+    Citation("citation", "http://hl7.org/fhir/related-artifact-type", "Citation"),
+    Predecessor("predecessor", "http://hl7.org/fhir/related-artifact-type", "Predecessor"),
+    Successor("successor", "http://hl7.org/fhir/related-artifact-type", "Successor"),
+    Derived_From("derived-from", "http://hl7.org/fhir/related-artifact-type", "Derived From"),
+    Depends_On("depends-on", "http://hl7.org/fhir/related-artifact-type", "Depends On"),
+    Composed_Of("composed-of", "http://hl7.org/fhir/related-artifact-type", "Composed Of");
 
     override fun toString(): kotlin.String = code
 
@@ -176,8 +108,6 @@ public data class RelatedArtifact(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RelatedArtifactType =

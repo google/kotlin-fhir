@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.SubstanceAmountAmountSerializer
 import com.google.fhir.model.r4.serializers.SubstanceAmountReferenceRangeSerializer
 import com.google.fhir.model.r4.serializers.SubstanceAmountSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -52,7 +52,7 @@ public data class SubstanceAmount(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -71,7 +71,7 @@ public data class SubstanceAmount(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Used to capture quantitative values for a variety of elements. If only limits are given, the
    * arithmetic mean would be the average. If only a single definite value for a given element is
@@ -112,7 +112,7 @@ public data class SubstanceAmount(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** Lower limit possible or expected. */
     public var lowLimit: Quantity? = null,
     /** Upper limit possible or expected. */
@@ -133,18 +133,16 @@ public data class SubstanceAmount(
 
     public data class String(public val `value`: com.google.fhir.model.r4.String) : Amount
 
-    public data object Null : Amount
-
     public companion object {
-      public fun from(
-        QuantityValue: com.google.fhir.model.r4.Quantity?,
-        RangeValue: com.google.fhir.model.r4.Range?,
+      internal fun from(
+        quantityValue: com.google.fhir.model.r4.Quantity?,
+        rangeValue: com.google.fhir.model.r4.Range?,
         stringValue: com.google.fhir.model.r4.String?,
-      ): Amount {
-        if (QuantityValue != null) return Quantity(QuantityValue)
-        if (RangeValue != null) return Range(RangeValue)
+      ): Amount? {
+        if (quantityValue != null) return Quantity(quantityValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (stringValue != null) return String(stringValue)
-        return Null
+        return null
       }
     }
   }

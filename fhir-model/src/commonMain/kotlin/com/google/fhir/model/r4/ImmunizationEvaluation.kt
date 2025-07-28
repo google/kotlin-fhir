@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.ImmunizationEvaluationDoseNumberSeri
 import com.google.fhir.model.r4.serializers.ImmunizationEvaluationSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationEvaluationSeriesDosesSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class ImmunizationEvaluation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class ImmunizationEvaluation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,28 +128,28 @@ public data class ImmunizationEvaluation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this immunization evaluation record. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Indicates the current status of the evaluation of the vaccination administration event. */
-  public var status: Enumeration<ImmunizationEvaluationStatus>? = null,
+  public var status: Enumeration<ImmunizationEvaluationStatus>,
   /** The individual for whom the evaluation is being done. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The date the evaluation of the vaccine administration event was performed. */
   public var date: DateTime? = null,
   /** Indicates the authority who published the protocol (e.g. ACIP). */
   public var authority: Reference? = null,
   /** The vaccine preventable disease the dose is being evaluated against. */
-  public var targetDisease: CodeableConcept? = null,
+  public var targetDisease: CodeableConcept,
   /** The vaccine administration event being evaluated. */
-  public var immunizationEvent: Reference? = null,
+  public var immunizationEvent: Reference,
   /** Indicates if the dose is valid or not valid with respect to the published recommendations. */
-  public var doseStatus: CodeableConcept? = null,
+  public var doseStatus: CodeableConcept,
   /**
    * Provides an explanation as to why the vaccine administration event is valid or not relative to
    * the published recommendations.
    */
-  public var doseStatusReason: List<CodeableConcept?>? = null,
+  public var doseStatusReason: MutableList<CodeableConcept> = mutableListOf(),
   /** Additional information about the evaluation. */
   public var description: String? = null,
   /**
@@ -183,16 +183,14 @@ public data class ImmunizationEvaluation(
 
     public data class String(public val `value`: com.google.fhir.model.r4.String) : DoseNumber
 
-    public data object Null : DoseNumber
-
     public companion object {
-      public fun from(
+      internal fun from(
         positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
         stringValue: com.google.fhir.model.r4.String?,
-      ): DoseNumber {
+      ): DoseNumber? {
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (stringValue != null) return String(stringValue)
-        return Null
+        return null
       }
     }
   }
@@ -208,16 +206,14 @@ public data class ImmunizationEvaluation(
 
     public data class String(public val `value`: com.google.fhir.model.r4.String) : SeriesDoses
 
-    public data object Null : SeriesDoses
-
     public companion object {
-      public fun from(
+      internal fun from(
         positiveIntValue: com.google.fhir.model.r4.PositiveInt?,
         stringValue: com.google.fhir.model.r4.String?,
-      ): SeriesDoses {
+      ): SeriesDoses? {
         if (positiveIntValue != null) return PositiveInt(positiveIntValue)
         if (stringValue != null) return String(stringValue)
-        return Null
+        return null
       }
     }
   }
@@ -231,21 +227,16 @@ public data class ImmunizationEvaluation(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** All actions that are implied by the administration have occurred. */
     Completed(
       "completed",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Completed",
-      "All actions that are implied by the administration have occurred.",
     ),
-    /** The administration was entered in error and therefore nullified. */
     Entered_In_Error(
       "entered-in-error",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Entered in Error",
-      "The administration was entered in error and therefore nullified.",
     );
 
     override fun toString(): kotlin.String = code
@@ -255,8 +246,6 @@ public data class ImmunizationEvaluation(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImmunizationEvaluationStatus =

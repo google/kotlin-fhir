@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ContactDetailSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** ContactDetail Type: Specifies contact information for a person or organization. */
@@ -43,7 +43,7 @@ public data class ContactDetail(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The name of an individual to contact.
    *
@@ -51,5 +51,5 @@ public data class ContactDetail(
    */
   public var name: String? = null,
   /** The contact details for the individual (if a name was provided) or the organization. */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
 ) : DataType()

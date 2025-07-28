@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.GroupCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.GroupMemberSerializer
 import com.google.fhir.model.r4b.serializers.GroupSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Group(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Group(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,9 +130,9 @@ public data class Group(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique business identifier for this group. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates whether the record for the group is available for use or is merely being retained for
    * historical purposes.
@@ -144,12 +144,12 @@ public data class Group(
    * Group members SHALL be of the appropriate resource type (Patient for person or animal; or
    * Practitioner, Device, Medication or Substance for the other types.).
    */
-  public var type: Enumeration<GroupType>? = null,
+  public var type: Enumeration<GroupType>,
   /**
    * If true, indicates that the resource refers to a specific group of real individuals. If false,
    * the group defines a set of intended individuals.
    */
-  public var `actual`: Boolean? = null,
+  public var `actual`: Boolean,
   /**
    * Provides a specific type of resource the group includes; e.g. "cow", "syringe", etc.
    *
@@ -178,9 +178,9 @@ public data class Group(
    *
    * All the identified characteristics must be true for an entity to a member of the group.
    */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
   /** Identifies the resource instances that are members of the group. */
-  public var member: List<Member>? = null,
+  public var member: MutableList<Member> = mutableListOf(),
 ) : DomainResource() {
   /** Identifies traits whose presence r absence is shared by members of the group. */
   @Serializable(with = GroupCharacteristicSerializer::class)
@@ -202,7 +202,7 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -221,9 +221,9 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code that identifies the kind of trait being asserted. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * The value of the trait that holds (or does not hold - see 'exclude') for members of the
      * group.
@@ -231,14 +231,14 @@ public data class Group(
      * For Range, it means members of the group have a value that falls somewhere within the
      * specified range.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
     /**
      * If true, indicates the characteristic is one that is NOT held by members of the group.
      *
      * This is labeled as "Is Modifier" because applications cannot wrongly include excluded members
      * as included or vice versa.
      */
-    public var exclude: Boolean? = null,
+    public var exclude: Boolean,
     /**
      * The period over which the characteristic is tested; e.g. the patient had an operation during
      * the month of June.
@@ -269,22 +269,20 @@ public data class Group(
 
       public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }
@@ -310,7 +308,7 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -329,12 +327,12 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A reference to the entity that is a member of the group. Must be consistent with Group.type.
      * If the entity is another group, then the type must be the same.
      */
-    public var entity: Reference? = null,
+    public var entity: Reference,
     /** The period that the member was in the group, if known. */
     public var period: Period? = null,
     /**
@@ -349,50 +347,13 @@ public data class Group(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Group contains "person" Patient resources. */
-    Person(
-      "person",
-      "http://hl7.org/fhir/group-type",
-      "Person",
-      "Group contains \"person\" Patient resources.",
-    ),
-    /** Group contains "animal" Patient resources. */
-    Animal(
-      "animal",
-      "http://hl7.org/fhir/group-type",
-      "Animal",
-      "Group contains \"animal\" Patient resources.",
-    ),
-    /** Group contains healthcare practitioner resources (Practitioner or PractitionerRole). */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/group-type",
-      "Practitioner",
-      "Group contains healthcare practitioner resources (Practitioner or PractitionerRole).",
-    ),
-    /** Group contains Device resources. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/group-type",
-      "Device",
-      "Group contains Device resources.",
-    ),
-    /** Group contains Medication resources. */
-    Medication(
-      "medication",
-      "http://hl7.org/fhir/group-type",
-      "Medication",
-      "Group contains Medication resources.",
-    ),
-    /** Group contains Substance resources. */
-    Substance(
-      "substance",
-      "http://hl7.org/fhir/group-type",
-      "Substance",
-      "Group contains Substance resources.",
-    );
+    Person("person", "http://hl7.org/fhir/group-type", "Person"),
+    Animal("animal", "http://hl7.org/fhir/group-type", "Animal"),
+    Practitioner("practitioner", "http://hl7.org/fhir/group-type", "Practitioner"),
+    Device("device", "http://hl7.org/fhir/group-type", "Device"),
+    Medication("medication", "http://hl7.org/fhir/group-type", "Medication"),
+    Substance("substance", "http://hl7.org/fhir/group-type", "Substance");
 
     override fun toString(): kotlin.String = code
 
@@ -401,8 +362,6 @@ public data class Group(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GroupType =

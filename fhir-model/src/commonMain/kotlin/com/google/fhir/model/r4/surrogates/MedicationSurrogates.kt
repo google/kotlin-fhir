@@ -41,28 +41,29 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class MedicationIngredientItemSurrogate {
-  public var itemCodeableConcept: CodeableConcept? = null
-
-  public var itemReference: Reference? = null
-
+internal data class MedicationIngredientItemSurrogate(
+  public var itemCodeableConcept: CodeableConcept? = null,
+  public var itemReference: Reference? = null,
+) {
   public fun toModel(): Medication.Ingredient.Item =
-    Medication.Ingredient.Item?.from(
+    Medication.Ingredient.Item.from(
       this@MedicationIngredientItemSurrogate.itemCodeableConcept,
       this@MedicationIngredientItemSurrogate.itemReference,
-    ) ?: Medication.Ingredient.Item.Null
+    )!!
 
   public companion object {
     public fun fromModel(model: Medication.Ingredient.Item): MedicationIngredientItemSurrogate =
       with(model) {
         MedicationIngredientItemSurrogate().apply {
-          itemCodeableConcept = this@with.asCodeableConcept()?.value
-          itemReference = this@with.asReference()?.value
+          Medication.Ingredient.Item.from(
+            this@MedicationIngredientItemSurrogate.itemCodeableConcept,
+            this@MedicationIngredientItemSurrogate.itemReference,
+          )!!
         }
       }
   }
@@ -71,39 +72,39 @@ internal class MedicationIngredientItemSurrogate {
 @Serializable
 internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
   public var strength: Ratio? = null,
-  public var item: Medication.Ingredient.Item? = null,
+  public var item: Medication.Ingredient.Item,
 ) {
   public fun toModel(): Medication.Ingredient =
-    Medication.Ingredient().apply {
-      id = this@MedicationIngredientSurrogate.id
-      extension = this@MedicationIngredientSurrogate.extension
-      modifierExtension = this@MedicationIngredientSurrogate.modifierExtension
-      item = this@MedicationIngredientSurrogate.item
+    Medication.Ingredient(
+      id = this@MedicationIngredientSurrogate.id,
+      extension = this@MedicationIngredientSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicationIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      item = this@MedicationIngredientSurrogate.item,
       isActive =
         R4Boolean.of(
           this@MedicationIngredientSurrogate.isActive,
           this@MedicationIngredientSurrogate._isActive,
-        )
-      strength = this@MedicationIngredientSurrogate.strength
-    }
+        ),
+      strength = this@MedicationIngredientSurrogate.strength,
+    )
 
   public companion object {
     public fun fromModel(model: Medication.Ingredient): MedicationIngredientSurrogate =
       with(model) {
-        MedicationIngredientSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          item = this@with.item
-          isActive = this@with.isActive?.value
-          _isActive = this@with.isActive?.toElement()
-          strength = this@with.strength
-        }
+        MedicationIngredientSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          item = this@with.item,
+          isActive = this@with.isActive?.value,
+          _isActive = this@with.isActive?.toElement(),
+          strength = this@with.strength,
+        )
       }
   }
 }
@@ -111,42 +112,42 @@ internal data class MedicationIngredientSurrogate(
 @Serializable
 internal data class MedicationBatchSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var lotNumber: KotlinString? = null,
   public var _lotNumber: Element? = null,
   public var expirationDate: KotlinString? = null,
   public var _expirationDate: Element? = null,
 ) {
   public fun toModel(): Medication.Batch =
-    Medication.Batch().apply {
-      id = this@MedicationBatchSurrogate.id
-      extension = this@MedicationBatchSurrogate.extension
-      modifierExtension = this@MedicationBatchSurrogate.modifierExtension
+    Medication.Batch(
+      id = this@MedicationBatchSurrogate.id,
+      extension = this@MedicationBatchSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicationBatchSurrogate.modifierExtension ?: mutableListOf(),
       lotNumber =
         R4String.of(
           this@MedicationBatchSurrogate.lotNumber,
           this@MedicationBatchSurrogate._lotNumber,
-        )
+        ),
       expirationDate =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationBatchSurrogate.expirationDate),
           this@MedicationBatchSurrogate._expirationDate,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Medication.Batch): MedicationBatchSurrogate =
       with(model) {
-        MedicationBatchSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          lotNumber = this@with.lotNumber?.value
-          _lotNumber = this@with.lotNumber?.toElement()
-          expirationDate = this@with.expirationDate?.value?.toString()
-          _expirationDate = this@with.expirationDate?.toElement()
-        }
+        MedicationBatchSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          lotNumber = this@with.lotNumber?.value,
+          _lotNumber = this@with.lotNumber?.toElement(),
+          expirationDate = this@with.expirationDate?.value?.toString(),
+          _expirationDate = this@with.expirationDate?.toElement(),
+        )
       }
   }
 }
@@ -160,70 +161,70 @@ internal data class MedicationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var code: CodeableConcept? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var manufacturer: Reference? = null,
   public var form: CodeableConcept? = null,
   public var amount: Ratio? = null,
-  public var ingredient: List<Medication.Ingredient>? = null,
+  public var ingredient: MutableList<Medication.Ingredient>? = null,
   public var batch: Medication.Batch? = null,
 ) {
   public fun toModel(): Medication =
-    Medication().apply {
-      id = this@MedicationSurrogate.id
-      meta = this@MedicationSurrogate.meta
+    Medication(
+      id = this@MedicationSurrogate.id,
+      meta = this@MedicationSurrogate.meta,
       implicitRules =
-        Uri.of(this@MedicationSurrogate.implicitRules, this@MedicationSurrogate._implicitRules)
-      language = Code.of(this@MedicationSurrogate.language, this@MedicationSurrogate._language)
-      text = this@MedicationSurrogate.text
-      contained = this@MedicationSurrogate.contained
-      extension = this@MedicationSurrogate.extension
-      modifierExtension = this@MedicationSurrogate.modifierExtension
-      identifier = this@MedicationSurrogate.identifier
-      code = this@MedicationSurrogate.code
+        Uri.of(this@MedicationSurrogate.implicitRules, this@MedicationSurrogate._implicitRules),
+      language = Code.of(this@MedicationSurrogate.language, this@MedicationSurrogate._language),
+      text = this@MedicationSurrogate.text,
+      contained = this@MedicationSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@MedicationSurrogate.identifier ?: mutableListOf(),
+      code = this@MedicationSurrogate.code,
       status =
-        Enumeration.of(
-          this@MedicationSurrogate.status?.let {
-            com.google.fhir.model.r4.Medication.MedicationStatus.fromCode(it)
-          },
-          this@MedicationSurrogate._status,
-        )
-      manufacturer = this@MedicationSurrogate.manufacturer
-      form = this@MedicationSurrogate.form
-      amount = this@MedicationSurrogate.amount
-      ingredient = this@MedicationSurrogate.ingredient
-      batch = this@MedicationSurrogate.batch
-    }
+        this@MedicationSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Medication.MedicationStatus.fromCode(it!!),
+            this@MedicationSurrogate._status,
+          )
+        },
+      manufacturer = this@MedicationSurrogate.manufacturer,
+      form = this@MedicationSurrogate.form,
+      amount = this@MedicationSurrogate.amount,
+      ingredient = this@MedicationSurrogate.ingredient ?: mutableListOf(),
+      batch = this@MedicationSurrogate.batch,
+    )
 
   public companion object {
     public fun fromModel(model: Medication): MedicationSurrogate =
       with(model) {
-        MedicationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          code = this@with.code
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          manufacturer = this@with.manufacturer
-          form = this@with.form
-          amount = this@with.amount
-          ingredient = this@with.ingredient
-          batch = this@with.batch
-        }
+        MedicationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          manufacturer = this@with.manufacturer,
+          form = this@with.form,
+          amount = this@with.amount,
+          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          batch = this@with.batch,
+        )
       }
   }
 }

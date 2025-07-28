@@ -41,29 +41,26 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class CommunicationPayloadContentSurrogate {
-  public var contentString: KotlinString? = null
-
-  public var _contentString: Element? = null
-
-  public var contentAttachment: Attachment? = null
-
-  public var contentReference: Reference? = null
-
+internal data class CommunicationPayloadContentSurrogate(
+  public var contentString: KotlinString? = null,
+  public var _contentString: Element? = null,
+  public var contentAttachment: Attachment? = null,
+  public var contentReference: Reference? = null,
+) {
   public fun toModel(): Communication.Payload.Content =
-    Communication.Payload.Content?.from(
+    Communication.Payload.Content.from(
       R4bString.of(
         this@CommunicationPayloadContentSurrogate.contentString,
         this@CommunicationPayloadContentSurrogate._contentString,
       ),
       this@CommunicationPayloadContentSurrogate.contentAttachment,
       this@CommunicationPayloadContentSurrogate.contentReference,
-    ) ?: Communication.Payload.Content.Null
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -71,10 +68,14 @@ internal class CommunicationPayloadContentSurrogate {
     ): CommunicationPayloadContentSurrogate =
       with(model) {
         CommunicationPayloadContentSurrogate().apply {
-          contentString = this@with.asString()?.value?.value
-          _contentString = this@with.asString()?.value?.toElement()
-          contentAttachment = this@with.asAttachment()?.value
-          contentReference = this@with.asReference()?.value
+          Communication.Payload.Content.from(
+            R4bString.of(
+              this@CommunicationPayloadContentSurrogate.contentString,
+              this@CommunicationPayloadContentSurrogate._contentString,
+            ),
+            this@CommunicationPayloadContentSurrogate.contentAttachment,
+            this@CommunicationPayloadContentSurrogate.contentReference,
+          )!!
         }
       }
   }
@@ -83,27 +84,27 @@ internal class CommunicationPayloadContentSurrogate {
 @Serializable
 internal data class CommunicationPayloadSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var content: Communication.Payload.Content? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var content: Communication.Payload.Content,
 ) {
   public fun toModel(): Communication.Payload =
-    Communication.Payload().apply {
-      id = this@CommunicationPayloadSurrogate.id
-      extension = this@CommunicationPayloadSurrogate.extension
-      modifierExtension = this@CommunicationPayloadSurrogate.modifierExtension
-      content = this@CommunicationPayloadSurrogate.content
-    }
+    Communication.Payload(
+      id = this@CommunicationPayloadSurrogate.id,
+      extension = this@CommunicationPayloadSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CommunicationPayloadSurrogate.modifierExtension ?: mutableListOf(),
+      content = this@CommunicationPayloadSurrogate.content,
+    )
 
   public companion object {
     public fun fromModel(model: Communication.Payload): CommunicationPayloadSurrogate =
       with(model) {
-        CommunicationPayloadSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          content = this@with.content
-        }
+        CommunicationPayloadSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          content = this@with.content,
+        )
       }
   }
 }
@@ -117,61 +118,61 @@ internal data class CommunicationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var instantiatesCanonical: List<KotlinString?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<KotlinString?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
-  public var inResponseTo: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<KotlinString?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
+  public var inResponseTo: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
-  public var medium: List<CodeableConcept?>? = null,
+  public var medium: MutableList<CodeableConcept>? = null,
   public var subject: Reference? = null,
   public var topic: CodeableConcept? = null,
-  public var about: List<Reference?>? = null,
+  public var about: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
   public var sent: KotlinString? = null,
   public var _sent: Element? = null,
   public var received: KotlinString? = null,
   public var _received: Element? = null,
-  public var recipient: List<Reference?>? = null,
+  public var recipient: MutableList<Reference>? = null,
   public var sender: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var payload: List<Communication.Payload>? = null,
-  public var note: List<Annotation?>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var payload: MutableList<Communication.Payload>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): Communication =
-    Communication().apply {
-      id = this@CommunicationSurrogate.id
-      meta = this@CommunicationSurrogate.meta
+    Communication(
+      id = this@CommunicationSurrogate.id,
+      meta = this@CommunicationSurrogate.meta,
       implicitRules =
         Uri.of(
           this@CommunicationSurrogate.implicitRules,
           this@CommunicationSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@CommunicationSurrogate.language, this@CommunicationSurrogate._language)
-      text = this@CommunicationSurrogate.text
-      contained = this@CommunicationSurrogate.contained
-      extension = this@CommunicationSurrogate.extension
-      modifierExtension = this@CommunicationSurrogate.modifierExtension
-      identifier = this@CommunicationSurrogate.identifier
+        Code.of(this@CommunicationSurrogate.language, this@CommunicationSurrogate._language),
+      text = this@CommunicationSurrogate.text,
+      contained = this@CommunicationSurrogate.contained ?: mutableListOf(),
+      extension = this@CommunicationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CommunicationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@CommunicationSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@CommunicationSurrogate.instantiatesCanonical == null &&
             this@CommunicationSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CommunicationSurrogate.instantiatesCanonical
               ?: List(this@CommunicationSurrogate._instantiatesCanonical!!.size) { null })
@@ -179,14 +180,15 @@ internal data class CommunicationSurrogate(
               this@CommunicationSurrogate._instantiatesCanonical
                 ?: List(this@CommunicationSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@CommunicationSurrogate.instantiatesUri == null &&
             this@CommunicationSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CommunicationSurrogate.instantiatesUri
               ?: List(this@CommunicationSurrogate._instantiatesUri!!.size) { null })
@@ -194,100 +196,113 @@ internal data class CommunicationSurrogate(
               this@CommunicationSurrogate._instantiatesUri
                 ?: List(this@CommunicationSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      basedOn = this@CommunicationSurrogate.basedOn
-      partOf = this@CommunicationSurrogate.partOf
-      inResponseTo = this@CommunicationSurrogate.inResponseTo
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      basedOn = this@CommunicationSurrogate.basedOn ?: mutableListOf(),
+      partOf = this@CommunicationSurrogate.partOf ?: mutableListOf(),
+      inResponseTo = this@CommunicationSurrogate.inResponseTo ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@CommunicationSurrogate.status?.let {
-            com.google.fhir.model.r4b.Communication.CommunicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.Communication.CommunicationStatus.fromCode(
+            this@CommunicationSurrogate.status!!
+          ),
           this@CommunicationSurrogate._status,
-        )
-      statusReason = this@CommunicationSurrogate.statusReason
-      category = this@CommunicationSurrogate.category
+        ),
+      statusReason = this@CommunicationSurrogate.statusReason,
+      category = this@CommunicationSurrogate.category ?: mutableListOf(),
       priority =
-        Enumeration.of(
-          this@CommunicationSurrogate.priority?.let {
-            com.google.fhir.model.r4b.Communication.CommunicationPriority.fromCode(it)
-          },
-          this@CommunicationSurrogate._priority,
-        )
-      medium = this@CommunicationSurrogate.medium
-      subject = this@CommunicationSurrogate.subject
-      topic = this@CommunicationSurrogate.topic
-      about = this@CommunicationSurrogate.about
-      encounter = this@CommunicationSurrogate.encounter
+        this@CommunicationSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.Communication.CommunicationPriority.fromCode(it!!),
+            this@CommunicationSurrogate._priority,
+          )
+        },
+      medium = this@CommunicationSurrogate.medium ?: mutableListOf(),
+      subject = this@CommunicationSurrogate.subject,
+      topic = this@CommunicationSurrogate.topic,
+      about = this@CommunicationSurrogate.about ?: mutableListOf(),
+      encounter = this@CommunicationSurrogate.encounter,
       sent =
         DateTime.of(
           FhirDateTime.fromString(this@CommunicationSurrogate.sent),
           this@CommunicationSurrogate._sent,
-        )
+        ),
       received =
         DateTime.of(
           FhirDateTime.fromString(this@CommunicationSurrogate.received),
           this@CommunicationSurrogate._received,
-        )
-      recipient = this@CommunicationSurrogate.recipient
-      sender = this@CommunicationSurrogate.sender
-      reasonCode = this@CommunicationSurrogate.reasonCode
-      reasonReference = this@CommunicationSurrogate.reasonReference
-      payload = this@CommunicationSurrogate.payload
-      note = this@CommunicationSurrogate.note
-    }
+        ),
+      recipient = this@CommunicationSurrogate.recipient ?: mutableListOf(),
+      sender = this@CommunicationSurrogate.sender,
+      reasonCode = this@CommunicationSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@CommunicationSurrogate.reasonReference ?: mutableListOf(),
+      payload = this@CommunicationSurrogate.payload ?: mutableListOf(),
+      note = this@CommunicationSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Communication): CommunicationSurrogate =
       with(model) {
-        CommunicationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
+        CommunicationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          basedOn = this@with.basedOn
-          partOf = this@with.partOf
-          inResponseTo = this@with.inResponseTo
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          category = this@with.category
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          medium = this@with.medium
-          subject = this@with.subject
-          topic = this@with.topic
-          about = this@with.about
-          encounter = this@with.encounter
-          sent = this@with.sent?.value?.toString()
-          _sent = this@with.sent?.toElement()
-          received = this@with.received?.value?.toString()
-          _received = this@with.received?.toElement()
-          recipient = this@with.recipient
-          sender = this@with.sender
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          payload = this@with.payload
-          note = this@with.note
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          inResponseTo = this@with.inResponseTo.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          statusReason = this@with.statusReason,
+          category = this@with.category.takeUnless { it.all { it == null } },
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          medium = this@with.medium.takeUnless { it.all { it == null } },
+          subject = this@with.subject,
+          topic = this@with.topic,
+          about = this@with.about.takeUnless { it.all { it == null } },
+          encounter = this@with.encounter,
+          sent = this@with.sent?.value?.toString(),
+          _sent = this@with.sent?.toElement(),
+          received = this@with.received?.value?.toString(),
+          _received = this@with.received?.toElement(),
+          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+          sender = this@with.sender,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          payload = this@with.payload.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

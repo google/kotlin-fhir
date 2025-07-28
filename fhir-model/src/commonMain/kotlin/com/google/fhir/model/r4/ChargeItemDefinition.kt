@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.ChargeItemDefinitionPropertyGroupPri
 import com.google.fhir.model.r4.serializers.ChargeItemDefinitionPropertyGroupSerializer
 import com.google.fhir.model.r4.serializers.ChargeItemDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ChargeItemDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ChargeItemDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class ChargeItemDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this charge item definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -151,7 +151,7 @@ public data class ChargeItemDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * A formal identifier that is used to identify this charge item definition when it is represented
    * in other formats, or referenced in a specification, model, design or an instance.
@@ -160,7 +160,7 @@ public data class ChargeItemDefinition(
    * type, and can then identify this charge item definition outside of FHIR, where it is not
    * possible to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the charge item definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -188,20 +188,20 @@ public data class ChargeItemDefinition(
    * The URL pointing to an externally-defined charge item definition that is adhered to in whole or
    * in part by this definition.
    */
-  public var derivedFromUri: List<Uri?>? = null,
+  public var derivedFromUri: MutableList<Uri> = mutableListOf(),
   /** A larger definition of which this particular definition is a component or step. */
-  public var partOf: List<Canonical?>? = null,
+  public var partOf: MutableList<Canonical> = mutableListOf(),
   /**
    * As new versions of a protocol or guideline are defined, allows identification of what versions
    * are replaced by a new instance.
    */
-  public var replaces: List<Canonical?>? = null,
+  public var replaces: MutableList<Canonical> = mutableListOf(),
   /**
    * The current state of the ChargeItemDefinition.
    *
    * Allows filtering of charge item definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this charge item definition is authored for testing purposes
    * (or education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -236,7 +236,7 @@ public data class ChargeItemDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the charge item definition from a consumer's
    * perspective.
@@ -259,14 +259,14 @@ public data class ChargeItemDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the charge item definition is intended to be used.
    *
    * It may be possible for the charge item definition to be used in jurisdictions other than those
    * for which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A copyright statement relating to the charge item definition and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the charge item
@@ -306,7 +306,7 @@ public data class ChargeItemDefinition(
    * information may be different for each instance of the product. This reference links pricing
    * details to specific product instances.
    */
-  public var instance: List<Reference?>? = null,
+  public var instance: MutableList<Reference> = mutableListOf(),
   /**
    * Expressions that describe applicability criteria for the billing code.
    *
@@ -314,12 +314,12 @@ public data class ChargeItemDefinition(
    * specific context. E.g. some billing codes may only be applicable in out-patient settings, only
    * to male/female patients or only to children.
    */
-  public var applicability: List<Applicability>? = null,
+  public var applicability: MutableList<Applicability> = mutableListOf(),
   /**
    * Group of properties which are applicable under the same conditions. If no applicability rules
    * are established for the group, then all properties always apply.
    */
-  public var propertyGroup: List<PropertyGroup>? = null,
+  public var propertyGroup: MutableList<PropertyGroup> = mutableListOf(),
 ) : DomainResource() {
   /** Expressions that describe applicability criteria for the billing code. */
   @Serializable(with = ChargeItemDefinitionApplicabilitySerializer::class)
@@ -341,7 +341,7 @@ public data class ChargeItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -360,7 +360,7 @@ public data class ChargeItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A brief, natural language description of the condition that effectively communicates the
      * intended semantics.
@@ -408,7 +408,7 @@ public data class ChargeItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -427,7 +427,7 @@ public data class ChargeItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Expressions that describe applicability criteria for the priceComponent.
      *
@@ -435,7 +435,7 @@ public data class ChargeItemDefinition(
      * specific context. E.g. some billing codes may only be applicable in out-patient settings,
      * only to male/female patients or only to children.
      */
-    public var applicability: List<Applicability?>? = null,
+    public var applicability: MutableList<Applicability> = mutableListOf(),
     /**
      * The price for a ChargeItem may be calculated as a base price with surcharges/deductions that
      * apply in certain conditions. A ChargeItemDefinition resource that defines the prices, factors
@@ -443,7 +443,7 @@ public data class ChargeItemDefinition(
      * priceComponent element can be used to offer transparency to the recipient of the Invoice of
      * how the prices have been calculated.
      */
-    public var priceComponent: List<PriceComponent>? = null,
+    public var priceComponent: MutableList<PriceComponent> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * The price for a ChargeItem may be calculated as a base price with surcharges/deductions that
@@ -471,7 +471,7 @@ public data class ChargeItemDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -490,9 +490,9 @@ public data class ChargeItemDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** This code identifies the type of the component. */
-      public var type: Enumeration<ChargeItemDefinitionPriceComponentType>? = null,
+      public var type: Enumeration<ChargeItemDefinitionPriceComponentType>,
       /**
        * A code that identifies the component. Codes may be used to differentiate between kinds of
        * taxes, surcharges, discounts etc.
@@ -510,55 +510,16 @@ public data class ChargeItemDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * the amount is the base price used for calculating the total price before applying surcharges,
-     * discount or taxes.
-     */
-    Base(
-      "base",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "base price",
-      "the amount is the base price used for calculating the total price before applying surcharges, discount or taxes.",
-    ),
-    /** the amount is a surcharge applied on the base price. */
-    Surcharge(
-      "surcharge",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "surcharge",
-      "the amount is a surcharge applied on the base price.",
-    ),
-    /** the amount is a deduction applied on the base price. */
-    Deduction(
-      "deduction",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "deduction",
-      "the amount is a deduction applied on the base price.",
-    ),
-    /** the amount is a discount applied on the base price. */
-    Discount(
-      "discount",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "discount",
-      "the amount is a discount applied on the base price.",
-    ),
-    /** the amount is the tax component of the total price. */
-    Tax(
-      "tax",
-      "http://hl7.org/fhir/invoice-priceComponentType",
-      "tax",
-      "the amount is the tax component of the total price.",
-    ),
-    /**
-     * the amount is of informational character, it has not been applied in the calculation of the
-     * total price.
-     */
+    Base("base", "http://hl7.org/fhir/invoice-priceComponentType", "base price"),
+    Surcharge("surcharge", "http://hl7.org/fhir/invoice-priceComponentType", "surcharge"),
+    Deduction("deduction", "http://hl7.org/fhir/invoice-priceComponentType", "deduction"),
+    Discount("discount", "http://hl7.org/fhir/invoice-priceComponentType", "discount"),
+    Tax("tax", "http://hl7.org/fhir/invoice-priceComponentType", "tax"),
     Informational(
       "informational",
       "http://hl7.org/fhir/invoice-priceComponentType",
       "informational",
-      "the amount is of informational character, it has not been applied in the calculation of the total price.",
     );
 
     override fun toString(): kotlin.String = code
@@ -568,8 +529,6 @@ public data class ChargeItemDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ChargeItemDefinitionPriceComponentType =

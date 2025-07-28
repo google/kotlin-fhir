@@ -38,25 +38,20 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class TriggerDefinitionTimingSurrogate {
-  public var timingTiming: Timing? = null
-
-  public var timingReference: Reference? = null
-
-  public var timingDate: KotlinString? = null
-
-  public var _timingDate: Element? = null
-
-  public var timingDateTime: KotlinString? = null
-
-  public var _timingDateTime: Element? = null
-
-  public fun toModel(): TriggerDefinition.Timing =
+internal data class TriggerDefinitionTimingSurrogate(
+  public var timingTiming: Timing? = null,
+  public var timingReference: Reference? = null,
+  public var timingDate: KotlinString? = null,
+  public var _timingDate: Element? = null,
+  public var timingDateTime: KotlinString? = null,
+  public var _timingDateTime: Element? = null,
+) {
+  public fun toModel(): TriggerDefinition.Timing? =
     TriggerDefinition.Timing?.from(
       this@TriggerDefinitionTimingSurrogate.timingTiming,
       this@TriggerDefinitionTimingSurrogate.timingReference,
@@ -68,18 +63,24 @@ internal class TriggerDefinitionTimingSurrogate {
         FhirDateTime.fromString(this@TriggerDefinitionTimingSurrogate.timingDateTime),
         this@TriggerDefinitionTimingSurrogate._timingDateTime,
       ),
-    ) ?: TriggerDefinition.Timing.Null
+    )
 
   public companion object {
     public fun fromModel(model: TriggerDefinition.Timing): TriggerDefinitionTimingSurrogate =
       with(model) {
         TriggerDefinitionTimingSurrogate().apply {
-          timingTiming = this@with.asTiming()?.value
-          timingReference = this@with.asReference()?.value
-          timingDate = this@with.asDate()?.value?.value?.toString()
-          _timingDate = this@with.asDate()?.value?.toElement()
-          timingDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.asDateTime()?.value?.toElement()
+          TriggerDefinition.Timing?.from(
+            this@TriggerDefinitionTimingSurrogate.timingTiming,
+            this@TriggerDefinitionTimingSurrogate.timingReference,
+            Date.of(
+              FhirDate.fromString(this@TriggerDefinitionTimingSurrogate.timingDate),
+              this@TriggerDefinitionTimingSurrogate._timingDate,
+            ),
+            DateTime.of(
+              FhirDateTime.fromString(this@TriggerDefinitionTimingSurrogate.timingDateTime),
+              this@TriggerDefinitionTimingSurrogate._timingDateTime,
+            ),
+          )
         }
       }
   }
@@ -88,7 +89,7 @@ internal class TriggerDefinitionTimingSurrogate {
 @Serializable
 internal data class TriggerDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var name: KotlinString? = null,
@@ -96,51 +97,51 @@ internal data class TriggerDefinitionSurrogate(
   public var code: CodeableConcept? = null,
   public var subscriptionTopic: KotlinString? = null,
   public var _subscriptionTopic: Element? = null,
-  public var `data`: List<DataRequirement?>? = null,
+  public var `data`: MutableList<DataRequirement>? = null,
   public var condition: Expression? = null,
   public var timing: TriggerDefinition.Timing? = null,
 ) {
   public fun toModel(): TriggerDefinition =
-    TriggerDefinition().apply {
-      id = this@TriggerDefinitionSurrogate.id
-      extension = this@TriggerDefinitionSurrogate.extension
+    TriggerDefinition(
+      id = this@TriggerDefinitionSurrogate.id,
+      extension = this@TriggerDefinitionSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          this@TriggerDefinitionSurrogate.type?.let {
-            com.google.fhir.model.r5.TriggerDefinition.TriggerType.fromCode(it)
-          },
+          com.google.fhir.model.r5.TriggerDefinition.TriggerType.fromCode(
+            this@TriggerDefinitionSurrogate.type!!
+          ),
           this@TriggerDefinitionSurrogate._type,
-        )
+        ),
       name =
-        R5String.of(this@TriggerDefinitionSurrogate.name, this@TriggerDefinitionSurrogate._name)
-      code = this@TriggerDefinitionSurrogate.code
+        R5String.of(this@TriggerDefinitionSurrogate.name, this@TriggerDefinitionSurrogate._name),
+      code = this@TriggerDefinitionSurrogate.code,
       subscriptionTopic =
         Canonical.of(
           this@TriggerDefinitionSurrogate.subscriptionTopic,
           this@TriggerDefinitionSurrogate._subscriptionTopic,
-        )
-      timing = this@TriggerDefinitionSurrogate.timing
-      `data` = this@TriggerDefinitionSurrogate.`data`
-      condition = this@TriggerDefinitionSurrogate.condition
-    }
+        ),
+      timing = this@TriggerDefinitionSurrogate.timing,
+      `data` = this@TriggerDefinitionSurrogate.`data` ?: mutableListOf(),
+      condition = this@TriggerDefinitionSurrogate.condition,
+    )
 
   public companion object {
     public fun fromModel(model: TriggerDefinition): TriggerDefinitionSurrogate =
       with(model) {
-        TriggerDefinitionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          code = this@with.code
-          subscriptionTopic = this@with.subscriptionTopic?.value
-          _subscriptionTopic = this@with.subscriptionTopic?.toElement()
-          timing = this@with.timing
-          `data` = this@with.`data`
-          condition = this@with.condition
-        }
+        TriggerDefinitionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          code = this@with.code,
+          subscriptionTopic = this@with.subscriptionTopic?.value,
+          _subscriptionTopic = this@with.subscriptionTopic?.toElement(),
+          timing = this@with.timing,
+          `data` = this@with.`data`.takeUnless { it.all { it == null } },
+          condition = this@with.condition,
+        )
       }
   }
 }

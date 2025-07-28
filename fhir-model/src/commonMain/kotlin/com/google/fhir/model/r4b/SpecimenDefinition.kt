@@ -26,7 +26,7 @@ import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedContain
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r4b.serializers.SpecimenDefinitionTypeTestedSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class SpecimenDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class SpecimenDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,19 +129,19 @@ public data class SpecimenDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A business identifier associated with the kind of specimen. */
   public var identifier: Identifier? = null,
   /** The kind of material to be collected. */
   public var typeCollected: CodeableConcept? = null,
   /** Preparation of the patient for specimen collection. */
-  public var patientPreparation: List<CodeableConcept?>? = null,
+  public var patientPreparation: MutableList<CodeableConcept> = mutableListOf(),
   /** Time aspect of specimen collection (duration or offset). */
   public var timeAspect: String? = null,
   /** The action to be performed for collecting the specimen. */
-  public var collection: List<CodeableConcept?>? = null,
+  public var collection: MutableList<CodeableConcept> = mutableListOf(),
   /** Specimen conditioned in a container as expected by the testing laboratory. */
-  public var typeTested: List<TypeTested>? = null,
+  public var typeTested: MutableList<TypeTested> = mutableListOf(),
 ) : DomainResource() {
   /** Specimen conditioned in a container as expected by the testing laboratory. */
   @Serializable(with = SpecimenDefinitionTypeTestedSerializer::class)
@@ -163,7 +163,7 @@ public data class SpecimenDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -182,13 +182,13 @@ public data class SpecimenDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Primary of secondary specimen. */
     public var isDerived: Boolean? = null,
     /** The kind of specimen conditioned for testing expected by lab. */
     public var type: CodeableConcept? = null,
     /** The preference for this type of conditioned specimen. */
-    public var preference: Enumeration<SpecimenContainedPreference>? = null,
+    public var preference: Enumeration<SpecimenContainedPreference>,
     /** The specimen's container. */
     public var container: Container? = null,
     /** Requirements for delivery and special handling of this kind of conditioned specimen. */
@@ -199,12 +199,12 @@ public data class SpecimenDefinition(
      */
     public var retentionTime: Duration? = null,
     /** Criterion for rejection of the specimen in its container by the laboratory. */
-    public var rejectionCriterion: List<CodeableConcept?>? = null,
+    public var rejectionCriterion: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Set of instructions for preservation/transport of the specimen at a defined temperature
      * interval, prior the testing process.
      */
-    public var handling: List<Handling>? = null,
+    public var handling: MutableList<Handling> = mutableListOf(),
   ) : BackboneElement() {
     /** The specimen's container. */
     @Serializable(with = SpecimenDefinitionTypeTestedContainerSerializer::class)
@@ -226,7 +226,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -245,7 +245,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of material of the container. */
       public var material: CodeableConcept? = null,
       /** The type of container used to contain this kind of specimen. */
@@ -262,7 +262,7 @@ public data class SpecimenDefinition(
        * Substance introduced in the kind of container to preserve, maintain or enhance the
        * specimen. Examples: Formalin, Citrate, EDTA.
        */
-      public var additive: List<Additive>? = null,
+      public var additive: MutableList<Additive> = mutableListOf(),
       /** Special processing that should be applied to the container for this kind of specimen. */
       public var preparation: String? = null,
     ) : BackboneElement() {
@@ -289,7 +289,7 @@ public data class SpecimenDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -308,12 +308,12 @@ public data class SpecimenDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Substance introduced in the kind of container to preserve, maintain or enhance the
          * specimen. Examples: Formalin, Citrate, EDTA.
          */
-        public var additive: Additive? = null,
+        public var additive: Additive,
       ) : BackboneElement() {
         @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
@@ -328,16 +328,14 @@ public data class SpecimenDefinition(
           public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
             Additive
 
-          public data object Null : Additive
-
           public companion object {
-            public fun from(
-              CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-              ReferenceValue: com.google.fhir.model.r4b.Reference?,
-            ): Additive {
-              if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-              if (ReferenceValue != null) return Reference(ReferenceValue)
-              return Null
+            internal fun from(
+              codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+              referenceValue: com.google.fhir.model.r4b.Reference?,
+            ): Additive? {
+              if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+              if (referenceValue != null) return Reference(referenceValue)
+              return null
             }
           }
         }
@@ -355,16 +353,14 @@ public data class SpecimenDefinition(
         public data class String(public val `value`: com.google.fhir.model.r4b.String) :
           MinimumVolume
 
-        public data object Null : MinimumVolume
-
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r4b.Quantity?,
+          internal fun from(
+            quantityValue: com.google.fhir.model.r4b.Quantity?,
             stringValue: com.google.fhir.model.r4b.String?,
-          ): MinimumVolume {
-            if (QuantityValue != null) return Quantity(QuantityValue)
+          ): MinimumVolume? {
+            if (quantityValue != null) return Quantity(quantityValue)
             if (stringValue != null) return String(stringValue)
-            return Null
+            return null
           }
         }
       }
@@ -393,7 +389,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -412,7 +408,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * It qualifies the interval of temperature, which characterizes an occurrence of handling.
        * Conditions that are not related to temperature may be handled in the instruction element.
@@ -435,22 +431,9 @@ public data class SpecimenDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This type of contained specimen is preferred to collect this kind of specimen. */
-    Preferred(
-      "preferred",
-      "http://hl7.org/fhir/specimen-contained-preference",
-      "Preferred",
-      "This type of contained specimen is preferred to collect this kind of specimen.",
-    ),
-    /** This type of conditioned specimen is an alternate. */
-    Alternate(
-      "alternate",
-      "http://hl7.org/fhir/specimen-contained-preference",
-      "Alternate",
-      "This type of conditioned specimen is an alternate.",
-    );
+    Preferred("preferred", "http://hl7.org/fhir/specimen-contained-preference", "Preferred"),
+    Alternate("alternate", "http://hl7.org/fhir/specimen-contained-preference", "Alternate");
 
     override fun toString(): kotlin.String = code
 
@@ -459,8 +442,6 @@ public data class SpecimenDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SpecimenContainedPreference =

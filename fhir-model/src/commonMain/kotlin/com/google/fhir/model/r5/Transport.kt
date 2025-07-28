@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.TransportOutputValueSerializer
 import com.google.fhir.model.r5.serializers.TransportRestrictionSerializer
 import com.google.fhir.model.r5.serializers.TransportSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Transport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class Transport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class Transport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for the transport event that is used to identify it across multiple disparate
    * systems.
@@ -138,7 +138,7 @@ public data class Transport(
    * This identifier is typically assigned by the dispenser, and may be used to reference the
    * delivery when exchanging information about it with other systems.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a *FHIR*-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this Transport.
@@ -156,7 +156,7 @@ public data class Transport(
    * by FocusOn. For example, based on a ServiceRequest (= BasedOn), a transport is created to
    * fulfill a procedureRequest ( = FocusOn ) to transport a specimen to the lab.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A shared identifier common to multiple independent Request instances that were
    * activated/authorized more or less simultaneously by a single author. The presence of the same
@@ -172,7 +172,7 @@ public data class Transport(
    *
    * [The allowed reference resources may be adjusted as appropriate for the event resource].
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /** A code specifying the state of the transport event. */
   public var status: Enumeration<TransportStatus>? = null,
   /**
@@ -191,7 +191,7 @@ public data class Transport(
    *
    * In most cases, Transports will have an intent of "order".
    */
-  public var intent: Enumeration<TransportIntent>? = null,
+  public var intent: Enumeration<TransportIntent>,
   /** Indicates how quickly the Transport should be addressed with respect to other requests. */
   public var priority: Enumeration<TransportPriority>? = null,
   /**
@@ -228,7 +228,7 @@ public data class Transport(
   /** The creator of the transport. */
   public var requester: Reference? = null,
   /** The kind of participant that should perform the transport. */
-  public var performerType: List<CodeableConcept?>? = null,
+  public var performerType: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Individual organization or Device currently responsible for transport execution.
    *
@@ -241,9 +241,9 @@ public data class Transport(
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * relevant to the Transport.
    */
-  public var insurance: List<Reference?>? = null,
+  public var insurance: MutableList<Reference> = mutableListOf(),
   /** Free-text information captured about the transport as it progresses. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Links to Provenance records for past versions of this Transport that identify key state
    * transitions or updates that are likely to be relevant to a user looking at the current version
@@ -253,7 +253,7 @@ public data class Transport(
    * resource - as it would be created after this version existed. The Provenance for the current
    * version can be retrieved with a _revinclude.
    */
-  public var relevantHistory: List<Reference?>? = null,
+  public var relevantHistory: MutableList<Reference> = mutableListOf(),
   /**
    * If the Transport.focus is a request resource and the transport is seeking fulfillment (i.e. is
    * asking for the request to be actioned), this element identifies any limitations on what parts
@@ -261,13 +261,13 @@ public data class Transport(
    */
   public var restriction: Restriction? = null,
   /** Additional information that may be needed in the execution of the transport. */
-  public var input: List<Input>? = null,
+  public var input: MutableList<Input> = mutableListOf(),
   /** Outputs produced by the Transport. */
-  public var output: List<Output>? = null,
+  public var output: MutableList<Output> = mutableListOf(),
   /** The desired or final location for the transport. */
-  public var requestedLocation: Reference? = null,
+  public var requestedLocation: Reference,
   /** The current location for the entity to be transported. */
-  public var currentLocation: Reference? = null,
+  public var currentLocation: Reference,
   /**
    * A resource reference indicating why this transport needs to be performed.
    *
@@ -304,7 +304,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -323,7 +323,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates the number of times the requested action should occur. */
     public var repetitions: PositiveInt? = null,
     /**
@@ -337,7 +337,7 @@ public data class Transport(
      * For requests that are targeted to more than one potential recipient/target, to identify who
      * is fulfillment is sought for.
      */
-    public var recipient: List<Reference?>? = null,
+    public var recipient: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** Additional information that may be needed in the execution of the transport. */
@@ -360,7 +360,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -379,7 +379,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A code or description indicating how the input is intended to be used as part of the
      * transport execution.
@@ -387,9 +387,9 @@ public data class Transport(
      * If referencing a BPMN workflow or Protocol, the "system" is the URL for the workflow
      * definition and the code is the "name" of the required input.
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** The value of the input parameter as a basic type. */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = TransportInputValueSerializer::class)
     public sealed interface Value {
@@ -631,10 +631,8 @@ public data class Transport(
 
       public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
+        internal fun from(
           base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
           canonicalValue: com.google.fhir.model.r5.Canonical?,
@@ -655,41 +653,41 @@ public data class Transport(
           uriValue: com.google.fhir.model.r5.Uri?,
           urlValue: com.google.fhir.model.r5.Url?,
           uuidValue: com.google.fhir.model.r5.Uuid?,
-          AddressValue: com.google.fhir.model.r5.Address?,
-          AgeValue: com.google.fhir.model.r5.Age?,
-          AnnotationValue: com.google.fhir.model.r5.Annotation?,
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          CodeableReferenceValue: com.google.fhir.model.r5.CodeableReference?,
-          CodingValue: com.google.fhir.model.r5.Coding?,
-          ContactPointValue: com.google.fhir.model.r5.ContactPoint?,
-          CountValue: com.google.fhir.model.r5.Count?,
-          DistanceValue: com.google.fhir.model.r5.Distance?,
-          DurationValue: com.google.fhir.model.r5.Duration?,
-          HumanNameValue: com.google.fhir.model.r5.HumanName?,
-          IdentifierValue: com.google.fhir.model.r5.Identifier?,
-          MoneyValue: com.google.fhir.model.r5.Money?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          RatioValue: com.google.fhir.model.r5.Ratio?,
-          RatioRangeValue: com.google.fhir.model.r5.RatioRange?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          SampledDataValue: com.google.fhir.model.r5.SampledData?,
-          SignatureValue: com.google.fhir.model.r5.Signature?,
-          TimingValue: com.google.fhir.model.r5.Timing?,
-          ContactDetailValue: com.google.fhir.model.r5.ContactDetail?,
-          DataRequirementValue: com.google.fhir.model.r5.DataRequirement?,
-          ExpressionValue: com.google.fhir.model.r5.Expression?,
-          ParameterDefinitionValue: com.google.fhir.model.r5.ParameterDefinition?,
-          RelatedArtifactValue: com.google.fhir.model.r5.RelatedArtifact?,
-          TriggerDefinitionValue: com.google.fhir.model.r5.TriggerDefinition?,
-          UsageContextValue: com.google.fhir.model.r5.UsageContext?,
-          AvailabilityValue: com.google.fhir.model.r5.Availability?,
-          ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
-          DosageValue: com.google.fhir.model.r5.Dosage?,
-          MetaValue: com.google.fhir.model.r5.Meta?,
-        ): Value {
+          addressValue: com.google.fhir.model.r5.Address?,
+          ageValue: com.google.fhir.model.r5.Age?,
+          annotationValue: com.google.fhir.model.r5.Annotation?,
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          codeableReferenceValue: com.google.fhir.model.r5.CodeableReference?,
+          codingValue: com.google.fhir.model.r5.Coding?,
+          contactPointValue: com.google.fhir.model.r5.ContactPoint?,
+          countValue: com.google.fhir.model.r5.Count?,
+          distanceValue: com.google.fhir.model.r5.Distance?,
+          durationValue: com.google.fhir.model.r5.Duration?,
+          humanNameValue: com.google.fhir.model.r5.HumanName?,
+          identifierValue: com.google.fhir.model.r5.Identifier?,
+          moneyValue: com.google.fhir.model.r5.Money?,
+          periodValue: com.google.fhir.model.r5.Period?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          ratioValue: com.google.fhir.model.r5.Ratio?,
+          ratioRangeValue: com.google.fhir.model.r5.RatioRange?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          sampledDataValue: com.google.fhir.model.r5.SampledData?,
+          signatureValue: com.google.fhir.model.r5.Signature?,
+          timingValue: com.google.fhir.model.r5.Timing?,
+          contactDetailValue: com.google.fhir.model.r5.ContactDetail?,
+          dataRequirementValue: com.google.fhir.model.r5.DataRequirement?,
+          expressionValue: com.google.fhir.model.r5.Expression?,
+          parameterDefinitionValue: com.google.fhir.model.r5.ParameterDefinition?,
+          relatedArtifactValue: com.google.fhir.model.r5.RelatedArtifact?,
+          triggerDefinitionValue: com.google.fhir.model.r5.TriggerDefinition?,
+          usageContextValue: com.google.fhir.model.r5.UsageContext?,
+          availabilityValue: com.google.fhir.model.r5.Availability?,
+          extendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
+          dosageValue: com.google.fhir.model.r5.Dosage?,
+          metaValue: com.google.fhir.model.r5.Meta?,
+        ): Value? {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -710,42 +708,42 @@ public data class Transport(
           if (uriValue != null) return Uri(uriValue)
           if (urlValue != null) return Url(urlValue)
           if (uuidValue != null) return Uuid(uuidValue)
-          if (AddressValue != null) return Address(AddressValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (AnnotationValue != null) return Annotation(AnnotationValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (CodeableReferenceValue != null) return CodeableReference(CodeableReferenceValue)
-          if (CodingValue != null) return Coding(CodingValue)
-          if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-          if (CountValue != null) return Count(CountValue)
-          if (DistanceValue != null) return Distance(DistanceValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (HumanNameValue != null) return HumanName(HumanNameValue)
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
-          if (MoneyValue != null) return Money(MoneyValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (SampledDataValue != null) return SampledData(SampledDataValue)
-          if (SignatureValue != null) return Signature(SignatureValue)
-          if (TimingValue != null) return Timing(TimingValue)
-          if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-          if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-          if (ExpressionValue != null) return Expression(ExpressionValue)
-          if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-          if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-          if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-          if (UsageContextValue != null) return UsageContext(UsageContextValue)
-          if (AvailabilityValue != null) return Availability(AvailabilityValue)
-          if (ExtendedContactDetailValue != null)
-            return ExtendedContactDetail(ExtendedContactDetailValue)
-          if (DosageValue != null) return Dosage(DosageValue)
-          if (MetaValue != null) return Meta(MetaValue)
-          return Null
+          if (addressValue != null) return Address(addressValue)
+          if (ageValue != null) return Age(ageValue)
+          if (annotationValue != null) return Annotation(annotationValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (codeableReferenceValue != null) return CodeableReference(codeableReferenceValue)
+          if (codingValue != null) return Coding(codingValue)
+          if (contactPointValue != null) return ContactPoint(contactPointValue)
+          if (countValue != null) return Count(countValue)
+          if (distanceValue != null) return Distance(distanceValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (humanNameValue != null) return HumanName(humanNameValue)
+          if (identifierValue != null) return Identifier(identifierValue)
+          if (moneyValue != null) return Money(moneyValue)
+          if (periodValue != null) return Period(periodValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (sampledDataValue != null) return SampledData(sampledDataValue)
+          if (signatureValue != null) return Signature(signatureValue)
+          if (timingValue != null) return Timing(timingValue)
+          if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+          if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+          if (expressionValue != null) return Expression(expressionValue)
+          if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+          if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+          if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+          if (usageContextValue != null) return UsageContext(usageContextValue)
+          if (availabilityValue != null) return Availability(availabilityValue)
+          if (extendedContactDetailValue != null)
+            return ExtendedContactDetail(extendedContactDetailValue)
+          if (dosageValue != null) return Dosage(dosageValue)
+          if (metaValue != null) return Meta(metaValue)
+          return null
         }
       }
     }
@@ -771,7 +769,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -790,11 +788,11 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The name of the Output parameter. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** The value of the Output parameter as a basic type. */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = TransportOutputValueSerializer::class)
     public sealed interface Value {
@@ -1036,10 +1034,8 @@ public data class Transport(
 
       public data class Meta(public val `value`: com.google.fhir.model.r5.Meta) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
+        internal fun from(
           base64BinaryValue: com.google.fhir.model.r5.Base64Binary?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
           canonicalValue: com.google.fhir.model.r5.Canonical?,
@@ -1060,41 +1056,41 @@ public data class Transport(
           uriValue: com.google.fhir.model.r5.Uri?,
           urlValue: com.google.fhir.model.r5.Url?,
           uuidValue: com.google.fhir.model.r5.Uuid?,
-          AddressValue: com.google.fhir.model.r5.Address?,
-          AgeValue: com.google.fhir.model.r5.Age?,
-          AnnotationValue: com.google.fhir.model.r5.Annotation?,
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          CodeableReferenceValue: com.google.fhir.model.r5.CodeableReference?,
-          CodingValue: com.google.fhir.model.r5.Coding?,
-          ContactPointValue: com.google.fhir.model.r5.ContactPoint?,
-          CountValue: com.google.fhir.model.r5.Count?,
-          DistanceValue: com.google.fhir.model.r5.Distance?,
-          DurationValue: com.google.fhir.model.r5.Duration?,
-          HumanNameValue: com.google.fhir.model.r5.HumanName?,
-          IdentifierValue: com.google.fhir.model.r5.Identifier?,
-          MoneyValue: com.google.fhir.model.r5.Money?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          RatioValue: com.google.fhir.model.r5.Ratio?,
-          RatioRangeValue: com.google.fhir.model.r5.RatioRange?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          SampledDataValue: com.google.fhir.model.r5.SampledData?,
-          SignatureValue: com.google.fhir.model.r5.Signature?,
-          TimingValue: com.google.fhir.model.r5.Timing?,
-          ContactDetailValue: com.google.fhir.model.r5.ContactDetail?,
-          DataRequirementValue: com.google.fhir.model.r5.DataRequirement?,
-          ExpressionValue: com.google.fhir.model.r5.Expression?,
-          ParameterDefinitionValue: com.google.fhir.model.r5.ParameterDefinition?,
-          RelatedArtifactValue: com.google.fhir.model.r5.RelatedArtifact?,
-          TriggerDefinitionValue: com.google.fhir.model.r5.TriggerDefinition?,
-          UsageContextValue: com.google.fhir.model.r5.UsageContext?,
-          AvailabilityValue: com.google.fhir.model.r5.Availability?,
-          ExtendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
-          DosageValue: com.google.fhir.model.r5.Dosage?,
-          MetaValue: com.google.fhir.model.r5.Meta?,
-        ): Value {
+          addressValue: com.google.fhir.model.r5.Address?,
+          ageValue: com.google.fhir.model.r5.Age?,
+          annotationValue: com.google.fhir.model.r5.Annotation?,
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          codeableReferenceValue: com.google.fhir.model.r5.CodeableReference?,
+          codingValue: com.google.fhir.model.r5.Coding?,
+          contactPointValue: com.google.fhir.model.r5.ContactPoint?,
+          countValue: com.google.fhir.model.r5.Count?,
+          distanceValue: com.google.fhir.model.r5.Distance?,
+          durationValue: com.google.fhir.model.r5.Duration?,
+          humanNameValue: com.google.fhir.model.r5.HumanName?,
+          identifierValue: com.google.fhir.model.r5.Identifier?,
+          moneyValue: com.google.fhir.model.r5.Money?,
+          periodValue: com.google.fhir.model.r5.Period?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          ratioValue: com.google.fhir.model.r5.Ratio?,
+          ratioRangeValue: com.google.fhir.model.r5.RatioRange?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          sampledDataValue: com.google.fhir.model.r5.SampledData?,
+          signatureValue: com.google.fhir.model.r5.Signature?,
+          timingValue: com.google.fhir.model.r5.Timing?,
+          contactDetailValue: com.google.fhir.model.r5.ContactDetail?,
+          dataRequirementValue: com.google.fhir.model.r5.DataRequirement?,
+          expressionValue: com.google.fhir.model.r5.Expression?,
+          parameterDefinitionValue: com.google.fhir.model.r5.ParameterDefinition?,
+          relatedArtifactValue: com.google.fhir.model.r5.RelatedArtifact?,
+          triggerDefinitionValue: com.google.fhir.model.r5.TriggerDefinition?,
+          usageContextValue: com.google.fhir.model.r5.UsageContext?,
+          availabilityValue: com.google.fhir.model.r5.Availability?,
+          extendedContactDetailValue: com.google.fhir.model.r5.ExtendedContactDetail?,
+          dosageValue: com.google.fhir.model.r5.Dosage?,
+          metaValue: com.google.fhir.model.r5.Meta?,
+        ): Value? {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -1115,42 +1111,42 @@ public data class Transport(
           if (uriValue != null) return Uri(uriValue)
           if (urlValue != null) return Url(urlValue)
           if (uuidValue != null) return Uuid(uuidValue)
-          if (AddressValue != null) return Address(AddressValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (AnnotationValue != null) return Annotation(AnnotationValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (CodeableReferenceValue != null) return CodeableReference(CodeableReferenceValue)
-          if (CodingValue != null) return Coding(CodingValue)
-          if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-          if (CountValue != null) return Count(CountValue)
-          if (DistanceValue != null) return Distance(DistanceValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (HumanNameValue != null) return HumanName(HumanNameValue)
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
-          if (MoneyValue != null) return Money(MoneyValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (SampledDataValue != null) return SampledData(SampledDataValue)
-          if (SignatureValue != null) return Signature(SignatureValue)
-          if (TimingValue != null) return Timing(TimingValue)
-          if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-          if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-          if (ExpressionValue != null) return Expression(ExpressionValue)
-          if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-          if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-          if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-          if (UsageContextValue != null) return UsageContext(UsageContextValue)
-          if (AvailabilityValue != null) return Availability(AvailabilityValue)
-          if (ExtendedContactDetailValue != null)
-            return ExtendedContactDetail(ExtendedContactDetailValue)
-          if (DosageValue != null) return Dosage(DosageValue)
-          if (MetaValue != null) return Meta(MetaValue)
-          return Null
+          if (addressValue != null) return Address(addressValue)
+          if (ageValue != null) return Age(ageValue)
+          if (annotationValue != null) return Annotation(annotationValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (codeableReferenceValue != null) return CodeableReference(codeableReferenceValue)
+          if (codingValue != null) return Coding(codingValue)
+          if (contactPointValue != null) return ContactPoint(contactPointValue)
+          if (countValue != null) return Count(countValue)
+          if (distanceValue != null) return Distance(distanceValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (humanNameValue != null) return HumanName(humanNameValue)
+          if (identifierValue != null) return Identifier(identifierValue)
+          if (moneyValue != null) return Money(moneyValue)
+          if (periodValue != null) return Period(periodValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (sampledDataValue != null) return SampledData(sampledDataValue)
+          if (signatureValue != null) return Signature(signatureValue)
+          if (timingValue != null) return Timing(timingValue)
+          if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+          if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+          if (expressionValue != null) return Expression(expressionValue)
+          if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+          if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+          if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+          if (usageContextValue != null) return UsageContext(usageContextValue)
+          if (availabilityValue != null) return Availability(availabilityValue)
+          if (extendedContactDetailValue != null)
+            return ExtendedContactDetail(extendedContactDetailValue)
+          if (dosageValue != null) return Dosage(dosageValue)
+          if (metaValue != null) return Meta(metaValue)
+          return null
         }
       }
     }
@@ -1161,53 +1157,16 @@ public data class Transport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Transport has started but not completed. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/transport-status",
-      "In Progress",
-      "Transport has started but not completed.",
-    ),
-    /** Transport has been completed. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/transport-status",
-      "Completed",
-      "Transport has been completed.",
-    ),
-    /** Transport was started but not completed. */
-    Abandoned(
-      "abandoned",
-      "http://hl7.org/fhir/transport-status",
-      "Abandoned",
-      "Transport was started but not completed.",
-    ),
-    /** Transport was cancelled before started. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/transport-status",
-      "Cancelled",
-      "Transport was cancelled before started.",
-    ),
-    /** Planned transport that is not yet requested. */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/transport-status",
-      "Planned",
-      "Planned transport that is not yet requested.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "abandoned" rather than "entered-in-error".).
-     */
+    In_Progress("in-progress", "http://hl7.org/fhir/transport-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/transport-status", "Completed"),
+    Abandoned("abandoned", "http://hl7.org/fhir/transport-status", "Abandoned"),
+    Cancelled("cancelled", "http://hl7.org/fhir/transport-status", "Cancelled"),
+    Planned("planned", "http://hl7.org/fhir/transport-status", "Planned"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/transport-status",
       "Entered In Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"abandoned\" rather than \"entered-in-error\".).",
     );
 
     override fun toString(): kotlin.String = code
@@ -1217,8 +1176,6 @@ public data class Transport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TransportStatus =
@@ -1239,95 +1196,16 @@ public data class Transport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The intent is not known. When dealing with Transport, it's not always known (or relevant) how
-     * the transport was initiated - i.e. whether it was proposed, planned, ordered or just done
-     * spontaneously.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/transport-intent",
-      "Unknown",
-      "The intent is not known.  When dealing with Transport, it's not always known (or relevant) how the transport was initiated - i.e. whether it was proposed, planned, ordered or just done spontaneously.",
-    ),
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /** The request represents a request/demand and authorization for action by the requestor. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by the requestor.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestOrchestration that establishes
-     * timing, conditionality and/or other constraints among a set of requests. Refer to
-     * [[[RequestOrchestration]]] for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestOrchestration that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestOrchestration]]] for additional information on how this status is used.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/transport-intent", "Unknown"),
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -1336,8 +1214,6 @@ public data class Transport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TransportIntent =
@@ -1361,38 +1237,11 @@ public data class Transport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1401,8 +1250,6 @@ public data class Transport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TransportPriority =

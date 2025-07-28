@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.ImagingSelectionInstanceSerializer
 import com.google.fhir.model.r5.serializers.ImagingSelectionPerformerSerializer
 import com.google.fhir.model.r5.serializers.ImagingSelectionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class ImagingSelection(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class ImagingSelection(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,14 +134,14 @@ public data class ImagingSelection(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A unique identifier assigned to this imaging selection.
    *
    * This is a business identifier, not a resource identifier -- see discussion under
    * [Business Identifiers](resource.html#identifiers).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The current state of the ImagingSelection resource. This is not the status of any ImagingStudy,
    * ServiceRequest, or Task resources associated with the ImagingSelection.
@@ -149,7 +149,7 @@ public data class ImagingSelection(
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<ImagingSelectionStatus>? = null,
+  public var status: Enumeration<ImagingSelectionStatus>,
   /**
    * The patient, or group of patients, location, device, organization, procedure or practitioner
    * this imaging selection is about and into whose or what record the imaging selection is placed.
@@ -158,18 +158,18 @@ public data class ImagingSelection(
   /** The date and time this imaging selection was created. */
   public var issued: Instant? = null,
   /** Selector of the instances – human or machine. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** A list of the diagnostic requests that resulted in this imaging selection being performed. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** Classifies the imaging selection. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Reason for referencing the selected content.
    *
    * *All* code-value and, if present, component.code-component.value pairs need to be taken into
    * account to correctly understand the meaning of the observation.
    */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * The Study Instance UID for the DICOM Study from which the images were selected.
    *
@@ -178,7 +178,7 @@ public data class ImagingSelection(
    */
   public var studyUid: Id? = null,
   /** The imaging study from which the imaging selection is made. */
-  public var derivedFrom: List<Reference?>? = null,
+  public var derivedFrom: MutableList<Reference> = mutableListOf(),
   /**
    * The network service providing retrieval access to the selected images, frames, etc. See
    * implementation notes for information about using DICOM endpoints.
@@ -187,7 +187,7 @@ public data class ImagingSelection(
    * native or rendered (e.g., JPG, PNG) formats using a RESTful API; DICOM WADO-URI, which can
    * similarly retrieve native or rendered instances, except using an HTTP query-based approach.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
   /**
    * The Series Instance UID for the DICOM Series from which the images were selected.
    *
@@ -228,9 +228,9 @@ public data class ImagingSelection(
    * An imaging selection may reference a DICOM resource that itself references other DICOM
    * resources. e.g. a presentation state references a set of source images or frames.
    */
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference> = mutableListOf(),
   /** Each imaging selection includes one or more selected DICOM SOP instances. */
-  public var instance: List<Instance>? = null,
+  public var instance: MutableList<Instance> = mutableListOf(),
 ) : DomainResource() {
   /** Selector of the instances – human or machine. */
   @Serializable(with = ImagingSelectionPerformerSerializer::class)
@@ -252,7 +252,7 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -271,7 +271,7 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Distinguishes the type of involvement of the performer. */
     public var function: CodeableConcept? = null,
     /** Author – human or machine. */
@@ -298,7 +298,7 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -317,14 +317,14 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The SOP Instance UID for the selected DICOM instance.
      *
      * See
      * [DICOM PS3.3 C.12.1](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.12.html).
      */
-    public var uid: Id? = null,
+    public var uid: Id,
     /**
      * The Instance Number for the selected DICOM instance.
      *
@@ -351,18 +351,18 @@ public data class ImagingSelection(
      * - A list of Region of Interest (ROI) numbers selected from a radiotherapy structure set SOP
      *   Instance.
      */
-    public var subset: List<String?>? = null,
+    public var subset: MutableList<String> = mutableListOf(),
     /**
      * Each imaging selection instance or frame list might includes an image region, specified by a
      * region type and a set of 2D coordinates. If the parent imagingSelection.instance contains a
      * subset element of type frame, the image region applies to all frames in the subset list.
      */
-    public var imageRegion2D: List<ImageRegion2D>? = null,
+    public var imageRegion2D: MutableList<ImageRegion2D> = mutableListOf(),
     /**
      * Each imaging selection might includes a 3D image region, specified by a region type and a set
      * of 3D coordinates.
      */
-    public var imageRegion3D: List<ImageRegion3D>? = null,
+    public var imageRegion3D: MutableList<ImageRegion3D> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Each imaging selection instance or frame list might includes an image region, specified by a
@@ -388,7 +388,7 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -407,14 +407,14 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Specifies the type of image region.
        *
        * See
        * [DICOM PS3.3 C.10.5.1.2](https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.10.5.html#sect_C.10.5.1.2).
        */
-      public var regionType: Enumeration<ImagingSelection2DGraphicType>? = null,
+      public var regionType: Enumeration<ImagingSelection2DGraphicType>,
       /**
        * The coordinates describing the image region. Encoded as a set of (column, row) pairs that
        * denote positions in the selected image / frames specified with sub-pixel resolution. The
@@ -425,7 +425,7 @@ public data class ImagingSelection(
        * For a description of how 2D coordinates are encoded, see
        * [DICOM PS3.3 C.18.6](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.6.html).
        */
-      public var coordinate: List<Decimal?>? = null,
+      public var coordinate: MutableList<Decimal> = mutableListOf(),
     ) : BackboneElement()
 
     /**
@@ -451,7 +451,7 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -470,14 +470,14 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Specifies the type of image region.
        *
        * See
        * [DICOM PS3.3 C.18.9.1.2](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.9.html#sect_C.18.9.1.2).
        */
-      public var regionType: Enumeration<ImagingSelection3DGraphicType>? = null,
+      public var regionType: Enumeration<ImagingSelection3DGraphicType>,
       /**
        * The coordinates describing the image region. Encoded as an ordered set of (x,y,z) triplets
        * (in mm and may be negative) that define a region of interest in the patient-relative
@@ -486,7 +486,7 @@ public data class ImagingSelection(
        * For a description of how 3D coordinates are encoded, see
        * [DICOM PS3.3 C.18.9](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.9.html).
        */
-      public var coordinate: List<Decimal?>? = null,
+      public var coordinate: MutableList<Decimal> = mutableListOf(),
     ) : BackboneElement()
   }
 
@@ -495,56 +495,16 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A single location denoted by a single (x,y) pair. */
-    Point(
-      "point",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "POINT",
-      "A single location denoted by a single (x,y) pair.",
-    ),
-    /**
-     * A series of connected line segments with ordered vertices denoted by (x,y) triplets; the
-     * points need not be coplanar.
-     */
-    Polyline(
-      "polyline",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "POLYLINE",
-      "A series of connected line segments with ordered vertices denoted by (x,y) triplets; the points need not be coplanar.",
-    ),
-    /**
-     * An n-tuple list of (x,y) pair end points between which some form of implementation dependent
-     * curved lines are to be drawn. The rendered line shall pass through all the specified points.
-     */
+    Point("point", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POINT"),
+    Polyline("polyline", "http://hl7.org/fhir/imagingselection-2dgraphictype", "POLYLINE"),
     Interpolated(
       "interpolated",
       "http://hl7.org/fhir/imagingselection-2dgraphictype",
       "INTERPOLATED",
-      "An n-tuple list of (x,y) pair end points between which some form of implementation dependent curved lines are to be drawn. The rendered line shall pass through all the specified points.",
     ),
-    /**
-     * Two points shall be present; the first point is to be interpreted as the center and the
-     * second point as a point on the circumference of a circle, some form of implementation
-     * dependent representation of which is to be drawn.
-     */
-    Circle(
-      "circle",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "CIRCLE",
-      "Two points shall be present; the first point is to be interpreted as the center and the second point as a point on the circumference of a circle, some form of implementation dependent representation of which is to be drawn.",
-    ),
-    /**
-     * An ellipse defined by four (x,y) pairs, the first two pairs specifying the endpoints of the
-     * major axis and the second two pairs specifying the endpoints of the minor axis.
-     */
-    Ellipse(
-      "ellipse",
-      "http://hl7.org/fhir/imagingselection-2dgraphictype",
-      "ELLIPSE",
-      "An ellipse defined by four (x,y) pairs, the first two pairs specifying the endpoints of the major axis and the second two pairs specifying the endpoints of the minor axis.",
-    );
+    Circle("circle", "http://hl7.org/fhir/imagingselection-2dgraphictype", "CIRCLE"),
+    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-2dgraphictype", "ELLIPSE");
 
     override fun toString(): kotlin.String = code
 
@@ -553,8 +513,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelection2DGraphicType =
@@ -577,66 +535,13 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A single location denoted by a single (x,y,z) triplet. */
-    Point(
-      "point",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "POINT",
-      "A single location denoted by a single (x,y,z) triplet.",
-    ),
-    /** multiple locations each denoted by an (x,y,z) triplet; the points need not be coplanar. */
-    Multipoint(
-      "multipoint",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "MULTIPOINT",
-      "multiple locations each denoted by an (x,y,z) triplet; the points need not be coplanar.",
-    ),
-    /**
-     * a series of connected line segments with ordered vertices denoted by (x,y,z) triplets; the
-     * points need not be coplanar.
-     */
-    Polyline(
-      "polyline",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "POLYLINE",
-      "a series of connected line segments with ordered vertices denoted by (x,y,z) triplets; the points need not be coplanar.",
-    ),
-    /**
-     * a series of connected line segments with ordered vertices denoted by (x,y,z) triplets, where
-     * the first and last vertices shall be the same forming a polygon; the points shall be
-     * coplanar.
-     */
-    Polygon(
-      "polygon",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "POLYGON",
-      "a series of connected line segments with ordered vertices denoted by (x,y,z) triplets, where the first and last vertices shall be the same forming a polygon; the points shall be coplanar.",
-    ),
-    /**
-     * an ellipse defined by four (x,y,z) triplets, the first two triplets specifying the endpoints
-     * of the major axis and the second two triplets specifying the endpoints of the minor axis.
-     */
-    Ellipse(
-      "ellipse",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "ELLIPSE",
-      "an ellipse defined by four (x,y,z) triplets, the first two triplets specifying the endpoints of the major axis and the second two triplets specifying the endpoints of the minor axis.",
-    ),
-    /**
-     * a three-dimensional geometric surface whose plane sections are either ellipses or circles and
-     * contains three intersecting orthogonal axes, "a", "b", and "c"; the ellipsoid is defined by
-     * six (x,y,z) triplets, the first and second triplets specifying the endpoints of axis "a", the
-     * third and fourth triplets specifying the endpoints of axis "b", and the fifth and sixth
-     * triplets specifying the endpoints of axis "c".
-     */
-    Ellipsoid(
-      "ellipsoid",
-      "http://hl7.org/fhir/imagingselection-3dgraphictype",
-      "ELLIPSOID",
-      "a three-dimensional geometric surface whose plane sections are either ellipses or circles and contains three intersecting orthogonal axes, \"a\", \"b\", and \"c\"; the ellipsoid is defined by six (x,y,z) triplets, the first and second triplets specifying the endpoints of axis \"a\", the third and fourth triplets specifying the endpoints of axis \"b\", and the fifth and sixth triplets specifying the endpoints of axis \"c\".",
-    );
+    Point("point", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POINT"),
+    Multipoint("multipoint", "http://hl7.org/fhir/imagingselection-3dgraphictype", "MULTIPOINT"),
+    Polyline("polyline", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYLINE"),
+    Polygon("polygon", "http://hl7.org/fhir/imagingselection-3dgraphictype", "POLYGON"),
+    Ellipse("ellipse", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSE"),
+    Ellipsoid("ellipsoid", "http://hl7.org/fhir/imagingselection-3dgraphictype", "ELLIPSOID");
 
     override fun toString(): kotlin.String = code
 
@@ -645,8 +550,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelection3DGraphicType =
@@ -670,38 +573,14 @@ public data class ImagingSelection(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The selected resources are available.. */
-    Available(
-      "available",
-      "http://hl7.org/fhir/imagingselection-status",
-      "Available",
-      "The selected resources are available..",
-    ),
-    /**
-     * The imaging selection has been withdrawn following a release. This electronic record should
-     * never have existed, though it is possible that real-world decisions were based on it. (If
-     * real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Available("available", "http://hl7.org/fhir/imagingselection-status", "Available"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/imagingselection-status",
       "Entered in Error",
-      "The imaging selection has been withdrawn following a release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The system does not know which of the status values currently applies for this request. Note:
-     * This concept is not to be used for "other" - one of the listed statuses is presumed to apply,
-     * it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/imagingselection-status",
-      "Unknown",
-      "The system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/imagingselection-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -710,8 +589,6 @@ public data class ImagingSelection(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingSelectionStatus =

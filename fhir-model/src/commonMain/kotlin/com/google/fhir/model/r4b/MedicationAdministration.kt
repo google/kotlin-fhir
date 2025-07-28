@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.MedicationAdministrationMedicationS
 import com.google.fhir.model.r4b.serializers.MedicationAdministrationPerformerSerializer
 import com.google.fhir.model.r4b.serializers.MedicationAdministrationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class MedicationAdministration(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class MedicationAdministration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class MedicationAdministration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this Medication Administration that are defined by business
    * processes and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -142,14 +142,14 @@ public data class MedicationAdministration(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A protocol, guideline, orderset, or other definition that was adhered to in whole or in part by
    * this event.
    */
-  public var instantiates: List<Uri?>? = null,
+  public var instantiates: MutableList<Uri> = mutableListOf(),
   /** A larger event of which this particular event is a component or step. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * Will generally be set to show that the administration has been completed. For some long running
    * administrations such as infusions, it is possible for an administration to be started but not
@@ -158,9 +158,9 @@ public data class MedicationAdministration(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationAdministrationStatus>? = null,
+  public var status: Enumeration<MedicationAdministrationStatus>,
   /** A code indicating why the administration was not performed. */
-  public var statusReason: List<CodeableConcept?>? = null,
+  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates where the medication is expected to be consumed or administered. */
   public var category: CodeableConcept? = null,
   /**
@@ -172,9 +172,9 @@ public data class MedicationAdministration(
    * information is required, then the use of the medication resource is recommended. For example,
    * if you require form or lot number, then you must reference the Medication resource.
    */
-  public var medication: Medication? = null,
+  public var medication: Medication,
   /** The person or animal or group receiving the medication. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The visit, admission, or other contact between patient and health care provider during which
    * the medication administration was performed.
@@ -184,24 +184,24 @@ public data class MedicationAdministration(
    * Additional information (for example, patient height and weight) that supports the
    * administration of the medication.
    */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /**
    * A specific date/time or interval of time during which the administration took place (or did not
    * take place, when the 'notGiven' attribute is true). For many administrations, such as
    * swallowing a tablet the use of dateTime is more appropriate.
    */
-  public var effective: Effective? = null,
+  public var effective: Effective,
   /** Indicates who or what performed the medication administration and how they were involved. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** A code indicating why the medication was given. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Condition or observation that supports why the medication was administered.
    *
    * This is a reference to a condition that is the reason for the medication request. If only a
    * code exists, use reasonCode.
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * The original request, instruction or authority to perform the administration.
    *
@@ -213,12 +213,12 @@ public data class MedicationAdministration(
    * The device used in administering the medication to the patient. For example, a particular
    * infusion pump.
    */
-  public var device: List<Reference?>? = null,
+  public var device: MutableList<Reference> = mutableListOf(),
   /**
    * Extra information about the medication administration that is not conveyed by the other
    * attributes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Describes the medication dosage information details e.g. dose, rate, site, route, etc. */
   public var dosage: Dosage? = null,
   /**
@@ -232,7 +232,7 @@ public data class MedicationAdministration(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.
    */
-  public var eventHistory: List<Reference?>? = null,
+  public var eventHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what performed the medication administration and how they were involved. */
   @Serializable(with = MedicationAdministrationPerformerSerializer::class)
@@ -254,7 +254,7 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -273,11 +273,11 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Distinguishes the type of involvement of the performer in the medication administration. */
     public var function: CodeableConcept? = null,
     /** Indicates who or what performed the medication administration. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /** Describes the medication dosage information details e.g. dose, rate, site, route, etc. */
@@ -300,7 +300,7 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -319,7 +319,7 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Free text dosage can be used for cases where the dosage administered is too complex to code.
      * When coded dosage is present, the free text dosage may still be present for display to
@@ -389,16 +389,14 @@ public data class MedicationAdministration(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r4b.Quantity) : Rate
 
-      public data object Null : Rate
-
       public companion object {
-        public fun from(
-          RatioValue: com.google.fhir.model.r4b.Ratio?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-        ): Rate {
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          return Null
+        internal fun from(
+          ratioValue: com.google.fhir.model.r4b.Ratio?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+        ): Rate? {
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          return null
         }
       }
     }
@@ -417,16 +415,14 @@ public data class MedicationAdministration(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
       Medication
 
-    public data object Null : Medication
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Medication {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+      ): Medication? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -441,16 +437,14 @@ public data class MedicationAdministration(
 
     public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Effective
 
-    public data object Null : Effective
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-      ): Effective {
+        periodValue: com.google.fhir.model.r4b.Period?,
+      ): Effective? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -460,70 +454,30 @@ public data class MedicationAdministration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The administration has started but has not yet completed. */
     In_Progress(
       "in-progress",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "In Progress",
-      "The administration has started but has not yet completed.",
     ),
-    /**
-     * The administration was terminated prior to any impact on the subject (though preparatory
-     * actions may have been taken)
-     */
     Not_Done(
       "not-done",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Not Done",
-      "The administration was terminated prior to any impact on the subject (though preparatory actions may have been taken)",
     ),
-    /**
-     * Actions implied by the administration have been temporarily halted, but are expected to
-     * continue later. May also be called 'suspended'.
-     */
-    On_Hold(
-      "on-hold",
-      "http://terminology.hl7.org/CodeSystem/medication-admin-status",
-      "On Hold",
-      "Actions implied by the administration have been temporarily halted, but are expected to continue later. May also be called 'suspended'.",
-    ),
-    /** All actions that are implied by the administration have occurred. */
+    On_Hold("on-hold", "http://terminology.hl7.org/CodeSystem/medication-admin-status", "On Hold"),
     Completed(
       "completed",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Completed",
-      "All actions that are implied by the administration have occurred.",
     ),
-    /** The administration was entered in error and therefore nullified. */
     Entered_In_Error(
       "entered-in-error",
       "http://terminology.hl7.org/CodeSystem/medication-admin-status",
       "Entered in Error",
-      "The administration was entered in error and therefore nullified.",
     ),
-    /**
-     * Actions implied by the administration have been permanently halted, before all of them
-     * occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://terminology.hl7.org/CodeSystem/medication-admin-status",
-      "Stopped",
-      "Actions implied by the administration have been permanently halted, before all of them occurred.",
-    ),
-    /**
-     * The authoring system does not know which of the status values currently applies for this
-     * request. Note: This concept is not to be used for 'other' - one of the listed statuses is
-     * presumed to apply, it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://terminology.hl7.org/CodeSystem/medication-admin-status",
-      "Unknown",
-      "The authoring system does not know which of the status values currently applies for this request. Note: This concept is not to be used for 'other' - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Stopped("stopped", "http://terminology.hl7.org/CodeSystem/medication-admin-status", "Stopped"),
+    Unknown("unknown", "http://terminology.hl7.org/CodeSystem/medication-admin-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -532,8 +486,6 @@ public data class MedicationAdministration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): MedicationAdministrationStatus =

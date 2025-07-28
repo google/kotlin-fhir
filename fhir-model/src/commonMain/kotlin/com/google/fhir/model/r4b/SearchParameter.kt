@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.SearchParameterComponentSerializer
 import com.google.fhir.model.r4b.serializers.SearchParameterSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class SearchParameter(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class SearchParameter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class SearchParameter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this search parameter when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -146,7 +146,7 @@ public data class SearchParameter(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * The identifier that is used to identify this version of the search parameter when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -166,7 +166,7 @@ public data class SearchParameter(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * Where this search parameter is originally defined. If a derivedFrom is provided, then the
    * details in the search parameter must be consistent with the definition from which it is
@@ -184,7 +184,7 @@ public data class SearchParameter(
    *
    * Allows filtering of search parameters that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this search parameter is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -218,7 +218,7 @@ public data class SearchParameter(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * And how it used.
    *
@@ -229,7 +229,7 @@ public data class SearchParameter(
    * information is available from context (e.g. the language of the search parameter is presumed to
    * be the predominant language in the place the search parameter was created).
    */
-  public var description: Markdown? = null,
+  public var description: Markdown,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -239,14 +239,14 @@ public data class SearchParameter(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the search parameter is intended to be used.
    *
    * It may be possible for the search parameter to be used in jurisdictions other than those for
    * which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this search parameter is needed and why it has been designed as it has.
    *
@@ -262,7 +262,7 @@ public data class SearchParameter(
    *
    * For maximum compatibility, use only lowercase ASCII characters.
    */
-  public var code: Code? = null,
+  public var code: Code,
   /**
    * The base resource type(s) that this search parameter can be used against.
    *
@@ -270,9 +270,9 @@ public data class SearchParameter(
    * apply to more than one resource type, they can be used against any of the listed resource
    * types, or in a cross-type search (see [Cross Resource Search](http.html#xres-search)).
    */
-  public var base: List<Enumeration<ResourceType>>? = null,
+  public var base: MutableList<Enumeration<ResourceType>> = mutableListOf(),
   /** The type of value that a search parameter may contain, and how the content is interpreted. */
-  public var type: Enumeration<SearchParamType>? = null,
+  public var type: Enumeration<SearchParamType>,
   /**
    * A FHIRPath expression that returns a set of elements for the search parameter.
    *
@@ -296,7 +296,7 @@ public data class SearchParameter(
    */
   public var xpathUsage: Enumeration<XPathUsageType>? = null,
   /** Types of resource (if a resource is referenced). */
-  public var target: List<Enumeration<ResourceType>>? = null,
+  public var target: MutableList<Enumeration<ResourceType>> = mutableListOf(),
   /**
    * Whether multiple values are allowed for each time the parameter exists. Values are separated by
    * commas, and the parameter matches if any of the values match.
@@ -312,9 +312,9 @@ public data class SearchParameter(
    *
    * If no comparators are listed, clients should not expect servers to support any comparators.
    */
-  public var comparator: List<Enumeration<SearchComparator>>? = null,
+  public var comparator: MutableList<Enumeration<SearchComparator>> = mutableListOf(),
   /** A modifier supported for the search parameter. */
-  public var modifier: List<Enumeration<SearchModifierCode>>? = null,
+  public var modifier: MutableList<Enumeration<SearchModifierCode>> = mutableListOf(),
   /**
    * Contains the names of any search parameters which may be chained to the containing search
    * parameter. Chained parameters may be added to search parameters of type reference and specify
@@ -325,9 +325,9 @@ public data class SearchParameter(
    * Systems are not required to list all the chain names they support, but if they don't list them,
    * clients might not know to use them.
    */
-  public var chain: List<String?>? = null,
+  public var chain: MutableList<String> = mutableListOf(),
   /** Used to define the parts of a composite search parameter. */
-  public var component: List<Component>? = null,
+  public var component: MutableList<Component> = mutableListOf(),
 ) : DomainResource() {
   /** Used to define the parts of a composite search parameter. */
   @Serializable(with = SearchParameterComponentSerializer::class)
@@ -349,7 +349,7 @@ public data class SearchParameter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -368,9 +368,9 @@ public data class SearchParameter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The definition of the search parameter that describes this part. */
-    public var definition: Canonical? = null,
+    public var definition: Canonical,
     /**
      * A sub-expression that defines how to extract values for this component from the output of the
      * main SearchParameter.expression.
@@ -378,7 +378,7 @@ public data class SearchParameter(
      * This expression overrides the expression in the definition and extracts the index values from
      * the outcome of the composite expression.
      */
-    public var expression: String? = null,
+    public var expression: String,
   ) : BackboneElement()
 
   /**
@@ -388,49 +388,12 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The search parameter is derived directly from the selected nodes based on the type
-     * definitions.
-     */
-    Normal(
-      "normal",
-      "http://hl7.org/fhir/search-xpath-usage",
-      "Normal",
-      "The search parameter is derived directly from the selected nodes based on the type definitions.",
-    ),
-    /** The search parameter is derived by a phonetic transform from the selected nodes. */
-    Phonetic(
-      "phonetic",
-      "http://hl7.org/fhir/search-xpath-usage",
-      "Phonetic",
-      "The search parameter is derived by a phonetic transform from the selected nodes.",
-    ),
-    /** The search parameter is based on a spatial transform of the selected nodes. */
-    Nearby(
-      "nearby",
-      "http://hl7.org/fhir/search-xpath-usage",
-      "Nearby",
-      "The search parameter is based on a spatial transform of the selected nodes.",
-    ),
-    /**
-     * The search parameter is based on a spatial transform of the selected nodes, using physical
-     * distance from the middle.
-     */
-    Distance(
-      "distance",
-      "http://hl7.org/fhir/search-xpath-usage",
-      "Distance",
-      "The search parameter is based on a spatial transform of the selected nodes, using physical distance from the middle.",
-    ),
-    /** The interpretation of the xpath statement is unknown (and can't be automated). */
-    Other(
-      "other",
-      "http://hl7.org/fhir/search-xpath-usage",
-      "Other",
-      "The interpretation of the xpath statement is unknown (and can't be automated).",
-    );
+    Normal("normal", "http://hl7.org/fhir/search-xpath-usage", "Normal"),
+    Phonetic("phonetic", "http://hl7.org/fhir/search-xpath-usage", "Phonetic"),
+    Nearby("nearby", "http://hl7.org/fhir/search-xpath-usage", "Nearby"),
+    Distance("distance", "http://hl7.org/fhir/search-xpath-usage", "Distance"),
+    Other("other", "http://hl7.org/fhir/search-xpath-usage", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -439,8 +402,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): XPathUsageType =
@@ -460,73 +421,16 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the value for the parameter in the resource is equal to the provided value. */
-    Eq(
-      "eq",
-      "http://hl7.org/fhir/search-comparator",
-      "Equals",
-      "the value for the parameter in the resource is equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is not equal to the provided value. */
-    Ne(
-      "ne",
-      "http://hl7.org/fhir/search-comparator",
-      "Not Equals",
-      "the value for the parameter in the resource is not equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater than the provided value. */
-    Gt(
-      "gt",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater Than",
-      "the value for the parameter in the resource is greater than the provided value.",
-    ),
-    /** the value for the parameter in the resource is less than the provided value. */
-    Lt(
-      "lt",
-      "http://hl7.org/fhir/search-comparator",
-      "Less Than",
-      "the value for the parameter in the resource is less than the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater or equal to the provided value. */
-    Ge(
-      "ge",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater or Equals",
-      "the value for the parameter in the resource is greater or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is less or equal to the provided value. */
-    Le(
-      "le",
-      "http://hl7.org/fhir/search-comparator",
-      "Less of Equal",
-      "the value for the parameter in the resource is less or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource starts after the provided value. */
-    Sa(
-      "sa",
-      "http://hl7.org/fhir/search-comparator",
-      "Starts After",
-      "the value for the parameter in the resource starts after the provided value.",
-    ),
-    /** the value for the parameter in the resource ends before the provided value. */
-    Eb(
-      "eb",
-      "http://hl7.org/fhir/search-comparator",
-      "Ends Before",
-      "the value for the parameter in the resource ends before the provided value.",
-    ),
-    /**
-     * the value for the parameter in the resource is approximately the same to the provided value.
-     */
-    Ap(
-      "ap",
-      "http://hl7.org/fhir/search-comparator",
-      "Approximately",
-      "the value for the parameter in the resource is approximately the same to the provided value.",
-    );
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Ne("ne", "http://hl7.org/fhir/search-comparator", "Not Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before"),
+    Ap("ap", "http://hl7.org/fhir/search-comparator", "Approximately");
 
     override fun toString(): kotlin.String = code
 
@@ -535,8 +439,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchComparator =
@@ -560,120 +462,19 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The search parameter returns resources that have a value or not. */
-    Missing(
-      "missing",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Missing",
-      "The search parameter returns resources that have a value or not.",
-    ),
-    /**
-     * The search parameter returns resources that have a value that exactly matches the supplied
-     * parameter (the whole string, including casing and accents).
-     */
-    Exact(
-      "exact",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Exact",
-      "The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole string, including casing and accents).",
-    ),
-    /**
-     * The search parameter returns resources that include the supplied parameter value anywhere
-     * within the field being searched.
-     */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Contains",
-      "The search parameter returns resources that include the supplied parameter value anywhere within the field being searched.",
-    ),
-    /** The search parameter returns resources that do not contain a match. */
-    Not(
-      "not",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not",
-      "The search parameter returns resources that do not contain a match.",
-    ),
-    /**
-     * The search parameter is processed as a string that searches text associated with the
-     * code/value - either CodeableConcept.text, Coding.display, or Identifier.type.text.
-     */
-    Text(
-      "text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text",
-      "The search parameter is processed as a string that searches text associated with the code/value - either CodeableConcept.text, Coding.display, or Identifier.type.text.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is in the specified value set.
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is in the specified value set.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is not in the specified value set.
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is not in the specified value set.",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource is subsumed by the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Below(
-      "below",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Below",
-      "The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource subsumes the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Above(
-      "above",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Above",
-      "The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter only applies to the Resource Type specified as a modifier (e.g. the
-     * modifier is not actually :type, but :Patient etc.).
-     */
-    Type(
-      "type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Type",
-      "The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not actually :type, but :Patient etc.).",
-    ),
-    /** The search parameter applies to the identifier on the resource, not the reference. */
-    Identifier(
-      "identifier",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Identifier",
-      "The search parameter applies to the identifier on the resource, not the reference.",
-    ),
-    /**
-     * The search parameter has the format system|code|value, where the system and code refer to an
-     * Identifier.type.coding.system and .code, and match if any of the type codes match. All 3
-     * parts must be present.
-     */
-    OfType(
-      "ofType",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Of Type",
-      "The search parameter has the format system|code|value, where the system and code refer to an Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.",
-    );
+    Missing("missing", "http://hl7.org/fhir/search-modifier-code", "Missing"),
+    Exact("exact", "http://hl7.org/fhir/search-modifier-code", "Exact"),
+    Contains("contains", "http://hl7.org/fhir/search-modifier-code", "Contains"),
+    Not("not", "http://hl7.org/fhir/search-modifier-code", "Not"),
+    Text("text", "http://hl7.org/fhir/search-modifier-code", "Text"),
+    In("in", "http://hl7.org/fhir/search-modifier-code", "In"),
+    Not_In("not-in", "http://hl7.org/fhir/search-modifier-code", "Not In"),
+    Below("below", "http://hl7.org/fhir/search-modifier-code", "Below"),
+    Above("above", "http://hl7.org/fhir/search-modifier-code", "Above"),
+    Type("type", "http://hl7.org/fhir/search-modifier-code", "Type"),
+    Identifier("identifier", "http://hl7.org/fhir/search-modifier-code", "Identifier"),
+    OfType("ofType", "http://hl7.org/fhir/search-modifier-code", "Of Type");
 
     override fun toString(): kotlin.String = code
 
@@ -682,8 +483,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchModifierCode =

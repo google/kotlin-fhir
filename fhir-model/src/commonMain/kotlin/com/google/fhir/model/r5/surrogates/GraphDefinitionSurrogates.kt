@@ -47,15 +47,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class GraphDefinitionNodeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var nodeId: KotlinString? = null,
   public var _nodeId: Element? = null,
   public var description: KotlinString? = null,
@@ -66,42 +66,50 @@ internal data class GraphDefinitionNodeSurrogate(
   public var _profile: Element? = null,
 ) {
   public fun toModel(): GraphDefinition.Node =
-    GraphDefinition.Node().apply {
-      id = this@GraphDefinitionNodeSurrogate.id
-      extension = this@GraphDefinitionNodeSurrogate.extension
-      modifierExtension = this@GraphDefinitionNodeSurrogate.modifierExtension
+    GraphDefinition.Node(
+      id = this@GraphDefinitionNodeSurrogate.id,
+      extension = this@GraphDefinitionNodeSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GraphDefinitionNodeSurrogate.modifierExtension ?: mutableListOf(),
       nodeId =
-        Id.of(this@GraphDefinitionNodeSurrogate.nodeId, this@GraphDefinitionNodeSurrogate._nodeId)
+        Id.of(
+          this@GraphDefinitionNodeSurrogate.nodeId,
+          this@GraphDefinitionNodeSurrogate._nodeId,
+        )!!,
       description =
         R5String.of(
           this@GraphDefinitionNodeSurrogate.description,
           this@GraphDefinitionNodeSurrogate._description,
-        )
+        ),
       type =
-        Code.of(this@GraphDefinitionNodeSurrogate.type, this@GraphDefinitionNodeSurrogate._type)
+        Enumeration.of(
+          com.google.fhir.model.r5.GraphDefinition.FHIRTypes.fromCode(
+            this@GraphDefinitionNodeSurrogate.type!!
+          ),
+          this@GraphDefinitionNodeSurrogate._type,
+        ),
       profile =
         Canonical.of(
           this@GraphDefinitionNodeSurrogate.profile,
           this@GraphDefinitionNodeSurrogate._profile,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: GraphDefinition.Node): GraphDefinitionNodeSurrogate =
       with(model) {
-        GraphDefinitionNodeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          nodeId = this@with.nodeId?.value
-          _nodeId = this@with.nodeId?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          type = this@with.type?.value
-          _type = this@with.type?.toElement()
-          profile = this@with.profile?.value
-          _profile = this@with.profile?.toElement()
-        }
+        GraphDefinitionNodeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          nodeId = this@with.nodeId.value,
+          _nodeId = this@with.nodeId.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          profile = this@with.profile?.value,
+          _profile = this@with.profile?.toElement(),
+        )
       }
   }
 }
@@ -109,8 +117,8 @@ internal data class GraphDefinitionNodeSurrogate(
 @Serializable
 internal data class GraphDefinitionLinkCompartmentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
   public var rule: KotlinString? = null,
@@ -123,63 +131,64 @@ internal data class GraphDefinitionLinkCompartmentSurrogate(
   public var _description: Element? = null,
 ) {
   public fun toModel(): GraphDefinition.Link.Compartment =
-    GraphDefinition.Link.Compartment().apply {
-      id = this@GraphDefinitionLinkCompartmentSurrogate.id
-      extension = this@GraphDefinitionLinkCompartmentSurrogate.extension
-      modifierExtension = this@GraphDefinitionLinkCompartmentSurrogate.modifierExtension
+    GraphDefinition.Link.Compartment(
+      id = this@GraphDefinitionLinkCompartmentSurrogate.id,
+      extension = this@GraphDefinitionLinkCompartmentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@GraphDefinitionLinkCompartmentSurrogate.modifierExtension ?: mutableListOf(),
       use =
         Enumeration.of(
-          this@GraphDefinitionLinkCompartmentSurrogate.use?.let {
-            com.google.fhir.model.r5.GraphDefinition.GraphCompartmentUse.fromCode(it)
-          },
+          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentUse.fromCode(
+            this@GraphDefinitionLinkCompartmentSurrogate.use!!
+          ),
           this@GraphDefinitionLinkCompartmentSurrogate._use,
-        )
+        ),
       rule =
         Enumeration.of(
-          this@GraphDefinitionLinkCompartmentSurrogate.rule?.let {
-            com.google.fhir.model.r5.GraphDefinition.GraphCompartmentRule.fromCode(it)
-          },
+          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentRule.fromCode(
+            this@GraphDefinitionLinkCompartmentSurrogate.rule!!
+          ),
           this@GraphDefinitionLinkCompartmentSurrogate._rule,
-        )
+        ),
       code =
         Enumeration.of(
-          this@GraphDefinitionLinkCompartmentSurrogate.code?.let {
-            com.google.fhir.model.r5.GraphDefinition.CompartmentCode.fromCode(it)
-          },
+          com.google.fhir.model.r5.GraphDefinition.CompartmentCode.fromCode(
+            this@GraphDefinitionLinkCompartmentSurrogate.code!!
+          ),
           this@GraphDefinitionLinkCompartmentSurrogate._code,
-        )
+        ),
       expression =
         R5String.of(
           this@GraphDefinitionLinkCompartmentSurrogate.expression,
           this@GraphDefinitionLinkCompartmentSurrogate._expression,
-        )
+        ),
       description =
         R5String.of(
           this@GraphDefinitionLinkCompartmentSurrogate.description,
           this@GraphDefinitionLinkCompartmentSurrogate._description,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: GraphDefinition.Link.Compartment
     ): GraphDefinitionLinkCompartmentSurrogate =
       with(model) {
-        GraphDefinitionLinkCompartmentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          use = this@with.use?.value?.getCode()
-          _use = this@with.use?.toElement()
-          rule = this@with.rule?.value?.getCode()
-          _rule = this@with.rule?.toElement()
-          code = this@with.code?.value?.getCode()
-          _code = this@with.code?.toElement()
-          expression = this@with.expression?.value
-          _expression = this@with.expression?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-        }
+        GraphDefinitionLinkCompartmentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          use = this@with.use.value?.getCode(),
+          _use = this@with.use.toElement(),
+          rule = this@with.rule.value?.getCode(),
+          _rule = this@with.rule.toElement(),
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          expression = this@with.expression?.value,
+          _expression = this@with.expression?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+        )
       }
   }
 }
@@ -187,8 +196,8 @@ internal data class GraphDefinitionLinkCompartmentSurrogate(
 @Serializable
 internal data class GraphDefinitionLinkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var min: Int? = null,
@@ -205,92 +214,93 @@ internal data class GraphDefinitionLinkSurrogate(
   public var _targetId: Element? = null,
   public var params: KotlinString? = null,
   public var _params: Element? = null,
-  public var compartment: List<GraphDefinition.Link.Compartment>? = null,
+  public var compartment: MutableList<GraphDefinition.Link.Compartment>? = null,
 ) {
   public fun toModel(): GraphDefinition.Link =
-    GraphDefinition.Link().apply {
-      id = this@GraphDefinitionLinkSurrogate.id
-      extension = this@GraphDefinitionLinkSurrogate.extension
-      modifierExtension = this@GraphDefinitionLinkSurrogate.modifierExtension
+    GraphDefinition.Link(
+      id = this@GraphDefinitionLinkSurrogate.id,
+      extension = this@GraphDefinitionLinkSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GraphDefinitionLinkSurrogate.modifierExtension ?: mutableListOf(),
       description =
         R5String.of(
           this@GraphDefinitionLinkSurrogate.description,
           this@GraphDefinitionLinkSurrogate._description,
-        )
+        ),
       min =
-        Integer.of(this@GraphDefinitionLinkSurrogate.min, this@GraphDefinitionLinkSurrogate._min)
+        Integer.of(this@GraphDefinitionLinkSurrogate.min, this@GraphDefinitionLinkSurrogate._min),
       max =
-        R5String.of(this@GraphDefinitionLinkSurrogate.max, this@GraphDefinitionLinkSurrogate._max)
+        R5String.of(this@GraphDefinitionLinkSurrogate.max, this@GraphDefinitionLinkSurrogate._max),
       sourceId =
         Id.of(
           this@GraphDefinitionLinkSurrogate.sourceId,
           this@GraphDefinitionLinkSurrogate._sourceId,
-        )
+        )!!,
       path =
-        R5String.of(this@GraphDefinitionLinkSurrogate.path, this@GraphDefinitionLinkSurrogate._path)
+        R5String.of(
+          this@GraphDefinitionLinkSurrogate.path,
+          this@GraphDefinitionLinkSurrogate._path,
+        ),
       sliceName =
         R5String.of(
           this@GraphDefinitionLinkSurrogate.sliceName,
           this@GraphDefinitionLinkSurrogate._sliceName,
-        )
+        ),
       targetId =
         Id.of(
           this@GraphDefinitionLinkSurrogate.targetId,
           this@GraphDefinitionLinkSurrogate._targetId,
-        )
+        )!!,
       params =
         R5String.of(
           this@GraphDefinitionLinkSurrogate.params,
           this@GraphDefinitionLinkSurrogate._params,
-        )
-      compartment = this@GraphDefinitionLinkSurrogate.compartment
-    }
+        ),
+      compartment = this@GraphDefinitionLinkSurrogate.compartment ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: GraphDefinition.Link): GraphDefinitionLinkSurrogate =
       with(model) {
-        GraphDefinitionLinkSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          min = this@with.min?.value
-          _min = this@with.min?.toElement()
-          max = this@with.max?.value
-          _max = this@with.max?.toElement()
-          sourceId = this@with.sourceId?.value
-          _sourceId = this@with.sourceId?.toElement()
-          path = this@with.path?.value
-          _path = this@with.path?.toElement()
-          sliceName = this@with.sliceName?.value
-          _sliceName = this@with.sliceName?.toElement()
-          targetId = this@with.targetId?.value
-          _targetId = this@with.targetId?.toElement()
-          params = this@with.params?.value
-          _params = this@with.params?.toElement()
-          compartment = this@with.compartment
-        }
+        GraphDefinitionLinkSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          min = this@with.min?.value,
+          _min = this@with.min?.toElement(),
+          max = this@with.max?.value,
+          _max = this@with.max?.toElement(),
+          sourceId = this@with.sourceId.value,
+          _sourceId = this@with.sourceId.toElement(),
+          path = this@with.path?.value,
+          _path = this@with.path?.toElement(),
+          sliceName = this@with.sliceName?.value,
+          _sliceName = this@with.sliceName?.toElement(),
+          targetId = this@with.targetId.value,
+          _targetId = this@with.targetId.toElement(),
+          params = this@with.params?.value,
+          _params = this@with.params?.toElement(),
+          compartment = this@with.compartment.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
 
 @Serializable
-internal class GraphDefinitionVersionAlgorithmSurrogate {
-  public var versionAlgorithmString: KotlinString? = null
-
-  public var _versionAlgorithmString: Element? = null
-
-  public var versionAlgorithmCoding: Coding? = null
-
-  public fun toModel(): GraphDefinition.VersionAlgorithm =
+internal data class GraphDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): GraphDefinition.VersionAlgorithm? =
     GraphDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@GraphDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    ) ?: GraphDefinition.VersionAlgorithm.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -298,9 +308,13 @@ internal class GraphDefinitionVersionAlgorithmSurrogate {
     ): GraphDefinitionVersionAlgorithmSurrogate =
       with(model) {
         GraphDefinitionVersionAlgorithmSurrogate().apply {
-          versionAlgorithmString = this@with.asString()?.value?.value
-          _versionAlgorithmString = this@with.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.asCoding()?.value
+          GraphDefinition.VersionAlgorithm?.from(
+            R5String.of(
+              this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+              this@GraphDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+            ),
+            this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+          )
         }
       }
   }
@@ -315,12 +329,12 @@ internal data class GraphDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -335,11 +349,11 @@ internal data class GraphDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -348,127 +362,128 @@ internal data class GraphDefinitionSurrogate(
   public var _copyrightLabel: Element? = null,
   public var start: KotlinString? = null,
   public var _start: Element? = null,
-  public var node: List<GraphDefinition.Node>? = null,
-  public var link: List<GraphDefinition.Link>? = null,
+  public var node: MutableList<GraphDefinition.Node>? = null,
+  public var link: MutableList<GraphDefinition.Link>? = null,
   public var versionAlgorithm: GraphDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): GraphDefinition =
-    GraphDefinition().apply {
-      id = this@GraphDefinitionSurrogate.id
-      meta = this@GraphDefinitionSurrogate.meta
+    GraphDefinition(
+      id = this@GraphDefinitionSurrogate.id,
+      meta = this@GraphDefinitionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@GraphDefinitionSurrogate.implicitRules,
           this@GraphDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@GraphDefinitionSurrogate.language, this@GraphDefinitionSurrogate._language)
-      text = this@GraphDefinitionSurrogate.text
-      contained = this@GraphDefinitionSurrogate.contained
-      extension = this@GraphDefinitionSurrogate.extension
-      modifierExtension = this@GraphDefinitionSurrogate.modifierExtension
-      url = Uri.of(this@GraphDefinitionSurrogate.url, this@GraphDefinitionSurrogate._url)
-      identifier = this@GraphDefinitionSurrogate.identifier
+        Code.of(this@GraphDefinitionSurrogate.language, this@GraphDefinitionSurrogate._language),
+      text = this@GraphDefinitionSurrogate.text,
+      contained = this@GraphDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@GraphDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GraphDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@GraphDefinitionSurrogate.url, this@GraphDefinitionSurrogate._url),
+      identifier = this@GraphDefinitionSurrogate.identifier ?: mutableListOf(),
       version =
-        R5String.of(this@GraphDefinitionSurrogate.version, this@GraphDefinitionSurrogate._version)
-      versionAlgorithm = this@GraphDefinitionSurrogate.versionAlgorithm
-      name = R5String.of(this@GraphDefinitionSurrogate.name, this@GraphDefinitionSurrogate._name)
-      title = R5String.of(this@GraphDefinitionSurrogate.title, this@GraphDefinitionSurrogate._title)
+        R5String.of(this@GraphDefinitionSurrogate.version, this@GraphDefinitionSurrogate._version),
+      versionAlgorithm = this@GraphDefinitionSurrogate.versionAlgorithm,
+      name = R5String.of(this@GraphDefinitionSurrogate.name, this@GraphDefinitionSurrogate._name)!!,
+      title =
+        R5String.of(this@GraphDefinitionSurrogate.title, this@GraphDefinitionSurrogate._title),
       status =
         Enumeration.of(
-          this@GraphDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(
+            this@GraphDefinitionSurrogate.status!!
+          ),
           this@GraphDefinitionSurrogate._status,
-        )
+        ),
       experimental =
         R5Boolean.of(
           this@GraphDefinitionSurrogate.experimental,
           this@GraphDefinitionSurrogate._experimental,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@GraphDefinitionSurrogate.date),
           this@GraphDefinitionSurrogate._date,
-        )
+        ),
       publisher =
         R5String.of(
           this@GraphDefinitionSurrogate.publisher,
           this@GraphDefinitionSurrogate._publisher,
-        )
-      contact = this@GraphDefinitionSurrogate.contact
+        ),
+      contact = this@GraphDefinitionSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@GraphDefinitionSurrogate.description,
           this@GraphDefinitionSurrogate._description,
-        )
-      useContext = this@GraphDefinitionSurrogate.useContext
-      jurisdiction = this@GraphDefinitionSurrogate.jurisdiction
+        ),
+      useContext = this@GraphDefinitionSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@GraphDefinitionSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
-        Markdown.of(this@GraphDefinitionSurrogate.purpose, this@GraphDefinitionSurrogate._purpose)
+        Markdown.of(this@GraphDefinitionSurrogate.purpose, this@GraphDefinitionSurrogate._purpose),
       copyright =
         Markdown.of(
           this@GraphDefinitionSurrogate.copyright,
           this@GraphDefinitionSurrogate._copyright,
-        )
+        ),
       copyrightLabel =
         R5String.of(
           this@GraphDefinitionSurrogate.copyrightLabel,
           this@GraphDefinitionSurrogate._copyrightLabel,
-        )
-      start = Id.of(this@GraphDefinitionSurrogate.start, this@GraphDefinitionSurrogate._start)
-      node = this@GraphDefinitionSurrogate.node
-      link = this@GraphDefinitionSurrogate.link
-    }
+        ),
+      start = Id.of(this@GraphDefinitionSurrogate.start, this@GraphDefinitionSurrogate._start),
+      node = this@GraphDefinitionSurrogate.node ?: mutableListOf(),
+      link = this@GraphDefinitionSurrogate.link ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: GraphDefinition): GraphDefinitionSurrogate =
       with(model) {
-        GraphDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          versionAlgorithm = this@with.versionAlgorithm
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          copyrightLabel = this@with.copyrightLabel?.value
-          _copyrightLabel = this@with.copyrightLabel?.toElement()
-          start = this@with.start?.value
-          _start = this@with.start?.toElement()
-          node = this@with.node
-          link = this@with.link
-        }
+        GraphDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          versionAlgorithm = this@with.versionAlgorithm,
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          copyrightLabel = this@with.copyrightLabel?.value,
+          _copyrightLabel = this@with.copyrightLabel?.toElement(),
+          start = this@with.start?.value,
+          _start = this@with.start?.toElement(),
+          node = this@with.node.takeUnless { it.all { it == null } },
+          link = this@with.link.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

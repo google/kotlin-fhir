@@ -45,21 +45,18 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class CarePlanActivityDetailScheduledSurrogate {
-  public var scheduledTiming: Timing? = null
-
-  public var scheduledPeriod: Period? = null
-
-  public var scheduledString: KotlinString? = null
-
-  public var _scheduledString: Element? = null
-
-  public fun toModel(): CarePlan.Activity.Detail.Scheduled =
+internal data class CarePlanActivityDetailScheduledSurrogate(
+  public var scheduledTiming: Timing? = null,
+  public var scheduledPeriod: Period? = null,
+  public var scheduledString: KotlinString? = null,
+  public var _scheduledString: Element? = null,
+) {
+  public fun toModel(): CarePlan.Activity.Detail.Scheduled? =
     CarePlan.Activity.Detail.Scheduled?.from(
       this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
       this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
@@ -67,7 +64,7 @@ internal class CarePlanActivityDetailScheduledSurrogate {
         this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
         this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
       ),
-    ) ?: CarePlan.Activity.Detail.Scheduled.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -75,26 +72,29 @@ internal class CarePlanActivityDetailScheduledSurrogate {
     ): CarePlanActivityDetailScheduledSurrogate =
       with(model) {
         CarePlanActivityDetailScheduledSurrogate().apply {
-          scheduledTiming = this@with.asTiming()?.value
-          scheduledPeriod = this@with.asPeriod()?.value
-          scheduledString = this@with.asString()?.value?.value
-          _scheduledString = this@with.asString()?.value?.toElement()
+          CarePlan.Activity.Detail.Scheduled?.from(
+            this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
+            this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
+            R4bString.of(
+              this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
+              this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
+            ),
+          )
         }
       }
   }
 }
 
 @Serializable
-internal class CarePlanActivityDetailProductSurrogate {
-  public var productCodeableConcept: CodeableConcept? = null
-
-  public var productReference: Reference? = null
-
-  public fun toModel(): CarePlan.Activity.Detail.Product =
+internal data class CarePlanActivityDetailProductSurrogate(
+  public var productCodeableConcept: CodeableConcept? = null,
+  public var productReference: Reference? = null,
+) {
+  public fun toModel(): CarePlan.Activity.Detail.Product? =
     CarePlan.Activity.Detail.Product?.from(
       this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
       this@CarePlanActivityDetailProductSurrogate.productReference,
-    ) ?: CarePlan.Activity.Detail.Product.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -102,8 +102,10 @@ internal class CarePlanActivityDetailProductSurrogate {
     ): CarePlanActivityDetailProductSurrogate =
       with(model) {
         CarePlanActivityDetailProductSurrogate().apply {
-          productCodeableConcept = this@with.asCodeableConcept()?.value
-          productReference = this@with.asReference()?.value
+          CarePlan.Activity.Detail.Product?.from(
+            this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
+            this@CarePlanActivityDetailProductSurrogate.productReference,
+          )
         }
       }
   }
@@ -112,25 +114,25 @@ internal class CarePlanActivityDetailProductSurrogate {
 @Serializable
 internal data class CarePlanActivityDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
-  public var instantiatesCanonical: List<KotlinString?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<KotlinString?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
+  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<KotlinString?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
   public var code: CodeableConcept? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var goal: List<Reference?>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var goal: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
   public var location: Reference? = null,
-  public var performer: List<Reference?>? = null,
+  public var performer: MutableList<Reference>? = null,
   public var dailyAmount: Quantity? = null,
   public var quantity: Quantity? = null,
   public var description: KotlinString? = null,
@@ -139,23 +141,23 @@ internal data class CarePlanActivityDetailSurrogate(
   public var product: CarePlan.Activity.Detail.Product? = null,
 ) {
   public fun toModel(): CarePlan.Activity.Detail =
-    CarePlan.Activity.Detail().apply {
-      id = this@CarePlanActivityDetailSurrogate.id
-      extension = this@CarePlanActivityDetailSurrogate.extension
-      modifierExtension = this@CarePlanActivityDetailSurrogate.modifierExtension
+    CarePlan.Activity.Detail(
+      id = this@CarePlanActivityDetailSurrogate.id,
+      extension = this@CarePlanActivityDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CarePlanActivityDetailSurrogate.modifierExtension ?: mutableListOf(),
       kind =
-        Enumeration.of(
-          this@CarePlanActivityDetailSurrogate.kind?.let {
-            com.google.fhir.model.r4b.CarePlan.CarePlanActivityKind.fromCode(it)
-          },
-          this@CarePlanActivityDetailSurrogate._kind,
-        )
+        this@CarePlanActivityDetailSurrogate.kind?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.CarePlan.CarePlanActivityKind.fromCode(it!!),
+            this@CarePlanActivityDetailSurrogate._kind,
+          )
+        },
       instantiatesCanonical =
         if (
           this@CarePlanActivityDetailSurrogate.instantiatesCanonical == null &&
             this@CarePlanActivityDetailSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CarePlanActivityDetailSurrogate.instantiatesCanonical
               ?: List(this@CarePlanActivityDetailSurrogate._instantiatesCanonical!!.size) { null })
@@ -163,14 +165,15 @@ internal data class CarePlanActivityDetailSurrogate(
               this@CarePlanActivityDetailSurrogate._instantiatesCanonical
                 ?: List(this@CarePlanActivityDetailSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@CarePlanActivityDetailSurrogate.instantiatesUri == null &&
             this@CarePlanActivityDetailSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CarePlanActivityDetailSurrogate.instantiatesUri
               ?: List(this@CarePlanActivityDetailSurrogate._instantiatesUri!!.size) { null })
@@ -178,75 +181,88 @@ internal data class CarePlanActivityDetailSurrogate(
               this@CarePlanActivityDetailSurrogate._instantiatesUri
                 ?: List(this@CarePlanActivityDetailSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      code = this@CarePlanActivityDetailSurrogate.code
-      reasonCode = this@CarePlanActivityDetailSurrogate.reasonCode
-      reasonReference = this@CarePlanActivityDetailSurrogate.reasonReference
-      goal = this@CarePlanActivityDetailSurrogate.goal
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      code = this@CarePlanActivityDetailSurrogate.code,
+      reasonCode = this@CarePlanActivityDetailSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@CarePlanActivityDetailSurrogate.reasonReference ?: mutableListOf(),
+      goal = this@CarePlanActivityDetailSurrogate.goal ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@CarePlanActivityDetailSurrogate.status?.let {
-            com.google.fhir.model.r4b.CarePlan.CarePlanActivityStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CarePlan.CarePlanActivityStatus.fromCode(
+            this@CarePlanActivityDetailSurrogate.status!!
+          ),
           this@CarePlanActivityDetailSurrogate._status,
-        )
-      statusReason = this@CarePlanActivityDetailSurrogate.statusReason
+        ),
+      statusReason = this@CarePlanActivityDetailSurrogate.statusReason,
       doNotPerform =
         R4bBoolean.of(
           this@CarePlanActivityDetailSurrogate.doNotPerform,
           this@CarePlanActivityDetailSurrogate._doNotPerform,
-        )
-      scheduled = this@CarePlanActivityDetailSurrogate.scheduled
-      location = this@CarePlanActivityDetailSurrogate.location
-      performer = this@CarePlanActivityDetailSurrogate.performer
-      product = this@CarePlanActivityDetailSurrogate.product
-      dailyAmount = this@CarePlanActivityDetailSurrogate.dailyAmount
-      quantity = this@CarePlanActivityDetailSurrogate.quantity
+        ),
+      scheduled = this@CarePlanActivityDetailSurrogate.scheduled,
+      location = this@CarePlanActivityDetailSurrogate.location,
+      performer = this@CarePlanActivityDetailSurrogate.performer ?: mutableListOf(),
+      product = this@CarePlanActivityDetailSurrogate.product,
+      dailyAmount = this@CarePlanActivityDetailSurrogate.dailyAmount,
+      quantity = this@CarePlanActivityDetailSurrogate.quantity,
       description =
         R4bString.of(
           this@CarePlanActivityDetailSurrogate.description,
           this@CarePlanActivityDetailSurrogate._description,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: CarePlan.Activity.Detail): CarePlanActivityDetailSurrogate =
       with(model) {
-        CarePlanActivityDetailSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          kind = this@with.kind?.value?.getCode()
-          _kind = this@with.kind?.toElement()
+        CarePlanActivityDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          kind = this@with.kind?.value?.getCode(),
+          _kind = this@with.kind?.toElement(),
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          code = this@with.code
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          goal = this@with.goal
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          doNotPerform = this@with.doNotPerform?.value
-          _doNotPerform = this@with.doNotPerform?.toElement()
-          scheduled = this@with.scheduled
-          location = this@with.location
-          performer = this@with.performer
-          product = this@with.product
-          dailyAmount = this@with.dailyAmount
-          quantity = this@with.quantity
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          code = this@with.code,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          goal = this@with.goal.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          statusReason = this@with.statusReason,
+          doNotPerform = this@with.doNotPerform?.value,
+          _doNotPerform = this@with.doNotPerform?.toElement(),
+          scheduled = this@with.scheduled,
+          location = this@with.location,
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          product = this@with.product,
+          dailyAmount = this@with.dailyAmount,
+          quantity = this@with.quantity,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+        )
       }
   }
 }
@@ -254,39 +270,41 @@ internal data class CarePlanActivityDetailSurrogate(
 @Serializable
 internal data class CarePlanActivitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var outcomeCodeableConcept: List<CodeableConcept?>? = null,
-  public var outcomeReference: List<Reference?>? = null,
-  public var progress: List<Annotation?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var outcomeCodeableConcept: MutableList<CodeableConcept>? = null,
+  public var outcomeReference: MutableList<Reference>? = null,
+  public var progress: MutableList<Annotation>? = null,
   public var reference: Reference? = null,
   public var detail: CarePlan.Activity.Detail? = null,
 ) {
   public fun toModel(): CarePlan.Activity =
-    CarePlan.Activity().apply {
-      id = this@CarePlanActivitySurrogate.id
-      extension = this@CarePlanActivitySurrogate.extension
-      modifierExtension = this@CarePlanActivitySurrogate.modifierExtension
-      outcomeCodeableConcept = this@CarePlanActivitySurrogate.outcomeCodeableConcept
-      outcomeReference = this@CarePlanActivitySurrogate.outcomeReference
-      progress = this@CarePlanActivitySurrogate.progress
-      reference = this@CarePlanActivitySurrogate.reference
-      detail = this@CarePlanActivitySurrogate.detail
-    }
+    CarePlan.Activity(
+      id = this@CarePlanActivitySurrogate.id,
+      extension = this@CarePlanActivitySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CarePlanActivitySurrogate.modifierExtension ?: mutableListOf(),
+      outcomeCodeableConcept =
+        this@CarePlanActivitySurrogate.outcomeCodeableConcept ?: mutableListOf(),
+      outcomeReference = this@CarePlanActivitySurrogate.outcomeReference ?: mutableListOf(),
+      progress = this@CarePlanActivitySurrogate.progress ?: mutableListOf(),
+      reference = this@CarePlanActivitySurrogate.reference,
+      detail = this@CarePlanActivitySurrogate.detail,
+    )
 
   public companion object {
     public fun fromModel(model: CarePlan.Activity): CarePlanActivitySurrogate =
       with(model) {
-        CarePlanActivitySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          outcomeCodeableConcept = this@with.outcomeCodeableConcept
-          outcomeReference = this@with.outcomeReference
-          progress = this@with.progress
-          reference = this@with.reference
-          detail = this@with.detail
-        }
+        CarePlanActivitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          outcomeCodeableConcept =
+            this@with.outcomeCodeableConcept.takeUnless { it.all { it == null } },
+          outcomeReference = this@with.outcomeReference.takeUnless { it.all { it == null } },
+          progress = this@with.progress.takeUnless { it.all { it == null } },
+          reference = this@with.reference,
+          detail = this@with.detail,
+        )
       }
   }
 }
@@ -300,58 +318,58 @@ internal data class CarePlanSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var instantiatesCanonical: List<KotlinString?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<KotlinString?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var replaces: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<KotlinString?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var replaces: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var intent: KotlinString? = null,
   public var _intent: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var subject: Reference? = null,
+  public var subject: Reference,
   public var encounter: Reference? = null,
   public var period: Period? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var author: Reference? = null,
-  public var contributor: List<Reference?>? = null,
-  public var careTeam: List<Reference?>? = null,
-  public var addresses: List<Reference?>? = null,
-  public var supportingInfo: List<Reference?>? = null,
-  public var goal: List<Reference?>? = null,
-  public var activity: List<CarePlan.Activity>? = null,
-  public var note: List<Annotation?>? = null,
+  public var contributor: MutableList<Reference>? = null,
+  public var careTeam: MutableList<Reference>? = null,
+  public var addresses: MutableList<Reference>? = null,
+  public var supportingInfo: MutableList<Reference>? = null,
+  public var goal: MutableList<Reference>? = null,
+  public var activity: MutableList<CarePlan.Activity>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): CarePlan =
-    CarePlan().apply {
-      id = this@CarePlanSurrogate.id
-      meta = this@CarePlanSurrogate.meta
+    CarePlan(
+      id = this@CarePlanSurrogate.id,
+      meta = this@CarePlanSurrogate.meta,
       implicitRules =
-        Uri.of(this@CarePlanSurrogate.implicitRules, this@CarePlanSurrogate._implicitRules)
-      language = Code.of(this@CarePlanSurrogate.language, this@CarePlanSurrogate._language)
-      text = this@CarePlanSurrogate.text
-      contained = this@CarePlanSurrogate.contained
-      extension = this@CarePlanSurrogate.extension
-      modifierExtension = this@CarePlanSurrogate.modifierExtension
-      identifier = this@CarePlanSurrogate.identifier
+        Uri.of(this@CarePlanSurrogate.implicitRules, this@CarePlanSurrogate._implicitRules),
+      language = Code.of(this@CarePlanSurrogate.language, this@CarePlanSurrogate._language),
+      text = this@CarePlanSurrogate.text,
+      contained = this@CarePlanSurrogate.contained ?: mutableListOf(),
+      extension = this@CarePlanSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CarePlanSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@CarePlanSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@CarePlanSurrogate.instantiatesCanonical == null &&
             this@CarePlanSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CarePlanSurrogate.instantiatesCanonical
               ?: List(this@CarePlanSurrogate._instantiatesCanonical!!.size) { null })
@@ -359,14 +377,15 @@ internal data class CarePlanSurrogate(
               this@CarePlanSurrogate._instantiatesCanonical
                 ?: List(this@CarePlanSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@CarePlanSurrogate.instantiatesUri == null &&
             this@CarePlanSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@CarePlanSurrogate.instantiatesUri
               ?: List(this@CarePlanSurrogate._instantiatesUri!!.size) { null })
@@ -374,98 +393,111 @@ internal data class CarePlanSurrogate(
               this@CarePlanSurrogate._instantiatesUri
                 ?: List(this@CarePlanSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      basedOn = this@CarePlanSurrogate.basedOn
-      replaces = this@CarePlanSurrogate.replaces
-      partOf = this@CarePlanSurrogate.partOf
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      basedOn = this@CarePlanSurrogate.basedOn ?: mutableListOf(),
+      replaces = this@CarePlanSurrogate.replaces ?: mutableListOf(),
+      partOf = this@CarePlanSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@CarePlanSurrogate.status?.let {
-            com.google.fhir.model.r4b.CarePlan.CarePlanStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CarePlan.CarePlanStatus.fromCode(
+            this@CarePlanSurrogate.status!!
+          ),
           this@CarePlanSurrogate._status,
-        )
+        ),
       intent =
         Enumeration.of(
-          this@CarePlanSurrogate.intent?.let {
-            com.google.fhir.model.r4b.CarePlan.CarePlanIntent.fromCode(it)
-          },
+          com.google.fhir.model.r4b.CarePlan.CarePlanIntent.fromCode(
+            this@CarePlanSurrogate.intent!!
+          ),
           this@CarePlanSurrogate._intent,
-        )
-      category = this@CarePlanSurrogate.category
-      title = R4bString.of(this@CarePlanSurrogate.title, this@CarePlanSurrogate._title)
+        ),
+      category = this@CarePlanSurrogate.category ?: mutableListOf(),
+      title = R4bString.of(this@CarePlanSurrogate.title, this@CarePlanSurrogate._title),
       description =
-        R4bString.of(this@CarePlanSurrogate.description, this@CarePlanSurrogate._description)
-      subject = this@CarePlanSurrogate.subject
-      encounter = this@CarePlanSurrogate.encounter
-      period = this@CarePlanSurrogate.period
+        R4bString.of(this@CarePlanSurrogate.description, this@CarePlanSurrogate._description),
+      subject = this@CarePlanSurrogate.subject,
+      encounter = this@CarePlanSurrogate.encounter,
+      period = this@CarePlanSurrogate.period,
       created =
         DateTime.of(
           FhirDateTime.fromString(this@CarePlanSurrogate.created),
           this@CarePlanSurrogate._created,
-        )
-      author = this@CarePlanSurrogate.author
-      contributor = this@CarePlanSurrogate.contributor
-      careTeam = this@CarePlanSurrogate.careTeam
-      addresses = this@CarePlanSurrogate.addresses
-      supportingInfo = this@CarePlanSurrogate.supportingInfo
-      goal = this@CarePlanSurrogate.goal
-      activity = this@CarePlanSurrogate.activity
-      note = this@CarePlanSurrogate.note
-    }
+        ),
+      author = this@CarePlanSurrogate.author,
+      contributor = this@CarePlanSurrogate.contributor ?: mutableListOf(),
+      careTeam = this@CarePlanSurrogate.careTeam ?: mutableListOf(),
+      addresses = this@CarePlanSurrogate.addresses ?: mutableListOf(),
+      supportingInfo = this@CarePlanSurrogate.supportingInfo ?: mutableListOf(),
+      goal = this@CarePlanSurrogate.goal ?: mutableListOf(),
+      activity = this@CarePlanSurrogate.activity ?: mutableListOf(),
+      note = this@CarePlanSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: CarePlan): CarePlanSurrogate =
       with(model) {
-        CarePlanSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
+        CarePlanSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          basedOn = this@with.basedOn
-          replaces = this@with.replaces
-          partOf = this@with.partOf
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          category = this@with.category
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          subject = this@with.subject
-          encounter = this@with.encounter
-          period = this@with.period
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          author = this@with.author
-          contributor = this@with.contributor
-          careTeam = this@with.careTeam
-          addresses = this@with.addresses
-          supportingInfo = this@with.supportingInfo
-          goal = this@with.goal
-          activity = this@with.activity
-          note = this@with.note
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          period = this@with.period,
+          created = this@with.created?.value?.toString(),
+          _created = this@with.created?.toElement(),
+          author = this@with.author,
+          contributor = this@with.contributor.takeUnless { it.all { it == null } },
+          careTeam = this@with.careTeam.takeUnless { it.all { it == null } },
+          addresses = this@with.addresses.takeUnless { it.all { it == null } },
+          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
+          goal = this@with.goal.takeUnless { it.all { it == null } },
+          activity = this@with.activity.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.InventoryReportInventoryListingSeria
 import com.google.fhir.model.r5.serializers.InventoryReportSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class InventoryReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class InventoryReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,33 +128,33 @@ public data class InventoryReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier for the InventoryReport. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the inventory check or notification - whether this is draft (e.g. the report is
    * still pending some updates) or active.
    */
-  public var status: Enumeration<InventoryReportStatus>? = null,
+  public var status: Enumeration<InventoryReportStatus>,
   /**
    * Whether the report is about the current inventory count (snapshot) or a differential change in
    * inventory (change).
    */
-  public var countType: Enumeration<InventoryCountType>? = null,
+  public var countType: Enumeration<InventoryCountType>,
   /** What type of operation is being performed - addition or subtraction. */
   public var operationType: CodeableConcept? = null,
   /** The reason for this count - regular count, ad-hoc count, new arrivals, etc. */
   public var operationTypeReason: CodeableConcept? = null,
   /** When the report has been submitted. */
-  public var reportedDateTime: DateTime? = null,
+  public var reportedDateTime: DateTime,
   /** Who submits the report. */
   public var reporter: Reference? = null,
   /** The period the report refers to. */
   public var reportingPeriod: Period? = null,
   /** An inventory listing section (grouped by any of the attributes). */
-  public var inventoryListing: List<InventoryListing>? = null,
+  public var inventoryListing: MutableList<InventoryListing> = mutableListOf(),
   /** A note associated with the InventoryReport. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** An inventory listing section (grouped by any of the attributes). */
   @Serializable(with = InventoryReportInventoryListingSerializer::class)
@@ -176,7 +176,7 @@ public data class InventoryReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -195,7 +195,7 @@ public data class InventoryReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Location of the inventory items. */
     public var location: Reference? = null,
     /** The status of the items. */
@@ -203,7 +203,7 @@ public data class InventoryReport(
     /** The date and time when the items were counted. */
     public var countingDateTime: DateTime? = null,
     /** The item or items in this listing. */
-    public var item: List<Item>? = null,
+    public var item: MutableList<Item> = mutableListOf(),
   ) : BackboneElement() {
     /** The item or items in this listing. */
     @Serializable(with = InventoryReportInventoryListingItemSerializer::class)
@@ -225,7 +225,7 @@ public data class InventoryReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -244,16 +244,16 @@ public data class InventoryReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The inventory category or classification of the items being reported. This is meant not for
        * defining the product, but for inventory categories e.g. 'pending recount' or 'damaged'.
        */
       public var category: CodeableConcept? = null,
       /** The quantity of the item or items being reported. */
-      public var quantity: Quantity? = null,
+      public var quantity: Quantity,
       /** The code or reference to the item type. */
-      public var item: CodeableReference? = null,
+      public var item: CodeableReference,
     ) : BackboneElement()
   }
 
@@ -262,41 +262,14 @@ public data class InventoryReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The existence of the report is registered, but it is still without content or only some
-     * preliminary content.
-     */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/inventoryreport-status",
-      "Draft",
-      "The existence of the report is registered, but it is still without content or only some preliminary content.",
-    ),
-    /** The inventory report has been requested but there is no data available. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/inventoryreport-status",
-      "Requested",
-      "The inventory report has been requested but there is no data available.",
-    ),
-    /** This report is submitted as current. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/inventoryreport-status",
-      "Active",
-      "This report is submitted as current.",
-    ),
-    /**
-     * The report has been withdrawn following a previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     */
+    Draft("draft", "http://hl7.org/fhir/inventoryreport-status", "Draft"),
+    Requested("requested", "http://hl7.org/fhir/inventoryreport-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/inventoryreport-status", "Active"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/inventoryreport-status",
       "Entered in Error",
-      "The report has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it.",
     );
 
     override fun toString(): String = code
@@ -306,8 +279,6 @@ public data class InventoryReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): InventoryReportStatus =
@@ -327,28 +298,9 @@ public data class InventoryReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The inventory report is a current absolute snapshot, i.e. it represents the quantities at
-     * hand.
-     */
-    Snapshot(
-      "snapshot",
-      "http://hl7.org/fhir/inventoryreport-counttype",
-      "Snapshot",
-      "The inventory report is a current absolute snapshot, i.e. it represents the quantities at hand.",
-    ),
-    /**
-     * The inventory report is about the difference between a previous count and a current count,
-     * i.e. it represents the items that have been added/subtracted from inventory.
-     */
-    Difference(
-      "difference",
-      "http://hl7.org/fhir/inventoryreport-counttype",
-      "Difference",
-      "The inventory report is about the difference between a previous count and a current count, i.e. it represents the items that have been added/subtracted from inventory.",
-    );
+    Snapshot("snapshot", "http://hl7.org/fhir/inventoryreport-counttype", "Snapshot"),
+    Difference("difference", "http://hl7.org/fhir/inventoryreport-counttype", "Difference");
 
     override fun toString(): String = code
 
@@ -357,8 +309,6 @@ public data class InventoryReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): InventoryCountType =

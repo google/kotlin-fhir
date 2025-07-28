@@ -30,7 +30,7 @@ import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunScriptSourceS
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunSerializer
 import com.google.fhir.model.r5.serializers.TestPlanVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -103,7 +103,7 @@ public data class TestPlan(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class TestPlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class TestPlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this test plan when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -163,7 +163,7 @@ public data class TestPlan(
    * type, and can then identify this test plan outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the test plan when it is referenced in
    * a specification, model, design or instance. This is an arbitrary value managed by the test plan
@@ -209,7 +209,7 @@ public data class TestPlan(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this test plan is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -251,7 +251,7 @@ public data class TestPlan(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the test plan from a consumer's perspective.
    *
@@ -272,7 +272,7 @@ public data class TestPlan(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the test plan is intended to be used.
    *
@@ -284,7 +284,7 @@ public data class TestPlan(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this test plan is needed and why it has been designed as it has.
    *
@@ -310,22 +310,22 @@ public data class TestPlan(
    */
   public var copyrightLabel: String? = null,
   /** The category of the Test Plan - can be acceptance, unit, performance, etc. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * What is being tested with this Test Plan - a conformance resource, or narrative criteria, or an
    * external reference...
    */
-  public var scope: List<Reference?>? = null,
+  public var scope: MutableList<Reference> = mutableListOf(),
   /** A description of test tools to be used in the test plan. */
   public var testTools: Markdown? = null,
   /** The required criteria to execute the test plan - e.g. preconditions, previous tests... */
-  public var dependency: List<Dependency>? = null,
+  public var dependency: MutableList<Dependency> = mutableListOf(),
   /**
    * The threshold or criteria for the test plan to be considered successfully executed - narrative.
    */
   public var exitCriteria: Markdown? = null,
   /** The individual test cases that are part of this plan, when they they are made explicit. */
-  public var testCase: List<TestCase>? = null,
+  public var testCase: MutableList<TestCase> = mutableListOf(),
 ) : DomainResource() {
   /** The required criteria to execute the test plan - e.g. preconditions, previous tests... */
   @Serializable(with = TestPlanDependencySerializer::class)
@@ -347,7 +347,7 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -366,7 +366,7 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A textual description of the criterium - what is needed for the dependency to be considered
      * met.
@@ -399,7 +399,7 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -418,7 +418,7 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Sequence of test case - an ordinal number that indicates the order for the present test case
      * in the test plan.
@@ -428,17 +428,17 @@ public data class TestPlan(
      * The scope or artifact covered by the case, when the individual test case is associated with a
      * testable artifact.
      */
-    public var scope: List<Reference?>? = null,
+    public var scope: MutableList<Reference> = mutableListOf(),
     /** The required criteria to execute the test case - e.g. preconditions, previous tests. */
-    public var dependency: List<Dependency>? = null,
+    public var dependency: MutableList<Dependency> = mutableListOf(),
     /** The actual test to be executed. */
-    public var testRun: List<TestRun>? = null,
+    public var testRun: MutableList<TestRun> = mutableListOf(),
     /** The test data used in the test case. */
-    public var testData: List<TestData>? = null,
+    public var testData: MutableList<TestData> = mutableListOf(),
     /**
      * The test assertions - the expectations of test results from the execution of the test case.
      */
-    public var assertion: List<Assertion>? = null,
+    public var assertion: MutableList<Assertion> = mutableListOf(),
   ) : BackboneElement() {
     /** The required criteria to execute the test case - e.g. preconditions, previous tests. */
     @Serializable(with = TestPlanTestCaseDependencySerializer::class)
@@ -460,7 +460,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -479,7 +479,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Description of the criteria. */
       public var description: Markdown? = null,
       /** Link to predecessor test plans. */
@@ -506,7 +506,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -525,7 +525,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The narrative description of the tests. */
       public var narrative: Markdown? = null,
       /** The test cases in a structured language e.g. gherkin, Postman, or FHIR TestScript. */
@@ -551,7 +551,7 @@ public data class TestPlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -570,7 +570,7 @@ public data class TestPlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** The language for the test cases e.g. 'gherkin', 'testscript'. */
         public var language: CodeableConcept? = null,
         /**
@@ -590,16 +590,14 @@ public data class TestPlan(
           public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
             Source
 
-          public data object Null : Source
-
           public companion object {
-            public fun from(
+            internal fun from(
               stringValue: com.google.fhir.model.r5.String?,
-              ReferenceValue: com.google.fhir.model.r5.Reference?,
-            ): Source {
+              referenceValue: com.google.fhir.model.r5.Reference?,
+            ): Source? {
               if (stringValue != null) return String(stringValue)
-              if (ReferenceValue != null) return Reference(ReferenceValue)
-              return Null
+              if (referenceValue != null) return Reference(referenceValue)
+              return null
             }
           }
         }
@@ -626,7 +624,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -645,9 +643,9 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of test data description, e.g. 'synthea'. */
-      public var type: Coding? = null,
+      public var type: Coding,
       /** The actual test resources when they exist. */
       public var content: Reference? = null,
       /**
@@ -667,16 +665,14 @@ public data class TestPlan(
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
           Source
 
-        public data object Null : Source
-
         public companion object {
-          public fun from(
+          internal fun from(
             stringValue: com.google.fhir.model.r5.String?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Source {
+            referenceValue: com.google.fhir.model.r5.Reference?,
+          ): Source? {
             if (stringValue != null) return String(stringValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -704,7 +700,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -723,16 +719,16 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The test assertion type - this can be used to group assertions as 'required' or 'optional',
        * or can be used for other classification of the assertion.
        */
-      public var type: List<CodeableConcept?>? = null,
+      public var type: MutableList<CodeableConcept> = mutableListOf(),
       /** The focus or object of the assertion i.e. a resource. */
-      public var `object`: List<CodeableReference?>? = null,
+      public var `object`: MutableList<CodeableReference> = mutableListOf(),
       /** The test assertion - the expected outcome from the test case execution. */
-      public var result: List<CodeableReference?>? = null,
+      public var result: MutableList<CodeableReference> = mutableListOf(),
     ) : BackboneElement()
   }
 
@@ -748,16 +744,14 @@ public data class TestPlan(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }

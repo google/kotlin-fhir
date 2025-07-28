@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.ProductShelfLifeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,7 +66,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Unique identifier for the packaged Medicinal Product. */
   public var identifier: Identifier? = null,
   /**
@@ -76,16 +76,16 @@ public data class ProductShelfLife(
    * appropriate controlled vocabulary The controlled term and the controlled term identifier shall
    * be specified.
    */
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   /**
    * The shelf life time period can be specified using a numerical value for the period of time and
    * its unit of time measurement The unit of measurement shall be specified in accordance with ISO
    * 11240 and the resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var period: Quantity? = null,
+  public var period: Quantity,
   /**
    * Special precautions for storage, if any, can be specified using an appropriate controlled
    * vocabulary The controlled term and the controlled term identifier shall be specified.
    */
-  public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+  public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
 ) : BackboneElement()

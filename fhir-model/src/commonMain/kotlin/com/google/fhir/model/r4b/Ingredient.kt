@@ -27,7 +27,7 @@ import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthReferenc
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthReferenceStrengthStrengthSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Ingredient(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Ingredient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class Ingredient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The identifier(s) of this Ingredient that are assigned by business processes and/or used to
    * refer to it when a direct URL reference to the resource itself is not appropriate.
@@ -141,19 +141,19 @@ public data class Ingredient(
    *
    * Allows filtering of ingredient that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /** The product which this ingredient is a constituent part of. */
-  public var `for`: List<Reference?>? = null,
+  public var `for`: MutableList<Reference> = mutableListOf(),
   /**
    * A classification of the ingredient identifying its purpose within the product, e.g. active,
    * inactive.
    */
-  public var role: CodeableConcept? = null,
+  public var role: CodeableConcept,
   /**
    * A classification of the ingredient identifying its precise purpose(s) in the drug product. This
    * extends the Ingredient.role to add more detail. Example: antioxidant, alkalizing agent.
    */
-  public var function: List<CodeableConcept?>? = null,
+  public var function: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * If the ingredient is a known or suspected allergen. Note that this is a property of the
    * substance, so if a reference to a SubstanceDefinition is used to decribe that (rather than just
@@ -166,9 +166,9 @@ public data class Ingredient(
    * used 3) Set of organisations allowed to manufacture this ingredient for this product Users must
    * be clear on the application of context relevant to their use case.
    */
-  public var manufacturer: List<Manufacturer>? = null,
+  public var manufacturer: MutableList<Manufacturer> = mutableListOf(),
   /** The substance that comprises this ingredient. */
-  public var substance: Substance? = null,
+  public var substance: Substance,
 ) : DomainResource() {
   /**
    * The organization(s) that manufacture this ingredient. Can be used to indicate: 1) Organizations
@@ -195,7 +195,7 @@ public data class Ingredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -214,7 +214,7 @@ public data class Ingredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The way in which this manufacturer is associated with the ingredient. For example whether it
      * is a possible one (others allowed), or an exclusive authorized one for this ingredient. Note
@@ -222,7 +222,7 @@ public data class Ingredient(
      */
     public var role: Enumeration<IngredientManufacturerRole>? = null,
     /** An organization that manufactures this ingredient. */
-    public var manufacturer: Reference? = null,
+    public var manufacturer: Reference,
   ) : BackboneElement()
 
   /** The substance that comprises this ingredient. */
@@ -245,7 +245,7 @@ public data class Ingredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -264,16 +264,16 @@ public data class Ingredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code or full resource that represents the ingredient's substance. */
-    public var code: CodeableReference? = null,
+    public var code: CodeableReference,
     /**
      * The quantity of substance in the unit of presentation, or in the volume (or mass) of the
      * single pharmaceutical product or manufactured item. The allowed repetitions do not represent
      * different strengths, but are different representations - mathematically equivalent - of a
      * single strength.
      */
-    public var strength: List<Strength>? = null,
+    public var strength: MutableList<Strength> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * The quantity of substance in the unit of presentation, or in the volume (or mass) of the
@@ -300,7 +300,7 @@ public data class Ingredient(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -319,7 +319,7 @@ public data class Ingredient(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The quantity of substance in the unit of presentation, or in the volume (or mass) of the
        * single pharmaceutical product or manufactured item. Unit of presentation refers to the
@@ -347,7 +347,7 @@ public data class Ingredient(
        */
       public var measurementPoint: String? = null,
       /** The country or countries for which the strength range applies. */
-      public var country: List<CodeableConcept?>? = null,
+      public var country: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Strength expressed in terms of a reference substance. For when the ingredient strength is
        * additionally expressed as equivalent to the strength of some other closely related
@@ -356,7 +356,7 @@ public data class Ingredient(
        * active substance and active moiety are different, therefore both a strength and a reference
        * strength are needed.
        */
-      public var referenceStrength: List<ReferenceStrength>? = null,
+      public var referenceStrength: MutableList<ReferenceStrength> = mutableListOf(),
     ) : BackboneElement() {
       /**
        * Strength expressed in terms of a reference substance. For when the ingredient strength is
@@ -385,7 +385,7 @@ public data class Ingredient(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -404,15 +404,15 @@ public data class Ingredient(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Relevant reference substance. */
         public var substance: CodeableReference? = null,
         /** Strength expressed in terms of a reference substance. */
-        public var strength: Strength? = null,
+        public var strength: Strength,
         /** For when strength is measured at a particular point or distance. */
         public var measurementPoint: String? = null,
         /** The country or countries for which the strength range applies. */
-        public var country: List<CodeableConcept?>? = null,
+        public var country: MutableList<CodeableConcept> = mutableListOf(),
       ) : BackboneElement() {
         @Serializable(with = IngredientSubstanceStrengthReferenceStrengthStrengthSerializer::class)
         public sealed interface Strength {
@@ -425,16 +425,14 @@ public data class Ingredient(
           public data class RatioRange(public val `value`: com.google.fhir.model.r4b.RatioRange) :
             Strength
 
-          public data object Null : Strength
-
           public companion object {
-            public fun from(
-              RatioValue: com.google.fhir.model.r4b.Ratio?,
-              RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-            ): Strength {
-              if (RatioValue != null) return Ratio(RatioValue)
-              if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-              return Null
+            internal fun from(
+              ratioValue: com.google.fhir.model.r4b.Ratio?,
+              ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+            ): Strength? {
+              if (ratioValue != null) return Ratio(ratioValue)
+              if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+              return null
             }
           }
         }
@@ -451,16 +449,14 @@ public data class Ingredient(
         public data class RatioRange(public val `value`: com.google.fhir.model.r4b.RatioRange) :
           Presentation
 
-        public data object Null : Presentation
-
         public companion object {
-          public fun from(
-            RatioValue: com.google.fhir.model.r4b.Ratio?,
-            RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-          ): Presentation {
-            if (RatioValue != null) return Ratio(RatioValue)
-            if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-            return Null
+          internal fun from(
+            ratioValue: com.google.fhir.model.r4b.Ratio?,
+            ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+          ): Presentation? {
+            if (ratioValue != null) return Ratio(ratioValue)
+            if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+            return null
           }
         }
       }
@@ -477,16 +473,14 @@ public data class Ingredient(
         public data class RatioRange(public val `value`: com.google.fhir.model.r4b.RatioRange) :
           Concentration
 
-        public data object Null : Concentration
-
         public companion object {
-          public fun from(
-            RatioValue: com.google.fhir.model.r4b.Ratio?,
-            RatioRangeValue: com.google.fhir.model.r4b.RatioRange?,
-          ): Concentration {
-            if (RatioValue != null) return Ratio(RatioValue)
-            if (RatioRangeValue != null) return RatioRange(RatioRangeValue)
-            return Null
+          internal fun from(
+            ratioValue: com.google.fhir.model.r4b.Ratio?,
+            ratioRangeValue: com.google.fhir.model.r4b.RatioRange?,
+          ): Concentration? {
+            if (ratioValue != null) return Ratio(ratioValue)
+            if (ratioRangeValue != null) return RatioRange(ratioRangeValue)
+            return null
           }
         }
       }
@@ -502,25 +496,21 @@ public data class Ingredient(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
     Allowed(
       "allowed",
       "http://hl7.org/fhir/ingredient-manufacturer-role",
       "Manufacturer is specifically allowed for this ingredient",
-      null,
     ),
     Possible(
       "possible",
       "http://hl7.org/fhir/ingredient-manufacturer-role",
       "Manufacturer is known to make this ingredient in general",
-      null,
     ),
     Actual(
       "actual",
       "http://hl7.org/fhir/ingredient-manufacturer-role",
       "Manufacturer actually makes this particular ingredient",
-      null,
     );
 
     override fun toString(): kotlin.String = code
@@ -530,8 +520,6 @@ public data class Ingredient(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IngredientManufacturerRole =

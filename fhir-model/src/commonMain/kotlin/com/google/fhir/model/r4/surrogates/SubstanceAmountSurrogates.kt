@@ -30,51 +30,48 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceAmountReferenceRangeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var lowLimit: Quantity? = null,
   public var highLimit: Quantity? = null,
 ) {
   public fun toModel(): SubstanceAmount.ReferenceRange =
-    SubstanceAmount.ReferenceRange().apply {
-      id = this@SubstanceAmountReferenceRangeSurrogate.id
-      extension = this@SubstanceAmountReferenceRangeSurrogate.extension
-      lowLimit = this@SubstanceAmountReferenceRangeSurrogate.lowLimit
-      highLimit = this@SubstanceAmountReferenceRangeSurrogate.highLimit
-    }
+    SubstanceAmount.ReferenceRange(
+      id = this@SubstanceAmountReferenceRangeSurrogate.id,
+      extension = this@SubstanceAmountReferenceRangeSurrogate.extension ?: mutableListOf(),
+      lowLimit = this@SubstanceAmountReferenceRangeSurrogate.lowLimit,
+      highLimit = this@SubstanceAmountReferenceRangeSurrogate.highLimit,
+    )
 
   public companion object {
     public fun fromModel(
       model: SubstanceAmount.ReferenceRange
     ): SubstanceAmountReferenceRangeSurrogate =
       with(model) {
-        SubstanceAmountReferenceRangeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          lowLimit = this@with.lowLimit
-          highLimit = this@with.highLimit
-        }
+        SubstanceAmountReferenceRangeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          lowLimit = this@with.lowLimit,
+          highLimit = this@with.highLimit,
+        )
       }
   }
 }
 
 @Serializable
-internal class SubstanceAmountAmountSurrogate {
-  public var amountQuantity: Quantity? = null
-
-  public var amountRange: Range? = null
-
-  public var amountString: KotlinString? = null
-
-  public var _amountString: Element? = null
-
-  public fun toModel(): SubstanceAmount.Amount =
+internal data class SubstanceAmountAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountRange: Range? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceAmount.Amount? =
     SubstanceAmount.Amount?.from(
       this@SubstanceAmountAmountSurrogate.amountQuantity,
       this@SubstanceAmountAmountSurrogate.amountRange,
@@ -82,16 +79,20 @@ internal class SubstanceAmountAmountSurrogate {
         this@SubstanceAmountAmountSurrogate.amountString,
         this@SubstanceAmountAmountSurrogate._amountString,
       ),
-    ) ?: SubstanceAmount.Amount.Null
+    )
 
   public companion object {
     public fun fromModel(model: SubstanceAmount.Amount): SubstanceAmountAmountSurrogate =
       with(model) {
         SubstanceAmountAmountSurrogate().apply {
-          amountQuantity = this@with.asQuantity()?.value
-          amountRange = this@with.asRange()?.value
-          amountString = this@with.asString()?.value?.value
-          _amountString = this@with.asString()?.value?.toElement()
+          SubstanceAmount.Amount?.from(
+            this@SubstanceAmountAmountSurrogate.amountQuantity,
+            this@SubstanceAmountAmountSurrogate.amountRange,
+            R4String.of(
+              this@SubstanceAmountAmountSurrogate.amountString,
+              this@SubstanceAmountAmountSurrogate._amountString,
+            ),
+          )
         }
       }
   }
@@ -100,8 +101,8 @@ internal class SubstanceAmountAmountSurrogate {
 @Serializable
 internal data class SubstanceAmountSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var amountType: CodeableConcept? = null,
   public var amountText: KotlinString? = null,
   public var _amountText: Element? = null,
@@ -109,33 +110,33 @@ internal data class SubstanceAmountSurrogate(
   public var amount: SubstanceAmount.Amount? = null,
 ) {
   public fun toModel(): SubstanceAmount =
-    SubstanceAmount().apply {
-      id = this@SubstanceAmountSurrogate.id
-      extension = this@SubstanceAmountSurrogate.extension
-      modifierExtension = this@SubstanceAmountSurrogate.modifierExtension
-      amount = this@SubstanceAmountSurrogate.amount
-      amountType = this@SubstanceAmountSurrogate.amountType
+    SubstanceAmount(
+      id = this@SubstanceAmountSurrogate.id,
+      extension = this@SubstanceAmountSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubstanceAmountSurrogate.modifierExtension ?: mutableListOf(),
+      amount = this@SubstanceAmountSurrogate.amount,
+      amountType = this@SubstanceAmountSurrogate.amountType,
       amountText =
         R4String.of(
           this@SubstanceAmountSurrogate.amountText,
           this@SubstanceAmountSurrogate._amountText,
-        )
-      referenceRange = this@SubstanceAmountSurrogate.referenceRange
-    }
+        ),
+      referenceRange = this@SubstanceAmountSurrogate.referenceRange,
+    )
 
   public companion object {
     public fun fromModel(model: SubstanceAmount): SubstanceAmountSurrogate =
       with(model) {
-        SubstanceAmountSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          amount = this@with.amount
-          amountType = this@with.amountType
-          amountText = this@with.amountText?.value
-          _amountText = this@with.amountText?.toElement()
-          referenceRange = this@with.referenceRange
-        }
+        SubstanceAmountSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          amount = this@with.amount,
+          amountType = this@with.amountType,
+          amountText = this@with.amountText?.value,
+          _amountText = this@with.amountText?.toElement(),
+          referenceRange = this@with.referenceRange,
+        )
       }
   }
 }

@@ -39,7 +39,7 @@ import com.google.fhir.model.r5.serializers.CitationStatusDateSerializer
 import com.google.fhir.model.r5.serializers.CitationSummarySerializer
 import com.google.fhir.model.r5.serializers.CitationVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -117,7 +117,7 @@ public data class Citation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -130,7 +130,7 @@ public data class Citation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -149,7 +149,7 @@ public data class Citation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this citation record when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -169,7 +169,7 @@ public data class Citation(
    * Use this element if you need to identify the citation record independently from identifying the
    * cited artifact.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the citation record when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -219,7 +219,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this citation record is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -262,7 +262,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the citation from a consumer's perspective.
    *
@@ -282,7 +282,7 @@ public data class Citation(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the citation record is intended to be used.
    *
@@ -294,7 +294,7 @@ public data class Citation(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this citation is needed and why it has been designed as it has.
    *
@@ -355,7 +355,7 @@ public data class Citation(
    * identifiers for the author. If detailed contributorship data is needed for the authorship of
    * the citation record, then one can create a Citation Resource for the Citation Resource.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Who edited or revised the citation record.
    *
@@ -364,7 +364,7 @@ public data class Citation(
    * for the editor. If detailed contributorship data is needed for the editing of the citation
    * record, then one can create a Citation Resource for the Citation Resource.
    */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Who reviewed the citation record.
    *
@@ -376,7 +376,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Who endorsed the citation record.
    *
@@ -388,25 +388,25 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /** A human-readable display of key concepts to represent the citation. */
-  public var summary: List<Summary>? = null,
+  public var summary: MutableList<Summary> = mutableListOf(),
   /**
    * The assignment to an organizing scheme.
    *
    * Use this element if you need to classify the citation record independently from classifying the
    * cited artifact.
    */
-  public var classification: List<Classification>? = null,
+  public var classification: MutableList<Classification> = mutableListOf(),
   /** Used for general notes and annotations not coded elsewhere. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The status of the citation record.
    *
    * Use this if needed for reporting the state or status of the citation record, NOT FOR reporting
    * the state or status of the cited article.
    */
-  public var currentState: List<CodeableConcept?>? = null,
+  public var currentState: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The state or status of the citation record paired with an effective date or period for that
    * state.
@@ -414,7 +414,7 @@ public data class Citation(
    * Use this if needed for reporting the state or status of the citation record, NOT FOR reporting
    * the state or status of the cited article.
    */
-  public var statusDate: List<StatusDate>? = null,
+  public var statusDate: MutableList<StatusDate> = mutableListOf(),
   /**
    * Artifact related to the citation record.
    *
@@ -423,7 +423,7 @@ public data class Citation(
    * data source for generation of the Citation Resource instance if it was automatically generated,
    * such as conversion from a citation repository.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /** The article or artifact being described. */
   public var citedArtifact: CitedArtifact? = null,
 ) : DomainResource() {
@@ -447,7 +447,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -466,11 +466,11 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Format for display of the citation summary. */
     public var style: CodeableConcept? = null,
     /** The human-readable display of the citation summary. */
-    public var text: Markdown? = null,
+    public var text: Markdown,
   ) : BackboneElement()
 
   /** The assignment to an organizing scheme. */
@@ -493,7 +493,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -512,11 +512,11 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The kind of classifier (e.g. publication type, keyword). */
     public var type: CodeableConcept? = null,
     /** The specific classification value. */
-    public var classifier: List<CodeableConcept?>? = null,
+    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -542,7 +542,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -561,9 +561,9 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The state or status of the citation record (that will be paired with the period). */
-    public var activity: CodeableConcept? = null,
+    public var activity: CodeableConcept,
     /** Whether the status date is actual (has occurred) or expected (estimated or anticipated). */
     public var `actual`: Boolean? = null,
     /**
@@ -571,7 +571,7 @@ public data class Citation(
      *
      * For an instance, place the same value in both start and end elements.
      */
-    public var period: Period? = null,
+    public var period: Period,
   ) : BackboneElement()
 
   /** The article or artifact being described. */
@@ -594,7 +594,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -613,7 +613,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A formal identifier that is used to identify the cited artifact when it is represented in
      * other formats, or referenced in a specification, model, design or an instance.
@@ -624,7 +624,7 @@ public data class Citation(
      * identifier.system values to use for these 3 identifiers are: DOI = "https://doi.org" PMID =
      * "https://pubmed.ncbi.nlm.nih.gov" PMCID = "https://www.ncbi.nlm.nih.gov/pmc/"
      */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /**
      * A formal identifier that is used to identify things closely related to the cited artifact.
      *
@@ -637,7 +637,7 @@ public data class Citation(
      * to use for these 2 identifiers are: ClinicalTrials.gov = "https://clinicaltrials.gov"
      * PROSPERO = "https://www.crd.york.ac.uk/prospero/"
      */
-    public var relatedIdentifier: List<Identifier?>? = null,
+    public var relatedIdentifier: MutableList<Identifier> = mutableListOf(),
     /**
      * When the cited artifact was accessed.
      *
@@ -648,19 +648,19 @@ public data class Citation(
     /** The defined version of the cited artifact. */
     public var version: Version? = null,
     /** The status of the cited artifact. */
-    public var currentState: List<CodeableConcept?>? = null,
+    public var currentState: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * An effective date or period, historical or future, actual or expected, for a status of the
      * cited artifact.
      */
-    public var statusDate: List<StatusDate>? = null,
+    public var statusDate: MutableList<StatusDate> = mutableListOf(),
     /** The title details of the article or artifact. */
-    public var title: List<Title>? = null,
+    public var title: MutableList<Title> = mutableListOf(),
     /**
      * The abstract may be used to convey article-contained abstracts, externally-created abstracts,
      * or other descriptive summaries.
      */
-    public var `abstract`: List<Abstract>? = null,
+    public var `abstract`: MutableList<Abstract> = mutableListOf(),
     /** The component of the article or artifact. */
     public var part: Part? = null,
     /**
@@ -670,7 +670,7 @@ public data class Citation(
      * Datatype to enable use of an extended value set for the required code for the type of
      * relationship.
      */
-    public var relatesTo: List<RelatesTo>? = null,
+    public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
     /**
      * If multiple, used to represent alternative forms of the article that are not separate
      * citations.
@@ -678,18 +678,18 @@ public data class Citation(
      * A common use is a journal article with a publication date and pagination for a print version
      * and a different publication date for the online version of the same article.
      */
-    public var publicationForm: List<PublicationForm>? = null,
+    public var publicationForm: MutableList<PublicationForm> = mutableListOf(),
     /** Used for any URL for the article or artifact cited. */
-    public var webLocation: List<WebLocation>? = null,
+    public var webLocation: MutableList<WebLocation> = mutableListOf(),
     /** The assignment to an organizing scheme. */
-    public var classification: List<Classification>? = null,
+    public var classification: MutableList<Classification> = mutableListOf(),
     /**
      * This element is used to list authors and other contributors, their contact information,
      * specific contributions, and summary statements.
      */
     public var contributorship: Contributorship? = null,
     /** Any additional information or content for the article or artifact. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
     /** The defined version of the cited artifact. */
     @Serializable(with = CitationCitedArtifactVersionSerializer::class)
@@ -711,7 +711,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -730,9 +730,9 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The version number or other version identifier. */
-      public var `value`: String? = null,
+      public var `value`: String,
       /**
        * Citation for the main version of the cited artifact.
        *
@@ -766,7 +766,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -785,9 +785,9 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A definition of the status associated with a date or period. */
-      public var activity: CodeableConcept? = null,
+      public var activity: CodeableConcept,
       /** Either occurred or expected. */
       public var `actual`: Boolean? = null,
       /**
@@ -795,7 +795,7 @@ public data class Citation(
        *
        * For an instance, place the same value in both start and end elements.
        */
-      public var period: Period? = null,
+      public var period: Period,
     ) : BackboneElement()
 
     /** The title details of the article or artifact. */
@@ -818,7 +818,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -837,13 +837,13 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Used to express the reason for or classification of the title. */
-      public var type: List<CodeableConcept?>? = null,
+      public var type: MutableList<CodeableConcept> = mutableListOf(),
       /** Used to express the specific language of the title. */
       public var language: CodeableConcept? = null,
       /** The title of the article or artifact. */
-      public var text: Markdown? = null,
+      public var text: Markdown,
     ) : BackboneElement()
 
     /**
@@ -869,7 +869,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -888,13 +888,13 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Used to express the reason for or classification of the abstract. */
       public var type: CodeableConcept? = null,
       /** Used to express the specific language of the abstract. */
       public var language: CodeableConcept? = null,
       /** Abstract content. */
-      public var text: Markdown? = null,
+      public var text: Markdown,
       /**
        * Copyright notice for the abstract.
        *
@@ -924,7 +924,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -943,7 +943,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The kind of component. */
       public var type: CodeableConcept? = null,
       /** The specification of the component. */
@@ -981,7 +981,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1000,11 +1000,11 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of relationship to the related artifact. */
-      public var type: Enumeration<RelatedArtifactTypeExpanded>? = null,
+      public var type: Enumeration<RelatedArtifactTypeExpanded>,
       /** Provides additional classifiers of the related artifact. */
-      public var classifier: List<CodeableConcept?>? = null,
+      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * A short label that can be used to reference the related artifact from elsewhere in the
        * containing artifact, such as a footnote index.
@@ -1075,7 +1075,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1094,7 +1094,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The collection the cited article or artifact is published in. */
       public var publishedIn: PublishedIn? = null,
       /**
@@ -1138,7 +1138,7 @@ public data class Citation(
        */
       public var lastRevisionDate: DateTime? = null,
       /** The language or languages in which this form of the article is published. */
-      public var language: List<CodeableConcept?>? = null,
+      public var language: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Entry number or identifier for inclusion in a database.
        *
@@ -1187,7 +1187,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1206,7 +1206,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Kind of container (e.g. Periodical, database, or book).
          *
@@ -1217,7 +1217,7 @@ public data class Citation(
          * Journal identifiers include ISSN, ISO Abbreviation and NLMuniqueID; Book identifiers
          * include ISBN.
          */
-        public var identifier: List<Identifier?>? = null,
+        public var identifier: MutableList<Identifier> = mutableListOf(),
         /**
          * Name of the database or title of the book or journal.
          *
@@ -1251,7 +1251,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1270,14 +1270,14 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A characterization of the object expected at the web location.
        *
        * Categories that may be frequently used for study citations may include abstract, full-text,
        * supplement, webpage, and doi-based.
        */
-      public var classifier: List<CodeableConcept?>? = null,
+      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * The specific URL.
        *
@@ -1306,7 +1306,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1325,11 +1325,11 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The kind of classifier (e.g. publication type, keyword). */
       public var type: CodeableConcept? = null,
       /** The specific classification value. */
-      public var classifier: List<CodeableConcept?>? = null,
+      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Complex or externally created classification.
        *
@@ -1337,7 +1337,7 @@ public data class Citation(
        * qualifier codings or sub-classifications, and include risk of bias assessments created by
        * persons different from the creator of the citation record.
        */
-      public var artifactAssessment: List<Reference?>? = null,
+      public var artifactAssessment: MutableList<Reference> = mutableListOf(),
     ) : BackboneElement()
 
     /**
@@ -1363,7 +1363,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1382,7 +1382,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates if the list includes all authors and/or contributors.
        *
@@ -1396,12 +1396,12 @@ public data class Citation(
        *
        * Used to report contributorship in individualized ways.
        */
-      public var entry: List<Entry>? = null,
+      public var entry: MutableList<Entry> = mutableListOf(),
       /**
        * Used to record a display of the author/contributor list without separate data element for
        * each list member.
        */
-      public var summary: List<Summary>? = null,
+      public var summary: MutableList<Summary> = mutableListOf(),
     ) : BackboneElement() {
       /**
        * An individual entity named as a contributor, for example in the author list or contributor
@@ -1426,7 +1426,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1445,7 +1445,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The identity of the individual contributor.
          *
@@ -1453,7 +1453,7 @@ public data class Citation(
          * element within the Reference datatype may be used for a simple string without referencing
          * another resource.
          */
-        public var contributor: Reference? = null,
+        public var contributor: Reference,
         /**
          * For citation styles that use initials.
          *
@@ -1472,7 +1472,7 @@ public data class Citation(
          * display element within the Reference datatype may be used for a simple string without
          * referencing another resource.
          */
-        public var affiliation: List<Reference?>? = null,
+        public var affiliation: MutableList<Reference> = mutableListOf(),
         /**
          * This element identifies the specific nature of an individual’s contribution with respect
          * to the cited work.
@@ -1481,11 +1481,11 @@ public data class Citation(
          * CRediT is to provide transparency in contributions to scholarly published work, to enable
          * improved systems of attribution, credit, and accountability.
          */
-        public var contributionType: List<CodeableConcept?>? = null,
+        public var contributionType: MutableList<CodeableConcept> = mutableListOf(),
         /** The role of the contributor (e.g. author, editor, reviewer, funder). */
         public var role: CodeableConcept? = null,
         /** Contributions with accounting for time or number. */
-        public var contributionInstance: List<ContributionInstance>? = null,
+        public var contributionInstance: MutableList<ContributionInstance> = mutableListOf(),
         /**
          * Whether the contributor is the corresponding contributor for the role.
          *
@@ -1523,7 +1523,7 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1542,9 +1542,9 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** The specific contribution. */
-          public var type: CodeableConcept? = null,
+          public var type: CodeableConcept,
           /** The time that the contribution was made. */
           public var time: DateTime? = null,
         ) : BackboneElement()
@@ -1573,7 +1573,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1592,7 +1592,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Used most commonly to express an author list or a contributorship statement. */
         public var type: CodeableConcept? = null,
         /**
@@ -1605,7 +1605,7 @@ public data class Citation(
         /**
          * The display string for the author list, contributor list, or contributorship statement.
          */
-        public var `value`: Markdown? = null,
+        public var `value`: Markdown,
       ) : BackboneElement()
     }
   }
@@ -1622,16 +1622,14 @@ public data class Citation(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -1641,388 +1639,57 @@ public data class Citation(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Additional documentation for the knowledge resource. This would include additional
-     * instructions on usage as well as additional information on clinical context or
-     * appropriateness.
-     */
-    Documentation(
-      "documentation",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Documentation",
-      "Additional documentation for the knowledge resource. This would include additional instructions on usage as well as additional information on clinical context or appropriateness.",
-    ),
-    /**
-     * The target artifact is a summary of the justification for the knowledge resource including
-     * supporting evidence, relevant guidelines, or other clinically important information. This
-     * information is intended to provide a way to make the justification for the knowledge resource
-     * available to the consumer of interventions or results produced by the knowledge resource.
-     */
-    Justification(
-      "justification",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Justification",
-      "The target artifact is a summary of the justification for the knowledge resource including supporting evidence, relevant guidelines, or other clinically important information. This information is intended to provide a way to make the justification for the knowledge resource available to the consumer of interventions or results produced by the knowledge resource.",
-    ),
-    /**
-     * Bibliographic citation for papers, references, or other relevant material for the knowledge
-     * resource. This is intended to allow for citation of related material, but that was not
-     * necessarily specifically prepared in connection with this knowledge resource.
-     */
-    Citation(
-      "citation",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Citation",
-      "Bibliographic citation for papers, references, or other relevant material for the knowledge resource. This is intended to allow for citation of related material, but that was not necessarily specifically prepared in connection with this knowledge resource.",
-    ),
-    /**
-     * The previous version of the knowledge artifact, used to establish an ordering of versions of
-     * an artifact, independent of the status of each version.
-     */
-    Predecessor(
-      "predecessor",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Predecessor",
-      "The previous version of the knowledge artifact, used to establish an ordering of versions of an artifact, independent of the status of each version.",
-    ),
-    /**
-     * The subsequent version of the knowledge artfact, used to establish an ordering of versions of
-     * an artifact, independent of the status of each version.
-     */
-    Successor(
-      "successor",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Successor",
-      "The subsequent version of the knowledge artfact, used to establish an ordering of versions of an artifact, independent of the status of each version.",
-    ),
-    /**
-     * This artifact is derived from the target artifact. This is intended to capture the
-     * relationship in which a particular knowledge resource is based on the content of another
-     * artifact, but is modified to capture either a different set of overall requirements, or a
-     * more specific set of requirements such as those involved in a particular institution or
-     * clinical setting. The artifact may be derived from one or more target artifacts.
-     */
-    Derived_From(
-      "derived-from",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Derived From",
-      "This artifact is derived from the target artifact. This is intended to capture the relationship in which a particular knowledge resource is based on the content of another artifact, but is modified to capture either a different set of overall requirements, or a more specific set of requirements such as those involved in a particular institution or clinical setting. The artifact may be derived from one or more target artifacts.",
-    ),
-    /**
-     * This artifact depends on the target artifact. There is a requirement to use the target
-     * artifact in the creation or interpretation of this artifact.
-     */
-    Depends_On(
-      "depends-on",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Depends On",
-      "This artifact depends on the target artifact. There is a requirement to use the target artifact in the creation or interpretation of this artifact.",
-    ),
-    /**
-     * This artifact is composed of the target artifact. This artifact is constructed with the
-     * target artifact as a component. The target artifact is a part of this artifact. (A dataset is
-     * composed of data.).
-     */
-    Composed_Of(
-      "composed-of",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Composed Of",
-      "This artifact is composed of the target artifact. This artifact is constructed with the target artifact as a component. The target artifact is a part of this artifact. (A dataset is composed of data.).",
-    ),
-    /**
-     * This artifact is a part of the target artifact. The target artifact is composed of this
-     * artifact (and possibly other artifacts).
-     */
-    Part_Of(
-      "part-of",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Part Of",
-      "This artifact is a part of the target artifact. The target artifact is composed of this artifact (and possibly other artifacts).",
-    ),
-    /**
-     * This artifact amends or changes the target artifact. This artifact adds additional
-     * information that is functionally expected to replace information in the target artifact. This
-     * artifact replaces a part but not all of the target artifact.
-     */
-    Amends(
-      "amends",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Amends",
-      "This artifact amends or changes the target artifact. This artifact adds additional information that is functionally expected to replace information in the target artifact. This artifact replaces a part but not all of the target artifact.",
-    ),
-    /**
-     * This artifact is amended with or changed by the target artifact. There is information in this
-     * artifact that should be functionally replaced with information in the target artifact.
-     */
-    Amended_With(
-      "amended-with",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Amended With",
-      "This artifact is amended with or changed by the target artifact. There is information in this artifact that should be functionally replaced with information in the target artifact.",
-    ),
-    /**
-     * This artifact adds additional information to the target artifact. The additional information
-     * does not replace or change information in the target artifact.
-     */
-    Appends(
-      "appends",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Appends",
-      "This artifact adds additional information to the target artifact. The additional information does not replace or change information in the target artifact.",
-    ),
-    /** This artifact has additional information in the target artifact. */
-    Appended_With(
-      "appended-with",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Appended With",
-      "This artifact has additional information in the target artifact.",
-    ),
-    /**
-     * This artifact cites the target artifact. This may be a bibliographic citation for papers,
-     * references, or other relevant material for the knowledge resource. This is intended to allow
-     * for citation of related material, but that was not necessarily specifically prepared in
-     * connection with this knowledge resource.
-     */
-    Cites(
-      "cites",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Cites",
-      "This artifact cites the target artifact. This may be a bibliographic citation for papers, references, or other relevant material for the knowledge resource. This is intended to allow for citation of related material, but that was not necessarily specifically prepared in connection with this knowledge resource.",
-    ),
-    /** This artifact is cited by the target artifact. */
-    Cited_By(
-      "cited-by",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Cited By",
-      "This artifact is cited by the target artifact.",
-    ),
-    /** This artifact contains comments about the target artifact. */
-    Comments_On(
-      "comments-on",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Is Comment On",
-      "This artifact contains comments about the target artifact.",
-    ),
-    /**
-     * This artifact has comments about it in the target artifact. The type of comments may be
-     * expressed in the targetClassifier element such as reply, review, editorial, feedback,
-     * solicited, unsolicited, structured, unstructured.
-     */
-    Comment_In(
-      "comment-in",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Has Comment In",
-      "This artifact has comments about it in the target artifact.  The type of comments may be expressed in the targetClassifier element such as reply, review, editorial, feedback, solicited, unsolicited, structured, unstructured.",
-    ),
-    /**
-     * This artifact is a container in which the target artifact is contained. A container is a data
-     * structure whose instances are collections of other objects. (A database contains the
-     * dataset.).
-     */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Contains",
-      "This artifact is a container in which the target artifact is contained. A container is a data structure whose instances are collections of other objects. (A database contains the dataset.).",
-    ),
-    /**
-     * This artifact is contained in the target artifact. The target artifact is a data structure
-     * whose instances are collections of other objects.
-     */
-    Contained_In(
-      "contained-in",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Contained In",
-      "This artifact is contained in the target artifact. The target artifact is a data structure whose instances are collections of other objects.",
-    ),
-    /** This artifact identifies errors and replacement content for the target artifact. */
-    Corrects(
-      "corrects",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Corrects",
-      "This artifact identifies errors and replacement content for the target artifact.",
-    ),
-    /**
-     * This artifact has corrections to it in the target artifact. The target artifact identifies
-     * errors and replacement content for this artifact.
-     */
-    Correction_In(
-      "correction-in",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Correction In",
-      "This artifact has corrections to it in the target artifact. The target artifact identifies errors and replacement content for this artifact.",
-    ),
-    /**
-     * This artifact replaces or supersedes the target artifact. The target artifact may be
-     * considered deprecated.
-     */
-    Replaces(
-      "replaces",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Replaces",
-      "This artifact replaces or supersedes the target artifact. The target artifact may be considered deprecated.",
-    ),
-    /**
-     * This artifact is replaced with or superseded by the target artifact. This artifact may be
-     * considered deprecated.
-     */
-    Replaced_With(
-      "replaced-with",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Replaced With",
-      "This artifact is replaced with or superseded by the target artifact. This artifact may be considered deprecated.",
-    ),
-    /**
-     * This artifact retracts the target artifact. The content that was published in the target
-     * artifact should be considered removed from publication and should no longer be considered
-     * part of the public record.
-     */
-    Retracts(
-      "retracts",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Retracts",
-      "This artifact retracts the target artifact. The content that was published in the target artifact should be considered removed from publication and should no longer be considered part of the public record.",
-    ),
-    /**
-     * This artifact is retracted by the target artifact. The content that was published in this
-     * artifact should be considered removed from publication and should no longer be considered
-     * part of the public record.
-     */
-    Retracted_By(
-      "retracted-by",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Retracted By",
-      "This artifact is retracted by the target artifact. The content that was published in this artifact should be considered removed from publication and should no longer be considered part of the public record.",
-    ),
-    /** This artifact is a signature of the target artifact. */
-    Signs(
-      "signs",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Signs",
-      "This artifact is a signature of the target artifact.",
-    ),
-    /**
-     * This artifact has characteristics in common with the target artifact. This relationship may
-     * be used in systems to “deduplicate” knowledge artifacts from different sources, or in systems
-     * to show “similar items”.
-     */
-    Similar_To(
-      "similar-to",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Similar To",
-      "This artifact has characteristics in common with the target artifact. This relationship may be used in systems to “deduplicate” knowledge artifacts from different sources, or in systems to show “similar items”.",
-    ),
-    /**
-     * This artifact provides additional support for the target artifact. The type of support is not
-     * documentation as it does not describe, explain, or instruct regarding the target artifact.
-     */
-    Supports(
-      "supports",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Supports",
-      "This artifact provides additional support for the target artifact. The type of support  is not documentation as it does not describe, explain, or instruct regarding the target artifact.",
-    ),
-    /**
-     * The target artifact contains additional information related to the knowledge artifact but is
-     * not documentation as the additional information does not describe, explain, or instruct
-     * regarding the knowledge artifact content or application. This could include an associated
-     * dataset.
-     */
-    Supported_With(
-      "supported-with",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Supported With",
-      "The target artifact contains additional information related to the knowledge artifact but is not documentation as the additional information does not describe, explain, or instruct regarding the knowledge artifact content or application. This could include an associated dataset.",
-    ),
-    /**
-     * This artifact was generated by transforming the target artifact (e.g., format or language
-     * conversion). This is intended to capture the relationship in which a particular knowledge
-     * resource is based on the content of another artifact, but changes are only apparent in form
-     * and there is only one target artifact with the “transforms” relationship type.
-     */
-    Transforms(
-      "transforms",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Transforms",
-      "This artifact was generated by transforming the target artifact (e.g., format or language conversion). This is intended to capture the relationship in which a particular knowledge resource is based on the content of another artifact, but changes are only apparent in form and there is only one target artifact with the “transforms” relationship type.",
-    ),
-    /**
-     * This artifact was transformed into the target artifact (e.g., by format or language
-     * conversion).
-     */
+    Documentation("documentation", "http://hl7.org/fhir/related-artifact-type", "Documentation"),
+    Justification("justification", "http://hl7.org/fhir/related-artifact-type", "Justification"),
+    Citation("citation", "http://hl7.org/fhir/related-artifact-type", "Citation"),
+    Predecessor("predecessor", "http://hl7.org/fhir/related-artifact-type", "Predecessor"),
+    Successor("successor", "http://hl7.org/fhir/related-artifact-type", "Successor"),
+    Derived_From("derived-from", "http://hl7.org/fhir/related-artifact-type", "Derived From"),
+    Depends_On("depends-on", "http://hl7.org/fhir/related-artifact-type", "Depends On"),
+    Composed_Of("composed-of", "http://hl7.org/fhir/related-artifact-type", "Composed Of"),
+    Part_Of("part-of", "http://hl7.org/fhir/related-artifact-type", "Part Of"),
+    Amends("amends", "http://hl7.org/fhir/related-artifact-type", "Amends"),
+    Amended_With("amended-with", "http://hl7.org/fhir/related-artifact-type", "Amended With"),
+    Appends("appends", "http://hl7.org/fhir/related-artifact-type", "Appends"),
+    Appended_With("appended-with", "http://hl7.org/fhir/related-artifact-type", "Appended With"),
+    Cites("cites", "http://hl7.org/fhir/related-artifact-type", "Cites"),
+    Cited_By("cited-by", "http://hl7.org/fhir/related-artifact-type", "Cited By"),
+    Comments_On("comments-on", "http://hl7.org/fhir/related-artifact-type", "Is Comment On"),
+    Comment_In("comment-in", "http://hl7.org/fhir/related-artifact-type", "Has Comment In"),
+    Contains("contains", "http://hl7.org/fhir/related-artifact-type", "Contains"),
+    Contained_In("contained-in", "http://hl7.org/fhir/related-artifact-type", "Contained In"),
+    Corrects("corrects", "http://hl7.org/fhir/related-artifact-type", "Corrects"),
+    Correction_In("correction-in", "http://hl7.org/fhir/related-artifact-type", "Correction In"),
+    Replaces("replaces", "http://hl7.org/fhir/related-artifact-type", "Replaces"),
+    Replaced_With("replaced-with", "http://hl7.org/fhir/related-artifact-type", "Replaced With"),
+    Retracts("retracts", "http://hl7.org/fhir/related-artifact-type", "Retracts"),
+    Retracted_By("retracted-by", "http://hl7.org/fhir/related-artifact-type", "Retracted By"),
+    Signs("signs", "http://hl7.org/fhir/related-artifact-type", "Signs"),
+    Similar_To("similar-to", "http://hl7.org/fhir/related-artifact-type", "Similar To"),
+    Supports("supports", "http://hl7.org/fhir/related-artifact-type", "Supports"),
+    Supported_With("supported-with", "http://hl7.org/fhir/related-artifact-type", "Supported With"),
+    Transforms("transforms", "http://hl7.org/fhir/related-artifact-type", "Transforms"),
     Transformed_Into(
       "transformed-into",
       "http://hl7.org/fhir/related-artifact-type",
       "Transformed Into",
-      "This artifact was transformed into the target artifact (e.g., by format or language conversion).",
     ),
-    /**
-     * This artifact was generated by transforming a related artifact (e.g., format or language
-     * conversion), noted separately with the “transforms” relationship type. This transformation
-     * used the target artifact to inform the transformation. The target artifact may be a
-     * conversion script or translation guide.
-     */
     Transformed_With(
       "transformed-with",
       "http://hl7.org/fhir/related-artifact-type",
       "Transformed With",
-      "This artifact was generated by transforming a related artifact (e.g., format or language conversion), noted separately with the “transforms” relationship type. This transformation used the target artifact to inform the transformation. The target artifact may be a conversion script or translation guide.",
     ),
-    /**
-     * This artifact provides additional documentation for the target artifact. This could include
-     * additional instructions on usage as well as additional information on clinical context or
-     * appropriateness.
-     */
-    Documents(
-      "documents",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Documents",
-      "This artifact provides additional documentation for the target artifact. This could include additional instructions on usage as well as additional information on clinical context or appropriateness.",
-    ),
-    /**
-     * The target artifact is a precise description of a concept in this artifact. This may be used
-     * when the RelatedArtifact datatype is used in elements contained in this artifact.
-     */
+    Documents("documents", "http://hl7.org/fhir/related-artifact-type", "Documents"),
     Specification_Of(
       "specification-of",
       "http://hl7.org/fhir/related-artifact-type",
       "Specification Of",
-      "The target artifact is a precise description of a concept in this artifact. This may be used when the RelatedArtifact datatype is used in elements contained in this artifact.",
     ),
-    /**
-     * This artifact was created with the target artifact. The target artifact is a tool or support
-     * material used in the creation of the artifact, and not content that the artifact was derived
-     * from.
-     */
-    Created_With(
-      "created-with",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Created With",
-      "This artifact was created with the target artifact. The target artifact is a tool or support material used in the creation of the artifact, and not content that the artifact was derived from.",
-    ),
-    /** The related artifact is the citation for this artifact. */
-    Cite_As(
-      "cite-as",
-      "http://hl7.org/fhir/related-artifact-type",
-      "Cite As",
-      "The related artifact is the citation for this artifact.",
-    ),
-    /** A copy of the artifact in a publication with a different artifact identifier. */
-    Reprint(
-      "reprint",
-      "http://hl7.org/fhir/related-artifact-type-expanded",
-      "Reprint",
-      "A copy of the artifact in a publication with a different artifact identifier.",
-    ),
-    /** The original version of record for which the current artifact is a copy. */
-    Reprint_Of(
-      "reprint-of",
-      "http://hl7.org/fhir/related-artifact-type-expanded",
-      "Reprint Of",
-      "The original version of record for which the current artifact is a copy.",
-    );
+    Created_With("created-with", "http://hl7.org/fhir/related-artifact-type", "Created With"),
+    Cite_As("cite-as", "http://hl7.org/fhir/related-artifact-type", "Cite As"),
+    Reprint("reprint", "http://hl7.org/fhir/related-artifact-type-expanded", "Reprint"),
+    Reprint_Of("reprint-of", "http://hl7.org/fhir/related-artifact-type-expanded", "Reprint Of");
 
     override fun toString(): kotlin.String = code
 
@@ -2031,8 +1698,6 @@ public data class Citation(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RelatedArtifactTypeExpanded =

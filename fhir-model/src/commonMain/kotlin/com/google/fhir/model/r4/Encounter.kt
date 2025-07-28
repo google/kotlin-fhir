@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.EncounterSerializer
 import com.google.fhir.model.r4.serializers.EncounterStatusHistorySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class Encounter(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class Encounter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,16 +133,16 @@ public data class Encounter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier(s) by which this encounter is known. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * planned | arrived | triaged | in-progress | onleave | finished | cancelled +.
    *
    * Note that internal business rules will determine the appropriate transitions that may occur
    * between statuses (and also classes).
    */
-  public var status: Enumeration<EncounterStatus>? = null,
+  public var status: Enumeration<EncounterStatus>,
   /**
    * The status history permits the encounter resource to contain the status history without needing
    * to read through the historical versions of the resource, or even have the server store them.
@@ -150,12 +150,12 @@ public data class Encounter(
    * The current status is always found in the current version of the resource, not the status
    * history.
    */
-  public var statusHistory: List<StatusHistory>? = null,
+  public var statusHistory: MutableList<StatusHistory> = mutableListOf(),
   /**
    * Concepts representing classification of patient encounter such as ambulatory (outpatient),
    * inpatient, emergency, home health or others due to local variations.
    */
-  public var `class`: Coding? = null,
+  public var `class`: Coding,
   /**
    * The class history permits the tracking of the encounters transitions without needing to go
    * through the resource history. This would be used for a case where an admission starts of as an
@@ -164,14 +164,14 @@ public data class Encounter(
    * not require re-processing and not get lost or cancelled during a kind of discharge from
    * emergency to inpatient.
    */
-  public var classHistory: List<ClassHistory>? = null,
+  public var classHistory: MutableList<ClassHistory> = mutableListOf(),
   /**
    * Specific type of encounter (e.g. e-mail consultation, surgical day-care, skilled nursing,
    * rehabilitation).
    *
    * Since there are many ways to further classify encounters, this element is 0..*.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /** Broad categorization of the service that is to be provided (e.g. cardiology). */
   public var serviceType: CodeableConcept? = null,
   /** Indicates the urgency of the encounter. */
@@ -195,13 +195,13 @@ public data class Encounter(
    * episode of care and grouped on entry rather than editing the episode of care to append another
    * encounter to it (the episode of care could span years).
    */
-  public var episodeOfCare: List<Reference?>? = null,
+  public var episodeOfCare: MutableList<Reference> = mutableListOf(),
   /** The request this encounter satisfies (e.g. incoming referral or procedure request). */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The list of people responsible for providing the service. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** The appointment that scheduled this encounter. */
-  public var appointment: List<Reference?>? = null,
+  public var appointment: MutableList<Reference> = mutableListOf(),
   /**
    * The start and end time of the encounter.
    *
@@ -222,7 +222,7 @@ public data class Encounter(
    * standard extension primaryDiagnosis (which is a sequence value rather than a flag, 1 = primary
    * diagnosis).
    */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Reason the encounter takes place, expressed as a code. For admissions, this can be used for a
    * coded admission diagnosis.
@@ -231,16 +231,16 @@ public data class Encounter(
    * standard extension primaryDiagnosis (which is a sequence value rather than a flag, 1 = primary
    * diagnosis).
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /** The list of diagnosis relevant to this encounter. */
-  public var diagnosis: List<Diagnosis>? = null,
+  public var diagnosis: MutableList<Diagnosis> = mutableListOf(),
   /**
    * The set of accounts that may be used for billing for this Encounter.
    *
    * The billing system may choose to allocate billable items associated with the Encounter to
    * different referenced Accounts based on internal business rules.
    */
-  public var account: List<Reference?>? = null,
+  public var account: MutableList<Reference> = mutableListOf(),
   /**
    * Details about the admission to a healthcare service.
    *
@@ -257,7 +257,7 @@ public data class Encounter(
    * Virtual encounters can be recorded in the Encounter by specifying a location reference to a
    * location of type "kind" such as "client's home" and an encounter.class = "virtual".
    */
-  public var location: List<Location>? = null,
+  public var location: MutableList<Location> = mutableListOf(),
   /**
    * The organization that is primarily responsible for this Encounter's services. This MAY be the
    * same as the organization on the Patient record, however it could be different, such as if the
@@ -298,7 +298,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -317,11 +317,11 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** planned | arrived | triaged | in-progress | onleave | finished | cancelled +. */
-    public var status: Enumeration<EncounterStatus>? = null,
+    public var status: Enumeration<EncounterStatus>,
     /** The time that the episode was in the specified status. */
-    public var period: Period? = null,
+    public var period: Period,
   ) : BackboneElement()
 
   /**
@@ -351,7 +351,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -370,11 +370,11 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** inpatient | outpatient | ambulatory | emergency +. */
-    public var `class`: Coding? = null,
+    public var `class`: Coding,
     /** The time that the episode was in the specified class. */
-    public var period: Period? = null,
+    public var period: Period,
   ) : BackboneElement()
 
   /** The list of people responsible for providing the service. */
@@ -397,7 +397,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -416,7 +416,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Role of participant in encounter.
      *
@@ -426,7 +426,7 @@ public data class Encounter(
      * This is different to the practitioner roles which are functional roles, derived from terms of
      * employment, education, licensing, etc.
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The period of time that the specified participant participated in the encounter. These can
      * overlap or be sub-sets of the overall encounter's period.
@@ -456,7 +456,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -475,7 +475,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Reason the encounter takes place, as specified using information from another resource. For
      * admissions, this is the admission diagnosis. The indication will typically be a Condition
@@ -485,7 +485,7 @@ public data class Encounter(
      * standard extension primaryDiagnosis (which is a sequence value rather than a flag, 1 =
      * primary diagnosis).
      */
-    public var condition: Reference? = null,
+    public var condition: Reference,
     /** Role that this diagnosis has within the encounter (e.g. admission, billing, discharge …). */
     public var use: CodeableConcept? = null,
     /** Ranking of the diagnosis (for each role type). */
@@ -512,7 +512,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -531,7 +531,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Pre-admission identifier. */
     public var preAdmissionIdentifier: Identifier? = null,
     /** The location/organization from which the patient came before admission. */
@@ -546,14 +546,14 @@ public data class Encounter(
      * For example, a patient may request both a dairy-free and nut-free diet preference (not
      * mutually exclusive).
      */
-    public var dietPreference: List<CodeableConcept?>? = null,
+    public var dietPreference: MutableList<CodeableConcept> = mutableListOf(),
     /** Special courtesies (VIP, board member). */
-    public var specialCourtesy: List<CodeableConcept?>? = null,
+    public var specialCourtesy: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Any special requests that have been made for this hospitalization encounter, such as the
      * provision of specific equipment or other things.
      */
-    public var specialArrangement: List<CodeableConcept?>? = null,
+    public var specialArrangement: MutableList<CodeableConcept> = mutableListOf(),
     /** Location/organization to which the patient is discharged. */
     public var destination: Reference? = null,
     /** Category or kind of location after discharge. */
@@ -580,7 +580,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -599,9 +599,9 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The location where the encounter takes place. */
-    public var location: Reference? = null,
+    public var location: Reference,
     /**
      * The status of the participants' presence at the specified location during the period
      * specified. If the participant is no longer at the location, then the period will have an end
@@ -631,83 +631,20 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The Encounter has not yet started. */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/encounter-status",
-      "Planned",
-      "The Encounter has not yet started.",
-    ),
-    /**
-     * The Patient is present for the encounter, however is not currently meeting with a
-     * practitioner.
-     */
-    Arrived(
-      "arrived",
-      "http://hl7.org/fhir/encounter-status",
-      "Arrived",
-      "The Patient is present for the encounter, however is not currently meeting with a practitioner.",
-    ),
-    /**
-     * The patient has been assessed for the priority of their treatment based on the severity of
-     * their condition.
-     */
-    Triaged(
-      "triaged",
-      "http://hl7.org/fhir/encounter-status",
-      "Triaged",
-      "The patient has been assessed for the priority of their treatment based on the severity of their condition.",
-    ),
-    /**
-     * The Encounter has begun and the patient is present / the practitioner and the patient are
-     * meeting.
-     */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/encounter-status",
-      "In Progress",
-      "The Encounter has begun and the patient is present / the practitioner and the patient are meeting.",
-    ),
-    /** The Encounter has begun, but the patient is temporarily on leave. */
-    Onleave(
-      "onleave",
-      "http://hl7.org/fhir/encounter-status",
-      "On Leave",
-      "The Encounter has begun, but the patient is temporarily on leave.",
-    ),
-    /** The Encounter has ended. */
-    Finished(
-      "finished",
-      "http://hl7.org/fhir/encounter-status",
-      "Finished",
-      "The Encounter has ended.",
-    ),
-    /** The Encounter has ended before it has begun. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/encounter-status",
-      "Cancelled",
-      "The Encounter has ended before it has begun.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
+    Planned("planned", "http://hl7.org/fhir/encounter-status", "Planned"),
+    Arrived("arrived", "http://hl7.org/fhir/encounter-status", "Arrived"),
+    Triaged("triaged", "http://hl7.org/fhir/encounter-status", "Triaged"),
+    In_Progress("in-progress", "http://hl7.org/fhir/encounter-status", "In Progress"),
+    Onleave("onleave", "http://hl7.org/fhir/encounter-status", "On Leave"),
+    Finished("finished", "http://hl7.org/fhir/encounter-status", "Finished"),
+    Cancelled("cancelled", "http://hl7.org/fhir/encounter-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/encounter-status",
       "Entered in Error",
-      "This instance should not have been part of this patient's medical record.",
     ),
-    /**
-     * The encounter status is unknown. Note that "unknown" is a value of last resort and every
-     * attempt should be made to provide a meaningful value other than "unknown".
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/encounter-status",
-      "Unknown",
-      "The encounter status is unknown. Note that \"unknown\" is a value of last resort and every attempt should be made to provide a meaningful value other than \"unknown\".",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/encounter-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -716,8 +653,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterStatus =
@@ -741,45 +676,11 @@ public data class Encounter(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The patient is planned to be moved to this location at some point in the future. */
-    Planned(
-      "planned",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Planned",
-      "The patient is planned to be moved to this location at some point in the future.",
-    ),
-    /**
-     * The patient is currently at this location, or was between the period specified.
-     *
-     * A system may update these records when the patient leaves the location to either reserved, or
-     * completed.
-     */
-    Active(
-      "active",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Active",
-      "The patient is currently at this location, or was between the period specified.\r\rA system may update these records when the patient leaves the location to either reserved, or completed.",
-    ),
-    /** This location is held empty for this patient. */
-    Reserved(
-      "reserved",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Reserved",
-      "This location is held empty for this patient.",
-    ),
-    /**
-     * The patient was at this location during the period specified.
-     *
-     * Not to be used when the patient is currently at the location.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/encounter-location-status",
-      "Completed",
-      "The patient was at this location during the period specified.\r\rNot to be used when the patient is currently at the location.",
-    );
+    Planned("planned", "http://hl7.org/fhir/encounter-location-status", "Planned"),
+    Active("active", "http://hl7.org/fhir/encounter-location-status", "Active"),
+    Reserved("reserved", "http://hl7.org/fhir/encounter-location-status", "Reserved"),
+    Completed("completed", "http://hl7.org/fhir/encounter-location-status", "Completed");
 
     override fun toString(): String = code
 
@@ -788,8 +689,6 @@ public data class Encounter(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): EncounterLocationStatus =

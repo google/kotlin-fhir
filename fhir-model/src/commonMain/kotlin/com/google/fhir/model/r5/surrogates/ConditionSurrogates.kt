@@ -42,37 +42,37 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ConditionParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var function: CodeableConcept? = null,
-  public var actor: Reference? = null,
+  public var actor: Reference,
 ) {
   public fun toModel(): Condition.Participant =
-    Condition.Participant().apply {
-      id = this@ConditionParticipantSurrogate.id
-      extension = this@ConditionParticipantSurrogate.extension
-      modifierExtension = this@ConditionParticipantSurrogate.modifierExtension
-      function = this@ConditionParticipantSurrogate.function
-      actor = this@ConditionParticipantSurrogate.actor
-    }
+    Condition.Participant(
+      id = this@ConditionParticipantSurrogate.id,
+      extension = this@ConditionParticipantSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConditionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      function = this@ConditionParticipantSurrogate.function,
+      actor = this@ConditionParticipantSurrogate.actor,
+    )
 
   public companion object {
     public fun fromModel(model: Condition.Participant): ConditionParticipantSurrogate =
       with(model) {
-        ConditionParticipantSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          function = this@with.function
-          actor = this@with.actor
-        }
+        ConditionParticipantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          function = this@with.function,
+          actor = this@with.actor,
+        )
       }
   }
 }
@@ -80,54 +80,48 @@ internal data class ConditionParticipantSurrogate(
 @Serializable
 internal data class ConditionStageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var summary: CodeableConcept? = null,
-  public var assessment: List<Reference?>? = null,
+  public var assessment: MutableList<Reference>? = null,
   public var type: CodeableConcept? = null,
 ) {
   public fun toModel(): Condition.Stage =
-    Condition.Stage().apply {
-      id = this@ConditionStageSurrogate.id
-      extension = this@ConditionStageSurrogate.extension
-      modifierExtension = this@ConditionStageSurrogate.modifierExtension
-      summary = this@ConditionStageSurrogate.summary
-      assessment = this@ConditionStageSurrogate.assessment
-      type = this@ConditionStageSurrogate.type
-    }
+    Condition.Stage(
+      id = this@ConditionStageSurrogate.id,
+      extension = this@ConditionStageSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConditionStageSurrogate.modifierExtension ?: mutableListOf(),
+      summary = this@ConditionStageSurrogate.summary,
+      assessment = this@ConditionStageSurrogate.assessment ?: mutableListOf(),
+      type = this@ConditionStageSurrogate.type,
+    )
 
   public companion object {
     public fun fromModel(model: Condition.Stage): ConditionStageSurrogate =
       with(model) {
-        ConditionStageSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          summary = this@with.summary
-          assessment = this@with.assessment
-          type = this@with.type
-        }
+        ConditionStageSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          summary = this@with.summary,
+          assessment = this@with.assessment.takeUnless { it.all { it == null } },
+          type = this@with.type,
+        )
       }
   }
 }
 
 @Serializable
-internal class ConditionOnsetSurrogate {
-  public var onsetDateTime: KotlinString? = null
-
-  public var _onsetDateTime: Element? = null
-
-  public var onsetAge: Age? = null
-
-  public var onsetPeriod: Period? = null
-
-  public var onsetRange: Range? = null
-
-  public var onsetString: KotlinString? = null
-
-  public var _onsetString: Element? = null
-
-  public fun toModel(): Condition.Onset =
+internal data class ConditionOnsetSurrogate(
+  public var onsetDateTime: KotlinString? = null,
+  public var _onsetDateTime: Element? = null,
+  public var onsetAge: Age? = null,
+  public var onsetPeriod: Period? = null,
+  public var onsetRange: Range? = null,
+  public var onsetString: KotlinString? = null,
+  public var _onsetString: Element? = null,
+) {
+  public fun toModel(): Condition.Onset? =
     Condition.Onset?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ConditionOnsetSurrogate.onsetDateTime),
@@ -140,41 +134,41 @@ internal class ConditionOnsetSurrogate {
         this@ConditionOnsetSurrogate.onsetString,
         this@ConditionOnsetSurrogate._onsetString,
       ),
-    ) ?: Condition.Onset.Null
+    )
 
   public companion object {
     public fun fromModel(model: Condition.Onset): ConditionOnsetSurrogate =
       with(model) {
         ConditionOnsetSurrogate().apply {
-          onsetDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _onsetDateTime = this@with.asDateTime()?.value?.toElement()
-          onsetAge = this@with.asAge()?.value
-          onsetPeriod = this@with.asPeriod()?.value
-          onsetRange = this@with.asRange()?.value
-          onsetString = this@with.asString()?.value?.value
-          _onsetString = this@with.asString()?.value?.toElement()
+          Condition.Onset?.from(
+            DateTime.of(
+              FhirDateTime.fromString(this@ConditionOnsetSurrogate.onsetDateTime),
+              this@ConditionOnsetSurrogate._onsetDateTime,
+            ),
+            this@ConditionOnsetSurrogate.onsetAge,
+            this@ConditionOnsetSurrogate.onsetPeriod,
+            this@ConditionOnsetSurrogate.onsetRange,
+            R5String.of(
+              this@ConditionOnsetSurrogate.onsetString,
+              this@ConditionOnsetSurrogate._onsetString,
+            ),
+          )
         }
       }
   }
 }
 
 @Serializable
-internal class ConditionAbatementSurrogate {
-  public var abatementDateTime: KotlinString? = null
-
-  public var _abatementDateTime: Element? = null
-
-  public var abatementAge: Age? = null
-
-  public var abatementPeriod: Period? = null
-
-  public var abatementRange: Range? = null
-
-  public var abatementString: KotlinString? = null
-
-  public var _abatementString: Element? = null
-
-  public fun toModel(): Condition.Abatement =
+internal data class ConditionAbatementSurrogate(
+  public var abatementDateTime: KotlinString? = null,
+  public var _abatementDateTime: Element? = null,
+  public var abatementAge: Age? = null,
+  public var abatementPeriod: Period? = null,
+  public var abatementRange: Range? = null,
+  public var abatementString: KotlinString? = null,
+  public var _abatementString: Element? = null,
+) {
+  public fun toModel(): Condition.Abatement? =
     Condition.Abatement?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ConditionAbatementSurrogate.abatementDateTime),
@@ -187,19 +181,25 @@ internal class ConditionAbatementSurrogate {
         this@ConditionAbatementSurrogate.abatementString,
         this@ConditionAbatementSurrogate._abatementString,
       ),
-    ) ?: Condition.Abatement.Null
+    )
 
   public companion object {
     public fun fromModel(model: Condition.Abatement): ConditionAbatementSurrogate =
       with(model) {
         ConditionAbatementSurrogate().apply {
-          abatementDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _abatementDateTime = this@with.asDateTime()?.value?.toElement()
-          abatementAge = this@with.asAge()?.value
-          abatementPeriod = this@with.asPeriod()?.value
-          abatementRange = this@with.asRange()?.value
-          abatementString = this@with.asString()?.value?.value
-          _abatementString = this@with.asString()?.value?.toElement()
+          Condition.Abatement?.from(
+            DateTime.of(
+              FhirDateTime.fromString(this@ConditionAbatementSurrogate.abatementDateTime),
+              this@ConditionAbatementSurrogate._abatementDateTime,
+            ),
+            this@ConditionAbatementSurrogate.abatementAge,
+            this@ConditionAbatementSurrogate.abatementPeriod,
+            this@ConditionAbatementSurrogate.abatementRange,
+            R5String.of(
+              this@ConditionAbatementSurrogate.abatementString,
+              this@ConditionAbatementSurrogate._abatementString,
+            ),
+          )
         }
       }
   }
@@ -214,92 +214,92 @@ internal data class ConditionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var clinicalStatus: CodeableConcept? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var clinicalStatus: CodeableConcept,
   public var verificationStatus: CodeableConcept? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var severity: CodeableConcept? = null,
   public var code: CodeableConcept? = null,
-  public var bodySite: List<CodeableConcept?>? = null,
-  public var subject: Reference? = null,
+  public var bodySite: MutableList<CodeableConcept>? = null,
+  public var subject: Reference,
   public var encounter: Reference? = null,
   public var recordedDate: KotlinString? = null,
   public var _recordedDate: Element? = null,
-  public var participant: List<Condition.Participant>? = null,
-  public var stage: List<Condition.Stage>? = null,
-  public var evidence: List<CodeableReference?>? = null,
-  public var note: List<Annotation?>? = null,
+  public var participant: MutableList<Condition.Participant>? = null,
+  public var stage: MutableList<Condition.Stage>? = null,
+  public var evidence: MutableList<CodeableReference>? = null,
+  public var note: MutableList<Annotation>? = null,
   public var onset: Condition.Onset? = null,
   public var abatement: Condition.Abatement? = null,
 ) {
   public fun toModel(): Condition =
-    Condition().apply {
-      id = this@ConditionSurrogate.id
-      meta = this@ConditionSurrogate.meta
+    Condition(
+      id = this@ConditionSurrogate.id,
+      meta = this@ConditionSurrogate.meta,
       implicitRules =
-        Uri.of(this@ConditionSurrogate.implicitRules, this@ConditionSurrogate._implicitRules)
-      language = Code.of(this@ConditionSurrogate.language, this@ConditionSurrogate._language)
-      text = this@ConditionSurrogate.text
-      contained = this@ConditionSurrogate.contained
-      extension = this@ConditionSurrogate.extension
-      modifierExtension = this@ConditionSurrogate.modifierExtension
-      identifier = this@ConditionSurrogate.identifier
-      clinicalStatus = this@ConditionSurrogate.clinicalStatus
-      verificationStatus = this@ConditionSurrogate.verificationStatus
-      category = this@ConditionSurrogate.category
-      severity = this@ConditionSurrogate.severity
-      code = this@ConditionSurrogate.code
-      bodySite = this@ConditionSurrogate.bodySite
-      subject = this@ConditionSurrogate.subject
-      encounter = this@ConditionSurrogate.encounter
-      onset = this@ConditionSurrogate.onset
-      abatement = this@ConditionSurrogate.abatement
+        Uri.of(this@ConditionSurrogate.implicitRules, this@ConditionSurrogate._implicitRules),
+      language = Code.of(this@ConditionSurrogate.language, this@ConditionSurrogate._language),
+      text = this@ConditionSurrogate.text,
+      contained = this@ConditionSurrogate.contained ?: mutableListOf(),
+      extension = this@ConditionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConditionSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ConditionSurrogate.identifier ?: mutableListOf(),
+      clinicalStatus = this@ConditionSurrogate.clinicalStatus,
+      verificationStatus = this@ConditionSurrogate.verificationStatus,
+      category = this@ConditionSurrogate.category ?: mutableListOf(),
+      severity = this@ConditionSurrogate.severity,
+      code = this@ConditionSurrogate.code,
+      bodySite = this@ConditionSurrogate.bodySite ?: mutableListOf(),
+      subject = this@ConditionSurrogate.subject,
+      encounter = this@ConditionSurrogate.encounter,
+      onset = this@ConditionSurrogate.onset,
+      abatement = this@ConditionSurrogate.abatement,
       recordedDate =
         DateTime.of(
           FhirDateTime.fromString(this@ConditionSurrogate.recordedDate),
           this@ConditionSurrogate._recordedDate,
-        )
-      participant = this@ConditionSurrogate.participant
-      stage = this@ConditionSurrogate.stage
-      evidence = this@ConditionSurrogate.evidence
-      note = this@ConditionSurrogate.note
-    }
+        ),
+      participant = this@ConditionSurrogate.participant ?: mutableListOf(),
+      stage = this@ConditionSurrogate.stage ?: mutableListOf(),
+      evidence = this@ConditionSurrogate.evidence ?: mutableListOf(),
+      note = this@ConditionSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Condition): ConditionSurrogate =
       with(model) {
-        ConditionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          clinicalStatus = this@with.clinicalStatus
-          verificationStatus = this@with.verificationStatus
-          category = this@with.category
-          severity = this@with.severity
-          code = this@with.code
-          bodySite = this@with.bodySite
-          subject = this@with.subject
-          encounter = this@with.encounter
-          onset = this@with.onset
-          abatement = this@with.abatement
-          recordedDate = this@with.recordedDate?.value?.toString()
-          _recordedDate = this@with.recordedDate?.toElement()
-          participant = this@with.participant
-          stage = this@with.stage
-          evidence = this@with.evidence
-          note = this@with.note
-        }
+        ConditionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          clinicalStatus = this@with.clinicalStatus,
+          verificationStatus = this@with.verificationStatus,
+          category = this@with.category.takeUnless { it.all { it == null } },
+          severity = this@with.severity,
+          code = this@with.code,
+          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          onset = this@with.onset,
+          abatement = this@with.abatement,
+          recordedDate = this@with.recordedDate?.value?.toString(),
+          _recordedDate = this@with.recordedDate?.toElement(),
+          participant = this@with.participant.takeUnless { it.all { it == null } },
+          stage = this@with.stage.takeUnless { it.all { it == null } },
+          evidence = this@with.evidence.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

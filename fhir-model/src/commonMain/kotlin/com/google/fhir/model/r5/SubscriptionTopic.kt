@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerSeri
 import com.google.fhir.model.r5.serializers.SubscriptionTopicSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class SubscriptionTopic(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class SubscriptionTopic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class SubscriptionTopic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this subscription topic when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -165,7 +165,7 @@ public data class SubscriptionTopic(
    * filters, etc., so not derived), then this url is the unique url for this topic as defined by
    * the IG.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * Business identifiers assigned to this subscription topic by the performer and/or other systems.
    * These identifiers remain constant as the resource is updated and propagates from server to
@@ -178,7 +178,7 @@ public data class SubscriptionTopic(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the subscription topic when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -218,7 +218,7 @@ public data class SubscriptionTopic(
    * The canonical URL pointing to another FHIR-defined SubscriptionTopic that is adhered to in
    * whole or in part by this SubscriptionTopic.
    */
-  public var derivedFrom: List<Canonical?>? = null,
+  public var derivedFrom: MutableList<Canonical> = mutableListOf(),
   /**
    * The current state of the SubscriptionTopic.
    *
@@ -231,7 +231,7 @@ public data class SubscriptionTopic(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A flag to indicate that this TopSubscriptionTopicic is authored for testing purposes (or
    * education/evaluation/marketing), and is not intended to be used for genuine usage.
@@ -262,7 +262,7 @@ public data class SubscriptionTopic(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the Topic from the consumer's perspective.
    *
@@ -279,7 +279,7 @@ public data class SubscriptionTopic(
    * When multiple usageContexts are specified, there is no expectation for whether all or any of
    * the contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A jurisdiction in which the Topic is intended to be used.
    *
@@ -288,7 +288,7 @@ public data class SubscriptionTopic(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explains why this Topic is needed and why it has been designed as it has.
    *
@@ -343,20 +343,20 @@ public data class SubscriptionTopic(
    * search string or FHIRPath expression. Multiple triggers are considered OR joined (e.g., a
    * resource update matching ANY of the definitions will trigger a notification).
    */
-  public var resourceTrigger: List<ResourceTrigger>? = null,
+  public var resourceTrigger: MutableList<ResourceTrigger> = mutableListOf(),
   /** Event definition which can be used to trigger the SubscriptionTopic. */
-  public var eventTrigger: List<EventTrigger>? = null,
+  public var eventTrigger: MutableList<EventTrigger> = mutableListOf(),
   /**
    * List of properties by which Subscriptions on the SubscriptionTopic can be filtered. May be
    * defined Search Parameters (e.g., Encounter.patient) or parameters defined within this
    * SubscriptionTopic context (e.g., hub.event).
    */
-  public var canFilterBy: List<CanFilterBy>? = null,
+  public var canFilterBy: MutableList<CanFilterBy> = mutableListOf(),
   /**
    * List of properties to describe the shape (e.g., resources) included in notifications from this
    * Subscription Topic.
    */
-  public var notificationShape: List<NotificationShape>? = null,
+  public var notificationShape: MutableList<NotificationShape> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A definition of a resource-based event that triggers a notification based on the
@@ -383,7 +383,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -402,7 +402,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The human readable description of this resource trigger for the SubscriptionTopic - for
      * example, "An Encounter enters the 'in-progress' state".
@@ -418,13 +418,13 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri? = null,
+    public var resource: Uri,
     /**
      * The FHIR RESTful interaction which can be used to trigger a notification for the
      * SubscriptionTopic. Multiple values are considered OR joined (e.g., CREATE or UPDATE). If not
      * present, all supported interactions are assumed.
      */
-    public var supportedInteraction: List<Enumeration<MethodCode>>? = null,
+    public var supportedInteraction: MutableList<Enumeration<MethodCode>> = mutableListOf(),
     /**
      * The FHIR query based rules that the server should use to determine when to trigger a
      * notification for this subscription topic.
@@ -461,7 +461,7 @@ public data class SubscriptionTopic(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -480,7 +480,7 @@ public data class SubscriptionTopic(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The FHIR query based rules are applied to the previous resource state (e.g., state before
        * an update).
@@ -548,7 +548,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -567,7 +567,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The human readable description of an event to trigger a notification for the
      * SubscriptionTopic - for example, "Patient Admission, as defined in HL7v2 via message
@@ -580,7 +580,7 @@ public data class SubscriptionTopic(
     /**
      * A well-defined event which can be used to trigger notifications from the SubscriptionTopic.
      */
-    public var event: CodeableConcept? = null,
+    public var event: CodeableConcept,
     /**
      * URL of the Resource that is the focus type used in this event trigger. Relative URLs are
      * relative to the StructureDefinition root of the implemented FHIR version (e.g.,
@@ -588,7 +588,7 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri? = null,
+    public var resource: Uri,
   ) : BackboneElement()
 
   /**
@@ -615,7 +615,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -634,7 +634,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Description of how this filtering parameter is intended to be used. */
     public var description: Markdown? = null,
     /**
@@ -657,7 +657,7 @@ public data class SubscriptionTopic(
      *
      * Chained parameters are allowed (like "patient.gender") - but can not use colons or modifiers.
      */
-    public var filterParameter: String? = null,
+    public var filterParameter: String,
     /**
      * Either the canonical URL to a search parameter (like
      * "http://hl7.org/fhir/SearchParameter/encounter-patient") or the officially-defined URI for a
@@ -671,13 +671,13 @@ public data class SubscriptionTopic(
      *
      * If no comparators are listed, clients should not expect servers to support any comparators.
      */
-    public var comparator: List<Enumeration<SearchComparator>>? = null,
+    public var comparator: MutableList<Enumeration<SearchComparator>> = mutableListOf(),
     /**
      * Modifiers allowed for the filter parameter.
      *
      * If no modifiers are listed, clients should not expect servers to support any modifiers.
      */
-    public var modifier: List<Enumeration<SearchModifierCode>>? = null,
+    public var modifier: MutableList<Enumeration<SearchModifierCode>> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -703,7 +703,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -722,7 +722,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * URL of the Resource that is the type used in this shape. This is the 'focus' resource of the
      * topic (or one of them if there are more than one) and the root resource for this shape
@@ -736,21 +736,21 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri? = null,
+    public var resource: Uri,
     /**
      * Search-style _include directives, rooted in the resource for this shape. Servers SHOULD
      * include resources listed here, if they exist and the user is authorized to receive them.
      * Clients SHOULD be prepared to receive these additional resources, but SHALL function properly
      * without them.
      */
-    public var include: List<String?>? = null,
+    public var include: MutableList<String> = mutableListOf(),
     /**
      * Search-style _revinclude directives, rooted in the resource for this shape. Servers SHOULD
      * include resources listed here, if they exist and the user is authorized to receive them.
      * Clients SHOULD be prepared to receive these additional resources, but SHALL function properly
      * without them.
      */
-    public var revInclude: List<String?>? = null,
+    public var revInclude: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = SubscriptionTopicVersionAlgorithmSerializer::class)
@@ -765,16 +765,14 @@ public data class SubscriptionTopic(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -784,24 +782,10 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Update an existing resource by its id (or create it if it is new). */
-    Update(
-      "update",
-      "http://hl7.org/fhir/restful-interaction",
-      "update",
-      "Update an existing resource by its id (or create it if it is new).",
-    ),
-    /** Delete a resource. */
-    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete", "Delete a resource."),
-    /** Create a new resource with a server assigned id. */
-    Create(
-      "create",
-      "http://hl7.org/fhir/restful-interaction",
-      "create",
-      "Create a new resource with a server assigned id.",
-    );
+    Create("create", "http://hl7.org/fhir/restful-interaction", "create"),
+    Update("update", "http://hl7.org/fhir/restful-interaction", "update"),
+    Delete("delete", "http://hl7.org/fhir/restful-interaction", "delete");
 
     override fun toString(): kotlin.String = code
 
@@ -811,14 +795,12 @@ public data class SubscriptionTopic(
 
     public fun getDisplay(): kotlin.String? = display
 
-    public fun getDefinition(): kotlin.String? = definition
-
     public companion object {
       public fun fromCode(code: kotlin.String): MethodCode =
         when (code) {
+          "create" -> Create
           "update" -> Update
           "delete" -> Delete
-          "create" -> Create
           else -> throw IllegalArgumentException("Unknown code $code for enum MethodCode")
         }
     }
@@ -832,28 +814,9 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The requested conditional statement will pass if a matching state does not exist (e.g.,
-     * previous state during create).
-     */
-    Test_Passes(
-      "test-passes",
-      "http://hl7.org/fhir/subscriptiontopic-cr-behavior",
-      "Test passes",
-      "The requested conditional statement will pass if a matching state does not exist (e.g., previous state during create).",
-    ),
-    /**
-     * The requested conditional statement will fail if a matching state does not exist (e.g.,
-     * previous state during create).
-     */
-    Test_Fails(
-      "test-fails",
-      "http://hl7.org/fhir/subscriptiontopic-cr-behavior",
-      "Test fails",
-      "The requested conditional statement will fail if a matching state does not exist (e.g., previous state during create).",
-    );
+    Test_Passes("test-passes", "http://hl7.org/fhir/subscriptiontopic-cr-behavior", "Test passes"),
+    Test_Fails("test-fails", "http://hl7.org/fhir/subscriptiontopic-cr-behavior", "Test fails");
 
     override fun toString(): kotlin.String = code
 
@@ -862,8 +825,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CriteriaNotExistsBehavior =
@@ -881,73 +842,16 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the value for the parameter in the resource is equal to the provided value. */
-    Eq(
-      "eq",
-      "http://hl7.org/fhir/search-comparator",
-      "Equals",
-      "the value for the parameter in the resource is equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is not equal to the provided value. */
-    Ne(
-      "ne",
-      "http://hl7.org/fhir/search-comparator",
-      "Not Equals",
-      "the value for the parameter in the resource is not equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater than the provided value. */
-    Gt(
-      "gt",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater Than",
-      "the value for the parameter in the resource is greater than the provided value.",
-    ),
-    /** the value for the parameter in the resource is less than the provided value. */
-    Lt(
-      "lt",
-      "http://hl7.org/fhir/search-comparator",
-      "Less Than",
-      "the value for the parameter in the resource is less than the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater or equal to the provided value. */
-    Ge(
-      "ge",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater or Equals",
-      "the value for the parameter in the resource is greater or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is less or equal to the provided value. */
-    Le(
-      "le",
-      "http://hl7.org/fhir/search-comparator",
-      "Less of Equal",
-      "the value for the parameter in the resource is less or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource starts after the provided value. */
-    Sa(
-      "sa",
-      "http://hl7.org/fhir/search-comparator",
-      "Starts After",
-      "the value for the parameter in the resource starts after the provided value.",
-    ),
-    /** the value for the parameter in the resource ends before the provided value. */
-    Eb(
-      "eb",
-      "http://hl7.org/fhir/search-comparator",
-      "Ends Before",
-      "the value for the parameter in the resource ends before the provided value.",
-    ),
-    /**
-     * the value for the parameter in the resource is approximately the same to the provided value.
-     */
-    Ap(
-      "ap",
-      "http://hl7.org/fhir/search-comparator",
-      "Approximately",
-      "the value for the parameter in the resource is approximately the same to the provided value.",
-    );
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Ne("ne", "http://hl7.org/fhir/search-comparator", "Not Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before"),
+    Ap("ap", "http://hl7.org/fhir/search-comparator", "Approximately");
 
     override fun toString(): kotlin.String = code
 
@@ -956,8 +860,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchComparator =
@@ -981,152 +883,22 @@ public data class SubscriptionTopic(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The search parameter returns resources that have a value or not. */
-    Missing(
-      "missing",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Missing",
-      "The search parameter returns resources that have a value or not.",
-    ),
-    /**
-     * The search parameter returns resources that have a value that exactly matches the supplied
-     * parameter (the whole string, including casing and accents).
-     */
-    Exact(
-      "exact",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Exact",
-      "The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole string, including casing and accents).",
-    ),
-    /**
-     * The search parameter returns resources that include the supplied parameter value anywhere
-     * within the field being searched.
-     */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Contains",
-      "The search parameter returns resources that include the supplied parameter value anywhere within the field being searched.",
-    ),
-    /** The search parameter returns resources that do not contain a match. */
-    Not(
-      "not",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not",
-      "The search parameter returns resources that do not contain a match.",
-    ),
-    /**
-     * The search parameter is processed as a string that searches text associated with the
-     * code/value - either CodeableConcept.text, Coding.display, Identifier.type.text, or
-     * Reference.display.
-     */
-    Text(
-      "text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text",
-      "The search parameter is processed as a string that searches text associated with the code/value - either CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is in the specified value set.
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is in the specified value set.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is not in the specified value set.
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is not in the specified value set.",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource is subsumed by the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Below(
-      "below",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Below",
-      "The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource subsumes the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Above(
-      "above",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Above",
-      "The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter only applies to the Resource Type specified as a modifier (e.g. the
-     * modifier is not actually :type, but :Patient etc.).
-     */
-    Type(
-      "type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Type",
-      "The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not actually :type, but :Patient etc.).",
-    ),
-    /** The search parameter applies to the identifier on the resource, not the reference. */
-    Identifier(
-      "identifier",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Identifier",
-      "The search parameter applies to the identifier on the resource, not the reference.",
-    ),
-    /**
-     * The search parameter has the format system|code|value, where the system and code refer to an
-     * Identifier.type.coding.system and .code, and match if any of the type codes match. All 3
-     * parts must be present.
-     */
-    Of_Type(
-      "of-type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Of Type",
-      "The search parameter has the format system|code|value, where the system and code refer to an Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.",
-    ),
-    /**
-     * Tests whether the textual display value in a resource (e.g., CodeableConcept.text,
-     * Coding.display, or Reference.display) matches the supplied parameter value.
-     */
-    Code_Text(
-      "code-text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Code Text",
-      "Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or Reference.display) matches the supplied parameter value.",
-    ),
-    /**
-     * Tests whether the value in a resource matches the supplied parameter value using advanced
-     * text handling that searches text associated with the code/value - e.g., CodeableConcept.text,
-     * Coding.display, or Identifier.type.text.
-     */
-    Text_Advanced(
-      "text-advanced",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text Advanced",
-      "Tests whether the value in a resource matches the supplied parameter value using advanced text handling that searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or Identifier.type.text.",
-    ),
-    /**
-     * The search parameter indicates an inclusion directive (_include, _revinclude) that is applied
-     * to an included resource instead of the matching resource.
-     */
-    Iterate(
-      "iterate",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Iterate",
-      "The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included resource instead of the matching resource.",
-    );
+    Missing("missing", "http://hl7.org/fhir/search-modifier-code", "Missing"),
+    Exact("exact", "http://hl7.org/fhir/search-modifier-code", "Exact"),
+    Contains("contains", "http://hl7.org/fhir/search-modifier-code", "Contains"),
+    Not("not", "http://hl7.org/fhir/search-modifier-code", "Not"),
+    Text("text", "http://hl7.org/fhir/search-modifier-code", "Text"),
+    In("in", "http://hl7.org/fhir/search-modifier-code", "In"),
+    Not_In("not-in", "http://hl7.org/fhir/search-modifier-code", "Not In"),
+    Below("below", "http://hl7.org/fhir/search-modifier-code", "Below"),
+    Above("above", "http://hl7.org/fhir/search-modifier-code", "Above"),
+    Type("type", "http://hl7.org/fhir/search-modifier-code", "Type"),
+    Identifier("identifier", "http://hl7.org/fhir/search-modifier-code", "Identifier"),
+    Of_Type("of-type", "http://hl7.org/fhir/search-modifier-code", "Of Type"),
+    Code_Text("code-text", "http://hl7.org/fhir/search-modifier-code", "Code Text"),
+    Text_Advanced("text-advanced", "http://hl7.org/fhir/search-modifier-code", "Text Advanced"),
+    Iterate("iterate", "http://hl7.org/fhir/search-modifier-code", "Iterate");
 
     override fun toString(): kotlin.String = code
 
@@ -1135,8 +907,6 @@ public data class SubscriptionTopic(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchModifierCode =

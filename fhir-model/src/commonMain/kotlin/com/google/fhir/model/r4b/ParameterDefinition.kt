@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ParameterDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,14 +48,14 @@ public data class ParameterDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The name of the parameter used to allow access to the value of the parameter in evaluation
    * contexts.
    */
   public var name: Code? = null,
   /** Whether the parameter is input or output for the module. */
-  public var use: Enumeration<ParameterUse>? = null,
+  public var use: Enumeration<ParameterUse>,
   /** The minimum number of times this parameter SHALL appear in the request or response. */
   public var min: Integer? = null,
   /** The maximum number of times this element is permitted to appear in the request or response. */
@@ -63,7 +63,7 @@ public data class ParameterDefinition(
   /** A brief discussion of what the parameter is for and how it is used by the module. */
   public var documentation: String? = null,
   /** The type of the parameter. */
-  public var type: Enumeration<FHIRAllTypes>? = null,
+  public var type: Enumeration<FHIRAllTypes>,
   /**
    * If specified, this indicates a profile that the input data must conform to, or that the output
    * data will conform to.
@@ -75,17 +75,9 @@ public data class ParameterDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This is an input parameter. */
-    In("in", "http://hl7.org/fhir/operation-parameter-use", "In", "This is an input parameter."),
-    /** This is an output parameter. */
-    Out(
-      "out",
-      "http://hl7.org/fhir/operation-parameter-use",
-      "Out",
-      "This is an output parameter.",
-    );
+    In("in", "http://hl7.org/fhir/operation-parameter-use", "In"),
+    Out("out", "http://hl7.org/fhir/operation-parameter-use", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -94,8 +86,6 @@ public data class ParameterDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ParameterUse =

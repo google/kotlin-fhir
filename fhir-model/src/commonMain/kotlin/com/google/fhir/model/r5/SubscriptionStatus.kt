@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.SubscriptionStatusNotificationEventS
 import com.google.fhir.model.r5.serializers.SubscriptionStatusSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class SubscriptionStatus(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class SubscriptionStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,11 +130,11 @@ public data class SubscriptionStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The status of the subscription, which marks the server state for managing the subscription. */
   public var status: Enumeration<SubscriptionStatus>? = null,
   /** The type of event being conveyed with this notification. */
-  public var type: Enumeration<SubscriptionNotificationType>? = null,
+  public var type: Enumeration<SubscriptionNotificationType>,
   /**
    * The total number of actual events which have been generated since the Subscription was created
    * (inclusive of this notification) - regardless of how many have been successfully communicated.
@@ -142,9 +142,9 @@ public data class SubscriptionStatus(
    */
   public var eventsSinceSubscriptionStart: Integer64? = null,
   /** Detailed information about events relevant to this subscription notification. */
-  public var notificationEvent: List<NotificationEvent>? = null,
+  public var notificationEvent: MutableList<NotificationEvent> = mutableListOf(),
   /** The reference to the Subscription which generated this notification. */
-  public var subscription: Reference? = null,
+  public var subscription: Reference,
   /**
    * The reference to the SubscriptionTopic for the Subscription which generated this notification.
    *
@@ -157,7 +157,7 @@ public data class SubscriptionStatus(
    *
    * Recommended practice: clear errors when status is updated.
    */
-  public var error: List<CodeableConcept?>? = null,
+  public var error: MutableList<CodeableConcept> = mutableListOf(),
 ) : DomainResource() {
   /** Detailed information about events relevant to this subscription notification. */
   @Serializable(with = SubscriptionStatusNotificationEventSerializer::class)
@@ -179,7 +179,7 @@ public data class SubscriptionStatus(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -198,7 +198,7 @@ public data class SubscriptionStatus(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Either the sequential number of this event in this subscription context or a relative event
      * number for this notification.
@@ -208,7 +208,7 @@ public data class SubscriptionStatus(
      * where delivery of notifications IS guaranteed, this number is a relative index for the events
      * present in the notification (e.g., 1, 2, etc.).
      */
-    public var eventNumber: Integer64? = null,
+    public var eventNumber: Integer64,
     /** The actual time this event occurred on the server. */
     public var timestamp: Instant? = null,
     /**
@@ -221,7 +221,7 @@ public data class SubscriptionStatus(
      * additional resources included with the event (e.g., the Patient relevant to an Encounter),
      * however it MAY refer to non-FHIR objects.
      */
-    public var additionalContext: List<Reference?>? = null,
+    public var additionalContext: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** State values for FHIR Subscriptions. */
@@ -229,42 +229,15 @@ public data class SubscriptionStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The client has requested the subscription, and the server has not yet set it up. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/subscription-status",
-      "Requested",
-      "The client has requested the subscription, and the server has not yet set it up.",
-    ),
-    /** The subscription is active. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/subscription-status",
-      "Active",
-      "The subscription is active.",
-    ),
-    /** The server has an error executing the notification. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/subscription-status",
-      "Error",
-      "The server has an error executing the notification.",
-    ),
-    /** Too many errors have occurred or the subscription has expired. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/subscription-status",
-      "Off",
-      "Too many errors have occurred or the subscription has expired.",
-    ),
-    /** This subscription has been flagged as incorrect. */
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/subscription-status",
       "Entered in Error",
-      "This subscription has been flagged as incorrect.",
     );
 
     override fun toString(): String = code
@@ -274,8 +247,6 @@ public data class SubscriptionStatus(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SubscriptionStatus =
@@ -295,45 +266,20 @@ public data class SubscriptionStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The status was generated as part of the setup or verification of a communications channel.
-     */
-    Handshake(
-      "handshake",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Handshake",
-      "The status was generated as part of the setup or verification of a communications channel.",
-    ),
-    /** The status was generated to perform a heartbeat notification to the subscriber. */
-    Heartbeat(
-      "heartbeat",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Heartbeat",
-      "The status was generated to perform a heartbeat notification to the subscriber.",
-    ),
-    /** The status was generated for an event to the subscriber. */
+    Handshake("handshake", "http://hl7.org/fhir/subscription-notification-type", "Handshake"),
+    Heartbeat("heartbeat", "http://hl7.org/fhir/subscription-notification-type", "Heartbeat"),
     Event_Notification(
       "event-notification",
       "http://hl7.org/fhir/subscription-notification-type",
       "Event Notification",
-      "The status was generated for an event to the subscriber.",
     ),
-    /** The status was generated in response to a status query/request. */
     Query_Status(
       "query-status",
       "http://hl7.org/fhir/subscription-notification-type",
       "Query Status",
-      "The status was generated in response to a status query/request.",
     ),
-    /** The status was generated in response to an event query/request. */
-    Query_Event(
-      "query-event",
-      "http://hl7.org/fhir/subscription-notification-type",
-      "Query Event",
-      "The status was generated in response to an event query/request.",
-    );
+    Query_Event("query-event", "http://hl7.org/fhir/subscription-notification-type", "Query Event");
 
     override fun toString(): String = code
 
@@ -342,8 +288,6 @@ public data class SubscriptionStatus(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SubscriptionNotificationType =

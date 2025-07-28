@@ -46,37 +46,37 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ImmunizationPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var function: CodeableConcept? = null,
-  public var actor: Reference? = null,
+  public var actor: Reference,
 ) {
   public fun toModel(): Immunization.Performer =
-    Immunization.Performer().apply {
-      id = this@ImmunizationPerformerSurrogate.id
-      extension = this@ImmunizationPerformerSurrogate.extension
-      modifierExtension = this@ImmunizationPerformerSurrogate.modifierExtension
-      function = this@ImmunizationPerformerSurrogate.function
-      actor = this@ImmunizationPerformerSurrogate.actor
-    }
+    Immunization.Performer(
+      id = this@ImmunizationPerformerSurrogate.id,
+      extension = this@ImmunizationPerformerSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ImmunizationPerformerSurrogate.modifierExtension ?: mutableListOf(),
+      function = this@ImmunizationPerformerSurrogate.function,
+      actor = this@ImmunizationPerformerSurrogate.actor,
+    )
 
   public companion object {
     public fun fromModel(model: Immunization.Performer): ImmunizationPerformerSurrogate =
       with(model) {
-        ImmunizationPerformerSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          function = this@with.function
-          actor = this@with.actor
-        }
+        ImmunizationPerformerSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          function = this@with.function,
+          actor = this@with.actor,
+        )
       }
   }
 }
@@ -84,8 +84,8 @@ internal data class ImmunizationPerformerSurrogate(
 @Serializable
 internal data class ImmunizationEducationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var documentType: KotlinString? = null,
   public var _documentType: Element? = null,
   public var reference: KotlinString? = null,
@@ -96,48 +96,48 @@ internal data class ImmunizationEducationSurrogate(
   public var _presentationDate: Element? = null,
 ) {
   public fun toModel(): Immunization.Education =
-    Immunization.Education().apply {
-      id = this@ImmunizationEducationSurrogate.id
-      extension = this@ImmunizationEducationSurrogate.extension
-      modifierExtension = this@ImmunizationEducationSurrogate.modifierExtension
+    Immunization.Education(
+      id = this@ImmunizationEducationSurrogate.id,
+      extension = this@ImmunizationEducationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ImmunizationEducationSurrogate.modifierExtension ?: mutableListOf(),
       documentType =
         R4String.of(
           this@ImmunizationEducationSurrogate.documentType,
           this@ImmunizationEducationSurrogate._documentType,
-        )
+        ),
       reference =
         Uri.of(
           this@ImmunizationEducationSurrogate.reference,
           this@ImmunizationEducationSurrogate._reference,
-        )
+        ),
       publicationDate =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationEducationSurrogate.publicationDate),
           this@ImmunizationEducationSurrogate._publicationDate,
-        )
+        ),
       presentationDate =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationEducationSurrogate.presentationDate),
           this@ImmunizationEducationSurrogate._presentationDate,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Immunization.Education): ImmunizationEducationSurrogate =
       with(model) {
-        ImmunizationEducationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          documentType = this@with.documentType?.value
-          _documentType = this@with.documentType?.toElement()
-          reference = this@with.reference?.value
-          _reference = this@with.reference?.toElement()
-          publicationDate = this@with.publicationDate?.value?.toString()
-          _publicationDate = this@with.publicationDate?.toElement()
-          presentationDate = this@with.presentationDate?.value?.toString()
-          _presentationDate = this@with.presentationDate?.toElement()
-        }
+        ImmunizationEducationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          documentType = this@with.documentType?.value,
+          _documentType = this@with.documentType?.toElement(),
+          reference = this@with.reference?.value,
+          _reference = this@with.reference?.toElement(),
+          publicationDate = this@with.publicationDate?.value?.toString(),
+          _publicationDate = this@with.publicationDate?.toElement(),
+          presentationDate = this@with.presentationDate?.value?.toString(),
+          _presentationDate = this@with.presentationDate?.toElement(),
+        )
       }
   }
 }
@@ -145,8 +145,8 @@ internal data class ImmunizationEducationSurrogate(
 @Serializable
 internal data class ImmunizationReactionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var detail: Reference? = null,
@@ -154,52 +154,49 @@ internal data class ImmunizationReactionSurrogate(
   public var _reported: Element? = null,
 ) {
   public fun toModel(): Immunization.Reaction =
-    Immunization.Reaction().apply {
-      id = this@ImmunizationReactionSurrogate.id
-      extension = this@ImmunizationReactionSurrogate.extension
-      modifierExtension = this@ImmunizationReactionSurrogate.modifierExtension
+    Immunization.Reaction(
+      id = this@ImmunizationReactionSurrogate.id,
+      extension = this@ImmunizationReactionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ImmunizationReactionSurrogate.modifierExtension ?: mutableListOf(),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationReactionSurrogate.date),
           this@ImmunizationReactionSurrogate._date,
-        )
-      detail = this@ImmunizationReactionSurrogate.detail
+        ),
+      detail = this@ImmunizationReactionSurrogate.detail,
       reported =
         R4Boolean.of(
           this@ImmunizationReactionSurrogate.reported,
           this@ImmunizationReactionSurrogate._reported,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: Immunization.Reaction): ImmunizationReactionSurrogate =
       with(model) {
-        ImmunizationReactionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          detail = this@with.detail
-          reported = this@with.reported?.value
-          _reported = this@with.reported?.toElement()
-        }
+        ImmunizationReactionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          detail = this@with.detail,
+          reported = this@with.reported?.value,
+          _reported = this@with.reported?.toElement(),
+        )
       }
   }
 }
 
 @Serializable
-internal class ImmunizationProtocolAppliedDoseNumberSurrogate {
-  public var doseNumberPositiveInt: Int? = null
-
-  public var _doseNumberPositiveInt: Element? = null
-
-  public var doseNumberString: KotlinString? = null
-
-  public var _doseNumberString: Element? = null
-
+internal data class ImmunizationProtocolAppliedDoseNumberSurrogate(
+  public var doseNumberPositiveInt: Int? = null,
+  public var _doseNumberPositiveInt: Element? = null,
+  public var doseNumberString: KotlinString? = null,
+  public var _doseNumberString: Element? = null,
+) {
   public fun toModel(): Immunization.ProtocolApplied.DoseNumber =
-    Immunization.ProtocolApplied.DoseNumber?.from(
+    Immunization.ProtocolApplied.DoseNumber.from(
       PositiveInt.of(
         this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberPositiveInt,
         this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberPositiveInt,
@@ -208,7 +205,7 @@ internal class ImmunizationProtocolAppliedDoseNumberSurrogate {
         this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
         this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
       ),
-    ) ?: Immunization.ProtocolApplied.DoseNumber.Null
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -216,26 +213,29 @@ internal class ImmunizationProtocolAppliedDoseNumberSurrogate {
     ): ImmunizationProtocolAppliedDoseNumberSurrogate =
       with(model) {
         ImmunizationProtocolAppliedDoseNumberSurrogate().apply {
-          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value
-          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement()
-          doseNumberString = this@with.asString()?.value?.value
-          _doseNumberString = this@with.asString()?.value?.toElement()
+          Immunization.ProtocolApplied.DoseNumber.from(
+            PositiveInt.of(
+              this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberPositiveInt,
+              this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberPositiveInt,
+            ),
+            R4String.of(
+              this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
+              this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
+            ),
+          )!!
         }
       }
   }
 }
 
 @Serializable
-internal class ImmunizationProtocolAppliedSeriesDosesSurrogate {
-  public var seriesDosesPositiveInt: Int? = null
-
-  public var _seriesDosesPositiveInt: Element? = null
-
-  public var seriesDosesString: KotlinString? = null
-
-  public var _seriesDosesString: Element? = null
-
-  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses =
+internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
+  public var seriesDosesPositiveInt: Int? = null,
+  public var _seriesDosesPositiveInt: Element? = null,
+  public var seriesDosesString: KotlinString? = null,
+  public var _seriesDosesString: Element? = null,
+) {
+  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses? =
     Immunization.ProtocolApplied.SeriesDoses?.from(
       PositiveInt.of(
         this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
@@ -245,7 +245,7 @@ internal class ImmunizationProtocolAppliedSeriesDosesSurrogate {
         this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
         this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
       ),
-    ) ?: Immunization.ProtocolApplied.SeriesDoses.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -253,10 +253,16 @@ internal class ImmunizationProtocolAppliedSeriesDosesSurrogate {
     ): ImmunizationProtocolAppliedSeriesDosesSurrogate =
       with(model) {
         ImmunizationProtocolAppliedSeriesDosesSurrogate().apply {
-          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value
-          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement()
-          seriesDosesString = this@with.asString()?.value?.value
-          _seriesDosesString = this@with.asString()?.value?.toElement()
+          Immunization.ProtocolApplied.SeriesDoses?.from(
+            PositiveInt.of(
+              this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
+              this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesPositiveInt,
+            ),
+            R4String.of(
+              this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
+              this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
+            ),
+          )
         }
       }
   }
@@ -265,63 +271,61 @@ internal class ImmunizationProtocolAppliedSeriesDosesSurrogate {
 @Serializable
 internal data class ImmunizationProtocolAppliedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var series: KotlinString? = null,
   public var _series: Element? = null,
   public var authority: Reference? = null,
-  public var targetDisease: List<CodeableConcept?>? = null,
-  public var doseNumber: Immunization.ProtocolApplied.DoseNumber? = null,
+  public var targetDisease: MutableList<CodeableConcept>? = null,
+  public var doseNumber: Immunization.ProtocolApplied.DoseNumber,
   public var seriesDoses: Immunization.ProtocolApplied.SeriesDoses? = null,
 ) {
   public fun toModel(): Immunization.ProtocolApplied =
-    Immunization.ProtocolApplied().apply {
-      id = this@ImmunizationProtocolAppliedSurrogate.id
-      extension = this@ImmunizationProtocolAppliedSurrogate.extension
-      modifierExtension = this@ImmunizationProtocolAppliedSurrogate.modifierExtension
+    Immunization.ProtocolApplied(
+      id = this@ImmunizationProtocolAppliedSurrogate.id,
+      extension = this@ImmunizationProtocolAppliedSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ImmunizationProtocolAppliedSurrogate.modifierExtension ?: mutableListOf(),
       series =
         R4String.of(
           this@ImmunizationProtocolAppliedSurrogate.series,
           this@ImmunizationProtocolAppliedSurrogate._series,
-        )
-      authority = this@ImmunizationProtocolAppliedSurrogate.authority
-      targetDisease = this@ImmunizationProtocolAppliedSurrogate.targetDisease
-      doseNumber = this@ImmunizationProtocolAppliedSurrogate.doseNumber
-      seriesDoses = this@ImmunizationProtocolAppliedSurrogate.seriesDoses
-    }
+        ),
+      authority = this@ImmunizationProtocolAppliedSurrogate.authority,
+      targetDisease = this@ImmunizationProtocolAppliedSurrogate.targetDisease ?: mutableListOf(),
+      doseNumber = this@ImmunizationProtocolAppliedSurrogate.doseNumber,
+      seriesDoses = this@ImmunizationProtocolAppliedSurrogate.seriesDoses,
+    )
 
   public companion object {
     public fun fromModel(
       model: Immunization.ProtocolApplied
     ): ImmunizationProtocolAppliedSurrogate =
       with(model) {
-        ImmunizationProtocolAppliedSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          series = this@with.series?.value
-          _series = this@with.series?.toElement()
-          authority = this@with.authority
-          targetDisease = this@with.targetDisease
-          doseNumber = this@with.doseNumber
-          seriesDoses = this@with.seriesDoses
-        }
+        ImmunizationProtocolAppliedSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          series = this@with.series?.value,
+          _series = this@with.series?.toElement(),
+          authority = this@with.authority,
+          targetDisease = this@with.targetDisease.takeUnless { it.all { it == null } },
+          doseNumber = this@with.doseNumber,
+          seriesDoses = this@with.seriesDoses,
+        )
       }
   }
 }
 
 @Serializable
-internal class ImmunizationOccurrenceSurrogate {
-  public var occurrenceDateTime: KotlinString? = null
-
-  public var _occurrenceDateTime: Element? = null
-
-  public var occurrenceString: KotlinString? = null
-
-  public var _occurrenceString: Element? = null
-
+internal data class ImmunizationOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrenceString: KotlinString? = null,
+  public var _occurrenceString: Element? = null,
+) {
   public fun toModel(): Immunization.Occurrence =
-    Immunization.Occurrence?.from(
+    Immunization.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@ImmunizationOccurrenceSurrogate.occurrenceDateTime),
         this@ImmunizationOccurrenceSurrogate._occurrenceDateTime,
@@ -330,16 +334,22 @@ internal class ImmunizationOccurrenceSurrogate {
         this@ImmunizationOccurrenceSurrogate.occurrenceString,
         this@ImmunizationOccurrenceSurrogate._occurrenceString,
       ),
-    ) ?: Immunization.Occurrence.Null
+    )!!
 
   public companion object {
     public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =
       with(model) {
         ImmunizationOccurrenceSurrogate().apply {
-          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
-          occurrenceString = this@with.asString()?.value?.value
-          _occurrenceString = this@with.asString()?.value?.toElement()
+          Immunization.Occurrence.from(
+            DateTime.of(
+              FhirDateTime.fromString(this@ImmunizationOccurrenceSurrogate.occurrenceDateTime),
+              this@ImmunizationOccurrenceSurrogate._occurrenceDateTime,
+            ),
+            R4String.of(
+              this@ImmunizationOccurrenceSurrogate.occurrenceString,
+              this@ImmunizationOccurrenceSurrogate._occurrenceString,
+            ),
+          )!!
         }
       }
   }
@@ -354,15 +364,15 @@ internal data class ImmunizationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
-  public var vaccineCode: CodeableConcept? = null,
-  public var patient: Reference? = null,
+  public var vaccineCode: CodeableConcept,
+  public var patient: Reference,
   public var encounter: Reference? = null,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
@@ -378,133 +388,133 @@ internal data class ImmunizationSurrogate(
   public var site: CodeableConcept? = null,
   public var route: CodeableConcept? = null,
   public var doseQuantity: Quantity? = null,
-  public var performer: List<Immunization.Performer>? = null,
-  public var note: List<Annotation?>? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
+  public var performer: MutableList<Immunization.Performer>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
   public var isSubpotent: KotlinBoolean? = null,
   public var _isSubpotent: Element? = null,
-  public var subpotentReason: List<CodeableConcept?>? = null,
-  public var education: List<Immunization.Education>? = null,
-  public var programEligibility: List<CodeableConcept?>? = null,
+  public var subpotentReason: MutableList<CodeableConcept>? = null,
+  public var education: MutableList<Immunization.Education>? = null,
+  public var programEligibility: MutableList<CodeableConcept>? = null,
   public var fundingSource: CodeableConcept? = null,
-  public var reaction: List<Immunization.Reaction>? = null,
-  public var protocolApplied: List<Immunization.ProtocolApplied>? = null,
-  public var occurrence: Immunization.Occurrence? = null,
+  public var reaction: MutableList<Immunization.Reaction>? = null,
+  public var protocolApplied: MutableList<Immunization.ProtocolApplied>? = null,
+  public var occurrence: Immunization.Occurrence,
 ) {
   public fun toModel(): Immunization =
-    Immunization().apply {
-      id = this@ImmunizationSurrogate.id
-      meta = this@ImmunizationSurrogate.meta
+    Immunization(
+      id = this@ImmunizationSurrogate.id,
+      meta = this@ImmunizationSurrogate.meta,
       implicitRules =
-        Uri.of(this@ImmunizationSurrogate.implicitRules, this@ImmunizationSurrogate._implicitRules)
-      language = Code.of(this@ImmunizationSurrogate.language, this@ImmunizationSurrogate._language)
-      text = this@ImmunizationSurrogate.text
-      contained = this@ImmunizationSurrogate.contained
-      extension = this@ImmunizationSurrogate.extension
-      modifierExtension = this@ImmunizationSurrogate.modifierExtension
-      identifier = this@ImmunizationSurrogate.identifier
+        Uri.of(this@ImmunizationSurrogate.implicitRules, this@ImmunizationSurrogate._implicitRules),
+      language = Code.of(this@ImmunizationSurrogate.language, this@ImmunizationSurrogate._language),
+      text = this@ImmunizationSurrogate.text,
+      contained = this@ImmunizationSurrogate.contained ?: mutableListOf(),
+      extension = this@ImmunizationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ImmunizationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ImmunizationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ImmunizationSurrogate.status?.let {
-            com.google.fhir.model.r4.Immunization.ImmunizationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.Immunization.ImmunizationStatus.fromCode(
+            this@ImmunizationSurrogate.status!!
+          ),
           this@ImmunizationSurrogate._status,
-        )
-      statusReason = this@ImmunizationSurrogate.statusReason
-      vaccineCode = this@ImmunizationSurrogate.vaccineCode
-      patient = this@ImmunizationSurrogate.patient
-      encounter = this@ImmunizationSurrogate.encounter
-      occurrence = this@ImmunizationSurrogate.occurrence
+        ),
+      statusReason = this@ImmunizationSurrogate.statusReason,
+      vaccineCode = this@ImmunizationSurrogate.vaccineCode,
+      patient = this@ImmunizationSurrogate.patient,
+      encounter = this@ImmunizationSurrogate.encounter,
+      occurrence = this@ImmunizationSurrogate.occurrence,
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationSurrogate.recorded),
           this@ImmunizationSurrogate._recorded,
-        )
+        ),
       primarySource =
         R4Boolean.of(
           this@ImmunizationSurrogate.primarySource,
           this@ImmunizationSurrogate._primarySource,
-        )
-      reportOrigin = this@ImmunizationSurrogate.reportOrigin
-      location = this@ImmunizationSurrogate.location
-      manufacturer = this@ImmunizationSurrogate.manufacturer
+        ),
+      reportOrigin = this@ImmunizationSurrogate.reportOrigin,
+      location = this@ImmunizationSurrogate.location,
+      manufacturer = this@ImmunizationSurrogate.manufacturer,
       lotNumber =
-        R4String.of(this@ImmunizationSurrogate.lotNumber, this@ImmunizationSurrogate._lotNumber)
+        R4String.of(this@ImmunizationSurrogate.lotNumber, this@ImmunizationSurrogate._lotNumber),
       expirationDate =
         Date.of(
           FhirDate.fromString(this@ImmunizationSurrogate.expirationDate),
           this@ImmunizationSurrogate._expirationDate,
-        )
-      site = this@ImmunizationSurrogate.site
-      route = this@ImmunizationSurrogate.route
-      doseQuantity = this@ImmunizationSurrogate.doseQuantity
-      performer = this@ImmunizationSurrogate.performer
-      note = this@ImmunizationSurrogate.note
-      reasonCode = this@ImmunizationSurrogate.reasonCode
-      reasonReference = this@ImmunizationSurrogate.reasonReference
+        ),
+      site = this@ImmunizationSurrogate.site,
+      route = this@ImmunizationSurrogate.route,
+      doseQuantity = this@ImmunizationSurrogate.doseQuantity,
+      performer = this@ImmunizationSurrogate.performer ?: mutableListOf(),
+      note = this@ImmunizationSurrogate.note ?: mutableListOf(),
+      reasonCode = this@ImmunizationSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@ImmunizationSurrogate.reasonReference ?: mutableListOf(),
       isSubpotent =
         R4Boolean.of(
           this@ImmunizationSurrogate.isSubpotent,
           this@ImmunizationSurrogate._isSubpotent,
-        )
-      subpotentReason = this@ImmunizationSurrogate.subpotentReason
-      education = this@ImmunizationSurrogate.education
-      programEligibility = this@ImmunizationSurrogate.programEligibility
-      fundingSource = this@ImmunizationSurrogate.fundingSource
-      reaction = this@ImmunizationSurrogate.reaction
-      protocolApplied = this@ImmunizationSurrogate.protocolApplied
-    }
+        ),
+      subpotentReason = this@ImmunizationSurrogate.subpotentReason ?: mutableListOf(),
+      education = this@ImmunizationSurrogate.education ?: mutableListOf(),
+      programEligibility = this@ImmunizationSurrogate.programEligibility ?: mutableListOf(),
+      fundingSource = this@ImmunizationSurrogate.fundingSource,
+      reaction = this@ImmunizationSurrogate.reaction ?: mutableListOf(),
+      protocolApplied = this@ImmunizationSurrogate.protocolApplied ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Immunization): ImmunizationSurrogate =
       with(model) {
-        ImmunizationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          statusReason = this@with.statusReason
-          vaccineCode = this@with.vaccineCode
-          patient = this@with.patient
-          encounter = this@with.encounter
-          occurrence = this@with.occurrence
-          recorded = this@with.recorded?.value?.toString()
-          _recorded = this@with.recorded?.toElement()
-          primarySource = this@with.primarySource?.value
-          _primarySource = this@with.primarySource?.toElement()
-          reportOrigin = this@with.reportOrigin
-          location = this@with.location
-          manufacturer = this@with.manufacturer
-          lotNumber = this@with.lotNumber?.value
-          _lotNumber = this@with.lotNumber?.toElement()
-          expirationDate = this@with.expirationDate?.value?.toString()
-          _expirationDate = this@with.expirationDate?.toElement()
-          site = this@with.site
-          route = this@with.route
-          doseQuantity = this@with.doseQuantity
-          performer = this@with.performer
-          note = this@with.note
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          isSubpotent = this@with.isSubpotent?.value
-          _isSubpotent = this@with.isSubpotent?.toElement()
-          subpotentReason = this@with.subpotentReason
-          education = this@with.education
-          programEligibility = this@with.programEligibility
-          fundingSource = this@with.fundingSource
-          reaction = this@with.reaction
-          protocolApplied = this@with.protocolApplied
-        }
+        ImmunizationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          statusReason = this@with.statusReason,
+          vaccineCode = this@with.vaccineCode,
+          patient = this@with.patient,
+          encounter = this@with.encounter,
+          occurrence = this@with.occurrence,
+          recorded = this@with.recorded?.value?.toString(),
+          _recorded = this@with.recorded?.toElement(),
+          primarySource = this@with.primarySource?.value,
+          _primarySource = this@with.primarySource?.toElement(),
+          reportOrigin = this@with.reportOrigin,
+          location = this@with.location,
+          manufacturer = this@with.manufacturer,
+          lotNumber = this@with.lotNumber?.value,
+          _lotNumber = this@with.lotNumber?.toElement(),
+          expirationDate = this@with.expirationDate?.value?.toString(),
+          _expirationDate = this@with.expirationDate?.toElement(),
+          site = this@with.site,
+          route = this@with.route,
+          doseQuantity = this@with.doseQuantity,
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          isSubpotent = this@with.isSubpotent?.value,
+          _isSubpotent = this@with.isSubpotent?.toElement(),
+          subpotentReason = this@with.subpotentReason.takeUnless { it.all { it == null } },
+          education = this@with.education.takeUnless { it.all { it == null } },
+          programEligibility = this@with.programEligibility.takeUnless { it.all { it == null } },
+          fundingSource = this@with.fundingSource,
+          reaction = this@with.reaction.takeUnless { it.all { it == null } },
+          protocolApplied = this@with.protocolApplied.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

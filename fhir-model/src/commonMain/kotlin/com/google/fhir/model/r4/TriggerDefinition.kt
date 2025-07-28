@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.TriggerDefinitionSerializer
 import com.google.fhir.model.r4.serializers.TriggerDefinitionTimingSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,9 +48,9 @@ public data class TriggerDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The type of triggering event. */
-  public var type: Enumeration<TriggerType>? = null,
+  public var type: Enumeration<TriggerType>,
   /**
    * A formal name for the event. This may be an absolute URI that identifies the event formally
    * (e.g. from a trigger registry), or a simple relative URI that identifies the event in a local
@@ -69,7 +69,7 @@ public data class TriggerDefinition(
    *
    * This element shall be present for any data type trigger.
    */
-  public var `data`: List<DataRequirement?>? = null,
+  public var `data`: MutableList<DataRequirement> = mutableListOf(),
   /**
    * A boolean-valued expression that is evaluated in the context of the container of the trigger
    * definition and returns whether or not the trigger fires.
@@ -109,20 +109,18 @@ public data class TriggerDefinition(
     public data class DateTime(public val `value`: com.google.fhir.model.r4.DateTime) :
       TriggerDefinition.Timing
 
-    public data object Null : TriggerDefinition.Timing
-
     public companion object {
-      public fun from(
-        TimingValue: com.google.fhir.model.r4.Timing?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
+      internal fun from(
+        timingValue: com.google.fhir.model.r4.Timing?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
         dateValue: com.google.fhir.model.r4.Date?,
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-      ): TriggerDefinition.Timing {
-        if (TimingValue != null) return Timing(TimingValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+      ): TriggerDefinition.Timing? {
+        if (timingValue != null) return Timing(timingValue)
+        if (referenceValue != null) return Reference(referenceValue)
         if (dateValue != null) return Date(dateValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return Null
+        return null
       }
     }
   }
@@ -132,75 +130,15 @@ public data class TriggerDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The trigger occurs in response to a specific named event, and no other information about the
-     * trigger is specified. Named events are completely pre-coordinated, and the formal semantics
-     * of the trigger are not provided.
-     */
-    Named_Event(
-      "named-event",
-      "http://hl7.org/fhir/trigger-type",
-      "Named Event",
-      "The trigger occurs in response to a specific named event, and no other information about the trigger is specified. Named events are completely pre-coordinated, and the formal semantics of the trigger are not provided.",
-    ),
-    /**
-     * The trigger occurs at a specific time or periodically as described by a timing or schedule. A
-     * periodic event cannot have any data elements, but may have a name assigned as a shorthand for
-     * the event.
-     */
-    Periodic(
-      "periodic",
-      "http://hl7.org/fhir/trigger-type",
-      "Periodic",
-      "The trigger occurs at a specific time or periodically as described by a timing or schedule. A periodic event cannot have any data elements, but may have a name assigned as a shorthand for the event.",
-    ),
-    /**
-     * The trigger occurs whenever data of a particular type is changed in any way, either added,
-     * modified, or removed.
-     */
-    Data_Changed(
-      "data-changed",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Changed",
-      "The trigger occurs whenever data of a particular type is changed in any way, either added, modified, or removed.",
-    ),
-    /** The trigger occurs whenever data of a particular type is added. */
-    Data_Added(
-      "data-added",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Added",
-      "The trigger occurs whenever data of a particular type is added.",
-    ),
-    /** The trigger occurs whenever data of a particular type is modified. */
-    Data_Modified(
-      "data-modified",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Updated",
-      "The trigger occurs whenever data of a particular type is modified.",
-    ),
-    /** The trigger occurs whenever data of a particular type is removed. */
-    Data_Removed(
-      "data-removed",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Removed",
-      "The trigger occurs whenever data of a particular type is removed.",
-    ),
-    /** The trigger occurs whenever data of a particular type is accessed. */
-    Data_Accessed(
-      "data-accessed",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Accessed",
-      "The trigger occurs whenever data of a particular type is accessed.",
-    ),
-    /** The trigger occurs whenever access to data of a particular type is completed. */
-    Data_Access_Ended(
-      "data-access-ended",
-      "http://hl7.org/fhir/trigger-type",
-      "Data Access Ended",
-      "The trigger occurs whenever access to data of a particular type is completed.",
-    );
+    Named_Event("named-event", "http://hl7.org/fhir/trigger-type", "Named Event"),
+    Periodic("periodic", "http://hl7.org/fhir/trigger-type", "Periodic"),
+    Data_Changed("data-changed", "http://hl7.org/fhir/trigger-type", "Data Changed"),
+    Data_Added("data-added", "http://hl7.org/fhir/trigger-type", "Data Added"),
+    Data_Modified("data-modified", "http://hl7.org/fhir/trigger-type", "Data Updated"),
+    Data_Removed("data-removed", "http://hl7.org/fhir/trigger-type", "Data Removed"),
+    Data_Accessed("data-accessed", "http://hl7.org/fhir/trigger-type", "Data Accessed"),
+    Data_Access_Ended("data-access-ended", "http://hl7.org/fhir/trigger-type", "Data Access Ended");
 
     override fun toString(): kotlin.String = code
 
@@ -209,8 +147,6 @@ public data class TriggerDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TriggerType =

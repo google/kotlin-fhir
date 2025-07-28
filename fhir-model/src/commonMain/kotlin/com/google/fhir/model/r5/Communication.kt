@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.CommunicationPayloadSerializer
 import com.google.fhir.model.r5.serializers.CommunicationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class Communication(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class Communication(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class Communication(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this communication by the performer or other systems which
    * remain constant as the resource is updated and propagates from server to server.
@@ -144,26 +144,26 @@ public data class Communication(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this Communication.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this Communication.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /**
    * An order, proposal or plan fulfilled in whole or in part by this Communication.
    *
    * This must point to some sort of a 'Request' resource, such as CarePlan, CommunicationRequest,
    * ServiceRequest, MedicationRequest, etc.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A larger event (e.g. Communication, Procedure) of which this particular communication is a
    * component or step.
@@ -171,16 +171,16 @@ public data class Communication(
    * The event the communication was part of - e.g. if you disclosed as "part" of counselling, it
    * would be partOf that Procedure.
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /** Prior communication that this communication is in response to. */
-  public var inResponseTo: List<Reference?>? = null,
+  public var inResponseTo: MutableList<Reference> = mutableListOf(),
   /**
    * The status of the transmission.
    *
    * This element is labeled as a modifier because the status contains the codes aborted and
    * entered-in-error that mark the communication as not currently valid.
    */
-  public var status: Enumeration<CommunicationStatus>? = null,
+  public var status: Enumeration<CommunicationStatus>,
   /**
    * Captures the reason for the current state of the Communication.
    *
@@ -193,7 +193,7 @@ public data class Communication(
    *
    * There may be multiple axes of categorization and one communication may serve multiple purposes.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Characterizes how quickly the planned or in progress communication must be addressed. Includes
    * concepts such as stat, urgent, routine.
@@ -203,7 +203,7 @@ public data class Communication(
    */
   public var priority: Enumeration<CommunicationPriority>? = null,
   /** A channel that was used for this communication (e.g. email, fax). */
-  public var medium: List<CodeableConcept?>? = null,
+  public var medium: MutableList<CodeableConcept> = mutableListOf(),
   /** The patient or group that was the focus of this communication. */
   public var subject: Reference? = null,
   /**
@@ -219,7 +219,7 @@ public data class Communication(
    * Don't use Communication.about element when a more specific element exists, such as basedOn or
    * reasonReference.
    */
-  public var about: List<Reference?>? = null,
+  public var about: MutableList<Reference> = mutableListOf(),
   /**
    * The Encounter during which this Communication was created or to which the creation of this
    * record is tightly associated.
@@ -242,7 +242,7 @@ public data class Communication(
    * receipts are not tracked (e.g. a mass mail-out) or a receipt is captured in aggregate (all
    * emails confirmed received by a particular time).
    */
-  public var recipient: List<Reference?>? = null,
+  public var recipient: MutableList<Reference> = mutableListOf(),
   /**
    * The entity (e.g. person, organization, clinical information system, or device) which is the
    * source of the communication.
@@ -253,14 +253,14 @@ public data class Communication(
    *
    * Textual reasons can be captured using reason.concept.text.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /** Text, attachment(s), or resource(s) that was communicated to the recipient. */
-  public var payload: List<Payload>? = null,
+  public var payload: MutableList<Payload> = mutableListOf(),
   /**
    * Additional notes or commentary about the communication by the sender, receiver or other
    * interested parties.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Text, attachment(s), or resource(s) that was communicated to the recipient. */
   @Serializable(with = CommunicationPayloadSerializer::class)
@@ -282,7 +282,7 @@ public data class Communication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -301,7 +301,7 @@ public data class Communication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A communicated content (or for multi-part communications, one portion of the communication).
      *
@@ -315,7 +315,7 @@ public data class Communication(
      * When using contentCodeableConcept, the CodeableConcept is what is being communicated and is
      * not a categorization of the content.
      */
-    public var content: Content? = null,
+    public var content: Content,
   ) : BackboneElement() {
     @Serializable(with = CommunicationPayloadContentSerializer::class)
     public sealed interface Content {
@@ -334,18 +334,16 @@ public data class Communication(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Content
 
-      public data object Null : Content
-
       public companion object {
-        public fun from(
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Content {
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return Null
+        internal fun from(
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        ): Content? {
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          return null
         }
       }
     }
@@ -356,82 +354,15 @@ public data class Communication(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The core event has not started yet, but some staging activities have begun (e.g. surgical
-     * suite preparation). Preparation stages may be tracked for billing purposes.
-     */
-    Preparation(
-      "preparation",
-      "http://hl7.org/fhir/event-status",
-      "Preparation",
-      "The core event has not started yet, but some staging activities have begun (e.g. surgical suite preparation).  Preparation stages may be tracked for billing purposes.",
-    ),
-    /** The event is currently occurring. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/event-status",
-      "In Progress",
-      "The event is currently occurring.",
-    ),
-    /**
-     * The event was terminated prior to any activity beyond preparation. I.e. The 'main' activity
-     * has not yet begun. The boundary between preparatory and the 'main' activity is
-     * context-specific.
-     */
-    Not_Done(
-      "not-done",
-      "http://hl7.org/fhir/event-status",
-      "Not Done",
-      "The event was terminated prior to any activity beyond preparation.  I.e. The 'main' activity has not yet begun.  The boundary between preparatory and the 'main' activity is context-specific.",
-    ),
-    /** The event has been temporarily stopped but is expected to resume in the future. */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/event-status",
-      "On Hold",
-      "The event has been temporarily stopped but is expected to resume in the future.",
-    ),
-    /**
-     * The event was terminated prior to the full completion of the intended activity but after at
-     * least some of the 'main' activity (beyond preparation) has occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/event-status",
-      "Stopped",
-      "The event was terminated prior to the full completion of the intended activity but after at least some of the 'main' activity (beyond preparation) has occurred.",
-    ),
-    /** The event has now concluded. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/event-status",
-      "Completed",
-      "The event has now concluded.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "stopped" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"stopped\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this event. Note: This concept is not to be used for "other" - one of the listed statuses is
-     * presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/event-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this event.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done"),
+    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold"),
+    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -440,8 +371,6 @@ public data class Communication(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): CommunicationStatus =
@@ -464,38 +393,11 @@ public data class Communication(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -504,8 +406,6 @@ public data class Communication(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): CommunicationPriority =

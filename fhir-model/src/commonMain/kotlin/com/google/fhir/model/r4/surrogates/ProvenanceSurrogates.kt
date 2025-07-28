@@ -39,43 +39,43 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProvenanceAgentSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var role: List<CodeableConcept?>? = null,
-  public var who: Reference? = null,
+  public var role: MutableList<CodeableConcept>? = null,
+  public var who: Reference,
   public var onBehalfOf: Reference? = null,
 ) {
   public fun toModel(): Provenance.Agent =
-    Provenance.Agent().apply {
-      id = this@ProvenanceAgentSurrogate.id
-      extension = this@ProvenanceAgentSurrogate.extension
-      modifierExtension = this@ProvenanceAgentSurrogate.modifierExtension
-      type = this@ProvenanceAgentSurrogate.type
-      role = this@ProvenanceAgentSurrogate.role
-      who = this@ProvenanceAgentSurrogate.who
-      onBehalfOf = this@ProvenanceAgentSurrogate.onBehalfOf
-    }
+    Provenance.Agent(
+      id = this@ProvenanceAgentSurrogate.id,
+      extension = this@ProvenanceAgentSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProvenanceAgentSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ProvenanceAgentSurrogate.type,
+      role = this@ProvenanceAgentSurrogate.role ?: mutableListOf(),
+      who = this@ProvenanceAgentSurrogate.who,
+      onBehalfOf = this@ProvenanceAgentSurrogate.onBehalfOf,
+    )
 
   public companion object {
     public fun fromModel(model: Provenance.Agent): ProvenanceAgentSurrogate =
       with(model) {
-        ProvenanceAgentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          role = this@with.role
-          who = this@with.who
-          onBehalfOf = this@with.onBehalfOf
-        }
+        ProvenanceAgentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          role = this@with.role.takeUnless { it.all { it == null } },
+          who = this@with.who,
+          onBehalfOf = this@with.onBehalfOf,
+        )
       }
   }
 }
@@ -83,69 +83,71 @@ internal data class ProvenanceAgentSurrogate(
 @Serializable
 internal data class ProvenanceEntitySurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var role: String? = null,
   public var _role: Element? = null,
-  public var what: Reference? = null,
-  public var agent: List<Provenance.Agent?>? = null,
+  public var what: Reference,
+  public var agent: MutableList<Provenance.Agent>? = null,
 ) {
   public fun toModel(): Provenance.Entity =
-    Provenance.Entity().apply {
-      id = this@ProvenanceEntitySurrogate.id
-      extension = this@ProvenanceEntitySurrogate.extension
-      modifierExtension = this@ProvenanceEntitySurrogate.modifierExtension
+    Provenance.Entity(
+      id = this@ProvenanceEntitySurrogate.id,
+      extension = this@ProvenanceEntitySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProvenanceEntitySurrogate.modifierExtension ?: mutableListOf(),
       role =
         Enumeration.of(
-          this@ProvenanceEntitySurrogate.role?.let {
-            com.google.fhir.model.r4.Provenance.ProvenanceEntityRole.fromCode(it)
-          },
+          com.google.fhir.model.r4.Provenance.ProvenanceEntityRole.fromCode(
+            this@ProvenanceEntitySurrogate.role!!
+          ),
           this@ProvenanceEntitySurrogate._role,
-        )
-      what = this@ProvenanceEntitySurrogate.what
-      agent = this@ProvenanceEntitySurrogate.agent
-    }
+        ),
+      what = this@ProvenanceEntitySurrogate.what,
+      agent = this@ProvenanceEntitySurrogate.agent ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Provenance.Entity): ProvenanceEntitySurrogate =
       with(model) {
-        ProvenanceEntitySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          role = this@with.role?.value?.getCode()
-          _role = this@with.role?.toElement()
-          what = this@with.what
-          agent = this@with.agent
-        }
+        ProvenanceEntitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          role = this@with.role.value?.getCode(),
+          _role = this@with.role.toElement(),
+          what = this@with.what,
+          agent = this@with.agent.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
 
 @Serializable
-internal class ProvenanceOccurredSurrogate {
-  public var occurredPeriod: Period? = null
-
-  public var occurredDateTime: String? = null
-
-  public var _occurredDateTime: Element? = null
-
-  public fun toModel(): Provenance.Occurred =
+internal data class ProvenanceOccurredSurrogate(
+  public var occurredPeriod: Period? = null,
+  public var occurredDateTime: String? = null,
+  public var _occurredDateTime: Element? = null,
+) {
+  public fun toModel(): Provenance.Occurred? =
     Provenance.Occurred?.from(
       this@ProvenanceOccurredSurrogate.occurredPeriod,
       DateTime.of(
         FhirDateTime.fromString(this@ProvenanceOccurredSurrogate.occurredDateTime),
         this@ProvenanceOccurredSurrogate._occurredDateTime,
       ),
-    ) ?: Provenance.Occurred.Null
+    )
 
   public companion object {
     public fun fromModel(model: Provenance.Occurred): ProvenanceOccurredSurrogate =
       with(model) {
         ProvenanceOccurredSurrogate().apply {
-          occurredPeriod = this@with.asPeriod()?.value
-          occurredDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _occurredDateTime = this@with.asDateTime()?.value?.toElement()
+          Provenance.Occurred?.from(
+            this@ProvenanceOccurredSurrogate.occurredPeriod,
+            DateTime.of(
+              FhirDateTime.fromString(this@ProvenanceOccurredSurrogate.occurredDateTime),
+              this@ProvenanceOccurredSurrogate._occurredDateTime,
+            ),
+          )
         }
       }
   }
@@ -160,43 +162,43 @@ internal data class ProvenanceSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var target: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var target: MutableList<Reference>? = null,
   public var recorded: String? = null,
   public var _recorded: Element? = null,
-  public var policy: List<String?>? = null,
-  public var _policy: List<Element?>? = null,
+  public var policy: MutableList<String?>? = null,
+  public var _policy: MutableList<Element?>? = null,
   public var location: Reference? = null,
-  public var reason: List<CodeableConcept?>? = null,
+  public var reason: MutableList<CodeableConcept>? = null,
   public var activity: CodeableConcept? = null,
-  public var agent: List<Provenance.Agent>? = null,
-  public var entity: List<Provenance.Entity>? = null,
-  public var signature: List<Signature?>? = null,
+  public var agent: MutableList<Provenance.Agent>? = null,
+  public var entity: MutableList<Provenance.Entity>? = null,
+  public var signature: MutableList<Signature>? = null,
   public var occurred: Provenance.Occurred? = null,
 ) {
   public fun toModel(): Provenance =
-    Provenance().apply {
-      id = this@ProvenanceSurrogate.id
-      meta = this@ProvenanceSurrogate.meta
+    Provenance(
+      id = this@ProvenanceSurrogate.id,
+      meta = this@ProvenanceSurrogate.meta,
       implicitRules =
-        Uri.of(this@ProvenanceSurrogate.implicitRules, this@ProvenanceSurrogate._implicitRules)
-      language = Code.of(this@ProvenanceSurrogate.language, this@ProvenanceSurrogate._language)
-      text = this@ProvenanceSurrogate.text
-      contained = this@ProvenanceSurrogate.contained
-      extension = this@ProvenanceSurrogate.extension
-      modifierExtension = this@ProvenanceSurrogate.modifierExtension
-      target = this@ProvenanceSurrogate.target
-      occurred = this@ProvenanceSurrogate.occurred
+        Uri.of(this@ProvenanceSurrogate.implicitRules, this@ProvenanceSurrogate._implicitRules),
+      language = Code.of(this@ProvenanceSurrogate.language, this@ProvenanceSurrogate._language),
+      text = this@ProvenanceSurrogate.text,
+      contained = this@ProvenanceSurrogate.contained ?: mutableListOf(),
+      extension = this@ProvenanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProvenanceSurrogate.modifierExtension ?: mutableListOf(),
+      target = this@ProvenanceSurrogate.target ?: mutableListOf(),
+      occurred = this@ProvenanceSurrogate.occurred,
       recorded =
         Instant.of(
           FhirDateTime.fromString(this@ProvenanceSurrogate.recorded),
           this@ProvenanceSurrogate._recorded,
-        )
+        )!!,
       policy =
         if (this@ProvenanceSurrogate.policy == null && this@ProvenanceSurrogate._policy == null) {
-          null
+          mutableListOf()
         } else {
           (this@ProvenanceSurrogate.policy
               ?: List(this@ProvenanceSurrogate._policy!!.size) { null })
@@ -204,43 +206,50 @@ internal data class ProvenanceSurrogate(
               this@ProvenanceSurrogate._policy
                 ?: List(this@ProvenanceSurrogate.policy!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      location = this@ProvenanceSurrogate.location
-      reason = this@ProvenanceSurrogate.reason
-      activity = this@ProvenanceSurrogate.activity
-      agent = this@ProvenanceSurrogate.agent
-      entity = this@ProvenanceSurrogate.entity
-      signature = this@ProvenanceSurrogate.signature
-    }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      location = this@ProvenanceSurrogate.location,
+      reason = this@ProvenanceSurrogate.reason ?: mutableListOf(),
+      activity = this@ProvenanceSurrogate.activity,
+      agent = this@ProvenanceSurrogate.agent ?: mutableListOf(),
+      entity = this@ProvenanceSurrogate.entity ?: mutableListOf(),
+      signature = this@ProvenanceSurrogate.signature ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Provenance): ProvenanceSurrogate =
       with(model) {
-        ProvenanceSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          target = this@with.target
-          occurred = this@with.occurred
-          recorded = this@with.recorded?.value?.toString()
-          _recorded = this@with.recorded?.toElement()
-          policy = this@with.policy?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _policy = this@with.policy?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          location = this@with.location
-          reason = this@with.reason
-          activity = this@with.activity
-          agent = this@with.agent
-          entity = this@with.entity
-          signature = this@with.signature
-        }
+        ProvenanceSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          target = this@with.target.takeUnless { it.all { it == null } },
+          occurred = this@with.occurred,
+          recorded = this@with.recorded.value?.toString(),
+          _recorded = this@with.recorded.toElement(),
+          policy =
+            this@with.policy.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _policy =
+            this@with.policy
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          location = this@with.location,
+          reason = this@with.reason.takeUnless { it.all { it == null } },
+          activity = this@with.activity,
+          agent = this@with.agent.takeUnless { it.all { it == null } },
+          entity = this@with.entity.takeUnless { it.all { it == null } },
+          signature = this@with.signature.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.VisionPrescriptionLensSpecificationP
 import com.google.fhir.model.r4.serializers.VisionPrescriptionLensSpecificationSerializer
 import com.google.fhir.model.r4.serializers.VisionPrescriptionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class VisionPrescription(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class VisionPrescription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,20 +125,20 @@ public data class VisionPrescription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this vision prescription. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<VisionStatus>? = null,
+  public var status: Enumeration<VisionStatus>,
   /** The date this resource was created. */
-  public var created: DateTime? = null,
+  public var created: DateTime,
   /** A resource reference to the person to whom the vision prescription applies. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /**
    * A reference to a resource that identifies the particular occurrence of contact between patient
    * and health care provider during which the prescription was issued.
@@ -150,14 +150,14 @@ public data class VisionPrescription(
    * Jurisdictions determine the valid lifetime of a prescription. Typically vision prescriptions
    * are valid for two years from the date written.
    */
-  public var dateWritten: DateTime? = null,
+  public var dateWritten: DateTime,
   /** The healthcare professional responsible for authorizing the prescription. */
-  public var prescriber: Reference? = null,
+  public var prescriber: Reference,
   /**
    * Contain the details of the individual lens specifications and serves as the authorization for
    * the fullfillment by certified professionals.
    */
-  public var lensSpecification: List<LensSpecification>? = null,
+  public var lensSpecification: MutableList<LensSpecification> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Contain the details of the individual lens specifications and serves as the authorization for
@@ -182,7 +182,7 @@ public data class VisionPrescription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -201,16 +201,16 @@ public data class VisionPrescription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifies the type of vision correction product which is required for the patient. */
-    public var product: CodeableConcept? = null,
+    public var product: CodeableConcept,
     /**
      * The eye for which the lens specification applies.
      *
      * May also appear as OD (oculus dexter) for the right eye and OS (oculus siniter) for the left
      * eye.
      */
-    public var eye: Enumeration<VisionEyes>? = null,
+    public var eye: Enumeration<VisionEyes>,
     /**
      * Lens power measured in dioptres (0.25 units).
      *
@@ -227,7 +227,7 @@ public data class VisionPrescription(
      */
     public var axis: Integer? = null,
     /** Allows for adjustment on two axis. */
-    public var prism: List<Prism>? = null,
+    public var prism: MutableList<Prism> = mutableListOf(),
     /** Power adjustment for multifocal lenses measured in dioptres (0.25 units). */
     public var add: Decimal? = null,
     /** Contact lens power measured in dioptres (0.25 units). */
@@ -243,7 +243,7 @@ public data class VisionPrescription(
     /** Brand recommendations or restrictions. */
     public var brand: String? = null,
     /** Notes for special requirements such as coatings and lens materials. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
     /** Allows for adjustment on two axis. */
     @Serializable(with = VisionPrescriptionLensSpecificationPrismSerializer::class)
@@ -265,7 +265,7 @@ public data class VisionPrescription(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -284,11 +284,11 @@ public data class VisionPrescription(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Amount of prism to compensate for eye alignment in fractional units. */
-      public var amount: Decimal? = null,
+      public var amount: Decimal,
       /** The relative base, or reference lens edge, for the prism. */
-      public var base: Enumeration<VisionBase>? = null,
+      public var base: Enumeration<VisionBase>,
     ) : BackboneElement()
   }
 
@@ -297,12 +297,9 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Right Eye. */
-    Right("right", "http://hl7.org/fhir/vision-eye-codes", "Right Eye", "Right Eye."),
-    /** Left Eye. */
-    Left("left", "http://hl7.org/fhir/vision-eye-codes", "Left Eye", "Left Eye.");
+    Right("right", "http://hl7.org/fhir/vision-eye-codes", "Right Eye"),
+    Left("left", "http://hl7.org/fhir/vision-eye-codes", "Left Eye");
 
     override fun toString(): kotlin.String = code
 
@@ -311,8 +308,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionEyes =
@@ -329,16 +324,11 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** top. */
-    Up("up", "http://hl7.org/fhir/vision-base-codes", "Up", "top."),
-    /** bottom. */
-    Down("down", "http://hl7.org/fhir/vision-base-codes", "Down", "bottom."),
-    /** inner edge. */
-    In("in", "http://hl7.org/fhir/vision-base-codes", "In", "inner edge."),
-    /** outer edge. */
-    Out("out", "http://hl7.org/fhir/vision-base-codes", "Out", "outer edge.");
+    Up("up", "http://hl7.org/fhir/vision-base-codes", "Up"),
+    Down("down", "http://hl7.org/fhir/vision-base-codes", "Down"),
+    In("in", "http://hl7.org/fhir/vision-base-codes", "In"),
+    Out("out", "http://hl7.org/fhir/vision-base-codes", "Out");
 
     override fun toString(): kotlin.String = code
 
@@ -347,8 +337,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionBase =
@@ -367,36 +355,11 @@ public data class VisionPrescription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -405,8 +368,6 @@ public data class VisionPrescription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): VisionStatus =

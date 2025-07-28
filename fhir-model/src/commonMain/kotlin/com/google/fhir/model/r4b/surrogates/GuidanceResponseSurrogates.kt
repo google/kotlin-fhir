@@ -40,24 +40,20 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class GuidanceResponseModuleSurrogate {
-  public var moduleUri: String? = null
-
-  public var _moduleUri: Element? = null
-
-  public var moduleCanonical: String? = null
-
-  public var _moduleCanonical: Element? = null
-
-  public var moduleCodeableConcept: CodeableConcept? = null
-
+internal data class GuidanceResponseModuleSurrogate(
+  public var moduleUri: String? = null,
+  public var _moduleUri: Element? = null,
+  public var moduleCanonical: String? = null,
+  public var _moduleCanonical: Element? = null,
+  public var moduleCodeableConcept: CodeableConcept? = null,
+) {
   public fun toModel(): GuidanceResponse.Module =
-    GuidanceResponse.Module?.from(
+    GuidanceResponse.Module.from(
       Uri.of(
         this@GuidanceResponseModuleSurrogate.moduleUri,
         this@GuidanceResponseModuleSurrogate._moduleUri,
@@ -67,17 +63,23 @@ internal class GuidanceResponseModuleSurrogate {
         this@GuidanceResponseModuleSurrogate._moduleCanonical,
       ),
       this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
-    ) ?: GuidanceResponse.Module.Null
+    )!!
 
   public companion object {
     public fun fromModel(model: GuidanceResponse.Module): GuidanceResponseModuleSurrogate =
       with(model) {
         GuidanceResponseModuleSurrogate().apply {
-          moduleUri = this@with.asUri()?.value?.value
-          _moduleUri = this@with.asUri()?.value?.toElement()
-          moduleCanonical = this@with.asCanonical()?.value?.value
-          _moduleCanonical = this@with.asCanonical()?.value?.toElement()
-          moduleCodeableConcept = this@with.asCodeableConcept()?.value
+          GuidanceResponse.Module.from(
+            Uri.of(
+              this@GuidanceResponseModuleSurrogate.moduleUri,
+              this@GuidanceResponseModuleSurrogate._moduleUri,
+            ),
+            Canonical.of(
+              this@GuidanceResponseModuleSurrogate.moduleCanonical,
+              this@GuidanceResponseModuleSurrogate._moduleCanonical,
+            ),
+            this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
+          )!!
         }
       }
   }
@@ -92,11 +94,11 @@ internal data class GuidanceResponseSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var requestIdentifier: Identifier? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var subject: Reference? = null,
@@ -104,89 +106,89 @@ internal data class GuidanceResponseSurrogate(
   public var occurrenceDateTime: String? = null,
   public var _occurrenceDateTime: Element? = null,
   public var performer: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var evaluationMessage: List<Reference?>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var evaluationMessage: MutableList<Reference>? = null,
   public var outputParameters: Reference? = null,
   public var result: Reference? = null,
-  public var dataRequirement: List<DataRequirement?>? = null,
-  public var module: GuidanceResponse.Module? = null,
+  public var dataRequirement: MutableList<DataRequirement>? = null,
+  public var module: GuidanceResponse.Module,
 ) {
   public fun toModel(): GuidanceResponse =
-    GuidanceResponse().apply {
-      id = this@GuidanceResponseSurrogate.id
-      meta = this@GuidanceResponseSurrogate.meta
+    GuidanceResponse(
+      id = this@GuidanceResponseSurrogate.id,
+      meta = this@GuidanceResponseSurrogate.meta,
       implicitRules =
         Uri.of(
           this@GuidanceResponseSurrogate.implicitRules,
           this@GuidanceResponseSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@GuidanceResponseSurrogate.language, this@GuidanceResponseSurrogate._language)
-      text = this@GuidanceResponseSurrogate.text
-      contained = this@GuidanceResponseSurrogate.contained
-      extension = this@GuidanceResponseSurrogate.extension
-      modifierExtension = this@GuidanceResponseSurrogate.modifierExtension
-      requestIdentifier = this@GuidanceResponseSurrogate.requestIdentifier
-      identifier = this@GuidanceResponseSurrogate.identifier
-      module = this@GuidanceResponseSurrogate.module
+        Code.of(this@GuidanceResponseSurrogate.language, this@GuidanceResponseSurrogate._language),
+      text = this@GuidanceResponseSurrogate.text,
+      contained = this@GuidanceResponseSurrogate.contained ?: mutableListOf(),
+      extension = this@GuidanceResponseSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GuidanceResponseSurrogate.modifierExtension ?: mutableListOf(),
+      requestIdentifier = this@GuidanceResponseSurrogate.requestIdentifier,
+      identifier = this@GuidanceResponseSurrogate.identifier ?: mutableListOf(),
+      module = this@GuidanceResponseSurrogate.module,
       status =
         Enumeration.of(
-          this@GuidanceResponseSurrogate.status?.let {
-            com.google.fhir.model.r4b.GuidanceResponse.GuidanceResponseStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.GuidanceResponse.GuidanceResponseStatus.fromCode(
+            this@GuidanceResponseSurrogate.status!!
+          ),
           this@GuidanceResponseSurrogate._status,
-        )
-      subject = this@GuidanceResponseSurrogate.subject
-      encounter = this@GuidanceResponseSurrogate.encounter
+        ),
+      subject = this@GuidanceResponseSurrogate.subject,
+      encounter = this@GuidanceResponseSurrogate.encounter,
       occurrenceDateTime =
         DateTime.of(
           FhirDateTime.fromString(this@GuidanceResponseSurrogate.occurrenceDateTime),
           this@GuidanceResponseSurrogate._occurrenceDateTime,
-        )
-      performer = this@GuidanceResponseSurrogate.performer
-      reasonCode = this@GuidanceResponseSurrogate.reasonCode
-      reasonReference = this@GuidanceResponseSurrogate.reasonReference
-      note = this@GuidanceResponseSurrogate.note
-      evaluationMessage = this@GuidanceResponseSurrogate.evaluationMessage
-      outputParameters = this@GuidanceResponseSurrogate.outputParameters
-      result = this@GuidanceResponseSurrogate.result
-      dataRequirement = this@GuidanceResponseSurrogate.dataRequirement
-    }
+        ),
+      performer = this@GuidanceResponseSurrogate.performer,
+      reasonCode = this@GuidanceResponseSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@GuidanceResponseSurrogate.reasonReference ?: mutableListOf(),
+      note = this@GuidanceResponseSurrogate.note ?: mutableListOf(),
+      evaluationMessage = this@GuidanceResponseSurrogate.evaluationMessage ?: mutableListOf(),
+      outputParameters = this@GuidanceResponseSurrogate.outputParameters,
+      result = this@GuidanceResponseSurrogate.result,
+      dataRequirement = this@GuidanceResponseSurrogate.dataRequirement ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: GuidanceResponse): GuidanceResponseSurrogate =
       with(model) {
-        GuidanceResponseSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          requestIdentifier = this@with.requestIdentifier
-          identifier = this@with.identifier
-          module = this@with.module
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          subject = this@with.subject
-          encounter = this@with.encounter
-          occurrenceDateTime = this@with.occurrenceDateTime?.value?.toString()
-          _occurrenceDateTime = this@with.occurrenceDateTime?.toElement()
-          performer = this@with.performer
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          note = this@with.note
-          evaluationMessage = this@with.evaluationMessage
-          outputParameters = this@with.outputParameters
-          result = this@with.result
-          dataRequirement = this@with.dataRequirement
-        }
+        GuidanceResponseSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          requestIdentifier = this@with.requestIdentifier,
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          module = this@with.module,
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          occurrenceDateTime = this@with.occurrenceDateTime?.value?.toString(),
+          _occurrenceDateTime = this@with.occurrenceDateTime?.toElement(),
+          performer = this@with.performer,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          evaluationMessage = this@with.evaluationMessage.takeUnless { it.all { it == null } },
+          outputParameters = this@with.outputParameters,
+          result = this@with.result,
+          dataRequirement = this@with.dataRequirement.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

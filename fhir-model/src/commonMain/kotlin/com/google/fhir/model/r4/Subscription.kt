@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.SubscriptionChannelSerializer
 import com.google.fhir.model.r4.serializers.SubscriptionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class Subscription(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class Subscription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class Subscription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The status of the subscription, which marks the server state for managing the subscription.
    *
@@ -140,12 +140,12 @@ public data class Subscription(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<SubscriptionStatus>? = null,
+  public var status: Enumeration<SubscriptionStatus>,
   /**
    * Contact details for a human to contact about the subscription. The primary use of this for
    * system administrator troubleshooting.
    */
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint> = mutableListOf(),
   /**
    * The time for the server to turn the subscription off.
    *
@@ -153,7 +153,7 @@ public data class Subscription(
    */
   public var end: Instant? = null,
   /** A description of why this subscription is defined. */
-  public var reason: String? = null,
+  public var reason: String,
   /**
    * The rules that the server should use to determine when to generate notifications for this
    * subscription.
@@ -161,11 +161,11 @@ public data class Subscription(
    * The rules are search criteria (without the [base] part). Like Bundle.entry.request.url, it has
    * no leading "/".
    */
-  public var criteria: String? = null,
+  public var criteria: String,
   /** A record of the last error that occurred when the server processed a notification. */
   public var error: String? = null,
   /** Details where to send notifications when resources are received that meet the criteria. */
-  public var channel: Channel? = null,
+  public var channel: Channel,
 ) : DomainResource() {
   /** Details where to send notifications when resources are received that meet the criteria. */
   @Serializable(with = SubscriptionChannelSerializer::class)
@@ -187,7 +187,7 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -206,9 +206,9 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of channel to send notifications on. */
-    public var type: Enumeration<SubscriptionChannelType>? = null,
+    public var type: Enumeration<SubscriptionChannelType>,
     /**
      * The url that describes the actual end-point to send messages to.
      *
@@ -235,7 +235,7 @@ public data class Subscription(
      * the recipient and/or meet security requirements; for example, support of multiple headers in
      * the outgoing notifications for rest-hook type subscriptions.
      */
-    public var `header`: List<String?>? = null,
+    public var `header`: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
   /** The type of method used to execute a subscription. */
@@ -243,58 +243,12 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The channel is executed by making a post to the URI. If a payload is included, the URL is
-     * interpreted as the service base, and an update (PUT) is made.
-     */
-    Rest_Hook(
-      "rest-hook",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Rest Hook",
-      "The channel is executed by making a post to the URI. If a payload is included, the URL is interpreted as the service base, and an update (PUT) is made.",
-    ),
-    /**
-     * The channel is executed by sending a packet across a web socket connection maintained by the
-     * client. The URL identifies the websocket, and the client binds to this URL.
-     */
-    Websocket(
-      "websocket",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Websocket",
-      "The channel is executed by sending a packet across a web socket connection maintained by the client. The URL identifies the websocket, and the client binds to this URL.",
-    ),
-    /**
-     * The channel is executed by sending an email to the email addressed in the URI (which must be
-     * a mailto:).
-     */
-    Email(
-      "email",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Email",
-      "The channel is executed by sending an email to the email addressed in the URI (which must be a mailto:).",
-    ),
-    /**
-     * The channel is executed by sending an SMS message to the phone number identified in the URL
-     * (tel:).
-     */
-    Sms(
-      "sms",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "SMS",
-      "The channel is executed by sending an SMS message to the phone number identified in the URL (tel:).",
-    ),
-    /**
-     * The channel is executed by sending a message (e.g. a Bundle with a MessageHeader resource
-     * etc.) to the application identified in the URI.
-     */
-    Message(
-      "message",
-      "http://hl7.org/fhir/subscription-channel-type",
-      "Message",
-      "The channel is executed by sending a message (e.g. a Bundle with a MessageHeader resource etc.) to the application identified in the URI.",
-    );
+    Rest_Hook("rest-hook", "http://hl7.org/fhir/subscription-channel-type", "Rest Hook"),
+    Websocket("websocket", "http://hl7.org/fhir/subscription-channel-type", "Websocket"),
+    Email("email", "http://hl7.org/fhir/subscription-channel-type", "Email"),
+    Sms("sms", "http://hl7.org/fhir/subscription-channel-type", "SMS"),
+    Message("message", "http://hl7.org/fhir/subscription-channel-type", "Message");
 
     override fun toString(): kotlin.String = code
 
@@ -303,8 +257,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionChannelType =
@@ -325,36 +277,11 @@ public data class Subscription(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The client has requested the subscription, and the server has not yet set it up. */
-    Requested(
-      "requested",
-      "http://hl7.org/fhir/subscription-status",
-      "Requested",
-      "The client has requested the subscription, and the server has not yet set it up.",
-    ),
-    /** The subscription is active. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/subscription-status",
-      "Active",
-      "The subscription is active.",
-    ),
-    /** The server has an error executing the notification. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/subscription-status",
-      "Error",
-      "The server has an error executing the notification.",
-    ),
-    /** Too many errors have occurred or the subscription has expired. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/subscription-status",
-      "Off",
-      "Too many errors have occurred or the subscription has expired.",
-    );
+    Requested("requested", "http://hl7.org/fhir/subscription-status", "Requested"),
+    Active("active", "http://hl7.org/fhir/subscription-status", "Active"),
+    Error("error", "http://hl7.org/fhir/subscription-status", "Error"),
+    Off("off", "http://hl7.org/fhir/subscription-status", "Off");
 
     override fun toString(): kotlin.String = code
 
@@ -363,8 +290,6 @@ public data class Subscription(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SubscriptionStatus =

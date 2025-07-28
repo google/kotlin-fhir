@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.AppointmentRecurrenceTemplateWeeklyT
 import com.google.fhir.model.r5.serializers.AppointmentRecurrenceTemplateYearlyTemplateSerializer
 import com.google.fhir.model.r5.serializers.AppointmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class Appointment(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class Appointment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,13 +133,13 @@ public data class Appointment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * This records identifiers associated with this appointment concern that are defined by business
    * processes and/or used to refer to it when a direct URL reference to the resource itself is not
    * appropriate (e.g. in CDA documents, or in written / printed documentation).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The overall status of the Appointment. Each of the participants has their own participation
    * status which indicates their involvement in the process, however this status indicates the
@@ -152,7 +152,7 @@ public data class Appointment(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that mark the Appointment as not currently valid.
    */
-  public var status: Enumeration<AppointmentStatus>? = null,
+  public var status: Enumeration<AppointmentStatus>,
   /**
    * The coded reason for the appointment being cancelled. This is often used in
    * reporting/billing/futher processing to determine if further actions are required, or specific
@@ -163,21 +163,21 @@ public data class Appointment(
    * Concepts representing classification of patient encounter such as ambulatory (outpatient),
    * inpatient, emergency, home health or others due to local variations.
    */
-  public var `class`: List<CodeableConcept?>? = null,
+  public var `class`: MutableList<CodeableConcept> = mutableListOf(),
   /** A broad categorization of the service that is to be performed during this appointment. */
-  public var serviceCategory: List<CodeableConcept?>? = null,
+  public var serviceCategory: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The specific service that is to be performed during this appointment.
    *
    * For a provider to provider appointment the code "FOLLOWUP" may be appropriate, as this is
    * expected to be discussing some patient that was seen in the past.
    */
-  public var serviceType: List<CodeableReference?>? = null,
+  public var serviceType: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The specialty of a practitioner that would be required to perform the service requested in this
    * appointment.
    */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /** The style of appointment or patient that has been booked in the slot (not service type). */
   public var appointmentType: CodeableConcept? = null,
   /**
@@ -187,7 +187,7 @@ public data class Appointment(
    * typically be a Condition (with other resources referenced in the evidence.detail), or a
    * Procedure.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The priority of the appointment. Can be used to make informed decisions if needing to
    * re-prioritize appointments. (The iCal Standard specifies 0 as undefined, 1 as highest, 9 as
@@ -208,7 +208,7 @@ public data class Appointment(
    * Appointment replaced by this Appointment in cases where there is a cancellation, the details of
    * the cancellation can be found in the cancellationReason property (on the referenced resource).
    */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * Connection details of a virtual service (e.g. conference call).
    *
@@ -222,9 +222,9 @@ public data class Appointment(
    * If each participant would have a different meeting link, an extension using the
    * VirtualServiceContactDetail can be applied to the Appointment.participant BackboneElement.
    */
-  public var virtualService: List<VirtualServiceDetail?>? = null,
+  public var virtualService: MutableList<VirtualServiceDetail> = mutableListOf(),
   /** Additional information to support the appointment provided when making the appointment. */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /**
    * The previous appointment in a series of related appointments.
    *
@@ -276,9 +276,9 @@ public data class Appointment(
    *
    * This does not introduce a capacity for recurring appointments.
    */
-  public var requestedPeriod: List<Period?>? = null,
+  public var requestedPeriod: MutableList<Period> = mutableListOf(),
   /** The slots from the participants' schedules that will be filled by the appointment. */
-  public var slot: List<Reference?>? = null,
+  public var slot: MutableList<Reference> = mutableListOf(),
   /**
    * The set of accounts that is expected to be used for billing the activities that result from
    * this Appointment.
@@ -286,7 +286,7 @@ public data class Appointment(
    * The specified account(s) could be those identified during pre-registration workflows in
    * preparation for an upcoming Encounter.
    */
-  public var account: List<Reference?>? = null,
+  public var account: MutableList<Reference> = mutableListOf(),
   /**
    * The date that this appointment was initially created. This could be different to the
    * meta.lastModified value on the initial entry, as this could have been before the resource was
@@ -316,25 +316,25 @@ public data class Appointment(
    * Typically only the concept.text will be used, however occasionally a reference to some generic
    * documentation (or specific) and also supports coded instructions if/when they are required.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * While Appointment.note contains information for internal use, Appointment.patientInstructions
    * is used to capture patient facing information about the Appointment (e.g. please bring your
    * referral or fast from 8pm night before).
    */
-  public var patientInstruction: List<CodeableReference?>? = null,
+  public var patientInstruction: MutableList<CodeableReference> = mutableListOf(),
   /**
    * The request this appointment is allocated to assess (e.g. incoming referral or procedure
    * request).
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * The patient or group associated with the appointment, if they are to be present (usually) then
    * they should also be included in the participant backbone element.
    */
   public var subject: Reference? = null,
   /** List of participants involved in the appointment. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** The sequence number that identifies a specific appointment in a recurring pattern. */
   public var recurrenceId: PositiveInt? = null,
   /**
@@ -349,7 +349,7 @@ public data class Appointment(
    * The details of the recurrence pattern or template that is used to generate recurring
    * appointments.
    */
-  public var recurrenceTemplate: List<RecurrenceTemplate>? = null,
+  public var recurrenceTemplate: MutableList<RecurrenceTemplate> = mutableListOf(),
 ) : DomainResource() {
   /** List of participants involved in the appointment. */
   @Serializable(with = AppointmentParticipantSerializer::class)
@@ -371,7 +371,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -390,7 +390,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Role of participant in the appointment.
      *
@@ -403,7 +403,7 @@ public data class Appointment(
      * This value SHALL be the same when creating an AppointmentResponse so that they can be
      * matched, and subsequently update the Appointment.
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /** Participation period of the actor. */
     public var period: Period? = null,
     /**
@@ -425,7 +425,7 @@ public data class Appointment(
      */
     public var required: Boolean? = null,
     /** Participation status of the actor. */
-    public var status: Enumeration<ParticipationStatus>? = null,
+    public var status: Enumeration<ParticipationStatus>,
   ) : BackboneElement()
 
   /**
@@ -451,7 +451,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -470,17 +470,17 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The timezone of the recurring appointment occurrences. */
     public var timezone: CodeableConcept? = null,
     /** How often the appointment series should recur. */
-    public var recurrenceType: CodeableConcept? = null,
+    public var recurrenceType: CodeableConcept,
     /** Recurring appointments will not occur after this date. */
     public var lastOccurrenceDate: Date? = null,
     /** How many appointments are planned in the recurrence. */
     public var occurrenceCount: PositiveInt? = null,
     /** The list of specific dates that will have appointments generated. */
-    public var occurrenceDate: List<Date?>? = null,
+    public var occurrenceDate: MutableList<Date> = mutableListOf(),
     /** Information about weekly recurring appointments. */
     public var weeklyTemplate: WeeklyTemplate? = null,
     /** Information about monthly recurring appointments. */
@@ -494,7 +494,7 @@ public data class Appointment(
      * should be excluded using excludingDate, or you may indicate the recurrenceId of the
      * appointment that would fall on the excluded date in the excludingRecurrenceId property.
      */
-    public var excludingDate: List<Date?>? = null,
+    public var excludingDate: MutableList<Date> = mutableListOf(),
     /**
      * Any dates, such as holidays, that should be excluded from the recurrence.
      *
@@ -502,7 +502,7 @@ public data class Appointment(
      * should be excluded using excludingDate, or you may indicate the recurrenceId of the
      * appointment that would fall on the excluded date in the excludingRecurrenceId property.
      */
-    public var excludingRecurrenceId: List<PositiveInt?>? = null,
+    public var excludingRecurrenceId: MutableList<PositiveInt> = mutableListOf(),
   ) : BackboneElement() {
     /** Information about weekly recurring appointments. */
     @Serializable(with = AppointmentRecurrenceTemplateWeeklyTemplateSerializer::class)
@@ -524,7 +524,7 @@ public data class Appointment(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -543,7 +543,7 @@ public data class Appointment(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Indicates that recurring appointments should occur on Mondays. */
       public var monday: Boolean? = null,
       /** Indicates that recurring appointments should occur on Tuesdays. */
@@ -588,7 +588,7 @@ public data class Appointment(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -607,7 +607,7 @@ public data class Appointment(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates that appointments in the series of recurring appointments should occur on a
        * specific day of the month.
@@ -625,7 +625,7 @@ public data class Appointment(
        */
       public var dayOfWeek: Coding? = null,
       /** Indicates that recurring appointments should occur every nth month. */
-      public var monthInterval: PositiveInt? = null,
+      public var monthInterval: PositiveInt,
     ) : BackboneElement()
 
     /** Information about yearly recurring appointments. */
@@ -648,7 +648,7 @@ public data class Appointment(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -667,9 +667,9 @@ public data class Appointment(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Appointment recurs every nth year. */
-      public var yearInterval: PositiveInt? = null,
+      public var yearInterval: PositiveInt,
     ) : BackboneElement()
   }
 
@@ -678,43 +678,11 @@ public data class Appointment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant has accepted the appointment. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/participationstatus",
-      "Accepted",
-      "The participant has accepted the appointment.",
-    ),
-    /** The participant has declined the appointment and will not participate in the appointment. */
-    Declined(
-      "declined",
-      "http://hl7.org/fhir/participationstatus",
-      "Declined",
-      "The participant has declined the appointment and will not participate in the appointment.",
-    ),
-    /**
-     * The participant has tentatively accepted the appointment. This could be automatically created
-     * by a system and requires further processing before it can be accepted. There is no commitment
-     * that attendance will occur.
-     */
-    Tentative(
-      "tentative",
-      "http://hl7.org/fhir/participationstatus",
-      "Tentative",
-      "The participant has  tentatively accepted the appointment. This could be automatically created by a system and requires further processing before it can be accepted. There is no commitment that attendance will occur.",
-    ),
-    /**
-     * The participant needs to indicate if they accept the appointment by changing this status to
-     * one of the other statuses.
-     */
-    Needs_Action(
-      "needs-action",
-      "http://hl7.org/fhir/participationstatus",
-      "Needs Action",
-      "The participant needs to indicate if they accept the appointment by changing this status to one of the other statuses.",
-    );
+    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted"),
+    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined"),
+    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative"),
+    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action");
 
     override fun toString(): kotlin.String = code
 
@@ -723,8 +691,6 @@ public data class Appointment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ParticipationStatus =
@@ -743,104 +709,21 @@ public data class Appointment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * None of the participant(s) have finalized their acceptance of the appointment request, and
-     * the start/end time might not be set yet.
-     */
-    Proposed(
-      "proposed",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Proposed",
-      "None of the participant(s) have finalized their acceptance of the appointment request, and the start/end time might not be set yet.",
-    ),
-    /**
-     * Some or all of the participant(s) have not finalized their acceptance of the appointment
-     * request.
-     */
-    Pending(
-      "pending",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Pending",
-      "Some or all of the participant(s) have not finalized their acceptance of the appointment request.",
-    ),
-    /**
-     * All participant(s) have been considered and the appointment is confirmed to go ahead at the
-     * date/times specified.
-     */
-    Booked(
-      "booked",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Booked",
-      "All participant(s) have been considered and the appointment is confirmed to go ahead at the date/times specified.",
-    ),
-    /** The patient/patients has/have arrived and is/are waiting to be seen. */
-    Arrived(
-      "arrived",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Arrived",
-      "The patient/patients has/have arrived and is/are waiting to be seen.",
-    ),
-    /**
-     * The planning stages of the appointment are now complete, the encounter resource will exist
-     * and will track further status changes. Note that an encounter may exist before the
-     * appointment status is fulfilled for many reasons.
-     */
-    Fulfilled(
-      "fulfilled",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Fulfilled",
-      "The planning stages of the appointment are now complete, the encounter resource will exist and will track further status changes. Note that an encounter may exist before the appointment status is fulfilled for many reasons.",
-    ),
-    /** The appointment has been cancelled. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Cancelled",
-      "The appointment has been cancelled.",
-    ),
-    /**
-     * Some or all of the participant(s) have not/did not appear for the appointment (usually the
-     * patient).
-     */
-    Noshow(
-      "noshow",
-      "http://hl7.org/fhir/appointmentstatus",
-      "No Show",
-      "Some or all of the participant(s) have not/did not appear for the appointment (usually the patient).",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
+    Proposed("proposed", "http://hl7.org/fhir/appointmentstatus", "Proposed"),
+    Pending("pending", "http://hl7.org/fhir/appointmentstatus", "Pending"),
+    Booked("booked", "http://hl7.org/fhir/appointmentstatus", "Booked"),
+    Arrived("arrived", "http://hl7.org/fhir/appointmentstatus", "Arrived"),
+    Fulfilled("fulfilled", "http://hl7.org/fhir/appointmentstatus", "Fulfilled"),
+    Cancelled("cancelled", "http://hl7.org/fhir/appointmentstatus", "Cancelled"),
+    Noshow("noshow", "http://hl7.org/fhir/appointmentstatus", "No Show"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/appointmentstatus",
       "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
     ),
-    /**
-     * When checked in, all pre-encounter administrative work is complete, and the encounter may
-     * begin. (where multiple patients are involved, they are all present).
-     */
-    Checked_In(
-      "checked-in",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Checked In",
-      "When checked in, all pre-encounter administrative work is complete, and the encounter may begin. (where multiple patients are involved, they are all present).",
-    ),
-    /**
-     * The appointment has been placed on a waitlist, to be scheduled/confirmed in the future when a
-     * slot/service is available. A specific time might or might not be pre-allocated.
-     */
-    Waitlist(
-      "waitlist",
-      "http://hl7.org/fhir/appointmentstatus",
-      "Waitlisted",
-      """
-    |The appointment has been placed on a waitlist, to be scheduled/confirmed in the future when a slot/service is available.
-    |A specific time might or might not be pre-allocated.
-    """
-        .trimMargin(),
-    );
+    Checked_In("checked-in", "http://hl7.org/fhir/appointmentstatus", "Checked In"),
+    Waitlist("waitlist", "http://hl7.org/fhir/appointmentstatus", "Waitlisted");
 
     override fun toString(): kotlin.String = code
 
@@ -849,8 +732,6 @@ public data class Appointment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AppointmentStatus =

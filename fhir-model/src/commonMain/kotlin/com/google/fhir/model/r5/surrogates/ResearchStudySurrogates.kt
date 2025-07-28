@@ -48,43 +48,43 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ResearchStudyLabelSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var `value`: KotlinString? = null,
   public var _value: Element? = null,
 ) {
   public fun toModel(): ResearchStudy.Label =
-    ResearchStudy.Label().apply {
-      id = this@ResearchStudyLabelSurrogate.id
-      extension = this@ResearchStudyLabelSurrogate.extension
-      modifierExtension = this@ResearchStudyLabelSurrogate.modifierExtension
-      type = this@ResearchStudyLabelSurrogate.type
+    ResearchStudy.Label(
+      id = this@ResearchStudyLabelSurrogate.id,
+      extension = this@ResearchStudyLabelSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ResearchStudyLabelSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ResearchStudyLabelSurrogate.type,
       `value` =
         R5String.of(
           this@ResearchStudyLabelSurrogate.`value`,
           this@ResearchStudyLabelSurrogate._value,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: ResearchStudy.Label): ResearchStudyLabelSurrogate =
       with(model) {
-        ResearchStudyLabelSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-        }
+        ResearchStudyLabelSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+        )
       }
   }
 }
@@ -92,47 +92,48 @@ internal data class ResearchStudyLabelSurrogate(
 @Serializable
 internal data class ResearchStudyAssociatedPartySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var role: CodeableConcept? = null,
-  public var period: List<Period?>? = null,
-  public var classifier: List<CodeableConcept?>? = null,
+  public var role: CodeableConcept,
+  public var period: MutableList<Period>? = null,
+  public var classifier: MutableList<CodeableConcept>? = null,
   public var party: Reference? = null,
 ) {
   public fun toModel(): ResearchStudy.AssociatedParty =
-    ResearchStudy.AssociatedParty().apply {
-      id = this@ResearchStudyAssociatedPartySurrogate.id
-      extension = this@ResearchStudyAssociatedPartySurrogate.extension
-      modifierExtension = this@ResearchStudyAssociatedPartySurrogate.modifierExtension
+    ResearchStudy.AssociatedParty(
+      id = this@ResearchStudyAssociatedPartySurrogate.id,
+      extension = this@ResearchStudyAssociatedPartySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchStudyAssociatedPartySurrogate.modifierExtension ?: mutableListOf(),
       name =
         R5String.of(
           this@ResearchStudyAssociatedPartySurrogate.name,
           this@ResearchStudyAssociatedPartySurrogate._name,
-        )
-      role = this@ResearchStudyAssociatedPartySurrogate.role
-      period = this@ResearchStudyAssociatedPartySurrogate.period
-      classifier = this@ResearchStudyAssociatedPartySurrogate.classifier
-      party = this@ResearchStudyAssociatedPartySurrogate.party
-    }
+        ),
+      role = this@ResearchStudyAssociatedPartySurrogate.role,
+      period = this@ResearchStudyAssociatedPartySurrogate.period ?: mutableListOf(),
+      classifier = this@ResearchStudyAssociatedPartySurrogate.classifier ?: mutableListOf(),
+      party = this@ResearchStudyAssociatedPartySurrogate.party,
+    )
 
   public companion object {
     public fun fromModel(
       model: ResearchStudy.AssociatedParty
     ): ResearchStudyAssociatedPartySurrogate =
       with(model) {
-        ResearchStudyAssociatedPartySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          role = this@with.role
-          period = this@with.period
-          classifier = this@with.classifier
-          party = this@with.party
-        }
+        ResearchStudyAssociatedPartySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          role = this@with.role,
+          period = this@with.period.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          party = this@with.party,
+        )
       }
   }
 }
@@ -140,41 +141,42 @@ internal data class ResearchStudyAssociatedPartySurrogate(
 @Serializable
 internal data class ResearchStudyProgressStatusSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var state: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var state: CodeableConcept,
   public var `actual`: KotlinBoolean? = null,
   public var _actual: Element? = null,
   public var period: Period? = null,
 ) {
   public fun toModel(): ResearchStudy.ProgressStatus =
-    ResearchStudy.ProgressStatus().apply {
-      id = this@ResearchStudyProgressStatusSurrogate.id
-      extension = this@ResearchStudyProgressStatusSurrogate.extension
-      modifierExtension = this@ResearchStudyProgressStatusSurrogate.modifierExtension
-      state = this@ResearchStudyProgressStatusSurrogate.state
+    ResearchStudy.ProgressStatus(
+      id = this@ResearchStudyProgressStatusSurrogate.id,
+      extension = this@ResearchStudyProgressStatusSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchStudyProgressStatusSurrogate.modifierExtension ?: mutableListOf(),
+      state = this@ResearchStudyProgressStatusSurrogate.state,
       `actual` =
         R5Boolean.of(
           this@ResearchStudyProgressStatusSurrogate.`actual`,
           this@ResearchStudyProgressStatusSurrogate._actual,
-        )
-      period = this@ResearchStudyProgressStatusSurrogate.period
-    }
+        ),
+      period = this@ResearchStudyProgressStatusSurrogate.period,
+    )
 
   public companion object {
     public fun fromModel(
       model: ResearchStudy.ProgressStatus
     ): ResearchStudyProgressStatusSurrogate =
       with(model) {
-        ResearchStudyProgressStatusSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          state = this@with.state
-          `actual` = this@with.`actual`?.value
-          _actual = this@with.`actual`?.toElement()
-          period = this@with.period
-        }
+        ResearchStudyProgressStatusSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          state = this@with.state,
+          `actual` = this@with.`actual`?.value,
+          _actual = this@with.`actual`?.toElement(),
+          period = this@with.period,
+        )
       }
   }
 }
@@ -182,8 +184,8 @@ internal data class ResearchStudyProgressStatusSurrogate(
 @Serializable
 internal data class ResearchStudyRecruitmentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var targetNumber: Int? = null,
   public var _targetNumber: Element? = null,
   public var actualNumber: Int? = null,
@@ -192,38 +194,39 @@ internal data class ResearchStudyRecruitmentSurrogate(
   public var actualGroup: Reference? = null,
 ) {
   public fun toModel(): ResearchStudy.Recruitment =
-    ResearchStudy.Recruitment().apply {
-      id = this@ResearchStudyRecruitmentSurrogate.id
-      extension = this@ResearchStudyRecruitmentSurrogate.extension
-      modifierExtension = this@ResearchStudyRecruitmentSurrogate.modifierExtension
+    ResearchStudy.Recruitment(
+      id = this@ResearchStudyRecruitmentSurrogate.id,
+      extension = this@ResearchStudyRecruitmentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchStudyRecruitmentSurrogate.modifierExtension ?: mutableListOf(),
       targetNumber =
         UnsignedInt.of(
           this@ResearchStudyRecruitmentSurrogate.targetNumber,
           this@ResearchStudyRecruitmentSurrogate._targetNumber,
-        )
+        ),
       actualNumber =
         UnsignedInt.of(
           this@ResearchStudyRecruitmentSurrogate.actualNumber,
           this@ResearchStudyRecruitmentSurrogate._actualNumber,
-        )
-      eligibility = this@ResearchStudyRecruitmentSurrogate.eligibility
-      actualGroup = this@ResearchStudyRecruitmentSurrogate.actualGroup
-    }
+        ),
+      eligibility = this@ResearchStudyRecruitmentSurrogate.eligibility,
+      actualGroup = this@ResearchStudyRecruitmentSurrogate.actualGroup,
+    )
 
   public companion object {
     public fun fromModel(model: ResearchStudy.Recruitment): ResearchStudyRecruitmentSurrogate =
       with(model) {
-        ResearchStudyRecruitmentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          targetNumber = this@with.targetNumber?.value
-          _targetNumber = this@with.targetNumber?.toElement()
-          actualNumber = this@with.actualNumber?.value
-          _actualNumber = this@with.actualNumber?.toElement()
-          eligibility = this@with.eligibility
-          actualGroup = this@with.actualGroup
-        }
+        ResearchStudyRecruitmentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          targetNumber = this@with.targetNumber?.value,
+          _targetNumber = this@with.targetNumber?.toElement(),
+          actualNumber = this@with.actualNumber?.value,
+          _actualNumber = this@with.actualNumber?.toElement(),
+          eligibility = this@with.eligibility,
+          actualGroup = this@with.actualGroup,
+        )
       }
   }
 }
@@ -231,8 +234,8 @@ internal data class ResearchStudyRecruitmentSurrogate(
 @Serializable
 internal data class ResearchStudyComparisonGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var name: KotlinString? = null,
@@ -240,53 +243,55 @@ internal data class ResearchStudyComparisonGroupSurrogate(
   public var type: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var intendedExposure: List<Reference?>? = null,
+  public var intendedExposure: MutableList<Reference>? = null,
   public var observedGroup: Reference? = null,
 ) {
   public fun toModel(): ResearchStudy.ComparisonGroup =
-    ResearchStudy.ComparisonGroup().apply {
-      id = this@ResearchStudyComparisonGroupSurrogate.id
-      extension = this@ResearchStudyComparisonGroupSurrogate.extension
-      modifierExtension = this@ResearchStudyComparisonGroupSurrogate.modifierExtension
+    ResearchStudy.ComparisonGroup(
+      id = this@ResearchStudyComparisonGroupSurrogate.id,
+      extension = this@ResearchStudyComparisonGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchStudyComparisonGroupSurrogate.modifierExtension ?: mutableListOf(),
       linkId =
         Id.of(
           this@ResearchStudyComparisonGroupSurrogate.linkId,
           this@ResearchStudyComparisonGroupSurrogate._linkId,
-        )
+        ),
       name =
         R5String.of(
           this@ResearchStudyComparisonGroupSurrogate.name,
           this@ResearchStudyComparisonGroupSurrogate._name,
-        )
-      type = this@ResearchStudyComparisonGroupSurrogate.type
+        )!!,
+      type = this@ResearchStudyComparisonGroupSurrogate.type,
       description =
         Markdown.of(
           this@ResearchStudyComparisonGroupSurrogate.description,
           this@ResearchStudyComparisonGroupSurrogate._description,
-        )
-      intendedExposure = this@ResearchStudyComparisonGroupSurrogate.intendedExposure
-      observedGroup = this@ResearchStudyComparisonGroupSurrogate.observedGroup
-    }
+        ),
+      intendedExposure =
+        this@ResearchStudyComparisonGroupSurrogate.intendedExposure ?: mutableListOf(),
+      observedGroup = this@ResearchStudyComparisonGroupSurrogate.observedGroup,
+    )
 
   public companion object {
     public fun fromModel(
       model: ResearchStudy.ComparisonGroup
     ): ResearchStudyComparisonGroupSurrogate =
       with(model) {
-        ResearchStudyComparisonGroupSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          linkId = this@with.linkId?.value
-          _linkId = this@with.linkId?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          type = this@with.type
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          intendedExposure = this@with.intendedExposure
-          observedGroup = this@with.observedGroup
-        }
+        ResearchStudyComparisonGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          type = this@with.type,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          intendedExposure = this@with.intendedExposure.takeUnless { it.all { it == null } },
+          observedGroup = this@with.observedGroup,
+        )
       }
   }
 }
@@ -294,8 +299,8 @@ internal data class ResearchStudyComparisonGroupSurrogate(
 @Serializable
 internal data class ResearchStudyObjectiveSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var type: CodeableConcept? = null,
@@ -303,36 +308,36 @@ internal data class ResearchStudyObjectiveSurrogate(
   public var _description: Element? = null,
 ) {
   public fun toModel(): ResearchStudy.Objective =
-    ResearchStudy.Objective().apply {
-      id = this@ResearchStudyObjectiveSurrogate.id
-      extension = this@ResearchStudyObjectiveSurrogate.extension
-      modifierExtension = this@ResearchStudyObjectiveSurrogate.modifierExtension
+    ResearchStudy.Objective(
+      id = this@ResearchStudyObjectiveSurrogate.id,
+      extension = this@ResearchStudyObjectiveSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ResearchStudyObjectiveSurrogate.modifierExtension ?: mutableListOf(),
       name =
         R5String.of(
           this@ResearchStudyObjectiveSurrogate.name,
           this@ResearchStudyObjectiveSurrogate._name,
-        )
-      type = this@ResearchStudyObjectiveSurrogate.type
+        ),
+      type = this@ResearchStudyObjectiveSurrogate.type,
       description =
         Markdown.of(
           this@ResearchStudyObjectiveSurrogate.description,
           this@ResearchStudyObjectiveSurrogate._description,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: ResearchStudy.Objective): ResearchStudyObjectiveSurrogate =
       with(model) {
-        ResearchStudyObjectiveSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          type = this@with.type
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-        }
+        ResearchStudyObjectiveSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          type = this@with.type,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+        )
       }
   }
 }
@@ -340,50 +345,51 @@ internal data class ResearchStudyObjectiveSurrogate(
 @Serializable
 internal data class ResearchStudyOutcomeMeasureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var reference: Reference? = null,
 ) {
   public fun toModel(): ResearchStudy.OutcomeMeasure =
-    ResearchStudy.OutcomeMeasure().apply {
-      id = this@ResearchStudyOutcomeMeasureSurrogate.id
-      extension = this@ResearchStudyOutcomeMeasureSurrogate.extension
-      modifierExtension = this@ResearchStudyOutcomeMeasureSurrogate.modifierExtension
+    ResearchStudy.OutcomeMeasure(
+      id = this@ResearchStudyOutcomeMeasureSurrogate.id,
+      extension = this@ResearchStudyOutcomeMeasureSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchStudyOutcomeMeasureSurrogate.modifierExtension ?: mutableListOf(),
       name =
         R5String.of(
           this@ResearchStudyOutcomeMeasureSurrogate.name,
           this@ResearchStudyOutcomeMeasureSurrogate._name,
-        )
-      type = this@ResearchStudyOutcomeMeasureSurrogate.type
+        ),
+      type = this@ResearchStudyOutcomeMeasureSurrogate.type ?: mutableListOf(),
       description =
         Markdown.of(
           this@ResearchStudyOutcomeMeasureSurrogate.description,
           this@ResearchStudyOutcomeMeasureSurrogate._description,
-        )
-      reference = this@ResearchStudyOutcomeMeasureSurrogate.reference
-    }
+        ),
+      reference = this@ResearchStudyOutcomeMeasureSurrogate.reference,
+    )
 
   public companion object {
     public fun fromModel(
       model: ResearchStudy.OutcomeMeasure
     ): ResearchStudyOutcomeMeasureSurrogate =
       with(model) {
-        ResearchStudyOutcomeMeasureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          type = this@with.type
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          reference = this@with.reference
-        }
+        ResearchStudyOutcomeMeasureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          type = this@with.type.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          reference = this@with.reference,
+        )
       }
   }
 }
@@ -397,173 +403,171 @@ internal data class ResearchStudySurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var label: List<ResearchStudy.Label>? = null,
-  public var protocol: List<Reference?>? = null,
-  public var partOf: List<Reference?>? = null,
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var label: MutableList<ResearchStudy.Label>? = null,
+  public var protocol: MutableList<Reference>? = null,
+  public var partOf: MutableList<Reference>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var primaryPurposeType: CodeableConcept? = null,
   public var phase: CodeableConcept? = null,
-  public var studyDesign: List<CodeableConcept?>? = null,
-  public var focus: List<CodeableReference?>? = null,
-  public var condition: List<CodeableConcept?>? = null,
-  public var keyword: List<CodeableConcept?>? = null,
-  public var region: List<CodeableConcept?>? = null,
+  public var studyDesign: MutableList<CodeableConcept>? = null,
+  public var focus: MutableList<CodeableReference>? = null,
+  public var condition: MutableList<CodeableConcept>? = null,
+  public var keyword: MutableList<CodeableConcept>? = null,
+  public var region: MutableList<CodeableConcept>? = null,
   public var descriptionSummary: KotlinString? = null,
   public var _descriptionSummary: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var period: Period? = null,
-  public var site: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var classifier: List<CodeableConcept?>? = null,
-  public var associatedParty: List<ResearchStudy.AssociatedParty>? = null,
-  public var progressStatus: List<ResearchStudy.ProgressStatus>? = null,
+  public var site: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var classifier: MutableList<CodeableConcept>? = null,
+  public var associatedParty: MutableList<ResearchStudy.AssociatedParty>? = null,
+  public var progressStatus: MutableList<ResearchStudy.ProgressStatus>? = null,
   public var whyStopped: CodeableConcept? = null,
   public var recruitment: ResearchStudy.Recruitment? = null,
-  public var comparisonGroup: List<ResearchStudy.ComparisonGroup>? = null,
-  public var objective: List<ResearchStudy.Objective>? = null,
-  public var outcomeMeasure: List<ResearchStudy.OutcomeMeasure>? = null,
-  public var result: List<Reference?>? = null,
+  public var comparisonGroup: MutableList<ResearchStudy.ComparisonGroup>? = null,
+  public var objective: MutableList<ResearchStudy.Objective>? = null,
+  public var outcomeMeasure: MutableList<ResearchStudy.OutcomeMeasure>? = null,
+  public var result: MutableList<Reference>? = null,
 ) {
   public fun toModel(): ResearchStudy =
-    ResearchStudy().apply {
-      id = this@ResearchStudySurrogate.id
-      meta = this@ResearchStudySurrogate.meta
+    ResearchStudy(
+      id = this@ResearchStudySurrogate.id,
+      meta = this@ResearchStudySurrogate.meta,
       implicitRules =
         Uri.of(
           this@ResearchStudySurrogate.implicitRules,
           this@ResearchStudySurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@ResearchStudySurrogate.language, this@ResearchStudySurrogate._language)
-      text = this@ResearchStudySurrogate.text
-      contained = this@ResearchStudySurrogate.contained
-      extension = this@ResearchStudySurrogate.extension
-      modifierExtension = this@ResearchStudySurrogate.modifierExtension
-      url = Uri.of(this@ResearchStudySurrogate.url, this@ResearchStudySurrogate._url)
-      identifier = this@ResearchStudySurrogate.identifier
+        Code.of(this@ResearchStudySurrogate.language, this@ResearchStudySurrogate._language),
+      text = this@ResearchStudySurrogate.text,
+      contained = this@ResearchStudySurrogate.contained ?: mutableListOf(),
+      extension = this@ResearchStudySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ResearchStudySurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@ResearchStudySurrogate.url, this@ResearchStudySurrogate._url),
+      identifier = this@ResearchStudySurrogate.identifier ?: mutableListOf(),
       version =
-        R5String.of(this@ResearchStudySurrogate.version, this@ResearchStudySurrogate._version)
-      name = R5String.of(this@ResearchStudySurrogate.name, this@ResearchStudySurrogate._name)
-      title = R5String.of(this@ResearchStudySurrogate.title, this@ResearchStudySurrogate._title)
-      label = this@ResearchStudySurrogate.label
-      protocol = this@ResearchStudySurrogate.protocol
-      partOf = this@ResearchStudySurrogate.partOf
-      relatedArtifact = this@ResearchStudySurrogate.relatedArtifact
+        R5String.of(this@ResearchStudySurrogate.version, this@ResearchStudySurrogate._version),
+      name = R5String.of(this@ResearchStudySurrogate.name, this@ResearchStudySurrogate._name),
+      title = R5String.of(this@ResearchStudySurrogate.title, this@ResearchStudySurrogate._title),
+      label = this@ResearchStudySurrogate.label ?: mutableListOf(),
+      protocol = this@ResearchStudySurrogate.protocol ?: mutableListOf(),
+      partOf = this@ResearchStudySurrogate.partOf ?: mutableListOf(),
+      relatedArtifact = this@ResearchStudySurrogate.relatedArtifact ?: mutableListOf(),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ResearchStudySurrogate.date),
           this@ResearchStudySurrogate._date,
-        )
+        ),
       status =
         Enumeration.of(
-          this@ResearchStudySurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(this@ResearchStudySurrogate.status!!),
           this@ResearchStudySurrogate._status,
-        )
-      primaryPurposeType = this@ResearchStudySurrogate.primaryPurposeType
-      phase = this@ResearchStudySurrogate.phase
-      studyDesign = this@ResearchStudySurrogate.studyDesign
-      focus = this@ResearchStudySurrogate.focus
-      condition = this@ResearchStudySurrogate.condition
-      keyword = this@ResearchStudySurrogate.keyword
-      region = this@ResearchStudySurrogate.region
+        ),
+      primaryPurposeType = this@ResearchStudySurrogate.primaryPurposeType,
+      phase = this@ResearchStudySurrogate.phase,
+      studyDesign = this@ResearchStudySurrogate.studyDesign ?: mutableListOf(),
+      focus = this@ResearchStudySurrogate.focus ?: mutableListOf(),
+      condition = this@ResearchStudySurrogate.condition ?: mutableListOf(),
+      keyword = this@ResearchStudySurrogate.keyword ?: mutableListOf(),
+      region = this@ResearchStudySurrogate.region ?: mutableListOf(),
       descriptionSummary =
         Markdown.of(
           this@ResearchStudySurrogate.descriptionSummary,
           this@ResearchStudySurrogate._descriptionSummary,
-        )
+        ),
       description =
         Markdown.of(
           this@ResearchStudySurrogate.description,
           this@ResearchStudySurrogate._description,
-        )
-      period = this@ResearchStudySurrogate.period
-      site = this@ResearchStudySurrogate.site
-      note = this@ResearchStudySurrogate.note
-      classifier = this@ResearchStudySurrogate.classifier
-      associatedParty = this@ResearchStudySurrogate.associatedParty
-      progressStatus = this@ResearchStudySurrogate.progressStatus
-      whyStopped = this@ResearchStudySurrogate.whyStopped
-      recruitment = this@ResearchStudySurrogate.recruitment
-      comparisonGroup = this@ResearchStudySurrogate.comparisonGroup
-      objective = this@ResearchStudySurrogate.objective
-      outcomeMeasure = this@ResearchStudySurrogate.outcomeMeasure
-      result = this@ResearchStudySurrogate.result
-    }
+        ),
+      period = this@ResearchStudySurrogate.period,
+      site = this@ResearchStudySurrogate.site ?: mutableListOf(),
+      note = this@ResearchStudySurrogate.note ?: mutableListOf(),
+      classifier = this@ResearchStudySurrogate.classifier ?: mutableListOf(),
+      associatedParty = this@ResearchStudySurrogate.associatedParty ?: mutableListOf(),
+      progressStatus = this@ResearchStudySurrogate.progressStatus ?: mutableListOf(),
+      whyStopped = this@ResearchStudySurrogate.whyStopped,
+      recruitment = this@ResearchStudySurrogate.recruitment,
+      comparisonGroup = this@ResearchStudySurrogate.comparisonGroup ?: mutableListOf(),
+      objective = this@ResearchStudySurrogate.objective ?: mutableListOf(),
+      outcomeMeasure = this@ResearchStudySurrogate.outcomeMeasure ?: mutableListOf(),
+      result = this@ResearchStudySurrogate.result ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ResearchStudy): ResearchStudySurrogate =
       with(model) {
-        ResearchStudySurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          label = this@with.label
-          protocol = this@with.protocol
-          partOf = this@with.partOf
-          relatedArtifact = this@with.relatedArtifact
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          primaryPurposeType = this@with.primaryPurposeType
-          phase = this@with.phase
-          studyDesign = this@with.studyDesign
-          focus = this@with.focus
-          condition = this@with.condition
-          keyword = this@with.keyword
-          region = this@with.region
-          descriptionSummary = this@with.descriptionSummary?.value
-          _descriptionSummary = this@with.descriptionSummary?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          period = this@with.period
-          site = this@with.site
-          note = this@with.note
-          classifier = this@with.classifier
-          associatedParty = this@with.associatedParty
-          progressStatus = this@with.progressStatus
-          whyStopped = this@with.whyStopped
-          recruitment = this@with.recruitment
-          comparisonGroup = this@with.comparisonGroup
-          objective = this@with.objective
-          outcomeMeasure = this@with.outcomeMeasure
-          result = this@with.result
-        }
+        ResearchStudySurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          label = this@with.label.takeUnless { it.all { it == null } },
+          protocol = this@with.protocol.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          primaryPurposeType = this@with.primaryPurposeType,
+          phase = this@with.phase,
+          studyDesign = this@with.studyDesign.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeUnless { it.all { it == null } },
+          condition = this@with.condition.takeUnless { it.all { it == null } },
+          keyword = this@with.keyword.takeUnless { it.all { it == null } },
+          region = this@with.region.takeUnless { it.all { it == null } },
+          descriptionSummary = this@with.descriptionSummary?.value,
+          _descriptionSummary = this@with.descriptionSummary?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          period = this@with.period,
+          site = this@with.site.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          associatedParty = this@with.associatedParty.takeUnless { it.all { it == null } },
+          progressStatus = this@with.progressStatus.takeUnless { it.all { it == null } },
+          whyStopped = this@with.whyStopped,
+          recruitment = this@with.recruitment,
+          comparisonGroup = this@with.comparisonGroup.takeUnless { it.all { it == null } },
+          objective = this@with.objective.takeUnless { it.all { it == null } },
+          outcomeMeasure = this@with.outcomeMeasure.takeUnless { it.all { it == null } },
+          result = this@with.result.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

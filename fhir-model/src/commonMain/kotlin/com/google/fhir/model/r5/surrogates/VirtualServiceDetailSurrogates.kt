@@ -33,25 +33,20 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class VirtualServiceDetailAddressSurrogate {
-  public var addressUrl: KotlinString? = null
-
-  public var _addressUrl: Element? = null
-
-  public var addressString: KotlinString? = null
-
-  public var _addressString: Element? = null
-
-  public var addressContactPoint: ContactPoint? = null
-
-  public var addressExtendedContactDetail: ExtendedContactDetail? = null
-
-  public fun toModel(): VirtualServiceDetail.Address =
+internal data class VirtualServiceDetailAddressSurrogate(
+  public var addressUrl: KotlinString? = null,
+  public var _addressUrl: Element? = null,
+  public var addressString: KotlinString? = null,
+  public var _addressString: Element? = null,
+  public var addressContactPoint: ContactPoint? = null,
+  public var addressExtendedContactDetail: ExtendedContactDetail? = null,
+) {
+  public fun toModel(): VirtualServiceDetail.Address? =
     VirtualServiceDetail.Address?.from(
       Url.of(
         this@VirtualServiceDetailAddressSurrogate.addressUrl,
@@ -63,7 +58,7 @@ internal class VirtualServiceDetailAddressSurrogate {
       ),
       this@VirtualServiceDetailAddressSurrogate.addressContactPoint,
       this@VirtualServiceDetailAddressSurrogate.addressExtendedContactDetail,
-    ) ?: VirtualServiceDetail.Address.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -71,12 +66,18 @@ internal class VirtualServiceDetailAddressSurrogate {
     ): VirtualServiceDetailAddressSurrogate =
       with(model) {
         VirtualServiceDetailAddressSurrogate().apply {
-          addressUrl = this@with.asUrl()?.value?.value
-          _addressUrl = this@with.asUrl()?.value?.toElement()
-          addressString = this@with.asString()?.value?.value
-          _addressString = this@with.asString()?.value?.toElement()
-          addressContactPoint = this@with.asContactPoint()?.value
-          addressExtendedContactDetail = this@with.asExtendedContactDetail()?.value
+          VirtualServiceDetail.Address?.from(
+            Url.of(
+              this@VirtualServiceDetailAddressSurrogate.addressUrl,
+              this@VirtualServiceDetailAddressSurrogate._addressUrl,
+            ),
+            R5String.of(
+              this@VirtualServiceDetailAddressSurrogate.addressString,
+              this@VirtualServiceDetailAddressSurrogate._addressString,
+            ),
+            this@VirtualServiceDetailAddressSurrogate.addressContactPoint,
+            this@VirtualServiceDetailAddressSurrogate.addressExtendedContactDetail,
+          )
         }
       }
   }
@@ -85,10 +86,10 @@ internal class VirtualServiceDetailAddressSurrogate {
 @Serializable
 internal data class VirtualServiceDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var channelType: Coding? = null,
-  public var additionalInfo: List<KotlinString?>? = null,
-  public var _additionalInfo: List<Element?>? = null,
+  public var additionalInfo: MutableList<KotlinString?>? = null,
+  public var _additionalInfo: MutableList<Element?>? = null,
   public var maxParticipants: Int? = null,
   public var _maxParticipants: Element? = null,
   public var sessionKey: KotlinString? = null,
@@ -96,17 +97,17 @@ internal data class VirtualServiceDetailSurrogate(
   public var address: VirtualServiceDetail.Address? = null,
 ) {
   public fun toModel(): VirtualServiceDetail =
-    VirtualServiceDetail().apply {
-      id = this@VirtualServiceDetailSurrogate.id
-      extension = this@VirtualServiceDetailSurrogate.extension
-      channelType = this@VirtualServiceDetailSurrogate.channelType
-      address = this@VirtualServiceDetailSurrogate.address
+    VirtualServiceDetail(
+      id = this@VirtualServiceDetailSurrogate.id,
+      extension = this@VirtualServiceDetailSurrogate.extension ?: mutableListOf(),
+      channelType = this@VirtualServiceDetailSurrogate.channelType,
+      address = this@VirtualServiceDetailSurrogate.address,
       additionalInfo =
         if (
           this@VirtualServiceDetailSurrogate.additionalInfo == null &&
             this@VirtualServiceDetailSurrogate._additionalInfo == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@VirtualServiceDetailSurrogate.additionalInfo
               ?: List(this@VirtualServiceDetailSurrogate._additionalInfo!!.size) { null })
@@ -114,37 +115,45 @@ internal data class VirtualServiceDetailSurrogate(
               this@VirtualServiceDetailSurrogate._additionalInfo
                 ?: List(this@VirtualServiceDetailSurrogate.additionalInfo!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Url.of(value, element) }
-        }
+            .map { (value, element) -> Url.of(value, element)!! }
+            .toMutableList()
+        },
       maxParticipants =
         PositiveInt.of(
           this@VirtualServiceDetailSurrogate.maxParticipants,
           this@VirtualServiceDetailSurrogate._maxParticipants,
-        )
+        ),
       sessionKey =
         R5String.of(
           this@VirtualServiceDetailSurrogate.sessionKey,
           this@VirtualServiceDetailSurrogate._sessionKey,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: VirtualServiceDetail): VirtualServiceDetailSurrogate =
       with(model) {
-        VirtualServiceDetailSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          channelType = this@with.channelType
-          address = this@with.address
+        VirtualServiceDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          channelType = this@with.channelType,
+          address = this@with.address,
           additionalInfo =
-            this@with.additionalInfo?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.additionalInfo
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _additionalInfo =
-            this@with.additionalInfo?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          maxParticipants = this@with.maxParticipants?.value
-          _maxParticipants = this@with.maxParticipants?.toElement()
-          sessionKey = this@with.sessionKey?.value
-          _sessionKey = this@with.sessionKey?.toElement()
-        }
+            this@with.additionalInfo
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          maxParticipants = this@with.maxParticipants?.value,
+          _maxParticipants = this@with.maxParticipants?.toElement(),
+          sessionKey = this@with.sessionKey?.value,
+          _sessionKey = this@with.sessionKey?.toElement(),
+        )
       }
   }
 }

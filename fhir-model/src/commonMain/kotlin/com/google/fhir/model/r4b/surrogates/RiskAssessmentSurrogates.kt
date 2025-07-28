@@ -43,26 +43,24 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class RiskAssessmentPredictionProbabilitySurrogate {
-  public var probabilityDecimal: Double? = null
-
-  public var _probabilityDecimal: Element? = null
-
-  public var probabilityRange: Range? = null
-
-  public fun toModel(): RiskAssessment.Prediction.Probability =
+internal data class RiskAssessmentPredictionProbabilitySurrogate(
+  public var probabilityDecimal: Double? = null,
+  public var _probabilityDecimal: Element? = null,
+  public var probabilityRange: Range? = null,
+) {
+  public fun toModel(): RiskAssessment.Prediction.Probability? =
     RiskAssessment.Prediction.Probability?.from(
       Decimal.of(
         this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
         this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
       ),
       this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
-    ) ?: RiskAssessment.Prediction.Probability.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -70,25 +68,28 @@ internal class RiskAssessmentPredictionProbabilitySurrogate {
     ): RiskAssessmentPredictionProbabilitySurrogate =
       with(model) {
         RiskAssessmentPredictionProbabilitySurrogate().apply {
-          probabilityDecimal = this@with.asDecimal()?.value?.value
-          _probabilityDecimal = this@with.asDecimal()?.value?.toElement()
-          probabilityRange = this@with.asRange()?.value
+          RiskAssessment.Prediction.Probability?.from(
+            Decimal.of(
+              this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
+              this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
+            ),
+            this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
+          )
         }
       }
   }
 }
 
 @Serializable
-internal class RiskAssessmentPredictionWhenSurrogate {
-  public var whenPeriod: Period? = null
-
-  public var whenRange: Range? = null
-
-  public fun toModel(): RiskAssessment.Prediction.When =
+internal data class RiskAssessmentPredictionWhenSurrogate(
+  public var whenPeriod: Period? = null,
+  public var whenRange: Range? = null,
+) {
+  public fun toModel(): RiskAssessment.Prediction.When? =
     RiskAssessment.Prediction.When?.from(
       this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
       this@RiskAssessmentPredictionWhenSurrogate.whenRange,
-    ) ?: RiskAssessment.Prediction.When.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -96,8 +97,10 @@ internal class RiskAssessmentPredictionWhenSurrogate {
     ): RiskAssessmentPredictionWhenSurrogate =
       with(model) {
         RiskAssessmentPredictionWhenSurrogate().apply {
-          whenPeriod = this@with.asPeriod()?.value
-          whenRange = this@with.asRange()?.value
+          RiskAssessment.Prediction.When?.from(
+            this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
+            this@RiskAssessmentPredictionWhenSurrogate.whenRange,
+          )
         }
       }
   }
@@ -106,8 +109,8 @@ internal class RiskAssessmentPredictionWhenSurrogate {
 @Serializable
 internal data class RiskAssessmentPredictionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var outcome: CodeableConcept? = null,
   public var qualitativeRisk: CodeableConcept? = null,
   public var relativeRisk: Double? = null,
@@ -118,70 +121,73 @@ internal data class RiskAssessmentPredictionSurrogate(
   public var `when`: RiskAssessment.Prediction.When? = null,
 ) {
   public fun toModel(): RiskAssessment.Prediction =
-    RiskAssessment.Prediction().apply {
-      id = this@RiskAssessmentPredictionSurrogate.id
-      extension = this@RiskAssessmentPredictionSurrogate.extension
-      modifierExtension = this@RiskAssessmentPredictionSurrogate.modifierExtension
-      outcome = this@RiskAssessmentPredictionSurrogate.outcome
-      probability = this@RiskAssessmentPredictionSurrogate.probability
-      qualitativeRisk = this@RiskAssessmentPredictionSurrogate.qualitativeRisk
+    RiskAssessment.Prediction(
+      id = this@RiskAssessmentPredictionSurrogate.id,
+      extension = this@RiskAssessmentPredictionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RiskAssessmentPredictionSurrogate.modifierExtension ?: mutableListOf(),
+      outcome = this@RiskAssessmentPredictionSurrogate.outcome,
+      probability = this@RiskAssessmentPredictionSurrogate.probability,
+      qualitativeRisk = this@RiskAssessmentPredictionSurrogate.qualitativeRisk,
       relativeRisk =
         Decimal.of(
           this@RiskAssessmentPredictionSurrogate.relativeRisk,
           this@RiskAssessmentPredictionSurrogate._relativeRisk,
-        )
-      `when` = this@RiskAssessmentPredictionSurrogate.`when`
+        ),
+      `when` = this@RiskAssessmentPredictionSurrogate.`when`,
       rationale =
         R4bString.of(
           this@RiskAssessmentPredictionSurrogate.rationale,
           this@RiskAssessmentPredictionSurrogate._rationale,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: RiskAssessment.Prediction): RiskAssessmentPredictionSurrogate =
       with(model) {
-        RiskAssessmentPredictionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          outcome = this@with.outcome
-          probability = this@with.probability
-          qualitativeRisk = this@with.qualitativeRisk
-          relativeRisk = this@with.relativeRisk?.value
-          _relativeRisk = this@with.relativeRisk?.toElement()
-          `when` = this@with.`when`
-          rationale = this@with.rationale?.value
-          _rationale = this@with.rationale?.toElement()
-        }
+        RiskAssessmentPredictionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          outcome = this@with.outcome,
+          probability = this@with.probability,
+          qualitativeRisk = this@with.qualitativeRisk,
+          relativeRisk = this@with.relativeRisk?.value,
+          _relativeRisk = this@with.relativeRisk?.toElement(),
+          `when` = this@with.`when`,
+          rationale = this@with.rationale?.value,
+          _rationale = this@with.rationale?.toElement(),
+        )
       }
   }
 }
 
 @Serializable
-internal class RiskAssessmentOccurrenceSurrogate {
-  public var occurrenceDateTime: KotlinString? = null
-
-  public var _occurrenceDateTime: Element? = null
-
-  public var occurrencePeriod: Period? = null
-
-  public fun toModel(): RiskAssessment.Occurrence =
+internal data class RiskAssessmentOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+) {
+  public fun toModel(): RiskAssessment.Occurrence? =
     RiskAssessment.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@RiskAssessmentOccurrenceSurrogate.occurrenceDateTime),
         this@RiskAssessmentOccurrenceSurrogate._occurrenceDateTime,
       ),
       this@RiskAssessmentOccurrenceSurrogate.occurrencePeriod,
-    ) ?: RiskAssessment.Occurrence.Null
+    )
 
   public companion object {
     public fun fromModel(model: RiskAssessment.Occurrence): RiskAssessmentOccurrenceSurrogate =
       with(model) {
         RiskAssessmentOccurrenceSurrogate().apply {
-          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement()
-          occurrencePeriod = this@with.asPeriod()?.value
+          RiskAssessment.Occurrence?.from(
+            DateTime.of(
+              FhirDateTime.fromString(this@RiskAssessmentOccurrenceSurrogate.occurrenceDateTime),
+              this@RiskAssessmentOccurrenceSurrogate._occurrenceDateTime,
+            ),
+            this@RiskAssessmentOccurrenceSurrogate.occurrencePeriod,
+          )
         }
       }
   }
@@ -196,107 +202,107 @@ internal data class RiskAssessmentSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var basedOn: Reference? = null,
   public var parent: Reference? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var method: CodeableConcept? = null,
   public var code: CodeableConcept? = null,
-  public var subject: Reference? = null,
+  public var subject: Reference,
   public var encounter: Reference? = null,
   public var condition: Reference? = null,
   public var performer: Reference? = null,
-  public var reasonCode: List<CodeableConcept?>? = null,
-  public var reasonReference: List<Reference?>? = null,
-  public var basis: List<Reference?>? = null,
-  public var prediction: List<RiskAssessment.Prediction>? = null,
+  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonReference: MutableList<Reference>? = null,
+  public var basis: MutableList<Reference>? = null,
+  public var prediction: MutableList<RiskAssessment.Prediction>? = null,
   public var mitigation: KotlinString? = null,
   public var _mitigation: Element? = null,
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation>? = null,
   public var occurrence: RiskAssessment.Occurrence? = null,
 ) {
   public fun toModel(): RiskAssessment =
-    RiskAssessment().apply {
-      id = this@RiskAssessmentSurrogate.id
-      meta = this@RiskAssessmentSurrogate.meta
+    RiskAssessment(
+      id = this@RiskAssessmentSurrogate.id,
+      meta = this@RiskAssessmentSurrogate.meta,
       implicitRules =
         Uri.of(
           this@RiskAssessmentSurrogate.implicitRules,
           this@RiskAssessmentSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@RiskAssessmentSurrogate.language, this@RiskAssessmentSurrogate._language)
-      text = this@RiskAssessmentSurrogate.text
-      contained = this@RiskAssessmentSurrogate.contained
-      extension = this@RiskAssessmentSurrogate.extension
-      modifierExtension = this@RiskAssessmentSurrogate.modifierExtension
-      identifier = this@RiskAssessmentSurrogate.identifier
-      basedOn = this@RiskAssessmentSurrogate.basedOn
-      parent = this@RiskAssessmentSurrogate.parent
+        Code.of(this@RiskAssessmentSurrogate.language, this@RiskAssessmentSurrogate._language),
+      text = this@RiskAssessmentSurrogate.text,
+      contained = this@RiskAssessmentSurrogate.contained ?: mutableListOf(),
+      extension = this@RiskAssessmentSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@RiskAssessmentSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@RiskAssessmentSurrogate.identifier ?: mutableListOf(),
+      basedOn = this@RiskAssessmentSurrogate.basedOn,
+      parent = this@RiskAssessmentSurrogate.parent,
       status =
         Enumeration.of(
-          this@RiskAssessmentSurrogate.status?.let {
-            com.google.fhir.model.r4b.RiskAssessment.RiskAssessmentStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.RiskAssessment.RiskAssessmentStatus.fromCode(
+            this@RiskAssessmentSurrogate.status!!
+          ),
           this@RiskAssessmentSurrogate._status,
-        )
-      method = this@RiskAssessmentSurrogate.method
-      code = this@RiskAssessmentSurrogate.code
-      subject = this@RiskAssessmentSurrogate.subject
-      encounter = this@RiskAssessmentSurrogate.encounter
-      occurrence = this@RiskAssessmentSurrogate.occurrence
-      condition = this@RiskAssessmentSurrogate.condition
-      performer = this@RiskAssessmentSurrogate.performer
-      reasonCode = this@RiskAssessmentSurrogate.reasonCode
-      reasonReference = this@RiskAssessmentSurrogate.reasonReference
-      basis = this@RiskAssessmentSurrogate.basis
-      prediction = this@RiskAssessmentSurrogate.prediction
+        ),
+      method = this@RiskAssessmentSurrogate.method,
+      code = this@RiskAssessmentSurrogate.code,
+      subject = this@RiskAssessmentSurrogate.subject,
+      encounter = this@RiskAssessmentSurrogate.encounter,
+      occurrence = this@RiskAssessmentSurrogate.occurrence,
+      condition = this@RiskAssessmentSurrogate.condition,
+      performer = this@RiskAssessmentSurrogate.performer,
+      reasonCode = this@RiskAssessmentSurrogate.reasonCode ?: mutableListOf(),
+      reasonReference = this@RiskAssessmentSurrogate.reasonReference ?: mutableListOf(),
+      basis = this@RiskAssessmentSurrogate.basis ?: mutableListOf(),
+      prediction = this@RiskAssessmentSurrogate.prediction ?: mutableListOf(),
       mitigation =
         R4bString.of(
           this@RiskAssessmentSurrogate.mitigation,
           this@RiskAssessmentSurrogate._mitigation,
-        )
-      note = this@RiskAssessmentSurrogate.note
-    }
+        ),
+      note = this@RiskAssessmentSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: RiskAssessment): RiskAssessmentSurrogate =
       with(model) {
-        RiskAssessmentSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          basedOn = this@with.basedOn
-          parent = this@with.parent
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          method = this@with.method
-          code = this@with.code
-          subject = this@with.subject
-          encounter = this@with.encounter
-          occurrence = this@with.occurrence
-          condition = this@with.condition
-          performer = this@with.performer
-          reasonCode = this@with.reasonCode
-          reasonReference = this@with.reasonReference
-          basis = this@with.basis
-          prediction = this@with.prediction
-          mitigation = this@with.mitigation?.value
-          _mitigation = this@with.mitigation?.toElement()
-          note = this@with.note
-        }
+        RiskAssessmentSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn,
+          parent = this@with.parent,
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          method = this@with.method,
+          code = this@with.code,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          occurrence = this@with.occurrence,
+          condition = this@with.condition,
+          performer = this@with.performer,
+          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
+          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          basis = this@with.basis.takeUnless { it.all { it == null } },
+          prediction = this@with.prediction.takeUnless { it.all { it == null } },
+          mitigation = this@with.mitigation?.value,
+          _mitigation = this@with.mitigation?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

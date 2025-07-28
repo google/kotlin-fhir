@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductDispensePerformerSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductDispenseSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class BiologicallyDerivedProductDispense(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -107,7 +107,7 @@ public data class BiologicallyDerivedProductDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,34 +126,34 @@ public data class BiologicallyDerivedProductDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique instance identifiers assigned to a biologically derived product dispense. Note: This is
    * a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The order or request that the dispense is fulfilling. This is a reference to a ServiceRequest
    * resource.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** A larger event of which this particular event is a component. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /** A code specifying the state of the dispense event. */
-  public var status: Enumeration<BiologicallyDerivedProductDispenseStatus>? = null,
+  public var status: Enumeration<BiologicallyDerivedProductDispenseStatus>,
   /**
    * Indicates the relationship between the donor of the biologically derived product and the
    * intended recipient.
    */
   public var originRelationshipType: CodeableConcept? = null,
   /** A link to a resource identifying the biologically derived product that is being dispensed. */
-  public var product: Reference? = null,
+  public var product: Reference,
   /** A link to a resource representing the patient that the product is dispensed for. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** Indicates the type of matching associated with the dispense. */
   public var matchStatus: CodeableConcept? = null,
   /** Indicates who or what performed an action. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** The physical location where the dispense was performed. */
   public var location: Reference? = null,
   /**
@@ -168,7 +168,7 @@ public data class BiologicallyDerivedProductDispense(
   /** Link to a resource identifying the physical location that the product was dispatched to. */
   public var destination: Reference? = null,
   /** Additional notes. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Specific instructions for use. */
   public var usageInstruction: String? = null,
 ) : DomainResource() {
@@ -192,7 +192,7 @@ public data class BiologicallyDerivedProductDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -211,11 +211,11 @@ public data class BiologicallyDerivedProductDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifies the function of the performer during the dispense. */
     public var function: CodeableConcept? = null,
     /** Identifies the person responsible for the action. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /** BiologicallyDerivedProductDispense Status Codes */
@@ -223,68 +223,39 @@ public data class BiologicallyDerivedProductDispense(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The dispense process has started but not yet completed. */
     Preparation(
       "preparation",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Preparation",
-      "The dispense process has started but not yet completed.",
     ),
-    /** The dispense process is in progress. */
     In_Progress(
       "in-progress",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "In Progress",
-      "The dispense process is in progress.",
     ),
-    /** The requested product has been allocated and is ready for transport. */
     Allocated(
       "allocated",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Allocated",
-      "The requested product has been allocated and is ready for transport.",
     ),
-    /** The dispensed product has been picked up. */
-    Issued(
-      "issued",
-      "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
-      "Issued",
-      "The dispensed product has been picked up.",
-    ),
-    /** The dispense could not be completed. */
+    Issued("issued", "http://hl7.org/fhir/biologicallyderivedproductdispense-status", "Issued"),
     Unfulfilled(
       "unfulfilled",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Unfulfilled",
-      "The dispense could not be completed.",
     ),
-    /** The dispensed product was returned. */
     Returned(
       "returned",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Returned",
-      "The dispensed product was returned.",
     ),
-    /** The dispense was entered in error and therefore nullified. */
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
       "Entered in Error",
-      "The dispense was entered in error and therefore nullified.",
     ),
-    /**
-     * The authoring system does not know which of the status values applies for this dispense.
-     * Note: this concept is not to be used for other - one of the listed statuses is presumed to
-     * apply, it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/biologicallyderivedproductdispense-status",
-      "Unknown",
-      "The authoring system does not know which of the status values applies for this dispense. Note: this concept is not to be used for other - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/biologicallyderivedproductdispense-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -293,8 +264,6 @@ public data class BiologicallyDerivedProductDispense(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): BiologicallyDerivedProductDispenseStatus =

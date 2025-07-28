@@ -29,14 +29,14 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ReferenceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var reference: KotlinString? = null,
   public var _reference: Element? = null,
   public var type: KotlinString? = null,
@@ -46,29 +46,30 @@ internal data class ReferenceSurrogate(
   public var _display: Element? = null,
 ) {
   public fun toModel(): Reference =
-    Reference().apply {
-      id = this@ReferenceSurrogate.id
-      extension = this@ReferenceSurrogate.extension
-      reference = R4String.of(this@ReferenceSurrogate.reference, this@ReferenceSurrogate._reference)
-      type = Uri.of(this@ReferenceSurrogate.type, this@ReferenceSurrogate._type)
-      identifier = this@ReferenceSurrogate.identifier
-      display = R4String.of(this@ReferenceSurrogate.display, this@ReferenceSurrogate._display)
-    }
+    Reference(
+      id = this@ReferenceSurrogate.id,
+      extension = this@ReferenceSurrogate.extension ?: mutableListOf(),
+      reference =
+        R4String.of(this@ReferenceSurrogate.reference, this@ReferenceSurrogate._reference),
+      type = Uri.of(this@ReferenceSurrogate.type, this@ReferenceSurrogate._type),
+      identifier = this@ReferenceSurrogate.identifier,
+      display = R4String.of(this@ReferenceSurrogate.display, this@ReferenceSurrogate._display),
+    )
 
   public companion object {
     public fun fromModel(model: Reference): ReferenceSurrogate =
       with(model) {
-        ReferenceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          reference = this@with.reference?.value
-          _reference = this@with.reference?.toElement()
-          type = this@with.type?.value
-          _type = this@with.type?.toElement()
-          identifier = this@with.identifier
-          display = this@with.display?.value
-          _display = this@with.display?.toElement()
-        }
+        ReferenceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          reference = this@with.reference?.value,
+          _reference = this@with.reference?.toElement(),
+          type = this@with.type?.value,
+          _type = this@with.type?.toElement(),
+          identifier = this@with.identifier,
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
+        )
       }
   }
 }

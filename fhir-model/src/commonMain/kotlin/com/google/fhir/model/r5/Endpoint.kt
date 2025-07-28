@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.EndpointPayloadSerializer
 import com.google.fhir.model.r5.serializers.EndpointSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Endpoint(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class Endpoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,12 +130,12 @@ public data class Endpoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for the organization that is used to identify the endpoint across multiple disparate
    * systems.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The endpoint status represents the general expected availability of an endpoint.
    *
@@ -143,7 +143,7 @@ public data class Endpoint(
    * as not currently valid. Temporary downtimes or other unexpected short-term changes in
    * availability would not be represented in this property.
    */
-  public var status: Enumeration<EndpointStatus>? = null,
+  public var status: Enumeration<EndpointStatus>,
   /**
    * A coded value that represents the technical details of the usage of this endpoint, such as what
    * WSDLs should be used in what way. (e.g. XDS.b/DICOM/cds-hook).
@@ -152,7 +152,7 @@ public data class Endpoint(
    * in the XDS example. If there are multiple payload types or mimetypes they are all applicable
    * for all connection types, and all have the same status.
    */
-  public var connectionType: List<CodeableConcept?>? = null,
+  public var connectionType: MutableList<CodeableConcept> = mutableListOf(),
   /** A friendly name that this endpoint can be referred to with. */
   public var name: String? = null,
   /**
@@ -161,7 +161,7 @@ public data class Endpoint(
    */
   public var description: String? = null,
   /** The type of environment(s) exposed at this endpoint (dev, prod, test, etc.). */
-  public var environmentType: List<CodeableConcept?>? = null,
+  public var environmentType: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The organization that manages this endpoint (even if technically another organization is
    * hosting this in the cloud, it is the organization associated with the data).
@@ -177,7 +177,7 @@ public data class Endpoint(
    * Contact details for a human to contact about the endpoint. The primary use of this for system
    * administrator troubleshooting.
    */
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint> = mutableListOf(),
   /**
    * The interval during which the endpoint is expected to be operational.
    *
@@ -192,7 +192,7 @@ public data class Endpoint(
    * be multiple instances that information for cases where other header data such as the endpoint
    * address, active status/period etc. is different.
    */
-  public var payload: List<Payload>? = null,
+  public var payload: MutableList<Payload> = mutableListOf(),
   /**
    * The uri that describes the actual end-point to connect to.
    *
@@ -210,14 +210,14 @@ public data class Endpoint(
    * and not
    * "https://pacs.hospital.org/wado-rs/studies/1.2.250.1.59.40211.12345678.678910/series/1.2.250.1.59.40211.789001276.14556172.67789/instances/...".
    */
-  public var address: Url? = null,
+  public var address: Url,
   /**
    * Additional headers / information to send as part of the notification.
    *
    * Exactly what these mean depends on the channel type. The can convey additional information to
    * the recipient and/or meet security requirements.
    */
-  public var `header`: List<String?>? = null,
+  public var `header`: MutableList<String> = mutableListOf(),
 ) : DomainResource() {
   /** The set of payloads that are provided/available at this endpoint. */
   @Serializable(with = EndpointPayloadSerializer::class)
@@ -239,7 +239,7 @@ public data class Endpoint(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -258,14 +258,14 @@ public data class Endpoint(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The payload type describes the acceptable content that can be communicated on the endpoint.
      *
      * The mimeType describes the serialization format of the data, where the payload.type indicates
      * the specific document/schema that is being transferred; e.g. DischargeSummary or CarePlan.
      */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The mime type to send the payload in - e.g. application/fhir+xml, application/fhir+json. If
      * the mime type is not specified, then the sender could send any content (including no content
@@ -274,7 +274,7 @@ public data class Endpoint(
      * Sending the payload has obvious security consequences. The server is responsible for ensuring
      * that the content is appropriately secured.
      */
-    public var mimeType: List<Code?>? = null,
+    public var mimeType: MutableList<Code> = mutableListOf(),
   ) : BackboneElement()
 
   /** The status of the endpoint. */
@@ -282,46 +282,12 @@ public data class Endpoint(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This endpoint is expected to be active and can be used. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/endpoint-status",
-      "Active",
-      "This endpoint is expected to be active and can be used.",
-    ),
-    /** This endpoint is temporarily unavailable. */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/endpoint-status",
-      "Suspended",
-      "This endpoint is temporarily unavailable.",
-    ),
-    /**
-     * This endpoint has exceeded connectivity thresholds and is considered in an error state and
-     * should no longer be attempted to connect to until corrective action is taken.
-     */
-    Error(
-      "error",
-      "http://hl7.org/fhir/endpoint-status",
-      "Error",
-      "This endpoint has exceeded connectivity thresholds and is considered in an error state and should no longer be attempted to connect to until corrective action is taken.",
-    ),
-    /** This endpoint is no longer to be used. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/endpoint-status",
-      "Off",
-      "This endpoint is no longer to be used.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/endpoint-status",
-      "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
-    );
+    Active("active", "http://hl7.org/fhir/endpoint-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/endpoint-status", "Suspended"),
+    Error("error", "http://hl7.org/fhir/endpoint-status", "Error"),
+    Off("off", "http://hl7.org/fhir/endpoint-status", "Off"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/endpoint-status", "Entered in error");
 
     override fun toString(): kotlin.String = code
 
@@ -330,8 +296,6 @@ public data class Endpoint(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EndpointStatus =

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.OrganizationQualificationSerializer
 import com.google.fhir.model.r5.serializers.OrganizationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Organization(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class Organization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,12 +130,12 @@ public data class Organization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for the organization that is used to identify the organization across multiple
    * disparate systems.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether the organization's record is still in active use.
    *
@@ -163,7 +163,7 @@ public data class Organization(
    *
    * We expect that some jurisdictions will profile this optionality to be a single cardinality.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A name associated with the organization.
    *
@@ -178,7 +178,7 @@ public data class Organization(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the organization.
    */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /**
    * Description of the organization, which helps provide additional general context on the
    * organization to ensure that the correct organization is selected.
@@ -195,11 +195,11 @@ public data class Organization(
    * Addresses, Billing Addresses, Contact numbers for Booking or Billing Enquiries, general web
    * address, web address for online bookings etc.
    */
-  public var contact: List<ExtendedContactDetail?>? = null,
+  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
   /** The organization of which this organization forms a part. */
   public var partOf: Reference? = null,
   /** Technical endpoints providing access to services operated for the organization. */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
   /**
    * The official certifications, accreditations, training, designations and licenses that authorize
    * and/or otherwise endorse the provision of care by the organization.
@@ -207,7 +207,7 @@ public data class Organization(
    * For example, an approval to provide a type of services issued by a certifying body (such as the
    * US Joint Commission) to an organization.
    */
-  public var qualification: List<Qualification>? = null,
+  public var qualification: MutableList<Qualification> = mutableListOf(),
 ) : DomainResource() {
   /**
    * The official certifications, accreditations, training, designations and licenses that authorize
@@ -235,7 +235,7 @@ public data class Organization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -254,11 +254,11 @@ public data class Organization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** An identifier allocated to this qualification for this organization. */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /** Coded representation of the qualification. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** Period during which the qualification is valid. */
     public var period: Period? = null,
     /** Organization that regulates and issues the qualification. */

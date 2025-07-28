@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.QuestionnaireResponseItemAnswerValue
 import com.google.fhir.model.r5.serializers.QuestionnaireResponseItemSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireResponseSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class QuestionnaireResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class QuestionnaireResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class QuestionnaireResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this questionnaire response by the performer and/or other
    * systems. These identifiers remain constant as the resource is updated and propagates from
@@ -141,13 +141,13 @@ public data class QuestionnaireResponse(
    * Note: This is a business identifier, not a resource identifier (see
    * [discussion](resource.html#identifiers)).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A plan, proposal or order that is fulfilled in whole or in part by this questionnaire response.
    * For example, a ServiceRequest seeking an intake assessment or a decision support recommendation
    * to assess for post-partum depression.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A procedure or observation that this questionnaire was performed as part of the execution of.
    * For example, the surgery a checklist was executed as part of.
@@ -157,7 +157,7 @@ public data class QuestionnaireResponse(
    * Composition of questionnaire responses will be handled using the Assemble operation defined in
    * the SDC IG. For relationships to referrals, and other types of requests, use basedOn.
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * The Questionnaire that defines and organizes the questions for which answers are being
    * provided.
@@ -172,14 +172,14 @@ public data class QuestionnaireResponse(
    * elements should be and it is possible that linkIds might be inconsistent for
    * QuestionnaireResponses for the same form if captured by distinct systems.
    */
-  public var questionnaire: Canonical? = null,
+  public var questionnaire: Canonical,
   /**
    * The current state of the questionnaire response.
    *
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<QuestionnaireResponseStatus>? = null,
+  public var status: Enumeration<QuestionnaireResponseStatus>,
   /**
    * The subject of the questionnaire response. This could be a patient, organization, practitioner,
    * device, etc. This is who/what the answers apply to, but is not necessarily the source of
@@ -241,7 +241,7 @@ public data class QuestionnaireResponse(
    * group repetition will be handled by a separate item. However, repeating questions are handled
    * with a single question item and potentially multiple answers.
    */
-  public var item: List<Item>? = null,
+  public var item: MutableList<Item> = mutableListOf(),
 ) : DomainResource() {
   /** A group or question item from the original questionnaire for which answers are provided. */
   @Serializable(with = QuestionnaireResponseItemSerializer::class)
@@ -263,7 +263,7 @@ public data class QuestionnaireResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -282,12 +282,12 @@ public data class QuestionnaireResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The item from the Questionnaire that corresponds to this item in the QuestionnaireResponse
      * resource.
      */
-    public var linkId: String? = null,
+    public var linkId: String,
     /**
      * A reference to an [ElementDefinition](elementdefinition.html) that provides the details for
      * the item.
@@ -316,13 +316,13 @@ public data class QuestionnaireResponse(
      *
      * The value is nested because we cannot have a repeating structure that has variable type.
      */
-    public var answer: List<Answer>? = null,
+    public var answer: MutableList<Answer> = mutableListOf(),
     /**
      * Sub-questions, sub-groups or display items nested beneath a group.
      *
      * Only used when nesting beneath a group - see item.answer.item for nesting beneath questions
      */
-    public var item: List<Item?>? = null,
+    public var item: MutableList<Item> = mutableListOf(),
   ) : BackboneElement() {
     /** The respondent's answer(s) to the question. */
     @Serializable(with = QuestionnaireResponseItemAnswerSerializer::class)
@@ -344,7 +344,7 @@ public data class QuestionnaireResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -363,7 +363,7 @@ public data class QuestionnaireResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The answer (or one of the answers) provided by the respondent to the question.
        *
@@ -384,13 +384,13 @@ public data class QuestionnaireResponse(
        * **MAY** enforce that if extensions such as ordinal values are present in both Questionnaire
        * and QuestionnaireResponse, they match.
        */
-      public var `value`: Value? = null,
+      public var `value`: Value,
       /**
        * Nested groups and/or questions found within this particular answer.
        *
        * Only used when nesting beneath a question - see item.item for nesting beneath groups
        */
-      public var item: List<Item?>? = null,
+      public var item: MutableList<Item> = mutableListOf(),
     ) : BackboneElement() {
       @Serializable(with = QuestionnaireResponseItemAnswerValueSerializer::class)
       public sealed interface Value {
@@ -443,10 +443,8 @@ public data class QuestionnaireResponse(
 
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Value
 
-        public data object Null : Value
-
         public companion object {
-          public fun from(
+          internal fun from(
             booleanValue: com.google.fhir.model.r5.Boolean?,
             decimalValue: com.google.fhir.model.r5.Decimal?,
             integerValue: com.google.fhir.model.r5.Integer?,
@@ -455,11 +453,11 @@ public data class QuestionnaireResponse(
             timeValue: com.google.fhir.model.r5.Time?,
             stringValue: com.google.fhir.model.r5.String?,
             uriValue: com.google.fhir.model.r5.Uri?,
-            AttachmentValue: com.google.fhir.model.r5.Attachment?,
-            CodingValue: com.google.fhir.model.r5.Coding?,
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Value {
+            attachmentValue: com.google.fhir.model.r5.Attachment?,
+            codingValue: com.google.fhir.model.r5.Coding?,
+            quantityValue: com.google.fhir.model.r5.Quantity?,
+            referenceValue: com.google.fhir.model.r5.Reference?,
+          ): Value? {
             if (booleanValue != null) return Boolean(booleanValue)
             if (decimalValue != null) return Decimal(decimalValue)
             if (integerValue != null) return Integer(integerValue)
@@ -468,11 +466,11 @@ public data class QuestionnaireResponse(
             if (timeValue != null) return Time(timeValue)
             if (stringValue != null) return String(stringValue)
             if (uriValue != null) return Uri(uriValue)
-            if (AttachmentValue != null) return Attachment(AttachmentValue)
-            if (CodingValue != null) return Coding(CodingValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (attachmentValue != null) return Attachment(attachmentValue)
+            if (codingValue != null) return Coding(codingValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -484,55 +482,16 @@ public data class QuestionnaireResponse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This QuestionnaireResponse has been partially filled out with answers but changes or
-     * additions are still expected to be made to it.
-     */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "In Progress",
-      "This QuestionnaireResponse has been partially filled out with answers but changes or additions are still expected to be made to it.",
-    ),
-    /**
-     * This QuestionnaireResponse has been filled out with answers and the current content is
-     * regarded as definitive.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "Completed",
-      "This QuestionnaireResponse has been filled out with answers and the current content is regarded as definitive.",
-    ),
-    /**
-     * This QuestionnaireResponse has been filled out with answers, then marked as complete, yet
-     * changes or additions have been made to it afterwards.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "Amended",
-      "This QuestionnaireResponse has been filled out with answers, then marked as complete, yet changes or additions have been made to it afterwards.",
-    ),
-    /** This QuestionnaireResponse was entered in error and voided. */
+    In_Progress("in-progress", "http://hl7.org/fhir/questionnaire-answers-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/questionnaire-answers-status", "Completed"),
+    Amended("amended", "http://hl7.org/fhir/questionnaire-answers-status", "Amended"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/questionnaire-answers-status",
       "Entered in Error",
-      "This QuestionnaireResponse was entered in error and voided.",
     ),
-    /**
-     * This QuestionnaireResponse has been partially filled out with answers but has been abandoned.
-     * No subsequent changes can be made.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/questionnaire-answers-status",
-      "Stopped",
-      "This QuestionnaireResponse has been partially filled out with answers but has been abandoned. No subsequent changes can be made.",
-    );
+    Stopped("stopped", "http://hl7.org/fhir/questionnaire-answers-status", "Stopped");
 
     override fun toString(): kotlin.String = code
 
@@ -541,8 +500,6 @@ public data class QuestionnaireResponse(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuestionnaireResponseStatus =

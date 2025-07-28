@@ -45,7 +45,7 @@ import com.google.fhir.model.r4b.serializers.CitationSerializer
 import com.google.fhir.model.r4b.serializers.CitationStatusDateSerializer
 import com.google.fhir.model.r4b.serializers.CitationSummarySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -121,7 +121,7 @@ public data class Citation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -134,7 +134,7 @@ public data class Citation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -153,7 +153,7 @@ public data class Citation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this citation when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -172,7 +172,7 @@ public data class Citation(
    * May include DOI, PMID, PMCID, etc. This element will contain unique identifiers that support
    * de-duplication of citations. This identifier can be valid for only one citation resource.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the citation when it is referenced in a
    * specification, model, design or instance. This is an arbitrary value managed by the citation
@@ -205,7 +205,7 @@ public data class Citation(
    *
    * Allows filtering of summarys s that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this citation is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -239,7 +239,7 @@ public data class Citation(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the citation from a consumer's perspective.
    *
@@ -260,14 +260,14 @@ public data class Citation(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the citation is intended to be used.
    *
    * It may be possible for the citation to be used in jurisdictions other than those for which it
    * was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this citation is needed and why it has been designed as it has.
    *
@@ -302,25 +302,25 @@ public data class Citation(
    */
   public var effectivePeriod: Period? = null,
   /** Who authored the Citation. */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** Who edited the Citation. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /** Who reviewed the Citation. */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /** Who endorsed the Citation. */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /** A human-readable display of the citation. */
-  public var summary: List<Summary>? = null,
+  public var summary: MutableList<Summary> = mutableListOf(),
   /** The assignment to an organizing scheme. */
-  public var classification: List<Classification>? = null,
+  public var classification: MutableList<Classification> = mutableListOf(),
   /** Used for general notes and annotations not coded elsewhere. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** The status of the citation. */
-  public var currentState: List<CodeableConcept?>? = null,
+  public var currentState: MutableList<CodeableConcept> = mutableListOf(),
   /** An effective date or period for a status of the citation. */
-  public var statusDate: List<StatusDate>? = null,
+  public var statusDate: MutableList<StatusDate> = mutableListOf(),
   /** Artifact related to the Citation Resource. */
-  public var relatesTo: List<RelatesTo>? = null,
+  public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
   /** The article or artifact being described. */
   public var citedArtifact: CitedArtifact? = null,
 ) : DomainResource() {
@@ -344,7 +344,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -363,11 +363,11 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Format for display of the citation. */
     public var style: CodeableConcept? = null,
     /** The human-readable display of the citation. */
-    public var text: Markdown? = null,
+    public var text: Markdown,
   ) : BackboneElement()
 
   /** The assignment to an organizing scheme. */
@@ -390,7 +390,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -409,11 +409,11 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The kind of classifier (e.g. publication type, keyword). */
     public var type: CodeableConcept? = null,
     /** The specific classification value. */
-    public var classifier: List<CodeableConcept?>? = null,
+    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /** An effective date or period for a status of the citation. */
@@ -436,7 +436,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -455,9 +455,9 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Classification of the status. */
-    public var activity: CodeableConcept? = null,
+    public var activity: CodeableConcept,
     /** Either occurred or expected. */
     public var `actual`: Boolean? = null,
     /**
@@ -465,7 +465,7 @@ public data class Citation(
      *
      * For an instance, place the same value in both start and end elements.
      */
-    public var period: Period? = null,
+    public var period: Period,
   ) : BackboneElement()
 
   /** Artifact related to the Citation Resource. */
@@ -488,7 +488,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -507,13 +507,13 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** How the Citation resource relates to the target artifact. */
-    public var relationshipType: CodeableConcept? = null,
+    public var relationshipType: CodeableConcept,
     /** The clasification of the related artifact. */
-    public var targetClassifier: List<CodeableConcept?>? = null,
+    public var targetClassifier: MutableList<CodeableConcept> = mutableListOf(),
     /** The article or artifact that the Citation Resource is related to. */
-    public var target: Target? = null,
+    public var target: Target,
   ) : BackboneElement() {
     @Serializable(with = CitationRelatesToTargetSerializer::class)
     public sealed interface Target {
@@ -535,20 +535,18 @@ public data class Citation(
       public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
         Target
 
-      public data object Null : Target
-
       public companion object {
-        public fun from(
+        internal fun from(
           uriValue: com.google.fhir.model.r4b.Uri?,
-          IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ): Target {
+          identifierValue: com.google.fhir.model.r4b.Identifier?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        ): Target? {
           if (uriValue != null) return Uri(uriValue)
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return Null
+          if (identifierValue != null) return Identifier(identifierValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          return null
         }
       }
     }
@@ -574,7 +572,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -593,7 +591,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A formal identifier that is used to identify this citation when it is represented in other
      * formats, or referenced in a specification, model, design or an instance.
@@ -601,30 +599,30 @@ public data class Citation(
      * May include DOI, PMID, PMCID, etc. This element will contain unique identifiers that support
      * de-duplication of citations. This identifier can be valid for only one citation resource.
      */
-    public var identifier: List<Identifier?>? = null,
+    public var identifier: MutableList<Identifier> = mutableListOf(),
     /**
      * A formal identifier that is used to identify things closely related to this citation.
      *
      * May include trial registry identifiers, e.g. NCT04372602 from clinicaltrials.gov. This
      * identifier can be valid for multiple citation resources.
      */
-    public var relatedIdentifier: List<Identifier?>? = null,
+    public var relatedIdentifier: MutableList<Identifier> = mutableListOf(),
     /** When the cited artifact was accessed. */
     public var dateAccessed: DateTime? = null,
     /** The defined version of the cited artifact. */
     public var version: Version? = null,
     /** The status of the cited artifact. */
-    public var currentState: List<CodeableConcept?>? = null,
+    public var currentState: MutableList<CodeableConcept> = mutableListOf(),
     /** An effective date or period for a status of the cited artifact. */
-    public var statusDate: List<StatusDate>? = null,
+    public var statusDate: MutableList<StatusDate> = mutableListOf(),
     /** The title details of the article or artifact. */
-    public var title: List<Title>? = null,
+    public var title: MutableList<Title> = mutableListOf(),
     /** Summary of the article or artifact. */
-    public var `abstract`: List<Abstract>? = null,
+    public var `abstract`: MutableList<Abstract> = mutableListOf(),
     /** The component of the article or artifact. */
     public var part: Part? = null,
     /** The artifact related to the cited artifact. */
-    public var relatesTo: List<RelatesTo>? = null,
+    public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
     /**
      * If multiple, used to represent alternative forms of the article that are not separate
      * citations.
@@ -632,18 +630,18 @@ public data class Citation(
      * A common use is a journal article with a publication date and pagination for a print version
      * and a different publication date for the online version of the same article.
      */
-    public var publicationForm: List<PublicationForm>? = null,
+    public var publicationForm: MutableList<PublicationForm> = mutableListOf(),
     /** Used for any URL for the article or artifact cited. */
-    public var webLocation: List<WebLocation>? = null,
+    public var webLocation: MutableList<WebLocation> = mutableListOf(),
     /** The assignment to an organizing scheme. */
-    public var classification: List<Classification>? = null,
+    public var classification: MutableList<Classification> = mutableListOf(),
     /**
      * This element is used to list authors and other contributors, their contact information,
      * specific contributions, and summary statements.
      */
     public var contributorship: Contributorship? = null,
     /** Any additional information or content for the article or artifact. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
     /** The defined version of the cited artifact. */
     @Serializable(with = CitationCitedArtifactVersionSerializer::class)
@@ -665,7 +663,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -684,9 +682,9 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The version number or other version identifier. */
-      public var `value`: String? = null,
+      public var `value`: String,
       /** Citation for the main version of the cited artifact. */
       public var baseCitation: Reference? = null,
     ) : BackboneElement()
@@ -711,7 +709,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -730,9 +728,9 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Classification of the status. */
-      public var activity: CodeableConcept? = null,
+      public var activity: CodeableConcept,
       /** Either occurred or expected. */
       public var `actual`: Boolean? = null,
       /**
@@ -740,7 +738,7 @@ public data class Citation(
        *
        * For an instance, place the same value in both start and end elements.
        */
-      public var period: Period? = null,
+      public var period: Period,
     ) : BackboneElement()
 
     /** The title details of the article or artifact. */
@@ -763,7 +761,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -782,13 +780,13 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Used to express the reason or specific aspect for the title. */
-      public var type: List<CodeableConcept?>? = null,
+      public var type: MutableList<CodeableConcept> = mutableListOf(),
       /** Used to express the specific language. */
       public var language: CodeableConcept? = null,
       /** The title of the article or artifact. */
-      public var text: Markdown? = null,
+      public var text: Markdown,
     ) : BackboneElement()
 
     /** Summary of the article or artifact. */
@@ -811,7 +809,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -830,13 +828,13 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Used to express the reason or specific aspect for the abstract. */
       public var type: CodeableConcept? = null,
       /** Used to express the specific language. */
       public var language: CodeableConcept? = null,
       /** Abstract content. */
-      public var text: Markdown? = null,
+      public var text: Markdown,
       /** Copyright notice for the abstract. */
       public var copyright: Markdown? = null,
     ) : BackboneElement()
@@ -861,7 +859,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -880,7 +878,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The kind of component. */
       public var type: CodeableConcept? = null,
       /** The specification of the component. */
@@ -909,7 +907,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -928,13 +926,13 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** How the cited artifact relates to the target artifact. */
-      public var relationshipType: CodeableConcept? = null,
+      public var relationshipType: CodeableConcept,
       /** The clasification of the related artifact. */
-      public var targetClassifier: List<CodeableConcept?>? = null,
+      public var targetClassifier: MutableList<CodeableConcept> = mutableListOf(),
       /** The article or artifact that the cited artifact is related to. */
-      public var target: Target? = null,
+      public var target: Target,
     ) : BackboneElement() {
       @Serializable(with = CitationCitedArtifactRelatesToTargetSerializer::class)
       public sealed interface Target {
@@ -957,20 +955,18 @@ public data class Citation(
         public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
           Target
 
-        public data object Null : Target
-
         public companion object {
-          public fun from(
+          internal fun from(
             uriValue: com.google.fhir.model.r4b.Uri?,
-            IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-            ReferenceValue: com.google.fhir.model.r4b.Reference?,
-            AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          ): Target {
+            identifierValue: com.google.fhir.model.r4b.Identifier?,
+            referenceValue: com.google.fhir.model.r4b.Reference?,
+            attachmentValue: com.google.fhir.model.r4b.Attachment?,
+          ): Target? {
             if (uriValue != null) return Uri(uriValue)
-            if (IdentifierValue != null) return Identifier(IdentifierValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            if (AttachmentValue != null) return Attachment(AttachmentValue)
-            return Null
+            if (identifierValue != null) return Identifier(identifierValue)
+            if (referenceValue != null) return Reference(referenceValue)
+            if (attachmentValue != null) return Attachment(attachmentValue)
+            return null
           }
         }
       }
@@ -999,7 +995,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1018,7 +1014,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The collection the cited article or artifact is published in. */
       public var publishedIn: PublishedIn? = null,
       /** The specific issue in which the cited article resides. */
@@ -1042,7 +1038,7 @@ public data class Citation(
        * element in the html (see rules in HTML5 for information about the relationship between
        * xml:lang and the html lang attribute).
        */
-      public var language: List<CodeableConcept?>? = null,
+      public var language: MutableList<CodeableConcept> = mutableListOf(),
       /** Entry number or identifier for inclusion in a database. */
       public var accessionNumber: String? = null,
       /** Used for full display of pagination. */
@@ -1076,7 +1072,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1095,7 +1091,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Kind of container (e.g. Periodical, database, or book).
          *
@@ -1106,7 +1102,7 @@ public data class Citation(
          * Journal identifiers include ISSN, ISO Abbreviation and NLMuniqueID; Book identifiers
          * include ISBN.
          */
-        public var identifier: List<Identifier?>? = null,
+        public var identifier: MutableList<Identifier> = mutableListOf(),
         /**
          * Name of the database or title of the book or journal.
          *
@@ -1139,7 +1135,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1158,7 +1154,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Describes the form of the medium cited. Common codes are "Internet" or "Print".
          *
@@ -1195,7 +1191,7 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1214,7 +1210,7 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Date on which the issue of the journal was published. */
           public var date: Date? = null,
           /** Year on which the issue of the journal was published. */
@@ -1251,7 +1247,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1270,7 +1266,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Code the reason for different URLs, e.g. abstract and full-text. */
       public var type: CodeableConcept? = null,
       /**
@@ -1301,7 +1297,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1320,11 +1316,11 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The kind of classifier (e.g. publication type, keyword). */
       public var type: CodeableConcept? = null,
       /** The specific classification value. */
-      public var classifier: List<CodeableConcept?>? = null,
+      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
       /** Provenance and copyright of classification. */
       public var whoClassified: WhoClassified? = null,
     ) : BackboneElement() {
@@ -1348,7 +1344,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1367,7 +1363,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Person who created the classification. */
         public var person: Reference? = null,
         /** Organization who created the classification. */
@@ -1407,7 +1403,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1426,7 +1422,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Indicates if the list includes all authors and/or contributors.
        *
@@ -1439,12 +1435,12 @@ public data class Citation(
        *
        * Used to report contributorship in individualized ways.
        */
-      public var entry: List<Entry>? = null,
+      public var entry: MutableList<Entry> = mutableListOf(),
       /**
        * Used to record a display of the author/contributor list without separate coding for each
        * list member.
        */
-      public var summary: List<Summary>? = null,
+      public var summary: MutableList<Summary> = mutableListOf(),
     ) : BackboneElement() {
       /** An individual entity named in the author list or contributor list. */
       @Serializable(with = CitationCitedArtifactContributorshipEntrySerializer::class)
@@ -1466,7 +1462,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1485,7 +1481,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * A name associated with the individual.
          *
@@ -1514,13 +1510,13 @@ public data class Citation(
          * Avoids needing to disambiguate common last names or changes of name. ORCID is commonly
          * used as author identifier.
          */
-        public var identifier: List<Identifier?>? = null,
+        public var identifier: MutableList<Identifier> = mutableListOf(),
         /** Organization affiliated with the entity. */
-        public var affiliationInfo: List<AffiliationInfo>? = null,
+        public var affiliationInfo: MutableList<AffiliationInfo> = mutableListOf(),
         /** Physical mailing address for the author or contributor. */
-        public var address: List<Address?>? = null,
+        public var address: MutableList<Address> = mutableListOf(),
         /** Email or telephone contact methods for the author or contributor. */
-        public var telecom: List<ContactPoint?>? = null,
+        public var telecom: MutableList<ContactPoint> = mutableListOf(),
         /**
          * This element identifies the specific nature of an individual’s contribution with respect
          * to the cited work.
@@ -1529,11 +1525,11 @@ public data class Citation(
          * files. The purpose of CRediT is to provide transparency in contributions to scholarly
          * published work, to enable improved systems of attribution, credit, and accountability.
          */
-        public var contributionType: List<CodeableConcept?>? = null,
+        public var contributionType: MutableList<CodeableConcept> = mutableListOf(),
         /** The role of the contributor (e.g. author, editor, reviewer). */
         public var role: CodeableConcept? = null,
         /** Contributions with accounting for time or number. */
-        public var contributionInstance: List<ContributionInstance>? = null,
+        public var contributionInstance: MutableList<ContributionInstance> = mutableListOf(),
         /** Indication of which contributor is the corresponding contributor for the role. */
         public var correspondingContact: Boolean? = null,
         /** Used to code order of authors. */
@@ -1561,7 +1557,7 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1580,13 +1576,13 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Display for the organization. */
           public var affiliation: String? = null,
           /** Role within the organization, such as professional title. */
           public var role: String? = null,
           /** Identifier for the organization. */
-          public var identifier: List<Identifier?>? = null,
+          public var identifier: MutableList<Identifier> = mutableListOf(),
         ) : BackboneElement()
 
         /** Contributions with accounting for time or number. */
@@ -1611,7 +1607,7 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1630,9 +1626,9 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** The specific contribution. */
-          public var type: CodeableConcept? = null,
+          public var type: CodeableConcept,
           /** The time that the contribution was made. */
           public var time: DateTime? = null,
         ) : BackboneElement()
@@ -1661,7 +1657,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1680,7 +1676,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Used most commonly to express an author list or a contributorship statement. */
         public var type: CodeableConcept? = null,
         /** The format for the display string. */
@@ -1690,7 +1686,7 @@ public data class Citation(
         /**
          * The display string for the author list, contributor list, or contributorship statement.
          */
-        public var `value`: Markdown? = null,
+        public var `value`: Markdown,
       ) : BackboneElement()
     }
   }

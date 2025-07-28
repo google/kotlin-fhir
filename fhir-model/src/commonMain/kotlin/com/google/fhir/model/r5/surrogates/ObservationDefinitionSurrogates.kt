@@ -49,17 +49,17 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ObservationDefinitionQualifiedValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var context: CodeableConcept? = null,
-  public var appliesTo: List<CodeableConcept?>? = null,
+  public var appliesTo: MutableList<CodeableConcept>? = null,
   public var gender: KotlinString? = null,
   public var _gender: Element? = null,
   public var age: Range? = null,
@@ -79,85 +79,86 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
   public var _criticalCodedValueSet: Element? = null,
 ) {
   public fun toModel(): ObservationDefinition.QualifiedValue =
-    ObservationDefinition.QualifiedValue().apply {
-      id = this@ObservationDefinitionQualifiedValueSurrogate.id
-      extension = this@ObservationDefinitionQualifiedValueSurrogate.extension
-      modifierExtension = this@ObservationDefinitionQualifiedValueSurrogate.modifierExtension
-      context = this@ObservationDefinitionQualifiedValueSurrogate.context
-      appliesTo = this@ObservationDefinitionQualifiedValueSurrogate.appliesTo
+    ObservationDefinition.QualifiedValue(
+      id = this@ObservationDefinitionQualifiedValueSurrogate.id,
+      extension = this@ObservationDefinitionQualifiedValueSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ObservationDefinitionQualifiedValueSurrogate.modifierExtension ?: mutableListOf(),
+      context = this@ObservationDefinitionQualifiedValueSurrogate.context,
+      appliesTo = this@ObservationDefinitionQualifiedValueSurrogate.appliesTo ?: mutableListOf(),
       gender =
-        Enumeration.of(
-          this@ObservationDefinitionQualifiedValueSurrogate.gender?.let {
-            com.google.fhir.model.r5.AdministrativeGender.fromCode(it)
-          },
-          this@ObservationDefinitionQualifiedValueSurrogate._gender,
-        )
-      age = this@ObservationDefinitionQualifiedValueSurrogate.age
-      gestationalAge = this@ObservationDefinitionQualifiedValueSurrogate.gestationalAge
+        this@ObservationDefinitionQualifiedValueSurrogate.gender?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.AdministrativeGender.fromCode(it!!),
+            this@ObservationDefinitionQualifiedValueSurrogate._gender,
+          )
+        },
+      age = this@ObservationDefinitionQualifiedValueSurrogate.age,
+      gestationalAge = this@ObservationDefinitionQualifiedValueSurrogate.gestationalAge,
       condition =
         R5String.of(
           this@ObservationDefinitionQualifiedValueSurrogate.condition,
           this@ObservationDefinitionQualifiedValueSurrogate._condition,
-        )
+        ),
       rangeCategory =
-        Enumeration.of(
-          this@ObservationDefinitionQualifiedValueSurrogate.rangeCategory?.let {
-            com.google.fhir.model.r5.ObservationDefinition.ObservationRangeCategory.fromCode(it)
-          },
-          this@ObservationDefinitionQualifiedValueSurrogate._rangeCategory,
-        )
-      range = this@ObservationDefinitionQualifiedValueSurrogate.range
+        this@ObservationDefinitionQualifiedValueSurrogate.rangeCategory?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.ObservationDefinition.ObservationRangeCategory.fromCode(it!!),
+            this@ObservationDefinitionQualifiedValueSurrogate._rangeCategory,
+          )
+        },
+      range = this@ObservationDefinitionQualifiedValueSurrogate.range,
       validCodedValueSet =
         Canonical.of(
           this@ObservationDefinitionQualifiedValueSurrogate.validCodedValueSet,
           this@ObservationDefinitionQualifiedValueSurrogate._validCodedValueSet,
-        )
+        ),
       normalCodedValueSet =
         Canonical.of(
           this@ObservationDefinitionQualifiedValueSurrogate.normalCodedValueSet,
           this@ObservationDefinitionQualifiedValueSurrogate._normalCodedValueSet,
-        )
+        ),
       abnormalCodedValueSet =
         Canonical.of(
           this@ObservationDefinitionQualifiedValueSurrogate.abnormalCodedValueSet,
           this@ObservationDefinitionQualifiedValueSurrogate._abnormalCodedValueSet,
-        )
+        ),
       criticalCodedValueSet =
         Canonical.of(
           this@ObservationDefinitionQualifiedValueSurrogate.criticalCodedValueSet,
           this@ObservationDefinitionQualifiedValueSurrogate._criticalCodedValueSet,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: ObservationDefinition.QualifiedValue
     ): ObservationDefinitionQualifiedValueSurrogate =
       with(model) {
-        ObservationDefinitionQualifiedValueSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          context = this@with.context
-          appliesTo = this@with.appliesTo
-          gender = this@with.gender?.value?.getCode()
-          _gender = this@with.gender?.toElement()
-          age = this@with.age
-          gestationalAge = this@with.gestationalAge
-          condition = this@with.condition?.value
-          _condition = this@with.condition?.toElement()
-          rangeCategory = this@with.rangeCategory?.value?.getCode()
-          _rangeCategory = this@with.rangeCategory?.toElement()
-          range = this@with.range
-          validCodedValueSet = this@with.validCodedValueSet?.value
-          _validCodedValueSet = this@with.validCodedValueSet?.toElement()
-          normalCodedValueSet = this@with.normalCodedValueSet?.value
-          _normalCodedValueSet = this@with.normalCodedValueSet?.toElement()
-          abnormalCodedValueSet = this@with.abnormalCodedValueSet?.value
-          _abnormalCodedValueSet = this@with.abnormalCodedValueSet?.toElement()
-          criticalCodedValueSet = this@with.criticalCodedValueSet?.value
-          _criticalCodedValueSet = this@with.criticalCodedValueSet?.toElement()
-        }
+        ObservationDefinitionQualifiedValueSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          context = this@with.context,
+          appliesTo = this@with.appliesTo.takeUnless { it.all { it == null } },
+          gender = this@with.gender?.value?.getCode(),
+          _gender = this@with.gender?.toElement(),
+          age = this@with.age,
+          gestationalAge = this@with.gestationalAge,
+          condition = this@with.condition?.value,
+          _condition = this@with.condition?.toElement(),
+          rangeCategory = this@with.rangeCategory?.value?.getCode(),
+          _rangeCategory = this@with.rangeCategory?.toElement(),
+          range = this@with.range,
+          validCodedValueSet = this@with.validCodedValueSet?.value,
+          _validCodedValueSet = this@with.validCodedValueSet?.toElement(),
+          normalCodedValueSet = this@with.normalCodedValueSet?.value,
+          _normalCodedValueSet = this@with.normalCodedValueSet?.toElement(),
+          abnormalCodedValueSet = this@with.abnormalCodedValueSet?.value,
+          _abnormalCodedValueSet = this@with.abnormalCodedValueSet?.toElement(),
+          criticalCodedValueSet = this@with.criticalCodedValueSet?.value,
+          _criticalCodedValueSet = this@with.criticalCodedValueSet?.toElement(),
+        )
       }
   }
 }
@@ -165,26 +166,27 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
 @Serializable
 internal data class ObservationDefinitionComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: CodeableConcept? = null,
-  public var permittedDataType: List<KotlinString?>? = null,
-  public var _permittedDataType: List<Element?>? = null,
-  public var permittedUnit: List<Coding?>? = null,
-  public var qualifiedValue: List<ObservationDefinition.QualifiedValue?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var permittedDataType: MutableList<KotlinString?>? = null,
+  public var _permittedDataType: MutableList<Element?>? = null,
+  public var permittedUnit: MutableList<Coding>? = null,
+  public var qualifiedValue: MutableList<ObservationDefinition.QualifiedValue>? = null,
 ) {
   public fun toModel(): ObservationDefinition.Component =
-    ObservationDefinition.Component().apply {
-      id = this@ObservationDefinitionComponentSurrogate.id
-      extension = this@ObservationDefinitionComponentSurrogate.extension
-      modifierExtension = this@ObservationDefinitionComponentSurrogate.modifierExtension
-      code = this@ObservationDefinitionComponentSurrogate.code
+    ObservationDefinition.Component(
+      id = this@ObservationDefinitionComponentSurrogate.id,
+      extension = this@ObservationDefinitionComponentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ObservationDefinitionComponentSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@ObservationDefinitionComponentSurrogate.code,
       permittedDataType =
         if (
           this@ObservationDefinitionComponentSurrogate.permittedDataType == null &&
             this@ObservationDefinitionComponentSurrogate._permittedDataType == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ObservationDefinitionComponentSurrogate.permittedDataType
               ?: List(this@ObservationDefinitionComponentSurrogate._permittedDataType!!.size) {
@@ -196,60 +198,65 @@ internal data class ObservationDefinitionComponentSurrogate(
                   null
                 }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
-                  com.google.fhir.model.r5.ObservationDefinition.ObservationDataType.fromCode(it)
+                value.let {
+                  com.google.fhir.model.r5.ObservationDefinition.ObservationDataType.fromCode(
+                    it!!
+                  )!!
                 },
                 element,
               )
             }
-        }
-      permittedUnit = this@ObservationDefinitionComponentSurrogate.permittedUnit
-      qualifiedValue = this@ObservationDefinitionComponentSurrogate.qualifiedValue
-    }
+            .toMutableList()
+        },
+      permittedUnit = this@ObservationDefinitionComponentSurrogate.permittedUnit ?: mutableListOf(),
+      qualifiedValue =
+        this@ObservationDefinitionComponentSurrogate.qualifiedValue ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: ObservationDefinition.Component
     ): ObservationDefinitionComponentSurrogate =
       with(model) {
-        ObservationDefinitionComponentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
+        ObservationDefinitionComponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
           permittedDataType =
             this@with.permittedDataType
-              ?.map { it?.value?.getCode() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _permittedDataType =
             this@with.permittedDataType
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          permittedUnit = this@with.permittedUnit
-          qualifiedValue = this@with.qualifiedValue
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          permittedUnit = this@with.permittedUnit.takeUnless { it.all { it == null } },
+          qualifiedValue = this@with.qualifiedValue.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
 
 @Serializable
-internal class ObservationDefinitionVersionAlgorithmSurrogate {
-  public var versionAlgorithmString: KotlinString? = null
-
-  public var _versionAlgorithmString: Element? = null
-
-  public var versionAlgorithmCoding: Coding? = null
-
-  public fun toModel(): ObservationDefinition.VersionAlgorithm =
+internal data class ObservationDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): ObservationDefinition.VersionAlgorithm? =
     ObservationDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ObservationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    ) ?: ObservationDefinition.VersionAlgorithm.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -257,9 +264,13 @@ internal class ObservationDefinitionVersionAlgorithmSurrogate {
     ): ObservationDefinitionVersionAlgorithmSurrogate =
       with(model) {
         ObservationDefinitionVersionAlgorithmSurrogate().apply {
-          versionAlgorithmString = this@with.asString()?.value?.value
-          _versionAlgorithmString = this@with.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.asCoding()?.value
+          ObservationDefinition.VersionAlgorithm?.from(
+            R5String.of(
+              this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+              this@ObservationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+            ),
+            this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+          )
         }
       }
   }
@@ -274,9 +285,9 @@ internal data class ObservationDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var identifier: Identifier? = null,
@@ -294,11 +305,11 @@ internal data class ObservationDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -310,129 +321,129 @@ internal data class ObservationDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var derivedFromCanonical: List<KotlinString?>? = null,
-  public var _derivedFromCanonical: List<Element?>? = null,
-  public var derivedFromUri: List<KotlinString?>? = null,
-  public var _derivedFromUri: List<Element?>? = null,
-  public var subject: List<CodeableConcept?>? = null,
+  public var derivedFromCanonical: MutableList<KotlinString?>? = null,
+  public var _derivedFromCanonical: MutableList<Element?>? = null,
+  public var derivedFromUri: MutableList<KotlinString?>? = null,
+  public var _derivedFromUri: MutableList<Element?>? = null,
+  public var subject: MutableList<CodeableConcept>? = null,
   public var performerType: CodeableConcept? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var code: CodeableConcept? = null,
-  public var permittedDataType: List<KotlinString?>? = null,
-  public var _permittedDataType: List<Element?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var code: CodeableConcept,
+  public var permittedDataType: MutableList<KotlinString?>? = null,
+  public var _permittedDataType: MutableList<Element?>? = null,
   public var multipleResultsAllowed: KotlinBoolean? = null,
   public var _multipleResultsAllowed: Element? = null,
   public var bodySite: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
-  public var specimen: List<Reference?>? = null,
-  public var device: List<Reference?>? = null,
+  public var specimen: MutableList<Reference>? = null,
+  public var device: MutableList<Reference>? = null,
   public var preferredReportName: KotlinString? = null,
   public var _preferredReportName: Element? = null,
-  public var permittedUnit: List<Coding?>? = null,
-  public var qualifiedValue: List<ObservationDefinition.QualifiedValue>? = null,
-  public var hasMember: List<Reference?>? = null,
-  public var component: List<ObservationDefinition.Component>? = null,
+  public var permittedUnit: MutableList<Coding>? = null,
+  public var qualifiedValue: MutableList<ObservationDefinition.QualifiedValue>? = null,
+  public var hasMember: MutableList<Reference>? = null,
+  public var component: MutableList<ObservationDefinition.Component>? = null,
   public var versionAlgorithm: ObservationDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ObservationDefinition =
-    ObservationDefinition().apply {
-      id = this@ObservationDefinitionSurrogate.id
-      meta = this@ObservationDefinitionSurrogate.meta
+    ObservationDefinition(
+      id = this@ObservationDefinitionSurrogate.id,
+      meta = this@ObservationDefinitionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ObservationDefinitionSurrogate.implicitRules,
           this@ObservationDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@ObservationDefinitionSurrogate.language,
           this@ObservationDefinitionSurrogate._language,
-        )
-      text = this@ObservationDefinitionSurrogate.text
-      contained = this@ObservationDefinitionSurrogate.contained
-      extension = this@ObservationDefinitionSurrogate.extension
-      modifierExtension = this@ObservationDefinitionSurrogate.modifierExtension
+        ),
+      text = this@ObservationDefinitionSurrogate.text,
+      contained = this@ObservationDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@ObservationDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ObservationDefinitionSurrogate.modifierExtension ?: mutableListOf(),
       url =
-        Uri.of(this@ObservationDefinitionSurrogate.url, this@ObservationDefinitionSurrogate._url)
-      identifier = this@ObservationDefinitionSurrogate.identifier
+        Uri.of(this@ObservationDefinitionSurrogate.url, this@ObservationDefinitionSurrogate._url),
+      identifier = this@ObservationDefinitionSurrogate.identifier,
       version =
         R5String.of(
           this@ObservationDefinitionSurrogate.version,
           this@ObservationDefinitionSurrogate._version,
-        )
-      versionAlgorithm = this@ObservationDefinitionSurrogate.versionAlgorithm
+        ),
+      versionAlgorithm = this@ObservationDefinitionSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@ObservationDefinitionSurrogate.name,
           this@ObservationDefinitionSurrogate._name,
-        )
+        ),
       title =
         R5String.of(
           this@ObservationDefinitionSurrogate.title,
           this@ObservationDefinitionSurrogate._title,
-        )
+        ),
       status =
         Enumeration.of(
-          this@ObservationDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(
+            this@ObservationDefinitionSurrogate.status!!
+          ),
           this@ObservationDefinitionSurrogate._status,
-        )
+        ),
       experimental =
         R5Boolean.of(
           this@ObservationDefinitionSurrogate.experimental,
           this@ObservationDefinitionSurrogate._experimental,
-        )
+        ),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ObservationDefinitionSurrogate.date),
           this@ObservationDefinitionSurrogate._date,
-        )
+        ),
       publisher =
         R5String.of(
           this@ObservationDefinitionSurrogate.publisher,
           this@ObservationDefinitionSurrogate._publisher,
-        )
-      contact = this@ObservationDefinitionSurrogate.contact
+        ),
+      contact = this@ObservationDefinitionSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@ObservationDefinitionSurrogate.description,
           this@ObservationDefinitionSurrogate._description,
-        )
-      useContext = this@ObservationDefinitionSurrogate.useContext
-      jurisdiction = this@ObservationDefinitionSurrogate.jurisdiction
+        ),
+      useContext = this@ObservationDefinitionSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@ObservationDefinitionSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
         Markdown.of(
           this@ObservationDefinitionSurrogate.purpose,
           this@ObservationDefinitionSurrogate._purpose,
-        )
+        ),
       copyright =
         Markdown.of(
           this@ObservationDefinitionSurrogate.copyright,
           this@ObservationDefinitionSurrogate._copyright,
-        )
+        ),
       copyrightLabel =
         R5String.of(
           this@ObservationDefinitionSurrogate.copyrightLabel,
           this@ObservationDefinitionSurrogate._copyrightLabel,
-        )
+        ),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@ObservationDefinitionSurrogate.approvalDate),
           this@ObservationDefinitionSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@ObservationDefinitionSurrogate.lastReviewDate),
           this@ObservationDefinitionSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@ObservationDefinitionSurrogate.effectivePeriod
+        ),
+      effectivePeriod = this@ObservationDefinitionSurrogate.effectivePeriod,
       derivedFromCanonical =
         if (
           this@ObservationDefinitionSurrogate.derivedFromCanonical == null &&
             this@ObservationDefinitionSurrogate._derivedFromCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ObservationDefinitionSurrogate.derivedFromCanonical
               ?: List(this@ObservationDefinitionSurrogate._derivedFromCanonical!!.size) { null })
@@ -440,14 +451,15 @@ internal data class ObservationDefinitionSurrogate(
               this@ObservationDefinitionSurrogate._derivedFromCanonical
                 ?: List(this@ObservationDefinitionSurrogate.derivedFromCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       derivedFromUri =
         if (
           this@ObservationDefinitionSurrogate.derivedFromUri == null &&
             this@ObservationDefinitionSurrogate._derivedFromUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ObservationDefinitionSurrogate.derivedFromUri
               ?: List(this@ObservationDefinitionSurrogate._derivedFromUri!!.size) { null })
@@ -455,18 +467,19 @@ internal data class ObservationDefinitionSurrogate(
               this@ObservationDefinitionSurrogate._derivedFromUri
                 ?: List(this@ObservationDefinitionSurrogate.derivedFromUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      subject = this@ObservationDefinitionSurrogate.subject
-      performerType = this@ObservationDefinitionSurrogate.performerType
-      category = this@ObservationDefinitionSurrogate.category
-      code = this@ObservationDefinitionSurrogate.code
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      subject = this@ObservationDefinitionSurrogate.subject ?: mutableListOf(),
+      performerType = this@ObservationDefinitionSurrogate.performerType,
+      category = this@ObservationDefinitionSurrogate.category ?: mutableListOf(),
+      code = this@ObservationDefinitionSurrogate.code,
       permittedDataType =
         if (
           this@ObservationDefinitionSurrogate.permittedDataType == null &&
             this@ObservationDefinitionSurrogate._permittedDataType == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ObservationDefinitionSurrogate.permittedDataType
               ?: List(this@ObservationDefinitionSurrogate._permittedDataType!!.size) { null })
@@ -474,118 +487,136 @@ internal data class ObservationDefinitionSurrogate(
               this@ObservationDefinitionSurrogate._permittedDataType
                 ?: List(this@ObservationDefinitionSurrogate.permittedDataType!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let {
-                  com.google.fhir.model.r5.ObservationDefinition.ObservationDataType.fromCode(it)
+                value.let {
+                  com.google.fhir.model.r5.ObservationDefinition.ObservationDataType.fromCode(
+                    it!!
+                  )!!
                 },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       multipleResultsAllowed =
         R5Boolean.of(
           this@ObservationDefinitionSurrogate.multipleResultsAllowed,
           this@ObservationDefinitionSurrogate._multipleResultsAllowed,
-        )
-      bodySite = this@ObservationDefinitionSurrogate.bodySite
-      method = this@ObservationDefinitionSurrogate.method
-      specimen = this@ObservationDefinitionSurrogate.specimen
-      device = this@ObservationDefinitionSurrogate.device
+        ),
+      bodySite = this@ObservationDefinitionSurrogate.bodySite,
+      method = this@ObservationDefinitionSurrogate.method,
+      specimen = this@ObservationDefinitionSurrogate.specimen ?: mutableListOf(),
+      device = this@ObservationDefinitionSurrogate.device ?: mutableListOf(),
       preferredReportName =
         R5String.of(
           this@ObservationDefinitionSurrogate.preferredReportName,
           this@ObservationDefinitionSurrogate._preferredReportName,
-        )
-      permittedUnit = this@ObservationDefinitionSurrogate.permittedUnit
-      qualifiedValue = this@ObservationDefinitionSurrogate.qualifiedValue
-      hasMember = this@ObservationDefinitionSurrogate.hasMember
-      component = this@ObservationDefinitionSurrogate.component
-    }
+        ),
+      permittedUnit = this@ObservationDefinitionSurrogate.permittedUnit ?: mutableListOf(),
+      qualifiedValue = this@ObservationDefinitionSurrogate.qualifiedValue ?: mutableListOf(),
+      hasMember = this@ObservationDefinitionSurrogate.hasMember ?: mutableListOf(),
+      component = this@ObservationDefinitionSurrogate.component ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ObservationDefinition): ObservationDefinitionSurrogate =
       with(model) {
-        ObservationDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          versionAlgorithm = this@with.versionAlgorithm
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          copyrightLabel = this@with.copyrightLabel?.value
-          _copyrightLabel = this@with.copyrightLabel?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
+        ObservationDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier,
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          versionAlgorithm = this@with.versionAlgorithm,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          copyrightLabel = this@with.copyrightLabel?.value,
+          _copyrightLabel = this@with.copyrightLabel?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
           derivedFromCanonical =
-            this@with.derivedFromCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFromCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _derivedFromCanonical =
             this@with.derivedFromCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           derivedFromUri =
-            this@with.derivedFromUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.derivedFromUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _derivedFromUri =
-            this@with.derivedFromUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          subject = this@with.subject
-          performerType = this@with.performerType
-          category = this@with.category
-          code = this@with.code
+            this@with.derivedFromUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          subject = this@with.subject.takeUnless { it.all { it == null } },
+          performerType = this@with.performerType,
+          category = this@with.category.takeUnless { it.all { it == null } },
+          code = this@with.code,
           permittedDataType =
             this@with.permittedDataType
-              ?.map { it?.value?.getCode() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _permittedDataType =
             this@with.permittedDataType
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
-          multipleResultsAllowed = this@with.multipleResultsAllowed?.value
-          _multipleResultsAllowed = this@with.multipleResultsAllowed?.toElement()
-          bodySite = this@with.bodySite
-          method = this@with.method
-          specimen = this@with.specimen
-          device = this@with.device
-          preferredReportName = this@with.preferredReportName?.value
-          _preferredReportName = this@with.preferredReportName?.toElement()
-          permittedUnit = this@with.permittedUnit
-          qualifiedValue = this@with.qualifiedValue
-          hasMember = this@with.hasMember
-          component = this@with.component
-        }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          multipleResultsAllowed = this@with.multipleResultsAllowed?.value,
+          _multipleResultsAllowed = this@with.multipleResultsAllowed?.toElement(),
+          bodySite = this@with.bodySite,
+          method = this@with.method,
+          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          device = this@with.device.takeUnless { it.all { it == null } },
+          preferredReportName = this@with.preferredReportName?.value,
+          _preferredReportName = this@with.preferredReportName?.toElement(),
+          permittedUnit = this@with.permittedUnit.takeUnless { it.all { it == null } },
+          qualifiedValue = this@with.qualifiedValue.takeUnless { it.all { it == null } },
+          hasMember = this@with.hasMember.takeUnless { it.all { it == null } },
+          component = this@with.component.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

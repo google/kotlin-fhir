@@ -34,7 +34,7 @@ import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntityInstanceSer
 import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntitySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -118,7 +118,7 @@ public data class AdverseEvent(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -131,7 +131,7 @@ public data class AdverseEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -150,7 +150,7 @@ public data class AdverseEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this adverse event by the performer or other systems which
    * remain constant as the resource is updated and propagates from server to server.
@@ -162,14 +162,14 @@ public data class AdverseEvent(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The current state of the adverse event or potential adverse event.
    *
    * This is not the reporting of the event to any regulatory or quality organization. This is not
    * the outcome of the patient's condition.
    */
-  public var status: Enumeration<AdverseEventStatus>? = null,
+  public var status: Enumeration<AdverseEventStatus>,
   /**
    * Whether the event actually happened or was a near miss. Note that this is independent of
    * whether anyone was affected or harmed or how severely.
@@ -180,9 +180,9 @@ public data class AdverseEvent(
    * exist and the substance was given, then an adverse reaction should be recorded as an
    * AdverseEvent due to the aberrant workflow.
    */
-  public var actuality: Enumeration<AdverseEventActuality>? = null,
+  public var actuality: Enumeration<AdverseEventActuality>,
   /** The overall type of event, intended for search and filtering purposes. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Specific event that occurred or that was averted, such as patient fall, wrong organ removed, or
    * wrong blood transfused.
@@ -194,7 +194,7 @@ public data class AdverseEvent(
    * If AdverseEvent.resultingEffect differs among members of the group, then use Patient as the
    * subject.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter associated with the start of the AdverseEvent.
    *
@@ -223,7 +223,7 @@ public data class AdverseEvent(
    * due to the exposure to a substance (for example, a drug or a chemical) or a broken leg as a
    * result of the fall.
    */
-  public var resultingEffect: List<Reference?>? = null,
+  public var resultingEffect: MutableList<Reference> = mutableListOf(),
   /** The information about where the adverse event occurred. */
   public var location: Reference? = null,
   /**
@@ -242,13 +242,13 @@ public data class AdverseEvent(
    * Describes the type of outcome from the adverse event, such as resolved, recovering, ongoing,
    * resolved-with-sequelae, or fatal.
    */
-  public var outcome: List<CodeableConcept?>? = null,
+  public var outcome: MutableList<CodeableConcept> = mutableListOf(),
   /** Information on who recorded the adverse event. May be the patient or a practitioner. */
   public var recorder: Reference? = null,
   /** Indicates who or what participated in the adverse event and how they were involved. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** The research study that the subject is enrolled in. */
-  public var study: List<Reference?>? = null,
+  public var study: MutableList<Reference> = mutableListOf(),
   /**
    * Considered likely or probable or anticipated in the research study. Whether the reported event
    * matches any of the outcomes for the patient that are considered by the study as known or
@@ -256,23 +256,23 @@ public data class AdverseEvent(
    */
   public var expectedInResearchStudy: Boolean? = null,
   /** Describes the entity that is suspected to have caused the adverse event. */
-  public var suspectEntity: List<SuspectEntity>? = null,
+  public var suspectEntity: MutableList<SuspectEntity> = mutableListOf(),
   /**
    * The contributing factors suspected to have increased the probability or severity of the adverse
    * event.
    */
-  public var contributingFactor: List<ContributingFactor>? = null,
+  public var contributingFactor: MutableList<ContributingFactor> = mutableListOf(),
   /** Preventive actions that contributed to avoiding the adverse event. */
-  public var preventiveAction: List<PreventiveAction>? = null,
+  public var preventiveAction: MutableList<PreventiveAction> = mutableListOf(),
   /**
    * The ameliorating action taken after the adverse event occured in order to reduce the extent of
    * harm.
    */
-  public var mitigatingAction: List<MitigatingAction>? = null,
+  public var mitigatingAction: MutableList<MitigatingAction> = mutableListOf(),
   /** Supporting information relevant to the event. */
-  public var supportingInfo: List<SupportingInfo>? = null,
+  public var supportingInfo: MutableList<SupportingInfo> = mutableListOf(),
   /** Comments made about the adverse event by the performer, subject or other participants. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what participated in the adverse event and how they were involved. */
   @Serializable(with = AdverseEventParticipantSerializer::class)
@@ -294,7 +294,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -313,7 +313,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of involvement of the actor in the adverse event, such as contributor
      * or informant.
@@ -325,7 +325,7 @@ public data class AdverseEvent(
      * For example, the physician prescribing a drug, a nurse administering the drug, a device that
      * administered the drug, a witness to the event, or an informant of clinical history.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /** Describes the entity that is suspected to have caused the adverse event. */
@@ -348,7 +348,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -367,12 +367,12 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies the actual instance of what caused the adverse event. May be a substance,
      * medication, medication administration, medication statement or a device.
      */
-    public var instance: Instance? = null,
+    public var instance: Instance,
     /** Information on the possible cause of the event. */
     public var causality: Causality? = null,
   ) : BackboneElement() {
@@ -396,7 +396,7 @@ public data class AdverseEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -415,7 +415,7 @@ public data class AdverseEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The method of evaluating the relatedness of the suspected entity to the event. */
       public var assessmentMethod: CodeableConcept? = null,
       /**
@@ -440,16 +440,14 @@ public data class AdverseEvent(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Instance
 
-      public data object Null : Instance
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Instance {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
+        ): Instance? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }
@@ -478,7 +476,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -497,12 +495,12 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The item that is suspected to have increased the probability or severity of the adverse
      * event.
      */
-    public var item: Item? = null,
+    public var item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventContributingFactorItemSerializer::class)
     public sealed interface Item {
@@ -516,16 +514,14 @@ public data class AdverseEvent(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Item
 
-      public data object Null : Item
-
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Item {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return Null
+        internal fun from(
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        ): Item? {
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          return null
         }
       }
     }
@@ -551,7 +547,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -570,9 +566,9 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The action that contributed to avoiding the adverse event. */
-    public var item: Item? = null,
+    public var item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventPreventiveActionItemSerializer::class)
     public sealed interface Item {
@@ -586,16 +582,14 @@ public data class AdverseEvent(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Item
 
-      public data object Null : Item
-
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Item {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return Null
+        internal fun from(
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        ): Item? {
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          return null
         }
       }
     }
@@ -624,7 +618,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -643,12 +637,12 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The ameliorating action taken after the adverse event occured in order to reduce the extent
      * of harm.
      */
-    public var item: Item? = null,
+    public var item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventMitigatingActionItemSerializer::class)
     public sealed interface Item {
@@ -662,16 +656,14 @@ public data class AdverseEvent(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Item
 
-      public data object Null : Item
-
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Item {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return Null
+        internal fun from(
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        ): Item? {
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          return null
         }
       }
     }
@@ -697,7 +689,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -716,7 +708,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Relevant past history for the subject. In a clinical care context, an example being a patient
      * had an adverse event following a pencillin administration and the patient had a previously
@@ -726,7 +718,7 @@ public data class AdverseEvent(
      * history. For example, a clinical note, staff list, or material safety data sheet (MSDS).
      * Supporting information is not a contributing factor, preventive action, or mitigating action.
      */
-    public var item: Item? = null,
+    public var item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventSupportingInfoItemSerializer::class)
     public sealed interface Item {
@@ -740,16 +732,14 @@ public data class AdverseEvent(
         public val `value`: com.google.fhir.model.r5.CodeableConcept
       ) : Item
 
-      public data object Null : Item
-
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-        ): Item {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return Null
+        internal fun from(
+          referenceValue: com.google.fhir.model.r5.Reference?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        ): Item? {
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          return null
         }
       }
     }
@@ -769,18 +759,16 @@ public data class AdverseEvent(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
-    public data object Null : Occurrence
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurrence {
+        periodValue: com.google.fhir.model.r5.Period?,
+        timingValue: com.google.fhir.model.r5.Timing?,
+      ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
+        return null
       }
     }
   }
@@ -790,44 +778,11 @@ public data class AdverseEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The event is currently occurring. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/event-status",
-      "In Progress",
-      "The event is currently occurring.",
-    ),
-    /** The event has now concluded. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/event-status",
-      "Completed",
-      "The event has now concluded.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "stopped" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"stopped\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this event. Note: This concept is not to be used for "other" - one of the listed statuses is
-     * presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/event-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this event.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -836,8 +791,6 @@ public data class AdverseEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AdverseEventStatus =
@@ -856,21 +809,12 @@ public data class AdverseEvent(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The adverse event actually happened regardless of whether anyone was affected or harmed. */
-    Actual(
-      "actual",
-      "http://hl7.org/fhir/adverse-event-actuality",
-      "Adverse Event",
-      "The adverse event actually happened regardless of whether anyone was affected or harmed.",
-    ),
-    /** A potential adverse event. */
+    Actual("actual", "http://hl7.org/fhir/adverse-event-actuality", "Adverse Event"),
     Potential(
       "potential",
       "http://hl7.org/fhir/adverse-event-actuality",
       "Potential Adverse Event",
-      "A potential adverse event.",
     );
 
     override fun toString(): String = code
@@ -880,8 +824,6 @@ public data class AdverseEvent(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): AdverseEventActuality =

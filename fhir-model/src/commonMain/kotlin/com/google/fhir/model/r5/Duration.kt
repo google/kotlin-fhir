@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.DurationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Duration Type: A length of time. */
@@ -43,7 +43,7 @@ public data class Duration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The value of the measured amount. The value includes an implicit precision in the presentation
    * of the value.
@@ -75,42 +75,15 @@ public data class Duration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The actual value is less than the given value. */
-    LessThan(
-      "<",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Less than",
-      "The actual value is less than the given value.",
-    ),
-    /** The actual value is less than or equal to the given value. */
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Less or Equal to",
-      "The actual value is less than or equal to the given value.",
-    ),
-    /** The actual value is greater than or equal to the given value. */
-    GreaterThanOrEqualTo(
-      ">=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater or Equal to",
-      "The actual value is greater than or equal to the given value.",
-    ),
-    /** The actual value is greater than the given value. */
-    GreaterThan(
-      ">",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater than",
-      "The actual value is greater than the given value.",
-    ),
-    /** The actual value is sufficient for the total quantity to equal the given value. */
+    LessThan("<", "http://hl7.org/fhir/quantity-comparator", "Less than"),
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/quantity-comparator", "Less or Equal to"),
+    GreaterThanOrEqualTo(">=", "http://hl7.org/fhir/quantity-comparator", "Greater or Equal to"),
+    GreaterThan(">", "http://hl7.org/fhir/quantity-comparator", "Greater than"),
     Ad(
       "ad",
       "http://hl7.org/fhir/quantity-comparator",
       "Sufficient to achieve this total quantity",
-      "The actual value is sufficient for the total quantity to equal the given value.",
     );
 
     override fun toString(): kotlin.String = code
@@ -120,8 +93,6 @@ public data class Duration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuantityComparator =

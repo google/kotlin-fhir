@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.DeviceDefinitionSerializer
 import com.google.fhir.model.r4.serializers.DeviceDefinitionSpecializationSerializer
 import com.google.fhir.model.r4.serializers.DeviceDefinitionUdiDeviceIdentifierSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class DeviceDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class DeviceDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,22 +133,22 @@ public data class DeviceDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique instance identifiers assigned to a device by the software, manufacturers, other
    * organizations or owners. For example: handle ID.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Unique device identifier (UDI) assigned to device label or package. Note that the Device may
    * include multiple udiCarriers as it either may include just the udiCarrier for the jurisdiction
    * it is sold, or for multiple jurisdictions it could have been sold.
    */
-  public var udiDeviceIdentifier: List<UdiDeviceIdentifier>? = null,
+  public var udiDeviceIdentifier: MutableList<UdiDeviceIdentifier> = mutableListOf(),
   /** A name of the manufacturer. */
   public var manufacturer: Manufacturer? = null,
   /** A name given to the device to identify it. */
-  public var deviceName: List<DeviceName>? = null,
+  public var deviceName: MutableList<DeviceName> = mutableListOf(),
   /** The model number for the device. */
   public var modelNumber: String? = null,
   /** What kind of device or device system this is. */
@@ -157,24 +157,24 @@ public data class DeviceDefinition(
    * The capabilities supported on a device, the standards to which the device conforms for a
    * particular purpose, and used for the communication.
    */
-  public var specialization: List<Specialization>? = null,
+  public var specialization: MutableList<Specialization> = mutableListOf(),
   /** The available versions of the device, e.g., software versions. */
-  public var version: List<String?>? = null,
+  public var version: MutableList<String> = mutableListOf(),
   /** Safety characteristics of the device. */
-  public var safety: List<CodeableConcept?>? = null,
+  public var safety: MutableList<CodeableConcept> = mutableListOf(),
   /** Shelf Life and storage information. */
-  public var shelfLifeStorage: List<ProductShelfLife?>? = null,
+  public var shelfLifeStorage: MutableList<ProductShelfLife> = mutableListOf(),
   /** Dimensions, color etc. */
   public var physicalCharacteristics: ProdCharacteristic? = null,
   /** Language code for the human-readable text strings produced by the device (all supported). */
-  public var languageCode: List<CodeableConcept?>? = null,
+  public var languageCode: MutableList<CodeableConcept> = mutableListOf(),
   /** Device capabilities. */
-  public var capability: List<Capability>? = null,
+  public var capability: MutableList<Capability> = mutableListOf(),
   /**
    * The actual configuration settings of a device as it actually operates, e.g., regulation status,
    * time properties.
    */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
   /**
    * An organization that is responsible for the provision and ongoing maintenance of the device.
    */
@@ -184,7 +184,7 @@ public data class DeviceDefinition(
    *
    * used for troubleshooting etc.
    */
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint> = mutableListOf(),
   /**
    * A network address on which the device may be contacted directly.
    *
@@ -198,7 +198,7 @@ public data class DeviceDefinition(
    * Descriptive information, usage information or implantation information that is not captured in
    * an existing element.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The quantity of the device present in the packaging (e.g. the number of devices present in a
    * pack, or the number of devices in the same package of the medicinal product).
@@ -207,7 +207,7 @@ public data class DeviceDefinition(
   /** The parent device it can be part of. */
   public var parentDevice: Reference? = null,
   /** A substance used to create the material(s) of which the device is made. */
-  public var material: List<Material>? = null,
+  public var material: MutableList<Material> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Unique device identifier (UDI) assigned to device label or package. Note that the Device may
@@ -233,7 +233,7 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -252,17 +252,17 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The identifier that is to be associated with every Device that references this
      * DeviceDefintiion for the issuer and jurisdication porvided in the
      * DeviceDefinition.udiDeviceIdentifier.
      */
-    public var deviceIdentifier: String? = null,
+    public var deviceIdentifier: String,
     /** The organization that assigns the identifier algorithm. */
-    public var issuer: Uri? = null,
+    public var issuer: Uri,
     /** The jurisdiction to which the deviceIdentifier applies. */
-    public var jurisdiction: Uri? = null,
+    public var jurisdiction: Uri,
   ) : BackboneElement()
 
   /** A name given to the device to identify it. */
@@ -285,7 +285,7 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -304,14 +304,14 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The name of the device. */
-    public var name: String? = null,
+    public var name: String,
     /**
      * The type of deviceName. UDILabelName | UserFriendlyName | PatientReportedName |
      * ManufactureDeviceName | ModelName.
      */
-    public var type: Enumeration<DeviceNameType>? = null,
+    public var type: Enumeration<DeviceNameType>,
   ) : BackboneElement()
 
   /**
@@ -337,7 +337,7 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -356,9 +356,9 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The standard that is used to operate and communicate. */
-    public var systemType: String? = null,
+    public var systemType: String,
     /** The version of the standard that is used to operate and communicate. */
     public var version: String? = null,
   ) : BackboneElement()
@@ -383,7 +383,7 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -402,11 +402,11 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Type of capability. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** Description of capability. */
-    public var description: List<CodeableConcept?>? = null,
+    public var description: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -432,7 +432,7 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -451,13 +451,13 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Code that specifies the property DeviceDefinitionPropetyCode (Extensible). */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** Property value as a quantity. */
-    public var valueQuantity: List<Quantity?>? = null,
+    public var valueQuantity: MutableList<Quantity> = mutableListOf(),
     /** Property value as a code, e.g., NTP4 (synced to NTP). */
-    public var valueCode: List<CodeableConcept?>? = null,
+    public var valueCode: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   /** A substance used to create the material(s) of which the device is made. */
@@ -480,7 +480,7 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -499,9 +499,9 @@ public data class DeviceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The substance. */
-    public var substance: CodeableConcept? = null,
+    public var substance: CodeableConcept,
     /** Indicates an alternative material of the device. */
     public var alternate: Boolean? = null,
     /** Whether the substance is a known or suspected allergen. */
@@ -519,16 +519,14 @@ public data class DeviceDefinition(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       Manufacturer
 
-    public data object Null : Manufacturer
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r4.String?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Manufacturer {
+        referenceValue: com.google.fhir.model.r4.Reference?,
+      ): Manufacturer? {
         if (stringValue != null) return String(stringValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -538,40 +536,25 @@ public data class DeviceDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** UDI Label name. */
-    Udi_Label_Name(
-      "udi-label-name",
-      "http://hl7.org/fhir/device-nametype",
-      "UDI Label name",
-      "UDI Label name.",
-    ),
-    /** User Friendly name. */
+    Udi_Label_Name("udi-label-name", "http://hl7.org/fhir/device-nametype", "UDI Label name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      "User Friendly name.",
     ),
-    /** Patient Reported name. */
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      "Patient Reported name.",
     ),
-    /** Manufacturer name. */
     Manufacturer_Name(
       "manufacturer-name",
       "http://hl7.org/fhir/device-nametype",
       "Manufacturer name",
-      "Manufacturer name.",
     ),
-    /** Model name. */
-    Model_Name("model-name", "http://hl7.org/fhir/device-nametype", "Model name", "Model name."),
-    /** other. */
-    Other("other", "http://hl7.org/fhir/device-nametype", "other", "other.");
+    Model_Name("model-name", "http://hl7.org/fhir/device-nametype", "Model name"),
+    Other("other", "http://hl7.org/fhir/device-nametype", "other");
 
     override fun toString(): kotlin.String = code
 
@@ -580,8 +563,6 @@ public data class DeviceDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =

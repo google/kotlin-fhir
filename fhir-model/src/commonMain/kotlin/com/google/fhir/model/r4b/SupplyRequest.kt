@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.SupplyRequestParameterValueSerializ
 import com.google.fhir.model.r4b.serializers.SupplyRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class SupplyRequest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class SupplyRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class SupplyRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this SupplyRequest by the author and/or other systems. These
    * identifiers remain constant as the resource is updated and propagates from server to server.
@@ -136,7 +136,7 @@ public data class SupplyRequest(
    * The identifier.type element is used to distinguish between the identifiers assigned by the
    * requester/placer and the performer/filler.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Status of the supply request. */
   public var status: Enumeration<SupplyRequestStatus>? = null,
   /**
@@ -156,11 +156,11 @@ public data class SupplyRequest(
    * along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit
    * instructions.
    */
-  public var item: Item? = null,
+  public var item: Item,
   /** The amount that is being ordered of the indicated item. */
-  public var quantity: Quantity? = null,
+  public var quantity: Quantity,
   /** Specific parameters for the ordered item. For example, the size of the indicated item. */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
   /** When the request should be fulfilled. */
   public var occurrence: Occurrence? = null,
   /** When the request was made. */
@@ -168,11 +168,11 @@ public data class SupplyRequest(
   /** The device, practitioner, etc. who initiated the request. */
   public var requester: Reference? = null,
   /** Who is intended to fulfill the request. */
-  public var supplier: List<Reference?>? = null,
+  public var supplier: MutableList<Reference> = mutableListOf(),
   /** The reason why the supply item was requested. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** The reason why the supply item was requested. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /** Where the supply is expected to come from. */
   public var deliverFrom: Reference? = null,
   /** Where the supply is destined to go. */
@@ -198,7 +198,7 @@ public data class SupplyRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -217,7 +217,7 @@ public data class SupplyRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code or string that identifies the device detail being asserted. */
     public var code: CodeableConcept? = null,
     /**
@@ -247,20 +247,18 @@ public data class SupplyRequest(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r4b.Boolean) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return Null
+          return null
         }
       }
     }
@@ -278,16 +276,14 @@ public data class SupplyRequest(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) : Item
 
-    public data object Null : Item
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Item {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+      ): Item? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -306,18 +302,16 @@ public data class SupplyRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r4b.Timing) : Occurrence
 
-    public data object Null : Occurrence
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-        TimingValue: com.google.fhir.model.r4b.Timing?,
-      ): Occurrence {
+        periodValue: com.google.fhir.model.r4b.Period?,
+        timingValue: com.google.fhir.model.r4b.Timing?,
+      ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
+        return null
       }
     }
   }
@@ -327,74 +321,18 @@ public data class SupplyRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Active",
-      "The request is ready to be acted upon.",
-    ),
-    /**
-     * The authorization/request to act has been temporarily withdrawn but is expected to resume in
-     * the future.
-     */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Suspended",
-      "The authorization/request to act has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The authorization/request to act has been terminated prior to the full completion of the
-     * intended actions. No further activity should occur.
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Cancelled",
-      "The authorization/request to act has been terminated prior to the full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * Activity against the request has been sufficiently completed to the satisfaction of the
-     * requester.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Completed",
-      "Activity against the request has been sufficiently completed to the satisfaction of the requester.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "cancelled" rather than "entered-in-error".).
-     */
+    Draft("draft", "http://hl7.org/fhir/supplyrequest-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/supplyrequest-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/supplyrequest-status", "Suspended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/supplyrequest-status", "Cancelled"),
+    Completed("completed", "http://hl7.org/fhir/supplyrequest-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/supplyrequest-status",
       "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/supplyrequest-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/supplyrequest-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -403,8 +341,6 @@ public data class SupplyRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SupplyRequestStatus =
@@ -426,38 +362,11 @@ public data class SupplyRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -466,8 +375,6 @@ public data class SupplyRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): RequestPriority =

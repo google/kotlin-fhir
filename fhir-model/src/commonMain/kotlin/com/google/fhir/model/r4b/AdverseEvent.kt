@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.AdverseEventSerializer
 import com.google.fhir.model.r4b.serializers.AdverseEventSuspectEntityCausalitySerializer
 import com.google.fhir.model.r4b.serializers.AdverseEventSuspectEntitySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class AdverseEvent(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class AdverseEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class AdverseEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this adverse event by the performer or other systems which
    * remain constant as the resource is updated and propagates from server to server.
@@ -146,9 +146,9 @@ public data class AdverseEvent(
    * Whether the event actually happened, or just had the potential to. Note that this is
    * independent of whether anyone was affected or harmed or how severely.
    */
-  public var actuality: Enumeration<AdverseEventActuality>? = null,
+  public var actuality: Enumeration<AdverseEventActuality>,
   /** The overall type of event, intended for search and filtering purposes. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * This element defines the specific type of event that occurred or that was prevented from
    * occurring.
@@ -160,7 +160,7 @@ public data class AdverseEvent(
    * If AdverseEvent.resultingCondition differs among members of the group, then use Patient as the
    * subject.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which AdverseEvent was created or to which the creation of this record is
    * tightly associated.
@@ -189,7 +189,7 @@ public data class AdverseEvent(
    * Includes information about the reaction that occurred as a result of exposure to a substance
    * (for example, a drug or a chemical).
    */
-  public var resultingCondition: List<Reference?>? = null,
+  public var resultingCondition: MutableList<Reference> = mutableListOf(),
   /** The information about where the adverse event occurred. */
   public var location: Reference? = null,
   /** Assessment whether this event was of real importance. */
@@ -210,15 +210,15 @@ public data class AdverseEvent(
    * information that the activity itself seeks to reveal (e.g. informant of clinical history), or
    * information about what activity was performed (e.g. informant witness).
    */
-  public var contributor: List<Reference?>? = null,
+  public var contributor: MutableList<Reference> = mutableListOf(),
   /** Describes the entity that is suspected to have caused the adverse event. */
-  public var suspectEntity: List<SuspectEntity>? = null,
+  public var suspectEntity: MutableList<SuspectEntity> = mutableListOf(),
   /** AdverseEvent.subjectMedicalHistory. */
-  public var subjectMedicalHistory: List<Reference?>? = null,
+  public var subjectMedicalHistory: MutableList<Reference> = mutableListOf(),
   /** AdverseEvent.referenceDocument. */
-  public var referenceDocument: List<Reference?>? = null,
+  public var referenceDocument: MutableList<Reference> = mutableListOf(),
   /** AdverseEvent.study. */
-  public var study: List<Reference?>? = null,
+  public var study: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Describes the entity that is suspected to have caused the adverse event. */
   @Serializable(with = AdverseEventSuspectEntitySerializer::class)
@@ -240,7 +240,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -259,14 +259,14 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies the actual instance of what caused the adverse event. May be a substance,
      * medication, medication administration, medication statement or a device.
      */
-    public var instance: Reference? = null,
+    public var instance: Reference,
     /** Information on the possible cause of the event. */
-    public var causality: List<Causality>? = null,
+    public var causality: MutableList<Causality> = mutableListOf(),
   ) : BackboneElement() {
     /** Information on the possible cause of the event. */
     @Serializable(with = AdverseEventSuspectEntityCausalitySerializer::class)
@@ -288,7 +288,7 @@ public data class AdverseEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -307,7 +307,7 @@ public data class AdverseEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Assessment of if the entity caused the event. */
       public var assessment: CodeableConcept? = null,
       /** AdverseEvent.suspectEntity.causalityProductRelatedness. */
@@ -324,21 +324,12 @@ public data class AdverseEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The adverse event actually happened regardless of whether anyone was affected or harmed. */
-    Actual(
-      "actual",
-      "http://hl7.org/fhir/adverse-event-actuality",
-      "Adverse Event",
-      "The adverse event actually happened regardless of whether anyone was affected or harmed.",
-    ),
-    /** A potential adverse event. */
+    Actual("actual", "http://hl7.org/fhir/adverse-event-actuality", "Adverse Event"),
     Potential(
       "potential",
       "http://hl7.org/fhir/adverse-event-actuality",
       "Potential Adverse Event",
-      "A potential adverse event.",
     );
 
     override fun toString(): kotlin.String = code
@@ -348,8 +339,6 @@ public data class AdverseEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AdverseEventActuality =

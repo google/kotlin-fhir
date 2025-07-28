@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.ConditionSerializer
 import com.google.fhir.model.r5.serializers.ConditionStageSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class Condition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class Condition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class Condition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this condition by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -145,7 +145,7 @@ public data class Condition(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The clinical status of the condition.
    *
@@ -157,7 +157,7 @@ public data class Condition(
    * be unknown. For example, conditions derived from a claim are point in time, so those conditions
    * may have a clinicalStatus of unknown
    */
-  public var clinicalStatus: CodeableConcept? = null,
+  public var clinicalStatus: CodeableConcept,
   /**
    * The verification status to support the clinical status of the condition. The verification
    * status pertains to the condition, itself, not to any specific condition attribute.
@@ -175,7 +175,7 @@ public data class Condition(
    * The categorization is often highly contextual and may appear poorly differentiated or not very
    * useful in other contexts.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A subjective assessment of the severity of the condition as evaluated by the clinician.
    *
@@ -193,9 +193,9 @@ public data class Condition(
    * [http://hl7.org/fhir/StructureDefinition/bodySite](http://hl7.org/fhir/extensions/StructureDefinition-bodySite.html).
    * May be a summary code, or a reference to a very precise definition of the location, or both.
    */
-  public var bodySite: List<CodeableConcept?>? = null,
+  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates the patient or group who the condition record is associated with. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which this Condition was created or to which the creation of this record
    * is tightly associated.
@@ -258,13 +258,13 @@ public data class Condition(
    * Indicates who or what participated in the activities related to the condition and how they were
    * involved.
    */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /**
    * A simple summary of the stage such as "Stage 3" or "Early Onset". The determination of the
    * stage is disease-specific, such as cancer, retinopathy of prematurity, kidney diseases,
    * Alzheimer's, or Parkinson disease.
    */
-  public var stage: List<Stage>? = null,
+  public var stage: MutableList<Stage> = mutableListOf(),
   /**
    * Supporting evidence / manifestations that are the basis of the Condition's verification status,
    * such as evidence that confirmed or refuted the condition.
@@ -276,12 +276,12 @@ public data class Condition(
    * Condition.evidence.concept = fever (CodeableConcept), Condition.evidence.concept = cough
    * (CodeableConcept), and Condition.evidence.reference = bronchitis (reference to Condition).
    */
-  public var evidence: List<CodeableReference?>? = null,
+  public var evidence: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Additional information about the Condition. This is a general notes/comments entry for
    * description of the Condition, its diagnosis and prognosis.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Indicates who or what participated in the activities related to the condition and how they were
@@ -306,7 +306,7 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -325,14 +325,14 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of involvement of the actor in the activities related to the
      * condition.
      */
     public var function: CodeableConcept? = null,
     /** Indicates who or what participated in the activities related to the condition. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /**
@@ -359,7 +359,7 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -378,7 +378,7 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A simple summary of the stage such as "Stage 3" or "Early Onset". The determination of the
      * stage is disease-specific, such as cancer, retinopathy of prematurity, kidney diseases,
@@ -386,7 +386,7 @@ public data class Condition(
      */
     public var summary: CodeableConcept? = null,
     /** Reference to a formal record of the evidence on which the staging assessment is based. */
-    public var assessment: List<Reference?>? = null,
+    public var assessment: MutableList<Reference> = mutableListOf(),
     /** The kind of staging, such as pathological or clinical staging. */
     public var type: CodeableConcept? = null,
   ) : BackboneElement()
@@ -413,22 +413,20 @@ public data class Condition(
 
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Onset
 
-    public data object Null : Onset
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        AgeValue: com.google.fhir.model.r5.Age?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        RangeValue: com.google.fhir.model.r5.Range?,
+        ageValue: com.google.fhir.model.r5.Age?,
+        periodValue: com.google.fhir.model.r5.Period?,
+        rangeValue: com.google.fhir.model.r5.Range?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): Onset {
+      ): Onset? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (ageValue != null) return Age(ageValue)
+        if (periodValue != null) return Period(periodValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (stringValue != null) return String(stringValue)
-        return Null
+        return null
       }
     }
   }
@@ -455,22 +453,20 @@ public data class Condition(
 
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Abatement
 
-    public data object Null : Abatement
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        AgeValue: com.google.fhir.model.r5.Age?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        RangeValue: com.google.fhir.model.r5.Range?,
+        ageValue: com.google.fhir.model.r5.Age?,
+        periodValue: com.google.fhir.model.r5.Period?,
+        rangeValue: com.google.fhir.model.r5.Range?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): Abatement {
+      ): Abatement? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (ageValue != null) return Age(ageValue)
+        if (periodValue != null) return Period(periodValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (stringValue != null) return String(stringValue)
-        return Null
+        return null
       }
     }
   }

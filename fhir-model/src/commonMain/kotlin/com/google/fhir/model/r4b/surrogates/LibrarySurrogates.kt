@@ -50,28 +50,29 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class LibrarySubjectSurrogate {
-  public var subjectCodeableConcept: CodeableConcept? = null
-
-  public var subjectReference: Reference? = null
-
-  public fun toModel(): Library.Subject =
+internal data class LibrarySubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): Library.Subject? =
     Library.Subject?.from(
       this@LibrarySubjectSurrogate.subjectCodeableConcept,
       this@LibrarySubjectSurrogate.subjectReference,
-    ) ?: Library.Subject.Null
+    )
 
   public companion object {
     public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =
       with(model) {
         LibrarySubjectSurrogate().apply {
-          subjectCodeableConcept = this@with.asCodeableConcept()?.value
-          subjectReference = this@with.asReference()?.value
+          Library.Subject?.from(
+            this@LibrarySubjectSurrogate.subjectCodeableConcept,
+            this@LibrarySubjectSurrogate.subjectReference,
+          )
         }
       }
   }
@@ -86,12 +87,12 @@ internal data class LibrarySurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -104,16 +105,16 @@ internal data class LibrarySurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -125,142 +126,140 @@ internal data class LibrarySurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: List<CodeableConcept?>? = null,
-  public var author: List<ContactDetail?>? = null,
-  public var editor: List<ContactDetail?>? = null,
-  public var reviewer: List<ContactDetail?>? = null,
-  public var endorser: List<ContactDetail?>? = null,
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
-  public var parameter: List<ParameterDefinition?>? = null,
-  public var dataRequirement: List<DataRequirement?>? = null,
-  public var content: List<Attachment?>? = null,
+  public var topic: MutableList<CodeableConcept>? = null,
+  public var author: MutableList<ContactDetail>? = null,
+  public var editor: MutableList<ContactDetail>? = null,
+  public var reviewer: MutableList<ContactDetail>? = null,
+  public var endorser: MutableList<ContactDetail>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var parameter: MutableList<ParameterDefinition>? = null,
+  public var dataRequirement: MutableList<DataRequirement>? = null,
+  public var content: MutableList<Attachment>? = null,
   public var subject: Library.Subject? = null,
 ) {
   public fun toModel(): Library =
-    Library().apply {
-      id = this@LibrarySurrogate.id
-      meta = this@LibrarySurrogate.meta
+    Library(
+      id = this@LibrarySurrogate.id,
+      meta = this@LibrarySurrogate.meta,
       implicitRules =
-        Uri.of(this@LibrarySurrogate.implicitRules, this@LibrarySurrogate._implicitRules)
-      language = Code.of(this@LibrarySurrogate.language, this@LibrarySurrogate._language)
-      text = this@LibrarySurrogate.text
-      contained = this@LibrarySurrogate.contained
-      extension = this@LibrarySurrogate.extension
-      modifierExtension = this@LibrarySurrogate.modifierExtension
-      url = Uri.of(this@LibrarySurrogate.url, this@LibrarySurrogate._url)
-      identifier = this@LibrarySurrogate.identifier
-      version = R4bString.of(this@LibrarySurrogate.version, this@LibrarySurrogate._version)
-      name = R4bString.of(this@LibrarySurrogate.name, this@LibrarySurrogate._name)
-      title = R4bString.of(this@LibrarySurrogate.title, this@LibrarySurrogate._title)
-      subtitle = R4bString.of(this@LibrarySurrogate.subtitle, this@LibrarySurrogate._subtitle)
+        Uri.of(this@LibrarySurrogate.implicitRules, this@LibrarySurrogate._implicitRules),
+      language = Code.of(this@LibrarySurrogate.language, this@LibrarySurrogate._language),
+      text = this@LibrarySurrogate.text,
+      contained = this@LibrarySurrogate.contained ?: mutableListOf(),
+      extension = this@LibrarySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@LibrarySurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@LibrarySurrogate.url, this@LibrarySurrogate._url),
+      identifier = this@LibrarySurrogate.identifier ?: mutableListOf(),
+      version = R4bString.of(this@LibrarySurrogate.version, this@LibrarySurrogate._version),
+      name = R4bString.of(this@LibrarySurrogate.name, this@LibrarySurrogate._name),
+      title = R4bString.of(this@LibrarySurrogate.title, this@LibrarySurrogate._title),
+      subtitle = R4bString.of(this@LibrarySurrogate.subtitle, this@LibrarySurrogate._subtitle),
       status =
         Enumeration.of(
-          this@LibrarySurrogate.status?.let {
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@LibrarySurrogate.status!!),
           this@LibrarySurrogate._status,
-        )
+        ),
       experimental =
-        R4bBoolean.of(this@LibrarySurrogate.experimental, this@LibrarySurrogate._experimental)
-      type = this@LibrarySurrogate.type
-      subject = this@LibrarySurrogate.subject
+        R4bBoolean.of(this@LibrarySurrogate.experimental, this@LibrarySurrogate._experimental),
+      type = this@LibrarySurrogate.type,
+      subject = this@LibrarySurrogate.subject,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@LibrarySurrogate.date),
           this@LibrarySurrogate._date,
-        )
-      publisher = R4bString.of(this@LibrarySurrogate.publisher, this@LibrarySurrogate._publisher)
-      contact = this@LibrarySurrogate.contact
+        ),
+      publisher = R4bString.of(this@LibrarySurrogate.publisher, this@LibrarySurrogate._publisher),
+      contact = this@LibrarySurrogate.contact ?: mutableListOf(),
       description =
-        Markdown.of(this@LibrarySurrogate.description, this@LibrarySurrogate._description)
-      useContext = this@LibrarySurrogate.useContext
-      jurisdiction = this@LibrarySurrogate.jurisdiction
-      purpose = Markdown.of(this@LibrarySurrogate.purpose, this@LibrarySurrogate._purpose)
-      usage = R4bString.of(this@LibrarySurrogate.usage, this@LibrarySurrogate._usage)
-      copyright = Markdown.of(this@LibrarySurrogate.copyright, this@LibrarySurrogate._copyright)
+        Markdown.of(this@LibrarySurrogate.description, this@LibrarySurrogate._description),
+      useContext = this@LibrarySurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@LibrarySurrogate.jurisdiction ?: mutableListOf(),
+      purpose = Markdown.of(this@LibrarySurrogate.purpose, this@LibrarySurrogate._purpose),
+      usage = R4bString.of(this@LibrarySurrogate.usage, this@LibrarySurrogate._usage),
+      copyright = Markdown.of(this@LibrarySurrogate.copyright, this@LibrarySurrogate._copyright),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@LibrarySurrogate.approvalDate),
           this@LibrarySurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@LibrarySurrogate.lastReviewDate),
           this@LibrarySurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@LibrarySurrogate.effectivePeriod
-      topic = this@LibrarySurrogate.topic
-      author = this@LibrarySurrogate.author
-      editor = this@LibrarySurrogate.editor
-      reviewer = this@LibrarySurrogate.reviewer
-      endorser = this@LibrarySurrogate.endorser
-      relatedArtifact = this@LibrarySurrogate.relatedArtifact
-      parameter = this@LibrarySurrogate.parameter
-      dataRequirement = this@LibrarySurrogate.dataRequirement
-      content = this@LibrarySurrogate.content
-    }
+        ),
+      effectivePeriod = this@LibrarySurrogate.effectivePeriod,
+      topic = this@LibrarySurrogate.topic ?: mutableListOf(),
+      author = this@LibrarySurrogate.author ?: mutableListOf(),
+      editor = this@LibrarySurrogate.editor ?: mutableListOf(),
+      reviewer = this@LibrarySurrogate.reviewer ?: mutableListOf(),
+      endorser = this@LibrarySurrogate.endorser ?: mutableListOf(),
+      relatedArtifact = this@LibrarySurrogate.relatedArtifact ?: mutableListOf(),
+      parameter = this@LibrarySurrogate.parameter ?: mutableListOf(),
+      dataRequirement = this@LibrarySurrogate.dataRequirement ?: mutableListOf(),
+      content = this@LibrarySurrogate.content ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Library): LibrarySurrogate =
       with(model) {
-        LibrarySurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          subtitle = this@with.subtitle?.value
-          _subtitle = this@with.subtitle?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          type = this@with.type
-          subject = this@with.subject
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          usage = this@with.usage?.value
-          _usage = this@with.usage?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          topic = this@with.topic
-          author = this@with.author
-          editor = this@with.editor
-          reviewer = this@with.reviewer
-          endorser = this@with.endorser
-          relatedArtifact = this@with.relatedArtifact
-          parameter = this@with.parameter
-          dataRequirement = this@with.dataRequirement
-          content = this@with.content
-        }
+        LibrarySurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          subtitle = this@with.subtitle?.value,
+          _subtitle = this@with.subtitle?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          type = this@with.type,
+          subject = this@with.subject,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          usage = this@with.usage?.value,
+          _usage = this@with.usage?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          topic = this@with.topic.takeUnless { it.all { it == null } },
+          author = this@with.author.takeUnless { it.all { it == null } },
+          editor = this@with.editor.takeUnless { it.all { it == null } },
+          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
+          endorser = this@with.endorser.takeUnless { it.all { it == null } },
+          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          dataRequirement = this@with.dataRequirement.takeUnless { it.all { it == null } },
+          content = this@with.content.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

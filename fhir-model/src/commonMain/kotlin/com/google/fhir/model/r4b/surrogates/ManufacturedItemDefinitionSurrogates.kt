@@ -41,27 +41,21 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class ManufacturedItemDefinitionPropertyValueSurrogate {
-  public var valueCodeableConcept: CodeableConcept? = null
-
-  public var valueQuantity: Quantity? = null
-
-  public var valueDate: String? = null
-
-  public var _valueDate: Element? = null
-
-  public var valueBoolean: KotlinBoolean? = null
-
-  public var _valueBoolean: Element? = null
-
-  public var valueAttachment: Attachment? = null
-
-  public fun toModel(): ManufacturedItemDefinition.Property.Value =
+internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: String? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): ManufacturedItemDefinition.Property.Value? =
     ManufacturedItemDefinition.Property.Value?.from(
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
@@ -74,7 +68,7 @@ internal class ManufacturedItemDefinitionPropertyValueSurrogate {
         this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
       ),
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
-    ) ?: ManufacturedItemDefinition.Property.Value.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -82,13 +76,19 @@ internal class ManufacturedItemDefinitionPropertyValueSurrogate {
     ): ManufacturedItemDefinitionPropertyValueSurrogate =
       with(model) {
         ManufacturedItemDefinitionPropertyValueSurrogate().apply {
-          valueCodeableConcept = this@with.asCodeableConcept()?.value
-          valueQuantity = this@with.asQuantity()?.value
-          valueDate = this@with.asDate()?.value?.value?.toString()
-          _valueDate = this@with.asDate()?.value?.toElement()
-          valueBoolean = this@with.asBoolean()?.value?.value
-          _valueBoolean = this@with.asBoolean()?.value?.toElement()
-          valueAttachment = this@with.asAttachment()?.value
+          ManufacturedItemDefinition.Property.Value?.from(
+            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
+            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
+            Date.of(
+              FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
+              this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
+            ),
+            R4bBoolean.of(
+              this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
+              this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
+            ),
+            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
+          )
         }
       }
   }
@@ -97,32 +97,33 @@ internal class ManufacturedItemDefinitionPropertyValueSurrogate {
 @Serializable
 internal data class ManufacturedItemDefinitionPropertySurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
   public var `value`: ManufacturedItemDefinition.Property.Value? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition.Property =
-    ManufacturedItemDefinition.Property().apply {
-      id = this@ManufacturedItemDefinitionPropertySurrogate.id
-      extension = this@ManufacturedItemDefinitionPropertySurrogate.extension
-      modifierExtension = this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension
-      type = this@ManufacturedItemDefinitionPropertySurrogate.type
-      `value` = this@ManufacturedItemDefinitionPropertySurrogate.`value`
-    }
+    ManufacturedItemDefinition.Property(
+      id = this@ManufacturedItemDefinitionPropertySurrogate.id,
+      extension = this@ManufacturedItemDefinitionPropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ManufacturedItemDefinitionPropertySurrogate.type,
+      `value` = this@ManufacturedItemDefinitionPropertySurrogate.`value`,
+    )
 
   public companion object {
     public fun fromModel(
       model: ManufacturedItemDefinition.Property
     ): ManufacturedItemDefinitionPropertySurrogate =
       with(model) {
-        ManufacturedItemDefinitionPropertySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          `value` = this@with.`value`
-        }
+        ManufacturedItemDefinitionPropertySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
       }
   }
 }
@@ -136,74 +137,75 @@ internal data class ManufacturedItemDefinitionSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var manufacturedDoseForm: CodeableConcept? = null,
+  public var manufacturedDoseForm: CodeableConcept,
   public var unitOfPresentation: CodeableConcept? = null,
-  public var manufacturer: List<Reference?>? = null,
-  public var ingredient: List<CodeableConcept?>? = null,
-  public var `property`: List<ManufacturedItemDefinition.Property>? = null,
+  public var manufacturer: MutableList<Reference>? = null,
+  public var ingredient: MutableList<CodeableConcept>? = null,
+  public var `property`: MutableList<ManufacturedItemDefinition.Property>? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition =
-    ManufacturedItemDefinition().apply {
-      id = this@ManufacturedItemDefinitionSurrogate.id
-      meta = this@ManufacturedItemDefinitionSurrogate.meta
+    ManufacturedItemDefinition(
+      id = this@ManufacturedItemDefinitionSurrogate.id,
+      meta = this@ManufacturedItemDefinitionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ManufacturedItemDefinitionSurrogate.implicitRules,
           this@ManufacturedItemDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@ManufacturedItemDefinitionSurrogate.language,
           this@ManufacturedItemDefinitionSurrogate._language,
-        )
-      text = this@ManufacturedItemDefinitionSurrogate.text
-      contained = this@ManufacturedItemDefinitionSurrogate.contained
-      extension = this@ManufacturedItemDefinitionSurrogate.extension
-      modifierExtension = this@ManufacturedItemDefinitionSurrogate.modifierExtension
-      identifier = this@ManufacturedItemDefinitionSurrogate.identifier
+        ),
+      text = this@ManufacturedItemDefinitionSurrogate.text,
+      contained = this@ManufacturedItemDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@ManufacturedItemDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ManufacturedItemDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ManufacturedItemDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+            this@ManufacturedItemDefinitionSurrogate.status!!
+          ),
           this@ManufacturedItemDefinitionSurrogate._status,
-        )
-      manufacturedDoseForm = this@ManufacturedItemDefinitionSurrogate.manufacturedDoseForm
-      unitOfPresentation = this@ManufacturedItemDefinitionSurrogate.unitOfPresentation
-      manufacturer = this@ManufacturedItemDefinitionSurrogate.manufacturer
-      ingredient = this@ManufacturedItemDefinitionSurrogate.ingredient
-      `property` = this@ManufacturedItemDefinitionSurrogate.`property`
-    }
+        ),
+      manufacturedDoseForm = this@ManufacturedItemDefinitionSurrogate.manufacturedDoseForm,
+      unitOfPresentation = this@ManufacturedItemDefinitionSurrogate.unitOfPresentation,
+      manufacturer = this@ManufacturedItemDefinitionSurrogate.manufacturer ?: mutableListOf(),
+      ingredient = this@ManufacturedItemDefinitionSurrogate.ingredient ?: mutableListOf(),
+      `property` = this@ManufacturedItemDefinitionSurrogate.`property` ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ManufacturedItemDefinition): ManufacturedItemDefinitionSurrogate =
       with(model) {
-        ManufacturedItemDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          manufacturedDoseForm = this@with.manufacturedDoseForm
-          unitOfPresentation = this@with.unitOfPresentation
-          manufacturer = this@with.manufacturer
-          ingredient = this@with.ingredient
-          `property` = this@with.`property`
-        }
+        ManufacturedItemDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          manufacturedDoseForm = this@with.manufacturedDoseForm,
+          unitOfPresentation = this@with.unitOfPresentation,
+          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

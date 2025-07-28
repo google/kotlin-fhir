@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.DeviceDispensePerformerSerializer
 import com.google.fhir.model.r5.serializers.DeviceDispenseSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class DeviceDispense(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class DeviceDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,24 +130,24 @@ public data class DeviceDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifier for this dispensation.
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The order or request that this dispense is fulfilling. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The bigger event that this dispense is a part of. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code specifying the state of the set of dispense events.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<DeviceDispenseStatus>? = null,
+  public var status: Enumeration<DeviceDispenseStatus>,
   /** Indicates the reason why a dispense was or was not performed. */
   public var statusReason: CodeableReference? = null,
   /**
@@ -156,19 +156,19 @@ public data class DeviceDispense(
    * The category can be used to include where the device is expected to be consumed or other types
    * of dispenses. Invariants can be used to bind to different value sets when profiling to bind.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Identifies the device being dispensed. This is either a link to a resource representing the
    * details of the device or a simple attribute carrying a code that identifies the device from a
    * known list of devices.
    */
-  public var device: CodeableReference? = null,
+  public var device: CodeableReference,
   /**
    * A link to a resource representing the person to whom the device is intended.
    *
    * What about 'this measuring Device is now asigned to Dr X who needs it now'?
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * Identifies the person who picked up the device or the person or location where the device was
    * delivered. This may be a patient or their caregiver, but some cases exist where it can be a
@@ -178,9 +178,9 @@ public data class DeviceDispense(
   /** The encounter that establishes the context for this event. */
   public var encounter: Reference? = null,
   /** Additional information that supports the device being dispensed. */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /** Indicates who or what performed the event. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** The principal physical location where the dispense was performed. */
   public var location: Reference? = null,
   /** Indicates the type of dispensing event that is performed. */
@@ -197,7 +197,7 @@ public data class DeviceDispense(
    */
   public var destination: Reference? = null,
   /** Extra information about the dispense that could not be conveyed in the other attributes. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The full representation of the instructions.
    *
@@ -215,7 +215,7 @@ public data class DeviceDispense(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.).
    */
-  public var eventHistory: List<Reference?>? = null,
+  public var eventHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what performed the event. */
   @Serializable(with = DeviceDispensePerformerSerializer::class)
@@ -237,7 +237,7 @@ public data class DeviceDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -256,7 +256,7 @@ public data class DeviceDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of performer in the dispense. For example, date enterer, packager,
      * final checker.
@@ -266,7 +266,7 @@ public data class DeviceDispense(
      * The device, practitioner, etc. who performed the action. It should be assumed that the actor
      * is the dispenser of the device.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /** DeviceDispense Status Codes */
@@ -274,84 +274,20 @@ public data class DeviceDispense(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The core event has not started yet, but some staging activities have begun (e.g. initial
-     * preparing of the device. Preparation stages may be tracked e.g. for planning, supply or
-     * billing purposes.
-     */
-    Preparation(
-      "preparation",
-      "http://hl7.org/fhir/devicedispense-status",
-      "Preparation",
-      "The core event has not started yet, but some staging activities have begun (e.g. initial preparing of the device. Preparation stages may be tracked e.g. for planning, supply or billing purposes.",
-    ),
-    /** The dispensed product is ready for pickup. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/devicedispense-status",
-      "In Progress",
-      "The dispensed product is ready for pickup.",
-    ),
-    /** The dispensed product was not and will never be picked up by the patient. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/devicedispense-status",
-      "Cancelled",
-      "The dispensed product was not and will never be picked up by the patient.",
-    ),
-    /**
-     * The dispense process is paused while waiting for an external event to reactivate the
-     * dispense. For example, new stock has arrived or the prescriber has called.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/devicedispense-status",
-      "On Hold",
-      "The dispense process is paused while waiting for an external event to reactivate the dispense.  For example, new stock has arrived or the prescriber has called.",
-    ),
-    /** The dispensed product has been picked up. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/devicedispense-status",
-      "Completed",
-      "The dispensed product has been picked up.",
-    ),
-    /** The dispense was entered in error and therefore nullified. */
+    Preparation("preparation", "http://hl7.org/fhir/devicedispense-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/devicedispense-status", "In Progress"),
+    Cancelled("cancelled", "http://hl7.org/fhir/devicedispense-status", "Cancelled"),
+    On_Hold("on-hold", "http://hl7.org/fhir/devicedispense-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/devicedispense-status", "Completed"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/devicedispense-status",
       "Entered in Error",
-      "The dispense was entered in error and therefore nullified.",
     ),
-    /**
-     * Actions implied by the dispense have been permanently halted, before all of them occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/devicedispense-status",
-      "Stopped",
-      "Actions implied by the dispense have been permanently halted, before all of them occurred.",
-    ),
-    /** The dispense was declined and not performed. */
-    Declined(
-      "declined",
-      "http://hl7.org/fhir/devicedispense-status",
-      "Declined",
-      "The dispense was declined and not performed.",
-    ),
-    /**
-     * The authoring system does not know which of the status values applies for this dispense.
-     * Note: this concept is not to be used for other - one of the listed statuses is presumed to
-     * apply, it's just now known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/devicedispense-status",
-      "Unknown",
-      "The authoring system does not know which of the status values applies for this dispense.  Note: this concept is not to be used for other - one of the listed statuses is presumed to apply, it's just now known which one.",
-    );
+    Stopped("stopped", "http://hl7.org/fhir/devicedispense-status", "Stopped"),
+    Declined("declined", "http://hl7.org/fhir/devicedispense-status", "Declined"),
+    Unknown("unknown", "http://hl7.org/fhir/devicedispense-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -360,8 +296,6 @@ public data class DeviceDispense(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceDispenseStatus =

@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.RiskAssessmentPredictionSerializer
 import com.google.fhir.model.r4.serializers.RiskAssessmentPredictionWhenSerializer
 import com.google.fhir.model.r4.serializers.RiskAssessmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class RiskAssessment(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class RiskAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,21 +130,21 @@ public data class RiskAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier assigned to the risk assessment. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A reference to the request that is fulfilled by this risk assessment. */
   public var basedOn: Reference? = null,
   /** A reference to a resource that this risk assessment is part of, such as a Procedure. */
   public var parent: Reference? = null,
   /** The status of the RiskAssessment, using the same statuses as an Observation. */
-  public var status: Enumeration<RiskAssessmentStatus>? = null,
+  public var status: Enumeration<RiskAssessmentStatus>,
   /** The algorithm, process or mechanism used to evaluate the risk. */
   public var method: CodeableConcept? = null,
   /** The type of the risk assessment performed. */
   public var code: CodeableConcept? = null,
   /** The patient or group the risk assessment applies to. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter where the assessment was performed. */
   public var encounter: Reference? = null,
   /** The date (and possibly time) the risk assessment was performed. */
@@ -157,25 +157,25 @@ public data class RiskAssessment(
   /** The provider or software application that performed the assessment. */
   public var performer: Reference? = null,
   /** The reason the risk assessment was performed. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** Resources supporting the reason the risk assessment was performed. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Indicates the source data considered as part of the assessment (for example, FamilyHistory,
    * Observations, Procedures, Conditions, etc.).
    */
-  public var basis: List<Reference?>? = null,
+  public var basis: MutableList<Reference> = mutableListOf(),
   /**
    * Describes the expected outcome for the subject.
    *
    * Multiple repetitions can be used to identify the same type of outcome in different timeframes
    * as well as different types of outcomes.
    */
-  public var prediction: List<Prediction>? = null,
+  public var prediction: MutableList<Prediction> = mutableListOf(),
   /** A description of the steps that might be taken to reduce the identified risk(s). */
   public var mitigation: String? = null,
   /** Additional comments about the risk assessment. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Describes the expected outcome for the subject. */
   @Serializable(with = RiskAssessmentPredictionSerializer::class)
@@ -197,7 +197,7 @@ public data class RiskAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -216,7 +216,7 @@ public data class RiskAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * One of the potential outcomes for the patient (e.g. remission, death, a particular
      * condition).
@@ -260,16 +260,14 @@ public data class RiskAssessment(
 
       public data class Range(public val `value`: com.google.fhir.model.r4.Range) : Probability
 
-      public data object Null : Probability
-
       public companion object {
-        public fun from(
+        internal fun from(
           decimalValue: com.google.fhir.model.r4.Decimal?,
-          RangeValue: com.google.fhir.model.r4.Range?,
-        ): Probability {
+          rangeValue: com.google.fhir.model.r4.Range?,
+        ): Probability? {
           if (decimalValue != null) return Decimal(decimalValue)
-          if (RangeValue != null) return Range(RangeValue)
-          return Null
+          if (rangeValue != null) return Range(rangeValue)
+          return null
         }
       }
     }
@@ -284,16 +282,14 @@ public data class RiskAssessment(
 
       public data class Range(public val `value`: com.google.fhir.model.r4.Range) : When
 
-      public data object Null : When
-
       public companion object {
-        public fun from(
-          PeriodValue: com.google.fhir.model.r4.Period?,
-          RangeValue: com.google.fhir.model.r4.Range?,
-        ): When {
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (RangeValue != null) return Range(RangeValue)
-          return Null
+        internal fun from(
+          periodValue: com.google.fhir.model.r4.Period?,
+          rangeValue: com.google.fhir.model.r4.Range?,
+        ): When? {
+          if (periodValue != null) return Period(periodValue)
+          if (rangeValue != null) return Range(rangeValue)
+          return null
         }
       }
     }
@@ -309,16 +305,14 @@ public data class RiskAssessment(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Occurrence
 
-    public data object Null : Occurrence
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Occurrence {
+        periodValue: com.google.fhir.model.r4.Period?,
+      ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -328,88 +322,19 @@ public data class RiskAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the observation is registered, but there is no result yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/observation-status",
-      "Registered",
-      "The existence of the observation is registered, but there is no result yet available.",
-    ),
-    /** This is an initial or interim observation: data may be incomplete or unverified. */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/observation-status",
-      "Preliminary",
-      "This is an initial or interim observation: data may be incomplete or unverified.",
-    ),
-    /**
-     * The observation is complete and there are no further actions needed. Additional information
-     * such "released", "signed", etc would be represented using [Provenance](provenance.html) which
-     * provides not only the act but also the actors and dates and other related data. These act
-     * states would be associated with an observation status of `preliminary` until they are all
-     * completed and then a status of `final` would be applied.
-     */
-    Final(
-      "final",
-      "http://hl7.org/fhir/observation-status",
-      "Final",
-      "The observation is complete and there are no further actions needed. Additional information such \"released\", \"signed\", etc would be represented using [Provenance](provenance.html) which provides not only the act but also the actors and dates and other related data. These act states would be associated with an observation status of `preliminary` until they are all completed and then a status of `final` would be applied.",
-    ),
-    /**
-     * Subsequent to being Final, the observation has been modified subsequent. This includes
-     * updates/new information and corrections.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/observation-status",
-      "Amended",
-      "Subsequent to being Final, the observation has been modified subsequent.  This includes updates/new information and corrections.",
-    ),
-    /**
-     * Subsequent to being Final, the observation has been modified to correct an error in the test
-     * result.
-     */
-    Corrected(
-      "corrected",
-      "http://hl7.org/fhir/observation-status",
-      "Corrected",
-      "Subsequent to being Final, the observation has been modified to correct an error in the test result.",
-    ),
-    /**
-     * The observation is unavailable because the measurement was not started or not completed (also
-     * sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/observation-status",
-      "Cancelled",
-      "The observation is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The observation has been withdrawn following previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     * (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered"),
+    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/observation-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected"),
+    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/observation-status",
       "Entered in Error",
-      "The observation has been withdrawn following previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/observation-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -418,8 +343,6 @@ public data class RiskAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RiskAssessmentStatus =

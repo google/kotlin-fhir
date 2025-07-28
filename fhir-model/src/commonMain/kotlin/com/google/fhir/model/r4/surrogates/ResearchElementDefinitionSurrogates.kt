@@ -52,24 +52,20 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class ResearchElementDefinitionCharacteristicDefinitionSurrogate {
-  public var definitionCodeableConcept: CodeableConcept? = null
-
-  public var definitionCanonical: KotlinString? = null
-
-  public var _definitionCanonical: Element? = null
-
-  public var definitionExpression: Expression? = null
-
-  public var definitionDataRequirement: DataRequirement? = null
-
+internal data class ResearchElementDefinitionCharacteristicDefinitionSurrogate(
+  public var definitionCodeableConcept: CodeableConcept? = null,
+  public var definitionCanonical: KotlinString? = null,
+  public var _definitionCanonical: Element? = null,
+  public var definitionExpression: Expression? = null,
+  public var definitionDataRequirement: DataRequirement? = null,
+) {
   public fun toModel(): ResearchElementDefinition.Characteristic.Definition =
-    ResearchElementDefinition.Characteristic.Definition?.from(
+    ResearchElementDefinition.Characteristic.Definition.from(
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionCodeableConcept,
       Canonical.of(
         this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionCanonical,
@@ -77,7 +73,7 @@ internal class ResearchElementDefinitionCharacteristicDefinitionSurrogate {
       ),
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionExpression,
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionDataRequirement,
-    ) ?: ResearchElementDefinition.Characteristic.Definition.Null
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -85,29 +81,31 @@ internal class ResearchElementDefinitionCharacteristicDefinitionSurrogate {
     ): ResearchElementDefinitionCharacteristicDefinitionSurrogate =
       with(model) {
         ResearchElementDefinitionCharacteristicDefinitionSurrogate().apply {
-          definitionCodeableConcept = this@with.asCodeableConcept()?.value
-          definitionCanonical = this@with.asCanonical()?.value?.value
-          _definitionCanonical = this@with.asCanonical()?.value?.toElement()
-          definitionExpression = this@with.asExpression()?.value
-          definitionDataRequirement = this@with.asDataRequirement()?.value
+          ResearchElementDefinition.Characteristic.Definition.from(
+            this@ResearchElementDefinitionCharacteristicDefinitionSurrogate
+              .definitionCodeableConcept,
+            Canonical.of(
+              this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionCanonical,
+              this@ResearchElementDefinitionCharacteristicDefinitionSurrogate._definitionCanonical,
+            ),
+            this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionExpression,
+            this@ResearchElementDefinitionCharacteristicDefinitionSurrogate
+              .definitionDataRequirement,
+          )!!
         }
       }
   }
 }
 
 @Serializable
-internal class ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate {
-  public var studyEffectiveDateTime: KotlinString? = null
-
-  public var _studyEffectiveDateTime: Element? = null
-
-  public var studyEffectivePeriod: Period? = null
-
-  public var studyEffectiveDuration: Duration? = null
-
-  public var studyEffectiveTiming: Timing? = null
-
-  public fun toModel(): ResearchElementDefinition.Characteristic.StudyEffective =
+internal data class ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate(
+  public var studyEffectiveDateTime: KotlinString? = null,
+  public var _studyEffectiveDateTime: Element? = null,
+  public var studyEffectivePeriod: Period? = null,
+  public var studyEffectiveDuration: Duration? = null,
+  public var studyEffectiveTiming: Timing? = null,
+) {
+  public fun toModel(): ResearchElementDefinition.Characteristic.StudyEffective? =
     ResearchElementDefinition.Characteristic.StudyEffective?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -118,7 +116,7 @@ internal class ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate {
       this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectivePeriod,
       this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectiveDuration,
       this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectiveTiming,
-    ) ?: ResearchElementDefinition.Characteristic.StudyEffective.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -126,29 +124,35 @@ internal class ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate {
     ): ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate =
       with(model) {
         ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate().apply {
-          studyEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _studyEffectiveDateTime = this@with.asDateTime()?.value?.toElement()
-          studyEffectivePeriod = this@with.asPeriod()?.value
-          studyEffectiveDuration = this@with.asDuration()?.value
-          studyEffectiveTiming = this@with.asTiming()?.value
+          ResearchElementDefinition.Characteristic.StudyEffective?.from(
+            DateTime.of(
+              FhirDateTime.fromString(
+                this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
+                  .studyEffectiveDateTime
+              ),
+              this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
+                ._studyEffectiveDateTime,
+            ),
+            this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
+              .studyEffectivePeriod,
+            this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
+              .studyEffectiveDuration,
+            this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectiveTiming,
+          )
         }
       }
   }
 }
 
 @Serializable
-internal class ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate {
-  public var participantEffectiveDateTime: KotlinString? = null
-
-  public var _participantEffectiveDateTime: Element? = null
-
-  public var participantEffectivePeriod: Period? = null
-
-  public var participantEffectiveDuration: Duration? = null
-
-  public var participantEffectiveTiming: Timing? = null
-
-  public fun toModel(): ResearchElementDefinition.Characteristic.ParticipantEffective =
+internal data class ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate(
+  public var participantEffectiveDateTime: KotlinString? = null,
+  public var _participantEffectiveDateTime: Element? = null,
+  public var participantEffectivePeriod: Period? = null,
+  public var participantEffectiveDuration: Duration? = null,
+  public var participantEffectiveTiming: Timing? = null,
+) {
+  public fun toModel(): ResearchElementDefinition.Characteristic.ParticipantEffective? =
     ResearchElementDefinition.Characteristic.ParticipantEffective?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -164,7 +168,7 @@ internal class ResearchElementDefinitionCharacteristicParticipantEffectiveSurrog
         .participantEffectiveDuration,
       this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
         .participantEffectiveTiming,
-    ) ?: ResearchElementDefinition.Characteristic.ParticipantEffective.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -172,11 +176,22 @@ internal class ResearchElementDefinitionCharacteristicParticipantEffectiveSurrog
     ): ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate =
       with(model) {
         ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate().apply {
-          participantEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _participantEffectiveDateTime = this@with.asDateTime()?.value?.toElement()
-          participantEffectivePeriod = this@with.asPeriod()?.value
-          participantEffectiveDuration = this@with.asDuration()?.value
-          participantEffectiveTiming = this@with.asTiming()?.value
+          ResearchElementDefinition.Characteristic.ParticipantEffective?.from(
+            DateTime.of(
+              FhirDateTime.fromString(
+                this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
+                  .participantEffectiveDateTime
+              ),
+              this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
+                ._participantEffectiveDateTime,
+            ),
+            this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
+              .participantEffectivePeriod,
+            this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
+              .participantEffectiveDuration,
+            this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
+              .participantEffectiveTiming,
+          )
         }
       }
   }
@@ -185,9 +200,9 @@ internal class ResearchElementDefinitionCharacteristicParticipantEffectiveSurrog
 @Serializable
 internal data class ResearchElementDefinitionCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var usageContext: List<UsageContext?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var usageContext: MutableList<UsageContext>? = null,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var unitOfMeasure: CodeableConcept? = null,
@@ -201,100 +216,105 @@ internal data class ResearchElementDefinitionCharacteristicSurrogate(
   public var participantEffectiveTimeFromStart: Duration? = null,
   public var participantEffectiveGroupMeasure: KotlinString? = null,
   public var _participantEffectiveGroupMeasure: Element? = null,
-  public var definition: ResearchElementDefinition.Characteristic.Definition? = null,
+  public var definition: ResearchElementDefinition.Characteristic.Definition,
   public var studyEffective: ResearchElementDefinition.Characteristic.StudyEffective? = null,
   public var participantEffective: ResearchElementDefinition.Characteristic.ParticipantEffective? =
     null,
 ) {
   public fun toModel(): ResearchElementDefinition.Characteristic =
-    ResearchElementDefinition.Characteristic().apply {
-      id = this@ResearchElementDefinitionCharacteristicSurrogate.id
-      extension = this@ResearchElementDefinitionCharacteristicSurrogate.extension
-      modifierExtension = this@ResearchElementDefinitionCharacteristicSurrogate.modifierExtension
-      definition = this@ResearchElementDefinitionCharacteristicSurrogate.definition
-      usageContext = this@ResearchElementDefinitionCharacteristicSurrogate.usageContext
+    ResearchElementDefinition.Characteristic(
+      id = this@ResearchElementDefinitionCharacteristicSurrogate.id,
+      extension =
+        this@ResearchElementDefinitionCharacteristicSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchElementDefinitionCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      definition = this@ResearchElementDefinitionCharacteristicSurrogate.definition,
+      usageContext =
+        this@ResearchElementDefinitionCharacteristicSurrogate.usageContext ?: mutableListOf(),
       exclude =
         R4Boolean.of(
           this@ResearchElementDefinitionCharacteristicSurrogate.exclude,
           this@ResearchElementDefinitionCharacteristicSurrogate._exclude,
-        )
-      unitOfMeasure = this@ResearchElementDefinitionCharacteristicSurrogate.unitOfMeasure
+        ),
+      unitOfMeasure = this@ResearchElementDefinitionCharacteristicSurrogate.unitOfMeasure,
       studyEffectiveDescription =
         R4String.of(
           this@ResearchElementDefinitionCharacteristicSurrogate.studyEffectiveDescription,
           this@ResearchElementDefinitionCharacteristicSurrogate._studyEffectiveDescription,
-        )
-      studyEffective = this@ResearchElementDefinitionCharacteristicSurrogate.studyEffective
+        ),
+      studyEffective = this@ResearchElementDefinitionCharacteristicSurrogate.studyEffective,
       studyEffectiveTimeFromStart =
-        this@ResearchElementDefinitionCharacteristicSurrogate.studyEffectiveTimeFromStart
+        this@ResearchElementDefinitionCharacteristicSurrogate.studyEffectiveTimeFromStart,
       studyEffectiveGroupMeasure =
-        Enumeration.of(
-          this@ResearchElementDefinitionCharacteristicSurrogate.studyEffectiveGroupMeasure?.let {
-            com.google.fhir.model.r4.ResearchElementDefinition.GroupMeasure.fromCode(it)
-          },
-          this@ResearchElementDefinitionCharacteristicSurrogate._studyEffectiveGroupMeasure,
-        )
+        this@ResearchElementDefinitionCharacteristicSurrogate.studyEffectiveGroupMeasure?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.ResearchElementDefinition.GroupMeasure.fromCode(it!!),
+            this@ResearchElementDefinitionCharacteristicSurrogate._studyEffectiveGroupMeasure,
+          )
+        },
       participantEffectiveDescription =
         R4String.of(
           this@ResearchElementDefinitionCharacteristicSurrogate.participantEffectiveDescription,
           this@ResearchElementDefinitionCharacteristicSurrogate._participantEffectiveDescription,
-        )
+        ),
       participantEffective =
-        this@ResearchElementDefinitionCharacteristicSurrogate.participantEffective
+        this@ResearchElementDefinitionCharacteristicSurrogate.participantEffective,
       participantEffectiveTimeFromStart =
-        this@ResearchElementDefinitionCharacteristicSurrogate.participantEffectiveTimeFromStart
+        this@ResearchElementDefinitionCharacteristicSurrogate.participantEffectiveTimeFromStart,
       participantEffectiveGroupMeasure =
-        Enumeration.of(
-          this@ResearchElementDefinitionCharacteristicSurrogate.participantEffectiveGroupMeasure
-            ?.let { com.google.fhir.model.r4.ResearchElementDefinition.GroupMeasure.fromCode(it) },
-          this@ResearchElementDefinitionCharacteristicSurrogate._participantEffectiveGroupMeasure,
-        )
-    }
+        this@ResearchElementDefinitionCharacteristicSurrogate.participantEffectiveGroupMeasure
+          ?.let {
+            Enumeration.of(
+              com.google.fhir.model.r4.ResearchElementDefinition.GroupMeasure.fromCode(it!!),
+              this@ResearchElementDefinitionCharacteristicSurrogate
+                ._participantEffectiveGroupMeasure,
+            )
+          },
+    )
 
   public companion object {
     public fun fromModel(
       model: ResearchElementDefinition.Characteristic
     ): ResearchElementDefinitionCharacteristicSurrogate =
       with(model) {
-        ResearchElementDefinitionCharacteristicSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          definition = this@with.definition
-          usageContext = this@with.usageContext
-          exclude = this@with.exclude?.value
-          _exclude = this@with.exclude?.toElement()
-          unitOfMeasure = this@with.unitOfMeasure
-          studyEffectiveDescription = this@with.studyEffectiveDescription?.value
-          _studyEffectiveDescription = this@with.studyEffectiveDescription?.toElement()
-          studyEffective = this@with.studyEffective
-          studyEffectiveTimeFromStart = this@with.studyEffectiveTimeFromStart
-          studyEffectiveGroupMeasure = this@with.studyEffectiveGroupMeasure?.value?.getCode()
-          _studyEffectiveGroupMeasure = this@with.studyEffectiveGroupMeasure?.toElement()
-          participantEffectiveDescription = this@with.participantEffectiveDescription?.value
-          _participantEffectiveDescription = this@with.participantEffectiveDescription?.toElement()
-          participantEffective = this@with.participantEffective
-          participantEffectiveTimeFromStart = this@with.participantEffectiveTimeFromStart
+        ResearchElementDefinitionCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          definition = this@with.definition,
+          usageContext = this@with.usageContext.takeUnless { it.all { it == null } },
+          exclude = this@with.exclude?.value,
+          _exclude = this@with.exclude?.toElement(),
+          unitOfMeasure = this@with.unitOfMeasure,
+          studyEffectiveDescription = this@with.studyEffectiveDescription?.value,
+          _studyEffectiveDescription = this@with.studyEffectiveDescription?.toElement(),
+          studyEffective = this@with.studyEffective,
+          studyEffectiveTimeFromStart = this@with.studyEffectiveTimeFromStart,
+          studyEffectiveGroupMeasure = this@with.studyEffectiveGroupMeasure?.value?.getCode(),
+          _studyEffectiveGroupMeasure = this@with.studyEffectiveGroupMeasure?.toElement(),
+          participantEffectiveDescription = this@with.participantEffectiveDescription?.value,
+          _participantEffectiveDescription = this@with.participantEffectiveDescription?.toElement(),
+          participantEffective = this@with.participantEffective,
+          participantEffectiveTimeFromStart = this@with.participantEffectiveTimeFromStart,
           participantEffectiveGroupMeasure =
-            this@with.participantEffectiveGroupMeasure?.value?.getCode()
+            this@with.participantEffectiveGroupMeasure?.value?.getCode(),
           _participantEffectiveGroupMeasure =
-            this@with.participantEffectiveGroupMeasure?.toElement()
-        }
+            this@with.participantEffectiveGroupMeasure?.toElement(),
+        )
       }
   }
 }
 
 @Serializable
-internal class ResearchElementDefinitionSubjectSurrogate {
-  public var subjectCodeableConcept: CodeableConcept? = null
-
-  public var subjectReference: Reference? = null
-
-  public fun toModel(): ResearchElementDefinition.Subject =
+internal data class ResearchElementDefinitionSubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): ResearchElementDefinition.Subject? =
     ResearchElementDefinition.Subject?.from(
       this@ResearchElementDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@ResearchElementDefinitionSubjectSurrogate.subjectReference,
-    ) ?: ResearchElementDefinition.Subject.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -302,8 +322,10 @@ internal class ResearchElementDefinitionSubjectSurrogate {
     ): ResearchElementDefinitionSubjectSurrogate =
       with(model) {
         ResearchElementDefinitionSubjectSurrogate().apply {
-          subjectCodeableConcept = this@with.asCodeableConcept()?.value
-          subjectReference = this@with.asReference()?.value
+          ResearchElementDefinition.Subject?.from(
+            this@ResearchElementDefinitionSubjectSurrogate.subjectCodeableConcept,
+            this@ResearchElementDefinitionSubjectSurrogate.subjectReference,
+          )
         }
       }
   }
@@ -318,12 +340,12 @@ internal data class ResearchElementDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -342,13 +364,13 @@ internal data class ResearchElementDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var comment: List<KotlinString?>? = null,
-  public var _comment: List<Element?>? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var comment: MutableList<KotlinString?>? = null,
+  public var _comment: MutableList<Element?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -360,105 +382,106 @@ internal data class ResearchElementDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: List<CodeableConcept?>? = null,
-  public var author: List<ContactDetail?>? = null,
-  public var editor: List<ContactDetail?>? = null,
-  public var reviewer: List<ContactDetail?>? = null,
-  public var endorser: List<ContactDetail?>? = null,
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
-  public var library: List<KotlinString?>? = null,
-  public var _library: List<Element?>? = null,
+  public var topic: MutableList<CodeableConcept>? = null,
+  public var author: MutableList<ContactDetail>? = null,
+  public var editor: MutableList<ContactDetail>? = null,
+  public var reviewer: MutableList<ContactDetail>? = null,
+  public var endorser: MutableList<ContactDetail>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var library: MutableList<KotlinString?>? = null,
+  public var _library: MutableList<Element?>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var variableType: KotlinString? = null,
   public var _variableType: Element? = null,
-  public var characteristic: List<ResearchElementDefinition.Characteristic>? = null,
+  public var characteristic: MutableList<ResearchElementDefinition.Characteristic>? = null,
   public var subject: ResearchElementDefinition.Subject? = null,
 ) {
   public fun toModel(): ResearchElementDefinition =
-    ResearchElementDefinition().apply {
-      id = this@ResearchElementDefinitionSurrogate.id
-      meta = this@ResearchElementDefinitionSurrogate.meta
+    ResearchElementDefinition(
+      id = this@ResearchElementDefinitionSurrogate.id,
+      meta = this@ResearchElementDefinitionSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ResearchElementDefinitionSurrogate.implicitRules,
           this@ResearchElementDefinitionSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@ResearchElementDefinitionSurrogate.language,
           this@ResearchElementDefinitionSurrogate._language,
-        )
-      text = this@ResearchElementDefinitionSurrogate.text
-      contained = this@ResearchElementDefinitionSurrogate.contained
-      extension = this@ResearchElementDefinitionSurrogate.extension
-      modifierExtension = this@ResearchElementDefinitionSurrogate.modifierExtension
+        ),
+      text = this@ResearchElementDefinitionSurrogate.text,
+      contained = this@ResearchElementDefinitionSurrogate.contained ?: mutableListOf(),
+      extension = this@ResearchElementDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ResearchElementDefinitionSurrogate.modifierExtension ?: mutableListOf(),
       url =
         Uri.of(
           this@ResearchElementDefinitionSurrogate.url,
           this@ResearchElementDefinitionSurrogate._url,
-        )
-      identifier = this@ResearchElementDefinitionSurrogate.identifier
+        ),
+      identifier = this@ResearchElementDefinitionSurrogate.identifier ?: mutableListOf(),
       version =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.version,
           this@ResearchElementDefinitionSurrogate._version,
-        )
+        ),
       name =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.name,
           this@ResearchElementDefinitionSurrogate._name,
-        )
+        ),
       title =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.title,
           this@ResearchElementDefinitionSurrogate._title,
-        )
+        ),
       shortTitle =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.shortTitle,
           this@ResearchElementDefinitionSurrogate._shortTitle,
-        )
+        ),
       subtitle =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.subtitle,
           this@ResearchElementDefinitionSurrogate._subtitle,
-        )
+        ),
       status =
         Enumeration.of(
-          this@ResearchElementDefinitionSurrogate.status?.let {
-            com.google.fhir.model.r4.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.PublicationStatus.fromCode(
+            this@ResearchElementDefinitionSurrogate.status!!
+          ),
           this@ResearchElementDefinitionSurrogate._status,
-        )
+        ),
       experimental =
         R4Boolean.of(
           this@ResearchElementDefinitionSurrogate.experimental,
           this@ResearchElementDefinitionSurrogate._experimental,
-        )
-      subject = this@ResearchElementDefinitionSurrogate.subject
+        ),
+      subject = this@ResearchElementDefinitionSurrogate.subject,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ResearchElementDefinitionSurrogate.date),
           this@ResearchElementDefinitionSurrogate._date,
-        )
+        ),
       publisher =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.publisher,
           this@ResearchElementDefinitionSurrogate._publisher,
-        )
-      contact = this@ResearchElementDefinitionSurrogate.contact
+        ),
+      contact = this@ResearchElementDefinitionSurrogate.contact ?: mutableListOf(),
       description =
         Markdown.of(
           this@ResearchElementDefinitionSurrogate.description,
           this@ResearchElementDefinitionSurrogate._description,
-        )
+        ),
       comment =
         if (
           this@ResearchElementDefinitionSurrogate.comment == null &&
             this@ResearchElementDefinitionSurrogate._comment == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ResearchElementDefinitionSurrogate.comment
               ?: List(this@ResearchElementDefinitionSurrogate._comment!!.size) { null })
@@ -466,48 +489,49 @@ internal data class ResearchElementDefinitionSurrogate(
               this@ResearchElementDefinitionSurrogate._comment
                 ?: List(this@ResearchElementDefinitionSurrogate.comment!!.size) { null }
             )
-            .mapNotNull { (value, element) -> R4String.of(value, element) }
-        }
-      useContext = this@ResearchElementDefinitionSurrogate.useContext
-      jurisdiction = this@ResearchElementDefinitionSurrogate.jurisdiction
+            .map { (value, element) -> R4String.of(value, element)!! }
+            .toMutableList()
+        },
+      useContext = this@ResearchElementDefinitionSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@ResearchElementDefinitionSurrogate.jurisdiction ?: mutableListOf(),
       purpose =
         Markdown.of(
           this@ResearchElementDefinitionSurrogate.purpose,
           this@ResearchElementDefinitionSurrogate._purpose,
-        )
+        ),
       usage =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.usage,
           this@ResearchElementDefinitionSurrogate._usage,
-        )
+        ),
       copyright =
         Markdown.of(
           this@ResearchElementDefinitionSurrogate.copyright,
           this@ResearchElementDefinitionSurrogate._copyright,
-        )
+        ),
       approvalDate =
         Date.of(
           FhirDate.fromString(this@ResearchElementDefinitionSurrogate.approvalDate),
           this@ResearchElementDefinitionSurrogate._approvalDate,
-        )
+        ),
       lastReviewDate =
         Date.of(
           FhirDate.fromString(this@ResearchElementDefinitionSurrogate.lastReviewDate),
           this@ResearchElementDefinitionSurrogate._lastReviewDate,
-        )
-      effectivePeriod = this@ResearchElementDefinitionSurrogate.effectivePeriod
-      topic = this@ResearchElementDefinitionSurrogate.topic
-      author = this@ResearchElementDefinitionSurrogate.author
-      editor = this@ResearchElementDefinitionSurrogate.editor
-      reviewer = this@ResearchElementDefinitionSurrogate.reviewer
-      endorser = this@ResearchElementDefinitionSurrogate.endorser
-      relatedArtifact = this@ResearchElementDefinitionSurrogate.relatedArtifact
+        ),
+      effectivePeriod = this@ResearchElementDefinitionSurrogate.effectivePeriod,
+      topic = this@ResearchElementDefinitionSurrogate.topic ?: mutableListOf(),
+      author = this@ResearchElementDefinitionSurrogate.author ?: mutableListOf(),
+      editor = this@ResearchElementDefinitionSurrogate.editor ?: mutableListOf(),
+      reviewer = this@ResearchElementDefinitionSurrogate.reviewer ?: mutableListOf(),
+      endorser = this@ResearchElementDefinitionSurrogate.endorser ?: mutableListOf(),
+      relatedArtifact = this@ResearchElementDefinitionSurrogate.relatedArtifact ?: mutableListOf(),
       library =
         if (
           this@ResearchElementDefinitionSurrogate.library == null &&
             this@ResearchElementDefinitionSurrogate._library == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@ResearchElementDefinitionSurrogate.library
               ?: List(this@ResearchElementDefinitionSurrogate._library!!.size) { null })
@@ -515,95 +539,106 @@ internal data class ResearchElementDefinitionSurrogate(
               this@ResearchElementDefinitionSurrogate._library
                 ?: List(this@ResearchElementDefinitionSurrogate.library!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       type =
         Enumeration.of(
-          this@ResearchElementDefinitionSurrogate.type?.let {
-            com.google.fhir.model.r4.ResearchElementDefinition.ResearchElementType.fromCode(it)
-          },
+          com.google.fhir.model.r4.ResearchElementDefinition.ResearchElementType.fromCode(
+            this@ResearchElementDefinitionSurrogate.type!!
+          ),
           this@ResearchElementDefinitionSurrogate._type,
-        )
+        ),
       variableType =
-        Enumeration.of(
-          this@ResearchElementDefinitionSurrogate.variableType?.let {
-            com.google.fhir.model.r4.ResearchElementDefinition.VariableType.fromCode(it)
-          },
-          this@ResearchElementDefinitionSurrogate._variableType,
-        )
-      characteristic = this@ResearchElementDefinitionSurrogate.characteristic
-    }
+        this@ResearchElementDefinitionSurrogate.variableType?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.ResearchElementDefinition.VariableType.fromCode(it!!),
+            this@ResearchElementDefinitionSurrogate._variableType,
+          )
+        },
+      characteristic = this@ResearchElementDefinitionSurrogate.characteristic ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ResearchElementDefinition): ResearchElementDefinitionSurrogate =
       with(model) {
-        ResearchElementDefinitionSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          shortTitle = this@with.shortTitle?.value
-          _shortTitle = this@with.shortTitle?.toElement()
-          subtitle = this@with.subtitle?.value
-          _subtitle = this@with.subtitle?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          subject = this@with.subject
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          comment = this@with.comment?.map { it?.value }?.takeUnless { it.all { it == null } }
+        ResearchElementDefinitionSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          shortTitle = this@with.shortTitle?.value,
+          _shortTitle = this@with.shortTitle?.toElement(),
+          subtitle = this@with.subtitle?.value,
+          _subtitle = this@with.subtitle?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          subject = this@with.subject,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          comment =
+            this@with.comment.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _comment =
-            this@with.comment?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          usage = this@with.usage?.value
-          _usage = this@with.usage?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          approvalDate = this@with.approvalDate?.value?.toString()
-          _approvalDate = this@with.approvalDate?.toElement()
-          lastReviewDate = this@with.lastReviewDate?.value?.toString()
-          _lastReviewDate = this@with.lastReviewDate?.toElement()
-          effectivePeriod = this@with.effectivePeriod
-          topic = this@with.topic
-          author = this@with.author
-          editor = this@with.editor
-          reviewer = this@with.reviewer
-          endorser = this@with.endorser
-          relatedArtifact = this@with.relatedArtifact
-          library = this@with.library?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.comment
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          usage = this@with.usage?.value,
+          _usage = this@with.usage?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          approvalDate = this@with.approvalDate?.value?.toString(),
+          _approvalDate = this@with.approvalDate?.toElement(),
+          lastReviewDate = this@with.lastReviewDate?.value?.toString(),
+          _lastReviewDate = this@with.lastReviewDate?.toElement(),
+          effectivePeriod = this@with.effectivePeriod,
+          topic = this@with.topic.takeUnless { it.all { it == null } },
+          author = this@with.author.takeUnless { it.all { it == null } },
+          editor = this@with.editor.takeUnless { it.all { it == null } },
+          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
+          endorser = this@with.endorser.takeUnless { it.all { it == null } },
+          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          library =
+            this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _library =
-            this@with.library?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          variableType = this@with.variableType?.value?.getCode()
-          _variableType = this@with.variableType?.toElement()
-          characteristic = this@with.characteristic
-        }
+            this@with.library
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          variableType = this@with.variableType?.value?.getCode(),
+          _variableType = this@with.variableType?.toElement(),
+          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.AppointmentResponseSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class AppointmentResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class AppointmentResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,15 +129,15 @@ public data class AppointmentResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * This records identifiers associated with this appointment response concern that are defined by
    * business processes and/ or used to refer to it when a direct URL reference to the resource
    * itself is not appropriate.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Appointment that this response is replying to. */
-  public var appointment: Reference? = null,
+  public var appointment: Reference,
   /**
    * Indicates that the response is proposing a different time that was initially requested. The new
    * proposed time will be indicated in the start and end properties.
@@ -167,7 +167,7 @@ public data class AppointmentResponse(
    * This value SHALL be the same as specified on the referenced Appointment so that they can be
    * matched, and subsequently updated.
    */
-  public var participantType: List<CodeableConcept?>? = null,
+  public var participantType: MutableList<CodeableConcept> = mutableListOf(),
   /** A Person, Location, HealthcareService, or Device that is participating in the appointment. */
   public var actor: Reference? = null,
   /**
@@ -179,7 +179,7 @@ public data class AppointmentResponse(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the participant as not currently valid.
    */
-  public var participantStatus: Enumeration<ParticipantStatus>? = null,
+  public var participantStatus: Enumeration<ParticipantStatus>,
   /**
    * Additional comments about the appointment.
    *
@@ -218,49 +218,15 @@ public data class AppointmentResponse(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The participant has accepted the appointment. */
-    Accepted(
-      "accepted",
-      "http://hl7.org/fhir/participationstatus",
-      "Accepted",
-      "The participant has accepted the appointment.",
-    ),
-    /** The participant has declined the appointment and will not participate in the appointment. */
-    Declined(
-      "declined",
-      "http://hl7.org/fhir/participationstatus",
-      "Declined",
-      "The participant has declined the appointment and will not participate in the appointment.",
-    ),
-    /**
-     * The participant has tentatively accepted the appointment. This could be automatically created
-     * by a system and requires further processing before it can be accepted. There is no commitment
-     * that attendance will occur.
-     */
-    Tentative(
-      "tentative",
-      "http://hl7.org/fhir/participationstatus",
-      "Tentative",
-      "The participant has  tentatively accepted the appointment. This could be automatically created by a system and requires further processing before it can be accepted. There is no commitment that attendance will occur.",
-    ),
-    /**
-     * The participant needs to indicate if they accept the appointment by changing this status to
-     * one of the other statuses.
-     */
-    Needs_Action(
-      "needs-action",
-      "http://hl7.org/fhir/participationstatus",
-      "Needs Action",
-      "The participant needs to indicate if they accept the appointment by changing this status to one of the other statuses.",
-    ),
-    /** This instance should not have been part of this patient's medical record. */
+    Accepted("accepted", "http://hl7.org/fhir/participationstatus", "Accepted"),
+    Declined("declined", "http://hl7.org/fhir/participationstatus", "Declined"),
+    Tentative("tentative", "http://hl7.org/fhir/participationstatus", "Tentative"),
+    Needs_Action("needs-action", "http://hl7.org/fhir/participationstatus", "Needs Action"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/appointmentstatus",
       "Entered in error",
-      "This instance should not have been part of this patient's medical record.",
     );
 
     override fun toString(): String = code
@@ -270,8 +236,6 @@ public data class AppointmentResponse(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ParticipantStatus =

@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.ResearchStudyArmSerializer
 import com.google.fhir.model.r4b.serializers.ResearchStudyObjectiveSerializer
 import com.google.fhir.model.r4b.serializers.ResearchStudySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ResearchStudy(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ResearchStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,17 +131,17 @@ public data class ResearchStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifiers assigned to this research study by the sponsor or other systems. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A short, descriptive user-friendly label for the study. */
   public var title: String? = null,
   /** The set of steps expected to be performed as part of the execution of the study. */
-  public var protocol: List<Reference?>? = null,
+  public var protocol: MutableList<Reference> = mutableListOf(),
   /** A larger research study of which this particular study is a component or step. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /** The current state of the study. */
-  public var status: Enumeration<ResearchStudyStatus>? = null,
+  public var status: Enumeration<ResearchStudyStatus>,
   /**
    * The type of study based upon the intent of the study's activities. A classification of the
    * intent of the study.
@@ -156,26 +156,26 @@ public data class ResearchStudy(
    * Codes categorizing the type of study such as investigational vs. observational, type of
    * blinding, type of randomization, safety vs. efficacy, etc.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The medication(s), food(s), therapy(ies), device(s) or other concerns or interventions that the
    * study is seeking to gain more information about.
    */
-  public var focus: List<CodeableConcept?>? = null,
+  public var focus: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The condition that is the focus of the study. For example, In a study to examine risk factors
    * for Lupus, might have as an inclusion criterion "healthy volunteer", but the target condition
    * code would be a Lupus SNOMED code.
    */
-  public var condition: List<CodeableConcept?>? = null,
+  public var condition: MutableList<CodeableConcept> = mutableListOf(),
   /** Contact details to assist a user in learning more about or engaging with the study. */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /** Citations, references and other related documents. */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /** Key terms to aid in searching for or filtering the study. */
-  public var keyword: List<CodeableConcept?>? = null,
+  public var keyword: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates a country, state or other region where the study is taking place. */
-  public var location: List<CodeableConcept?>? = null,
+  public var location: MutableList<CodeableConcept> = mutableListOf(),
   /** A full description of how the study is being conducted. */
   public var description: Markdown? = null,
   /**
@@ -186,7 +186,7 @@ public data class ResearchStudy(
    * The Group referenced should not generally enumerate specific subjects. Subjects will be linked
    * to the study using the ResearchSubject resource.
    */
-  public var enrollment: List<Reference?>? = null,
+  public var enrollment: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies the start date and the expected (or actual, depending on status) end date for the
    * study.
@@ -201,21 +201,21 @@ public data class ResearchStudy(
    */
   public var principalInvestigator: Reference? = null,
   /** A facility in which study activities are conducted. */
-  public var site: List<Reference?>? = null,
+  public var site: MutableList<Reference> = mutableListOf(),
   /** A description and/or code explaining the premature termination of the study. */
   public var reasonStopped: CodeableConcept? = null,
   /** Comments made about the study by the performer, subject or other participants. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Describes an expected sequence of events for one of the participants of a study. E.g. Exposure
    * to drug A, wash-out, exposure to drug B, wash-out, follow-up.
    */
-  public var arm: List<Arm>? = null,
+  public var arm: MutableList<Arm> = mutableListOf(),
   /**
    * A goal that the study is aiming to achieve in terms of a scientific question to be answered by
    * the analysis of data collected during the study.
    */
-  public var objective: List<Objective>? = null,
+  public var objective: MutableList<Objective> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Describes an expected sequence of events for one of the participants of a study. E.g. Exposure
@@ -240,7 +240,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -259,9 +259,9 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Unique, human-readable label for this arm of the study. */
-    public var name: String? = null,
+    public var name: String,
     /** Categorization of study arm, e.g. experimental, active comparator, placebo comparater. */
     public var type: CodeableConcept? = null,
     /**
@@ -294,7 +294,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -313,7 +313,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Unique, human-readable label for this objective of the study. */
     public var name: String? = null,
     /** The kind of study objective. */
@@ -325,106 +325,38 @@ public data class ResearchStudy(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Study is opened for accrual. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/research-study-status",
-      "Active",
-      "Study is opened for accrual.",
-    ),
-    /**
-     * Study is completed prematurely and will not resume; patients are no longer examined nor
-     * treated.
-     */
+    Active("active", "http://hl7.org/fhir/research-study-status", "Active"),
     Administratively_Completed(
       "administratively-completed",
       "http://hl7.org/fhir/research-study-status",
       "Administratively Completed",
-      "Study is completed prematurely and will not resume; patients are no longer examined nor treated.",
     ),
-    /** Protocol is approved by the review board. */
-    Approved(
-      "approved",
-      "http://hl7.org/fhir/research-study-status",
-      "Approved",
-      "Protocol is approved by the review board.",
-    ),
-    /** Study is closed for accrual; patients can be examined and treated. */
+    Approved("approved", "http://hl7.org/fhir/research-study-status", "Approved"),
     Closed_To_Accrual(
       "closed-to-accrual",
       "http://hl7.org/fhir/research-study-status",
       "Closed to Accrual",
-      "Study is closed for accrual; patients can be examined and treated.",
     ),
-    /**
-     * Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all
-     * study subjects have completed treatment or intervention but are still being followed
-     * according to the primary objective of the study.
-     */
     Closed_To_Accrual_And_Intervention(
       "closed-to-accrual-and-intervention",
       "http://hl7.org/fhir/research-study-status",
       "Closed to Accrual and Intervention",
-      "Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all study subjects have completed treatment or intervention but are still being followed according to the primary objective of the study.",
     ),
-    /**
-     * Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all
-     * study subjects have completed treatment or intervention but are still being followed
-     * according to the primary objective of the study.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/research-study-status",
-      "Completed",
-      """
-    |Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all study subjects have completed treatment
-    |or intervention but are still being followed according to the primary objective of the study.
-    """
-        .trimMargin(),
-    ),
-    /** Protocol was disapproved by the review board. */
-    Disapproved(
-      "disapproved",
-      "http://hl7.org/fhir/research-study-status",
-      "Disapproved",
-      "Protocol was disapproved by the review board.",
-    ),
-    /** Protocol is submitted to the review board for approval. */
-    In_Review(
-      "in-review",
-      "http://hl7.org/fhir/research-study-status",
-      "In Review",
-      "Protocol is submitted to the review board for approval.",
-    ),
-    /**
-     * Study is temporarily closed for accrual; can be potentially resumed in the future; patients
-     * can be examined and treated.
-     */
+    Completed("completed", "http://hl7.org/fhir/research-study-status", "Completed"),
+    Disapproved("disapproved", "http://hl7.org/fhir/research-study-status", "Disapproved"),
+    In_Review("in-review", "http://hl7.org/fhir/research-study-status", "In Review"),
     Temporarily_Closed_To_Accrual(
       "temporarily-closed-to-accrual",
       "http://hl7.org/fhir/research-study-status",
       "Temporarily Closed to Accrual",
-      "Study is temporarily closed for accrual; can be potentially resumed in the future; patients can be examined and treated.",
     ),
-    /**
-     * Study is temporarily closed for accrual and intervention and potentially can be resumed in
-     * the future.
-     */
     Temporarily_Closed_To_Accrual_And_Intervention(
       "temporarily-closed-to-accrual-and-intervention",
       "http://hl7.org/fhir/research-study-status",
       "Temporarily Closed to Accrual and Intervention",
-      "Study is temporarily closed for accrual and intervention and potentially can be resumed in the future.",
     ),
-    /** Protocol was withdrawn by the lead organization. */
-    Withdrawn(
-      "withdrawn",
-      "http://hl7.org/fhir/research-study-status",
-      "Withdrawn",
-      "Protocol was withdrawn by the lead organization.",
-    );
+    Withdrawn("withdrawn", "http://hl7.org/fhir/research-study-status", "Withdrawn");
 
     override fun toString(): kotlin.String = code
 
@@ -433,8 +365,6 @@ public data class ResearchStudy(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResearchStudyStatus =

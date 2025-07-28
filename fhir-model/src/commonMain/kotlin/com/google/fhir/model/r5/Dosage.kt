@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.DosageDoseAndRateRateSerializer
 import com.google.fhir.model.r5.serializers.DosageDoseAndRateSerializer
 import com.google.fhir.model.r5.serializers.DosageSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Dosage Type: Indicates how the medication is/was taken or should be taken by the patient. */
@@ -46,7 +46,7 @@ public data class Dosage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -65,7 +65,7 @@ public data class Dosage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Indicates the order in which the dosage instructions should be applied or interpreted. */
   public var sequence: Integer? = null,
   /** Free text dosage instructions e.g. SIG. */
@@ -79,7 +79,7 @@ public data class Dosage(
    * possibly via intraperitoneal port" or take "immediately following drug x") should be populated
    * in dosage.text.
    */
-  public var additionalInstruction: List<CodeableConcept?>? = null,
+  public var additionalInstruction: MutableList<CodeableConcept> = mutableListOf(),
   /** Instructions in terms that are understood by the patient or consumer. */
   public var patientInstruction: String? = null,
   /**
@@ -105,7 +105,7 @@ public data class Dosage(
    * Boolean is assumed to be False, then the dose is given according to the schedule and is not
    * "prn" or "as needed".
    */
-  public var asNeededFor: List<CodeableConcept?>? = null,
+  public var asNeededFor: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Body site to administer to.
    *
@@ -127,14 +127,14 @@ public data class Dosage(
    * Depending on the resource,this is the amount of medication administered, to be administered or
    * typical amount to be administered.
    */
-  public var doseAndRate: List<DoseAndRate>? = null,
+  public var doseAndRate: MutableList<DoseAndRate> = mutableListOf(),
   /**
    * Upper limit on medication per unit of time.
    *
    * This is intended for use as an adjunct to the dosage when there is an upper cap. For example "2
    * tablets every 4 hours to a maximum of 8/day".
    */
-  public var maxDosePerPeriod: List<Ratio?>? = null,
+  public var maxDosePerPeriod: MutableList<Ratio> = mutableListOf(),
   /**
    * Upper limit on medication per administration.
    *
@@ -169,7 +169,7 @@ public data class Dosage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** The kind of dose or rate specified, for example, ordered or calculated. */
     public var type: CodeableConcept? = null,
     /**
@@ -217,16 +217,14 @@ public data class Dosage(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Dose
 
-      public data object Null : Dose
-
       public companion object {
-        public fun from(
-          RangeValue: com.google.fhir.model.r5.Range?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Dose {
-          if (RangeValue != null) return Range(RangeValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          return Null
+        internal fun from(
+          rangeValue: com.google.fhir.model.r5.Range?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+        ): Dose? {
+          if (rangeValue != null) return Range(rangeValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          return null
         }
       }
     }
@@ -245,18 +243,16 @@ public data class Dosage(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Rate
 
-      public data object Null : Rate
-
       public companion object {
-        public fun from(
-          RatioValue: com.google.fhir.model.r5.Ratio?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Rate {
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          return Null
+        internal fun from(
+          ratioValue: com.google.fhir.model.r5.Ratio?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+        ): Rate? {
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          return null
         }
       }
     }

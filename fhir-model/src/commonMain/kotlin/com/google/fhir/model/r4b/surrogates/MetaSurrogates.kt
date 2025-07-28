@@ -32,66 +32,72 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MetaSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var versionId: String? = null,
   public var _versionId: Element? = null,
   public var lastUpdated: String? = null,
   public var _lastUpdated: Element? = null,
   public var source: String? = null,
   public var _source: Element? = null,
-  public var profile: List<String?>? = null,
-  public var _profile: List<Element?>? = null,
-  public var security: List<Coding?>? = null,
-  public var tag: List<Coding?>? = null,
+  public var profile: MutableList<String?>? = null,
+  public var _profile: MutableList<Element?>? = null,
+  public var security: MutableList<Coding>? = null,
+  public var tag: MutableList<Coding>? = null,
 ) {
   public fun toModel(): Meta =
-    Meta().apply {
-      id = this@MetaSurrogate.id
-      extension = this@MetaSurrogate.extension
-      versionId = Id.of(this@MetaSurrogate.versionId, this@MetaSurrogate._versionId)
+    Meta(
+      id = this@MetaSurrogate.id,
+      extension = this@MetaSurrogate.extension ?: mutableListOf(),
+      versionId = Id.of(this@MetaSurrogate.versionId, this@MetaSurrogate._versionId),
       lastUpdated =
         Instant.of(
           FhirDateTime.fromString(this@MetaSurrogate.lastUpdated),
           this@MetaSurrogate._lastUpdated,
-        )
-      source = Uri.of(this@MetaSurrogate.source, this@MetaSurrogate._source)
+        ),
+      source = Uri.of(this@MetaSurrogate.source, this@MetaSurrogate._source),
       profile =
         if (this@MetaSurrogate.profile == null && this@MetaSurrogate._profile == null) {
-          null
+          mutableListOf()
         } else {
           (this@MetaSurrogate.profile ?: List(this@MetaSurrogate._profile!!.size) { null })
             .zip(this@MetaSurrogate._profile ?: List(this@MetaSurrogate.profile!!.size) { null })
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
-      security = this@MetaSurrogate.security
-      tag = this@MetaSurrogate.tag
-    }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
+      security = this@MetaSurrogate.security ?: mutableListOf(),
+      tag = this@MetaSurrogate.tag ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: Meta): MetaSurrogate =
       with(model) {
-        MetaSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          versionId = this@with.versionId?.value
-          _versionId = this@with.versionId?.toElement()
-          lastUpdated = this@with.lastUpdated?.value?.toString()
-          _lastUpdated = this@with.lastUpdated?.toElement()
-          source = this@with.source?.value
-          _source = this@with.source?.toElement()
-          profile = this@with.profile?.map { it?.value }?.takeUnless { it.all { it == null } }
+        MetaSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          versionId = this@with.versionId?.value,
+          _versionId = this@with.versionId?.toElement(),
+          lastUpdated = this@with.lastUpdated?.value?.toString(),
+          _lastUpdated = this@with.lastUpdated?.toElement(),
+          source = this@with.source?.value,
+          _source = this@with.source?.toElement(),
+          profile =
+            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _profile =
-            this@with.profile?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          security = this@with.security
-          tag = this@with.tag
-        }
+            this@with.profile
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          security = this@with.security.takeUnless { it.all { it == null } },
+          tag = this@with.tag.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

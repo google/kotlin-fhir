@@ -32,14 +32,14 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class QuantitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var comparator: KotlinString? = null,
@@ -52,39 +52,39 @@ internal data class QuantitySurrogate(
   public var _code: Element? = null,
 ) {
   public fun toModel(): Quantity =
-    Quantity().apply {
-      id = this@QuantitySurrogate.id
-      extension = this@QuantitySurrogate.extension
-      `value` = Decimal.of(this@QuantitySurrogate.`value`, this@QuantitySurrogate._value)
+    Quantity(
+      id = this@QuantitySurrogate.id,
+      extension = this@QuantitySurrogate.extension ?: mutableListOf(),
+      `value` = Decimal.of(this@QuantitySurrogate.`value`, this@QuantitySurrogate._value),
       comparator =
-        Enumeration.of(
-          this@QuantitySurrogate.comparator?.let {
-            com.google.fhir.model.r5.Quantity.QuantityComparator.fromCode(it)
-          },
-          this@QuantitySurrogate._comparator,
-        )
-      unit = R5String.of(this@QuantitySurrogate.unit, this@QuantitySurrogate._unit)
-      system = Uri.of(this@QuantitySurrogate.system, this@QuantitySurrogate._system)
-      code = Code.of(this@QuantitySurrogate.code, this@QuantitySurrogate._code)
-    }
+        this@QuantitySurrogate.comparator?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Quantity.QuantityComparator.fromCode(it!!),
+            this@QuantitySurrogate._comparator,
+          )
+        },
+      unit = R5String.of(this@QuantitySurrogate.unit, this@QuantitySurrogate._unit),
+      system = Uri.of(this@QuantitySurrogate.system, this@QuantitySurrogate._system),
+      code = Code.of(this@QuantitySurrogate.code, this@QuantitySurrogate._code),
+    )
 
   public companion object {
     public fun fromModel(model: Quantity): QuantitySurrogate =
       with(model) {
-        QuantitySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          `value` = this@with.`value`?.value
-          _value = this@with.`value`?.toElement()
-          comparator = this@with.comparator?.value?.getCode()
-          _comparator = this@with.comparator?.toElement()
-          unit = this@with.unit?.value
-          _unit = this@with.unit?.toElement()
-          system = this@with.system?.value
-          _system = this@with.system?.toElement()
-          code = this@with.code?.value
-          _code = this@with.code?.toElement()
-        }
+        QuantitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
+          comparator = this@with.comparator?.value?.getCode(),
+          _comparator = this@with.comparator?.toElement(),
+          unit = this@with.unit?.value,
+          _unit = this@with.unit?.toElement(),
+          system = this@with.system?.value,
+          _system = this@with.system?.toElement(),
+          code = this@with.code?.value,
+          _code = this@with.code?.toElement(),
+        )
       }
   }
 }

@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.ProcedurePerformerSerializer
 import com.google.fhir.model.r4.serializers.ProcedureSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class Procedure(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Procedure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class Procedure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this procedure by the performer or other systems which remain
    * constant as the resource is updated and is propagated from server to server.
@@ -142,21 +142,21 @@ public data class Procedure(
    * resource types. For example, multiple Patient and Person resource instances might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, order set or other definition that is
    * adhered to in whole or in part by this Procedure.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, order set or other definition
    * that is adhered to in whole or in part by this Procedure.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** A reference to a resource that contains details of the request for this procedure. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A larger event of which this particular procedure is a component or step.
    *
@@ -166,7 +166,7 @@ public data class Procedure(
    * insert the IV port for an IV medication administration is part of the medication administration
    * (Procedure.partOf = MedicationAdministration).
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code specifying the state of the procedure. Generally, this will be the in-progress or
    * completed state.
@@ -178,7 +178,7 @@ public data class Procedure(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ProcedureStatus>? = null,
+  public var status: Enumeration<ProcedureStatus>,
   /**
    * Captures the reason for the current state of the procedure.
    *
@@ -197,7 +197,7 @@ public data class Procedure(
    */
   public var code: CodeableConcept? = null,
   /** The person, animal or group on which the procedure was performed. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which this Procedure was created or performed or to which the creation of
    * this record is tightly associated.
@@ -225,7 +225,7 @@ public data class Procedure(
   /** Individual who is making the procedure statement. */
   public var asserter: Reference? = null,
   /** Limited to "real" people rather than equipment. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /**
    * The location where the procedure actually happened. E.g. a newborn at home, a tracheostomy at a
    * restaurant.
@@ -245,7 +245,7 @@ public data class Procedure(
    * Procedure.reasonCode and Procedure.reasonReference can be used if they are describing different
    * reasons for the procedure.
    */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The justification of why the procedure was performed.
    *
@@ -261,7 +261,7 @@ public data class Procedure(
    * Both Procedure.reasonCode and Procedure.reasonReference can be used if they are describing
    * different reasons for the procedure.
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Detailed and structured anatomical location information. Multiple locations are allowed - e.g.
    * multiple punch biopsies of a lesion.
@@ -270,7 +270,7 @@ public data class Procedure(
    * separately) then use the standard extension
    * [procedure-targetbodystructure](extension-procedure-targetbodystructure.html).
    */
-  public var bodySite: List<CodeableConcept?>? = null,
+  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The outcome of the procedure - did it resolve the reasons for the procedure being performed?
    *
@@ -283,7 +283,7 @@ public data class Procedure(
    * There could potentially be multiple reports - e.g. if this was a procedure which took multiple
    * biopsies resulting in a number of anatomical pathology reports.
    */
-  public var report: List<Reference?>? = null,
+  public var report: MutableList<Reference> = mutableListOf(),
   /**
    * Any complications that occurred during the procedure, or in the immediate post-performance
    * period. These are generally tracked separately from the notes, which will typically describe
@@ -292,37 +292,37 @@ public data class Procedure(
    * If complications are only expressed by the narrative text, they can be captured using the
    * CodeableConcept.text.
    */
-  public var complication: List<CodeableConcept?>? = null,
+  public var complication: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Any complications that occurred during the procedure, or in the immediate post-performance
    * period.
    */
-  public var complicationDetail: List<Reference?>? = null,
+  public var complicationDetail: MutableList<Reference> = mutableListOf(),
   /**
    * If the procedure required specific follow up - e.g. removal of sutures. The follow up may be
    * represented as a simple note or could potentially be more complex, in which case the CarePlan
    * resource can be used.
    */
-  public var followUp: List<CodeableConcept?>? = null,
+  public var followUp: MutableList<CodeableConcept> = mutableListOf(),
   /** Any other notes and comments about the procedure. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * A device that is implanted, removed or otherwise manipulated (calibration, battery replacement,
    * fitting a prosthesis, attaching a wound-vac, etc.) as a focal portion of the Procedure.
    */
-  public var focalDevice: List<FocalDevice>? = null,
+  public var focalDevice: MutableList<FocalDevice> = mutableListOf(),
   /**
    * Identifies medications, devices and any other substance used as part of the procedure.
    *
    * For devices actually implanted or removed, use Procedure.device.
    */
-  public var usedReference: List<Reference?>? = null,
+  public var usedReference: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies coded items that were used as part of the procedure.
    *
    * For devices actually implanted or removed, use Procedure.device.
    */
-  public var usedCode: List<CodeableConcept?>? = null,
+  public var usedCode: MutableList<CodeableConcept> = mutableListOf(),
 ) : DomainResource() {
   /** Limited to "real" people rather than equipment. */
   @Serializable(with = ProcedurePerformerSerializer::class)
@@ -344,7 +344,7 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -363,14 +363,14 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of involvement of the performer in the procedure. For example,
      * surgeon, anaesthetist, endoscopist.
      */
     public var function: CodeableConcept? = null,
     /** The practitioner who was involved in the procedure. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
     /** The organization the device or practitioner was acting on behalf of. */
     public var onBehalfOf: Reference? = null,
   ) : BackboneElement()
@@ -398,7 +398,7 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -417,11 +417,11 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The kind of change that happened to the device during the procedure. */
     public var action: CodeableConcept? = null,
     /** The device that was manipulated (changed) during the procedure. */
-    public var manipulated: Reference? = null,
+    public var manipulated: Reference,
   ) : BackboneElement()
 
   @Serializable(with = ProcedurePerformedSerializer::class)
@@ -446,22 +446,20 @@ public data class Procedure(
 
     public data class Range(public val `value`: com.google.fhir.model.r4.Range) : Performed
 
-    public data object Null : Performed
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
+        periodValue: com.google.fhir.model.r4.Period?,
         stringValue: com.google.fhir.model.r4.String?,
-        AgeValue: com.google.fhir.model.r4.Age?,
-        RangeValue: com.google.fhir.model.r4.Range?,
-      ): Performed {
+        ageValue: com.google.fhir.model.r4.Age?,
+        rangeValue: com.google.fhir.model.r4.Range?,
+      ): Performed? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+        if (periodValue != null) return Period(periodValue)
         if (stringValue != null) return String(stringValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (RangeValue != null) return Range(RangeValue)
-        return Null
+        if (ageValue != null) return Age(ageValue)
+        if (rangeValue != null) return Range(rangeValue)
+        return null
       }
     }
   }
@@ -471,82 +469,15 @@ public data class Procedure(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The core event has not started yet, but some staging activities have begun (e.g. surgical
-     * suite preparation). Preparation stages may be tracked for billing purposes.
-     */
-    Preparation(
-      "preparation",
-      "http://hl7.org/fhir/event-status",
-      "Preparation",
-      "The core event has not started yet, but some staging activities have begun (e.g. surgical suite preparation).  Preparation stages may be tracked for billing purposes.",
-    ),
-    /** The event is currently occurring. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/event-status",
-      "In Progress",
-      "The event is currently occurring.",
-    ),
-    /**
-     * The event was terminated prior to any activity beyond preparation. I.e. The 'main' activity
-     * has not yet begun. The boundary between preparatory and the 'main' activity is
-     * context-specific.
-     */
-    Not_Done(
-      "not-done",
-      "http://hl7.org/fhir/event-status",
-      "Not Done",
-      "The event was terminated prior to any activity beyond preparation.  I.e. The 'main' activity has not yet begun.  The boundary between preparatory and the 'main' activity is context-specific.",
-    ),
-    /** The event has been temporarily stopped but is expected to resume in the future. */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/event-status",
-      "On Hold",
-      "The event has been temporarily stopped but is expected to resume in the future.",
-    ),
-    /**
-     * The event was terminated prior to the full completion of the intended activity but after at
-     * least some of the 'main' activity (beyond preparation) has occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/event-status",
-      "Stopped",
-      "The event was terminated prior to the full completion of the intended activity but after at least some of the 'main' activity (beyond preparation) has occurred.",
-    ),
-    /** The event has now concluded. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/event-status",
-      "Completed",
-      "The event has now concluded.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "stopped" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"stopped\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this event. Note: This concept is not to be used for "other" - one of the listed statuses is
-     * presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/event-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this event.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done"),
+    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold"),
+    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -555,8 +486,6 @@ public data class Procedure(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ProcedureStatus =

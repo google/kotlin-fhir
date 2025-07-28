@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.MoneySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Money Type: An amount of economic utility in some recognized currency. */
@@ -44,7 +44,7 @@ public data class Money(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * Numerical value (with implicit precision).
    *
@@ -53,5 +53,5 @@ public data class Money(
    */
   public var `value`: Decimal? = null,
   /** ISO 4217 Currency Code. */
-  public var currency: Code? = null,
+  public var currency: Enumeration<CurrencyCode>? = null,
 ) : DataType()

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.NamingSystemSerializer
 import com.google.fhir.model.r4.serializers.NamingSystemUniqueIdSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class NamingSystem(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class NamingSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class NamingSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A natural language name identifying the naming system. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -137,15 +137,15 @@ public data class NamingSystem(
    * name to ensure that it is machine-processing friendly.The"symbolic name" for an OID would be
    * captured as an extension.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * The status of this naming system. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of naming systems that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /** Indicates the purpose for the naming system - what kinds of things does it make unique? */
-  public var kind: Enumeration<NamingSystemType>? = null,
+  public var kind: Enumeration<NamingSystemType>,
   /**
    * The date (and optionally time) when the naming system was published. The date must change when
    * the business version changes and it must change if the status code changes. In addition, it
@@ -155,7 +155,7 @@ public data class NamingSystem(
    * secondary representation of the naming system. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public var date: DateTime,
   /**
    * The name of the organization or individual that published the naming system.
    *
@@ -172,7 +172,7 @@ public data class NamingSystem(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * The name of the organization that is responsible for issuing identifiers or codes for this
    * namespace and ensuring their non-collision.
@@ -210,14 +210,14 @@ public data class NamingSystem(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the naming system is intended to be used.
    *
    * It may be possible for the naming system to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Provides guidance on the use of the namespace, including the handling of formatting characters,
    * use of upper vs. lower case, etc.
@@ -229,7 +229,7 @@ public data class NamingSystem(
    * Multiple identifiers may exist, either due to duplicate registration, regional rules, needs of
    * different communication technologies, etc.
    */
-  public var uniqueId: List<UniqueId>? = null,
+  public var uniqueId: MutableList<UniqueId> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates how the system may be identified when referenced in electronic exchange. */
   @Serializable(with = NamingSystemUniqueIdSerializer::class)
@@ -251,7 +251,7 @@ public data class NamingSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -270,14 +270,14 @@ public data class NamingSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies the unique identifier scheme used for this particular identifier.
      *
      * Different identifier types may be used in different types of communications (OIDs for v3,
      * URIs for FHIR, etc.). Other includes RUIDs from v3, standard v2 code name strings, etc.
      */
-    public var type: Enumeration<NamingSystemIdentifierType>? = null,
+    public var type: Enumeration<NamingSystemIdentifierType>,
     /**
      * The string that should be sent over the wire to identify the code system or identifier
      * system.
@@ -285,7 +285,7 @@ public data class NamingSystem(
      * If the value is a URI intended for use as FHIR system identifier, the URI should not contain
      * "\" or "?" or "," since this makes escaping very difficult.
      */
-    public var `value`: String? = null,
+    public var `value`: String,
     /** Indicates whether this identifier is the "preferred" identifier of this type. */
     public var preferred: Boolean? = null,
     /**
@@ -310,41 +310,11 @@ public data class NamingSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An ISO object identifier; e.g. 1.2.3.4.5. */
-    Oid(
-      "oid",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "OID",
-      "An ISO object identifier; e.g. 1.2.3.4.5.",
-    ),
-    /** A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11. */
-    Uuid(
-      "uuid",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "UUID",
-      "A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11.",
-    ),
-    /**
-     * A uniform resource identifier (ideally a URL - uniform resource locator); e.g.
-     * http://unitsofmeasure.org.
-     */
-    Uri(
-      "uri",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "URI",
-      "A uniform resource identifier (ideally a URL - uniform resource locator); e.g. http://unitsofmeasure.org.",
-    ),
-    /**
-     * Some other type of unique identifier; e.g. HL7-assigned reserved string such as LN for LOINC.
-     */
-    Other(
-      "other",
-      "http://hl7.org/fhir/namingsystem-identifier-type",
-      "Other",
-      "Some other type of unique identifier; e.g. HL7-assigned reserved string such as LN for LOINC.",
-    );
+    Oid("oid", "http://hl7.org/fhir/namingsystem-identifier-type", "OID"),
+    Uuid("uuid", "http://hl7.org/fhir/namingsystem-identifier-type", "UUID"),
+    Uri("uri", "http://hl7.org/fhir/namingsystem-identifier-type", "URI"),
+    Other("other", "http://hl7.org/fhir/namingsystem-identifier-type", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -353,8 +323,6 @@ public data class NamingSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NamingSystemIdentifierType =
@@ -374,34 +342,10 @@ public data class NamingSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The naming system is used to define concepts and symbols to represent those concepts; e.g.
-     * UCUM, LOINC, NDC code, local lab codes, etc.
-     */
-    Codesystem(
-      "codesystem",
-      "http://hl7.org/fhir/namingsystem-type",
-      "Code System",
-      "The naming system is used to define concepts and symbols to represent those concepts; e.g. UCUM, LOINC, NDC code, local lab codes, etc.",
-    ),
-    /**
-     * The naming system is used to manage identifiers (e.g. license numbers, order numbers, etc.).
-     */
-    Identifier(
-      "identifier",
-      "http://hl7.org/fhir/namingsystem-type",
-      "Identifier",
-      "The naming system is used to manage identifiers (e.g. license numbers, order numbers, etc.).",
-    ),
-    /** The naming system is used as the root for other identifiers and naming systems. */
-    Root(
-      "root",
-      "http://hl7.org/fhir/namingsystem-type",
-      "Root",
-      "The naming system is used as the root for other identifiers and naming systems.",
-    );
+    Codesystem("codesystem", "http://hl7.org/fhir/namingsystem-type", "Code System"),
+    Identifier("identifier", "http://hl7.org/fhir/namingsystem-type", "Identifier"),
+    Root("root", "http://hl7.org/fhir/namingsystem-type", "Root");
 
     override fun toString(): kotlin.String = code
 
@@ -410,8 +354,6 @@ public data class NamingSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NamingSystemType =

@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFr
 import com.google.fhir.model.r5.serializers.EvidenceVariableSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -104,7 +104,7 @@ public data class EvidenceVariable(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class EvidenceVariable(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class EvidenceVariable(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this evidence variable when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -157,7 +157,7 @@ public data class EvidenceVariable(
    * type, and can then identify this evidence variable outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the evidence variable when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -212,7 +212,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this resource is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -255,7 +255,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the evidence variable from a consumer's
    * perspective.
@@ -269,7 +269,7 @@ public data class EvidenceVariable(
    */
   public var description: Markdown? = null,
   /** A human-readable string to clarify or explain concepts about the resource. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -279,7 +279,7 @@ public data class EvidenceVariable(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * Explanation of why this EvidenceVariable is needed and why it has been designed as it has.
    *
@@ -340,14 +340,14 @@ public data class EvidenceVariable(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (see [Clinical Reasoning Module](clinicalreasoning-module.html)).
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for internal coherence of the content.
    *
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (see [Clinical Reasoning Module](clinicalreasoning-module.html)).
    */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the content.
@@ -358,7 +358,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the content for use in some setting.
@@ -369,14 +369,14 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * True if the actual variable measured, false if a conceptual representation of the intended
    * variable.
@@ -390,11 +390,11 @@ public data class EvidenceVariable(
    * criteria, ranging from simple codes, all the way to using an expression language to express the
    * criteria.
    */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
   /** The method of handling in statistical analysis. */
   public var handling: Enumeration<EvidenceVariableHandling>? = null,
   /** A grouping for ordinal or polychotomous variables. */
-  public var category: List<Category>? = null,
+  public var category: MutableList<Category> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A defining factor of the EvidenceVariable. Multiple characteristics are applied with "and"
@@ -419,7 +419,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -438,7 +438,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Label used for when a characteristic refers to another characteristic. */
     public var linkId: Id? = null,
     /**
@@ -447,7 +447,7 @@ public data class EvidenceVariable(
      */
     public var description: Markdown? = null,
     /** A human-readable string to clarify or explain concepts about the characteristic. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
     /**
      * When true, this characteristic is an exclusion criterion. In other words, not matching this
      * characteristic definition is equivalent to meeting this criterion.
@@ -478,7 +478,7 @@ public data class EvidenceVariable(
     /** Length of time in which the characteristic is met. */
     public var duration: Duration? = null,
     /** Timing in which the characteristic is determined. */
-    public var timeFromEvent: List<TimeFromEvent>? = null,
+    public var timeFromEvent: MutableList<TimeFromEvent> = mutableListOf(),
   ) : BackboneElement() {
     /** Defines the characteristic using both a type and value[x] elements. */
     @Serializable(with = EvidenceVariableCharacteristicDefinitionByTypeAndValueSerializer::class)
@@ -500,7 +500,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -519,15 +519,15 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Used to express the type of characteristic. */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
       /** Method for how the characteristic value was determined. */
-      public var method: List<CodeableConcept?>? = null,
+      public var method: MutableList<CodeableConcept> = mutableListOf(),
       /** Device used for determining characteristic. */
       public var device: Reference? = null,
       /** Defines the characteristic when paired with characteristic.type. */
-      public var `value`: Value? = null,
+      public var `value`: Value,
       /**
        * Defines the reference point for comparison when valueQuantity or valueRange is not compared
        * to zero.
@@ -564,24 +564,22 @@ public data class EvidenceVariable(
 
         public data class Id(public val `value`: com.google.fhir.model.r5.Id) : Value
 
-        public data object Null : Value
-
         public companion object {
-          public fun from(
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          internal fun from(
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
             booleanValue: com.google.fhir.model.r5.Boolean?,
-            QuantityValue: com.google.fhir.model.r5.Quantity?,
-            RangeValue: com.google.fhir.model.r5.Range?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
+            quantityValue: com.google.fhir.model.r5.Quantity?,
+            rangeValue: com.google.fhir.model.r5.Range?,
+            referenceValue: com.google.fhir.model.r5.Reference?,
             idValue: com.google.fhir.model.r5.Id?,
-          ): Value {
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          ): Value? {
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
             if (booleanValue != null) return Boolean(booleanValue)
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (RangeValue != null) return Range(RangeValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (rangeValue != null) return Range(rangeValue)
+            if (referenceValue != null) return Reference(referenceValue)
             if (idValue != null) return Id(idValue)
-            return Null
+            return null
           }
         }
       }
@@ -607,7 +605,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -626,13 +624,13 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Used to specify if two or more characteristics are combined with OR or AND. */
-      public var code: Enumeration<CharacteristicCombination>? = null,
+      public var code: Enumeration<CharacteristicCombination>,
       /** Provides the value of "n" when "at-least" or "at-most" codes are used. */
       public var threshold: PositiveInt? = null,
       /** A defining factor of the characteristic. */
-      public var characteristic: List<Characteristic?>? = null,
+      public var characteristic: MutableList<Characteristic> = mutableListOf(),
     ) : BackboneElement()
 
     /** Timing in which the characteristic is determined. */
@@ -655,7 +653,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -674,11 +672,11 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Human readable description. */
       public var description: Markdown? = null,
       /** A human-readable string to clarify or explain concepts about the timeFromEvent. */
-      public var note: List<Annotation?>? = null,
+      public var note: MutableList<Annotation> = mutableListOf(),
       /** The event used as a base point (reference point) in time. */
       public var event: Event? = null,
       /** Used to express the observation at a defined amount of time before or after the event. */
@@ -706,20 +704,18 @@ public data class EvidenceVariable(
 
         public data class Id(public val `value`: com.google.fhir.model.r5.Id) : Event
 
-        public data object Null : Event
-
         public companion object {
-          public fun from(
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
+          internal fun from(
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+            referenceValue: com.google.fhir.model.r5.Reference?,
             dateTimeValue: com.google.fhir.model.r5.DateTime?,
             idValue: com.google.fhir.model.r5.Id?,
-          ): Event {
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
+          ): Event? {
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+            if (referenceValue != null) return Reference(referenceValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (idValue != null) return Id(idValue)
-            return Null
+            return null
           }
         }
       }
@@ -735,16 +731,14 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Instances
 
-      public data object Null : Instances
-
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-        ): Instances {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          return Null
+        internal fun from(
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+        ): Instances? {
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          return null
         }
       }
     }
@@ -759,16 +753,14 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Duration
 
-      public data object Null : Duration
-
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-        ): Duration {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          return Null
+        internal fun from(
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+        ): Duration? {
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          return null
         }
       }
     }
@@ -794,7 +786,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -813,7 +805,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Description of the grouping. */
     public var name: String? = null,
     /** Definition of the grouping. */
@@ -835,18 +827,16 @@ public data class EvidenceVariable(
 
       public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          return Null
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          return null
         }
       }
     }
@@ -864,16 +854,14 @@ public data class EvidenceVariable(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -883,57 +871,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Combine characteristics with AND. */
-    All_Of(
-      "all-of",
-      "http://hl7.org/fhir/characteristic-combination",
-      "All of",
-      "Combine characteristics with AND.",
-    ),
-    /** Combine characteristics with OR. */
-    Any_Of(
-      "any-of",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Any of",
-      "Combine characteristics with OR.",
-    ),
-    /** Meet at least the threshold number of characteristics for definition. */
-    At_Least(
-      "at-least",
-      "http://hl7.org/fhir/characteristic-combination",
-      "At least",
-      "Meet at least the threshold number of characteristics for definition.",
-    ),
-    /** Meet at most the threshold number of characteristics for definition. */
-    At_Most(
-      "at-most",
-      "http://hl7.org/fhir/characteristic-combination",
-      "At most",
-      "Meet at most the threshold number of characteristics for definition.",
-    ),
-    /** Combine characteristics statistically. Use method to specify the statistical method. */
-    Statistical(
-      "statistical",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Statistical",
-      "Combine characteristics statistically. Use method to specify the statistical method.",
-    ),
-    /** Combine characteristics by addition of benefits and subtraction of harms. */
-    Net_Effect(
-      "net-effect",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Net effect",
-      "Combine characteristics by addition of benefits and subtraction of harms.",
-    ),
-    /** Combine characteristics as a collection used as the dataset. */
-    Dataset(
-      "dataset",
-      "http://hl7.org/fhir/characteristic-combination",
-      "Dataset",
-      "Combine characteristics as a collection used as the dataset.",
-    );
+    All_Of("all-of", "http://hl7.org/fhir/characteristic-combination", "All of"),
+    Any_Of("any-of", "http://hl7.org/fhir/characteristic-combination", "Any of"),
+    At_Least("at-least", "http://hl7.org/fhir/characteristic-combination", "At least"),
+    At_Most("at-most", "http://hl7.org/fhir/characteristic-combination", "At most"),
+    Statistical("statistical", "http://hl7.org/fhir/characteristic-combination", "Statistical"),
+    Net_Effect("net-effect", "http://hl7.org/fhir/characteristic-combination", "Net effect"),
+    Dataset("dataset", "http://hl7.org/fhir/characteristic-combination", "Dataset");
 
     override fun toString(): kotlin.String = code
 
@@ -942,8 +887,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CharacteristicCombination =
@@ -969,50 +912,14 @@ public data class EvidenceVariable(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A continuous variable is one for which, within the limits the variable ranges, any value is
-     * possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).
-     */
-    Continuous(
-      "continuous",
-      "http://hl7.org/fhir/variable-handling",
-      "continuous variable",
-      "A continuous variable is one for which, within the limits the variable ranges, any value is possible (from STATO http://purl.obolibrary.org/obo/STATO_0000251).",
-    ),
-    /**
-     * A dichotomous variable is a categorical variable which is defined to have only 2 categories
-     * or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).
-     */
-    Dichotomous(
-      "dichotomous",
-      "http://hl7.org/fhir/variable-handling",
-      "dichotomous variable",
-      "A dichotomous variable is a categorical variable which is defined to have only 2 categories or possible values (from STATO http://purl.obolibrary.org/obo/STATO_0000090).",
-    ),
-    /**
-     * An ordinal variable is a categorical variable where the discrete possible values are ordered
-     * or correspond to an implicit ranking (from STATO
-     * http://purl.obolibrary.org/obo/STATO_0000228).
-     */
-    Ordinal(
-      "ordinal",
-      "http://hl7.org/fhir/variable-handling",
-      "ordinal variable",
-      "An ordinal variable is a categorical variable where the discrete possible values are ordered or correspond to an implicit ranking (from STATO http://purl.obolibrary.org/obo/STATO_0000228).",
-    ),
-    /**
-     * A polychotomous variable is a categorical variable which is defined to have minimally 2
-     * categories or possible values. (from STATO http://purl.obolibrary.org/obo/STATO_0000087).
-     * Suggestion to limit code use to situations when neither dichotomous nor ordinal variables
-     * apply.
-     */
+    Continuous("continuous", "http://hl7.org/fhir/variable-handling", "continuous variable"),
+    Dichotomous("dichotomous", "http://hl7.org/fhir/variable-handling", "dichotomous variable"),
+    Ordinal("ordinal", "http://hl7.org/fhir/variable-handling", "ordinal variable"),
     Polychotomous(
       "polychotomous",
       "http://hl7.org/fhir/variable-handling",
       "polychotomous variable",
-      "A polychotomous variable is a categorical variable which is defined to have minimally 2 categories or possible values. (from STATO  http://purl.obolibrary.org/obo/STATO_0000087).  Suggestion to limit code use to situations when neither dichotomous nor ordinal variables apply.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1022,8 +929,6 @@ public data class EvidenceVariable(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): EvidenceVariableHandling =

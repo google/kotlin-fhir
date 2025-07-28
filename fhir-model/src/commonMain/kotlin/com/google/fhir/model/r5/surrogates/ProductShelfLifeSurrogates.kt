@@ -29,34 +29,36 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class ProductShelfLifePeriodSurrogate {
-  public var periodDuration: Duration? = null
-
-  public var periodString: KotlinString? = null
-
-  public var _periodString: Element? = null
-
-  public fun toModel(): ProductShelfLife.Period =
+internal data class ProductShelfLifePeriodSurrogate(
+  public var periodDuration: Duration? = null,
+  public var periodString: KotlinString? = null,
+  public var _periodString: Element? = null,
+) {
+  public fun toModel(): ProductShelfLife.Period? =
     ProductShelfLife.Period?.from(
       this@ProductShelfLifePeriodSurrogate.periodDuration,
       R5String.of(
         this@ProductShelfLifePeriodSurrogate.periodString,
         this@ProductShelfLifePeriodSurrogate._periodString,
       ),
-    ) ?: ProductShelfLife.Period.Null
+    )
 
   public companion object {
     public fun fromModel(model: ProductShelfLife.Period): ProductShelfLifePeriodSurrogate =
       with(model) {
         ProductShelfLifePeriodSurrogate().apply {
-          periodDuration = this@with.asDuration()?.value
-          periodString = this@with.asString()?.value?.value
-          _periodString = this@with.asString()?.value?.toElement()
+          ProductShelfLife.Period?.from(
+            this@ProductShelfLifePeriodSurrogate.periodDuration,
+            R5String.of(
+              this@ProductShelfLifePeriodSurrogate.periodString,
+              this@ProductShelfLifePeriodSurrogate._periodString,
+            ),
+          )
         }
       }
   }
@@ -65,33 +67,35 @@ internal class ProductShelfLifePeriodSurrogate {
 @Serializable
 internal data class ProductShelfLifeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var specialPrecautionsForStorage: List<CodeableConcept?>? = null,
+  public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
   public var period: ProductShelfLife.Period? = null,
 ) {
   public fun toModel(): ProductShelfLife =
-    ProductShelfLife().apply {
-      id = this@ProductShelfLifeSurrogate.id
-      extension = this@ProductShelfLifeSurrogate.extension
-      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension
-      type = this@ProductShelfLifeSurrogate.type
-      period = this@ProductShelfLifeSurrogate.period
-      specialPrecautionsForStorage = this@ProductShelfLifeSurrogate.specialPrecautionsForStorage
-    }
+    ProductShelfLife(
+      id = this@ProductShelfLifeSurrogate.id,
+      extension = this@ProductShelfLifeSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ProductShelfLifeSurrogate.type,
+      period = this@ProductShelfLifeSurrogate.period,
+      specialPrecautionsForStorage =
+        this@ProductShelfLifeSurrogate.specialPrecautionsForStorage ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ProductShelfLife): ProductShelfLifeSurrogate =
       with(model) {
-        ProductShelfLifeSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          period = this@with.period
-          specialPrecautionsForStorage = this@with.specialPrecautionsForStorage
-        }
+        ProductShelfLifeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          period = this@with.period,
+          specialPrecautionsForStorage =
+            this@with.specialPrecautionsForStorage.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

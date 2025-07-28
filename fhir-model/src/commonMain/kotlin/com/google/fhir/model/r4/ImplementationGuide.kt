@@ -34,7 +34,7 @@ import com.google.fhir.model.r4.serializers.ImplementationGuideManifestResourceS
 import com.google.fhir.model.r4.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r4.serializers.ImplementationGuideSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -110,7 +110,7 @@ public data class ImplementationGuide(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -123,7 +123,7 @@ public data class ImplementationGuide(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -142,7 +142,7 @@ public data class ImplementationGuide(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this implementation guide when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -162,7 +162,7 @@ public data class ImplementationGuide(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * The identifier that is used to identify this version of the implementation guide when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -182,7 +182,7 @@ public data class ImplementationGuide(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the implementation guide.
    *
@@ -195,7 +195,7 @@ public data class ImplementationGuide(
    *
    * Allows filtering of implementation guides that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this implementation guide is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -229,7 +229,7 @@ public data class ImplementationGuide(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the implementation guide from a consumer's
    * perspective.
@@ -251,14 +251,14 @@ public data class ImplementationGuide(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the implementation guide is intended to be used.
    *
    * It may be possible for the implementation guide to be used in jurisdictions other than those
    * for which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A copyright statement relating to the implementation guide and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the implementation
@@ -274,7 +274,7 @@ public data class ImplementationGuide(
    * implementation guides published through HL7 or the FHIR foundation, the FHIR product director
    * assigns package IDs.
    */
-  public var packageId: Id? = null,
+  public var packageId: Id,
   /**
    * The license that applies to this Implementation Guide, using an SPDX license code, or
    * 'not-open-source'.
@@ -292,19 +292,19 @@ public data class ImplementationGuide(
    * implementation matures and different implementation communities are stuck at different versions
    * by regulation or market dynamics.
    */
-  public var fhirVersion: List<Enumeration<FHIRVersion>>? = null,
+  public var fhirVersion: MutableList<Enumeration<FHIRVersion>> = mutableListOf(),
   /**
    * Another implementation guide that this implementation depends on. Typically, an implementation
    * guide uses value sets, profiles etc.defined in other implementation guides.
    */
-  public var dependsOn: List<DependsOn>? = null,
+  public var dependsOn: MutableList<DependsOn> = mutableListOf(),
   /**
    * A set of profiles that all resources covered by this implementation guide must conform to.
    *
    * See [Default Profiles](implementationguide.html#default) for a discussion of which resources
    * are 'covered' by an implementation guide.
    */
-  public var global: List<Global>? = null,
+  public var global: MutableList<Global> = mutableListOf(),
   /**
    * The information needed by an IG publisher tool to publish the whole implementation guide.
    *
@@ -338,7 +338,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -357,14 +357,14 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A canonical reference to the Implementation guide for the dependency.
      *
      * Usually, A canonical reference to the implementation guide is the same as the master location
      * at which the implementation guide is published.
      */
-    public var uri: Canonical? = null,
+    public var uri: Canonical,
     /** The NPM package name for the Implementation Guide that this IG depends on. */
     public var packageId: Id? = null,
     /**
@@ -396,7 +396,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -415,7 +415,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of resource that all instances must conform to.
      *
@@ -423,9 +423,9 @@ public data class ImplementationGuide(
      * denormalization so that a system processing the implementation guide resource knows which
      * resources the profile applies to even if the profile itself is not available.
      */
-    public var type: Enumeration<ResourceType>? = null,
+    public var type: Enumeration<ResourceType>,
     /** A reference to the profile that all instances must conform to. */
-    public var profile: Canonical? = null,
+    public var profile: Canonical,
   ) : BackboneElement()
 
   /** The information needed by an IG publisher tool to publish the whole implementation guide. */
@@ -448,7 +448,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -467,20 +467,20 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A logical group of resources. Logical groups can be used when building pages.
      *
      * Groupings are arbitrary sub-divisions of content. Typically, they are used to help build
      * Table of Contents automatically.
      */
-    public var grouping: List<Grouping>? = null,
+    public var grouping: MutableList<Grouping> = mutableListOf(),
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public var resource: List<Resource>? = null,
+    public var resource: MutableList<Resource> = mutableListOf(),
     /**
      * A page / section in the implementation guide. The root page is the implementation guide home
      * page.
@@ -490,9 +490,9 @@ public data class ImplementationGuide(
      */
     public var page: Page? = null,
     /** Defines how IG is built by tools. */
-    public var parameter: List<Parameter>? = null,
+    public var parameter: MutableList<Parameter> = mutableListOf(),
     /** A template for building resources. */
-    public var template: List<Template>? = null,
+    public var template: MutableList<Template> = mutableListOf(),
   ) : BackboneElement() {
     /** A logical group of resources. Logical groups can be used when building pages. */
     @Serializable(with = ImplementationGuideDefinitionGroupingSerializer::class)
@@ -514,7 +514,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -533,12 +533,12 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The human-readable title to display for the package of resources when rendering the
        * implementation guide.
        */
-      public var name: String? = null,
+      public var name: String,
       /** Human readable text describing the package. */
       public var description: String? = null,
     ) : BackboneElement()
@@ -567,7 +567,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -586,7 +586,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Where this resource is found.
        *
@@ -595,7 +595,7 @@ public data class ImplementationGuide(
        * tooling, use a URI that may point to a resource, or to one of various alternative
        * representations (e.g. spreadsheet). The tooling will convert this when it publishes it.
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
       /**
        * Indicates the FHIR Version(s) this artifact is intended to apply to. If no versions are
        * specified, the resource is assumed to apply to all the versions stated in
@@ -608,7 +608,7 @@ public data class ImplementationGuide(
        * versions using the
        * [applicable-version](extension-structuredefinition-applicable-version.html) extension.
        */
-      public var fhirVersion: List<Enumeration<FHIRVersion>>? = null,
+      public var fhirVersion: MutableList<Enumeration<FHIRVersion>> = mutableListOf(),
       /**
        * A human assigned name for the resource. All resources SHOULD have a name, but the name may
        * be extracted from the resource (e.g. ValueSet.name).
@@ -650,16 +650,14 @@ public data class ImplementationGuide(
         public data class Canonical(public val `value`: com.google.fhir.model.r4.Canonical) :
           Example
 
-        public data object Null : Example
-
         public companion object {
-          public fun from(
+          internal fun from(
             booleanValue: com.google.fhir.model.r4.Boolean?,
             canonicalValue: com.google.fhir.model.r4.Canonical?,
-          ): Example {
+          ): Example? {
             if (booleanValue != null) return Boolean(booleanValue)
             if (canonicalValue != null) return Canonical(canonicalValue)
-            return Null
+            return null
           }
         }
       }
@@ -688,7 +686,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -707,27 +705,27 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The source address for the page.
        *
        * The publishing tool will autogenerate source for list (source = n/a) and inject included
        * implementations for include (source = uri of guide to include).
        */
-      public var name: Name? = null,
+      public var name: Name,
       /**
        * A short title used to represent this page in navigational structures such as table of
        * contents, bread crumbs, etc.
        */
-      public var title: String? = null,
+      public var title: String,
       /** A code that indicates how the page is generated. */
-      public var generation: Enumeration<GuidePageGeneration>? = null,
+      public var generation: Enumeration<GuidePageGeneration>,
       /**
        * Nested Pages/Sections under this page.
        *
        * The implementation guide breadcrumbs are generated from this structure.
        */
-      public var page: List<Page?>? = null,
+      public var page: MutableList<Page> = mutableListOf(),
     ) : BackboneElement() {
       @Serializable(with = ImplementationGuideDefinitionPageNameSerializer::class)
       public sealed interface Name {
@@ -739,16 +737,14 @@ public data class ImplementationGuide(
 
         public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Name
 
-        public data object Null : Name
-
         public companion object {
-          public fun from(
+          internal fun from(
             urlValue: com.google.fhir.model.r4.Url?,
-            ReferenceValue: com.google.fhir.model.r4.Reference?,
-          ): Name {
+            referenceValue: com.google.fhir.model.r4.Reference?,
+          ): Name? {
             if (urlValue != null) return Url(urlValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -774,7 +770,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -793,14 +789,14 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * apply | path-resource | path-pages | path-tx-cache | expansion-parameter |
        * rule-broken-links | generate-xml | generate-json | generate-turtle | html-template.
        */
-      public var code: Enumeration<GuideParameterCode>? = null,
+      public var code: Enumeration<GuideParameterCode>,
       /** Value for named type. */
-      public var `value`: String? = null,
+      public var `value`: String,
     ) : BackboneElement()
 
     /** A template for building resources. */
@@ -823,7 +819,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -842,11 +838,11 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Type of template specified. */
-      public var code: Code? = null,
+      public var code: Code,
       /** The source location for the template. */
-      public var source: String? = null,
+      public var source: String,
       /** The scope in which the template applies. */
       public var scope: String? = null,
     ) : BackboneElement()
@@ -872,7 +868,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -891,7 +887,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A pointer to official web page, PDF or other rendering of the implementation guide. */
     public var rendering: Url? = null,
     /**
@@ -899,16 +895,16 @@ public data class ImplementationGuide(
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public var resource: List<Resource>? = null,
+    public var resource: MutableList<Resource> = mutableListOf(),
     /** Information about a page within the IG. */
-    public var page: List<Page>? = null,
+    public var page: MutableList<Page> = mutableListOf(),
     /** Indicates a relative path to an image that exists within the IG. */
-    public var image: List<String?>? = null,
+    public var image: MutableList<String> = mutableListOf(),
     /**
      * Indicates the relative path of an additional non-page, non-image file that is part of the
      * IG - e.g. zip, jar and similar files that could be the target of a hyperlink in a derived IG.
      */
-    public var other: List<String?>? = null,
+    public var other: MutableList<String> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
@@ -934,7 +930,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -953,7 +949,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Where this resource is found.
        *
@@ -962,7 +958,7 @@ public data class ImplementationGuide(
        * tooling, use a URI that may point to a resource, or to one of various alternative
        * representations (e.g. spreadsheet). The tooling will convert this when it publishes it.
        */
-      public var reference: Reference? = null,
+      public var reference: Reference,
       /**
        * If true or a reference, indicates the resource is an example instance. If a reference is
        * present, indicates that the example is an example of the specified profile.
@@ -990,16 +986,14 @@ public data class ImplementationGuide(
         public data class Canonical(public val `value`: com.google.fhir.model.r4.Canonical) :
           Example
 
-        public data object Null : Example
-
         public companion object {
-          public fun from(
+          internal fun from(
             booleanValue: com.google.fhir.model.r4.Boolean?,
             canonicalValue: com.google.fhir.model.r4.Canonical?,
-          ): Example {
+          ): Example? {
             if (booleanValue != null) return Boolean(booleanValue)
             if (canonicalValue != null) return Canonical(canonicalValue)
-            return Null
+            return null
           }
         }
       }
@@ -1025,7 +1019,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1044,13 +1038,13 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Relative path to the page.
        *
        * Appending 'rendering' + "/" + this should resolve to the page.
        */
-      public var name: String? = null,
+      public var name: String,
       /** Label for the page intended for human display. */
       public var title: String? = null,
       /**
@@ -1058,7 +1052,7 @@ public data class ImplementationGuide(
        *
        * Appending 'rendering' + "/" + page.name + "#" + page.anchor should resolve to the anchor.
        */
-      public var anchor: List<String?>? = null,
+      public var anchor: MutableList<String> = mutableListOf(),
     ) : BackboneElement()
   }
 
@@ -1067,46 +1061,11 @@ public data class ImplementationGuide(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Page is proper xhtml with no templating. Will be brought across unchanged for standard
-     * post-processing.
-     */
-    Html(
-      "html",
-      "http://hl7.org/fhir/guide-page-generation",
-      "HTML",
-      "Page is proper xhtml with no templating.  Will be brought across unchanged for standard post-processing.",
-    ),
-    /**
-     * Page is markdown with templating. Will use the template to create a file that imports the
-     * markdown file prior to post-processing.
-     */
-    Markdown(
-      "markdown",
-      "http://hl7.org/fhir/guide-page-generation",
-      "Markdown",
-      "Page is markdown with templating.  Will use the template to create a file that imports the markdown file prior to post-processing.",
-    ),
-    /**
-     * Page is xml with templating. Will use the template to create a file that imports the source
-     * file and run the nominated XSLT transform (see parameters) if present prior to
-     * post-processing.
-     */
-    Xml(
-      "xml",
-      "http://hl7.org/fhir/guide-page-generation",
-      "XML",
-      "Page is xml with templating.  Will use the template to create a file that imports the source file and run the nominated XSLT transform (see parameters) if present prior to post-processing.",
-    ),
-    /** Page will be generated by the publication process - no source to bring across. */
-    Generated(
-      "generated",
-      "http://hl7.org/fhir/guide-page-generation",
-      "Generated",
-      "Page will be generated by the publication process - no source to bring across.",
-    );
+    Html("html", "http://hl7.org/fhir/guide-page-generation", "HTML"),
+    Markdown("markdown", "http://hl7.org/fhir/guide-page-generation", "Markdown"),
+    Xml("xml", "http://hl7.org/fhir/guide-page-generation", "XML"),
+    Generated("generated", "http://hl7.org/fhir/guide-page-generation", "Generated");
 
     override fun toString(): kotlin.String = code
 
@@ -1115,8 +1074,6 @@ public data class ImplementationGuide(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GuidePageGeneration =
@@ -1135,113 +1092,33 @@ public data class ImplementationGuide(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * If the value of this string 0..* parameter is one of the metadata fields then all conformance
-     * resources will have any specified [Resource].[field] overwritten with the
-     * ImplementationGuide.[field], where field is one of: version, date, status, publisher,
-     * contact, copyright, experimental, jurisdiction, useContext.
-     */
-    Apply(
-      "apply",
-      "http://hl7.org/fhir/guide-parameter-code",
-      "Apply Metadata Value",
-      "If the value of this string 0..* parameter is one of the metadata fields then all conformance resources will have any specified [Resource].[field] overwritten with the ImplementationGuide.[field], where field is one of: version, date, status, publisher, contact, copyright, experimental, jurisdiction, useContext.",
-    ),
-    /**
-     * The value of this string 0..* parameter is a subfolder of the build context's location that
-     * is to be scanned to load resources. Scope is (if present) a particular resource type.
-     */
-    Path_Resource(
-      "path-resource",
-      "http://hl7.org/fhir/guide-parameter-code",
-      "Resource Path",
-      "The value of this string 0..* parameter is a subfolder of the build context's location that is to be scanned to load resources. Scope is (if present) a particular resource type.",
-    ),
-    /**
-     * The value of this string 0..1 parameter is a subfolder of the build context's location that
-     * contains files that are part of the html content processed by the builder.
-     */
-    Path_Pages(
-      "path-pages",
-      "http://hl7.org/fhir/guide-parameter-code",
-      "Pages Path",
-      "The value of this string 0..1 parameter is a subfolder of the build context's location that contains files that are part of the html content processed by the builder.",
-    ),
-    /**
-     * The value of this string 0..1 parameter is a subfolder of the build context's location that
-     * is used as the terminology cache. If this is not present, the terminology cache is on the
-     * local system, not under version control.
-     */
+    Apply("apply", "http://hl7.org/fhir/guide-parameter-code", "Apply Metadata Value"),
+    Path_Resource("path-resource", "http://hl7.org/fhir/guide-parameter-code", "Resource Path"),
+    Path_Pages("path-pages", "http://hl7.org/fhir/guide-parameter-code", "Pages Path"),
     Path_Tx_Cache(
       "path-tx-cache",
       "http://hl7.org/fhir/guide-parameter-code",
       "Terminology Cache Path",
-      "The value of this string 0..1 parameter is a subfolder of the build context's location that is used as the terminology cache. If this is not present, the terminology cache is on the local system, not under version control.",
     ),
-    /**
-     * The value of this string 0..* parameter is a parameter (name=value) when expanding value sets
-     * for this implementation guide. This is particularly used to specify the versions of published
-     * terminologies such as SNOMED CT.
-     */
     Expansion_Parameter(
       "expansion-parameter",
       "http://hl7.org/fhir/guide-parameter-code",
       "Expansion Profile",
-      "The value of this string 0..* parameter is a parameter (name=value) when expanding value sets for this implementation guide. This is particularly used to specify the versions of published terminologies such as SNOMED CT.",
     ),
-    /**
-     * The value of this string 0..1 parameter is either "warning" or "error" (default = "error").
-     * If the value is "warning" then IG build tools allow the IG to be considered successfully
-     * build even when there is no internal broken links.
-     */
     Rule_Broken_Links(
       "rule-broken-links",
       "http://hl7.org/fhir/guide-parameter-code",
       "Broken Links Rule",
-      "The value of this string 0..1 parameter is either \"warning\" or \"error\" (default = \"error\"). If the value is \"warning\" then IG build tools allow the IG to be considered successfully build even when there is no internal broken links.",
     ),
-    /**
-     * The value of this boolean 0..1 parameter specifies whether the IG publisher creates examples
-     * in XML format. If not present, the Publication Tool decides whether to generate XML.
-     */
-    Generate_Xml(
-      "generate-xml",
-      "http://hl7.org/fhir/guide-parameter-code",
-      "Generate XML",
-      "The value of this boolean 0..1 parameter specifies whether the IG publisher creates examples in XML format. If not present, the Publication Tool decides whether to generate XML.",
-    ),
-    /**
-     * The value of this boolean 0..1 parameter specifies whether the IG publisher creates examples
-     * in JSON format. If not present, the Publication Tool decides whether to generate JSON.
-     */
-    Generate_Json(
-      "generate-json",
-      "http://hl7.org/fhir/guide-parameter-code",
-      "Generate JSON",
-      "The value of this boolean 0..1 parameter specifies whether the IG publisher creates examples in JSON format. If not present, the Publication Tool decides whether to generate JSON.",
-    ),
-    /**
-     * The value of this boolean 0..1 parameter specifies whether the IG publisher creates examples
-     * in Turtle format. If not present, the Publication Tool decides whether to generate Turtle.
-     */
+    Generate_Xml("generate-xml", "http://hl7.org/fhir/guide-parameter-code", "Generate XML"),
+    Generate_Json("generate-json", "http://hl7.org/fhir/guide-parameter-code", "Generate JSON"),
     Generate_Turtle(
       "generate-turtle",
       "http://hl7.org/fhir/guide-parameter-code",
       "Generate Turtle",
-      "The value of this boolean 0..1 parameter specifies whether the IG publisher creates examples in Turtle format. If not present, the Publication Tool decides whether to generate Turtle.",
     ),
-    /**
-     * The value of this string singleton parameter is the name of the file to use as the builder
-     * template for each generated page (see templating).
-     */
-    Html_Template(
-      "html-template",
-      "http://hl7.org/fhir/guide-parameter-code",
-      "HTML Template",
-      "The value of this string singleton parameter is the name of the file to use as the builder template for each generated page (see templating).",
-    );
+    Html_Template("html-template", "http://hl7.org/fhir/guide-parameter-code", "HTML Template");
 
     override fun toString(): kotlin.String = code
 
@@ -1250,8 +1127,6 @@ public data class ImplementationGuide(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): GuideParameterCode =
@@ -1280,2135 +1155,869 @@ public data class ImplementationGuide(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Not an open source license. */
-    Not_Open_Source(
-      "not-open-source",
-      "http://hl7.org/fhir/spdx-license",
-      "Not open source",
-      "Not an open source license.",
-    ),
-    /** BSD Zero Clause License. */
-    _0BSD(
-      "0BSD",
-      "http://hl7.org/fhir/spdx-license",
-      "BSD Zero Clause License",
-      "BSD Zero Clause License.",
-    ),
-    /** Attribution Assurance License. */
-    Aal(
-      "AAL",
-      "http://hl7.org/fhir/spdx-license",
-      "Attribution Assurance License",
-      "Attribution Assurance License.",
-    ),
-    /** Abstyles License. */
-    Abstyles(
-      "Abstyles",
-      "http://hl7.org/fhir/spdx-license",
-      "Abstyles License",
-      "Abstyles License.",
-    ),
-    /** Adobe Systems Incorporated Source Code License Agreement. */
+    Not_Open_Source("not-open-source", "http://hl7.org/fhir/spdx-license", "Not open source"),
+    _0BSD("0BSD", "http://hl7.org/fhir/spdx-license", "BSD Zero Clause License"),
+    Aal("AAL", "http://hl7.org/fhir/spdx-license", "Attribution Assurance License"),
+    Abstyles("Abstyles", "http://hl7.org/fhir/spdx-license", "Abstyles License"),
     Adobe_2006(
       "Adobe-2006",
       "http://hl7.org/fhir/spdx-license",
       "Adobe Systems Incorporated Source Code License Agreement",
-      "Adobe Systems Incorporated Source Code License Agreement.",
     ),
-    /** Adobe Glyph List License. */
-    Adobe_Glyph(
-      "Adobe-Glyph",
-      "http://hl7.org/fhir/spdx-license",
-      "Adobe Glyph List License",
-      "Adobe Glyph List License.",
-    ),
-    /** Amazon Digital Services License. */
-    Adsl(
-      "ADSL",
-      "http://hl7.org/fhir/spdx-license",
-      "Amazon Digital Services License",
-      "Amazon Digital Services License.",
-    ),
-    /** Academic Free License v1.1. */
-    Afl_1_1(
-      "AFL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Academic Free License v1.1",
-      "Academic Free License v1.1.",
-    ),
-    /** Academic Free License v1.2. */
-    Afl_1_2(
-      "AFL-1.2",
-      "http://hl7.org/fhir/spdx-license",
-      "Academic Free License v1.2",
-      "Academic Free License v1.2.",
-    ),
-    /** Academic Free License v2.0. */
-    Afl_2_0(
-      "AFL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Academic Free License v2.0",
-      "Academic Free License v2.0.",
-    ),
-    /** Academic Free License v2.1. */
-    Afl_2_1(
-      "AFL-2.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Academic Free License v2.1",
-      "Academic Free License v2.1.",
-    ),
-    /** Academic Free License v3.0. */
-    Afl_3_0(
-      "AFL-3.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Academic Free License v3.0",
-      "Academic Free License v3.0.",
-    ),
-    /** Afmparse License. */
-    Afmparse(
-      "Afmparse",
-      "http://hl7.org/fhir/spdx-license",
-      "Afmparse License",
-      "Afmparse License.",
-    ),
-    /** Affero General Public License v1.0 only. */
+    Adobe_Glyph("Adobe-Glyph", "http://hl7.org/fhir/spdx-license", "Adobe Glyph List License"),
+    Adsl("ADSL", "http://hl7.org/fhir/spdx-license", "Amazon Digital Services License"),
+    Afl_1_1("AFL-1.1", "http://hl7.org/fhir/spdx-license", "Academic Free License v1.1"),
+    Afl_1_2("AFL-1.2", "http://hl7.org/fhir/spdx-license", "Academic Free License v1.2"),
+    Afl_2_0("AFL-2.0", "http://hl7.org/fhir/spdx-license", "Academic Free License v2.0"),
+    Afl_2_1("AFL-2.1", "http://hl7.org/fhir/spdx-license", "Academic Free License v2.1"),
+    Afl_3_0("AFL-3.0", "http://hl7.org/fhir/spdx-license", "Academic Free License v3.0"),
+    Afmparse("Afmparse", "http://hl7.org/fhir/spdx-license", "Afmparse License"),
     Agpl_1_0_Only(
       "AGPL-1.0-only",
       "http://hl7.org/fhir/spdx-license",
       "Affero General Public License v1.0 only",
-      "Affero General Public License v1.0 only.",
     ),
-    /** Affero General Public License v1.0 or later. */
     Agpl_1_0_Or_Later(
       "AGPL-1.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "Affero General Public License v1.0 or later",
-      "Affero General Public License v1.0 or later.",
     ),
-    /** GNU Affero General Public License v3.0 only. */
     Agpl_3_0_Only(
       "AGPL-3.0-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Affero General Public License v3.0 only",
-      "GNU Affero General Public License v3.0 only.",
     ),
-    /** GNU Affero General Public License v3.0 or later. */
     Agpl_3_0_Or_Later(
       "AGPL-3.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Affero General Public License v3.0 or later",
-      "GNU Affero General Public License v3.0 or later.",
     ),
-    /** Aladdin Free Public License. */
-    Aladdin(
-      "Aladdin",
-      "http://hl7.org/fhir/spdx-license",
-      "Aladdin Free Public License",
-      "Aladdin Free Public License.",
-    ),
-    /** AMD's plpa_map.c License. */
-    Amdplpa(
-      "AMDPLPA",
-      "http://hl7.org/fhir/spdx-license",
-      "AMD's plpa_map.c License",
-      "AMD's plpa_map.c License.",
-    ),
-    /** Apple MIT License. */
-    Aml("AML", "http://hl7.org/fhir/spdx-license", "Apple MIT License", "Apple MIT License."),
-    /** Academy of Motion Picture Arts and Sciences BSD. */
+    Aladdin("Aladdin", "http://hl7.org/fhir/spdx-license", "Aladdin Free Public License"),
+    Amdplpa("AMDPLPA", "http://hl7.org/fhir/spdx-license", "AMD's plpa_map.c License"),
+    Aml("AML", "http://hl7.org/fhir/spdx-license", "Apple MIT License"),
     Ampas(
       "AMPAS",
       "http://hl7.org/fhir/spdx-license",
       "Academy of Motion Picture Arts and Sciences BSD",
-      "Academy of Motion Picture Arts and Sciences BSD.",
     ),
-    /** ANTLR Software Rights Notice. */
-    Antlr_Pd(
-      "ANTLR-PD",
-      "http://hl7.org/fhir/spdx-license",
-      "ANTLR Software Rights Notice",
-      "ANTLR Software Rights Notice.",
-    ),
-    /** Apache License 1.0. */
-    Apache_1_0(
-      "Apache-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Apache License 1.0",
-      "Apache License 1.0.",
-    ),
-    /** Apache License 1.1. */
-    Apache_1_1(
-      "Apache-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Apache License 1.1",
-      "Apache License 1.1.",
-    ),
-    /** Apache License 2.0. */
-    Apache_2_0(
-      "Apache-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Apache License 2.0",
-      "Apache License 2.0.",
-    ),
-    /** Adobe Postscript AFM License. */
-    Apafml(
-      "APAFML",
-      "http://hl7.org/fhir/spdx-license",
-      "Adobe Postscript AFM License",
-      "Adobe Postscript AFM License.",
-    ),
-    /** Adaptive Public License 1.0. */
-    Apl_1_0(
-      "APL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Adaptive Public License 1.0",
-      "Adaptive Public License 1.0.",
-    ),
-    /** Apple Public Source License 1.0. */
-    Apsl_1_0(
-      "APSL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Apple Public Source License 1.0",
-      "Apple Public Source License 1.0.",
-    ),
-    /** Apple Public Source License 1.1. */
-    Apsl_1_1(
-      "APSL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Apple Public Source License 1.1",
-      "Apple Public Source License 1.1.",
-    ),
-    /** Apple Public Source License 1.2. */
-    Apsl_1_2(
-      "APSL-1.2",
-      "http://hl7.org/fhir/spdx-license",
-      "Apple Public Source License 1.2",
-      "Apple Public Source License 1.2.",
-    ),
-    /** Apple Public Source License 2.0. */
-    Apsl_2_0(
-      "APSL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Apple Public Source License 2.0",
-      "Apple Public Source License 2.0.",
-    ),
-    /** Artistic License 1.0 w/clause 8. */
+    Antlr_Pd("ANTLR-PD", "http://hl7.org/fhir/spdx-license", "ANTLR Software Rights Notice"),
+    Apache_1_0("Apache-1.0", "http://hl7.org/fhir/spdx-license", "Apache License 1.0"),
+    Apache_1_1("Apache-1.1", "http://hl7.org/fhir/spdx-license", "Apache License 1.1"),
+    Apache_2_0("Apache-2.0", "http://hl7.org/fhir/spdx-license", "Apache License 2.0"),
+    Apafml("APAFML", "http://hl7.org/fhir/spdx-license", "Adobe Postscript AFM License"),
+    Apl_1_0("APL-1.0", "http://hl7.org/fhir/spdx-license", "Adaptive Public License 1.0"),
+    Apsl_1_0("APSL-1.0", "http://hl7.org/fhir/spdx-license", "Apple Public Source License 1.0"),
+    Apsl_1_1("APSL-1.1", "http://hl7.org/fhir/spdx-license", "Apple Public Source License 1.1"),
+    Apsl_1_2("APSL-1.2", "http://hl7.org/fhir/spdx-license", "Apple Public Source License 1.2"),
+    Apsl_2_0("APSL-2.0", "http://hl7.org/fhir/spdx-license", "Apple Public Source License 2.0"),
     Artistic_1_0_Cl8(
       "Artistic-1.0-cl8",
       "http://hl7.org/fhir/spdx-license",
       "Artistic License 1.0 w/clause 8",
-      "Artistic License 1.0 w/clause 8.",
     ),
-    /** Artistic License 1.0 (Perl). */
     Artistic_1_0_Perl(
       "Artistic-1.0-Perl",
       "http://hl7.org/fhir/spdx-license",
       "Artistic License 1.0 (Perl)",
-      "Artistic License 1.0 (Perl).",
     ),
-    /** Artistic License 1.0. */
-    Artistic_1_0(
-      "Artistic-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Artistic License 1.0",
-      "Artistic License 1.0.",
-    ),
-    /** Artistic License 2.0. */
-    Artistic_2_0(
-      "Artistic-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Artistic License 2.0",
-      "Artistic License 2.0.",
-    ),
-    /** Bahyph License. */
-    Bahyph("Bahyph", "http://hl7.org/fhir/spdx-license", "Bahyph License", "Bahyph License."),
-    /** Barr License. */
-    Barr("Barr", "http://hl7.org/fhir/spdx-license", "Barr License", "Barr License."),
-    /** Beerware License. */
-    Beerware(
-      "Beerware",
-      "http://hl7.org/fhir/spdx-license",
-      "Beerware License",
-      "Beerware License.",
-    ),
-    /** BitTorrent Open Source License v1.0. */
+    Artistic_1_0("Artistic-1.0", "http://hl7.org/fhir/spdx-license", "Artistic License 1.0"),
+    Artistic_2_0("Artistic-2.0", "http://hl7.org/fhir/spdx-license", "Artistic License 2.0"),
+    Bahyph("Bahyph", "http://hl7.org/fhir/spdx-license", "Bahyph License"),
+    Barr("Barr", "http://hl7.org/fhir/spdx-license", "Barr License"),
+    Beerware("Beerware", "http://hl7.org/fhir/spdx-license", "Beerware License"),
     BitTorrent_1_0(
       "BitTorrent-1.0",
       "http://hl7.org/fhir/spdx-license",
       "BitTorrent Open Source License v1.0",
-      "BitTorrent Open Source License v1.0.",
     ),
-    /** BitTorrent Open Source License v1.1. */
     BitTorrent_1_1(
       "BitTorrent-1.1",
       "http://hl7.org/fhir/spdx-license",
       "BitTorrent Open Source License v1.1",
-      "BitTorrent Open Source License v1.1.",
     ),
-    /** Borceux license. */
-    Borceux("Borceux", "http://hl7.org/fhir/spdx-license", "Borceux license", "Borceux license."),
-    /** BSD 1-Clause License. */
-    Bsd_1_Clause(
-      "BSD-1-Clause",
-      "http://hl7.org/fhir/spdx-license",
-      "BSD 1-Clause License",
-      "BSD 1-Clause License.",
-    ),
-    /** BSD 2-Clause FreeBSD License. */
+    Borceux("Borceux", "http://hl7.org/fhir/spdx-license", "Borceux license"),
+    Bsd_1_Clause("BSD-1-Clause", "http://hl7.org/fhir/spdx-license", "BSD 1-Clause License"),
     Bsd_2_Clause_FreeBSD(
       "BSD-2-Clause-FreeBSD",
       "http://hl7.org/fhir/spdx-license",
       "BSD 2-Clause FreeBSD License",
-      "BSD 2-Clause FreeBSD License.",
     ),
-    /** BSD 2-Clause NetBSD License. */
     Bsd_2_Clause_NetBSD(
       "BSD-2-Clause-NetBSD",
       "http://hl7.org/fhir/spdx-license",
       "BSD 2-Clause NetBSD License",
-      "BSD 2-Clause NetBSD License.",
     ),
-    /** BSD-2-Clause Plus Patent License. */
     Bsd_2_Clause_Patent(
       "BSD-2-Clause-Patent",
       "http://hl7.org/fhir/spdx-license",
       "BSD-2-Clause Plus Patent License",
-      "BSD-2-Clause Plus Patent License.",
     ),
-    /** BSD 2-Clause "Simplified" License. */
     Bsd_2_Clause(
       "BSD-2-Clause",
       "http://hl7.org/fhir/spdx-license",
       "BSD 2-Clause \"Simplified\" License",
-      "BSD 2-Clause \"Simplified\" License.",
     ),
-    /** BSD with attribution. */
     Bsd_3_Clause_Attribution(
       "BSD-3-Clause-Attribution",
       "http://hl7.org/fhir/spdx-license",
       "BSD with attribution",
-      "BSD with attribution.",
     ),
-    /** BSD 3-Clause Clear License. */
     Bsd_3_Clause_Clear(
       "BSD-3-Clause-Clear",
       "http://hl7.org/fhir/spdx-license",
       "BSD 3-Clause Clear License",
-      "BSD 3-Clause Clear License.",
     ),
-    /** Lawrence Berkeley National Labs BSD variant license. */
     Bsd_3_Clause_Lbnl(
       "BSD-3-Clause-LBNL",
       "http://hl7.org/fhir/spdx-license",
       "Lawrence Berkeley National Labs BSD variant license",
-      "Lawrence Berkeley National Labs BSD variant license.",
     ),
-    /** BSD 3-Clause No Nuclear License 2014. */
     Bsd_3_Clause_No_Nuclear_License_2014(
       "BSD-3-Clause-No-Nuclear-License-2014",
       "http://hl7.org/fhir/spdx-license",
       "BSD 3-Clause No Nuclear License 2014",
-      "BSD 3-Clause No Nuclear License 2014.",
     ),
-    /** BSD 3-Clause No Nuclear License. */
     Bsd_3_Clause_No_Nuclear_License(
       "BSD-3-Clause-No-Nuclear-License",
       "http://hl7.org/fhir/spdx-license",
       "BSD 3-Clause No Nuclear License",
-      "BSD 3-Clause No Nuclear License.",
     ),
-    /** BSD 3-Clause No Nuclear Warranty. */
     Bsd_3_Clause_No_Nuclear_Warranty(
       "BSD-3-Clause-No-Nuclear-Warranty",
       "http://hl7.org/fhir/spdx-license",
       "BSD 3-Clause No Nuclear Warranty",
-      "BSD 3-Clause No Nuclear Warranty.",
     ),
-    /** BSD 3-Clause "New" or "Revised" License. */
     Bsd_3_Clause(
       "BSD-3-Clause",
       "http://hl7.org/fhir/spdx-license",
       "BSD 3-Clause \"New\" or \"Revised\" License",
-      "BSD 3-Clause \"New\" or \"Revised\" License.",
     ),
-    /** BSD-4-Clause (University of California-Specific). */
     Bsd_4_Clause_Uc(
       "BSD-4-Clause-UC",
       "http://hl7.org/fhir/spdx-license",
       "BSD-4-Clause (University of California-Specific)",
-      "BSD-4-Clause (University of California-Specific).",
     ),
-    /** BSD 4-Clause "Original" or "Old" License. */
     Bsd_4_Clause(
       "BSD-4-Clause",
       "http://hl7.org/fhir/spdx-license",
       "BSD 4-Clause \"Original\" or \"Old\" License",
-      "BSD 4-Clause \"Original\" or \"Old\" License.",
     ),
-    /** BSD Protection License. */
-    Bsd_Protection(
-      "BSD-Protection",
-      "http://hl7.org/fhir/spdx-license",
-      "BSD Protection License",
-      "BSD Protection License.",
-    ),
-    /** BSD Source Code Attribution. */
+    Bsd_Protection("BSD-Protection", "http://hl7.org/fhir/spdx-license", "BSD Protection License"),
     Bsd_Source_Code(
       "BSD-Source-Code",
       "http://hl7.org/fhir/spdx-license",
       "BSD Source Code Attribution",
-      "BSD Source Code Attribution.",
     ),
-    /** Boost Software License 1.0. */
-    Bsl_1_0(
-      "BSL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Boost Software License 1.0",
-      "Boost Software License 1.0.",
-    ),
-    /** bzip2 and libbzip2 License v1.0.5. */
+    Bsl_1_0("BSL-1.0", "http://hl7.org/fhir/spdx-license", "Boost Software License 1.0"),
     Bzip2_1_0_5(
       "bzip2-1.0.5",
       "http://hl7.org/fhir/spdx-license",
       "bzip2 and libbzip2 License v1.0.5",
-      "bzip2 and libbzip2 License v1.0.5.",
     ),
-    /** bzip2 and libbzip2 License v1.0.6. */
     Bzip2_1_0_6(
       "bzip2-1.0.6",
       "http://hl7.org/fhir/spdx-license",
       "bzip2 and libbzip2 License v1.0.6",
-      "bzip2 and libbzip2 License v1.0.6.",
     ),
-    /** Caldera License. */
-    Caldera("Caldera", "http://hl7.org/fhir/spdx-license", "Caldera License", "Caldera License."),
-    /** Computer Associates Trusted Open Source License 1.1. */
+    Caldera("Caldera", "http://hl7.org/fhir/spdx-license", "Caldera License"),
     Catosl_1_1(
       "CATOSL-1.1",
       "http://hl7.org/fhir/spdx-license",
       "Computer Associates Trusted Open Source License 1.1",
-      "Computer Associates Trusted Open Source License 1.1.",
     ),
-    /** Creative Commons Attribution 1.0 Generic. */
     Cc_By_1_0(
       "CC-BY-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution 1.0 Generic",
-      "Creative Commons Attribution 1.0 Generic.",
     ),
-    /** Creative Commons Attribution 2.0 Generic. */
     Cc_By_2_0(
       "CC-BY-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution 2.0 Generic",
-      "Creative Commons Attribution 2.0 Generic.",
     ),
-    /** Creative Commons Attribution 2.5 Generic. */
     Cc_By_2_5(
       "CC-BY-2.5",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution 2.5 Generic",
-      "Creative Commons Attribution 2.5 Generic.",
     ),
-    /** Creative Commons Attribution 3.0 Unported. */
     Cc_By_3_0(
       "CC-BY-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution 3.0 Unported",
-      "Creative Commons Attribution 3.0 Unported.",
     ),
-    /** Creative Commons Attribution 4.0 International. */
     Cc_By_4_0(
       "CC-BY-4.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution 4.0 International",
-      "Creative Commons Attribution 4.0 International.",
     ),
-    /** Creative Commons Attribution Non Commercial 1.0 Generic. */
     Cc_By_Nc_1_0(
       "CC-BY-NC-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial 1.0 Generic",
-      "Creative Commons Attribution Non Commercial 1.0 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial 2.0 Generic. */
     Cc_By_Nc_2_0(
       "CC-BY-NC-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial 2.0 Generic",
-      "Creative Commons Attribution Non Commercial 2.0 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial 2.5 Generic. */
     Cc_By_Nc_2_5(
       "CC-BY-NC-2.5",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial 2.5 Generic",
-      "Creative Commons Attribution Non Commercial 2.5 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial 3.0 Unported. */
     Cc_By_Nc_3_0(
       "CC-BY-NC-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial 3.0 Unported",
-      "Creative Commons Attribution Non Commercial 3.0 Unported.",
     ),
-    /** Creative Commons Attribution Non Commercial 4.0 International. */
     Cc_By_Nc_4_0(
       "CC-BY-NC-4.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial 4.0 International",
-      "Creative Commons Attribution Non Commercial 4.0 International.",
     ),
-    /** Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic. */
     Cc_By_Nc_Nd_1_0(
       "CC-BY-NC-ND-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic",
-      "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic. */
     Cc_By_Nc_Nd_2_0(
       "CC-BY-NC-ND-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic",
-      "Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic. */
     Cc_By_Nc_Nd_2_5(
       "CC-BY-NC-ND-2.5",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic",
-      "Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported. */
     Cc_By_Nc_Nd_3_0(
       "CC-BY-NC-ND-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported",
-      "Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported.",
     ),
-    /** Creative Commons Attribution Non Commercial No Derivatives 4.0 International. */
     Cc_By_Nc_Nd_4_0(
       "CC-BY-NC-ND-4.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
-      "Creative Commons Attribution Non Commercial No Derivatives 4.0 International.",
     ),
-    /** Creative Commons Attribution Non Commercial Share Alike 1.0 Generic. */
     Cc_By_Nc_Sa_1_0(
       "CC-BY-NC-SA-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic",
-      "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial Share Alike 2.0 Generic. */
     Cc_By_Nc_Sa_2_0(
       "CC-BY-NC-SA-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial Share Alike 2.0 Generic",
-      "Creative Commons Attribution Non Commercial Share Alike 2.0 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial Share Alike 2.5 Generic. */
     Cc_By_Nc_Sa_2_5(
       "CC-BY-NC-SA-2.5",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial Share Alike 2.5 Generic",
-      "Creative Commons Attribution Non Commercial Share Alike 2.5 Generic.",
     ),
-    /** Creative Commons Attribution Non Commercial Share Alike 3.0 Unported. */
     Cc_By_Nc_Sa_3_0(
       "CC-BY-NC-SA-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
-      "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported.",
     ),
-    /** Creative Commons Attribution Non Commercial Share Alike 4.0 International. */
     Cc_By_Nc_Sa_4_0(
       "CC-BY-NC-SA-4.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
-      "Creative Commons Attribution Non Commercial Share Alike 4.0 International.",
     ),
-    /** Creative Commons Attribution No Derivatives 1.0 Generic. */
     Cc_By_Nd_1_0(
       "CC-BY-ND-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution No Derivatives 1.0 Generic",
-      "Creative Commons Attribution No Derivatives 1.0 Generic.",
     ),
-    /** Creative Commons Attribution No Derivatives 2.0 Generic. */
     Cc_By_Nd_2_0(
       "CC-BY-ND-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution No Derivatives 2.0 Generic",
-      "Creative Commons Attribution No Derivatives 2.0 Generic.",
     ),
-    /** Creative Commons Attribution No Derivatives 2.5 Generic. */
     Cc_By_Nd_2_5(
       "CC-BY-ND-2.5",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution No Derivatives 2.5 Generic",
-      "Creative Commons Attribution No Derivatives 2.5 Generic.",
     ),
-    /** Creative Commons Attribution No Derivatives 3.0 Unported. */
     Cc_By_Nd_3_0(
       "CC-BY-ND-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution No Derivatives 3.0 Unported",
-      "Creative Commons Attribution No Derivatives 3.0 Unported.",
     ),
-    /** Creative Commons Attribution No Derivatives 4.0 International. */
     Cc_By_Nd_4_0(
       "CC-BY-ND-4.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution No Derivatives 4.0 International",
-      "Creative Commons Attribution No Derivatives 4.0 International.",
     ),
-    /** Creative Commons Attribution Share Alike 1.0 Generic. */
     Cc_By_Sa_1_0(
       "CC-BY-SA-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Share Alike 1.0 Generic",
-      "Creative Commons Attribution Share Alike 1.0 Generic.",
     ),
-    /** Creative Commons Attribution Share Alike 2.0 Generic. */
     Cc_By_Sa_2_0(
       "CC-BY-SA-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Share Alike 2.0 Generic",
-      "Creative Commons Attribution Share Alike 2.0 Generic.",
     ),
-    /** Creative Commons Attribution Share Alike 2.5 Generic. */
     Cc_By_Sa_2_5(
       "CC-BY-SA-2.5",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Share Alike 2.5 Generic",
-      "Creative Commons Attribution Share Alike 2.5 Generic.",
     ),
-    /** Creative Commons Attribution Share Alike 3.0 Unported. */
     Cc_By_Sa_3_0(
       "CC-BY-SA-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Share Alike 3.0 Unported",
-      "Creative Commons Attribution Share Alike 3.0 Unported.",
     ),
-    /** Creative Commons Attribution Share Alike 4.0 International. */
     Cc_By_Sa_4_0(
       "CC-BY-SA-4.0",
       "http://hl7.org/fhir/spdx-license",
       "Creative Commons Attribution Share Alike 4.0 International",
-      "Creative Commons Attribution Share Alike 4.0 International.",
     ),
-    /** Creative Commons Zero v1.0 Universal. */
-    CC0_1_0(
-      "CC0-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Creative Commons Zero v1.0 Universal",
-      "Creative Commons Zero v1.0 Universal.",
-    ),
-    /** Common Development and Distribution License 1.0. */
+    CC0_1_0("CC0-1.0", "http://hl7.org/fhir/spdx-license", "Creative Commons Zero v1.0 Universal"),
     Cddl_1_0(
       "CDDL-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Common Development and Distribution License 1.0",
-      "Common Development and Distribution License 1.0.",
     ),
-    /** Common Development and Distribution License 1.1. */
     Cddl_1_1(
       "CDDL-1.1",
       "http://hl7.org/fhir/spdx-license",
       "Common Development and Distribution License 1.1",
-      "Common Development and Distribution License 1.1.",
     ),
-    /** Community Data License Agreement Permissive 1.0. */
     Cdla_Permissive_1_0(
       "CDLA-Permissive-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Community Data License Agreement Permissive 1.0",
-      "Community Data License Agreement Permissive 1.0.",
     ),
-    /** Community Data License Agreement Sharing 1.0. */
     Cdla_Sharing_1_0(
       "CDLA-Sharing-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Community Data License Agreement Sharing 1.0",
-      "Community Data License Agreement Sharing 1.0.",
     ),
-    /** CeCILL Free Software License Agreement v1.0. */
     Cecill_1_0(
       "CECILL-1.0",
       "http://hl7.org/fhir/spdx-license",
       "CeCILL Free Software License Agreement v1.0",
-      "CeCILL Free Software License Agreement v1.0.",
     ),
-    /** CeCILL Free Software License Agreement v1.1. */
     Cecill_1_1(
       "CECILL-1.1",
       "http://hl7.org/fhir/spdx-license",
       "CeCILL Free Software License Agreement v1.1",
-      "CeCILL Free Software License Agreement v1.1.",
     ),
-    /** CeCILL Free Software License Agreement v2.0. */
     Cecill_2_0(
       "CECILL-2.0",
       "http://hl7.org/fhir/spdx-license",
       "CeCILL Free Software License Agreement v2.0",
-      "CeCILL Free Software License Agreement v2.0.",
     ),
-    /** CeCILL Free Software License Agreement v2.1. */
     Cecill_2_1(
       "CECILL-2.1",
       "http://hl7.org/fhir/spdx-license",
       "CeCILL Free Software License Agreement v2.1",
-      "CeCILL Free Software License Agreement v2.1.",
     ),
-    /** CeCILL-B Free Software License Agreement. */
     Cecill_B(
       "CECILL-B",
       "http://hl7.org/fhir/spdx-license",
       "CeCILL-B Free Software License Agreement",
-      "CeCILL-B Free Software License Agreement.",
     ),
-    /** CeCILL-C Free Software License Agreement. */
     Cecill_C(
       "CECILL-C",
       "http://hl7.org/fhir/spdx-license",
       "CeCILL-C Free Software License Agreement",
-      "CeCILL-C Free Software License Agreement.",
     ),
-    /** Clarified Artistic License. */
-    ClArtistic(
-      "ClArtistic",
-      "http://hl7.org/fhir/spdx-license",
-      "Clarified Artistic License",
-      "Clarified Artistic License.",
-    ),
-    /** CNRI Jython License. */
-    Cnri_Jython(
-      "CNRI-Jython",
-      "http://hl7.org/fhir/spdx-license",
-      "CNRI Jython License",
-      "CNRI Jython License.",
-    ),
-    /** CNRI Python Open Source GPL Compatible License Agreement. */
+    ClArtistic("ClArtistic", "http://hl7.org/fhir/spdx-license", "Clarified Artistic License"),
+    Cnri_Jython("CNRI-Jython", "http://hl7.org/fhir/spdx-license", "CNRI Jython License"),
     Cnri_Python_Gpl_Compatible(
       "CNRI-Python-GPL-Compatible",
       "http://hl7.org/fhir/spdx-license",
       "CNRI Python Open Source GPL Compatible License Agreement",
-      "CNRI Python Open Source GPL Compatible License Agreement.",
     ),
-    /** CNRI Python License. */
-    Cnri_Python(
-      "CNRI-Python",
-      "http://hl7.org/fhir/spdx-license",
-      "CNRI Python License",
-      "CNRI Python License.",
-    ),
-    /** Condor Public License v1.1. */
-    Condor_1_1(
-      "Condor-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Condor Public License v1.1",
-      "Condor Public License v1.1.",
-    ),
-    /** Common Public Attribution License 1.0. */
+    Cnri_Python("CNRI-Python", "http://hl7.org/fhir/spdx-license", "CNRI Python License"),
+    Condor_1_1("Condor-1.1", "http://hl7.org/fhir/spdx-license", "Condor Public License v1.1"),
     Cpal_1_0(
       "CPAL-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Common Public Attribution License 1.0",
-      "Common Public Attribution License 1.0.",
     ),
-    /** Common Public License 1.0. */
-    Cpl_1_0(
-      "CPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Common Public License 1.0",
-      "Common Public License 1.0.",
-    ),
-    /** Code Project Open License 1.02. */
-    Cpol_1_02(
-      "CPOL-1.02",
-      "http://hl7.org/fhir/spdx-license",
-      "Code Project Open License 1.02",
-      "Code Project Open License 1.02.",
-    ),
-    /** Crossword License. */
-    Crossword(
-      "Crossword",
-      "http://hl7.org/fhir/spdx-license",
-      "Crossword License",
-      "Crossword License.",
-    ),
-    /** CrystalStacker License. */
-    CrystalStacker(
-      "CrystalStacker",
-      "http://hl7.org/fhir/spdx-license",
-      "CrystalStacker License",
-      "CrystalStacker License.",
-    ),
-    /** CUA Office Public License v1.0. */
+    Cpl_1_0("CPL-1.0", "http://hl7.org/fhir/spdx-license", "Common Public License 1.0"),
+    Cpol_1_02("CPOL-1.02", "http://hl7.org/fhir/spdx-license", "Code Project Open License 1.02"),
+    Crossword("Crossword", "http://hl7.org/fhir/spdx-license", "Crossword License"),
+    CrystalStacker("CrystalStacker", "http://hl7.org/fhir/spdx-license", "CrystalStacker License"),
     Cua_Opl_1_0(
       "CUA-OPL-1.0",
       "http://hl7.org/fhir/spdx-license",
       "CUA Office Public License v1.0",
-      "CUA Office Public License v1.0.",
     ),
-    /** Cube License. */
-    Cube("Cube", "http://hl7.org/fhir/spdx-license", "Cube License", "Cube License."),
-    /** curl License. */
-    Curl("curl", "http://hl7.org/fhir/spdx-license", "curl License", "curl License."),
-    /** Deutsche Freie Software Lizenz. */
-    D_Fsl_1_0(
-      "D-FSL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Deutsche Freie Software Lizenz",
-      "Deutsche Freie Software Lizenz.",
-    ),
-    /** diffmark license. */
-    Diffmark(
-      "diffmark",
-      "http://hl7.org/fhir/spdx-license",
-      "diffmark license",
-      "diffmark license.",
-    ),
-    /** DOC License. */
-    Doc("DOC", "http://hl7.org/fhir/spdx-license", "DOC License", "DOC License."),
-    /** Dotseqn License. */
-    Dotseqn("Dotseqn", "http://hl7.org/fhir/spdx-license", "Dotseqn License", "Dotseqn License."),
-    /** DSDP License. */
-    Dsdp("DSDP", "http://hl7.org/fhir/spdx-license", "DSDP License", "DSDP License."),
-    /** dvipdfm License. */
-    Dvipdfm("dvipdfm", "http://hl7.org/fhir/spdx-license", "dvipdfm License", "dvipdfm License."),
-    /** Educational Community License v1.0. */
-    Ecl_1_0(
-      "ECL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Educational Community License v1.0",
-      "Educational Community License v1.0.",
-    ),
-    /** Educational Community License v2.0. */
-    Ecl_2_0(
-      "ECL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Educational Community License v2.0",
-      "Educational Community License v2.0.",
-    ),
-    /** Eiffel Forum License v1.0. */
-    Efl_1_0(
-      "EFL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Eiffel Forum License v1.0",
-      "Eiffel Forum License v1.0.",
-    ),
-    /** Eiffel Forum License v2.0. */
-    Efl_2_0(
-      "EFL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Eiffel Forum License v2.0",
-      "Eiffel Forum License v2.0.",
-    ),
-    /** eGenix.com Public License 1.1.0. */
-    EGenix(
-      "eGenix",
-      "http://hl7.org/fhir/spdx-license",
-      "eGenix.com Public License 1.1.0",
-      "eGenix.com Public License 1.1.0.",
-    ),
-    /** Entessa Public License v1.0. */
-    Entessa(
-      "Entessa",
-      "http://hl7.org/fhir/spdx-license",
-      "Entessa Public License v1.0",
-      "Entessa Public License v1.0.",
-    ),
-    /** Eclipse Public License 1.0. */
-    Epl_1_0(
-      "EPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Eclipse Public License 1.0",
-      "Eclipse Public License 1.0.",
-    ),
-    /** Eclipse Public License 2.0. */
-    Epl_2_0(
-      "EPL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Eclipse Public License 2.0",
-      "Eclipse Public License 2.0.",
-    ),
-    /** Erlang Public License v1.1. */
-    ErlPL_1_1(
-      "ErlPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Erlang Public License v1.1",
-      "Erlang Public License v1.1.",
-    ),
-    /** EU DataGrid Software License. */
-    EUDatagrid(
-      "EUDatagrid",
-      "http://hl7.org/fhir/spdx-license",
-      "EU DataGrid Software License",
-      "EU DataGrid Software License.",
-    ),
-    /** European Union Public License 1.0. */
-    Eupl_1_0(
-      "EUPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "European Union Public License 1.0",
-      "European Union Public License 1.0.",
-    ),
-    /** European Union Public License 1.1. */
-    Eupl_1_1(
-      "EUPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "European Union Public License 1.1",
-      "European Union Public License 1.1.",
-    ),
-    /** European Union Public License 1.2. */
-    Eupl_1_2(
-      "EUPL-1.2",
-      "http://hl7.org/fhir/spdx-license",
-      "European Union Public License 1.2",
-      "European Union Public License 1.2.",
-    ),
-    /** Eurosym License. */
-    Eurosym("Eurosym", "http://hl7.org/fhir/spdx-license", "Eurosym License", "Eurosym License."),
-    /** Fair License. */
-    Fair("Fair", "http://hl7.org/fhir/spdx-license", "Fair License", "Fair License."),
-    /** Frameworx Open License 1.0. */
+    Cube("Cube", "http://hl7.org/fhir/spdx-license", "Cube License"),
+    Curl("curl", "http://hl7.org/fhir/spdx-license", "curl License"),
+    D_Fsl_1_0("D-FSL-1.0", "http://hl7.org/fhir/spdx-license", "Deutsche Freie Software Lizenz"),
+    Diffmark("diffmark", "http://hl7.org/fhir/spdx-license", "diffmark license"),
+    Doc("DOC", "http://hl7.org/fhir/spdx-license", "DOC License"),
+    Dotseqn("Dotseqn", "http://hl7.org/fhir/spdx-license", "Dotseqn License"),
+    Dsdp("DSDP", "http://hl7.org/fhir/spdx-license", "DSDP License"),
+    Dvipdfm("dvipdfm", "http://hl7.org/fhir/spdx-license", "dvipdfm License"),
+    Ecl_1_0("ECL-1.0", "http://hl7.org/fhir/spdx-license", "Educational Community License v1.0"),
+    Ecl_2_0("ECL-2.0", "http://hl7.org/fhir/spdx-license", "Educational Community License v2.0"),
+    Efl_1_0("EFL-1.0", "http://hl7.org/fhir/spdx-license", "Eiffel Forum License v1.0"),
+    Efl_2_0("EFL-2.0", "http://hl7.org/fhir/spdx-license", "Eiffel Forum License v2.0"),
+    EGenix("eGenix", "http://hl7.org/fhir/spdx-license", "eGenix.com Public License 1.1.0"),
+    Entessa("Entessa", "http://hl7.org/fhir/spdx-license", "Entessa Public License v1.0"),
+    Epl_1_0("EPL-1.0", "http://hl7.org/fhir/spdx-license", "Eclipse Public License 1.0"),
+    Epl_2_0("EPL-2.0", "http://hl7.org/fhir/spdx-license", "Eclipse Public License 2.0"),
+    ErlPL_1_1("ErlPL-1.1", "http://hl7.org/fhir/spdx-license", "Erlang Public License v1.1"),
+    EUDatagrid("EUDatagrid", "http://hl7.org/fhir/spdx-license", "EU DataGrid Software License"),
+    Eupl_1_0("EUPL-1.0", "http://hl7.org/fhir/spdx-license", "European Union Public License 1.0"),
+    Eupl_1_1("EUPL-1.1", "http://hl7.org/fhir/spdx-license", "European Union Public License 1.1"),
+    Eupl_1_2("EUPL-1.2", "http://hl7.org/fhir/spdx-license", "European Union Public License 1.2"),
+    Eurosym("Eurosym", "http://hl7.org/fhir/spdx-license", "Eurosym License"),
+    Fair("Fair", "http://hl7.org/fhir/spdx-license", "Fair License"),
     Frameworx_1_0(
       "Frameworx-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Frameworx Open License 1.0",
-      "Frameworx Open License 1.0.",
     ),
-    /** FreeImage Public License v1.0. */
-    FreeImage(
-      "FreeImage",
-      "http://hl7.org/fhir/spdx-license",
-      "FreeImage Public License v1.0",
-      "FreeImage Public License v1.0.",
-    ),
-    /** FSF All Permissive License. */
-    Fsfap(
-      "FSFAP",
-      "http://hl7.org/fhir/spdx-license",
-      "FSF All Permissive License",
-      "FSF All Permissive License.",
-    ),
-    /** FSF Unlimited License. */
-    Fsful(
-      "FSFUL",
-      "http://hl7.org/fhir/spdx-license",
-      "FSF Unlimited License",
-      "FSF Unlimited License.",
-    ),
-    /** FSF Unlimited License (with License Retention). */
+    FreeImage("FreeImage", "http://hl7.org/fhir/spdx-license", "FreeImage Public License v1.0"),
+    Fsfap("FSFAP", "http://hl7.org/fhir/spdx-license", "FSF All Permissive License"),
+    Fsful("FSFUL", "http://hl7.org/fhir/spdx-license", "FSF Unlimited License"),
     Fsfullr(
       "FSFULLR",
       "http://hl7.org/fhir/spdx-license",
       "FSF Unlimited License (with License Retention)",
-      "FSF Unlimited License (with License Retention).",
     ),
-    /** Freetype Project License. */
-    Ftl(
-      "FTL",
-      "http://hl7.org/fhir/spdx-license",
-      "Freetype Project License",
-      "Freetype Project License.",
-    ),
-    /** GNU Free Documentation License v1.1 only. */
+    Ftl("FTL", "http://hl7.org/fhir/spdx-license", "Freetype Project License"),
     Gfdl_1_1_Only(
       "GFDL-1.1-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Free Documentation License v1.1 only",
-      "GNU Free Documentation License v1.1 only.",
     ),
-    /** GNU Free Documentation License v1.1 or later. */
     Gfdl_1_1_Or_Later(
       "GFDL-1.1-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Free Documentation License v1.1 or later",
-      "GNU Free Documentation License v1.1 or later.",
     ),
-    /** GNU Free Documentation License v1.2 only. */
     Gfdl_1_2_Only(
       "GFDL-1.2-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Free Documentation License v1.2 only",
-      "GNU Free Documentation License v1.2 only.",
     ),
-    /** GNU Free Documentation License v1.2 or later. */
     Gfdl_1_2_Or_Later(
       "GFDL-1.2-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Free Documentation License v1.2 or later",
-      "GNU Free Documentation License v1.2 or later.",
     ),
-    /** GNU Free Documentation License v1.3 only. */
     Gfdl_1_3_Only(
       "GFDL-1.3-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Free Documentation License v1.3 only",
-      "GNU Free Documentation License v1.3 only.",
     ),
-    /** GNU Free Documentation License v1.3 or later. */
     Gfdl_1_3_Or_Later(
       "GFDL-1.3-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Free Documentation License v1.3 or later",
-      "GNU Free Documentation License v1.3 or later.",
     ),
-    /** Giftware License. */
-    Giftware(
-      "Giftware",
-      "http://hl7.org/fhir/spdx-license",
-      "Giftware License",
-      "Giftware License.",
-    ),
-    /** GL2PS License. */
-    GL2PS("GL2PS", "http://hl7.org/fhir/spdx-license", "GL2PS License", "GL2PS License."),
-    /** 3dfx Glide License. */
-    Glide("Glide", "http://hl7.org/fhir/spdx-license", "3dfx Glide License", "3dfx Glide License."),
-    /** Glulxe License. */
-    Glulxe("Glulxe", "http://hl7.org/fhir/spdx-license", "Glulxe License", "Glulxe License."),
-    /** gnuplot License. */
-    Gnuplot("gnuplot", "http://hl7.org/fhir/spdx-license", "gnuplot License", "gnuplot License."),
-    /** GNU General Public License v1.0 only. */
+    Giftware("Giftware", "http://hl7.org/fhir/spdx-license", "Giftware License"),
+    GL2PS("GL2PS", "http://hl7.org/fhir/spdx-license", "GL2PS License"),
+    Glide("Glide", "http://hl7.org/fhir/spdx-license", "3dfx Glide License"),
+    Glulxe("Glulxe", "http://hl7.org/fhir/spdx-license", "Glulxe License"),
+    Gnuplot("gnuplot", "http://hl7.org/fhir/spdx-license", "gnuplot License"),
     Gpl_1_0_Only(
       "GPL-1.0-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU General Public License v1.0 only",
-      "GNU General Public License v1.0 only.",
     ),
-    /** GNU General Public License v1.0 or later. */
     Gpl_1_0_Or_Later(
       "GPL-1.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU General Public License v1.0 or later",
-      "GNU General Public License v1.0 or later.",
     ),
-    /** GNU General Public License v2.0 only. */
     Gpl_2_0_Only(
       "GPL-2.0-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU General Public License v2.0 only",
-      "GNU General Public License v2.0 only.",
     ),
-    /** GNU General Public License v2.0 or later. */
     Gpl_2_0_Or_Later(
       "GPL-2.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU General Public License v2.0 or later",
-      "GNU General Public License v2.0 or later.",
     ),
-    /** GNU General Public License v3.0 only. */
     Gpl_3_0_Only(
       "GPL-3.0-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU General Public License v3.0 only",
-      "GNU General Public License v3.0 only.",
     ),
-    /** GNU General Public License v3.0 or later. */
     Gpl_3_0_Or_Later(
       "GPL-3.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU General Public License v3.0 or later",
-      "GNU General Public License v3.0 or later.",
     ),
-    /** gSOAP Public License v1.3b. */
-    GSOAP_1_3b(
-      "gSOAP-1.3b",
-      "http://hl7.org/fhir/spdx-license",
-      "gSOAP Public License v1.3b",
-      "gSOAP Public License v1.3b.",
-    ),
-    /** Haskell Language Report License. */
+    GSOAP_1_3b("gSOAP-1.3b", "http://hl7.org/fhir/spdx-license", "gSOAP Public License v1.3b"),
     HaskellReport(
       "HaskellReport",
       "http://hl7.org/fhir/spdx-license",
       "Haskell Language Report License",
-      "Haskell Language Report License.",
     ),
-    /** Historical Permission Notice and Disclaimer. */
-    Hpnd(
-      "HPND",
-      "http://hl7.org/fhir/spdx-license",
-      "Historical Permission Notice and Disclaimer",
-      "Historical Permission Notice and Disclaimer.",
-    ),
-    /** IBM PowerPC Initialization and Boot Software. */
+    Hpnd("HPND", "http://hl7.org/fhir/spdx-license", "Historical Permission Notice and Disclaimer"),
     Ibm_Pibs(
       "IBM-pibs",
       "http://hl7.org/fhir/spdx-license",
       "IBM PowerPC Initialization and Boot Software",
-      "IBM PowerPC Initialization and Boot Software.",
     ),
-    /** ICU License. */
-    Icu("ICU", "http://hl7.org/fhir/spdx-license", "ICU License", "ICU License."),
-    /** Independent JPEG Group License. */
-    Ijg(
-      "IJG",
-      "http://hl7.org/fhir/spdx-license",
-      "Independent JPEG Group License",
-      "Independent JPEG Group License.",
-    ),
-    /** ImageMagick License. */
-    ImageMagick(
-      "ImageMagick",
-      "http://hl7.org/fhir/spdx-license",
-      "ImageMagick License",
-      "ImageMagick License.",
-    ),
-    /** iMatix Standard Function Library Agreement. */
+    Icu("ICU", "http://hl7.org/fhir/spdx-license", "ICU License"),
+    Ijg("IJG", "http://hl7.org/fhir/spdx-license", "Independent JPEG Group License"),
+    ImageMagick("ImageMagick", "http://hl7.org/fhir/spdx-license", "ImageMagick License"),
     IMatix(
       "iMatix",
       "http://hl7.org/fhir/spdx-license",
       "iMatix Standard Function Library Agreement",
-      "iMatix Standard Function Library Agreement.",
     ),
-    /** Imlib2 License. */
-    Imlib2("Imlib2", "http://hl7.org/fhir/spdx-license", "Imlib2 License", "Imlib2 License."),
-    /** Info-ZIP License. */
-    Info_Zip(
-      "Info-ZIP",
-      "http://hl7.org/fhir/spdx-license",
-      "Info-ZIP License",
-      "Info-ZIP License.",
-    ),
-    /** Intel ACPI Software License Agreement. */
+    Imlib2("Imlib2", "http://hl7.org/fhir/spdx-license", "Imlib2 License"),
+    Info_Zip("Info-ZIP", "http://hl7.org/fhir/spdx-license", "Info-ZIP License"),
     Intel_Acpi(
       "Intel-ACPI",
       "http://hl7.org/fhir/spdx-license",
       "Intel ACPI Software License Agreement",
-      "Intel ACPI Software License Agreement.",
     ),
-    /** Intel Open Source License. */
-    Intel(
-      "Intel",
-      "http://hl7.org/fhir/spdx-license",
-      "Intel Open Source License",
-      "Intel Open Source License.",
-    ),
-    /** Interbase Public License v1.0. */
+    Intel("Intel", "http://hl7.org/fhir/spdx-license", "Intel Open Source License"),
     Interbase_1_0(
       "Interbase-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Interbase Public License v1.0",
-      "Interbase Public License v1.0.",
     ),
-    /** IPA Font License. */
-    Ipa("IPA", "http://hl7.org/fhir/spdx-license", "IPA Font License", "IPA Font License."),
-    /** IBM Public License v1.0. */
-    Ipl_1_0(
-      "IPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "IBM Public License v1.0",
-      "IBM Public License v1.0.",
-    ),
-    /** ISC License. */
-    Isc("ISC", "http://hl7.org/fhir/spdx-license", "ISC License", "ISC License."),
-    /** JasPer License. */
-    JasPer_2_0(
-      "JasPer-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "JasPer License",
-      "JasPer License.",
-    ),
-    /** JSON License. */
-    Json("JSON", "http://hl7.org/fhir/spdx-license", "JSON License", "JSON License."),
-    /** Licence Art Libre 1.2. */
-    Lal_1_2(
-      "LAL-1.2",
-      "http://hl7.org/fhir/spdx-license",
-      "Licence Art Libre 1.2",
-      "Licence Art Libre 1.2.",
-    ),
-    /** Licence Art Libre 1.3. */
-    Lal_1_3(
-      "LAL-1.3",
-      "http://hl7.org/fhir/spdx-license",
-      "Licence Art Libre 1.3",
-      "Licence Art Libre 1.3.",
-    ),
-    /** Latex2e License. */
-    Latex2e("Latex2e", "http://hl7.org/fhir/spdx-license", "Latex2e License", "Latex2e License."),
-    /** Leptonica License. */
-    Leptonica(
-      "Leptonica",
-      "http://hl7.org/fhir/spdx-license",
-      "Leptonica License",
-      "Leptonica License.",
-    ),
-    /** GNU Library General Public License v2 only. */
+    Ipa("IPA", "http://hl7.org/fhir/spdx-license", "IPA Font License"),
+    Ipl_1_0("IPL-1.0", "http://hl7.org/fhir/spdx-license", "IBM Public License v1.0"),
+    Isc("ISC", "http://hl7.org/fhir/spdx-license", "ISC License"),
+    JasPer_2_0("JasPer-2.0", "http://hl7.org/fhir/spdx-license", "JasPer License"),
+    Json("JSON", "http://hl7.org/fhir/spdx-license", "JSON License"),
+    Lal_1_2("LAL-1.2", "http://hl7.org/fhir/spdx-license", "Licence Art Libre 1.2"),
+    Lal_1_3("LAL-1.3", "http://hl7.org/fhir/spdx-license", "Licence Art Libre 1.3"),
+    Latex2e("Latex2e", "http://hl7.org/fhir/spdx-license", "Latex2e License"),
+    Leptonica("Leptonica", "http://hl7.org/fhir/spdx-license", "Leptonica License"),
     Lgpl_2_0_Only(
       "LGPL-2.0-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Library General Public License v2 only",
-      "GNU Library General Public License v2 only.",
     ),
-    /** GNU Library General Public License v2 or later. */
     Lgpl_2_0_Or_Later(
       "LGPL-2.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Library General Public License v2 or later",
-      "GNU Library General Public License v2 or later.",
     ),
-    /** GNU Lesser General Public License v2.1 only. */
     Lgpl_2_1_Only(
       "LGPL-2.1-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Lesser General Public License v2.1 only",
-      "GNU Lesser General Public License v2.1 only.",
     ),
-    /** GNU Lesser General Public License v2.1 or later. */
     Lgpl_2_1_Or_Later(
       "LGPL-2.1-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Lesser General Public License v2.1 or later",
-      "GNU Lesser General Public License v2.1 or later.",
     ),
-    /** GNU Lesser General Public License v3.0 only. */
     Lgpl_3_0_Only(
       "LGPL-3.0-only",
       "http://hl7.org/fhir/spdx-license",
       "GNU Lesser General Public License v3.0 only",
-      "GNU Lesser General Public License v3.0 only.",
     ),
-    /** GNU Lesser General Public License v3.0 or later. */
     Lgpl_3_0_Or_Later(
       "LGPL-3.0-or-later",
       "http://hl7.org/fhir/spdx-license",
       "GNU Lesser General Public License v3.0 or later",
-      "GNU Lesser General Public License v3.0 or later.",
     ),
-    /** Lesser General Public License For Linguistic Resources. */
     Lgpllr(
       "LGPLLR",
       "http://hl7.org/fhir/spdx-license",
       "Lesser General Public License For Linguistic Resources",
-      "Lesser General Public License For Linguistic Resources.",
     ),
-    /** libpng License. */
-    Libpng("Libpng", "http://hl7.org/fhir/spdx-license", "libpng License", "libpng License."),
-    /** libtiff License. */
-    Libtiff("libtiff", "http://hl7.org/fhir/spdx-license", "libtiff License", "libtiff License."),
-    /** Licence Libre du Québec – Permissive version 1.1. */
+    Libpng("Libpng", "http://hl7.org/fhir/spdx-license", "libpng License"),
+    Libtiff("libtiff", "http://hl7.org/fhir/spdx-license", "libtiff License"),
     LiLiQ_P_1_1(
       "LiLiQ-P-1.1",
       "http://hl7.org/fhir/spdx-license",
       "Licence Libre du Québec – Permissive version 1.1",
-      "Licence Libre du Québec – Permissive version 1.1.",
     ),
-    /** Licence Libre du Québec – Réciprocité version 1.1. */
     LiLiQ_R_1_1(
       "LiLiQ-R-1.1",
       "http://hl7.org/fhir/spdx-license",
       "Licence Libre du Québec – Réciprocité version 1.1",
-      "Licence Libre du Québec – Réciprocité version 1.1.",
     ),
-    /** Licence Libre du Québec – Réciprocité forte version 1.1. */
     LiLiQ_Rplus_1_1(
       "LiLiQ-Rplus-1.1",
       "http://hl7.org/fhir/spdx-license",
       "Licence Libre du Québec – Réciprocité forte version 1.1",
-      "Licence Libre du Québec – Réciprocité forte version 1.1.",
     ),
-    /** Linux Kernel Variant of OpenIB.org license. */
     Linux_OpenIB(
       "Linux-OpenIB",
       "http://hl7.org/fhir/spdx-license",
       "Linux Kernel Variant of OpenIB.org license",
-      "Linux Kernel Variant of OpenIB.org license.",
     ),
-    /** Lucent Public License Version 1.0. */
-    Lpl_1_0(
-      "LPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Lucent Public License Version 1.0",
-      "Lucent Public License Version 1.0.",
-    ),
-    /** Lucent Public License v1.02. */
-    Lpl_1_02(
-      "LPL-1.02",
-      "http://hl7.org/fhir/spdx-license",
-      "Lucent Public License v1.02",
-      "Lucent Public License v1.02.",
-    ),
-    /** LaTeX Project Public License v1.0. */
-    Lppl_1_0(
-      "LPPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "LaTeX Project Public License v1.0",
-      "LaTeX Project Public License v1.0.",
-    ),
-    /** LaTeX Project Public License v1.1. */
-    Lppl_1_1(
-      "LPPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "LaTeX Project Public License v1.1",
-      "LaTeX Project Public License v1.1.",
-    ),
-    /** LaTeX Project Public License v1.2. */
-    Lppl_1_2(
-      "LPPL-1.2",
-      "http://hl7.org/fhir/spdx-license",
-      "LaTeX Project Public License v1.2",
-      "LaTeX Project Public License v1.2.",
-    ),
-    /** LaTeX Project Public License v1.3a. */
+    Lpl_1_0("LPL-1.0", "http://hl7.org/fhir/spdx-license", "Lucent Public License Version 1.0"),
+    Lpl_1_02("LPL-1.02", "http://hl7.org/fhir/spdx-license", "Lucent Public License v1.02"),
+    Lppl_1_0("LPPL-1.0", "http://hl7.org/fhir/spdx-license", "LaTeX Project Public License v1.0"),
+    Lppl_1_1("LPPL-1.1", "http://hl7.org/fhir/spdx-license", "LaTeX Project Public License v1.1"),
+    Lppl_1_2("LPPL-1.2", "http://hl7.org/fhir/spdx-license", "LaTeX Project Public License v1.2"),
     Lppl_1_3a(
       "LPPL-1.3a",
       "http://hl7.org/fhir/spdx-license",
       "LaTeX Project Public License v1.3a",
-      "LaTeX Project Public License v1.3a.",
     ),
-    /** LaTeX Project Public License v1.3c. */
     Lppl_1_3c(
       "LPPL-1.3c",
       "http://hl7.org/fhir/spdx-license",
       "LaTeX Project Public License v1.3c",
-      "LaTeX Project Public License v1.3c.",
     ),
-    /** MakeIndex License. */
-    MakeIndex(
-      "MakeIndex",
-      "http://hl7.org/fhir/spdx-license",
-      "MakeIndex License",
-      "MakeIndex License.",
-    ),
-    /** MirOS License. */
-    MirOS("MirOS", "http://hl7.org/fhir/spdx-license", "MirOS License", "MirOS License."),
-    /** MIT No Attribution. */
-    Mit_0("MIT-0", "http://hl7.org/fhir/spdx-license", "MIT No Attribution", "MIT No Attribution."),
-    /** Enlightenment License (e16). */
+    MakeIndex("MakeIndex", "http://hl7.org/fhir/spdx-license", "MakeIndex License"),
+    MirOS("MirOS", "http://hl7.org/fhir/spdx-license", "MirOS License"),
+    Mit_0("MIT-0", "http://hl7.org/fhir/spdx-license", "MIT No Attribution"),
     Mit_Advertising(
       "MIT-advertising",
       "http://hl7.org/fhir/spdx-license",
       "Enlightenment License (e16)",
-      "Enlightenment License (e16).",
     ),
-    /** CMU License. */
-    Mit_Cmu("MIT-CMU", "http://hl7.org/fhir/spdx-license", "CMU License", "CMU License."),
-    /** enna License. */
-    Mit_Enna("MIT-enna", "http://hl7.org/fhir/spdx-license", "enna License", "enna License."),
-    /** feh License. */
-    Mit_Feh("MIT-feh", "http://hl7.org/fhir/spdx-license", "feh License", "feh License."),
-    /** MIT License. */
-    Mit("MIT", "http://hl7.org/fhir/spdx-license", "MIT License", "MIT License."),
-    /** MIT +no-false-attribs license. */
-    Mitnfa(
-      "MITNFA",
-      "http://hl7.org/fhir/spdx-license",
-      "MIT +no-false-attribs license",
-      "MIT +no-false-attribs license.",
-    ),
-    /** Motosoto License. */
-    Motosoto(
-      "Motosoto",
-      "http://hl7.org/fhir/spdx-license",
-      "Motosoto License",
-      "Motosoto License.",
-    ),
-    /** mpich2 License. */
-    Mpich2("mpich2", "http://hl7.org/fhir/spdx-license", "mpich2 License", "mpich2 License."),
-    /** Mozilla Public License 1.0. */
-    Mpl_1_0(
-      "MPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Mozilla Public License 1.0",
-      "Mozilla Public License 1.0.",
-    ),
-    /** Mozilla Public License 1.1. */
-    Mpl_1_1(
-      "MPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Mozilla Public License 1.1",
-      "Mozilla Public License 1.1.",
-    ),
-    /** Mozilla Public License 2.0 (no copyleft exception). */
+    Mit_Cmu("MIT-CMU", "http://hl7.org/fhir/spdx-license", "CMU License"),
+    Mit_Enna("MIT-enna", "http://hl7.org/fhir/spdx-license", "enna License"),
+    Mit_Feh("MIT-feh", "http://hl7.org/fhir/spdx-license", "feh License"),
+    Mit("MIT", "http://hl7.org/fhir/spdx-license", "MIT License"),
+    Mitnfa("MITNFA", "http://hl7.org/fhir/spdx-license", "MIT +no-false-attribs license"),
+    Motosoto("Motosoto", "http://hl7.org/fhir/spdx-license", "Motosoto License"),
+    Mpich2("mpich2", "http://hl7.org/fhir/spdx-license", "mpich2 License"),
+    Mpl_1_0("MPL-1.0", "http://hl7.org/fhir/spdx-license", "Mozilla Public License 1.0"),
+    Mpl_1_1("MPL-1.1", "http://hl7.org/fhir/spdx-license", "Mozilla Public License 1.1"),
     Mpl_2_0_No_Copyleft_Exception(
       "MPL-2.0-no-copyleft-exception",
       "http://hl7.org/fhir/spdx-license",
       "Mozilla Public License 2.0 (no copyleft exception)",
-      "Mozilla Public License 2.0 (no copyleft exception).",
     ),
-    /** Mozilla Public License 2.0. */
-    Mpl_2_0(
-      "MPL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Mozilla Public License 2.0",
-      "Mozilla Public License 2.0.",
-    ),
-    /** Microsoft Public License. */
-    Ms_Pl(
-      "MS-PL",
-      "http://hl7.org/fhir/spdx-license",
-      "Microsoft Public License",
-      "Microsoft Public License.",
-    ),
-    /** Microsoft Reciprocal License. */
-    Ms_Rl(
-      "MS-RL",
-      "http://hl7.org/fhir/spdx-license",
-      "Microsoft Reciprocal License",
-      "Microsoft Reciprocal License.",
-    ),
-    /** Matrix Template Library License. */
-    Mtll(
-      "MTLL",
-      "http://hl7.org/fhir/spdx-license",
-      "Matrix Template Library License",
-      "Matrix Template Library License.",
-    ),
-    /** Multics License. */
-    Multics("Multics", "http://hl7.org/fhir/spdx-license", "Multics License", "Multics License."),
-    /** Mup License. */
-    Mup("Mup", "http://hl7.org/fhir/spdx-license", "Mup License", "Mup License."),
-    /** NASA Open Source Agreement 1.3. */
-    Nasa_1_3(
-      "NASA-1.3",
-      "http://hl7.org/fhir/spdx-license",
-      "NASA Open Source Agreement 1.3",
-      "NASA Open Source Agreement 1.3.",
-    ),
-    /** Naumen Public License. */
-    Naumen(
-      "Naumen",
-      "http://hl7.org/fhir/spdx-license",
-      "Naumen Public License",
-      "Naumen Public License.",
-    ),
-    /** Net Boolean Public License v1. */
-    Nbpl_1_0(
-      "NBPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Net Boolean Public License v1",
-      "Net Boolean Public License v1.",
-    ),
-    /** University of Illinois/NCSA Open Source License. */
+    Mpl_2_0("MPL-2.0", "http://hl7.org/fhir/spdx-license", "Mozilla Public License 2.0"),
+    Ms_Pl("MS-PL", "http://hl7.org/fhir/spdx-license", "Microsoft Public License"),
+    Ms_Rl("MS-RL", "http://hl7.org/fhir/spdx-license", "Microsoft Reciprocal License"),
+    Mtll("MTLL", "http://hl7.org/fhir/spdx-license", "Matrix Template Library License"),
+    Multics("Multics", "http://hl7.org/fhir/spdx-license", "Multics License"),
+    Mup("Mup", "http://hl7.org/fhir/spdx-license", "Mup License"),
+    Nasa_1_3("NASA-1.3", "http://hl7.org/fhir/spdx-license", "NASA Open Source Agreement 1.3"),
+    Naumen("Naumen", "http://hl7.org/fhir/spdx-license", "Naumen Public License"),
+    Nbpl_1_0("NBPL-1.0", "http://hl7.org/fhir/spdx-license", "Net Boolean Public License v1"),
     Ncsa(
       "NCSA",
       "http://hl7.org/fhir/spdx-license",
       "University of Illinois/NCSA Open Source License",
-      "University of Illinois/NCSA Open Source License.",
     ),
-    /** Net-SNMP License. */
-    Net_Snmp(
-      "Net-SNMP",
-      "http://hl7.org/fhir/spdx-license",
-      "Net-SNMP License",
-      "Net-SNMP License.",
-    ),
-    /** NetCDF license. */
-    NetCDF("NetCDF", "http://hl7.org/fhir/spdx-license", "NetCDF license", "NetCDF license."),
-    /** Newsletr License. */
-    Newsletr(
-      "Newsletr",
-      "http://hl7.org/fhir/spdx-license",
-      "Newsletr License",
-      "Newsletr License.",
-    ),
-    /** Nethack General Public License. */
-    Ngpl(
-      "NGPL",
-      "http://hl7.org/fhir/spdx-license",
-      "Nethack General Public License",
-      "Nethack General Public License.",
-    ),
-    /** Norwegian Licence for Open Government Data. */
+    Net_Snmp("Net-SNMP", "http://hl7.org/fhir/spdx-license", "Net-SNMP License"),
+    NetCDF("NetCDF", "http://hl7.org/fhir/spdx-license", "NetCDF license"),
+    Newsletr("Newsletr", "http://hl7.org/fhir/spdx-license", "Newsletr License"),
+    Ngpl("NGPL", "http://hl7.org/fhir/spdx-license", "Nethack General Public License"),
     Nlod_1_0(
       "NLOD-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Norwegian Licence for Open Government Data",
-      "Norwegian Licence for Open Government Data.",
     ),
-    /** No Limit Public License. */
-    Nlpl(
-      "NLPL",
-      "http://hl7.org/fhir/spdx-license",
-      "No Limit Public License",
-      "No Limit Public License.",
-    ),
-    /** Nokia Open Source License. */
-    Nokia(
-      "Nokia",
-      "http://hl7.org/fhir/spdx-license",
-      "Nokia Open Source License",
-      "Nokia Open Source License.",
-    ),
-    /** Netizen Open Source License. */
-    Nosl(
-      "NOSL",
-      "http://hl7.org/fhir/spdx-license",
-      "Netizen Open Source License",
-      "Netizen Open Source License.",
-    ),
-    /** Noweb License. */
-    Noweb("Noweb", "http://hl7.org/fhir/spdx-license", "Noweb License", "Noweb License."),
-    /** Netscape Public License v1.0. */
-    Npl_1_0(
-      "NPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Netscape Public License v1.0",
-      "Netscape Public License v1.0.",
-    ),
-    /** Netscape Public License v1.1. */
-    Npl_1_1(
-      "NPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Netscape Public License v1.1",
-      "Netscape Public License v1.1.",
-    ),
-    /** Non-Profit Open Software License 3.0. */
+    Nlpl("NLPL", "http://hl7.org/fhir/spdx-license", "No Limit Public License"),
+    Nokia("Nokia", "http://hl7.org/fhir/spdx-license", "Nokia Open Source License"),
+    Nosl("NOSL", "http://hl7.org/fhir/spdx-license", "Netizen Open Source License"),
+    Noweb("Noweb", "http://hl7.org/fhir/spdx-license", "Noweb License"),
+    Npl_1_0("NPL-1.0", "http://hl7.org/fhir/spdx-license", "Netscape Public License v1.0"),
+    Npl_1_1("NPL-1.1", "http://hl7.org/fhir/spdx-license", "Netscape Public License v1.1"),
     Nposl_3_0(
       "NPOSL-3.0",
       "http://hl7.org/fhir/spdx-license",
       "Non-Profit Open Software License 3.0",
-      "Non-Profit Open Software License 3.0.",
     ),
-    /** NRL License. */
-    Nrl("NRL", "http://hl7.org/fhir/spdx-license", "NRL License", "NRL License."),
-    /** NTP License. */
-    Ntp("NTP", "http://hl7.org/fhir/spdx-license", "NTP License", "NTP License."),
-    /** Open CASCADE Technology Public License. */
+    Nrl("NRL", "http://hl7.org/fhir/spdx-license", "NRL License"),
+    Ntp("NTP", "http://hl7.org/fhir/spdx-license", "NTP License"),
     Occt_Pl(
       "OCCT-PL",
       "http://hl7.org/fhir/spdx-license",
       "Open CASCADE Technology Public License",
-      "Open CASCADE Technology Public License.",
     ),
-    /** OCLC Research Public License 2.0. */
-    Oclc_2_0(
-      "OCLC-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "OCLC Research Public License 2.0",
-      "OCLC Research Public License 2.0.",
-    ),
-    /** ODC Open Database License v1.0. */
-    ODbL_1_0(
-      "ODbL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "ODC Open Database License v1.0",
-      "ODC Open Database License v1.0.",
-    ),
-    /** SIL Open Font License 1.0. */
-    Ofl_1_0(
-      "OFL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "SIL Open Font License 1.0",
-      "SIL Open Font License 1.0.",
-    ),
-    /** SIL Open Font License 1.1. */
-    Ofl_1_1(
-      "OFL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "SIL Open Font License 1.1",
-      "SIL Open Font License 1.1.",
-    ),
-    /** Open Group Test Suite License. */
-    Ogtsl(
-      "OGTSL",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Group Test Suite License",
-      "Open Group Test Suite License.",
-    ),
-    /** Open LDAP Public License v1.1. */
-    Oldap_1_1(
-      "OLDAP-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v1.1",
-      "Open LDAP Public License v1.1.",
-    ),
-    /** Open LDAP Public License v1.2. */
-    Oldap_1_2(
-      "OLDAP-1.2",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v1.2",
-      "Open LDAP Public License v1.2.",
-    ),
-    /** Open LDAP Public License v1.3. */
-    Oldap_1_3(
-      "OLDAP-1.3",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v1.3",
-      "Open LDAP Public License v1.3.",
-    ),
-    /** Open LDAP Public License v1.4. */
-    Oldap_1_4(
-      "OLDAP-1.4",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v1.4",
-      "Open LDAP Public License v1.4.",
-    ),
-    /** Open LDAP Public License v2.0.1. */
+    Oclc_2_0("OCLC-2.0", "http://hl7.org/fhir/spdx-license", "OCLC Research Public License 2.0"),
+    ODbL_1_0("ODbL-1.0", "http://hl7.org/fhir/spdx-license", "ODC Open Database License v1.0"),
+    Ofl_1_0("OFL-1.0", "http://hl7.org/fhir/spdx-license", "SIL Open Font License 1.0"),
+    Ofl_1_1("OFL-1.1", "http://hl7.org/fhir/spdx-license", "SIL Open Font License 1.1"),
+    Ogtsl("OGTSL", "http://hl7.org/fhir/spdx-license", "Open Group Test Suite License"),
+    Oldap_1_1("OLDAP-1.1", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v1.1"),
+    Oldap_1_2("OLDAP-1.2", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v1.2"),
+    Oldap_1_3("OLDAP-1.3", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v1.3"),
+    Oldap_1_4("OLDAP-1.4", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v1.4"),
     Oldap_2_0_1(
       "OLDAP-2.0.1",
       "http://hl7.org/fhir/spdx-license",
       "Open LDAP Public License v2.0.1",
-      "Open LDAP Public License v2.0.1.",
     ),
-    /** Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B). */
     Oldap_2_0(
       "OLDAP-2.0",
       "http://hl7.org/fhir/spdx-license",
       "Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B)",
-      "Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B).",
     ),
-    /** Open LDAP Public License v2.1. */
-    Oldap_2_1(
-      "OLDAP-2.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.1",
-      "Open LDAP Public License v2.1.",
-    ),
-    /** Open LDAP Public License v2.2.1. */
+    Oldap_2_1("OLDAP-2.1", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.1"),
     Oldap_2_2_1(
       "OLDAP-2.2.1",
       "http://hl7.org/fhir/spdx-license",
       "Open LDAP Public License v2.2.1",
-      "Open LDAP Public License v2.2.1.",
     ),
-    /** Open LDAP Public License 2.2.2. */
     Oldap_2_2_2(
       "OLDAP-2.2.2",
       "http://hl7.org/fhir/spdx-license",
       "Open LDAP Public License 2.2.2",
-      "Open LDAP Public License 2.2.2.",
     ),
-    /** Open LDAP Public License v2.2. */
-    Oldap_2_2(
-      "OLDAP-2.2",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.2",
-      "Open LDAP Public License v2.2.",
-    ),
-    /** Open LDAP Public License v2.3. */
-    Oldap_2_3(
-      "OLDAP-2.3",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.3",
-      "Open LDAP Public License v2.3.",
-    ),
-    /** Open LDAP Public License v2.4. */
-    Oldap_2_4(
-      "OLDAP-2.4",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.4",
-      "Open LDAP Public License v2.4.",
-    ),
-    /** Open LDAP Public License v2.5. */
-    Oldap_2_5(
-      "OLDAP-2.5",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.5",
-      "Open LDAP Public License v2.5.",
-    ),
-    /** Open LDAP Public License v2.6. */
-    Oldap_2_6(
-      "OLDAP-2.6",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.6",
-      "Open LDAP Public License v2.6.",
-    ),
-    /** Open LDAP Public License v2.7. */
-    Oldap_2_7(
-      "OLDAP-2.7",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.7",
-      "Open LDAP Public License v2.7.",
-    ),
-    /** Open LDAP Public License v2.8. */
-    Oldap_2_8(
-      "OLDAP-2.8",
-      "http://hl7.org/fhir/spdx-license",
-      "Open LDAP Public License v2.8",
-      "Open LDAP Public License v2.8.",
-    ),
-    /** Open Market License. */
-    Oml("OML", "http://hl7.org/fhir/spdx-license", "Open Market License", "Open Market License."),
-    /** OpenSSL License. */
-    OpenSSL("OpenSSL", "http://hl7.org/fhir/spdx-license", "OpenSSL License", "OpenSSL License."),
-    /** Open Public License v1.0. */
-    Opl_1_0(
-      "OPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Public License v1.0",
-      "Open Public License v1.0.",
-    ),
-    /** OSET Public License version 2.1. */
+    Oldap_2_2("OLDAP-2.2", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.2"),
+    Oldap_2_3("OLDAP-2.3", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.3"),
+    Oldap_2_4("OLDAP-2.4", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.4"),
+    Oldap_2_5("OLDAP-2.5", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.5"),
+    Oldap_2_6("OLDAP-2.6", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.6"),
+    Oldap_2_7("OLDAP-2.7", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.7"),
+    Oldap_2_8("OLDAP-2.8", "http://hl7.org/fhir/spdx-license", "Open LDAP Public License v2.8"),
+    Oml("OML", "http://hl7.org/fhir/spdx-license", "Open Market License"),
+    OpenSSL("OpenSSL", "http://hl7.org/fhir/spdx-license", "OpenSSL License"),
+    Opl_1_0("OPL-1.0", "http://hl7.org/fhir/spdx-license", "Open Public License v1.0"),
     Oset_Pl_2_1(
       "OSET-PL-2.1",
       "http://hl7.org/fhir/spdx-license",
       "OSET Public License version 2.1",
-      "OSET Public License version 2.1.",
     ),
-    /** Open Software License 1.0. */
-    Osl_1_0(
-      "OSL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Software License 1.0",
-      "Open Software License 1.0.",
-    ),
-    /** Open Software License 1.1. */
-    Osl_1_1(
-      "OSL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Software License 1.1",
-      "Open Software License 1.1.",
-    ),
-    /** Open Software License 2.0. */
-    Osl_2_0(
-      "OSL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Software License 2.0",
-      "Open Software License 2.0.",
-    ),
-    /** Open Software License 2.1. */
-    Osl_2_1(
-      "OSL-2.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Software License 2.1",
-      "Open Software License 2.1.",
-    ),
-    /** Open Software License 3.0. */
-    Osl_3_0(
-      "OSL-3.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Open Software License 3.0",
-      "Open Software License 3.0.",
-    ),
-    /** ODC Public Domain Dedication & License 1.0. */
+    Osl_1_0("OSL-1.0", "http://hl7.org/fhir/spdx-license", "Open Software License 1.0"),
+    Osl_1_1("OSL-1.1", "http://hl7.org/fhir/spdx-license", "Open Software License 1.1"),
+    Osl_2_0("OSL-2.0", "http://hl7.org/fhir/spdx-license", "Open Software License 2.0"),
+    Osl_2_1("OSL-2.1", "http://hl7.org/fhir/spdx-license", "Open Software License 2.1"),
+    Osl_3_0("OSL-3.0", "http://hl7.org/fhir/spdx-license", "Open Software License 3.0"),
     Pddl_1_0(
       "PDDL-1.0",
       "http://hl7.org/fhir/spdx-license",
       "ODC Public Domain Dedication & License 1.0",
-      "ODC Public Domain Dedication & License 1.0.",
     ),
-    /** PHP License v3.0. */
-    Php_3_0("PHP-3.0", "http://hl7.org/fhir/spdx-license", "PHP License v3.0", "PHP License v3.0."),
-    /** PHP License v3.01. */
-    Php_3_01(
-      "PHP-3.01",
-      "http://hl7.org/fhir/spdx-license",
-      "PHP License v3.01",
-      "PHP License v3.01.",
-    ),
-    /** Plexus Classworlds License. */
-    Plexus(
-      "Plexus",
-      "http://hl7.org/fhir/spdx-license",
-      "Plexus Classworlds License",
-      "Plexus Classworlds License.",
-    ),
-    /** PostgreSQL License. */
-    PostgreSQL(
-      "PostgreSQL",
-      "http://hl7.org/fhir/spdx-license",
-      "PostgreSQL License",
-      "PostgreSQL License.",
-    ),
-    /** psfrag License. */
-    Psfrag("psfrag", "http://hl7.org/fhir/spdx-license", "psfrag License", "psfrag License."),
-    /** psutils License. */
-    Psutils("psutils", "http://hl7.org/fhir/spdx-license", "psutils License", "psutils License."),
-    /** Python License 2.0. */
-    Python_2_0(
-      "Python-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Python License 2.0",
-      "Python License 2.0.",
-    ),
-    /** Qhull License. */
-    Qhull("Qhull", "http://hl7.org/fhir/spdx-license", "Qhull License", "Qhull License."),
-    /** Q Public License 1.0. */
-    Qpl_1_0(
-      "QPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Q Public License 1.0",
-      "Q Public License 1.0.",
-    ),
-    /** Rdisc License. */
-    Rdisc("Rdisc", "http://hl7.org/fhir/spdx-license", "Rdisc License", "Rdisc License."),
-    /** Red Hat eCos Public License v1.1. */
+    Php_3_0("PHP-3.0", "http://hl7.org/fhir/spdx-license", "PHP License v3.0"),
+    Php_3_01("PHP-3.01", "http://hl7.org/fhir/spdx-license", "PHP License v3.01"),
+    Plexus("Plexus", "http://hl7.org/fhir/spdx-license", "Plexus Classworlds License"),
+    PostgreSQL("PostgreSQL", "http://hl7.org/fhir/spdx-license", "PostgreSQL License"),
+    Psfrag("psfrag", "http://hl7.org/fhir/spdx-license", "psfrag License"),
+    Psutils("psutils", "http://hl7.org/fhir/spdx-license", "psutils License"),
+    Python_2_0("Python-2.0", "http://hl7.org/fhir/spdx-license", "Python License 2.0"),
+    Qhull("Qhull", "http://hl7.org/fhir/spdx-license", "Qhull License"),
+    Qpl_1_0("QPL-1.0", "http://hl7.org/fhir/spdx-license", "Q Public License 1.0"),
+    Rdisc("Rdisc", "http://hl7.org/fhir/spdx-license", "Rdisc License"),
     RHeCos_1_1(
       "RHeCos-1.1",
       "http://hl7.org/fhir/spdx-license",
       "Red Hat eCos Public License v1.1",
-      "Red Hat eCos Public License v1.1.",
     ),
-    /** Reciprocal Public License 1.1. */
-    Rpl_1_1(
-      "RPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Reciprocal Public License 1.1",
-      "Reciprocal Public License 1.1.",
-    ),
-    /** Reciprocal Public License 1.5. */
-    Rpl_1_5(
-      "RPL-1.5",
-      "http://hl7.org/fhir/spdx-license",
-      "Reciprocal Public License 1.5",
-      "Reciprocal Public License 1.5.",
-    ),
-    /** RealNetworks Public Source License v1.0. */
+    Rpl_1_1("RPL-1.1", "http://hl7.org/fhir/spdx-license", "Reciprocal Public License 1.1"),
+    Rpl_1_5("RPL-1.5", "http://hl7.org/fhir/spdx-license", "Reciprocal Public License 1.5"),
     Rpsl_1_0(
       "RPSL-1.0",
       "http://hl7.org/fhir/spdx-license",
       "RealNetworks Public Source License v1.0",
-      "RealNetworks Public Source License v1.0.",
     ),
-    /** RSA Message-Digest License. */
-    Rsa_Md(
-      "RSA-MD",
-      "http://hl7.org/fhir/spdx-license",
-      "RSA Message-Digest License",
-      "RSA Message-Digest License.",
-    ),
-    /** Ricoh Source Code Public License. */
-    Rscpl(
-      "RSCPL",
-      "http://hl7.org/fhir/spdx-license",
-      "Ricoh Source Code Public License",
-      "Ricoh Source Code Public License.",
-    ),
-    /** Ruby License. */
-    Ruby("Ruby", "http://hl7.org/fhir/spdx-license", "Ruby License", "Ruby License."),
-    /** Sax Public Domain Notice. */
-    Sax_Pd(
-      "SAX-PD",
-      "http://hl7.org/fhir/spdx-license",
-      "Sax Public Domain Notice",
-      "Sax Public Domain Notice.",
-    ),
-    /** Saxpath License. */
-    Saxpath("Saxpath", "http://hl7.org/fhir/spdx-license", "Saxpath License", "Saxpath License."),
-    /** SCEA Shared Source License. */
-    Scea(
-      "SCEA",
-      "http://hl7.org/fhir/spdx-license",
-      "SCEA Shared Source License",
-      "SCEA Shared Source License.",
-    ),
-    /** Sendmail License. */
-    Sendmail(
-      "Sendmail",
-      "http://hl7.org/fhir/spdx-license",
-      "Sendmail License",
-      "Sendmail License.",
-    ),
-    /** SGI Free Software License B v1.0. */
-    Sgi_B_1_0(
-      "SGI-B-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "SGI Free Software License B v1.0",
-      "SGI Free Software License B v1.0.",
-    ),
-    /** SGI Free Software License B v1.1. */
-    Sgi_B_1_1(
-      "SGI-B-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "SGI Free Software License B v1.1",
-      "SGI Free Software License B v1.1.",
-    ),
-    /** SGI Free Software License B v2.0. */
-    Sgi_B_2_0(
-      "SGI-B-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "SGI Free Software License B v2.0",
-      "SGI Free Software License B v2.0.",
-    ),
-    /** Simple Public License 2.0. */
-    SimPL_2_0(
-      "SimPL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Simple Public License 2.0",
-      "Simple Public License 2.0.",
-    ),
-    /** Sun Industry Standards Source License v1.2. */
+    Rsa_Md("RSA-MD", "http://hl7.org/fhir/spdx-license", "RSA Message-Digest License"),
+    Rscpl("RSCPL", "http://hl7.org/fhir/spdx-license", "Ricoh Source Code Public License"),
+    Ruby("Ruby", "http://hl7.org/fhir/spdx-license", "Ruby License"),
+    Sax_Pd("SAX-PD", "http://hl7.org/fhir/spdx-license", "Sax Public Domain Notice"),
+    Saxpath("Saxpath", "http://hl7.org/fhir/spdx-license", "Saxpath License"),
+    Scea("SCEA", "http://hl7.org/fhir/spdx-license", "SCEA Shared Source License"),
+    Sendmail("Sendmail", "http://hl7.org/fhir/spdx-license", "Sendmail License"),
+    Sgi_B_1_0("SGI-B-1.0", "http://hl7.org/fhir/spdx-license", "SGI Free Software License B v1.0"),
+    Sgi_B_1_1("SGI-B-1.1", "http://hl7.org/fhir/spdx-license", "SGI Free Software License B v1.1"),
+    Sgi_B_2_0("SGI-B-2.0", "http://hl7.org/fhir/spdx-license", "SGI Free Software License B v2.0"),
+    SimPL_2_0("SimPL-2.0", "http://hl7.org/fhir/spdx-license", "Simple Public License 2.0"),
     Sissl_1_2(
       "SISSL-1.2",
       "http://hl7.org/fhir/spdx-license",
       "Sun Industry Standards Source License v1.2",
-      "Sun Industry Standards Source License v1.2.",
     ),
-    /** Sun Industry Standards Source License v1.1. */
     Sissl(
       "SISSL",
       "http://hl7.org/fhir/spdx-license",
       "Sun Industry Standards Source License v1.1",
-      "Sun Industry Standards Source License v1.1.",
     ),
-    /** Sleepycat License. */
-    Sleepycat(
-      "Sleepycat",
-      "http://hl7.org/fhir/spdx-license",
-      "Sleepycat License",
-      "Sleepycat License.",
-    ),
-    /** Standard ML of New Jersey License. */
-    Smlnj(
-      "SMLNJ",
-      "http://hl7.org/fhir/spdx-license",
-      "Standard ML of New Jersey License",
-      "Standard ML of New Jersey License.",
-    ),
-    /** Secure Messaging Protocol Public License. */
-    Smppl(
-      "SMPPL",
-      "http://hl7.org/fhir/spdx-license",
-      "Secure Messaging Protocol Public License",
-      "Secure Messaging Protocol Public License.",
-    ),
-    /** SNIA Public License 1.1. */
-    Snia(
-      "SNIA",
-      "http://hl7.org/fhir/spdx-license",
-      "SNIA Public License 1.1",
-      "SNIA Public License 1.1.",
-    ),
-    /** Spencer License 86. */
-    Spencer_86(
-      "Spencer-86",
-      "http://hl7.org/fhir/spdx-license",
-      "Spencer License 86",
-      "Spencer License 86.",
-    ),
-    /** Spencer License 94. */
-    Spencer_94(
-      "Spencer-94",
-      "http://hl7.org/fhir/spdx-license",
-      "Spencer License 94",
-      "Spencer License 94.",
-    ),
-    /** Spencer License 99. */
-    Spencer_99(
-      "Spencer-99",
-      "http://hl7.org/fhir/spdx-license",
-      "Spencer License 99",
-      "Spencer License 99.",
-    ),
-    /** Sun Public License v1.0. */
-    Spl_1_0(
-      "SPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Sun Public License v1.0",
-      "Sun Public License v1.0.",
-    ),
-    /** SugarCRM Public License v1.1.3. */
+    Sleepycat("Sleepycat", "http://hl7.org/fhir/spdx-license", "Sleepycat License"),
+    Smlnj("SMLNJ", "http://hl7.org/fhir/spdx-license", "Standard ML of New Jersey License"),
+    Smppl("SMPPL", "http://hl7.org/fhir/spdx-license", "Secure Messaging Protocol Public License"),
+    Snia("SNIA", "http://hl7.org/fhir/spdx-license", "SNIA Public License 1.1"),
+    Spencer_86("Spencer-86", "http://hl7.org/fhir/spdx-license", "Spencer License 86"),
+    Spencer_94("Spencer-94", "http://hl7.org/fhir/spdx-license", "Spencer License 94"),
+    Spencer_99("Spencer-99", "http://hl7.org/fhir/spdx-license", "Spencer License 99"),
+    Spl_1_0("SPL-1.0", "http://hl7.org/fhir/spdx-license", "Sun Public License v1.0"),
     SugarCRM_1_1_3(
       "SugarCRM-1.1.3",
       "http://hl7.org/fhir/spdx-license",
       "SugarCRM Public License v1.1.3",
-      "SugarCRM Public License v1.1.3.",
     ),
-    /** Scheme Widget Library (SWL) Software License Agreement. */
     Swl(
       "SWL",
       "http://hl7.org/fhir/spdx-license",
       "Scheme Widget Library (SWL) Software License Agreement",
-      "Scheme Widget Library (SWL) Software License Agreement.",
     ),
-    /** TCL/TK License. */
-    Tcl("TCL", "http://hl7.org/fhir/spdx-license", "TCL/TK License", "TCL/TK License."),
-    /** TCP Wrappers License. */
-    Tcp_Wrappers(
-      "TCP-wrappers",
-      "http://hl7.org/fhir/spdx-license",
-      "TCP Wrappers License",
-      "TCP Wrappers License.",
-    ),
-    /** TMate Open Source License. */
-    TMate(
-      "TMate",
-      "http://hl7.org/fhir/spdx-license",
-      "TMate Open Source License",
-      "TMate Open Source License.",
-    ),
-    /** TORQUE v2.5+ Software License v1.1. */
+    Tcl("TCL", "http://hl7.org/fhir/spdx-license", "TCL/TK License"),
+    Tcp_Wrappers("TCP-wrappers", "http://hl7.org/fhir/spdx-license", "TCP Wrappers License"),
+    TMate("TMate", "http://hl7.org/fhir/spdx-license", "TMate Open Source License"),
     Torque_1_1(
       "TORQUE-1.1",
       "http://hl7.org/fhir/spdx-license",
       "TORQUE v2.5+ Software License v1.1",
-      "TORQUE v2.5+ Software License v1.1.",
     ),
-    /** Trusster Open Source License. */
-    Tosl(
-      "TOSL",
-      "http://hl7.org/fhir/spdx-license",
-      "Trusster Open Source License",
-      "Trusster Open Source License.",
-    ),
-    /** Unicode License Agreement - Data Files and Software (2015). */
+    Tosl("TOSL", "http://hl7.org/fhir/spdx-license", "Trusster Open Source License"),
     Unicode_Dfs_2015(
       "Unicode-DFS-2015",
       "http://hl7.org/fhir/spdx-license",
       "Unicode License Agreement - Data Files and Software (2015)",
-      "Unicode License Agreement - Data Files and Software (2015).",
     ),
-    /** Unicode License Agreement - Data Files and Software (2016). */
     Unicode_Dfs_2016(
       "Unicode-DFS-2016",
       "http://hl7.org/fhir/spdx-license",
       "Unicode License Agreement - Data Files and Software (2016)",
-      "Unicode License Agreement - Data Files and Software (2016).",
     ),
-    /** Unicode Terms of Use. */
-    Unicode_Tou(
-      "Unicode-TOU",
-      "http://hl7.org/fhir/spdx-license",
-      "Unicode Terms of Use",
-      "Unicode Terms of Use.",
-    ),
-    /** The Unlicense. */
-    Unlicense("Unlicense", "http://hl7.org/fhir/spdx-license", "The Unlicense", "The Unlicense."),
-    /** Universal Permissive License v1.0. */
-    Upl_1_0(
-      "UPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Universal Permissive License v1.0",
-      "Universal Permissive License v1.0.",
-    ),
-    /** Vim License. */
-    Vim("Vim", "http://hl7.org/fhir/spdx-license", "Vim License", "Vim License."),
-    /** VOSTROM Public License for Open Source. */
+    Unicode_Tou("Unicode-TOU", "http://hl7.org/fhir/spdx-license", "Unicode Terms of Use"),
+    Unlicense("Unlicense", "http://hl7.org/fhir/spdx-license", "The Unlicense"),
+    Upl_1_0("UPL-1.0", "http://hl7.org/fhir/spdx-license", "Universal Permissive License v1.0"),
+    Vim("Vim", "http://hl7.org/fhir/spdx-license", "Vim License"),
     Vostrom(
       "VOSTROM",
       "http://hl7.org/fhir/spdx-license",
       "VOSTROM Public License for Open Source",
-      "VOSTROM Public License for Open Source.",
     ),
-    /** Vovida Software License v1.0. */
-    Vsl_1_0(
-      "VSL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Vovida Software License v1.0",
-      "Vovida Software License v1.0.",
-    ),
-    /** W3C Software Notice and License (1998-07-20). */
+    Vsl_1_0("VSL-1.0", "http://hl7.org/fhir/spdx-license", "Vovida Software License v1.0"),
     W3C_19980720(
       "W3C-19980720",
       "http://hl7.org/fhir/spdx-license",
       "W3C Software Notice and License (1998-07-20)",
-      "W3C Software Notice and License (1998-07-20).",
     ),
-    /** W3C Software Notice and Document License (2015-05-13). */
     W3C_20150513(
       "W3C-20150513",
       "http://hl7.org/fhir/spdx-license",
       "W3C Software Notice and Document License (2015-05-13)",
-      "W3C Software Notice and Document License (2015-05-13).",
     ),
-    /** W3C Software Notice and License (2002-12-31). */
-    W3C(
-      "W3C",
-      "http://hl7.org/fhir/spdx-license",
-      "W3C Software Notice and License (2002-12-31)",
-      "W3C Software Notice and License (2002-12-31).",
-    ),
-    /** Sybase Open Watcom Public License 1.0. */
+    W3C("W3C", "http://hl7.org/fhir/spdx-license", "W3C Software Notice and License (2002-12-31)"),
     Watcom_1_0(
       "Watcom-1.0",
       "http://hl7.org/fhir/spdx-license",
       "Sybase Open Watcom Public License 1.0",
-      "Sybase Open Watcom Public License 1.0.",
     ),
-    /** Wsuipa License. */
-    Wsuipa("Wsuipa", "http://hl7.org/fhir/spdx-license", "Wsuipa License", "Wsuipa License."),
-    /** Do What The F*ck You Want To Public License. */
+    Wsuipa("Wsuipa", "http://hl7.org/fhir/spdx-license", "Wsuipa License"),
     Wtfpl(
       "WTFPL",
       "http://hl7.org/fhir/spdx-license",
       "Do What The F*ck You Want To Public License",
-      "Do What The F*ck You Want To Public License.",
     ),
-    /** X11 License. */
-    X11("X11", "http://hl7.org/fhir/spdx-license", "X11 License", "X11 License."),
-    /** Xerox License. */
-    Xerox("Xerox", "http://hl7.org/fhir/spdx-license", "Xerox License", "Xerox License."),
-    /** XFree86 License 1.1. */
-    XFree86_1_1(
-      "XFree86-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "XFree86 License 1.1",
-      "XFree86 License 1.1.",
-    ),
-    /** xinetd License. */
-    Xinetd("xinetd", "http://hl7.org/fhir/spdx-license", "xinetd License", "xinetd License."),
-    /** X.Net License. */
-    Xnet("Xnet", "http://hl7.org/fhir/spdx-license", "X.Net License", "X.Net License."),
-    /** XPP License. */
-    Xpp("xpp", "http://hl7.org/fhir/spdx-license", "XPP License", "XPP License."),
-    /** XSkat License. */
-    XSkat("XSkat", "http://hl7.org/fhir/spdx-license", "XSkat License", "XSkat License."),
-    /** Yahoo! Public License v1.0. */
-    Ypl_1_0(
-      "YPL-1.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Yahoo! Public License v1.0",
-      "Yahoo! Public License v1.0.",
-    ),
-    /** Yahoo! Public License v1.1. */
-    Ypl_1_1(
-      "YPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Yahoo! Public License v1.1",
-      "Yahoo! Public License v1.1.",
-    ),
-    /** Zed License. */
-    Zed("Zed", "http://hl7.org/fhir/spdx-license", "Zed License", "Zed License."),
-    /** Zend License v2.0. */
-    Zend_2_0(
-      "Zend-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Zend License v2.0",
-      "Zend License v2.0.",
-    ),
-    /** Zimbra Public License v1.3. */
-    Zimbra_1_3(
-      "Zimbra-1.3",
-      "http://hl7.org/fhir/spdx-license",
-      "Zimbra Public License v1.3",
-      "Zimbra Public License v1.3.",
-    ),
-    /** Zimbra Public License v1.4. */
-    Zimbra_1_4(
-      "Zimbra-1.4",
-      "http://hl7.org/fhir/spdx-license",
-      "Zimbra Public License v1.4",
-      "Zimbra Public License v1.4.",
-    ),
-    /** zlib/libpng License with Acknowledgement. */
+    X11("X11", "http://hl7.org/fhir/spdx-license", "X11 License"),
+    Xerox("Xerox", "http://hl7.org/fhir/spdx-license", "Xerox License"),
+    XFree86_1_1("XFree86-1.1", "http://hl7.org/fhir/spdx-license", "XFree86 License 1.1"),
+    Xinetd("xinetd", "http://hl7.org/fhir/spdx-license", "xinetd License"),
+    Xnet("Xnet", "http://hl7.org/fhir/spdx-license", "X.Net License"),
+    Xpp("xpp", "http://hl7.org/fhir/spdx-license", "XPP License"),
+    XSkat("XSkat", "http://hl7.org/fhir/spdx-license", "XSkat License"),
+    Ypl_1_0("YPL-1.0", "http://hl7.org/fhir/spdx-license", "Yahoo! Public License v1.0"),
+    Ypl_1_1("YPL-1.1", "http://hl7.org/fhir/spdx-license", "Yahoo! Public License v1.1"),
+    Zed("Zed", "http://hl7.org/fhir/spdx-license", "Zed License"),
+    Zend_2_0("Zend-2.0", "http://hl7.org/fhir/spdx-license", "Zend License v2.0"),
+    Zimbra_1_3("Zimbra-1.3", "http://hl7.org/fhir/spdx-license", "Zimbra Public License v1.3"),
+    Zimbra_1_4("Zimbra-1.4", "http://hl7.org/fhir/spdx-license", "Zimbra Public License v1.4"),
     Zlib_Acknowledgement(
       "zlib-acknowledgement",
       "http://hl7.org/fhir/spdx-license",
       "zlib/libpng License with Acknowledgement",
-      "zlib/libpng License with Acknowledgement.",
     ),
-    /** zlib License. */
-    Zlib("Zlib", "http://hl7.org/fhir/spdx-license", "zlib License", "zlib License."),
-    /** Zope Public License 1.1. */
-    Zpl_1_1(
-      "ZPL-1.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Zope Public License 1.1",
-      "Zope Public License 1.1.",
-    ),
-    /** Zope Public License 2.0. */
-    Zpl_2_0(
-      "ZPL-2.0",
-      "http://hl7.org/fhir/spdx-license",
-      "Zope Public License 2.0",
-      "Zope Public License 2.0.",
-    ),
-    /** Zope Public License 2.1. */
-    Zpl_2_1(
-      "ZPL-2.1",
-      "http://hl7.org/fhir/spdx-license",
-      "Zope Public License 2.1",
-      "Zope Public License 2.1.",
-    );
+    Zlib("Zlib", "http://hl7.org/fhir/spdx-license", "zlib License"),
+    Zpl_1_1("ZPL-1.1", "http://hl7.org/fhir/spdx-license", "Zope Public License 1.1"),
+    Zpl_2_0("ZPL-2.0", "http://hl7.org/fhir/spdx-license", "Zope Public License 2.0"),
+    Zpl_2_1("ZPL-2.1", "http://hl7.org/fhir/spdx-license", "Zope Public License 2.1");
 
     override fun toString(): kotlin.String = code
 
@@ -3417,8 +2026,6 @@ public data class ImplementationGuide(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SPDXLicense =

@@ -38,37 +38,38 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DocumentManifestRelatedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
   public var ref: Reference? = null,
 ) {
   public fun toModel(): DocumentManifest.Related =
-    DocumentManifest.Related().apply {
-      id = this@DocumentManifestRelatedSurrogate.id
-      extension = this@DocumentManifestRelatedSurrogate.extension
-      modifierExtension = this@DocumentManifestRelatedSurrogate.modifierExtension
-      identifier = this@DocumentManifestRelatedSurrogate.identifier
-      ref = this@DocumentManifestRelatedSurrogate.ref
-    }
+    DocumentManifest.Related(
+      id = this@DocumentManifestRelatedSurrogate.id,
+      extension = this@DocumentManifestRelatedSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DocumentManifestRelatedSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DocumentManifestRelatedSurrogate.identifier,
+      ref = this@DocumentManifestRelatedSurrogate.ref,
+    )
 
   public companion object {
     public fun fromModel(model: DocumentManifest.Related): DocumentManifestRelatedSurrogate =
       with(model) {
-        DocumentManifestRelatedSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          ref = this@with.ref
-        }
+        DocumentManifestRelatedSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier,
+          ref = this@with.ref,
+        )
       }
   }
 }
@@ -82,100 +83,101 @@ internal data class DocumentManifestSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var masterIdentifier: Identifier? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
-  public var author: List<Reference?>? = null,
-  public var recipient: List<Reference?>? = null,
+  public var author: MutableList<Reference>? = null,
+  public var recipient: MutableList<Reference>? = null,
   public var source: KotlinString? = null,
   public var _source: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var content: List<Reference?>? = null,
-  public var related: List<DocumentManifest.Related>? = null,
+  public var content: MutableList<Reference>? = null,
+  public var related: MutableList<DocumentManifest.Related>? = null,
 ) {
   public fun toModel(): DocumentManifest =
-    DocumentManifest().apply {
-      id = this@DocumentManifestSurrogate.id
-      meta = this@DocumentManifestSurrogate.meta
+    DocumentManifest(
+      id = this@DocumentManifestSurrogate.id,
+      meta = this@DocumentManifestSurrogate.meta,
       implicitRules =
         Uri.of(
           this@DocumentManifestSurrogate.implicitRules,
           this@DocumentManifestSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@DocumentManifestSurrogate.language, this@DocumentManifestSurrogate._language)
-      text = this@DocumentManifestSurrogate.text
-      contained = this@DocumentManifestSurrogate.contained
-      extension = this@DocumentManifestSurrogate.extension
-      modifierExtension = this@DocumentManifestSurrogate.modifierExtension
-      masterIdentifier = this@DocumentManifestSurrogate.masterIdentifier
-      identifier = this@DocumentManifestSurrogate.identifier
+        Code.of(this@DocumentManifestSurrogate.language, this@DocumentManifestSurrogate._language),
+      text = this@DocumentManifestSurrogate.text,
+      contained = this@DocumentManifestSurrogate.contained ?: mutableListOf(),
+      extension = this@DocumentManifestSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DocumentManifestSurrogate.modifierExtension ?: mutableListOf(),
+      masterIdentifier = this@DocumentManifestSurrogate.masterIdentifier,
+      identifier = this@DocumentManifestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@DocumentManifestSurrogate.status?.let {
-            com.google.fhir.model.r4.DocumentReferenceStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.DocumentReferenceStatus.fromCode(
+            this@DocumentManifestSurrogate.status!!
+          ),
           this@DocumentManifestSurrogate._status,
-        )
-      type = this@DocumentManifestSurrogate.type
-      subject = this@DocumentManifestSurrogate.subject
+        ),
+      type = this@DocumentManifestSurrogate.type,
+      subject = this@DocumentManifestSurrogate.subject,
       created =
         DateTime.of(
           FhirDateTime.fromString(this@DocumentManifestSurrogate.created),
           this@DocumentManifestSurrogate._created,
-        )
-      author = this@DocumentManifestSurrogate.author
-      recipient = this@DocumentManifestSurrogate.recipient
-      source = Uri.of(this@DocumentManifestSurrogate.source, this@DocumentManifestSurrogate._source)
+        ),
+      author = this@DocumentManifestSurrogate.author ?: mutableListOf(),
+      recipient = this@DocumentManifestSurrogate.recipient ?: mutableListOf(),
+      source =
+        Uri.of(this@DocumentManifestSurrogate.source, this@DocumentManifestSurrogate._source),
       description =
         R4String.of(
           this@DocumentManifestSurrogate.description,
           this@DocumentManifestSurrogate._description,
-        )
-      content = this@DocumentManifestSurrogate.content
-      related = this@DocumentManifestSurrogate.related
-    }
+        ),
+      content = this@DocumentManifestSurrogate.content ?: mutableListOf(),
+      related = this@DocumentManifestSurrogate.related ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DocumentManifest): DocumentManifestSurrogate =
       with(model) {
-        DocumentManifestSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          masterIdentifier = this@with.masterIdentifier
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type
-          subject = this@with.subject
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          author = this@with.author
-          recipient = this@with.recipient
-          source = this@with.source?.value
-          _source = this@with.source?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          content = this@with.content
-          related = this@with.related
-        }
+        DocumentManifestSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          masterIdentifier = this@with.masterIdentifier,
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          type = this@with.type,
+          subject = this@with.subject,
+          created = this@with.created?.value?.toString(),
+          _created = this@with.created?.toElement(),
+          author = this@with.author.takeUnless { it.all { it == null } },
+          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+          source = this@with.source?.value,
+          _source = this@with.source?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          content = this@with.content.takeUnless { it.all { it == null } },
+          related = this@with.related.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

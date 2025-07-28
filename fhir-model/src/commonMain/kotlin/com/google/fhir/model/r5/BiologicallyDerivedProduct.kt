@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertySe
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class BiologicallyDerivedProduct(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Broad category of this product. */
   public var productCategory: Coding? = null,
   /**
@@ -148,9 +148,9 @@ public data class BiologicallyDerivedProduct(
    * collected over several days from a single donor and the donation split into in multiple
    * containers which must be linked to the parent donation.
    */
-  public var parent: List<Reference?>? = null,
+  public var parent: MutableList<Reference> = mutableListOf(),
   /** Request to obtain and/or infuse this biologically derived product. */
-  public var request: List<Reference?>? = null,
+  public var request: MutableList<Reference> = mutableListOf(),
   /**
    * Unique instance identifiers assigned to a biologically derived product. Note: This is a
    * business identifier, not a resource identifier.
@@ -158,7 +158,7 @@ public data class BiologicallyDerivedProduct(
    * This identifier should uniquely identify the product instance in the business domain. Ideally
    * it should be a globally unique identifier under the control of an ISO/IEC 15459 Issuing Agency.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * An identifier that supports traceability to the event during which material in this product
    * from one or more biological entities was obtained or pooled.
@@ -180,7 +180,7 @@ public data class BiologicallyDerivedProduct(
    * Processing facilities responsible for the labeling and distribution of this biologically
    * derived product.
    */
-  public var processingFacility: List<Reference?>? = null,
+  public var processingFacility: MutableList<Reference> = mutableListOf(),
   /**
    * A unique identifier for an aliquot of a product. Used to distinguish individual aliquots of a
    * product carrying the same biologicalSource and productCode identifiers.
@@ -204,7 +204,7 @@ public data class BiologicallyDerivedProduct(
    * Property can be used to provide information on a wide range of additional information specific
    * to a particular biologicallyDerivedProduct.
    */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
 ) : DomainResource() {
   /** How this product was collected. */
   @Serializable(with = BiologicallyDerivedProductCollectionSerializer::class)
@@ -226,7 +226,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -245,7 +245,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Healthcare professional who is performing the collection. */
     public var collector: Reference? = null,
     /**
@@ -266,16 +266,14 @@ public data class BiologicallyDerivedProduct(
 
       public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Collected
 
-      public data object Null : Collected
-
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-        ): Collected {
+          periodValue: com.google.fhir.model.r5.Period?,
+        ): Collected? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          return Null
+          if (periodValue != null) return Period(periodValue)
+          return null
         }
       }
     }
@@ -301,7 +299,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -320,14 +318,14 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Code that specifies the property. It should reference an established coding system.
      *
      * The element is identified by name and system URI in the type. Some types may have multiple
      * occurrences.
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * Property values.
      *
@@ -335,7 +333,7 @@ public data class BiologicallyDerivedProduct(
      * ratio, or attachment. The description can be a string only when these others are not
      * available. The type of value will depend on the property type and is specified in ST-027.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = BiologicallyDerivedProductPropertyValueSerializer::class)
     public sealed interface Value {
@@ -377,30 +375,28 @@ public data class BiologicallyDerivedProduct(
 
       public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
+        internal fun from(
           booleanValue: com.google.fhir.model.r5.Boolean?,
           integerValue: com.google.fhir.model.r5.Integer?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          RatioValue: com.google.fhir.model.r5.Ratio?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          periodValue: com.google.fhir.model.r5.Period?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          ratioValue: com.google.fhir.model.r5.Ratio?,
           stringValue: com.google.fhir.model.r5.String?,
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-        ): Value {
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+        ): Value? {
           if (booleanValue != null) return Boolean(booleanValue)
           if (integerValue != null) return Integer(integerValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (RatioValue != null) return Ratio(RatioValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (periodValue != null) return Period(periodValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (ratioValue != null) return Ratio(ratioValue)
           if (stringValue != null) return String(stringValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return Null
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          return null
         }
       }
     }

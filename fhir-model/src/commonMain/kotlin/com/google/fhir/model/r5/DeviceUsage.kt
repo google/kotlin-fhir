@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.DeviceUsageSerializer
 import com.google.fhir.model.r5.serializers.DeviceUsageTimingSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class DeviceUsage(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class DeviceUsage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,11 +131,11 @@ public data class DeviceUsage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An external identifier for this statement such as an IRI. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this DeviceUsage. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A code representing the patient or other source's judgment about the state of the device used
    * that this statement is about. Generally this will be active or completed.
@@ -148,14 +148,14 @@ public data class DeviceUsage(
    * This element is labeled as a modifier because the status contains the codes that mark the
    * statement as not currently valid.
    */
-  public var status: Enumeration<DeviceUsageStatus>? = null,
+  public var status: Enumeration<DeviceUsageStatus>,
   /**
    * This attribute indicates a category for the statement - The device statement may be made in an
    * inpatient or outpatient settting (inpatient | outpatient | community | patientspecified).
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** The patient who used the device. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /**
    * Allows linking the DeviceUsage to the underlying Request, or to other information that supports
    * or is used to derive the DeviceUsage.
@@ -164,7 +164,7 @@ public data class DeviceUsage(
    * from an observation or a claim. it should be noted that the amount of information that is
    * available varies from the type resource that you derive the DeviceUsage from.
    */
-  public var derivedFrom: List<Reference?>? = null,
+  public var derivedFrom: MutableList<Reference> = mutableListOf(),
   /**
    * The encounter or episode of care that establishes the context for this device use statement.
    */
@@ -179,20 +179,20 @@ public data class DeviceUsage(
    */
   public var usageStatus: CodeableConcept? = null,
   /** The reason for asserting the usage status - for example forgot, lost, stolen, broken. */
-  public var usageReason: List<CodeableConcept?>? = null,
+  public var usageReason: MutableList<CodeableConcept> = mutableListOf(),
   /** This indicates how or if the device is being used. */
   public var adherence: Adherence? = null,
   /** Who reported the device was being used by the patient. */
   public var informationSource: Reference? = null,
   /** Code or Reference to device used. */
-  public var device: CodeableReference? = null,
+  public var device: CodeableReference,
   /**
    * Reason or justification for the use of the device. A coded concept, or another resource whose
    * existence justifies this DeviceUsage.
    *
    * When the status is not done, the reason code indicates why it was not done.
    */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Indicates the anotomic location on the subject's body where the device was used ( i.e. the
    * target).
@@ -203,7 +203,7 @@ public data class DeviceUsage(
    * the attributes provided in a class. These may include for example a comment, an instruction, or
    * a note associated with the statement.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** This indicates how or if the device is being used. */
   @Serializable(with = DeviceUsageAdherenceSerializer::class)
@@ -225,7 +225,7 @@ public data class DeviceUsage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -244,11 +244,11 @@ public data class DeviceUsage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Type of adherence. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** Reason for adherence type. */
-    public var reason: List<CodeableConcept?>? = null,
+    public var reason: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = DeviceUsageTimingSerializer::class)
@@ -268,18 +268,16 @@ public data class DeviceUsage(
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) :
       DeviceUsage.Timing
 
-    public data object Null : DeviceUsage.Timing
-
     public companion object {
-      public fun from(
-        TimingValue: com.google.fhir.model.r5.Timing?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
+      internal fun from(
+        timingValue: com.google.fhir.model.r5.Timing?,
+        periodValue: com.google.fhir.model.r5.Period?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-      ): DeviceUsage.Timing {
-        if (TimingValue != null) return Timing(TimingValue)
-        if (PeriodValue != null) return Period(PeriodValue)
+      ): DeviceUsage.Timing? {
+        if (timingValue != null) return Timing(timingValue)
+        if (periodValue != null) return Period(periodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return Null
+        return null
       }
     }
   }
@@ -289,62 +287,18 @@ public data class DeviceUsage(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The device is still being used. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/deviceusage-status",
-      "Active",
-      "The device is still being used.",
-    ),
-    /** The device is no longer being used. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/deviceusage-status",
-      "Completed",
-      "The device is no longer being used.",
-    ),
-    /** The device was not used. */
-    Not_Done(
-      "not-done",
-      "http://hl7.org/fhir/deviceusage-status",
-      "Not done",
-      "The device was not used.",
-    ),
-    /** The statement was recorded incorrectly. */
+    Active("active", "http://hl7.org/fhir/deviceusage-status", "Active"),
+    Completed("completed", "http://hl7.org/fhir/deviceusage-status", "Completed"),
+    Not_Done("not-done", "http://hl7.org/fhir/deviceusage-status", "Not done"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/deviceusage-status",
       "Entered in Error",
-      "The statement was recorded incorrectly.",
     ),
-    /** The device may be used at some time in the future. */
-    Intended(
-      "intended",
-      "http://hl7.org/fhir/deviceusage-status",
-      "Intended",
-      "The device may be used at some time in the future.",
-    ),
-    /**
-     * Actions implied by the statement have been permanently halted, before all of them occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/deviceusage-status",
-      "Stopped",
-      "Actions implied by the statement have been permanently halted, before all of them occurred.",
-    ),
-    /**
-     * Actions implied by the statement have been temporarily halted, but are expected to continue
-     * later. May also be called "suspended".
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/deviceusage-status",
-      "On Hold",
-      "Actions implied by the statement have been temporarily halted, but are expected to continue later. May also be called \"suspended\".",
-    );
+    Intended("intended", "http://hl7.org/fhir/deviceusage-status", "Intended"),
+    Stopped("stopped", "http://hl7.org/fhir/deviceusage-status", "Stopped"),
+    On_Hold("on-hold", "http://hl7.org/fhir/deviceusage-status", "On Hold");
 
     override fun toString(): String = code
 
@@ -353,8 +307,6 @@ public data class DeviceUsage(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceUsageStatus =

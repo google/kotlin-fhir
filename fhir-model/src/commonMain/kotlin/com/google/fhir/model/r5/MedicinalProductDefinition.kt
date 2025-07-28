@@ -28,7 +28,7 @@ import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionNameUsageS
 import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionOperationSerializer
 import com.google.fhir.model.r5.serializers.MedicinalProductDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -104,7 +104,7 @@ public data class MedicinalProductDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class MedicinalProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,14 +136,14 @@ public data class MedicinalProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifier for this product. Could be an MPID. When in development or being regulated,
    * products are typically referenced by official identifiers, assigned by a manufacturer or
    * regulator, and unique to a product (which, when compared to a product instance being
    * prescribed, is actually a product type). See also MedicinalProductDefinition.code.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Regulatory type, e.g. Investigational or Authorized. */
   public var type: CodeableConcept? = null,
   /** If this medicine applies to human or veterinary uses. */
@@ -175,7 +175,7 @@ public data class MedicinalProductDefinition(
    * resource. MedicinalProductDefinition.route is the same concept as
    * AdministrableProductDefinition.routeOfAdministration.code, and they cannot be used together.
    */
-  public var route: List<CodeableConcept?>? = null,
+  public var route: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Description of indication(s) for this product, used when structured indications are not
    * required. In cases where structured indications are required, they are captured using the
@@ -194,25 +194,25 @@ public data class MedicinalProductDefinition(
    * Whether the Medicinal Product is subject to special measures for regulatory reasons, such as a
    * requirement to conduct post-authorization studies.
    */
-  public var specialMeasures: List<CodeableConcept?>? = null,
+  public var specialMeasures: MutableList<CodeableConcept> = mutableListOf(),
   /** If authorised for use in children, or infants, neonates etc. */
   public var pediatricUseIndicator: CodeableConcept? = null,
   /** Allows the product to be classified by various systems, commonly WHO ATC. */
-  public var classification: List<CodeableConcept?>? = null,
+  public var classification: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Marketing status of the medicinal product, in contrast to marketing authorization. This refers
    * to the product being actually 'on the market' as opposed to being allowed to be on the market
    * (which is an authorization).
    */
-  public var marketingStatus: List<MarketingStatus?>? = null,
+  public var marketingStatus: MutableList<MarketingStatus> = mutableListOf(),
   /** Package type for the product. See also the PackagedProductDefinition resource. */
-  public var packagedMedicinalProduct: List<CodeableConcept?>? = null,
+  public var packagedMedicinalProduct: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Types of medicinal manufactured items and/or devices that this product consists of, such as
    * tablets, capsule, or syringes. Used as a direct link when the item's packaging is not being
    * recorded (see also PackagedProductDefinition.package.containedItem.item).
    */
-  public var comprisedOf: List<Reference?>? = null,
+  public var comprisedOf: MutableList<Reference> = mutableListOf(),
   /**
    * The ingredients of this medicinal product - when not detailed in other resources. This is only
    * needed if the ingredients are not specified by incoming references from the Ingredient
@@ -220,26 +220,26 @@ public data class MedicinalProductDefinition(
    * or ManufacturedItemDefinition references. In cases where those levels of detail are not used,
    * the ingredients may be specified directly here as codes.
    */
-  public var ingredient: List<CodeableConcept?>? = null,
+  public var ingredient: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Any component of the drug product which is not the chemical entity defined as the drug
    * substance, or an excipient in the drug product. This includes process-related impurities and
    * contaminants, product-related impurities including degradation products.
    */
-  public var impurity: List<CodeableReference?>? = null,
+  public var impurity: MutableList<CodeableReference> = mutableListOf(),
   /** Additional information or supporting documentation about the medicinal product. */
-  public var attachedDocument: List<Reference?>? = null,
+  public var attachedDocument: MutableList<Reference> = mutableListOf(),
   /**
    * A master file for the medicinal product (e.g. Pharmacovigilance System Master File). Drug
    * master files (DMFs) are documents submitted to regulatory agencies to provide confidential
    * detailed information about facilities, processes or articles used in the manufacturing,
    * processing, packaging and storing of drug products.
    */
-  public var masterFile: List<Reference?>? = null,
+  public var masterFile: MutableList<Reference> = mutableListOf(),
   /** A product specific contact, person (in a role), or an organization. */
-  public var contact: List<Contact>? = null,
+  public var contact: MutableList<Contact> = mutableListOf(),
   /** Clinical trials or studies that this product is involved in. */
-  public var clinicalTrial: List<Reference?>? = null,
+  public var clinicalTrial: MutableList<Reference> = mutableListOf(),
   /**
    * A code that this product is known by, usually within some formal terminology, perhaps assigned
    * by a third party (i.e. not the manufacturer or regulator). Products (types of medications) tend
@@ -247,24 +247,24 @@ public data class MedicinalProductDefinition(
    * are prescribed they tend to be identified by codes. The same product may be have multiple
    * codes, applied to it by multiple organizations.
    */
-  public var code: List<Coding?>? = null,
+  public var code: MutableList<Coding> = mutableListOf(),
   /** The product's name, including full name and possibly coded parts. */
-  public var name: List<Name>? = null,
+  public var name: MutableList<Name> = mutableListOf(),
   /**
    * Reference to another product, e.g. for linking authorised to investigational product, or a
    * virtual product.
    */
-  public var crossReference: List<CrossReference>? = null,
+  public var crossReference: MutableList<CrossReference> = mutableListOf(),
   /**
    * A manufacturing or administrative process or step associated with (or performed on) the
    * medicinal product.
    */
-  public var operation: List<Operation>? = null,
+  public var operation: MutableList<Operation> = mutableListOf(),
   /**
    * Allows the key product features to be recorded, such as "sugar free", "modified release",
    * "parallel import".
    */
-  public var characteristic: List<Characteristic>? = null,
+  public var characteristic: MutableList<Characteristic> = mutableListOf(),
 ) : DomainResource() {
   /** A product specific contact, person (in a role), or an organization. */
   @Serializable(with = MedicinalProductDefinitionContactSerializer::class)
@@ -286,7 +286,7 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -305,13 +305,13 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Allows the contact to be classified, for example QPPV, Pharmacovigilance Enquiry Information.
      */
     public var type: CodeableConcept? = null,
     /** A product specific contact, person (in a role), or an organization. */
-    public var contact: Reference? = null,
+    public var contact: Reference,
   ) : BackboneElement()
 
   /** The product's name, including full name and possibly coded parts. */
@@ -334,7 +334,7 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -353,15 +353,15 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The full product name. */
-    public var productName: String? = null,
+    public var productName: String,
     /** Type of product name, such as rINN, BAN, Proprietary, Non-Proprietary. */
     public var type: CodeableConcept? = null,
     /** Coding words or phrases of the name. */
-    public var part: List<Part>? = null,
+    public var part: MutableList<Part> = mutableListOf(),
     /** Country and jurisdiction where the name applies, and associated language. */
-    public var usage: List<Usage>? = null,
+    public var usage: MutableList<Usage> = mutableListOf(),
   ) : BackboneElement() {
     /** Coding words or phrases of the name. */
     @Serializable(with = MedicinalProductDefinitionNamePartSerializer::class)
@@ -383,7 +383,7 @@ public data class MedicinalProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -402,11 +402,11 @@ public data class MedicinalProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A fragment of a product name. */
-      public var part: String? = null,
+      public var part: String,
       /** Identifying type for this part of the name (e.g. strength part). */
-      public var type: CodeableConcept? = null,
+      public var type: CodeableConcept,
     ) : BackboneElement()
 
     /** Country and jurisdiction where the name applies, and associated language. */
@@ -429,7 +429,7 @@ public data class MedicinalProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -448,16 +448,16 @@ public data class MedicinalProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Country code for where this name applies. */
-      public var country: CodeableConcept? = null,
+      public var country: CodeableConcept,
       /**
        * Jurisdiction code for where this name applies. A jurisdiction may be a sub- or
        * supra-national entity (e.g. a state or a geographic region).
        */
       public var jurisdiction: CodeableConcept? = null,
       /** Language code for this name. */
-      public var language: CodeableConcept? = null,
+      public var language: CodeableConcept,
     ) : BackboneElement()
   }
 
@@ -484,7 +484,7 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -503,9 +503,9 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Reference to another product, e.g. for linking authorised to investigational product. */
-    public var product: CodeableReference? = null,
+    public var product: CodeableReference,
     /**
      * The type of relationship, for instance branded to generic, virtual to actual product, product
      * to development product (investigational), parallel import version.
@@ -536,7 +536,7 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -555,7 +555,7 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of manufacturing operation e.g. manufacturing itself, re-packaging. For the
      * authorization of this, a RegulatedAuthorization would point to the same plan or activity
@@ -568,7 +568,7 @@ public data class MedicinalProductDefinition(
      * The organization or establishment responsible for (or associated with) the particular process
      * or step, examples include the manufacturer, importer, agent.
      */
-    public var organization: List<Reference?>? = null,
+    public var organization: MutableList<Reference> = mutableListOf(),
     /**
      * Specifies whether this particular business or manufacturing process is considered proprietary
      * or confidential.
@@ -599,7 +599,7 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -618,9 +618,9 @@ public data class MedicinalProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code expressing the type of characteristic. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * A value for the characteristic.text.
      *
@@ -662,26 +662,24 @@ public data class MedicinalProductDefinition(
 
       public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           markdownValue: com.google.fhir.model.r5.Markdown?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
           integerValue: com.google.fhir.model.r5.Integer?,
           dateValue: com.google.fhir.model.r5.Date?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (markdownValue != null) return Markdown(markdownValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           if (integerValue != null) return Integer(integerValue)
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return Null
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          return null
         }
       }
     }

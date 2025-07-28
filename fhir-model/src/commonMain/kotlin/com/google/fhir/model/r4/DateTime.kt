@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /**
  * Base StructureDefinition for dateTime Type: A date, date-time or partial date (e.g. just year or
@@ -43,12 +43,12 @@ public data class DateTime(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
   public var `value`: FhirDateTime? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
-    if (id != null || extension != null) {
+    if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
@@ -56,10 +56,10 @@ public data class DateTime(
 
   public companion object {
     public fun of(`value`: FhirDateTime?, element: Element?): DateTime? =
-      if (value == null && element == null) {
-        null
+      if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
+        DateTime(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
-        DateTime(element?.id, element?.extension, value)
+        null
       }
   }
 }

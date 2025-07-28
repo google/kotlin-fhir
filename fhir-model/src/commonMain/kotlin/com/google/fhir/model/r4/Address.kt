@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.AddressSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class Address(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The purpose of this address.
    *
@@ -80,7 +80,7 @@ public data class Address(
    * This component contains the house number, apartment number, street name, street direction, P.O.
    * Box number, delivery hints, and similar address information.
    */
-  public var line: List<String?>? = null,
+  public var line: MutableList<String> = mutableListOf(),
   /** The name of the city, town, suburb, village or other community or delivery center. */
   public var city: String? = null,
   /**
@@ -111,38 +111,12 @@ public data class Address(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A communication address at a home. */
-    Home("home", "http://hl7.org/fhir/address-use", "Home", "A communication address at a home."),
-    /** An office address. First choice for business related contacts during business hours. */
-    Work(
-      "work",
-      "http://hl7.org/fhir/address-use",
-      "Work",
-      "An office address. First choice for business related contacts during business hours.",
-    ),
-    /** A temporary address. The period can provide more detailed information. */
-    Temp(
-      "temp",
-      "http://hl7.org/fhir/address-use",
-      "Temporary",
-      "A temporary address. The period can provide more detailed information.",
-    ),
-    /** This address is no longer in use (or was never correct but retained for records). */
-    Old(
-      "old",
-      "http://hl7.org/fhir/address-use",
-      "Old / Incorrect",
-      "This address is no longer in use (or was never correct but retained for records).",
-    ),
-    /** An address to be used to send bills, invoices, receipts etc. */
-    Billing(
-      "billing",
-      "http://hl7.org/fhir/address-use",
-      "Billing",
-      "An address to be used to send bills, invoices, receipts etc.",
-    );
+    Home("home", "http://hl7.org/fhir/address-use", "Home"),
+    Work("work", "http://hl7.org/fhir/address-use", "Work"),
+    Temp("temp", "http://hl7.org/fhir/address-use", "Temporary"),
+    Old("old", "http://hl7.org/fhir/address-use", "Old / Incorrect"),
+    Billing("billing", "http://hl7.org/fhir/address-use", "Billing");
 
     override fun toString(): kotlin.String = code
 
@@ -151,8 +125,6 @@ public data class Address(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AddressUse =
@@ -172,29 +144,10 @@ public data class Address(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Mailing addresses - PO Boxes and care-of addresses. */
-    Postal(
-      "postal",
-      "http://hl7.org/fhir/address-type",
-      "Postal",
-      "Mailing addresses - PO Boxes and care-of addresses.",
-    ),
-    /** A physical address that can be visited. */
-    Physical(
-      "physical",
-      "http://hl7.org/fhir/address-type",
-      "Physical",
-      "A physical address that can be visited.",
-    ),
-    /** An address that is both physical and postal. */
-    Both(
-      "both",
-      "http://hl7.org/fhir/address-type",
-      "Postal & Physical",
-      "An address that is both physical and postal.",
-    );
+    Postal("postal", "http://hl7.org/fhir/address-type", "Postal"),
+    Physical("physical", "http://hl7.org/fhir/address-type", "Physical"),
+    Both("both", "http://hl7.org/fhir/address-type", "Postal & Physical");
 
     override fun toString(): kotlin.String = code
 
@@ -203,8 +156,6 @@ public data class Address(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AddressType =

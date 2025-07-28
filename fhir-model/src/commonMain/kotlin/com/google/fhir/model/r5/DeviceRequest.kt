@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.DeviceRequestParameterValueSerialize
 import com.google.fhir.model.r5.serializers.DeviceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class DeviceRequest(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class DeviceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,9 +133,9 @@ public data class DeviceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifiers assigned to this order by the orderer or by the receiver. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this DeviceRequest.
@@ -147,18 +147,18 @@ public data class DeviceRequest(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this DeviceRequest.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** Plan/proposal/order fulfilled by this request. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The request takes the place of the referenced completed or terminated request(s). */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * A shared identifier common to multiple independent Request instances that were
    * activated/authorized more or less simultaneously by a single author. The presence of the same
@@ -175,7 +175,7 @@ public data class DeviceRequest(
    */
   public var status: Enumeration<DeviceRequestStatus>? = null,
   /** Whether the request is a proposal, plan, an original order or a reflex order. */
-  public var intent: Enumeration<RequestIntent>? = null,
+  public var intent: Enumeration<RequestIntent>,
   /** Indicates how quickly the request should be addressed with respect to other requests. */
   public var priority: Enumeration<RequestPriority>? = null,
   /**
@@ -188,13 +188,13 @@ public data class DeviceRequest(
    */
   public var doNotPerform: Boolean? = null,
   /** The details of the device to be used. */
-  public var code: CodeableReference? = null,
+  public var code: CodeableReference,
   /** The number of devices to be provided. */
   public var quantity: Integer? = null,
   /** Specific parameters for the ordered item. For example, the prism value for lenses. */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
   /** The patient who will use the device. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** An encounter that provides additional context in which this request is made. */
   public var encounter: Reference? = null,
   /**
@@ -215,7 +215,7 @@ public data class DeviceRequest(
    */
   public var performer: CodeableReference? = null,
   /** Reason or justification for the use of this device. */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /** This status is to indicate whether the request is a PRN or may be given as needed. */
   public var asNeeded: Boolean? = null,
   /** The reason for using the device. */
@@ -224,19 +224,19 @@ public data class DeviceRequest(
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * required for delivering the requested service.
    */
-  public var insurance: List<Reference?>? = null,
+  public var insurance: MutableList<Reference> = mutableListOf(),
   /**
    * Additional clinical information about the patient that may influence the request fulfilment.
    * For example, this may include where on the subject's body the device will be used (i.e. the
    * target site).
    */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Details about this request that were not represented at all or sufficiently in one of the
    * attributes provided in a class. These may include for example a comment, an instruction, or a
    * note associated with the statement.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Key events in the history of the request.
    *
@@ -247,7 +247,7 @@ public data class DeviceRequest(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.
    */
-  public var relevantHistory: List<Reference?>? = null,
+  public var relevantHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Specific parameters for the ordered item. For example, the prism value for lenses. */
   @Serializable(with = DeviceRequestParameterSerializer::class)
@@ -269,7 +269,7 @@ public data class DeviceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,7 +288,7 @@ public data class DeviceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code or string that identifies the device detail being asserted. */
     public var code: CodeableConcept? = null,
     /**
@@ -318,20 +318,18 @@ public data class DeviceRequest(
 
       public data class Boolean(public val `value`: com.google.fhir.model.r5.Boolean) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          return Null
+          return null
         }
       }
     }
@@ -351,18 +349,16 @@ public data class DeviceRequest(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
-    public data object Null : Occurrence
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurrence {
+        periodValue: com.google.fhir.model.r5.Period?,
+        timingValue: com.google.fhir.model.r5.Timing?,
+      ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
+        return null
       }
     }
   }
@@ -372,74 +368,14 @@ public data class DeviceRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/request-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is in force and ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/request-status",
-      "Active",
-      "The request is in force and ready to be acted upon.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been temporarily withdrawn but is
-     * expected to resume in the future.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/request-status",
-      "On Hold",
-      "The request (and any implicit authorization to act) has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been terminated prior to the known
-     * full completion of the intended actions. No further activity should occur.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/request-status",
-      "Revoked",
-      "The request (and any implicit authorization to act) has been terminated prior to the known full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * The activity described by the request has been fully performed. No further activity will
-     * occur.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/request-status",
-      "Completed",
-      "The activity described by the request has been fully performed.  No further activity will occur.",
-    ),
-    /**
-     * This request should never have existed and should be considered 'void'. (It is possible that
-     * real-world decisions were based on it. If real-world activity has occurred, the status should
-     * be "revoked" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      "This request should never have existed and should be considered 'void'.  (It is possible that real-world decisions were based on it.  If real-world activity has occurred, the status should be \"revoked\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this request. Note: This concept is not to be used for "other" - one of the listed statuses
-     * is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/request-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -448,8 +384,6 @@ public data class DeviceRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceRequestStatus =
@@ -471,93 +405,16 @@ public data class DeviceRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /**
-     * The request represents a legally binding instruction authored by a Patient or RelatedPerson.
-     */
-    Directive(
-      "directive",
-      "http://hl7.org/fhir/request-intent",
-      "Directive",
-      "The request represents a legally binding instruction authored by a Patient or RelatedPerson.",
-    ),
-    /** The request represents a request/demand and authorization for action by the requestor. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by the requestor.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestOrchestration that establishes
-     * timing, conditionality and/or other constraints among a set of requests. Refer to
-     * [[[RequestOrchestration]]] for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestOrchestration that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestOrchestration]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): String = code
 
@@ -566,8 +423,6 @@ public data class DeviceRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): RequestIntent =
@@ -591,38 +446,11 @@ public data class DeviceRequest(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): String = code
 
@@ -631,8 +459,6 @@ public data class DeviceRequest(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): RequestPriority =

@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ContributorSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,49 +46,24 @@ public data class Contributor(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** The type of contributor. */
-  public var type: Enumeration<ContributorType>? = null,
+  public var type: Enumeration<ContributorType>,
   /** The name of the individual or organization responsible for the contribution. */
-  public var name: String? = null,
+  public var name: String,
   /** Contact details to assist a user in finding and communicating with the contributor. */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
 ) : Element() {
   /** The type of contributor. */
   public enum class ContributorType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** An author of the content of the module. */
-    Author(
-      "author",
-      "http://hl7.org/fhir/contributor-type",
-      "Author",
-      "An author of the content of the module.",
-    ),
-    /** An editor of the content of the module. */
-    Editor(
-      "editor",
-      "http://hl7.org/fhir/contributor-type",
-      "Editor",
-      "An editor of the content of the module.",
-    ),
-    /** A reviewer of the content of the module. */
-    Reviewer(
-      "reviewer",
-      "http://hl7.org/fhir/contributor-type",
-      "Reviewer",
-      "A reviewer of the content of the module.",
-    ),
-    /** An endorser of the content of the module. */
-    Endorser(
-      "endorser",
-      "http://hl7.org/fhir/contributor-type",
-      "Endorser",
-      "An endorser of the content of the module.",
-    );
+    Author("author", "http://hl7.org/fhir/contributor-type", "Author"),
+    Editor("editor", "http://hl7.org/fhir/contributor-type", "Editor"),
+    Reviewer("reviewer", "http://hl7.org/fhir/contributor-type", "Reviewer"),
+    Endorser("endorser", "http://hl7.org/fhir/contributor-type", "Endorser");
 
     override fun toString(): kotlin.String = code
 
@@ -97,8 +72,6 @@ public data class Contributor(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ContributorType =

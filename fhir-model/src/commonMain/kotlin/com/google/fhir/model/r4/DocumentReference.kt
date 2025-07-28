@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.DocumentReferenceContextSerializer
 import com.google.fhir.model.r4.serializers.DocumentReferenceRelatesToSerializer
 import com.google.fhir.model.r4.serializers.DocumentReferenceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class DocumentReference(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class DocumentReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class DocumentReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Document identifier as assigned by the source of the document. This identifier is specific to
    * this version of the document. This unique identifier may be used elsewhere to identify this
@@ -141,7 +141,7 @@ public data class DocumentReference(
    */
   public var masterIdentifier: Identifier? = null,
   /** Other identifiers associated with the document, including version independent identifiers. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of this document reference.
    *
@@ -151,7 +151,7 @@ public data class DocumentReference(
    * This element is labeled as a modifier because the status contains the codes that mark the
    * document or reference as not currently valid.
    */
-  public var status: Enumeration<DocumentReferenceStatus>? = null,
+  public var status: Enumeration<DocumentReferenceStatus>,
   /**
    * The status of the underlying document.
    *
@@ -174,7 +174,7 @@ public data class DocumentReference(
    * broader perspective that groups similar documents based on how they would be used. This is a
    * primary key used in searching.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Who or what the document is about. The document can be about a person, (patient or healthcare
    * practitioner), a device (e.g. a machine) or even a group of subjects (such as a document about
@@ -192,7 +192,7 @@ public data class DocumentReference(
    *
    * Not necessarily who did the actual data entry (i.e. typist) or who was the source (informant).
    */
-  public var author: List<Reference?>? = null,
+  public var author: MutableList<Reference> = mutableListOf(),
   /**
    * Which person or organization authenticates that this document is valid.
    *
@@ -217,7 +217,7 @@ public data class DocumentReference(
    * This element is labeled as a modifier because documents that append to other documents are
    * incomplete on their own.
    */
-  public var relatesTo: List<RelatesTo>? = null,
+  public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
   /**
    * Human-readable description of the source document.
    *
@@ -242,12 +242,12 @@ public data class DocumentReference(
    * to Confidentiality, Sensitivity, Integrity, and Handling Caveats. Some values would come from a
    * local vocabulary as they are related to workflow roles and special projects.
    */
-  public var securityLabel: List<CodeableConcept?>? = null,
+  public var securityLabel: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The document and format referenced. There may be multiple content element repetitions, each
    * with a different format.
    */
-  public var content: List<Content>? = null,
+  public var content: MutableList<Content> = mutableListOf(),
   /**
    * The clinical context in which the document was prepared.
    *
@@ -275,7 +275,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -294,16 +294,16 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of relationship that this document has with anther document.
      *
      * If this document appends another document, then the document cannot be fully understood
      * without also accessing the referenced document.
      */
-    public var code: Enumeration<DocumentRelationshipType>? = null,
+    public var code: Enumeration<DocumentRelationshipType>,
     /** The target document of this relationship. */
-    public var target: Reference? = null,
+    public var target: Reference,
   ) : BackboneElement()
 
   /**
@@ -329,7 +329,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -348,12 +348,12 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The document or URL of the document along with critical metadata to prove content has
      * integrity.
      */
-    public var attachment: Attachment? = null,
+    public var attachment: Attachment,
     /**
      * An identifier of the document encoding, structure, and template that the document conforms to
      * beyond the base format indicated in the mimeType.
@@ -384,7 +384,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -403,12 +403,12 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Describes the clinical encounter or type of care that the document content is associated
      * with.
      */
-    public var encounter: List<Reference?>? = null,
+    public var encounter: MutableList<Reference> = mutableListOf(),
     /**
      * This list of codes represents the main clinical acts, such as a colonoscopy or an
      * appendectomy, being documented. In some cases, the event is inherent in the type Code, such
@@ -420,7 +420,7 @@ public data class DocumentReference(
      * included, they shall not conflict with the values inherent in the class or type elements as
      * such a conflict would create an ambiguous situation.
      */
-    public var event: List<CodeableConcept?>? = null,
+    public var event: MutableList<CodeableConcept> = mutableListOf(),
     /** The time period over which the service that is described by the document was provided. */
     public var period: Period? = null,
     /** The kind of facility where the patient was seen. */
@@ -445,7 +445,7 @@ public data class DocumentReference(
      * May be identifiers or resources that caused the DocumentReference or referenced Document to
      * be created.
      */
-    public var related: List<Reference?>? = null,
+    public var related: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** The type of relationship between documents. */
@@ -453,39 +453,11 @@ public data class DocumentReference(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This document logically replaces or supersedes the target document. */
-    Replaces(
-      "replaces",
-      "http://hl7.org/fhir/document-relationship-type",
-      "Replaces",
-      "This document logically replaces or supersedes the target document.",
-    ),
-    /**
-     * This document was generated by transforming the target document (e.g. format or language
-     * conversion).
-     */
-    Transforms(
-      "transforms",
-      "http://hl7.org/fhir/document-relationship-type",
-      "Transforms",
-      "This document was generated by transforming the target document (e.g. format or language conversion).",
-    ),
-    /** This document is a signature of the target document. */
-    Signs(
-      "signs",
-      "http://hl7.org/fhir/document-relationship-type",
-      "Signs",
-      "This document is a signature of the target document.",
-    ),
-    /** This document adds additional information to the target document. */
-    Appends(
-      "appends",
-      "http://hl7.org/fhir/document-relationship-type",
-      "Appends",
-      "This document adds additional information to the target document.",
-    );
+    Replaces("replaces", "http://hl7.org/fhir/document-relationship-type", "Replaces"),
+    Transforms("transforms", "http://hl7.org/fhir/document-relationship-type", "Transforms"),
+    Signs("signs", "http://hl7.org/fhir/document-relationship-type", "Signs"),
+    Appends("appends", "http://hl7.org/fhir/document-relationship-type", "Appends");
 
     override fun toString(): kotlin.String = code
 
@@ -494,8 +466,6 @@ public data class DocumentReference(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DocumentRelationshipType =
@@ -515,48 +485,14 @@ public data class DocumentReference(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This is a preliminary composition or document (also known as initial or interim). The content
-     * may be incomplete or unverified.
-     */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/composition-status",
-      "Preliminary",
-      "This is a preliminary composition or document (also known as initial or interim). The content may be incomplete or unverified.",
-    ),
-    /**
-     * This version of the composition is complete and verified by an appropriate person and no
-     * further work is planned. Any subsequent updates would be on a new version of the composition.
-     */
-    Final(
-      "final",
-      "http://hl7.org/fhir/composition-status",
-      "Final",
-      "This version of the composition is complete and verified by an appropriate person and no further work is planned. Any subsequent updates would be on a new version of the composition.",
-    ),
-    /**
-     * The composition content or the referenced resources have been modified (edited or added to)
-     * subsequent to being released as "final" and the composition is complete and verified by an
-     * authorized person.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/composition-status",
-      "Amended",
-      "The composition content or the referenced resources have been modified (edited or added to) subsequent to being released as \"final\" and the composition is complete and verified by an authorized person.",
-    ),
-    /**
-     * The composition or document was originally created/issued in error, and this is an amendment
-     * that marks that the entire series should not be considered as valid.
-     */
+    Preliminary("preliminary", "http://hl7.org/fhir/composition-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/composition-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/composition-status", "Amended"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/composition-status",
       "Entered in Error",
-      "The composition or document was originally created/issued in error, and this is an amendment that marks that the entire series should not be considered as valid.",
     );
 
     override fun toString(): kotlin.String = code
@@ -566,8 +502,6 @@ public data class DocumentReference(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ReferredDocumentStatus =

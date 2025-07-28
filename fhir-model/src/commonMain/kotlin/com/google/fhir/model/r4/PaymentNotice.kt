@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.PaymentNoticeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class PaymentNotice(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class PaymentNotice(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,26 +127,26 @@ public data class PaymentNotice(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier assigned to this payment notice. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<PaymentNoticeStatus>? = null,
+  public var status: Enumeration<PaymentNoticeStatus>,
   /** Reference of resource for which payment is being made. */
   public var request: Reference? = null,
   /** Reference of response to resource for which payment is being made. */
   public var response: Reference? = null,
   /** The date when this resource was created. */
-  public var created: DateTime? = null,
+  public var created: DateTime,
   /** The practitioner who is responsible for the services rendered to the patient. */
   public var provider: Reference? = null,
   /** A reference to the payment which is the subject of this notice. */
-  public var payment: Reference? = null,
+  public var payment: Reference,
   /** The date when the above payment action occurred. */
   public var paymentDate: Date? = null,
   /**
@@ -154,9 +154,9 @@ public data class PaymentNotice(
    */
   public var payee: Reference? = null,
   /** The party who is notified of the payment status. */
-  public var recipient: Reference? = null,
+  public var recipient: Reference,
   /** The amount sent to the payee. */
-  public var amount: Money? = null,
+  public var amount: Money,
   /**
    * A code indicating whether payment has been sent or cleared.
    *
@@ -169,36 +169,11 @@ public data class PaymentNotice(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The instance is currently in-force. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/fm-status",
-      "Active",
-      "The instance is currently in-force.",
-    ),
-    /** The instance is withdrawn, rescinded or reversed. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/fm-status",
-      "Cancelled",
-      "The instance is withdrawn, rescinded or reversed.",
-    ),
-    /** A new instance the contents of which is not complete. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/fm-status",
-      "Draft",
-      "A new instance the contents of which is not complete.",
-    ),
-    /** The instance was entered in error. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/fm-status",
-      "Entered in Error",
-      "The instance was entered in error.",
-    );
+    Active("active", "http://hl7.org/fhir/fm-status", "Active"),
+    Cancelled("cancelled", "http://hl7.org/fhir/fm-status", "Cancelled"),
+    Draft("draft", "http://hl7.org/fhir/fm-status", "Draft"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/fm-status", "Entered in Error");
 
     override fun toString(): String = code
 
@@ -207,8 +182,6 @@ public data class PaymentNotice(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): PaymentNoticeStatus =

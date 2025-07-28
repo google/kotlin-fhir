@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.AvailabilityAvailableTimeSerializer
 import com.google.fhir.model.r5.serializers.AvailabilityNotAvailableTimeSerializer
 import com.google.fhir.model.r5.serializers.AvailabilitySerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Availability Type: Availability data for an {item}. */
@@ -45,11 +45,11 @@ public data class Availability(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /** Times the {item} is available. */
-  public var availableTime: List<AvailableTime>? = null,
+  public var availableTime: MutableList<AvailableTime> = mutableListOf(),
   /** Not available during this time due to provided reason. */
-  public var notAvailableTime: List<NotAvailableTime>? = null,
+  public var notAvailableTime: MutableList<NotAvailableTime> = mutableListOf(),
 ) : DataType() {
   /** Times the {item} is available. */
   @Serializable(with = AvailabilityAvailableTimeSerializer::class)
@@ -71,9 +71,9 @@ public data class Availability(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /** mon | tue | wed | thu | fri | sat | sun. */
-    public var daysOfWeek: List<Enumeration<DaysOfWeek>>? = null,
+    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
     /** Always available? i.e. 24 hour service. */
     public var allDay: Boolean? = null,
     /**
@@ -110,7 +110,7 @@ public data class Availability(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * Reason presented to the user explaining why time not available.
      *
@@ -133,22 +133,14 @@ public data class Availability(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Monday. */
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", "Monday."),
-    /** Tuesday. */
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", "Tuesday."),
-    /** Wednesday. */
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", "Wednesday."),
-    /** Thursday. */
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", "Thursday."),
-    /** Friday. */
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", "Friday."),
-    /** Saturday. */
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", "Saturday."),
-    /** Sunday. */
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", "Sunday.");
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
 
     override fun toString(): kotlin.String = code
 
@@ -157,8 +149,6 @@ public data class Availability(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DaysOfWeek =

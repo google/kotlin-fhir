@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductIndicationOtherThera
 import com.google.fhir.model.r4.serializers.MedicinalProductIndicationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -94,7 +94,7 @@ public data class MedicinalProductIndication(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class MedicinalProductIndication(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,15 +126,15 @@ public data class MedicinalProductIndication(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The medication for which this is an indication. */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /** The disease, symptom or procedure that is the indication for treatment. */
   public var diseaseSymptomProcedure: CodeableConcept? = null,
   /** The status of the disease or symptom for which the indication applies. */
   public var diseaseStatus: CodeableConcept? = null,
   /** Comorbidity (concurrent condition) or co-infection as part of the indication. */
-  public var comorbidity: List<CodeableConcept?>? = null,
+  public var comorbidity: MutableList<CodeableConcept> = mutableListOf(),
   /** The intended effect, aim or strategy to be achieved by the indication. */
   public var intendedEffect: CodeableConcept? = null,
   /** Timing or duration information as part of the indication. */
@@ -143,11 +143,11 @@ public data class MedicinalProductIndication(
    * Information about the use of the medicinal product in relation to other therapies described as
    * part of the indication.
    */
-  public var otherTherapy: List<OtherTherapy>? = null,
+  public var otherTherapy: MutableList<OtherTherapy> = mutableListOf(),
   /** Describe the undesirable effects of the medicinal product. */
-  public var undesirableEffect: List<Reference?>? = null,
+  public var undesirableEffect: MutableList<Reference> = mutableListOf(),
   /** The population group to which this applies. */
-  public var population: List<Population?>? = null,
+  public var population: MutableList<Population> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Information about the use of the medicinal product in relation to other therapies described as
@@ -172,7 +172,7 @@ public data class MedicinalProductIndication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -191,17 +191,17 @@ public data class MedicinalProductIndication(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of relationship between the medicinal product indication or contraindication and
      * another therapy.
      */
-    public var therapyRelationshipType: CodeableConcept? = null,
+    public var therapyRelationshipType: CodeableConcept,
     /**
      * Reference to a specific medication (active substance, medicinal product or class of products)
      * as part of an indication or contraindication.
      */
-    public var medication: Medication? = null,
+    public var medication: Medication,
   ) : BackboneElement() {
     @Serializable(with = MedicinalProductIndicationOtherTherapyMedicationSerializer::class)
     public sealed interface Medication {
@@ -216,16 +216,14 @@ public data class MedicinalProductIndication(
       public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
         Medication
 
-      public data object Null : Medication
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r4.Reference?,
-        ): Medication {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r4.Reference?,
+        ): Medication? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }

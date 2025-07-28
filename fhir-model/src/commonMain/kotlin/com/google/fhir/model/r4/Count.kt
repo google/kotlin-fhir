@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.CountSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class Count(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The value of the measured amount. The value includes an implicit precision in the presentation
    * of the value.
@@ -79,36 +79,11 @@ public data class Count(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The actual value is less than the given value. */
-    LessThan(
-      "<",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Less than",
-      "The actual value is less than the given value.",
-    ),
-    /** The actual value is less than or equal to the given value. */
-    LessThanOrEqualTo(
-      "<=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Less or Equal to",
-      "The actual value is less than or equal to the given value.",
-    ),
-    /** The actual value is greater than or equal to the given value. */
-    GreaterThanOrEqualTo(
-      ">=",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater or Equal to",
-      "The actual value is greater than or equal to the given value.",
-    ),
-    /** The actual value is greater than the given value. */
-    GreaterThan(
-      ">",
-      "http://hl7.org/fhir/quantity-comparator",
-      "Greater than",
-      "The actual value is greater than the given value.",
-    );
+    LessThan("<", "http://hl7.org/fhir/quantity-comparator", "Less than"),
+    LessThanOrEqualTo("<=", "http://hl7.org/fhir/quantity-comparator", "Less or Equal to"),
+    GreaterThanOrEqualTo(">=", "http://hl7.org/fhir/quantity-comparator", "Greater or Equal to"),
+    GreaterThan(">", "http://hl7.org/fhir/quantity-comparator", "Greater than");
 
     override fun toString(): kotlin.String = code
 
@@ -117,8 +92,6 @@ public data class Count(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QuantityComparator =

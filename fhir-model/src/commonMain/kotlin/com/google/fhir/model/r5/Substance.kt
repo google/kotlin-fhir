@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.SubstanceIngredientSubstanceSerializ
 import com.google.fhir.model.r5.serializers.SubstanceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Substance(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class Substance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,14 +128,14 @@ public data class Substance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique identifier for the substance. For an instance, an identifier associated with the
    * package/container (usually a label affixed directly).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A boolean to indicate if this an instance of a substance or a kind of one (a definition). */
-  public var instance: Boolean? = null,
+  public var instance: Boolean,
   /** A code to indicate if the substance is actively used. */
   public var status: Enumeration<FHIRSubstanceStatus>? = null,
   /**
@@ -146,14 +146,14 @@ public data class Substance(
    * fine-grained filtering can be performed using the metadata and/or terminology hierarchy in
    * Substance.code.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * A code (or set of codes) that identify this substance.
    *
    * This could be a reference to an externally defined code. It could also be a locally assigned
    * code (e.g. a formulary), optionally with translations to the standard drug codes.
    */
-  public var code: CodeableReference? = null,
+  public var code: CodeableReference,
   /**
    * A description of the substance - its appearance, handling requirements, and other usage notes.
    */
@@ -166,7 +166,7 @@ public data class Substance(
   /** The amount of the substance. */
   public var quantity: Quantity? = null,
   /** A substance can be composed of other substances. */
-  public var ingredient: List<Ingredient>? = null,
+  public var ingredient: MutableList<Ingredient> = mutableListOf(),
 ) : DomainResource() {
   /** A substance can be composed of other substances. */
   @Serializable(with = SubstanceIngredientSerializer::class)
@@ -188,7 +188,7 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -207,11 +207,11 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The amount of the ingredient in the substance - a concentration ratio. */
     public var quantity: Ratio? = null,
     /** Another substance that is a component of this substance. */
-    public var substance: Substance? = null,
+    public var substance: Substance,
   ) : BackboneElement() {
     @Serializable(with = SubstanceIngredientSubstanceSerializer::class)
     public sealed interface Substance {
@@ -226,16 +226,14 @@ public data class Substance(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Substance
 
-      public data object Null : Substance
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Substance {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
+        ): Substance? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }
@@ -246,28 +244,13 @@ public data class Substance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The substance is considered for use or reference. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/substance-status",
-      "Active",
-      "The substance is considered for use or reference.",
-    ),
-    /** The substance is considered for reference, but not for use. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/substance-status",
-      "Inactive",
-      "The substance is considered for reference, but not for use.",
-    ),
-    /** The substance was entered in error. */
+    Active("active", "http://hl7.org/fhir/substance-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/substance-status", "Inactive"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/substance-status",
       "Entered in Error",
-      "The substance was entered in error.",
     );
 
     override fun toString(): String = code
@@ -277,8 +260,6 @@ public data class Substance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): FHIRSubstanceStatus =

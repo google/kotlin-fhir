@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.ArtifactAssessmentCiteAsSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentContentSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ArtifactAssessment(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class ArtifactAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class ArtifactAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A formal identifier that is used to identify this artifact assessment when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -140,7 +140,7 @@ public data class ArtifactAssessment(
    * type, and can then identify this activity definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A short title for the assessment for use in displaying and selecting. */
   public var title: String? = null,
   /**
@@ -184,9 +184,9 @@ public data class ArtifactAssessment(
    * A reference to a resource, canonical resource, or non-FHIR resource which the comment or
    * assessment is about.
    */
-  public var artifact: Artifact? = null,
+  public var artifact: Artifact,
   /** A component comment, classifier, or rating of the artifact. */
-  public var content: List<Content>? = null,
+  public var content: MutableList<Content> = mutableListOf(),
   /** Indicates the workflow status of the comment or change request. */
   public var workflowStatus: Enumeration<WorkflowStatus>? = null,
   /** Indicates the disposition of the responsible party to the comment or change request. */
@@ -212,7 +212,7 @@ public data class ArtifactAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -231,7 +231,7 @@ public data class ArtifactAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of information this component of the content represents. */
     public var informationType: Enumeration<InformationType>? = null,
     /** A brief summary of the content of this component. */
@@ -239,7 +239,7 @@ public data class ArtifactAssessment(
     /** Indicates what type of content this component represents. */
     public var type: CodeableConcept? = null,
     /** Represents a rating, classifier, or assessment of the artifact. */
-    public var classifier: List<CodeableConcept?>? = null,
+    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
     /** A quantitative rating of the artifact. */
     public var quantity: Quantity? = null,
     /** Indicates who or what authored the content. */
@@ -251,16 +251,16 @@ public data class ArtifactAssessment(
      * The target element is used to point the comment to aspect of the artifact, such as a text
      * range within a CQL library (e.g. #content?0:0-120:80).
      */
-    public var path: List<Uri?>? = null,
+    public var path: MutableList<Uri> = mutableListOf(),
     /**
      * Additional related artifacts that provide supporting documentation, additional evidence, or
      * further information related to the content.
      */
-    public var relatedArtifact: List<RelatedArtifact?>? = null,
+    public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
     /** Acceptable to publicly share the comment, classifier or rating. */
     public var freeToShare: Boolean? = null,
     /** If the informationType is container, the components of the content. */
-    public var component: List<Content?>? = null,
+    public var component: MutableList<Content> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = ArtifactAssessmentCiteAsSerializer::class)
@@ -273,16 +273,14 @@ public data class ArtifactAssessment(
 
     public data class Markdown(public val `value`: com.google.fhir.model.r5.Markdown) : CiteAs
 
-    public data object Null : CiteAs
-
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r5.Reference?,
         markdownValue: com.google.fhir.model.r5.Markdown?,
-      ): CiteAs {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+      ): CiteAs? {
+        if (referenceValue != null) return Reference(referenceValue)
         if (markdownValue != null) return Markdown(markdownValue)
-        return Null
+        return null
       }
     }
   }
@@ -301,18 +299,16 @@ public data class ArtifactAssessment(
 
     public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Artifact
 
-    public data object Null : Artifact
-
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
+      internal fun from(
+        referenceValue: com.google.fhir.model.r5.Reference?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
         uriValue: com.google.fhir.model.r5.Uri?,
-      ): Artifact {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
+      ): Artifact? {
+        if (referenceValue != null) return Reference(referenceValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
         if (uriValue != null) return Uri(uriValue)
-        return Null
+        return null
       }
     }
   }
@@ -322,49 +318,20 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A comment on the artifact */
-    Comment(
-      "comment",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Comment",
-      "A comment on the artifact",
-    ),
-    /** A classifier of the artifact */
+    Comment("comment", "http://hl7.org/fhir/artifactassessment-information-type", "Comment"),
     Classifier(
       "classifier",
       "http://hl7.org/fhir/artifactassessment-information-type",
       "Classifier",
-      "A classifier of the artifact",
     ),
-    /** A rating of the artifact */
-    Rating(
-      "rating",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Rating",
-      "A rating of the artifact",
-    ),
-    /** A container for multiple components */
-    Container(
-      "container",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Container",
-      "A container for multiple components",
-    ),
-    /** A response to a comment */
-    Response(
-      "response",
-      "http://hl7.org/fhir/artifactassessment-information-type",
-      "Response",
-      "A response to a comment",
-    ),
-    /** A change request for the artifact */
+    Rating("rating", "http://hl7.org/fhir/artifactassessment-information-type", "Rating"),
+    Container("container", "http://hl7.org/fhir/artifactassessment-information-type", "Container"),
+    Response("response", "http://hl7.org/fhir/artifactassessment-information-type", "Response"),
     Change_Request(
       "change-request",
       "http://hl7.org/fhir/artifactassessment-information-type",
       "Change Request",
-      "A change request for the artifact",
     );
 
     override fun toString(): kotlin.String = code
@@ -374,8 +341,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): InformationType =
@@ -400,88 +365,32 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The comment has been submitted, but the responsible party has not yet been determined, or the
-     * responsible party has not yet determined the next steps to be taken.
-     */
-    Submitted(
-      "submitted",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Submitted",
-      "The comment has been submitted, but the responsible party has not yet been determined, or the responsible party has not yet determined the next steps to be taken.",
-    ),
-    /**
-     * The comment has been triaged, meaning the responsible party has been determined and next
-     * steps have been identified to address the comment.
-     */
-    Triaged(
-      "triaged",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Triaged",
-      "The comment has been triaged, meaning the responsible party has been determined and next steps have been identified to address the comment.",
-    ),
-    /** The comment is waiting for input from a specific party before next steps can be taken. */
+    Submitted("submitted", "http://hl7.org/fhir/artifactassessment-workflow-status", "Submitted"),
+    Triaged("triaged", "http://hl7.org/fhir/artifactassessment-workflow-status", "Triaged"),
     Waiting_For_Input(
       "waiting-for-input",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Waiting for Input",
-      "The comment is waiting for input from a specific party before next steps can be taken.",
     ),
-    /** The comment has been resolved and no changes resulted from the resolution */
     Resolved_No_Change(
       "resolved-no-change",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Resolved - No Change",
-      "The comment has been resolved and no changes resulted from the resolution",
     ),
-    /** The comment has been resolved and changes are required to address the comment */
     Resolved_Change_Required(
       "resolved-change-required",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Resolved - Change Required",
-      "The comment has been resolved and changes are required to address the comment",
     ),
-    /**
-     * The comment is acceptable, but resolution of the comment and application of any associated
-     * changes have been deferred
-     */
-    Deferred(
-      "deferred",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Deferred",
-      "The comment is acceptable, but resolution of the comment and application of any associated changes have been deferred",
-    ),
-    /** The comment is a duplicate of another comment already received */
-    Duplicate(
-      "duplicate",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Duplicate",
-      "The comment is a duplicate of another comment already received",
-    ),
-    /** The comment is resolved and any necessary changes have been applied */
-    Applied(
-      "applied",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Applied",
-      "The comment is resolved and any necessary changes have been applied",
-    ),
-    /**
-     * The necessary changes to the artifact have been published in a new version of the artifact
-     */
-    Published(
-      "published",
-      "http://hl7.org/fhir/artifactassessment-workflow-status",
-      "Published",
-      "The necessary changes to the artifact have been published in a new version of the artifact",
-    ),
-    /** The assessment was entered in error */
+    Deferred("deferred", "http://hl7.org/fhir/artifactassessment-workflow-status", "Deferred"),
+    Duplicate("duplicate", "http://hl7.org/fhir/artifactassessment-workflow-status", "Duplicate"),
+    Applied("applied", "http://hl7.org/fhir/artifactassessment-workflow-status", "Applied"),
+    Published("published", "http://hl7.org/fhir/artifactassessment-workflow-status", "Published"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/artifactassessment-workflow-status",
       "Entered in Error",
-      "The assessment was entered in error",
     );
 
     override fun toString(): kotlin.String = code
@@ -491,8 +400,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): WorkflowStatus =
@@ -521,42 +428,23 @@ public data class ArtifactAssessment(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The comment is unresolved */
-    Unresolved(
-      "unresolved",
-      "http://hl7.org/fhir/artifactassessment-disposition",
-      "Unresolved",
-      "The comment is unresolved",
-    ),
-    /** The comment is not persuasive (rejected in full) */
+    Unresolved("unresolved", "http://hl7.org/fhir/artifactassessment-disposition", "Unresolved"),
     Not_Persuasive(
       "not-persuasive",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Not Persuasive",
-      "The comment is not persuasive (rejected in full)",
     ),
-    /** The comment is persuasive (accepted in full) */
-    Persuasive(
-      "persuasive",
-      "http://hl7.org/fhir/artifactassessment-disposition",
-      "Persuasive",
-      "The comment is persuasive (accepted in full)",
-    ),
-    /** The comment is persuasive with modification (partially accepted) */
+    Persuasive("persuasive", "http://hl7.org/fhir/artifactassessment-disposition", "Persuasive"),
     Persuasive_With_Modification(
       "persuasive-with-modification",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Persuasive with Modification",
-      "The comment is persuasive with modification (partially accepted)",
     ),
-    /** The comment is not persuasive with modification (partially rejected) */
     Not_Persuasive_With_Modification(
       "not-persuasive-with-modification",
       "http://hl7.org/fhir/artifactassessment-disposition",
       "Not Persuasive with Modification",
-      "The comment is not persuasive with modification (partially rejected)",
     );
 
     override fun toString(): kotlin.String = code
@@ -566,8 +454,6 @@ public data class ArtifactAssessment(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): Disposition =

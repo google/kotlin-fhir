@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.MedicationStatementMedicationSeriali
 import com.google.fhir.model.r4.serializers.MedicationStatementSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -114,7 +114,7 @@ public data class MedicationStatement(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -127,7 +127,7 @@ public data class MedicationStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -146,7 +146,7 @@ public data class MedicationStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this Medication Statement that are defined by business processes
    * and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -155,11 +155,11 @@ public data class MedicationStatement(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this event. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** A larger event of which this particular event is a component or step. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code representing the patient or other source's judgment about the state of the medication
    * used that this statement is about. Generally, this will be active or completed.
@@ -173,7 +173,7 @@ public data class MedicationStatement(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationStatementStatus>? = null,
+  public var status: Enumeration<MedicationStatementStatus>,
   /**
    * Captures the reason for the current state of the MedicationStatement.
    *
@@ -181,7 +181,7 @@ public data class MedicationStatement(
    * "cancelled" or "entered-in-error". The reason for performing the event at all is captured in
    * reasonCode, not here.
    */
-  public var statusReason: List<CodeableConcept?>? = null,
+  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates where the medication is expected to be consumed or administered. */
   public var category: CodeableConcept? = null,
   /**
@@ -193,9 +193,9 @@ public data class MedicationStatement(
    * information is required, then the use of the medication resource is recommended. For example,
    * if you require form or lot number, then you must reference the Medication resource.
    */
-  public var medication: Medication? = null,
+  public var medication: Medication,
   /** The person, animal or group who is/was taking the medication. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter or episode of care that establishes the context for this MedicationStatement. */
   public var context: Reference? = null,
   /**
@@ -227,26 +227,26 @@ public data class MedicationStatement(
    * it should be noted that the amount of information that is available varies from the type
    * resource that you derive the MedicationStatement from.
    */
-  public var derivedFrom: List<Reference?>? = null,
+  public var derivedFrom: MutableList<Reference> = mutableListOf(),
   /**
    * A reason for why the medication is being/was taken.
    *
    * This could be a diagnosis code. If a full condition record exists or additional detail is
    * needed, use reasonForUseReference.
    */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Condition or observation that supports why the medication is being/was taken.
    *
    * This is a reference to a condition that is the reason why the medication is being/was taken. If
    * only a code exists, use reasonForUseCode.
    */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Provides extra information about the medication statement that is not conveyed by the other
    * attributes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Indicates how the medication is/was or should be taken by the patient.
    *
@@ -256,7 +256,7 @@ public data class MedicationStatement(
    * specificity may only be populated where the patient brings in their labeled container or where
    * the Medication Statement is derived from a MedicationRequest.
    */
-  public var dosage: List<Dosage?>? = null,
+  public var dosage: MutableList<Dosage> = mutableListOf(),
 ) : DomainResource() {
   @Serializable(with = MedicationStatementMedicationSerializer::class)
   public sealed interface Medication {
@@ -271,16 +271,14 @@ public data class MedicationStatement(
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) :
       Medication
 
-    public data object Null : Medication
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Medication {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
+      ): Medication? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -295,16 +293,14 @@ public data class MedicationStatement(
 
     public data class Period(public val `value`: com.google.fhir.model.r4.Period) : Effective
 
-    public data object Null : Effective
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
-      ): Effective {
+        periodValue: com.google.fhir.model.r4.Period?,
+      ): Effective? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -314,73 +310,26 @@ public data class MedicationStatement(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The medication is still being taken. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Active",
-      "The medication is still being taken.",
-    ),
-    /** The medication is no longer being taken. */
+    Active("active", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Active"),
     Completed(
       "completed",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Completed",
-      "The medication is no longer being taken.",
     ),
-    /**
-     * Some of the actions that are implied by the medication statement may have occurred. For
-     * example, the patient may have taken some of the medication. Clinical decision support systems
-     * should take this status into account.
-     */
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Entered in Error",
-      "Some of the actions that are implied by the medication statement may have occurred.  For example, the patient may have taken some of the medication.  Clinical decision support systems should take this status into account.",
     ),
-    /** The medication may be taken at some time in the future. */
-    Intended(
-      "intended",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Intended",
-      "The medication may be taken at some time in the future.",
-    ),
-    /**
-     * Actions implied by the statement have been permanently halted, before all of them occurred.
-     * This should not be used if the statement was entered in error.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Stopped",
-      "Actions implied by the statement have been permanently halted, before all of them occurred. This should not be used if the statement was entered in error.",
-    ),
-    /**
-     * Actions implied by the statement have been temporarily halted, but are expected to continue
-     * later. May also be called 'suspended'.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "On Hold",
-      "Actions implied by the statement have been temporarily halted, but are expected to continue later. May also be called 'suspended'.",
-    ),
-    /** The state of the medication use is not currently known. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-      "Unknown",
-      "The state of the medication use is not currently known.",
-    ),
-    /** The medication was not consumed by the patient */
+    Intended("intended", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Intended"),
+    Stopped("stopped", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Stopped"),
+    On_Hold("on-hold", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "On Hold"),
+    Unknown("unknown", "http://hl7.org/fhir/CodeSystem/medication-statement-status", "Unknown"),
     Not_Taken(
       "not-taken",
       "http://hl7.org/fhir/CodeSystem/medication-statement-status",
       "Not Taken",
-      "The medication was not consumed by the patient",
     );
 
     override fun toString(): String = code
@@ -390,8 +339,6 @@ public data class MedicationStatement(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationStatementStatus =

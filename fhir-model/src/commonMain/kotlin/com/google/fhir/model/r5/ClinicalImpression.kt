@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.ClinicalImpressionEffectiveSerialize
 import com.google.fhir.model.r5.serializers.ClinicalImpressionFindingSerializer
 import com.google.fhir.model.r5.serializers.ClinicalImpressionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -102,7 +102,7 @@ public data class ClinicalImpression(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class ClinicalImpression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class ClinicalImpression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this clinical impression by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -146,14 +146,14 @@ public data class ClinicalImpression(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Identifies the workflow status of the assessment.
    *
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the clinical impression as not currently valid.
    */
-  public var status: Enumeration<ClinicalImpressionStatus>? = null,
+  public var status: Enumeration<ClinicalImpressionStatus>,
   /**
    * Captures the reason for the current state of the ClinicalImpression.
    *
@@ -167,7 +167,7 @@ public data class ClinicalImpression(
    */
   public var description: String? = null,
   /** The patient or group of individuals assessed as part of this record. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which this ClinicalImpression was created or to which the creation of this
    * record is tightly associated.
@@ -202,7 +202,7 @@ public data class ClinicalImpression(
    * e.g. The patient is a pregnant, has congestive heart failure, has an ‎Adenocarcinoma, and is
    * allergic to penicillin.
    */
-  public var problem: List<Reference?>? = null,
+  public var problem: MutableList<Reference> = mutableListOf(),
   /**
    * Change in the status/pattern of a subject's condition since previously assessed, such as
    * worsening, improving, or no change. It is a subjective assessment of the direction of the
@@ -213,19 +213,19 @@ public data class ClinicalImpression(
    * Reference to a specific published clinical protocol that was followed during this assessment,
    * and/or that provides evidence in support of the diagnosis.
    */
-  public var protocol: List<Uri?>? = null,
+  public var protocol: MutableList<Uri> = mutableListOf(),
   /** A text summary of the investigations and the diagnosis. */
   public var summary: String? = null,
   /**
    * Specific findings or diagnoses that were considered likely or relevant to ongoing treatment.
    */
-  public var finding: List<Finding>? = null,
+  public var finding: MutableList<Finding> = mutableListOf(),
   /** Estimate of likely outcome. */
-  public var prognosisCodeableConcept: List<CodeableConcept?>? = null,
+  public var prognosisCodeableConcept: MutableList<CodeableConcept> = mutableListOf(),
   /** RiskAssessment expressing likely outcome. */
-  public var prognosisReference: List<Reference?>? = null,
+  public var prognosisReference: MutableList<Reference> = mutableListOf(),
   /** Information supporting the clinical impression, which can contain investigation results. */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Commentary about the impression, typically recorded after the impression itself was made,
    * though supplemental notes by the original author could also appear.
@@ -233,7 +233,7 @@ public data class ClinicalImpression(
    * Don't use this element for content that should more properly appear as one of the specific
    * elements of the impression.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Specific findings or diagnoses that were considered likely or relevant to ongoing treatment.
@@ -257,7 +257,7 @@ public data class ClinicalImpression(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -276,7 +276,7 @@ public data class ClinicalImpression(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Specific text, code or reference for finding or diagnosis, which may include ruled-out or
      * resolved conditions.
@@ -296,16 +296,14 @@ public data class ClinicalImpression(
 
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Effective
 
-    public data object Null : Effective
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-      ): Effective {
+        periodValue: com.google.fhir.model.r5.Period?,
+      ): Effective? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -315,82 +313,15 @@ public data class ClinicalImpression(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The core event has not started yet, but some staging activities have begun (e.g. surgical
-     * suite preparation). Preparation stages may be tracked for billing purposes.
-     */
-    Preparation(
-      "preparation",
-      "http://hl7.org/fhir/event-status",
-      "Preparation",
-      "The core event has not started yet, but some staging activities have begun (e.g. surgical suite preparation).  Preparation stages may be tracked for billing purposes.",
-    ),
-    /** The event is currently occurring. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/event-status",
-      "In Progress",
-      "The event is currently occurring.",
-    ),
-    /**
-     * The event was terminated prior to any activity beyond preparation. I.e. The 'main' activity
-     * has not yet begun. The boundary between preparatory and the 'main' activity is
-     * context-specific.
-     */
-    Not_Done(
-      "not-done",
-      "http://hl7.org/fhir/event-status",
-      "Not Done",
-      "The event was terminated prior to any activity beyond preparation.  I.e. The 'main' activity has not yet begun.  The boundary between preparatory and the 'main' activity is context-specific.",
-    ),
-    /** The event has been temporarily stopped but is expected to resume in the future. */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/event-status",
-      "On Hold",
-      "The event has been temporarily stopped but is expected to resume in the future.",
-    ),
-    /**
-     * The event was terminated prior to the full completion of the intended activity but after at
-     * least some of the 'main' activity (beyond preparation) has occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/event-status",
-      "Stopped",
-      "The event was terminated prior to the full completion of the intended activity but after at least some of the 'main' activity (beyond preparation) has occurred.",
-    ),
-    /** The event has now concluded. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/event-status",
-      "Completed",
-      "The event has now concluded.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "stopped" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"stopped\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this event. Note: This concept is not to be used for "other" - one of the listed statuses is
-     * presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/event-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this event.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done"),
+    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold"),
+    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -399,8 +330,6 @@ public data class ClinicalImpression(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ClinicalImpressionStatus =

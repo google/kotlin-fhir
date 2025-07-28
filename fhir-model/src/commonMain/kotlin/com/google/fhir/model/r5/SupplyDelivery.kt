@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.SupplyDeliverySuppliedItemItemSerial
 import com.google.fhir.model.r5.serializers.SupplyDeliverySuppliedItemSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class SupplyDelivery(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class SupplyDelivery(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class SupplyDelivery(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for the supply delivery event that is used to identify it across multiple disparate
    * systems.
@@ -137,9 +137,9 @@ public data class SupplyDelivery(
    * This identifier is typically assigned by the supplier, and may be used to reference the
    * delivery when exchanging information about it with other systems.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this event. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * A larger event of which this particular event is a component or step.
    *
@@ -147,7 +147,7 @@ public data class SupplyDelivery(
    *
    * [The allowed reference resources may be adjusted as appropriate for the event resource].
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code specifying the state of the dispense event.
    *
@@ -163,7 +163,7 @@ public data class SupplyDelivery(
    */
   public var type: CodeableConcept? = null,
   /** The item that is being delivered or has been supplied. */
-  public var suppliedItem: List<SuppliedItem>? = null,
+  public var suppliedItem: MutableList<SuppliedItem> = mutableListOf(),
   /**
    * The date or time(s) the activity occurred.
    *
@@ -175,7 +175,7 @@ public data class SupplyDelivery(
   /** Identification of the facility/location where the delivery was shipped to. */
   public var destination: Reference? = null,
   /** Identifies the individual or organization that received the delivery. */
-  public var `receiver`: List<Reference?>? = null,
+  public var `receiver`: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** The item that is being delivered or has been supplied. */
   @Serializable(with = SupplyDeliverySuppliedItemSerializer::class)
@@ -197,7 +197,7 @@ public data class SupplyDelivery(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -216,7 +216,7 @@ public data class SupplyDelivery(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The amount of the item that has been supplied. Unit of measure may be included. */
     public var quantity: Quantity? = null,
     /**
@@ -238,16 +238,14 @@ public data class SupplyDelivery(
 
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Item
 
-      public data object Null : Item
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Item {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          referenceValue: com.google.fhir.model.r5.Reference?,
+        ): Item? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }
@@ -267,18 +265,16 @@ public data class SupplyDelivery(
 
     public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Occurrence
 
-    public data object Null : Occurrence
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        TimingValue: com.google.fhir.model.r5.Timing?,
-      ): Occurrence {
+        periodValue: com.google.fhir.model.r5.Period?,
+        timingValue: com.google.fhir.model.r5.Timing?,
+      ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (TimingValue != null) return Timing(TimingValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        if (timingValue != null) return Timing(timingValue)
+        return null
       }
     }
   }
@@ -288,39 +284,14 @@ public data class SupplyDelivery(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Supply has been requested, but not delivered. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/supplydelivery-status",
-      "In Progress",
-      "Supply has been requested, but not delivered.",
-    ),
-    /** Supply has been delivered ("completed"). */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/supplydelivery-status",
-      "Delivered",
-      "Supply has been delivered (\"completed\").",
-    ),
-    /** Delivery was not completed. */
-    Abandoned(
-      "abandoned",
-      "http://hl7.org/fhir/supplydelivery-status",
-      "Abandoned",
-      "Delivery was not completed.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "abandoned" rather than "entered-in-error".).
-     */
+    In_Progress("in-progress", "http://hl7.org/fhir/supplydelivery-status", "In Progress"),
+    Completed("completed", "http://hl7.org/fhir/supplydelivery-status", "Delivered"),
+    Abandoned("abandoned", "http://hl7.org/fhir/supplydelivery-status", "Abandoned"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/supplydelivery-status",
       "Entered In Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"abandoned\" rather than \"entered-in-error\".).",
     );
 
     override fun toString(): String = code
@@ -330,8 +301,6 @@ public data class SupplyDelivery(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): SupplyDeliveryStatus =

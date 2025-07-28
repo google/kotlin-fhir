@@ -28,36 +28,36 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ContactDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint>? = null,
 ) {
   public fun toModel(): ContactDetail =
-    ContactDetail().apply {
-      id = this@ContactDetailSurrogate.id
-      extension = this@ContactDetailSurrogate.extension
-      name = R5String.of(this@ContactDetailSurrogate.name, this@ContactDetailSurrogate._name)
-      telecom = this@ContactDetailSurrogate.telecom
-    }
+    ContactDetail(
+      id = this@ContactDetailSurrogate.id,
+      extension = this@ContactDetailSurrogate.extension ?: mutableListOf(),
+      name = R5String.of(this@ContactDetailSurrogate.name, this@ContactDetailSurrogate._name),
+      telecom = this@ContactDetailSurrogate.telecom ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: ContactDetail): ContactDetailSurrogate =
       with(model) {
-        ContactDetailSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          telecom = this@with.telecom
-        }
+        ContactDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

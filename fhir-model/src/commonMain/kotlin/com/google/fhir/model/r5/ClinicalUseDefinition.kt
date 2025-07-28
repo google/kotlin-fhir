@@ -30,7 +30,7 @@ import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionUndesirableEffe
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionWarningSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -106,7 +106,7 @@ public data class ClinicalUseDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -119,7 +119,7 @@ public data class ClinicalUseDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,18 +138,18 @@ public data class ClinicalUseDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier for this issue. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** indication | contraindication | interaction | undesirable-effect | warning. */
-  public var type: Enumeration<ClinicalUseDefinitionType>? = null,
+  public var type: Enumeration<ClinicalUseDefinitionType>,
   /**
    * A categorisation of the issue, primarily for dividing warnings into subject heading areas such
    * as "Pregnancy and Lactation", "Overdose", "Effects on Ability to Drive and Use Machines".
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** The medication, product, substance, device, procedure etc. for which this is an indication. */
-  public var subject: List<Reference?>? = null,
+  public var subject: MutableList<Reference> = mutableListOf(),
   /** Whether this is a current issue or one that has been retired etc. */
   public var status: CodeableConcept? = null,
   /** Specifics for when this is a contraindication. */
@@ -159,9 +159,9 @@ public data class ClinicalUseDefinition(
   /** Specifics for when this is an interaction. */
   public var interaction: Interaction? = null,
   /** The population group to which this applies. */
-  public var population: List<Reference?>? = null,
+  public var population: MutableList<Reference> = mutableListOf(),
   /** Logic used by the clinical use definition. */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /**
    * Describe the possible undesirable effects (negative outcomes) from the use of the medicinal
    * product as treatment.
@@ -194,7 +194,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -213,7 +213,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The situation that is being documented as contraindicating against this item. */
     public var diseaseSymptomProcedure: CodeableReference? = null,
     /**
@@ -222,9 +222,9 @@ public data class ClinicalUseDefinition(
      */
     public var diseaseStatus: CodeableReference? = null,
     /** A comorbidity (concurrent condition) or coinfection. */
-    public var comorbidity: List<CodeableReference?>? = null,
+    public var comorbidity: MutableList<CodeableReference> = mutableListOf(),
     /** The indication which this is a contraidication for. */
-    public var indication: List<Reference?>? = null,
+    public var indication: MutableList<Reference> = mutableListOf(),
     /**
      * An expression that returns true or false, indicating whether the indication is applicable or
      * not, after having applied its other elements.
@@ -237,7 +237,7 @@ public data class ClinicalUseDefinition(
      * Information about the use of the medicinal product in relation to other therapies described
      * as part of the contraindication.
      */
-    public var otherTherapy: List<OtherTherapy>? = null,
+    public var otherTherapy: MutableList<OtherTherapy> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Information about the use of the medicinal product in relation to other therapies described
@@ -262,7 +262,7 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -281,17 +281,17 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The type of relationship between the medicinal product indication or contraindication and
        * another therapy.
        */
-      public var relationshipType: CodeableConcept? = null,
+      public var relationshipType: CodeableConcept,
       /**
        * Reference to a specific medication (active substance, medicinal product or class of
        * products, biological, food etc.) as part of an indication or contraindication.
        */
-      public var treatment: CodeableReference? = null,
+      public var treatment: CodeableReference,
     ) : BackboneElement()
   }
 
@@ -315,7 +315,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -334,7 +334,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The situation that is being documented as an indicaton for this item. */
     public var diseaseSymptomProcedure: CodeableReference? = null,
     /**
@@ -343,7 +343,7 @@ public data class ClinicalUseDefinition(
      */
     public var diseaseStatus: CodeableReference? = null,
     /** A comorbidity (concurrent condition) or coinfection as part of the indication. */
-    public var comorbidity: List<CodeableReference?>? = null,
+    public var comorbidity: MutableList<CodeableReference> = mutableListOf(),
     /** The intended effect, aim or strategy to be achieved. */
     public var intendedEffect: CodeableReference? = null,
     /**
@@ -356,7 +356,7 @@ public data class ClinicalUseDefinition(
      * An unwanted side effect or negative outcome that may happen if you use the drug (or other
      * subject of this resource) for this indication.
      */
-    public var undesirableEffect: List<Reference?>? = null,
+    public var undesirableEffect: MutableList<Reference> = mutableListOf(),
     /**
      * An expression that returns true or false, indicating whether the indication is applicable or
      * not, after having applied its other elements.
@@ -369,7 +369,7 @@ public data class ClinicalUseDefinition(
      * Information about the use of the medicinal product in relation to other therapies described
      * as part of the indication.
      */
-    public var otherTherapy: List<Contraindication.OtherTherapy?>? = null,
+    public var otherTherapy: MutableList<Contraindication.OtherTherapy> = mutableListOf(),
   ) : BackboneElement() {
     @Serializable(with = ClinicalUseDefinitionIndicationDurationSerializer::class)
     public sealed interface Duration {
@@ -381,16 +381,14 @@ public data class ClinicalUseDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Duration
 
-      public data object Null : Duration
-
       public companion object {
-        public fun from(
-          RangeValue: com.google.fhir.model.r5.Range?,
+        internal fun from(
+          rangeValue: com.google.fhir.model.r5.Range?,
           stringValue: com.google.fhir.model.r5.String?,
-        ): Duration {
-          if (RangeValue != null) return Range(RangeValue)
+        ): Duration? {
+          if (rangeValue != null) return Range(rangeValue)
           if (stringValue != null) return String(stringValue)
-          return Null
+          return null
         }
       }
     }
@@ -416,7 +414,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -435,9 +433,9 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The specific medication, product, food, substance etc. or laboratory test that interacts. */
-    public var interactant: List<Interactant>? = null,
+    public var interactant: MutableList<Interactant> = mutableListOf(),
     /**
      * The type of the interaction e.g. drug-drug interaction, drug-food interaction, drug-lab test
      * interaction.
@@ -451,7 +449,7 @@ public data class ClinicalUseDefinition(
     /** The incidence of the interaction, e.g. theoretical, observed. */
     public var incidence: CodeableConcept? = null,
     /** Actions for managing the interaction. */
-    public var management: List<CodeableConcept?>? = null,
+    public var management: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
     /** The specific medication, product, food, substance etc. or laboratory test that interacts. */
     @Serializable(with = ClinicalUseDefinitionInteractionInteractantSerializer::class)
@@ -473,7 +471,7 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -492,11 +490,11 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The specific medication, product, food, substance etc. or laboratory test that interacts.
        */
-      public var item: Item? = null,
+      public var item: Item,
     ) : BackboneElement() {
       @Serializable(with = ClinicalUseDefinitionInteractionInteractantItemSerializer::class)
       public sealed interface Item {
@@ -510,16 +508,14 @@ public data class ClinicalUseDefinition(
           public val `value`: com.google.fhir.model.r5.CodeableConcept
         ) : Item
 
-        public data object Null : Item
-
         public companion object {
-          public fun from(
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
-            CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          ): Item {
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            return Null
+          internal fun from(
+            referenceValue: com.google.fhir.model.r5.Reference?,
+            codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          ): Item? {
+            if (referenceValue != null) return Reference(referenceValue)
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+            return null
           }
         }
       }
@@ -549,7 +545,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -568,7 +564,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The situation in which the undesirable effect may manifest. */
     public var symptomConditionEffect: CodeableReference? = null,
     /** High level classification of the effect. */
@@ -601,7 +597,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -620,7 +616,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A textual definition of this warning, with formatting. */
     public var description: Markdown? = null,
     /** A coded or unformatted textual definition of this warning. */
@@ -632,43 +628,20 @@ public data class ClinicalUseDefinition(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** A reason for giving the medication. */
-    Indication(
-      "indication",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Indication",
-      "A reason for giving the medication.",
-    ),
-    /** A reason for not giving the medication. */
+    Indication("indication", "http://hl7.org/fhir/clinical-use-definition-type", "Indication"),
     Contraindication(
       "contraindication",
       "http://hl7.org/fhir/clinical-use-definition-type",
       "Contraindication",
-      "A reason for not giving the medication.",
     ),
-    /** Interactions between the medication and other substances. */
-    Interaction(
-      "interaction",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Interaction",
-      "Interactions between the medication and other substances.",
-    ),
-    /** Side effects or adverse effects associated with the medication. */
+    Interaction("interaction", "http://hl7.org/fhir/clinical-use-definition-type", "Interaction"),
     Undesirable_Effect(
       "undesirable-effect",
       "http://hl7.org/fhir/clinical-use-definition-type",
       "Undesirable Effect",
-      "Side effects or adverse effects associated with the medication.",
     ),
-    /** A general warning or issue that is not specifically one of the other types. */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/clinical-use-definition-type",
-      "Warning",
-      "A general warning or issue that is not specifically one of the other types.",
-    );
+    Warning("warning", "http://hl7.org/fhir/clinical-use-definition-type", "Warning");
 
     override fun toString(): String = code
 
@@ -677,8 +650,6 @@ public data class ClinicalUseDefinition(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ClinicalUseDefinitionType =

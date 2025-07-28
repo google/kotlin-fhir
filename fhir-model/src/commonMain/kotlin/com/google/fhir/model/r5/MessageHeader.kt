@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.MessageHeaderSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSourceEndpointSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSourceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -104,7 +104,7 @@ public data class MessageHeader(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class MessageHeader(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class MessageHeader(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Code that identifies the event this message represents and connects it with its definition.
    * Events defined as part of the FHIR specification are defined by the implementation.
@@ -145,14 +145,14 @@ public data class MessageHeader(
    * The time of the event will be found in the focus resource. The time of the message will be
    * found in [Bundle.timestamp](bundle-definitions.html#Bundle.timestamp).
    */
-  public var event: Event? = null,
+  public var event: Event,
   /**
    * The destination application which the message is intended for.
    *
    * There SHOULD be at least one destination, but in some circumstances, the source system is
    * unaware of any particular destination system.
    */
-  public var destination: List<Destination>? = null,
+  public var destination: MutableList<Destination> = mutableListOf(),
   /**
    * Identifies the sending system to allow the use of a trust relationship.
    *
@@ -171,7 +171,7 @@ public data class MessageHeader(
    */
   public var author: Reference? = null,
   /** The source application from which this message originated. */
-  public var source: Source? = null,
+  public var source: Source,
   /**
    * The person or organization that accepts overall responsibility for the contents of the message.
    * The implication is that the message event happened under the policies of the responsible party.
@@ -200,7 +200,7 @@ public data class MessageHeader(
    * Multiple repetitions are allowed to cater for merges and other situations with multiple focal
    * targets.
    */
-  public var focus: List<Reference?>? = null,
+  public var focus: MutableList<Reference> = mutableListOf(),
   /** Permanent link to the MessageDefinition for this message. */
   public var definition: Canonical? = null,
 ) : DomainResource() {
@@ -224,7 +224,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -243,7 +243,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates where the message should be routed.
      *
@@ -275,16 +275,14 @@ public data class MessageHeader(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Endpoint
 
-      public data object Null : Endpoint
-
       public companion object {
-        public fun from(
+        internal fun from(
           urlValue: com.google.fhir.model.r5.Url?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Endpoint {
+          referenceValue: com.google.fhir.model.r5.Reference?,
+        ): Endpoint? {
           if (urlValue != null) return Url(urlValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }
@@ -310,7 +308,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -329,7 +327,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies the routing target to send acknowledgements to.
      *
@@ -363,16 +361,14 @@ public data class MessageHeader(
       public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) :
         Endpoint
 
-      public data object Null : Endpoint
-
       public companion object {
-        public fun from(
+        internal fun from(
           urlValue: com.google.fhir.model.r5.Url?,
-          ReferenceValue: com.google.fhir.model.r5.Reference?,
-        ): Endpoint {
+          referenceValue: com.google.fhir.model.r5.Reference?,
+        ): Endpoint? {
           if (urlValue != null) return Url(urlValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          return Null
+          if (referenceValue != null) return Reference(referenceValue)
+          return null
         }
       }
     }
@@ -401,7 +397,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -420,9 +416,9 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The Bundle.identifier of the message to which this message is a response. */
-    public var identifier: Identifier? = null,
+    public var identifier: Identifier,
     /**
      * Code that identifies the type of response to the message - whether it was successful or not,
      * and whether it should be resent or not.
@@ -430,7 +426,7 @@ public data class MessageHeader(
      * This is a generic response to the request message. Specific data for the response will be
      * found in MessageHeader.focus.
      */
-    public var code: Enumeration<ResponseType>? = null,
+    public var code: Enumeration<ResponseType>,
     /**
      * Full details of any issues found in the message.
      *
@@ -450,16 +446,14 @@ public data class MessageHeader(
 
     public data class Canonical(public val `value`: com.google.fhir.model.r5.Canonical) : Event
 
-    public data object Null : Event
-
     public companion object {
-      public fun from(
-        CodingValue: com.google.fhir.model.r5.Coding?,
+      internal fun from(
+        codingValue: com.google.fhir.model.r5.Coding?,
         canonicalValue: com.google.fhir.model.r5.Canonical?,
-      ): Event {
-        if (CodingValue != null) return Coding(CodingValue)
+      ): Event? {
+        if (codingValue != null) return Coding(codingValue)
         if (canonicalValue != null) return Canonical(canonicalValue)
-        return Null
+        return null
       }
     }
   }
@@ -469,36 +463,10 @@ public data class MessageHeader(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The message was accepted and processed without error. */
-    Ok(
-      "ok",
-      "http://hl7.org/fhir/response-code",
-      "OK",
-      "The message was accepted and processed without error.",
-    ),
-    /**
-     * Some internal unexpected error occurred - wait and try again. Note - this is usually used for
-     * things like database unavailable, which may be expected to resolve, though human intervention
-     * may be required.
-     */
-    Transient_Error(
-      "transient-error",
-      "http://hl7.org/fhir/response-code",
-      "Transient Error",
-      "Some internal unexpected error occurred - wait and try again. Note - this is usually used for things like database unavailable, which may be expected to resolve, though human intervention may be required.",
-    ),
-    /**
-     * The message was rejected because of a problem with the content. There is no point in
-     * re-sending without change. The response narrative SHALL describe the issue.
-     */
-    Fatal_Error(
-      "fatal-error",
-      "http://hl7.org/fhir/response-code",
-      "Fatal Error",
-      "The message was rejected because of a problem with the content. There is no point in re-sending without change. The response narrative SHALL describe the issue.",
-    );
+    Ok("ok", "http://hl7.org/fhir/response-code", "OK"),
+    Transient_Error("transient-error", "http://hl7.org/fhir/response-code", "Transient Error"),
+    Fatal_Error("fatal-error", "http://hl7.org/fhir/response-code", "Fatal Error");
 
     override fun toString(): kotlin.String = code
 
@@ -507,8 +475,6 @@ public data class MessageHeader(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ResponseType =

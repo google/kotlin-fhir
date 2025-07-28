@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.StructureMapSerializer
 import com.google.fhir.model.r5.serializers.StructureMapStructureSerializer
 import com.google.fhir.model.r5.serializers.StructureMapVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -104,7 +104,7 @@ public data class StructureMap(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class StructureMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class StructureMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this structure map when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -155,7 +155,7 @@ public data class StructureMap(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * A formal identifier that is used to identify this structure map when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -164,7 +164,7 @@ public data class StructureMap(
    * type, and can then identify this structure map outside of FHIR, where it is not possible to use
    * the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the structure map when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the
@@ -194,7 +194,7 @@ public data class StructureMap(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the structure map.
    *
@@ -210,7 +210,7 @@ public data class StructureMap(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this structure map is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -253,7 +253,7 @@ public data class StructureMap(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the structure map from a consumer's perspective.
    *
@@ -274,7 +274,7 @@ public data class StructureMap(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the structure map is intended to be used.
    *
@@ -286,7 +286,7 @@ public data class StructureMap(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this structure map is needed and why it has been designed as it has.
    *
@@ -320,13 +320,13 @@ public data class StructureMap(
    * It is not necessary for a structure map to identify any dependent structures, though not
    * listing them may restrict its usefulness.
    */
-  public var structure: List<Structure>? = null,
+  public var structure: MutableList<Structure> = mutableListOf(),
   /** Other maps used by this map (canonical URLs). */
-  public var `import`: List<Canonical?>? = null,
+  public var `import`: MutableList<Canonical> = mutableListOf(),
   /** Definition of a constant value used in the map rules. */
-  public var `const`: List<Const>? = null,
+  public var `const`: MutableList<Const> = mutableListOf(),
   /** Organizes the mapping into managable chunks for human review/ease of maintenance. */
-  public var group: List<Group>? = null,
+  public var group: MutableList<Group> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A structure definition used by this map. The structure definition may describe instances that
@@ -351,7 +351,7 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -370,11 +370,11 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The canonical reference to the structure. */
-    public var url: Canonical? = null,
+    public var url: Canonical,
     /** How the referenced structure is used in this mapping. */
-    public var mode: Enumeration<StructureMapModelMode>? = null,
+    public var mode: Enumeration<StructureMapModelMode>,
     /**
      * The name used for this type in the map.
      *
@@ -405,7 +405,7 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -424,7 +424,7 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Other maps used by this map (canonical URLs). */
     public var name: Id? = null,
     /** A FHIRPath expression that is the value of this variable. */
@@ -451,7 +451,7 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -470,9 +470,9 @@ public data class StructureMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A unique name for the group for the convenience of human readers. */
-    public var name: Id? = null,
+    public var name: Id,
     /** Another group that this group adds rules to. */
     public var extends: Id? = null,
     /**
@@ -493,9 +493,9 @@ public data class StructureMap(
      *
      * If no inputs are named, then the entry mappings are type based.
      */
-    public var input: List<Input>? = null,
+    public var input: MutableList<Input> = mutableListOf(),
     /** Transform Rule from source to target. */
-    public var rule: List<Rule>? = null,
+    public var rule: MutableList<Rule> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * A name assigned to an instance of data. The instance must be provided when the mapping is
@@ -520,7 +520,7 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -539,13 +539,13 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Name for this instance of data. */
-      public var name: Id? = null,
+      public var name: Id,
       /** Type for this instance of data. */
       public var type: String? = null,
       /** Mode for this instance of data. */
-      public var mode: Enumeration<StructureMapInputMode>? = null,
+      public var mode: Enumeration<StructureMapInputMode>,
       /** Documentation for this instance of data. */
       public var documentation: String? = null,
     ) : BackboneElement()
@@ -570,7 +570,7 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -589,17 +589,17 @@ public data class StructureMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Name of the rule for internal references. */
       public var name: Id? = null,
       /** Source inputs to the mapping. */
-      public var source: List<Source>? = null,
+      public var source: MutableList<Source> = mutableListOf(),
       /** Content to create because of this mapping rule. */
-      public var target: List<Target>? = null,
+      public var target: MutableList<Target> = mutableListOf(),
       /** Rules contained in this rule. */
-      public var rule: List<Rule?>? = null,
+      public var rule: MutableList<Rule> = mutableListOf(),
       /** Which other rules to apply in the context of this rule. */
-      public var dependent: List<Dependent>? = null,
+      public var dependent: MutableList<Dependent> = mutableListOf(),
       /** Documentation for this instance of data. */
       public var documentation: String? = null,
     ) : BackboneElement() {
@@ -623,7 +623,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -642,9 +642,9 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Type or variable this rule applies to. */
-        public var context: Id? = null,
+        public var context: Id,
         /**
          * Specified minimum cardinality for the element. This is optional; if present, it acts an
          * implicit check on the input content.
@@ -710,7 +710,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -729,7 +729,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Variable this rule applies to. */
         public var context: String? = null,
         /** Field to create in the context. */
@@ -737,13 +737,13 @@ public data class StructureMap(
         /** Named context for field, if desired, and a field is specified. */
         public var variable: Id? = null,
         /** If field is a list, how to manage the list. */
-        public var listMode: List<Enumeration<StructureMapTargetListMode>>? = null,
+        public var listMode: MutableList<Enumeration<StructureMapTargetListMode>> = mutableListOf(),
         /** Internal rule reference for shared list items. */
         public var listRuleId: Id? = null,
         /** How the data is copied / created. */
         public var transform: Enumeration<StructureMapTransform>? = null,
         /** Parameters to the transform. */
-        public var parameter: List<Parameter>? = null,
+        public var parameter: MutableList<Parameter> = mutableListOf(),
       ) : BackboneElement() {
         /** Parameters to the transform. */
         @Serializable(with = StructureMapGroupRuleTargetParameterSerializer::class)
@@ -765,7 +765,7 @@ public data class StructureMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -784,9 +784,9 @@ public data class StructureMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** Parameter value - variable or literal. */
-          public var `value`: Value? = null,
+          public var `value`: Value,
         ) : BackboneElement() {
           @Serializable(with = StructureMapGroupRuleTargetParameterValueSerializer::class)
           public sealed interface Value {
@@ -823,10 +823,8 @@ public data class StructureMap(
             public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) :
               Value
 
-            public data object Null : Value
-
             public companion object {
-              public fun from(
+              internal fun from(
                 idValue: com.google.fhir.model.r5.Id?,
                 stringValue: com.google.fhir.model.r5.String?,
                 booleanValue: com.google.fhir.model.r5.Boolean?,
@@ -835,7 +833,7 @@ public data class StructureMap(
                 dateValue: com.google.fhir.model.r5.Date?,
                 timeValue: com.google.fhir.model.r5.Time?,
                 dateTimeValue: com.google.fhir.model.r5.DateTime?,
-              ): Value {
+              ): Value? {
                 if (idValue != null) return Id(idValue)
                 if (stringValue != null) return String(stringValue)
                 if (booleanValue != null) return Boolean(booleanValue)
@@ -844,7 +842,7 @@ public data class StructureMap(
                 if (dateValue != null) return Date(dateValue)
                 if (timeValue != null) return Time(timeValue)
                 if (dateTimeValue != null) return DateTime(dateTimeValue)
-                return Null
+                return null
               }
             }
           }
@@ -871,7 +869,7 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -890,11 +888,11 @@ public data class StructureMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /** Name of a rule or group to apply. */
-        public var name: Id? = null,
+        public var name: Id,
         /** Parameter to pass to the rule or group. */
-        public var parameter: List<Target.Parameter?>? = null,
+        public var parameter: MutableList<Target.Parameter> = mutableListOf(),
       ) : BackboneElement()
     }
   }
@@ -911,16 +909,14 @@ public data class StructureMap(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -930,48 +926,11 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This structure describes an instance passed to the mapping engine that is used a source of
-     * data.
-     */
-    Source(
-      "source",
-      "http://hl7.org/fhir/map-model-mode",
-      "Source Structure Definition",
-      "This structure describes an instance passed to the mapping engine that is used a source of data.",
-    ),
-    /**
-     * This structure describes an instance that the mapping engine may ask for that is used a
-     * source of data.
-     */
-    Queried(
-      "queried",
-      "http://hl7.org/fhir/map-model-mode",
-      "Queried Structure Definition",
-      "This structure describes an instance that the mapping engine may ask for that is used a source of data.",
-    ),
-    /**
-     * This structure describes an instance passed to the mapping engine that is used a target of
-     * data.
-     */
-    Target(
-      "target",
-      "http://hl7.org/fhir/map-model-mode",
-      "Target Structure Definition",
-      "This structure describes an instance passed to the mapping engine that is used a target of data.",
-    ),
-    /**
-     * This structure describes an instance that the mapping engine may ask to create that is used a
-     * target of data.
-     */
-    Produced(
-      "produced",
-      "http://hl7.org/fhir/map-model-mode",
-      "Produced Structure Definition",
-      "This structure describes an instance that the mapping engine may ask to create that is used a target of data.",
-    );
+    Source("source", "http://hl7.org/fhir/map-model-mode", "Source Structure Definition"),
+    Queried("queried", "http://hl7.org/fhir/map-model-mode", "Queried Structure Definition"),
+    Target("target", "http://hl7.org/fhir/map-model-mode", "Target Structure Definition"),
+    Produced("produced", "http://hl7.org/fhir/map-model-mode", "Produced Structure Definition");
 
     override fun toString(): kotlin.String = code
 
@@ -980,8 +939,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapModelMode =
@@ -1001,24 +958,12 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * This group is a default mapping group for the specified types and for the primary source
-     * type.
-     */
-    Types(
-      "types",
-      "http://hl7.org/fhir/map-group-type-mode",
-      "Default for Type Combination",
-      "This group is a default mapping group for the specified types and for the primary source type.",
-    ),
-    /** This group is a default mapping group for the specified types. */
+    Types("types", "http://hl7.org/fhir/map-group-type-mode", "Default for Type Combination"),
     Type_And_Types(
       "type-and-types",
       "http://hl7.org/fhir/map-group-type-mode",
       "Default for type + combination",
-      "This group is a default mapping group for the specified types.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1028,8 +973,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapGroupTypeMode =
@@ -1047,22 +990,9 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Names an input instance used a source for mapping. */
-    Source(
-      "source",
-      "http://hl7.org/fhir/map-input-mode",
-      "Source Instance",
-      "Names an input instance used a source for mapping.",
-    ),
-    /** Names an instance that is being populated. */
-    Target(
-      "target",
-      "http://hl7.org/fhir/map-input-mode",
-      "Target Instance",
-      "Names an instance that is being populated.",
-    );
+    Source("source", "http://hl7.org/fhir/map-input-mode", "Source Instance"),
+    Target("target", "http://hl7.org/fhir/map-input-mode", "Target Instance");
 
     override fun toString(): kotlin.String = code
 
@@ -1071,8 +1001,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapInputMode =
@@ -1090,43 +1018,12 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Only process this rule for the first in the list. */
-    First(
-      "first",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "First",
-      "Only process this rule for the first in the list.",
-    ),
-    /** Process this rule for all but the first. */
-    Not_First(
-      "not_first",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "All but the first",
-      "Process this rule for all but the first.",
-    ),
-    /** Only process this rule for the last in the list. */
-    Last(
-      "last",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "Last",
-      "Only process this rule for the last in the list.",
-    ),
-    /** Process this rule for all but the last. */
-    Not_Last(
-      "not_last",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "All but the last",
-      "Process this rule for all but the last.",
-    ),
-    /** Only process this rule is there is only item. */
-    Only_One(
-      "only_one",
-      "http://hl7.org/fhir/map-source-list-mode",
-      "Enforce only one",
-      "Only process this rule is there is only item.",
-    );
+    First("first", "http://hl7.org/fhir/map-source-list-mode", "First"),
+    Not_First("not_first", "http://hl7.org/fhir/map-source-list-mode", "All but the first"),
+    Last("last", "http://hl7.org/fhir/map-source-list-mode", "Last"),
+    Not_Last("not_last", "http://hl7.org/fhir/map-source-list-mode", "All but the last"),
+    Only_One("only_one", "http://hl7.org/fhir/map-source-list-mode", "Enforce only one");
 
     override fun toString(): kotlin.String = code
 
@@ -1135,8 +1032,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapSourceListMode =
@@ -1157,48 +1052,11 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * when the target list is being assembled, the items for this rule go first. If more than one
-     * rule defines a first item (for a given instance of mapping) then this is an error.
-     */
-    First(
-      "first",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "First",
-      "when the target list is being assembled, the items for this rule go first. If more than one rule defines a first item (for a given instance of mapping) then this is an error.",
-    ),
-    /**
-     * the target instance is shared with the target instances generated by another rule (up to the
-     * first common n items, then create new ones).
-     */
-    Share(
-      "share",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "Share",
-      "the target instance is shared with the target instances generated by another rule (up to the first common n items, then create new ones).",
-    ),
-    /**
-     * when the target list is being assembled, the items for this rule go last. If more than one
-     * rule defines a last item (for a given instance of mapping) then this is an error.
-     */
-    Last(
-      "last",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "Last",
-      "when the target list is being assembled, the items for this rule go last. If more than one rule defines a last item (for a given instance of mapping) then this is an error.",
-    ),
-    /**
-     * the target instance is shared with a number of target instances generated by another rule (up
-     * to the first common n items, then create new ones).
-     */
-    Single(
-      "single",
-      "http://hl7.org/fhir/map-target-list-mode",
-      "single",
-      "the target instance is shared with a number of target instances generated by another rule (up to the first common n items, then create new ones).",
-    );
+    First("first", "http://hl7.org/fhir/map-target-list-mode", "First"),
+    Share("share", "http://hl7.org/fhir/map-target-list-mode", "Share"),
+    Last("last", "http://hl7.org/fhir/map-target-list-mode", "Last"),
+    Single("single", "http://hl7.org/fhir/map-target-list-mode", "single");
 
     override fun toString(): kotlin.String = code
 
@@ -1207,8 +1065,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapTargetListMode =
@@ -1228,145 +1084,24 @@ public data class StructureMap(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * create(type : string) - type is passed through to the application on the standard API, and
-     * must be known by it.
-     */
-    Create(
-      "create",
-      "http://hl7.org/fhir/map-transform",
-      "create",
-      "create(type : string) - type is passed through to the application on the standard API, and must be known by it.",
-    ),
-    /** copy(source). */
-    Copy("copy", "http://hl7.org/fhir/map-transform", "copy", "copy(source)."),
-    /** truncate(source, length) - source must be stringy type. */
-    Truncate(
-      "truncate",
-      "http://hl7.org/fhir/map-transform",
-      "truncate",
-      "truncate(source, length) - source must be stringy type.",
-    ),
-    /**
-     * escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java,
-     * xml, json). note that this is for when the string itself is escaped.
-     */
-    Escape(
-      "escape",
-      "http://hl7.org/fhir/map-transform",
-      "escape",
-      "escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java, xml, json). note that this is for when the string itself is escaped.",
-    ),
-    /**
-     * cast(source, type?) - cast (convert) source from one type to another. Target type can be left
-     * as implicit if there is one and only one target type known. The default namespace for the
-     * type is 'FHIR' (see
-     * [FHIRPath type specifiers](http://hl7.org/fhirpath/N1/#is-type-specifier))
-     */
-    Cast(
-      "cast",
-      "http://hl7.org/fhir/map-transform",
-      "cast",
-      "cast(source, type?) - cast (convert) source from one type to another. Target type can be left as implicit if there is one and only one target type known. The default namespace for the type is 'FHIR' (see [FHIRPath type specifiers](http://hl7.org/fhirpath/N1/#is-type-specifier))",
-    ),
-    /** append(source...) - source is element or string. */
-    Append(
-      "append",
-      "http://hl7.org/fhir/map-transform",
-      "append",
-      "append(source...) - source is element or string.",
-    ),
-    /** translate(source, uri_of_map) - use the translate operation. */
-    Translate(
-      "translate",
-      "http://hl7.org/fhir/map-transform",
-      "translate",
-      "translate(source, uri_of_map) - use the translate operation.",
-    ),
-    /** reference(source : object) - return a string that references the provided tree properly. */
-    Reference(
-      "reference",
-      "http://hl7.org/fhir/map-transform",
-      "reference",
-      "reference(source : object) - return a string that references the provided tree properly.",
-    ),
-    /** Perform a date operation. *Parameters to be documented*. */
-    DateOp(
-      "dateOp",
-      "http://hl7.org/fhir/map-transform",
-      "dateOp",
-      "Perform a date operation. *Parameters to be documented*.",
-    ),
-    /** Generate a random UUID (in lowercase). No Parameters. */
-    Uuid(
-      "uuid",
-      "http://hl7.org/fhir/map-transform",
-      "uuid",
-      "Generate a random UUID (in lowercase). No Parameters.",
-    ),
-    /**
-     * Return the appropriate string to put in a reference that refers to the resource provided as a
-     * parameter.
-     */
-    Pointer(
-      "pointer",
-      "http://hl7.org/fhir/map-transform",
-      "pointer",
-      "Return the appropriate string to put in a reference that refers to the resource provided as a parameter.",
-    ),
-    /** Execute the supplied FHIRPath expression and use the value returned by that. */
-    Evaluate(
-      "evaluate",
-      "http://hl7.org/fhir/map-transform",
-      "evaluate",
-      "Execute the supplied FHIRPath expression and use the value returned by that.",
-    ),
-    /** Create a CodeableConcept. Parameters = (text) or (system. Code[, display]). */
-    Cc(
-      "cc",
-      "http://hl7.org/fhir/map-transform",
-      "cc",
-      "Create a CodeableConcept. Parameters = (text) or (system. Code[, display]).",
-    ),
-    /** Create a Coding. Parameters = (system. Code[, display]). */
-    C(
-      "c",
-      "http://hl7.org/fhir/map-transform",
-      "c",
-      "Create a Coding. Parameters = (system. Code[, display]).",
-    ),
-    /**
-     * Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the
-     * natural representation e.g. [comparator]value[space]unit.
-     */
-    Qty(
-      "qty",
-      "http://hl7.org/fhir/map-transform",
-      "qty",
-      "Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the natural representation e.g. [comparator]value[space]unit.",
-    ),
-    /**
-     * Create an identifier. Parameters = (system, value[, type]) where type is a code from the
-     * identifier type value set.
-     */
-    Id(
-      "id",
-      "http://hl7.org/fhir/map-transform",
-      "id",
-      "Create an identifier. Parameters = (system, value[, type]) where type is a code from the identifier type value set.",
-    ),
-    /**
-     * Create a contact details. Parameters = (value) or (system, value). If no system is provided,
-     * the system should be inferred from the content of the value.
-     */
-    Cp(
-      "cp",
-      "http://hl7.org/fhir/map-transform",
-      "cp",
-      "Create a contact details. Parameters = (value) or (system, value). If no system is provided, the system should be inferred from the content of the value.",
-    );
+    Create("create", "http://hl7.org/fhir/map-transform", "create"),
+    Copy("copy", "http://hl7.org/fhir/map-transform", "copy"),
+    Truncate("truncate", "http://hl7.org/fhir/map-transform", "truncate"),
+    Escape("escape", "http://hl7.org/fhir/map-transform", "escape"),
+    Cast("cast", "http://hl7.org/fhir/map-transform", "cast"),
+    Append("append", "http://hl7.org/fhir/map-transform", "append"),
+    Translate("translate", "http://hl7.org/fhir/map-transform", "translate"),
+    Reference("reference", "http://hl7.org/fhir/map-transform", "reference"),
+    DateOp("dateOp", "http://hl7.org/fhir/map-transform", "dateOp"),
+    Uuid("uuid", "http://hl7.org/fhir/map-transform", "uuid"),
+    Pointer("pointer", "http://hl7.org/fhir/map-transform", "pointer"),
+    Evaluate("evaluate", "http://hl7.org/fhir/map-transform", "evaluate"),
+    Cc("cc", "http://hl7.org/fhir/map-transform", "cc"),
+    C("c", "http://hl7.org/fhir/map-transform", "c"),
+    Qty("qty", "http://hl7.org/fhir/map-transform", "qty"),
+    Id("id", "http://hl7.org/fhir/map-transform", "id"),
+    Cp("cp", "http://hl7.org/fhir/map-transform", "cp");
 
     override fun toString(): kotlin.String = code
 
@@ -1375,8 +1110,6 @@ public data class StructureMap(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureMapTransform =

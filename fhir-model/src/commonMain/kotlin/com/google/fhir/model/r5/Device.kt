@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.DeviceSerializer
 import com.google.fhir.model.r5.serializers.DeviceUdiCarrierSerializer
 import com.google.fhir.model.r5.serializers.DeviceVersionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -106,7 +106,7 @@ public data class Device(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -119,7 +119,7 @@ public data class Device(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,7 +138,7 @@ public data class Device(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique instance identifiers assigned to a device by manufacturers other organizations or
    * owners.
@@ -153,7 +153,7 @@ public data class Device(
    * identifier. However, it is permissible to still include those identifiers in
    * DeviceDefinition.identifier with the appropriate identifier.type.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The name used to display by default when the device is referenced. Based on intent of use by
    * the resource creator, this may reflect one of the names in Device.name, or may be another
@@ -171,7 +171,7 @@ public data class Device(
    * device. See [UDI mappings](device-mappings.html#udi) for a complete mapping of UDI parts to
    * Device.
    */
-  public var udiCarrier: List<UdiCarrier>? = null,
+  public var udiCarrier: MutableList<UdiCarrier> = mutableListOf(),
   /** The Device record status. This is not the status of the device like availability. */
   public var status: Enumeration<FHIRDeviceStatus>? = null,
   /** The availability of the device. */
@@ -225,7 +225,7 @@ public data class Device(
    * provides the name(s) or when the device represents one of the names available from
    * DeviceDefinition.
    */
-  public var name: List<Name>? = null,
+  public var name: MutableList<Name> = mutableListOf(),
   /** The manufacturer's model number for the device. */
   public var modelNumber: String? = null,
   /**
@@ -235,7 +235,7 @@ public data class Device(
    */
   public var partNumber: String? = null,
   /** Devices may be associated with one or more categories. */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The kind or type of device. A device instance may have more than one type - in which case those
    * are the types that apply to the specific instance of the device.
@@ -243,15 +243,15 @@ public data class Device(
    * Multiple device types are use when a device is categorized in more than one context – for
    * example, hybrid devices in which the device is both of type gateway and sensor.
    */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /** The actual design of the device or software version running on the device. */
-  public var version: List<Version>? = null,
+  public var version: MutableList<Version> = mutableListOf(),
   /**
    * Identifies the standards, specifications, or formal guidances for the capabilities supported by
    * the device. The device may be certified as conformant to these specifications e.g.,
    * communication, performance, process, measurement, or specialization standards.
    */
-  public var conformsTo: List<ConformsTo>? = null,
+  public var conformsTo: MutableList<ConformsTo> = mutableListOf(),
   /**
    * Static or essentially fixed characteristics or features of the device (e.g., time or timing
    * attributes, resolution, accuracy, intended use or instructions for use, and physical
@@ -263,7 +263,7 @@ public data class Device(
    * instance. The Device instance's properties, and their values, could be, but need not be, the
    * same as those described in an associated DeviceDefinition.
    */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
   /** The designated condition for performing a task with the device. */
   public var mode: CodeableConcept? = null,
   /** The series of occurrences that repeats during the operation of the device. */
@@ -279,7 +279,7 @@ public data class Device(
    *
    * used for troubleshooting etc.
    */
-  public var contact: List<ContactPoint?>? = null,
+  public var contact: MutableList<ContactPoint> = mutableListOf(),
   /** The place where the device can be found. */
   public var location: Reference? = null,
   /**
@@ -293,7 +293,7 @@ public data class Device(
    * Technical endpoints providing access to services provided by the device defined at this
    * resource.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
   /**
    * The linked device acting as a communication controller, data collector, translator, or
    * concentrator for the current device (e.g., mobile phone application that relays a blood
@@ -303,17 +303,17 @@ public data class Device(
    * one or more gateways associated with the device. If the Gateway is included in the Observation
    * resource, the Observation.gatewayDevice should be used instead.
    */
-  public var gateway: List<CodeableReference?>? = null,
+  public var gateway: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Descriptive information, usage information or implantation information that is not captured in
    * an existing element.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Provides additional safety characteristics about a medical device. For example devices
    * containing latex.
    */
-  public var safety: List<CodeableConcept?>? = null,
+  public var safety: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The higher level or encompassing device that this device is a logical part of.
    *
@@ -347,7 +347,7 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -366,12 +366,12 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The device identifier (DI) is a mandatory, fixed portion of a UDI that identifies the labeler
      * and the specific version or model of a device.
      */
-    public var deviceIdentifier: String? = null,
+    public var deviceIdentifier: String,
     /**
      * Organization that is charged with issuing UDIs for devices. For example, the US FDA issuers
      * include:
@@ -382,7 +382,7 @@ public data class Device(
      *    Informationsstelle für Arzneispezialitäten (IFA GmbH) (EU only):
      *    http://hl7.org/fhir/NamingSystem/ifa-gmbh-di.
      */
-    public var issuer: Uri? = null,
+    public var issuer: Uri,
     /**
      * The identity of the authoritative source for UDI generation within a jurisdiction. All UDIs
      * are globally unique within a single namespace with the appropriate repository uri as the
@@ -440,7 +440,7 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -459,11 +459,11 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The actual name that identifies the device. */
-    public var `value`: String? = null,
+    public var `value`: String,
     /** Indicates the kind of name. RegisteredName | UserFriendlyName | PatientReportedName. */
-    public var type: Enumeration<DeviceNameType>? = null,
+    public var type: Enumeration<DeviceNameType>,
     /** Indicates the default or preferred name to be displayed. */
     public var display: Boolean? = null,
   ) : BackboneElement()
@@ -488,7 +488,7 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -507,7 +507,7 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of the device version, e.g. manufacturer, approved, internal. */
     public var type: CodeableConcept? = null,
     /**
@@ -521,7 +521,7 @@ public data class Device(
     /** The date the version was installed on the device. */
     public var installDate: DateTime? = null,
     /** The version text. */
-    public var `value`: String? = null,
+    public var `value`: String,
   ) : BackboneElement()
 
   /**
@@ -548,7 +548,7 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -567,14 +567,14 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Describes the type of the standard, specification, or formal guidance. */
     public var category: CodeableConcept? = null,
     /**
      * Code that identifies the specific standard, specification, protocol, formal guidance,
      * regulation, legislation, or certification scheme to which the device adheres.
      */
-    public var specification: CodeableConcept? = null,
+    public var specification: CodeableConcept,
     /**
      * Identifies the specific form or variant of the standard, specification, or formal guidance.
      * This may be a 'version number', release, document edition, publication year, or other label.
@@ -606,7 +606,7 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -625,9 +625,9 @@ public data class Device(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Code that specifies the property, such as resolution, color, size, being represented. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * The value of the property specified by the associated property.type code.
      *
@@ -637,7 +637,7 @@ public data class Device(
      * classification which depends on configuration). Otherwise the string choice type is used for
      * descriptive properties, or instructions.
      */
-    public var `value`: Value? = null,
+    public var `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = DevicePropertyValueSerializer::class)
     public sealed interface Value {
@@ -671,26 +671,24 @@ public data class Device(
 
       public data class Attachment(public val `value`: com.google.fhir.model.r5.Attachment) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+        internal fun from(
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
           stringValue: com.google.fhir.model.r5.String?,
           booleanValue: com.google.fhir.model.r5.Boolean?,
           integerValue: com.google.fhir.model.r5.Integer?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          AttachmentValue: com.google.fhir.model.r5.Attachment?,
-        ): Value {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
+          rangeValue: com.google.fhir.model.r5.Range?,
+          attachmentValue: com.google.fhir.model.r5.Attachment?,
+        ): Value? {
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
           if (stringValue != null) return String(stringValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (integerValue != null) return Integer(integerValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return Null
+          if (rangeValue != null) return Range(rangeValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          return null
         }
       }
     }
@@ -701,63 +699,18 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** a barcodescanner captured the data from the device label. */
-    Barcode(
-      "barcode",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Barcode",
-      "a barcodescanner captured the data from the device label.",
-    ),
-    /** An RFID chip reader captured the data from the device label. */
-    Rfid(
-      "rfid",
-      "http://hl7.org/fhir/udi-entry-type",
-      "RFID",
-      "An RFID chip reader captured the data from the device label.",
-    ),
-    /** The data was read from the label by a person and manually entered. (e.g. via a keyboard). */
-    Manual(
-      "manual",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Manual",
-      "The data was read from the label by a person and manually entered. (e.g.  via a keyboard).",
-    ),
-    /** The data originated from a patient's implant card and was read by an operator. */
-    Card(
-      "card",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Card",
-      "The data originated from a patient's implant card and was read by an operator.",
-    ),
-    /**
-     * The data originated from a patient source and was not directly scanned or read from a label
-     * or card.
-     */
-    Self_Reported(
-      "self-reported",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Self Reported",
-      "The data originated from a patient source and was not directly scanned or read from a label or card.",
-    ),
-    /**
-     * The UDI information was received electronically from the device through a communication
-     * protocol, such as the IEEE 11073 20601 version 4 exchange protocol over Bluetooth or USB.
-     */
+    Barcode("barcode", "http://hl7.org/fhir/udi-entry-type", "Barcode"),
+    Rfid("rfid", "http://hl7.org/fhir/udi-entry-type", "RFID"),
+    Manual("manual", "http://hl7.org/fhir/udi-entry-type", "Manual"),
+    Card("card", "http://hl7.org/fhir/udi-entry-type", "Card"),
+    Self_Reported("self-reported", "http://hl7.org/fhir/udi-entry-type", "Self Reported"),
     Electronic_Transmission(
       "electronic-transmission",
       "http://hl7.org/fhir/udi-entry-type",
       "Electronic Transmission",
-      "The UDI information was received electronically from the device through a communication protocol, such as the IEEE 11073 20601 version 4 exchange protocol over Bluetooth or USB.",
     ),
-    /** The method of data capture has not been determined. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/udi-entry-type",
-      "Unknown",
-      "The method of data capture has not been determined.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/udi-entry-type", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -766,8 +719,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): UDIEntryType =
@@ -789,44 +740,17 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The term assigned to a medical device by the entity who registers or submits information
-     * about it to a jurisdiction or its databases. This may be considered the manufacturer assigned
-     * name (e.g., brand name assigned by the labeler or manufacturer in US, or device name assigned
-     * by the manufacturer in EU) and may also be synonymous with proprietary name or trade name of
-     * the device.
-     */
-    Registered_Name(
-      "registered-name",
-      "http://hl7.org/fhir/device-nametype",
-      "Registered name",
-      "The term assigned to a medical device by the entity who registers or submits information about it to a jurisdiction or its databases. This may be considered the manufacturer assigned name (e.g., brand name assigned by the labeler or manufacturer in US, or device name assigned by the manufacturer in EU) and may also be synonymous with proprietary name or trade name of the device.",
-    ),
-    /**
-     * The term that generically describes the device by a name as assigned by the manufacturer that
-     * is recognized by lay person. This common or generic name may be printed on the package it
-     * came in or some combination of that name with the model number, serial number, or other
-     * attribute that makes the name easy to understand for the user of that device. It is often
-     * exposed in communicating devices transport protocols. It is provided to help users identify
-     * the device when reported in discovery operations.
-     */
+    Registered_Name("registered-name", "http://hl7.org/fhir/device-nametype", "Registered name"),
     User_Friendly_Name(
       "user-friendly-name",
       "http://hl7.org/fhir/device-nametype",
       "User Friendly name",
-      "The term that generically describes the device by a name as assigned by the manufacturer that is recognized by lay person.  This common or generic name may be printed on the package it came in or some combination of that name with the model number, serial number, or other attribute that makes the name easy to understand for the user of that device. It is often exposed in communicating devices transport protocols. It is provided to help users identify the device when reported in discovery operations.",
     ),
-    /**
-     * the term used by the patient associated with the device when describing the device, for
-     * example 'knee implant', when documented as a self-reported device.
-     */
     Patient_Reported_Name(
       "patient-reported-name",
       "http://hl7.org/fhir/device-nametype",
       "Patient Reported name",
-      "the term used by the patient associated with the device when describing the device, for example 'knee implant', when documented as a self-reported device.",
     );
 
     override fun toString(): kotlin.String = code
@@ -836,8 +760,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DeviceNameType =
@@ -855,29 +777,10 @@ public data class Device(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The device record is current and is appropriate for reference in new instances. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/device-status",
-      "Active",
-      "The device record is current and is appropriate for reference in new instances.",
-    ),
-    /** The device record is not current and is not appropriate for reference in new instances. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/device-status",
-      "Inactive",
-      "The device record is not current and is not appropriate for reference in new instances.",
-    ),
-    /** The device record is not current and is not appropriate for reference in new instances. */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/device-status",
-      "Entered in Error",
-      "The device record is not current and is not appropriate for reference in new instances.",
-    );
+    Active("active", "http://hl7.org/fhir/device-status", "Active"),
+    Inactive("inactive", "http://hl7.org/fhir/device-status", "Inactive"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/device-status", "Entered in Error");
 
     override fun toString(): kotlin.String = code
 
@@ -886,8 +789,6 @@ public data class Device(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FHIRDeviceStatus =

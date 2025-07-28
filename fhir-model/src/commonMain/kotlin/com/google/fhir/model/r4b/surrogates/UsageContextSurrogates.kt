@@ -30,36 +30,35 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class UsageContextValueSurrogate {
-  public var valueCodeableConcept: CodeableConcept? = null
-
-  public var valueQuantity: Quantity? = null
-
-  public var valueRange: Range? = null
-
-  public var valueReference: Reference? = null
-
+internal data class UsageContextValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueReference: Reference? = null,
+) {
   public fun toModel(): UsageContext.Value =
-    UsageContext.Value?.from(
+    UsageContext.Value.from(
       this@UsageContextValueSurrogate.valueCodeableConcept,
       this@UsageContextValueSurrogate.valueQuantity,
       this@UsageContextValueSurrogate.valueRange,
       this@UsageContextValueSurrogate.valueReference,
-    ) ?: UsageContext.Value.Null
+    )!!
 
   public companion object {
     public fun fromModel(model: UsageContext.Value): UsageContextValueSurrogate =
       with(model) {
         UsageContextValueSurrogate().apply {
-          valueCodeableConcept = this@with.asCodeableConcept()?.value
-          valueQuantity = this@with.asQuantity()?.value
-          valueRange = this@with.asRange()?.value
-          valueReference = this@with.asReference()?.value
+          UsageContext.Value.from(
+            this@UsageContextValueSurrogate.valueCodeableConcept,
+            this@UsageContextValueSurrogate.valueQuantity,
+            this@UsageContextValueSurrogate.valueRange,
+            this@UsageContextValueSurrogate.valueReference,
+          )!!
         }
       }
   }
@@ -68,27 +67,27 @@ internal class UsageContextValueSurrogate {
 @Serializable
 internal data class UsageContextSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var code: Coding? = null,
-  public var `value`: UsageContext.Value? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var code: Coding,
+  public var `value`: UsageContext.Value,
 ) {
   public fun toModel(): UsageContext =
-    UsageContext().apply {
-      id = this@UsageContextSurrogate.id
-      extension = this@UsageContextSurrogate.extension
-      code = this@UsageContextSurrogate.code
-      `value` = this@UsageContextSurrogate.`value`
-    }
+    UsageContext(
+      id = this@UsageContextSurrogate.id,
+      extension = this@UsageContextSurrogate.extension ?: mutableListOf(),
+      code = this@UsageContextSurrogate.code,
+      `value` = this@UsageContextSurrogate.`value`,
+    )
 
   public companion object {
     public fun fromModel(model: UsageContext): UsageContextSurrogate =
       with(model) {
-        UsageContextSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          code = this@with.code
-          `value` = this@with.`value`
-        }
+        UsageContextSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          `value` = this@with.`value`,
+        )
       }
   }
 }

@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.NutritionIntakeReportedSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -107,7 +107,7 @@ public data class NutritionIntake(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -120,7 +120,7 @@ public data class NutritionIntake(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -139,7 +139,7 @@ public data class NutritionIntake(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this Nutrition Intake that are defined by business processes and/or
    * used to refer to it when a direct URL reference to the resource itself is not appropriate. They
@@ -148,15 +148,15 @@ public data class NutritionIntake(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Instantiates FHIR protocol or definition. */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /** Instantiates external protocol or definition. */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this event. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** A larger event of which this particular event is a component or step. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code representing the patient or other source's judgment about the state of the intake that
    * this assertion is about. Generally, this will be active or completed.
@@ -170,7 +170,7 @@ public data class NutritionIntake(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<NutritionIntakeStatus>? = null,
+  public var status: Enumeration<NutritionIntakeStatus>,
   /**
    * Captures the reason for the current state of the NutritionIntake.
    *
@@ -178,11 +178,11 @@ public data class NutritionIntake(
    * "cancelled" or "entered-in-error". The reason for performing the event at all is captured in
    * reasonCode, not here.
    */
-  public var statusReason: List<CodeableConcept?>? = null,
+  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
   /** Overall type of nutrition intake. */
   public var code: CodeableConcept? = null,
   /** The person, animal or group who is/was consuming the food or fluid. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /** The encounter that establishes the context for this NutritionIntake. */
   public var encounter: Reference? = null,
   /**
@@ -205,16 +205,16 @@ public data class NutritionIntake(
    */
   public var reported: Reported? = null,
   /** What food or fluid product or item was consumed. */
-  public var consumedItem: List<ConsumedItem>? = null,
+  public var consumedItem: MutableList<ConsumedItem> = mutableListOf(),
   /**
    * Total nutrient amounts for the whole meal, product, serving, etc.
    *
    * Individual item nutrients are not currently included in the resource and will likely end up as
    * a reference in nutritionProduct to represent the individual items.
    */
-  public var ingredientLabel: List<IngredientLabel>? = null,
+  public var ingredientLabel: MutableList<IngredientLabel> = mutableListOf(),
   /** Who performed the intake and how they were involved. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** Where the intake occurred. */
   public var location: Reference? = null,
   /**
@@ -223,14 +223,14 @@ public data class NutritionIntake(
    *
    * Likely references would be to AllergyIntolerance, Observation or QuestionnaireAnswers.
    */
-  public var derivedFrom: List<Reference?>? = null,
+  public var derivedFrom: MutableList<Reference> = mutableListOf(),
   /** A reason, Condition or observation for why the food or fluid is /was consumed. */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Provides extra information about the Nutrition Intake that is not conveyed by the other
    * attributes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** What food or fluid product or item was consumed. */
   @Serializable(with = NutritionIntakeConsumedItemSerializer::class)
@@ -252,7 +252,7 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -271,9 +271,9 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates what a category of item that was consumed: e.g., food, fluid, enteral, etc. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * Identifies the food or fluid product that was consumed. This is potentially a link to a
      * resource representing the details of the food product (TBD) or a simple attribute carrying a
@@ -282,7 +282,7 @@ public data class NutritionIntake(
      * If only a code is specified, then it needs to be a code for a specific product. If more
      * information is required, then the use of a new nutritionProduct resource is recommended.
      */
-    public var nutritionProduct: CodeableReference? = null,
+    public var nutritionProduct: CodeableReference,
     /** Scheduled frequency of consumption. */
     public var schedule: Timing? = null,
     /** Quantity of the specified food. */
@@ -320,7 +320,7 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -339,14 +339,14 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Total nutrient consumed. This could be a macronutrient (protein, fat, carbohydrate), or a
      * vitamin and mineral.
      */
-    public var nutrient: CodeableReference? = null,
+    public var nutrient: CodeableReference,
     /** Total amount of nutrient consumed. */
-    public var amount: Quantity? = null,
+    public var amount: Quantity,
   ) : BackboneElement()
 
   /** Who performed the intake and how they were involved. */
@@ -369,7 +369,7 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -388,11 +388,11 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Type of performer. */
     public var function: CodeableConcept? = null,
     /** Who performed the intake. */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   @Serializable(with = NutritionIntakeOccurrenceSerializer::class)
@@ -405,16 +405,14 @@ public data class NutritionIntake(
 
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Occurrence
 
-    public data object Null : Occurrence
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-      ): Occurrence {
+        periodValue: com.google.fhir.model.r5.Period?,
+      ): Occurrence? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -429,16 +427,14 @@ public data class NutritionIntake(
 
     public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Reported
 
-    public data object Null : Reported
-
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
-        ReferenceValue: com.google.fhir.model.r5.Reference?,
-      ): Reported {
+        referenceValue: com.google.fhir.model.r5.Reference?,
+      ): Reported? {
         if (booleanValue != null) return Boolean(booleanValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -448,82 +444,15 @@ public data class NutritionIntake(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The core event has not started yet, but some staging activities have begun (e.g. surgical
-     * suite preparation). Preparation stages may be tracked for billing purposes.
-     */
-    Preparation(
-      "preparation",
-      "http://hl7.org/fhir/event-status",
-      "Preparation",
-      "The core event has not started yet, but some staging activities have begun (e.g. surgical suite preparation).  Preparation stages may be tracked for billing purposes.",
-    ),
-    /** The event is currently occurring. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/event-status",
-      "In Progress",
-      "The event is currently occurring.",
-    ),
-    /**
-     * The event was terminated prior to any activity beyond preparation. I.e. The 'main' activity
-     * has not yet begun. The boundary between preparatory and the 'main' activity is
-     * context-specific.
-     */
-    Not_Done(
-      "not-done",
-      "http://hl7.org/fhir/event-status",
-      "Not Done",
-      "The event was terminated prior to any activity beyond preparation.  I.e. The 'main' activity has not yet begun.  The boundary between preparatory and the 'main' activity is context-specific.",
-    ),
-    /** The event has been temporarily stopped but is expected to resume in the future. */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/event-status",
-      "On Hold",
-      "The event has been temporarily stopped but is expected to resume in the future.",
-    ),
-    /**
-     * The event was terminated prior to the full completion of the intended activity but after at
-     * least some of the 'main' activity (beyond preparation) has occurred.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/event-status",
-      "Stopped",
-      "The event was terminated prior to the full completion of the intended activity but after at least some of the 'main' activity (beyond preparation) has occurred.",
-    ),
-    /** The event has now concluded. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/event-status",
-      "Completed",
-      "The event has now concluded.",
-    ),
-    /**
-     * This electronic record should never have existed, though it is possible that real-world
-     * decisions were based on it. (If real-world activity has occurred, the status should be
-     * "stopped" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/event-status",
-      "Entered in Error",
-      "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"stopped\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this event. Note: This concept is not to be used for "other" - one of the listed statuses is
-     * presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/event-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this event.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Preparation("preparation", "http://hl7.org/fhir/event-status", "Preparation"),
+    In_Progress("in-progress", "http://hl7.org/fhir/event-status", "In Progress"),
+    Not_Done("not-done", "http://hl7.org/fhir/event-status", "Not Done"),
+    On_Hold("on-hold", "http://hl7.org/fhir/event-status", "On Hold"),
+    Stopped("stopped", "http://hl7.org/fhir/event-status", "Stopped"),
+    Completed("completed", "http://hl7.org/fhir/event-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/event-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/event-status", "Unknown");
 
     override fun toString(): String = code
 
@@ -532,8 +461,6 @@ public data class NutritionIntake(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): NutritionIntakeStatus =

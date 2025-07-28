@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.CarePlanActivityDetailSerializer
 import com.google.fhir.model.r4b.serializers.CarePlanActivitySerializer
 import com.google.fhir.model.r4b.serializers.CarePlanSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class CarePlan(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class CarePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class CarePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this care plan by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -143,21 +143,21 @@ public data class CarePlan(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, questionnaire or other definition that
    * is adhered to in whole or in part by this CarePlan.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, questionnaire or other
    * definition that is adhered to in whole or in part by this CarePlan.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** A care plan that is fulfilled in whole or in part by this care plan. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * Completed or terminated care plan whose function is taken by this new care plan.
    *
@@ -165,14 +165,14 @@ public data class CarePlan(
    * issue) or because the previous care plan was completed, but the need for the action described
    * by the care plan remains ongoing.
    */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * A larger care plan of which this particular care plan is a component or step.
    *
    * Each care plan is an independent request, such that having a care plan be part of another care
    * plan can cause issues with cascading statuses. As such, this element is still being discussed.
    */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * Indicates whether the plan is currently being acted upon, represents future intentions or is
    * now a historical record.
@@ -184,7 +184,7 @@ public data class CarePlan(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the plan as not currently valid.
    */
-  public var status: Enumeration<CarePlanStatus>? = null,
+  public var status: Enumeration<CarePlanStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the care plan and where the
    * care plan fits into the workflow chain.
@@ -192,7 +192,7 @@ public data class CarePlan(
    * This element is labeled as a modifier because the intent alters when and how the resource is
    * actually applicable.
    */
-  public var intent: Enumeration<CarePlanIntent>? = null,
+  public var intent: Enumeration<CarePlanIntent>,
   /**
    * Identifies what "kind" of plan this is to support differentiation between multiple co-existing
    * plans; e.g. "Home health", "psychiatric", "asthma", "disease management", "wellness plan", etc.
@@ -200,13 +200,13 @@ public data class CarePlan(
    * There may be multiple axes of categorization and one plan may serve multiple purposes. In some
    * cases, this may be redundant with references to CarePlan.concern.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** Human-friendly name for the care plan. */
   public var title: String? = null,
   /** A description of the scope and nature of the plan. */
   public var description: String? = null,
   /** Identifies the patient or group whose intended care is described by the plan. */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The Encounter during which this CarePlan was created or to which the creation of this record is
    * tightly associated.
@@ -243,12 +243,12 @@ public data class CarePlan(
    *
    * Collaborative care plans may have multiple contributors.
    */
-  public var contributor: List<Reference?>? = null,
+  public var contributor: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies all people and organizations who are expected to be involved in the care envisioned
    * by this plan.
    */
-  public var careTeam: List<Reference?>? = null,
+  public var careTeam: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation
    * are handled by this plan.
@@ -258,7 +258,7 @@ public data class CarePlan(
    * using Condition alone is not sufficient as the allergy or intolerance condition needs to be
    * represented as an AllergyIntolerance.
    */
-  public var addresses: List<Reference?>? = null,
+  public var addresses: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies portions of the patient's record that specifically influenced the formation of the
    * plan. These might include comorbidities, recent procedures, limitations, recent assessments,
@@ -266,21 +266,21 @@ public data class CarePlan(
    *
    * Use "concern" to identify specific conditions addressed by the care plan.
    */
-  public var supportingInfo: List<Reference?>? = null,
+  public var supportingInfo: MutableList<Reference> = mutableListOf(),
   /**
    * Describes the intended objective(s) of carrying out the care plan.
    *
    * Goal can be achieving a particular change or merely maintaining a current state or even slowing
    * a decline.
    */
-  public var goal: List<Reference?>? = null,
+  public var goal: MutableList<Reference> = mutableListOf(),
   /**
    * Identifies a planned action to occur as part of the plan. For example, a medication to be used,
    * lab tests to perform, self-monitoring, education, etc.
    */
-  public var activity: List<Activity>? = null,
+  public var activity: MutableList<Activity> = mutableListOf(),
   /** General notes about the care plan not covered elsewhere. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Identifies a planned action to occur as part of the plan. For example, a medication to be used,
@@ -305,7 +305,7 @@ public data class CarePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -324,14 +324,14 @@ public data class CarePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identifies the outcome at the point when the status of the activity is assessed. For example,
      * the outcome of an education activity could be patient understands (or not).
      *
      * Note that this should not duplicate the activity status (e.g. completed or in progress).
      */
-    public var outcomeCodeableConcept: List<CodeableConcept?>? = null,
+    public var outcomeCodeableConcept: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Details of the outcome or action resulting from the activity. The reference to an "event"
      * resource, such as Procedure or Encounter or Observation, is the result/outcome of the
@@ -343,7 +343,7 @@ public data class CarePlan(
      * then the activity outcome could be calories consumed whereas the goal outcome is an
      * observation for the actual body weight measured.
      */
-    public var outcomeReference: List<Reference?>? = null,
+    public var outcomeReference: MutableList<Reference> = mutableListOf(),
     /**
      * Notes about the adherence/status/progress of the activity.
      *
@@ -351,7 +351,7 @@ public data class CarePlan(
      * within the resource pointed to by activity.detail.reference or in
      * activity.detail.description.
      */
-    public var progress: List<Annotation?>? = null,
+    public var progress: MutableList<Annotation> = mutableListOf(),
     /**
      * The details of the proposed activity represented in a specific resource.
      *
@@ -392,7 +392,7 @@ public data class CarePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -411,7 +411,7 @@ public data class CarePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A description of the kind of resource the in-line definition of a care plan activity is
        * representing. The CarePlan.activity.detail is an in-line definition when a resource is not
@@ -423,14 +423,14 @@ public data class CarePlan(
        * The URL pointing to a FHIR-defined protocol, guideline, questionnaire or other definition
        * that is adhered to in whole or in part by this CarePlan activity.
        */
-      public var instantiatesCanonical: List<Canonical?>? = null,
+      public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
       /**
        * The URL pointing to an externally maintained protocol, guideline, questionnaire or other
        * definition that is adhered to in whole or in part by this CarePlan activity.
        *
        * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
        */
-      public var instantiatesUri: List<Uri?>? = null,
+      public var instantiatesUri: MutableList<Uri> = mutableListOf(),
       /**
        * Detailed description of the type of planned activity; e.g. what lab test, what procedure,
        * what kind of encounter.
@@ -446,7 +446,7 @@ public data class CarePlan(
        * This could be a diagnosis code. If a full condition record exists or additional detail is
        * needed, use reasonCondition instead.
        */
-      public var reasonCode: List<CodeableConcept?>? = null,
+      public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * Indicates another resource, such as the health condition(s), whose existence justifies this
        * request and drove the inclusion of this particular activity as part of the plan.
@@ -454,12 +454,12 @@ public data class CarePlan(
        * Conditions can be identified at the activity level that are not identified as reasons for
        * the overall plan.
        */
-      public var reasonReference: List<Reference?>? = null,
+      public var reasonReference: MutableList<Reference> = mutableListOf(),
       /**
        * Internal reference that identifies the goals that this activity is intended to contribute
        * towards meeting.
        */
-      public var goal: List<Reference?>? = null,
+      public var goal: MutableList<Reference> = mutableListOf(),
       /**
        * Identifies what progress is being made for the specific activity.
        *
@@ -468,7 +468,7 @@ public data class CarePlan(
        * not to be used to convey other statuses. The unknown code should be used when one of the
        * statuses applies, but the authoring system doesn't know the current state of the activity.
        */
-      public var status: Enumeration<CarePlanActivityStatus>? = null,
+      public var status: Enumeration<CarePlanActivityStatus>,
       /**
        * Provides reason why the activity isn't yet started, is on hold, was cancelled, etc.
        *
@@ -499,7 +499,7 @@ public data class CarePlan(
        *
        * A performer MAY also be a participant in the care plan.
        */
-      public var performer: List<Reference?>? = null,
+      public var performer: MutableList<Reference> = mutableListOf(),
       /** Identifies the food, drug or other product to be consumed or supplied in the activity. */
       public var product: Product? = null,
       /** Identifies the quantity expected to be consumed in a given day. */
@@ -530,18 +530,16 @@ public data class CarePlan(
 
         public data class String(public val `value`: com.google.fhir.model.r4b.String) : Scheduled
 
-        public data object Null : Scheduled
-
         public companion object {
-          public fun from(
-            TimingValue: com.google.fhir.model.r4b.Timing?,
-            PeriodValue: com.google.fhir.model.r4b.Period?,
+          internal fun from(
+            timingValue: com.google.fhir.model.r4b.Timing?,
+            periodValue: com.google.fhir.model.r4b.Period?,
             stringValue: com.google.fhir.model.r4b.String?,
-          ): Scheduled {
-            if (TimingValue != null) return Timing(TimingValue)
-            if (PeriodValue != null) return Period(PeriodValue)
+          ): Scheduled? {
+            if (timingValue != null) return Timing(timingValue)
+            if (periodValue != null) return Period(periodValue)
             if (stringValue != null) return String(stringValue)
-            return Null
+            return null
           }
         }
       }
@@ -559,16 +557,14 @@ public data class CarePlan(
         public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
           Product
 
-        public data object Null : Product
-
         public companion object {
-          public fun from(
-            CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-            ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          ): Product {
-            if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+          internal fun from(
+            codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+            referenceValue: com.google.fhir.model.r4b.Reference?,
+          ): Product? {
+            if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -583,79 +579,26 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or
-     * device(s) for a specific date/time. This may result in one or more Encounter(s).
-     */
-    Appointment(
-      "Appointment",
-      "http://hl7.org/fhir/resource-types",
-      "Appointment",
-      "A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s).",
-    ),
-    /**
-     * A request to convey information; e.g. the CDS system proposes that an alert be sent to a
-     * responsible provider, the CDS system proposes that the public health agency be notified about
-     * a reportable condition.
-     */
+    Appointment("Appointment", "http://hl7.org/fhir/resource-types", "Appointment"),
     CommunicationRequest(
       "CommunicationRequest",
       "http://hl7.org/fhir/resource-types",
       "CommunicationRequest",
-      "A request to convey information; e.g. the CDS system proposes that an alert be sent to a responsible provider, the CDS system proposes that the public health agency be notified about a reportable condition.",
     ),
-    /**
-     * Represents a request for a patient to employ a medical device. The device may be an
-     * implantable device, or an external assistive device, such as a walker.
-     */
-    DeviceRequest(
-      "DeviceRequest",
-      "http://hl7.org/fhir/resource-types",
-      "DeviceRequest",
-      "Represents a request for a patient to employ a medical device. The device may be an implantable device, or an external assistive device, such as a walker.",
-    ),
-    /**
-     * An order or request for both supply of the medication and the instructions for administration
-     * of the medication to a patient. The resource is called "MedicationRequest" rather than
-     * "MedicationPrescription" or "MedicationOrder" to generalize the use across inpatient and
-     * outpatient settings, including care plans, etc., and to harmonize with workflow patterns.
-     */
+    DeviceRequest("DeviceRequest", "http://hl7.org/fhir/resource-types", "DeviceRequest"),
     MedicationRequest(
       "MedicationRequest",
       "http://hl7.org/fhir/resource-types",
       "MedicationRequest",
-      "An order or request for both supply of the medication and the instructions for administration of the medication to a patient. The resource is called \"MedicationRequest\" rather than \"MedicationPrescription\" or \"MedicationOrder\" to generalize the use across inpatient and outpatient settings, including care plans, etc., and to harmonize with workflow patterns.",
     ),
-    /**
-     * A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a
-     * patient/resident.
-     */
-    NutritionOrder(
-      "NutritionOrder",
-      "http://hl7.org/fhir/resource-types",
-      "NutritionOrder",
-      "A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.",
-    ),
-    /**
-     * A record of a request for service such as diagnostic investigations, treatments, or
-     * operations to be performed.
-     */
-    ServiceRequest(
-      "ServiceRequest",
-      "http://hl7.org/fhir/resource-types",
-      "ServiceRequest",
-      "A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.",
-    ),
-    /** A task to be performed. */
-    Task("Task", "http://hl7.org/fhir/resource-types", "Task", "A task to be performed."),
-    /** An authorization for the provision of glasses and/or contact lenses to a patient. */
+    NutritionOrder("NutritionOrder", "http://hl7.org/fhir/resource-types", "NutritionOrder"),
+    Task("Task", "http://hl7.org/fhir/resource-types", "Task"),
+    ServiceRequest("ServiceRequest", "http://hl7.org/fhir/resource-types", "ServiceRequest"),
     VisionPrescription(
       "VisionPrescription",
       "http://hl7.org/fhir/resource-types",
       "VisionPrescription",
-      "An authorization for the provision of glasses and/or contact lenses to a patient.",
     );
 
     override fun toString(): kotlin.String = code
@@ -666,8 +609,6 @@ public data class CarePlan(
 
     public fun getDisplay(): kotlin.String? = display
 
-    public fun getDefinition(): kotlin.String? = definition
-
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanActivityKind =
         when (code) {
@@ -676,8 +617,8 @@ public data class CarePlan(
           "DeviceRequest" -> DeviceRequest
           "MedicationRequest" -> MedicationRequest
           "NutritionOrder" -> NutritionOrder
-          "ServiceRequest" -> ServiceRequest
           "Task" -> Task
+          "ServiceRequest" -> ServiceRequest
           "VisionPrescription" -> VisionPrescription
           else -> throw IllegalArgumentException("Unknown code $code for enum CarePlanActivityKind")
         }
@@ -689,80 +630,19 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Care plan activity is planned but no action has yet been taken. */
-    Not_Started(
-      "not-started",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Not Started",
-      "Care plan activity is planned but no action has yet been taken.",
-    ),
-    /** Appointment or other booking has occurred but activity has not yet begun. */
-    Scheduled(
-      "scheduled",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Scheduled",
-      "Appointment or other booking has occurred but activity has not yet begun.",
-    ),
-    /** Care plan activity has been started but is not yet complete. */
-    In_Progress(
-      "in-progress",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "In Progress",
-      "Care plan activity has been started but is not yet complete.",
-    ),
-    /**
-     * Care plan activity was started but has temporarily ceased with an expectation of resumption
-     * at a future time.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "On Hold",
-      "Care plan activity was started but has temporarily ceased with an expectation of resumption at a future time.",
-    ),
-    /** Care plan activity has been completed (more or less) as planned. */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Completed",
-      "Care plan activity has been completed (more or less) as planned.",
-    ),
-    /** The planned care plan activity has been withdrawn. */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Cancelled",
-      "The planned care plan activity has been withdrawn.",
-    ),
-    /**
-     * The planned care plan activity has been ended prior to completion after the activity was
-     * started.
-     */
-    Stopped(
-      "stopped",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Stopped",
-      "The planned care plan activity has been ended prior to completion after the activity was started.",
-    ),
-    /**
-     * The current state of the care plan activity is not known. Note: This concept is not to be
-     * used for "other" - one of the listed statuses is presumed to apply, but the authoring/source
-     * system does not know which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/care-plan-activity-status",
-      "Unknown",
-      "The current state of the care plan activity is not known.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which one.",
-    ),
-    /** Care plan activity was entered in error and voided. */
+    Not_Started("not-started", "http://hl7.org/fhir/care-plan-activity-status", "Not Started"),
+    Scheduled("scheduled", "http://hl7.org/fhir/care-plan-activity-status", "Scheduled"),
+    In_Progress("in-progress", "http://hl7.org/fhir/care-plan-activity-status", "In Progress"),
+    On_Hold("on-hold", "http://hl7.org/fhir/care-plan-activity-status", "On Hold"),
+    Completed("completed", "http://hl7.org/fhir/care-plan-activity-status", "Completed"),
+    Cancelled("cancelled", "http://hl7.org/fhir/care-plan-activity-status", "Cancelled"),
+    Stopped("stopped", "http://hl7.org/fhir/care-plan-activity-status", "Stopped"),
+    Unknown("unknown", "http://hl7.org/fhir/care-plan-activity-status", "Unknown"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/care-plan-activity-status",
       "Entered in Error",
-      "Care plan activity was entered in error and voided.",
     );
 
     override fun toString(): kotlin.String = code
@@ -772,8 +652,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanActivityStatus =
@@ -798,74 +676,14 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/request-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is in force and ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/request-status",
-      "Active",
-      "The request is in force and ready to be acted upon.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been temporarily withdrawn but is
-     * expected to resume in the future.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/request-status",
-      "On Hold",
-      "The request (and any implicit authorization to act) has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been terminated prior to the known
-     * full completion of the intended actions. No further activity should occur.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/request-status",
-      "Revoked",
-      "The request (and any implicit authorization to act) has been terminated prior to the known full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * The activity described by the request has been fully performed. No further activity will
-     * occur.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/request-status",
-      "Completed",
-      "The activity described by the request has been fully performed.  No further activity will occur.",
-    ),
-    /**
-     * This request should never have existed and should be considered 'void'. (It is possible that
-     * real-world decisions were based on it. If real-world activity has occurred, the status should
-     * be "revoked" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      "This request should never have existed and should be considered 'void'.  (It is possible that real-world decisions were based on it.  If real-world activity has occurred, the status should be \"revoked\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this request. Note: This concept is not to be used for "other" - one of the listed statuses
-     * is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/request-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -874,8 +692,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanStatus =
@@ -897,46 +713,11 @@ public data class CarePlan(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /** The request represents a request/demand and authorization for action by a Practitioner. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by a Practitioner.",
-    ),
-    /**
-     * The request represents a component or option for a RequestGroup that establishes timing,
-     * conditionality and/or other constraints among a set of requests. Refer to [[[RequestGroup]]]
-     * for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -945,8 +726,6 @@ public data class CarePlan(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CarePlanIntent =

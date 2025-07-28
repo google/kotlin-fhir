@@ -26,7 +26,7 @@ import com.google.fhir.model.r4.serializers.AuditEventEntitySerializer
 import com.google.fhir.model.r4.serializers.AuditEventSerializer
 import com.google.fhir.model.r4.serializers.AuditEventSourceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class AuditEvent(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -113,7 +113,7 @@ public data class AuditEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,14 +132,14 @@ public data class AuditEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifier for a family of the event. For example, a menu item, program, rule, policy, function
    * code, application name or URL. It identifies the performed function.
    */
-  public var type: Coding? = null,
+  public var type: Coding,
   /** Identifier for the category of event. */
-  public var subtype: List<Coding?>? = null,
+  public var subtype: MutableList<Coding> = mutableListOf(),
   /** Indicator for type of action performed during the event that generated the audit. */
   public var action: Enumeration<AuditEventAction>? = null,
   /**
@@ -155,7 +155,7 @@ public data class AuditEvent(
    * In a distributed system, some sort of common time base (e.g. an NTP [RFC1305] server) is a good
    * implementation tactic.
    */
-  public var recorded: Instant? = null,
+  public var recorded: Instant,
   /**
    * Indicates whether the event succeeded or failed.
    *
@@ -173,7 +173,7 @@ public data class AuditEvent(
    * AuditEvent.purposeOfEvent. For example, during a machine-to-machine transfer it might not be
    * obvious to the audit system who caused the event, but it does know why.
    */
-  public var purposeOfEvent: List<CodeableConcept?>? = null,
+  public var purposeOfEvent: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An actor taking an active role in the event or activity that is logged.
    *
@@ -183,7 +183,7 @@ public data class AuditEvent(
    * For example, an activity may be initiated by one user for other users or involve more than one
    * user. However, only one user may be the initiator/requestor for the activity.
    */
-  public var agent: List<Agent>? = null,
+  public var agent: MutableList<Agent> = mutableListOf(),
   /**
    * The system that is reporting the event.
    *
@@ -193,7 +193,7 @@ public data class AuditEvent(
    * processes, and database server threads in an n-tier distributed application. Passive event
    * participants (e.g. low-level network transports) need not be identified.
    */
-  public var source: Source? = null,
+  public var source: Source,
   /**
    * Specific instances of data or objects that have been accessed.
    *
@@ -201,7 +201,7 @@ public data class AuditEvent(
    * identification are sufficient to document the entire auditable event. Because events may have
    * more than one entity, this group can be a repeating set of values.
    */
-  public var entity: List<Entity>? = null,
+  public var entity: MutableList<Entity> = mutableListOf(),
 ) : DomainResource() {
   /** An actor taking an active role in the event or activity that is logged. */
   @Serializable(with = AuditEventAgentSerializer::class)
@@ -223,7 +223,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -242,7 +242,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Specification of the participation type the user plays when performing the event. */
     public var type: CodeableConcept? = null,
     /**
@@ -251,7 +251,7 @@ public data class AuditEvent(
      *
      * Should be roles relevant to the event. Should not be an exhaustive list of roles.
      */
-    public var role: List<CodeableConcept?>? = null,
+    public var role: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Reference to who this agent is that was involved in the event.
      *
@@ -273,7 +273,7 @@ public data class AuditEvent(
      * There can only be one initiator. If the initiator is not clear, then do not choose any one
      * agent as the initiator.
      */
-    public var requestor: Boolean? = null,
+    public var requestor: Boolean,
     /** Where the event occurred. */
     public var location: Reference? = null,
     /**
@@ -285,7 +285,7 @@ public data class AuditEvent(
      * placed into the policy element Where a policy engine (e.g. XACML) holds policy logic, the
      * unique policy identifier is placed into the policy element.
      */
-    public var policy: List<Uri?>? = null,
+    public var policy: MutableList<Uri> = mutableListOf(),
     /** Type of media involved. Used when the event is about exporting/importing onto media. */
     public var media: Coding? = null,
     /**
@@ -300,7 +300,7 @@ public data class AuditEvent(
      * AuditEvent.purposeOfEvent. For example, during a machine-to-machine transfer it might not be
      * obvious to the audit system who caused the event, but it does know why.
      */
-    public var purposeOfUse: List<CodeableConcept?>? = null,
+    public var purposeOfUse: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Logical network location for application activity, if the activity has a network location.
@@ -324,7 +324,7 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -343,7 +343,7 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * An identifier for the network access point of the user device for the audit event.
        *
@@ -375,7 +375,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -394,16 +394,16 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Logical source location within the healthcare enterprise network. For example, a hospital or
      * other provider location within a multi-entity provider group.
      */
     public var site: String? = null,
     /** Identifier of the source where the event was detected. */
-    public var observer: Reference? = null,
+    public var observer: Reference,
     /** Code specifying the type of source where event originated. */
-    public var type: List<Coding?>? = null,
+    public var type: MutableList<Coding> = mutableListOf(),
   ) : BackboneElement()
 
   /** Specific instances of data or objects that have been accessed. */
@@ -426,7 +426,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -445,7 +445,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Identifies a specific instance of the entity. The reference should be version specific. */
     public var what: Reference? = null,
     /**
@@ -468,7 +468,7 @@ public data class AuditEvent(
      *
      * Copied from entity meta security tags.
      */
-    public var securityLabel: List<Coding?>? = null,
+    public var securityLabel: MutableList<Coding> = mutableListOf(),
     /**
      * A name of the entity in the audit event.
      *
@@ -492,7 +492,7 @@ public data class AuditEvent(
      */
     public var query: Base64Binary? = null,
     /** Tagged value pairs for conveying additional information about the entity. */
-    public var detail: List<Detail>? = null,
+    public var detail: MutableList<Detail> = mutableListOf(),
   ) : BackboneElement() {
     /** Tagged value pairs for conveying additional information about the entity. */
     @Serializable(with = AuditEventEntityDetailSerializer::class)
@@ -514,7 +514,7 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -533,9 +533,9 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of extra detail provided in the value. */
-      public var type: String? = null,
+      public var type: String,
       /**
        * The value of the extra detail.
        *
@@ -549,7 +549,7 @@ public data class AuditEvent(
        * database access, the Oracle formats must be understood as they will be simply encoded in
        * the base64binary blob.
        */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = AuditEventEntityDetailValueSerializer::class)
       public sealed interface Value {
@@ -562,16 +562,14 @@ public data class AuditEvent(
         public data class Base64Binary(public val `value`: com.google.fhir.model.r4.Base64Binary) :
           Value
 
-        public data object Null : Value
-
         public companion object {
-          public fun from(
+          internal fun from(
             stringValue: com.google.fhir.model.r4.String?,
             base64BinaryValue: com.google.fhir.model.r4.Base64Binary?,
-          ): Value {
+          ): Value? {
             if (stringValue != null) return String(stringValue)
             if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
-            return Null
+            return null
           }
         }
       }
@@ -583,38 +581,12 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The machine name, including DNS name. */
-    _1(
-      "1",
-      "http://hl7.org/fhir/network-type",
-      "Machine Name",
-      "The machine name, including DNS name.",
-    ),
-    /** The assigned Internet Protocol (IP) address. */
-    _2(
-      "2",
-      "http://hl7.org/fhir/network-type",
-      "IP Address",
-      "The assigned Internet Protocol (IP) address.",
-    ),
-    /** The assigned telephone number. */
-    _3(
-      "3",
-      "http://hl7.org/fhir/network-type",
-      "Telephone Number",
-      "The assigned telephone number.",
-    ),
-    /** The assigned email address. */
-    _4("4", "http://hl7.org/fhir/network-type", "Email address", "The assigned email address."),
-    /** URI (User directory, HTTP-PUT, ftp, etc.). */
-    _5(
-      "5",
-      "http://hl7.org/fhir/network-type",
-      "URI",
-      "URI (User directory, HTTP-PUT, ftp, etc.).",
-    );
+    _1("1", "http://hl7.org/fhir/network-type", "Machine Name"),
+    _2("2", "http://hl7.org/fhir/network-type", "IP Address"),
+    _3("3", "http://hl7.org/fhir/network-type", "Telephone Number"),
+    _4("4", "http://hl7.org/fhir/network-type", "Email address"),
+    _5("5", "http://hl7.org/fhir/network-type", "URI");
 
     override fun toString(): kotlin.String = code
 
@@ -623,8 +595,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventAgentNetworkType =
@@ -645,46 +615,12 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Create a new database object, such as placing an order. */
-    C(
-      "C",
-      "http://hl7.org/fhir/audit-event-action",
-      "Create",
-      "Create a new database object, such as placing an order.",
-    ),
-    /** Display or print data, such as a doctor census. */
-    R(
-      "R",
-      "http://hl7.org/fhir/audit-event-action",
-      "Read/View/Print",
-      "Display or print data, such as a doctor census.",
-    ),
-    /** Update data, such as revise patient information. */
-    U(
-      "U",
-      "http://hl7.org/fhir/audit-event-action",
-      "Update",
-      "Update data, such as revise patient information.",
-    ),
-    /** Delete items, such as a doctor master file record. */
-    D(
-      "D",
-      "http://hl7.org/fhir/audit-event-action",
-      "Delete",
-      "Delete items, such as a doctor master file record.",
-    ),
-    /**
-     * Perform a system or application function such as log-on, program execution or use of an
-     * object's method, or perform a query/search operation.
-     */
-    E(
-      "E",
-      "http://hl7.org/fhir/audit-event-action",
-      "Execute",
-      "Perform a system or application function such as log-on, program execution or use of an object's method, or perform a query/search operation.",
-    );
+    C("C", "http://hl7.org/fhir/audit-event-action", "Create"),
+    R("R", "http://hl7.org/fhir/audit-event-action", "Read/View/Print"),
+    U("U", "http://hl7.org/fhir/audit-event-action", "Update"),
+    D("D", "http://hl7.org/fhir/audit-event-action", "Delete"),
+    E("E", "http://hl7.org/fhir/audit-event-action", "Execute");
 
     override fun toString(): kotlin.String = code
 
@@ -693,8 +629,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventAction =
@@ -714,45 +648,11 @@ public data class AuditEvent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The operation completed successfully (whether with warnings or not). */
-    _0(
-      "0",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Success",
-      "The operation completed successfully (whether with warnings or not).",
-    ),
-    /**
-     * The action was not successful due to some kind of minor failure (often equivalent to an HTTP
-     * 400 response).
-     */
-    _4(
-      "4",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Minor failure",
-      "The action was not successful due to some kind of minor failure (often equivalent to an HTTP 400 response).",
-    ),
-    /**
-     * The action was not successful due to some kind of unexpected error (often equivalent to an
-     * HTTP 500 response).
-     */
-    _8(
-      "8",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Serious failure",
-      "The action was not successful due to some kind of unexpected error (often equivalent to an HTTP 500 response).",
-    ),
-    /**
-     * An error of such magnitude occurred that the system is no longer available for use (i.e. the
-     * system died).
-     */
-    _12(
-      "12",
-      "http://hl7.org/fhir/audit-event-outcome",
-      "Major failure",
-      "An error of such magnitude occurred that the system is no longer available for use (i.e. the system died).",
-    );
+    _0("0", "http://hl7.org/fhir/audit-event-outcome", "Success"),
+    _4("4", "http://hl7.org/fhir/audit-event-outcome", "Minor failure"),
+    _8("8", "http://hl7.org/fhir/audit-event-outcome", "Serious failure"),
+    _12("12", "http://hl7.org/fhir/audit-event-outcome", "Major failure");
 
     override fun toString(): kotlin.String = code
 
@@ -761,8 +661,6 @@ public data class AuditEvent(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AuditEventOutcome =

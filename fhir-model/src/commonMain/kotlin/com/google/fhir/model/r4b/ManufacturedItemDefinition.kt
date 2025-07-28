@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionPropertyV
 import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class ManufacturedItemDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class ManufacturedItemDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,31 +129,31 @@ public data class ManufacturedItemDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Unique identifier. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status of this item. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of manufactured items that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /** Dose form as manufactured and before any transformation into the pharmaceutical product. */
-  public var manufacturedDoseForm: CodeableConcept? = null,
+  public var manufacturedDoseForm: CodeableConcept,
   /** The “real world” units in which the quantity of the manufactured item is described. */
   public var unitOfPresentation: CodeableConcept? = null,
   /**
    * Manufacturer of the item (Note that this should be named "manufacturer" but it currently causes
    * technical issues).
    */
-  public var manufacturer: List<Reference?>? = null,
+  public var manufacturer: MutableList<Reference> = mutableListOf(),
   /**
    * The ingredients of this manufactured item. This is only needed if the ingredients are not
    * specified by incoming references from the Ingredient resource.
    */
-  public var ingredient: List<CodeableConcept?>? = null,
+  public var ingredient: MutableList<CodeableConcept> = mutableListOf(),
   /** General characteristics of this item. */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
 ) : DomainResource() {
   /** General characteristics of this item. */
   @Serializable(with = ManufacturedItemDefinitionPropertySerializer::class)
@@ -175,7 +175,7 @@ public data class ManufacturedItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -194,9 +194,9 @@ public data class ManufacturedItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code expressing the type of characteristic. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** A value for the characteristic. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
@@ -225,22 +225,20 @@ public data class ManufacturedItemDefinition(
       public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
         Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
           dateValue: com.google.fhir.model.r4b.Date?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return Null
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          return null
         }
       }
     }

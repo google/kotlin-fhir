@@ -36,7 +36,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,10 +49,10 @@ internal data class EnrollmentRequestSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var created: String? = null,
@@ -63,63 +63,66 @@ internal data class EnrollmentRequestSurrogate(
   public var coverage: Reference? = null,
 ) {
   public fun toModel(): EnrollmentRequest =
-    EnrollmentRequest().apply {
-      id = this@EnrollmentRequestSurrogate.id
-      meta = this@EnrollmentRequestSurrogate.meta
+    EnrollmentRequest(
+      id = this@EnrollmentRequestSurrogate.id,
+      meta = this@EnrollmentRequestSurrogate.meta,
       implicitRules =
         Uri.of(
           this@EnrollmentRequestSurrogate.implicitRules,
           this@EnrollmentRequestSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@EnrollmentRequestSurrogate.language, this@EnrollmentRequestSurrogate._language)
-      text = this@EnrollmentRequestSurrogate.text
-      contained = this@EnrollmentRequestSurrogate.contained
-      extension = this@EnrollmentRequestSurrogate.extension
-      modifierExtension = this@EnrollmentRequestSurrogate.modifierExtension
-      identifier = this@EnrollmentRequestSurrogate.identifier
+        Code.of(
+          this@EnrollmentRequestSurrogate.language,
+          this@EnrollmentRequestSurrogate._language,
+        ),
+      text = this@EnrollmentRequestSurrogate.text,
+      contained = this@EnrollmentRequestSurrogate.contained ?: mutableListOf(),
+      extension = this@EnrollmentRequestSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EnrollmentRequestSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@EnrollmentRequestSurrogate.identifier ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@EnrollmentRequestSurrogate.status?.let {
-            com.google.fhir.model.r5.EnrollmentRequest.EnrollmentRequestStatus.fromCode(it)
-          },
-          this@EnrollmentRequestSurrogate._status,
-        )
+        this@EnrollmentRequestSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.EnrollmentRequest.EnrollmentRequestStatus.fromCode(it!!),
+            this@EnrollmentRequestSurrogate._status,
+          )
+        },
       created =
         DateTime.of(
           FhirDateTime.fromString(this@EnrollmentRequestSurrogate.created),
           this@EnrollmentRequestSurrogate._created,
-        )
-      insurer = this@EnrollmentRequestSurrogate.insurer
-      provider = this@EnrollmentRequestSurrogate.provider
-      candidate = this@EnrollmentRequestSurrogate.candidate
-      coverage = this@EnrollmentRequestSurrogate.coverage
-    }
+        ),
+      insurer = this@EnrollmentRequestSurrogate.insurer,
+      provider = this@EnrollmentRequestSurrogate.provider,
+      candidate = this@EnrollmentRequestSurrogate.candidate,
+      coverage = this@EnrollmentRequestSurrogate.coverage,
+    )
 
   public companion object {
     public fun fromModel(model: EnrollmentRequest): EnrollmentRequestSurrogate =
       with(model) {
-        EnrollmentRequestSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          created = this@with.created?.value?.toString()
-          _created = this@with.created?.toElement()
-          insurer = this@with.insurer
-          provider = this@with.provider
-          candidate = this@with.candidate
-          coverage = this@with.coverage
-        }
+        EnrollmentRequestSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          created = this@with.created?.value?.toString(),
+          _created = this@with.created?.toElement(),
+          insurer = this@with.insurer,
+          provider = this@with.provider,
+          candidate = this@with.candidate,
+          coverage = this@with.coverage,
+        )
       }
   }
 }

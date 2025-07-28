@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.StructureDefinitionMappingSerialize
 import com.google.fhir.model.r4b.serializers.StructureDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.StructureDefinitionSnapshotSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class StructureDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class StructureDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class StructureDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this structure definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -151,7 +151,7 @@ public data class StructureDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * A formal identifier that is used to identify this structure definition when it is represented
    * in other formats, or referenced in a specification, model, design or an instance.
@@ -160,7 +160,7 @@ public data class StructureDefinition(
    * type, and can then identify this structure definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the structure definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -184,7 +184,7 @@ public data class StructureDefinition(
    * * Immunization2
    * * AcmeAdmissionRecordOld.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the structure definition.
    *
@@ -198,7 +198,7 @@ public data class StructureDefinition(
    *
    * Allows filtering of structure definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this structure definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -232,7 +232,7 @@ public data class StructureDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the structure definition from a consumer's
    * perspective.
@@ -254,14 +254,14 @@ public data class StructureDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the structure definition is intended to be used.
    *
    * It may be possible for the structure definition to be used in jurisdictions other than those
    * for which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this structure definition is needed and why it has been designed as it has.
    *
@@ -282,7 +282,7 @@ public data class StructureDefinition(
    * indexing and searching of templates nby describing the use of this structure definition, or the
    * content it describes.
    */
-  public var keyword: List<Coding?>? = null,
+  public var keyword: MutableList<Coding> = mutableListOf(),
   /**
    * The version of the FHIR specification on which this StructureDefinition is based - this is the
    * formal version of the specification, without the revision number, e.g.
@@ -294,9 +294,9 @@ public data class StructureDefinition(
    */
   public var fhirVersion: Enumeration<FHIRVersion>? = null,
   /** An external specification that the content is mapped to. */
-  public var mapping: List<Mapping>? = null,
+  public var mapping: MutableList<Mapping> = mutableListOf(),
   /** Defines the kind of structure that this definition is describing. */
-  public var kind: Enumeration<StructureDefinitionKind>? = null,
+  public var kind: Enumeration<StructureDefinitionKind>,
   /**
    * Whether structure this definition describes is abstract or not - that is, whether the structure
    * is not intended to be instantiated. For Resources and Data types, abstract types will never be
@@ -310,11 +310,11 @@ public data class StructureDefinition(
    * type "Element" in the StructureDefinition, but have children described, are anonymous concrete
    * types that specialize Element.
    */
-  public var `abstract`: Boolean? = null,
+  public var `abstract`: Boolean,
   /**
    * Identifies the types of resource or data type elements to which the extension can be applied.
    */
-  public var context: List<Context>? = null,
+  public var context: MutableList<Context> = mutableListOf(),
   /**
    * A set of rules as FHIRPath Invariants about when the extension can be used (e.g. co-occurrence
    * variants for the extension). All the rules must be true.
@@ -323,7 +323,7 @@ public data class StructureDefinition(
    * FHIRPath focus is the element that holds the extension, and %extension refers to the extension
    * itself.
    */
-  public var contextInvariant: List<String?>? = null,
+  public var contextInvariant: MutableList<String> = mutableListOf(),
   /**
    * The type this structure describes. If the derivation kind is 'specialization' then this is the
    * master definition for a type, and there is always one of these (a data type, an extension, a
@@ -343,7 +343,7 @@ public data class StructureDefinition(
    * where the type is a URL, the type name SHOULD start with the tail of the type URL where
    * required.
    */
-  public var type: Uri? = null,
+  public var type: Uri,
   /**
    * An absolute URI that is the base structure from which this type is derived, either by
    * specialization or constraint.
@@ -396,7 +396,7 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -415,14 +415,14 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * An Internal id that is used to identify this mapping set when specific mappings are made.
      *
      * The specification is described once, with general comments, and then specific mappings are
      * made that reference this declaration.
      */
-    public var identity: Id? = null,
+    public var identity: Id,
     /**
      * An absolute URI that identifies the specification that this mapping is expressed to.
      *
@@ -461,7 +461,7 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -480,13 +480,13 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Defines how to interpret the expression that defines what the context of the extension is.
      */
-    public var type: Enumeration<ExtensionContextType>? = null,
+    public var type: Enumeration<ExtensionContextType>,
     /** An expression that defines where an extension can be used in resources. */
-    public var expression: String? = null,
+    public var expression: String,
   ) : BackboneElement()
 
   /**
@@ -512,7 +512,7 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -531,9 +531,9 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Captures constraints on each element within the resource. */
-    public var element: List<ElementDefinition?>? = null,
+    public var element: MutableList<ElementDefinition> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -559,7 +559,7 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -578,9 +578,9 @@ public data class StructureDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Captures constraints on each element within the resource. */
-    public var element: List<ElementDefinition?>? = null,
+    public var element: MutableList<ElementDefinition> = mutableListOf(),
   ) : BackboneElement()
 
   /** How an extension context is interpreted. */
@@ -588,37 +588,10 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The context is all elements that match the FHIRPath query found in the expression. */
-    Fhirpath(
-      "fhirpath",
-      "http://hl7.org/fhir/extension-context-type",
-      "FHIRPath",
-      "The context is all elements that match the FHIRPath query found in the expression.",
-    ),
-    /**
-     * The context is any element that has an ElementDefinition.id that matches that found in the
-     * expression. This includes ElementDefinition Ids that have slicing identifiers. The full path
-     * for the element is [url]#[elementid]. If there is no #, the Element id is one defined in the
-     * base specification.
-     */
-    Element(
-      "element",
-      "http://hl7.org/fhir/extension-context-type",
-      "Element ID",
-      "The context is any element that has an ElementDefinition.id that matches that found in the expression. This includes ElementDefinition Ids that have slicing identifiers. The full path for the element is [url]#[elementid]. If there is no #, the Element id is one defined in the base specification.",
-    ),
-    /**
-     * The context is a particular extension from a particular StructureDefinition, and the
-     * expression is just a uri that identifies the extension.
-     */
-    Extension(
-      "extension",
-      "http://hl7.org/fhir/extension-context-type",
-      "Extension URL",
-      "The context is a particular extension from a particular StructureDefinition, and the expression is just a uri that identifies the extension.",
-    );
+    Fhirpath("fhirpath", "http://hl7.org/fhir/extension-context-type", "FHIRPath"),
+    Element("element", "http://hl7.org/fhir/extension-context-type", "Element ID"),
+    Extension("extension", "http://hl7.org/fhir/extension-context-type", "Extension URL");
 
     override fun toString(): kotlin.String = code
 
@@ -627,8 +600,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExtensionContextType =
@@ -646,52 +617,19 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A primitive type that has a value and an extension. These can be used throughout complex
-     * datatype, Resource and extension definitions. Only the base specification can define
-     * primitive types.
-     */
     Primitive_Type(
       "primitive-type",
       "http://hl7.org/fhir/structure-definition-kind",
       "Primitive Data Type",
-      "A primitive type that has a value and an extension. These can be used throughout complex datatype, Resource and extension definitions. Only the base specification can define primitive types.",
     ),
-    /**
-     * A complex structure that defines a set of data elements that is suitable for use in
-     * 'resources'. The base specification defines a number of complex types, and other
-     * specifications can define additional types. These structures do not have a maintained
-     * identity.
-     */
     Complex_Type(
       "complex-type",
       "http://hl7.org/fhir/structure-definition-kind",
       "Complex Data Type",
-      "A  complex structure that defines a set of data elements that is suitable for use in 'resources'. The base specification defines a number of complex types, and other specifications can define additional types. These structures do not have a maintained identity.",
     ),
-    /**
-     * A 'resource' - a directed acyclic graph of elements that aggregrates other types into an
-     * identifiable entity. The base FHIR resources are defined by the FHIR specification itself but
-     * other 'resources' can be defined in additional specifications (though these will not be
-     * recognised as 'resources' by the FHIR specification (i.e. they do not get end-points etc, or
-     * act as the targets of references in FHIR defined resources - though other specificatiosn can
-     * treat them this way).
-     */
-    Resource(
-      "resource",
-      "http://hl7.org/fhir/structure-definition-kind",
-      "Resource",
-      "A 'resource' - a directed acyclic graph of elements that aggregrates other types into an identifiable entity. The base FHIR resources are defined by the FHIR specification itself but other 'resources' can be defined in additional specifications (though these will not be recognised as 'resources' by the FHIR specification (i.e. they do not get end-points etc, or act as the targets of references in FHIR defined resources - though other specificatiosn can treat them this way).",
-    ),
-    /** A pattern or a template that is not intended to be a real resource or complex type. */
-    Logical(
-      "logical",
-      "http://hl7.org/fhir/structure-definition-kind",
-      "Logical",
-      "A pattern or a template that is not intended to be a real resource or complex type.",
-    );
+    Resource("resource", "http://hl7.org/fhir/structure-definition-kind", "Resource"),
+    Logical("logical", "http://hl7.org/fhir/structure-definition-kind", "Logical");
 
     override fun toString(): kotlin.String = code
 
@@ -700,8 +638,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StructureDefinitionKind =
@@ -721,22 +657,9 @@ public data class StructureDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** This definition defines a new type that adds additional elements to the base type. */
-    Specialization(
-      "specialization",
-      "http://hl7.org/fhir/type-derivation-rule",
-      "Specialization",
-      "This definition defines a new type that adds additional elements to the base type.",
-    ),
-    /** This definition adds additional rules to an existing concrete type. */
-    Constraint(
-      "constraint",
-      "http://hl7.org/fhir/type-derivation-rule",
-      "Constraint",
-      "This definition adds additional rules to an existing concrete type.",
-    );
+    Specialization("specialization", "http://hl7.org/fhir/type-derivation-rule", "Specialization"),
+    Constraint("constraint", "http://hl7.org/fhir/type-derivation-rule", "Constraint");
 
     override fun toString(): kotlin.String = code
 
@@ -745,8 +668,6 @@ public data class StructureDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): TypeDerivationRule =

@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.AllergyIntoleranceParticipantSeriali
 import com.google.fhir.model.r5.serializers.AllergyIntoleranceReactionSerializer
 import com.google.fhir.model.r5.serializers.AllergyIntoleranceSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class AllergyIntolerance(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class AllergyIntolerance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class AllergyIntolerance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Business identifiers assigned to this AllergyIntolerance by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -143,7 +143,7 @@ public data class AllergyIntolerance(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The clinical status of the allergy or intolerance.
    *
@@ -195,7 +195,7 @@ public data class AllergyIntolerance(
    * modifier to get allergies that don't have a category. Additionally, category should be used
    * with caution because category can be subjective based on the sender.
    */
-  public var category: List<Enumeration<AllergyIntoleranceCategory>>? = null,
+  public var category: MutableList<Enumeration<AllergyIntoleranceCategory>> = mutableListOf(),
   /**
    * Estimate of the potential clinical harm, or seriousness, of the reaction to the identified
    * substance.
@@ -249,7 +249,7 @@ public data class AllergyIntolerance(
    */
   public var code: CodeableConcept? = null,
   /** The patient who has the allergy or intolerance. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The encounter when the allergy or intolerance was asserted. */
   public var encounter: Reference? = null,
   /**
@@ -275,7 +275,7 @@ public data class AllergyIntolerance(
    * Indicates who or what participated in the activities related to the allergy or intolerance and
    * how they were involved.
    */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /**
    * Represents the date and/or time of the last known occurrence of a reaction event.
    *
@@ -295,9 +295,9 @@ public data class AllergyIntolerance(
    * episode notes and descriptions, use AllergyIntolerance.event.description and
    * AllergyIntolerance.event.notes.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** Details about each adverse reaction event linked to exposure to the identified substance. */
-  public var reaction: List<Reaction>? = null,
+  public var reaction: MutableList<Reaction> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Indicates who or what participated in the activities related to the allergy or intolerance and
@@ -322,7 +322,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -341,7 +341,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of involvement of the actor in the activities related to the allergy
      * or intolerance.
@@ -350,7 +350,7 @@ public data class AllergyIntolerance(
     /**
      * Indicates who or what participated in the activities related to the allergy or intolerance.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /** Details about each adverse reaction event linked to exposure to the identified substance. */
@@ -373,7 +373,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -392,7 +392,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Identification of the specific substance (or pharmaceutical product) considered to be
      * responsible for the Adverse Reaction event. Note: the substance for a specific reaction may
@@ -424,7 +424,7 @@ public data class AllergyIntolerance(
      * screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.
      * Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.
      */
-    public var manifestation: List<CodeableReference?>? = null,
+    public var manifestation: MutableList<CodeableReference> = mutableListOf(),
     /**
      * Text description about the reaction as a whole, including details of the manifestation if
      * required.
@@ -460,7 +460,7 @@ public data class AllergyIntolerance(
      * captured in the description. For example: Clinical records are no longer available, recorded
      * based on information provided to the patient by her mother and her mother is deceased.
      */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = AllergyIntoleranceOnsetSerializer::class)
@@ -485,22 +485,20 @@ public data class AllergyIntolerance(
 
     public data class String(public val `value`: com.google.fhir.model.r5.String) : Onset
 
-    public data object Null : Onset
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        AgeValue: com.google.fhir.model.r5.Age?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-        RangeValue: com.google.fhir.model.r5.Range?,
+        ageValue: com.google.fhir.model.r5.Age?,
+        periodValue: com.google.fhir.model.r5.Period?,
+        rangeValue: com.google.fhir.model.r5.Range?,
         stringValue: com.google.fhir.model.r5.String?,
-      ): Onset {
+      ): Onset? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (RangeValue != null) return Range(RangeValue)
+        if (ageValue != null) return Age(ageValue)
+        if (periodValue != null) return Period(periodValue)
+        if (rangeValue != null) return Range(rangeValue)
         if (stringValue != null) return String(stringValue)
-        return Null
+        return null
       }
     }
   }
@@ -513,29 +511,10 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Causes mild physiological effects. */
-    Mild(
-      "mild",
-      "http://hl7.org/fhir/reaction-event-severity",
-      "Mild",
-      "Causes mild physiological effects.",
-    ),
-    /** Causes moderate physiological effects. */
-    Moderate(
-      "moderate",
-      "http://hl7.org/fhir/reaction-event-severity",
-      "Moderate",
-      "Causes moderate physiological effects.",
-    ),
-    /** Causes severe physiological effects. */
-    Severe(
-      "severe",
-      "http://hl7.org/fhir/reaction-event-severity",
-      "Severe",
-      "Causes severe physiological effects.",
-    );
+    Mild("mild", "http://hl7.org/fhir/reaction-event-severity", "Mild"),
+    Moderate("moderate", "http://hl7.org/fhir/reaction-event-severity", "Moderate"),
+    Severe("severe", "http://hl7.org/fhir/reaction-event-severity", "Severe");
 
     override fun toString(): kotlin.String = code
 
@@ -544,8 +523,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceSeverity =
@@ -564,46 +541,11 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Any substance consumed to provide nutritional support for the body. */
-    Food(
-      "food",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Food",
-      "Any substance consumed to provide nutritional support for the body.",
-    ),
-    /** Substances administered to achieve a physiological effect. */
-    Medication(
-      "medication",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Medication",
-      "Substances administered to achieve a physiological effect.",
-    ),
-    /**
-     * Any substances that are encountered in the environment, including any substance not already
-     * classified as food, medication, or biologic.
-     */
-    Environment(
-      "environment",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Environment",
-      "Any substances that are encountered in the environment, including any substance not already classified as food, medication, or biologic.",
-    ),
-    /**
-     * A preparation that is synthesized from living organisms or their products, especially a human
-     * or animal protein, such as a hormone or antitoxin, that is used as a diagnostic, preventive,
-     * or therapeutic agent. Examples of biologic medications include: vaccines; allergenic
-     * extracts, which are used for both diagnosis and treatment (for example, allergy shots); gene
-     * therapies; cellular therapies. There are other biologic products, such as tissues, which are
-     * not typically associated with allergies.
-     */
-    Biologic(
-      "biologic",
-      "http://hl7.org/fhir/allergy-intolerance-category",
-      "Biologic",
-      "A preparation that is synthesized from living organisms or their products, especially a human or animal protein, such as a hormone or antitoxin, that is used as a diagnostic, preventive, or therapeutic agent. Examples of biologic medications include: vaccines; allergenic extracts, which are used for both diagnosis and treatment (for example, allergy shots); gene therapies; cellular therapies.  There are other biologic products, such as tissues, which are not typically associated with allergies.",
-    );
+    Food("food", "http://hl7.org/fhir/allergy-intolerance-category", "Food"),
+    Medication("medication", "http://hl7.org/fhir/allergy-intolerance-category", "Medication"),
+    Environment("environment", "http://hl7.org/fhir/allergy-intolerance-category", "Environment"),
+    Biologic("biologic", "http://hl7.org/fhir/allergy-intolerance-category", "Biologic");
 
     override fun toString(): kotlin.String = code
 
@@ -612,8 +554,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceCategory =
@@ -636,34 +576,13 @@ public data class AllergyIntolerance(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Worst case result of a future exposure is not assessed to be life-threatening or having high
-     * potential for organ system failure.
-     */
-    Low(
-      "low",
-      "http://hl7.org/fhir/allergy-intolerance-criticality",
-      "Low Risk",
-      "Worst case result of a future exposure is not assessed to be life-threatening or having high potential for organ system failure.",
-    ),
-    /**
-     * Worst case result of a future exposure is assessed to be life-threatening or having high
-     * potential for organ system failure.
-     */
-    High(
-      "high",
-      "http://hl7.org/fhir/allergy-intolerance-criticality",
-      "High Risk",
-      "Worst case result of a future exposure is assessed to be life-threatening or having high potential for organ system failure.",
-    ),
-    /** Unable to assess the worst case result of a future exposure. */
+    Low("low", "http://hl7.org/fhir/allergy-intolerance-criticality", "Low Risk"),
+    High("high", "http://hl7.org/fhir/allergy-intolerance-criticality", "High Risk"),
     Unable_To_Assess(
       "unable-to-assess",
       "http://hl7.org/fhir/allergy-intolerance-criticality",
       "Unable to Assess Risk",
-      "Unable to assess the worst case result of a future exposure.",
     );
 
     override fun toString(): kotlin.String = code
@@ -673,8 +592,6 @@ public data class AllergyIntolerance(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): AllergyIntoleranceCriticality =

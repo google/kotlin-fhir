@@ -52,161 +52,167 @@ public enum class ConsentActorRole(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
-  Amender("AMENDER", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Coauth("COAUTH", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Cont("CONT", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Evtwit("EVTWIT", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Primauth("PRIMAUTH", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Reviewer("REVIEWER", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Source("SOURCE", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Trans("TRANS", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Valid("VALID", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Verf("VERF", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", null, null),
-  Affl("AFFL", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Agnt("AGNT", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Assigned("ASSIGNED", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Claim("CLAIM", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Covpty("COVPTY", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Depen("DEPEN", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Econ("ECON", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Emp("EMP", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Guard("GUARD", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Invsbj("INVSBJ", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Named("NAMED", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Nok("NOK", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Pat("PAT", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Prov("PROV", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Not("NOT", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", null, null),
-  Classifier("CLASSIFIER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Consenter("CONSENTER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Conswit("CONSWIT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Copart("COPART", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Declassifier("DECLASSIFIER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Delegatee("DELEGATEE", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Delegator("DELEGATOR", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Downgrder("DOWNGRDER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Dpowatt("DPOWATT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Excest("EXCEST", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Grantee("GRANTEE", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Grantor("GRANTOR", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Gt("GT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Guadltm("GUADLTM", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Hpowatt("HPOWATT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Intprter("INTPRTER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Powatt("POWATT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Resprsn("RESPRSN", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Spowatt("SPOWATT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", null, null),
-  Aucg("AUCG", "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction", null, null),
-  Aulr("AULR", "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction", null, null),
-  Autm("AUTM", "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction", null, null),
-  Auwa("AUWA", "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction", null, null),
-  Promsk("PROMSK", "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction", null, null),
-  Aut("AUT", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  Cst("CST", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  Inf("INF", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  Ircp("IRCP", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  La("LA", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  Trc("TRC", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  Wit("WIT", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", null, null),
-  /**
-   * An entity providing authorization services to enable the electronic sharing of health-related
-   * information based on resource owner's preapproved permissions. For example, an UMA
-   * Authorization Server[UMA]
-   */
+  Amender("AMENDER", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Amender"),
+  Coauth("COAUTH", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Co-Author"),
+  Cont("CONT", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Contact"),
+  Evtwit(
+    "EVTWIT",
+    "http://terminology.hl7.org/CodeSystem/contractsignertypecodes",
+    "Event Witness",
+  ),
+  Primauth(
+    "PRIMAUTH",
+    "http://terminology.hl7.org/CodeSystem/contractsignertypecodes",
+    "Primary Author",
+  ),
+  Reviewer("REVIEWER", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Reviewer"),
+  Source("SOURCE", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Source"),
+  Trans("TRANS", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Transcriber"),
+  Valid("VALID", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Validator"),
+  Verf("VERF", "http://terminology.hl7.org/CodeSystem/contractsignertypecodes", "Verifier"),
+  Affl("AFFL", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "affiliate"),
+  Agnt("AGNT", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "agent"),
+  Assigned("ASSIGNED", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "assigned entity"),
+  Claim("CLAIM", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "claimant"),
+  Covpty("COVPTY", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "covered party"),
+  Depen("DEPEN", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "dependent"),
+  Econ("ECON", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "emergency contact"),
+  Emp("EMP", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "employee"),
+  Guard("GUARD", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "guardian"),
+  Invsbj("INVSBJ", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "Investigation Subject"),
+  Named("NAMED", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "named insured"),
+  Nok("NOK", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "next of kin"),
+  Pat("PAT", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "patient"),
+  Prov("PROV", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "healthcare provider"),
+  Not("NOT", "http://terminology.hl7.org/CodeSystem/v3-RoleClass", "notary public"),
+  Classifier("CLASSIFIER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "classifier"),
+  Consenter("CONSENTER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "consenter"),
+  Conswit("CONSWIT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "consent witness"),
+  Copart("COPART", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "co-participant"),
+  Declassifier("DECLASSIFIER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "declassifier"),
+  Delegatee("DELEGATEE", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "delegatee"),
+  Delegator("DELEGATOR", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "delegator"),
+  Downgrder("DOWNGRDER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "downgrader"),
+  Dpowatt(
+    "DPOWATT",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "durable power of attorney",
+  ),
+  Excest("EXCEST", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "executor of estate"),
+  Grantee("GRANTEE", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "grantee"),
+  Grantor("GRANTOR", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "grantor"),
+  Gt("GT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "Guarantor"),
+  Guadltm("GUADLTM", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "guardian ad lidem"),
+  Hpowatt(
+    "HPOWATT",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "healthcare power of attorney",
+  ),
+  Intprter("INTPRTER", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "interpreter"),
+  Powatt("POWATT", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "power of attorney"),
+  Resprsn("RESPRSN", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "responsible party"),
+  Spowatt(
+    "SPOWATT",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "special power of attorney",
+  ),
+  _CitizenRoleType(
+    "_CitizenRoleType",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "CitizenRoleType",
+  ),
+  Cas("CAS", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "asylum seeker"),
+  Casm("CASM", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "single minor asylum seeker"),
+  Cn("CN", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "national"),
+  Cnrp(
+    "CNRP",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "non-country member without residence permit",
+  ),
+  Cnrpm(
+    "CNRPM",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "non-country member minor without residence permit",
+  ),
+  Cpca("CPCA", "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "permit card applicant"),
+  Crp(
+    "CRP",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "non-country member with residence permit",
+  ),
+  Crpm(
+    "CRPM",
+    "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+    "non-country member minor with residence permit",
+  ),
+  Aucg(
+    "AUCG",
+    "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+    "caregiver information receiver",
+  ),
+  Aulr(
+    "AULR",
+    "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+    "legitimate relationship information receiver",
+  ),
+  Autm(
+    "AUTM",
+    "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+    "care team information receiver",
+  ),
+  Auwa(
+    "AUWA",
+    "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+    "work area information receiver",
+  ),
+  Promsk(
+    "PROMSK",
+    "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+    "authorized provider masking author",
+  ),
+  Aut("AUT", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "author (originator)"),
+  Cst("CST", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "custodian"),
+  Inf("INF", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "informant"),
+  Ircp(
+    "IRCP",
+    "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+    "information recipient",
+  ),
+  La("LA", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "legal authenticator"),
+  Trc("TRC", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "tracker"),
+  Wit("WIT", "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "witness"),
   Authserver(
     "authserver",
     "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
     "authorization server",
-    "An entity providing authorization services to enable the electronic sharing of health-related information based on resource owner's preapproved permissions. For example, an UMA Authorization Server[UMA]",
   ),
-  /**
-   * An entity that collects information over which the data subject may have certain rights under
-   * policy or law to control that information's management and distribution by data collectors,
-   * including the right to access, retrieve, distribute, or delete that information.
-   */
   Datacollector(
     "datacollector",
     "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
     "data collector",
-    "An entity that collects information over which the data subject may have certain rights under policy or law to control that information's management and distribution by data collectors, including the right to access, retrieve, distribute, or delete that information.",
   ),
-  /**
-   * An entity that processes collected information over which the data subject may have certain
-   * rights under policy or law to control that information's management and distribution by data
-   * processors, including the right to access, retrieve, distribute, or delete that information.
-   */
   Dataprocessor(
     "dataprocessor",
     "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
     "data processor",
-    "An entity that processes collected information over which the data subject may have certain rights under policy or law to control that information's management and distribution by data processors, including the right to access, retrieve, distribute, or delete that information.",
   ),
-  /**
-   * A person whose personal information is collected or processed, and who may have certain rights
-   * under policy or law to control that information's management and distribution by data
-   * collectors or processors, including the right to access, retrieve, distribute, or delete that
-   * information.
-   */
   Datasubject(
     "datasubject",
     "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
     "data subject",
-    "A person whose personal information is collected or processed, and who may have certain rights under policy or law to control that information's management and distribution by data collectors or processors, including the right to access, retrieve, distribute, or delete that information.",
   ),
-  /** The human user that has participated. */
   Humanuser(
     "humanuser",
     "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
     "human user",
-    "The human user that has participated.",
   ),
-  /** Audit participant role ID of software application */
-  _110150(
-    "110150",
-    "http://dicom.nema.org/resources/ontology/DCM",
-    "Application",
-    "Audit participant role ID of software application",
-  ),
-  /**
-   * Audit participant role ID of software application launcher, i.e., the entity that started or
-   * stopped an application
-   */
-  _110151(
-    "110151",
-    "http://dicom.nema.org/resources/ontology/DCM",
-    "Application Launcher",
-    "Audit participant role ID of software application launcher, i.e., the entity that started or stopped an application",
-  ),
-  /** Audit participant role ID of the receiver of data */
-  _110152(
-    "110152",
-    "http://dicom.nema.org/resources/ontology/DCM",
-    "Destination Role ID",
-    "Audit participant role ID of the receiver of data",
-  ),
-  /** Audit participant role ID of the sender of data */
-  _110153(
-    "110153",
-    "http://dicom.nema.org/resources/ontology/DCM",
-    "Source Role ID",
-    "Audit participant role ID of the sender of data",
-  ),
-  /** Audit participant role ID of media receiving data during an export */
-  _110154(
-    "110154",
-    "http://dicom.nema.org/resources/ontology/DCM",
-    "Destination Media",
-    "Audit participant role ID of media receiving data during an export",
-  ),
-  /** Audit participant role ID of media providing data during an import */
-  _110155(
-    "110155",
-    "http://dicom.nema.org/resources/ontology/DCM",
-    "Source Media",
-    "Audit participant role ID of media providing data during an import",
-  );
+  _110150("110150", "http://dicom.nema.org/resources/ontology/DCM", "Application"),
+  _110151("110151", "http://dicom.nema.org/resources/ontology/DCM", "Application Launcher"),
+  _110152("110152", "http://dicom.nema.org/resources/ontology/DCM", "Destination Role ID"),
+  _110153("110153", "http://dicom.nema.org/resources/ontology/DCM", "Source Role ID"),
+  _110154("110154", "http://dicom.nema.org/resources/ontology/DCM", "Destination Media"),
+  _110155("110155", "http://dicom.nema.org/resources/ontology/DCM", "Source Media");
 
   override fun toString(): String = code
 
@@ -215,8 +221,6 @@ public enum class ConsentActorRole(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): ConsentActorRole =
@@ -265,6 +269,15 @@ public enum class ConsentActorRole(
         "POWATT" -> Powatt
         "RESPRSN" -> Resprsn
         "SPOWATT" -> Spowatt
+        "_CitizenRoleType" -> _CitizenRoleType
+        "CAS" -> Cas
+        "CASM" -> Casm
+        "CN" -> Cn
+        "CNRP" -> Cnrp
+        "CNRPM" -> Cnrpm
+        "CPCA" -> Cpca
+        "CRP" -> Crp
+        "CRPM" -> Crpm
         "AUCG" -> Aucg
         "AULR" -> Aulr
         "AUTM" -> Autm
@@ -275,7 +288,6 @@ public enum class ConsentActorRole(
         "INF" -> Inf
         "IRCP" -> Ircp
         "LA" -> La
-        "IRCP" -> Ircp
         "TRC" -> Trc
         "WIT" -> Wit
         "authserver" -> Authserver

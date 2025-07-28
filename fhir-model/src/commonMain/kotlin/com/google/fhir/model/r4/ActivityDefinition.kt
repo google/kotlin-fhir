@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.ActivityDefinitionSerializer
 import com.google.fhir.model.r4.serializers.ActivityDefinitionSubjectSerializer
 import com.google.fhir.model.r4.serializers.ActivityDefinitionTimingSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ActivityDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ActivityDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class ActivityDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this activity definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -160,7 +160,7 @@ public data class ActivityDefinition(
    * type, and can then identify this activity definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the activity definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -202,7 +202,7 @@ public data class ActivityDefinition(
    *
    * Allows filtering of activity definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this activity definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -240,7 +240,7 @@ public data class ActivityDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the activity definition from a consumer's
    * perspective.
@@ -262,14 +262,14 @@ public data class ActivityDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the activity definition is intended to be used.
    *
    * It may be possible for the activity definition to be used in jurisdictions other than those for
    * which it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this activity definition is needed and why it has been designed as it has.
    *
@@ -314,34 +314,34 @@ public data class ActivityDefinition(
    * Descriptive topics related to the content of the activity. Topics provide a high-level
    * categorization of the activity that can be useful for filtering and searching.
    */
-  public var topic: List<CodeableConcept?>? = null,
+  public var topic: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: List<ContactDetail?>? = null,
+  public var author: MutableList<ContactDetail> = mutableListOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: List<ContactDetail?>? = null,
+  public var editor: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    */
-  public var reviewer: List<ContactDetail?>? = null,
+  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
    */
-  public var endorser: List<ContactDetail?>? = null,
+  public var endorser: MutableList<ContactDetail> = mutableListOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: List<RelatedArtifact?>? = null,
+  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
   /**
    * A reference to a Library resource containing any formal logic used by the activity definition.
    */
-  public var library: List<Canonical?>? = null,
+  public var library: MutableList<Canonical> = mutableListOf(),
   /**
    * A description of the kind of resource the activity definition is representing. For example, a
    * MedicationRequest, a ServiceRequest, or a CommunicationRequest. Typically, but not always, this
@@ -387,7 +387,7 @@ public data class ActivityDefinition(
    */
   public var location: Reference? = null,
   /** Indicates who should participate in performing the action described. */
-  public var participant: List<Participant>? = null,
+  public var participant: MutableList<Participant> = mutableListOf(),
   /** Identifies the food, drug or other product being consumed or supplied in the activity. */
   public var product: Product? = null,
   /** Identifies the quantity expected to be consumed at once (per dose, per meal, etc.). */
@@ -398,26 +398,26 @@ public data class ActivityDefinition(
    *
    * If a dosage instruction is used, the definition should not specify timing or quantity.
    */
-  public var dosage: List<Dosage?>? = null,
+  public var dosage: MutableList<Dosage> = mutableListOf(),
   /**
    * Indicates the sites on the subject's body where the procedure should be performed (I.e. the
    * target sites).
    *
    * Only used if not implicit in the code found in ServiceRequest.type.
    */
-  public var bodySite: List<CodeableConcept?>? = null,
+  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Defines specimen requirements for the action to be performed, such as required specimens for a
    * lab test.
    */
-  public var specimenRequirement: List<Reference?>? = null,
+  public var specimenRequirement: MutableList<Reference> = mutableListOf(),
   /**
    * Defines observation requirements for the action to be performed, such as body weight or surface
    * area.
    */
-  public var observationRequirement: List<Reference?>? = null,
+  public var observationRequirement: MutableList<Reference> = mutableListOf(),
   /** Defines the observations that are expected to be produced by the action. */
-  public var observationResultRequirement: List<Reference?>? = null,
+  public var observationResultRequirement: MutableList<Reference> = mutableListOf(),
   /**
    * A reference to a StructureMap resource that defines a transform that can be executed to produce
    * the intent resource using the ActivityDefinition instance as the input.
@@ -436,7 +436,7 @@ public data class ActivityDefinition(
    * Note that if both a transform and dynamic values are specified, the dynamic values will be
    * applied to the result of the transform.
    */
-  public var dynamicValue: List<DynamicValue>? = null,
+  public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who should participate in performing the action described. */
   @Serializable(with = ActivityDefinitionParticipantSerializer::class)
@@ -458,7 +458,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -477,9 +477,9 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of participant in the action. */
-    public var type: Enumeration<ActivityParticipantType>? = null,
+    public var type: Enumeration<ActivityParticipantType>,
     /** The role the participant should play in performing the described action. */
     public var role: CodeableConcept? = null,
   ) : BackboneElement()
@@ -509,7 +509,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -528,7 +528,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The path to the element to be customized. This is the path on the resource that will hold the
      * result of the calculation defined by the expression. The specified path SHALL be a FHIRPath
@@ -541,14 +541,14 @@ public data class ActivityDefinition(
      * The path attribute contains a [Simple FHIRPath Subset](fhirpath.html#simple) that allows path
      * traversal, but not calculation.
      */
-    public var path: String? = null,
+    public var path: String,
     /**
      * An expression specifying the value of the customized element.
      *
      * The expression may be inlined, or may be a reference to a named expression within a logic
      * library referenced by the library element.
      */
-    public var expression: Expression? = null,
+    public var expression: Expression,
   ) : BackboneElement()
 
   @Serializable(with = ActivityDefinitionSubjectSerializer::class)
@@ -563,16 +563,14 @@ public data class ActivityDefinition(
 
     public data class Reference(public val `value`: com.google.fhir.model.r4.Reference) : Subject
 
-    public data object Null : Subject
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
-      ): Subject {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4.Reference?,
+      ): Subject? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -609,24 +607,22 @@ public data class ActivityDefinition(
     public data class Duration(public val `value`: com.google.fhir.model.r4.Duration) :
       ActivityDefinition.Timing
 
-    public data object Null : ActivityDefinition.Timing
-
     public companion object {
-      public fun from(
-        TimingValue: com.google.fhir.model.r4.Timing?,
+      internal fun from(
+        timingValue: com.google.fhir.model.r4.Timing?,
         dateTimeValue: com.google.fhir.model.r4.DateTime?,
-        AgeValue: com.google.fhir.model.r4.Age?,
-        PeriodValue: com.google.fhir.model.r4.Period?,
-        RangeValue: com.google.fhir.model.r4.Range?,
-        DurationValue: com.google.fhir.model.r4.Duration?,
-      ): ActivityDefinition.Timing {
-        if (TimingValue != null) return Timing(TimingValue)
+        ageValue: com.google.fhir.model.r4.Age?,
+        periodValue: com.google.fhir.model.r4.Period?,
+        rangeValue: com.google.fhir.model.r4.Range?,
+        durationValue: com.google.fhir.model.r4.Duration?,
+      ): ActivityDefinition.Timing? {
+        if (timingValue != null) return Timing(timingValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (AgeValue != null) return Age(AgeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        if (RangeValue != null) return Range(RangeValue)
-        if (DurationValue != null) return Duration(DurationValue)
-        return Null
+        if (ageValue != null) return Age(ageValue)
+        if (periodValue != null) return Period(periodValue)
+        if (rangeValue != null) return Range(rangeValue)
+        if (durationValue != null) return Duration(durationValue)
+        return null
       }
     }
   }
@@ -643,16 +639,14 @@ public data class ActivityDefinition(
       public val `value`: com.google.fhir.model.r4.CodeableConcept
     ) : Product
 
-    public data object Null : Product
-
     public companion object {
-      public fun from(
-        ReferenceValue: com.google.fhir.model.r4.Reference?,
-        CodeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
-      ): Product {
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        return Null
+      internal fun from(
+        referenceValue: com.google.fhir.model.r4.Reference?,
+        codeableConceptValue: com.google.fhir.model.r4.CodeableConcept?,
+      ): Product? {
+        if (referenceValue != null) return Reference(referenceValue)
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        return null
       }
     }
   }
@@ -662,36 +656,15 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant is the patient under evaluation. */
-    Patient(
-      "patient",
-      "http://hl7.org/fhir/action-participant-type",
-      "Patient",
-      "The participant is the patient under evaluation.",
-    ),
-    /** The participant is a practitioner involved in the patient's care. */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/action-participant-type",
-      "Practitioner",
-      "The participant is a practitioner involved in the patient's care.",
-    ),
-    /** The participant is a person related to the patient. */
+    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient"),
+    Practitioner("practitioner", "http://hl7.org/fhir/action-participant-type", "Practitioner"),
     Related_Person(
       "related-person",
       "http://hl7.org/fhir/action-participant-type",
       "Related Person",
-      "The participant is a person related to the patient.",
     ),
-    /** The participant is a system or device used in the care of the patient. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/action-participant-type",
-      "Device",
-      "The participant is a system or device used in the care of the patient.",
-    );
+    Device("device", "http://hl7.org/fhir/action-participant-type", "Device");
 
     override fun toString(): kotlin.String = code
 
@@ -700,8 +673,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActivityParticipantType =
@@ -721,116 +692,53 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or
-     * device(s) for a specific date/time. This may result in one or more Encounter(s).
-     */
-    Appointment(
-      "Appointment",
-      "http://hl7.org/fhir/request-resource-types",
-      "Appointment",
-      "A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s).",
-    ),
-    /**
-     * A reply to an appointment request for a patient and/or practitioner(s), such as a
-     * confirmation or rejection.
-     */
+    Appointment("Appointment", "http://hl7.org/fhir/request-resource-types", "Appointment"),
     AppointmentResponse(
       "AppointmentResponse",
       "http://hl7.org/fhir/request-resource-types",
       "AppointmentResponse",
-      "A reply to an appointment request for a patient and/or practitioner(s), such as a confirmation or rejection.",
     ),
-    /** Healthcare plan for patient or group. */
-    CarePlan(
-      "CarePlan",
-      "http://hl7.org/fhir/request-resource-types",
-      "CarePlan",
-      "Healthcare plan for patient or group.",
-    ),
-    /** Claim, Pre-determination or Pre-authorization. */
-    Claim(
-      "Claim",
-      "http://hl7.org/fhir/request-resource-types",
-      "Claim",
-      "Claim, Pre-determination or Pre-authorization.",
-    ),
-    /** A request for information to be sent to a receiver. */
+    CarePlan("CarePlan", "http://hl7.org/fhir/request-resource-types", "CarePlan"),
+    Claim("Claim", "http://hl7.org/fhir/request-resource-types", "Claim"),
     CommunicationRequest(
       "CommunicationRequest",
       "http://hl7.org/fhir/request-resource-types",
       "CommunicationRequest",
-      "A request for information to be sent to a receiver.",
     ),
-    /** Legal Agreement. */
-    Contract(
-      "Contract",
-      "http://hl7.org/fhir/request-resource-types",
-      "Contract",
-      "Legal Agreement.",
-    ),
-    /** Medical device request. */
-    DeviceRequest(
-      "DeviceRequest",
-      "http://hl7.org/fhir/request-resource-types",
-      "DeviceRequest",
-      "Medical device request.",
-    ),
-    /** Enrollment request. */
+    Contract("Contract", "http://hl7.org/fhir/request-resource-types", "Contract"),
+    DeviceRequest("DeviceRequest", "http://hl7.org/fhir/request-resource-types", "DeviceRequest"),
     EnrollmentRequest(
       "EnrollmentRequest",
       "http://hl7.org/fhir/request-resource-types",
       "EnrollmentRequest",
-      "Enrollment request.",
     ),
-    /** Guidance or advice relating to an immunization. */
     ImmunizationRecommendation(
       "ImmunizationRecommendation",
       "http://hl7.org/fhir/request-resource-types",
       "ImmunizationRecommendation",
-      "Guidance or advice relating to an immunization.",
     ),
-    /** Ordering of medication for patient or group. */
     MedicationRequest(
       "MedicationRequest",
       "http://hl7.org/fhir/request-resource-types",
       "MedicationRequest",
-      "Ordering of medication for patient or group.",
     ),
-    /** Diet, formula or nutritional supplement request. */
     NutritionOrder(
       "NutritionOrder",
       "http://hl7.org/fhir/request-resource-types",
       "NutritionOrder",
-      "Diet, formula or nutritional supplement request.",
     ),
-    /**
-     * A record of a request for service such as diagnostic investigations, treatments, or
-     * operations to be performed.
-     */
     ServiceRequest(
       "ServiceRequest",
       "http://hl7.org/fhir/request-resource-types",
       "ServiceRequest",
-      "A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.",
     ),
-    /** Request for a medication, substance or device. */
-    SupplyRequest(
-      "SupplyRequest",
-      "http://hl7.org/fhir/request-resource-types",
-      "SupplyRequest",
-      "Request for a medication, substance or device.",
-    ),
-    /** A task to be performed. */
-    Task("Task", "http://hl7.org/fhir/request-resource-types", "Task", "A task to be performed."),
-    /** Prescription for vision correction products for a patient. */
+    SupplyRequest("SupplyRequest", "http://hl7.org/fhir/request-resource-types", "SupplyRequest"),
+    Task("Task", "http://hl7.org/fhir/request-resource-types", "Task"),
     VisionPrescription(
       "VisionPrescription",
       "http://hl7.org/fhir/request-resource-types",
       "VisionPrescription",
-      "Prescription for vision correction products for a patient.",
     );
 
     override fun toString(): kotlin.String = code
@@ -840,8 +748,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActivityDefinitionKind =
@@ -872,93 +778,16 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /**
-     * The request represents a legally binding instruction authored by a Patient or RelatedPerson.
-     */
-    Directive(
-      "directive",
-      "http://hl7.org/fhir/request-intent",
-      "Directive",
-      "The request represents a legally binding instruction authored by a Patient or RelatedPerson.",
-    ),
-    /** The request represents a request/demand and authorization for action by a Practitioner. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by a Practitioner.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestGroup that establishes timing,
-     * conditionality and/or other constraints among a set of requests. Refer to [[[RequestGroup]]]
-     * for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -967,8 +796,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestIntent =
@@ -992,38 +819,11 @@ public data class ActivityDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -1032,8 +832,6 @@ public data class ActivityDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =

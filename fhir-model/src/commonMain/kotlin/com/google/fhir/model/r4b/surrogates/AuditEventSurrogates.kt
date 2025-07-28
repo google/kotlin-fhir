@@ -42,51 +42,51 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AuditEventAgentNetworkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var address: KotlinString? = null,
   public var _address: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
 ) {
   public fun toModel(): AuditEvent.Agent.Network =
-    AuditEvent.Agent.Network().apply {
-      id = this@AuditEventAgentNetworkSurrogate.id
-      extension = this@AuditEventAgentNetworkSurrogate.extension
-      modifierExtension = this@AuditEventAgentNetworkSurrogate.modifierExtension
+    AuditEvent.Agent.Network(
+      id = this@AuditEventAgentNetworkSurrogate.id,
+      extension = this@AuditEventAgentNetworkSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventAgentNetworkSurrogate.modifierExtension ?: mutableListOf(),
       address =
         R4bString.of(
           this@AuditEventAgentNetworkSurrogate.address,
           this@AuditEventAgentNetworkSurrogate._address,
-        )
+        ),
       type =
-        Enumeration.of(
-          this@AuditEventAgentNetworkSurrogate.type?.let {
-            com.google.fhir.model.r4b.AuditEvent.AuditEventAgentNetworkType.fromCode(it)
-          },
-          this@AuditEventAgentNetworkSurrogate._type,
-        )
-    }
+        this@AuditEventAgentNetworkSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.AuditEvent.AuditEventAgentNetworkType.fromCode(it!!),
+            this@AuditEventAgentNetworkSurrogate._type,
+          )
+        },
+    )
 
   public companion object {
     public fun fromModel(model: AuditEvent.Agent.Network): AuditEventAgentNetworkSurrogate =
       with(model) {
-        AuditEventAgentNetworkSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          address = this@with.address?.value
-          _address = this@with.address?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-        }
+        AuditEventAgentNetworkSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          address = this@with.address?.value,
+          _address = this@with.address?.toElement(),
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+        )
       }
   }
 }
@@ -94,10 +94,10 @@ internal data class AuditEventAgentNetworkSurrogate(
 @Serializable
 internal data class AuditEventAgentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var role: List<CodeableConcept?>? = null,
+  public var role: MutableList<CodeableConcept>? = null,
   public var who: Reference? = null,
   public var altId: KotlinString? = null,
   public var _altId: Element? = null,
@@ -106,35 +106,35 @@ internal data class AuditEventAgentSurrogate(
   public var requestor: KotlinBoolean? = null,
   public var _requestor: Element? = null,
   public var location: Reference? = null,
-  public var policy: List<KotlinString?>? = null,
-  public var _policy: List<Element?>? = null,
+  public var policy: MutableList<KotlinString?>? = null,
+  public var _policy: MutableList<Element?>? = null,
   public var media: Coding? = null,
   public var network: AuditEvent.Agent.Network? = null,
-  public var purposeOfUse: List<CodeableConcept?>? = null,
+  public var purposeOfUse: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): AuditEvent.Agent =
-    AuditEvent.Agent().apply {
-      id = this@AuditEventAgentSurrogate.id
-      extension = this@AuditEventAgentSurrogate.extension
-      modifierExtension = this@AuditEventAgentSurrogate.modifierExtension
-      type = this@AuditEventAgentSurrogate.type
-      role = this@AuditEventAgentSurrogate.role
-      who = this@AuditEventAgentSurrogate.who
+    AuditEvent.Agent(
+      id = this@AuditEventAgentSurrogate.id,
+      extension = this@AuditEventAgentSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventAgentSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@AuditEventAgentSurrogate.type,
+      role = this@AuditEventAgentSurrogate.role ?: mutableListOf(),
+      who = this@AuditEventAgentSurrogate.who,
       altId =
-        R4bString.of(this@AuditEventAgentSurrogate.altId, this@AuditEventAgentSurrogate._altId)
-      name = R4bString.of(this@AuditEventAgentSurrogate.name, this@AuditEventAgentSurrogate._name)
+        R4bString.of(this@AuditEventAgentSurrogate.altId, this@AuditEventAgentSurrogate._altId),
+      name = R4bString.of(this@AuditEventAgentSurrogate.name, this@AuditEventAgentSurrogate._name),
       requestor =
         R4bBoolean.of(
           this@AuditEventAgentSurrogate.requestor,
           this@AuditEventAgentSurrogate._requestor,
-        )
-      location = this@AuditEventAgentSurrogate.location
+        )!!,
+      location = this@AuditEventAgentSurrogate.location,
       policy =
         if (
           this@AuditEventAgentSurrogate.policy == null &&
             this@AuditEventAgentSurrogate._policy == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@AuditEventAgentSurrogate.policy
               ?: List(this@AuditEventAgentSurrogate._policy!!.size) { null })
@@ -142,36 +142,43 @@ internal data class AuditEventAgentSurrogate(
               this@AuditEventAgentSurrogate._policy
                 ?: List(this@AuditEventAgentSurrogate.policy!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      media = this@AuditEventAgentSurrogate.media
-      network = this@AuditEventAgentSurrogate.network
-      purposeOfUse = this@AuditEventAgentSurrogate.purposeOfUse
-    }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      media = this@AuditEventAgentSurrogate.media,
+      network = this@AuditEventAgentSurrogate.network,
+      purposeOfUse = this@AuditEventAgentSurrogate.purposeOfUse ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: AuditEvent.Agent): AuditEventAgentSurrogate =
       with(model) {
-        AuditEventAgentSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          role = this@with.role
-          who = this@with.who
-          altId = this@with.altId?.value
-          _altId = this@with.altId?.toElement()
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          requestor = this@with.requestor?.value
-          _requestor = this@with.requestor?.toElement()
-          location = this@with.location
-          policy = this@with.policy?.map { it?.value }?.takeUnless { it.all { it == null } }
-          _policy = this@with.policy?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          media = this@with.media
-          network = this@with.network
-          purposeOfUse = this@with.purposeOfUse
-        }
+        AuditEventAgentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          role = this@with.role.takeUnless { it.all { it == null } },
+          who = this@with.who,
+          altId = this@with.altId?.value,
+          _altId = this@with.altId?.toElement(),
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          requestor = this@with.requestor.value,
+          _requestor = this@with.requestor.toElement(),
+          location = this@with.location,
+          policy =
+            this@with.policy.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _policy =
+            this@with.policy
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          media = this@with.media,
+          network = this@with.network,
+          purposeOfUse = this@with.purposeOfUse.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -179,51 +186,49 @@ internal data class AuditEventAgentSurrogate(
 @Serializable
 internal data class AuditEventSourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var site: KotlinString? = null,
   public var _site: Element? = null,
-  public var observer: Reference? = null,
-  public var type: List<Coding?>? = null,
+  public var observer: Reference,
+  public var type: MutableList<Coding>? = null,
 ) {
   public fun toModel(): AuditEvent.Source =
-    AuditEvent.Source().apply {
-      id = this@AuditEventSourceSurrogate.id
-      extension = this@AuditEventSourceSurrogate.extension
-      modifierExtension = this@AuditEventSourceSurrogate.modifierExtension
-      site = R4bString.of(this@AuditEventSourceSurrogate.site, this@AuditEventSourceSurrogate._site)
-      observer = this@AuditEventSourceSurrogate.observer
-      type = this@AuditEventSourceSurrogate.type
-    }
+    AuditEvent.Source(
+      id = this@AuditEventSourceSurrogate.id,
+      extension = this@AuditEventSourceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventSourceSurrogate.modifierExtension ?: mutableListOf(),
+      site =
+        R4bString.of(this@AuditEventSourceSurrogate.site, this@AuditEventSourceSurrogate._site),
+      observer = this@AuditEventSourceSurrogate.observer,
+      type = this@AuditEventSourceSurrogate.type ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: AuditEvent.Source): AuditEventSourceSurrogate =
       with(model) {
-        AuditEventSourceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          site = this@with.site?.value
-          _site = this@with.site?.toElement()
-          observer = this@with.observer
-          type = this@with.type
-        }
+        AuditEventSourceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          site = this@with.site?.value,
+          _site = this@with.site?.toElement(),
+          observer = this@with.observer,
+          type = this@with.type.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
 
 @Serializable
-internal class AuditEventEntityDetailValueSurrogate {
-  public var valueString: KotlinString? = null
-
-  public var _valueString: Element? = null
-
-  public var valueBase64Binary: KotlinString? = null
-
-  public var _valueBase64Binary: Element? = null
-
+internal data class AuditEventEntityDetailValueSurrogate(
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueBase64Binary: KotlinString? = null,
+  public var _valueBase64Binary: Element? = null,
+) {
   public fun toModel(): AuditEvent.Entity.Detail.Value =
-    AuditEvent.Entity.Detail.Value?.from(
+    AuditEvent.Entity.Detail.Value.from(
       R4bString.of(
         this@AuditEventEntityDetailValueSurrogate.valueString,
         this@AuditEventEntityDetailValueSurrogate._valueString,
@@ -232,7 +237,7 @@ internal class AuditEventEntityDetailValueSurrogate {
         this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
         this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
       ),
-    ) ?: AuditEvent.Entity.Detail.Value.Null
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -240,10 +245,16 @@ internal class AuditEventEntityDetailValueSurrogate {
     ): AuditEventEntityDetailValueSurrogate =
       with(model) {
         AuditEventEntityDetailValueSurrogate().apply {
-          valueString = this@with.asString()?.value?.value
-          _valueString = this@with.asString()?.value?.toElement()
-          valueBase64Binary = this@with.asBase64Binary()?.value?.value
-          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement()
+          AuditEvent.Entity.Detail.Value.from(
+            R4bString.of(
+              this@AuditEventEntityDetailValueSurrogate.valueString,
+              this@AuditEventEntityDetailValueSurrogate._valueString,
+            ),
+            Base64Binary.of(
+              this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
+              this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
+            ),
+          )!!
         }
       }
   }
@@ -252,36 +263,36 @@ internal class AuditEventEntityDetailValueSurrogate {
 @Serializable
 internal data class AuditEventEntityDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var `value`: AuditEvent.Entity.Detail.Value? = null,
+  public var `value`: AuditEvent.Entity.Detail.Value,
 ) {
   public fun toModel(): AuditEvent.Entity.Detail =
-    AuditEvent.Entity.Detail().apply {
-      id = this@AuditEventEntityDetailSurrogate.id
-      extension = this@AuditEventEntityDetailSurrogate.extension
-      modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension
+    AuditEvent.Entity.Detail(
+      id = this@AuditEventEntityDetailSurrogate.id,
+      extension = this@AuditEventEntityDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension ?: mutableListOf(),
       type =
         R4bString.of(
           this@AuditEventEntityDetailSurrogate.type,
           this@AuditEventEntityDetailSurrogate._type,
-        )
-      `value` = this@AuditEventEntityDetailSurrogate.`value`
-    }
+        )!!,
+      `value` = this@AuditEventEntityDetailSurrogate.`value`,
+    )
 
   public companion object {
     public fun fromModel(model: AuditEvent.Entity.Detail): AuditEventEntityDetailSurrogate =
       with(model) {
-        AuditEventEntityDetailSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value
-          _type = this@with.type?.toElement()
-          `value` = this@with.`value`
-        }
+        AuditEventEntityDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value,
+          _type = this@with.type.toElement(),
+          `value` = this@with.`value`,
+        )
       }
   }
 }
@@ -289,62 +300,66 @@ internal data class AuditEventEntityDetailSurrogate(
 @Serializable
 internal data class AuditEventEntitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var what: Reference? = null,
   public var type: Coding? = null,
   public var role: Coding? = null,
   public var lifecycle: Coding? = null,
-  public var securityLabel: List<Coding?>? = null,
+  public var securityLabel: MutableList<Coding>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var query: KotlinString? = null,
   public var _query: Element? = null,
-  public var detail: List<AuditEvent.Entity.Detail>? = null,
+  public var detail: MutableList<AuditEvent.Entity.Detail>? = null,
 ) {
   public fun toModel(): AuditEvent.Entity =
-    AuditEvent.Entity().apply {
-      id = this@AuditEventEntitySurrogate.id
-      extension = this@AuditEventEntitySurrogate.extension
-      modifierExtension = this@AuditEventEntitySurrogate.modifierExtension
-      what = this@AuditEventEntitySurrogate.what
-      type = this@AuditEventEntitySurrogate.type
-      role = this@AuditEventEntitySurrogate.role
-      lifecycle = this@AuditEventEntitySurrogate.lifecycle
-      securityLabel = this@AuditEventEntitySurrogate.securityLabel
-      name = R4bString.of(this@AuditEventEntitySurrogate.name, this@AuditEventEntitySurrogate._name)
+    AuditEvent.Entity(
+      id = this@AuditEventEntitySurrogate.id,
+      extension = this@AuditEventEntitySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventEntitySurrogate.modifierExtension ?: mutableListOf(),
+      what = this@AuditEventEntitySurrogate.what,
+      type = this@AuditEventEntitySurrogate.type,
+      role = this@AuditEventEntitySurrogate.role,
+      lifecycle = this@AuditEventEntitySurrogate.lifecycle,
+      securityLabel = this@AuditEventEntitySurrogate.securityLabel ?: mutableListOf(),
+      name =
+        R4bString.of(this@AuditEventEntitySurrogate.name, this@AuditEventEntitySurrogate._name),
       description =
         R4bString.of(
           this@AuditEventEntitySurrogate.description,
           this@AuditEventEntitySurrogate._description,
-        )
+        ),
       query =
-        Base64Binary.of(this@AuditEventEntitySurrogate.query, this@AuditEventEntitySurrogate._query)
-      detail = this@AuditEventEntitySurrogate.detail
-    }
+        Base64Binary.of(
+          this@AuditEventEntitySurrogate.query,
+          this@AuditEventEntitySurrogate._query,
+        ),
+      detail = this@AuditEventEntitySurrogate.detail ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: AuditEvent.Entity): AuditEventEntitySurrogate =
       with(model) {
-        AuditEventEntitySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          what = this@with.what
-          type = this@with.type
-          role = this@with.role
-          lifecycle = this@with.lifecycle
-          securityLabel = this@with.securityLabel
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          query = this@with.query?.value
-          _query = this@with.query?.toElement()
-          detail = this@with.detail
-        }
+        AuditEventEntitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          what = this@with.what,
+          type = this@with.type,
+          role = this@with.role,
+          lifecycle = this@with.lifecycle,
+          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          query = this@with.query?.value,
+          _query = this@with.query?.toElement(),
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -358,11 +373,11 @@ internal data class AuditEventSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: Coding? = null,
-  public var subtype: List<Coding?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: Coding,
+  public var subtype: MutableList<Coding>? = null,
   public var action: KotlinString? = null,
   public var _action: Element? = null,
   public var period: Period? = null,
@@ -372,82 +387,82 @@ internal data class AuditEventSurrogate(
   public var _outcome: Element? = null,
   public var outcomeDesc: KotlinString? = null,
   public var _outcomeDesc: Element? = null,
-  public var purposeOfEvent: List<CodeableConcept?>? = null,
-  public var agent: List<AuditEvent.Agent>? = null,
-  public var source: AuditEvent.Source? = null,
-  public var entity: List<AuditEvent.Entity>? = null,
+  public var purposeOfEvent: MutableList<CodeableConcept>? = null,
+  public var agent: MutableList<AuditEvent.Agent>? = null,
+  public var source: AuditEvent.Source,
+  public var entity: MutableList<AuditEvent.Entity>? = null,
 ) {
   public fun toModel(): AuditEvent =
-    AuditEvent().apply {
-      id = this@AuditEventSurrogate.id
-      meta = this@AuditEventSurrogate.meta
+    AuditEvent(
+      id = this@AuditEventSurrogate.id,
+      meta = this@AuditEventSurrogate.meta,
       implicitRules =
-        Uri.of(this@AuditEventSurrogate.implicitRules, this@AuditEventSurrogate._implicitRules)
-      language = Code.of(this@AuditEventSurrogate.language, this@AuditEventSurrogate._language)
-      text = this@AuditEventSurrogate.text
-      contained = this@AuditEventSurrogate.contained
-      extension = this@AuditEventSurrogate.extension
-      modifierExtension = this@AuditEventSurrogate.modifierExtension
-      type = this@AuditEventSurrogate.type
-      subtype = this@AuditEventSurrogate.subtype
+        Uri.of(this@AuditEventSurrogate.implicitRules, this@AuditEventSurrogate._implicitRules),
+      language = Code.of(this@AuditEventSurrogate.language, this@AuditEventSurrogate._language),
+      text = this@AuditEventSurrogate.text,
+      contained = this@AuditEventSurrogate.contained ?: mutableListOf(),
+      extension = this@AuditEventSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@AuditEventSurrogate.type,
+      subtype = this@AuditEventSurrogate.subtype ?: mutableListOf(),
       action =
-        Enumeration.of(
-          this@AuditEventSurrogate.action?.let {
-            com.google.fhir.model.r4b.AuditEvent.AuditEventAction.fromCode(it)
-          },
-          this@AuditEventSurrogate._action,
-        )
-      period = this@AuditEventSurrogate.period
+        this@AuditEventSurrogate.action?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.AuditEvent.AuditEventAction.fromCode(it!!),
+            this@AuditEventSurrogate._action,
+          )
+        },
+      period = this@AuditEventSurrogate.period,
       recorded =
         Instant.of(
           FhirDateTime.fromString(this@AuditEventSurrogate.recorded),
           this@AuditEventSurrogate._recorded,
-        )
+        )!!,
       outcome =
-        Enumeration.of(
-          this@AuditEventSurrogate.outcome?.let {
-            com.google.fhir.model.r4b.AuditEvent.AuditEventOutcome.fromCode(it)
-          },
-          this@AuditEventSurrogate._outcome,
-        )
+        this@AuditEventSurrogate.outcome?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.AuditEvent.AuditEventOutcome.fromCode(it!!),
+            this@AuditEventSurrogate._outcome,
+          )
+        },
       outcomeDesc =
-        R4bString.of(this@AuditEventSurrogate.outcomeDesc, this@AuditEventSurrogate._outcomeDesc)
-      purposeOfEvent = this@AuditEventSurrogate.purposeOfEvent
-      agent = this@AuditEventSurrogate.agent
-      source = this@AuditEventSurrogate.source
-      entity = this@AuditEventSurrogate.entity
-    }
+        R4bString.of(this@AuditEventSurrogate.outcomeDesc, this@AuditEventSurrogate._outcomeDesc),
+      purposeOfEvent = this@AuditEventSurrogate.purposeOfEvent ?: mutableListOf(),
+      agent = this@AuditEventSurrogate.agent ?: mutableListOf(),
+      source = this@AuditEventSurrogate.source,
+      entity = this@AuditEventSurrogate.entity ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: AuditEvent): AuditEventSurrogate =
       with(model) {
-        AuditEventSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          subtype = this@with.subtype
-          action = this@with.action?.value?.getCode()
-          _action = this@with.action?.toElement()
-          period = this@with.period
-          recorded = this@with.recorded?.value?.toString()
-          _recorded = this@with.recorded?.toElement()
-          outcome = this@with.outcome?.value?.getCode()
-          _outcome = this@with.outcome?.toElement()
-          outcomeDesc = this@with.outcomeDesc?.value
-          _outcomeDesc = this@with.outcomeDesc?.toElement()
-          purposeOfEvent = this@with.purposeOfEvent
-          agent = this@with.agent
-          source = this@with.source
-          entity = this@with.entity
-        }
+        AuditEventSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          subtype = this@with.subtype.takeUnless { it.all { it == null } },
+          action = this@with.action?.value?.getCode(),
+          _action = this@with.action?.toElement(),
+          period = this@with.period,
+          recorded = this@with.recorded.value?.toString(),
+          _recorded = this@with.recorded.toElement(),
+          outcome = this@with.outcome?.value?.getCode(),
+          _outcome = this@with.outcome?.toElement(),
+          outcomeDesc = this@with.outcomeDesc?.value,
+          _outcomeDesc = this@with.outcomeDesc?.toElement(),
+          purposeOfEvent = this@with.purposeOfEvent.takeUnless { it.all { it == null } },
+          agent = this@with.agent.takeUnless { it.all { it == null } },
+          source = this@with.source,
+          entity = this@with.entity.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

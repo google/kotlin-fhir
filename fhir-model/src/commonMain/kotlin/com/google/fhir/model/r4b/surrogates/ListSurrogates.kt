@@ -29,7 +29,7 @@ import com.google.fhir.model.r4b.Enumeration
 import com.google.fhir.model.r4b.Extension
 import com.google.fhir.model.r4b.FhirDateTime
 import com.google.fhir.model.r4b.Identifier
-import com.google.fhir.model.r4b.List as R4bList
+import com.google.fhir.model.r4b.List
 import com.google.fhir.model.r4b.Meta
 import com.google.fhir.model.r4b.Narrative
 import com.google.fhir.model.r4b.Reference
@@ -41,51 +41,51 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List as CollectionsList
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ListEntrySurrogate(
   public var id: KotlinString? = null,
-  public var extension: CollectionsList<Extension?>? = null,
-  public var modifierExtension: CollectionsList<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var flag: CodeableConcept? = null,
   public var deleted: KotlinBoolean? = null,
   public var _deleted: Element? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var item: Reference? = null,
+  public var item: Reference,
 ) {
-  public fun toModel(): R4bList.Entry =
-    R4bList.Entry().apply {
-      id = this@ListEntrySurrogate.id
-      extension = this@ListEntrySurrogate.extension
-      modifierExtension = this@ListEntrySurrogate.modifierExtension
-      flag = this@ListEntrySurrogate.flag
-      deleted = R4bBoolean.of(this@ListEntrySurrogate.deleted, this@ListEntrySurrogate._deleted)
+  public fun toModel(): List.Entry =
+    List.Entry(
+      id = this@ListEntrySurrogate.id,
+      extension = this@ListEntrySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ListEntrySurrogate.modifierExtension ?: mutableListOf(),
+      flag = this@ListEntrySurrogate.flag,
+      deleted = R4bBoolean.of(this@ListEntrySurrogate.deleted, this@ListEntrySurrogate._deleted),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ListEntrySurrogate.date),
           this@ListEntrySurrogate._date,
-        )
-      item = this@ListEntrySurrogate.item
-    }
+        ),
+      item = this@ListEntrySurrogate.item,
+    )
 
   public companion object {
-    public fun fromModel(model: R4bList.Entry): ListEntrySurrogate =
+    public fun fromModel(model: List.Entry): ListEntrySurrogate =
       with(model) {
-        ListEntrySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          flag = this@with.flag
-          deleted = this@with.deleted?.value
-          _deleted = this@with.deleted?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          item = this@with.item
-        }
+        ListEntrySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          flag = this@with.flag,
+          deleted = this@with.deleted?.value,
+          _deleted = this@with.deleted?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          item = this@with.item,
+        )
       }
   }
 }
@@ -99,10 +99,10 @@ internal data class ListSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: CollectionsList<Resource?>? = null,
-  public var extension: CollectionsList<Extension?>? = null,
-  public var modifierExtension: CollectionsList<Extension?>? = null,
-  public var identifier: CollectionsList<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var mode: KotlinString? = null,
@@ -116,75 +116,76 @@ internal data class ListSurrogate(
   public var _date: Element? = null,
   public var source: Reference? = null,
   public var orderedBy: CodeableConcept? = null,
-  public var note: CollectionsList<Annotation?>? = null,
-  public var entry: CollectionsList<R4bList.Entry>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var entry: MutableList<List.Entry>? = null,
   public var emptyReason: CodeableConcept? = null,
 ) {
-  public fun toModel(): R4bList =
-    R4bList().apply {
-      id = this@ListSurrogate.id
-      meta = this@ListSurrogate.meta
-      implicitRules = Uri.of(this@ListSurrogate.implicitRules, this@ListSurrogate._implicitRules)
-      language = Code.of(this@ListSurrogate.language, this@ListSurrogate._language)
-      text = this@ListSurrogate.text
-      contained = this@ListSurrogate.contained
-      extension = this@ListSurrogate.extension
-      modifierExtension = this@ListSurrogate.modifierExtension
-      identifier = this@ListSurrogate.identifier
+  public fun toModel(): List =
+    List(
+      id = this@ListSurrogate.id,
+      meta = this@ListSurrogate.meta,
+      implicitRules = Uri.of(this@ListSurrogate.implicitRules, this@ListSurrogate._implicitRules),
+      language = Code.of(this@ListSurrogate.language, this@ListSurrogate._language),
+      text = this@ListSurrogate.text,
+      contained = this@ListSurrogate.contained ?: mutableListOf(),
+      extension = this@ListSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ListSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ListSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ListSurrogate.status?.let { com.google.fhir.model.r4b.List.ListStatus.fromCode(it) },
+          com.google.fhir.model.r4b.List.ListStatus.fromCode(this@ListSurrogate.status!!),
           this@ListSurrogate._status,
-        )
+        ),
       mode =
         Enumeration.of(
-          this@ListSurrogate.mode?.let { com.google.fhir.model.r4b.List.ListMode.fromCode(it) },
+          com.google.fhir.model.r4b.List.ListMode.fromCode(this@ListSurrogate.mode!!),
           this@ListSurrogate._mode,
-        )
-      title = R4bString.of(this@ListSurrogate.title, this@ListSurrogate._title)
-      code = this@ListSurrogate.code
-      subject = this@ListSurrogate.subject
-      encounter = this@ListSurrogate.encounter
-      date = DateTime.of(FhirDateTime.fromString(this@ListSurrogate.date), this@ListSurrogate._date)
-      source = this@ListSurrogate.source
-      orderedBy = this@ListSurrogate.orderedBy
-      note = this@ListSurrogate.note
-      entry = this@ListSurrogate.entry
-      emptyReason = this@ListSurrogate.emptyReason
-    }
+        ),
+      title = R4bString.of(this@ListSurrogate.title, this@ListSurrogate._title),
+      code = this@ListSurrogate.code,
+      subject = this@ListSurrogate.subject,
+      encounter = this@ListSurrogate.encounter,
+      date =
+        DateTime.of(FhirDateTime.fromString(this@ListSurrogate.date), this@ListSurrogate._date),
+      source = this@ListSurrogate.source,
+      orderedBy = this@ListSurrogate.orderedBy,
+      note = this@ListSurrogate.note ?: mutableListOf(),
+      entry = this@ListSurrogate.entry ?: mutableListOf(),
+      emptyReason = this@ListSurrogate.emptyReason,
+    )
 
   public companion object {
-    public fun fromModel(model: R4bList): ListSurrogate =
+    public fun fromModel(model: List): ListSurrogate =
       with(model) {
-        ListSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          mode = this@with.mode?.value?.getCode()
-          _mode = this@with.mode?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          code = this@with.code
-          subject = this@with.subject
-          encounter = this@with.encounter
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          source = this@with.source
-          orderedBy = this@with.orderedBy
-          note = this@with.note
-          entry = this@with.entry
-          emptyReason = this@with.emptyReason
-        }
+        ListSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          code = this@with.code,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          source = this@with.source,
+          orderedBy = this@with.orderedBy,
+          note = this@with.note.takeUnless { it.all { it == null } },
+          entry = this@with.entry.takeUnless { it.all { it == null } },
+          emptyReason = this@with.emptyReason,
+        )
       }
   }
 }

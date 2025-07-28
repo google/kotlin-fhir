@@ -26,34 +26,34 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RatioSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var numerator: Quantity? = null,
   public var denominator: Quantity? = null,
 ) {
   public fun toModel(): Ratio =
-    Ratio().apply {
-      id = this@RatioSurrogate.id
-      extension = this@RatioSurrogate.extension
-      numerator = this@RatioSurrogate.numerator
-      denominator = this@RatioSurrogate.denominator
-    }
+    Ratio(
+      id = this@RatioSurrogate.id,
+      extension = this@RatioSurrogate.extension ?: mutableListOf(),
+      numerator = this@RatioSurrogate.numerator,
+      denominator = this@RatioSurrogate.denominator,
+    )
 
   public companion object {
     public fun fromModel(model: Ratio): RatioSurrogate =
       with(model) {
-        RatioSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          numerator = this@with.numerator
-          denominator = this@with.denominator
-        }
+        RatioSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          numerator = this@with.numerator,
+          denominator = this@with.denominator,
+        )
       }
   }
 }

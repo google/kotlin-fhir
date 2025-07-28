@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.DetectedIssueIdentifiedSerializer
 import com.google.fhir.model.r4b.serializers.DetectedIssueMitigationSerializer
 import com.google.fhir.model.r4b.serializers.DetectedIssueSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class DetectedIssue(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class DetectedIssue(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,16 +130,16 @@ public data class DetectedIssue(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business identifier associated with the detected issue record. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Indicates the status of the detected issue.
    *
    * This element is labeled as a modifier because the status contains the codes cancelled and
    * entered-in-error that mark the issue as not currently valid.
    */
-  public var status: Enumeration<DetectedIssueStatus>? = null,
+  public var status: Enumeration<DetectedIssueStatus>,
   /** Identifies the general type of issue identified. */
   public var code: CodeableConcept? = null,
   /**
@@ -164,12 +164,12 @@ public data class DetectedIssue(
    * DetectedIssue.type; e.g. For drug-drug, there would be more than one. For timing, there would
    * typically only be one.
    */
-  public var implicated: List<Reference?>? = null,
+  public var implicated: MutableList<Reference> = mutableListOf(),
   /**
    * Supporting evidence or manifestations that provide the basis for identifying the detected issue
    * such as a GuidanceResponse or MeasureReport.
    */
-  public var evidence: List<Evidence>? = null,
+  public var evidence: MutableList<Evidence> = mutableListOf(),
   /**
    * A textual explanation of the detected issue.
    *
@@ -187,7 +187,7 @@ public data class DetectedIssue(
    * of the risk identified by the detected issue from manifesting. Can also reflect an observation
    * of known mitigating factors that may reduce/eliminate the need for any action.
    */
-  public var mitigation: List<Mitigation>? = null,
+  public var mitigation: MutableList<Mitigation> = mutableListOf(),
 ) : DomainResource() {
   /**
    * Supporting evidence or manifestations that provide the basis for identifying the detected issue
@@ -212,7 +212,7 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -231,14 +231,14 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A manifestation that led to the recording of this detected issue. */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Links to resources that constitute evidence for the detected issue such as a GuidanceResponse
      * or MeasureReport.
      */
-    public var detail: List<Reference?>? = null,
+    public var detail: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -265,7 +265,7 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -284,14 +284,14 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Describes the action that was taken or the observation that was made that reduces/eliminates
      * the risk associated with the identified issue.
      *
      * The "text" component can be used for detail or when no appropriate code exists.
      */
-    public var action: CodeableConcept? = null,
+    public var action: CodeableConcept,
     /**
      * Indicates when the mitigating action was documented.
      *
@@ -315,16 +315,14 @@ public data class DetectedIssue(
 
     public data class Period(public val `value`: com.google.fhir.model.r4b.Period) : Identified
 
-    public data object Null : Identified
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-        PeriodValue: com.google.fhir.model.r4b.Period?,
-      ): Identified {
+        periodValue: com.google.fhir.model.r4b.Period?,
+      ): Identified? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -334,88 +332,19 @@ public data class DetectedIssue(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the observation is registered, but there is no result yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/observation-status",
-      "Registered",
-      "The existence of the observation is registered, but there is no result yet available.",
-    ),
-    /** This is an initial or interim observation: data may be incomplete or unverified. */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/observation-status",
-      "Preliminary",
-      "This is an initial or interim observation: data may be incomplete or unverified.",
-    ),
-    /**
-     * The observation is complete and there are no further actions needed. Additional information
-     * such "released", "signed", etc would be represented using [Provenance](provenance.html) which
-     * provides not only the act but also the actors and dates and other related data. These act
-     * states would be associated with an observation status of `preliminary` until they are all
-     * completed and then a status of `final` would be applied.
-     */
-    Final(
-      "final",
-      "http://hl7.org/fhir/observation-status",
-      "Final",
-      "The observation is complete and there are no further actions needed. Additional information such \"released\", \"signed\", etc would be represented using [Provenance](provenance.html) which provides not only the act but also the actors and dates and other related data. These act states would be associated with an observation status of `preliminary` until they are all completed and then a status of `final` would be applied.",
-    ),
-    /**
-     * Subsequent to being Final, the observation has been modified subsequent. This includes
-     * updates/new information and corrections.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/observation-status",
-      "Amended",
-      "Subsequent to being Final, the observation has been modified subsequent.  This includes updates/new information and corrections.",
-    ),
-    /**
-     * Subsequent to being Final, the observation has been modified to correct an error in the test
-     * result.
-     */
-    Corrected(
-      "corrected",
-      "http://hl7.org/fhir/observation-status",
-      "Corrected",
-      "Subsequent to being Final, the observation has been modified to correct an error in the test result.",
-    ),
-    /**
-     * The observation is unavailable because the measurement was not started or not completed (also
-     * sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/observation-status",
-      "Cancelled",
-      "The observation is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The observation has been withdrawn following previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     * (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/observation-status", "Registered"),
+    Preliminary("preliminary", "http://hl7.org/fhir/observation-status", "Preliminary"),
+    Final("final", "http://hl7.org/fhir/observation-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/observation-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/observation-status", "Corrected"),
+    Cancelled("cancelled", "http://hl7.org/fhir/observation-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/observation-status",
       "Entered in Error",
-      "The observation has been withdrawn following previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/observation-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/observation-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -424,8 +353,6 @@ public data class DetectedIssue(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DetectedIssueStatus =
@@ -448,37 +375,10 @@ public data class DetectedIssue(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Indicates the issue may be life-threatening or has the potential to cause permanent injury.
-     */
-    High(
-      "high",
-      "http://hl7.org/fhir/detectedissue-severity",
-      "High",
-      "Indicates the issue may be life-threatening or has the potential to cause permanent injury.",
-    ),
-    /**
-     * Indicates the issue may result in noticeable adverse consequences but is unlikely to be
-     * life-threatening or cause permanent injury.
-     */
-    Moderate(
-      "moderate",
-      "http://hl7.org/fhir/detectedissue-severity",
-      "Moderate",
-      "Indicates the issue may result in noticeable adverse consequences but is unlikely to be life-threatening or cause permanent injury.",
-    ),
-    /**
-     * Indicates the issue may result in some adverse consequences but is unlikely to substantially
-     * affect the situation of the subject.
-     */
-    Low(
-      "low",
-      "http://hl7.org/fhir/detectedissue-severity",
-      "Low",
-      "Indicates the issue may result in some adverse consequences but is unlikely to substantially affect the situation of the subject.",
-    );
+    High("high", "http://hl7.org/fhir/detectedissue-severity", "High"),
+    Moderate("moderate", "http://hl7.org/fhir/detectedissue-severity", "Moderate"),
+    Low("low", "http://hl7.org/fhir/detectedissue-severity", "Low");
 
     override fun toString(): kotlin.String = code
 
@@ -487,8 +387,6 @@ public data class DetectedIssue(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DetectedIssueSeverity =

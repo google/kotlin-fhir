@@ -27,25 +27,21 @@ public enum class IngredientManufacturerRole(
   private val code: String,
   private val system: String,
   private val display: String?,
-  private val definition: String?,
 ) {
   Allowed(
     "allowed",
     "http://hl7.org/fhir/ingredient-manufacturer-role",
     "Manufacturer is specifically allowed for this ingredient",
-    null,
   ),
   Possible(
     "possible",
     "http://hl7.org/fhir/ingredient-manufacturer-role",
     "Manufacturer is known to make this ingredient in general",
-    null,
   ),
   Actual(
     "actual",
     "http://hl7.org/fhir/ingredient-manufacturer-role",
     "Manufacturer actually makes this particular ingredient",
-    null,
   );
 
   override fun toString(): String = code
@@ -55,8 +51,6 @@ public enum class IngredientManufacturerRole(
   public fun getSystem(): String = system
 
   public fun getDisplay(): String? = display
-
-  public fun getDefinition(): String? = definition
 
   public companion object {
     public fun fromCode(code: String): IngredientManufacturerRole =

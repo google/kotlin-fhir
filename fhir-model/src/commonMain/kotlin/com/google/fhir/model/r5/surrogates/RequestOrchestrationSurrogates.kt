@@ -51,47 +51,48 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RequestOrchestrationActionConditionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
   public var expression: Expression? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.Condition =
-    RequestOrchestration.Action.Condition().apply {
-      id = this@RequestOrchestrationActionConditionSurrogate.id
-      extension = this@RequestOrchestrationActionConditionSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionConditionSurrogate.modifierExtension
+    RequestOrchestration.Action.Condition(
+      id = this@RequestOrchestrationActionConditionSurrogate.id,
+      extension = this@RequestOrchestrationActionConditionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionConditionSurrogate.modifierExtension ?: mutableListOf(),
       kind =
         Enumeration.of(
-          this@RequestOrchestrationActionConditionSurrogate.kind?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionConditionKind.fromCode(it)
-          },
+          com.google.fhir.model.r5.RequestOrchestration.ActionConditionKind.fromCode(
+            this@RequestOrchestrationActionConditionSurrogate.kind!!
+          ),
           this@RequestOrchestrationActionConditionSurrogate._kind,
-        )
-      expression = this@RequestOrchestrationActionConditionSurrogate.expression
-    }
+        ),
+      expression = this@RequestOrchestrationActionConditionSurrogate.expression,
+    )
 
   public companion object {
     public fun fromModel(
       model: RequestOrchestration.Action.Condition
     ): RequestOrchestrationActionConditionSurrogate =
       with(model) {
-        RequestOrchestrationActionConditionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          kind = this@with.kind?.value?.getCode()
-          _kind = this@with.kind?.toElement()
-          expression = this@with.expression
-        }
+        RequestOrchestrationActionConditionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          kind = this@with.kind.value?.getCode(),
+          _kind = this@with.kind.toElement(),
+          expression = this@with.expression,
+        )
       }
   }
 }
@@ -99,8 +100,8 @@ internal data class RequestOrchestrationActionConditionSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var requirement: DataRequirement? = null,
@@ -108,38 +109,39 @@ internal data class RequestOrchestrationActionInputSurrogate(
   public var _relatedData: Element? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.Input =
-    RequestOrchestration.Action.Input().apply {
-      id = this@RequestOrchestrationActionInputSurrogate.id
-      extension = this@RequestOrchestrationActionInputSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionInputSurrogate.modifierExtension
+    RequestOrchestration.Action.Input(
+      id = this@RequestOrchestrationActionInputSurrogate.id,
+      extension = this@RequestOrchestrationActionInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionInputSurrogate.modifierExtension ?: mutableListOf(),
       title =
         R5String.of(
           this@RequestOrchestrationActionInputSurrogate.title,
           this@RequestOrchestrationActionInputSurrogate._title,
-        )
-      requirement = this@RequestOrchestrationActionInputSurrogate.requirement
+        ),
+      requirement = this@RequestOrchestrationActionInputSurrogate.requirement,
       relatedData =
         Id.of(
           this@RequestOrchestrationActionInputSurrogate.relatedData,
           this@RequestOrchestrationActionInputSurrogate._relatedData,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: RequestOrchestration.Action.Input
     ): RequestOrchestrationActionInputSurrogate =
       with(model) {
-        RequestOrchestrationActionInputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          requirement = this@with.requirement
-          relatedData = this@with.relatedData?.value
-          _relatedData = this@with.relatedData?.toElement()
-        }
+        RequestOrchestrationActionInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          requirement = this@with.requirement,
+          relatedData = this@with.relatedData?.value,
+          _relatedData = this@with.relatedData?.toElement(),
+        )
       }
   }
 }
@@ -147,8 +149,8 @@ internal data class RequestOrchestrationActionInputSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var requirement: DataRequirement? = null,
@@ -156,53 +158,53 @@ internal data class RequestOrchestrationActionOutputSurrogate(
   public var _relatedData: Element? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.Output =
-    RequestOrchestration.Action.Output().apply {
-      id = this@RequestOrchestrationActionOutputSurrogate.id
-      extension = this@RequestOrchestrationActionOutputSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionOutputSurrogate.modifierExtension
+    RequestOrchestration.Action.Output(
+      id = this@RequestOrchestrationActionOutputSurrogate.id,
+      extension = this@RequestOrchestrationActionOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionOutputSurrogate.modifierExtension ?: mutableListOf(),
       title =
         R5String.of(
           this@RequestOrchestrationActionOutputSurrogate.title,
           this@RequestOrchestrationActionOutputSurrogate._title,
-        )
-      requirement = this@RequestOrchestrationActionOutputSurrogate.requirement
+        ),
+      requirement = this@RequestOrchestrationActionOutputSurrogate.requirement,
       relatedData =
         R5String.of(
           this@RequestOrchestrationActionOutputSurrogate.relatedData,
           this@RequestOrchestrationActionOutputSurrogate._relatedData,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: RequestOrchestration.Action.Output
     ): RequestOrchestrationActionOutputSurrogate =
       with(model) {
-        RequestOrchestrationActionOutputSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          requirement = this@with.requirement
-          relatedData = this@with.relatedData?.value
-          _relatedData = this@with.relatedData?.toElement()
-        }
+        RequestOrchestrationActionOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          requirement = this@with.requirement,
+          relatedData = this@with.relatedData?.value,
+          _relatedData = this@with.relatedData?.toElement(),
+        )
       }
   }
 }
 
 @Serializable
-internal class RequestOrchestrationActionRelatedActionOffsetSurrogate {
-  public var offsetDuration: Duration? = null
-
-  public var offsetRange: Range? = null
-
-  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset =
+internal data class RequestOrchestrationActionRelatedActionOffsetSurrogate(
+  public var offsetDuration: Duration? = null,
+  public var offsetRange: Range? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset? =
     RequestOrchestration.Action.RelatedAction.Offset?.from(
       this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
       this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
-    ) ?: RequestOrchestration.Action.RelatedAction.Offset.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -210,8 +212,10 @@ internal class RequestOrchestrationActionRelatedActionOffsetSurrogate {
     ): RequestOrchestrationActionRelatedActionOffsetSurrogate =
       with(model) {
         RequestOrchestrationActionRelatedActionOffsetSurrogate().apply {
-          offsetDuration = this@with.asDuration()?.value
-          offsetRange = this@with.asRange()?.value
+          RequestOrchestration.Action.RelatedAction.Offset?.from(
+            this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
+            this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
+          )
         }
       }
   }
@@ -220,8 +224,8 @@ internal class RequestOrchestrationActionRelatedActionOffsetSurrogate {
 @Serializable
 internal data class RequestOrchestrationActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var targetId: KotlinString? = null,
   public var _targetId: Element? = null,
   public var relationship: KotlinString? = null,
@@ -231,69 +235,69 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
   public var offset: RequestOrchestration.Action.RelatedAction.Offset? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.RelatedAction =
-    RequestOrchestration.Action.RelatedAction().apply {
-      id = this@RequestOrchestrationActionRelatedActionSurrogate.id
-      extension = this@RequestOrchestrationActionRelatedActionSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionRelatedActionSurrogate.modifierExtension
+    RequestOrchestration.Action.RelatedAction(
+      id = this@RequestOrchestrationActionRelatedActionSurrogate.id,
+      extension =
+        this@RequestOrchestrationActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
       targetId =
         Id.of(
           this@RequestOrchestrationActionRelatedActionSurrogate.targetId,
           this@RequestOrchestrationActionRelatedActionSurrogate._targetId,
-        )
+        )!!,
       relationship =
         Enumeration.of(
-          this@RequestOrchestrationActionRelatedActionSurrogate.relationship?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(it)
-          },
+          com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(
+            this@RequestOrchestrationActionRelatedActionSurrogate.relationship!!
+          ),
           this@RequestOrchestrationActionRelatedActionSurrogate._relationship,
-        )
+        ),
       endRelationship =
-        Enumeration.of(
-          this@RequestOrchestrationActionRelatedActionSurrogate.endRelationship?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(it)
-          },
-          this@RequestOrchestrationActionRelatedActionSurrogate._endRelationship,
-        )
-      offset = this@RequestOrchestrationActionRelatedActionSurrogate.offset
-    }
+        this@RequestOrchestrationActionRelatedActionSurrogate.endRelationship?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(it!!),
+            this@RequestOrchestrationActionRelatedActionSurrogate._endRelationship,
+          )
+        },
+      offset = this@RequestOrchestrationActionRelatedActionSurrogate.offset,
+    )
 
   public companion object {
     public fun fromModel(
       model: RequestOrchestration.Action.RelatedAction
     ): RequestOrchestrationActionRelatedActionSurrogate =
       with(model) {
-        RequestOrchestrationActionRelatedActionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          targetId = this@with.targetId?.value
-          _targetId = this@with.targetId?.toElement()
-          relationship = this@with.relationship?.value?.getCode()
-          _relationship = this@with.relationship?.toElement()
-          endRelationship = this@with.endRelationship?.value?.getCode()
-          _endRelationship = this@with.endRelationship?.toElement()
-          offset = this@with.offset
-        }
+        RequestOrchestrationActionRelatedActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          targetId = this@with.targetId.value,
+          _targetId = this@with.targetId.toElement(),
+          relationship = this@with.relationship.value?.getCode(),
+          _relationship = this@with.relationship.toElement(),
+          endRelationship = this@with.endRelationship?.value?.getCode(),
+          _endRelationship = this@with.endRelationship?.toElement(),
+          offset = this@with.offset,
+        )
       }
   }
 }
 
 @Serializable
-internal class RequestOrchestrationActionParticipantActorSurrogate {
-  public var actorCanonical: KotlinString? = null
-
-  public var _actorCanonical: Element? = null
-
-  public var actorReference: Reference? = null
-
-  public fun toModel(): RequestOrchestration.Action.Participant.Actor =
+internal data class RequestOrchestrationActionParticipantActorSurrogate(
+  public var actorCanonical: KotlinString? = null,
+  public var _actorCanonical: Element? = null,
+  public var actorReference: Reference? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Participant.Actor? =
     RequestOrchestration.Action.Participant.Actor?.from(
       Canonical.of(
         this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
         this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
       ),
       this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
-    ) ?: RequestOrchestration.Action.Participant.Actor.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -301,9 +305,13 @@ internal class RequestOrchestrationActionParticipantActorSurrogate {
     ): RequestOrchestrationActionParticipantActorSurrogate =
       with(model) {
         RequestOrchestrationActionParticipantActorSurrogate().apply {
-          actorCanonical = this@with.asCanonical()?.value?.value
-          _actorCanonical = this@with.asCanonical()?.value?.toElement()
-          actorReference = this@with.asReference()?.value
+          RequestOrchestration.Action.Participant.Actor?.from(
+            Canonical.of(
+              this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
+              this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
+            ),
+            this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
+          )
         }
       }
   }
@@ -312,8 +320,8 @@ internal class RequestOrchestrationActionParticipantActorSurrogate {
 @Serializable
 internal data class RequestOrchestrationActionParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var typeCanonical: KotlinString? = null,
@@ -324,46 +332,47 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
   public var actor: RequestOrchestration.Action.Participant.Actor? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.Participant =
-    RequestOrchestration.Action.Participant().apply {
-      id = this@RequestOrchestrationActionParticipantSurrogate.id
-      extension = this@RequestOrchestrationActionParticipantSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionParticipantSurrogate.modifierExtension
+    RequestOrchestration.Action.Participant(
+      id = this@RequestOrchestrationActionParticipantSurrogate.id,
+      extension = this@RequestOrchestrationActionParticipantSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
       type =
-        Enumeration.of(
-          this@RequestOrchestrationActionParticipantSurrogate.type?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActivityParticipantType.fromCode(it)
-          },
-          this@RequestOrchestrationActionParticipantSurrogate._type,
-        )
+        this@RequestOrchestrationActionParticipantSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActivityParticipantType.fromCode(it!!),
+            this@RequestOrchestrationActionParticipantSurrogate._type,
+          )
+        },
       typeCanonical =
         Canonical.of(
           this@RequestOrchestrationActionParticipantSurrogate.typeCanonical,
           this@RequestOrchestrationActionParticipantSurrogate._typeCanonical,
-        )
-      typeReference = this@RequestOrchestrationActionParticipantSurrogate.typeReference
-      role = this@RequestOrchestrationActionParticipantSurrogate.role
-      function = this@RequestOrchestrationActionParticipantSurrogate.function
-      actor = this@RequestOrchestrationActionParticipantSurrogate.actor
-    }
+        ),
+      typeReference = this@RequestOrchestrationActionParticipantSurrogate.typeReference,
+      role = this@RequestOrchestrationActionParticipantSurrogate.role,
+      function = this@RequestOrchestrationActionParticipantSurrogate.function,
+      actor = this@RequestOrchestrationActionParticipantSurrogate.actor,
+    )
 
   public companion object {
     public fun fromModel(
       model: RequestOrchestration.Action.Participant
     ): RequestOrchestrationActionParticipantSurrogate =
       with(model) {
-        RequestOrchestrationActionParticipantSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          typeCanonical = this@with.typeCanonical?.value
-          _typeCanonical = this@with.typeCanonical?.toElement()
-          typeReference = this@with.typeReference
-          role = this@with.role
-          function = this@with.function
-          actor = this@with.actor
-        }
+        RequestOrchestrationActionParticipantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          typeCanonical = this@with.typeCanonical?.value,
+          _typeCanonical = this@with.typeCanonical?.toElement(),
+          typeReference = this@with.typeReference,
+          role = this@with.role,
+          function = this@with.function,
+          actor = this@with.actor,
+        )
       }
   }
 }
@@ -371,59 +380,54 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionDynamicValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var expression: Expression? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action.DynamicValue =
-    RequestOrchestration.Action.DynamicValue().apply {
-      id = this@RequestOrchestrationActionDynamicValueSurrogate.id
-      extension = this@RequestOrchestrationActionDynamicValueSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionDynamicValueSurrogate.modifierExtension
+    RequestOrchestration.Action.DynamicValue(
+      id = this@RequestOrchestrationActionDynamicValueSurrogate.id,
+      extension = this@RequestOrchestrationActionDynamicValueSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
       path =
         R5String.of(
           this@RequestOrchestrationActionDynamicValueSurrogate.path,
           this@RequestOrchestrationActionDynamicValueSurrogate._path,
-        )
-      expression = this@RequestOrchestrationActionDynamicValueSurrogate.expression
-    }
+        ),
+      expression = this@RequestOrchestrationActionDynamicValueSurrogate.expression,
+    )
 
   public companion object {
     public fun fromModel(
       model: RequestOrchestration.Action.DynamicValue
     ): RequestOrchestrationActionDynamicValueSurrogate =
       with(model) {
-        RequestOrchestrationActionDynamicValueSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          path = this@with.path?.value
-          _path = this@with.path?.toElement()
-          expression = this@with.expression
-        }
+        RequestOrchestrationActionDynamicValueSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          path = this@with.path?.value,
+          _path = this@with.path?.toElement(),
+          expression = this@with.expression,
+        )
       }
   }
 }
 
 @Serializable
-internal class RequestOrchestrationActionTimingSurrogate {
-  public var timingDateTime: KotlinString? = null
-
-  public var _timingDateTime: Element? = null
-
-  public var timingAge: Age? = null
-
-  public var timingPeriod: Period? = null
-
-  public var timingDuration: Duration? = null
-
-  public var timingRange: Range? = null
-
-  public var timingTiming: Timing? = null
-
-  public fun toModel(): RequestOrchestration.Action.Timing =
+internal data class RequestOrchestrationActionTimingSurrogate(
+  public var timingDateTime: KotlinString? = null,
+  public var _timingDateTime: Element? = null,
+  public var timingAge: Age? = null,
+  public var timingPeriod: Period? = null,
+  public var timingDuration: Duration? = null,
+  public var timingRange: Range? = null,
+  public var timingTiming: Timing? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Timing? =
     RequestOrchestration.Action.Timing?.from(
       DateTime.of(
         FhirDateTime.fromString(this@RequestOrchestrationActionTimingSurrogate.timingDateTime),
@@ -434,7 +438,7 @@ internal class RequestOrchestrationActionTimingSurrogate {
       this@RequestOrchestrationActionTimingSurrogate.timingDuration,
       this@RequestOrchestrationActionTimingSurrogate.timingRange,
       this@RequestOrchestrationActionTimingSurrogate.timingTiming,
-    ) ?: RequestOrchestration.Action.Timing.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -442,29 +446,32 @@ internal class RequestOrchestrationActionTimingSurrogate {
     ): RequestOrchestrationActionTimingSurrogate =
       with(model) {
         RequestOrchestrationActionTimingSurrogate().apply {
-          timingDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _timingDateTime = this@with.asDateTime()?.value?.toElement()
-          timingAge = this@with.asAge()?.value
-          timingPeriod = this@with.asPeriod()?.value
-          timingDuration = this@with.asDuration()?.value
-          timingRange = this@with.asRange()?.value
-          timingTiming = this@with.asTiming()?.value
+          RequestOrchestration.Action.Timing?.from(
+            DateTime.of(
+              FhirDateTime.fromString(
+                this@RequestOrchestrationActionTimingSurrogate.timingDateTime
+              ),
+              this@RequestOrchestrationActionTimingSurrogate._timingDateTime,
+            ),
+            this@RequestOrchestrationActionTimingSurrogate.timingAge,
+            this@RequestOrchestrationActionTimingSurrogate.timingPeriod,
+            this@RequestOrchestrationActionTimingSurrogate.timingDuration,
+            this@RequestOrchestrationActionTimingSurrogate.timingRange,
+            this@RequestOrchestrationActionTimingSurrogate.timingTiming,
+          )
         }
       }
   }
 }
 
 @Serializable
-internal class RequestOrchestrationActionDefinitionSurrogate {
-  public var definitionCanonical: KotlinString? = null
-
-  public var _definitionCanonical: Element? = null
-
-  public var definitionUri: KotlinString? = null
-
-  public var _definitionUri: Element? = null
-
-  public fun toModel(): RequestOrchestration.Action.Definition =
+internal data class RequestOrchestrationActionDefinitionSurrogate(
+  public var definitionCanonical: KotlinString? = null,
+  public var _definitionCanonical: Element? = null,
+  public var definitionUri: KotlinString? = null,
+  public var _definitionUri: Element? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Definition? =
     RequestOrchestration.Action.Definition?.from(
       Canonical.of(
         this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
@@ -474,7 +481,7 @@ internal class RequestOrchestrationActionDefinitionSurrogate {
         this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
         this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
       ),
-    ) ?: RequestOrchestration.Action.Definition.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -482,10 +489,16 @@ internal class RequestOrchestrationActionDefinitionSurrogate {
     ): RequestOrchestrationActionDefinitionSurrogate =
       with(model) {
         RequestOrchestrationActionDefinitionSurrogate().apply {
-          definitionCanonical = this@with.asCanonical()?.value?.value
-          _definitionCanonical = this@with.asCanonical()?.value?.toElement()
-          definitionUri = this@with.asUri()?.value?.value
-          _definitionUri = this@with.asUri()?.value?.toElement()
+          RequestOrchestration.Action.Definition?.from(
+            Canonical.of(
+              this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
+              this@RequestOrchestrationActionDefinitionSurrogate._definitionCanonical,
+            ),
+            Uri.of(
+              this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
+              this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
+            ),
+          )
         }
       }
   }
@@ -494,8 +507,8 @@ internal class RequestOrchestrationActionDefinitionSurrogate {
 @Serializable
 internal data class RequestOrchestrationActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var prefix: KotlinString? = null,
@@ -508,15 +521,15 @@ internal data class RequestOrchestrationActionSurrogate(
   public var _textEquivalent: Element? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
-  public var code: List<CodeableConcept?>? = null,
-  public var documentation: List<RelatedArtifact?>? = null,
-  public var goal: List<Reference?>? = null,
-  public var condition: List<RequestOrchestration.Action.Condition>? = null,
-  public var input: List<RequestOrchestration.Action.Input>? = null,
-  public var output: List<RequestOrchestration.Action.Output>? = null,
-  public var relatedAction: List<RequestOrchestration.Action.RelatedAction>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var documentation: MutableList<RelatedArtifact>? = null,
+  public var goal: MutableList<Reference>? = null,
+  public var condition: MutableList<RequestOrchestration.Action.Condition>? = null,
+  public var input: MutableList<RequestOrchestration.Action.Input>? = null,
+  public var output: MutableList<RequestOrchestration.Action.Output>? = null,
+  public var relatedAction: MutableList<RequestOrchestration.Action.RelatedAction>? = null,
   public var location: CodeableReference? = null,
-  public var participant: List<RequestOrchestration.Action.Participant>? = null,
+  public var participant: MutableList<RequestOrchestration.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
   public var groupingBehavior: KotlinString? = null,
   public var _groupingBehavior: Element? = null,
@@ -531,152 +544,153 @@ internal data class RequestOrchestrationActionSurrogate(
   public var resource: Reference? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
-  public var dynamicValue: List<RequestOrchestration.Action.DynamicValue>? = null,
-  public var action: List<RequestOrchestration.Action?>? = null,
+  public var dynamicValue: MutableList<RequestOrchestration.Action.DynamicValue>? = null,
+  public var action: MutableList<RequestOrchestration.Action>? = null,
   public var timing: RequestOrchestration.Action.Timing? = null,
   public var definition: RequestOrchestration.Action.Definition? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action =
-    RequestOrchestration.Action().apply {
-      id = this@RequestOrchestrationActionSurrogate.id
-      extension = this@RequestOrchestrationActionSurrogate.extension
-      modifierExtension = this@RequestOrchestrationActionSurrogate.modifierExtension
+    RequestOrchestration.Action(
+      id = this@RequestOrchestrationActionSurrogate.id,
+      extension = this@RequestOrchestrationActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionSurrogate.modifierExtension ?: mutableListOf(),
       linkId =
         R5String.of(
           this@RequestOrchestrationActionSurrogate.linkId,
           this@RequestOrchestrationActionSurrogate._linkId,
-        )
+        ),
       prefix =
         R5String.of(
           this@RequestOrchestrationActionSurrogate.prefix,
           this@RequestOrchestrationActionSurrogate._prefix,
-        )
+        ),
       title =
         R5String.of(
           this@RequestOrchestrationActionSurrogate.title,
           this@RequestOrchestrationActionSurrogate._title,
-        )
+        ),
       description =
         Markdown.of(
           this@RequestOrchestrationActionSurrogate.description,
           this@RequestOrchestrationActionSurrogate._description,
-        )
+        ),
       textEquivalent =
         Markdown.of(
           this@RequestOrchestrationActionSurrogate.textEquivalent,
           this@RequestOrchestrationActionSurrogate._textEquivalent,
-        )
+        ),
       priority =
-        Enumeration.of(
-          this@RequestOrchestrationActionSurrogate.priority?.let {
-            com.google.fhir.model.r5.RequestOrchestration.RequestPriority.fromCode(it)
-          },
-          this@RequestOrchestrationActionSurrogate._priority,
-        )
-      code = this@RequestOrchestrationActionSurrogate.code
-      documentation = this@RequestOrchestrationActionSurrogate.documentation
-      goal = this@RequestOrchestrationActionSurrogate.goal
-      condition = this@RequestOrchestrationActionSurrogate.condition
-      input = this@RequestOrchestrationActionSurrogate.input
-      output = this@RequestOrchestrationActionSurrogate.output
-      relatedAction = this@RequestOrchestrationActionSurrogate.relatedAction
-      timing = this@RequestOrchestrationActionSurrogate.timing
-      location = this@RequestOrchestrationActionSurrogate.location
-      participant = this@RequestOrchestrationActionSurrogate.participant
-      type = this@RequestOrchestrationActionSurrogate.type
+        this@RequestOrchestrationActionSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.RequestPriority.fromCode(it!!),
+            this@RequestOrchestrationActionSurrogate._priority,
+          )
+        },
+      code = this@RequestOrchestrationActionSurrogate.code ?: mutableListOf(),
+      documentation = this@RequestOrchestrationActionSurrogate.documentation ?: mutableListOf(),
+      goal = this@RequestOrchestrationActionSurrogate.goal ?: mutableListOf(),
+      condition = this@RequestOrchestrationActionSurrogate.condition ?: mutableListOf(),
+      input = this@RequestOrchestrationActionSurrogate.input ?: mutableListOf(),
+      output = this@RequestOrchestrationActionSurrogate.output ?: mutableListOf(),
+      relatedAction = this@RequestOrchestrationActionSurrogate.relatedAction ?: mutableListOf(),
+      timing = this@RequestOrchestrationActionSurrogate.timing,
+      location = this@RequestOrchestrationActionSurrogate.location,
+      participant = this@RequestOrchestrationActionSurrogate.participant ?: mutableListOf(),
+      type = this@RequestOrchestrationActionSurrogate.type,
       groupingBehavior =
-        Enumeration.of(
-          this@RequestOrchestrationActionSurrogate.groupingBehavior?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionGroupingBehavior.fromCode(it)
-          },
-          this@RequestOrchestrationActionSurrogate._groupingBehavior,
-        )
+        this@RequestOrchestrationActionSurrogate.groupingBehavior?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionGroupingBehavior.fromCode(it!!),
+            this@RequestOrchestrationActionSurrogate._groupingBehavior,
+          )
+        },
       selectionBehavior =
-        Enumeration.of(
-          this@RequestOrchestrationActionSurrogate.selectionBehavior?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionSelectionBehavior.fromCode(it)
-          },
-          this@RequestOrchestrationActionSurrogate._selectionBehavior,
-        )
+        this@RequestOrchestrationActionSurrogate.selectionBehavior?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionSelectionBehavior.fromCode(it!!),
+            this@RequestOrchestrationActionSurrogate._selectionBehavior,
+          )
+        },
       requiredBehavior =
-        Enumeration.of(
-          this@RequestOrchestrationActionSurrogate.requiredBehavior?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionRequiredBehavior.fromCode(it)
-          },
-          this@RequestOrchestrationActionSurrogate._requiredBehavior,
-        )
+        this@RequestOrchestrationActionSurrogate.requiredBehavior?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionRequiredBehavior.fromCode(it!!),
+            this@RequestOrchestrationActionSurrogate._requiredBehavior,
+          )
+        },
       precheckBehavior =
-        Enumeration.of(
-          this@RequestOrchestrationActionSurrogate.precheckBehavior?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionPrecheckBehavior.fromCode(it)
-          },
-          this@RequestOrchestrationActionSurrogate._precheckBehavior,
-        )
+        this@RequestOrchestrationActionSurrogate.precheckBehavior?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionPrecheckBehavior.fromCode(it!!),
+            this@RequestOrchestrationActionSurrogate._precheckBehavior,
+          )
+        },
       cardinalityBehavior =
-        Enumeration.of(
-          this@RequestOrchestrationActionSurrogate.cardinalityBehavior?.let {
-            com.google.fhir.model.r5.RequestOrchestration.ActionCardinalityBehavior.fromCode(it)
-          },
-          this@RequestOrchestrationActionSurrogate._cardinalityBehavior,
-        )
-      resource = this@RequestOrchestrationActionSurrogate.resource
-      definition = this@RequestOrchestrationActionSurrogate.definition
+        this@RequestOrchestrationActionSurrogate.cardinalityBehavior?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionCardinalityBehavior.fromCode(it!!),
+            this@RequestOrchestrationActionSurrogate._cardinalityBehavior,
+          )
+        },
+      resource = this@RequestOrchestrationActionSurrogate.resource,
+      definition = this@RequestOrchestrationActionSurrogate.definition,
       transform =
         Canonical.of(
           this@RequestOrchestrationActionSurrogate.transform,
           this@RequestOrchestrationActionSurrogate._transform,
-        )
-      dynamicValue = this@RequestOrchestrationActionSurrogate.dynamicValue
-      action = this@RequestOrchestrationActionSurrogate.action
-    }
+        ),
+      dynamicValue = this@RequestOrchestrationActionSurrogate.dynamicValue ?: mutableListOf(),
+      action = this@RequestOrchestrationActionSurrogate.action ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: RequestOrchestration.Action): RequestOrchestrationActionSurrogate =
       with(model) {
-        RequestOrchestrationActionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          linkId = this@with.linkId?.value
-          _linkId = this@with.linkId?.toElement()
-          prefix = this@with.prefix?.value
-          _prefix = this@with.prefix?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          textEquivalent = this@with.textEquivalent?.value
-          _textEquivalent = this@with.textEquivalent?.toElement()
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          code = this@with.code
-          documentation = this@with.documentation
-          goal = this@with.goal
-          condition = this@with.condition
-          input = this@with.input
-          output = this@with.output
-          relatedAction = this@with.relatedAction
-          timing = this@with.timing
-          location = this@with.location
-          participant = this@with.participant
-          type = this@with.type
-          groupingBehavior = this@with.groupingBehavior?.value?.getCode()
-          _groupingBehavior = this@with.groupingBehavior?.toElement()
-          selectionBehavior = this@with.selectionBehavior?.value?.getCode()
-          _selectionBehavior = this@with.selectionBehavior?.toElement()
-          requiredBehavior = this@with.requiredBehavior?.value?.getCode()
-          _requiredBehavior = this@with.requiredBehavior?.toElement()
-          precheckBehavior = this@with.precheckBehavior?.value?.getCode()
-          _precheckBehavior = this@with.precheckBehavior?.toElement()
-          cardinalityBehavior = this@with.cardinalityBehavior?.value?.getCode()
-          _cardinalityBehavior = this@with.cardinalityBehavior?.toElement()
-          resource = this@with.resource
-          definition = this@with.definition
-          transform = this@with.transform?.value
-          _transform = this@with.transform?.toElement()
-          dynamicValue = this@with.dynamicValue
-          action = this@with.action
-        }
+        RequestOrchestrationActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          prefix = this@with.prefix?.value,
+          _prefix = this@with.prefix?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          textEquivalent = this@with.textEquivalent?.value,
+          _textEquivalent = this@with.textEquivalent?.toElement(),
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          code = this@with.code.takeUnless { it.all { it == null } },
+          documentation = this@with.documentation.takeUnless { it.all { it == null } },
+          goal = this@with.goal.takeUnless { it.all { it == null } },
+          condition = this@with.condition.takeUnless { it.all { it == null } },
+          input = this@with.input.takeUnless { it.all { it == null } },
+          output = this@with.output.takeUnless { it.all { it == null } },
+          relatedAction = this@with.relatedAction.takeUnless { it.all { it == null } },
+          timing = this@with.timing,
+          location = this@with.location,
+          participant = this@with.participant.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          groupingBehavior = this@with.groupingBehavior?.value?.getCode(),
+          _groupingBehavior = this@with.groupingBehavior?.toElement(),
+          selectionBehavior = this@with.selectionBehavior?.value?.getCode(),
+          _selectionBehavior = this@with.selectionBehavior?.toElement(),
+          requiredBehavior = this@with.requiredBehavior?.value?.getCode(),
+          _requiredBehavior = this@with.requiredBehavior?.toElement(),
+          precheckBehavior = this@with.precheckBehavior?.value?.getCode(),
+          _precheckBehavior = this@with.precheckBehavior?.toElement(),
+          cardinalityBehavior = this@with.cardinalityBehavior?.value?.getCode(),
+          _cardinalityBehavior = this@with.cardinalityBehavior?.toElement(),
+          resource = this@with.resource,
+          definition = this@with.definition,
+          transform = this@with.transform?.value,
+          _transform = this@with.transform?.toElement(),
+          dynamicValue = this@with.dynamicValue.takeUnless { it.all { it == null } },
+          action = this@with.action.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -690,16 +704,16 @@ internal data class RequestOrchestrationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var instantiatesCanonical: List<KotlinString?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<KotlinString?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var basedOn: List<Reference?>? = null,
-  public var replaces: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<KotlinString?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var basedOn: MutableList<Reference>? = null,
+  public var replaces: MutableList<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -713,36 +727,36 @@ internal data class RequestOrchestrationSurrogate(
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var author: Reference? = null,
-  public var reason: List<CodeableReference?>? = null,
-  public var goal: List<Reference?>? = null,
-  public var note: List<Annotation?>? = null,
-  public var action: List<RequestOrchestration.Action>? = null,
+  public var reason: MutableList<CodeableReference>? = null,
+  public var goal: MutableList<Reference>? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var action: MutableList<RequestOrchestration.Action>? = null,
 ) {
   public fun toModel(): RequestOrchestration =
-    RequestOrchestration().apply {
-      id = this@RequestOrchestrationSurrogate.id
-      meta = this@RequestOrchestrationSurrogate.meta
+    RequestOrchestration(
+      id = this@RequestOrchestrationSurrogate.id,
+      meta = this@RequestOrchestrationSurrogate.meta,
       implicitRules =
         Uri.of(
           this@RequestOrchestrationSurrogate.implicitRules,
           this@RequestOrchestrationSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@RequestOrchestrationSurrogate.language,
           this@RequestOrchestrationSurrogate._language,
-        )
-      text = this@RequestOrchestrationSurrogate.text
-      contained = this@RequestOrchestrationSurrogate.contained
-      extension = this@RequestOrchestrationSurrogate.extension
-      modifierExtension = this@RequestOrchestrationSurrogate.modifierExtension
-      identifier = this@RequestOrchestrationSurrogate.identifier
+        ),
+      text = this@RequestOrchestrationSurrogate.text,
+      contained = this@RequestOrchestrationSurrogate.contained ?: mutableListOf(),
+      extension = this@RequestOrchestrationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@RequestOrchestrationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@RequestOrchestrationSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@RequestOrchestrationSurrogate.instantiatesCanonical == null &&
             this@RequestOrchestrationSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@RequestOrchestrationSurrogate.instantiatesCanonical
               ?: List(this@RequestOrchestrationSurrogate._instantiatesCanonical!!.size) { null })
@@ -750,14 +764,15 @@ internal data class RequestOrchestrationSurrogate(
               this@RequestOrchestrationSurrogate._instantiatesCanonical
                 ?: List(this@RequestOrchestrationSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@RequestOrchestrationSurrogate.instantiatesUri == null &&
             this@RequestOrchestrationSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@RequestOrchestrationSurrogate.instantiatesUri
               ?: List(this@RequestOrchestrationSurrogate._instantiatesUri!!.size) { null })
@@ -765,92 +780,105 @@ internal data class RequestOrchestrationSurrogate(
               this@RequestOrchestrationSurrogate._instantiatesUri
                 ?: List(this@RequestOrchestrationSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
-      basedOn = this@RequestOrchestrationSurrogate.basedOn
-      replaces = this@RequestOrchestrationSurrogate.replaces
-      groupIdentifier = this@RequestOrchestrationSurrogate.groupIdentifier
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
+      basedOn = this@RequestOrchestrationSurrogate.basedOn ?: mutableListOf(),
+      replaces = this@RequestOrchestrationSurrogate.replaces ?: mutableListOf(),
+      groupIdentifier = this@RequestOrchestrationSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          this@RequestOrchestrationSurrogate.status?.let {
-            com.google.fhir.model.r5.RequestOrchestration.RequestStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.RequestOrchestration.RequestStatus.fromCode(
+            this@RequestOrchestrationSurrogate.status!!
+          ),
           this@RequestOrchestrationSurrogate._status,
-        )
+        ),
       intent =
         Enumeration.of(
-          this@RequestOrchestrationSurrogate.intent?.let {
-            com.google.fhir.model.r5.RequestOrchestration.RequestIntent.fromCode(it)
-          },
+          com.google.fhir.model.r5.RequestOrchestration.RequestIntent.fromCode(
+            this@RequestOrchestrationSurrogate.intent!!
+          ),
           this@RequestOrchestrationSurrogate._intent,
-        )
+        ),
       priority =
-        Enumeration.of(
-          this@RequestOrchestrationSurrogate.priority?.let {
-            com.google.fhir.model.r5.RequestOrchestration.RequestPriority.fromCode(it)
-          },
-          this@RequestOrchestrationSurrogate._priority,
-        )
-      code = this@RequestOrchestrationSurrogate.code
-      subject = this@RequestOrchestrationSurrogate.subject
-      encounter = this@RequestOrchestrationSurrogate.encounter
+        this@RequestOrchestrationSurrogate.priority?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.RequestPriority.fromCode(it!!),
+            this@RequestOrchestrationSurrogate._priority,
+          )
+        },
+      code = this@RequestOrchestrationSurrogate.code,
+      subject = this@RequestOrchestrationSurrogate.subject,
+      encounter = this@RequestOrchestrationSurrogate.encounter,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@RequestOrchestrationSurrogate.authoredOn),
           this@RequestOrchestrationSurrogate._authoredOn,
-        )
-      author = this@RequestOrchestrationSurrogate.author
-      reason = this@RequestOrchestrationSurrogate.reason
-      goal = this@RequestOrchestrationSurrogate.goal
-      note = this@RequestOrchestrationSurrogate.note
-      action = this@RequestOrchestrationSurrogate.action
-    }
+        ),
+      author = this@RequestOrchestrationSurrogate.author,
+      reason = this@RequestOrchestrationSurrogate.reason ?: mutableListOf(),
+      goal = this@RequestOrchestrationSurrogate.goal ?: mutableListOf(),
+      note = this@RequestOrchestrationSurrogate.note ?: mutableListOf(),
+      action = this@RequestOrchestrationSurrogate.action ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: RequestOrchestration): RequestOrchestrationSurrogate =
       with(model) {
-        RequestOrchestrationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
+        RequestOrchestrationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          basedOn = this@with.basedOn
-          replaces = this@with.replaces
-          groupIdentifier = this@with.groupIdentifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          priority = this@with.priority?.value?.getCode()
-          _priority = this@with.priority?.toElement()
-          code = this@with.code
-          subject = this@with.subject
-          encounter = this@with.encounter
-          authoredOn = this@with.authoredOn?.value?.toString()
-          _authoredOn = this@with.authoredOn?.toElement()
-          author = this@with.author
-          reason = this@with.reason
-          goal = this@with.goal
-          note = this@with.note
-          action = this@with.action
-        }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          groupIdentifier = this@with.groupIdentifier,
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          priority = this@with.priority?.value?.getCode(),
+          _priority = this@with.priority?.toElement(),
+          code = this@with.code,
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          authoredOn = this@with.authoredOn?.value?.toString(),
+          _authoredOn = this@with.authoredOn?.toElement(),
+          author = this@with.author,
+          reason = this@with.reason.takeUnless { it.all { it == null } },
+          goal = this@with.goal.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
+          action = this@with.action.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

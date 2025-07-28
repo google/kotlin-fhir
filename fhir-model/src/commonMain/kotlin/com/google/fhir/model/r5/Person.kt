@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.PersonLinkSerializer
 import com.google.fhir.model.r5.serializers.PersonSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class Person(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class Person(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,9 +132,9 @@ public data class Person(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier for a person within a particular scope. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Whether this person's record is in active use. */
   public var active: Boolean? = null,
   /**
@@ -142,14 +142,14 @@ public data class Person(
    *
    * Person may have multiple names with different uses or applicable periods.
    */
-  public var name: List<HumanName?>? = null,
+  public var name: MutableList<HumanName> = mutableListOf(),
   /**
    * A contact detail for the person, e.g. a telephone number or an email address.
    *
    * Person may have multiple ways to be contacted with different uses or applicable periods. May
    * need to have options for contacting the person urgently and also to help with identification.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * Administrative Gender.
    *
@@ -178,7 +178,7 @@ public data class Person(
    *
    * Person may have multiple addresses with different uses or applicable periods.
    */
-  public var address: List<Address?>? = null,
+  public var address: MutableList<Address> = mutableListOf(),
   /**
    * This field contains a person's most recent marital (civil) status.
    *
@@ -190,7 +190,7 @@ public data class Person(
    * An image that can be displayed as a thumbnail of the person to enhance the identification of
    * the individual.
    */
-  public var photo: List<Attachment?>? = null,
+  public var photo: MutableList<Attachment> = mutableListOf(),
   /**
    * A language which may be used to communicate with the person about his or her health.
    *
@@ -205,11 +205,11 @@ public data class Person(
    * may be used to inform the value on practitioner, along with their role at the organization
    * (with the practitioner's permission)
    */
-  public var communication: List<Communication>? = null,
+  public var communication: MutableList<Communication> = mutableListOf(),
   /** The organization that is the custodian of the person record. */
   public var managingOrganization: Reference? = null,
   /** Link to a resource that concerns the same actual person. */
-  public var link: List<Link>? = null,
+  public var link: MutableList<Link> = mutableListOf(),
 ) : DomainResource() {
   /** A language which may be used to communicate with the person about his or her health. */
   @Serializable(with = PersonCommunicationSerializer::class)
@@ -231,7 +231,7 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -250,7 +250,7 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The ISO-639-1 alpha 2 code in lower case for the language, optionally followed by a hyphen
      * and the ISO-3166-1 alpha 2 code for the region in upper case; e.g. "en" for English, or
@@ -260,7 +260,7 @@ public data class Person(
      * However not all systems actually code this but instead have it as free text. Hence
      * CodeableConcept instead of code as the data type.
      */
-    public var language: CodeableConcept? = null,
+    public var language: CodeableConcept,
     /**
      * Indicates whether or not the person prefers this language (over other languages he masters up
      * a certain level).
@@ -290,7 +290,7 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -309,9 +309,9 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The resource to which this actual person is associated. */
-    public var target: Reference? = null,
+    public var target: Reference,
     /** Level of assurance that this link is associated with the target resource. */
     public var assurance: Enumeration<IdentityAssuranceLevel>? = null,
   ) : BackboneElement()
@@ -326,16 +326,14 @@ public data class Person(
 
     public data class DateTime(public val `value`: com.google.fhir.model.r5.DateTime) : Deceased
 
-    public data object Null : Deceased
-
     public companion object {
-      public fun from(
+      internal fun from(
         booleanValue: com.google.fhir.model.r5.Boolean?,
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-      ): Deceased {
+      ): Deceased? {
         if (booleanValue != null) return Boolean(booleanValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return Null
+        return null
       }
     }
   }
@@ -348,36 +346,11 @@ public data class Person(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Little or no confidence in the asserted identity's accuracy. */
-    Level1(
-      "level1",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 1",
-      "Little or no confidence in the asserted identity's accuracy.",
-    ),
-    /** Some confidence in the asserted identity's accuracy. */
-    Level2(
-      "level2",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 2",
-      "Some confidence in the asserted identity's accuracy.",
-    ),
-    /** High confidence in the asserted identity's accuracy. */
-    Level3(
-      "level3",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 3",
-      "High confidence in the asserted identity's accuracy.",
-    ),
-    /** Very high confidence in the asserted identity's accuracy. */
-    Level4(
-      "level4",
-      "http://hl7.org/fhir/identity-assuranceLevel",
-      "Level 4",
-      "Very high confidence in the asserted identity's accuracy.",
-    );
+    Level1("level1", "http://hl7.org/fhir/identity-assuranceLevel", "Level 1"),
+    Level2("level2", "http://hl7.org/fhir/identity-assuranceLevel", "Level 2"),
+    Level3("level3", "http://hl7.org/fhir/identity-assuranceLevel", "Level 3"),
+    Level4("level4", "http://hl7.org/fhir/identity-assuranceLevel", "Level 4");
 
     override fun toString(): String = code
 
@@ -386,8 +359,6 @@ public data class Person(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): IdentityAssuranceLevel =

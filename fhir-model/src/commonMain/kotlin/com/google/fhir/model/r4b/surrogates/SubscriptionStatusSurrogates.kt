@@ -38,57 +38,59 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubscriptionStatusNotificationEventSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var eventNumber: KotlinString? = null,
   public var _eventNumber: Element? = null,
   public var timestamp: KotlinString? = null,
   public var _timestamp: Element? = null,
   public var focus: Reference? = null,
-  public var additionalContext: List<Reference?>? = null,
+  public var additionalContext: MutableList<Reference>? = null,
 ) {
   public fun toModel(): SubscriptionStatus.NotificationEvent =
-    SubscriptionStatus.NotificationEvent().apply {
-      id = this@SubscriptionStatusNotificationEventSurrogate.id
-      extension = this@SubscriptionStatusNotificationEventSurrogate.extension
-      modifierExtension = this@SubscriptionStatusNotificationEventSurrogate.modifierExtension
+    SubscriptionStatus.NotificationEvent(
+      id = this@SubscriptionStatusNotificationEventSurrogate.id,
+      extension = this@SubscriptionStatusNotificationEventSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubscriptionStatusNotificationEventSurrogate.modifierExtension ?: mutableListOf(),
       eventNumber =
         R4bString.of(
           this@SubscriptionStatusNotificationEventSurrogate.eventNumber,
           this@SubscriptionStatusNotificationEventSurrogate._eventNumber,
-        )
+        )!!,
       timestamp =
         Instant.of(
           FhirDateTime.fromString(this@SubscriptionStatusNotificationEventSurrogate.timestamp),
           this@SubscriptionStatusNotificationEventSurrogate._timestamp,
-        )
-      focus = this@SubscriptionStatusNotificationEventSurrogate.focus
-      additionalContext = this@SubscriptionStatusNotificationEventSurrogate.additionalContext
-    }
+        ),
+      focus = this@SubscriptionStatusNotificationEventSurrogate.focus,
+      additionalContext =
+        this@SubscriptionStatusNotificationEventSurrogate.additionalContext ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
       model: SubscriptionStatus.NotificationEvent
     ): SubscriptionStatusNotificationEventSurrogate =
       with(model) {
-        SubscriptionStatusNotificationEventSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          eventNumber = this@with.eventNumber?.value
-          _eventNumber = this@with.eventNumber?.toElement()
-          timestamp = this@with.timestamp?.value?.toString()
-          _timestamp = this@with.timestamp?.toElement()
-          focus = this@with.focus
-          additionalContext = this@with.additionalContext
-        }
+        SubscriptionStatusNotificationEventSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          eventNumber = this@with.eventNumber.value,
+          _eventNumber = this@with.eventNumber.toElement(),
+          timestamp = this@with.timestamp?.value?.toString(),
+          _timestamp = this@with.timestamp?.toElement(),
+          focus = this@with.focus,
+          additionalContext = this@with.additionalContext.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -102,94 +104,94 @@ internal data class SubscriptionStatusSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var eventsSinceSubscriptionStart: KotlinString? = null,
   public var _eventsSinceSubscriptionStart: Element? = null,
-  public var notificationEvent: List<SubscriptionStatus.NotificationEvent>? = null,
-  public var subscription: Reference? = null,
+  public var notificationEvent: MutableList<SubscriptionStatus.NotificationEvent>? = null,
+  public var subscription: Reference,
   public var topic: KotlinString? = null,
   public var _topic: Element? = null,
-  public var error: List<CodeableConcept?>? = null,
+  public var error: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): SubscriptionStatus =
-    SubscriptionStatus().apply {
-      id = this@SubscriptionStatusSurrogate.id
-      meta = this@SubscriptionStatusSurrogate.meta
+    SubscriptionStatus(
+      id = this@SubscriptionStatusSurrogate.id,
+      meta = this@SubscriptionStatusSurrogate.meta,
       implicitRules =
         Uri.of(
           this@SubscriptionStatusSurrogate.implicitRules,
           this@SubscriptionStatusSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@SubscriptionStatusSurrogate.language,
           this@SubscriptionStatusSurrogate._language,
-        )
-      text = this@SubscriptionStatusSurrogate.text
-      contained = this@SubscriptionStatusSurrogate.contained
-      extension = this@SubscriptionStatusSurrogate.extension
-      modifierExtension = this@SubscriptionStatusSurrogate.modifierExtension
+        ),
+      text = this@SubscriptionStatusSurrogate.text,
+      contained = this@SubscriptionStatusSurrogate.contained ?: mutableListOf(),
+      extension = this@SubscriptionStatusSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@SubscriptionStatusSurrogate.modifierExtension ?: mutableListOf(),
       status =
-        Enumeration.of(
-          this@SubscriptionStatusSurrogate.status?.let {
-            com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionStatus.fromCode(it)
-          },
-          this@SubscriptionStatusSurrogate._status,
-        )
+        this@SubscriptionStatusSurrogate.status?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionStatus.fromCode(it!!),
+            this@SubscriptionStatusSurrogate._status,
+          )
+        },
       type =
         Enumeration.of(
-          this@SubscriptionStatusSurrogate.type?.let {
-            com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionNotificationType.fromCode(it)
-          },
+          com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionNotificationType.fromCode(
+            this@SubscriptionStatusSurrogate.type!!
+          ),
           this@SubscriptionStatusSurrogate._type,
-        )
+        ),
       eventsSinceSubscriptionStart =
         R4bString.of(
           this@SubscriptionStatusSurrogate.eventsSinceSubscriptionStart,
           this@SubscriptionStatusSurrogate._eventsSinceSubscriptionStart,
-        )
-      notificationEvent = this@SubscriptionStatusSurrogate.notificationEvent
-      subscription = this@SubscriptionStatusSurrogate.subscription
+        ),
+      notificationEvent = this@SubscriptionStatusSurrogate.notificationEvent ?: mutableListOf(),
+      subscription = this@SubscriptionStatusSurrogate.subscription,
       topic =
         Canonical.of(
           this@SubscriptionStatusSurrogate.topic,
           this@SubscriptionStatusSurrogate._topic,
-        )
-      error = this@SubscriptionStatusSurrogate.error
-    }
+        ),
+      error = this@SubscriptionStatusSurrogate.error ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: SubscriptionStatus): SubscriptionStatusSurrogate =
       with(model) {
-        SubscriptionStatusSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          type = this@with.type?.value?.getCode()
-          _type = this@with.type?.toElement()
-          eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.value
-          _eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.toElement()
-          notificationEvent = this@with.notificationEvent
-          subscription = this@with.subscription
-          topic = this@with.topic?.value
-          _topic = this@with.topic?.toElement()
-          error = this@with.error
-        }
+        SubscriptionStatusSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          status = this@with.status?.value?.getCode(),
+          _status = this@with.status?.toElement(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.value,
+          _eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.toElement(),
+          notificationEvent = this@with.notificationEvent.takeUnless { it.all { it == null } },
+          subscription = this@with.subscription,
+          topic = this@with.topic?.value,
+          _topic = this@with.topic?.toElement(),
+          error = this@with.error.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

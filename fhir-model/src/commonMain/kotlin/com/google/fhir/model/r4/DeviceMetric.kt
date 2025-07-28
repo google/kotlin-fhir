@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.DeviceMetricCalibrationSerializer
 import com.google.fhir.model.r4.serializers.DeviceMetricSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ public data class DeviceMetric(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class DeviceMetric(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,7 +125,7 @@ public data class DeviceMetric(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Unique instance identifiers assigned to a device by the device or gateway software,
    * manufacturers, other organizations or owners. For example: handle ID.
@@ -133,13 +133,13 @@ public data class DeviceMetric(
    * For identifiers assigned to a device by the device or gateway software, the `system` element of
    * the identifier should be set to the unique identifier of the device.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Describes the type of the metric. For example: Heart Rate, PEEP Setting, etc.
    *
    * DeviceMetric.type can be referred to either IEEE 11073-10101 or LOINC.
    */
-  public var type: CodeableConcept? = null,
+  public var type: CodeableConcept,
   /**
    * Describes the unit that an observed value determined for this metric will have. For example:
    * Percent, Seconds, etc.
@@ -173,7 +173,7 @@ public data class DeviceMetric(
    * Indicates the category of the observation generation process. A DeviceMetric can be for example
    * a setting, measurement, or calculation.
    */
-  public var category: Enumeration<DeviceMetricCategory>? = null,
+  public var category: Enumeration<DeviceMetricCategory>,
   /**
    * Describes the measurement repetition time. This is not necessarily the same as the update
    * period. The measurement repetition time can range from milliseconds up to hours. An example for
@@ -185,7 +185,7 @@ public data class DeviceMetric(
    */
   public var measurementPeriod: Timing? = null,
   /** Describes the calibrations that have been performed or that are required to be performed. */
-  public var calibration: List<Calibration>? = null,
+  public var calibration: MutableList<Calibration> = mutableListOf(),
 ) : DomainResource() {
   /** Describes the calibrations that have been performed or that are required to be performed. */
   @Serializable(with = DeviceMetricCalibrationSerializer::class)
@@ -207,7 +207,7 @@ public data class DeviceMetric(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -226,7 +226,7 @@ public data class DeviceMetric(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Describes the type of the calibration method. */
     public var type: Enumeration<DeviceMetricCalibrationType>? = null,
     /** Describes the state of the calibration. */
@@ -240,36 +240,11 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Metric calibration method has not been identified. */
-    Unspecified(
-      "unspecified",
-      "http://hl7.org/fhir/metric-calibration-type",
-      "Unspecified",
-      "Metric calibration method has not been identified.",
-    ),
-    /** Offset metric calibration method. */
-    Offset(
-      "offset",
-      "http://hl7.org/fhir/metric-calibration-type",
-      "Offset",
-      "Offset metric calibration method.",
-    ),
-    /** Gain metric calibration method. */
-    Gain(
-      "gain",
-      "http://hl7.org/fhir/metric-calibration-type",
-      "Gain",
-      "Gain metric calibration method.",
-    ),
-    /** Two-point metric calibration method. */
-    Two_Point(
-      "two-point",
-      "http://hl7.org/fhir/metric-calibration-type",
-      "Two Point",
-      "Two-point metric calibration method.",
-    );
+    Unspecified("unspecified", "http://hl7.org/fhir/metric-calibration-type", "Unspecified"),
+    Offset("offset", "http://hl7.org/fhir/metric-calibration-type", "Offset"),
+    Gain("gain", "http://hl7.org/fhir/metric-calibration-type", "Gain"),
+    Two_Point("two-point", "http://hl7.org/fhir/metric-calibration-type", "Two Point");
 
     override fun toString(): String = code
 
@@ -278,8 +253,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricCalibrationType =
@@ -301,36 +274,19 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The metric has not been calibrated. */
     Not_Calibrated(
       "not-calibrated",
       "http://hl7.org/fhir/metric-calibration-state",
       "Not Calibrated",
-      "The metric has not been calibrated.",
     ),
-    /** The metric needs to be calibrated. */
     Calibration_Required(
       "calibration-required",
       "http://hl7.org/fhir/metric-calibration-state",
       "Calibration Required",
-      "The metric needs to be calibrated.",
     ),
-    /** The metric has been calibrated. */
-    Calibrated(
-      "calibrated",
-      "http://hl7.org/fhir/metric-calibration-state",
-      "Calibrated",
-      "The metric has been calibrated.",
-    ),
-    /** The state of calibration of this metric is unspecified. */
-    Unspecified(
-      "unspecified",
-      "http://hl7.org/fhir/metric-calibration-state",
-      "Unspecified",
-      "The state of calibration of this metric is unspecified.",
-    );
+    Calibrated("calibrated", "http://hl7.org/fhir/metric-calibration-state", "Calibrated"),
+    Unspecified("unspecified", "http://hl7.org/fhir/metric-calibration-state", "Unspecified");
 
     override fun toString(): String = code
 
@@ -339,8 +295,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricCalibrationState =
@@ -362,35 +316,14 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The DeviceMetric is operating and will generate DeviceObservations. */
-    On(
-      "on",
-      "http://hl7.org/fhir/metric-operational-status",
-      "On",
-      "The DeviceMetric is operating and will generate DeviceObservations.",
-    ),
-    /** The DeviceMetric is not operating. */
-    Off(
-      "off",
-      "http://hl7.org/fhir/metric-operational-status",
-      "Off",
-      "The DeviceMetric is not operating.",
-    ),
-    /** The DeviceMetric is operating, but will not generate any DeviceObservations. */
-    Standby(
-      "standby",
-      "http://hl7.org/fhir/metric-operational-status",
-      "Standby",
-      "The DeviceMetric is operating, but will not generate any DeviceObservations.",
-    ),
-    /** The DeviceMetric was entered in error. */
+    On("on", "http://hl7.org/fhir/metric-operational-status", "On"),
+    Off("off", "http://hl7.org/fhir/metric-operational-status", "Off"),
+    Standby("standby", "http://hl7.org/fhir/metric-operational-status", "Standby"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/metric-operational-status",
       "Entered In Error",
-      "The DeviceMetric was entered in error.",
     );
 
     override fun toString(): String = code
@@ -400,8 +333,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricOperationalStatus =
@@ -423,59 +354,15 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** Color for representation - black. */
-    Black(
-      "black",
-      "http://hl7.org/fhir/metric-color",
-      "Color Black",
-      "Color for representation - black.",
-    ),
-    /** Color for representation - red. */
-    Red("red", "http://hl7.org/fhir/metric-color", "Color Red", "Color for representation - red."),
-    /** Color for representation - green. */
-    Green(
-      "green",
-      "http://hl7.org/fhir/metric-color",
-      "Color Green",
-      "Color for representation - green.",
-    ),
-    /** Color for representation - yellow. */
-    Yellow(
-      "yellow",
-      "http://hl7.org/fhir/metric-color",
-      "Color Yellow",
-      "Color for representation - yellow.",
-    ),
-    /** Color for representation - blue. */
-    Blue(
-      "blue",
-      "http://hl7.org/fhir/metric-color",
-      "Color Blue",
-      "Color for representation - blue.",
-    ),
-    /** Color for representation - magenta. */
-    Magenta(
-      "magenta",
-      "http://hl7.org/fhir/metric-color",
-      "Color Magenta",
-      "Color for representation - magenta.",
-    ),
-    /** Color for representation - cyan. */
-    Cyan(
-      "cyan",
-      "http://hl7.org/fhir/metric-color",
-      "Color Cyan",
-      "Color for representation - cyan.",
-    ),
-    /** Color for representation - white. */
-    White(
-      "white",
-      "http://hl7.org/fhir/metric-color",
-      "Color White",
-      "Color for representation - white.",
-    );
+    Black("black", "http://hl7.org/fhir/metric-color", "Color Black"),
+    Red("red", "http://hl7.org/fhir/metric-color", "Color Red"),
+    Green("green", "http://hl7.org/fhir/metric-color", "Color Green"),
+    Yellow("yellow", "http://hl7.org/fhir/metric-color", "Color Yellow"),
+    Blue("blue", "http://hl7.org/fhir/metric-color", "Color Blue"),
+    Magenta("magenta", "http://hl7.org/fhir/metric-color", "Color Magenta"),
+    Cyan("cyan", "http://hl7.org/fhir/metric-color", "Color Cyan"),
+    White("white", "http://hl7.org/fhir/metric-color", "Color White");
 
     override fun toString(): String = code
 
@@ -484,8 +371,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricColor =
@@ -508,39 +393,11 @@ public data class DeviceMetric(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** DeviceObservations generated for this DeviceMetric are measured. */
-    Measurement(
-      "measurement",
-      "http://hl7.org/fhir/metric-category",
-      "Measurement",
-      "DeviceObservations generated for this DeviceMetric are measured.",
-    ),
-    /**
-     * DeviceObservations generated for this DeviceMetric is a setting that will influence the
-     * behavior of the Device.
-     */
-    Setting(
-      "setting",
-      "http://hl7.org/fhir/metric-category",
-      "Setting",
-      "DeviceObservations generated for this DeviceMetric is a setting that will influence the behavior of the Device.",
-    ),
-    /** DeviceObservations generated for this DeviceMetric are calculated. */
-    Calculation(
-      "calculation",
-      "http://hl7.org/fhir/metric-category",
-      "Calculation",
-      "DeviceObservations generated for this DeviceMetric are calculated.",
-    ),
-    /** The category of this DeviceMetric is unspecified. */
-    Unspecified(
-      "unspecified",
-      "http://hl7.org/fhir/metric-category",
-      "Unspecified",
-      "The category of this DeviceMetric is unspecified.",
-    );
+    Measurement("measurement", "http://hl7.org/fhir/metric-category", "Measurement"),
+    Setting("setting", "http://hl7.org/fhir/metric-category", "Setting"),
+    Calculation("calculation", "http://hl7.org/fhir/metric-category", "Calculation"),
+    Unspecified("unspecified", "http://hl7.org/fhir/metric-category", "Unspecified");
 
     override fun toString(): String = code
 
@@ -549,8 +406,6 @@ public data class DeviceMetric(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): DeviceMetricCategory =

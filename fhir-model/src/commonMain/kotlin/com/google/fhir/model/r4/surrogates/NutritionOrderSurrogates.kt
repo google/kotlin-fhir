@@ -43,39 +43,40 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NutritionOrderOralDietNutrientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var modifier: CodeableConcept? = null,
   public var amount: Quantity? = null,
 ) {
   public fun toModel(): NutritionOrder.OralDiet.Nutrient =
-    NutritionOrder.OralDiet.Nutrient().apply {
-      id = this@NutritionOrderOralDietNutrientSurrogate.id
-      extension = this@NutritionOrderOralDietNutrientSurrogate.extension
-      modifierExtension = this@NutritionOrderOralDietNutrientSurrogate.modifierExtension
-      modifier = this@NutritionOrderOralDietNutrientSurrogate.modifier
-      amount = this@NutritionOrderOralDietNutrientSurrogate.amount
-    }
+    NutritionOrder.OralDiet.Nutrient(
+      id = this@NutritionOrderOralDietNutrientSurrogate.id,
+      extension = this@NutritionOrderOralDietNutrientSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@NutritionOrderOralDietNutrientSurrogate.modifierExtension ?: mutableListOf(),
+      modifier = this@NutritionOrderOralDietNutrientSurrogate.modifier,
+      amount = this@NutritionOrderOralDietNutrientSurrogate.amount,
+    )
 
   public companion object {
     public fun fromModel(
       model: NutritionOrder.OralDiet.Nutrient
     ): NutritionOrderOralDietNutrientSurrogate =
       with(model) {
-        NutritionOrderOralDietNutrientSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          modifier = this@with.modifier
-          amount = this@with.amount
-        }
+        NutritionOrderOralDietNutrientSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier,
+          amount = this@with.amount,
+        )
       }
   }
 }
@@ -83,32 +84,33 @@ internal data class NutritionOrderOralDietNutrientSurrogate(
 @Serializable
 internal data class NutritionOrderOralDietTextureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var modifier: CodeableConcept? = null,
   public var foodType: CodeableConcept? = null,
 ) {
   public fun toModel(): NutritionOrder.OralDiet.Texture =
-    NutritionOrder.OralDiet.Texture().apply {
-      id = this@NutritionOrderOralDietTextureSurrogate.id
-      extension = this@NutritionOrderOralDietTextureSurrogate.extension
-      modifierExtension = this@NutritionOrderOralDietTextureSurrogate.modifierExtension
-      modifier = this@NutritionOrderOralDietTextureSurrogate.modifier
-      foodType = this@NutritionOrderOralDietTextureSurrogate.foodType
-    }
+    NutritionOrder.OralDiet.Texture(
+      id = this@NutritionOrderOralDietTextureSurrogate.id,
+      extension = this@NutritionOrderOralDietTextureSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@NutritionOrderOralDietTextureSurrogate.modifierExtension ?: mutableListOf(),
+      modifier = this@NutritionOrderOralDietTextureSurrogate.modifier,
+      foodType = this@NutritionOrderOralDietTextureSurrogate.foodType,
+    )
 
   public companion object {
     public fun fromModel(
       model: NutritionOrder.OralDiet.Texture
     ): NutritionOrderOralDietTextureSurrogate =
       with(model) {
-        NutritionOrderOralDietTextureSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          modifier = this@with.modifier
-          foodType = this@with.foodType
-        }
+        NutritionOrderOralDietTextureSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier,
+          foodType = this@with.foodType,
+        )
       }
   }
 }
@@ -116,48 +118,50 @@ internal data class NutritionOrderOralDietTextureSurrogate(
 @Serializable
 internal data class NutritionOrderOralDietSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: List<CodeableConcept?>? = null,
-  public var schedule: List<Timing?>? = null,
-  public var nutrient: List<NutritionOrder.OralDiet.Nutrient>? = null,
-  public var texture: List<NutritionOrder.OralDiet.Texture>? = null,
-  public var fluidConsistencyType: List<CodeableConcept?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var schedule: MutableList<Timing>? = null,
+  public var nutrient: MutableList<NutritionOrder.OralDiet.Nutrient>? = null,
+  public var texture: MutableList<NutritionOrder.OralDiet.Texture>? = null,
+  public var fluidConsistencyType: MutableList<CodeableConcept>? = null,
   public var instruction: KotlinString? = null,
   public var _instruction: Element? = null,
 ) {
   public fun toModel(): NutritionOrder.OralDiet =
-    NutritionOrder.OralDiet().apply {
-      id = this@NutritionOrderOralDietSurrogate.id
-      extension = this@NutritionOrderOralDietSurrogate.extension
-      modifierExtension = this@NutritionOrderOralDietSurrogate.modifierExtension
-      type = this@NutritionOrderOralDietSurrogate.type
-      schedule = this@NutritionOrderOralDietSurrogate.schedule
-      nutrient = this@NutritionOrderOralDietSurrogate.nutrient
-      texture = this@NutritionOrderOralDietSurrogate.texture
-      fluidConsistencyType = this@NutritionOrderOralDietSurrogate.fluidConsistencyType
+    NutritionOrder.OralDiet(
+      id = this@NutritionOrderOralDietSurrogate.id,
+      extension = this@NutritionOrderOralDietSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@NutritionOrderOralDietSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@NutritionOrderOralDietSurrogate.type ?: mutableListOf(),
+      schedule = this@NutritionOrderOralDietSurrogate.schedule ?: mutableListOf(),
+      nutrient = this@NutritionOrderOralDietSurrogate.nutrient ?: mutableListOf(),
+      texture = this@NutritionOrderOralDietSurrogate.texture ?: mutableListOf(),
+      fluidConsistencyType =
+        this@NutritionOrderOralDietSurrogate.fluidConsistencyType ?: mutableListOf(),
       instruction =
         R4String.of(
           this@NutritionOrderOralDietSurrogate.instruction,
           this@NutritionOrderOralDietSurrogate._instruction,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: NutritionOrder.OralDiet): NutritionOrderOralDietSurrogate =
       with(model) {
-        NutritionOrderOralDietSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          schedule = this@with.schedule
-          nutrient = this@with.nutrient
-          texture = this@with.texture
-          fluidConsistencyType = this@with.fluidConsistencyType
-          instruction = this@with.instruction?.value
-          _instruction = this@with.instruction?.toElement()
-        }
+        NutritionOrderOralDietSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.takeUnless { it.all { it == null } },
+          schedule = this@with.schedule.takeUnless { it.all { it == null } },
+          nutrient = this@with.nutrient.takeUnless { it.all { it == null } },
+          texture = this@with.texture.takeUnless { it.all { it == null } },
+          fluidConsistencyType =
+            this@with.fluidConsistencyType.takeUnless { it.all { it == null } },
+          instruction = this@with.instruction?.value,
+          _instruction = this@with.instruction?.toElement(),
+        )
       }
   }
 }
@@ -165,66 +169,66 @@ internal data class NutritionOrderOralDietSurrogate(
 @Serializable
 internal data class NutritionOrderSupplementSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var productName: KotlinString? = null,
   public var _productName: Element? = null,
-  public var schedule: List<Timing?>? = null,
+  public var schedule: MutableList<Timing>? = null,
   public var quantity: Quantity? = null,
   public var instruction: KotlinString? = null,
   public var _instruction: Element? = null,
 ) {
   public fun toModel(): NutritionOrder.Supplement =
-    NutritionOrder.Supplement().apply {
-      id = this@NutritionOrderSupplementSurrogate.id
-      extension = this@NutritionOrderSupplementSurrogate.extension
-      modifierExtension = this@NutritionOrderSupplementSurrogate.modifierExtension
-      type = this@NutritionOrderSupplementSurrogate.type
+    NutritionOrder.Supplement(
+      id = this@NutritionOrderSupplementSurrogate.id,
+      extension = this@NutritionOrderSupplementSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@NutritionOrderSupplementSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@NutritionOrderSupplementSurrogate.type,
       productName =
         R4String.of(
           this@NutritionOrderSupplementSurrogate.productName,
           this@NutritionOrderSupplementSurrogate._productName,
-        )
-      schedule = this@NutritionOrderSupplementSurrogate.schedule
-      quantity = this@NutritionOrderSupplementSurrogate.quantity
+        ),
+      schedule = this@NutritionOrderSupplementSurrogate.schedule ?: mutableListOf(),
+      quantity = this@NutritionOrderSupplementSurrogate.quantity,
       instruction =
         R4String.of(
           this@NutritionOrderSupplementSurrogate.instruction,
           this@NutritionOrderSupplementSurrogate._instruction,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(model: NutritionOrder.Supplement): NutritionOrderSupplementSurrogate =
       with(model) {
-        NutritionOrderSupplementSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          productName = this@with.productName?.value
-          _productName = this@with.productName?.toElement()
-          schedule = this@with.schedule
-          quantity = this@with.quantity
-          instruction = this@with.instruction?.value
-          _instruction = this@with.instruction?.toElement()
-        }
+        NutritionOrderSupplementSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          productName = this@with.productName?.value,
+          _productName = this@with.productName?.toElement(),
+          schedule = this@with.schedule.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          instruction = this@with.instruction?.value,
+          _instruction = this@with.instruction?.toElement(),
+        )
       }
   }
 }
 
 @Serializable
-internal class NutritionOrderEnteralFormulaAdministrationRateSurrogate {
-  public var rateQuantity: Quantity? = null
-
-  public var rateRatio: Ratio? = null
-
-  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate =
+internal data class NutritionOrderEnteralFormulaAdministrationRateSurrogate(
+  public var rateQuantity: Quantity? = null,
+  public var rateRatio: Ratio? = null,
+) {
+  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate? =
     NutritionOrder.EnteralFormula.Administration.Rate?.from(
       this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
       this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
-    ) ?: NutritionOrder.EnteralFormula.Administration.Rate.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -232,8 +236,10 @@ internal class NutritionOrderEnteralFormulaAdministrationRateSurrogate {
     ): NutritionOrderEnteralFormulaAdministrationRateSurrogate =
       with(model) {
         NutritionOrderEnteralFormulaAdministrationRateSurrogate().apply {
-          rateQuantity = this@with.asQuantity()?.value
-          rateRatio = this@with.asRatio()?.value
+          NutritionOrder.EnteralFormula.Administration.Rate?.from(
+            this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
+            this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
+          )
         }
       }
   }
@@ -242,35 +248,38 @@ internal class NutritionOrderEnteralFormulaAdministrationRateSurrogate {
 @Serializable
 internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var schedule: Timing? = null,
   public var quantity: Quantity? = null,
   public var rate: NutritionOrder.EnteralFormula.Administration.Rate? = null,
 ) {
   public fun toModel(): NutritionOrder.EnteralFormula.Administration =
-    NutritionOrder.EnteralFormula.Administration().apply {
-      id = this@NutritionOrderEnteralFormulaAdministrationSurrogate.id
-      extension = this@NutritionOrderEnteralFormulaAdministrationSurrogate.extension
-      modifierExtension = this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension
-      schedule = this@NutritionOrderEnteralFormulaAdministrationSurrogate.schedule
-      quantity = this@NutritionOrderEnteralFormulaAdministrationSurrogate.quantity
-      rate = this@NutritionOrderEnteralFormulaAdministrationSurrogate.rate
-    }
+    NutritionOrder.EnteralFormula.Administration(
+      id = this@NutritionOrderEnteralFormulaAdministrationSurrogate.id,
+      extension =
+        this@NutritionOrderEnteralFormulaAdministrationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension
+          ?: mutableListOf(),
+      schedule = this@NutritionOrderEnteralFormulaAdministrationSurrogate.schedule,
+      quantity = this@NutritionOrderEnteralFormulaAdministrationSurrogate.quantity,
+      rate = this@NutritionOrderEnteralFormulaAdministrationSurrogate.rate,
+    )
 
   public companion object {
     public fun fromModel(
       model: NutritionOrder.EnteralFormula.Administration
     ): NutritionOrderEnteralFormulaAdministrationSurrogate =
       with(model) {
-        NutritionOrderEnteralFormulaAdministrationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          schedule = this@with.schedule
-          quantity = this@with.quantity
-          rate = this@with.rate
-        }
+        NutritionOrderEnteralFormulaAdministrationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          schedule = this@with.schedule,
+          quantity = this@with.quantity,
+          rate = this@with.rate,
+        )
       }
   }
 }
@@ -278,8 +287,8 @@ internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
 @Serializable
 internal data class NutritionOrderEnteralFormulaSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var baseFormulaType: CodeableConcept? = null,
   public var baseFormulaProductName: KotlinString? = null,
   public var _baseFormulaProductName: Element? = null,
@@ -288,61 +297,62 @@ internal data class NutritionOrderEnteralFormulaSurrogate(
   public var _additiveProductName: Element? = null,
   public var caloricDensity: Quantity? = null,
   public var routeofAdministration: CodeableConcept? = null,
-  public var administration: List<NutritionOrder.EnteralFormula.Administration>? = null,
+  public var administration: MutableList<NutritionOrder.EnteralFormula.Administration>? = null,
   public var maxVolumeToDeliver: Quantity? = null,
   public var administrationInstruction: KotlinString? = null,
   public var _administrationInstruction: Element? = null,
 ) {
   public fun toModel(): NutritionOrder.EnteralFormula =
-    NutritionOrder.EnteralFormula().apply {
-      id = this@NutritionOrderEnteralFormulaSurrogate.id
-      extension = this@NutritionOrderEnteralFormulaSurrogate.extension
-      modifierExtension = this@NutritionOrderEnteralFormulaSurrogate.modifierExtension
-      baseFormulaType = this@NutritionOrderEnteralFormulaSurrogate.baseFormulaType
+    NutritionOrder.EnteralFormula(
+      id = this@NutritionOrderEnteralFormulaSurrogate.id,
+      extension = this@NutritionOrderEnteralFormulaSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@NutritionOrderEnteralFormulaSurrogate.modifierExtension ?: mutableListOf(),
+      baseFormulaType = this@NutritionOrderEnteralFormulaSurrogate.baseFormulaType,
       baseFormulaProductName =
         R4String.of(
           this@NutritionOrderEnteralFormulaSurrogate.baseFormulaProductName,
           this@NutritionOrderEnteralFormulaSurrogate._baseFormulaProductName,
-        )
-      additiveType = this@NutritionOrderEnteralFormulaSurrogate.additiveType
+        ),
+      additiveType = this@NutritionOrderEnteralFormulaSurrogate.additiveType,
       additiveProductName =
         R4String.of(
           this@NutritionOrderEnteralFormulaSurrogate.additiveProductName,
           this@NutritionOrderEnteralFormulaSurrogate._additiveProductName,
-        )
-      caloricDensity = this@NutritionOrderEnteralFormulaSurrogate.caloricDensity
-      routeofAdministration = this@NutritionOrderEnteralFormulaSurrogate.routeofAdministration
-      administration = this@NutritionOrderEnteralFormulaSurrogate.administration
-      maxVolumeToDeliver = this@NutritionOrderEnteralFormulaSurrogate.maxVolumeToDeliver
+        ),
+      caloricDensity = this@NutritionOrderEnteralFormulaSurrogate.caloricDensity,
+      routeofAdministration = this@NutritionOrderEnteralFormulaSurrogate.routeofAdministration,
+      administration = this@NutritionOrderEnteralFormulaSurrogate.administration ?: mutableListOf(),
+      maxVolumeToDeliver = this@NutritionOrderEnteralFormulaSurrogate.maxVolumeToDeliver,
       administrationInstruction =
         R4String.of(
           this@NutritionOrderEnteralFormulaSurrogate.administrationInstruction,
           this@NutritionOrderEnteralFormulaSurrogate._administrationInstruction,
-        )
-    }
+        ),
+    )
 
   public companion object {
     public fun fromModel(
       model: NutritionOrder.EnteralFormula
     ): NutritionOrderEnteralFormulaSurrogate =
       with(model) {
-        NutritionOrderEnteralFormulaSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          baseFormulaType = this@with.baseFormulaType
-          baseFormulaProductName = this@with.baseFormulaProductName?.value
-          _baseFormulaProductName = this@with.baseFormulaProductName?.toElement()
-          additiveType = this@with.additiveType
-          additiveProductName = this@with.additiveProductName?.value
-          _additiveProductName = this@with.additiveProductName?.toElement()
-          caloricDensity = this@with.caloricDensity
-          routeofAdministration = this@with.routeofAdministration
-          administration = this@with.administration
-          maxVolumeToDeliver = this@with.maxVolumeToDeliver
-          administrationInstruction = this@with.administrationInstruction?.value
-          _administrationInstruction = this@with.administrationInstruction?.toElement()
-        }
+        NutritionOrderEnteralFormulaSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          baseFormulaType = this@with.baseFormulaType,
+          baseFormulaProductName = this@with.baseFormulaProductName?.value,
+          _baseFormulaProductName = this@with.baseFormulaProductName?.toElement(),
+          additiveType = this@with.additiveType,
+          additiveProductName = this@with.additiveProductName?.value,
+          _additiveProductName = this@with.additiveProductName?.toElement(),
+          caloricDensity = this@with.caloricDensity,
+          routeofAdministration = this@with.routeofAdministration,
+          administration = this@with.administration.takeUnless { it.all { it == null } },
+          maxVolumeToDeliver = this@with.maxVolumeToDeliver,
+          administrationInstruction = this@with.administrationInstruction?.value,
+          _administrationInstruction = this@with.administrationInstruction?.toElement(),
+        )
       }
   }
 }
@@ -356,55 +366,55 @@ internal data class NutritionOrderSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
-  public var instantiatesCanonical: List<KotlinString?>? = null,
-  public var _instantiatesCanonical: List<Element?>? = null,
-  public var instantiatesUri: List<KotlinString?>? = null,
-  public var _instantiatesUri: List<Element?>? = null,
-  public var instantiates: List<KotlinString?>? = null,
-  public var _instantiates: List<Element?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
+  public var _instantiatesCanonical: MutableList<Element?>? = null,
+  public var instantiatesUri: MutableList<KotlinString?>? = null,
+  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var instantiates: MutableList<KotlinString?>? = null,
+  public var _instantiates: MutableList<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var intent: KotlinString? = null,
   public var _intent: Element? = null,
-  public var patient: Reference? = null,
+  public var patient: Reference,
   public var encounter: Reference? = null,
   public var dateTime: KotlinString? = null,
   public var _dateTime: Element? = null,
   public var orderer: Reference? = null,
-  public var allergyIntolerance: List<Reference?>? = null,
-  public var foodPreferenceModifier: List<CodeableConcept?>? = null,
-  public var excludeFoodModifier: List<CodeableConcept?>? = null,
+  public var allergyIntolerance: MutableList<Reference>? = null,
+  public var foodPreferenceModifier: MutableList<CodeableConcept>? = null,
+  public var excludeFoodModifier: MutableList<CodeableConcept>? = null,
   public var oralDiet: NutritionOrder.OralDiet? = null,
-  public var supplement: List<NutritionOrder.Supplement>? = null,
+  public var supplement: MutableList<NutritionOrder.Supplement>? = null,
   public var enteralFormula: NutritionOrder.EnteralFormula? = null,
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): NutritionOrder =
-    NutritionOrder().apply {
-      id = this@NutritionOrderSurrogate.id
-      meta = this@NutritionOrderSurrogate.meta
+    NutritionOrder(
+      id = this@NutritionOrderSurrogate.id,
+      meta = this@NutritionOrderSurrogate.meta,
       implicitRules =
         Uri.of(
           this@NutritionOrderSurrogate.implicitRules,
           this@NutritionOrderSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@NutritionOrderSurrogate.language, this@NutritionOrderSurrogate._language)
-      text = this@NutritionOrderSurrogate.text
-      contained = this@NutritionOrderSurrogate.contained
-      extension = this@NutritionOrderSurrogate.extension
-      modifierExtension = this@NutritionOrderSurrogate.modifierExtension
-      identifier = this@NutritionOrderSurrogate.identifier
+        Code.of(this@NutritionOrderSurrogate.language, this@NutritionOrderSurrogate._language),
+      text = this@NutritionOrderSurrogate.text,
+      contained = this@NutritionOrderSurrogate.contained ?: mutableListOf(),
+      extension = this@NutritionOrderSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@NutritionOrderSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@NutritionOrderSurrogate.identifier ?: mutableListOf(),
       instantiatesCanonical =
         if (
           this@NutritionOrderSurrogate.instantiatesCanonical == null &&
             this@NutritionOrderSurrogate._instantiatesCanonical == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@NutritionOrderSurrogate.instantiatesCanonical
               ?: List(this@NutritionOrderSurrogate._instantiatesCanonical!!.size) { null })
@@ -412,14 +422,15 @@ internal data class NutritionOrderSurrogate(
               this@NutritionOrderSurrogate._instantiatesCanonical
                 ?: List(this@NutritionOrderSurrogate.instantiatesCanonical!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Canonical.of(value, element) }
-        }
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
       instantiatesUri =
         if (
           this@NutritionOrderSurrogate.instantiatesUri == null &&
             this@NutritionOrderSurrogate._instantiatesUri == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@NutritionOrderSurrogate.instantiatesUri
               ?: List(this@NutritionOrderSurrogate._instantiatesUri!!.size) { null })
@@ -427,14 +438,15 @@ internal data class NutritionOrderSurrogate(
               this@NutritionOrderSurrogate._instantiatesUri
                 ?: List(this@NutritionOrderSurrogate.instantiatesUri!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
       instantiates =
         if (
           this@NutritionOrderSurrogate.instantiates == null &&
             this@NutritionOrderSurrogate._instantiates == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@NutritionOrderSurrogate.instantiates
               ?: List(this@NutritionOrderSurrogate._instantiates!!.size) { null })
@@ -442,85 +454,107 @@ internal data class NutritionOrderSurrogate(
               this@NutritionOrderSurrogate._instantiates
                 ?: List(this@NutritionOrderSurrogate.instantiates!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Uri.of(value, element) }
-        }
+            .map { (value, element) -> Uri.of(value, element)!! }
+            .toMutableList()
+        },
       status =
         Enumeration.of(
-          this@NutritionOrderSurrogate.status?.let {
-            com.google.fhir.model.r4.NutritionOrder.NutritionOrderStatus.fromCode(it)
-          },
+          com.google.fhir.model.r4.NutritionOrder.NutritionOrderStatus.fromCode(
+            this@NutritionOrderSurrogate.status!!
+          ),
           this@NutritionOrderSurrogate._status,
-        )
+        ),
       intent =
         Enumeration.of(
-          this@NutritionOrderSurrogate.intent?.let {
-            com.google.fhir.model.r4.NutritionOrder.NutritiionOrderIntent.fromCode(it)
-          },
+          com.google.fhir.model.r4.NutritionOrder.NutritiionOrderIntent.fromCode(
+            this@NutritionOrderSurrogate.intent!!
+          ),
           this@NutritionOrderSurrogate._intent,
-        )
-      patient = this@NutritionOrderSurrogate.patient
-      encounter = this@NutritionOrderSurrogate.encounter
+        ),
+      patient = this@NutritionOrderSurrogate.patient,
+      encounter = this@NutritionOrderSurrogate.encounter,
       dateTime =
         DateTime.of(
           FhirDateTime.fromString(this@NutritionOrderSurrogate.dateTime),
           this@NutritionOrderSurrogate._dateTime,
-        )
-      orderer = this@NutritionOrderSurrogate.orderer
-      allergyIntolerance = this@NutritionOrderSurrogate.allergyIntolerance
-      foodPreferenceModifier = this@NutritionOrderSurrogate.foodPreferenceModifier
-      excludeFoodModifier = this@NutritionOrderSurrogate.excludeFoodModifier
-      oralDiet = this@NutritionOrderSurrogate.oralDiet
-      supplement = this@NutritionOrderSurrogate.supplement
-      enteralFormula = this@NutritionOrderSurrogate.enteralFormula
-      note = this@NutritionOrderSurrogate.note
-    }
+        )!!,
+      orderer = this@NutritionOrderSurrogate.orderer,
+      allergyIntolerance = this@NutritionOrderSurrogate.allergyIntolerance ?: mutableListOf(),
+      foodPreferenceModifier =
+        this@NutritionOrderSurrogate.foodPreferenceModifier ?: mutableListOf(),
+      excludeFoodModifier = this@NutritionOrderSurrogate.excludeFoodModifier ?: mutableListOf(),
+      oralDiet = this@NutritionOrderSurrogate.oralDiet,
+      supplement = this@NutritionOrderSurrogate.supplement ?: mutableListOf(),
+      enteralFormula = this@NutritionOrderSurrogate.enteralFormula,
+      note = this@NutritionOrderSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: NutritionOrder): NutritionOrderSurrogate =
       with(model) {
-        NutritionOrderSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
+        NutritionOrderSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
           instantiatesCanonical =
-            this@with.instantiatesCanonical?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesCanonical
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
-              ?.map { it?.toElement() }
-              ?.takeUnless { it.all { it == null } }
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiatesUri =
-            this@with.instantiatesUri?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiatesUri =
-            this@with.instantiatesUri?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.instantiatesUri
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           instantiates =
-            this@with.instantiates?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.instantiates
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _instantiates =
-            this@with.instantiates?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          intent = this@with.intent?.value?.getCode()
-          _intent = this@with.intent?.toElement()
-          patient = this@with.patient
-          encounter = this@with.encounter
-          dateTime = this@with.dateTime?.value?.toString()
-          _dateTime = this@with.dateTime?.toElement()
-          orderer = this@with.orderer
-          allergyIntolerance = this@with.allergyIntolerance
-          foodPreferenceModifier = this@with.foodPreferenceModifier
-          excludeFoodModifier = this@with.excludeFoodModifier
-          oralDiet = this@with.oralDiet
-          supplement = this@with.supplement
-          enteralFormula = this@with.enteralFormula
-          note = this@with.note
-        }
+            this@with.instantiates
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          intent = this@with.intent.value?.getCode(),
+          _intent = this@with.intent.toElement(),
+          patient = this@with.patient,
+          encounter = this@with.encounter,
+          dateTime = this@with.dateTime.value?.toString(),
+          _dateTime = this@with.dateTime.toElement(),
+          orderer = this@with.orderer,
+          allergyIntolerance = this@with.allergyIntolerance.takeUnless { it.all { it == null } },
+          foodPreferenceModifier =
+            this@with.foodPreferenceModifier.takeUnless { it.all { it == null } },
+          excludeFoodModifier = this@with.excludeFoodModifier.takeUnless { it.all { it == null } },
+          oralDiet = this@with.oralDiet,
+          supplement = this@with.supplement.takeUnless { it.all { it == null } },
+          enteralFormula = this@with.enteralFormula,
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

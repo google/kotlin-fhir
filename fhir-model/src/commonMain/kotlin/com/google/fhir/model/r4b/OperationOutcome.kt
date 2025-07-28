@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.OperationOutcomeIssueSerializer
 import com.google.fhir.model.r4b.serializers.OperationOutcomeSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -92,7 +92,7 @@ public data class OperationOutcome(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -105,7 +105,7 @@ public data class OperationOutcome(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -124,9 +124,9 @@ public data class OperationOutcome(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An error, warning, or information message that results from a system action. */
-  public var issue: List<Issue>? = null,
+  public var issue: MutableList<Issue> = mutableListOf(),
 ) : DomainResource() {
   /** An error, warning, or information message that results from a system action. */
   @Serializable(with = OperationOutcomeIssueSerializer::class)
@@ -148,7 +148,7 @@ public data class OperationOutcome(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -167,20 +167,20 @@ public data class OperationOutcome(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Indicates whether the issue indicates a variation from successful processing.
      *
      * This is labeled as "Is Modifier" because applications should not confuse hints and warnings
      * with errors.
      */
-    public var severity: Enumeration<IssueSeverity>? = null,
+    public var severity: Enumeration<IssueSeverity>,
     /**
      * Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the
      * most applicable code from the IssueType value set, and may additional provide its own code
      * for the error in the details element.
      */
-    public var code: Enumeration<IssueType>? = null,
+    public var code: Enumeration<IssueType>,
     /**
      * Additional details about the error. This may be a text description of the error or a system
      * code that identifies the error.
@@ -207,7 +207,7 @@ public data class OperationOutcome(
      * SHALL resolve to a single node. This element is deprecated, and is being replaced by
      * expression.
      */
-    public var location: List<String?>? = null,
+    public var location: MutableList<String> = mutableListOf(),
     /**
      * A [simple subset of FHIRPath](fhirpath.html#simple) limited to element names, repetition
      * indicators and the default child accessor that identifies one of the elements in the resource
@@ -216,7 +216,7 @@ public data class OperationOutcome(
      * The root of the FHIRPath is the resource or bundle that generated OperationOutcome. Each
      * FHIRPath SHALL resolve to a single node.
      */
-    public var expression: List<String?>? = null,
+    public var expression: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
   /** How the issue affects the success of the action. */
@@ -224,39 +224,11 @@ public data class OperationOutcome(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The issue caused the action to fail and no further checking could be performed. */
-    Fatal(
-      "fatal",
-      "http://hl7.org/fhir/issue-severity",
-      "Fatal",
-      "The issue caused the action to fail and no further checking could be performed.",
-    ),
-    /** The issue is sufficiently important to cause the action to fail. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/issue-severity",
-      "Error",
-      "The issue is sufficiently important to cause the action to fail.",
-    ),
-    /**
-     * The issue is not important enough to cause the action to fail but may cause it to be
-     * performed suboptimally or in a way that is not as desired.
-     */
-    Warning(
-      "warning",
-      "http://hl7.org/fhir/issue-severity",
-      "Warning",
-      "The issue is not important enough to cause the action to fail but may cause it to be performed suboptimally or in a way that is not as desired.",
-    ),
-    /** The issue has no relation to the degree of success of the action. */
-    Information(
-      "information",
-      "http://hl7.org/fhir/issue-severity",
-      "Information",
-      "The issue has no relation to the degree of success of the action.",
-    );
+    Fatal("fatal", "http://hl7.org/fhir/issue-severity", "Fatal"),
+    Error("error", "http://hl7.org/fhir/issue-severity", "Error"),
+    Warning("warning", "http://hl7.org/fhir/issue-severity", "Warning"),
+    Information("information", "http://hl7.org/fhir/issue-severity", "Information");
 
     override fun toString(): kotlin.String = code
 
@@ -265,8 +237,6 @@ public data class OperationOutcome(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IssueSeverity =
@@ -285,271 +255,38 @@ public data class OperationOutcome(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Content invalid against the specification or a profile. */
-    Invalid(
-      "invalid",
-      "http://hl7.org/fhir/issue-type",
-      "Invalid Content",
-      "Content invalid against the specification or a profile.",
-    ),
-    /**
-     * A structural issue in the content such as wrong namespace, unable to parse the content
-     * completely, invalid syntax, etc.
-     */
-    Structure(
-      "structure",
-      "http://hl7.org/fhir/issue-type",
-      "Structural Issue",
-      "A structural issue in the content such as wrong namespace, unable to parse the content completely, invalid syntax, etc.",
-    ),
-    /** A required element is missing. */
-    Required(
-      "required",
-      "http://hl7.org/fhir/issue-type",
-      "Required element missing",
-      "A required element is missing.",
-    ),
-    /** An element or header value is invalid. */
-    Value(
-      "value",
-      "http://hl7.org/fhir/issue-type",
-      "Element value invalid",
-      "An element or header value is invalid.",
-    ),
-    /** A content validation rule failed - e.g. a schematron rule. */
-    Invariant(
-      "invariant",
-      "http://hl7.org/fhir/issue-type",
-      "Validation rule failed",
-      "A content validation rule failed - e.g. a schematron rule.",
-    ),
-    /** An authentication/authorization/permissions issue of some kind. */
-    Security(
-      "security",
-      "http://hl7.org/fhir/issue-type",
-      "Security Problem",
-      "An authentication/authorization/permissions issue of some kind.",
-    ),
-    /** The client needs to initiate an authentication process. */
-    Login(
-      "login",
-      "http://hl7.org/fhir/issue-type",
-      "Login Required",
-      "The client needs to initiate an authentication process.",
-    ),
-    /**
-     * The user or system was not able to be authenticated (either there is no process, or the
-     * proferred token is unacceptable).
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/issue-type",
-      "Unknown User",
-      "The user or system was not able to be authenticated (either there is no process, or the proferred token is unacceptable).",
-    ),
-    /** User session expired; a login may be required. */
-    Expired(
-      "expired",
-      "http://hl7.org/fhir/issue-type",
-      "Session Expired",
-      "User session expired; a login may be required.",
-    ),
-    /** The user does not have the rights to perform this action. */
-    Forbidden(
-      "forbidden",
-      "http://hl7.org/fhir/issue-type",
-      "Forbidden",
-      "The user does not have the rights to perform this action.",
-    ),
-    /**
-     * Some information was not or might not have been returned due to business rules, consent or
-     * privacy rules, or access permission constraints. This information may be accessible through
-     * alternate processes.
-     */
-    Suppressed(
-      "suppressed",
-      "http://hl7.org/fhir/issue-type",
-      "Information  Suppressed",
-      "Some information was not or might not have been returned due to business rules, consent or privacy rules, or access permission constraints.  This information may be accessible through alternate processes.",
-    ),
-    /**
-     * Processing issues. These are expected to be final e.g. there is no point resubmitting the
-     * same content unchanged.
-     */
-    Processing(
-      "processing",
-      "http://hl7.org/fhir/issue-type",
-      "Processing Failure",
-      "Processing issues. These are expected to be final e.g. there is no point resubmitting the same content unchanged.",
-    ),
-    /** The interaction, operation, resource or profile is not supported. */
-    Not_Supported(
-      "not-supported",
-      "http://hl7.org/fhir/issue-type",
-      "Content not supported",
-      "The interaction, operation, resource or profile is not supported.",
-    ),
-    /** An attempt was made to create a duplicate record. */
-    Duplicate(
-      "duplicate",
-      "http://hl7.org/fhir/issue-type",
-      "Duplicate",
-      "An attempt was made to create a duplicate record.",
-    ),
-    /** Multiple matching records were found when the operation required only one match. */
-    Multiple_Matches(
-      "multiple-matches",
-      "http://hl7.org/fhir/issue-type",
-      "Multiple Matches",
-      "Multiple matching records were found when the operation required only one match.",
-    ),
-    /**
-     * The reference provided was not found. In a pure RESTful environment, this would be an HTTP
-     * 404 error, but this code may be used where the content is not found further into the
-     * application architecture.
-     */
-    Not_Found(
-      "not-found",
-      "http://hl7.org/fhir/issue-type",
-      "Not Found",
-      "The reference provided was not found. In a pure RESTful environment, this would be an HTTP 404 error, but this code may be used where the content is not found further into the application architecture.",
-    ),
-    /** The reference pointed to content (usually a resource) that has been deleted. */
-    Deleted(
-      "deleted",
-      "http://hl7.org/fhir/issue-type",
-      "Deleted",
-      "The reference pointed to content (usually a resource) that has been deleted.",
-    ),
-    /**
-     * Provided content is too long (typically, this is a denial of service protection type of
-     * error).
-     */
-    Too_Long(
-      "too-long",
-      "http://hl7.org/fhir/issue-type",
-      "Content Too Long",
-      "Provided content is too long (typically, this is a denial of service protection type of error).",
-    ),
-    /**
-     * The code or system could not be understood, or it was not valid in the context of a
-     * particular ValueSet.code.
-     */
-    Code_Invalid(
-      "code-invalid",
-      "http://hl7.org/fhir/issue-type",
-      "Invalid Code",
-      "The code or system could not be understood, or it was not valid in the context of a particular ValueSet.code.",
-    ),
-    /**
-     * An extension was found that was not acceptable, could not be resolved, or a modifierExtension
-     * was not recognized.
-     */
-    Extension(
-      "extension",
-      "http://hl7.org/fhir/issue-type",
-      "Unacceptable Extension",
-      "An extension was found that was not acceptable, could not be resolved, or a modifierExtension was not recognized.",
-    ),
-    /**
-     * The operation was stopped to protect server resources; e.g. a request for a value set
-     * expansion on all of SNOMED CT.
-     */
-    Too_Costly(
-      "too-costly",
-      "http://hl7.org/fhir/issue-type",
-      "Operation Too Costly",
-      "The operation was stopped to protect server resources; e.g. a request for a value set expansion on all of SNOMED CT.",
-    ),
-    /** The content/operation failed to pass some business rule and so could not proceed. */
-    Business_Rule(
-      "business-rule",
-      "http://hl7.org/fhir/issue-type",
-      "Business Rule Violation",
-      "The content/operation failed to pass some business rule and so could not proceed.",
-    ),
-    /**
-     * Content could not be accepted because of an edit conflict (i.e. version aware updates). (In a
-     * pure RESTful environment, this would be an HTTP 409 error, but this code may be used where
-     * the conflict is discovered further into the application architecture.).
-     */
-    Conflict(
-      "conflict",
-      "http://hl7.org/fhir/issue-type",
-      "Edit Version Conflict",
-      "Content could not be accepted because of an edit conflict (i.e. version aware updates). (In a pure RESTful environment, this would be an HTTP 409 error, but this code may be used where the conflict is discovered further into the application architecture.).",
-    ),
-    /**
-     * Transient processing issues. The system receiving the message may be able to resubmit the
-     * same content once an underlying issue is resolved.
-     */
-    Transient(
-      "transient",
-      "http://hl7.org/fhir/issue-type",
-      "Transient Issue",
-      "Transient processing issues. The system receiving the message may be able to resubmit the same content once an underlying issue is resolved.",
-    ),
-    /** A resource/record locking failure (usually in an underlying database). */
-    Lock_Error(
-      "lock-error",
-      "http://hl7.org/fhir/issue-type",
-      "Lock Error",
-      "A resource/record locking failure (usually in an underlying database).",
-    ),
-    /**
-     * The persistent store is unavailable; e.g. the database is down for maintenance or similar
-     * action, and the interaction or operation cannot be processed.
-     */
-    No_Store(
-      "no-store",
-      "http://hl7.org/fhir/issue-type",
-      "No Store Available",
-      "The persistent store is unavailable; e.g. the database is down for maintenance or similar action, and the interaction or operation cannot be processed.",
-    ),
-    /** An unexpected internal error has occurred. */
-    Exception(
-      "exception",
-      "http://hl7.org/fhir/issue-type",
-      "Exception",
-      "An unexpected internal error has occurred.",
-    ),
-    /** An internal timeout has occurred. */
-    Timeout(
-      "timeout",
-      "http://hl7.org/fhir/issue-type",
-      "Timeout",
-      "An internal timeout has occurred.",
-    ),
-    /**
-     * Not all data sources typically accessed could be reached or responded in time, so the
-     * returned information might not be complete (applies to search interactions and some
-     * operations).
-     */
-    Incomplete(
-      "incomplete",
-      "http://hl7.org/fhir/issue-type",
-      "Incomplete Results",
-      "Not all data sources typically accessed could be reached or responded in time, so the returned information might not be complete (applies to search interactions and some operations).",
-    ),
-    /** The system is not prepared to handle this request due to load management. */
-    Throttled(
-      "throttled",
-      "http://hl7.org/fhir/issue-type",
-      "Throttled",
-      "The system is not prepared to handle this request due to load management.",
-    ),
-    /**
-     * A message unrelated to the processing success of the completed operation (examples of the
-     * latter include things like reminders of password expiry, system maintenance times, etc.).
-     */
-    Informational(
-      "informational",
-      "http://hl7.org/fhir/issue-type",
-      "Informational Note",
-      "A message unrelated to the processing success of the completed operation (examples of the latter include things like reminders of password expiry, system maintenance times, etc.).",
-    );
+    Invalid("invalid", "http://hl7.org/fhir/issue-type", "Invalid Content"),
+    Structure("structure", "http://hl7.org/fhir/issue-type", "Structural Issue"),
+    Required("required", "http://hl7.org/fhir/issue-type", "Required element missing"),
+    Value("value", "http://hl7.org/fhir/issue-type", "Element value invalid"),
+    Invariant("invariant", "http://hl7.org/fhir/issue-type", "Validation rule failed"),
+    Security("security", "http://hl7.org/fhir/issue-type", "Security Problem"),
+    Login("login", "http://hl7.org/fhir/issue-type", "Login Required"),
+    Unknown("unknown", "http://hl7.org/fhir/issue-type", "Unknown User"),
+    Expired("expired", "http://hl7.org/fhir/issue-type", "Session Expired"),
+    Forbidden("forbidden", "http://hl7.org/fhir/issue-type", "Forbidden"),
+    Suppressed("suppressed", "http://hl7.org/fhir/issue-type", "Information  Suppressed"),
+    Processing("processing", "http://hl7.org/fhir/issue-type", "Processing Failure"),
+    Not_Supported("not-supported", "http://hl7.org/fhir/issue-type", "Content not supported"),
+    Duplicate("duplicate", "http://hl7.org/fhir/issue-type", "Duplicate"),
+    Multiple_Matches("multiple-matches", "http://hl7.org/fhir/issue-type", "Multiple Matches"),
+    Not_Found("not-found", "http://hl7.org/fhir/issue-type", "Not Found"),
+    Deleted("deleted", "http://hl7.org/fhir/issue-type", "Deleted"),
+    Too_Long("too-long", "http://hl7.org/fhir/issue-type", "Content Too Long"),
+    Code_Invalid("code-invalid", "http://hl7.org/fhir/issue-type", "Invalid Code"),
+    Extension("extension", "http://hl7.org/fhir/issue-type", "Unacceptable Extension"),
+    Too_Costly("too-costly", "http://hl7.org/fhir/issue-type", "Operation Too Costly"),
+    Business_Rule("business-rule", "http://hl7.org/fhir/issue-type", "Business Rule Violation"),
+    Conflict("conflict", "http://hl7.org/fhir/issue-type", "Edit Version Conflict"),
+    Transient("transient", "http://hl7.org/fhir/issue-type", "Transient Issue"),
+    Lock_Error("lock-error", "http://hl7.org/fhir/issue-type", "Lock Error"),
+    No_Store("no-store", "http://hl7.org/fhir/issue-type", "No Store Available"),
+    Exception("exception", "http://hl7.org/fhir/issue-type", "Exception"),
+    Timeout("timeout", "http://hl7.org/fhir/issue-type", "Timeout"),
+    Incomplete("incomplete", "http://hl7.org/fhir/issue-type", "Incomplete Results"),
+    Throttled("throttled", "http://hl7.org/fhir/issue-type", "Throttled"),
+    Informational("informational", "http://hl7.org/fhir/issue-type", "Informational Note");
 
     override fun toString(): kotlin.String = code
 
@@ -558,8 +295,6 @@ public data class OperationOutcome(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IssueType =

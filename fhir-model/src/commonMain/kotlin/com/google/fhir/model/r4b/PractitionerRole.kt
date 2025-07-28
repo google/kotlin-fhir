@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.PractitionerRoleAvailableTimeSerial
 import com.google.fhir.model.r4b.serializers.PractitionerRoleNotAvailableSerializer
 import com.google.fhir.model.r4b.serializers.PractitionerRoleSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class PractitionerRole(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class PractitionerRole(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,9 +128,9 @@ public data class PractitionerRole(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Business Identifiers that are specific to a role/location. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this practitioner role record is in active use.
    *
@@ -152,30 +152,30 @@ public data class PractitionerRole(
    *
    * A person may have more than one role.
    */
-  public var code: List<CodeableConcept?>? = null,
+  public var code: MutableList<CodeableConcept> = mutableListOf(),
   /** Specific specialty of the practitioner. */
-  public var specialty: List<CodeableConcept?>? = null,
+  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
   /** The location(s) at which this practitioner provides care. */
-  public var location: List<Reference?>? = null,
+  public var location: MutableList<Reference> = mutableListOf(),
   /**
    * The list of healthcare services that this worker provides for this role's
    * Organization/Location(s).
    */
-  public var healthcareService: List<Reference?>? = null,
+  public var healthcareService: MutableList<Reference> = mutableListOf(),
   /** Contact details that are specific to the role/location/service. */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * A collection of times the practitioner is available or performing this role at the location
    * and/or healthcareservice.
    *
    * More detailed availability information may be provided in associated Schedule/Slot resources.
    */
-  public var availableTime: List<AvailableTime>? = null,
+  public var availableTime: MutableList<AvailableTime> = mutableListOf(),
   /**
    * The practitioner is not available or performing this role during this period of time due to the
    * provided reason.
    */
-  public var notAvailable: List<NotAvailable>? = null,
+  public var notAvailable: MutableList<NotAvailable> = mutableListOf(),
   /**
    * A description of site availability exceptions, e.g. public holiday availability. Succinctly
    * describing all possible exceptions to normal site availability as details in the available
@@ -185,7 +185,7 @@ public data class PractitionerRole(
   /**
    * Technical endpoints providing access to services operated for the practitioner with this role.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A collection of times the practitioner is available or performing this role at the location
@@ -210,7 +210,7 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -229,9 +229,9 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates which days of the week are available between the start and end Times. */
-    public var daysOfWeek: List<Enumeration<DaysOfWeek>>? = null,
+    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
     /** Is this always available? (hence times are irrelevant) e.g. 24 hour service. */
     public var allDay: Boolean? = null,
     /**
@@ -271,7 +271,7 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -290,9 +290,9 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The reason that can be presented to the user as to why this time is not available. */
-    public var description: String? = null,
+    public var description: String,
     /** Service is not available (seasonally or for a public holiday) from this date. */
     public var during: Period? = null,
   ) : BackboneElement()
@@ -302,22 +302,14 @@ public data class PractitionerRole(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Monday. */
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", "Monday."),
-    /** Tuesday. */
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", "Tuesday."),
-    /** Wednesday. */
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", "Wednesday."),
-    /** Thursday. */
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", "Thursday."),
-    /** Friday. */
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", "Friday."),
-    /** Saturday. */
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", "Saturday."),
-    /** Sunday. */
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", "Sunday.");
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
 
     override fun toString(): kotlin.String = code
 
@@ -326,8 +318,6 @@ public data class PractitionerRole(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DaysOfWeek =

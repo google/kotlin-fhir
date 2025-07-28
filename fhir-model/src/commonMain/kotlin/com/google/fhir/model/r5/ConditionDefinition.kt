@@ -27,7 +27,7 @@ import com.google.fhir.model.r5.serializers.ConditionDefinitionQuestionnaireSeri
 import com.google.fhir.model.r5.serializers.ConditionDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class ConditionDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class ConditionDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class ConditionDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this condition definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -161,7 +161,7 @@ public data class ConditionDefinition(
    * type, and can then identify this condition definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the condition definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -212,7 +212,7 @@ public data class ConditionDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this condition definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -256,7 +256,7 @@ public data class ConditionDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the condition definition from a consumer's
    * perspective.
@@ -278,7 +278,7 @@ public data class ConditionDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the condition definition is intended to be used.
    *
@@ -290,9 +290,9 @@ public data class ConditionDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /** Identification of the condition, problem or diagnosis. */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * A subjective assessment of the severity of the condition as evaluated by the clinician.
    *
@@ -321,19 +321,19 @@ public data class ConditionDefinition(
    * Formal definitions of the condition. These may be references to ontologies, published clinical
    * protocols or research papers.
    */
-  public var definition: List<Uri?>? = null,
+  public var definition: MutableList<Uri> = mutableListOf(),
   /** Observations particularly relevant to this condition. */
-  public var observation: List<Observation>? = null,
+  public var observation: MutableList<Observation> = mutableListOf(),
   /** Medications particularly relevant for this condition. */
-  public var medication: List<Medication>? = null,
+  public var medication: MutableList<Medication> = mutableListOf(),
   /** An observation that suggests that this condition applies. */
-  public var precondition: List<Precondition>? = null,
+  public var precondition: MutableList<Precondition> = mutableListOf(),
   /** Appropriate team for this condition. */
-  public var team: List<Reference?>? = null,
+  public var team: MutableList<Reference> = mutableListOf(),
   /** Questionnaire for this condition. */
-  public var questionnaire: List<Questionnaire>? = null,
+  public var questionnaire: MutableList<Questionnaire> = mutableListOf(),
   /** Plan that is appropriate. */
-  public var plan: List<Plan>? = null,
+  public var plan: MutableList<Plan> = mutableListOf(),
 ) : DomainResource() {
   /** Observations particularly relevant to this condition. */
   @Serializable(with = ConditionDefinitionObservationSerializer::class)
@@ -355,7 +355,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -374,7 +374,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Category that is relevant. */
     public var category: CodeableConcept? = null,
     /** Code for relevant Observation. */
@@ -401,7 +401,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -420,7 +420,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Category that is relevant. */
     public var category: CodeableConcept? = null,
     /** Code for relevant Medication. */
@@ -447,7 +447,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -466,11 +466,11 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Kind of pre-condition. */
-    public var type: Enumeration<ConditionPreconditionType>? = null,
+    public var type: Enumeration<ConditionPreconditionType>,
     /** Code for relevant Observation. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** Value of Observation. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
@@ -486,16 +486,14 @@ public data class ConditionDefinition(
 
       public data class Quantity(public val `value`: com.google.fhir.model.r5.Quantity) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          return Null
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r5.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          return null
         }
       }
     }
@@ -521,7 +519,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -540,11 +538,11 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Use of the questionnaire. */
-    public var purpose: Enumeration<ConditionQuestionnairePurpose>? = null,
+    public var purpose: Enumeration<ConditionQuestionnairePurpose>,
     /** Specific Questionnaire. */
-    public var reference: Reference? = null,
+    public var reference: Reference,
   ) : BackboneElement()
 
   /** Plan that is appropriate. */
@@ -567,7 +565,7 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -586,11 +584,11 @@ public data class ConditionDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Use for the plan. */
     public var role: CodeableConcept? = null,
     /** The actual plan. */
-    public var reference: Reference? = null,
+    public var reference: Reference,
   ) : BackboneElement()
 
   @Serializable(with = ConditionDefinitionVersionAlgorithmSerializer::class)
@@ -605,16 +603,14 @@ public data class ConditionDefinition(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
-
     public companion object {
-      public fun from(
+      internal fun from(
         stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
         if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
+        if (codingValue != null) return Coding(codingValue)
+        return null
       }
     }
   }
@@ -624,24 +620,9 @@ public data class ConditionDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The observation is very sensitive for the condition, but may also indicate other conditions.
-     */
-    Sensitive(
-      "sensitive",
-      "http://hl7.org/fhir/condition-precondition-type",
-      "Sensitive",
-      "The observation is very sensitive for the condition, but may also indicate other conditions.",
-    ),
-    /** The observation is very specific for this condition, but not particularly sensitive. */
-    Specific(
-      "specific",
-      "http://hl7.org/fhir/condition-precondition-type",
-      "Specific",
-      "The observation is very specific for this condition, but not particularly sensitive.",
-    );
+    Sensitive("sensitive", "http://hl7.org/fhir/condition-precondition-type", "Sensitive"),
+    Specific("specific", "http://hl7.org/fhir/condition-precondition-type", "Specific");
 
     override fun toString(): kotlin.String = code
 
@@ -650,8 +631,6 @@ public data class ConditionDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionPreconditionType =
@@ -669,29 +648,14 @@ public data class ConditionDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** A pre-admit questionnaire. */
-    Preadmit(
-      "preadmit",
-      "http://hl7.org/fhir/condition-questionnaire-purpose",
-      "Pre-admit",
-      "A pre-admit questionnaire.",
-    ),
-    /** A questionnaire that helps with diferential diagnosis. */
+    Preadmit("preadmit", "http://hl7.org/fhir/condition-questionnaire-purpose", "Pre-admit"),
     Diff_Diagnosis(
       "diff-diagnosis",
       "http://hl7.org/fhir/condition-questionnaire-purpose",
       "Diff Diagnosis",
-      "A questionnaire that helps with diferential diagnosis.",
     ),
-    /** A questionnaire to check on outcomes for the patient. */
-    Outcome(
-      "outcome",
-      "http://hl7.org/fhir/condition-questionnaire-purpose",
-      "Outcome",
-      "A questionnaire to check on outcomes for the patient.",
-    );
+    Outcome("outcome", "http://hl7.org/fhir/condition-questionnaire-purpose", "Outcome");
 
     override fun toString(): kotlin.String = code
 
@@ -700,8 +664,6 @@ public data class ConditionDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ConditionQuestionnairePurpose =

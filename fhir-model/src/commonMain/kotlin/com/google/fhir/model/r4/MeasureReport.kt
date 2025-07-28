@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.MeasureReportGroupStratifierStratumS
 import com.google.fhir.model.r4.serializers.MeasureReportSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class MeasureReport(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class MeasureReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class MeasureReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * A formal identifier that is used to identify this MeasureReport when it is represented in other
    * formats or referenced in a specification, model, design or an instance.
@@ -141,14 +141,14 @@ public data class MeasureReport(
    * Typically, this is used for identifiers that can go in an HL7 V3 II data type - e.g. to
    * identify this {{title}} outside of FHIR, where the logical URL is not possible to use.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The MeasureReport status. No data will be available until the MeasureReport status is complete.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MeasureReportStatus>? = null,
+  public var status: Enumeration<MeasureReportStatus>,
   /**
    * The type of measure report. This may be an individual report, which provides the score for the
    * measure for an individual member of the population; a subject-listing, which returns the list
@@ -159,9 +159,9 @@ public data class MeasureReport(
    * Data-collection reports are used only to communicate data-of-interest for a measure. They do
    * not necessarily include all the data for a particular subject or population, but they may.
    */
-  public var type: Enumeration<MeasureReportType>? = null,
+  public var type: Enumeration<MeasureReportType>,
   /** A reference to the Measure that was calculated to produce this report. */
-  public var measure: Canonical? = null,
+  public var measure: Canonical,
   /** Optional subject identifying the individual or individuals the report is for. */
   public var subject: Reference? = null,
   /** The date this measure report was generated. */
@@ -169,7 +169,7 @@ public data class MeasureReport(
   /** The individual, location, or organization that is reporting the data. */
   public var reporter: Reference? = null,
   /** The reporting period for which the report was calculated. */
-  public var period: Period? = null,
+  public var period: Period,
   /**
    * Whether improvement in the measure is noted by an increase or decrease in the measure score.
    *
@@ -179,12 +179,12 @@ public data class MeasureReport(
    */
   public var improvementNotation: CodeableConcept? = null,
   /** The results of the calculation, one for each population group in the measure. */
-  public var group: List<Group>? = null,
+  public var group: MutableList<Group> = mutableListOf(),
   /**
    * A reference to a Bundle containing the Resources that were used in the calculation of this
    * measure.
    */
-  public var evaluatedResource: List<Reference?>? = null,
+  public var evaluatedResource: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** The results of the calculation, one for each population group in the measure. */
   @Serializable(with = MeasureReportGroupSerializer::class)
@@ -206,7 +206,7 @@ public data class MeasureReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -225,14 +225,14 @@ public data class MeasureReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The meaning of the population group as defined in the measure definition. */
     public var code: CodeableConcept? = null,
     /**
      * The populations that make up the population group, one for each type of population
      * appropriate for the measure.
      */
-    public var population: List<Population>? = null,
+    public var population: MutableList<Population> = mutableListOf(),
     /**
      * The measure score for this population group, calculated as appropriate for the measure type
      * and scoring method, and based on the contents of the populations defined in the group.
@@ -242,7 +242,7 @@ public data class MeasureReport(
      * When a measure includes multiple stratifiers, there will be a stratifier group for each
      * stratifier defined by the measure.
      */
-    public var stratifier: List<Stratifier>? = null,
+    public var stratifier: MutableList<Stratifier> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * The populations that make up the population group, one for each type of population
@@ -267,7 +267,7 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -286,7 +286,7 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of the population. */
       public var code: CodeableConcept? = null,
       /** The number of members of the population. */
@@ -321,7 +321,7 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -340,15 +340,15 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The meaning of this stratifier, as defined in the measure definition. */
-      public var code: List<CodeableConcept?>? = null,
+      public var code: MutableList<CodeableConcept> = mutableListOf(),
       /**
        * This element contains the results for a single stratum within the stratifier. For example,
        * when stratifying on administrative gender, there will be four strata, one for each possible
        * gender value.
        */
-      public var stratum: List<Stratum>? = null,
+      public var stratum: MutableList<Stratum> = mutableListOf(),
     ) : BackboneElement() {
       /**
        * This element contains the results for a single stratum within the stratifier. For example,
@@ -374,7 +374,7 @@ public data class MeasureReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -393,7 +393,7 @@ public data class MeasureReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * The value for this stratum, expressed as a CodeableConcept. When defining stratifiers on
          * complex values, the value must be rendered such that the value for each stratum within
@@ -401,12 +401,12 @@ public data class MeasureReport(
          */
         public var `value`: CodeableConcept? = null,
         /** A stratifier component value. */
-        public var component: List<Component>? = null,
+        public var component: MutableList<Component> = mutableListOf(),
         /**
          * The populations that make up the stratum, one for each type of population appropriate to
          * the measure.
          */
-        public var population: List<Population>? = null,
+        public var population: MutableList<Population> = mutableListOf(),
         /**
          * The measure score for this stratum, calculated as appropriate for the measure type and
          * scoring method, and based on only the members of this stratum.
@@ -433,7 +433,7 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -452,11 +452,11 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** The code for the stratum component value. */
-          public var code: CodeableConcept? = null,
+          public var code: CodeableConcept,
           /** The stratum component value. */
-          public var `value`: CodeableConcept? = null,
+          public var `value`: CodeableConcept,
         ) : BackboneElement()
 
         /**
@@ -482,7 +482,7 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: List<Extension?>? = null,
+          override var extension: MutableList<Extension> = mutableListOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -501,7 +501,7 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: List<Extension?>? = null,
+          override var modifierExtension: MutableList<Extension> = mutableListOf(),
           /** The type of the population. */
           public var code: CodeableConcept? = null,
           /** The number of members of the population in this stratum. */
@@ -521,29 +521,10 @@ public data class MeasureReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /** The report is complete and ready for use. */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/measure-report-status",
-      "Complete",
-      "The report is complete and ready for use.",
-    ),
-    /** The report is currently being generated. */
-    Pending(
-      "pending",
-      "http://hl7.org/fhir/measure-report-status",
-      "Pending",
-      "The report is currently being generated.",
-    ),
-    /** An error occurred attempting to generate the report. */
-    Error(
-      "error",
-      "http://hl7.org/fhir/measure-report-status",
-      "Error",
-      "An error occurred attempting to generate the report.",
-    );
+    Complete("complete", "http://hl7.org/fhir/measure-report-status", "Complete"),
+    Pending("pending", "http://hl7.org/fhir/measure-report-status", "Pending"),
+    Error("error", "http://hl7.org/fhir/measure-report-status", "Error");
 
     override fun toString(): String = code
 
@@ -552,8 +533,6 @@ public data class MeasureReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MeasureReportStatus =
@@ -571,44 +550,14 @@ public data class MeasureReport(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * An individual report that provides information on the performance for a given measure with
-     * respect to a single subject.
-     */
-    Individual(
-      "individual",
-      "http://hl7.org/fhir/measure-report-type",
-      "Individual",
-      "An individual report that provides information on the performance for a given measure with respect to a single subject.",
-    ),
-    /**
-     * A subject list report that includes a listing of subjects that satisfied each population
-     * criteria in the measure.
-     */
-    Subject_List(
-      "subject-list",
-      "http://hl7.org/fhir/measure-report-type",
-      "Subject List",
-      "A subject list report that includes a listing of subjects that satisfied each population criteria in the measure.",
-    ),
-    /**
-     * A summary report that returns the number of members in each population criteria for the
-     * measure.
-     */
-    Summary(
-      "summary",
-      "http://hl7.org/fhir/measure-report-type",
-      "Summary",
-      "A summary report that returns the number of members in each population criteria for the measure.",
-    ),
-    /** A data collection report that contains data-of-interest for the measure. */
+    Individual("individual", "http://hl7.org/fhir/measure-report-type", "Individual"),
+    Subject_List("subject-list", "http://hl7.org/fhir/measure-report-type", "Subject List"),
+    Summary("summary", "http://hl7.org/fhir/measure-report-type", "Summary"),
     Data_Collection(
       "data-collection",
       "http://hl7.org/fhir/measure-report-type",
       "Data Collection",
-      "A data collection report that contains data-of-interest for the measure.",
     );
 
     override fun toString(): String = code
@@ -618,8 +567,6 @@ public data class MeasureReport(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MeasureReportType =

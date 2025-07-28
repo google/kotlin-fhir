@@ -19,7 +19,6 @@
 
 package com.google.fhir.model.r4.surrogates
 
-import com.google.fhir.model.r4.Code
 import com.google.fhir.model.r4.CodeableConcept
 import com.google.fhir.model.r4.DateTime
 import com.google.fhir.model.r4.Decimal
@@ -40,33 +39,33 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class TimingRepeatBoundsSurrogate {
-  public var boundsDuration: Duration? = null
-
-  public var boundsRange: Range? = null
-
-  public var boundsPeriod: Period? = null
-
-  public fun toModel(): Timing.Repeat.Bounds =
+internal data class TimingRepeatBoundsSurrogate(
+  public var boundsDuration: Duration? = null,
+  public var boundsRange: Range? = null,
+  public var boundsPeriod: Period? = null,
+) {
+  public fun toModel(): Timing.Repeat.Bounds? =
     Timing.Repeat.Bounds?.from(
       this@TimingRepeatBoundsSurrogate.boundsDuration,
       this@TimingRepeatBoundsSurrogate.boundsRange,
       this@TimingRepeatBoundsSurrogate.boundsPeriod,
-    ) ?: Timing.Repeat.Bounds.Null
+    )
 
   public companion object {
     public fun fromModel(model: Timing.Repeat.Bounds): TimingRepeatBoundsSurrogate =
       with(model) {
         TimingRepeatBoundsSurrogate().apply {
-          boundsDuration = this@with.asDuration()?.value
-          boundsRange = this@with.asRange()?.value
-          boundsPeriod = this@with.asPeriod()?.value
+          Timing.Repeat.Bounds?.from(
+            this@TimingRepeatBoundsSurrogate.boundsDuration,
+            this@TimingRepeatBoundsSurrogate.boundsRange,
+            this@TimingRepeatBoundsSurrogate.boundsPeriod,
+          )
         }
       }
   }
@@ -75,7 +74,7 @@ internal class TimingRepeatBoundsSurrogate {
 @Serializable
 internal data class TimingRepeatSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
   public var countMax: Int? = null,
@@ -96,48 +95,58 @@ internal data class TimingRepeatSurrogate(
   public var _periodMax: Element? = null,
   public var periodUnit: String? = null,
   public var _periodUnit: Element? = null,
-  public var dayOfWeek: List<String?>? = null,
-  public var _dayOfWeek: List<Element?>? = null,
-  public var timeOfDay: List<LocalTime?>? = null,
-  public var _timeOfDay: List<Element?>? = null,
-  public var `when`: List<String?>? = null,
-  public var _when: List<Element?>? = null,
+  public var dayOfWeek: MutableList<String?>? = null,
+  public var _dayOfWeek: MutableList<Element?>? = null,
+  public var timeOfDay: MutableList<LocalTime?>? = null,
+  public var _timeOfDay: MutableList<Element?>? = null,
+  public var `when`: MutableList<String?>? = null,
+  public var _when: MutableList<Element?>? = null,
   public var offset: Int? = null,
   public var _offset: Element? = null,
   public var bounds: Timing.Repeat.Bounds? = null,
 ) {
   public fun toModel(): Timing.Repeat =
-    Timing.Repeat().apply {
-      id = this@TimingRepeatSurrogate.id
-      extension = this@TimingRepeatSurrogate.extension
-      bounds = this@TimingRepeatSurrogate.bounds
-      count = PositiveInt.of(this@TimingRepeatSurrogate.count, this@TimingRepeatSurrogate._count)
+    Timing.Repeat(
+      id = this@TimingRepeatSurrogate.id,
+      extension = this@TimingRepeatSurrogate.extension ?: mutableListOf(),
+      bounds = this@TimingRepeatSurrogate.bounds,
+      count = PositiveInt.of(this@TimingRepeatSurrogate.count, this@TimingRepeatSurrogate._count),
       countMax =
-        PositiveInt.of(this@TimingRepeatSurrogate.countMax, this@TimingRepeatSurrogate._countMax)
+        PositiveInt.of(this@TimingRepeatSurrogate.countMax, this@TimingRepeatSurrogate._countMax),
       duration =
-        Decimal.of(this@TimingRepeatSurrogate.duration, this@TimingRepeatSurrogate._duration)
+        Decimal.of(this@TimingRepeatSurrogate.duration, this@TimingRepeatSurrogate._duration),
       durationMax =
-        Decimal.of(this@TimingRepeatSurrogate.durationMax, this@TimingRepeatSurrogate._durationMax)
+        Decimal.of(this@TimingRepeatSurrogate.durationMax, this@TimingRepeatSurrogate._durationMax),
       durationUnit =
-        Code.of(this@TimingRepeatSurrogate.durationUnit, this@TimingRepeatSurrogate._durationUnit)
+        this@TimingRepeatSurrogate.durationUnit?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Timing.UnitsOfTime.fromCode(it!!),
+            this@TimingRepeatSurrogate._durationUnit,
+          )
+        },
       frequency =
-        PositiveInt.of(this@TimingRepeatSurrogate.frequency, this@TimingRepeatSurrogate._frequency)
+        PositiveInt.of(this@TimingRepeatSurrogate.frequency, this@TimingRepeatSurrogate._frequency),
       frequencyMax =
         PositiveInt.of(
           this@TimingRepeatSurrogate.frequencyMax,
           this@TimingRepeatSurrogate._frequencyMax,
-        )
-      period = Decimal.of(this@TimingRepeatSurrogate.period, this@TimingRepeatSurrogate._period)
+        ),
+      period = Decimal.of(this@TimingRepeatSurrogate.period, this@TimingRepeatSurrogate._period),
       periodMax =
-        Decimal.of(this@TimingRepeatSurrogate.periodMax, this@TimingRepeatSurrogate._periodMax)
+        Decimal.of(this@TimingRepeatSurrogate.periodMax, this@TimingRepeatSurrogate._periodMax),
       periodUnit =
-        Code.of(this@TimingRepeatSurrogate.periodUnit, this@TimingRepeatSurrogate._periodUnit)
+        this@TimingRepeatSurrogate.periodUnit?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.Timing.UnitsOfTime.fromCode(it!!),
+            this@TimingRepeatSurrogate._periodUnit,
+          )
+        },
       dayOfWeek =
         if (
           this@TimingRepeatSurrogate.dayOfWeek == null &&
             this@TimingRepeatSurrogate._dayOfWeek == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@TimingRepeatSurrogate.dayOfWeek
               ?: List(this@TimingRepeatSurrogate._dayOfWeek!!.size) { null })
@@ -145,19 +154,20 @@ internal data class TimingRepeatSurrogate(
               this@TimingRepeatSurrogate._dayOfWeek
                 ?: List(this@TimingRepeatSurrogate.dayOfWeek!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let { com.google.fhir.model.r4.Timing.DayOfWeek.fromCode(it) },
+                value.let { com.google.fhir.model.r4.Timing.DayOfWeek.fromCode(it!!)!! },
                 element,
               )
             }
-        }
+            .toMutableList()
+        },
       timeOfDay =
         if (
           this@TimingRepeatSurrogate.timeOfDay == null &&
             this@TimingRepeatSurrogate._timeOfDay == null
         ) {
-          null
+          mutableListOf()
         } else {
           (this@TimingRepeatSurrogate.timeOfDay
               ?: List(this@TimingRepeatSurrogate._timeOfDay!!.size) { null })
@@ -165,11 +175,12 @@ internal data class TimingRepeatSurrogate(
               this@TimingRepeatSurrogate._timeOfDay
                 ?: List(this@TimingRepeatSurrogate.timeOfDay!!.size) { null }
             )
-            .mapNotNull { (value, element) -> Time.of(value, element) }
-        }
+            .map { (value, element) -> Time.of(value, element)!! }
+            .toMutableList()
+        },
       `when` =
         if (this@TimingRepeatSurrogate.`when` == null && this@TimingRepeatSurrogate._when == null) {
-          null
+          mutableListOf()
         } else {
           (this@TimingRepeatSurrogate.`when`
               ?: List(this@TimingRepeatSurrogate._when!!.size) { null })
@@ -177,56 +188,80 @@ internal data class TimingRepeatSurrogate(
               this@TimingRepeatSurrogate._when
                 ?: List(this@TimingRepeatSurrogate.`when`!!.size) { null }
             )
-            .mapNotNull { (value, element) ->
+            .map { (value, element) ->
               Enumeration.of(
-                value?.let { com.google.fhir.model.r4.Timing.EventTiming.fromCode(it) },
+                value.let { com.google.fhir.model.r4.Timing.EventTiming.fromCode(it!!)!! },
                 element,
               )
             }
-        }
-      offset = UnsignedInt.of(this@TimingRepeatSurrogate.offset, this@TimingRepeatSurrogate._offset)
-    }
+            .toMutableList()
+        },
+      offset = UnsignedInt.of(this@TimingRepeatSurrogate.offset, this@TimingRepeatSurrogate._offset),
+    )
 
   public companion object {
     public fun fromModel(model: Timing.Repeat): TimingRepeatSurrogate =
       with(model) {
-        TimingRepeatSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          bounds = this@with.bounds
-          count = this@with.count?.value
-          _count = this@with.count?.toElement()
-          countMax = this@with.countMax?.value
-          _countMax = this@with.countMax?.toElement()
-          duration = this@with.duration?.value
-          _duration = this@with.duration?.toElement()
-          durationMax = this@with.durationMax?.value
-          _durationMax = this@with.durationMax?.toElement()
-          durationUnit = this@with.durationUnit?.value
-          _durationUnit = this@with.durationUnit?.toElement()
-          frequency = this@with.frequency?.value
-          _frequency = this@with.frequency?.toElement()
-          frequencyMax = this@with.frequencyMax?.value
-          _frequencyMax = this@with.frequencyMax?.toElement()
-          period = this@with.period?.value
-          _period = this@with.period?.toElement()
-          periodMax = this@with.periodMax?.value
-          _periodMax = this@with.periodMax?.toElement()
-          periodUnit = this@with.periodUnit?.value
-          _periodUnit = this@with.periodUnit?.toElement()
+        TimingRepeatSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          bounds = this@with.bounds,
+          count = this@with.count?.value,
+          _count = this@with.count?.toElement(),
+          countMax = this@with.countMax?.value,
+          _countMax = this@with.countMax?.toElement(),
+          duration = this@with.duration?.value,
+          _duration = this@with.duration?.toElement(),
+          durationMax = this@with.durationMax?.value,
+          _durationMax = this@with.durationMax?.toElement(),
+          durationUnit = this@with.durationUnit?.value?.getCode(),
+          _durationUnit = this@with.durationUnit?.toElement(),
+          frequency = this@with.frequency?.value,
+          _frequency = this@with.frequency?.toElement(),
+          frequencyMax = this@with.frequencyMax?.value,
+          _frequencyMax = this@with.frequencyMax?.toElement(),
+          period = this@with.period?.value,
+          _period = this@with.period?.toElement(),
+          periodMax = this@with.periodMax?.value,
+          _periodMax = this@with.periodMax?.toElement(),
+          periodUnit = this@with.periodUnit?.value?.getCode(),
+          _periodUnit = this@with.periodUnit?.toElement(),
           dayOfWeek =
-            this@with.dayOfWeek?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
+            this@with.dayOfWeek
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _dayOfWeek =
-            this@with.dayOfWeek?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          timeOfDay = this@with.timeOfDay?.map { it?.value }?.takeUnless { it.all { it == null } }
+            this@with.dayOfWeek
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          timeOfDay =
+            this@with.timeOfDay
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
           _timeOfDay =
-            this@with.timeOfDay?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
+            this@with.timeOfDay
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
           `when` =
-            this@with.`when`?.map { it?.value?.getCode() }?.takeUnless { it.all { it == null } }
-          _when = this@with.`when`?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          offset = this@with.offset?.value
-          _offset = this@with.offset?.toElement()
-        }
+            this@with.`when`
+              .map { it.value?.getCode() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _when =
+            this@with.`when`
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          offset = this@with.offset?.value,
+          _offset = this@with.offset?.toElement(),
+        )
       }
   }
 }
@@ -234,43 +269,52 @@ internal data class TimingRepeatSurrogate(
 @Serializable
 internal data class TimingSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var event: List<String?>? = null,
-  public var _event: List<Element?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var event: MutableList<String?>? = null,
+  public var _event: MutableList<Element?>? = null,
   public var repeat: Timing.Repeat? = null,
   public var code: CodeableConcept? = null,
 ) {
   public fun toModel(): Timing =
-    Timing().apply {
-      id = this@TimingSurrogate.id
-      extension = this@TimingSurrogate.extension
-      modifierExtension = this@TimingSurrogate.modifierExtension
+    Timing(
+      id = this@TimingSurrogate.id,
+      extension = this@TimingSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TimingSurrogate.modifierExtension ?: mutableListOf(),
       event =
         if (this@TimingSurrogate.event == null && this@TimingSurrogate._event == null) {
-          null
+          mutableListOf()
         } else {
           (this@TimingSurrogate.event ?: List(this@TimingSurrogate._event!!.size) { null })
             .zip(this@TimingSurrogate._event ?: List(this@TimingSurrogate.event!!.size) { null })
-            .mapNotNull { (value, element) -> DateTime.of(FhirDateTime.fromString(value), element) }
-        }
-      repeat = this@TimingSurrogate.repeat
-      code = this@TimingSurrogate.code
-    }
+            .map { (value, element) -> DateTime.of(FhirDateTime.fromString(value), element)!! }
+            .toMutableList()
+        },
+      repeat = this@TimingSurrogate.repeat,
+      code = this@TimingSurrogate.code,
+    )
 
   public companion object {
     public fun fromModel(model: Timing): TimingSurrogate =
       with(model) {
-        TimingSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
+        TimingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           event =
-            this@with.event?.map { it?.value?.toString() }?.takeUnless { it.all { it == null } }
-          _event = this@with.event?.map { it?.toElement() }?.takeUnless { it.all { it == null } }
-          repeat = this@with.repeat
-          code = this@with.code
-        }
+            this@with.event
+              .map { it.value?.toString() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _event =
+            this@with.event
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          repeat = this@with.repeat,
+          code = this@with.code,
+        )
       }
   }
 }

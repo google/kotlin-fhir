@@ -34,7 +34,7 @@ import com.google.fhir.model.r4b.serializers.SubstanceDefinitionSourceMaterialSe
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionStructureRepresentationSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionStructureSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -108,7 +108,7 @@ public data class SubstanceDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -121,7 +121,7 @@ public data class SubstanceDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -140,9 +140,9 @@ public data class SubstanceDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier by which this substance is known. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** A business level version identifier of the substance. */
   public var version: String? = null,
   /** Status of substance within the catalogue e.g. active, retired. */
@@ -152,44 +152,44 @@ public data class SubstanceDefinition(
    * lower level such as the general types of polymer (linear or branch chain) or type of impurity
    * (process related or contaminant).
    */
-  public var classification: List<CodeableConcept?>? = null,
+  public var classification: MutableList<CodeableConcept> = mutableListOf(),
   /** If the substance applies to human or veterinary use. */
   public var domain: CodeableConcept? = null,
   /**
    * The quality standard, established benchmark, to which substance complies (e.g. USP/NF, Ph. Eur,
    * JP, BP, Company Standard).
    */
-  public var grade: List<CodeableConcept?>? = null,
+  public var grade: MutableList<CodeableConcept> = mutableListOf(),
   /** Textual description of the substance. */
   public var description: Markdown? = null,
   /** Supporting literature. */
-  public var informationSource: List<Reference?>? = null,
+  public var informationSource: MutableList<Reference> = mutableListOf(),
   /** Textual comment about the substance's catalogue or registry record. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The entity that creates, makes, produces or fabricates the substance. This is a set of
    * potential manufacturers but is not necessarily comprehensive.
    */
-  public var manufacturer: List<Reference?>? = null,
+  public var manufacturer: MutableList<Reference> = mutableListOf(),
   /**
    * An entity that is the source for the substance. It may be different from the manufacturer.
    * Supplier is synonymous to a distributor.
    */
-  public var supplier: List<Reference?>? = null,
+  public var supplier: MutableList<Reference> = mutableListOf(),
   /** Moiety, for structural modifications. */
-  public var moiety: List<Moiety>? = null,
+  public var moiety: MutableList<Moiety> = mutableListOf(),
   /** General specifications for this substance. */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
   /** The molecular weight or weight range (for proteins, polymers or nucleic acids). */
-  public var molecularWeight: List<MolecularWeight>? = null,
+  public var molecularWeight: MutableList<MolecularWeight> = mutableListOf(),
   /** Structural information. */
   public var structure: Structure? = null,
   /** Codes associated with the substance. */
-  public var code: List<Code>? = null,
+  public var code: MutableList<Code> = mutableListOf(),
   /** Names applicable to this substance. */
-  public var name: List<Name>? = null,
+  public var name: MutableList<Name> = mutableListOf(),
   /** A link between this substance and another, with details of the relationship. */
-  public var relationship: List<Relationship>? = null,
+  public var relationship: MutableList<Relationship> = mutableListOf(),
   /** Material or taxonomic/anatomical source for the substance. */
   public var sourceMaterial: SourceMaterial? = null,
 ) : DomainResource() {
@@ -213,7 +213,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -232,7 +232,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Role that the moiety is playing. */
     public var role: CodeableConcept? = null,
     /** Identifier by which this moiety substance is known. */
@@ -264,16 +264,14 @@ public data class SubstanceDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r4b.String) : Amount
 
-      public data object Null : Amount
-
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
+        internal fun from(
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
           stringValue: com.google.fhir.model.r4b.String?,
-        ): Amount {
-          if (QuantityValue != null) return Quantity(QuantityValue)
+        ): Amount? {
+          if (quantityValue != null) return Quantity(quantityValue)
           if (stringValue != null) return String(stringValue)
-          return Null
+          return null
         }
       }
     }
@@ -299,7 +297,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -318,9 +316,9 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code expressing the type of property. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** A value for the property. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
@@ -349,22 +347,20 @@ public data class SubstanceDefinition(
       public data class Attachment(public val `value`: com.google.fhir.model.r4b.Attachment) :
         Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
+        internal fun from(
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
           dateValue: com.google.fhir.model.r4b.Date?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-        ): Value {
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+        ): Value? {
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (quantityValue != null) return Quantity(quantityValue)
           if (dateValue != null) return Date(dateValue)
           if (booleanValue != null) return Boolean(booleanValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          return Null
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          return null
         }
       }
     }
@@ -390,7 +386,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -409,7 +405,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The method by which the molecular weight was determined. */
     public var method: CodeableConcept? = null,
     /**
@@ -422,7 +418,7 @@ public data class SubstanceDefinition(
      * arithmetic mean would be the average. If only a single definite value for a given element is
      * given, it would be captured in this field.
      */
-    public var amount: Quantity? = null,
+    public var amount: Quantity,
   ) : BackboneElement()
 
   /** Structural information. */
@@ -445,7 +441,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -464,7 +460,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Stereochemistry type. */
     public var stereochemistry: CodeableConcept? = null,
     /** Optical activity type. */
@@ -482,11 +478,11 @@ public data class SubstanceDefinition(
      * The method used to elucidate the structure or characterization of the drug substance.
      * Examples: X-ray, HPLC, NMR, Peptide mapping, Ligand binding assay.
      */
-    public var technique: List<CodeableConcept?>? = null,
+    public var technique: MutableList<CodeableConcept> = mutableListOf(),
     /** The source of information about the structure. */
-    public var sourceDocument: List<Reference?>? = null,
+    public var sourceDocument: MutableList<Reference> = mutableListOf(),
     /** A depiction of the structure or characterization of the substance. */
-    public var representation: List<Representation>? = null,
+    public var representation: MutableList<Representation> = mutableListOf(),
   ) : BackboneElement() {
     /** A depiction of the structure or characterization of the substance. */
     @Serializable(with = SubstanceDefinitionStructureRepresentationSerializer::class)
@@ -508,7 +504,7 @@ public data class SubstanceDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -527,7 +523,7 @@ public data class SubstanceDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The kind of structural representation (e.g. full, partial). */
       public var type: CodeableConcept? = null,
       /**
@@ -567,7 +563,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -586,7 +582,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The specific code. */
     public var code: CodeableConcept? = null,
     /** Status of the code assignment, for example 'provisional', 'approved'. */
@@ -594,9 +590,9 @@ public data class SubstanceDefinition(
     /** The date at which the code status was changed as part of the terminology maintenance. */
     public var statusDate: DateTime? = null,
     /** Any comment can be provided in this field, if necessary. */
-    public var note: List<Annotation?>? = null,
+    public var note: MutableList<Annotation> = mutableListOf(),
     /** Supporting literature. */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** Names applicable to this substance. */
@@ -619,7 +615,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -638,9 +634,9 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The actual name. */
-    public var name: String? = null,
+    public var name: String,
     /** Name type, for example 'systematic', 'scientific, 'brand'. */
     public var type: CodeableConcept? = null,
     /** The status of the name, for example 'current', 'proposed'. */
@@ -648,22 +644,22 @@ public data class SubstanceDefinition(
     /** If this is the preferred name for this substance. */
     public var preferred: Boolean? = null,
     /** Human language that the name is written in. */
-    public var language: List<CodeableConcept?>? = null,
+    public var language: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The use context of this name for example if there is a different name a drug active
      * ingredient as opposed to a food colour additive.
      */
-    public var domain: List<CodeableConcept?>? = null,
+    public var domain: MutableList<CodeableConcept> = mutableListOf(),
     /** The jurisdiction where this name applies. */
-    public var jurisdiction: List<CodeableConcept?>? = null,
+    public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
     /** A synonym of this particular name, by which the substance is also known. */
-    public var synonym: List<Name?>? = null,
+    public var synonym: MutableList<Name> = mutableListOf(),
     /** A translation for this name into another human language. */
-    public var translation: List<Name?>? = null,
+    public var translation: MutableList<Name> = mutableListOf(),
     /** Details of the official nature of this name. */
-    public var official: List<Official>? = null,
+    public var official: MutableList<Official> = mutableListOf(),
     /** Supporting literature. */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
     /** Details of the official nature of this name. */
     @Serializable(with = SubstanceDefinitionNameOfficialSerializer::class)
@@ -685,7 +681,7 @@ public data class SubstanceDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -704,7 +700,7 @@ public data class SubstanceDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Which authority uses this official name. */
       public var authority: CodeableConcept? = null,
       /** The status of the official name, for example 'draft', 'active', 'retired'. */
@@ -734,7 +730,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -753,14 +749,14 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A pointer to another substance, as a resource or just a representational code. */
     public var substanceDefinition: SubstanceDefinition? = null,
     /**
      * For example "salt to parent", "active moiety", "starting material", "polymorph", "impurity
      * of".
      */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /**
      * For example where an enzyme strongly bonds with a particular substance, this is a defining
      * relationship for that enzyme, out of several possible substance relationships.
@@ -776,7 +772,7 @@ public data class SubstanceDefinition(
     /** An operator for the amount, for example "average", "approximately", "less than". */
     public var comparator: CodeableConcept? = null,
     /** Supporting literature. */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
     @Serializable(with = SubstanceDefinitionRelationshipSubstanceDefinitionSerializer::class)
     public sealed interface SubstanceDefinition {
@@ -791,16 +787,14 @@ public data class SubstanceDefinition(
         public val `value`: com.google.fhir.model.r4b.CodeableConcept
       ) : SubstanceDefinition
 
-      public data object Null : SubstanceDefinition
-
       public companion object {
-        public fun from(
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ): SubstanceDefinition {
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          return Null
+        internal fun from(
+          referenceValue: com.google.fhir.model.r4b.Reference?,
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        ): SubstanceDefinition? {
+          if (referenceValue != null) return Reference(referenceValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          return null
         }
       }
     }
@@ -819,18 +813,16 @@ public data class SubstanceDefinition(
 
       public data class String(public val `value`: com.google.fhir.model.r4b.String) : Amount
 
-      public data object Null : Amount
-
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RatioValue: com.google.fhir.model.r4b.Ratio?,
+        internal fun from(
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          ratioValue: com.google.fhir.model.r4b.Ratio?,
           stringValue: com.google.fhir.model.r4b.String?,
-        ): Amount {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RatioValue != null) return Ratio(RatioValue)
+        ): Amount? {
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (ratioValue != null) return Ratio(ratioValue)
           if (stringValue != null) return String(stringValue)
-          return Null
+          return null
         }
       }
     }
@@ -856,7 +848,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -875,7 +867,7 @@ public data class SubstanceDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A classification that provides the origin of the raw material. Example: cat hair would be an
      * Animal source type.
@@ -894,6 +886,6 @@ public data class SubstanceDefinition(
     /** An anatomical origin of the source material within an organism. */
     public var part: CodeableConcept? = null,
     /** The country or countries where the material is harvested. */
-    public var countryOfOrigin: List<CodeableConcept?>? = null,
+    public var countryOfOrigin: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 }

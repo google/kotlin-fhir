@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.NarrativeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,12 +47,12 @@ public data class Narrative(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The status of the narrative - whether it's entirely generated (from just the defined data or
    * the extensions too), or whether a human authored it and it may contain additional data.
    */
-  public var status: Enumeration<NarrativeStatus>? = null,
+  public var status: Enumeration<NarrativeStatus>,
   /**
    * The actual narrative content, a stripped down version of XHTML.
    *
@@ -62,56 +62,18 @@ public data class Narrative(
    * contain a head, a body, external stylesheet references, scripts, forms, base/link/xlink,
    * frames, iframes and objects.
    */
-  public var div: Xhtml? = null,
+  public var div: Xhtml,
 ) : Element() {
   /** The status of a resource narrative. */
   public enum class NarrativeStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The contents of the narrative are entirely generated from the core elements in the content.
-     */
-    Generated(
-      "generated",
-      "http://hl7.org/fhir/narrative-status",
-      "Generated",
-      "The contents of the narrative are entirely generated from the core elements in the content.",
-    ),
-    /**
-     * The contents of the narrative are entirely generated from the core elements in the content
-     * and some of the content is generated from extensions. The narrative SHALL reflect the impact
-     * of all modifier extensions.
-     */
-    Extensions(
-      "extensions",
-      "http://hl7.org/fhir/narrative-status",
-      "Extensions",
-      "The contents of the narrative are entirely generated from the core elements in the content and some of the content is generated from extensions. The narrative SHALL reflect the impact of all modifier extensions.",
-    ),
-    /**
-     * The contents of the narrative may contain additional information not found in the structured
-     * data. Note that there is no computable way to determine what the extra information is, other
-     * than by human inspection.
-     */
-    Additional(
-      "additional",
-      "http://hl7.org/fhir/narrative-status",
-      "Additional",
-      "The contents of the narrative may contain additional information not found in the structured data. Note that there is no computable way to determine what the extra information is, other than by human inspection.",
-    ),
-    /**
-     * The contents of the narrative are some equivalent of "No human-readable text provided in this
-     * case".
-     */
-    Empty(
-      "empty",
-      "http://hl7.org/fhir/narrative-status",
-      "Empty",
-      "The contents of the narrative are some equivalent of \"No human-readable text provided in this case\".",
-    );
+    Generated("generated", "http://hl7.org/fhir/narrative-status", "Generated"),
+    Extensions("extensions", "http://hl7.org/fhir/narrative-status", "Extensions"),
+    Additional("additional", "http://hl7.org/fhir/narrative-status", "Additional"),
+    Empty("empty", "http://hl7.org/fhir/narrative-status", "Empty");
 
     override fun toString(): String = code
 
@@ -120,8 +82,6 @@ public data class Narrative(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): NarrativeStatus =

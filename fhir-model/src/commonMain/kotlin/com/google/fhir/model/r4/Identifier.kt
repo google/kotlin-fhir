@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.IdentifierSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -46,7 +46,7 @@ public data class Identifier(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * The purpose of this identifier.
    *
@@ -100,49 +100,12 @@ public data class Identifier(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The identifier recommended for display and use in real-world interactions. */
-    Usual(
-      "usual",
-      "http://hl7.org/fhir/identifier-use",
-      "Usual",
-      "The identifier recommended for display and use in real-world interactions.",
-    ),
-    /**
-     * The identifier considered to be most trusted for the identification of this item. Sometimes
-     * also known as "primary" and "main". The determination of "official" is subjective and
-     * implementation guides often provide additional guidelines for use.
-     */
-    Official(
-      "official",
-      "http://hl7.org/fhir/identifier-use",
-      "Official",
-      "The identifier considered to be most trusted for the identification of this item. Sometimes also known as \"primary\" and \"main\". The determination of \"official\" is subjective and implementation guides often provide additional guidelines for use.",
-    ),
-    /** A temporary identifier. */
-    Temp("temp", "http://hl7.org/fhir/identifier-use", "Temp", "A temporary identifier."),
-    /**
-     * An identifier that was assigned in secondary use - it serves to identify the object in a
-     * relative context, but cannot be consistently assigned to the same object again in a different
-     * context.
-     */
-    Secondary(
-      "secondary",
-      "http://hl7.org/fhir/identifier-use",
-      "Secondary",
-      "An identifier that was assigned in secondary use - it serves to identify the object in a relative context, but cannot be consistently assigned to the same object again in a different context.",
-    ),
-    /**
-     * The identifier id no longer considered valid, but may be relevant for search purposes. E.g.
-     * Changes to identifier schemes, account merges, etc.
-     */
-    Old(
-      "old",
-      "http://hl7.org/fhir/identifier-use",
-      "Old",
-      "The identifier id no longer considered valid, but may be relevant for search purposes.  E.g. Changes to identifier schemes, account merges, etc.",
-    );
+    Usual("usual", "http://hl7.org/fhir/identifier-use", "Usual"),
+    Official("official", "http://hl7.org/fhir/identifier-use", "Official"),
+    Temp("temp", "http://hl7.org/fhir/identifier-use", "Temp"),
+    Secondary("secondary", "http://hl7.org/fhir/identifier-use", "Secondary"),
+    Old("old", "http://hl7.org/fhir/identifier-use", "Old");
 
     override fun toString(): kotlin.String = code
 
@@ -151,8 +114,6 @@ public data class Identifier(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): IdentifierUse =

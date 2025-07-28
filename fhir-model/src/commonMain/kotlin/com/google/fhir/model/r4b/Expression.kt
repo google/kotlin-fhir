@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ExpressionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -47,7 +47,7 @@ public data class Expression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * A brief, natural language description of the condition that effectively communicates the
    * intended semantics.
@@ -59,7 +59,7 @@ public data class Expression(
    */
   public var name: Id? = null,
   /** The media type of the language for the expression. */
-  public var language: Enumeration<ExpressionLanguage>? = null,
+  public var language: Enumeration<ExpressionLanguage>,
   /** An expression in the specified language that returns a value. */
   public var expression: String? = null,
   /**
@@ -75,42 +75,23 @@ public data class Expression(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Clinical Quality Language. */
-    Text_Cql(
-      "text/cql",
-      "http://hl7.org/fhir/expression-language",
-      "CQL",
-      "Clinical Quality Language.",
-    ),
-    /** FHIRPath. */
-    Text_Fhirpath(
-      "text/fhirpath",
-      "http://hl7.org/fhir/expression-language",
-      "FHIRPath",
-      "FHIRPath.",
-    ),
-    /** FHIR's RESTful query syntax - typically independent of base URL. */
+    Text_Cql("text/cql", "http://hl7.org/fhir/expression-language", "CQL"),
+    Text_Fhirpath("text/fhirpath", "http://hl7.org/fhir/expression-language", "FHIRPath"),
     Application_X_Fhir_Query(
       "application/x-fhir-query",
       "http://hl7.org/fhir/expression-language",
       "FHIR Query",
-      "FHIR's RESTful query syntax - typically independent of base URL.",
     ),
-    /** A valid Clinical Quality Language identifier. */
     Text_Cql_Identifier(
       "text/cql-identifier",
       "http://hl7.org/fhir/expression-language",
       "CQL Identifier",
-      "A valid Clinical Quality Language identifier.",
     ),
-    /** A Clinical Quality Language expression. */
     Text_Cql_Expression(
       "text/cql-expression",
       "http://hl7.org/fhir/expression-language",
       "CQL Expression",
-      "A Clinical Quality Language expression.",
     );
 
     override fun toString(): kotlin.String = code
@@ -120,8 +101,6 @@ public data class Expression(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ExpressionLanguage =

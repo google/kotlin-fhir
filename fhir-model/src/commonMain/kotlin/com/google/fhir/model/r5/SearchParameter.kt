@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.SearchParameterComponentSerializer
 import com.google.fhir.model.r5.serializers.SearchParameterSerializer
 import com.google.fhir.model.r5.serializers.SearchParameterVersionAlgorithmSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,7 +98,7 @@ public data class SearchParameter(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class SearchParameter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class SearchParameter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this search parameter when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -149,12 +149,12 @@ public data class SearchParameter(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * A formal identifier that is used to identify this search parameter when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the search parameter when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -184,7 +184,7 @@ public data class SearchParameter(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * A short, descriptive, user-friendly title for the search parameter.
    *
@@ -212,7 +212,7 @@ public data class SearchParameter(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this search parameter is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -256,7 +256,7 @@ public data class SearchParameter(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * And how it used.
    *
@@ -267,7 +267,7 @@ public data class SearchParameter(
    * the language of the search parameter is presumed to be the predominant language in the place
    * the search parameter was created).
    */
-  public var description: Markdown? = null,
+  public var description: Markdown,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -277,7 +277,7 @@ public data class SearchParameter(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the search parameter is intended to be used.
    *
@@ -289,7 +289,7 @@ public data class SearchParameter(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this search parameter is needed and why it has been designed as it has.
    *
@@ -325,7 +325,7 @@ public data class SearchParameter(
    * For maximum compatibility, use only lowercase ASCII characters. Note that HL7 will never define
    * multiple search parameters with the same code.
    */
-  public var code: Code? = null,
+  public var code: Code,
   /**
    * The base resource type(s) that this search parameter can be used against.
    *
@@ -333,9 +333,9 @@ public data class SearchParameter(
    * apply to more than one resource type, they can be used against any of the listed resource
    * types, or in a cross-type search (see [Cross Resource Search](http.html#xres-search)).
    */
-  public var base: List<Code?>? = null,
+  public var base: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
   /** The type of value that a search parameter may contain, and how the content is interpreted. */
-  public var type: Enumeration<SearchParamType>? = null,
+  public var type: Enumeration<SearchParamType>,
   /**
    * A FHIRPath expression that returns a set of elements for the search parameter.
    *
@@ -367,7 +367,7 @@ public data class SearchParameter(
    * However, the list of targets SHOULD cover all targets that might appear that are permitted by
    * the specified FHIRPath.
    */
-  public var target: List<Code?>? = null,
+  public var target: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
   /**
    * Whether multiple values are allowed for each time the parameter exists. Values are separated by
    * commas, and the parameter matches if any of the values match.
@@ -383,9 +383,9 @@ public data class SearchParameter(
    *
    * If no comparators are listed, clients should not expect servers to support any comparators.
    */
-  public var comparator: List<Enumeration<SearchComparator>>? = null,
+  public var comparator: MutableList<Enumeration<SearchComparator>> = mutableListOf(),
   /** A modifier supported for the search parameter. */
-  public var modifier: List<Enumeration<SearchModifierCode>>? = null,
+  public var modifier: MutableList<Enumeration<SearchModifierCode>> = mutableListOf(),
   /**
    * Contains the names of any search parameters which may be chained to the containing search
    * parameter. Chained parameters may be added to search parameters of type reference and specify
@@ -406,9 +406,9 @@ public data class SearchParameter(
    * * If there are specific (not unlimited) chaining paths allowed they can be explicitly
    *   enumerated. E.g. ```practitioner.organization```
    */
-  public var chain: List<String?>? = null,
+  public var chain: MutableList<String> = mutableListOf(),
   /** Used to define the parts of a composite search parameter. */
-  public var component: List<Component>? = null,
+  public var component: MutableList<Component> = mutableListOf(),
 ) : DomainResource() {
   /** Used to define the parts of a composite search parameter. */
   @Serializable(with = SearchParameterComponentSerializer::class)
@@ -430,7 +430,7 @@ public data class SearchParameter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -449,9 +449,9 @@ public data class SearchParameter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The definition of the search parameter that describes this part. */
-    public var definition: Canonical? = null,
+    public var definition: Canonical,
     /**
      * A sub-expression that defines how to extract values for this component from the output of the
      * main SearchParameter.expression.
@@ -459,7 +459,7 @@ public data class SearchParameter(
      * This expression overrides the expression in the definition and extracts the index values from
      * the outcome of the composite expression.
      */
-    public var expression: String? = null,
+    public var expression: String,
   ) : BackboneElement()
 
   @Serializable(with = SearchParameterVersionAlgorithmSerializer::class)
@@ -474,17 +474,704 @@ public data class SearchParameter(
     public data class Coding(public val `value`: com.google.fhir.model.r5.Coding) :
       VersionAlgorithm
 
-    public data object Null : VersionAlgorithm
+    public companion object {
+      internal fun from(
+        stringValue: com.google.fhir.model.r5.String?,
+        codingValue: com.google.fhir.model.r5.Coding?,
+      ): VersionAlgorithm? {
+        if (stringValue != null) return String(stringValue)
+        if (codingValue != null) return Coding(codingValue)
+        return null
+      }
+    }
+  }
+
+  /** Current and past FHIR resource types (deleted or renamed), including abstract types */
+  public enum class FHIRTypes(
+    private val code: kotlin.String,
+    private val system: kotlin.String,
+    private val display: kotlin.String?,
+  ) {
+    Account("Account", "http://hl7.org/fhir/fhir-types", "Account"),
+    ActivityDefinition(
+      "ActivityDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "ActivityDefinition",
+    ),
+    ActorDefinition("ActorDefinition", "http://hl7.org/fhir/fhir-types", "ActorDefinition"),
+    AdministrableProductDefinition(
+      "AdministrableProductDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "AdministrableProductDefinition",
+    ),
+    AdverseEvent("AdverseEvent", "http://hl7.org/fhir/fhir-types", "AdverseEvent"),
+    AllergyIntolerance(
+      "AllergyIntolerance",
+      "http://hl7.org/fhir/fhir-types",
+      "AllergyIntolerance",
+    ),
+    Appointment("Appointment", "http://hl7.org/fhir/fhir-types", "Appointment"),
+    AppointmentResponse(
+      "AppointmentResponse",
+      "http://hl7.org/fhir/fhir-types",
+      "AppointmentResponse",
+    ),
+    ArtifactAssessment(
+      "ArtifactAssessment",
+      "http://hl7.org/fhir/fhir-types",
+      "ArtifactAssessment",
+    ),
+    AuditEvent("AuditEvent", "http://hl7.org/fhir/fhir-types", "AuditEvent"),
+    Basic("Basic", "http://hl7.org/fhir/fhir-types", "Basic"),
+    Binary("Binary", "http://hl7.org/fhir/fhir-types", "Binary"),
+    BiologicallyDerivedProduct(
+      "BiologicallyDerivedProduct",
+      "http://hl7.org/fhir/fhir-types",
+      "BiologicallyDerivedProduct",
+    ),
+    BiologicallyDerivedProductDispense(
+      "BiologicallyDerivedProductDispense",
+      "http://hl7.org/fhir/fhir-types",
+      "BiologicallyDerivedProductDispense",
+    ),
+    BodyStructure("BodyStructure", "http://hl7.org/fhir/fhir-types", "BodyStructure"),
+    Bundle("Bundle", "http://hl7.org/fhir/fhir-types", "Bundle"),
+    CanonicalResource("CanonicalResource", "http://hl7.org/fhir/fhir-types", "CanonicalResource"),
+    CapabilityStatement(
+      "CapabilityStatement",
+      "http://hl7.org/fhir/fhir-types",
+      "CapabilityStatement",
+    ),
+    CarePlan("CarePlan", "http://hl7.org/fhir/fhir-types", "CarePlan"),
+    CareTeam("CareTeam", "http://hl7.org/fhir/fhir-types", "CareTeam"),
+    ChargeItem("ChargeItem", "http://hl7.org/fhir/fhir-types", "ChargeItem"),
+    ChargeItemDefinition(
+      "ChargeItemDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "ChargeItemDefinition",
+    ),
+    Citation("Citation", "http://hl7.org/fhir/fhir-types", "Citation"),
+    Claim("Claim", "http://hl7.org/fhir/fhir-types", "Claim"),
+    ClaimResponse("ClaimResponse", "http://hl7.org/fhir/fhir-types", "ClaimResponse"),
+    ClinicalImpression(
+      "ClinicalImpression",
+      "http://hl7.org/fhir/fhir-types",
+      "ClinicalImpression",
+    ),
+    ClinicalUseDefinition(
+      "ClinicalUseDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "ClinicalUseDefinition",
+    ),
+    CodeSystem("CodeSystem", "http://hl7.org/fhir/fhir-types", "CodeSystem"),
+    Communication("Communication", "http://hl7.org/fhir/fhir-types", "Communication"),
+    CommunicationRequest(
+      "CommunicationRequest",
+      "http://hl7.org/fhir/fhir-types",
+      "CommunicationRequest",
+    ),
+    CompartmentDefinition(
+      "CompartmentDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "CompartmentDefinition",
+    ),
+    Composition("Composition", "http://hl7.org/fhir/fhir-types", "Composition"),
+    ConceptMap("ConceptMap", "http://hl7.org/fhir/fhir-types", "ConceptMap"),
+    Condition("Condition", "http://hl7.org/fhir/fhir-types", "Condition"),
+    ConditionDefinition(
+      "ConditionDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "ConditionDefinition",
+    ),
+    Consent("Consent", "http://hl7.org/fhir/fhir-types", "Consent"),
+    Contract("Contract", "http://hl7.org/fhir/fhir-types", "Contract"),
+    Coverage("Coverage", "http://hl7.org/fhir/fhir-types", "Coverage"),
+    CoverageEligibilityRequest(
+      "CoverageEligibilityRequest",
+      "http://hl7.org/fhir/fhir-types",
+      "CoverageEligibilityRequest",
+    ),
+    CoverageEligibilityResponse(
+      "CoverageEligibilityResponse",
+      "http://hl7.org/fhir/fhir-types",
+      "CoverageEligibilityResponse",
+    ),
+    DetectedIssue("DetectedIssue", "http://hl7.org/fhir/fhir-types", "DetectedIssue"),
+    Device("Device", "http://hl7.org/fhir/fhir-types", "Device"),
+    DeviceAssociation("DeviceAssociation", "http://hl7.org/fhir/fhir-types", "DeviceAssociation"),
+    DeviceDefinition("DeviceDefinition", "http://hl7.org/fhir/fhir-types", "DeviceDefinition"),
+    DeviceDispense("DeviceDispense", "http://hl7.org/fhir/fhir-types", "DeviceDispense"),
+    DeviceMetric("DeviceMetric", "http://hl7.org/fhir/fhir-types", "DeviceMetric"),
+    DeviceRequest("DeviceRequest", "http://hl7.org/fhir/fhir-types", "DeviceRequest"),
+    DeviceUsage("DeviceUsage", "http://hl7.org/fhir/fhir-types", "DeviceUsage"),
+    DiagnosticReport("DiagnosticReport", "http://hl7.org/fhir/fhir-types", "DiagnosticReport"),
+    DocumentReference("DocumentReference", "http://hl7.org/fhir/fhir-types", "DocumentReference"),
+    DomainResource("DomainResource", "http://hl7.org/fhir/fhir-types", "DomainResource"),
+    Encounter("Encounter", "http://hl7.org/fhir/fhir-types", "Encounter"),
+    EncounterHistory("EncounterHistory", "http://hl7.org/fhir/fhir-types", "EncounterHistory"),
+    Endpoint("Endpoint", "http://hl7.org/fhir/fhir-types", "Endpoint"),
+    EnrollmentRequest("EnrollmentRequest", "http://hl7.org/fhir/fhir-types", "EnrollmentRequest"),
+    EnrollmentResponse(
+      "EnrollmentResponse",
+      "http://hl7.org/fhir/fhir-types",
+      "EnrollmentResponse",
+    ),
+    EpisodeOfCare("EpisodeOfCare", "http://hl7.org/fhir/fhir-types", "EpisodeOfCare"),
+    EventDefinition("EventDefinition", "http://hl7.org/fhir/fhir-types", "EventDefinition"),
+    Evidence("Evidence", "http://hl7.org/fhir/fhir-types", "Evidence"),
+    EvidenceReport("EvidenceReport", "http://hl7.org/fhir/fhir-types", "EvidenceReport"),
+    EvidenceVariable("EvidenceVariable", "http://hl7.org/fhir/fhir-types", "EvidenceVariable"),
+    ExampleScenario("ExampleScenario", "http://hl7.org/fhir/fhir-types", "ExampleScenario"),
+    ExplanationOfBenefit(
+      "ExplanationOfBenefit",
+      "http://hl7.org/fhir/fhir-types",
+      "ExplanationOfBenefit",
+    ),
+    FamilyMemberHistory(
+      "FamilyMemberHistory",
+      "http://hl7.org/fhir/fhir-types",
+      "FamilyMemberHistory",
+    ),
+    Flag("Flag", "http://hl7.org/fhir/fhir-types", "Flag"),
+    FormularyItem("FormularyItem", "http://hl7.org/fhir/fhir-types", "FormularyItem"),
+    GenomicStudy("GenomicStudy", "http://hl7.org/fhir/fhir-types", "GenomicStudy"),
+    Goal("Goal", "http://hl7.org/fhir/fhir-types", "Goal"),
+    GraphDefinition("GraphDefinition", "http://hl7.org/fhir/fhir-types", "GraphDefinition"),
+    Group("Group", "http://hl7.org/fhir/fhir-types", "Group"),
+    GuidanceResponse("GuidanceResponse", "http://hl7.org/fhir/fhir-types", "GuidanceResponse"),
+    HealthcareService("HealthcareService", "http://hl7.org/fhir/fhir-types", "HealthcareService"),
+    ImagingSelection("ImagingSelection", "http://hl7.org/fhir/fhir-types", "ImagingSelection"),
+    ImagingStudy("ImagingStudy", "http://hl7.org/fhir/fhir-types", "ImagingStudy"),
+    Immunization("Immunization", "http://hl7.org/fhir/fhir-types", "Immunization"),
+    ImmunizationEvaluation(
+      "ImmunizationEvaluation",
+      "http://hl7.org/fhir/fhir-types",
+      "ImmunizationEvaluation",
+    ),
+    ImmunizationRecommendation(
+      "ImmunizationRecommendation",
+      "http://hl7.org/fhir/fhir-types",
+      "ImmunizationRecommendation",
+    ),
+    ImplementationGuide(
+      "ImplementationGuide",
+      "http://hl7.org/fhir/fhir-types",
+      "ImplementationGuide",
+    ),
+    Ingredient("Ingredient", "http://hl7.org/fhir/fhir-types", "Ingredient"),
+    InsurancePlan("InsurancePlan", "http://hl7.org/fhir/fhir-types", "InsurancePlan"),
+    InventoryItem("InventoryItem", "http://hl7.org/fhir/fhir-types", "InventoryItem"),
+    InventoryReport("InventoryReport", "http://hl7.org/fhir/fhir-types", "InventoryReport"),
+    Invoice("Invoice", "http://hl7.org/fhir/fhir-types", "Invoice"),
+    Library("Library", "http://hl7.org/fhir/fhir-types", "Library"),
+    Linkage("Linkage", "http://hl7.org/fhir/fhir-types", "Linkage"),
+    List("List", "http://hl7.org/fhir/fhir-types", "List"),
+    Location("Location", "http://hl7.org/fhir/fhir-types", "Location"),
+    ManufacturedItemDefinition(
+      "ManufacturedItemDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "ManufacturedItemDefinition",
+    ),
+    Measure("Measure", "http://hl7.org/fhir/fhir-types", "Measure"),
+    MeasureReport("MeasureReport", "http://hl7.org/fhir/fhir-types", "MeasureReport"),
+    Medication("Medication", "http://hl7.org/fhir/fhir-types", "Medication"),
+    MedicationAdministration(
+      "MedicationAdministration",
+      "http://hl7.org/fhir/fhir-types",
+      "MedicationAdministration",
+    ),
+    MedicationDispense(
+      "MedicationDispense",
+      "http://hl7.org/fhir/fhir-types",
+      "MedicationDispense",
+    ),
+    MedicationKnowledge(
+      "MedicationKnowledge",
+      "http://hl7.org/fhir/fhir-types",
+      "MedicationKnowledge",
+    ),
+    MedicationRequest("MedicationRequest", "http://hl7.org/fhir/fhir-types", "MedicationRequest"),
+    MedicationStatement(
+      "MedicationStatement",
+      "http://hl7.org/fhir/fhir-types",
+      "MedicationStatement",
+    ),
+    MedicinalProductDefinition(
+      "MedicinalProductDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "MedicinalProductDefinition",
+    ),
+    MessageDefinition("MessageDefinition", "http://hl7.org/fhir/fhir-types", "MessageDefinition"),
+    MessageHeader("MessageHeader", "http://hl7.org/fhir/fhir-types", "MessageHeader"),
+    MetadataResource("MetadataResource", "http://hl7.org/fhir/fhir-types", "MetadataResource"),
+    MolecularSequence("MolecularSequence", "http://hl7.org/fhir/fhir-types", "MolecularSequence"),
+    NamingSystem("NamingSystem", "http://hl7.org/fhir/fhir-types", "NamingSystem"),
+    NutritionIntake("NutritionIntake", "http://hl7.org/fhir/fhir-types", "NutritionIntake"),
+    NutritionOrder("NutritionOrder", "http://hl7.org/fhir/fhir-types", "NutritionOrder"),
+    NutritionProduct("NutritionProduct", "http://hl7.org/fhir/fhir-types", "NutritionProduct"),
+    Observation("Observation", "http://hl7.org/fhir/fhir-types", "Observation"),
+    ObservationDefinition(
+      "ObservationDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "ObservationDefinition",
+    ),
+    OperationDefinition(
+      "OperationDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "OperationDefinition",
+    ),
+    OperationOutcome("OperationOutcome", "http://hl7.org/fhir/fhir-types", "OperationOutcome"),
+    Organization("Organization", "http://hl7.org/fhir/fhir-types", "Organization"),
+    OrganizationAffiliation(
+      "OrganizationAffiliation",
+      "http://hl7.org/fhir/fhir-types",
+      "OrganizationAffiliation",
+    ),
+    PackagedProductDefinition(
+      "PackagedProductDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "PackagedProductDefinition",
+    ),
+    Parameters("Parameters", "http://hl7.org/fhir/fhir-types", "Parameters"),
+    Patient("Patient", "http://hl7.org/fhir/fhir-types", "Patient"),
+    PaymentNotice("PaymentNotice", "http://hl7.org/fhir/fhir-types", "PaymentNotice"),
+    PaymentReconciliation(
+      "PaymentReconciliation",
+      "http://hl7.org/fhir/fhir-types",
+      "PaymentReconciliation",
+    ),
+    Permission("Permission", "http://hl7.org/fhir/fhir-types", "Permission"),
+    Person("Person", "http://hl7.org/fhir/fhir-types", "Person"),
+    PlanDefinition("PlanDefinition", "http://hl7.org/fhir/fhir-types", "PlanDefinition"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/fhir-types", "Practitioner"),
+    PractitionerRole("PractitionerRole", "http://hl7.org/fhir/fhir-types", "PractitionerRole"),
+    Procedure("Procedure", "http://hl7.org/fhir/fhir-types", "Procedure"),
+    Provenance("Provenance", "http://hl7.org/fhir/fhir-types", "Provenance"),
+    Questionnaire("Questionnaire", "http://hl7.org/fhir/fhir-types", "Questionnaire"),
+    QuestionnaireResponse(
+      "QuestionnaireResponse",
+      "http://hl7.org/fhir/fhir-types",
+      "QuestionnaireResponse",
+    ),
+    RegulatedAuthorization(
+      "RegulatedAuthorization",
+      "http://hl7.org/fhir/fhir-types",
+      "RegulatedAuthorization",
+    ),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/fhir-types", "RelatedPerson"),
+    RequestOrchestration(
+      "RequestOrchestration",
+      "http://hl7.org/fhir/fhir-types",
+      "RequestOrchestration",
+    ),
+    Requirements("Requirements", "http://hl7.org/fhir/fhir-types", "Requirements"),
+    ResearchStudy("ResearchStudy", "http://hl7.org/fhir/fhir-types", "ResearchStudy"),
+    ResearchSubject("ResearchSubject", "http://hl7.org/fhir/fhir-types", "ResearchSubject"),
+    Resource("Resource", "http://hl7.org/fhir/fhir-types", "Resource"),
+    RiskAssessment("RiskAssessment", "http://hl7.org/fhir/fhir-types", "RiskAssessment"),
+    Schedule("Schedule", "http://hl7.org/fhir/fhir-types", "Schedule"),
+    SearchParameter("SearchParameter", "http://hl7.org/fhir/fhir-types", "SearchParameter"),
+    ServiceRequest("ServiceRequest", "http://hl7.org/fhir/fhir-types", "ServiceRequest"),
+    Slot("Slot", "http://hl7.org/fhir/fhir-types", "Slot"),
+    Specimen("Specimen", "http://hl7.org/fhir/fhir-types", "Specimen"),
+    SpecimenDefinition(
+      "SpecimenDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "SpecimenDefinition",
+    ),
+    StructureDefinition(
+      "StructureDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "StructureDefinition",
+    ),
+    StructureMap("StructureMap", "http://hl7.org/fhir/fhir-types", "StructureMap"),
+    Subscription("Subscription", "http://hl7.org/fhir/fhir-types", "Subscription"),
+    SubscriptionStatus(
+      "SubscriptionStatus",
+      "http://hl7.org/fhir/fhir-types",
+      "SubscriptionStatus",
+    ),
+    SubscriptionTopic("SubscriptionTopic", "http://hl7.org/fhir/fhir-types", "SubscriptionTopic"),
+    Substance("Substance", "http://hl7.org/fhir/fhir-types", "Substance"),
+    SubstanceDefinition(
+      "SubstanceDefinition",
+      "http://hl7.org/fhir/fhir-types",
+      "SubstanceDefinition",
+    ),
+    SubstanceNucleicAcid(
+      "SubstanceNucleicAcid",
+      "http://hl7.org/fhir/fhir-types",
+      "SubstanceNucleicAcid",
+    ),
+    SubstancePolymer("SubstancePolymer", "http://hl7.org/fhir/fhir-types", "SubstancePolymer"),
+    SubstanceProtein("SubstanceProtein", "http://hl7.org/fhir/fhir-types", "SubstanceProtein"),
+    SubstanceReferenceInformation(
+      "SubstanceReferenceInformation",
+      "http://hl7.org/fhir/fhir-types",
+      "SubstanceReferenceInformation",
+    ),
+    SubstanceSourceMaterial(
+      "SubstanceSourceMaterial",
+      "http://hl7.org/fhir/fhir-types",
+      "SubstanceSourceMaterial",
+    ),
+    SupplyDelivery("SupplyDelivery", "http://hl7.org/fhir/fhir-types", "SupplyDelivery"),
+    SupplyRequest("SupplyRequest", "http://hl7.org/fhir/fhir-types", "SupplyRequest"),
+    Task("Task", "http://hl7.org/fhir/fhir-types", "Task"),
+    TerminologyCapabilities(
+      "TerminologyCapabilities",
+      "http://hl7.org/fhir/fhir-types",
+      "TerminologyCapabilities",
+    ),
+    TestPlan("TestPlan", "http://hl7.org/fhir/fhir-types", "TestPlan"),
+    TestReport("TestReport", "http://hl7.org/fhir/fhir-types", "TestReport"),
+    TestScript("TestScript", "http://hl7.org/fhir/fhir-types", "TestScript"),
+    Transport("Transport", "http://hl7.org/fhir/fhir-types", "Transport"),
+    ValueSet("ValueSet", "http://hl7.org/fhir/fhir-types", "ValueSet"),
+    VerificationResult(
+      "VerificationResult",
+      "http://hl7.org/fhir/fhir-types",
+      "VerificationResult",
+    ),
+    VisionPrescription(
+      "VisionPrescription",
+      "http://hl7.org/fhir/fhir-types",
+      "VisionPrescription",
+    ),
+    BodySite("BodySite", "http://hl7.org/fhir/fhir-old-types", "BodySite"),
+    CatalogEntry("CatalogEntry", "http://hl7.org/fhir/fhir-old-types", "CatalogEntry"),
+    Conformance("Conformance", "http://hl7.org/fhir/fhir-old-types", "Conformance"),
+    DataElement("DataElement", "http://hl7.org/fhir/fhir-old-types", "DataElement"),
+    DeviceComponent("DeviceComponent", "http://hl7.org/fhir/fhir-old-types", "DeviceComponent"),
+    DeviceUseRequest("DeviceUseRequest", "http://hl7.org/fhir/fhir-old-types", "DeviceUseRequest"),
+    DeviceUseStatement(
+      "DeviceUseStatement",
+      "http://hl7.org/fhir/fhir-old-types",
+      "DeviceUseStatement",
+    ),
+    DiagnosticOrder("DiagnosticOrder", "http://hl7.org/fhir/fhir-old-types", "DiagnosticOrder"),
+    DocumentManifest("DocumentManifest", "http://hl7.org/fhir/fhir-old-types", "DocumentManifest"),
+    EffectEvidenceSynthesis(
+      "EffectEvidenceSynthesis",
+      "http://hl7.org/fhir/fhir-old-types",
+      "EffectEvidenceSynthesis",
+    ),
+    EligibilityRequest(
+      "EligibilityRequest",
+      "http://hl7.org/fhir/fhir-old-types",
+      "EligibilityRequest",
+    ),
+    EligibilityResponse(
+      "EligibilityResponse",
+      "http://hl7.org/fhir/fhir-old-types",
+      "EligibilityResponse",
+    ),
+    ExpansionProfile("ExpansionProfile", "http://hl7.org/fhir/fhir-old-types", "ExpansionProfile"),
+    ImagingManifest("ImagingManifest", "http://hl7.org/fhir/fhir-old-types", "ImagingManifest"),
+    ImagingObjectSelection(
+      "ImagingObjectSelection",
+      "http://hl7.org/fhir/fhir-old-types",
+      "ImagingObjectSelection",
+    ),
+    Media("Media", "http://hl7.org/fhir/fhir-old-types", "Media"),
+    MedicationOrder("MedicationOrder", "http://hl7.org/fhir/fhir-old-types", "MedicationOrder"),
+    MedicationUsage("MedicationUsage", "http://hl7.org/fhir/fhir-old-types", "MedicationUsage"),
+    MedicinalProduct("MedicinalProduct", "http://hl7.org/fhir/fhir-old-types", "MedicinalProduct"),
+    MedicinalProductAuthorization(
+      "MedicinalProductAuthorization",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductAuthorization",
+    ),
+    MedicinalProductContraindication(
+      "MedicinalProductContraindication",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductContraindication",
+    ),
+    MedicinalProductIndication(
+      "MedicinalProductIndication",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductIndication",
+    ),
+    MedicinalProductIngredient(
+      "MedicinalProductIngredient",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductIngredient",
+    ),
+    MedicinalProductInteraction(
+      "MedicinalProductInteraction",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductInteraction",
+    ),
+    MedicinalProductManufactured(
+      "MedicinalProductManufactured",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductManufactured",
+    ),
+    MedicinalProductPackaged(
+      "MedicinalProductPackaged",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductPackaged",
+    ),
+    MedicinalProductPharmaceutical(
+      "MedicinalProductPharmaceutical",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductPharmaceutical",
+    ),
+    MedicinalProductUndesirableEffect(
+      "MedicinalProductUndesirableEffect",
+      "http://hl7.org/fhir/fhir-old-types",
+      "MedicinalProductUndesirableEffect",
+    ),
+    Order("Order", "http://hl7.org/fhir/fhir-old-types", "Order"),
+    OrderResponse("OrderResponse", "http://hl7.org/fhir/fhir-old-types", "OrderResponse"),
+    ProcedureRequest("ProcedureRequest", "http://hl7.org/fhir/fhir-old-types", "ProcedureRequest"),
+    ProcessRequest("ProcessRequest", "http://hl7.org/fhir/fhir-old-types", "ProcessRequest"),
+    ProcessResponse("ProcessResponse", "http://hl7.org/fhir/fhir-old-types", "ProcessResponse"),
+    ReferralRequest("ReferralRequest", "http://hl7.org/fhir/fhir-old-types", "ReferralRequest"),
+    RequestGroup("RequestGroup", "http://hl7.org/fhir/fhir-old-types", "RequestGroup"),
+    ResearchDefinition(
+      "ResearchDefinition",
+      "http://hl7.org/fhir/fhir-old-types",
+      "ResearchDefinition",
+    ),
+    ResearchElementDefinition(
+      "ResearchElementDefinition",
+      "http://hl7.org/fhir/fhir-old-types",
+      "ResearchElementDefinition",
+    ),
+    RiskEvidenceSynthesis(
+      "RiskEvidenceSynthesis",
+      "http://hl7.org/fhir/fhir-old-types",
+      "RiskEvidenceSynthesis",
+    ),
+    Sequence("Sequence", "http://hl7.org/fhir/fhir-old-types", "Sequence"),
+    ServiceDefinition(
+      "ServiceDefinition",
+      "http://hl7.org/fhir/fhir-old-types",
+      "ServiceDefinition",
+    ),
+    SubstanceSpecification(
+      "SubstanceSpecification",
+      "http://hl7.org/fhir/fhir-old-types",
+      "SubstanceSpecification",
+    );
+
+    override fun toString(): kotlin.String = code
+
+    public fun getCode(): kotlin.String = code
+
+    public fun getSystem(): kotlin.String = system
+
+    public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun from(
-        stringValue: com.google.fhir.model.r5.String?,
-        CodingValue: com.google.fhir.model.r5.Coding?,
-      ): VersionAlgorithm {
-        if (stringValue != null) return String(stringValue)
-        if (CodingValue != null) return Coding(CodingValue)
-        return Null
-      }
+      public fun fromCode(code: kotlin.String): FHIRTypes =
+        when (code) {
+          "Account" -> Account
+          "ActivityDefinition" -> ActivityDefinition
+          "ActorDefinition" -> ActorDefinition
+          "AdministrableProductDefinition" -> AdministrableProductDefinition
+          "AdverseEvent" -> AdverseEvent
+          "AllergyIntolerance" -> AllergyIntolerance
+          "Appointment" -> Appointment
+          "AppointmentResponse" -> AppointmentResponse
+          "ArtifactAssessment" -> ArtifactAssessment
+          "AuditEvent" -> AuditEvent
+          "Basic" -> Basic
+          "Binary" -> Binary
+          "BiologicallyDerivedProduct" -> BiologicallyDerivedProduct
+          "BiologicallyDerivedProductDispense" -> BiologicallyDerivedProductDispense
+          "BodyStructure" -> BodyStructure
+          "Bundle" -> Bundle
+          "CanonicalResource" -> CanonicalResource
+          "CapabilityStatement" -> CapabilityStatement
+          "CarePlan" -> CarePlan
+          "CareTeam" -> CareTeam
+          "ChargeItem" -> ChargeItem
+          "ChargeItemDefinition" -> ChargeItemDefinition
+          "Citation" -> Citation
+          "Claim" -> Claim
+          "ClaimResponse" -> ClaimResponse
+          "ClinicalImpression" -> ClinicalImpression
+          "ClinicalUseDefinition" -> ClinicalUseDefinition
+          "CodeSystem" -> CodeSystem
+          "Communication" -> Communication
+          "CommunicationRequest" -> CommunicationRequest
+          "CompartmentDefinition" -> CompartmentDefinition
+          "Composition" -> Composition
+          "ConceptMap" -> ConceptMap
+          "Condition" -> Condition
+          "ConditionDefinition" -> ConditionDefinition
+          "Consent" -> Consent
+          "Contract" -> Contract
+          "Coverage" -> Coverage
+          "CoverageEligibilityRequest" -> CoverageEligibilityRequest
+          "CoverageEligibilityResponse" -> CoverageEligibilityResponse
+          "DetectedIssue" -> DetectedIssue
+          "Device" -> Device
+          "DeviceAssociation" -> DeviceAssociation
+          "DeviceDefinition" -> DeviceDefinition
+          "DeviceDispense" -> DeviceDispense
+          "DeviceMetric" -> DeviceMetric
+          "DeviceRequest" -> DeviceRequest
+          "DeviceUsage" -> DeviceUsage
+          "DiagnosticReport" -> DiagnosticReport
+          "DocumentReference" -> DocumentReference
+          "DomainResource" -> DomainResource
+          "Encounter" -> Encounter
+          "EncounterHistory" -> EncounterHistory
+          "Endpoint" -> Endpoint
+          "EnrollmentRequest" -> EnrollmentRequest
+          "EnrollmentResponse" -> EnrollmentResponse
+          "EpisodeOfCare" -> EpisodeOfCare
+          "EventDefinition" -> EventDefinition
+          "Evidence" -> Evidence
+          "EvidenceReport" -> EvidenceReport
+          "EvidenceVariable" -> EvidenceVariable
+          "ExampleScenario" -> ExampleScenario
+          "ExplanationOfBenefit" -> ExplanationOfBenefit
+          "FamilyMemberHistory" -> FamilyMemberHistory
+          "Flag" -> Flag
+          "FormularyItem" -> FormularyItem
+          "GenomicStudy" -> GenomicStudy
+          "Goal" -> Goal
+          "GraphDefinition" -> GraphDefinition
+          "Group" -> Group
+          "GuidanceResponse" -> GuidanceResponse
+          "HealthcareService" -> HealthcareService
+          "ImagingSelection" -> ImagingSelection
+          "ImagingStudy" -> ImagingStudy
+          "Immunization" -> Immunization
+          "ImmunizationEvaluation" -> ImmunizationEvaluation
+          "ImmunizationRecommendation" -> ImmunizationRecommendation
+          "ImplementationGuide" -> ImplementationGuide
+          "Ingredient" -> Ingredient
+          "InsurancePlan" -> InsurancePlan
+          "InventoryItem" -> InventoryItem
+          "InventoryReport" -> InventoryReport
+          "Invoice" -> Invoice
+          "Library" -> Library
+          "Linkage" -> Linkage
+          "List" -> List
+          "Location" -> Location
+          "ManufacturedItemDefinition" -> ManufacturedItemDefinition
+          "Measure" -> Measure
+          "MeasureReport" -> MeasureReport
+          "Medication" -> Medication
+          "MedicationAdministration" -> MedicationAdministration
+          "MedicationDispense" -> MedicationDispense
+          "MedicationKnowledge" -> MedicationKnowledge
+          "MedicationRequest" -> MedicationRequest
+          "MedicationStatement" -> MedicationStatement
+          "MedicinalProductDefinition" -> MedicinalProductDefinition
+          "MessageDefinition" -> MessageDefinition
+          "MessageHeader" -> MessageHeader
+          "MetadataResource" -> MetadataResource
+          "MolecularSequence" -> MolecularSequence
+          "NamingSystem" -> NamingSystem
+          "NutritionIntake" -> NutritionIntake
+          "NutritionOrder" -> NutritionOrder
+          "NutritionProduct" -> NutritionProduct
+          "Observation" -> Observation
+          "ObservationDefinition" -> ObservationDefinition
+          "OperationDefinition" -> OperationDefinition
+          "OperationOutcome" -> OperationOutcome
+          "Organization" -> Organization
+          "OrganizationAffiliation" -> OrganizationAffiliation
+          "PackagedProductDefinition" -> PackagedProductDefinition
+          "Parameters" -> Parameters
+          "Patient" -> Patient
+          "PaymentNotice" -> PaymentNotice
+          "PaymentReconciliation" -> PaymentReconciliation
+          "Permission" -> Permission
+          "Person" -> Person
+          "PlanDefinition" -> PlanDefinition
+          "Practitioner" -> Practitioner
+          "PractitionerRole" -> PractitionerRole
+          "Procedure" -> Procedure
+          "Provenance" -> Provenance
+          "Questionnaire" -> Questionnaire
+          "QuestionnaireResponse" -> QuestionnaireResponse
+          "RegulatedAuthorization" -> RegulatedAuthorization
+          "RelatedPerson" -> RelatedPerson
+          "RequestOrchestration" -> RequestOrchestration
+          "Requirements" -> Requirements
+          "ResearchStudy" -> ResearchStudy
+          "ResearchSubject" -> ResearchSubject
+          "Resource" -> Resource
+          "RiskAssessment" -> RiskAssessment
+          "Schedule" -> Schedule
+          "SearchParameter" -> SearchParameter
+          "ServiceRequest" -> ServiceRequest
+          "Slot" -> Slot
+          "Specimen" -> Specimen
+          "SpecimenDefinition" -> SpecimenDefinition
+          "StructureDefinition" -> StructureDefinition
+          "StructureMap" -> StructureMap
+          "Subscription" -> Subscription
+          "SubscriptionStatus" -> SubscriptionStatus
+          "SubscriptionTopic" -> SubscriptionTopic
+          "Substance" -> Substance
+          "SubstanceDefinition" -> SubstanceDefinition
+          "SubstanceNucleicAcid" -> SubstanceNucleicAcid
+          "SubstancePolymer" -> SubstancePolymer
+          "SubstanceProtein" -> SubstanceProtein
+          "SubstanceReferenceInformation" -> SubstanceReferenceInformation
+          "SubstanceSourceMaterial" -> SubstanceSourceMaterial
+          "SupplyDelivery" -> SupplyDelivery
+          "SupplyRequest" -> SupplyRequest
+          "Task" -> Task
+          "TerminologyCapabilities" -> TerminologyCapabilities
+          "TestPlan" -> TestPlan
+          "TestReport" -> TestReport
+          "TestScript" -> TestScript
+          "Transport" -> Transport
+          "ValueSet" -> ValueSet
+          "VerificationResult" -> VerificationResult
+          "VisionPrescription" -> VisionPrescription
+          "BodySite" -> BodySite
+          "CatalogEntry" -> CatalogEntry
+          "Conformance" -> Conformance
+          "DataElement" -> DataElement
+          "DeviceComponent" -> DeviceComponent
+          "DeviceUseRequest" -> DeviceUseRequest
+          "DeviceUseStatement" -> DeviceUseStatement
+          "DiagnosticOrder" -> DiagnosticOrder
+          "DocumentManifest" -> DocumentManifest
+          "EffectEvidenceSynthesis" -> EffectEvidenceSynthesis
+          "EligibilityRequest" -> EligibilityRequest
+          "EligibilityResponse" -> EligibilityResponse
+          "ExpansionProfile" -> ExpansionProfile
+          "ImagingManifest" -> ImagingManifest
+          "ImagingObjectSelection" -> ImagingObjectSelection
+          "Media" -> Media
+          "MedicationOrder" -> MedicationOrder
+          "MedicationUsage" -> MedicationUsage
+          "MedicinalProduct" -> MedicinalProduct
+          "MedicinalProductAuthorization" -> MedicinalProductAuthorization
+          "MedicinalProductContraindication" -> MedicinalProductContraindication
+          "MedicinalProductIndication" -> MedicinalProductIndication
+          "MedicinalProductIngredient" -> MedicinalProductIngredient
+          "MedicinalProductInteraction" -> MedicinalProductInteraction
+          "MedicinalProductManufactured" -> MedicinalProductManufactured
+          "MedicinalProductPackaged" -> MedicinalProductPackaged
+          "MedicinalProductPharmaceutical" -> MedicinalProductPharmaceutical
+          "MedicinalProductUndesirableEffect" -> MedicinalProductUndesirableEffect
+          "Order" -> Order
+          "OrderResponse" -> OrderResponse
+          "ProcedureRequest" -> ProcedureRequest
+          "ProcessRequest" -> ProcessRequest
+          "ProcessResponse" -> ProcessResponse
+          "ReferralRequest" -> ReferralRequest
+          "RequestGroup" -> RequestGroup
+          "ResearchDefinition" -> ResearchDefinition
+          "ResearchElementDefinition" -> ResearchElementDefinition
+          "RiskEvidenceSynthesis" -> RiskEvidenceSynthesis
+          "Sequence" -> Sequence
+          "ServiceDefinition" -> ServiceDefinition
+          "SubstanceSpecification" -> SubstanceSpecification
+          else -> throw IllegalArgumentException("Unknown code $code for enum FHIRTypes")
+        }
     }
   }
 
@@ -496,32 +1183,10 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The search parameter is derived directly from the selected nodes based on the type
-     * definitions.
-     */
-    Normal(
-      "normal",
-      "http://hl7.org/fhir/search-processingmode",
-      "Normal",
-      "The search parameter is derived directly from the selected nodes based on the type definitions.",
-    ),
-    /** The search parameter is derived by a phonetic transform from the selected nodes. */
-    Phonetic(
-      "phonetic",
-      "http://hl7.org/fhir/search-processingmode",
-      "Phonetic",
-      "The search parameter is derived by a phonetic transform from the selected nodes.",
-    ),
-    /** The interpretation of the xpath statement is unknown (and can't be automated). */
-    Other(
-      "other",
-      "http://hl7.org/fhir/search-processingmode",
-      "Other",
-      "The interpretation of the xpath statement is unknown (and can't be automated).",
-    );
+    Normal("normal", "http://hl7.org/fhir/search-processingmode", "Normal"),
+    Phonetic("phonetic", "http://hl7.org/fhir/search-processingmode", "Phonetic"),
+    Other("other", "http://hl7.org/fhir/search-processingmode", "Other");
 
     override fun toString(): kotlin.String = code
 
@@ -530,8 +1195,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchProcessingModeType =
@@ -550,73 +1213,16 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** the value for the parameter in the resource is equal to the provided value. */
-    Eq(
-      "eq",
-      "http://hl7.org/fhir/search-comparator",
-      "Equals",
-      "the value for the parameter in the resource is equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is not equal to the provided value. */
-    Ne(
-      "ne",
-      "http://hl7.org/fhir/search-comparator",
-      "Not Equals",
-      "the value for the parameter in the resource is not equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater than the provided value. */
-    Gt(
-      "gt",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater Than",
-      "the value for the parameter in the resource is greater than the provided value.",
-    ),
-    /** the value for the parameter in the resource is less than the provided value. */
-    Lt(
-      "lt",
-      "http://hl7.org/fhir/search-comparator",
-      "Less Than",
-      "the value for the parameter in the resource is less than the provided value.",
-    ),
-    /** the value for the parameter in the resource is greater or equal to the provided value. */
-    Ge(
-      "ge",
-      "http://hl7.org/fhir/search-comparator",
-      "Greater or Equals",
-      "the value for the parameter in the resource is greater or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource is less or equal to the provided value. */
-    Le(
-      "le",
-      "http://hl7.org/fhir/search-comparator",
-      "Less of Equal",
-      "the value for the parameter in the resource is less or equal to the provided value.",
-    ),
-    /** the value for the parameter in the resource starts after the provided value. */
-    Sa(
-      "sa",
-      "http://hl7.org/fhir/search-comparator",
-      "Starts After",
-      "the value for the parameter in the resource starts after the provided value.",
-    ),
-    /** the value for the parameter in the resource ends before the provided value. */
-    Eb(
-      "eb",
-      "http://hl7.org/fhir/search-comparator",
-      "Ends Before",
-      "the value for the parameter in the resource ends before the provided value.",
-    ),
-    /**
-     * the value for the parameter in the resource is approximately the same to the provided value.
-     */
-    Ap(
-      "ap",
-      "http://hl7.org/fhir/search-comparator",
-      "Approximately",
-      "the value for the parameter in the resource is approximately the same to the provided value.",
-    );
+    Eq("eq", "http://hl7.org/fhir/search-comparator", "Equals"),
+    Ne("ne", "http://hl7.org/fhir/search-comparator", "Not Equals"),
+    Gt("gt", "http://hl7.org/fhir/search-comparator", "Greater Than"),
+    Lt("lt", "http://hl7.org/fhir/search-comparator", "Less Than"),
+    Ge("ge", "http://hl7.org/fhir/search-comparator", "Greater or Equals"),
+    Le("le", "http://hl7.org/fhir/search-comparator", "Less of Equal"),
+    Sa("sa", "http://hl7.org/fhir/search-comparator", "Starts After"),
+    Eb("eb", "http://hl7.org/fhir/search-comparator", "Ends Before"),
+    Ap("ap", "http://hl7.org/fhir/search-comparator", "Approximately");
 
     override fun toString(): kotlin.String = code
 
@@ -625,8 +1231,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchComparator =
@@ -650,152 +1254,22 @@ public data class SearchParameter(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The search parameter returns resources that have a value or not. */
-    Missing(
-      "missing",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Missing",
-      "The search parameter returns resources that have a value or not.",
-    ),
-    /**
-     * The search parameter returns resources that have a value that exactly matches the supplied
-     * parameter (the whole string, including casing and accents).
-     */
-    Exact(
-      "exact",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Exact",
-      "The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole string, including casing and accents).",
-    ),
-    /**
-     * The search parameter returns resources that include the supplied parameter value anywhere
-     * within the field being searched.
-     */
-    Contains(
-      "contains",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Contains",
-      "The search parameter returns resources that include the supplied parameter value anywhere within the field being searched.",
-    ),
-    /** The search parameter returns resources that do not contain a match. */
-    Not(
-      "not",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not",
-      "The search parameter returns resources that do not contain a match.",
-    ),
-    /**
-     * The search parameter is processed as a string that searches text associated with the
-     * code/value - either CodeableConcept.text, Coding.display, Identifier.type.text, or
-     * Reference.display.
-     */
-    Text(
-      "text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text",
-      "The search parameter is processed as a string that searches text associated with the code/value - either CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is in the specified value set.
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is in the specified value set.",
-    ),
-    /**
-     * The search parameter is a URI (relative or absolute) that identifies a value set, and the
-     * search parameter tests whether the coding is not in the specified value set.
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Not In",
-      "The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests whether the coding is not in the specified value set.",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource is subsumed by the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Below(
-      "below",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Below",
-      "The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter tests whether the value in a resource subsumes the specified value
-     * (is-a, or hierarchical relationships).
-     */
-    Above(
-      "above",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Above",
-      "The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical relationships).",
-    ),
-    /**
-     * The search parameter only applies to the Resource Type specified as a modifier (e.g. the
-     * modifier is not actually :type, but :Patient etc.).
-     */
-    Type(
-      "type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Type",
-      "The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not actually :type, but :Patient etc.).",
-    ),
-    /** The search parameter applies to the identifier on the resource, not the reference. */
-    Identifier(
-      "identifier",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Identifier",
-      "The search parameter applies to the identifier on the resource, not the reference.",
-    ),
-    /**
-     * The search parameter has the format system|code|value, where the system and code refer to an
-     * Identifier.type.coding.system and .code, and match if any of the type codes match. All 3
-     * parts must be present.
-     */
-    Of_Type(
-      "of-type",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Of Type",
-      "The search parameter has the format system|code|value, where the system and code refer to an Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.",
-    ),
-    /**
-     * Tests whether the textual display value in a resource (e.g., CodeableConcept.text,
-     * Coding.display, or Reference.display) matches the supplied parameter value.
-     */
-    Code_Text(
-      "code-text",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Code Text",
-      "Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or Reference.display) matches the supplied parameter value.",
-    ),
-    /**
-     * Tests whether the value in a resource matches the supplied parameter value using advanced
-     * text handling that searches text associated with the code/value - e.g., CodeableConcept.text,
-     * Coding.display, or Identifier.type.text.
-     */
-    Text_Advanced(
-      "text-advanced",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Text Advanced",
-      "Tests whether the value in a resource matches the supplied parameter value using advanced text handling that searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or Identifier.type.text.",
-    ),
-    /**
-     * The search parameter indicates an inclusion directive (_include, _revinclude) that is applied
-     * to an included resource instead of the matching resource.
-     */
-    Iterate(
-      "iterate",
-      "http://hl7.org/fhir/search-modifier-code",
-      "Iterate",
-      "The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included resource instead of the matching resource.",
-    );
+    Missing("missing", "http://hl7.org/fhir/search-modifier-code", "Missing"),
+    Exact("exact", "http://hl7.org/fhir/search-modifier-code", "Exact"),
+    Contains("contains", "http://hl7.org/fhir/search-modifier-code", "Contains"),
+    Not("not", "http://hl7.org/fhir/search-modifier-code", "Not"),
+    Text("text", "http://hl7.org/fhir/search-modifier-code", "Text"),
+    In("in", "http://hl7.org/fhir/search-modifier-code", "In"),
+    Not_In("not-in", "http://hl7.org/fhir/search-modifier-code", "Not In"),
+    Below("below", "http://hl7.org/fhir/search-modifier-code", "Below"),
+    Above("above", "http://hl7.org/fhir/search-modifier-code", "Above"),
+    Type("type", "http://hl7.org/fhir/search-modifier-code", "Type"),
+    Identifier("identifier", "http://hl7.org/fhir/search-modifier-code", "Identifier"),
+    Of_Type("of-type", "http://hl7.org/fhir/search-modifier-code", "Of Type"),
+    Code_Text("code-text", "http://hl7.org/fhir/search-modifier-code", "Code Text"),
+    Text_Advanced("text-advanced", "http://hl7.org/fhir/search-modifier-code", "Text Advanced"),
+    Iterate("iterate", "http://hl7.org/fhir/search-modifier-code", "Iterate");
 
     override fun toString(): kotlin.String = code
 
@@ -804,8 +1278,6 @@ public data class SearchParameter(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SearchModifierCode =

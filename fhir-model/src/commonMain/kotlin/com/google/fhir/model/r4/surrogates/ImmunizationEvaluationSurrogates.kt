@@ -40,21 +40,18 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class ImmunizationEvaluationDoseNumberSurrogate {
-  public var doseNumberPositiveInt: Int? = null
-
-  public var _doseNumberPositiveInt: Element? = null
-
-  public var doseNumberString: KotlinString? = null
-
-  public var _doseNumberString: Element? = null
-
-  public fun toModel(): ImmunizationEvaluation.DoseNumber =
+internal data class ImmunizationEvaluationDoseNumberSurrogate(
+  public var doseNumberPositiveInt: Int? = null,
+  public var _doseNumberPositiveInt: Element? = null,
+  public var doseNumberString: KotlinString? = null,
+  public var _doseNumberString: Element? = null,
+) {
+  public fun toModel(): ImmunizationEvaluation.DoseNumber? =
     ImmunizationEvaluation.DoseNumber?.from(
       PositiveInt.of(
         this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberPositiveInt,
@@ -64,7 +61,7 @@ internal class ImmunizationEvaluationDoseNumberSurrogate {
         this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberString,
         this@ImmunizationEvaluationDoseNumberSurrogate._doseNumberString,
       ),
-    ) ?: ImmunizationEvaluation.DoseNumber.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -72,26 +69,29 @@ internal class ImmunizationEvaluationDoseNumberSurrogate {
     ): ImmunizationEvaluationDoseNumberSurrogate =
       with(model) {
         ImmunizationEvaluationDoseNumberSurrogate().apply {
-          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value
-          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement()
-          doseNumberString = this@with.asString()?.value?.value
-          _doseNumberString = this@with.asString()?.value?.toElement()
+          ImmunizationEvaluation.DoseNumber?.from(
+            PositiveInt.of(
+              this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberPositiveInt,
+              this@ImmunizationEvaluationDoseNumberSurrogate._doseNumberPositiveInt,
+            ),
+            R4String.of(
+              this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberString,
+              this@ImmunizationEvaluationDoseNumberSurrogate._doseNumberString,
+            ),
+          )
         }
       }
   }
 }
 
 @Serializable
-internal class ImmunizationEvaluationSeriesDosesSurrogate {
-  public var seriesDosesPositiveInt: Int? = null
-
-  public var _seriesDosesPositiveInt: Element? = null
-
-  public var seriesDosesString: KotlinString? = null
-
-  public var _seriesDosesString: Element? = null
-
-  public fun toModel(): ImmunizationEvaluation.SeriesDoses =
+internal data class ImmunizationEvaluationSeriesDosesSurrogate(
+  public var seriesDosesPositiveInt: Int? = null,
+  public var _seriesDosesPositiveInt: Element? = null,
+  public var seriesDosesString: KotlinString? = null,
+  public var _seriesDosesString: Element? = null,
+) {
+  public fun toModel(): ImmunizationEvaluation.SeriesDoses? =
     ImmunizationEvaluation.SeriesDoses?.from(
       PositiveInt.of(
         this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesPositiveInt,
@@ -101,7 +101,7 @@ internal class ImmunizationEvaluationSeriesDosesSurrogate {
         this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesString,
         this@ImmunizationEvaluationSeriesDosesSurrogate._seriesDosesString,
       ),
-    ) ?: ImmunizationEvaluation.SeriesDoses.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -109,10 +109,16 @@ internal class ImmunizationEvaluationSeriesDosesSurrogate {
     ): ImmunizationEvaluationSeriesDosesSurrogate =
       with(model) {
         ImmunizationEvaluationSeriesDosesSurrogate().apply {
-          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value
-          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement()
-          seriesDosesString = this@with.asString()?.value?.value
-          _seriesDosesString = this@with.asString()?.value?.toElement()
+          ImmunizationEvaluation.SeriesDoses?.from(
+            PositiveInt.of(
+              this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesPositiveInt,
+              this@ImmunizationEvaluationSeriesDosesSurrogate._seriesDosesPositiveInt,
+            ),
+            R4String.of(
+              this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesString,
+              this@ImmunizationEvaluationSeriesDosesSurrogate._seriesDosesString,
+            ),
+          )
         }
       }
   }
@@ -127,20 +133,20 @@ internal data class ImmunizationEvaluationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var patient: Reference? = null,
+  public var patient: Reference,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var authority: Reference? = null,
-  public var targetDisease: CodeableConcept? = null,
-  public var immunizationEvent: Reference? = null,
-  public var doseStatus: CodeableConcept? = null,
-  public var doseStatusReason: List<CodeableConcept?>? = null,
+  public var targetDisease: CodeableConcept,
+  public var immunizationEvent: Reference,
+  public var doseStatus: CodeableConcept,
+  public var doseStatusReason: MutableList<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var series: KotlinString? = null,
@@ -149,90 +155,88 @@ internal data class ImmunizationEvaluationSurrogate(
   public var seriesDoses: ImmunizationEvaluation.SeriesDoses? = null,
 ) {
   public fun toModel(): ImmunizationEvaluation =
-    ImmunizationEvaluation().apply {
-      id = this@ImmunizationEvaluationSurrogate.id
-      meta = this@ImmunizationEvaluationSurrogate.meta
+    ImmunizationEvaluation(
+      id = this@ImmunizationEvaluationSurrogate.id,
+      meta = this@ImmunizationEvaluationSurrogate.meta,
       implicitRules =
         Uri.of(
           this@ImmunizationEvaluationSurrogate.implicitRules,
           this@ImmunizationEvaluationSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@ImmunizationEvaluationSurrogate.language,
           this@ImmunizationEvaluationSurrogate._language,
-        )
-      text = this@ImmunizationEvaluationSurrogate.text
-      contained = this@ImmunizationEvaluationSurrogate.contained
-      extension = this@ImmunizationEvaluationSurrogate.extension
-      modifierExtension = this@ImmunizationEvaluationSurrogate.modifierExtension
-      identifier = this@ImmunizationEvaluationSurrogate.identifier
+        ),
+      text = this@ImmunizationEvaluationSurrogate.text,
+      contained = this@ImmunizationEvaluationSurrogate.contained ?: mutableListOf(),
+      extension = this@ImmunizationEvaluationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ImmunizationEvaluationSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@ImmunizationEvaluationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@ImmunizationEvaluationSurrogate.status?.let {
-            com.google.fhir.model.r4.ImmunizationEvaluation.ImmunizationEvaluationStatus.fromCode(
-              it
-            )
-          },
+          com.google.fhir.model.r4.ImmunizationEvaluation.ImmunizationEvaluationStatus.fromCode(
+            this@ImmunizationEvaluationSurrogate.status!!
+          ),
           this@ImmunizationEvaluationSurrogate._status,
-        )
-      patient = this@ImmunizationEvaluationSurrogate.patient
+        ),
+      patient = this@ImmunizationEvaluationSurrogate.patient,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationEvaluationSurrogate.date),
           this@ImmunizationEvaluationSurrogate._date,
-        )
-      authority = this@ImmunizationEvaluationSurrogate.authority
-      targetDisease = this@ImmunizationEvaluationSurrogate.targetDisease
-      immunizationEvent = this@ImmunizationEvaluationSurrogate.immunizationEvent
-      doseStatus = this@ImmunizationEvaluationSurrogate.doseStatus
-      doseStatusReason = this@ImmunizationEvaluationSurrogate.doseStatusReason
+        ),
+      authority = this@ImmunizationEvaluationSurrogate.authority,
+      targetDisease = this@ImmunizationEvaluationSurrogate.targetDisease,
+      immunizationEvent = this@ImmunizationEvaluationSurrogate.immunizationEvent,
+      doseStatus = this@ImmunizationEvaluationSurrogate.doseStatus,
+      doseStatusReason = this@ImmunizationEvaluationSurrogate.doseStatusReason ?: mutableListOf(),
       description =
         R4String.of(
           this@ImmunizationEvaluationSurrogate.description,
           this@ImmunizationEvaluationSurrogate._description,
-        )
+        ),
       series =
         R4String.of(
           this@ImmunizationEvaluationSurrogate.series,
           this@ImmunizationEvaluationSurrogate._series,
-        )
-      doseNumber = this@ImmunizationEvaluationSurrogate.doseNumber
-      seriesDoses = this@ImmunizationEvaluationSurrogate.seriesDoses
-    }
+        ),
+      doseNumber = this@ImmunizationEvaluationSurrogate.doseNumber,
+      seriesDoses = this@ImmunizationEvaluationSurrogate.seriesDoses,
+    )
 
   public companion object {
     public fun fromModel(model: ImmunizationEvaluation): ImmunizationEvaluationSurrogate =
       with(model) {
-        ImmunizationEvaluationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          patient = this@with.patient
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          authority = this@with.authority
-          targetDisease = this@with.targetDisease
-          immunizationEvent = this@with.immunizationEvent
-          doseStatus = this@with.doseStatus
-          doseStatusReason = this@with.doseStatusReason
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          series = this@with.series?.value
-          _series = this@with.series?.toElement()
-          doseNumber = this@with.doseNumber
-          seriesDoses = this@with.seriesDoses
-        }
+        ImmunizationEvaluationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          patient = this@with.patient,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          authority = this@with.authority,
+          targetDisease = this@with.targetDisease,
+          immunizationEvent = this@with.immunizationEvent,
+          doseStatus = this@with.doseStatus,
+          doseStatusReason = this@with.doseStatusReason.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          series = this@with.series?.value,
+          _series = this@with.series?.toElement(),
+          doseNumber = this@with.doseNumber,
+          seriesDoses = this@with.seriesDoses,
+        )
       }
   }
 }

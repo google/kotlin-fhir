@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.NutritionOrderOralDietTextureSeriali
 import com.google.fhir.model.r4.serializers.NutritionOrderSerializer
 import com.google.fhir.model.r4.serializers.NutritionOrderSupplementSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class NutritionOrder(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class NutritionOrder(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,14 +133,14 @@ public data class NutritionOrder(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers assigned to this order by the order sender or by the order receiver.
    *
    * The Identifier.type element can be to indicate filler vs. placer if needed. This is explained
    * in further detail [here](servicerequest.html#notes).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this NutritionOrder.
@@ -152,19 +152,19 @@ public data class NutritionOrder(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this NutritionOrder.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /**
    * The URL pointing to a protocol, guideline, orderset or other definition that is adhered to in
    * whole or in part by this NutritionOrder.
    */
-  public var instantiates: List<Uri?>? = null,
+  public var instantiates: MutableList<Uri> = mutableListOf(),
   /**
    * The workflow status of the nutrition order/request.
    *
@@ -173,7 +173,7 @@ public data class NutritionOrder(
    * labeled as a modifier because the status contains codes that mark the resource as not currently
    * valid.
    */
-  public var status: Enumeration<NutritionOrderStatus>? = null,
+  public var status: Enumeration<NutritionOrderStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the NutrionOrder and where the
    * request fits into the workflow chain.
@@ -184,19 +184,19 @@ public data class NutritionOrder(
    * Expectation is that the set of codes is mutually exclusive or a strict all-encompassing
    * hierarchy.
    */
-  public var intent: Enumeration<NutritiionOrderIntent>? = null,
+  public var intent: Enumeration<NutritiionOrderIntent>,
   /**
    * The person (patient) who needs the nutrition order for an oral diet, nutritional supplement
    * and/or enteral or formula feeding.
    */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /**
    * An encounter that provides additional information about the healthcare context in which this
    * request is made.
    */
   public var encounter: Reference? = null,
   /** The date and time that this nutrition order was requested. */
-  public var dateTime: DateTime? = null,
+  public var dateTime: DateTime,
   /**
    * The practitioner that holds legal responsibility for ordering the diet, nutritional supplement,
    * or formula feedings.
@@ -209,7 +209,7 @@ public data class NutritionOrder(
    * Information on a patient's food allergies and intolerances to inform healthcare personnel about
    * the type of foods that the patient shouldn't receive or consume.
    */
-  public var allergyIntolerance: List<Reference?>? = null,
+  public var allergyIntolerance: MutableList<Reference> = mutableListOf(),
   /**
    * This modifier is used to convey order-specific modifiers about the type of food that should be
    * given. These can be derived from patient allergies, intolerances, or preferences such as Halal,
@@ -219,7 +219,7 @@ public data class NutritionOrder(
    * Information on a patient's food preferences that inform healthcare personnel about the food
    * that the patient should receive or consume.
    */
-  public var foodPreferenceModifier: List<CodeableConcept?>? = null,
+  public var foodPreferenceModifier: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * This modifier is used to convey Order-specific modifier about the type of oral food or oral
    * fluids that should not be given. These can be derived from patient allergies, intolerances, or
@@ -233,14 +233,14 @@ public data class NutritionOrder(
    * Information on a patient's food allergies, intolerances and preferences to inform healthcare
    * personnel about the type of foods that the patient shouldn't receive or consume.
    */
-  public var excludeFoodModifier: List<CodeableConcept?>? = null,
+  public var excludeFoodModifier: MutableList<CodeableConcept> = mutableListOf(),
   /** Diet given orally in contrast to enteral (tube) feeding. */
   public var oralDiet: OralDiet? = null,
   /**
    * Oral nutritional products given in order to add further nutritional value to the patient's
    * diet.
    */
-  public var supplement: List<Supplement>? = null,
+  public var supplement: MutableList<Supplement> = mutableListOf(),
   /**
    * Feeding provided through the gastrointestinal tract via a tube, catheter, or stoma that
    * delivers nutrition distal to the oral cavity.
@@ -253,7 +253,7 @@ public data class NutritionOrder(
    * represented in the `.oralDiet.instruction`, `supplement.instruction`, or
    * `enteralFormula.administrationInstruction` elements.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
   /** Diet given orally in contrast to enteral (tube) feeding. */
   @Serializable(with = NutritionOrderOralDietSerializer::class)
@@ -275,7 +275,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -294,29 +294,29 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The kind of diet or dietary restriction such as fiber restricted diet or diabetic diet. */
-    public var type: List<CodeableConcept?>? = null,
+    public var type: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The time period and frequency at which the diet should be given. The diet should be given for
      * the combination of all schedules if more than one schedule is present.
      */
-    public var schedule: List<Timing?>? = null,
+    public var schedule: MutableList<Timing> = mutableListOf(),
     /**
      * Class that defines the quantity and type of nutrient modifications (for example carbohydrate,
      * fiber or sodium) required for the oral diet.
      */
-    public var nutrient: List<Nutrient>? = null,
+    public var nutrient: MutableList<Nutrient> = mutableListOf(),
     /**
      * Class that describes any texture modifications required for the patient to safely consume
      * various types of solid foods.
      */
-    public var texture: List<Texture>? = null,
+    public var texture: MutableList<Texture> = mutableListOf(),
     /**
      * The required consistency (e.g. honey-thick, nectar-thick, thin, thickened.) of liquids or
      * fluids served to the patient.
      */
-    public var fluidConsistencyType: List<CodeableConcept?>? = null,
+    public var fluidConsistencyType: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Free text or additional instructions or information pertaining to the oral diet.
      *
@@ -348,7 +348,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -367,7 +367,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The nutrient that is being modified such as carbohydrate or sodium. */
       public var modifier: CodeableConcept? = null,
       /** The quantity of the specified nutrient to include in diet. */
@@ -397,7 +397,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -416,7 +416,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Any texture modifications (for solid foods) that should be made, e.g. easy to chew,
        * chopped, ground, and pureed.
@@ -457,7 +457,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -476,7 +476,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The kind of nutritional supplement product required such as a high protein or pediatric clear
      * liquid supplement.
@@ -488,7 +488,7 @@ public data class NutritionOrder(
      * The time period and frequency at which the supplement(s) should be given. The supplement
      * should be given for the combination of all schedules if more than one schedule is present.
      */
-    public var schedule: List<Timing?>? = null,
+    public var schedule: MutableList<Timing> = mutableListOf(),
     /** The amount of the nutritional supplement to be given. */
     public var quantity: Quantity? = null,
     /**
@@ -523,7 +523,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -542,7 +542,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The type of enteral or infant formula such as an adult standard formula with fiber or a
      * soy-based infant formula.
@@ -581,7 +581,7 @@ public data class NutritionOrder(
      * See implementation notes below for further discussion on how to order continuous vs bolus
      * enteral feeding using this resource.
      */
-    public var administration: List<Administration>? = null,
+    public var administration: MutableList<Administration> = mutableListOf(),
     /**
      * The maximum total quantity of formula that may be administered to a subject over the period
      * of time, e.g. 1440 mL over 24 hours.
@@ -621,7 +621,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -640,7 +640,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The time period and frequency at which the enteral formula should be delivered to the
        * patient.
@@ -670,16 +670,14 @@ public data class NutritionOrder(
 
         public data class Ratio(public val `value`: com.google.fhir.model.r4.Ratio) : Rate
 
-        public data object Null : Rate
-
         public companion object {
-          public fun from(
-            QuantityValue: com.google.fhir.model.r4.Quantity?,
-            RatioValue: com.google.fhir.model.r4.Ratio?,
-          ): Rate {
-            if (QuantityValue != null) return Quantity(QuantityValue)
-            if (RatioValue != null) return Ratio(RatioValue)
-            return Null
+          internal fun from(
+            quantityValue: com.google.fhir.model.r4.Quantity?,
+            ratioValue: com.google.fhir.model.r4.Ratio?,
+          ): Rate? {
+            if (quantityValue != null) return Quantity(quantityValue)
+            if (ratioValue != null) return Ratio(ratioValue)
+            return null
           }
         }
       }
@@ -691,74 +689,14 @@ public data class NutritionOrder(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/request-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is in force and ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/request-status",
-      "Active",
-      "The request is in force and ready to be acted upon.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been temporarily withdrawn but is
-     * expected to resume in the future.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/request-status",
-      "On Hold",
-      "The request (and any implicit authorization to act) has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been terminated prior to the known
-     * full completion of the intended actions. No further activity should occur.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/request-status",
-      "Revoked",
-      "The request (and any implicit authorization to act) has been terminated prior to the known full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * The activity described by the request has been fully performed. No further activity will
-     * occur.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/request-status",
-      "Completed",
-      "The activity described by the request has been fully performed.  No further activity will occur.",
-    ),
-    /**
-     * This request should never have existed and should be considered 'void'. (It is possible that
-     * real-world decisions were based on it. If real-world activity has occurred, the status should
-     * be "revoked" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      "This request should never have existed and should be considered 'void'.  (It is possible that real-world decisions were based on it.  If real-world activity has occurred, the status should be \"revoked\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this request. Note: This concept is not to be used for "other" - one of the listed statuses
-     * is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/request-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -767,8 +705,6 @@ public data class NutritionOrder(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NutritionOrderStatus =
@@ -790,93 +726,16 @@ public data class NutritionOrder(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /**
-     * The request represents a legally binding instruction authored by a Patient or RelatedPerson.
-     */
-    Directive(
-      "directive",
-      "http://hl7.org/fhir/request-intent",
-      "Directive",
-      "The request represents a legally binding instruction authored by a Patient or RelatedPerson.",
-    ),
-    /** The request represents a request/demand and authorization for action by a Practitioner. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by a Practitioner.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestGroup that establishes timing,
-     * conditionality and/or other constraints among a set of requests. Refer to [[[RequestGroup]]]
-     * for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -885,8 +744,6 @@ public data class NutritionOrder(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): NutritiionOrderIntent =

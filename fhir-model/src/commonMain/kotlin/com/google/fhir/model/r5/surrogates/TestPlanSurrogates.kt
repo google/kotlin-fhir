@@ -47,43 +47,43 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class TestPlanDependencySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var predecessor: Reference? = null,
 ) {
   public fun toModel(): TestPlan.Dependency =
-    TestPlan.Dependency().apply {
-      id = this@TestPlanDependencySurrogate.id
-      extension = this@TestPlanDependencySurrogate.extension
-      modifierExtension = this@TestPlanDependencySurrogate.modifierExtension
+    TestPlan.Dependency(
+      id = this@TestPlanDependencySurrogate.id,
+      extension = this@TestPlanDependencySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestPlanDependencySurrogate.modifierExtension ?: mutableListOf(),
       description =
         Markdown.of(
           this@TestPlanDependencySurrogate.description,
           this@TestPlanDependencySurrogate._description,
-        )
-      predecessor = this@TestPlanDependencySurrogate.predecessor
-    }
+        ),
+      predecessor = this@TestPlanDependencySurrogate.predecessor,
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.Dependency): TestPlanDependencySurrogate =
       with(model) {
-        TestPlanDependencySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          predecessor = this@with.predecessor
-        }
+        TestPlanDependencySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          predecessor = this@with.predecessor,
+        )
       }
   }
 }
@@ -91,56 +91,55 @@ internal data class TestPlanDependencySurrogate(
 @Serializable
 internal data class TestPlanTestCaseDependencySurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var predecessor: Reference? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.Dependency =
-    TestPlan.TestCase.Dependency().apply {
-      id = this@TestPlanTestCaseDependencySurrogate.id
-      extension = this@TestPlanTestCaseDependencySurrogate.extension
-      modifierExtension = this@TestPlanTestCaseDependencySurrogate.modifierExtension
+    TestPlan.TestCase.Dependency(
+      id = this@TestPlanTestCaseDependencySurrogate.id,
+      extension = this@TestPlanTestCaseDependencySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestPlanTestCaseDependencySurrogate.modifierExtension ?: mutableListOf(),
       description =
         Markdown.of(
           this@TestPlanTestCaseDependencySurrogate.description,
           this@TestPlanTestCaseDependencySurrogate._description,
-        )
-      predecessor = this@TestPlanTestCaseDependencySurrogate.predecessor
-    }
+        ),
+      predecessor = this@TestPlanTestCaseDependencySurrogate.predecessor,
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.TestCase.Dependency): TestPlanTestCaseDependencySurrogate =
       with(model) {
-        TestPlanTestCaseDependencySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          predecessor = this@with.predecessor
-        }
+        TestPlanTestCaseDependencySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          predecessor = this@with.predecessor,
+        )
       }
   }
 }
 
 @Serializable
-internal class TestPlanTestCaseTestRunScriptSourceSurrogate {
-  public var sourceString: KotlinString? = null
-
-  public var _sourceString: Element? = null
-
-  public var sourceReference: Reference? = null
-
-  public fun toModel(): TestPlan.TestCase.TestRun.Script.Source =
+internal data class TestPlanTestCaseTestRunScriptSourceSurrogate(
+  public var sourceString: KotlinString? = null,
+  public var _sourceString: Element? = null,
+  public var sourceReference: Reference? = null,
+) {
+  public fun toModel(): TestPlan.TestCase.TestRun.Script.Source? =
     TestPlan.TestCase.TestRun.Script.Source?.from(
       R5String.of(
         this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceString,
         this@TestPlanTestCaseTestRunScriptSourceSurrogate._sourceString,
       ),
       this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceReference,
-    ) ?: TestPlan.TestCase.TestRun.Script.Source.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -148,9 +147,13 @@ internal class TestPlanTestCaseTestRunScriptSourceSurrogate {
     ): TestPlanTestCaseTestRunScriptSourceSurrogate =
       with(model) {
         TestPlanTestCaseTestRunScriptSourceSurrogate().apply {
-          sourceString = this@with.asString()?.value?.value
-          _sourceString = this@with.asString()?.value?.toElement()
-          sourceReference = this@with.asReference()?.value
+          TestPlan.TestCase.TestRun.Script.Source?.from(
+            R5String.of(
+              this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceString,
+              this@TestPlanTestCaseTestRunScriptSourceSurrogate._sourceString,
+            ),
+            this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceReference,
+          )
         }
       }
   }
@@ -159,32 +162,33 @@ internal class TestPlanTestCaseTestRunScriptSourceSurrogate {
 @Serializable
 internal data class TestPlanTestCaseTestRunScriptSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var language: CodeableConcept? = null,
   public var source: TestPlan.TestCase.TestRun.Script.Source? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.TestRun.Script =
-    TestPlan.TestCase.TestRun.Script().apply {
-      id = this@TestPlanTestCaseTestRunScriptSurrogate.id
-      extension = this@TestPlanTestCaseTestRunScriptSurrogate.extension
-      modifierExtension = this@TestPlanTestCaseTestRunScriptSurrogate.modifierExtension
-      language = this@TestPlanTestCaseTestRunScriptSurrogate.language
-      source = this@TestPlanTestCaseTestRunScriptSurrogate.source
-    }
+    TestPlan.TestCase.TestRun.Script(
+      id = this@TestPlanTestCaseTestRunScriptSurrogate.id,
+      extension = this@TestPlanTestCaseTestRunScriptSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestPlanTestCaseTestRunScriptSurrogate.modifierExtension ?: mutableListOf(),
+      language = this@TestPlanTestCaseTestRunScriptSurrogate.language,
+      source = this@TestPlanTestCaseTestRunScriptSurrogate.source,
+    )
 
   public companion object {
     public fun fromModel(
       model: TestPlan.TestCase.TestRun.Script
     ): TestPlanTestCaseTestRunScriptSurrogate =
       with(model) {
-        TestPlanTestCaseTestRunScriptSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          language = this@with.language
-          source = this@with.source
-        }
+        TestPlanTestCaseTestRunScriptSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          language = this@with.language,
+          source = this@with.source,
+        )
       }
   }
 }
@@ -192,56 +196,55 @@ internal data class TestPlanTestCaseTestRunScriptSurrogate(
 @Serializable
 internal data class TestPlanTestCaseTestRunSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var narrative: KotlinString? = null,
   public var _narrative: Element? = null,
   public var script: TestPlan.TestCase.TestRun.Script? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.TestRun =
-    TestPlan.TestCase.TestRun().apply {
-      id = this@TestPlanTestCaseTestRunSurrogate.id
-      extension = this@TestPlanTestCaseTestRunSurrogate.extension
-      modifierExtension = this@TestPlanTestCaseTestRunSurrogate.modifierExtension
+    TestPlan.TestCase.TestRun(
+      id = this@TestPlanTestCaseTestRunSurrogate.id,
+      extension = this@TestPlanTestCaseTestRunSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestPlanTestCaseTestRunSurrogate.modifierExtension ?: mutableListOf(),
       narrative =
         Markdown.of(
           this@TestPlanTestCaseTestRunSurrogate.narrative,
           this@TestPlanTestCaseTestRunSurrogate._narrative,
-        )
-      script = this@TestPlanTestCaseTestRunSurrogate.script
-    }
+        ),
+      script = this@TestPlanTestCaseTestRunSurrogate.script,
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.TestCase.TestRun): TestPlanTestCaseTestRunSurrogate =
       with(model) {
-        TestPlanTestCaseTestRunSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          narrative = this@with.narrative?.value
-          _narrative = this@with.narrative?.toElement()
-          script = this@with.script
-        }
+        TestPlanTestCaseTestRunSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          narrative = this@with.narrative?.value,
+          _narrative = this@with.narrative?.toElement(),
+          script = this@with.script,
+        )
       }
   }
 }
 
 @Serializable
-internal class TestPlanTestCaseTestDataSourceSurrogate {
-  public var sourceString: KotlinString? = null
-
-  public var _sourceString: Element? = null
-
-  public var sourceReference: Reference? = null
-
-  public fun toModel(): TestPlan.TestCase.TestData.Source =
+internal data class TestPlanTestCaseTestDataSourceSurrogate(
+  public var sourceString: KotlinString? = null,
+  public var _sourceString: Element? = null,
+  public var sourceReference: Reference? = null,
+) {
+  public fun toModel(): TestPlan.TestCase.TestData.Source? =
     TestPlan.TestCase.TestData.Source?.from(
       R5String.of(
         this@TestPlanTestCaseTestDataSourceSurrogate.sourceString,
         this@TestPlanTestCaseTestDataSourceSurrogate._sourceString,
       ),
       this@TestPlanTestCaseTestDataSourceSurrogate.sourceReference,
-    ) ?: TestPlan.TestCase.TestData.Source.Null
+    )
 
   public companion object {
     public fun fromModel(
@@ -249,9 +252,13 @@ internal class TestPlanTestCaseTestDataSourceSurrogate {
     ): TestPlanTestCaseTestDataSourceSurrogate =
       with(model) {
         TestPlanTestCaseTestDataSourceSurrogate().apply {
-          sourceString = this@with.asString()?.value?.value
-          _sourceString = this@with.asString()?.value?.toElement()
-          sourceReference = this@with.asReference()?.value
+          TestPlan.TestCase.TestData.Source?.from(
+            R5String.of(
+              this@TestPlanTestCaseTestDataSourceSurrogate.sourceString,
+              this@TestPlanTestCaseTestDataSourceSurrogate._sourceString,
+            ),
+            this@TestPlanTestCaseTestDataSourceSurrogate.sourceReference,
+          )
         }
       }
   }
@@ -260,33 +267,34 @@ internal class TestPlanTestCaseTestDataSourceSurrogate {
 @Serializable
 internal data class TestPlanTestCaseTestDataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: Coding? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: Coding,
   public var content: Reference? = null,
   public var source: TestPlan.TestCase.TestData.Source? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.TestData =
-    TestPlan.TestCase.TestData().apply {
-      id = this@TestPlanTestCaseTestDataSurrogate.id
-      extension = this@TestPlanTestCaseTestDataSurrogate.extension
-      modifierExtension = this@TestPlanTestCaseTestDataSurrogate.modifierExtension
-      type = this@TestPlanTestCaseTestDataSurrogate.type
-      content = this@TestPlanTestCaseTestDataSurrogate.content
-      source = this@TestPlanTestCaseTestDataSurrogate.source
-    }
+    TestPlan.TestCase.TestData(
+      id = this@TestPlanTestCaseTestDataSurrogate.id,
+      extension = this@TestPlanTestCaseTestDataSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestPlanTestCaseTestDataSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TestPlanTestCaseTestDataSurrogate.type,
+      content = this@TestPlanTestCaseTestDataSurrogate.content,
+      source = this@TestPlanTestCaseTestDataSurrogate.source,
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.TestCase.TestData): TestPlanTestCaseTestDataSurrogate =
       with(model) {
-        TestPlanTestCaseTestDataSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          content = this@with.content
-          source = this@with.source
-        }
+        TestPlanTestCaseTestDataSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          content = this@with.content,
+          source = this@with.source,
+        )
       }
   }
 }
@@ -294,33 +302,34 @@ internal data class TestPlanTestCaseTestDataSurrogate(
 @Serializable
 internal data class TestPlanTestCaseAssertionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var type: List<CodeableConcept?>? = null,
-  public var `object`: List<CodeableReference?>? = null,
-  public var result: List<CodeableReference?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var `object`: MutableList<CodeableReference>? = null,
+  public var result: MutableList<CodeableReference>? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.Assertion =
-    TestPlan.TestCase.Assertion().apply {
-      id = this@TestPlanTestCaseAssertionSurrogate.id
-      extension = this@TestPlanTestCaseAssertionSurrogate.extension
-      modifierExtension = this@TestPlanTestCaseAssertionSurrogate.modifierExtension
-      type = this@TestPlanTestCaseAssertionSurrogate.type
-      `object` = this@TestPlanTestCaseAssertionSurrogate.`object`
-      result = this@TestPlanTestCaseAssertionSurrogate.result
-    }
+    TestPlan.TestCase.Assertion(
+      id = this@TestPlanTestCaseAssertionSurrogate.id,
+      extension = this@TestPlanTestCaseAssertionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestPlanTestCaseAssertionSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TestPlanTestCaseAssertionSurrogate.type ?: mutableListOf(),
+      `object` = this@TestPlanTestCaseAssertionSurrogate.`object` ?: mutableListOf(),
+      result = this@TestPlanTestCaseAssertionSurrogate.result ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.TestCase.Assertion): TestPlanTestCaseAssertionSurrogate =
       with(model) {
-        TestPlanTestCaseAssertionSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          type = this@with.type
-          `object` = this@with.`object`
-          result = this@with.result
-        }
+        TestPlanTestCaseAssertionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.takeUnless { it.all { it == null } },
+          `object` = this@with.`object`.takeUnless { it.all { it == null } },
+          result = this@with.result.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -328,76 +337,78 @@ internal data class TestPlanTestCaseAssertionSurrogate(
 @Serializable
 internal data class TestPlanTestCaseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var scope: List<Reference?>? = null,
-  public var dependency: List<TestPlan.TestCase.Dependency>? = null,
-  public var testRun: List<TestPlan.TestCase.TestRun>? = null,
-  public var testData: List<TestPlan.TestCase.TestData>? = null,
-  public var assertion: List<TestPlan.TestCase.Assertion>? = null,
+  public var scope: MutableList<Reference>? = null,
+  public var dependency: MutableList<TestPlan.TestCase.Dependency>? = null,
+  public var testRun: MutableList<TestPlan.TestCase.TestRun>? = null,
+  public var testData: MutableList<TestPlan.TestCase.TestData>? = null,
+  public var assertion: MutableList<TestPlan.TestCase.Assertion>? = null,
 ) {
   public fun toModel(): TestPlan.TestCase =
-    TestPlan.TestCase().apply {
-      id = this@TestPlanTestCaseSurrogate.id
-      extension = this@TestPlanTestCaseSurrogate.extension
-      modifierExtension = this@TestPlanTestCaseSurrogate.modifierExtension
+    TestPlan.TestCase(
+      id = this@TestPlanTestCaseSurrogate.id,
+      extension = this@TestPlanTestCaseSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestPlanTestCaseSurrogate.modifierExtension ?: mutableListOf(),
       sequence =
         Integer.of(
           this@TestPlanTestCaseSurrogate.sequence,
           this@TestPlanTestCaseSurrogate._sequence,
-        )
-      scope = this@TestPlanTestCaseSurrogate.scope
-      dependency = this@TestPlanTestCaseSurrogate.dependency
-      testRun = this@TestPlanTestCaseSurrogate.testRun
-      testData = this@TestPlanTestCaseSurrogate.testData
-      assertion = this@TestPlanTestCaseSurrogate.assertion
-    }
+        ),
+      scope = this@TestPlanTestCaseSurrogate.scope ?: mutableListOf(),
+      dependency = this@TestPlanTestCaseSurrogate.dependency ?: mutableListOf(),
+      testRun = this@TestPlanTestCaseSurrogate.testRun ?: mutableListOf(),
+      testData = this@TestPlanTestCaseSurrogate.testData ?: mutableListOf(),
+      assertion = this@TestPlanTestCaseSurrogate.assertion ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.TestCase): TestPlanTestCaseSurrogate =
       with(model) {
-        TestPlanTestCaseSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          sequence = this@with.sequence?.value
-          _sequence = this@with.sequence?.toElement()
-          scope = this@with.scope
-          dependency = this@with.dependency
-          testRun = this@with.testRun
-          testData = this@with.testData
-          assertion = this@with.assertion
-        }
+        TestPlanTestCaseSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence?.value,
+          _sequence = this@with.sequence?.toElement(),
+          scope = this@with.scope.takeUnless { it.all { it == null } },
+          dependency = this@with.dependency.takeUnless { it.all { it == null } },
+          testRun = this@with.testRun.takeUnless { it.all { it == null } },
+          testData = this@with.testData.takeUnless { it.all { it == null } },
+          assertion = this@with.assertion.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
 
 @Serializable
-internal class TestPlanVersionAlgorithmSurrogate {
-  public var versionAlgorithmString: KotlinString? = null
-
-  public var _versionAlgorithmString: Element? = null
-
-  public var versionAlgorithmCoding: Coding? = null
-
-  public fun toModel(): TestPlan.VersionAlgorithm =
+internal data class TestPlanVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): TestPlan.VersionAlgorithm? =
     TestPlan.VersionAlgorithm?.from(
       R5String.of(
         this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmString,
         this@TestPlanVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    ) ?: TestPlan.VersionAlgorithm.Null
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan.VersionAlgorithm): TestPlanVersionAlgorithmSurrogate =
       with(model) {
         TestPlanVersionAlgorithmSurrogate().apply {
-          versionAlgorithmString = this@with.asString()?.value?.value
-          _versionAlgorithmString = this@with.asString()?.value?.toElement()
-          versionAlgorithmCoding = this@with.asCoding()?.value
+          TestPlan.VersionAlgorithm?.from(
+            R5String.of(
+              this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmString,
+              this@TestPlanVersionAlgorithmSurrogate._versionAlgorithmString,
+            ),
+            this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmCoding,
+          )
         }
       }
   }
@@ -412,12 +423,12 @@ internal data class TestPlanSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -432,129 +443,127 @@ internal data class TestPlanSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: List<UsageContext?>? = null,
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var useContext: MutableList<UsageContext>? = null,
+  public var jurisdiction: MutableList<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var copyrightLabel: KotlinString? = null,
   public var _copyrightLabel: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
-  public var scope: List<Reference?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
+  public var scope: MutableList<Reference>? = null,
   public var testTools: KotlinString? = null,
   public var _testTools: Element? = null,
-  public var dependency: List<TestPlan.Dependency>? = null,
+  public var dependency: MutableList<TestPlan.Dependency>? = null,
   public var exitCriteria: KotlinString? = null,
   public var _exitCriteria: Element? = null,
-  public var testCase: List<TestPlan.TestCase>? = null,
+  public var testCase: MutableList<TestPlan.TestCase>? = null,
   public var versionAlgorithm: TestPlan.VersionAlgorithm? = null,
 ) {
   public fun toModel(): TestPlan =
-    TestPlan().apply {
-      id = this@TestPlanSurrogate.id
-      meta = this@TestPlanSurrogate.meta
+    TestPlan(
+      id = this@TestPlanSurrogate.id,
+      meta = this@TestPlanSurrogate.meta,
       implicitRules =
-        Uri.of(this@TestPlanSurrogate.implicitRules, this@TestPlanSurrogate._implicitRules)
-      language = Code.of(this@TestPlanSurrogate.language, this@TestPlanSurrogate._language)
-      text = this@TestPlanSurrogate.text
-      contained = this@TestPlanSurrogate.contained
-      extension = this@TestPlanSurrogate.extension
-      modifierExtension = this@TestPlanSurrogate.modifierExtension
-      url = Uri.of(this@TestPlanSurrogate.url, this@TestPlanSurrogate._url)
-      identifier = this@TestPlanSurrogate.identifier
-      version = R5String.of(this@TestPlanSurrogate.version, this@TestPlanSurrogate._version)
-      versionAlgorithm = this@TestPlanSurrogate.versionAlgorithm
-      name = R5String.of(this@TestPlanSurrogate.name, this@TestPlanSurrogate._name)
-      title = R5String.of(this@TestPlanSurrogate.title, this@TestPlanSurrogate._title)
+        Uri.of(this@TestPlanSurrogate.implicitRules, this@TestPlanSurrogate._implicitRules),
+      language = Code.of(this@TestPlanSurrogate.language, this@TestPlanSurrogate._language),
+      text = this@TestPlanSurrogate.text,
+      contained = this@TestPlanSurrogate.contained ?: mutableListOf(),
+      extension = this@TestPlanSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestPlanSurrogate.modifierExtension ?: mutableListOf(),
+      url = Uri.of(this@TestPlanSurrogate.url, this@TestPlanSurrogate._url),
+      identifier = this@TestPlanSurrogate.identifier ?: mutableListOf(),
+      version = R5String.of(this@TestPlanSurrogate.version, this@TestPlanSurrogate._version),
+      versionAlgorithm = this@TestPlanSurrogate.versionAlgorithm,
+      name = R5String.of(this@TestPlanSurrogate.name, this@TestPlanSurrogate._name),
+      title = R5String.of(this@TestPlanSurrogate.title, this@TestPlanSurrogate._title),
       status =
         Enumeration.of(
-          this@TestPlanSurrogate.status?.let {
-            com.google.fhir.model.r5.PublicationStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.PublicationStatus.fromCode(this@TestPlanSurrogate.status!!),
           this@TestPlanSurrogate._status,
-        )
+        ),
       experimental =
-        R5Boolean.of(this@TestPlanSurrogate.experimental, this@TestPlanSurrogate._experimental)
+        R5Boolean.of(this@TestPlanSurrogate.experimental, this@TestPlanSurrogate._experimental),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@TestPlanSurrogate.date),
           this@TestPlanSurrogate._date,
-        )
-      publisher = R5String.of(this@TestPlanSurrogate.publisher, this@TestPlanSurrogate._publisher)
-      contact = this@TestPlanSurrogate.contact
+        ),
+      publisher = R5String.of(this@TestPlanSurrogate.publisher, this@TestPlanSurrogate._publisher),
+      contact = this@TestPlanSurrogate.contact ?: mutableListOf(),
       description =
-        Markdown.of(this@TestPlanSurrogate.description, this@TestPlanSurrogate._description)
-      useContext = this@TestPlanSurrogate.useContext
-      jurisdiction = this@TestPlanSurrogate.jurisdiction
-      purpose = Markdown.of(this@TestPlanSurrogate.purpose, this@TestPlanSurrogate._purpose)
-      copyright = Markdown.of(this@TestPlanSurrogate.copyright, this@TestPlanSurrogate._copyright)
+        Markdown.of(this@TestPlanSurrogate.description, this@TestPlanSurrogate._description),
+      useContext = this@TestPlanSurrogate.useContext ?: mutableListOf(),
+      jurisdiction = this@TestPlanSurrogate.jurisdiction ?: mutableListOf(),
+      purpose = Markdown.of(this@TestPlanSurrogate.purpose, this@TestPlanSurrogate._purpose),
+      copyright = Markdown.of(this@TestPlanSurrogate.copyright, this@TestPlanSurrogate._copyright),
       copyrightLabel =
-        R5String.of(this@TestPlanSurrogate.copyrightLabel, this@TestPlanSurrogate._copyrightLabel)
-      category = this@TestPlanSurrogate.category
-      scope = this@TestPlanSurrogate.scope
-      testTools = Markdown.of(this@TestPlanSurrogate.testTools, this@TestPlanSurrogate._testTools)
-      dependency = this@TestPlanSurrogate.dependency
+        R5String.of(this@TestPlanSurrogate.copyrightLabel, this@TestPlanSurrogate._copyrightLabel),
+      category = this@TestPlanSurrogate.category ?: mutableListOf(),
+      scope = this@TestPlanSurrogate.scope ?: mutableListOf(),
+      testTools = Markdown.of(this@TestPlanSurrogate.testTools, this@TestPlanSurrogate._testTools),
+      dependency = this@TestPlanSurrogate.dependency ?: mutableListOf(),
       exitCriteria =
-        Markdown.of(this@TestPlanSurrogate.exitCriteria, this@TestPlanSurrogate._exitCriteria)
-      testCase = this@TestPlanSurrogate.testCase
-    }
+        Markdown.of(this@TestPlanSurrogate.exitCriteria, this@TestPlanSurrogate._exitCriteria),
+      testCase = this@TestPlanSurrogate.testCase ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: TestPlan): TestPlanSurrogate =
       with(model) {
-        TestPlanSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          url = this@with.url?.value
-          _url = this@with.url?.toElement()
-          identifier = this@with.identifier
-          version = this@with.version?.value
-          _version = this@with.version?.toElement()
-          versionAlgorithm = this@with.versionAlgorithm
-          name = this@with.name?.value
-          _name = this@with.name?.toElement()
-          title = this@with.title?.value
-          _title = this@with.title?.toElement()
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          experimental = this@with.experimental?.value
-          _experimental = this@with.experimental?.toElement()
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          publisher = this@with.publisher?.value
-          _publisher = this@with.publisher?.toElement()
-          contact = this@with.contact
-          description = this@with.description?.value
-          _description = this@with.description?.toElement()
-          useContext = this@with.useContext
-          jurisdiction = this@with.jurisdiction
-          purpose = this@with.purpose?.value
-          _purpose = this@with.purpose?.toElement()
-          copyright = this@with.copyright?.value
-          _copyright = this@with.copyright?.toElement()
-          copyrightLabel = this@with.copyrightLabel?.value
-          _copyrightLabel = this@with.copyrightLabel?.toElement()
-          category = this@with.category
-          scope = this@with.scope
-          testTools = this@with.testTools?.value
-          _testTools = this@with.testTools?.toElement()
-          dependency = this@with.dependency
-          exitCriteria = this@with.exitCriteria?.value
-          _exitCriteria = this@with.exitCriteria?.toElement()
-          testCase = this@with.testCase
-        }
+        TestPlanSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          url = this@with.url?.value,
+          _url = this@with.url?.toElement(),
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          version = this@with.version?.value,
+          _version = this@with.version?.toElement(),
+          versionAlgorithm = this@with.versionAlgorithm,
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          experimental = this@with.experimental?.value,
+          _experimental = this@with.experimental?.toElement(),
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          publisher = this@with.publisher?.value,
+          _publisher = this@with.publisher?.toElement(),
+          contact = this@with.contact.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose?.value,
+          _purpose = this@with.purpose?.toElement(),
+          copyright = this@with.copyright?.value,
+          _copyright = this@with.copyright?.toElement(),
+          copyrightLabel = this@with.copyrightLabel?.value,
+          _copyrightLabel = this@with.copyrightLabel?.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          scope = this@with.scope.takeUnless { it.all { it == null } },
+          testTools = this@with.testTools?.value,
+          _testTools = this@with.testTools?.toElement(),
+          dependency = this@with.dependency.takeUnless { it.all { it == null } },
+          exitCriteria = this@with.exitCriteria?.value,
+          _exitCriteria = this@with.exitCriteria?.toElement(),
+          testCase = this@with.testCase.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

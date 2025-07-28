@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.RelatedPersonCommunicationSerialize
 import com.google.fhir.model.r4b.serializers.RelatedPersonSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class RelatedPerson(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class RelatedPerson(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,9 +128,9 @@ public data class RelatedPerson(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Identifier for a person within a particular scope. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Whether this related person record is in active use.
    *
@@ -139,18 +139,18 @@ public data class RelatedPerson(
    */
   public var active: Boolean? = null,
   /** The patient this person is related to. */
-  public var patient: Reference? = null,
+  public var patient: Reference,
   /** The nature of the relationship between a patient and the related person. */
-  public var relationship: List<CodeableConcept?>? = null,
+  public var relationship: MutableList<CodeableConcept> = mutableListOf(),
   /** A name associated with the person. */
-  public var name: List<HumanName?>? = null,
+  public var name: MutableList<HumanName> = mutableListOf(),
   /**
    * A contact detail for the person, e.g. a telephone number or an email address.
    *
    * Person may have multiple ways to be contacted with different uses or applicable periods. May
    * need to have options for contacting the person urgently, and also to help with identification.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * Administrative Gender - the gender that the person is considered to have for administration and
    * record keeping purposes.
@@ -159,9 +159,9 @@ public data class RelatedPerson(
   /** The date on which the related person was born. */
   public var birthDate: Date? = null,
   /** Address where the related person can be contacted or visited. */
-  public var address: List<Address?>? = null,
+  public var address: MutableList<Address> = mutableListOf(),
   /** Image of the person. */
-  public var photo: List<Attachment?>? = null,
+  public var photo: MutableList<Attachment> = mutableListOf(),
   /**
    * The period of time during which this relationship is or was active. If there are no dates
    * defined, then the interval is unknown.
@@ -176,7 +176,7 @@ public data class RelatedPerson(
    * language, then the Interpreter Required Standard can be used to explicitly declare that an
    * interpreter is required.
    */
-  public var communication: List<Communication>? = null,
+  public var communication: MutableList<Communication> = mutableListOf(),
 ) : DomainResource() {
   /** A language which may be used to communicate with about the patient's health. */
   @Serializable(with = RelatedPersonCommunicationSerializer::class)
@@ -198,7 +198,7 @@ public data class RelatedPerson(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -217,7 +217,7 @@ public data class RelatedPerson(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The ISO-639-1 alpha 2 code in lower case for the language, optionally followed by a hyphen
      * and the ISO-3166-1 alpha 2 code for the region in upper case; e.g. "en" for English, or
@@ -227,7 +227,7 @@ public data class RelatedPerson(
      * However not all systems actually code this but instead have it as free text. Hence
      * CodeableConcept instead of code as the data type.
      */
-    public var language: CodeableConcept? = null,
+    public var language: CodeableConcept,
     /**
      * Indicates whether or not the patient prefers this language (over other languages he masters
      * up a certain level).

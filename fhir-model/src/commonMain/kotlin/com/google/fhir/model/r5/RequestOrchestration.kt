@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.RequestOrchestrationActionSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionTimingSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -107,7 +107,7 @@ public data class RequestOrchestration(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -120,7 +120,7 @@ public data class RequestOrchestration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -139,21 +139,21 @@ public data class RequestOrchestration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Allows a service to provide a unique, business identifier for the request. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * A canonical URL referencing a FHIR-defined protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this request.
    */
-  public var instantiatesCanonical: List<Canonical?>? = null,
+  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
   /**
    * A URL referencing an externally defined protocol, guideline, orderset or other definition that
    * is adhered to in whole or in part by this request.
    */
-  public var instantiatesUri: List<Uri?>? = null,
+  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this request. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /**
    * Completed or terminated request(s) whose function is taken by this new request.
    *
@@ -161,7 +161,7 @@ public data class RequestOrchestration(
    * or because the previous request was completed, but the need for the action described by the
    * request remains ongoing.
    */
-  public var replaces: List<Reference?>? = null,
+  public var replaces: MutableList<Reference> = mutableListOf(),
   /**
    * A shared identifier common to multiple independent Request instances that were
    * activated/authorized more or less simultaneously by a single author. The presence of the same
@@ -179,12 +179,12 @@ public data class RequestOrchestration(
    * The current state of the request. For request orchestrations, the status reflects the status of
    * all the requests in the orchestration.
    */
-  public var status: Enumeration<RequestStatus>? = null,
+  public var status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the request and where the
    * request fits into the workflow chain.
    */
-  public var intent: Enumeration<RequestIntent>? = null,
+  public var intent: Enumeration<RequestIntent>,
   /** Indicates how quickly the request should be addressed with respect to other requests. */
   public var priority: Enumeration<RequestPriority>? = null,
   /**
@@ -204,15 +204,15 @@ public data class RequestOrchestration(
   /** Provides a reference to the author of the request orchestration. */
   public var author: Reference? = null,
   /** Describes the reason for the request orchestration in coded or textual form. */
-  public var reason: List<CodeableReference?>? = null,
+  public var reason: MutableList<CodeableReference> = mutableListOf(),
   /**
    * Goals that are intended to be achieved by following the requests in this RequestOrchestration.
    */
-  public var goal: List<Reference?>? = null,
+  public var goal: MutableList<Reference> = mutableListOf(),
   /** Provides a mechanism to communicate additional information about the response. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /** The actions, if any, produced by the evaluation of the artifact. */
-  public var action: List<Action>? = null,
+  public var action: MutableList<Action> = mutableListOf(),
 ) : DomainResource() {
   /** The actions, if any, produced by the evaluation of the artifact. */
   @Serializable(with = RequestOrchestrationActionSerializer::class)
@@ -234,7 +234,7 @@ public data class RequestOrchestration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -253,7 +253,7 @@ public data class RequestOrchestration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The linkId of the action from the PlanDefinition that corresponds to this action in the
      * RequestOrchestration resource.
@@ -280,28 +280,28 @@ public data class RequestOrchestration(
      * A code that provides meaning for the action or action group. For example, a section may have
      * a LOINC code for a section of a documentation template.
      */
-    public var code: List<CodeableConcept?>? = null,
+    public var code: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * Didactic or other informational resources associated with the action that can be provided to
      * the CDS recipient. Information resources can include inline text commentary and links to web
      * resources.
      */
-    public var documentation: List<RelatedArtifact?>? = null,
+    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
     /** Goals that are intended to be achieved by following the requests in this action. */
-    public var goal: List<Reference?>? = null,
+    public var goal: MutableList<Reference> = mutableListOf(),
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
      *
      * When multiple conditions of the same kind are present, the effects are combined using AND
      * semantics, so the overall condition is true only if all of the conditions are true.
      */
-    public var condition: List<Condition>? = null,
+    public var condition: MutableList<Condition> = mutableListOf(),
     /** Defines input data requirements for the action. */
-    public var input: List<Input>? = null,
+    public var input: MutableList<Input> = mutableListOf(),
     /** Defines the outputs of the action, if any. */
-    public var output: List<Output>? = null,
+    public var output: MutableList<Output> = mutableListOf(),
     /** A relationship to another action such as "before" or "30-60 minutes after start of". */
-    public var relatedAction: List<RelatedAction>? = null,
+    public var relatedAction: MutableList<RelatedAction> = mutableListOf(),
     /**
      * An optional value describing when the action should be performed.
      *
@@ -326,7 +326,7 @@ public data class RequestOrchestration(
      * participants (in the same way they are specified in ActivityDefinition and PlanDefinition
      * resources) as well as identifying specific participants when they are known.
      */
-    public var participant: List<Participant>? = null,
+    public var participant: MutableList<Participant> = mutableListOf(),
     /** The type of action to perform (create, update, remove). */
     public var type: CodeableConcept? = null,
     /** Defines the grouping behavior for the action and its children. */
@@ -377,9 +377,9 @@ public data class RequestOrchestration(
      * by the dynamicValues specified here. In addition, if both a transform and dynamic values are
      * specific, the dynamic values are applied to the result of the transform.
      */
-    public var dynamicValue: List<DynamicValue>? = null,
+    public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
     /** Sub actions. */
-    public var action: List<Action?>? = null,
+    public var action: MutableList<Action> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
@@ -403,7 +403,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -422,7 +422,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The kind of condition.
        *
@@ -430,7 +430,7 @@ public data class RequestOrchestration(
        * is applied to a given context. Start and stop criteria are carried through application and
        * used to describe enter/exit criteria for an action.
        */
-      public var kind: Enumeration<ActionConditionKind>? = null,
+      public var kind: Enumeration<ActionConditionKind>,
       /**
        * An expression that returns true or false, indicating whether or not the condition is
        * satisfied.
@@ -461,7 +461,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -480,7 +480,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
@@ -519,7 +519,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -538,7 +538,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
@@ -577,7 +577,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -596,11 +596,11 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The element id of the target related action. */
-      public var targetId: Id? = null,
+      public var targetId: Id,
       /** The relationship of this action to the related action. */
-      public var relationship: Enumeration<ActionRelationshipType>? = null,
+      public var relationship: Enumeration<ActionRelationshipType>,
       /** The relationship of the end of this action to the related action. */
       public var endRelationship: Enumeration<ActionRelationshipType>? = null,
       /**
@@ -619,16 +619,14 @@ public data class RequestOrchestration(
 
         public data class Range(public val `value`: com.google.fhir.model.r5.Range) : Offset
 
-        public data object Null : Offset
-
         public companion object {
-          public fun from(
-            DurationValue: com.google.fhir.model.r5.Duration?,
-            RangeValue: com.google.fhir.model.r5.Range?,
-          ): Offset {
-            if (DurationValue != null) return Duration(DurationValue)
-            if (RangeValue != null) return Range(RangeValue)
-            return Null
+          internal fun from(
+            durationValue: com.google.fhir.model.r5.Duration?,
+            rangeValue: com.google.fhir.model.r5.Range?,
+          ): Offset? {
+            if (durationValue != null) return Duration(durationValue)
+            if (rangeValue != null) return Range(rangeValue)
+            return null
           }
         }
       }
@@ -654,7 +652,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -673,7 +671,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of participant in the action. */
       public var type: Enumeration<ActivityParticipantType>? = null,
       /** The type of participant in the action. */
@@ -704,16 +702,14 @@ public data class RequestOrchestration(
 
         public data class Reference(public val `value`: com.google.fhir.model.r5.Reference) : Actor
 
-        public data object Null : Actor
-
         public companion object {
-          public fun from(
+          internal fun from(
             canonicalValue: com.google.fhir.model.r5.Canonical?,
-            ReferenceValue: com.google.fhir.model.r5.Reference?,
-          ): Actor {
+            referenceValue: com.google.fhir.model.r5.Reference?,
+          ): Actor? {
             if (canonicalValue != null) return Canonical(canonicalValue)
-            if (ReferenceValue != null) return Reference(ReferenceValue)
-            return Null
+            if (referenceValue != null) return Reference(referenceValue)
+            return null
           }
         }
       }
@@ -744,7 +740,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -763,7 +759,7 @@ public data class RequestOrchestration(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The path to the element to be customized. This is the path on the resource that will hold
        * the result of the calculation defined by the expression. The specified path SHALL be a
@@ -817,24 +813,22 @@ public data class RequestOrchestration(
 
       public data class Timing(public val `value`: com.google.fhir.model.r5.Timing) : Action.Timing
 
-      public data object Null : Action.Timing
-
       public companion object {
-        public fun from(
+        internal fun from(
           dateTimeValue: com.google.fhir.model.r5.DateTime?,
-          AgeValue: com.google.fhir.model.r5.Age?,
-          PeriodValue: com.google.fhir.model.r5.Period?,
-          DurationValue: com.google.fhir.model.r5.Duration?,
-          RangeValue: com.google.fhir.model.r5.Range?,
-          TimingValue: com.google.fhir.model.r5.Timing?,
-        ): Action.Timing {
+          ageValue: com.google.fhir.model.r5.Age?,
+          periodValue: com.google.fhir.model.r5.Period?,
+          durationValue: com.google.fhir.model.r5.Duration?,
+          rangeValue: com.google.fhir.model.r5.Range?,
+          timingValue: com.google.fhir.model.r5.Timing?,
+        ): Action.Timing? {
           if (dateTimeValue != null) return DateTime(dateTimeValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (TimingValue != null) return Timing(TimingValue)
-          return Null
+          if (ageValue != null) return Age(ageValue)
+          if (periodValue != null) return Period(periodValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (timingValue != null) return Timing(timingValue)
+          return null
         }
       }
     }
@@ -850,16 +844,14 @@ public data class RequestOrchestration(
 
       public data class Uri(public val `value`: com.google.fhir.model.r5.Uri) : Definition
 
-      public data object Null : Definition
-
       public companion object {
-        public fun from(
+        internal fun from(
           canonicalValue: com.google.fhir.model.r5.Canonical?,
           uriValue: com.google.fhir.model.r5.Uri?,
-        ): Definition {
+        ): Definition? {
           if (canonicalValue != null) return Canonical(canonicalValue)
           if (uriValue != null) return Uri(uriValue)
-          return Null
+          return null
         }
       }
     }
@@ -870,38 +862,11 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has normal priority. */
-    Routine(
-      "routine",
-      "http://hl7.org/fhir/request-priority",
-      "Routine",
-      "The request has normal priority.",
-    ),
-    /** The request should be actioned promptly - higher priority than routine. */
-    Urgent(
-      "urgent",
-      "http://hl7.org/fhir/request-priority",
-      "Urgent",
-      "The request should be actioned promptly - higher priority than routine.",
-    ),
-    /** The request should be actioned as soon as possible - higher priority than urgent. */
-    Asap(
-      "asap",
-      "http://hl7.org/fhir/request-priority",
-      "ASAP",
-      "The request should be actioned as soon as possible - higher priority than urgent.",
-    ),
-    /**
-     * The request should be actioned immediately - highest possible priority. E.g. an emergency.
-     */
-    Stat(
-      "stat",
-      "http://hl7.org/fhir/request-priority",
-      "STAT",
-      "The request should be actioned immediately - highest possible priority.  E.g. an emergency.",
-    );
+    Routine("routine", "http://hl7.org/fhir/request-priority", "Routine"),
+    Urgent("urgent", "http://hl7.org/fhir/request-priority", "Urgent"),
+    Asap("asap", "http://hl7.org/fhir/request-priority", "ASAP"),
+    Stat("stat", "http://hl7.org/fhir/request-priority", "STAT");
 
     override fun toString(): kotlin.String = code
 
@@ -910,8 +875,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestPriority =
@@ -930,42 +893,13 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * Any group marked with this behavior should be displayed as a visual group to the end user.
-     */
-    Visual_Group(
-      "visual-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Visual Group",
-      "Any group marked with this behavior should be displayed as a visual group to the end user.",
-    ),
-    /**
-     * A group with this behavior logically groups its sub-elements, and may be shown as a visual
-     * group to the end user, but it is not required to do so.
-     */
-    Logical_Group(
-      "logical-group",
-      "http://hl7.org/fhir/action-grouping-behavior",
-      "Logical Group",
-      "A group with this behavior logically groups its sub-elements, and may be shown as a visual group to the end user, but it is not required to do so.",
-    ),
-    /**
-     * A group of related alternative actions is a sentence group if the target referenced by the
-     * action is the same in all the actions and each action simply constitutes a different
-     * variation on how to specify the details for the target. For example, two actions that could
-     * be in a SentenceGroup are "aspirin, 500 mg, 2 times per day" and "aspirin, 300 mg, 3 times
-     * per day". In both cases, aspirin is the target referenced by the action, and the two actions
-     * represent different options for how aspirin might be ordered for the patient. Note that a
-     * SentenceGroup would almost always have an associated selection behavior of "AtMostOne",
-     * unless it's a required action, in which case, it would be "ExactlyOne".
-     */
+    Visual_Group("visual-group", "http://hl7.org/fhir/action-grouping-behavior", "Visual Group"),
+    Logical_Group("logical-group", "http://hl7.org/fhir/action-grouping-behavior", "Logical Group"),
     Sentence_Group(
       "sentence-group",
       "http://hl7.org/fhir/action-grouping-behavior",
       "Sentence Group",
-      "A group of related alternative actions is a sentence group if the target referenced by the action is the same in all the actions and each action simply constitutes a different variation on how to specify the details for the target. For example, two actions that could be in a SentenceGroup are \"aspirin, 500 mg, 2 times per day\" and \"aspirin, 300 mg, 3 times per day\". In both cases, aspirin is the target referenced by the action, and the two actions represent different options for how aspirin might be ordered for the patient. Note that a SentenceGroup would almost always have an associated selection behavior of \"AtMostOne\", unless it's a required action, in which case, it would be \"ExactlyOne\".",
     );
 
     override fun toString(): kotlin.String = code
@@ -975,8 +909,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionGroupingBehavior =
@@ -995,56 +927,13 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Any number of the actions in the group may be chosen, from zero to all. */
-    Any(
-      "any",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Any",
-      "Any number of the actions in the group may be chosen, from zero to all.",
-    ),
-    /** All the actions in the group must be selected as a single unit. */
-    All(
-      "all",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All",
-      "All the actions in the group must be selected as a single unit.",
-    ),
-    /**
-     * All the actions in the group are meant to be chosen as a single unit: either all must be
-     * selected by the end user, or none may be selected.
-     */
-    All_Or_None(
-      "all-or-none",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "All Or None",
-      "All the actions in the group are meant to be chosen as a single unit: either all must be selected by the end user, or none may be selected.",
-    ),
-    /**
-     * The end user must choose one and only one of the selectable actions in the group. The user
-     * SHALL NOT choose none of the actions in the group.
-     */
-    Exactly_One(
-      "exactly-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "Exactly One",
-      "The end user must choose one and only one of the selectable actions in the group. The user SHALL NOT choose none of the actions in the group.",
-    ),
-    /** The end user may choose zero or at most one of the actions in the group. */
-    At_Most_One(
-      "at-most-one",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "At Most One",
-      "The end user may choose zero or at most one of the actions in the group.",
-    ),
-    /** The end user must choose a minimum of one, and as many additional as desired. */
-    One_Or_More(
-      "one-or-more",
-      "http://hl7.org/fhir/action-selection-behavior",
-      "One Or More",
-      "The end user must choose a minimum of one, and as many additional as desired.",
-    );
+    Any("any", "http://hl7.org/fhir/action-selection-behavior", "Any"),
+    All("all", "http://hl7.org/fhir/action-selection-behavior", "All"),
+    All_Or_None("all-or-none", "http://hl7.org/fhir/action-selection-behavior", "All Or None"),
+    Exactly_One("exactly-one", "http://hl7.org/fhir/action-selection-behavior", "Exactly One"),
+    At_Most_One("at-most-one", "http://hl7.org/fhir/action-selection-behavior", "At Most One"),
+    One_Or_More("one-or-more", "http://hl7.org/fhir/action-selection-behavior", "One Or More");
 
     override fun toString(): kotlin.String = code
 
@@ -1053,8 +942,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionSelectionBehavior =
@@ -1076,36 +963,13 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An action with this behavior must be included in the actions processed by the end user; the
-     * end user SHALL NOT choose not to include this action.
-     */
-    Must(
-      "must",
-      "http://hl7.org/fhir/action-required-behavior",
-      "Must",
-      "An action with this behavior must be included in the actions processed by the end user; the end user SHALL NOT choose not to include this action.",
-    ),
-    /**
-     * An action with this behavior may be included in the set of actions processed by the end user.
-     */
-    Could(
-      "could",
-      "http://hl7.org/fhir/action-required-behavior",
-      "Could",
-      "An action with this behavior may be included in the set of actions processed by the end user.",
-    ),
-    /**
-     * An action with this behavior must be included in the set of actions processed by the end
-     * user, unless the end user provides documentation as to why the action was not included.
-     */
+    Must("must", "http://hl7.org/fhir/action-required-behavior", "Must"),
+    Could("could", "http://hl7.org/fhir/action-required-behavior", "Could"),
     Must_Unless_Documented(
       "must-unless-documented",
       "http://hl7.org/fhir/action-required-behavior",
       "Must Unless Documented",
-      "An action with this behavior must be included in the set of actions processed by the end user, unless the end user provides documentation as to why the action was not included.",
     );
 
     override fun toString(): kotlin.String = code
@@ -1115,8 +979,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRequiredBehavior =
@@ -1135,31 +997,9 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * An action with this behavior is one of the most frequent action that is, or should be,
-     * included by an end user, for the particular context in which the action occurs. The system
-     * displaying the action to the end user should consider "pre-checking" such an action as a
-     * convenience for the user.
-     */
-    Yes(
-      "yes",
-      "http://hl7.org/fhir/action-precheck-behavior",
-      "Yes",
-      "An action with this behavior is one of the most frequent action that is, or should be, included by an end user, for the particular context in which the action occurs. The system displaying the action to the end user should consider \"pre-checking\" such an action as a convenience for the user.",
-    ),
-    /**
-     * An action with this behavior is one of the less frequent actions included by the end user,
-     * for the particular context in which the action occurs. The system displaying the actions to
-     * the end user would typically not "pre-check" such an action.
-     */
-    No(
-      "no",
-      "http://hl7.org/fhir/action-precheck-behavior",
-      "No",
-      "An action with this behavior is one of the less frequent actions included by the end user, for the particular context in which the action occurs. The system displaying the actions to the end user would typically not \"pre-check\" such an action.",
-    );
+    Yes("yes", "http://hl7.org/fhir/action-precheck-behavior", "Yes"),
+    No("no", "http://hl7.org/fhir/action-precheck-behavior", "No");
 
     override fun toString(): kotlin.String = code
 
@@ -1168,8 +1008,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionPrecheckBehavior =
@@ -1187,22 +1025,9 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action may only be selected one time. */
-    Single(
-      "single",
-      "http://hl7.org/fhir/action-cardinality-behavior",
-      "Single",
-      "The action may only be selected one time.",
-    ),
-    /** The action may be selected multiple times. */
-    Multiple(
-      "multiple",
-      "http://hl7.org/fhir/action-cardinality-behavior",
-      "Multiple",
-      "The action may be selected multiple times.",
-    );
+    Single("single", "http://hl7.org/fhir/action-cardinality-behavior", "Single"),
+    Multiple("multiple", "http://hl7.org/fhir/action-cardinality-behavior", "Multiple");
 
     override fun toString(): kotlin.String = code
 
@@ -1211,8 +1036,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionCardinalityBehavior =
@@ -1230,29 +1053,10 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The condition describes whether or not a given action is applicable. */
-    Applicability(
-      "applicability",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Applicability",
-      "The condition describes whether or not a given action is applicable.",
-    ),
-    /** The condition is a starting condition for the action. */
-    Start(
-      "start",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Start",
-      "The condition is a starting condition for the action.",
-    ),
-    /** The condition is a stop, or exit condition for the action. */
-    Stop(
-      "stop",
-      "http://hl7.org/fhir/action-condition-kind",
-      "Stop",
-      "The condition is a stop, or exit condition for the action.",
-    );
+    Applicability("applicability", "http://hl7.org/fhir/action-condition-kind", "Applicability"),
+    Start("start", "http://hl7.org/fhir/action-condition-kind", "Start"),
+    Stop("stop", "http://hl7.org/fhir/action-condition-kind", "Stop");
 
     override fun toString(): kotlin.String = code
 
@@ -1261,8 +1065,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionConditionKind =
@@ -1280,71 +1082,24 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The action must be performed before the related action. */
-    Before(
-      "before",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before",
-      "The action must be performed before the related action.",
-    ),
-    /** The action must be performed before the start of the related action. */
-    Before_Start(
-      "before-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before Start",
-      "The action must be performed before the start of the related action.",
-    ),
-    /** The action must be performed before the end of the related action. */
-    Before_End(
-      "before-end",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Before End",
-      "The action must be performed before the end of the related action.",
-    ),
-    /** The action must be performed concurrent with the related action. */
-    Concurrent(
-      "concurrent",
-      "http://hl7.org/fhir/action-relationship-type",
-      "Concurrent",
-      "The action must be performed concurrent with the related action.",
-    ),
-    /** The action must be performed concurrent with the start of the related action. */
+    Before("before", "http://hl7.org/fhir/action-relationship-type", "Before"),
+    Before_Start("before-start", "http://hl7.org/fhir/action-relationship-type", "Before Start"),
+    Before_End("before-end", "http://hl7.org/fhir/action-relationship-type", "Before End"),
+    Concurrent("concurrent", "http://hl7.org/fhir/action-relationship-type", "Concurrent"),
     Concurrent_With_Start(
       "concurrent-with-start",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With Start",
-      "The action must be performed concurrent with the start of the related action.",
     ),
-    /** The action must be performed concurrent with the end of the related action. */
     Concurrent_With_End(
       "concurrent-with-end",
       "http://hl7.org/fhir/action-relationship-type",
       "Concurrent With End",
-      "The action must be performed concurrent with the end of the related action.",
     ),
-    /** The action must be performed after the related action. */
-    After(
-      "after",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After",
-      "The action must be performed after the related action.",
-    ),
-    /** The action must be performed after the start of the related action. */
-    After_Start(
-      "after-start",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After Start",
-      "The action must be performed after the start of the related action.",
-    ),
-    /** The action must be performed after the end of the related action. */
-    After_End(
-      "after-end",
-      "http://hl7.org/fhir/action-relationship-type",
-      "After End",
-      "The action must be performed after the end of the related action.",
-    );
+    After("after", "http://hl7.org/fhir/action-relationship-type", "After"),
+    After_Start("after-start", "http://hl7.org/fhir/action-relationship-type", "After Start"),
+    After_End("after-end", "http://hl7.org/fhir/action-relationship-type", "After End");
 
     override fun toString(): kotlin.String = code
 
@@ -1353,8 +1108,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActionRelationshipType =
@@ -1379,81 +1132,25 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The participant is a care team caring for the patient under evaluation. */
-    Careteam(
-      "careteam",
-      "http://hl7.org/fhir/action-participant-type",
-      "CareTeam",
-      "The participant is a care team caring for the patient under evaluation.",
-    ),
-    /** The participant is a system or device used in the care of the patient. */
-    Device(
-      "device",
-      "http://hl7.org/fhir/action-participant-type",
-      "Device",
-      "The participant is a system or device used in the care of the patient.",
-    ),
-    /** The participant is a group of participants involved in the care of the patient. */
-    Group(
-      "group",
-      "http://hl7.org/fhir/action-participant-type",
-      "Group",
-      "The participant is a group of participants involved in the care of the patient.",
-    ),
-    /**
-     * The participant is an institution that can provide the given healthcare service used in the
-     * care of the patient.
-     */
+    Careteam("careteam", "http://hl7.org/fhir/action-participant-type", "CareTeam"),
+    Device("device", "http://hl7.org/fhir/action-participant-type", "Device"),
+    Group("group", "http://hl7.org/fhir/action-participant-type", "Group"),
     Healthcareservice(
       "healthcareservice",
       "http://hl7.org/fhir/action-participant-type",
       "HealthcareService",
-      "The participant is an institution that can provide the given healthcare service used in the care of the patient.",
     ),
-    /** The participant is a location involved in the care of the patient. */
-    Location(
-      "location",
-      "http://hl7.org/fhir/action-participant-type",
-      "Location",
-      "The participant is a location involved in the care of the patient.",
-    ),
-    /** The participant is an organization involved in the care of the patient. */
-    Organization(
-      "organization",
-      "http://hl7.org/fhir/action-participant-type",
-      "Organization",
-      "The participant is an organization involved in the care of the patient.",
-    ),
-    /** The participant is the patient under evaluation. */
-    Patient(
-      "patient",
-      "http://hl7.org/fhir/action-participant-type",
-      "Patient",
-      "The participant is the patient under evaluation.",
-    ),
-    /** The participant is a practitioner involved in the patient's care. */
-    Practitioner(
-      "practitioner",
-      "http://hl7.org/fhir/action-participant-type",
-      "Practitioner",
-      "The participant is a practitioner involved in the patient's care.",
-    ),
-    /** The participant is a particular practitioner role involved in the patient's care. */
+    Location("location", "http://hl7.org/fhir/action-participant-type", "Location"),
+    Organization("organization", "http://hl7.org/fhir/action-participant-type", "Organization"),
+    Patient("patient", "http://hl7.org/fhir/action-participant-type", "Patient"),
+    Practitioner("practitioner", "http://hl7.org/fhir/action-participant-type", "Practitioner"),
     Practitionerrole(
       "practitionerrole",
       "http://hl7.org/fhir/action-participant-type",
       "PractitionerRole",
-      "The participant is a particular practitioner role involved in the patient's care.",
     ),
-    /** The participant is a person related to the patient. */
-    Relatedperson(
-      "relatedperson",
-      "http://hl7.org/fhir/action-participant-type",
-      "RelatedPerson",
-      "The participant is a person related to the patient.",
-    );
+    Relatedperson("relatedperson", "http://hl7.org/fhir/action-participant-type", "RelatedPerson");
 
     override fun toString(): kotlin.String = code
 
@@ -1462,8 +1159,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ActivityParticipantType =
@@ -1489,74 +1184,14 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The request has been created but is not yet complete or ready for action. */
-    Draft(
-      "draft",
-      "http://hl7.org/fhir/request-status",
-      "Draft",
-      "The request has been created but is not yet complete or ready for action.",
-    ),
-    /** The request is in force and ready to be acted upon. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/request-status",
-      "Active",
-      "The request is in force and ready to be acted upon.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been temporarily withdrawn but is
-     * expected to resume in the future.
-     */
-    On_Hold(
-      "on-hold",
-      "http://hl7.org/fhir/request-status",
-      "On Hold",
-      "The request (and any implicit authorization to act) has been temporarily withdrawn but is expected to resume in the future.",
-    ),
-    /**
-     * The request (and any implicit authorization to act) has been terminated prior to the known
-     * full completion of the intended actions. No further activity should occur.
-     */
-    Revoked(
-      "revoked",
-      "http://hl7.org/fhir/request-status",
-      "Revoked",
-      "The request (and any implicit authorization to act) has been terminated prior to the known full completion of the intended actions.  No further activity should occur.",
-    ),
-    /**
-     * The activity described by the request has been fully performed. No further activity will
-     * occur.
-     */
-    Completed(
-      "completed",
-      "http://hl7.org/fhir/request-status",
-      "Completed",
-      "The activity described by the request has been fully performed.  No further activity will occur.",
-    ),
-    /**
-     * This request should never have existed and should be considered 'void'. (It is possible that
-     * real-world decisions were based on it. If real-world activity has occurred, the status should
-     * be "revoked" rather than "entered-in-error".).
-     */
-    Entered_In_Error(
-      "entered-in-error",
-      "http://hl7.org/fhir/request-status",
-      "Entered in Error",
-      "This request should never have existed and should be considered 'void'.  (It is possible that real-world decisions were based on it.  If real-world activity has occurred, the status should be \"revoked\" rather than \"entered-in-error\".).",
-    ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this request. Note: This concept is not to be used for "other" - one of the listed statuses
-     * is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/request-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply,  but the authoring/source system does not know which.",
-    );
+    Draft("draft", "http://hl7.org/fhir/request-status", "Draft"),
+    Active("active", "http://hl7.org/fhir/request-status", "Active"),
+    On_Hold("on-hold", "http://hl7.org/fhir/request-status", "On Hold"),
+    Revoked("revoked", "http://hl7.org/fhir/request-status", "Revoked"),
+    Completed("completed", "http://hl7.org/fhir/request-status", "Completed"),
+    Entered_In_Error("entered-in-error", "http://hl7.org/fhir/request-status", "Entered in Error"),
+    Unknown("unknown", "http://hl7.org/fhir/request-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -1565,8 +1200,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestStatus =
@@ -1588,93 +1221,16 @@ public data class RequestOrchestration(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The request is a suggestion made by someone/something that does not have an intention to
-     * ensure it occurs and without providing an authorization to act.
-     */
-    Proposal(
-      "proposal",
-      "http://hl7.org/fhir/request-intent",
-      "Proposal",
-      "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act.",
-    ),
-    /**
-     * The request represents an intention to ensure something occurs without providing an
-     * authorization for others to act.
-     */
-    Plan(
-      "plan",
-      "http://hl7.org/fhir/request-intent",
-      "Plan",
-      "The request represents an intention to ensure something occurs without providing an authorization for others to act.",
-    ),
-    /**
-     * The request represents a legally binding instruction authored by a Patient or RelatedPerson.
-     */
-    Directive(
-      "directive",
-      "http://hl7.org/fhir/request-intent",
-      "Directive",
-      "The request represents a legally binding instruction authored by a Patient or RelatedPerson.",
-    ),
-    /** The request represents a request/demand and authorization for action by the requestor. */
-    Order(
-      "order",
-      "http://hl7.org/fhir/request-intent",
-      "Order",
-      "The request represents a request/demand and authorization for action by the requestor.",
-    ),
-    /** The request represents an original authorization for action. */
-    Original_Order(
-      "original-order",
-      "http://hl7.org/fhir/request-intent",
-      "Original Order",
-      "The request represents an original authorization for action.",
-    ),
-    /**
-     * The request represents an automatically generated supplemental authorization for action based
-     * on a parent authorization together with initial results of the action taken against that
-     * parent authorization.
-     */
-    Reflex_Order(
-      "reflex-order",
-      "http://hl7.org/fhir/request-intent",
-      "Reflex Order",
-      "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization.",
-    ),
-    /**
-     * The request represents the view of an authorization instantiated by a fulfilling system
-     * representing the details of the fulfiller's intention to act upon a submitted order.
-     */
-    Filler_Order(
-      "filler-order",
-      "http://hl7.org/fhir/request-intent",
-      "Filler Order",
-      "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order.",
-    ),
-    /**
-     * An order created in fulfillment of a broader order that represents the authorization for a
-     * single activity occurrence. E.g. The administration of a single dose of a drug.
-     */
-    Instance_Order(
-      "instance-order",
-      "http://hl7.org/fhir/request-intent",
-      "Instance Order",
-      "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug.",
-    ),
-    /**
-     * The request represents a component or option for a RequestOrchestration that establishes
-     * timing, conditionality and/or other constraints among a set of requests. Refer to
-     * [[[RequestOrchestration]]] for additional information on how this status is used.
-     */
-    Option(
-      "option",
-      "http://hl7.org/fhir/request-intent",
-      "Option",
-      "The request represents a component or option for a RequestOrchestration that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestOrchestration]]] for additional information on how this status is used.",
-    );
+    Proposal("proposal", "http://hl7.org/fhir/request-intent", "Proposal"),
+    Plan("plan", "http://hl7.org/fhir/request-intent", "Plan"),
+    Directive("directive", "http://hl7.org/fhir/request-intent", "Directive"),
+    Order("order", "http://hl7.org/fhir/request-intent", "Order"),
+    Original_Order("original-order", "http://hl7.org/fhir/request-intent", "Original Order"),
+    Reflex_Order("reflex-order", "http://hl7.org/fhir/request-intent", "Reflex Order"),
+    Filler_Order("filler-order", "http://hl7.org/fhir/request-intent", "Filler Order"),
+    Instance_Order("instance-order", "http://hl7.org/fhir/request-intent", "Instance Order"),
+    Option("option", "http://hl7.org/fhir/request-intent", "Option");
 
     override fun toString(): kotlin.String = code
 
@@ -1683,8 +1239,6 @@ public data class RequestOrchestration(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RequestIntent =

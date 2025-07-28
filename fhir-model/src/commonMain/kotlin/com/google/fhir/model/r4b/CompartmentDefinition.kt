@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.CompartmentDefinitionResourceSerializer
 import com.google.fhir.model.r4b.serializers.CompartmentDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -92,7 +92,7 @@ public data class CompartmentDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<com.google.fhir.model.r4b.Resource?>? = null,
+  override var contained: MutableList<com.google.fhir.model.r4b.Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -105,7 +105,7 @@ public data class CompartmentDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -124,7 +124,7 @@ public data class CompartmentDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this compartment definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -144,7 +144,7 @@ public data class CompartmentDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public var url: Uri,
   /**
    * The identifier that is used to identify this version of the compartment definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -165,13 +165,13 @@ public data class CompartmentDefinition(
    * name to ensure that it is machine-processing friendly.This is often the same as the code for
    * the parameter, but does not need to be.
    */
-  public var name: String? = null,
+  public var name: String,
   /**
    * The status of this compartment definition. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of compartment definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this compartment definition is authored for testing purposes
    * (or education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -206,7 +206,7 @@ public data class CompartmentDefinition(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the compartment definition from a consumer's
    * perspective.
@@ -229,7 +229,7 @@ public data class CompartmentDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * Explanation of why this compartment definition is needed and why it has been designed as it
    * has.
@@ -246,16 +246,16 @@ public data class CompartmentDefinition(
    * Only the specification can define the compartments that can exist. Servers can choose to
    * support them.
    */
-  public var code: Enumeration<CompartmentType>? = null,
+  public var code: Enumeration<CompartmentType>,
   /**
    * Whether the search syntax is supported,.
    *
    * Servers may define and use compartments to manage logical access without implementing the
    * compartment related syntax.
    */
-  public var search: Boolean? = null,
+  public var search: Boolean,
   /** Information about how a resource is related to the compartment. */
-  public var resource: List<Resource>? = null,
+  public var resource: MutableList<Resource> = mutableListOf(),
 ) : DomainResource() {
   /** Information about how a resource is related to the compartment. */
   @Serializable(with = CompartmentDefinitionResourceSerializer::class)
@@ -277,7 +277,7 @@ public data class CompartmentDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -296,16 +296,16 @@ public data class CompartmentDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The name of a resource supported by the server. */
-    public var code: Enumeration<ResourceType>? = null,
+    public var code: Enumeration<ResourceType>,
     /**
      * The name of a search parameter that represents the link to the compartment. More than one may
      * be listed because a resource may be linked to a compartment in more than one way,.
      *
      * If no search parameters are listed, then the resource is not linked to the compartment.
      */
-    public var `param`: List<String?>? = null,
+    public var `param`: MutableList<String> = mutableListOf(),
     /** Additional documentation about the resource and compartment. */
     public var documentation: String? = null,
   ) : BackboneElement()
@@ -315,43 +315,12 @@ public data class CompartmentDefinition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The compartment definition is for the patient compartment. */
-    Patient(
-      "Patient",
-      "http://hl7.org/fhir/compartment-type",
-      "Patient",
-      "The compartment definition is for the patient compartment.",
-    ),
-    /** The compartment definition is for the encounter compartment. */
-    Encounter(
-      "Encounter",
-      "http://hl7.org/fhir/compartment-type",
-      "Encounter",
-      "The compartment definition is for the encounter compartment.",
-    ),
-    /** The compartment definition is for the related-person compartment. */
-    RelatedPerson(
-      "RelatedPerson",
-      "http://hl7.org/fhir/compartment-type",
-      "RelatedPerson",
-      "The compartment definition is for the related-person compartment.",
-    ),
-    /** The compartment definition is for the practitioner compartment. */
-    Practitioner(
-      "Practitioner",
-      "http://hl7.org/fhir/compartment-type",
-      "Practitioner",
-      "The compartment definition is for the practitioner compartment.",
-    ),
-    /** The compartment definition is for the device compartment. */
-    Device(
-      "Device",
-      "http://hl7.org/fhir/compartment-type",
-      "Device",
-      "The compartment definition is for the device compartment.",
-    );
+    Patient("Patient", "http://hl7.org/fhir/compartment-type", "Patient"),
+    Encounter("Encounter", "http://hl7.org/fhir/compartment-type", "Encounter"),
+    RelatedPerson("RelatedPerson", "http://hl7.org/fhir/compartment-type", "RelatedPerson"),
+    Practitioner("Practitioner", "http://hl7.org/fhir/compartment-type", "Practitioner"),
+    Device("Device", "http://hl7.org/fhir/compartment-type", "Device");
 
     override fun toString(): kotlin.String = code
 
@@ -360,8 +329,6 @@ public data class CompartmentDefinition(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CompartmentType =

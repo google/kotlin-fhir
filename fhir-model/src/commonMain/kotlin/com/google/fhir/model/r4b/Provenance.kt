@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.ProvenanceOccurredSerializer
 import com.google.fhir.model.r4b.serializers.ProvenanceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -104,7 +104,7 @@ public data class Provenance(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -117,7 +117,7 @@ public data class Provenance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class Provenance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * The Reference(s) that were generated or updated by the activity described in this resource. A
    * provenance can point to more than one target if multiple resources were created/updated by the
@@ -149,7 +149,7 @@ public data class Provenance(
    * then the provenance, or it may submit both using a single transaction. See the notes on
    * transaction for further discussion.
    */
-  public var target: List<Reference?>? = null,
+  public var target: MutableList<Reference> = mutableListOf(),
   /**
    * The period during which the activity occurred.
    *
@@ -163,7 +163,7 @@ public data class Provenance(
    * This can be a little different from the time stamp on the resource if there is a delay between
    * recording the event and updating the provenance and target resource.
    */
-  public var recorded: Instant? = null,
+  public var recorded: Instant,
   /**
    * Policy or plan the activity was defined by. Typically, a single activity may have multiple
    * applicable policy documents, such as patient consent, guarantor funding, etc.
@@ -172,11 +172,11 @@ public data class Provenance(
    * placed into the policy element Where a policy engine (e.g. XACML) holds policy logic, the
    * unique policy identifier is placed into the policy element.
    */
-  public var policy: List<Uri?>? = null,
+  public var policy: MutableList<Uri> = mutableListOf(),
   /** Where the activity occurred, if relevant. */
   public var location: Reference? = null,
   /** The reason that the activity was taking place. */
-  public var reason: List<CodeableConcept?>? = null,
+  public var reason: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * An activity is something that occurs over a period of time and acts upon or with entities; it
    * may include consuming, processing, transforming, modifying, relocating, using, or generating
@@ -190,14 +190,14 @@ public data class Provenance(
    * Several agents may be associated (i.e. has some responsibility for an activity) with an
    * activity and vice-versa.
    */
-  public var agent: List<Agent>? = null,
+  public var agent: MutableList<Agent> = mutableListOf(),
   /** An entity used in this activity. */
-  public var entity: List<Entity>? = null,
+  public var entity: MutableList<Entity> = mutableListOf(),
   /**
    * A digital signature on the target Reference(s). The signer should match a Provenance.agent. The
    * purpose of the signature is indicated.
    */
-  public var signature: List<Signature?>? = null,
+  public var signature: MutableList<Signature> = mutableListOf(),
 ) : DomainResource() {
   /**
    * An actor taking a role in an activity for which it can be assigned some degree of
@@ -222,7 +222,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -241,7 +241,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The participation the agent had with respect to the activity.
      *
@@ -254,13 +254,13 @@ public data class Provenance(
      *
      * For example: doctor, nurse, clerk, etc.
      */
-    public var role: List<CodeableConcept?>? = null,
+    public var role: MutableList<CodeableConcept> = mutableListOf(),
     /**
      * The individual, device or organization that participated in the event.
      *
      * whoIdentity should be used when the agent is not a Resource type.
      */
-    public var who: Reference? = null,
+    public var who: Reference,
     /**
      * The individual, device, or organization for whom the change was made.
      *
@@ -289,7 +289,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -308,15 +308,15 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** How the entity was used during the activity. */
-    public var role: Enumeration<ProvenanceEntityRole>? = null,
+    public var role: Enumeration<ProvenanceEntityRole>,
     /**
      * Identity of the Entity used. May be a logical or physical uri and maybe absolute or relative.
      *
      * whatIdentity should be used for entities that are not a Resource type.
      */
-    public var what: Reference? = null,
+    public var what: Reference,
     /**
      * The entity is attributed to an agent to express the agent's responsibility for that entity,
      * possibly along with other agents. This description can be understood as shorthand for saying
@@ -331,7 +331,7 @@ public data class Provenance(
      * server. Thus it explains the Provenance of that Entity's use in the context of this
      * Provenance activity.
      */
-    public var agent: List<Agent?>? = null,
+    public var agent: MutableList<Agent> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = ProvenanceOccurredSerializer::class)
@@ -344,16 +344,14 @@ public data class Provenance(
 
     public data class DateTime(public val `value`: com.google.fhir.model.r4b.DateTime) : Occurred
 
-    public data object Null : Occurred
-
     public companion object {
-      public fun from(
-        PeriodValue: com.google.fhir.model.r4b.Period?,
+      internal fun from(
+        periodValue: com.google.fhir.model.r4b.Period?,
         dateTimeValue: com.google.fhir.model.r4b.DateTime?,
-      ): Occurred {
-        if (PeriodValue != null) return Period(PeriodValue)
+      ): Occurred? {
+        if (periodValue != null) return Period(periodValue)
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        return Null
+        return null
       }
     }
   }
@@ -363,56 +361,12 @@ public data class Provenance(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * A transformation of an entity into another, an update of an entity resulting in a new one, or
-     * the construction of a new entity based on a pre-existing entity.
-     */
-    Derivation(
-      "derivation",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Derivation",
-      "A transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity.",
-    ),
-    /** A derivation for which the resulting entity is a revised version of some original. */
-    Revision(
-      "revision",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Revision",
-      "A derivation for which the resulting entity is a revised version of some original.",
-    ),
-    /**
-     * The repeat of (some or all of) an entity, such as text or image, by someone who might or
-     * might not be its original author.
-     */
-    Quotation(
-      "quotation",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Quotation",
-      "The repeat of (some or all of) an entity, such as text or image, by someone who might or might not be its original author.",
-    ),
-    /**
-     * A primary source for a topic refers to something produced by some agent with direct
-     * experience and knowledge about the topic, at the time of the topic's study, without benefit
-     * from hindsight.
-     */
-    Source(
-      "source",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Source",
-      "A primary source for a topic refers to something produced by some agent with direct experience and knowledge about the topic, at the time of the topic's study, without benefit from hindsight.",
-    ),
-    /**
-     * A derivation for which the entity is removed from accessibility usually through the use of
-     * the Delete operation.
-     */
-    Removal(
-      "removal",
-      "http://hl7.org/fhir/provenance-entity-role",
-      "Removal",
-      "A derivation for which the entity is removed from accessibility usually through the use of the Delete operation.",
-    );
+    Derivation("derivation", "http://hl7.org/fhir/provenance-entity-role", "Derivation"),
+    Revision("revision", "http://hl7.org/fhir/provenance-entity-role", "Revision"),
+    Quotation("quotation", "http://hl7.org/fhir/provenance-entity-role", "Quotation"),
+    Source("source", "http://hl7.org/fhir/provenance-entity-role", "Source"),
+    Removal("removal", "http://hl7.org/fhir/provenance-entity-role", "Removal");
 
     override fun toString(): String = code
 
@@ -421,8 +375,6 @@ public data class Provenance(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): ProvenanceEntityRole =

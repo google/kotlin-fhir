@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.MedicationDispenseStatusReasonSeria
 import com.google.fhir.model.r4b.serializers.MedicationDispenseSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +101,7 @@ public data class MedicationDispense(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class MedicationDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class MedicationDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers associated with this Medication Dispense that are defined by business processes
    * and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -142,16 +142,16 @@ public data class MedicationDispense(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The procedure that trigger the dispense. */
-  public var partOf: List<Reference?>? = null,
+  public var partOf: MutableList<Reference> = mutableListOf(),
   /**
    * A code specifying the state of the set of dispense events.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationDispenseStatus>? = null,
+  public var status: Enumeration<MedicationDispenseStatus>,
   /** Indicates the reason why a dispense was not performed. */
   public var statusReason: StatusReason? = null,
   /**
@@ -172,7 +172,7 @@ public data class MedicationDispense(
    * information is required, then the use of the medication resource is recommended. For example,
    * if you require form or lot number, then you must reference the Medication resource.
    */
-  public var medication: Medication? = null,
+  public var medication: Medication,
   /**
    * A link to a resource representing the person or the group to whom the medication will be given.
    *
@@ -182,9 +182,9 @@ public data class MedicationDispense(
   /** The encounter or episode of care that establishes the context for this event. */
   public var context: Reference? = null,
   /** Additional information that supports the medication being dispensed. */
-  public var supportingInformation: List<Reference?>? = null,
+  public var supportingInformation: MutableList<Reference> = mutableListOf(),
   /** Indicates who or what performed the event. */
-  public var performer: List<Performer>? = null,
+  public var performer: MutableList<Performer> = mutableListOf(),
   /** The principal physical location where the dispense was performed. */
   public var location: Reference? = null,
   /**
@@ -192,7 +192,7 @@ public data class MedicationDispense(
    *
    * Maps to basedOn in Event logical model.
    */
-  public var authorizingPrescription: List<Reference?>? = null,
+  public var authorizingPrescription: MutableList<Reference> = mutableListOf(),
   /**
    * Indicates the type of dispensing event that is performed. For example, Trial Fill, Completion
    * of Trial, Partial Fill, Emergency Fill, Samples, etc.
@@ -215,9 +215,9 @@ public data class MedicationDispense(
    * Identifies the person who picked up the medication. This will usually be a patient or their
    * caregiver, but some cases exist where it can be a healthcare professional.
    */
-  public var `receiver`: List<Reference?>? = null,
+  public var `receiver`: MutableList<Reference> = mutableListOf(),
   /** Extra information about the dispense that could not be conveyed in the other attributes. */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * Indicates how the medication is to be used by the patient.
    *
@@ -226,7 +226,7 @@ public data class MedicationDispense(
    * supplied to convey the different doses/rates. The pharmacist reviews the medication order prior
    * to dispense and updates the dosageInstruction based on the actual product being dispensed.
    */
-  public var dosageInstruction: List<Dosage?>? = null,
+  public var dosageInstruction: MutableList<Dosage> = mutableListOf(),
   /**
    * Indicates whether or not substitution was made as part of the dispense. In some cases,
    * substitution will be expected but does not happen, in other cases substitution is not expected
@@ -243,7 +243,7 @@ public data class MedicationDispense(
    * system or by a clinician and may include information on the steps that were taken to address
    * the issue.
    */
-  public var detectedIssue: List<Reference?>? = null,
+  public var detectedIssue: MutableList<Reference> = mutableListOf(),
   /**
    * A summary of the events of interest that have occurred, such as when the dispense was verified.
    *
@@ -254,7 +254,7 @@ public data class MedicationDispense(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.).
    */
-  public var eventHistory: List<Reference?>? = null,
+  public var eventHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /** Indicates who or what performed the event. */
   @Serializable(with = MedicationDispensePerformerSerializer::class)
@@ -276,7 +276,7 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -295,7 +295,7 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Distinguishes the type of performer in the dispense. For example, date enterer, packager,
      * final checker.
@@ -305,7 +305,7 @@ public data class MedicationDispense(
      * The device, practitioner, etc. who performed the action. It should be assumed that the actor
      * is the dispenser of the medication.
      */
-    public var actor: Reference? = null,
+    public var actor: Reference,
   ) : BackboneElement()
 
   /**
@@ -333,7 +333,7 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -352,17 +352,17 @@ public data class MedicationDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** True if the dispenser dispensed a different drug or product from what was prescribed. */
-    public var wasSubstituted: Boolean? = null,
+    public var wasSubstituted: Boolean,
     /** A code signifying whether a different drug was dispensed from what was prescribed. */
     public var type: CodeableConcept? = null,
     /**
      * Indicates the reason for the substitution (or lack of substitution) from what was prescribed.
      */
-    public var reason: List<CodeableConcept?>? = null,
+    public var reason: MutableList<CodeableConcept> = mutableListOf(),
     /** The person or organization that has primary responsibility for the substitution. */
-    public var responsibleParty: List<Reference?>? = null,
+    public var responsibleParty: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   @Serializable(with = MedicationDispenseStatusReasonSerializer::class)
@@ -378,16 +378,14 @@ public data class MedicationDispense(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
       StatusReason
 
-    public data object Null : StatusReason
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): StatusReason {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+      ): StatusReason? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -405,16 +403,14 @@ public data class MedicationDispense(
     public data class Reference(public val `value`: com.google.fhir.model.r4b.Reference) :
       Medication
 
-    public data object Null : Medication
-
     public companion object {
-      public fun from(
-        CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-        ReferenceValue: com.google.fhir.model.r4b.Reference?,
-      ): Medication {
-        if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-        if (ReferenceValue != null) return Reference(ReferenceValue)
-        return Null
+      internal fun from(
+        codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+        referenceValue: com.google.fhir.model.r4b.Reference?,
+      ): Medication? {
+        if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+        if (referenceValue != null) return Reference(referenceValue)
+        return null
       }
     }
   }
@@ -424,83 +420,51 @@ public data class MedicationDispense(
     private val code: String,
     private val system: String,
     private val display: String?,
-    private val definition: String?,
   ) {
-    /**
-     * The core event has not started yet, but some staging activities have begun (e.g. initial
-     * compounding or packaging of medication). Preparation stages may be tracked for billing
-     * purposes.
-     */
     Preparation(
       "preparation",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Preparation",
-      "The core event has not started yet, but some staging activities have begun (e.g. initial compounding or packaging of medication). Preparation stages may be tracked for billing purposes.",
     ),
-    /** The dispensed product is ready for pickup. */
     In_Progress(
       "in-progress",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "In Progress",
-      "The dispensed product is ready for pickup.",
     ),
-    /** The dispensed product was not and will never be picked up by the patient. */
     Cancelled(
       "cancelled",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Cancelled",
-      "The dispensed product was not and will never be picked up by the patient.",
     ),
-    /**
-     * The dispense process is paused while waiting for an external event to reactivate the
-     * dispense. For example, new stock has arrived or the prescriber has called.
-     */
     On_Hold(
       "on-hold",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "On Hold",
-      "The dispense process is paused while waiting for an external event to reactivate the dispense.  For example, new stock has arrived or the prescriber has called.",
     ),
-    /** The dispensed product has been picked up. */
     Completed(
       "completed",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Completed",
-      "The dispensed product has been picked up.",
     ),
-    /** The dispense was entered in error and therefore nullified. */
     Entered_In_Error(
       "entered-in-error",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Entered in Error",
-      "The dispense was entered in error and therefore nullified.",
     ),
-    /**
-     * Actions implied by the dispense have been permanently halted, before all of them occurred.
-     */
     Stopped(
       "stopped",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Stopped",
-      "Actions implied by the dispense have been permanently halted, before all of them occurred.",
     ),
-    /** The dispense was declined and not performed. */
     Declined(
       "declined",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Declined",
-      "The dispense was declined and not performed.",
     ),
-    /**
-     * The authoring system does not know which of the status values applies for this medication
-     * dispense. Note: this concept is not to be used for other - one of the listed statuses is
-     * presumed to apply, it's just now known which one.
-     */
     Unknown(
       "unknown",
       "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
       "Unknown",
-      "The authoring system does not know which of the status values applies for this medication dispense.  Note: this concept is not to be used for other - one of the listed statuses is presumed to apply, it's just now known which one.",
     );
 
     override fun toString(): String = code
@@ -510,8 +474,6 @@ public data class MedicationDispense(
     public fun getSystem(): String = system
 
     public fun getDisplay(): String? = display
-
-    public fun getDefinition(): String? = definition
 
     public companion object {
       public fun fromCode(code: String): MedicationDispenseStatus =

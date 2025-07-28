@@ -40,37 +40,37 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DetectedIssueEvidenceSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var code: List<CodeableConcept?>? = null,
-  public var detail: List<Reference?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var detail: MutableList<Reference>? = null,
 ) {
   public fun toModel(): DetectedIssue.Evidence =
-    DetectedIssue.Evidence().apply {
-      id = this@DetectedIssueEvidenceSurrogate.id
-      extension = this@DetectedIssueEvidenceSurrogate.extension
-      modifierExtension = this@DetectedIssueEvidenceSurrogate.modifierExtension
-      code = this@DetectedIssueEvidenceSurrogate.code
-      detail = this@DetectedIssueEvidenceSurrogate.detail
-    }
+    DetectedIssue.Evidence(
+      id = this@DetectedIssueEvidenceSurrogate.id,
+      extension = this@DetectedIssueEvidenceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DetectedIssueEvidenceSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@DetectedIssueEvidenceSurrogate.code ?: mutableListOf(),
+      detail = this@DetectedIssueEvidenceSurrogate.detail ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DetectedIssue.Evidence): DetectedIssueEvidenceSurrogate =
       with(model) {
-        DetectedIssueEvidenceSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          code = this@with.code
-          detail = this@with.detail
-        }
+        DetectedIssueEvidenceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.takeUnless { it.all { it == null } },
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
@@ -78,70 +78,73 @@ internal data class DetectedIssueEvidenceSurrogate(
 @Serializable
 internal data class DetectedIssueMitigationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var action: CodeableConcept? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var action: CodeableConcept,
   public var date: String? = null,
   public var _date: Element? = null,
   public var author: Reference? = null,
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): DetectedIssue.Mitigation =
-    DetectedIssue.Mitigation().apply {
-      id = this@DetectedIssueMitigationSurrogate.id
-      extension = this@DetectedIssueMitigationSurrogate.extension
-      modifierExtension = this@DetectedIssueMitigationSurrogate.modifierExtension
-      action = this@DetectedIssueMitigationSurrogate.action
+    DetectedIssue.Mitigation(
+      id = this@DetectedIssueMitigationSurrogate.id,
+      extension = this@DetectedIssueMitigationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DetectedIssueMitigationSurrogate.modifierExtension ?: mutableListOf(),
+      action = this@DetectedIssueMitigationSurrogate.action,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@DetectedIssueMitigationSurrogate.date),
           this@DetectedIssueMitigationSurrogate._date,
-        )
-      author = this@DetectedIssueMitigationSurrogate.author
-      note = this@DetectedIssueMitigationSurrogate.note
-    }
+        ),
+      author = this@DetectedIssueMitigationSurrogate.author,
+      note = this@DetectedIssueMitigationSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DetectedIssue.Mitigation): DetectedIssueMitigationSurrogate =
       with(model) {
-        DetectedIssueMitigationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          action = this@with.action
-          date = this@with.date?.value?.toString()
-          _date = this@with.date?.toElement()
-          author = this@with.author
-          note = this@with.note
-        }
+        DetectedIssueMitigationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          action = this@with.action,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          author = this@with.author,
+          note = this@with.note.takeUnless { it.all { it == null } },
+        )
       }
   }
 }
 
 @Serializable
-internal class DetectedIssueIdentifiedSurrogate {
-  public var identifiedDateTime: String? = null
-
-  public var _identifiedDateTime: Element? = null
-
-  public var identifiedPeriod: Period? = null
-
-  public fun toModel(): DetectedIssue.Identified =
+internal data class DetectedIssueIdentifiedSurrogate(
+  public var identifiedDateTime: String? = null,
+  public var _identifiedDateTime: Element? = null,
+  public var identifiedPeriod: Period? = null,
+) {
+  public fun toModel(): DetectedIssue.Identified? =
     DetectedIssue.Identified?.from(
       DateTime.of(
         FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
         this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,
       ),
       this@DetectedIssueIdentifiedSurrogate.identifiedPeriod,
-    ) ?: DetectedIssue.Identified.Null
+    )
 
   public companion object {
     public fun fromModel(model: DetectedIssue.Identified): DetectedIssueIdentifiedSurrogate =
       with(model) {
         DetectedIssueIdentifiedSurrogate().apply {
-          identifiedDateTime = this@with.asDateTime()?.value?.value?.toString()
-          _identifiedDateTime = this@with.asDateTime()?.value?.toElement()
-          identifiedPeriod = this@with.asPeriod()?.value
+          DetectedIssue.Identified?.from(
+            DateTime.of(
+              FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
+              this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,
+            ),
+            this@DetectedIssueIdentifiedSurrogate.identifiedPeriod,
+          )
         }
       }
   }
@@ -156,105 +159,105 @@ internal data class DetectedIssueSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept>? = null,
   public var code: CodeableConcept? = null,
   public var severity: String? = null,
   public var _severity: Element? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
   public var author: Reference? = null,
-  public var implicated: List<Reference?>? = null,
-  public var evidence: List<DetectedIssue.Evidence>? = null,
+  public var implicated: MutableList<Reference>? = null,
+  public var evidence: MutableList<DetectedIssue.Evidence>? = null,
   public var detail: String? = null,
   public var _detail: Element? = null,
   public var reference: String? = null,
   public var _reference: Element? = null,
-  public var mitigation: List<DetectedIssue.Mitigation>? = null,
+  public var mitigation: MutableList<DetectedIssue.Mitigation>? = null,
   public var identified: DetectedIssue.Identified? = null,
 ) {
   public fun toModel(): DetectedIssue =
-    DetectedIssue().apply {
-      id = this@DetectedIssueSurrogate.id
-      meta = this@DetectedIssueSurrogate.meta
+    DetectedIssue(
+      id = this@DetectedIssueSurrogate.id,
+      meta = this@DetectedIssueSurrogate.meta,
       implicitRules =
         Uri.of(
           this@DetectedIssueSurrogate.implicitRules,
           this@DetectedIssueSurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@DetectedIssueSurrogate.language, this@DetectedIssueSurrogate._language)
-      text = this@DetectedIssueSurrogate.text
-      contained = this@DetectedIssueSurrogate.contained
-      extension = this@DetectedIssueSurrogate.extension
-      modifierExtension = this@DetectedIssueSurrogate.modifierExtension
-      identifier = this@DetectedIssueSurrogate.identifier
+        Code.of(this@DetectedIssueSurrogate.language, this@DetectedIssueSurrogate._language),
+      text = this@DetectedIssueSurrogate.text,
+      contained = this@DetectedIssueSurrogate.contained ?: mutableListOf(),
+      extension = this@DetectedIssueSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DetectedIssueSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@DetectedIssueSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@DetectedIssueSurrogate.status?.let {
-            com.google.fhir.model.r5.DetectedIssue.DetectedIssueStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.DetectedIssue.DetectedIssueStatus.fromCode(
+            this@DetectedIssueSurrogate.status!!
+          ),
           this@DetectedIssueSurrogate._status,
-        )
-      category = this@DetectedIssueSurrogate.category
-      code = this@DetectedIssueSurrogate.code
+        ),
+      category = this@DetectedIssueSurrogate.category ?: mutableListOf(),
+      code = this@DetectedIssueSurrogate.code,
       severity =
-        Enumeration.of(
-          this@DetectedIssueSurrogate.severity?.let {
-            com.google.fhir.model.r5.DetectedIssue.DetectedIssueSeverity.fromCode(it)
-          },
-          this@DetectedIssueSurrogate._severity,
-        )
-      subject = this@DetectedIssueSurrogate.subject
-      encounter = this@DetectedIssueSurrogate.encounter
-      identified = this@DetectedIssueSurrogate.identified
-      author = this@DetectedIssueSurrogate.author
-      implicated = this@DetectedIssueSurrogate.implicated
-      evidence = this@DetectedIssueSurrogate.evidence
-      detail = Markdown.of(this@DetectedIssueSurrogate.detail, this@DetectedIssueSurrogate._detail)
+        this@DetectedIssueSurrogate.severity?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.DetectedIssue.DetectedIssueSeverity.fromCode(it!!),
+            this@DetectedIssueSurrogate._severity,
+          )
+        },
+      subject = this@DetectedIssueSurrogate.subject,
+      encounter = this@DetectedIssueSurrogate.encounter,
+      identified = this@DetectedIssueSurrogate.identified,
+      author = this@DetectedIssueSurrogate.author,
+      implicated = this@DetectedIssueSurrogate.implicated ?: mutableListOf(),
+      evidence = this@DetectedIssueSurrogate.evidence ?: mutableListOf(),
+      detail = Markdown.of(this@DetectedIssueSurrogate.detail, this@DetectedIssueSurrogate._detail),
       reference =
-        Uri.of(this@DetectedIssueSurrogate.reference, this@DetectedIssueSurrogate._reference)
-      mitigation = this@DetectedIssueSurrogate.mitigation
-    }
+        Uri.of(this@DetectedIssueSurrogate.reference, this@DetectedIssueSurrogate._reference),
+      mitigation = this@DetectedIssueSurrogate.mitigation ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: DetectedIssue): DetectedIssueSurrogate =
       with(model) {
-        DetectedIssueSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          category = this@with.category
-          code = this@with.code
-          severity = this@with.severity?.value?.getCode()
-          _severity = this@with.severity?.toElement()
-          subject = this@with.subject
-          encounter = this@with.encounter
-          identified = this@with.identified
-          author = this@with.author
-          implicated = this@with.implicated
-          evidence = this@with.evidence
-          detail = this@with.detail?.value
-          _detail = this@with.detail?.toElement()
-          reference = this@with.reference?.value
-          _reference = this@with.reference?.toElement()
-          mitigation = this@with.mitigation
-        }
+        DetectedIssueSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          category = this@with.category.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          severity = this@with.severity?.value?.getCode(),
+          _severity = this@with.severity?.toElement(),
+          subject = this@with.subject,
+          encounter = this@with.encounter,
+          identified = this@with.identified,
+          author = this@with.author,
+          implicated = this@with.implicated.takeUnless { it.all { it == null } },
+          evidence = this@with.evidence.takeUnless { it.all { it == null } },
+          detail = this@with.detail?.value,
+          _detail = this@with.detail?.toElement(),
+          reference = this@with.reference?.value,
+          _reference = this@with.reference?.toElement(),
+          mitigation = this@with.mitigation.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

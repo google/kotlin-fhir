@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.ParametersParameterSerializer
 import com.google.fhir.model.r4b.serializers.ParametersParameterValueSerializer
 import com.google.fhir.model.r4b.serializers.ParametersSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -74,7 +74,7 @@ public data class Parameters(
    */
   override var language: Code? = null,
   /** A parameter passed to or received from the operation. */
-  public var parameter: List<Parameter>? = null,
+  public var parameter: MutableList<Parameter> = mutableListOf(),
 ) : Resource() {
   /** A parameter passed to or received from the operation. */
   @Serializable(with = ParametersParameterSerializer::class)
@@ -96,7 +96,7 @@ public data class Parameters(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -115,9 +115,9 @@ public data class Parameters(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The name of the parameter (reference to the operation definition). */
-    public var name: String? = null,
+    public var name: String,
     /** Conveys the content if the parameter is a data type. */
     public var `value`: Value? = null,
     /**
@@ -133,7 +133,7 @@ public data class Parameters(
      *
      * Only one level of nested parameters is allowed.
      */
-    public var part: List<Parameter?>? = null,
+    public var part: MutableList<Parameter> = mutableListOf(),
   ) : BackboneElement() {
     @Serializable(with = ParametersParameterValueSerializer::class)
     public sealed interface Value {
@@ -359,10 +359,8 @@ public data class Parameters(
 
       public data class Meta(public val `value`: com.google.fhir.model.r4b.Meta) : Value
 
-      public data object Null : Value
-
       public companion object {
-        public fun from(
+        internal fun from(
           base64BinaryValue: com.google.fhir.model.r4b.Base64Binary?,
           booleanValue: com.google.fhir.model.r4b.Boolean?,
           canonicalValue: com.google.fhir.model.r4b.Canonical?,
@@ -382,38 +380,38 @@ public data class Parameters(
           uriValue: com.google.fhir.model.r4b.Uri?,
           urlValue: com.google.fhir.model.r4b.Url?,
           uuidValue: com.google.fhir.model.r4b.Uuid?,
-          AddressValue: com.google.fhir.model.r4b.Address?,
-          AgeValue: com.google.fhir.model.r4b.Age?,
-          AnnotationValue: com.google.fhir.model.r4b.Annotation?,
-          AttachmentValue: com.google.fhir.model.r4b.Attachment?,
-          CodeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
-          CodingValue: com.google.fhir.model.r4b.Coding?,
-          ContactPointValue: com.google.fhir.model.r4b.ContactPoint?,
-          CountValue: com.google.fhir.model.r4b.Count?,
-          DistanceValue: com.google.fhir.model.r4b.Distance?,
-          DurationValue: com.google.fhir.model.r4b.Duration?,
-          HumanNameValue: com.google.fhir.model.r4b.HumanName?,
-          IdentifierValue: com.google.fhir.model.r4b.Identifier?,
-          MoneyValue: com.google.fhir.model.r4b.Money?,
-          PeriodValue: com.google.fhir.model.r4b.Period?,
-          QuantityValue: com.google.fhir.model.r4b.Quantity?,
-          RangeValue: com.google.fhir.model.r4b.Range?,
-          RatioValue: com.google.fhir.model.r4b.Ratio?,
-          ReferenceValue: com.google.fhir.model.r4b.Reference?,
-          SampledDataValue: com.google.fhir.model.r4b.SampledData?,
-          SignatureValue: com.google.fhir.model.r4b.Signature?,
-          TimingValue: com.google.fhir.model.r4b.Timing?,
-          ContactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
-          ContributorValue: com.google.fhir.model.r4b.Contributor?,
-          DataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
-          ExpressionValue: com.google.fhir.model.r4b.Expression?,
-          ParameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
-          RelatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
-          TriggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
-          UsageContextValue: com.google.fhir.model.r4b.UsageContext?,
-          DosageValue: com.google.fhir.model.r4b.Dosage?,
-          MetaValue: com.google.fhir.model.r4b.Meta?,
-        ): Value {
+          addressValue: com.google.fhir.model.r4b.Address?,
+          ageValue: com.google.fhir.model.r4b.Age?,
+          annotationValue: com.google.fhir.model.r4b.Annotation?,
+          attachmentValue: com.google.fhir.model.r4b.Attachment?,
+          codeableConceptValue: com.google.fhir.model.r4b.CodeableConcept?,
+          codingValue: com.google.fhir.model.r4b.Coding?,
+          contactPointValue: com.google.fhir.model.r4b.ContactPoint?,
+          countValue: com.google.fhir.model.r4b.Count?,
+          distanceValue: com.google.fhir.model.r4b.Distance?,
+          durationValue: com.google.fhir.model.r4b.Duration?,
+          humanNameValue: com.google.fhir.model.r4b.HumanName?,
+          identifierValue: com.google.fhir.model.r4b.Identifier?,
+          moneyValue: com.google.fhir.model.r4b.Money?,
+          periodValue: com.google.fhir.model.r4b.Period?,
+          quantityValue: com.google.fhir.model.r4b.Quantity?,
+          rangeValue: com.google.fhir.model.r4b.Range?,
+          ratioValue: com.google.fhir.model.r4b.Ratio?,
+          referenceValue: com.google.fhir.model.r4b.Reference?,
+          sampledDataValue: com.google.fhir.model.r4b.SampledData?,
+          signatureValue: com.google.fhir.model.r4b.Signature?,
+          timingValue: com.google.fhir.model.r4b.Timing?,
+          contactDetailValue: com.google.fhir.model.r4b.ContactDetail?,
+          contributorValue: com.google.fhir.model.r4b.Contributor?,
+          dataRequirementValue: com.google.fhir.model.r4b.DataRequirement?,
+          expressionValue: com.google.fhir.model.r4b.Expression?,
+          parameterDefinitionValue: com.google.fhir.model.r4b.ParameterDefinition?,
+          relatedArtifactValue: com.google.fhir.model.r4b.RelatedArtifact?,
+          triggerDefinitionValue: com.google.fhir.model.r4b.TriggerDefinition?,
+          usageContextValue: com.google.fhir.model.r4b.UsageContext?,
+          dosageValue: com.google.fhir.model.r4b.Dosage?,
+          metaValue: com.google.fhir.model.r4b.Meta?,
+        ): Value? {
           if (base64BinaryValue != null) return Base64Binary(base64BinaryValue)
           if (booleanValue != null) return Boolean(booleanValue)
           if (canonicalValue != null) return Canonical(canonicalValue)
@@ -433,38 +431,38 @@ public data class Parameters(
           if (uriValue != null) return Uri(uriValue)
           if (urlValue != null) return Url(urlValue)
           if (uuidValue != null) return Uuid(uuidValue)
-          if (AddressValue != null) return Address(AddressValue)
-          if (AgeValue != null) return Age(AgeValue)
-          if (AnnotationValue != null) return Annotation(AnnotationValue)
-          if (AttachmentValue != null) return Attachment(AttachmentValue)
-          if (CodeableConceptValue != null) return CodeableConcept(CodeableConceptValue)
-          if (CodingValue != null) return Coding(CodingValue)
-          if (ContactPointValue != null) return ContactPoint(ContactPointValue)
-          if (CountValue != null) return Count(CountValue)
-          if (DistanceValue != null) return Distance(DistanceValue)
-          if (DurationValue != null) return Duration(DurationValue)
-          if (HumanNameValue != null) return HumanName(HumanNameValue)
-          if (IdentifierValue != null) return Identifier(IdentifierValue)
-          if (MoneyValue != null) return Money(MoneyValue)
-          if (PeriodValue != null) return Period(PeriodValue)
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
-          if (RatioValue != null) return Ratio(RatioValue)
-          if (ReferenceValue != null) return Reference(ReferenceValue)
-          if (SampledDataValue != null) return SampledData(SampledDataValue)
-          if (SignatureValue != null) return Signature(SignatureValue)
-          if (TimingValue != null) return Timing(TimingValue)
-          if (ContactDetailValue != null) return ContactDetail(ContactDetailValue)
-          if (ContributorValue != null) return Contributor(ContributorValue)
-          if (DataRequirementValue != null) return DataRequirement(DataRequirementValue)
-          if (ExpressionValue != null) return Expression(ExpressionValue)
-          if (ParameterDefinitionValue != null) return ParameterDefinition(ParameterDefinitionValue)
-          if (RelatedArtifactValue != null) return RelatedArtifact(RelatedArtifactValue)
-          if (TriggerDefinitionValue != null) return TriggerDefinition(TriggerDefinitionValue)
-          if (UsageContextValue != null) return UsageContext(UsageContextValue)
-          if (DosageValue != null) return Dosage(DosageValue)
-          if (MetaValue != null) return Meta(MetaValue)
-          return Null
+          if (addressValue != null) return Address(addressValue)
+          if (ageValue != null) return Age(ageValue)
+          if (annotationValue != null) return Annotation(annotationValue)
+          if (attachmentValue != null) return Attachment(attachmentValue)
+          if (codeableConceptValue != null) return CodeableConcept(codeableConceptValue)
+          if (codingValue != null) return Coding(codingValue)
+          if (contactPointValue != null) return ContactPoint(contactPointValue)
+          if (countValue != null) return Count(countValue)
+          if (distanceValue != null) return Distance(distanceValue)
+          if (durationValue != null) return Duration(durationValue)
+          if (humanNameValue != null) return HumanName(humanNameValue)
+          if (identifierValue != null) return Identifier(identifierValue)
+          if (moneyValue != null) return Money(moneyValue)
+          if (periodValue != null) return Period(periodValue)
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
+          if (ratioValue != null) return Ratio(ratioValue)
+          if (referenceValue != null) return Reference(referenceValue)
+          if (sampledDataValue != null) return SampledData(sampledDataValue)
+          if (signatureValue != null) return Signature(signatureValue)
+          if (timingValue != null) return Timing(timingValue)
+          if (contactDetailValue != null) return ContactDetail(contactDetailValue)
+          if (contributorValue != null) return Contributor(contributorValue)
+          if (dataRequirementValue != null) return DataRequirement(dataRequirementValue)
+          if (expressionValue != null) return Expression(expressionValue)
+          if (parameterDefinitionValue != null) return ParameterDefinition(parameterDefinitionValue)
+          if (relatedArtifactValue != null) return RelatedArtifact(relatedArtifactValue)
+          if (triggerDefinitionValue != null) return TriggerDefinition(triggerDefinitionValue)
+          if (usageContextValue != null) return UsageContext(usageContextValue)
+          if (dosageValue != null) return Dosage(dosageValue)
+          if (metaValue != null) return Meta(metaValue)
+          return null
         }
       }
     }

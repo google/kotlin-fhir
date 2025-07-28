@@ -27,28 +27,29 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class PopulationAgeSurrogate {
-  public var ageRange: Range? = null
-
-  public var ageCodeableConcept: CodeableConcept? = null
-
-  public fun toModel(): Population.Age =
+internal data class PopulationAgeSurrogate(
+  public var ageRange: Range? = null,
+  public var ageCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): Population.Age? =
     Population.Age?.from(
       this@PopulationAgeSurrogate.ageRange,
       this@PopulationAgeSurrogate.ageCodeableConcept,
-    ) ?: Population.Age.Null
+    )
 
   public companion object {
     public fun fromModel(model: Population.Age): PopulationAgeSurrogate =
       with(model) {
         PopulationAgeSurrogate().apply {
-          ageRange = this@with.asRange()?.value
-          ageCodeableConcept = this@with.asCodeableConcept()?.value
+          Population.Age?.from(
+            this@PopulationAgeSurrogate.ageRange,
+            this@PopulationAgeSurrogate.ageCodeableConcept,
+          )
         }
       }
   }
@@ -57,36 +58,36 @@ internal class PopulationAgeSurrogate {
 @Serializable
 internal data class PopulationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var gender: CodeableConcept? = null,
   public var race: CodeableConcept? = null,
   public var physiologicalCondition: CodeableConcept? = null,
   public var age: Population.Age? = null,
 ) {
   public fun toModel(): Population =
-    Population().apply {
-      id = this@PopulationSurrogate.id
-      extension = this@PopulationSurrogate.extension
-      modifierExtension = this@PopulationSurrogate.modifierExtension
-      age = this@PopulationSurrogate.age
-      gender = this@PopulationSurrogate.gender
-      race = this@PopulationSurrogate.race
-      physiologicalCondition = this@PopulationSurrogate.physiologicalCondition
-    }
+    Population(
+      id = this@PopulationSurrogate.id,
+      extension = this@PopulationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@PopulationSurrogate.modifierExtension ?: mutableListOf(),
+      age = this@PopulationSurrogate.age,
+      gender = this@PopulationSurrogate.gender,
+      race = this@PopulationSurrogate.race,
+      physiologicalCondition = this@PopulationSurrogate.physiologicalCondition,
+    )
 
   public companion object {
     public fun fromModel(model: Population): PopulationSurrogate =
       with(model) {
-        PopulationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          age = this@with.age
-          gender = this@with.gender
-          race = this@with.race
-          physiologicalCondition = this@with.physiologicalCondition
-        }
+        PopulationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          age = this@with.age,
+          gender = this@with.gender,
+          race = this@with.race,
+          physiologicalCondition = this@with.physiologicalCondition,
+        )
       }
   }
 }

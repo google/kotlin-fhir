@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.LocationHoursOfOperationSerializer
 import com.google.fhir.model.r4.serializers.LocationPositionSerializer
 import com.google.fhir.model.r4.serializers.LocationSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -96,7 +96,7 @@ public data class Location(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Location(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,9 +128,9 @@ public data class Location(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Unique code or number identifying the location to its users. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The status property covers the general availability of the resource, not the current value
    * which may be covered by the operationStatus, or by a schedule/slots if they are configured for
@@ -157,7 +157,7 @@ public data class Location(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the location.
    */
-  public var alias: List<String?>? = null,
+  public var alias: MutableList<String> = mutableListOf(),
   /** Description of the Location, which helps in finding or referencing the place. */
   public var description: String? = null,
   /**
@@ -168,12 +168,12 @@ public data class Location(
    */
   public var mode: Enumeration<LocationMode>? = null,
   /** Indicates the type of function performed at the location. */
-  public var type: List<CodeableConcept?>? = null,
+  public var type: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * The contact details of communication devices available at the location. This can include phone
    * numbers, fax numbers, mobile numbers, email addresses and web sites.
    */
-  public var telecom: List<ContactPoint?>? = null,
+  public var telecom: MutableList<ContactPoint> = mutableListOf(),
   /**
    * Physical location.
    *
@@ -206,7 +206,7 @@ public data class Location(
    * Specific services within the location may have their own hours which could be shorter (or
    * longer) than the locations hours.
    */
-  public var hoursOfOperation: List<HoursOfOperation>? = null,
+  public var hoursOfOperation: MutableList<HoursOfOperation> = mutableListOf(),
   /**
    * A description of when the locations opening ours are different to normal, e.g. public holiday
    * availability. Succinctly describing all possible exceptions to normal site availability as
@@ -214,7 +214,7 @@ public data class Location(
    */
   public var availabilityExceptions: String? = null,
   /** Technical endpoints providing access to services operated for the location. */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
   /**
    * The absolute geographic location of the Location, expressed using the WGS84 datum (This is the
@@ -239,7 +239,7 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -258,17 +258,17 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Longitude. The value domain and the interpretation are the same as for the text of the
      * longitude element in KML (see notes below).
      */
-    public var longitude: Decimal? = null,
+    public var longitude: Decimal,
     /**
      * Latitude. The value domain and the interpretation are the same as for the text of the
      * latitude element in KML (see notes below).
      */
-    public var latitude: Decimal? = null,
+    public var latitude: Decimal,
     /**
      * Altitude. The value domain and the interpretation are the same as for the text of the
      * altitude element in KML (see notes below).
@@ -296,7 +296,7 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -315,9 +315,9 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Indicates which days of the week are available between the start and end Times. */
-    public var daysOfWeek: List<Enumeration<DaysOfWeek>>? = null,
+    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
     /** The Location is open all day. */
     public var allDay: Boolean? = null,
     /** Time that the Location opens. */
@@ -331,22 +331,14 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Monday. */
-    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday", "Monday."),
-    /** Tuesday. */
-    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday", "Tuesday."),
-    /** Wednesday. */
-    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday", "Wednesday."),
-    /** Thursday. */
-    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday", "Thursday."),
-    /** Friday. */
-    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday", "Friday."),
-    /** Saturday. */
-    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday", "Saturday."),
-    /** Sunday. */
-    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday", "Sunday.");
+    Mon("mon", "http://hl7.org/fhir/days-of-week", "Monday"),
+    Tue("tue", "http://hl7.org/fhir/days-of-week", "Tuesday"),
+    Wed("wed", "http://hl7.org/fhir/days-of-week", "Wednesday"),
+    Thu("thu", "http://hl7.org/fhir/days-of-week", "Thursday"),
+    Fri("fri", "http://hl7.org/fhir/days-of-week", "Friday"),
+    Sat("sat", "http://hl7.org/fhir/days-of-week", "Saturday"),
+    Sun("sun", "http://hl7.org/fhir/days-of-week", "Sunday");
 
     override fun toString(): kotlin.String = code
 
@@ -355,8 +347,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DaysOfWeek =
@@ -378,29 +368,10 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The location is operational. */
-    Active(
-      "active",
-      "http://hl7.org/fhir/location-status",
-      "Active",
-      "The location is operational.",
-    ),
-    /** The location is temporarily closed. */
-    Suspended(
-      "suspended",
-      "http://hl7.org/fhir/location-status",
-      "Suspended",
-      "The location is temporarily closed.",
-    ),
-    /** The location is no longer used. */
-    Inactive(
-      "inactive",
-      "http://hl7.org/fhir/location-status",
-      "Inactive",
-      "The location is no longer used.",
-    );
+    Active("active", "http://hl7.org/fhir/location-status", "Active"),
+    Suspended("suspended", "http://hl7.org/fhir/location-status", "Suspended"),
+    Inactive("inactive", "http://hl7.org/fhir/location-status", "Inactive");
 
     override fun toString(): kotlin.String = code
 
@@ -409,8 +380,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): LocationStatus =
@@ -430,29 +399,9 @@ public data class Location(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * The Location resource represents a specific instance of a location (e.g. Operating Theatre
-     * 1A).
-     */
-    Instance(
-      "instance",
-      "http://hl7.org/fhir/location-mode",
-      "Instance",
-      "The Location resource represents a specific instance of a location (e.g. Operating Theatre 1A).",
-    ),
-    /**
-     * The Location represents a class of locations (e.g. Any Operating Theatre) although this class
-     * of locations could be constrained within a specific boundary (such as organization, or parent
-     * location, address etc.).
-     */
-    Kind(
-      "kind",
-      "http://hl7.org/fhir/location-mode",
-      "Kind",
-      "The Location represents a class of locations (e.g. Any Operating Theatre) although this class of locations could be constrained within a specific boundary (such as organization, or parent location, address etc.).",
-    );
+    Instance("instance", "http://hl7.org/fhir/location-mode", "Instance"),
+    Kind("kind", "http://hl7.org/fhir/location-mode", "Kind");
 
     override fun toString(): kotlin.String = code
 
@@ -461,8 +410,6 @@ public data class Location(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): LocationMode =

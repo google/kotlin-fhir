@@ -40,37 +40,38 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EncounterHistoryLocationSurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var location: Reference? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var location: Reference,
   public var form: CodeableConcept? = null,
 ) {
   public fun toModel(): EncounterHistory.Location =
-    EncounterHistory.Location().apply {
-      id = this@EncounterHistoryLocationSurrogate.id
-      extension = this@EncounterHistoryLocationSurrogate.extension
-      modifierExtension = this@EncounterHistoryLocationSurrogate.modifierExtension
-      location = this@EncounterHistoryLocationSurrogate.location
-      form = this@EncounterHistoryLocationSurrogate.form
-    }
+    EncounterHistory.Location(
+      id = this@EncounterHistoryLocationSurrogate.id,
+      extension = this@EncounterHistoryLocationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EncounterHistoryLocationSurrogate.modifierExtension ?: mutableListOf(),
+      location = this@EncounterHistoryLocationSurrogate.location,
+      form = this@EncounterHistoryLocationSurrogate.form,
+    )
 
   public companion object {
     public fun fromModel(model: EncounterHistory.Location): EncounterHistoryLocationSurrogate =
       with(model) {
-        EncounterHistoryLocationSurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          location = this@with.location
-          form = this@with.form
-        }
+        EncounterHistoryLocationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          location = this@with.location,
+          form = this@with.form,
+        )
       }
   }
 }
@@ -84,16 +85,16 @@ internal data class EncounterHistorySurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
   public var encounter: Reference? = null,
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var `class`: CodeableConcept? = null,
-  public var type: List<CodeableConcept?>? = null,
-  public var serviceType: List<CodeableReference?>? = null,
+  public var `class`: CodeableConcept,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var serviceType: MutableList<CodeableReference>? = null,
   public var subject: Reference? = null,
   public var subjectStatus: CodeableConcept? = null,
   public var actualPeriod: Period? = null,
@@ -102,83 +103,83 @@ internal data class EncounterHistorySurrogate(
   public var plannedEndDate: String? = null,
   public var _plannedEndDate: Element? = null,
   public var length: Duration? = null,
-  public var location: List<EncounterHistory.Location>? = null,
+  public var location: MutableList<EncounterHistory.Location>? = null,
 ) {
   public fun toModel(): EncounterHistory =
-    EncounterHistory().apply {
-      id = this@EncounterHistorySurrogate.id
-      meta = this@EncounterHistorySurrogate.meta
+    EncounterHistory(
+      id = this@EncounterHistorySurrogate.id,
+      meta = this@EncounterHistorySurrogate.meta,
       implicitRules =
         Uri.of(
           this@EncounterHistorySurrogate.implicitRules,
           this@EncounterHistorySurrogate._implicitRules,
-        )
+        ),
       language =
-        Code.of(this@EncounterHistorySurrogate.language, this@EncounterHistorySurrogate._language)
-      text = this@EncounterHistorySurrogate.text
-      contained = this@EncounterHistorySurrogate.contained
-      extension = this@EncounterHistorySurrogate.extension
-      modifierExtension = this@EncounterHistorySurrogate.modifierExtension
-      encounter = this@EncounterHistorySurrogate.encounter
-      identifier = this@EncounterHistorySurrogate.identifier
+        Code.of(this@EncounterHistorySurrogate.language, this@EncounterHistorySurrogate._language),
+      text = this@EncounterHistorySurrogate.text,
+      contained = this@EncounterHistorySurrogate.contained ?: mutableListOf(),
+      extension = this@EncounterHistorySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EncounterHistorySurrogate.modifierExtension ?: mutableListOf(),
+      encounter = this@EncounterHistorySurrogate.encounter,
+      identifier = this@EncounterHistorySurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          this@EncounterHistorySurrogate.status?.let {
-            com.google.fhir.model.r5.EncounterHistory.EncounterStatus.fromCode(it)
-          },
+          com.google.fhir.model.r5.EncounterHistory.EncounterStatus.fromCode(
+            this@EncounterHistorySurrogate.status!!
+          ),
           this@EncounterHistorySurrogate._status,
-        )
-      `class` = this@EncounterHistorySurrogate.`class`
-      type = this@EncounterHistorySurrogate.type
-      serviceType = this@EncounterHistorySurrogate.serviceType
-      subject = this@EncounterHistorySurrogate.subject
-      subjectStatus = this@EncounterHistorySurrogate.subjectStatus
-      actualPeriod = this@EncounterHistorySurrogate.actualPeriod
+        ),
+      `class` = this@EncounterHistorySurrogate.`class`,
+      type = this@EncounterHistorySurrogate.type ?: mutableListOf(),
+      serviceType = this@EncounterHistorySurrogate.serviceType ?: mutableListOf(),
+      subject = this@EncounterHistorySurrogate.subject,
+      subjectStatus = this@EncounterHistorySurrogate.subjectStatus,
+      actualPeriod = this@EncounterHistorySurrogate.actualPeriod,
       plannedStartDate =
         DateTime.of(
           FhirDateTime.fromString(this@EncounterHistorySurrogate.plannedStartDate),
           this@EncounterHistorySurrogate._plannedStartDate,
-        )
+        ),
       plannedEndDate =
         DateTime.of(
           FhirDateTime.fromString(this@EncounterHistorySurrogate.plannedEndDate),
           this@EncounterHistorySurrogate._plannedEndDate,
-        )
-      length = this@EncounterHistorySurrogate.length
-      location = this@EncounterHistorySurrogate.location
-    }
+        ),
+      length = this@EncounterHistorySurrogate.length,
+      location = this@EncounterHistorySurrogate.location ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: EncounterHistory): EncounterHistorySurrogate =
       with(model) {
-        EncounterHistorySurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          encounter = this@with.encounter
-          identifier = this@with.identifier
-          status = this@with.status?.value?.getCode()
-          _status = this@with.status?.toElement()
-          `class` = this@with.`class`
-          type = this@with.type
-          serviceType = this@with.serviceType
-          subject = this@with.subject
-          subjectStatus = this@with.subjectStatus
-          actualPeriod = this@with.actualPeriod
-          plannedStartDate = this@with.plannedStartDate?.value?.toString()
-          _plannedStartDate = this@with.plannedStartDate?.toElement()
-          plannedEndDate = this@with.plannedEndDate?.value?.toString()
-          _plannedEndDate = this@with.plannedEndDate?.toElement()
-          length = this@with.length
-          location = this@with.location
-        }
+        EncounterHistorySurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          encounter = this@with.encounter,
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          status = this@with.status.value?.getCode(),
+          _status = this@with.status.toElement(),
+          `class` = this@with.`class`,
+          type = this@with.type.takeUnless { it.all { it == null } },
+          serviceType = this@with.serviceType.takeUnless { it.all { it == null } },
+          subject = this@with.subject,
+          subjectStatus = this@with.subjectStatus,
+          actualPeriod = this@with.actualPeriod,
+          plannedStartDate = this@with.plannedStartDate?.value?.toString(),
+          _plannedStartDate = this@with.plannedStartDate?.toElement(),
+          plannedEndDate = this@with.plannedEndDate?.value?.toString(),
+          _plannedEndDate = this@with.plannedEndDate?.toElement(),
+          length = this@with.length,
+          location = this@with.location.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.DiagnosticReportMediaSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportSupportingInfoSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -103,7 +103,7 @@ public data class DiagnosticReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class DiagnosticReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,13 +135,13 @@ public data class DiagnosticReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers assigned to this report by the performer or other systems.
    *
    * Usually assigned by the Information System of the diagnostic service provider (filler id).
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * Details concerning a service requested.
    *
@@ -149,9 +149,9 @@ public data class DiagnosticReport(
    * test requests may be represented using a single test result resource. Note that there are also
    * cases where one request leads to multiple reports.
    */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The status of the diagnostic report. */
-  public var status: Enumeration<DiagnosticReportStatus>? = null,
+  public var status: Enumeration<DiagnosticReportStatus>,
   /**
    * A code that classifies the clinical discipline, department or diagnostic service that created
    * the report (e.g. cardiology, biochemistry, hematology, MRI). This is used for searching,
@@ -161,9 +161,9 @@ public data class DiagnosticReport(
    * is defined by the category concepts in the value set. More fine-grained filtering can be
    * performed using the metadata and/or terminology hierarchy in DiagnosticReport.code.
    */
-  public var category: List<CodeableConcept?>? = null,
+  public var category: MutableList<CodeableConcept> = mutableListOf(),
   /** A code or name that describes this diagnostic report. */
-  public var code: CodeableConcept? = null,
+  public var code: CodeableConcept,
   /**
    * The subject of the report. Usually, but not always, this is a patient. However, diagnostic
    * services also perform analyses on specimens collected from a variety of other sources.
@@ -204,14 +204,14 @@ public data class DiagnosticReport(
    * This is not necessarily the source of the atomic data items or the entity that interpreted the
    * results. It is the entity that takes responsibility for the clinical report.
    */
-  public var performer: List<Reference?>? = null,
+  public var performer: MutableList<Reference> = mutableListOf(),
   /**
    * The practitioner or organization that is responsible for the report's conclusions and
    * interpretations.
    *
    * Might not be the same entity that takes responsibility for the clinical report.
    */
-  public var resultsInterpreter: List<Reference?>? = null,
+  public var resultsInterpreter: MutableList<Reference> = mutableListOf(),
   /**
    * Details about the specimens on which this diagnostic report is based.
    *
@@ -219,13 +219,13 @@ public data class DiagnosticReport(
    * additional data may be redundant. If there are multiple specimens, these may be represented per
    * observation or group.
    */
-  public var specimen: List<Reference?>? = null,
+  public var specimen: MutableList<Reference> = mutableListOf(),
   /**
    * [Observations](observation.html) that are part of this diagnostic report.
    *
    * Observations can contain observations.
    */
-  public var result: List<Reference?>? = null,
+  public var result: MutableList<Reference> = mutableListOf(),
   /**
    * Comments about the diagnostic report.
    *
@@ -233,7 +233,7 @@ public data class DiagnosticReport(
    * unexpected or unreliable results values contained within the diagnostic report, or information
    * about its source when relevant to its interpretation.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * One or more links to full details of any study performed during the diagnostic investigation.
    * An ImagingStudy might comprise a set of radiologic images obtained via a procedure that are
@@ -249,18 +249,18 @@ public data class DiagnosticReport(
    * also be found in one of the imaging study resources. However, each caters to different types of
    * displays for different types of purposes. Neither, either, or both may be provided.
    */
-  public var study: List<Reference?>? = null,
+  public var study: MutableList<Reference> = mutableListOf(),
   /**
    * This backbone element contains supporting information that was used in the creation of the
    * report not included in the results already included in the report.
    */
-  public var supportingInfo: List<SupportingInfo>? = null,
+  public var supportingInfo: MutableList<SupportingInfo> = mutableListOf(),
   /**
    * A list of key images or data associated with this report. The images or data are generally
    * created during the diagnostic process, and may be directly of the patient, or of treated
    * specimens (i.e. slides of interest).
    */
-  public var media: List<Media>? = null,
+  public var media: MutableList<Media> = mutableListOf(),
   /**
    * Reference to a Composition resource instance that provides structure for organizing the
    * contents of the DiagnosticReport.
@@ -279,14 +279,14 @@ public data class DiagnosticReport(
    * One or more codes that represent the summary conclusion (interpretation/impression) of the
    * diagnostic report.
    */
-  public var conclusionCode: List<CodeableConcept?>? = null,
+  public var conclusionCode: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Rich text representation of the entire result as issued by the diagnostic service. Multiple
    * formats are allowed but they SHALL be semantically equivalent.
    *
    * "application/pdf" is recommended as the most reliable and interoperable in this context.
    */
-  public var presentedForm: List<Attachment?>? = null,
+  public var presentedForm: MutableList<Attachment> = mutableListOf(),
 ) : DomainResource() {
   /**
    * This backbone element contains supporting information that was used in the creation of the
@@ -311,7 +311,7 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -330,11 +330,11 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The code value for the role of the supporting information in the diagnostic report. */
-    public var type: CodeableConcept? = null,
+    public var type: CodeableConcept,
     /** The reference for the supporting information in the diagnostic report. */
-    public var reference: Reference? = null,
+    public var reference: Reference,
   ) : BackboneElement()
 
   /**
@@ -361,7 +361,7 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -380,7 +380,7 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A comment about the image or data. Typically, this is used to provide an explanation for why
      * the image or data is included, or to draw the viewer's attention to important features.
@@ -391,7 +391,7 @@ public data class DiagnosticReport(
      */
     public var comment: String? = null,
     /** Reference to the image or data source. */
-    public var link: Reference? = null,
+    public var link: Reference,
   ) : BackboneElement()
 
   @Serializable(with = DiagnosticReportEffectiveSerializer::class)
@@ -404,16 +404,14 @@ public data class DiagnosticReport(
 
     public data class Period(public val `value`: com.google.fhir.model.r5.Period) : Effective
 
-    public data object Null : Effective
-
     public companion object {
-      public fun from(
+      internal fun from(
         dateTimeValue: com.google.fhir.model.r5.DateTime?,
-        PeriodValue: com.google.fhir.model.r5.Period?,
-      ): Effective {
+        periodValue: com.google.fhir.model.r5.Period?,
+      ): Effective? {
         if (dateTimeValue != null) return DateTime(dateTimeValue)
-        if (PeriodValue != null) return Period(PeriodValue)
-        return Null
+        if (periodValue != null) return Period(periodValue)
+        return null
       }
     }
   }
@@ -423,113 +421,22 @@ public data class DiagnosticReport(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the report is registered, but there is nothing yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Registered",
-      "The existence of the report is registered, but there is nothing yet available.",
-    ),
-    /**
-     * This is a partial (e.g. initial, interim or preliminary) report: data in the report may be
-     * incomplete or unverified.
-     */
-    Partial(
-      "partial",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Partial",
-      "This is a partial (e.g. initial, interim or preliminary) report: data in the report may be incomplete or unverified.",
-    ),
-    /** Verified early results are available, but not all results are final. */
-    Preliminary(
-      "preliminary",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Preliminary",
-      "Verified early results are available, but not all results are final.",
-    ),
-    /**
-     * Prior to being final, the report has been modified. This includes any change in the results,
-     * diagnosis, narrative text, or other content of a non-finalized (e.g., preliminary) report
-     * that has been issued.
-     */
-    Modified(
-      "modified",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Modified",
-      "Prior to being final, the report has been modified.  This includes any change in the results, diagnosis, narrative text, or other content of a non-finalized (e.g., preliminary) report that has been issued.",
-    ),
-    /** The report is complete and verified by an authorized person. */
-    Final(
-      "final",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Final",
-      "The report is complete and verified by an authorized person.",
-    ),
-    /**
-     * Subsequent to being final, the report has been modified. This includes any change in the
-     * results, diagnosis, narrative text, or other content of a report that has been issued.
-     */
-    Amended(
-      "amended",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Amended",
-      "Subsequent to being final, the report has been modified.  This includes any change in the results, diagnosis, narrative text, or other content of a report that has been issued.",
-    ),
-    /**
-     * Subsequent to being final, the report has been modified to correct an error in the report or
-     * referenced results.
-     */
-    Corrected(
-      "corrected",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Corrected",
-      "Subsequent to being final, the report has been modified to correct an error in the report or referenced results.",
-    ),
-    /**
-     * Subsequent to being final, the report has been modified by adding new content. The existing
-     * content is unchanged.
-     */
-    Appended(
-      "appended",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Appended",
-      "Subsequent to being final, the report has been modified by adding new content. The existing content is unchanged.",
-    ),
-    /**
-     * The report is unavailable because the measurement was not started or not completed (also
-     * sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Cancelled",
-      "The report is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The report has been withdrawn following a previous final release. This electronic record
-     * should never have existed, though it is possible that real-world decisions were based on it.
-     * (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/diagnostic-report-status", "Registered"),
+    Partial("partial", "http://hl7.org/fhir/diagnostic-report-status", "Partial"),
+    Preliminary("preliminary", "http://hl7.org/fhir/diagnostic-report-status", "Preliminary"),
+    Modified("modified", "http://hl7.org/fhir/diagnostic-report-status", "Modified"),
+    Final("final", "http://hl7.org/fhir/diagnostic-report-status", "Final"),
+    Amended("amended", "http://hl7.org/fhir/diagnostic-report-status", "Amended"),
+    Corrected("corrected", "http://hl7.org/fhir/diagnostic-report-status", "Corrected"),
+    Appended("appended", "http://hl7.org/fhir/diagnostic-report-status", "Appended"),
+    Cancelled("cancelled", "http://hl7.org/fhir/diagnostic-report-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/diagnostic-report-status",
       "Entered in Error",
-      "The report has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The authoring/source system does not know which of the status values currently applies for
-     * this observation. Note: This concept is not to be used for "other" - one of the listed
-     * statuses is presumed to apply, but the authoring/source system does not know which.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/diagnostic-report-status",
-      "Unknown",
-      "The authoring/source system does not know which of the status values currently applies for this observation. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/diagnostic-report-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -538,8 +445,6 @@ public data class DiagnosticReport(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): DiagnosticReportStatus =

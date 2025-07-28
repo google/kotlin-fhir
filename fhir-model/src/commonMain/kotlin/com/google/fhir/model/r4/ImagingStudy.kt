@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.ImagingStudySeriesInstanceSerializer
 import com.google.fhir.model.r4.serializers.ImagingStudySeriesPerformerSerializer
 import com.google.fhir.model.r4.serializers.ImagingStudySeriesSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class ImagingStudy(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ImagingStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,33 +131,33 @@ public data class ImagingStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * Identifiers for the ImagingStudy such as DICOM Study Instance UID, and Accession Number.
    *
    * See discussion under [Imaging Study Implementation Notes](imagingstudy.html#notes) for encoding
    * of DICOM Study Instance UID. Accession Number should use ACSN Identifier type.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The current state of the ImagingStudy.
    *
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<ImagingStudyStatus>? = null,
+  public var status: Enumeration<ImagingStudyStatus>,
   /**
    * A list of all the series.modality values that are actual acquisition modalities, i.e. those in
    * the DICOM Context Group 29 (value set OID 1.2.840.10008.6.1.19).
    */
-  public var modality: List<Coding?>? = null,
+  public var modality: MutableList<Coding> = mutableListOf(),
   /**
    * The subject, typically a patient, of the imaging study.
    *
    * QA phantoms can be recorded with a Device; multiple subjects (such as mice) can be recorded
    * with a Group.
    */
-  public var subject: Reference? = null,
+  public var subject: Reference,
   /**
    * The healthcare event (e.g. a patient and healthcare provider interaction) during which this
    * ImagingStudy is made.
@@ -170,11 +170,11 @@ public data class ImagingStudy(
   /** Date and time the study started. */
   public var started: DateTime? = null,
   /** A list of the diagnostic requests that resulted in this imaging study being performed. */
-  public var basedOn: List<Reference?>? = null,
+  public var basedOn: MutableList<Reference> = mutableListOf(),
   /** The requesting/referring physician. */
   public var referrer: Reference? = null,
   /** Who read the study and interpreted the images or other content. */
-  public var interpreter: List<Reference?>? = null,
+  public var interpreter: MutableList<Reference> = mutableListOf(),
   /**
    * The network service providing access (e.g., query, view, or retrieval) for the study. See
    * implementation notes for information about using DICOM endpoints. A study-level endpoint
@@ -188,7 +188,7 @@ public data class ImagingStudy(
    * instances; or IHE Invoke Image Display (IID), which provides standard invocation of an imaging
    * web viewer.
    */
-  public var endpoint: List<Reference?>? = null,
+  public var endpoint: MutableList<Reference> = mutableListOf(),
   /**
    * Number of Series in the Study. This value given may be larger than the number of series
    * elements this Resource contains due to resource availability, security, or other factors. This
@@ -204,26 +204,26 @@ public data class ImagingStudy(
   /** The procedure which this ImagingStudy was part of. */
   public var procedureReference: Reference? = null,
   /** The code for the performed procedure type. */
-  public var procedureCode: List<CodeableConcept?>? = null,
+  public var procedureCode: MutableList<CodeableConcept> = mutableListOf(),
   /** The principal physical location where the ImagingStudy was performed. */
   public var location: Reference? = null,
   /** Description of clinical condition indicating why the ImagingStudy was requested. */
-  public var reasonCode: List<CodeableConcept?>? = null,
+  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
   /** Indicates another resource whose existence justifies this Study. */
-  public var reasonReference: List<Reference?>? = null,
+  public var reasonReference: MutableList<Reference> = mutableListOf(),
   /**
    * Per the recommended DICOM mapping, this element is derived from the Study Description attribute
    * (0008,1030). Observations or findings about the imaging study should be recorded in another
    * resource, e.g. Observation, and not in this element.
    */
-  public var note: List<Annotation?>? = null,
+  public var note: MutableList<Annotation> = mutableListOf(),
   /**
    * The Imaging Manager description of the study. Institution-generated description or
    * classification of the Study (component) performed.
    */
   public var description: String? = null,
   /** Each study has one or more series of images or other content. */
-  public var series: List<Series>? = null,
+  public var series: MutableList<Series> = mutableListOf(),
 ) : DomainResource() {
   /** Each study has one or more series of images or other content. */
   @Serializable(with = ImagingStudySeriesSerializer::class)
@@ -245,7 +245,7 @@ public data class ImagingStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -264,18 +264,18 @@ public data class ImagingStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The DICOM Series Instance UID for the series.
      *
      * See
      * [DICOM PS3.3 C.7.3](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html).
      */
-    public var uid: Id? = null,
+    public var uid: Id,
     /** The numeric identifier of this series in the study. */
     public var number: UnsignedInt? = null,
     /** The modality of this series sequence. */
-    public var modality: Coding? = null,
+    public var modality: Coding,
     /** A description of the series. */
     public var description: String? = null,
     /**
@@ -295,7 +295,7 @@ public data class ImagingStudy(
      * and DICOM QIDO-RS, which allows RESTful query for DICOM information without retrieving the
      * actual instances.
      */
-    public var endpoint: List<Reference?>? = null,
+    public var endpoint: MutableList<Reference> = mutableListOf(),
     /**
      * The anatomic structures examined. See DICOM Part 16 Annex L
      * (http://dicom.nema.org/medical/dicom/current/output/chtml/part16/chapter_L.html) for DICOM to
@@ -310,7 +310,7 @@ public data class ImagingStudy(
      */
     public var laterality: Coding? = null,
     /** The specimen imaged, e.g., for whole slide imaging of a biopsy. */
-    public var specimen: List<Reference?>? = null,
+    public var specimen: MutableList<Reference> = mutableListOf(),
     /** The date and time the series was started. */
     public var started: DateTime? = null,
     /**
@@ -319,9 +319,9 @@ public data class ImagingStudy(
      * If the person who performed the series is not known, their Organization may be recorded. A
      * patient, or related person, may be the performer, e.g. for patient-captured images.
      */
-    public var performer: List<Performer>? = null,
+    public var performer: MutableList<Performer> = mutableListOf(),
     /** A single SOP instance within the series, e.g. an image, or presentation state. */
-    public var instance: List<Instance>? = null,
+    public var instance: MutableList<Instance> = mutableListOf(),
   ) : BackboneElement() {
     /** Indicates who or what performed the series and how they were involved. */
     @Serializable(with = ImagingStudySeriesPerformerSerializer::class)
@@ -343,7 +343,7 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -362,11 +362,11 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Distinguishes the type of involvement of the performer in the series. */
       public var function: CodeableConcept? = null,
       /** Indicates who or what performed the series. */
-      public var actor: Reference? = null,
+      public var actor: Reference,
     ) : BackboneElement()
 
     /** A single SOP instance within the series, e.g. an image, or presentation state. */
@@ -389,7 +389,7 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -408,16 +408,16 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The DICOM SOP Instance UID for this image or other DICOM content.
        *
        * See
        * [DICOM PS3.3 C.12.1](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.12.html#sect_C.12.1).
        */
-      public var uid: Id? = null,
+      public var uid: Id,
       /** DICOM instance type. */
-      public var sopClass: Coding? = null,
+      public var sopClass: Coding,
       /** The number of instance in the series. */
       public var number: UnsignedInt? = null,
       /**
@@ -435,55 +435,16 @@ public data class ImagingStudy(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The existence of the imaging study is registered, but there is nothing yet available. */
-    Registered(
-      "registered",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Registered",
-      "The existence of the imaging study is registered, but there is nothing yet available.",
-    ),
-    /** At least one instance has been associated with this imaging study. */
-    Available(
-      "available",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Available",
-      "At least one instance has been associated with this imaging study.",
-    ),
-    /**
-     * The imaging study is unavailable because the imaging study was not started or not completed
-     * (also sometimes called "aborted").
-     */
-    Cancelled(
-      "cancelled",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Cancelled",
-      "The imaging study is unavailable because the imaging study was not started or not completed (also sometimes called \"aborted\").",
-    ),
-    /**
-     * The imaging study has been withdrawn following a previous final release. This electronic
-     * record should never have existed, though it is possible that real-world decisions were based
-     * on it. (If real-world activity has occurred, the status should be "cancelled" rather than
-     * "entered-in-error".).
-     */
+    Registered("registered", "http://hl7.org/fhir/imagingstudy-status", "Registered"),
+    Available("available", "http://hl7.org/fhir/imagingstudy-status", "Available"),
+    Cancelled("cancelled", "http://hl7.org/fhir/imagingstudy-status", "Cancelled"),
     Entered_In_Error(
       "entered-in-error",
       "http://hl7.org/fhir/imagingstudy-status",
       "Entered in Error",
-      "The imaging study has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".).",
     ),
-    /**
-     * The system does not know which of the status values currently applies for this request. Note:
-     * This concept is not to be used for "other" - one of the listed statuses is presumed to apply,
-     * it's just not known which one.
-     */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/imagingstudy-status",
-      "Unknown",
-      "The system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one.",
-    );
+    Unknown("unknown", "http://hl7.org/fhir/imagingstudy-status", "Unknown");
 
     override fun toString(): kotlin.String = code
 
@@ -492,8 +453,6 @@ public data class ImagingStudy(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): ImagingStudyStatus =

@@ -35,21 +35,20 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal class MedicinalProductIndicationOtherTherapyMedicationSurrogate {
-  public var medicationCodeableConcept: CodeableConcept? = null
-
-  public var medicationReference: Reference? = null
-
+internal data class MedicinalProductIndicationOtherTherapyMedicationSurrogate(
+  public var medicationCodeableConcept: CodeableConcept? = null,
+  public var medicationReference: Reference? = null,
+) {
   public fun toModel(): MedicinalProductIndication.OtherTherapy.Medication =
-    MedicinalProductIndication.OtherTherapy.Medication?.from(
+    MedicinalProductIndication.OtherTherapy.Medication.from(
       this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationCodeableConcept,
       this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationReference,
-    ) ?: MedicinalProductIndication.OtherTherapy.Medication.Null
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -57,8 +56,11 @@ internal class MedicinalProductIndicationOtherTherapyMedicationSurrogate {
     ): MedicinalProductIndicationOtherTherapyMedicationSurrogate =
       with(model) {
         MedicinalProductIndicationOtherTherapyMedicationSurrogate().apply {
-          medicationCodeableConcept = this@with.asCodeableConcept()?.value
-          medicationReference = this@with.asReference()?.value
+          MedicinalProductIndication.OtherTherapy.Medication.from(
+            this@MedicinalProductIndicationOtherTherapyMedicationSurrogate
+              .medicationCodeableConcept,
+            this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationReference,
+          )!!
         }
       }
   }
@@ -67,33 +69,34 @@ internal class MedicinalProductIndicationOtherTherapyMedicationSurrogate {
 @Serializable
 internal data class MedicinalProductIndicationOtherTherapySurrogate(
   public var id: String? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var therapyRelationshipType: CodeableConcept? = null,
-  public var medication: MedicinalProductIndication.OtherTherapy.Medication? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var therapyRelationshipType: CodeableConcept,
+  public var medication: MedicinalProductIndication.OtherTherapy.Medication,
 ) {
   public fun toModel(): MedicinalProductIndication.OtherTherapy =
-    MedicinalProductIndication.OtherTherapy().apply {
-      id = this@MedicinalProductIndicationOtherTherapySurrogate.id
-      extension = this@MedicinalProductIndicationOtherTherapySurrogate.extension
-      modifierExtension = this@MedicinalProductIndicationOtherTherapySurrogate.modifierExtension
+    MedicinalProductIndication.OtherTherapy(
+      id = this@MedicinalProductIndicationOtherTherapySurrogate.id,
+      extension = this@MedicinalProductIndicationOtherTherapySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductIndicationOtherTherapySurrogate.modifierExtension ?: mutableListOf(),
       therapyRelationshipType =
-        this@MedicinalProductIndicationOtherTherapySurrogate.therapyRelationshipType
-      medication = this@MedicinalProductIndicationOtherTherapySurrogate.medication
-    }
+        this@MedicinalProductIndicationOtherTherapySurrogate.therapyRelationshipType,
+      medication = this@MedicinalProductIndicationOtherTherapySurrogate.medication,
+    )
 
   public companion object {
     public fun fromModel(
       model: MedicinalProductIndication.OtherTherapy
     ): MedicinalProductIndicationOtherTherapySurrogate =
       with(model) {
-        MedicinalProductIndicationOtherTherapySurrogate().apply {
-          id = this@with.id
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          therapyRelationshipType = this@with.therapyRelationshipType
-          medication = this@with.medication
-        }
+        MedicinalProductIndicationOtherTherapySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          therapyRelationshipType = this@with.therapyRelationshipType,
+          medication = this@with.medication,
+        )
       }
   }
 }
@@ -107,72 +110,74 @@ internal data class MedicinalProductIndicationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: List<Resource?>? = null,
-  public var extension: List<Extension?>? = null,
-  public var modifierExtension: List<Extension?>? = null,
-  public var subject: List<Reference?>? = null,
+  public var contained: MutableList<Resource>? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var subject: MutableList<Reference>? = null,
   public var diseaseSymptomProcedure: CodeableConcept? = null,
   public var diseaseStatus: CodeableConcept? = null,
-  public var comorbidity: List<CodeableConcept?>? = null,
+  public var comorbidity: MutableList<CodeableConcept>? = null,
   public var intendedEffect: CodeableConcept? = null,
   public var duration: Quantity? = null,
-  public var otherTherapy: List<MedicinalProductIndication.OtherTherapy>? = null,
-  public var undesirableEffect: List<Reference?>? = null,
-  public var population: List<Population?>? = null,
+  public var otherTherapy: MutableList<MedicinalProductIndication.OtherTherapy>? = null,
+  public var undesirableEffect: MutableList<Reference>? = null,
+  public var population: MutableList<Population>? = null,
 ) {
   public fun toModel(): MedicinalProductIndication =
-    MedicinalProductIndication().apply {
-      id = this@MedicinalProductIndicationSurrogate.id
-      meta = this@MedicinalProductIndicationSurrogate.meta
+    MedicinalProductIndication(
+      id = this@MedicinalProductIndicationSurrogate.id,
+      meta = this@MedicinalProductIndicationSurrogate.meta,
       implicitRules =
         Uri.of(
           this@MedicinalProductIndicationSurrogate.implicitRules,
           this@MedicinalProductIndicationSurrogate._implicitRules,
-        )
+        ),
       language =
         Code.of(
           this@MedicinalProductIndicationSurrogate.language,
           this@MedicinalProductIndicationSurrogate._language,
-        )
-      text = this@MedicinalProductIndicationSurrogate.text
-      contained = this@MedicinalProductIndicationSurrogate.contained
-      extension = this@MedicinalProductIndicationSurrogate.extension
-      modifierExtension = this@MedicinalProductIndicationSurrogate.modifierExtension
-      subject = this@MedicinalProductIndicationSurrogate.subject
-      diseaseSymptomProcedure = this@MedicinalProductIndicationSurrogate.diseaseSymptomProcedure
-      diseaseStatus = this@MedicinalProductIndicationSurrogate.diseaseStatus
-      comorbidity = this@MedicinalProductIndicationSurrogate.comorbidity
-      intendedEffect = this@MedicinalProductIndicationSurrogate.intendedEffect
-      duration = this@MedicinalProductIndicationSurrogate.duration
-      otherTherapy = this@MedicinalProductIndicationSurrogate.otherTherapy
-      undesirableEffect = this@MedicinalProductIndicationSurrogate.undesirableEffect
-      population = this@MedicinalProductIndicationSurrogate.population
-    }
+        ),
+      text = this@MedicinalProductIndicationSurrogate.text,
+      contained = this@MedicinalProductIndicationSurrogate.contained ?: mutableListOf(),
+      extension = this@MedicinalProductIndicationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductIndicationSurrogate.modifierExtension ?: mutableListOf(),
+      subject = this@MedicinalProductIndicationSurrogate.subject ?: mutableListOf(),
+      diseaseSymptomProcedure = this@MedicinalProductIndicationSurrogate.diseaseSymptomProcedure,
+      diseaseStatus = this@MedicinalProductIndicationSurrogate.diseaseStatus,
+      comorbidity = this@MedicinalProductIndicationSurrogate.comorbidity ?: mutableListOf(),
+      intendedEffect = this@MedicinalProductIndicationSurrogate.intendedEffect,
+      duration = this@MedicinalProductIndicationSurrogate.duration,
+      otherTherapy = this@MedicinalProductIndicationSurrogate.otherTherapy ?: mutableListOf(),
+      undesirableEffect =
+        this@MedicinalProductIndicationSurrogate.undesirableEffect ?: mutableListOf(),
+      population = this@MedicinalProductIndicationSurrogate.population ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(model: MedicinalProductIndication): MedicinalProductIndicationSurrogate =
       with(model) {
-        MedicinalProductIndicationSurrogate().apply {
-          id = this@with.id
-          meta = this@with.meta
-          implicitRules = this@with.implicitRules?.value
-          _implicitRules = this@with.implicitRules?.toElement()
-          language = this@with.language?.value
-          _language = this@with.language?.toElement()
-          text = this@with.text
-          contained = this@with.contained
-          extension = this@with.extension
-          modifierExtension = this@with.modifierExtension
-          subject = this@with.subject
-          diseaseSymptomProcedure = this@with.diseaseSymptomProcedure
-          diseaseStatus = this@with.diseaseStatus
-          comorbidity = this@with.comorbidity
-          intendedEffect = this@with.intendedEffect
-          duration = this@with.duration
-          otherTherapy = this@with.otherTherapy
-          undesirableEffect = this@with.undesirableEffect
-          population = this@with.population
-        }
+        MedicinalProductIndicationSurrogate(
+          id = this@with.id,
+          meta = this@with.meta,
+          implicitRules = this@with.implicitRules?.value,
+          _implicitRules = this@with.implicitRules?.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          text = this@with.text,
+          contained = this@with.contained.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeUnless { it.all { it == null } },
+          diseaseSymptomProcedure = this@with.diseaseSymptomProcedure,
+          diseaseStatus = this@with.diseaseStatus,
+          comorbidity = this@with.comorbidity.takeUnless { it.all { it == null } },
+          intendedEffect = this@with.intendedEffect,
+          duration = this@with.duration,
+          otherTherapy = this@with.otherTherapy.takeUnless { it.all { it == null } },
+          undesirableEffect = this@with.undesirableEffect.takeUnless { it.all { it == null } },
+          population = this@with.population.takeUnless { it.all { it == null } },
+        )
       }
   }
 }

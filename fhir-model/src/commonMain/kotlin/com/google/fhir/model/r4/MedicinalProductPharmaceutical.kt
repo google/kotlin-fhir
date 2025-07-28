@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductPharmaceuticalRouteO
 import com.google.fhir.model.r4.serializers.MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductPharmaceuticalSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -95,7 +95,7 @@ public data class MedicinalProductPharmaceutical(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class MedicinalProductPharmaceutical(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,21 +127,21 @@ public data class MedicinalProductPharmaceutical(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** An identifier for the pharmaceutical medicinal product. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** The administrable dose form, after necessary reconstitution. */
-  public var administrableDoseForm: CodeableConcept? = null,
+  public var administrableDoseForm: CodeableConcept,
   /** Todo. */
   public var unitOfPresentation: CodeableConcept? = null,
   /** Ingredient. */
-  public var ingredient: List<Reference?>? = null,
+  public var ingredient: MutableList<Reference> = mutableListOf(),
   /** Accompanying device. */
-  public var device: List<Reference?>? = null,
+  public var device: MutableList<Reference> = mutableListOf(),
   /** Characteristics e.g. a products onset of action. */
-  public var characteristics: List<Characteristics>? = null,
+  public var characteristics: MutableList<Characteristics> = mutableListOf(),
   /** The path by which the pharmaceutical product is taken into or makes contact with the body. */
-  public var routeOfAdministration: List<RouteOfAdministration>? = null,
+  public var routeOfAdministration: MutableList<RouteOfAdministration> = mutableListOf(),
 ) : DomainResource() {
   /** Characteristics e.g. a products onset of action. */
   @Serializable(with = MedicinalProductPharmaceuticalCharacteristicsSerializer::class)
@@ -163,7 +163,7 @@ public data class MedicinalProductPharmaceutical(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -182,9 +182,9 @@ public data class MedicinalProductPharmaceutical(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A coded characteristic. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /** The status of characteristic e.g. assigned or pending. */
     public var status: CodeableConcept? = null,
   ) : BackboneElement()
@@ -209,7 +209,7 @@ public data class MedicinalProductPharmaceutical(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -228,9 +228,9 @@ public data class MedicinalProductPharmaceutical(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Coded expression for the route. */
-    public var code: CodeableConcept? = null,
+    public var code: CodeableConcept,
     /**
      * The first dose (dose quantity) administered in humans can be specified, for a product under
      * investigation, using a numerical value and its unit of measurement.
@@ -257,7 +257,7 @@ public data class MedicinalProductPharmaceutical(
      */
     public var maxTreatmentPeriod: Duration? = null,
     /** A species for which this route applies. */
-    public var targetSpecies: List<TargetSpecies>? = null,
+    public var targetSpecies: MutableList<TargetSpecies> = mutableListOf(),
   ) : BackboneElement() {
     /** A species for which this route applies. */
     @Serializable(
@@ -281,7 +281,7 @@ public data class MedicinalProductPharmaceutical(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -300,11 +300,11 @@ public data class MedicinalProductPharmaceutical(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Coded expression for the species. */
-      public var code: CodeableConcept? = null,
+      public var code: CodeableConcept,
       /** A species specific time during which consumption of animal product is not appropriate. */
-      public var withdrawalPeriod: List<WithdrawalPeriod>? = null,
+      public var withdrawalPeriod: MutableList<WithdrawalPeriod> = mutableListOf(),
     ) : BackboneElement() {
       /** A species specific time during which consumption of animal product is not appropriate. */
       @Serializable(
@@ -329,7 +329,7 @@ public data class MedicinalProductPharmaceutical(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: List<Extension?>? = null,
+        override var extension: MutableList<Extension> = mutableListOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -348,14 +348,14 @@ public data class MedicinalProductPharmaceutical(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: List<Extension?>? = null,
+        override var modifierExtension: MutableList<Extension> = mutableListOf(),
         /**
          * Coded expression for the type of tissue for which the withdrawal period applues, e.g.
          * meat, milk.
          */
-        public var tissue: CodeableConcept? = null,
+        public var tissue: CodeableConcept,
         /** A value for the time. */
-        public var `value`: Quantity? = null,
+        public var `value`: Quantity,
         /** Extra information about the withdrawal period. */
         public var supportingInformation: String? = null,
       ) : BackboneElement()

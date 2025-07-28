@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.SubstanceReferenceInformationSeriali
 import com.google.fhir.model.r5.serializers.SubstanceReferenceInformationTargetAmountSerializer
 import com.google.fhir.model.r5.serializers.SubstanceReferenceInformationTargetSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -97,7 +97,7 @@ public data class SubstanceReferenceInformation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class SubstanceReferenceInformation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,15 +129,15 @@ public data class SubstanceReferenceInformation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** Todo. */
   public var comment: String? = null,
   /** Todo. */
-  public var gene: List<Gene>? = null,
+  public var gene: MutableList<Gene> = mutableListOf(),
   /** Todo. */
-  public var geneElement: List<GeneElement>? = null,
+  public var geneElement: MutableList<GeneElement> = mutableListOf(),
   /** Todo. */
-  public var target: List<Target>? = null,
+  public var target: MutableList<Target> = mutableListOf(),
 ) : DomainResource() {
   /** Todo. */
   @Serializable(with = SubstanceReferenceInformationGeneSerializer::class)
@@ -159,7 +159,7 @@ public data class SubstanceReferenceInformation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -178,13 +178,13 @@ public data class SubstanceReferenceInformation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Todo. */
     public var geneSequenceOrigin: CodeableConcept? = null,
     /** Todo. */
     public var gene: CodeableConcept? = null,
     /** Todo. */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** Todo. */
@@ -207,7 +207,7 @@ public data class SubstanceReferenceInformation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -226,13 +226,13 @@ public data class SubstanceReferenceInformation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Todo. */
     public var type: CodeableConcept? = null,
     /** Todo. */
     public var element: Identifier? = null,
     /** Todo. */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
   /** Todo. */
@@ -255,7 +255,7 @@ public data class SubstanceReferenceInformation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -274,7 +274,7 @@ public data class SubstanceReferenceInformation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Todo. */
     public var target: Identifier? = null,
     /** Todo. */
@@ -290,7 +290,7 @@ public data class SubstanceReferenceInformation(
     /** Todo. */
     public var amountType: CodeableConcept? = null,
     /** Todo. */
-    public var source: List<Reference?>? = null,
+    public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
     @Serializable(with = SubstanceReferenceInformationTargetAmountSerializer::class)
     public sealed interface Amount {
@@ -306,18 +306,16 @@ public data class SubstanceReferenceInformation(
 
       public data class String(public val `value`: com.google.fhir.model.r5.String) : Amount
 
-      public data object Null : Amount
-
       public companion object {
-        public fun from(
-          QuantityValue: com.google.fhir.model.r5.Quantity?,
-          RangeValue: com.google.fhir.model.r5.Range?,
+        internal fun from(
+          quantityValue: com.google.fhir.model.r5.Quantity?,
+          rangeValue: com.google.fhir.model.r5.Range?,
           stringValue: com.google.fhir.model.r5.String?,
-        ): Amount {
-          if (QuantityValue != null) return Quantity(QuantityValue)
-          if (RangeValue != null) return Range(RangeValue)
+        ): Amount? {
+          if (quantityValue != null) return Quantity(quantityValue)
+          if (rangeValue != null) return Range(rangeValue)
           if (stringValue != null) return String(stringValue)
-          return Null
+          return null
         }
       }
     }

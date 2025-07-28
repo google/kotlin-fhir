@@ -28,7 +28,7 @@ import com.google.fhir.model.r4b.serializers.MolecularSequenceStructureVariantOu
 import com.google.fhir.model.r4b.serializers.MolecularSequenceStructureVariantSerializer
 import com.google.fhir.model.r4b.serializers.MolecularSequenceVariantSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -99,7 +99,7 @@ public data class MolecularSequence(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class MolecularSequence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,16 +131,16 @@ public data class MolecularSequence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** A unique identifier for this particular sequence instance. This is a FHIR-defined id. */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Amino Acid Sequence/ DNA Sequence / RNA Sequence. */
   public var type: Enumeration<SequenceType>? = null,
   /**
    * Whether the sequence is numbered starting at 0 (0-based numbering or coordinates, inclusive
    * start, exclusive end) or starting at 1 (1-based numbering, inclusive start and inclusive end).
    */
-  public var coordinateSystem: Integer? = null,
+  public var coordinateSystem: Integer,
   /** The patient whose sequencing results are described by this resource. */
   public var patient: Reference? = null,
   /** Specimen used for sequencing. */
@@ -163,7 +163,7 @@ public data class MolecularSequence(
    * insertion,deletion,SNP,etc.) It can represent some complex mutation or segment variation with
    * the assist of CIGAR string.
    */
-  public var variant: List<Variant>? = null,
+  public var variant: MutableList<Variant> = mutableListOf(),
   /**
    * Sequence that was observed. It is the result marked by referenceSeq along with variant records
    * on referenceSeq. This shall start from referenceSeq.windowStart and end by
@@ -175,7 +175,7 @@ public data class MolecularSequence(
    * way, such as a phred quality score
    * ([SO:0001686](http://www.sequenceontology.org/browser/current_svn/term/SO:0001686)).
    */
-  public var quality: List<Quality>? = null,
+  public var quality: MutableList<Quality> = mutableListOf(),
   /**
    * Coverage (read depth or depth) is the average number of reads representing a given nucleotide
    * in the reconstructed sequence.
@@ -185,11 +185,11 @@ public data class MolecularSequence(
    * Configurations of the external repository. The repository shall store target's observedSeq or
    * records related with target's observedSeq.
    */
-  public var repository: List<Repository>? = null,
+  public var repository: MutableList<Repository> = mutableListOf(),
   /** Pointer to next atomic sequence which at most contains one variant. */
-  public var pointer: List<Reference?>? = null,
+  public var pointer: MutableList<Reference> = mutableListOf(),
   /** Information about chromosome structure variation. */
-  public var structureVariant: List<StructureVariant>? = null,
+  public var structureVariant: MutableList<StructureVariant> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A sequence that is used as a reference to describe variants that are present in a sequence
@@ -214,7 +214,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -233,7 +233,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Structural unit composed of a nucleic acid molecule which controls its own replication
      * through the interaction of specific proteins at one or more origins of replication
@@ -305,7 +305,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -324,7 +324,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Start position of the variant on the reference sequence. If the coordinate system is either
      * 0-based or 1-based, then start position is inclusive.
@@ -388,7 +388,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -407,9 +407,9 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** INDEL / SNP / Undefined variant. */
-    public var type: Enumeration<QualityType>? = null,
+    public var type: Enumeration<QualityType>,
     /** Gold standard sequence used for comparing against. */
     public var standardSequence: CodeableConcept? = null,
     /**
@@ -492,7 +492,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -511,21 +511,21 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** Invidual data point representing the GQ (genotype quality) score threshold. */
-      public var score: List<Integer?>? = null,
+      public var score: MutableList<Integer> = mutableListOf(),
       /** The number of true positives if the GQ score threshold was set to "score" field value. */
-      public var numTP: List<Integer?>? = null,
+      public var numTP: MutableList<Integer> = mutableListOf(),
       /** The number of false positives if the GQ score threshold was set to "score" field value. */
-      public var numFP: List<Integer?>? = null,
+      public var numFP: MutableList<Integer> = mutableListOf(),
       /** The number of false negatives if the GQ score threshold was set to "score" field value. */
-      public var numFN: List<Integer?>? = null,
+      public var numFN: MutableList<Integer> = mutableListOf(),
       /** Calculated precision if the GQ score threshold was set to "score" field value. */
-      public var precision: List<Decimal?>? = null,
+      public var precision: MutableList<Decimal> = mutableListOf(),
       /** Calculated sensitivity if the GQ score threshold was set to "score" field value. */
-      public var sensitivity: List<Decimal?>? = null,
+      public var sensitivity: MutableList<Decimal> = mutableListOf(),
       /** Calculated fScore if the GQ score threshold was set to "score" field value. */
-      public var fMeasure: List<Decimal?>? = null,
+      public var fMeasure: MutableList<Decimal> = mutableListOf(),
     ) : BackboneElement()
   }
 
@@ -552,7 +552,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -571,12 +571,12 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * Click and see / RESTful API / Need login to see / RESTful API with authentication / Other
      * ways to see resource.
      */
-    public var type: Enumeration<RepositoryType>? = null,
+    public var type: Enumeration<RepositoryType>,
     /** URI of an external repository which contains further details about the genetics data. */
     public var url: Uri? = null,
     /** URI of an external repository which contains further details about the genetics data. */
@@ -615,7 +615,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -634,7 +634,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** Information about chromosome structure variation DNA change type. */
     public var variantType: CodeableConcept? = null,
     /** Used to indicate if the outer and inner start-end values have the same meaning. */
@@ -666,7 +666,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -685,7 +685,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Structural variant outer start. If the coordinate system is either 0-based or 1-based, then
        * start position is inclusive.
@@ -719,7 +719,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -738,7 +738,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * Structural variant inner start. If the coordinate system is either 0-based or 1-based, then
        * start position is inclusive.
@@ -758,21 +758,12 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Sense orientation of reference sequence. */
-    Sense(
-      "sense",
-      "http://hl7.org/fhir/orientation-type",
-      "Sense orientation of referenceSeq",
-      "Sense orientation of reference sequence.",
-    ),
-    /** Antisense orientation of reference sequence. */
+    Sense("sense", "http://hl7.org/fhir/orientation-type", "Sense orientation of referenceSeq"),
     Antisense(
       "antisense",
       "http://hl7.org/fhir/orientation-type",
       "Antisense orientation of referenceSeq",
-      "Antisense orientation of reference sequence.",
     );
 
     override fun toString(): kotlin.String = code
@@ -782,8 +773,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): OrientationType =
@@ -800,22 +789,9 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Watson strand of reference sequence. */
-    Watson(
-      "watson",
-      "http://hl7.org/fhir/strand-type",
-      "Watson strand of referenceSeq",
-      "Watson strand of reference sequence.",
-    ),
-    /** Crick strand of reference sequence. */
-    Crick(
-      "crick",
-      "http://hl7.org/fhir/strand-type",
-      "Crick strand of referenceSeq",
-      "Crick strand of reference sequence.",
-    );
+    Watson("watson", "http://hl7.org/fhir/strand-type", "Watson strand of referenceSeq"),
+    Crick("crick", "http://hl7.org/fhir/strand-type", "Crick strand of referenceSeq");
 
     override fun toString(): kotlin.String = code
 
@@ -824,8 +800,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): StrandType =
@@ -842,19 +816,10 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** INDEL Comparison. */
-    Indel("indel", "http://hl7.org/fhir/quality-type", "INDEL Comparison", "INDEL Comparison."),
-    /** SNP Comparison. */
-    Snp("snp", "http://hl7.org/fhir/quality-type", "SNP Comparison", "SNP Comparison."),
-    /** UNKNOWN Comparison. */
-    Unknown(
-      "unknown",
-      "http://hl7.org/fhir/quality-type",
-      "UNKNOWN Comparison",
-      "UNKNOWN Comparison.",
-    );
+    Indel("indel", "http://hl7.org/fhir/quality-type", "INDEL Comparison"),
+    Snp("snp", "http://hl7.org/fhir/quality-type", "SNP Comparison"),
+    Unknown("unknown", "http://hl7.org/fhir/quality-type", "UNKNOWN Comparison");
 
     override fun toString(): kotlin.String = code
 
@@ -863,8 +828,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): QualityType =
@@ -882,49 +845,26 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * When URL is clicked, the resource can be seen directly (by webpage or by download link
-     * format).
-     */
-    Directlink(
-      "directlink",
-      "http://hl7.org/fhir/repository-type",
-      "Click and see",
-      "When URL is clicked, the resource can be seen directly (by webpage or by download link format).",
-    ),
-    /**
-     * When the API method (e.g. [base_url]/[parameter]) related with the URL of the website is
-     * executed, the resource can be seen directly (usually in JSON or XML format).
-     */
+    Directlink("directlink", "http://hl7.org/fhir/repository-type", "Click and see"),
     Openapi(
       "openapi",
       "http://hl7.org/fhir/repository-type",
       "The URL is the RESTful or other kind of API that can access to the result.",
-      "When the API method (e.g. [base_url]/[parameter]) related with the URL of the website is executed, the resource can be seen directly (usually in JSON or XML format).",
     ),
-    /** When logged into the website, the resource can be seen. */
     Login(
       "login",
       "http://hl7.org/fhir/repository-type",
       "Result cannot be access unless an account is logged in",
-      "When logged into the website, the resource can be seen.",
     ),
-    /**
-     * When logged in and follow the API in the website related with URL, the resource can be seen.
-     */
     Oauth(
       "oauth",
       "http://hl7.org/fhir/repository-type",
       "Result need to be fetched with API and need LOGIN( or cookies are required when visiting the link of resource)",
-      "When logged in and  follow the API in the website related with URL, the resource can be seen.",
     ),
-    /** Some other complicated or particular way to get resource from URL. */
     Other(
       "other",
       "http://hl7.org/fhir/repository-type",
-      "Some other complicated or particular way to get resource from URL.",
       "Some other complicated or particular way to get resource from URL.",
     );
 
@@ -935,8 +875,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): RepositoryType =
@@ -956,14 +894,10 @@ public data class MolecularSequence(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** Amino acid sequence. */
-    Aa("aa", "http://hl7.org/fhir/sequence-type", "AA Sequence", "Amino acid sequence."),
-    /** DNA Sequence. */
-    Dna("dna", "http://hl7.org/fhir/sequence-type", "DNA Sequence", "DNA Sequence."),
-    /** RNA Sequence. */
-    Rna("rna", "http://hl7.org/fhir/sequence-type", "RNA Sequence", "RNA Sequence.");
+    Aa("aa", "http://hl7.org/fhir/sequence-type", "AA Sequence"),
+    Dna("dna", "http://hl7.org/fhir/sequence-type", "DNA Sequence"),
+    Rna("rna", "http://hl7.org/fhir/sequence-type", "RNA Sequence");
 
     override fun toString(): kotlin.String = code
 
@@ -972,8 +906,6 @@ public data class MolecularSequence(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): SequenceType =

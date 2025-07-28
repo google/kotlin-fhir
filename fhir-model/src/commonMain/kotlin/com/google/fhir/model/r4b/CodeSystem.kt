@@ -26,7 +26,7 @@ import com.google.fhir.model.r4b.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemPropertySerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemSerializer
 import kotlin.Suppress
-import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -100,7 +100,7 @@ public data class CodeSystem(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: List<Resource?>? = null,
+  override var contained: MutableList<Resource> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -113,7 +113,7 @@ public data class CodeSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: List<Extension?>? = null,
+  override var extension: MutableList<Extension> = mutableListOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class CodeSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: List<Extension?>? = null,
+  override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /**
    * An absolute URI that is used to identify this code system when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -162,7 +162,7 @@ public data class CodeSystem(
    * the logical URI. Note that HL7 defines at least three identifiers for many of its code
    * systems - the FHIR canonical URL, the OID and the V2 Table 0396 mnemonic code.
    */
-  public var identifier: List<Identifier?>? = null,
+  public var identifier: MutableList<Identifier> = mutableListOf(),
   /**
    * The identifier that is used to identify this version of the code system when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the code
@@ -196,7 +196,7 @@ public data class CodeSystem(
    *
    * Allows filtering of code systems that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public var status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this code system is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -230,7 +230,7 @@ public data class CodeSystem(
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: List<ContactDetail?>? = null,
+  public var contact: MutableList<ContactDetail> = mutableListOf(),
   /**
    * A free text natural language description of the code system from a consumer's perspective.
    *
@@ -251,14 +251,14 @@ public data class CodeSystem(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: List<UsageContext?>? = null,
+  public var useContext: MutableList<UsageContext> = mutableListOf(),
   /**
    * A legal or geographic region in which the code system is intended to be used.
    *
    * It may be possible for the code system to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: List<CodeableConcept?>? = null,
+  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
   /**
    * Explanation of why this code system is needed and why it has been designed as it has.
    *
@@ -322,7 +322,7 @@ public data class CodeSystem(
    * The extent of the content of the code system (the concepts and codes it defines) are
    * represented in this resource instance.
    */
-  public var content: Enumeration<CodeSystemContentMode>? = null,
+  public var content: Enumeration<CodeSystemContentMode>,
   /**
    * The canonical URL of the code system that this code system supplement is adding designations
    * and properties to.
@@ -346,12 +346,12 @@ public data class CodeSystem(
    * terminology engine that will make them available for use in value set filters. For this reason,
    * they are generally only seen in high value published terminologies.
    */
-  public var filter: List<Filter>? = null,
+  public var filter: MutableList<Filter> = mutableListOf(),
   /**
    * A property defines an additional slot through which additional information can be provided
    * about a concept.
    */
-  public var `property`: List<Property>? = null,
+  public var `property`: MutableList<Property> = mutableListOf(),
   /**
    * Concepts that are in the code system. The concept definitions are inherently hierarchical, but
    * the definitions must be consulted to determine what the meanings of the hierarchical
@@ -360,7 +360,7 @@ public data class CodeSystem(
    * If this is empty, it means that the code system resource does not represent the content of the
    * code system.
    */
-  public var concept: List<Concept>? = null,
+  public var concept: MutableList<Concept> = mutableListOf(),
 ) : DomainResource() {
   /**
    * A filter that can be used in a value set compose statement when selecting concepts using a
@@ -385,7 +385,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -404,18 +404,18 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * The code that identifies this filter when it is used as a filter in
      * [ValueSet](valueset.html#).compose.include.filter.
      */
-    public var code: Code? = null,
+    public var code: Code,
     /** A description of how or why the filter is used. */
     public var description: String? = null,
     /** A list of operators that can be used with the filter. */
-    public var `operator`: List<Enumeration<FilterOperator>>? = null,
+    public var `operator`: MutableList<Enumeration<FilterOperator>> = mutableListOf(),
     /** A description of what the value for the filter should be. */
-    public var `value`: String? = null,
+    public var `value`: String,
   ) : BackboneElement()
 
   /**
@@ -441,7 +441,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -460,12 +460,12 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /**
      * A code that is used to identify the property. The code is used internally (in
      * CodeSystem.concept.property.code) and also externally, such as in property filters.
      */
-    public var code: Code? = null,
+    public var code: Code,
     /**
      * Reference to the formal meaning of the property. One possible source of meaning is the
      * [Concept Properties](codesystem-concept-properties.html) code system.
@@ -477,7 +477,7 @@ public data class CodeSystem(
      * The type of the property value. Properties of type "code" contain a code defined by the code
      * system (e.g. a reference to another defined concept).
      */
-    public var type: Enumeration<PropertyType>? = null,
+    public var type: Enumeration<PropertyType>,
   ) : BackboneElement()
 
   /**
@@ -504,7 +504,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: List<Extension?>? = null,
+    override var extension: MutableList<Extension> = mutableListOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -523,9 +523,9 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: List<Extension?>? = null,
+    override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** A code - a text symbol - that uniquely identifies the concept within the code system. */
-    public var code: Code? = null,
+    public var code: Code,
     /**
      * A human readable string that is the recommended default way to present this concept to a
      * user.
@@ -545,14 +545,14 @@ public data class CodeSystem(
      * equivalent to a special designation with an implied ```designation.use``` of "primary code"
      * and a language equal to the [Resource Language](resource.html#language).
      */
-    public var designation: List<Designation>? = null,
+    public var designation: MutableList<Designation> = mutableListOf(),
     /** A property value for this concept. */
-    public var `property`: List<Property>? = null,
+    public var `property`: MutableList<Property> = mutableListOf(),
     /**
      * Defines children of a concept to produce a hierarchy of concepts. The nature of the
      * relationships is variable (is-a/contains/categorizes) - see hierarchyMeaning.
      */
-    public var concept: List<Concept?>? = null,
+    public var concept: MutableList<Concept> = mutableListOf(),
   ) : BackboneElement() {
     /**
      * Additional representations for the concept - other languages, aliases, specialized purposes,
@@ -577,7 +577,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -596,7 +596,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /**
        * The language this designation is defined for.
        *
@@ -611,7 +611,7 @@ public data class CodeSystem(
        */
       public var use: Coding? = null,
       /** The text value for this designation. */
-      public var `value`: String? = null,
+      public var `value`: String,
     ) : BackboneElement()
 
     /** A property value for this concept. */
@@ -634,7 +634,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: List<Extension?>? = null,
+      override var extension: MutableList<Extension> = mutableListOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -653,11 +653,11 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: List<Extension?>? = null,
+      override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** A code that is a reference to CodeSystem.property.code. */
-      public var code: Code? = null,
+      public var code: Code,
       /** The value of this property. */
-      public var `value`: Value? = null,
+      public var `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = CodeSystemConceptPropertyValueSerializer::class)
       public sealed interface Value {
@@ -689,26 +689,24 @@ public data class CodeSystem(
 
         public data class Decimal(public val `value`: com.google.fhir.model.r4b.Decimal) : Value
 
-        public data object Null : Value
-
         public companion object {
-          public fun from(
+          internal fun from(
             codeValue: com.google.fhir.model.r4b.Code?,
-            CodingValue: com.google.fhir.model.r4b.Coding?,
+            codingValue: com.google.fhir.model.r4b.Coding?,
             stringValue: com.google.fhir.model.r4b.String?,
             integerValue: com.google.fhir.model.r4b.Integer?,
             booleanValue: com.google.fhir.model.r4b.Boolean?,
             dateTimeValue: com.google.fhir.model.r4b.DateTime?,
             decimalValue: com.google.fhir.model.r4b.Decimal?,
-          ): Value {
+          ): Value? {
             if (codeValue != null) return Code(codeValue)
-            if (CodingValue != null) return Coding(CodingValue)
+            if (codingValue != null) return Coding(codingValue)
             if (stringValue != null) return String(stringValue)
             if (integerValue != null) return Integer(integerValue)
             if (booleanValue != null) return Boolean(booleanValue)
             if (dateTimeValue != null) return DateTime(dateTimeValue)
             if (decimalValue != null) return Decimal(decimalValue)
-            return Null
+            return null
           }
         }
       }
@@ -720,96 +718,24 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The specified property of the code equals the provided value. */
-    EqualTo(
-      "=",
-      "http://hl7.org/fhir/filter-operator",
-      "Equals",
-      "The specified property of the code equals the provided value.",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship with the concept Id
-     * provided as the value, including the provided concept itself (include descendant codes and
-     * self).
-     */
-    Is_A(
-      "is-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Is A (by subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, including the provided concept itself (include descendant codes and self).",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship with the concept Id
-     * provided as the value, excluding the provided concept itself i.e. include descendant codes
-     * only).
-     */
+    EqualTo("=", "http://hl7.org/fhir/filter-operator", "Equals"),
+    Is_A("is-a", "http://hl7.org/fhir/filter-operator", "Is A (by subsumption)"),
     Descendent_Of(
       "descendent-of",
       "http://hl7.org/fhir/filter-operator",
       "Descendent Of (by subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, excluding the provided concept itself i.e. include descendant codes only).",
     ),
-    /**
-     * The specified property of the code does not have an is-a relationship with the provided
-     * value.
-     */
-    Is_Not_A(
-      "is-not-a",
-      "http://hl7.org/fhir/filter-operator",
-      "Not (Is A) (by subsumption)",
-      "The specified property of the code does not have an is-a relationship with the provided value.",
-    ),
-    /** The specified property of the code matches the regex specified in the provided value. */
-    Regex(
-      "regex",
-      "http://hl7.org/fhir/filter-operator",
-      "Regular Expression",
-      "The specified property of the code  matches the regex specified in the provided value.",
-    ),
-    /**
-     * The specified property of the code is in the set of codes or concepts specified in the
-     * provided value (comma separated list).
-     */
-    In(
-      "in",
-      "http://hl7.org/fhir/filter-operator",
-      "In Set",
-      "The specified property of the code is in the set of codes or concepts specified in the provided value (comma separated list).",
-    ),
-    /**
-     * The specified property of the code is not in the set of codes or concepts specified in the
-     * provided value (comma separated list).
-     */
-    Not_In(
-      "not-in",
-      "http://hl7.org/fhir/filter-operator",
-      "Not in Set",
-      "The specified property of the code is not in the set of codes or concepts specified in the provided value (comma separated list).",
-    ),
-    /**
-     * Includes all concept ids that have a transitive is-a relationship from the concept Id
-     * provided as the value, including the provided concept itself (i.e. include ancestor codes and
-     * self).
-     */
+    Is_Not_A("is-not-a", "http://hl7.org/fhir/filter-operator", "Not (Is A) (by subsumption)"),
+    Regex("regex", "http://hl7.org/fhir/filter-operator", "Regular Expression"),
+    In("in", "http://hl7.org/fhir/filter-operator", "In Set"),
+    Not_In("not-in", "http://hl7.org/fhir/filter-operator", "Not in Set"),
     Generalizes(
       "generalizes",
       "http://hl7.org/fhir/filter-operator",
       "Generalizes (by Subsumption)",
-      "Includes all concept ids that have a transitive is-a relationship from the concept Id provided as the value, including the provided concept itself (i.e. include ancestor codes and self).",
     ),
-    /**
-     * The specified property of the code has at least one value (if the specified value is true; if
-     * the specified value is false, then matches when the specified property of the code has no
-     * values).
-     */
-    Exists(
-      "exists",
-      "http://hl7.org/fhir/filter-operator",
-      "Exists",
-      "The specified property of the code has at least one value (if the specified value is true; if the specified value is false, then matches when the specified property of the code has no values).",
-    );
+    Exists("exists", "http://hl7.org/fhir/filter-operator", "Exists");
 
     override fun toString(): kotlin.String = code
 
@@ -818,8 +744,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): FilterOperator =
@@ -843,63 +767,14 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** The property value is a code that identifies a concept defined in the code system. */
-    Code(
-      "code",
-      "http://hl7.org/fhir/concept-property-type",
-      "code (internal reference)",
-      "The property value is a code that identifies a concept defined in the code system.",
-    ),
-    /**
-     * The property value is a code defined in an external code system. This may be used for
-     * translations, but is not the intent.
-     */
-    Coding(
-      "Coding",
-      "http://hl7.org/fhir/concept-property-type",
-      "Coding (external reference)",
-      "The property  value is a code defined in an external code system. This may be used for translations, but is not the intent.",
-    ),
-    /** The property value is a string. */
-    String(
-      "string",
-      "http://hl7.org/fhir/concept-property-type",
-      "string",
-      "The property value is a string.",
-    ),
-    /**
-     * The property value is a string (often used to assign ranking values to concepts for
-     * supporting score assessments).
-     */
-    Integer(
-      "integer",
-      "http://hl7.org/fhir/concept-property-type",
-      "integer",
-      "The property value is a string (often used to assign ranking values to concepts for supporting score assessments).",
-    ),
-    /** The property value is a boolean true | false. */
-    Boolean(
-      "boolean",
-      "http://hl7.org/fhir/concept-property-type",
-      "boolean",
-      "The property value is a boolean true | false.",
-    ),
-    /** The property is a date or a date + time. */
-    DateTime(
-      "dateTime",
-      "http://hl7.org/fhir/concept-property-type",
-      "dateTime",
-      "The property is a date or a date + time.",
-    ),
-    /** The property value is a decimal number. */
-    Decimal(
-      "decimal",
-      "http://hl7.org/fhir/concept-property-type",
-      "decimal",
-      "The property value is a decimal number.",
-    );
+    Code("code", "http://hl7.org/fhir/concept-property-type", "code (internal reference)"),
+    Coding("Coding", "http://hl7.org/fhir/concept-property-type", "Coding (external reference)"),
+    String("string", "http://hl7.org/fhir/concept-property-type", "string"),
+    Integer("integer", "http://hl7.org/fhir/concept-property-type", "integer"),
+    Boolean("boolean", "http://hl7.org/fhir/concept-property-type", "boolean"),
+    DateTime("dateTime", "http://hl7.org/fhir/concept-property-type", "dateTime"),
+    Decimal("decimal", "http://hl7.org/fhir/concept-property-type", "decimal");
 
     override fun toString(): kotlin.String = code
 
@@ -908,8 +783,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): PropertyType =
@@ -931,49 +804,14 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /**
-     * No particular relationship between the concepts can be assumed, except what can be determined
-     * by inspection of the definitions of the elements (possible reasons to use this: importing
-     * from a source where this is not defined, or where various parts of the hierarchy have
-     * different meanings).
-     */
-    Grouped_By(
-      "grouped-by",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Grouped By",
-      "No particular relationship between the concepts can be assumed, except what can be determined by inspection of the definitions of the elements (possible reasons to use this: importing from a source where this is not defined, or where various parts of the hierarchy have different meanings).",
-    ),
-    /**
-     * A hierarchy where the child concepts have an IS-A relationship with the parents - that is,
-     * all the properties of the parent are also true for its child concepts. Not that is-a is a
-     * property of the concepts, so additional subsumption relationships may be defined using
-     * properties or the [subsumes](extension-codesystem-subsumes.html) extension.
-     */
-    Is_A(
-      "is-a",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Is-A",
-      "A hierarchy where the child concepts have an IS-A relationship with the parents - that is, all the properties of the parent are also true for its child concepts. Not that is-a is a property of the concepts, so additional subsumption relationships may be defined using properties or the [subsumes](extension-codesystem-subsumes.html) extension.",
-    ),
-    /** Child elements list the individual parts of a composite whole (e.g. body site). */
-    Part_Of(
-      "part-of",
-      "http://hl7.org/fhir/codesystem-hierarchy-meaning",
-      "Part Of",
-      "Child elements list the individual parts of a composite whole (e.g. body site).",
-    ),
-    /**
-     * Child concepts in the hierarchy may have only one parent, and there is a presumption that the
-     * code system is a "closed world" meaning all things must be in the hierarchy. This results in
-     * concepts such as "not otherwise classified.".
-     */
+    Grouped_By("grouped-by", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Grouped By"),
+    Is_A("is-a", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Is-A"),
+    Part_Of("part-of", "http://hl7.org/fhir/codesystem-hierarchy-meaning", "Part Of"),
     Classified_With(
       "classified-with",
       "http://hl7.org/fhir/codesystem-hierarchy-meaning",
       "Classified With",
-      "Child concepts in the hierarchy may have only one parent, and there is a presumption that the code system is a \"closed world\" meaning all things must be in the hierarchy. This results in concepts such as \"not otherwise classified.\".",
     );
 
     override fun toString(): kotlin.String = code
@@ -983,8 +821,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemHierarchyMeaning =
@@ -1007,56 +843,12 @@ public data class CodeSystem(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
-    private val definition: kotlin.String?,
   ) {
-    /** None of the concepts defined by the code system are included in the code system resource. */
-    Not_Present(
-      "not-present",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Not Present",
-      "None of the concepts defined by the code system are included in the code system resource.",
-    ),
-    /**
-     * A few representative concepts are included in the code system resource. There is no useful
-     * intent in the subset choice and there's no process to make it workable: it's not intended to
-     * be workable.
-     */
-    Example(
-      "example",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Example",
-      "A few representative concepts are included in the code system resource. There is no useful intent in the subset choice and there's no process to make it workable: it's not intended to be workable.",
-    ),
-    /**
-     * A subset of the code system concepts are included in the code system resource. This is a
-     * curated subset released for a specific purpose under the governance of the code system
-     * steward, and that the intent, bounds and consequences of the fragmentation are clearly
-     * defined in the fragment or the code system documentation. Fragments are also known as
-     * partitions.
-     */
-    Fragment(
-      "fragment",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Fragment",
-      "A subset of the code system concepts are included in the code system resource. This is a curated subset released for a specific purpose under the governance of the code system steward, and that the intent, bounds and consequences of the fragmentation are clearly defined in the fragment or the code system documentation. Fragments are also known as partitions.",
-    ),
-    /** All the concepts defined by the code system are included in the code system resource. */
-    Complete(
-      "complete",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Complete",
-      "All the concepts defined by the code system are included in the code system resource.",
-    ),
-    /**
-     * The resource doesn't define any new concepts; it just provides additional designations and
-     * properties to another code system.
-     */
-    Supplement(
-      "supplement",
-      "http://hl7.org/fhir/codesystem-content-mode",
-      "Supplement",
-      "The resource doesn't define any new concepts; it just provides additional designations and properties to another code system.",
-    );
+    Not_Present("not-present", "http://hl7.org/fhir/codesystem-content-mode", "Not Present"),
+    Example("example", "http://hl7.org/fhir/codesystem-content-mode", "Example"),
+    Fragment("fragment", "http://hl7.org/fhir/codesystem-content-mode", "Fragment"),
+    Complete("complete", "http://hl7.org/fhir/codesystem-content-mode", "Complete"),
+    Supplement("supplement", "http://hl7.org/fhir/codesystem-content-mode", "Supplement");
 
     override fun toString(): kotlin.String = code
 
@@ -1065,8 +857,6 @@ public data class CodeSystem(
     public fun getSystem(): kotlin.String = system
 
     public fun getDisplay(): kotlin.String? = display
-
-    public fun getDefinition(): kotlin.String? = definition
 
     public companion object {
       public fun fromCode(code: kotlin.String): CodeSystemContentMode =
