@@ -24,4 +24,5 @@ data class Extension(
   val valueCode: String? = null,
   val valueString: String? = null,
   val valueBoolean: Boolean? = null,
+  val valueUrl: String? = null,
 )

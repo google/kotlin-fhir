@@ -190,7 +190,7 @@ internal data class TaskInputSurrogate(
   public var _valueInstant: Element? = null,
   public var valueInteger: Int? = null,
   public var _valueInteger: Element? = null,
-  public var valueInteger64: Int? = null,
+  public var valueInteger64: KotlinString? = null,
   public var _valueInteger64: Element? = null,
   public var valueMarkdown: KotlinString? = null,
   public var _valueMarkdown: Element? = null,
@@ -279,7 +279,7 @@ internal data class TaskInputSurrogate(
           ),
           Integer.of(this@TaskInputSurrogate.valueInteger, this@TaskInputSurrogate._valueInteger),
           Integer64.of(
-            this@TaskInputSurrogate.valueInteger64,
+            this@TaskInputSurrogate.valueInteger64?.toLong(),
             this@TaskInputSurrogate._valueInteger64,
           ),
           Markdown.of(
@@ -365,7 +365,7 @@ internal data class TaskInputSurrogate(
           _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
           valueInteger = this@with.`value`?.asInteger()?.value?.value,
           _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value?.toString(),
           _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
           valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
           _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
@@ -450,7 +450,7 @@ internal data class TaskOutputSurrogate(
   public var _valueInstant: Element? = null,
   public var valueInteger: Int? = null,
   public var _valueInteger: Element? = null,
-  public var valueInteger64: Int? = null,
+  public var valueInteger64: KotlinString? = null,
   public var _valueInteger64: Element? = null,
   public var valueMarkdown: KotlinString? = null,
   public var _valueMarkdown: Element? = null,
@@ -542,7 +542,7 @@ internal data class TaskOutputSurrogate(
           ),
           Integer.of(this@TaskOutputSurrogate.valueInteger, this@TaskOutputSurrogate._valueInteger),
           Integer64.of(
-            this@TaskOutputSurrogate.valueInteger64,
+            this@TaskOutputSurrogate.valueInteger64?.toLong(),
             this@TaskOutputSurrogate._valueInteger64,
           ),
           Markdown.of(
@@ -628,7 +628,7 @@ internal data class TaskOutputSurrogate(
           _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
           valueInteger = this@with.`value`?.asInteger()?.value?.value,
           _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value?.toString(),
           _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
           valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
           _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),

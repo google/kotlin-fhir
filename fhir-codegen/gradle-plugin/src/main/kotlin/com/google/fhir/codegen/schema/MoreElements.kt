@@ -305,12 +305,22 @@ private fun Element.getSurrogatePropertyNameTypeDefaultValueList(
  * @param enclosingClassName The class name of the [Element]'s enclosing class.
  */
 fun Type.getTypeName(enclosingClassName: ClassName): ClassName {
+  if (
+    extension
+      ?.find { it.url == "http://hl7.org/fhir/StructureDefinition/structuredefinition-fhir-type" }
+      ?.valueUrl == "integer64"
+  ) {
+    // Special case: see
+    // https://chat.fhir.org/#narrow/channel/179266-fhirpath/topic/Integer64.20and.20Long
+    // https://jira.hl7.org/browse/FHIR-46522
+    return Long::class.asTypeName()
+  }
   return when (code) {
     // Type for the 'value' field in FHIR primitive data type.
     // For example, the FHIR primitive data type string has a 'value' field with FHIRPath type
     // "http://hl7.org/fhirpath/System.String". The Kotlin type for this field is a Kotlin String.
     in FhirPathType.getUris() -> {
-      FhirPathType.getFromUri(code)!!.getTypeInDataClass(enclosingClassName.packageName)
+      FhirPathType.getFromUri(code)!!.getTypeInModelClass(enclosingClassName.packageName)
     }
 
     else -> {
