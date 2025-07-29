@@ -104,13 +104,11 @@ internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogat
       model: Ingredient.Substance.Strength.ReferenceStrength.Strength
     ): IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate =
       with(model) {
-        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate().apply {
-          Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
-            this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
-            this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
-            this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthQuantity,
-          )!!
-        }
+        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthRatioRange = this@with.asRatioRange()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -184,14 +182,12 @@ internal data class IngredientSubstanceStrengthPresentationSurrogate(
       model: Ingredient.Substance.Strength.Presentation
     ): IngredientSubstanceStrengthPresentationSurrogate =
       with(model) {
-        IngredientSubstanceStrengthPresentationSurrogate().apply {
-          Ingredient.Substance.Strength.Presentation?.from(
-            this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
-            this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
-            this@IngredientSubstanceStrengthPresentationSurrogate.presentationCodeableConcept,
-            this@IngredientSubstanceStrengthPresentationSurrogate.presentationQuantity,
-          )
-        }
+        IngredientSubstanceStrengthPresentationSurrogate(
+          presentationRatio = this@with.asRatio()?.value,
+          presentationRatioRange = this@with.asRatioRange()?.value,
+          presentationCodeableConcept = this@with.asCodeableConcept()?.value,
+          presentationQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -216,14 +212,12 @@ internal data class IngredientSubstanceStrengthConcentrationSurrogate(
       model: Ingredient.Substance.Strength.Concentration
     ): IngredientSubstanceStrengthConcentrationSurrogate =
       with(model) {
-        IngredientSubstanceStrengthConcentrationSurrogate().apply {
-          Ingredient.Substance.Strength.Concentration?.from(
-            this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
-            this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
-            this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationCodeableConcept,
-            this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationQuantity,
-          )
-        }
+        IngredientSubstanceStrengthConcentrationSurrogate(
+          concentrationRatio = this@with.asRatio()?.value,
+          concentrationRatioRange = this@with.asRatioRange()?.value,
+          concentrationCodeableConcept = this@with.asCodeableConcept()?.value,
+          concentrationQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }

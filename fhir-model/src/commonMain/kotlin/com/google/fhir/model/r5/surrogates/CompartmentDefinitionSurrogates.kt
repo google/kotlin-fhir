@@ -157,15 +157,11 @@ internal data class CompartmentDefinitionVersionAlgorithmSurrogate(
       model: CompartmentDefinition.VersionAlgorithm
     ): CompartmentDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        CompartmentDefinitionVersionAlgorithmSurrogate().apply {
-          CompartmentDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@CompartmentDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@CompartmentDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@CompartmentDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        CompartmentDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

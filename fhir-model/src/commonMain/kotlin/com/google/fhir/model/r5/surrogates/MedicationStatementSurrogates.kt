@@ -103,16 +103,12 @@ internal data class MedicationStatementEffectiveSurrogate(
       model: MedicationStatement.Effective
     ): MedicationStatementEffectiveSurrogate =
       with(model) {
-        MedicationStatementEffectiveSurrogate().apply {
-          MedicationStatement.Effective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@MedicationStatementEffectiveSurrogate.effectiveDateTime),
-              this@MedicationStatementEffectiveSurrogate._effectiveDateTime,
-            ),
-            this@MedicationStatementEffectiveSurrogate.effectivePeriod,
-            this@MedicationStatementEffectiveSurrogate.effectiveTiming,
-          )
-        }
+        MedicationStatementEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+          effectiveTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

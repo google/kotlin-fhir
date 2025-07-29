@@ -578,26 +578,18 @@ internal data class DeviceDefinitionPropertyValueSurrogate(
       model: DeviceDefinition.Property.Value
     ): DeviceDefinitionPropertyValueSurrogate =
       with(model) {
-        DeviceDefinitionPropertyValueSurrogate().apply {
-          DeviceDefinition.Property.Value.from(
-            this@DeviceDefinitionPropertyValueSurrogate.valueQuantity,
-            this@DeviceDefinitionPropertyValueSurrogate.valueCodeableConcept,
-            R5String.of(
-              this@DeviceDefinitionPropertyValueSurrogate.valueString,
-              this@DeviceDefinitionPropertyValueSurrogate._valueString,
-            ),
-            R5Boolean.of(
-              this@DeviceDefinitionPropertyValueSurrogate.valueBoolean,
-              this@DeviceDefinitionPropertyValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@DeviceDefinitionPropertyValueSurrogate.valueInteger,
-              this@DeviceDefinitionPropertyValueSurrogate._valueInteger,
-            ),
-            this@DeviceDefinitionPropertyValueSurrogate.valueRange,
-            this@DeviceDefinitionPropertyValueSurrogate.valueAttachment,
-          )!!
-        }
+        DeviceDefinitionPropertyValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

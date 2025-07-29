@@ -71,17 +71,11 @@ internal data class CoverageEligibilityRequestEventWhenSurrogate(
       model: CoverageEligibilityRequest.Event.When
     ): CoverageEligibilityRequestEventWhenSurrogate =
       with(model) {
-        CoverageEligibilityRequestEventWhenSurrogate().apply {
-          CoverageEligibilityRequest.Event.When.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@CoverageEligibilityRequestEventWhenSurrogate.whenDateTime
-              ),
-              this@CoverageEligibilityRequestEventWhenSurrogate._whenDateTime,
-            ),
-            this@CoverageEligibilityRequestEventWhenSurrogate.whenPeriod,
-          )!!
-        }
+        CoverageEligibilityRequestEventWhenSurrogate(
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _whenDateTime = this@with.asDateTime()?.value?.toElement(),
+          whenPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -235,12 +229,10 @@ internal data class CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate(
       model: CoverageEligibilityRequest.Item.Diagnosis.Diagnosis
     ): CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate =
       with(model) {
-        CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate().apply {
-          CoverageEligibilityRequest.Item.Diagnosis.Diagnosis?.from(
-            this@CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
-            this@CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.diagnosisReference,
-          )
-        }
+        CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate(
+          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
+          diagnosisReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -387,15 +379,11 @@ internal data class CoverageEligibilityRequestServicedSurrogate(
       model: CoverageEligibilityRequest.Serviced
     ): CoverageEligibilityRequestServicedSurrogate =
       with(model) {
-        CoverageEligibilityRequestServicedSurrogate().apply {
-          CoverageEligibilityRequest.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@CoverageEligibilityRequestServicedSurrogate.servicedDate),
-              this@CoverageEligibilityRequestServicedSurrogate._servicedDate,
-            ),
-            this@CoverageEligibilityRequestServicedSurrogate.servicedPeriod,
-          )
-        }
+        CoverageEligibilityRequestServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

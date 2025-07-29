@@ -69,16 +69,12 @@ internal data class CommunicationRequestPayloadContentSurrogate(
       model: CommunicationRequest.Payload.Content
     ): CommunicationRequestPayloadContentSurrogate =
       with(model) {
-        CommunicationRequestPayloadContentSurrogate().apply {
-          CommunicationRequest.Payload.Content.from(
-            R4String.of(
-              this@CommunicationRequestPayloadContentSurrogate.contentString,
-              this@CommunicationRequestPayloadContentSurrogate._contentString,
-            ),
-            this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
-            this@CommunicationRequestPayloadContentSurrogate.contentReference,
-          )!!
-        }
+        CommunicationRequestPayloadContentSurrogate(
+          contentString = this@with.asString()?.value?.value,
+          _contentString = this@with.asString()?.value?.toElement(),
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -134,17 +130,11 @@ internal data class CommunicationRequestOccurrenceSurrogate(
       model: CommunicationRequest.Occurrence
     ): CommunicationRequestOccurrenceSurrogate =
       with(model) {
-        CommunicationRequestOccurrenceSurrogate().apply {
-          CommunicationRequest.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@CommunicationRequestOccurrenceSurrogate.occurrenceDateTime
-              ),
-              this@CommunicationRequestOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@CommunicationRequestOccurrenceSurrogate.occurrencePeriod,
-          )
-        }
+        CommunicationRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

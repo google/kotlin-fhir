@@ -201,17 +201,11 @@ internal data class ExplanationOfBenefitSupportingInfoTimingSurrogate(
       model: ExplanationOfBenefit.SupportingInfo.Timing
     ): ExplanationOfBenefitSupportingInfoTimingSurrogate =
       with(model) {
-        ExplanationOfBenefitSupportingInfoTimingSurrogate().apply {
-          ExplanationOfBenefit.SupportingInfo.Timing?.from(
-            Date.of(
-              FhirDate.fromString(
-                this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingDate
-              ),
-              this@ExplanationOfBenefitSupportingInfoTimingSurrogate._timingDate,
-            ),
-            this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingPeriod,
-          )
-        }
+        ExplanationOfBenefitSupportingInfoTimingSurrogate(
+          timingDate = this@with.asDate()?.value?.value?.toString(),
+          _timingDate = this@with.asDate()?.value?.toElement(),
+          timingPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -246,21 +240,15 @@ internal data class ExplanationOfBenefitSupportingInfoValueSurrogate(
       model: ExplanationOfBenefit.SupportingInfo.Value
     ): ExplanationOfBenefitSupportingInfoValueSurrogate =
       with(model) {
-        ExplanationOfBenefitSupportingInfoValueSurrogate().apply {
-          ExplanationOfBenefit.SupportingInfo.Value?.from(
-            R4bBoolean.of(
-              this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueBoolean,
-              this@ExplanationOfBenefitSupportingInfoValueSurrogate._valueBoolean,
-            ),
-            R4bString.of(
-              this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueString,
-              this@ExplanationOfBenefitSupportingInfoValueSurrogate._valueString,
-            ),
-            this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueQuantity,
-            this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueAttachment,
-            this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueReference,
-          )
-        }
+        ExplanationOfBenefitSupportingInfoValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -333,12 +321,10 @@ internal data class ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
       model: ExplanationOfBenefit.Diagnosis.Diagnosis
     ): ExplanationOfBenefitDiagnosisDiagnosisSurrogate =
       with(model) {
-        ExplanationOfBenefitDiagnosisDiagnosisSurrogate().apply {
-          ExplanationOfBenefit.Diagnosis.Diagnosis.from(
-            this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
-            this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisReference,
-          )!!
-        }
+        ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
+          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
+          diagnosisReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -408,12 +394,10 @@ internal data class ExplanationOfBenefitProcedureProcedureSurrogate(
       model: ExplanationOfBenefit.Procedure.Procedure
     ): ExplanationOfBenefitProcedureProcedureSurrogate =
       with(model) {
-        ExplanationOfBenefitProcedureProcedureSurrogate().apply {
-          ExplanationOfBenefit.Procedure.Procedure.from(
-            this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureCodeableConcept,
-            this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureReference,
-          )!!
-        }
+        ExplanationOfBenefitProcedureProcedureSurrogate(
+          procedureCodeableConcept = this@with.asCodeableConcept()?.value,
+          procedureReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -558,12 +542,10 @@ internal data class ExplanationOfBenefitAccidentLocationSurrogate(
       model: ExplanationOfBenefit.Accident.Location
     ): ExplanationOfBenefitAccidentLocationSurrogate =
       with(model) {
-        ExplanationOfBenefitAccidentLocationSurrogate().apply {
-          ExplanationOfBenefit.Accident.Location?.from(
-            this@ExplanationOfBenefitAccidentLocationSurrogate.locationAddress,
-            this@ExplanationOfBenefitAccidentLocationSurrogate.locationReference,
-          )
-        }
+        ExplanationOfBenefitAccidentLocationSurrogate(
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -897,15 +879,11 @@ internal data class ExplanationOfBenefitItemServicedSurrogate(
       model: ExplanationOfBenefit.Item.Serviced
     ): ExplanationOfBenefitItemServicedSurrogate =
       with(model) {
-        ExplanationOfBenefitItemServicedSurrogate().apply {
-          ExplanationOfBenefit.Item.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@ExplanationOfBenefitItemServicedSurrogate.servicedDate),
-              this@ExplanationOfBenefitItemServicedSurrogate._servicedDate,
-            ),
-            this@ExplanationOfBenefitItemServicedSurrogate.servicedPeriod,
-          )
-        }
+        ExplanationOfBenefitItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -928,13 +906,11 @@ internal data class ExplanationOfBenefitItemLocationSurrogate(
       model: ExplanationOfBenefit.Item.Location
     ): ExplanationOfBenefitItemLocationSurrogate =
       with(model) {
-        ExplanationOfBenefitItemLocationSurrogate().apply {
-          ExplanationOfBenefit.Item.Location?.from(
-            this@ExplanationOfBenefitItemLocationSurrogate.locationCodeableConcept,
-            this@ExplanationOfBenefitItemLocationSurrogate.locationAddress,
-            this@ExplanationOfBenefitItemLocationSurrogate.locationReference,
-          )
-        }
+        ExplanationOfBenefitItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1378,15 +1354,11 @@ internal data class ExplanationOfBenefitAddItemServicedSurrogate(
       model: ExplanationOfBenefit.AddItem.Serviced
     ): ExplanationOfBenefitAddItemServicedSurrogate =
       with(model) {
-        ExplanationOfBenefitAddItemServicedSurrogate().apply {
-          ExplanationOfBenefit.AddItem.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@ExplanationOfBenefitAddItemServicedSurrogate.servicedDate),
-              this@ExplanationOfBenefitAddItemServicedSurrogate._servicedDate,
-            ),
-            this@ExplanationOfBenefitAddItemServicedSurrogate.servicedPeriod,
-          )
-        }
+        ExplanationOfBenefitAddItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -1409,13 +1381,11 @@ internal data class ExplanationOfBenefitAddItemLocationSurrogate(
       model: ExplanationOfBenefit.AddItem.Location
     ): ExplanationOfBenefitAddItemLocationSurrogate =
       with(model) {
-        ExplanationOfBenefitAddItemLocationSurrogate().apply {
-          ExplanationOfBenefit.AddItem.Location?.from(
-            this@ExplanationOfBenefitAddItemLocationSurrogate.locationCodeableConcept,
-            this@ExplanationOfBenefitAddItemLocationSurrogate.locationAddress,
-            this@ExplanationOfBenefitAddItemLocationSurrogate.locationReference,
-          )
-        }
+        ExplanationOfBenefitAddItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1782,19 +1752,13 @@ internal data class ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
       model: ExplanationOfBenefit.BenefitBalance.Financial.Allowed
     ): ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate =
       with(model) {
-        ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate().apply {
-          ExplanationOfBenefit.BenefitBalance.Financial.Allowed?.from(
-            UnsignedInt.of(
-              this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedUnsignedInt,
-              this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedUnsignedInt,
-            ),
-            R4bString.of(
-              this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedString,
-              this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedString,
-            ),
-            this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedMoney,
-          )
-        }
+        ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
+          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          allowedString = this@with.asString()?.value?.value,
+          _allowedString = this@with.asString()?.value?.toElement(),
+          allowedMoney = this@with.asMoney()?.value,
+        )
       }
   }
 }
@@ -1819,15 +1783,11 @@ internal data class ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
       model: ExplanationOfBenefit.BenefitBalance.Financial.Used
     ): ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate =
       with(model) {
-        ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate().apply {
-          ExplanationOfBenefit.BenefitBalance.Financial.Used?.from(
-            UnsignedInt.of(
-              this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedUnsignedInt,
-              this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate._usedUnsignedInt,
-            ),
-            this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedMoney,
-          )
-        }
+        ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
+          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          usedMoney = this@with.asMoney()?.value,
+        )
       }
   }
 }

@@ -161,16 +161,12 @@ internal data class ActivityDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.Subject): ActivityDefinitionSubjectSurrogate =
       with(model) {
-        ActivityDefinitionSubjectSurrogate().apply {
-          ActivityDefinition.Subject?.from(
-            this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@ActivityDefinitionSubjectSurrogate.subjectReference,
-            Canonical.of(
-              this@ActivityDefinitionSubjectSurrogate.subjectCanonical,
-              this@ActivityDefinitionSubjectSurrogate._subjectCanonical,
-            ),
-          )
-        }
+        ActivityDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+          subjectCanonical = this@with.asCanonical()?.value?.value,
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -201,19 +197,15 @@ internal data class ActivityDefinitionTimingSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.Timing): ActivityDefinitionTimingSurrogate =
       with(model) {
-        ActivityDefinitionTimingSurrogate().apply {
-          ActivityDefinition.Timing?.from(
-            this@ActivityDefinitionTimingSurrogate.timingTiming,
-            DateTime.of(
-              FhirDateTime.fromString(this@ActivityDefinitionTimingSurrogate.timingDateTime),
-              this@ActivityDefinitionTimingSurrogate._timingDateTime,
-            ),
-            this@ActivityDefinitionTimingSurrogate.timingAge,
-            this@ActivityDefinitionTimingSurrogate.timingPeriod,
-            this@ActivityDefinitionTimingSurrogate.timingRange,
-            this@ActivityDefinitionTimingSurrogate.timingDuration,
-          )
-        }
+        ActivityDefinitionTimingSurrogate(
+          timingTiming = this@with.asTiming()?.value,
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+          timingAge = this@with.asAge()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }
@@ -232,12 +224,10 @@ internal data class ActivityDefinitionProductSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.Product): ActivityDefinitionProductSurrogate =
       with(model) {
-        ActivityDefinitionProductSurrogate().apply {
-          ActivityDefinition.Product?.from(
-            this@ActivityDefinitionProductSurrogate.productReference,
-            this@ActivityDefinitionProductSurrogate.productCodeableConcept,
-          )
-        }
+        ActivityDefinitionProductSurrogate(
+          productReference = this@with.asReference()?.value,
+          productCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

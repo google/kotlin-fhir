@@ -136,12 +136,10 @@ internal data class CoverageCostToBeneficiaryValueSurrogate(
       model: Coverage.CostToBeneficiary.Value
     ): CoverageCostToBeneficiaryValueSurrogate =
       with(model) {
-        CoverageCostToBeneficiaryValueSurrogate().apply {
-          Coverage.CostToBeneficiary.Value.from(
-            this@CoverageCostToBeneficiaryValueSurrogate.valueQuantity,
-            this@CoverageCostToBeneficiaryValueSurrogate.valueMoney,
-          )!!
-        }
+        CoverageCostToBeneficiaryValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueMoney = this@with.asMoney()?.value,
+        )
       }
   }
 }

@@ -115,17 +115,11 @@ internal data class MedicinalProductAuthorizationProcedureDateSurrogate(
       model: MedicinalProductAuthorization.Procedure.Date
     ): MedicinalProductAuthorizationProcedureDateSurrogate =
       with(model) {
-        MedicinalProductAuthorizationProcedureDateSurrogate().apply {
-          MedicinalProductAuthorization.Procedure.Date?.from(
-            this@MedicinalProductAuthorizationProcedureDateSurrogate.datePeriod,
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@MedicinalProductAuthorizationProcedureDateSurrogate.dateDateTime
-              ),
-              this@MedicinalProductAuthorizationProcedureDateSurrogate._dateDateTime,
-            ),
-          )
-        }
+        MedicinalProductAuthorizationProcedureDateSurrogate(
+          datePeriod = this@with.asPeriod()?.value,
+          dateDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _dateDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

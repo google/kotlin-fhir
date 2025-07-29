@@ -135,18 +135,14 @@ internal data class MeasureReportGroupStratifierStratumComponentValueSurrogate(
       model: MeasureReport.Group.Stratifier.Stratum.Component.Value
     ): MeasureReportGroupStratifierStratumComponentValueSurrogate =
       with(model) {
-        MeasureReportGroupStratifierStratumComponentValueSurrogate().apply {
-          MeasureReport.Group.Stratifier.Stratum.Component.Value.from(
-            this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueCodeableConcept,
-            R5Boolean.of(
-              this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueBoolean,
-              this@MeasureReportGroupStratifierStratumComponentValueSurrogate._valueBoolean,
-            ),
-            this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueQuantity,
-            this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueRange,
-            this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueReference,
-          )!!
-        }
+        MeasureReportGroupStratifierStratumComponentValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -284,18 +280,14 @@ internal data class MeasureReportGroupStratifierStratumValueSurrogate(
       model: MeasureReport.Group.Stratifier.Stratum.Value
     ): MeasureReportGroupStratifierStratumValueSurrogate =
       with(model) {
-        MeasureReportGroupStratifierStratumValueSurrogate().apply {
-          MeasureReport.Group.Stratifier.Stratum.Value?.from(
-            this@MeasureReportGroupStratifierStratumValueSurrogate.valueCodeableConcept,
-            R5Boolean.of(
-              this@MeasureReportGroupStratifierStratumValueSurrogate.valueBoolean,
-              this@MeasureReportGroupStratifierStratumValueSurrogate._valueBoolean,
-            ),
-            this@MeasureReportGroupStratifierStratumValueSurrogate.valueQuantity,
-            this@MeasureReportGroupStratifierStratumValueSurrogate.valueRange,
-            this@MeasureReportGroupStratifierStratumValueSurrogate.valueReference,
-          )
-        }
+        MeasureReportGroupStratifierStratumValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -330,22 +322,15 @@ internal data class MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
       model: MeasureReport.Group.Stratifier.Stratum.MeasureScore
     ): MeasureReportGroupStratifierStratumMeasureScoreSurrogate =
       with(model) {
-        MeasureReportGroupStratifierStratumMeasureScoreSurrogate().apply {
-          MeasureReport.Group.Stratifier.Stratum.MeasureScore?.from(
-            this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreQuantity,
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDateTime
-              ),
-              this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate._measureScoreDateTime,
-            ),
-            this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate
-              .measureScoreCodeableConcept,
-            this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScorePeriod,
-            this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreRange,
-            this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDuration,
-          )
-        }
+        MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
+          measureScoreQuantity = this@with.asQuantity()?.value,
+          measureScoreDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _measureScoreDateTime = this@with.asDateTime()?.value?.toElement(),
+          measureScoreCodeableConcept = this@with.asCodeableConcept()?.value,
+          measureScorePeriod = this@with.asPeriod()?.value,
+          measureScoreRange = this@with.asRange()?.value,
+          measureScoreDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }
@@ -461,21 +446,15 @@ internal data class MeasureReportGroupMeasureScoreSurrogate(
       model: MeasureReport.Group.MeasureScore
     ): MeasureReportGroupMeasureScoreSurrogate =
       with(model) {
-        MeasureReportGroupMeasureScoreSurrogate().apply {
-          MeasureReport.Group.MeasureScore?.from(
-            this@MeasureReportGroupMeasureScoreSurrogate.measureScoreQuantity,
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@MeasureReportGroupMeasureScoreSurrogate.measureScoreDateTime
-              ),
-              this@MeasureReportGroupMeasureScoreSurrogate._measureScoreDateTime,
-            ),
-            this@MeasureReportGroupMeasureScoreSurrogate.measureScoreCodeableConcept,
-            this@MeasureReportGroupMeasureScoreSurrogate.measureScorePeriod,
-            this@MeasureReportGroupMeasureScoreSurrogate.measureScoreRange,
-            this@MeasureReportGroupMeasureScoreSurrogate.measureScoreDuration,
-          )
-        }
+        MeasureReportGroupMeasureScoreSurrogate(
+          measureScoreQuantity = this@with.asQuantity()?.value,
+          measureScoreDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _measureScoreDateTime = this@with.asDateTime()?.value?.toElement(),
+          measureScoreCodeableConcept = this@with.asCodeableConcept()?.value,
+          measureScorePeriod = this@with.asPeriod()?.value,
+          measureScoreRange = this@with.asRange()?.value,
+          measureScoreDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }

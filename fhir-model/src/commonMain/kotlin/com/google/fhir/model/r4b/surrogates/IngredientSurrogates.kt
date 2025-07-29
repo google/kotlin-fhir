@@ -100,12 +100,10 @@ internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogat
       model: Ingredient.Substance.Strength.ReferenceStrength.Strength
     ): IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate =
       with(model) {
-        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate().apply {
-          Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
-            this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
-            this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
-          )!!
-        }
+        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthRatioRange = this@with.asRatioRange()?.value,
+        )
       }
   }
 }
@@ -175,12 +173,10 @@ internal data class IngredientSubstanceStrengthPresentationSurrogate(
       model: Ingredient.Substance.Strength.Presentation
     ): IngredientSubstanceStrengthPresentationSurrogate =
       with(model) {
-        IngredientSubstanceStrengthPresentationSurrogate().apply {
-          Ingredient.Substance.Strength.Presentation?.from(
-            this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
-            this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
-          )
-        }
+        IngredientSubstanceStrengthPresentationSurrogate(
+          presentationRatio = this@with.asRatio()?.value,
+          presentationRatioRange = this@with.asRatioRange()?.value,
+        )
       }
   }
 }
@@ -201,12 +197,10 @@ internal data class IngredientSubstanceStrengthConcentrationSurrogate(
       model: Ingredient.Substance.Strength.Concentration
     ): IngredientSubstanceStrengthConcentrationSurrogate =
       with(model) {
-        IngredientSubstanceStrengthConcentrationSurrogate().apply {
-          Ingredient.Substance.Strength.Concentration?.from(
-            this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
-            this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
-          )
-        }
+        IngredientSubstanceStrengthConcentrationSurrogate(
+          concentrationRatio = this@with.asRatio()?.value,
+          concentrationRatioRange = this@with.asRatioRange()?.value,
+        )
       }
   }
 }

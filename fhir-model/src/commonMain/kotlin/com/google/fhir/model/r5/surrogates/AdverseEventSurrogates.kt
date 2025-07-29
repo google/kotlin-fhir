@@ -131,12 +131,10 @@ internal data class AdverseEventSuspectEntityInstanceSurrogate(
       model: AdverseEvent.SuspectEntity.Instance
     ): AdverseEventSuspectEntityInstanceSurrogate =
       with(model) {
-        AdverseEventSuspectEntityInstanceSurrogate().apply {
-          AdverseEvent.SuspectEntity.Instance.from(
-            this@AdverseEventSuspectEntityInstanceSurrogate.instanceCodeableConcept,
-            this@AdverseEventSuspectEntityInstanceSurrogate.instanceReference,
-          )!!
-        }
+        AdverseEventSuspectEntityInstanceSurrogate(
+          instanceCodeableConcept = this@with.asCodeableConcept()?.value,
+          instanceReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -189,12 +187,10 @@ internal data class AdverseEventContributingFactorItemSurrogate(
       model: AdverseEvent.ContributingFactor.Item
     ): AdverseEventContributingFactorItemSurrogate =
       with(model) {
-        AdverseEventContributingFactorItemSurrogate().apply {
-          AdverseEvent.ContributingFactor.Item.from(
-            this@AdverseEventContributingFactorItemSurrogate.itemReference,
-            this@AdverseEventContributingFactorItemSurrogate.itemCodeableConcept,
-          )!!
-        }
+        AdverseEventContributingFactorItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -246,12 +242,10 @@ internal data class AdverseEventPreventiveActionItemSurrogate(
       model: AdverseEvent.PreventiveAction.Item
     ): AdverseEventPreventiveActionItemSurrogate =
       with(model) {
-        AdverseEventPreventiveActionItemSurrogate().apply {
-          AdverseEvent.PreventiveAction.Item.from(
-            this@AdverseEventPreventiveActionItemSurrogate.itemReference,
-            this@AdverseEventPreventiveActionItemSurrogate.itemCodeableConcept,
-          )!!
-        }
+        AdverseEventPreventiveActionItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -303,12 +297,10 @@ internal data class AdverseEventMitigatingActionItemSurrogate(
       model: AdverseEvent.MitigatingAction.Item
     ): AdverseEventMitigatingActionItemSurrogate =
       with(model) {
-        AdverseEventMitigatingActionItemSurrogate().apply {
-          AdverseEvent.MitigatingAction.Item.from(
-            this@AdverseEventMitigatingActionItemSurrogate.itemReference,
-            this@AdverseEventMitigatingActionItemSurrogate.itemCodeableConcept,
-          )!!
-        }
+        AdverseEventMitigatingActionItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -360,12 +352,10 @@ internal data class AdverseEventSupportingInfoItemSurrogate(
       model: AdverseEvent.SupportingInfo.Item
     ): AdverseEventSupportingInfoItemSurrogate =
       with(model) {
-        AdverseEventSupportingInfoItemSurrogate().apply {
-          AdverseEvent.SupportingInfo.Item.from(
-            this@AdverseEventSupportingInfoItemSurrogate.itemReference,
-            this@AdverseEventSupportingInfoItemSurrogate.itemCodeableConcept,
-          )!!
-        }
+        AdverseEventSupportingInfoItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -419,16 +409,12 @@ internal data class AdverseEventOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: AdverseEvent.Occurrence): AdverseEventOccurrenceSurrogate =
       with(model) {
-        AdverseEventOccurrenceSurrogate().apply {
-          AdverseEvent.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@AdverseEventOccurrenceSurrogate.occurrenceDateTime),
-              this@AdverseEventOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@AdverseEventOccurrenceSurrogate.occurrencePeriod,
-            this@AdverseEventOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        AdverseEventOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

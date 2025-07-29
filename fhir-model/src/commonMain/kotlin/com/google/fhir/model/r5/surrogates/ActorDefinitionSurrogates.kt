@@ -69,15 +69,11 @@ internal data class ActorDefinitionVersionAlgorithmSurrogate(
       model: ActorDefinition.VersionAlgorithm
     ): ActorDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        ActorDefinitionVersionAlgorithmSurrogate().apply {
-          ActorDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ActorDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ActorDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

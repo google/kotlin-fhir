@@ -153,15 +153,11 @@ internal data class ClinicalUseDefinitionIndicationDurationSurrogate(
       model: ClinicalUseDefinition.Indication.Duration
     ): ClinicalUseDefinitionIndicationDurationSurrogate =
       with(model) {
-        ClinicalUseDefinitionIndicationDurationSurrogate().apply {
-          ClinicalUseDefinition.Indication.Duration?.from(
-            this@ClinicalUseDefinitionIndicationDurationSurrogate.durationRange,
-            R5String.of(
-              this@ClinicalUseDefinitionIndicationDurationSurrogate.durationString,
-              this@ClinicalUseDefinitionIndicationDurationSurrogate._durationString,
-            ),
-          )
-        }
+        ClinicalUseDefinitionIndicationDurationSurrogate(
+          durationRange = this@with.asRange()?.value,
+          durationString = this@with.asString()?.value?.value,
+          _durationString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -236,12 +232,10 @@ internal data class ClinicalUseDefinitionInteractionInteractantItemSurrogate(
       model: ClinicalUseDefinition.Interaction.Interactant.Item
     ): ClinicalUseDefinitionInteractionInteractantItemSurrogate =
       with(model) {
-        ClinicalUseDefinitionInteractionInteractantItemSurrogate().apply {
-          ClinicalUseDefinition.Interaction.Interactant.Item.from(
-            this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemReference,
-            this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemCodeableConcept,
-          )!!
-        }
+        ClinicalUseDefinitionInteractionInteractantItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

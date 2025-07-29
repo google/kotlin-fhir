@@ -72,17 +72,13 @@ internal data class SupplyRequestParameterValueSurrogate(
       model: SupplyRequest.Parameter.Value
     ): SupplyRequestParameterValueSurrogate =
       with(model) {
-        SupplyRequestParameterValueSurrogate().apply {
-          SupplyRequest.Parameter.Value?.from(
-            this@SupplyRequestParameterValueSurrogate.valueCodeableConcept,
-            this@SupplyRequestParameterValueSurrogate.valueQuantity,
-            this@SupplyRequestParameterValueSurrogate.valueRange,
-            R5Boolean.of(
-              this@SupplyRequestParameterValueSurrogate.valueBoolean,
-              this@SupplyRequestParameterValueSurrogate._valueBoolean,
-            ),
-          )
-        }
+        SupplyRequestParameterValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
       }
   }
 }
@@ -138,16 +134,12 @@ internal data class SupplyRequestOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: SupplyRequest.Occurrence): SupplyRequestOccurrenceSurrogate =
       with(model) {
-        SupplyRequestOccurrenceSurrogate().apply {
-          SupplyRequest.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@SupplyRequestOccurrenceSurrogate.occurrenceDateTime),
-              this@SupplyRequestOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@SupplyRequestOccurrenceSurrogate.occurrencePeriod,
-            this@SupplyRequestOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        SupplyRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

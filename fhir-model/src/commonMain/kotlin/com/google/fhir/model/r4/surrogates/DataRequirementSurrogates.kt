@@ -116,16 +116,12 @@ internal data class DataRequirementDateFilterValueSurrogate(
       model: DataRequirement.DateFilter.Value
     ): DataRequirementDateFilterValueSurrogate =
       with(model) {
-        DataRequirementDateFilterValueSurrogate().apply {
-          DataRequirement.DateFilter.Value?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@DataRequirementDateFilterValueSurrogate.valueDateTime),
-              this@DataRequirementDateFilterValueSurrogate._valueDateTime,
-            ),
-            this@DataRequirementDateFilterValueSurrogate.valuePeriod,
-            this@DataRequirementDateFilterValueSurrogate.valueDuration,
-          )
-        }
+        DataRequirementDateFilterValueSurrogate(
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+          valueDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }
@@ -229,12 +225,10 @@ internal data class DataRequirementSubjectSurrogate(
   public companion object {
     public fun fromModel(model: DataRequirement.Subject): DataRequirementSubjectSurrogate =
       with(model) {
-        DataRequirementSubjectSurrogate().apply {
-          DataRequirement.Subject?.from(
-            this@DataRequirementSubjectSurrogate.subjectCodeableConcept,
-            this@DataRequirementSubjectSurrogate.subjectReference,
-          )
-        }
+        DataRequirementSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

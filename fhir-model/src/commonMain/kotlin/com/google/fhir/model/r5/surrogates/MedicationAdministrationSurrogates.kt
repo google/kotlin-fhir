@@ -100,12 +100,10 @@ internal data class MedicationAdministrationDosageRateSurrogate(
       model: MedicationAdministration.Dosage.Rate
     ): MedicationAdministrationDosageRateSurrogate =
       with(model) {
-        MedicationAdministrationDosageRateSurrogate().apply {
-          MedicationAdministration.Dosage.Rate?.from(
-            this@MedicationAdministrationDosageRateSurrogate.rateRatio,
-            this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
-          )
-        }
+        MedicationAdministrationDosageRateSurrogate(
+          rateRatio = this@with.asRatio()?.value,
+          rateQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -184,18 +182,12 @@ internal data class MedicationAdministrationOccurenceSurrogate(
       model: MedicationAdministration.Occurence
     ): MedicationAdministrationOccurenceSurrogate =
       with(model) {
-        MedicationAdministrationOccurenceSurrogate().apply {
-          MedicationAdministration.Occurence.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@MedicationAdministrationOccurenceSurrogate.occurenceDateTime
-              ),
-              this@MedicationAdministrationOccurenceSurrogate._occurenceDateTime,
-            ),
-            this@MedicationAdministrationOccurenceSurrogate.occurencePeriod,
-            this@MedicationAdministrationOccurenceSurrogate.occurenceTiming,
-          )!!
-        }
+        MedicationAdministrationOccurenceSurrogate(
+          occurenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurencePeriod = this@with.asPeriod()?.value,
+          occurenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

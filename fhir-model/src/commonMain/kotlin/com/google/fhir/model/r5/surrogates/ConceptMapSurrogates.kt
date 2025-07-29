@@ -240,37 +240,21 @@ internal data class ConceptMapGroupElementTargetPropertyValueSurrogate(
       model: ConceptMap.Group.Element.Target.Property.Value
     ): ConceptMapGroupElementTargetPropertyValueSurrogate =
       with(model) {
-        ConceptMapGroupElementTargetPropertyValueSurrogate().apply {
-          ConceptMap.Group.Element.Target.Property.Value.from(
-            this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCoding,
-            R5String.of(
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueString,
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueString,
-            ),
-            Integer.of(
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueInteger,
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueInteger,
-            ),
-            R5Boolean.of(
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueBoolean,
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueBoolean,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDateTime
-              ),
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDateTime,
-            ),
-            Decimal.of(
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDecimal,
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDecimal,
-            ),
-            Code.of(
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCode,
-              this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueCode,
-            ),
-          )!!
-        }
+        ConceptMapGroupElementTargetPropertyValueSurrogate(
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+        )
       }
   }
 }
@@ -349,24 +333,16 @@ internal data class ConceptMapGroupElementTargetDependsOnValueSurrogate(
       model: ConceptMap.Group.Element.Target.DependsOn.Value
     ): ConceptMapGroupElementTargetDependsOnValueSurrogate =
       with(model) {
-        ConceptMapGroupElementTargetDependsOnValueSurrogate().apply {
-          ConceptMap.Group.Element.Target.DependsOn.Value?.from(
-            Code.of(
-              this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCode,
-              this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueCode,
-            ),
-            this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCoding,
-            R5String.of(
-              this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueString,
-              this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueString,
-            ),
-            R5Boolean.of(
-              this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueBoolean,
-              this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueBoolean,
-            ),
-            this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueQuantity,
-          )
-        }
+        ConceptMapGroupElementTargetDependsOnValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -713,15 +689,11 @@ internal data class ConceptMapVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: ConceptMap.VersionAlgorithm): ConceptMapVersionAlgorithmSurrogate =
       with(model) {
-        ConceptMapVersionAlgorithmSurrogate().apply {
-          ConceptMap.VersionAlgorithm?.from(
-            R5String.of(
-              this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ConceptMapVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ConceptMapVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -748,18 +720,12 @@ internal data class ConceptMapSourceScopeSurrogate(
   public companion object {
     public fun fromModel(model: ConceptMap.SourceScope): ConceptMapSourceScopeSurrogate =
       with(model) {
-        ConceptMapSourceScopeSurrogate().apply {
-          ConceptMap.SourceScope?.from(
-            Uri.of(
-              this@ConceptMapSourceScopeSurrogate.sourceScopeUri,
-              this@ConceptMapSourceScopeSurrogate._sourceScopeUri,
-            ),
-            Canonical.of(
-              this@ConceptMapSourceScopeSurrogate.sourceScopeCanonical,
-              this@ConceptMapSourceScopeSurrogate._sourceScopeCanonical,
-            ),
-          )
-        }
+        ConceptMapSourceScopeSurrogate(
+          sourceScopeUri = this@with.asUri()?.value?.value,
+          _sourceScopeUri = this@with.asUri()?.value?.toElement(),
+          sourceScopeCanonical = this@with.asCanonical()?.value?.value,
+          _sourceScopeCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -786,18 +752,12 @@ internal data class ConceptMapTargetScopeSurrogate(
   public companion object {
     public fun fromModel(model: ConceptMap.TargetScope): ConceptMapTargetScopeSurrogate =
       with(model) {
-        ConceptMapTargetScopeSurrogate().apply {
-          ConceptMap.TargetScope?.from(
-            Uri.of(
-              this@ConceptMapTargetScopeSurrogate.targetScopeUri,
-              this@ConceptMapTargetScopeSurrogate._targetScopeUri,
-            ),
-            Canonical.of(
-              this@ConceptMapTargetScopeSurrogate.targetScopeCanonical,
-              this@ConceptMapTargetScopeSurrogate._targetScopeCanonical,
-            ),
-          )
-        }
+        ConceptMapTargetScopeSurrogate(
+          targetScopeUri = this@with.asUri()?.value?.value,
+          _targetScopeUri = this@with.asUri()?.value?.toElement(),
+          targetScopeCanonical = this@with.asCanonical()?.value?.value,
+          _targetScopeCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }

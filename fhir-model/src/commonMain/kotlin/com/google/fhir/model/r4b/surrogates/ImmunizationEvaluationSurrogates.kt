@@ -68,18 +68,12 @@ internal data class ImmunizationEvaluationDoseNumberSurrogate(
       model: ImmunizationEvaluation.DoseNumber
     ): ImmunizationEvaluationDoseNumberSurrogate =
       with(model) {
-        ImmunizationEvaluationDoseNumberSurrogate().apply {
-          ImmunizationEvaluation.DoseNumber?.from(
-            PositiveInt.of(
-              this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberPositiveInt,
-              this@ImmunizationEvaluationDoseNumberSurrogate._doseNumberPositiveInt,
-            ),
-            R4bString.of(
-              this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberString,
-              this@ImmunizationEvaluationDoseNumberSurrogate._doseNumberString,
-            ),
-          )
-        }
+        ImmunizationEvaluationDoseNumberSurrogate(
+          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          doseNumberString = this@with.asString()?.value?.value,
+          _doseNumberString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -108,18 +102,12 @@ internal data class ImmunizationEvaluationSeriesDosesSurrogate(
       model: ImmunizationEvaluation.SeriesDoses
     ): ImmunizationEvaluationSeriesDosesSurrogate =
       with(model) {
-        ImmunizationEvaluationSeriesDosesSurrogate().apply {
-          ImmunizationEvaluation.SeriesDoses?.from(
-            PositiveInt.of(
-              this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesPositiveInt,
-              this@ImmunizationEvaluationSeriesDosesSurrogate._seriesDosesPositiveInt,
-            ),
-            R4bString.of(
-              this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesString,
-              this@ImmunizationEvaluationSeriesDosesSurrogate._seriesDosesString,
-            ),
-          )
-        }
+        ImmunizationEvaluationSeriesDosesSurrogate(
+          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          seriesDosesString = this@with.asString()?.value?.value,
+          _seriesDosesString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

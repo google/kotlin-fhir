@@ -178,15 +178,11 @@ internal data class ActivityDefinitionVersionAlgorithmSurrogate(
       model: ActivityDefinition.VersionAlgorithm
     ): ActivityDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        ActivityDefinitionVersionAlgorithmSurrogate().apply {
-          ActivityDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@ActivityDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ActivityDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ActivityDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ActivityDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -211,16 +207,12 @@ internal data class ActivityDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.Subject): ActivityDefinitionSubjectSurrogate =
       with(model) {
-        ActivityDefinitionSubjectSurrogate().apply {
-          ActivityDefinition.Subject?.from(
-            this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@ActivityDefinitionSubjectSurrogate.subjectReference,
-            Canonical.of(
-              this@ActivityDefinitionSubjectSurrogate.subjectCanonical,
-              this@ActivityDefinitionSubjectSurrogate._subjectCanonical,
-            ),
-          )
-        }
+        ActivityDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+          subjectCanonical = this@with.asCanonical()?.value?.value,
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -243,14 +235,12 @@ internal data class ActivityDefinitionTimingSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.Timing): ActivityDefinitionTimingSurrogate =
       with(model) {
-        ActivityDefinitionTimingSurrogate().apply {
-          ActivityDefinition.Timing?.from(
-            this@ActivityDefinitionTimingSurrogate.timingTiming,
-            this@ActivityDefinitionTimingSurrogate.timingAge,
-            this@ActivityDefinitionTimingSurrogate.timingRange,
-            this@ActivityDefinitionTimingSurrogate.timingDuration,
-          )
-        }
+        ActivityDefinitionTimingSurrogate(
+          timingTiming = this@with.asTiming()?.value,
+          timingAge = this@with.asAge()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }
@@ -273,15 +263,11 @@ internal data class ActivityDefinitionAsNeededSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.AsNeeded): ActivityDefinitionAsNeededSurrogate =
       with(model) {
-        ActivityDefinitionAsNeededSurrogate().apply {
-          ActivityDefinition.AsNeeded?.from(
-            R5Boolean.of(
-              this@ActivityDefinitionAsNeededSurrogate.asNeededBoolean,
-              this@ActivityDefinitionAsNeededSurrogate._asNeededBoolean,
-            ),
-            this@ActivityDefinitionAsNeededSurrogate.asNeededCodeableConcept,
-          )
-        }
+        ActivityDefinitionAsNeededSurrogate(
+          asNeededBoolean = this@with.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -300,12 +286,10 @@ internal data class ActivityDefinitionProductSurrogate(
   public companion object {
     public fun fromModel(model: ActivityDefinition.Product): ActivityDefinitionProductSurrogate =
       with(model) {
-        ActivityDefinitionProductSurrogate().apply {
-          ActivityDefinition.Product?.from(
-            this@ActivityDefinitionProductSurrogate.productReference,
-            this@ActivityDefinitionProductSurrogate.productCodeableConcept,
-          )
-        }
+        ActivityDefinitionProductSurrogate(
+          productReference = this@with.asReference()?.value,
+          productCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

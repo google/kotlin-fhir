@@ -296,26 +296,18 @@ internal data class DevicePropertyValueSurrogate(
   public companion object {
     public fun fromModel(model: Device.Property.Value): DevicePropertyValueSurrogate =
       with(model) {
-        DevicePropertyValueSurrogate().apply {
-          Device.Property.Value.from(
-            this@DevicePropertyValueSurrogate.valueQuantity,
-            this@DevicePropertyValueSurrogate.valueCodeableConcept,
-            R5String.of(
-              this@DevicePropertyValueSurrogate.valueString,
-              this@DevicePropertyValueSurrogate._valueString,
-            ),
-            R5Boolean.of(
-              this@DevicePropertyValueSurrogate.valueBoolean,
-              this@DevicePropertyValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@DevicePropertyValueSurrogate.valueInteger,
-              this@DevicePropertyValueSurrogate._valueInteger,
-            ),
-            this@DevicePropertyValueSurrogate.valueRange,
-            this@DevicePropertyValueSurrogate.valueAttachment,
-          )!!
-        }
+        DevicePropertyValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

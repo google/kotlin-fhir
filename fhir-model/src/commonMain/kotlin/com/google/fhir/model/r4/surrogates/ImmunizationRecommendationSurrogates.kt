@@ -112,20 +112,12 @@ internal data class ImmunizationRecommendationRecommendationDoseNumberSurrogate(
       model: ImmunizationRecommendation.Recommendation.DoseNumber
     ): ImmunizationRecommendationRecommendationDoseNumberSurrogate =
       with(model) {
-        ImmunizationRecommendationRecommendationDoseNumberSurrogate().apply {
-          ImmunizationRecommendation.Recommendation.DoseNumber?.from(
-            PositiveInt.of(
-              this@ImmunizationRecommendationRecommendationDoseNumberSurrogate
-                .doseNumberPositiveInt,
-              this@ImmunizationRecommendationRecommendationDoseNumberSurrogate
-                ._doseNumberPositiveInt,
-            ),
-            R4String.of(
-              this@ImmunizationRecommendationRecommendationDoseNumberSurrogate.doseNumberString,
-              this@ImmunizationRecommendationRecommendationDoseNumberSurrogate._doseNumberString,
-            ),
-          )
-        }
+        ImmunizationRecommendationRecommendationDoseNumberSurrogate(
+          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          doseNumberString = this@with.asString()?.value?.value,
+          _doseNumberString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -154,20 +146,12 @@ internal data class ImmunizationRecommendationRecommendationSeriesDosesSurrogate
       model: ImmunizationRecommendation.Recommendation.SeriesDoses
     ): ImmunizationRecommendationRecommendationSeriesDosesSurrogate =
       with(model) {
-        ImmunizationRecommendationRecommendationSeriesDosesSurrogate().apply {
-          ImmunizationRecommendation.Recommendation.SeriesDoses?.from(
-            PositiveInt.of(
-              this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate
-                .seriesDosesPositiveInt,
-              this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate
-                ._seriesDosesPositiveInt,
-            ),
-            R4String.of(
-              this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate.seriesDosesString,
-              this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate._seriesDosesString,
-            ),
-          )
-        }
+        ImmunizationRecommendationRecommendationSeriesDosesSurrogate(
+          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          seriesDosesString = this@with.asString()?.value?.value,
+          _seriesDosesString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

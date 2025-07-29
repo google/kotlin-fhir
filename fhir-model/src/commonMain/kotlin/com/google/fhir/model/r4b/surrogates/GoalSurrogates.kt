@@ -87,26 +87,18 @@ internal data class GoalTargetDetailSurrogate(
   public companion object {
     public fun fromModel(model: Goal.Target.Detail): GoalTargetDetailSurrogate =
       with(model) {
-        GoalTargetDetailSurrogate().apply {
-          Goal.Target.Detail?.from(
-            this@GoalTargetDetailSurrogate.detailQuantity,
-            this@GoalTargetDetailSurrogate.detailRange,
-            this@GoalTargetDetailSurrogate.detailCodeableConcept,
-            R4bString.of(
-              this@GoalTargetDetailSurrogate.detailString,
-              this@GoalTargetDetailSurrogate._detailString,
-            ),
-            R4bBoolean.of(
-              this@GoalTargetDetailSurrogate.detailBoolean,
-              this@GoalTargetDetailSurrogate._detailBoolean,
-            ),
-            Integer.of(
-              this@GoalTargetDetailSurrogate.detailInteger,
-              this@GoalTargetDetailSurrogate._detailInteger,
-            ),
-            this@GoalTargetDetailSurrogate.detailRatio,
-          )
-        }
+        GoalTargetDetailSurrogate(
+          detailQuantity = this@with.asQuantity()?.value,
+          detailRange = this@with.asRange()?.value,
+          detailCodeableConcept = this@with.asCodeableConcept()?.value,
+          detailString = this@with.asString()?.value?.value,
+          _detailString = this@with.asString()?.value?.toElement(),
+          detailBoolean = this@with.asBoolean()?.value?.value,
+          _detailBoolean = this@with.asBoolean()?.value?.toElement(),
+          detailInteger = this@with.asInteger()?.value?.value,
+          _detailInteger = this@with.asInteger()?.value?.toElement(),
+          detailRatio = this@with.asRatio()?.value,
+        )
       }
   }
 }
@@ -129,15 +121,11 @@ internal data class GoalTargetDueSurrogate(
   public companion object {
     public fun fromModel(model: Goal.Target.Due): GoalTargetDueSurrogate =
       with(model) {
-        GoalTargetDueSurrogate().apply {
-          Goal.Target.Due?.from(
-            Date.of(
-              FhirDate.fromString(this@GoalTargetDueSurrogate.dueDate),
-              this@GoalTargetDueSurrogate._dueDate,
-            ),
-            this@GoalTargetDueSurrogate.dueDuration,
-          )
-        }
+        GoalTargetDueSurrogate(
+          dueDate = this@with.asDate()?.value?.value?.toString(),
+          _dueDate = this@with.asDate()?.value?.toElement(),
+          dueDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }
@@ -194,15 +182,11 @@ internal data class GoalStartSurrogate(
   public companion object {
     public fun fromModel(model: Goal.Start): GoalStartSurrogate =
       with(model) {
-        GoalStartSurrogate().apply {
-          Goal.Start?.from(
-            Date.of(
-              FhirDate.fromString(this@GoalStartSurrogate.startDate),
-              this@GoalStartSurrogate._startDate,
-            ),
-            this@GoalStartSurrogate.startCodeableConcept,
-          )
-        }
+        GoalStartSurrogate(
+          startDate = this@with.asDate()?.value?.value?.toString(),
+          _startDate = this@with.asDate()?.value?.toElement(),
+          startCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

@@ -45,12 +45,10 @@ internal data class PopulationAgeSurrogate(
   public companion object {
     public fun fromModel(model: Population.Age): PopulationAgeSurrogate =
       with(model) {
-        PopulationAgeSurrogate().apply {
-          Population.Age?.from(
-            this@PopulationAgeSurrogate.ageRange,
-            this@PopulationAgeSurrogate.ageCodeableConcept,
-          )
-        }
+        PopulationAgeSurrogate(
+          ageRange = this@with.asRange()?.value,
+          ageCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

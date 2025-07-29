@@ -112,15 +112,11 @@ internal data class SearchParameterVersionAlgorithmSurrogate(
       model: SearchParameter.VersionAlgorithm
     ): SearchParameterVersionAlgorithmSurrogate =
       with(model) {
-        SearchParameterVersionAlgorithmSurrogate().apply {
-          SearchParameter.VersionAlgorithm?.from(
-            R5String.of(
-              this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@SearchParameterVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        SearchParameterVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

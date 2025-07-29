@@ -167,15 +167,11 @@ internal data class ArtifactAssessmentCiteAsSurrogate(
   public companion object {
     public fun fromModel(model: ArtifactAssessment.CiteAs): ArtifactAssessmentCiteAsSurrogate =
       with(model) {
-        ArtifactAssessmentCiteAsSurrogate().apply {
-          ArtifactAssessment.CiteAs?.from(
-            this@ArtifactAssessmentCiteAsSurrogate.citeAsReference,
-            Markdown.of(
-              this@ArtifactAssessmentCiteAsSurrogate.citeAsMarkdown,
-              this@ArtifactAssessmentCiteAsSurrogate._citeAsMarkdown,
-            ),
-          )
-        }
+        ArtifactAssessmentCiteAsSurrogate(
+          citeAsReference = this@with.asReference()?.value,
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value,
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
       }
   }
 }
@@ -204,19 +200,13 @@ internal data class ArtifactAssessmentArtifactSurrogate(
   public companion object {
     public fun fromModel(model: ArtifactAssessment.Artifact): ArtifactAssessmentArtifactSurrogate =
       with(model) {
-        ArtifactAssessmentArtifactSurrogate().apply {
-          ArtifactAssessment.Artifact.from(
-            this@ArtifactAssessmentArtifactSurrogate.artifactReference,
-            Canonical.of(
-              this@ArtifactAssessmentArtifactSurrogate.artifactCanonical,
-              this@ArtifactAssessmentArtifactSurrogate._artifactCanonical,
-            ),
-            Uri.of(
-              this@ArtifactAssessmentArtifactSurrogate.artifactUri,
-              this@ArtifactAssessmentArtifactSurrogate._artifactUri,
-            ),
-          )!!
-        }
+        ArtifactAssessmentArtifactSurrogate(
+          artifactReference = this@with.asReference()?.value,
+          artifactCanonical = this@with.asCanonical()?.value?.value,
+          _artifactCanonical = this@with.asCanonical()?.value?.toElement(),
+          artifactUri = this@with.asUri()?.value?.value,
+          _artifactUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }

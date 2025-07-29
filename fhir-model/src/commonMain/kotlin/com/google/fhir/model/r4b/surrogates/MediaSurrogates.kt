@@ -68,15 +68,11 @@ internal data class MediaCreatedSurrogate(
   public companion object {
     public fun fromModel(model: Media.Created): MediaCreatedSurrogate =
       with(model) {
-        MediaCreatedSurrogate().apply {
-          Media.Created?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@MediaCreatedSurrogate.createdDateTime),
-              this@MediaCreatedSurrogate._createdDateTime,
-            ),
-            this@MediaCreatedSurrogate.createdPeriod,
-          )
-        }
+        MediaCreatedSurrogate(
+          createdDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _createdDateTime = this@with.asDateTime()?.value?.toElement(),
+          createdPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

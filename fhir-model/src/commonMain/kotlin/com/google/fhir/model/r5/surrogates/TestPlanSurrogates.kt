@@ -146,15 +146,11 @@ internal data class TestPlanTestCaseTestRunScriptSourceSurrogate(
       model: TestPlan.TestCase.TestRun.Script.Source
     ): TestPlanTestCaseTestRunScriptSourceSurrogate =
       with(model) {
-        TestPlanTestCaseTestRunScriptSourceSurrogate().apply {
-          TestPlan.TestCase.TestRun.Script.Source?.from(
-            R5String.of(
-              this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceString,
-              this@TestPlanTestCaseTestRunScriptSourceSurrogate._sourceString,
-            ),
-            this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceReference,
-          )
-        }
+        TestPlanTestCaseTestRunScriptSourceSurrogate(
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -251,15 +247,11 @@ internal data class TestPlanTestCaseTestDataSourceSurrogate(
       model: TestPlan.TestCase.TestData.Source
     ): TestPlanTestCaseTestDataSourceSurrogate =
       with(model) {
-        TestPlanTestCaseTestDataSourceSurrogate().apply {
-          TestPlan.TestCase.TestData.Source?.from(
-            R5String.of(
-              this@TestPlanTestCaseTestDataSourceSurrogate.sourceString,
-              this@TestPlanTestCaseTestDataSourceSurrogate._sourceString,
-            ),
-            this@TestPlanTestCaseTestDataSourceSurrogate.sourceReference,
-          )
-        }
+        TestPlanTestCaseTestDataSourceSurrogate(
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -401,15 +393,11 @@ internal data class TestPlanVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: TestPlan.VersionAlgorithm): TestPlanVersionAlgorithmSurrogate =
       with(model) {
-        TestPlanVersionAlgorithmSurrogate().apply {
-          TestPlan.VersionAlgorithm?.from(
-            R5String.of(
-              this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@TestPlanVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        TestPlanVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

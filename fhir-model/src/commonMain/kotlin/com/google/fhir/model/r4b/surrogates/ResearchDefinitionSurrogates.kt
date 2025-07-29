@@ -66,12 +66,10 @@ internal data class ResearchDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: ResearchDefinition.Subject): ResearchDefinitionSubjectSurrogate =
       with(model) {
-        ResearchDefinitionSubjectSurrogate().apply {
-          ResearchDefinition.Subject?.from(
-            this@ResearchDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@ResearchDefinitionSubjectSurrogate.subjectReference,
-          )
-        }
+        ResearchDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

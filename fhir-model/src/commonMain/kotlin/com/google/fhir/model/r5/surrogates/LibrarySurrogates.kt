@@ -73,15 +73,11 @@ internal data class LibraryVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: Library.VersionAlgorithm): LibraryVersionAlgorithmSurrogate =
       with(model) {
-        LibraryVersionAlgorithmSurrogate().apply {
-          Library.VersionAlgorithm?.from(
-            R5String.of(
-              this@LibraryVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@LibraryVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@LibraryVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        LibraryVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -100,12 +96,10 @@ internal data class LibrarySubjectSurrogate(
   public companion object {
     public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =
       with(model) {
-        LibrarySubjectSurrogate().apply {
-          Library.Subject?.from(
-            this@LibrarySubjectSurrogate.subjectCodeableConcept,
-            this@LibrarySubjectSurrogate.subjectReference,
-          )
-        }
+        LibrarySubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

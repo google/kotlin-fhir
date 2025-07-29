@@ -415,12 +415,10 @@ internal data class NutritionOrderEnteralFormulaAdministrationRateSurrogate(
       model: NutritionOrder.EnteralFormula.Administration.Rate
     ): NutritionOrderEnteralFormulaAdministrationRateSurrogate =
       with(model) {
-        NutritionOrderEnteralFormulaAdministrationRateSurrogate().apply {
-          NutritionOrder.EnteralFormula.Administration.Rate?.from(
-            this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
-            this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
-          )
-        }
+        NutritionOrderEnteralFormulaAdministrationRateSurrogate(
+          rateQuantity = this@with.asQuantity()?.value,
+          rateRatio = this@with.asRatio()?.value,
+        )
       }
   }
 }

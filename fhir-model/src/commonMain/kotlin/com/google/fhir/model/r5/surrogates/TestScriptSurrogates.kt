@@ -751,18 +751,12 @@ internal data class TestScriptSetupActionAssertRequirementLinkSurrogate(
       model: TestScript.Setup.Action.Assert.Requirement.Link
     ): TestScriptSetupActionAssertRequirementLinkSurrogate =
       with(model) {
-        TestScriptSetupActionAssertRequirementLinkSurrogate().apply {
-          TestScript.Setup.Action.Assert.Requirement.Link?.from(
-            Uri.of(
-              this@TestScriptSetupActionAssertRequirementLinkSurrogate.linkUri,
-              this@TestScriptSetupActionAssertRequirementLinkSurrogate._linkUri,
-            ),
-            Canonical.of(
-              this@TestScriptSetupActionAssertRequirementLinkSurrogate.linkCanonical,
-              this@TestScriptSetupActionAssertRequirementLinkSurrogate._linkCanonical,
-            ),
-          )
-        }
+        TestScriptSetupActionAssertRequirementLinkSurrogate(
+          linkUri = this@with.asUri()?.value?.value,
+          _linkUri = this@with.asUri()?.value?.toElement(),
+          linkCanonical = this@with.asCanonical()?.value?.value,
+          _linkCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -1262,15 +1256,11 @@ internal data class TestScriptVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: TestScript.VersionAlgorithm): TestScriptVersionAlgorithmSurrogate =
       with(model) {
-        TestScriptVersionAlgorithmSurrogate().apply {
-          TestScript.VersionAlgorithm?.from(
-            R5String.of(
-              this@TestScriptVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@TestScriptVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@TestScriptVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        TestScriptVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

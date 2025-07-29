@@ -104,26 +104,18 @@ internal data class PlanDefinitionGoalTargetDetailSurrogate(
       model: PlanDefinition.Goal.Target.Detail
     ): PlanDefinitionGoalTargetDetailSurrogate =
       with(model) {
-        PlanDefinitionGoalTargetDetailSurrogate().apply {
-          PlanDefinition.Goal.Target.Detail?.from(
-            this@PlanDefinitionGoalTargetDetailSurrogate.detailQuantity,
-            this@PlanDefinitionGoalTargetDetailSurrogate.detailRange,
-            this@PlanDefinitionGoalTargetDetailSurrogate.detailCodeableConcept,
-            R5String.of(
-              this@PlanDefinitionGoalTargetDetailSurrogate.detailString,
-              this@PlanDefinitionGoalTargetDetailSurrogate._detailString,
-            ),
-            R5Boolean.of(
-              this@PlanDefinitionGoalTargetDetailSurrogate.detailBoolean,
-              this@PlanDefinitionGoalTargetDetailSurrogate._detailBoolean,
-            ),
-            Integer.of(
-              this@PlanDefinitionGoalTargetDetailSurrogate.detailInteger,
-              this@PlanDefinitionGoalTargetDetailSurrogate._detailInteger,
-            ),
-            this@PlanDefinitionGoalTargetDetailSurrogate.detailRatio,
-          )
-        }
+        PlanDefinitionGoalTargetDetailSurrogate(
+          detailQuantity = this@with.asQuantity()?.value,
+          detailRange = this@with.asRange()?.value,
+          detailCodeableConcept = this@with.asCodeableConcept()?.value,
+          detailString = this@with.asString()?.value?.value,
+          _detailString = this@with.asString()?.value?.toElement(),
+          detailBoolean = this@with.asBoolean()?.value?.value,
+          _detailBoolean = this@with.asBoolean()?.value?.toElement(),
+          detailInteger = this@with.asInteger()?.value?.value,
+          _detailInteger = this@with.asInteger()?.value?.toElement(),
+          detailRatio = this@with.asRatio()?.value,
+        )
       }
   }
 }
@@ -459,12 +451,10 @@ internal data class PlanDefinitionActionRelatedActionOffsetSurrogate(
       model: PlanDefinition.Action.RelatedAction.Offset
     ): PlanDefinitionActionRelatedActionOffsetSurrogate =
       with(model) {
-        PlanDefinitionActionRelatedActionOffsetSurrogate().apply {
-          PlanDefinition.Action.RelatedAction.Offset?.from(
-            this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetDuration,
-            this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetRange,
-          )
-        }
+        PlanDefinitionActionRelatedActionOffsetSurrogate(
+          offsetDuration = this@with.asDuration()?.value,
+          offsetRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -659,16 +649,12 @@ internal data class PlanDefinitionActionSubjectSurrogate(
       model: PlanDefinition.Action.Subject
     ): PlanDefinitionActionSubjectSurrogate =
       with(model) {
-        PlanDefinitionActionSubjectSurrogate().apply {
-          PlanDefinition.Action.Subject?.from(
-            this@PlanDefinitionActionSubjectSurrogate.subjectCodeableConcept,
-            this@PlanDefinitionActionSubjectSurrogate.subjectReference,
-            Canonical.of(
-              this@PlanDefinitionActionSubjectSurrogate.subjectCanonical,
-              this@PlanDefinitionActionSubjectSurrogate._subjectCanonical,
-            ),
-          )
-        }
+        PlanDefinitionActionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+          subjectCanonical = this@with.asCanonical()?.value?.value,
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -691,14 +677,12 @@ internal data class PlanDefinitionActionTimingSurrogate(
   public companion object {
     public fun fromModel(model: PlanDefinition.Action.Timing): PlanDefinitionActionTimingSurrogate =
       with(model) {
-        PlanDefinitionActionTimingSurrogate().apply {
-          PlanDefinition.Action.Timing?.from(
-            this@PlanDefinitionActionTimingSurrogate.timingAge,
-            this@PlanDefinitionActionTimingSurrogate.timingDuration,
-            this@PlanDefinitionActionTimingSurrogate.timingRange,
-            this@PlanDefinitionActionTimingSurrogate.timingTiming,
-          )
-        }
+        PlanDefinitionActionTimingSurrogate(
+          timingAge = this@with.asAge()?.value,
+          timingDuration = this@with.asDuration()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -727,18 +711,12 @@ internal data class PlanDefinitionActionDefinitionSurrogate(
       model: PlanDefinition.Action.Definition
     ): PlanDefinitionActionDefinitionSurrogate =
       with(model) {
-        PlanDefinitionActionDefinitionSurrogate().apply {
-          PlanDefinition.Action.Definition?.from(
-            Canonical.of(
-              this@PlanDefinitionActionDefinitionSurrogate.definitionCanonical,
-              this@PlanDefinitionActionDefinitionSurrogate._definitionCanonical,
-            ),
-            Uri.of(
-              this@PlanDefinitionActionDefinitionSurrogate.definitionUri,
-              this@PlanDefinitionActionDefinitionSurrogate._definitionUri,
-            ),
-          )
-        }
+        PlanDefinitionActionDefinitionSurrogate(
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionUri = this@with.asUri()?.value?.value,
+          _definitionUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }
@@ -982,15 +960,11 @@ internal data class PlanDefinitionVersionAlgorithmSurrogate(
       model: PlanDefinition.VersionAlgorithm
     ): PlanDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        PlanDefinitionVersionAlgorithmSurrogate().apply {
-          PlanDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@PlanDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@PlanDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@PlanDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        PlanDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -1015,16 +989,12 @@ internal data class PlanDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: PlanDefinition.Subject): PlanDefinitionSubjectSurrogate =
       with(model) {
-        PlanDefinitionSubjectSurrogate().apply {
-          PlanDefinition.Subject?.from(
-            this@PlanDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@PlanDefinitionSubjectSurrogate.subjectReference,
-            Canonical.of(
-              this@PlanDefinitionSubjectSurrogate.subjectCanonical,
-              this@PlanDefinitionSubjectSurrogate._subjectCanonical,
-            ),
-          )
-        }
+        PlanDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+          subjectCanonical = this@with.asCanonical()?.value?.value,
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -1047,15 +1017,11 @@ internal data class PlanDefinitionAsNeededSurrogate(
   public companion object {
     public fun fromModel(model: PlanDefinition.AsNeeded): PlanDefinitionAsNeededSurrogate =
       with(model) {
-        PlanDefinitionAsNeededSurrogate().apply {
-          PlanDefinition.AsNeeded?.from(
-            R5Boolean.of(
-              this@PlanDefinitionAsNeededSurrogate.asNeededBoolean,
-              this@PlanDefinitionAsNeededSurrogate._asNeededBoolean,
-            ),
-            this@PlanDefinitionAsNeededSurrogate.asNeededCodeableConcept,
-          )
-        }
+        PlanDefinitionAsNeededSurrogate(
+          asNeededBoolean = this@with.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

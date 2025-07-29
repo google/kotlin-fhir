@@ -135,12 +135,10 @@ internal data class MedicationKnowledgeIngredientItemSurrogate(
       model: MedicationKnowledge.Ingredient.Item
     ): MedicationKnowledgeIngredientItemSurrogate =
       with(model) {
-        MedicationKnowledgeIngredientItemSurrogate().apply {
-          MedicationKnowledge.Ingredient.Item.from(
-            this@MedicationKnowledgeIngredientItemSurrogate.itemCodeableConcept,
-            this@MedicationKnowledgeIngredientItemSurrogate.itemReference,
-          )!!
-        }
+        MedicationKnowledgeIngredientItemSurrogate(
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+          itemReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -326,15 +324,10 @@ internal data class MedicationKnowledgeAdministrationGuidelinesPatientCharacteri
       model: MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic
     ): MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate =
       with(model) {
-        MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate()
-          .apply {
-            MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic.from(
-              this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate
-                .characteristicCodeableConcept,
-              this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate
-                .characteristicQuantity,
-            )!!
-          }
+        MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate(
+          characteristicCodeableConcept = this@with.asCodeableConcept()?.value,
+          characteristicQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -432,13 +425,10 @@ internal data class MedicationKnowledgeAdministrationGuidelinesIndicationSurroga
       model: MedicationKnowledge.AdministrationGuidelines.Indication
     ): MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate =
       with(model) {
-        MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate().apply {
-          MedicationKnowledge.AdministrationGuidelines.Indication?.from(
-            this@MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate
-              .indicationCodeableConcept,
-            this@MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate.indicationReference,
-          )
-        }
+        MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate(
+          indicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          indicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -586,20 +576,14 @@ internal data class MedicationKnowledgeDrugCharacteristicValueSurrogate(
       model: MedicationKnowledge.DrugCharacteristic.Value
     ): MedicationKnowledgeDrugCharacteristicValueSurrogate =
       with(model) {
-        MedicationKnowledgeDrugCharacteristicValueSurrogate().apply {
-          MedicationKnowledge.DrugCharacteristic.Value?.from(
-            this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueCodeableConcept,
-            R4bString.of(
-              this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueString,
-              this@MedicationKnowledgeDrugCharacteristicValueSurrogate._valueString,
-            ),
-            this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueQuantity,
-            Base64Binary.of(
-              this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueBase64Binary,
-              this@MedicationKnowledgeDrugCharacteristicValueSurrogate._valueBase64Binary,
-            ),
-          )
-        }
+        MedicationKnowledgeDrugCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+        )
       }
   }
 }

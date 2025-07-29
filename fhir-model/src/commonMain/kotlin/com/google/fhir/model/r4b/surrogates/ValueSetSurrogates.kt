@@ -391,38 +391,22 @@ internal data class ValueSetExpansionParameterValueSurrogate(
       model: ValueSet.Expansion.Parameter.Value
     ): ValueSetExpansionParameterValueSurrogate =
       with(model) {
-        ValueSetExpansionParameterValueSurrogate().apply {
-          ValueSet.Expansion.Parameter.Value?.from(
-            R4bString.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueString,
-              this@ValueSetExpansionParameterValueSurrogate._valueString,
-            ),
-            R4bBoolean.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueBoolean,
-              this@ValueSetExpansionParameterValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueInteger,
-              this@ValueSetExpansionParameterValueSurrogate._valueInteger,
-            ),
-            Decimal.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueDecimal,
-              this@ValueSetExpansionParameterValueSurrogate._valueDecimal,
-            ),
-            Uri.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueUri,
-              this@ValueSetExpansionParameterValueSurrogate._valueUri,
-            ),
-            Code.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueCode,
-              this@ValueSetExpansionParameterValueSurrogate._valueCode,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
-              this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
-            ),
-          )
-        }
+        ValueSetExpansionParameterValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

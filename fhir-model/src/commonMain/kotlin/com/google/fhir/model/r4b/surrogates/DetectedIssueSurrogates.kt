@@ -133,15 +133,11 @@ internal data class DetectedIssueIdentifiedSurrogate(
   public companion object {
     public fun fromModel(model: DetectedIssue.Identified): DetectedIssueIdentifiedSurrogate =
       with(model) {
-        DetectedIssueIdentifiedSurrogate().apply {
-          DetectedIssue.Identified?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
-              this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,
-            ),
-            this@DetectedIssueIdentifiedSurrogate.identifiedPeriod,
-          )
-        }
+        DetectedIssueIdentifiedSurrogate(
+          identifiedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _identifiedDateTime = this@with.asDateTime()?.value?.toElement(),
+          identifiedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

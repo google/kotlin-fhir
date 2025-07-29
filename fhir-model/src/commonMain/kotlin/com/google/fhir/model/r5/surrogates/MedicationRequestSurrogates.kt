@@ -172,15 +172,11 @@ internal data class MedicationRequestSubstitutionAllowedSurrogate(
       model: MedicationRequest.Substitution.Allowed
     ): MedicationRequestSubstitutionAllowedSurrogate =
       with(model) {
-        MedicationRequestSubstitutionAllowedSurrogate().apply {
-          MedicationRequest.Substitution.Allowed.from(
-            R5Boolean.of(
-              this@MedicationRequestSubstitutionAllowedSurrogate.allowedBoolean,
-              this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
-            ),
-            this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
-          )!!
-        }
+        MedicationRequestSubstitutionAllowedSurrogate(
+          allowedBoolean = this@with.asBoolean()?.value?.value,
+          _allowedBoolean = this@with.asBoolean()?.value?.toElement(),
+          allowedCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

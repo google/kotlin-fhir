@@ -60,12 +60,10 @@ internal data class SupplyDeliverySuppliedItemItemSurrogate(
       model: SupplyDelivery.SuppliedItem.Item
     ): SupplyDeliverySuppliedItemItemSurrogate =
       with(model) {
-        SupplyDeliverySuppliedItemItemSurrogate().apply {
-          SupplyDelivery.SuppliedItem.Item?.from(
-            this@SupplyDeliverySuppliedItemItemSurrogate.itemCodeableConcept,
-            this@SupplyDeliverySuppliedItemItemSurrogate.itemReference,
-          )
-        }
+        SupplyDeliverySuppliedItemItemSurrogate(
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+          itemReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -122,16 +120,12 @@ internal data class SupplyDeliveryOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: SupplyDelivery.Occurrence): SupplyDeliveryOccurrenceSurrogate =
       with(model) {
-        SupplyDeliveryOccurrenceSurrogate().apply {
-          SupplyDelivery.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@SupplyDeliveryOccurrenceSurrogate.occurrenceDateTime),
-              this@SupplyDeliveryOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@SupplyDeliveryOccurrenceSurrogate.occurrencePeriod,
-            this@SupplyDeliveryOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        SupplyDeliveryOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

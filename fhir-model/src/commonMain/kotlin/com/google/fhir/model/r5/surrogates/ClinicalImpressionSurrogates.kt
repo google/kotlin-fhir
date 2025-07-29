@@ -103,15 +103,11 @@ internal data class ClinicalImpressionEffectiveSurrogate(
       model: ClinicalImpression.Effective
     ): ClinicalImpressionEffectiveSurrogate =
       with(model) {
-        ClinicalImpressionEffectiveSurrogate().apply {
-          ClinicalImpression.Effective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ClinicalImpressionEffectiveSurrogate.effectiveDateTime),
-              this@ClinicalImpressionEffectiveSurrogate._effectiveDateTime,
-            ),
-            this@ClinicalImpressionEffectiveSurrogate.effectivePeriod,
-          )
-        }
+        ClinicalImpressionEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

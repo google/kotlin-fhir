@@ -263,15 +263,11 @@ internal data class ObservationDefinitionVersionAlgorithmSurrogate(
       model: ObservationDefinition.VersionAlgorithm
     ): ObservationDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        ObservationDefinitionVersionAlgorithmSurrogate().apply {
-          ObservationDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ObservationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ObservationDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

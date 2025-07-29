@@ -138,16 +138,12 @@ internal data class SubstanceReferenceInformationTargetAmountSurrogate(
       model: SubstanceReferenceInformation.Target.Amount
     ): SubstanceReferenceInformationTargetAmountSurrogate =
       with(model) {
-        SubstanceReferenceInformationTargetAmountSurrogate().apply {
-          SubstanceReferenceInformation.Target.Amount?.from(
-            this@SubstanceReferenceInformationTargetAmountSurrogate.amountQuantity,
-            this@SubstanceReferenceInformationTargetAmountSurrogate.amountRange,
-            R5String.of(
-              this@SubstanceReferenceInformationTargetAmountSurrogate.amountString,
-              this@SubstanceReferenceInformationTargetAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceReferenceInformationTargetAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRange = this@with.asRange()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

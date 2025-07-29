@@ -66,16 +66,12 @@ internal data class MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
       model: MolecularSequence.Relative.StartingSequence.Sequence
     ): MolecularSequenceRelativeStartingSequenceSequenceSurrogate =
       with(model) {
-        MolecularSequenceRelativeStartingSequenceSequenceSurrogate().apply {
-          MolecularSequence.Relative.StartingSequence.Sequence?.from(
-            this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceCodeableConcept,
-            R5String.of(
-              this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceString,
-              this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate._sequenceString,
-            ),
-            this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceReference,
-          )
-        }
+        MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
+          sequenceCodeableConcept = this@with.asCodeableConcept()?.value,
+          sequenceString = this@with.asString()?.value?.value,
+          _sequenceString = this@with.asString()?.value?.toElement(),
+          sequenceReference = this@with.asReference()?.value,
+        )
       }
   }
 }

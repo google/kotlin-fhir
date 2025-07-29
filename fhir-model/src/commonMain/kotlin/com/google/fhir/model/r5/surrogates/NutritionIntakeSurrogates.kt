@@ -188,15 +188,11 @@ internal data class NutritionIntakeOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: NutritionIntake.Occurrence): NutritionIntakeOccurrenceSurrogate =
       with(model) {
-        NutritionIntakeOccurrenceSurrogate().apply {
-          NutritionIntake.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@NutritionIntakeOccurrenceSurrogate.occurrenceDateTime),
-              this@NutritionIntakeOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@NutritionIntakeOccurrenceSurrogate.occurrencePeriod,
-          )
-        }
+        NutritionIntakeOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -219,15 +215,11 @@ internal data class NutritionIntakeReportedSurrogate(
   public companion object {
     public fun fromModel(model: NutritionIntake.Reported): NutritionIntakeReportedSurrogate =
       with(model) {
-        NutritionIntakeReportedSurrogate().apply {
-          NutritionIntake.Reported?.from(
-            R5Boolean.of(
-              this@NutritionIntakeReportedSurrogate.reportedBoolean,
-              this@NutritionIntakeReportedSurrogate._reportedBoolean,
-            ),
-            this@NutritionIntakeReportedSurrogate.reportedReference,
-          )
-        }
+        NutritionIntakeReportedSurrogate(
+          reportedBoolean = this@with.asBoolean()?.value?.value,
+          _reportedBoolean = this@with.asBoolean()?.value?.toElement(),
+          reportedReference = this@with.asReference()?.value,
+        )
       }
   }
 }

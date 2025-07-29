@@ -136,15 +136,11 @@ internal data class DiagnosticReportEffectiveSurrogate(
   public companion object {
     public fun fromModel(model: DiagnosticReport.Effective): DiagnosticReportEffectiveSurrogate =
       with(model) {
-        DiagnosticReportEffectiveSurrogate().apply {
-          DiagnosticReport.Effective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@DiagnosticReportEffectiveSurrogate.effectiveDateTime),
-              this@DiagnosticReportEffectiveSurrogate._effectiveDateTime,
-            ),
-            this@DiagnosticReportEffectiveSurrogate.effectivePeriod,
-          )
-        }
+        DiagnosticReportEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

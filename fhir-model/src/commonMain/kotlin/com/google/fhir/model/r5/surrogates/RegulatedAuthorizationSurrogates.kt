@@ -63,15 +63,11 @@ internal data class RegulatedAuthorizationCaseDateSurrogate(
       model: RegulatedAuthorization.Case.Date
     ): RegulatedAuthorizationCaseDateSurrogate =
       with(model) {
-        RegulatedAuthorizationCaseDateSurrogate().apply {
-          RegulatedAuthorization.Case.Date?.from(
-            this@RegulatedAuthorizationCaseDateSurrogate.datePeriod,
-            DateTime.of(
-              FhirDateTime.fromString(this@RegulatedAuthorizationCaseDateSurrogate.dateDateTime),
-              this@RegulatedAuthorizationCaseDateSurrogate._dateDateTime,
-            ),
-          )
-        }
+        RegulatedAuthorizationCaseDateSurrogate(
+          datePeriod = this@with.asPeriod()?.value,
+          dateDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _dateDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

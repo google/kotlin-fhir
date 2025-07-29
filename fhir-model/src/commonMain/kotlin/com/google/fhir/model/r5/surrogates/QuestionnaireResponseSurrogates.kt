@@ -123,48 +123,28 @@ internal data class QuestionnaireResponseItemAnswerValueSurrogate(
       model: QuestionnaireResponse.Item.Answer.Value
     ): QuestionnaireResponseItemAnswerValueSurrogate =
       with(model) {
-        QuestionnaireResponseItemAnswerValueSurrogate().apply {
-          QuestionnaireResponse.Item.Answer.Value.from(
-            R5Boolean.of(
-              this@QuestionnaireResponseItemAnswerValueSurrogate.valueBoolean,
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueBoolean,
-            ),
-            Decimal.of(
-              this@QuestionnaireResponseItemAnswerValueSurrogate.valueDecimal,
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueDecimal,
-            ),
-            Integer.of(
-              this@QuestionnaireResponseItemAnswerValueSurrogate.valueInteger,
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueInteger,
-            ),
-            Date.of(
-              FhirDate.fromString(this@QuestionnaireResponseItemAnswerValueSurrogate.valueDate),
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueDate,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@QuestionnaireResponseItemAnswerValueSurrogate.valueDateTime
-              ),
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueDateTime,
-            ),
-            Time.of(
-              this@QuestionnaireResponseItemAnswerValueSurrogate.valueTime,
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueTime,
-            ),
-            R5String.of(
-              this@QuestionnaireResponseItemAnswerValueSurrogate.valueString,
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueString,
-            ),
-            Uri.of(
-              this@QuestionnaireResponseItemAnswerValueSurrogate.valueUri,
-              this@QuestionnaireResponseItemAnswerValueSurrogate._valueUri,
-            ),
-            this@QuestionnaireResponseItemAnswerValueSurrogate.valueAttachment,
-            this@QuestionnaireResponseItemAnswerValueSurrogate.valueCoding,
-            this@QuestionnaireResponseItemAnswerValueSurrogate.valueQuantity,
-            this@QuestionnaireResponseItemAnswerValueSurrogate.valueReference,
-          )!!
-        }
+        QuestionnaireResponseItemAnswerValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueCoding = this@with.asCoding()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }

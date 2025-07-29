@@ -220,18 +220,12 @@ internal data class ImplementationGuideDefinitionResourceExampleSurrogate(
       model: ImplementationGuide.Definition.Resource.Example
     ): ImplementationGuideDefinitionResourceExampleSurrogate =
       with(model) {
-        ImplementationGuideDefinitionResourceExampleSurrogate().apply {
-          ImplementationGuide.Definition.Resource.Example?.from(
-            R4Boolean.of(
-              this@ImplementationGuideDefinitionResourceExampleSurrogate.exampleBoolean,
-              this@ImplementationGuideDefinitionResourceExampleSurrogate._exampleBoolean,
-            ),
-            Canonical.of(
-              this@ImplementationGuideDefinitionResourceExampleSurrogate.exampleCanonical,
-              this@ImplementationGuideDefinitionResourceExampleSurrogate._exampleCanonical,
-            ),
-          )
-        }
+        ImplementationGuideDefinitionResourceExampleSurrogate(
+          exampleBoolean = this@with.asBoolean()?.value?.value,
+          _exampleBoolean = this@with.asBoolean()?.value?.toElement(),
+          exampleCanonical = this@with.asCanonical()?.value?.value,
+          _exampleCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -355,15 +349,11 @@ internal data class ImplementationGuideDefinitionPageNameSurrogate(
       model: ImplementationGuide.Definition.Page.Name
     ): ImplementationGuideDefinitionPageNameSurrogate =
       with(model) {
-        ImplementationGuideDefinitionPageNameSurrogate().apply {
-          ImplementationGuide.Definition.Page.Name.from(
-            Url.of(
-              this@ImplementationGuideDefinitionPageNameSurrogate.nameUrl,
-              this@ImplementationGuideDefinitionPageNameSurrogate._nameUrl,
-            ),
-            this@ImplementationGuideDefinitionPageNameSurrogate.nameReference,
-          )!!
-        }
+        ImplementationGuideDefinitionPageNameSurrogate(
+          nameUrl = this@with.asUrl()?.value?.value,
+          _nameUrl = this@with.asUrl()?.value?.toElement(),
+          nameReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -592,18 +582,12 @@ internal data class ImplementationGuideManifestResourceExampleSurrogate(
       model: ImplementationGuide.Manifest.Resource.Example
     ): ImplementationGuideManifestResourceExampleSurrogate =
       with(model) {
-        ImplementationGuideManifestResourceExampleSurrogate().apply {
-          ImplementationGuide.Manifest.Resource.Example?.from(
-            R4Boolean.of(
-              this@ImplementationGuideManifestResourceExampleSurrogate.exampleBoolean,
-              this@ImplementationGuideManifestResourceExampleSurrogate._exampleBoolean,
-            ),
-            Canonical.of(
-              this@ImplementationGuideManifestResourceExampleSurrogate.exampleCanonical,
-              this@ImplementationGuideManifestResourceExampleSurrogate._exampleCanonical,
-            ),
-          )
-        }
+        ImplementationGuideManifestResourceExampleSurrogate(
+          exampleBoolean = this@with.asBoolean()?.value?.value,
+          _exampleBoolean = this@with.asBoolean()?.value?.toElement(),
+          exampleCanonical = this@with.asCanonical()?.value?.value,
+          _exampleCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }

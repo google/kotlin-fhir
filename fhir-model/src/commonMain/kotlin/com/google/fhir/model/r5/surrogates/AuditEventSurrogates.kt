@@ -109,19 +109,13 @@ internal data class AuditEventAgentNetworkSurrogate(
   public companion object {
     public fun fromModel(model: AuditEvent.Agent.Network): AuditEventAgentNetworkSurrogate =
       with(model) {
-        AuditEventAgentNetworkSurrogate().apply {
-          AuditEvent.Agent.Network?.from(
-            this@AuditEventAgentNetworkSurrogate.networkReference,
-            Uri.of(
-              this@AuditEventAgentNetworkSurrogate.networkUri,
-              this@AuditEventAgentNetworkSurrogate._networkUri,
-            ),
-            R5String.of(
-              this@AuditEventAgentNetworkSurrogate.networkString,
-              this@AuditEventAgentNetworkSurrogate._networkString,
-            ),
-          )
-        }
+        AuditEventAgentNetworkSurrogate(
+          networkReference = this@with.asReference()?.value,
+          networkUri = this@with.asUri()?.value?.value,
+          _networkUri = this@with.asUri()?.value?.toElement(),
+          networkString = this@with.asString()?.value?.value,
+          _networkString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -296,39 +290,25 @@ internal data class AuditEventEntityDetailValueSurrogate(
       model: AuditEvent.Entity.Detail.Value
     ): AuditEventEntityDetailValueSurrogate =
       with(model) {
-        AuditEventEntityDetailValueSurrogate().apply {
-          AuditEvent.Entity.Detail.Value.from(
-            this@AuditEventEntityDetailValueSurrogate.valueQuantity,
-            this@AuditEventEntityDetailValueSurrogate.valueCodeableConcept,
-            R5String.of(
-              this@AuditEventEntityDetailValueSurrogate.valueString,
-              this@AuditEventEntityDetailValueSurrogate._valueString,
-            ),
-            R5Boolean.of(
-              this@AuditEventEntityDetailValueSurrogate.valueBoolean,
-              this@AuditEventEntityDetailValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@AuditEventEntityDetailValueSurrogate.valueInteger,
-              this@AuditEventEntityDetailValueSurrogate._valueInteger,
-            ),
-            this@AuditEventEntityDetailValueSurrogate.valueRange,
-            this@AuditEventEntityDetailValueSurrogate.valueRatio,
-            Time.of(
-              this@AuditEventEntityDetailValueSurrogate.valueTime,
-              this@AuditEventEntityDetailValueSurrogate._valueTime,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@AuditEventEntityDetailValueSurrogate.valueDateTime),
-              this@AuditEventEntityDetailValueSurrogate._valueDateTime,
-            ),
-            this@AuditEventEntityDetailValueSurrogate.valuePeriod,
-            Base64Binary.of(
-              this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
-              this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
-            ),
-          )!!
-        }
+        AuditEventEntityDetailValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+        )
       }
   }
 }
@@ -431,15 +411,11 @@ internal data class AuditEventOccurredSurrogate(
   public companion object {
     public fun fromModel(model: AuditEvent.Occurred): AuditEventOccurredSurrogate =
       with(model) {
-        AuditEventOccurredSurrogate().apply {
-          AuditEvent.Occurred?.from(
-            this@AuditEventOccurredSurrogate.occurredPeriod,
-            DateTime.of(
-              FhirDateTime.fromString(this@AuditEventOccurredSurrogate.occurredDateTime),
-              this@AuditEventOccurredSurrogate._occurredDateTime,
-            ),
-          )
-        }
+        AuditEventOccurredSurrogate(
+          occurredPeriod = this@with.asPeriod()?.value,
+          occurredDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurredDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

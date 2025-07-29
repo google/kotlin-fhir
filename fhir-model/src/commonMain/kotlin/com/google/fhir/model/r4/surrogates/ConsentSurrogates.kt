@@ -278,12 +278,10 @@ internal data class ConsentSourceSurrogate(
   public companion object {
     public fun fromModel(model: Consent.Source): ConsentSourceSurrogate =
       with(model) {
-        ConsentSourceSurrogate().apply {
-          Consent.Source?.from(
-            this@ConsentSourceSurrogate.sourceAttachment,
-            this@ConsentSourceSurrogate.sourceReference,
-          )
-        }
+        ConsentSourceSurrogate(
+          sourceAttachment = this@with.asAttachment()?.value,
+          sourceReference = this@with.asReference()?.value,
+        )
       }
   }
 }

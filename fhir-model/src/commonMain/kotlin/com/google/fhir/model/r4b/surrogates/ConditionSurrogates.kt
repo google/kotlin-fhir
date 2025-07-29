@@ -138,21 +138,15 @@ internal data class ConditionOnsetSurrogate(
   public companion object {
     public fun fromModel(model: Condition.Onset): ConditionOnsetSurrogate =
       with(model) {
-        ConditionOnsetSurrogate().apply {
-          Condition.Onset?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ConditionOnsetSurrogate.onsetDateTime),
-              this@ConditionOnsetSurrogate._onsetDateTime,
-            ),
-            this@ConditionOnsetSurrogate.onsetAge,
-            this@ConditionOnsetSurrogate.onsetPeriod,
-            this@ConditionOnsetSurrogate.onsetRange,
-            R4bString.of(
-              this@ConditionOnsetSurrogate.onsetString,
-              this@ConditionOnsetSurrogate._onsetString,
-            ),
-          )
-        }
+        ConditionOnsetSurrogate(
+          onsetDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _onsetDateTime = this@with.asDateTime()?.value?.toElement(),
+          onsetAge = this@with.asAge()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -185,21 +179,15 @@ internal data class ConditionAbatementSurrogate(
   public companion object {
     public fun fromModel(model: Condition.Abatement): ConditionAbatementSurrogate =
       with(model) {
-        ConditionAbatementSurrogate().apply {
-          Condition.Abatement?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ConditionAbatementSurrogate.abatementDateTime),
-              this@ConditionAbatementSurrogate._abatementDateTime,
-            ),
-            this@ConditionAbatementSurrogate.abatementAge,
-            this@ConditionAbatementSurrogate.abatementPeriod,
-            this@ConditionAbatementSurrogate.abatementRange,
-            R4bString.of(
-              this@ConditionAbatementSurrogate.abatementString,
-              this@ConditionAbatementSurrogate._abatementString,
-            ),
-          )
-        }
+        ConditionAbatementSurrogate(
+          abatementDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _abatementDateTime = this@with.asDateTime()?.value?.toElement(),
+          abatementAge = this@with.asAge()?.value,
+          abatementPeriod = this@with.asPeriod()?.value,
+          abatementRange = this@with.asRange()?.value,
+          abatementString = this@with.asString()?.value?.value,
+          _abatementString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

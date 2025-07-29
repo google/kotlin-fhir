@@ -163,15 +163,11 @@ internal data class MedicationRequestSubstitutionAllowedSurrogate(
       model: MedicationRequest.Substitution.Allowed
     ): MedicationRequestSubstitutionAllowedSurrogate =
       with(model) {
-        MedicationRequestSubstitutionAllowedSurrogate().apply {
-          MedicationRequest.Substitution.Allowed.from(
-            R4Boolean.of(
-              this@MedicationRequestSubstitutionAllowedSurrogate.allowedBoolean,
-              this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
-            ),
-            this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
-          )!!
-        }
+        MedicationRequestSubstitutionAllowedSurrogate(
+          allowedBoolean = this@with.asBoolean()?.value?.value,
+          _allowedBoolean = this@with.asBoolean()?.value?.toElement(),
+          allowedCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -228,15 +224,11 @@ internal data class MedicationRequestReportedSurrogate(
   public companion object {
     public fun fromModel(model: MedicationRequest.Reported): MedicationRequestReportedSurrogate =
       with(model) {
-        MedicationRequestReportedSurrogate().apply {
-          MedicationRequest.Reported?.from(
-            R4Boolean.of(
-              this@MedicationRequestReportedSurrogate.reportedBoolean,
-              this@MedicationRequestReportedSurrogate._reportedBoolean,
-            ),
-            this@MedicationRequestReportedSurrogate.reportedReference,
-          )
-        }
+        MedicationRequestReportedSurrogate(
+          reportedBoolean = this@with.asBoolean()?.value?.value,
+          _reportedBoolean = this@with.asBoolean()?.value?.toElement(),
+          reportedReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -257,12 +249,10 @@ internal data class MedicationRequestMedicationSurrogate(
       model: MedicationRequest.Medication
     ): MedicationRequestMedicationSurrogate =
       with(model) {
-        MedicationRequestMedicationSurrogate().apply {
-          MedicationRequest.Medication.from(
-            this@MedicationRequestMedicationSurrogate.medicationCodeableConcept,
-            this@MedicationRequestMedicationSurrogate.medicationReference,
-          )!!
-        }
+        MedicationRequestMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }

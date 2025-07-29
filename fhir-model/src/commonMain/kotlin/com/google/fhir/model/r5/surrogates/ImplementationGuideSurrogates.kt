@@ -368,22 +368,14 @@ internal data class ImplementationGuideDefinitionPageSourceSurrogate(
       model: ImplementationGuide.Definition.Page.Source
     ): ImplementationGuideDefinitionPageSourceSurrogate =
       with(model) {
-        ImplementationGuideDefinitionPageSourceSurrogate().apply {
-          ImplementationGuide.Definition.Page.Source?.from(
-            Url.of(
-              this@ImplementationGuideDefinitionPageSourceSurrogate.sourceUrl,
-              this@ImplementationGuideDefinitionPageSourceSurrogate._sourceUrl,
-            ),
-            R5String.of(
-              this@ImplementationGuideDefinitionPageSourceSurrogate.sourceString,
-              this@ImplementationGuideDefinitionPageSourceSurrogate._sourceString,
-            ),
-            Markdown.of(
-              this@ImplementationGuideDefinitionPageSourceSurrogate.sourceMarkdown,
-              this@ImplementationGuideDefinitionPageSourceSurrogate._sourceMarkdown,
-            ),
-          )
-        }
+        ImplementationGuideDefinitionPageSourceSurrogate(
+          sourceUrl = this@with.asUrl()?.value?.value,
+          _sourceUrl = this@with.asUrl()?.value?.toElement(),
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceMarkdown = this@with.asMarkdown()?.value?.value,
+          _sourceMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
       }
   }
 }
@@ -851,15 +843,11 @@ internal data class ImplementationGuideVersionAlgorithmSurrogate(
       model: ImplementationGuide.VersionAlgorithm
     ): ImplementationGuideVersionAlgorithmSurrogate =
       with(model) {
-        ImplementationGuideVersionAlgorithmSurrogate().apply {
-          ImplementationGuide.VersionAlgorithm?.from(
-            R5String.of(
-              this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ImplementationGuideVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ImplementationGuideVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

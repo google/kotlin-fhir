@@ -71,18 +71,14 @@ internal data class GroupCharacteristicValueSurrogate(
   public companion object {
     public fun fromModel(model: Group.Characteristic.Value): GroupCharacteristicValueSurrogate =
       with(model) {
-        GroupCharacteristicValueSurrogate().apply {
-          Group.Characteristic.Value.from(
-            this@GroupCharacteristicValueSurrogate.valueCodeableConcept,
-            R4bBoolean.of(
-              this@GroupCharacteristicValueSurrogate.valueBoolean,
-              this@GroupCharacteristicValueSurrogate._valueBoolean,
-            ),
-            this@GroupCharacteristicValueSurrogate.valueQuantity,
-            this@GroupCharacteristicValueSurrogate.valueRange,
-            this@GroupCharacteristicValueSurrogate.valueReference,
-          )!!
-        }
+        GroupCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }

@@ -527,15 +527,11 @@ internal data class SubscriptionTopicVersionAlgorithmSurrogate(
       model: SubscriptionTopic.VersionAlgorithm
     ): SubscriptionTopicVersionAlgorithmSurrogate =
       with(model) {
-        SubscriptionTopicVersionAlgorithmSurrogate().apply {
-          SubscriptionTopic.VersionAlgorithm?.from(
-            R5String.of(
-              this@SubscriptionTopicVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@SubscriptionTopicVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@SubscriptionTopicVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        SubscriptionTopicVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

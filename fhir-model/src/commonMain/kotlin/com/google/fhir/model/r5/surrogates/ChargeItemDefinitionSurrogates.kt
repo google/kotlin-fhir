@@ -148,15 +148,11 @@ internal data class ChargeItemDefinitionVersionAlgorithmSurrogate(
       model: ChargeItemDefinition.VersionAlgorithm
     ): ChargeItemDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        ChargeItemDefinitionVersionAlgorithmSurrogate().apply {
-          ChargeItemDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ChargeItemDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ChargeItemDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

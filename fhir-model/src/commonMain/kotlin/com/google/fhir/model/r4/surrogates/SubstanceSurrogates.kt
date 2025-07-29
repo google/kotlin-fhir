@@ -100,12 +100,10 @@ internal data class SubstanceIngredientSubstanceSurrogate(
       model: Substance.Ingredient.Substance
     ): SubstanceIngredientSubstanceSurrogate =
       with(model) {
-        SubstanceIngredientSubstanceSurrogate().apply {
-          Substance.Ingredient.Substance.from(
-            this@SubstanceIngredientSubstanceSurrogate.substanceCodeableConcept,
-            this@SubstanceIngredientSubstanceSurrogate.substanceReference,
-          )!!
-        }
+        SubstanceIngredientSubstanceSurrogate(
+          substanceCodeableConcept = this@with.asCodeableConcept()?.value,
+          substanceReference = this@with.asReference()?.value,
+        )
       }
   }
 }

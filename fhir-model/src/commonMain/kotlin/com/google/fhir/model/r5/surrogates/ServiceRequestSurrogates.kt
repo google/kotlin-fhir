@@ -87,23 +87,17 @@ internal data class ServiceRequestOrderDetailParameterValueSurrogate(
       model: ServiceRequest.OrderDetail.Parameter.Value
     ): ServiceRequestOrderDetailParameterValueSurrogate =
       with(model) {
-        ServiceRequestOrderDetailParameterValueSurrogate().apply {
-          ServiceRequest.OrderDetail.Parameter.Value.from(
-            this@ServiceRequestOrderDetailParameterValueSurrogate.valueQuantity,
-            this@ServiceRequestOrderDetailParameterValueSurrogate.valueRatio,
-            this@ServiceRequestOrderDetailParameterValueSurrogate.valueRange,
-            R5Boolean.of(
-              this@ServiceRequestOrderDetailParameterValueSurrogate.valueBoolean,
-              this@ServiceRequestOrderDetailParameterValueSurrogate._valueBoolean,
-            ),
-            this@ServiceRequestOrderDetailParameterValueSurrogate.valueCodeableConcept,
-            R5String.of(
-              this@ServiceRequestOrderDetailParameterValueSurrogate.valueString,
-              this@ServiceRequestOrderDetailParameterValueSurrogate._valueString,
-            ),
-            this@ServiceRequestOrderDetailParameterValueSurrogate.valuePeriod,
-          )!!
-        }
+        ServiceRequestOrderDetailParameterValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -194,15 +188,11 @@ internal data class ServiceRequestPatientInstructionInstructionSurrogate(
       model: ServiceRequest.PatientInstruction.Instruction
     ): ServiceRequestPatientInstructionInstructionSurrogate =
       with(model) {
-        ServiceRequestPatientInstructionInstructionSurrogate().apply {
-          ServiceRequest.PatientInstruction.Instruction?.from(
-            Markdown.of(
-              this@ServiceRequestPatientInstructionInstructionSurrogate.instructionMarkdown,
-              this@ServiceRequestPatientInstructionInstructionSurrogate._instructionMarkdown,
-            ),
-            this@ServiceRequestPatientInstructionInstructionSurrogate.instructionReference,
-          )
-        }
+        ServiceRequestPatientInstructionInstructionSurrogate(
+          instructionMarkdown = this@with.asMarkdown()?.value?.value,
+          _instructionMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          instructionReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -254,13 +244,11 @@ internal data class ServiceRequestQuantitySurrogate(
   public companion object {
     public fun fromModel(model: ServiceRequest.Quantity): ServiceRequestQuantitySurrogate =
       with(model) {
-        ServiceRequestQuantitySurrogate().apply {
-          ServiceRequest.Quantity?.from(
-            this@ServiceRequestQuantitySurrogate.quantityQuantity,
-            this@ServiceRequestQuantitySurrogate.quantityRatio,
-            this@ServiceRequestQuantitySurrogate.quantityRange,
-          )
-        }
+        ServiceRequestQuantitySurrogate(
+          quantityQuantity = this@with.asQuantity()?.value,
+          quantityRatio = this@with.asRatio()?.value,
+          quantityRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -285,16 +273,12 @@ internal data class ServiceRequestOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: ServiceRequest.Occurrence): ServiceRequestOccurrenceSurrogate =
       with(model) {
-        ServiceRequestOccurrenceSurrogate().apply {
-          ServiceRequest.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
-              this@ServiceRequestOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@ServiceRequestOccurrenceSurrogate.occurrencePeriod,
-            this@ServiceRequestOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        ServiceRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -317,15 +301,11 @@ internal data class ServiceRequestAsNeededSurrogate(
   public companion object {
     public fun fromModel(model: ServiceRequest.AsNeeded): ServiceRequestAsNeededSurrogate =
       with(model) {
-        ServiceRequestAsNeededSurrogate().apply {
-          ServiceRequest.AsNeeded?.from(
-            R5Boolean.of(
-              this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
-              this@ServiceRequestAsNeededSurrogate._asNeededBoolean,
-            ),
-            this@ServiceRequestAsNeededSurrogate.asNeededCodeableConcept,
-          )
-        }
+        ServiceRequestAsNeededSurrogate(
+          asNeededBoolean = this@with.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

@@ -121,23 +121,15 @@ internal data class PackagedProductDefinitionPackagingPropertyValueSurrogate(
       model: PackagedProductDefinition.Packaging.Property.Value
     ): PackagedProductDefinitionPackagingPropertyValueSurrogate =
       with(model) {
-        PackagedProductDefinitionPackagingPropertyValueSurrogate().apply {
-          PackagedProductDefinition.Packaging.Property.Value?.from(
-            this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueCodeableConcept,
-            this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueQuantity,
-            Date.of(
-              FhirDate.fromString(
-                this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueDate
-              ),
-              this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueDate,
-            ),
-            R5Boolean.of(
-              this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueBoolean,
-              this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueBoolean,
-            ),
-            this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueAttachment,
-          )
-        }
+        PackagedProductDefinitionPackagingPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

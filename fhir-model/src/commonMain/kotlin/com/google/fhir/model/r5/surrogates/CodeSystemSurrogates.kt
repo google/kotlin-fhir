@@ -294,35 +294,21 @@ internal data class CodeSystemConceptPropertyValueSurrogate(
       model: CodeSystem.Concept.Property.Value
     ): CodeSystemConceptPropertyValueSurrogate =
       with(model) {
-        CodeSystemConceptPropertyValueSurrogate().apply {
-          CodeSystem.Concept.Property.Value.from(
-            Code.of(
-              this@CodeSystemConceptPropertyValueSurrogate.valueCode,
-              this@CodeSystemConceptPropertyValueSurrogate._valueCode,
-            ),
-            this@CodeSystemConceptPropertyValueSurrogate.valueCoding,
-            R5String.of(
-              this@CodeSystemConceptPropertyValueSurrogate.valueString,
-              this@CodeSystemConceptPropertyValueSurrogate._valueString,
-            ),
-            Integer.of(
-              this@CodeSystemConceptPropertyValueSurrogate.valueInteger,
-              this@CodeSystemConceptPropertyValueSurrogate._valueInteger,
-            ),
-            R5Boolean.of(
-              this@CodeSystemConceptPropertyValueSurrogate.valueBoolean,
-              this@CodeSystemConceptPropertyValueSurrogate._valueBoolean,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@CodeSystemConceptPropertyValueSurrogate.valueDateTime),
-              this@CodeSystemConceptPropertyValueSurrogate._valueDateTime,
-            ),
-            Decimal.of(
-              this@CodeSystemConceptPropertyValueSurrogate.valueDecimal,
-              this@CodeSystemConceptPropertyValueSurrogate._valueDecimal,
-            ),
-          )!!
-        }
+        CodeSystemConceptPropertyValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+        )
       }
   }
 }
@@ -440,15 +426,11 @@ internal data class CodeSystemVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: CodeSystem.VersionAlgorithm): CodeSystemVersionAlgorithmSurrogate =
       with(model) {
-        CodeSystemVersionAlgorithmSurrogate().apply {
-          CodeSystem.VersionAlgorithm?.from(
-            R5String.of(
-              this@CodeSystemVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@CodeSystemVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@CodeSystemVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        CodeSystemVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

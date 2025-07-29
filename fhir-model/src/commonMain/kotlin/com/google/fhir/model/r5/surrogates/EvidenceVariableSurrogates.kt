@@ -93,26 +93,16 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueValueS
       model: EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value
     ): EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate().apply {
-          EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value.from(
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate
-              .valueCodeableConcept,
-            R5Boolean.of(
-              this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate
-                .valueBoolean,
-              this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate
-                ._valueBoolean,
-            ),
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueQuantity,
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueRange,
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate
-              .valueReference,
-            Id.of(
-              this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueId,
-              this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate._valueId,
-            ),
-          )!!
-        }
+        EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+          valueId = this@with.asId()?.value?.value,
+          _valueId = this@with.asId()?.value?.toElement(),
+        )
       }
   }
 }
@@ -251,22 +241,14 @@ internal data class EvidenceVariableCharacteristicTimeFromEventEventSurrogate(
       model: EvidenceVariable.Characteristic.TimeFromEvent.Event
     ): EvidenceVariableCharacteristicTimeFromEventEventSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicTimeFromEventEventSurrogate().apply {
-          EvidenceVariable.Characteristic.TimeFromEvent.Event?.from(
-            this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventCodeableConcept,
-            this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventReference,
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventDateTime
-              ),
-              this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate._eventDateTime,
-            ),
-            Id.of(
-              this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventId,
-              this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate._eventId,
-            ),
-          )
-        }
+        EvidenceVariableCharacteristicTimeFromEventEventSurrogate(
+          eventCodeableConcept = this@with.asCodeableConcept()?.value,
+          eventReference = this@with.asReference()?.value,
+          eventDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _eventDateTime = this@with.asDateTime()?.value?.toElement(),
+          eventId = this@with.asId()?.value?.value,
+          _eventId = this@with.asId()?.value?.toElement(),
+        )
       }
   }
 }
@@ -338,12 +320,10 @@ internal data class EvidenceVariableCharacteristicInstancesSurrogate(
       model: EvidenceVariable.Characteristic.Instances
     ): EvidenceVariableCharacteristicInstancesSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicInstancesSurrogate().apply {
-          EvidenceVariable.Characteristic.Instances?.from(
-            this@EvidenceVariableCharacteristicInstancesSurrogate.instancesQuantity,
-            this@EvidenceVariableCharacteristicInstancesSurrogate.instancesRange,
-          )
-        }
+        EvidenceVariableCharacteristicInstancesSurrogate(
+          instancesQuantity = this@with.asQuantity()?.value,
+          instancesRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -364,12 +344,10 @@ internal data class EvidenceVariableCharacteristicDurationSurrogate(
       model: EvidenceVariable.Characteristic.Duration
     ): EvidenceVariableCharacteristicDurationSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicDurationSurrogate().apply {
-          EvidenceVariable.Characteristic.Duration?.from(
-            this@EvidenceVariableCharacteristicDurationSurrogate.durationQuantity,
-            this@EvidenceVariableCharacteristicDurationSurrogate.durationRange,
-          )
-        }
+        EvidenceVariableCharacteristicDurationSurrogate(
+          durationQuantity = this@with.asQuantity()?.value,
+          durationRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -497,13 +475,11 @@ internal data class EvidenceVariableCategoryValueSurrogate(
       model: EvidenceVariable.Category.Value
     ): EvidenceVariableCategoryValueSurrogate =
       with(model) {
-        EvidenceVariableCategoryValueSurrogate().apply {
-          EvidenceVariable.Category.Value?.from(
-            this@EvidenceVariableCategoryValueSurrogate.valueCodeableConcept,
-            this@EvidenceVariableCategoryValueSurrogate.valueQuantity,
-            this@EvidenceVariableCategoryValueSurrogate.valueRange,
-          )
-        }
+        EvidenceVariableCategoryValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -566,15 +542,11 @@ internal data class EvidenceVariableVersionAlgorithmSurrogate(
       model: EvidenceVariable.VersionAlgorithm
     ): EvidenceVariableVersionAlgorithmSurrogate =
       with(model) {
-        EvidenceVariableVersionAlgorithmSurrogate().apply {
-          EvidenceVariable.VersionAlgorithm?.from(
-            R5String.of(
-              this@EvidenceVariableVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@EvidenceVariableVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@EvidenceVariableVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        EvidenceVariableVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

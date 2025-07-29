@@ -68,15 +68,11 @@ internal data class RiskAssessmentPredictionProbabilitySurrogate(
       model: RiskAssessment.Prediction.Probability
     ): RiskAssessmentPredictionProbabilitySurrogate =
       with(model) {
-        RiskAssessmentPredictionProbabilitySurrogate().apply {
-          RiskAssessment.Prediction.Probability?.from(
-            Decimal.of(
-              this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
-              this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
-            ),
-            this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
-          )
-        }
+        RiskAssessmentPredictionProbabilitySurrogate(
+          probabilityDecimal = this@with.asDecimal()?.value?.value,
+          _probabilityDecimal = this@with.asDecimal()?.value?.toElement(),
+          probabilityRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -97,12 +93,10 @@ internal data class RiskAssessmentPredictionWhenSurrogate(
       model: RiskAssessment.Prediction.When
     ): RiskAssessmentPredictionWhenSurrogate =
       with(model) {
-        RiskAssessmentPredictionWhenSurrogate().apply {
-          RiskAssessment.Prediction.When?.from(
-            this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
-            this@RiskAssessmentPredictionWhenSurrogate.whenRange,
-          )
-        }
+        RiskAssessmentPredictionWhenSurrogate(
+          whenPeriod = this@with.asPeriod()?.value,
+          whenRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -181,15 +175,11 @@ internal data class RiskAssessmentOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: RiskAssessment.Occurrence): RiskAssessmentOccurrenceSurrogate =
       with(model) {
-        RiskAssessmentOccurrenceSurrogate().apply {
-          RiskAssessment.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@RiskAssessmentOccurrenceSurrogate.occurrenceDateTime),
-              this@RiskAssessmentOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@RiskAssessmentOccurrenceSurrogate.occurrencePeriod,
-          )
-        }
+        RiskAssessmentOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

@@ -65,13 +65,11 @@ internal data class CommunicationRequestPayloadContentSurrogate(
       model: CommunicationRequest.Payload.Content
     ): CommunicationRequestPayloadContentSurrogate =
       with(model) {
-        CommunicationRequestPayloadContentSurrogate().apply {
-          CommunicationRequest.Payload.Content.from(
-            this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
-            this@CommunicationRequestPayloadContentSurrogate.contentReference,
-            this@CommunicationRequestPayloadContentSurrogate.contentCodeableConcept,
-          )!!
-        }
+        CommunicationRequestPayloadContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+          contentCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -127,17 +125,11 @@ internal data class CommunicationRequestOccurrenceSurrogate(
       model: CommunicationRequest.Occurrence
     ): CommunicationRequestOccurrenceSurrogate =
       with(model) {
-        CommunicationRequestOccurrenceSurrogate().apply {
-          CommunicationRequest.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@CommunicationRequestOccurrenceSurrogate.occurrenceDateTime
-              ),
-              this@CommunicationRequestOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@CommunicationRequestOccurrenceSurrogate.occurrencePeriod,
-          )
-        }
+        CommunicationRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

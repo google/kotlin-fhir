@@ -78,23 +78,15 @@ internal data class AdministrableProductDefinitionPropertyValueSurrogate(
       model: AdministrableProductDefinition.Property.Value
     ): AdministrableProductDefinitionPropertyValueSurrogate =
       with(model) {
-        AdministrableProductDefinitionPropertyValueSurrogate().apply {
-          AdministrableProductDefinition.Property.Value?.from(
-            this@AdministrableProductDefinitionPropertyValueSurrogate.valueCodeableConcept,
-            this@AdministrableProductDefinitionPropertyValueSurrogate.valueQuantity,
-            Date.of(
-              FhirDate.fromString(
-                this@AdministrableProductDefinitionPropertyValueSurrogate.valueDate
-              ),
-              this@AdministrableProductDefinitionPropertyValueSurrogate._valueDate,
-            ),
-            R4bBoolean.of(
-              this@AdministrableProductDefinitionPropertyValueSurrogate.valueBoolean,
-              this@AdministrableProductDefinitionPropertyValueSurrogate._valueBoolean,
-            ),
-            this@AdministrableProductDefinitionPropertyValueSurrogate.valueAttachment,
-          )
-        }
+        AdministrableProductDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

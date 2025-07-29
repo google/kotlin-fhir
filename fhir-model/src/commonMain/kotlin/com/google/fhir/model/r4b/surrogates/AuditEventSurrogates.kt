@@ -244,18 +244,12 @@ internal data class AuditEventEntityDetailValueSurrogate(
       model: AuditEvent.Entity.Detail.Value
     ): AuditEventEntityDetailValueSurrogate =
       with(model) {
-        AuditEventEntityDetailValueSurrogate().apply {
-          AuditEvent.Entity.Detail.Value.from(
-            R4bString.of(
-              this@AuditEventEntityDetailValueSurrogate.valueString,
-              this@AuditEventEntityDetailValueSurrogate._valueString,
-            ),
-            Base64Binary.of(
-              this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
-              this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
-            ),
-          )!!
-        }
+        AuditEventEntityDetailValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+        )
       }
   }
 }

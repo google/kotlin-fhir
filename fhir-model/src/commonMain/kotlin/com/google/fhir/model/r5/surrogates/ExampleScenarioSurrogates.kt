@@ -241,18 +241,12 @@ internal data class ExampleScenarioInstanceStructureProfileSurrogate(
       model: ExampleScenario.Instance.StructureProfile
     ): ExampleScenarioInstanceStructureProfileSurrogate =
       with(model) {
-        ExampleScenarioInstanceStructureProfileSurrogate().apply {
-          ExampleScenario.Instance.StructureProfile?.from(
-            Canonical.of(
-              this@ExampleScenarioInstanceStructureProfileSurrogate.structureProfileCanonical,
-              this@ExampleScenarioInstanceStructureProfileSurrogate._structureProfileCanonical,
-            ),
-            Uri.of(
-              this@ExampleScenarioInstanceStructureProfileSurrogate.structureProfileUri,
-              this@ExampleScenarioInstanceStructureProfileSurrogate._structureProfileUri,
-            ),
-          )
-        }
+        ExampleScenarioInstanceStructureProfileSurrogate(
+          structureProfileCanonical = this@with.asCanonical()?.value?.value,
+          _structureProfileCanonical = this@with.asCanonical()?.value?.toElement(),
+          structureProfileUri = this@with.asUri()?.value?.value,
+          _structureProfileUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }
@@ -620,15 +614,11 @@ internal data class ExampleScenarioVersionAlgorithmSurrogate(
       model: ExampleScenario.VersionAlgorithm
     ): ExampleScenarioVersionAlgorithmSurrogate =
       with(model) {
-        ExampleScenarioVersionAlgorithmSurrogate().apply {
-          ExampleScenario.VersionAlgorithm?.from(
-            R5String.of(
-              this@ExampleScenarioVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ExampleScenarioVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ExampleScenarioVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ExampleScenarioVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

@@ -140,21 +140,15 @@ internal data class ProcedurePerformedSurrogate(
   public companion object {
     public fun fromModel(model: Procedure.Performed): ProcedurePerformedSurrogate =
       with(model) {
-        ProcedurePerformedSurrogate().apply {
-          Procedure.Performed?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ProcedurePerformedSurrogate.performedDateTime),
-              this@ProcedurePerformedSurrogate._performedDateTime,
-            ),
-            this@ProcedurePerformedSurrogate.performedPeriod,
-            R4bString.of(
-              this@ProcedurePerformedSurrogate.performedString,
-              this@ProcedurePerformedSurrogate._performedString,
-            ),
-            this@ProcedurePerformedSurrogate.performedAge,
-            this@ProcedurePerformedSurrogate.performedRange,
-          )
-        }
+        ProcedurePerformedSurrogate(
+          performedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _performedDateTime = this@with.asDateTime()?.value?.toElement(),
+          performedPeriod = this@with.asPeriod()?.value,
+          performedString = this@with.asString()?.value?.value,
+          _performedString = this@with.asString()?.value?.toElement(),
+          performedAge = this@with.asAge()?.value,
+          performedRange = this@with.asRange()?.value,
+        )
       }
   }
 }

@@ -407,123 +407,77 @@ internal data class StructureMapGroupRuleSourceDefaultValueSurrogate(
       model: StructureMap.Group.Rule.Source.DefaultValue
     ): StructureMapGroupRuleSourceDefaultValueSurrogate =
       with(model) {
-        StructureMapGroupRuleSourceDefaultValueSurrogate().apply {
-          StructureMap.Group.Rule.Source.DefaultValue?.from(
-            Base64Binary.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueBase64Binary,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueBase64Binary,
-            ),
-            R4bBoolean.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueBoolean,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueBoolean,
-            ),
-            Canonical.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueCanonical,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueCanonical,
-            ),
-            Code.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueCode,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueCode,
-            ),
-            Date.of(
-              FhirDate.fromString(
-                this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDate
-              ),
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueDate,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDateTime
-              ),
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueDateTime,
-            ),
-            Decimal.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDecimal,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueDecimal,
-            ),
-            Id.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueId,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueId,
-            ),
-            Instant.of(
-              FhirDateTime.fromString(
-                this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueInstant
-              ),
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueInstant,
-            ),
-            Integer.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueInteger,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueInteger,
-            ),
-            Markdown.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueMarkdown,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueMarkdown,
-            ),
-            Oid.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueOid,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueOid,
-            ),
-            PositiveInt.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValuePositiveInt,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValuePositiveInt,
-            ),
-            R4bString.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueString,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueString,
-            ),
-            Time.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueTime,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueTime,
-            ),
-            UnsignedInt.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueUnsignedInt,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueUnsignedInt,
-            ),
-            Uri.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueUri,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueUri,
-            ),
-            Url.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueUrl,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueUrl,
-            ),
-            Uuid.of(
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueUuid,
-              this@StructureMapGroupRuleSourceDefaultValueSurrogate._defaultValueUuid,
-            ),
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueAddress,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueAge,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueAnnotation,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueAttachment,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueCodeableConcept,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueCoding,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueContactPoint,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueCount,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDistance,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDuration,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueHumanName,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueIdentifier,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueMoney,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValuePeriod,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueQuantity,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueRange,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueRatio,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueReference,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueSampledData,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueSignature,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueTiming,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueContactDetail,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueContributor,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDataRequirement,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueExpression,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueParameterDefinition,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueRelatedArtifact,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueTriggerDefinition,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueUsageContext,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDosage,
-            this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueMeta,
-          )
-        }
+        StructureMapGroupRuleSourceDefaultValueSurrogate(
+          defaultValueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _defaultValueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          defaultValueBoolean = this@with.asBoolean()?.value?.value,
+          _defaultValueBoolean = this@with.asBoolean()?.value?.toElement(),
+          defaultValueCanonical = this@with.asCanonical()?.value?.value,
+          _defaultValueCanonical = this@with.asCanonical()?.value?.toElement(),
+          defaultValueCode = this@with.asCode()?.value?.value,
+          _defaultValueCode = this@with.asCode()?.value?.toElement(),
+          defaultValueDate = this@with.asDate()?.value?.value?.toString(),
+          _defaultValueDate = this@with.asDate()?.value?.toElement(),
+          defaultValueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _defaultValueDateTime = this@with.asDateTime()?.value?.toElement(),
+          defaultValueDecimal = this@with.asDecimal()?.value?.value,
+          _defaultValueDecimal = this@with.asDecimal()?.value?.toElement(),
+          defaultValueId = this@with.asId()?.value?.value,
+          _defaultValueId = this@with.asId()?.value?.toElement(),
+          defaultValueInstant = this@with.asInstant()?.value?.value?.toString(),
+          _defaultValueInstant = this@with.asInstant()?.value?.toElement(),
+          defaultValueInteger = this@with.asInteger()?.value?.value,
+          _defaultValueInteger = this@with.asInteger()?.value?.toElement(),
+          defaultValueMarkdown = this@with.asMarkdown()?.value?.value,
+          _defaultValueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          defaultValueOid = this@with.asOid()?.value?.value,
+          _defaultValueOid = this@with.asOid()?.value?.toElement(),
+          defaultValuePositiveInt = this@with.asPositiveInt()?.value?.value,
+          _defaultValuePositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          defaultValueString = this@with.asString()?.value?.value,
+          _defaultValueString = this@with.asString()?.value?.toElement(),
+          defaultValueTime = this@with.asTime()?.value?.value,
+          _defaultValueTime = this@with.asTime()?.value?.toElement(),
+          defaultValueUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _defaultValueUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          defaultValueUri = this@with.asUri()?.value?.value,
+          _defaultValueUri = this@with.asUri()?.value?.toElement(),
+          defaultValueUrl = this@with.asUrl()?.value?.value,
+          _defaultValueUrl = this@with.asUrl()?.value?.toElement(),
+          defaultValueUuid = this@with.asUuid()?.value?.value,
+          _defaultValueUuid = this@with.asUuid()?.value?.toElement(),
+          defaultValueAddress = this@with.asAddress()?.value,
+          defaultValueAge = this@with.asAge()?.value,
+          defaultValueAnnotation = this@with.asAnnotation()?.value,
+          defaultValueAttachment = this@with.asAttachment()?.value,
+          defaultValueCodeableConcept = this@with.asCodeableConcept()?.value,
+          defaultValueCoding = this@with.asCoding()?.value,
+          defaultValueContactPoint = this@with.asContactPoint()?.value,
+          defaultValueCount = this@with.asCount()?.value,
+          defaultValueDistance = this@with.asDistance()?.value,
+          defaultValueDuration = this@with.asDuration()?.value,
+          defaultValueHumanName = this@with.asHumanName()?.value,
+          defaultValueIdentifier = this@with.asIdentifier()?.value,
+          defaultValueMoney = this@with.asMoney()?.value,
+          defaultValuePeriod = this@with.asPeriod()?.value,
+          defaultValueQuantity = this@with.asQuantity()?.value,
+          defaultValueRange = this@with.asRange()?.value,
+          defaultValueRatio = this@with.asRatio()?.value,
+          defaultValueReference = this@with.asReference()?.value,
+          defaultValueSampledData = this@with.asSampledData()?.value,
+          defaultValueSignature = this@with.asSignature()?.value,
+          defaultValueTiming = this@with.asTiming()?.value,
+          defaultValueContactDetail = this@with.asContactDetail()?.value,
+          defaultValueContributor = this@with.asContributor()?.value,
+          defaultValueDataRequirement = this@with.asDataRequirement()?.value,
+          defaultValueExpression = this@with.asExpression()?.value,
+          defaultValueParameterDefinition = this@with.asParameterDefinition()?.value,
+          defaultValueRelatedArtifact = this@with.asRelatedArtifact()?.value,
+          defaultValueTriggerDefinition = this@with.asTriggerDefinition()?.value,
+          defaultValueUsageContext = this@with.asUsageContext()?.value,
+          defaultValueDosage = this@with.asDosage()?.value,
+          defaultValueMeta = this@with.asMeta()?.value,
+        )
       }
   }
 }
@@ -693,30 +647,18 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
       model: StructureMap.Group.Rule.Target.Parameter.Value
     ): StructureMapGroupRuleTargetParameterValueSurrogate =
       with(model) {
-        StructureMapGroupRuleTargetParameterValueSurrogate().apply {
-          StructureMap.Group.Rule.Target.Parameter.Value.from(
-            Id.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueId,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueId,
-            ),
-            R4bString.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueString,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueString,
-            ),
-            R4bBoolean.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueBoolean,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueInteger,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueInteger,
-            ),
-            Decimal.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDecimal,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDecimal,
-            ),
-          )!!
-        }
+        StructureMapGroupRuleTargetParameterValueSurrogate(
+          valueId = this@with.asId()?.value?.value,
+          _valueId = this@with.asId()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+        )
       }
   }
 }

@@ -61,12 +61,10 @@ internal data class CareTeamParticipantCoverageSurrogate(
       model: CareTeam.Participant.Coverage
     ): CareTeamParticipantCoverageSurrogate =
       with(model) {
-        CareTeamParticipantCoverageSurrogate().apply {
-          CareTeam.Participant.Coverage?.from(
-            this@CareTeamParticipantCoverageSurrogate.coveragePeriod,
-            this@CareTeamParticipantCoverageSurrogate.coverageTiming,
-          )
-        }
+        CareTeamParticipantCoverageSurrogate(
+          coveragePeriod = this@with.asPeriod()?.value,
+          coverageTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

@@ -475,15 +475,11 @@ internal data class EvidenceCiteAsSurrogate(
   public companion object {
     public fun fromModel(model: Evidence.CiteAs): EvidenceCiteAsSurrogate =
       with(model) {
-        EvidenceCiteAsSurrogate().apply {
-          Evidence.CiteAs?.from(
-            this@EvidenceCiteAsSurrogate.citeAsReference,
-            Markdown.of(
-              this@EvidenceCiteAsSurrogate.citeAsMarkdown,
-              this@EvidenceCiteAsSurrogate._citeAsMarkdown,
-            ),
-          )
-        }
+        EvidenceCiteAsSurrogate(
+          citeAsReference = this@with.asReference()?.value,
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value,
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
       }
   }
 }

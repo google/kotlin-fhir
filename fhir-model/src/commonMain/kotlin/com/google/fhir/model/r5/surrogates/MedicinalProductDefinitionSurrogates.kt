@@ -330,31 +330,19 @@ internal data class MedicinalProductDefinitionCharacteristicValueSurrogate(
       model: MedicinalProductDefinition.Characteristic.Value
     ): MedicinalProductDefinitionCharacteristicValueSurrogate =
       with(model) {
-        MedicinalProductDefinitionCharacteristicValueSurrogate().apply {
-          MedicinalProductDefinition.Characteristic.Value?.from(
-            this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueCodeableConcept,
-            Markdown.of(
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueMarkdown,
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueMarkdown,
-            ),
-            this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueQuantity,
-            Integer.of(
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueInteger,
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueInteger,
-            ),
-            Date.of(
-              FhirDate.fromString(
-                this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueDate
-              ),
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueDate,
-            ),
-            R5Boolean.of(
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueBoolean,
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueBoolean,
-            ),
-            this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueAttachment,
-          )
-        }
+        MedicinalProductDefinitionCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

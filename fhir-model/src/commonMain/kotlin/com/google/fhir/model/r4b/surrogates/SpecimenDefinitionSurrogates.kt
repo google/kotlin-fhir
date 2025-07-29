@@ -61,13 +61,10 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurroga
       model: SpecimenDefinition.TypeTested.Container.Additive.Additive
     ): SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate().apply {
-          SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
-            this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate
-              .additiveCodeableConcept,
-            this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
-          )!!
-        }
+        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
+          additiveCodeableConcept = this@with.asCodeableConcept()?.value,
+          additiveReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -125,15 +122,11 @@ internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
       model: SpecimenDefinition.TypeTested.Container.MinimumVolume
     ): SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate().apply {
-          SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
-            this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
-            R4bString.of(
-              this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
-              this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
-            ),
-          )
-        }
+        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
+          minimumVolumeQuantity = this@with.asQuantity()?.value,
+          minimumVolumeString = this@with.asString()?.value?.value,
+          _minimumVolumeString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

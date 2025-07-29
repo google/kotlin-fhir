@@ -307,15 +307,11 @@ internal data class GraphDefinitionVersionAlgorithmSurrogate(
       model: GraphDefinition.VersionAlgorithm
     ): GraphDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        GraphDefinitionVersionAlgorithmSurrogate().apply {
-          GraphDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@GraphDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        GraphDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

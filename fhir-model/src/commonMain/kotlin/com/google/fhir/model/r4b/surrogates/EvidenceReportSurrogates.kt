@@ -76,18 +76,14 @@ internal data class EvidenceReportSubjectCharacteristicValueSurrogate(
       model: EvidenceReport.Subject.Characteristic.Value
     ): EvidenceReportSubjectCharacteristicValueSurrogate =
       with(model) {
-        EvidenceReportSubjectCharacteristicValueSurrogate().apply {
-          EvidenceReport.Subject.Characteristic.Value.from(
-            this@EvidenceReportSubjectCharacteristicValueSurrogate.valueReference,
-            this@EvidenceReportSubjectCharacteristicValueSurrogate.valueCodeableConcept,
-            R4bBoolean.of(
-              this@EvidenceReportSubjectCharacteristicValueSurrogate.valueBoolean,
-              this@EvidenceReportSubjectCharacteristicValueSurrogate._valueBoolean,
-            ),
-            this@EvidenceReportSubjectCharacteristicValueSurrogate.valueQuantity,
-            this@EvidenceReportSubjectCharacteristicValueSurrogate.valueRange,
-          )!!
-        }
+        EvidenceReportSubjectCharacteristicValueSurrogate(
+          valueReference = this@with.asReference()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -185,12 +181,10 @@ internal data class EvidenceReportRelatesToTargetSurrogate(
       model: EvidenceReport.RelatesTo.Target
     ): EvidenceReportRelatesToTargetSurrogate =
       with(model) {
-        EvidenceReportRelatesToTargetSurrogate().apply {
-          EvidenceReport.RelatesTo.Target.from(
-            this@EvidenceReportRelatesToTargetSurrogate.targetIdentifier,
-            this@EvidenceReportRelatesToTargetSurrogate.targetReference,
-          )!!
-        }
+        EvidenceReportRelatesToTargetSurrogate(
+          targetIdentifier = this@with.asIdentifier()?.value,
+          targetReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -328,15 +322,11 @@ internal data class EvidenceReportCiteAsSurrogate(
   public companion object {
     public fun fromModel(model: EvidenceReport.CiteAs): EvidenceReportCiteAsSurrogate =
       with(model) {
-        EvidenceReportCiteAsSurrogate().apply {
-          EvidenceReport.CiteAs?.from(
-            this@EvidenceReportCiteAsSurrogate.citeAsReference,
-            Markdown.of(
-              this@EvidenceReportCiteAsSurrogate.citeAsMarkdown,
-              this@EvidenceReportCiteAsSurrogate._citeAsMarkdown,
-            ),
-          )
-        }
+        EvidenceReportCiteAsSurrogate(
+          citeAsReference = this@with.asReference()?.value,
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value,
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
       }
   }
 }

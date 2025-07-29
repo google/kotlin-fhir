@@ -52,14 +52,12 @@ internal data class UsageContextValueSurrogate(
   public companion object {
     public fun fromModel(model: UsageContext.Value): UsageContextValueSurrogate =
       with(model) {
-        UsageContextValueSurrogate().apply {
-          UsageContext.Value.from(
-            this@UsageContextValueSurrogate.valueCodeableConcept,
-            this@UsageContextValueSurrogate.valueQuantity,
-            this@UsageContextValueSurrogate.valueRange,
-            this@UsageContextValueSurrogate.valueReference,
-          )!!
-        }
+        UsageContextValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }

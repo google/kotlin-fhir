@@ -236,12 +236,10 @@ internal data class MedicinalProductSpecialDesignationIndicationSurrogate(
       model: MedicinalProduct.SpecialDesignation.Indication
     ): MedicinalProductSpecialDesignationIndicationSurrogate =
       with(model) {
-        MedicinalProductSpecialDesignationIndicationSurrogate().apply {
-          MedicinalProduct.SpecialDesignation.Indication?.from(
-            this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationCodeableConcept,
-            this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationReference,
-          )
-        }
+        MedicinalProductSpecialDesignationIndicationSurrogate(
+          indicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          indicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }

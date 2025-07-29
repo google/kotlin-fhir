@@ -66,12 +66,10 @@ internal data class EventDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: EventDefinition.Subject): EventDefinitionSubjectSurrogate =
       with(model) {
-        EventDefinitionSubjectSurrogate().apply {
-          EventDefinition.Subject?.from(
-            this@EventDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@EventDefinitionSubjectSurrogate.subjectReference,
-          )
-        }
+        EventDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

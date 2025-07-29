@@ -149,22 +149,16 @@ internal data class ProcedureOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: Procedure.Occurrence): ProcedureOccurrenceSurrogate =
       with(model) {
-        ProcedureOccurrenceSurrogate().apply {
-          Procedure.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ProcedureOccurrenceSurrogate.occurrenceDateTime),
-              this@ProcedureOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@ProcedureOccurrenceSurrogate.occurrencePeriod,
-            R5String.of(
-              this@ProcedureOccurrenceSurrogate.occurrenceString,
-              this@ProcedureOccurrenceSurrogate._occurrenceString,
-            ),
-            this@ProcedureOccurrenceSurrogate.occurrenceAge,
-            this@ProcedureOccurrenceSurrogate.occurrenceRange,
-            this@ProcedureOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        ProcedureOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceString = this@with.asString()?.value?.value,
+          _occurrenceString = this@with.asString()?.value?.toElement(),
+          occurrenceAge = this@with.asAge()?.value,
+          occurrenceRange = this@with.asRange()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -187,15 +181,11 @@ internal data class ProcedureReportedSurrogate(
   public companion object {
     public fun fromModel(model: Procedure.Reported): ProcedureReportedSurrogate =
       with(model) {
-        ProcedureReportedSurrogate().apply {
-          Procedure.Reported?.from(
-            R5Boolean.of(
-              this@ProcedureReportedSurrogate.reportedBoolean,
-              this@ProcedureReportedSurrogate._reportedBoolean,
-            ),
-            this@ProcedureReportedSurrogate.reportedReference,
-          )
-        }
+        ProcedureReportedSurrogate(
+          reportedBoolean = this@with.asBoolean()?.value?.value,
+          _reportedBoolean = this@with.asBoolean()?.value?.toElement(),
+          reportedReference = this@with.asReference()?.value,
+        )
       }
   }
 }

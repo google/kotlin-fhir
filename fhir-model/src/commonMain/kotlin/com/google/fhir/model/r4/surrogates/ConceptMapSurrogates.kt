@@ -371,18 +371,12 @@ internal data class ConceptMapSourceSurrogate(
   public companion object {
     public fun fromModel(model: ConceptMap.Source): ConceptMapSourceSurrogate =
       with(model) {
-        ConceptMapSourceSurrogate().apply {
-          ConceptMap.Source?.from(
-            Uri.of(
-              this@ConceptMapSourceSurrogate.sourceUri,
-              this@ConceptMapSourceSurrogate._sourceUri,
-            ),
-            Canonical.of(
-              this@ConceptMapSourceSurrogate.sourceCanonical,
-              this@ConceptMapSourceSurrogate._sourceCanonical,
-            ),
-          )
-        }
+        ConceptMapSourceSurrogate(
+          sourceUri = this@with.asUri()?.value?.value,
+          _sourceUri = this@with.asUri()?.value?.toElement(),
+          sourceCanonical = this@with.asCanonical()?.value?.value,
+          _sourceCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }
@@ -406,18 +400,12 @@ internal data class ConceptMapTargetSurrogate(
   public companion object {
     public fun fromModel(model: ConceptMap.Target): ConceptMapTargetSurrogate =
       with(model) {
-        ConceptMapTargetSurrogate().apply {
-          ConceptMap.Target?.from(
-            Uri.of(
-              this@ConceptMapTargetSurrogate.targetUri,
-              this@ConceptMapTargetSurrogate._targetUri,
-            ),
-            Canonical.of(
-              this@ConceptMapTargetSurrogate.targetCanonical,
-              this@ConceptMapTargetSurrogate._targetCanonical,
-            ),
-          )
-        }
+        ConceptMapTargetSurrogate(
+          targetUri = this@with.asUri()?.value?.value,
+          _targetUri = this@with.asUri()?.value?.toElement(),
+          targetCanonical = this@with.asCanonical()?.value?.value,
+          _targetCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }

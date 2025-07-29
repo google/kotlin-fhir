@@ -68,12 +68,10 @@ internal data class LibrarySubjectSurrogate(
   public companion object {
     public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =
       with(model) {
-        LibrarySubjectSurrogate().apply {
-          Library.Subject?.from(
-            this@LibrarySubjectSurrogate.subjectCodeableConcept,
-            this@LibrarySubjectSurrogate.subjectReference,
-          )
-        }
+        LibrarySubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

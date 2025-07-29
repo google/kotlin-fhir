@@ -70,17 +70,11 @@ internal data class CoverageEligibilityResponseEventWhenSurrogate(
       model: CoverageEligibilityResponse.Event.When
     ): CoverageEligibilityResponseEventWhenSurrogate =
       with(model) {
-        CoverageEligibilityResponseEventWhenSurrogate().apply {
-          CoverageEligibilityResponse.Event.When.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@CoverageEligibilityResponseEventWhenSurrogate.whenDateTime
-              ),
-              this@CoverageEligibilityResponseEventWhenSurrogate._whenDateTime,
-            ),
-            this@CoverageEligibilityResponseEventWhenSurrogate.whenPeriod,
-          )!!
-        }
+        CoverageEligibilityResponseEventWhenSurrogate(
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _whenDateTime = this@with.asDateTime()?.value?.toElement(),
+          whenPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -145,21 +139,13 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrog
       model: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed
     ): CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate =
       with(model) {
-        CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate().apply {
-          CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed?.from(
-            UnsignedInt.of(
-              this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate
-                .allowedUnsignedInt,
-              this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate
-                ._allowedUnsignedInt,
-            ),
-            R5String.of(
-              this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedString,
-              this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedString,
-            ),
-            this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedMoney,
-          )
-        }
+        CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
+          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          allowedString = this@with.asString()?.value?.value,
+          _allowedString = this@with.asString()?.value?.toElement(),
+          allowedMoney = this@with.asMoney()?.value,
+        )
       }
   }
 }
@@ -190,19 +176,13 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate
       model: CoverageEligibilityResponse.Insurance.Item.Benefit.Used
     ): CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate =
       with(model) {
-        CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate().apply {
-          CoverageEligibilityResponse.Insurance.Item.Benefit.Used?.from(
-            UnsignedInt.of(
-              this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedUnsignedInt,
-              this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedUnsignedInt,
-            ),
-            R5String.of(
-              this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedString,
-              this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedString,
-            ),
-            this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedMoney,
-          )
-        }
+        CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
+          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          usedString = this@with.asString()?.value?.value,
+          _usedString = this@with.asString()?.value?.toElement(),
+          usedMoney = this@with.asMoney()?.value,
+        )
       }
   }
 }
@@ -476,15 +456,11 @@ internal data class CoverageEligibilityResponseServicedSurrogate(
       model: CoverageEligibilityResponse.Serviced
     ): CoverageEligibilityResponseServicedSurrogate =
       with(model) {
-        CoverageEligibilityResponseServicedSurrogate().apply {
-          CoverageEligibilityResponse.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@CoverageEligibilityResponseServicedSurrogate.servicedDate),
-              this@CoverageEligibilityResponseServicedSurrogate._servicedDate,
-            ),
-            this@CoverageEligibilityResponseServicedSurrogate.servicedPeriod,
-          )
-        }
+        CoverageEligibilityResponseServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

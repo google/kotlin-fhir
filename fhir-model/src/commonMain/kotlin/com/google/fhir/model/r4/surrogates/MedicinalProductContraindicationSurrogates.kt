@@ -55,13 +55,10 @@ internal data class MedicinalProductContraindicationOtherTherapyMedicationSurrog
       model: MedicinalProductContraindication.OtherTherapy.Medication
     ): MedicinalProductContraindicationOtherTherapyMedicationSurrogate =
       with(model) {
-        MedicinalProductContraindicationOtherTherapyMedicationSurrogate().apply {
-          MedicinalProductContraindication.OtherTherapy.Medication.from(
-            this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate
-              .medicationCodeableConcept,
-            this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate.medicationReference,
-          )!!
-        }
+        MedicinalProductContraindicationOtherTherapyMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }

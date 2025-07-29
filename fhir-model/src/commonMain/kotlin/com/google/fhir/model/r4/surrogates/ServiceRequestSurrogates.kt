@@ -67,13 +67,11 @@ internal data class ServiceRequestQuantitySurrogate(
   public companion object {
     public fun fromModel(model: ServiceRequest.Quantity): ServiceRequestQuantitySurrogate =
       with(model) {
-        ServiceRequestQuantitySurrogate().apply {
-          ServiceRequest.Quantity?.from(
-            this@ServiceRequestQuantitySurrogate.quantityQuantity,
-            this@ServiceRequestQuantitySurrogate.quantityRatio,
-            this@ServiceRequestQuantitySurrogate.quantityRange,
-          )
-        }
+        ServiceRequestQuantitySurrogate(
+          quantityQuantity = this@with.asQuantity()?.value,
+          quantityRatio = this@with.asRatio()?.value,
+          quantityRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -98,16 +96,12 @@ internal data class ServiceRequestOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: ServiceRequest.Occurrence): ServiceRequestOccurrenceSurrogate =
       with(model) {
-        ServiceRequestOccurrenceSurrogate().apply {
-          ServiceRequest.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
-              this@ServiceRequestOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@ServiceRequestOccurrenceSurrogate.occurrencePeriod,
-            this@ServiceRequestOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        ServiceRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -130,15 +124,11 @@ internal data class ServiceRequestAsNeededSurrogate(
   public companion object {
     public fun fromModel(model: ServiceRequest.AsNeeded): ServiceRequestAsNeededSurrogate =
       with(model) {
-        ServiceRequestAsNeededSurrogate().apply {
-          ServiceRequest.AsNeeded?.from(
-            R4Boolean.of(
-              this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
-              this@ServiceRequestAsNeededSurrogate._asNeededBoolean,
-            ),
-            this@ServiceRequestAsNeededSurrogate.asNeededCodeableConcept,
-          )
-        }
+        ServiceRequestAsNeededSurrogate(
+          asNeededBoolean = this@with.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

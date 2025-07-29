@@ -148,19 +148,13 @@ internal data class DocumentReferenceContentProfileValueSurrogate(
       model: DocumentReference.Content.Profile.Value
     ): DocumentReferenceContentProfileValueSurrogate =
       with(model) {
-        DocumentReferenceContentProfileValueSurrogate().apply {
-          DocumentReference.Content.Profile.Value.from(
-            this@DocumentReferenceContentProfileValueSurrogate.valueCoding,
-            Uri.of(
-              this@DocumentReferenceContentProfileValueSurrogate.valueUri,
-              this@DocumentReferenceContentProfileValueSurrogate._valueUri,
-            ),
-            Canonical.of(
-              this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
-              this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
-            ),
-          )!!
-        }
+        DocumentReferenceContentProfileValueSurrogate(
+          valueCoding = this@with.asCoding()?.value,
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCanonical = this@with.asCanonical()?.value?.value,
+          _valueCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }

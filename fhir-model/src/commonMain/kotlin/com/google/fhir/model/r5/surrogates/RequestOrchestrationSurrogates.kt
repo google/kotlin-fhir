@@ -211,12 +211,10 @@ internal data class RequestOrchestrationActionRelatedActionOffsetSurrogate(
       model: RequestOrchestration.Action.RelatedAction.Offset
     ): RequestOrchestrationActionRelatedActionOffsetSurrogate =
       with(model) {
-        RequestOrchestrationActionRelatedActionOffsetSurrogate().apply {
-          RequestOrchestration.Action.RelatedAction.Offset?.from(
-            this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
-            this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
-          )
-        }
+        RequestOrchestrationActionRelatedActionOffsetSurrogate(
+          offsetDuration = this@with.asDuration()?.value,
+          offsetRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -304,15 +302,11 @@ internal data class RequestOrchestrationActionParticipantActorSurrogate(
       model: RequestOrchestration.Action.Participant.Actor
     ): RequestOrchestrationActionParticipantActorSurrogate =
       with(model) {
-        RequestOrchestrationActionParticipantActorSurrogate().apply {
-          RequestOrchestration.Action.Participant.Actor?.from(
-            Canonical.of(
-              this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
-              this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
-            ),
-            this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
-          )
-        }
+        RequestOrchestrationActionParticipantActorSurrogate(
+          actorCanonical = this@with.asCanonical()?.value?.value,
+          _actorCanonical = this@with.asCanonical()?.value?.toElement(),
+          actorReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -445,21 +439,15 @@ internal data class RequestOrchestrationActionTimingSurrogate(
       model: RequestOrchestration.Action.Timing
     ): RequestOrchestrationActionTimingSurrogate =
       with(model) {
-        RequestOrchestrationActionTimingSurrogate().apply {
-          RequestOrchestration.Action.Timing?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@RequestOrchestrationActionTimingSurrogate.timingDateTime
-              ),
-              this@RequestOrchestrationActionTimingSurrogate._timingDateTime,
-            ),
-            this@RequestOrchestrationActionTimingSurrogate.timingAge,
-            this@RequestOrchestrationActionTimingSurrogate.timingPeriod,
-            this@RequestOrchestrationActionTimingSurrogate.timingDuration,
-            this@RequestOrchestrationActionTimingSurrogate.timingRange,
-            this@RequestOrchestrationActionTimingSurrogate.timingTiming,
-          )
-        }
+        RequestOrchestrationActionTimingSurrogate(
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+          timingAge = this@with.asAge()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDuration = this@with.asDuration()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -488,18 +476,12 @@ internal data class RequestOrchestrationActionDefinitionSurrogate(
       model: RequestOrchestration.Action.Definition
     ): RequestOrchestrationActionDefinitionSurrogate =
       with(model) {
-        RequestOrchestrationActionDefinitionSurrogate().apply {
-          RequestOrchestration.Action.Definition?.from(
-            Canonical.of(
-              this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
-              this@RequestOrchestrationActionDefinitionSurrogate._definitionCanonical,
-            ),
-            Uri.of(
-              this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
-              this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
-            ),
-          )
-        }
+        RequestOrchestrationActionDefinitionSurrogate(
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionUri = this@with.asUri()?.value?.value,
+          _definitionUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }

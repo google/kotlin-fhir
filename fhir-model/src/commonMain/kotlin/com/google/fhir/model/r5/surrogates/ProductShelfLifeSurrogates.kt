@@ -51,15 +51,11 @@ internal data class ProductShelfLifePeriodSurrogate(
   public companion object {
     public fun fromModel(model: ProductShelfLife.Period): ProductShelfLifePeriodSurrogate =
       with(model) {
-        ProductShelfLifePeriodSurrogate().apply {
-          ProductShelfLife.Period?.from(
-            this@ProductShelfLifePeriodSurrogate.periodDuration,
-            R5String.of(
-              this@ProductShelfLifePeriodSurrogate.periodString,
-              this@ProductShelfLifePeriodSurrogate._periodString,
-            ),
-          )
-        }
+        ProductShelfLifePeriodSurrogate(
+          periodDuration = this@with.asDuration()?.value,
+          periodString = this@with.asString()?.value?.value,
+          _periodString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

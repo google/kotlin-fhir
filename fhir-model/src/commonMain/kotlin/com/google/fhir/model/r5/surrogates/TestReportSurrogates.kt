@@ -176,18 +176,12 @@ internal data class TestReportSetupActionAssertRequirementLinkSurrogate(
       model: TestReport.Setup.Action.Assert.Requirement.Link
     ): TestReportSetupActionAssertRequirementLinkSurrogate =
       with(model) {
-        TestReportSetupActionAssertRequirementLinkSurrogate().apply {
-          TestReport.Setup.Action.Assert.Requirement.Link?.from(
-            Uri.of(
-              this@TestReportSetupActionAssertRequirementLinkSurrogate.linkUri,
-              this@TestReportSetupActionAssertRequirementLinkSurrogate._linkUri,
-            ),
-            Canonical.of(
-              this@TestReportSetupActionAssertRequirementLinkSurrogate.linkCanonical,
-              this@TestReportSetupActionAssertRequirementLinkSurrogate._linkCanonical,
-            ),
-          )
-        }
+        TestReportSetupActionAssertRequirementLinkSurrogate(
+          linkUri = this@with.asUri()?.value?.value,
+          _linkUri = this@with.asUri()?.value?.toElement(),
+          linkCanonical = this@with.asCanonical()?.value?.value,
+          _linkCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }

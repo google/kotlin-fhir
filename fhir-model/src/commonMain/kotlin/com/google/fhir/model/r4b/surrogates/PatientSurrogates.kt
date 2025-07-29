@@ -202,18 +202,12 @@ internal data class PatientDeceasedSurrogate(
   public companion object {
     public fun fromModel(model: Patient.Deceased): PatientDeceasedSurrogate =
       with(model) {
-        PatientDeceasedSurrogate().apply {
-          Patient.Deceased?.from(
-            R4bBoolean.of(
-              this@PatientDeceasedSurrogate.deceasedBoolean,
-              this@PatientDeceasedSurrogate._deceasedBoolean,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@PatientDeceasedSurrogate.deceasedDateTime),
-              this@PatientDeceasedSurrogate._deceasedDateTime,
-            ),
-          )
-        }
+        PatientDeceasedSurrogate(
+          deceasedBoolean = this@with.asBoolean()?.value?.value,
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement(),
+          deceasedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _deceasedDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }
@@ -240,18 +234,12 @@ internal data class PatientMultipleBirthSurrogate(
   public companion object {
     public fun fromModel(model: Patient.MultipleBirth): PatientMultipleBirthSurrogate =
       with(model) {
-        PatientMultipleBirthSurrogate().apply {
-          Patient.MultipleBirth?.from(
-            R4bBoolean.of(
-              this@PatientMultipleBirthSurrogate.multipleBirthBoolean,
-              this@PatientMultipleBirthSurrogate._multipleBirthBoolean,
-            ),
-            Integer.of(
-              this@PatientMultipleBirthSurrogate.multipleBirthInteger,
-              this@PatientMultipleBirthSurrogate._multipleBirthInteger,
-            ),
-          )
-        }
+        PatientMultipleBirthSurrogate(
+          multipleBirthBoolean = this@with.asBoolean()?.value?.value,
+          _multipleBirthBoolean = this@with.asBoolean()?.value?.toElement(),
+          multipleBirthInteger = this@with.asInteger()?.value?.value,
+          _multipleBirthInteger = this@with.asInteger()?.value?.toElement(),
+        )
       }
   }
 }

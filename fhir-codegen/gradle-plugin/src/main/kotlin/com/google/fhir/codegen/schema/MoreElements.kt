@@ -399,3 +399,16 @@ fun Element.getDefaultValueInSurrogate(): String? {
   }
   return null
 }
+
+/**
+ * Return the name of the surrogate class for properties that can be provided with multiple types.
+ *
+ * Example: The 'Patient.deceased' [Element.path] will produce "PatientDeceasedSurrogate"
+ */
+fun Element.getPolymorphicTypeSurrogateClassSimpleName(): String = buildString {
+  append(getPathSimpleNames().joinToString(""))
+  append("Surrogate")
+}
+
+fun Element.getPathSimpleNames(): List<String> =
+  path.replace("[x]", "").split(".").map { it.capitalized() }

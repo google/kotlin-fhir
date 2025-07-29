@@ -74,15 +74,11 @@ internal data class ClaimResponseEventWhenSurrogate(
   public companion object {
     public fun fromModel(model: ClaimResponse.Event.When): ClaimResponseEventWhenSurrogate =
       with(model) {
-        ClaimResponseEventWhenSurrogate().apply {
-          ClaimResponse.Event.When.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ClaimResponseEventWhenSurrogate.whenDateTime),
-              this@ClaimResponseEventWhenSurrogate._whenDateTime,
-            ),
-            this@ClaimResponseEventWhenSurrogate.whenPeriod,
-          )!!
-        }
+        ClaimResponseEventWhenSurrogate(
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _whenDateTime = this@with.asDateTime()?.value?.toElement(),
+          whenPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -689,15 +685,11 @@ internal data class ClaimResponseAddItemServicedSurrogate(
       model: ClaimResponse.AddItem.Serviced
     ): ClaimResponseAddItemServicedSurrogate =
       with(model) {
-        ClaimResponseAddItemServicedSurrogate().apply {
-          ClaimResponse.AddItem.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@ClaimResponseAddItemServicedSurrogate.servicedDate),
-              this@ClaimResponseAddItemServicedSurrogate._servicedDate,
-            ),
-            this@ClaimResponseAddItemServicedSurrogate.servicedPeriod,
-          )
-        }
+        ClaimResponseAddItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -720,13 +712,11 @@ internal data class ClaimResponseAddItemLocationSurrogate(
       model: ClaimResponse.AddItem.Location
     ): ClaimResponseAddItemLocationSurrogate =
       with(model) {
-        ClaimResponseAddItemLocationSurrogate().apply {
-          ClaimResponse.AddItem.Location?.from(
-            this@ClaimResponseAddItemLocationSurrogate.locationCodeableConcept,
-            this@ClaimResponseAddItemLocationSurrogate.locationAddress,
-            this@ClaimResponseAddItemLocationSurrogate.locationReference,
-          )
-        }
+        ClaimResponseAddItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
       }
   }
 }

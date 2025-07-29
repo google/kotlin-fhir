@@ -1018,15 +1018,11 @@ internal data class CapabilityStatementVersionAlgorithmSurrogate(
       model: CapabilityStatement.VersionAlgorithm
     ): CapabilityStatementVersionAlgorithmSurrogate =
       with(model) {
-        CapabilityStatementVersionAlgorithmSurrogate().apply {
-          CapabilityStatement.VersionAlgorithm?.from(
-            R5String.of(
-              this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@CapabilityStatementVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        CapabilityStatementVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

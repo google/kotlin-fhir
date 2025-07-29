@@ -70,15 +70,11 @@ internal data class SubstanceDefinitionMoietyAmountSurrogate(
       model: SubstanceDefinition.Moiety.Amount
     ): SubstanceDefinitionMoietyAmountSurrogate =
       with(model) {
-        SubstanceDefinitionMoietyAmountSurrogate().apply {
-          SubstanceDefinition.Moiety.Amount?.from(
-            this@SubstanceDefinitionMoietyAmountSurrogate.amountQuantity,
-            R5String.of(
-              this@SubstanceDefinitionMoietyAmountSurrogate.amountString,
-              this@SubstanceDefinitionMoietyAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceDefinitionMoietyAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -221,21 +217,15 @@ internal data class SubstanceDefinitionPropertyValueSurrogate(
       model: SubstanceDefinition.Property.Value
     ): SubstanceDefinitionPropertyValueSurrogate =
       with(model) {
-        SubstanceDefinitionPropertyValueSurrogate().apply {
-          SubstanceDefinition.Property.Value?.from(
-            this@SubstanceDefinitionPropertyValueSurrogate.valueCodeableConcept,
-            this@SubstanceDefinitionPropertyValueSurrogate.valueQuantity,
-            Date.of(
-              FhirDate.fromString(this@SubstanceDefinitionPropertyValueSurrogate.valueDate),
-              this@SubstanceDefinitionPropertyValueSurrogate._valueDate,
-            ),
-            R5Boolean.of(
-              this@SubstanceDefinitionPropertyValueSurrogate.valueBoolean,
-              this@SubstanceDefinitionPropertyValueSurrogate._valueBoolean,
-            ),
-            this@SubstanceDefinitionPropertyValueSurrogate.valueAttachment,
-          )
-        }
+        SubstanceDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }
@@ -601,14 +591,10 @@ internal data class SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate(
       model: SubstanceDefinition.Relationship.SubstanceDefinition
     ): SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate =
       with(model) {
-        SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate().apply {
-          SubstanceDefinition.Relationship.SubstanceDefinition?.from(
-            this@SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate
-              .substanceDefinitionReference,
-            this@SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate
-              .substanceDefinitionCodeableConcept,
-          )
-        }
+        SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate(
+          substanceDefinitionReference = this@with.asReference()?.value,
+          substanceDefinitionCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -635,16 +621,12 @@ internal data class SubstanceDefinitionRelationshipAmountSurrogate(
       model: SubstanceDefinition.Relationship.Amount
     ): SubstanceDefinitionRelationshipAmountSurrogate =
       with(model) {
-        SubstanceDefinitionRelationshipAmountSurrogate().apply {
-          SubstanceDefinition.Relationship.Amount?.from(
-            this@SubstanceDefinitionRelationshipAmountSurrogate.amountQuantity,
-            this@SubstanceDefinitionRelationshipAmountSurrogate.amountRatio,
-            R5String.of(
-              this@SubstanceDefinitionRelationshipAmountSurrogate.amountString,
-              this@SubstanceDefinitionRelationshipAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceDefinitionRelationshipAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRatio = this@with.asRatio()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

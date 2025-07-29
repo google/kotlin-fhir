@@ -243,18 +243,12 @@ internal data class ImmunizationOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =
       with(model) {
-        ImmunizationOccurrenceSurrogate().apply {
-          Immunization.Occurrence.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ImmunizationOccurrenceSurrogate.occurrenceDateTime),
-              this@ImmunizationOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            R5String.of(
-              this@ImmunizationOccurrenceSurrogate.occurrenceString,
-              this@ImmunizationOccurrenceSurrogate._occurrenceString,
-            ),
-          )!!
-        }
+        ImmunizationOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrenceString = this@with.asString()?.value?.value,
+          _occurrenceString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

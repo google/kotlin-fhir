@@ -435,38 +435,22 @@ internal data class ValueSetExpansionParameterValueSurrogate(
       model: ValueSet.Expansion.Parameter.Value
     ): ValueSetExpansionParameterValueSurrogate =
       with(model) {
-        ValueSetExpansionParameterValueSurrogate().apply {
-          ValueSet.Expansion.Parameter.Value?.from(
-            R5String.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueString,
-              this@ValueSetExpansionParameterValueSurrogate._valueString,
-            ),
-            R5Boolean.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueBoolean,
-              this@ValueSetExpansionParameterValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueInteger,
-              this@ValueSetExpansionParameterValueSurrogate._valueInteger,
-            ),
-            Decimal.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueDecimal,
-              this@ValueSetExpansionParameterValueSurrogate._valueDecimal,
-            ),
-            Uri.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueUri,
-              this@ValueSetExpansionParameterValueSurrogate._valueUri,
-            ),
-            Code.of(
-              this@ValueSetExpansionParameterValueSurrogate.valueCode,
-              this@ValueSetExpansionParameterValueSurrogate._valueCode,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
-              this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
-            ),
-          )
-        }
+        ValueSetExpansionParameterValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }
@@ -605,37 +589,21 @@ internal data class ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
       model: ValueSet.Expansion.Contains.Property.SubProperty.Value
     ): ValueSetExpansionContainsPropertySubPropertyValueSurrogate =
       with(model) {
-        ValueSetExpansionContainsPropertySubPropertyValueSurrogate().apply {
-          ValueSet.Expansion.Contains.Property.SubProperty.Value.from(
-            Code.of(
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCode,
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueCode,
-            ),
-            this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCoding,
-            R5String.of(
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueString,
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueString,
-            ),
-            Integer.of(
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueInteger,
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueInteger,
-            ),
-            R5Boolean.of(
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueBoolean,
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueBoolean,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDateTime
-              ),
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDateTime,
-            ),
-            Decimal.of(
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDecimal,
-              this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDecimal,
-            ),
-          )!!
-        }
+        ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+        )
       }
   }
 }
@@ -732,37 +700,21 @@ internal data class ValueSetExpansionContainsPropertyValueSurrogate(
       model: ValueSet.Expansion.Contains.Property.Value
     ): ValueSetExpansionContainsPropertyValueSurrogate =
       with(model) {
-        ValueSetExpansionContainsPropertyValueSurrogate().apply {
-          ValueSet.Expansion.Contains.Property.Value.from(
-            Code.of(
-              this@ValueSetExpansionContainsPropertyValueSurrogate.valueCode,
-              this@ValueSetExpansionContainsPropertyValueSurrogate._valueCode,
-            ),
-            this@ValueSetExpansionContainsPropertyValueSurrogate.valueCoding,
-            R5String.of(
-              this@ValueSetExpansionContainsPropertyValueSurrogate.valueString,
-              this@ValueSetExpansionContainsPropertyValueSurrogate._valueString,
-            ),
-            Integer.of(
-              this@ValueSetExpansionContainsPropertyValueSurrogate.valueInteger,
-              this@ValueSetExpansionContainsPropertyValueSurrogate._valueInteger,
-            ),
-            R5Boolean.of(
-              this@ValueSetExpansionContainsPropertyValueSurrogate.valueBoolean,
-              this@ValueSetExpansionContainsPropertyValueSurrogate._valueBoolean,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@ValueSetExpansionContainsPropertyValueSurrogate.valueDateTime
-              ),
-              this@ValueSetExpansionContainsPropertyValueSurrogate._valueDateTime,
-            ),
-            Decimal.of(
-              this@ValueSetExpansionContainsPropertyValueSurrogate.valueDecimal,
-              this@ValueSetExpansionContainsPropertyValueSurrogate._valueDecimal,
-            ),
-          )!!
-        }
+        ValueSetExpansionContainsPropertyValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+        )
       }
   }
 }
@@ -1029,15 +981,11 @@ internal data class ValueSetVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: ValueSet.VersionAlgorithm): ValueSetVersionAlgorithmSurrogate =
       with(model) {
-        ValueSetVersionAlgorithmSurrogate().apply {
-          ValueSet.VersionAlgorithm?.from(
-            R5String.of(
-              this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ValueSetVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ValueSetVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

@@ -286,46 +286,28 @@ internal data class ContractTermOfferAnswerValueSurrogate(
       model: Contract.Term.Offer.Answer.Value
     ): ContractTermOfferAnswerValueSurrogate =
       with(model) {
-        ContractTermOfferAnswerValueSurrogate().apply {
-          Contract.Term.Offer.Answer.Value.from(
-            R4bBoolean.of(
-              this@ContractTermOfferAnswerValueSurrogate.valueBoolean,
-              this@ContractTermOfferAnswerValueSurrogate._valueBoolean,
-            ),
-            Decimal.of(
-              this@ContractTermOfferAnswerValueSurrogate.valueDecimal,
-              this@ContractTermOfferAnswerValueSurrogate._valueDecimal,
-            ),
-            Integer.of(
-              this@ContractTermOfferAnswerValueSurrogate.valueInteger,
-              this@ContractTermOfferAnswerValueSurrogate._valueInteger,
-            ),
-            Date.of(
-              FhirDate.fromString(this@ContractTermOfferAnswerValueSurrogate.valueDate),
-              this@ContractTermOfferAnswerValueSurrogate._valueDate,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@ContractTermOfferAnswerValueSurrogate.valueDateTime),
-              this@ContractTermOfferAnswerValueSurrogate._valueDateTime,
-            ),
-            Time.of(
-              this@ContractTermOfferAnswerValueSurrogate.valueTime,
-              this@ContractTermOfferAnswerValueSurrogate._valueTime,
-            ),
-            R4bString.of(
-              this@ContractTermOfferAnswerValueSurrogate.valueString,
-              this@ContractTermOfferAnswerValueSurrogate._valueString,
-            ),
-            Uri.of(
-              this@ContractTermOfferAnswerValueSurrogate.valueUri,
-              this@ContractTermOfferAnswerValueSurrogate._valueUri,
-            ),
-            this@ContractTermOfferAnswerValueSurrogate.valueAttachment,
-            this@ContractTermOfferAnswerValueSurrogate.valueCoding,
-            this@ContractTermOfferAnswerValueSurrogate.valueQuantity,
-            this@ContractTermOfferAnswerValueSurrogate.valueReference,
-          )!!
-        }
+        ContractTermOfferAnswerValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueCoding = this@with.asCoding()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -523,12 +505,10 @@ internal data class ContractTermAssetValuedItemEntitySurrogate(
       model: Contract.Term.Asset.ValuedItem.Entity
     ): ContractTermAssetValuedItemEntitySurrogate =
       with(model) {
-        ContractTermAssetValuedItemEntitySurrogate().apply {
-          Contract.Term.Asset.ValuedItem.Entity?.from(
-            this@ContractTermAssetValuedItemEntitySurrogate.entityCodeableConcept,
-            this@ContractTermAssetValuedItemEntitySurrogate.entityReference,
-          )
-        }
+        ContractTermAssetValuedItemEntitySurrogate(
+          entityCodeableConcept = this@with.asCodeableConcept()?.value,
+          entityReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -868,18 +848,12 @@ internal data class ContractTermActionOccurrenceSurrogate(
       model: Contract.Term.Action.Occurrence
     ): ContractTermActionOccurrenceSurrogate =
       with(model) {
-        ContractTermActionOccurrenceSurrogate().apply {
-          Contract.Term.Action.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@ContractTermActionOccurrenceSurrogate.occurrenceDateTime
-              ),
-              this@ContractTermActionOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@ContractTermActionOccurrenceSurrogate.occurrencePeriod,
-            this@ContractTermActionOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        ContractTermActionOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -1168,12 +1142,10 @@ internal data class ContractTermTopicSurrogate(
   public companion object {
     public fun fromModel(model: Contract.Term.Topic): ContractTermTopicSurrogate =
       with(model) {
-        ContractTermTopicSurrogate().apply {
-          Contract.Term.Topic?.from(
-            this@ContractTermTopicSurrogate.topicCodeableConcept,
-            this@ContractTermTopicSurrogate.topicReference,
-          )
-        }
+        ContractTermTopicSurrogate(
+          topicCodeableConcept = this@with.asCodeableConcept()?.value,
+          topicReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1295,12 +1267,10 @@ internal data class ContractFriendlyContentSurrogate(
   public companion object {
     public fun fromModel(model: Contract.Friendly.Content): ContractFriendlyContentSurrogate =
       with(model) {
-        ContractFriendlyContentSurrogate().apply {
-          Contract.Friendly.Content.from(
-            this@ContractFriendlyContentSurrogate.contentAttachment,
-            this@ContractFriendlyContentSurrogate.contentReference,
-          )!!
-        }
+        ContractFriendlyContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1347,12 +1317,10 @@ internal data class ContractLegalContentSurrogate(
   public companion object {
     public fun fromModel(model: Contract.Legal.Content): ContractLegalContentSurrogate =
       with(model) {
-        ContractLegalContentSurrogate().apply {
-          Contract.Legal.Content.from(
-            this@ContractLegalContentSurrogate.contentAttachment,
-            this@ContractLegalContentSurrogate.contentReference,
-          )!!
-        }
+        ContractLegalContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1399,12 +1367,10 @@ internal data class ContractRuleContentSurrogate(
   public companion object {
     public fun fromModel(model: Contract.Rule.Content): ContractRuleContentSurrogate =
       with(model) {
-        ContractRuleContentSurrogate().apply {
-          Contract.Rule.Content.from(
-            this@ContractRuleContentSurrogate.contentAttachment,
-            this@ContractRuleContentSurrogate.contentReference,
-          )!!
-        }
+        ContractRuleContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1451,12 +1417,10 @@ internal data class ContractTopicSurrogate(
   public companion object {
     public fun fromModel(model: Contract.Topic): ContractTopicSurrogate =
       with(model) {
-        ContractTopicSurrogate().apply {
-          Contract.Topic?.from(
-            this@ContractTopicSurrogate.topicCodeableConcept,
-            this@ContractTopicSurrogate.topicReference,
-          )
-        }
+        ContractTopicSurrogate(
+          topicCodeableConcept = this@with.asCodeableConcept()?.value,
+          topicReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -1475,12 +1439,10 @@ internal data class ContractLegallyBindingSurrogate(
   public companion object {
     public fun fromModel(model: Contract.LegallyBinding): ContractLegallyBindingSurrogate =
       with(model) {
-        ContractLegallyBindingSurrogate().apply {
-          Contract.LegallyBinding?.from(
-            this@ContractLegallyBindingSurrogate.legallyBindingAttachment,
-            this@ContractLegallyBindingSurrogate.legallyBindingReference,
-          )
-        }
+        ContractLegallyBindingSurrogate(
+          legallyBindingAttachment = this@with.asAttachment()?.value,
+          legallyBindingReference = this@with.asReference()?.value,
+        )
       }
   }
 }

@@ -67,15 +67,11 @@ internal data class SubstanceSpecificationMoietyAmountSurrogate(
       model: SubstanceSpecification.Moiety.Amount
     ): SubstanceSpecificationMoietyAmountSurrogate =
       with(model) {
-        SubstanceSpecificationMoietyAmountSurrogate().apply {
-          SubstanceSpecification.Moiety.Amount?.from(
-            this@SubstanceSpecificationMoietyAmountSurrogate.amountQuantity,
-            R4String.of(
-              this@SubstanceSpecificationMoietyAmountSurrogate.amountString,
-              this@SubstanceSpecificationMoietyAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceSpecificationMoietyAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -157,14 +153,10 @@ internal data class SubstanceSpecificationPropertyDefiningSubstanceSurrogate(
       model: SubstanceSpecification.Property.DefiningSubstance
     ): SubstanceSpecificationPropertyDefiningSubstanceSurrogate =
       with(model) {
-        SubstanceSpecificationPropertyDefiningSubstanceSurrogate().apply {
-          SubstanceSpecification.Property.DefiningSubstance?.from(
-            this@SubstanceSpecificationPropertyDefiningSubstanceSurrogate
-              .definingSubstanceReference,
-            this@SubstanceSpecificationPropertyDefiningSubstanceSurrogate
-              .definingSubstanceCodeableConcept,
-          )
-        }
+        SubstanceSpecificationPropertyDefiningSubstanceSurrogate(
+          definingSubstanceReference = this@with.asReference()?.value,
+          definingSubstanceCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -189,15 +181,11 @@ internal data class SubstanceSpecificationPropertyAmountSurrogate(
       model: SubstanceSpecification.Property.Amount
     ): SubstanceSpecificationPropertyAmountSurrogate =
       with(model) {
-        SubstanceSpecificationPropertyAmountSurrogate().apply {
-          SubstanceSpecification.Property.Amount?.from(
-            this@SubstanceSpecificationPropertyAmountSurrogate.amountQuantity,
-            R4String.of(
-              this@SubstanceSpecificationPropertyAmountSurrogate.amountString,
-              this@SubstanceSpecificationPropertyAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceSpecificationPropertyAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -627,12 +615,10 @@ internal data class SubstanceSpecificationRelationshipSubstanceSurrogate(
       model: SubstanceSpecification.Relationship.Substance
     ): SubstanceSpecificationRelationshipSubstanceSurrogate =
       with(model) {
-        SubstanceSpecificationRelationshipSubstanceSurrogate().apply {
-          SubstanceSpecification.Relationship.Substance?.from(
-            this@SubstanceSpecificationRelationshipSubstanceSurrogate.substanceReference,
-            this@SubstanceSpecificationRelationshipSubstanceSurrogate.substanceCodeableConcept,
-          )
-        }
+        SubstanceSpecificationRelationshipSubstanceSurrogate(
+          substanceReference = this@with.asReference()?.value,
+          substanceCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -661,17 +647,13 @@ internal data class SubstanceSpecificationRelationshipAmountSurrogate(
       model: SubstanceSpecification.Relationship.Amount
     ): SubstanceSpecificationRelationshipAmountSurrogate =
       with(model) {
-        SubstanceSpecificationRelationshipAmountSurrogate().apply {
-          SubstanceSpecification.Relationship.Amount?.from(
-            this@SubstanceSpecificationRelationshipAmountSurrogate.amountQuantity,
-            this@SubstanceSpecificationRelationshipAmountSurrogate.amountRange,
-            this@SubstanceSpecificationRelationshipAmountSurrogate.amountRatio,
-            R4String.of(
-              this@SubstanceSpecificationRelationshipAmountSurrogate.amountString,
-              this@SubstanceSpecificationRelationshipAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceSpecificationRelationshipAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRange = this@with.asRange()?.value,
+          amountRatio = this@with.asRatio()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

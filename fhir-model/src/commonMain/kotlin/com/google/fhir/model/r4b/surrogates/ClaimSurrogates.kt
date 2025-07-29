@@ -190,15 +190,11 @@ internal data class ClaimSupportingInfoTimingSurrogate(
   public companion object {
     public fun fromModel(model: Claim.SupportingInfo.Timing): ClaimSupportingInfoTimingSurrogate =
       with(model) {
-        ClaimSupportingInfoTimingSurrogate().apply {
-          Claim.SupportingInfo.Timing?.from(
-            Date.of(
-              FhirDate.fromString(this@ClaimSupportingInfoTimingSurrogate.timingDate),
-              this@ClaimSupportingInfoTimingSurrogate._timingDate,
-            ),
-            this@ClaimSupportingInfoTimingSurrogate.timingPeriod,
-          )
-        }
+        ClaimSupportingInfoTimingSurrogate(
+          timingDate = this@with.asDate()?.value?.value?.toString(),
+          _timingDate = this@with.asDate()?.value?.toElement(),
+          timingPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -231,21 +227,15 @@ internal data class ClaimSupportingInfoValueSurrogate(
   public companion object {
     public fun fromModel(model: Claim.SupportingInfo.Value): ClaimSupportingInfoValueSurrogate =
       with(model) {
-        ClaimSupportingInfoValueSurrogate().apply {
-          Claim.SupportingInfo.Value?.from(
-            R4bBoolean.of(
-              this@ClaimSupportingInfoValueSurrogate.valueBoolean,
-              this@ClaimSupportingInfoValueSurrogate._valueBoolean,
-            ),
-            R4bString.of(
-              this@ClaimSupportingInfoValueSurrogate.valueString,
-              this@ClaimSupportingInfoValueSurrogate._valueString,
-            ),
-            this@ClaimSupportingInfoValueSurrogate.valueQuantity,
-            this@ClaimSupportingInfoValueSurrogate.valueAttachment,
-            this@ClaimSupportingInfoValueSurrogate.valueReference,
-          )
-        }
+        ClaimSupportingInfoValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -313,12 +303,10 @@ internal data class ClaimDiagnosisDiagnosisSurrogate(
   public companion object {
     public fun fromModel(model: Claim.Diagnosis.Diagnosis): ClaimDiagnosisDiagnosisSurrogate =
       with(model) {
-        ClaimDiagnosisDiagnosisSurrogate().apply {
-          Claim.Diagnosis.Diagnosis.from(
-            this@ClaimDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
-            this@ClaimDiagnosisDiagnosisSurrogate.diagnosisReference,
-          )!!
-        }
+        ClaimDiagnosisDiagnosisSurrogate(
+          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
+          diagnosisReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -383,12 +371,10 @@ internal data class ClaimProcedureProcedureSurrogate(
   public companion object {
     public fun fromModel(model: Claim.Procedure.Procedure): ClaimProcedureProcedureSurrogate =
       with(model) {
-        ClaimProcedureProcedureSurrogate().apply {
-          Claim.Procedure.Procedure.from(
-            this@ClaimProcedureProcedureSurrogate.procedureCodeableConcept,
-            this@ClaimProcedureProcedureSurrogate.procedureReference,
-          )!!
-        }
+        ClaimProcedureProcedureSurrogate(
+          procedureCodeableConcept = this@with.asCodeableConcept()?.value,
+          procedureReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -546,12 +532,10 @@ internal data class ClaimAccidentLocationSurrogate(
   public companion object {
     public fun fromModel(model: Claim.Accident.Location): ClaimAccidentLocationSurrogate =
       with(model) {
-        ClaimAccidentLocationSurrogate().apply {
-          Claim.Accident.Location?.from(
-            this@ClaimAccidentLocationSurrogate.locationAddress,
-            this@ClaimAccidentLocationSurrogate.locationReference,
-          )
-        }
+        ClaimAccidentLocationSurrogate(
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -755,15 +739,11 @@ internal data class ClaimItemServicedSurrogate(
   public companion object {
     public fun fromModel(model: Claim.Item.Serviced): ClaimItemServicedSurrogate =
       with(model) {
-        ClaimItemServicedSurrogate().apply {
-          Claim.Item.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@ClaimItemServicedSurrogate.servicedDate),
-              this@ClaimItemServicedSurrogate._servicedDate,
-            ),
-            this@ClaimItemServicedSurrogate.servicedPeriod,
-          )
-        }
+        ClaimItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -784,13 +764,11 @@ internal data class ClaimItemLocationSurrogate(
   public companion object {
     public fun fromModel(model: Claim.Item.Location): ClaimItemLocationSurrogate =
       with(model) {
-        ClaimItemLocationSurrogate().apply {
-          Claim.Item.Location?.from(
-            this@ClaimItemLocationSurrogate.locationCodeableConcept,
-            this@ClaimItemLocationSurrogate.locationAddress,
-            this@ClaimItemLocationSurrogate.locationReference,
-          )
-        }
+        ClaimItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
       }
   }
 }

@@ -148,18 +148,12 @@ internal data class PractitionerDeceasedSurrogate(
   public companion object {
     public fun fromModel(model: Practitioner.Deceased): PractitionerDeceasedSurrogate =
       with(model) {
-        PractitionerDeceasedSurrogate().apply {
-          Practitioner.Deceased?.from(
-            R5Boolean.of(
-              this@PractitionerDeceasedSurrogate.deceasedBoolean,
-              this@PractitionerDeceasedSurrogate._deceasedBoolean,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@PractitionerDeceasedSurrogate.deceasedDateTime),
-              this@PractitionerDeceasedSurrogate._deceasedDateTime,
-            ),
-          )
-        }
+        PractitionerDeceasedSurrogate(
+          deceasedBoolean = this@with.asBoolean()?.value?.value,
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement(),
+          deceasedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _deceasedDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

@@ -87,26 +87,18 @@ internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
       model: ManufacturedItemDefinition.Property.Value
     ): ManufacturedItemDefinitionPropertyValueSurrogate =
       with(model) {
-        ManufacturedItemDefinitionPropertyValueSurrogate().apply {
-          ManufacturedItemDefinition.Property.Value?.from(
-            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
-            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
-            Date.of(
-              FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
-              this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
-            ),
-            R5Boolean.of(
-              this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
-              this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
-            ),
-            Markdown.of(
-              this@ManufacturedItemDefinitionPropertyValueSurrogate.valueMarkdown,
-              this@ManufacturedItemDefinitionPropertyValueSurrogate._valueMarkdown,
-            ),
-            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
-            this@ManufacturedItemDefinitionPropertyValueSurrogate.valueReference,
-          )
-        }
+        ManufacturedItemDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
       }
   }
 }

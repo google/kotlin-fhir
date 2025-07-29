@@ -63,13 +63,11 @@ internal data class CommunicationPayloadContentSurrogate(
       model: Communication.Payload.Content
     ): CommunicationPayloadContentSurrogate =
       with(model) {
-        CommunicationPayloadContentSurrogate().apply {
-          Communication.Payload.Content.from(
-            this@CommunicationPayloadContentSurrogate.contentAttachment,
-            this@CommunicationPayloadContentSurrogate.contentReference,
-            this@CommunicationPayloadContentSurrogate.contentCodeableConcept,
-          )!!
-        }
+        CommunicationPayloadContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+          contentCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

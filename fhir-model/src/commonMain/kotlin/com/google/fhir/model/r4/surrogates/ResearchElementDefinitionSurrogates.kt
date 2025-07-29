@@ -80,19 +80,13 @@ internal data class ResearchElementDefinitionCharacteristicDefinitionSurrogate(
       model: ResearchElementDefinition.Characteristic.Definition
     ): ResearchElementDefinitionCharacteristicDefinitionSurrogate =
       with(model) {
-        ResearchElementDefinitionCharacteristicDefinitionSurrogate().apply {
-          ResearchElementDefinition.Characteristic.Definition.from(
-            this@ResearchElementDefinitionCharacteristicDefinitionSurrogate
-              .definitionCodeableConcept,
-            Canonical.of(
-              this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionCanonical,
-              this@ResearchElementDefinitionCharacteristicDefinitionSurrogate._definitionCanonical,
-            ),
-            this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionExpression,
-            this@ResearchElementDefinitionCharacteristicDefinitionSurrogate
-              .definitionDataRequirement,
-          )!!
-        }
+        ResearchElementDefinitionCharacteristicDefinitionSurrogate(
+          definitionCodeableConcept = this@with.asCodeableConcept()?.value,
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionExpression = this@with.asExpression()?.value,
+          definitionDataRequirement = this@with.asDataRequirement()?.value,
+        )
       }
   }
 }
@@ -123,23 +117,13 @@ internal data class ResearchElementDefinitionCharacteristicStudyEffectiveSurroga
       model: ResearchElementDefinition.Characteristic.StudyEffective
     ): ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate =
       with(model) {
-        ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate().apply {
-          ResearchElementDefinition.Characteristic.StudyEffective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
-                  .studyEffectiveDateTime
-              ),
-              this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
-                ._studyEffectiveDateTime,
-            ),
-            this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
-              .studyEffectivePeriod,
-            this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate
-              .studyEffectiveDuration,
-            this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectiveTiming,
-          )
-        }
+        ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate(
+          studyEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _studyEffectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          studyEffectivePeriod = this@with.asPeriod()?.value,
+          studyEffectiveDuration = this@with.asDuration()?.value,
+          studyEffectiveTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -175,24 +159,13 @@ internal data class ResearchElementDefinitionCharacteristicParticipantEffectiveS
       model: ResearchElementDefinition.Characteristic.ParticipantEffective
     ): ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate =
       with(model) {
-        ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate().apply {
-          ResearchElementDefinition.Characteristic.ParticipantEffective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
-                  .participantEffectiveDateTime
-              ),
-              this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
-                ._participantEffectiveDateTime,
-            ),
-            this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
-              .participantEffectivePeriod,
-            this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
-              .participantEffectiveDuration,
-            this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
-              .participantEffectiveTiming,
-          )
-        }
+        ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate(
+          participantEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _participantEffectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          participantEffectivePeriod = this@with.asPeriod()?.value,
+          participantEffectiveDuration = this@with.asDuration()?.value,
+          participantEffectiveTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }
@@ -321,12 +294,10 @@ internal data class ResearchElementDefinitionSubjectSurrogate(
       model: ResearchElementDefinition.Subject
     ): ResearchElementDefinitionSubjectSurrogate =
       with(model) {
-        ResearchElementDefinitionSubjectSurrogate().apply {
-          ResearchElementDefinition.Subject?.from(
-            this@ResearchElementDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@ResearchElementDefinitionSubjectSurrogate.subjectReference,
-          )
-        }
+        ResearchElementDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

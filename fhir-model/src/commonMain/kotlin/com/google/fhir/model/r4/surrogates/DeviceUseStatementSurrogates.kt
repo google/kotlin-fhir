@@ -64,16 +64,12 @@ internal data class DeviceUseStatementTimingSurrogate(
   public companion object {
     public fun fromModel(model: DeviceUseStatement.Timing): DeviceUseStatementTimingSurrogate =
       with(model) {
-        DeviceUseStatementTimingSurrogate().apply {
-          DeviceUseStatement.Timing?.from(
-            this@DeviceUseStatementTimingSurrogate.timingTiming,
-            this@DeviceUseStatementTimingSurrogate.timingPeriod,
-            DateTime.of(
-              FhirDateTime.fromString(this@DeviceUseStatementTimingSurrogate.timingDateTime),
-              this@DeviceUseStatementTimingSurrogate._timingDateTime,
-            ),
-          )
-        }
+        DeviceUseStatementTimingSurrogate(
+          timingTiming = this@with.asTiming()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

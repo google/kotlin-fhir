@@ -110,17 +110,13 @@ internal data class FamilyMemberHistoryConditionOnsetSurrogate(
       model: FamilyMemberHistory.Condition.Onset
     ): FamilyMemberHistoryConditionOnsetSurrogate =
       with(model) {
-        FamilyMemberHistoryConditionOnsetSurrogate().apply {
-          FamilyMemberHistory.Condition.Onset?.from(
-            this@FamilyMemberHistoryConditionOnsetSurrogate.onsetAge,
-            this@FamilyMemberHistoryConditionOnsetSurrogate.onsetRange,
-            this@FamilyMemberHistoryConditionOnsetSurrogate.onsetPeriod,
-            R5String.of(
-              this@FamilyMemberHistoryConditionOnsetSurrogate.onsetString,
-              this@FamilyMemberHistoryConditionOnsetSurrogate._onsetString,
-            ),
-          )
-        }
+        FamilyMemberHistoryConditionOnsetSurrogate(
+          onsetAge = this@with.asAge()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -206,23 +202,15 @@ internal data class FamilyMemberHistoryProcedurePerformedSurrogate(
       model: FamilyMemberHistory.Procedure.Performed
     ): FamilyMemberHistoryProcedurePerformedSurrogate =
       with(model) {
-        FamilyMemberHistoryProcedurePerformedSurrogate().apply {
-          FamilyMemberHistory.Procedure.Performed?.from(
-            this@FamilyMemberHistoryProcedurePerformedSurrogate.performedAge,
-            this@FamilyMemberHistoryProcedurePerformedSurrogate.performedRange,
-            this@FamilyMemberHistoryProcedurePerformedSurrogate.performedPeriod,
-            R5String.of(
-              this@FamilyMemberHistoryProcedurePerformedSurrogate.performedString,
-              this@FamilyMemberHistoryProcedurePerformedSurrogate._performedString,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@FamilyMemberHistoryProcedurePerformedSurrogate.performedDateTime
-              ),
-              this@FamilyMemberHistoryProcedurePerformedSurrogate._performedDateTime,
-            ),
-          )
-        }
+        FamilyMemberHistoryProcedurePerformedSurrogate(
+          performedAge = this@with.asAge()?.value,
+          performedRange = this@with.asRange()?.value,
+          performedPeriod = this@with.asPeriod()?.value,
+          performedString = this@with.asString()?.value?.value,
+          _performedString = this@with.asString()?.value?.toElement(),
+          performedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _performedDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }
@@ -300,19 +288,13 @@ internal data class FamilyMemberHistoryBornSurrogate(
   public companion object {
     public fun fromModel(model: FamilyMemberHistory.Born): FamilyMemberHistoryBornSurrogate =
       with(model) {
-        FamilyMemberHistoryBornSurrogate().apply {
-          FamilyMemberHistory.Born?.from(
-            this@FamilyMemberHistoryBornSurrogate.bornPeriod,
-            Date.of(
-              FhirDate.fromString(this@FamilyMemberHistoryBornSurrogate.bornDate),
-              this@FamilyMemberHistoryBornSurrogate._bornDate,
-            ),
-            R5String.of(
-              this@FamilyMemberHistoryBornSurrogate.bornString,
-              this@FamilyMemberHistoryBornSurrogate._bornString,
-            ),
-          )
-        }
+        FamilyMemberHistoryBornSurrogate(
+          bornPeriod = this@with.asPeriod()?.value,
+          bornDate = this@with.asDate()?.value?.value?.toString(),
+          _bornDate = this@with.asDate()?.value?.toElement(),
+          bornString = this@with.asString()?.value?.value,
+          _bornString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -337,16 +319,12 @@ internal data class FamilyMemberHistoryAgeSurrogate(
   public companion object {
     public fun fromModel(model: FamilyMemberHistory.Age): FamilyMemberHistoryAgeSurrogate =
       with(model) {
-        FamilyMemberHistoryAgeSurrogate().apply {
-          FamilyMemberHistory.Age?.from(
-            this@FamilyMemberHistoryAgeSurrogate.ageAge,
-            this@FamilyMemberHistoryAgeSurrogate.ageRange,
-            R5String.of(
-              this@FamilyMemberHistoryAgeSurrogate.ageString,
-              this@FamilyMemberHistoryAgeSurrogate._ageString,
-            ),
-          )
-        }
+        FamilyMemberHistoryAgeSurrogate(
+          ageAge = this@with.asAge()?.value,
+          ageRange = this@with.asRange()?.value,
+          ageString = this@with.asString()?.value?.value,
+          _ageString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -385,24 +363,16 @@ internal data class FamilyMemberHistoryDeceasedSurrogate(
       model: FamilyMemberHistory.Deceased
     ): FamilyMemberHistoryDeceasedSurrogate =
       with(model) {
-        FamilyMemberHistoryDeceasedSurrogate().apply {
-          FamilyMemberHistory.Deceased?.from(
-            R5Boolean.of(
-              this@FamilyMemberHistoryDeceasedSurrogate.deceasedBoolean,
-              this@FamilyMemberHistoryDeceasedSurrogate._deceasedBoolean,
-            ),
-            this@FamilyMemberHistoryDeceasedSurrogate.deceasedAge,
-            this@FamilyMemberHistoryDeceasedSurrogate.deceasedRange,
-            Date.of(
-              FhirDate.fromString(this@FamilyMemberHistoryDeceasedSurrogate.deceasedDate),
-              this@FamilyMemberHistoryDeceasedSurrogate._deceasedDate,
-            ),
-            R5String.of(
-              this@FamilyMemberHistoryDeceasedSurrogate.deceasedString,
-              this@FamilyMemberHistoryDeceasedSurrogate._deceasedString,
-            ),
-          )
-        }
+        FamilyMemberHistoryDeceasedSurrogate(
+          deceasedBoolean = this@with.asBoolean()?.value?.value,
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement(),
+          deceasedAge = this@with.asAge()?.value,
+          deceasedRange = this@with.asRange()?.value,
+          deceasedDate = this@with.asDate()?.value?.value?.toString(),
+          _deceasedDate = this@with.asDate()?.value?.toElement(),
+          deceasedString = this@with.asString()?.value?.value,
+          _deceasedString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

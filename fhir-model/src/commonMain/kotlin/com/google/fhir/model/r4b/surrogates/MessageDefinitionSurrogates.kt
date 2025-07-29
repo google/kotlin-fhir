@@ -177,15 +177,11 @@ internal data class MessageDefinitionEventSurrogate(
   public companion object {
     public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =
       with(model) {
-        MessageDefinitionEventSurrogate().apply {
-          MessageDefinition.Event.from(
-            this@MessageDefinitionEventSurrogate.eventCoding,
-            Uri.of(
-              this@MessageDefinitionEventSurrogate.eventUri,
-              this@MessageDefinitionEventSurrogate._eventUri,
-            ),
-          )!!
-        }
+        MessageDefinitionEventSurrogate(
+          eventCoding = this@with.asCoding()?.value,
+          eventUri = this@with.asUri()?.value?.value,
+          _eventUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }

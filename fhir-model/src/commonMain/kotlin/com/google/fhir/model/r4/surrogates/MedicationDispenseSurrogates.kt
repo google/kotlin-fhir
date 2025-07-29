@@ -143,12 +143,10 @@ internal data class MedicationDispenseStatusReasonSurrogate(
       model: MedicationDispense.StatusReason
     ): MedicationDispenseStatusReasonSurrogate =
       with(model) {
-        MedicationDispenseStatusReasonSurrogate().apply {
-          MedicationDispense.StatusReason?.from(
-            this@MedicationDispenseStatusReasonSurrogate.statusReasonCodeableConcept,
-            this@MedicationDispenseStatusReasonSurrogate.statusReasonReference,
-          )
-        }
+        MedicationDispenseStatusReasonSurrogate(
+          statusReasonCodeableConcept = this@with.asCodeableConcept()?.value,
+          statusReasonReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -169,12 +167,10 @@ internal data class MedicationDispenseMedicationSurrogate(
       model: MedicationDispense.Medication
     ): MedicationDispenseMedicationSurrogate =
       with(model) {
-        MedicationDispenseMedicationSurrogate().apply {
-          MedicationDispense.Medication.from(
-            this@MedicationDispenseMedicationSurrogate.medicationCodeableConcept,
-            this@MedicationDispenseMedicationSurrogate.medicationReference,
-          )!!
-        }
+        MedicationDispenseMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }

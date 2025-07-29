@@ -439,15 +439,11 @@ internal data class OperationDefinitionVersionAlgorithmSurrogate(
       model: OperationDefinition.VersionAlgorithm
     ): OperationDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        OperationDefinitionVersionAlgorithmSurrogate().apply {
-          OperationDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@OperationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        OperationDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

@@ -22,6 +22,8 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
+import com.google.fhir.codegen.schema.getPathSimpleNames
+import com.google.fhir.codegen.schema.getPolymorphicTypeSurrogateClassSimpleName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.isCommonBinding
@@ -118,8 +120,16 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 }
                 .build()
             )
-            addConverterToModelClass(modelClassName, sealedInterfaceSurrogateClassName, element)
-            addConverterFromModelClass(modelClassName, sealedInterfaceSurrogateClassName, element)
+            addSealedClassSurrogateConverterToModelClass(
+              modelClassName,
+              sealedInterfaceSurrogateClassName,
+              element,
+            )
+            addSealedClassSurrogateConverterFromModelClass(
+              modelClassName,
+              sealedInterfaceSurrogateClassName,
+              element,
+            )
           }
           .build()
       }
@@ -142,16 +152,8 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
               }
               .build()
           )
-          addConverterToModelClass(
-            modelClassName,
-            elements = elements,
-            expandPolymorphicProperties = false,
-          )
-          addConverterFromModelClass(
-            modelClassName,
-            elements = elements,
-            expandPolymorphicProperties = false,
-          )
+          addConverterToModelClass(modelClassName, elements)
+          addConverterFromModelClass(modelClassName, elements)
         }
         .build()
 
@@ -161,16 +163,8 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
     }
   }
 
-  private fun Element.getPolymorphicTypeSurrogateClassSimpleName(): String = buildString {
-    append(getPathSimpleNames().joinToString(""))
-    append("Surrogate")
-  }
-
-  private fun Element.getPathSimpleNames(): List<String> =
-    path.replace("[x]", "").split(".").map { it.capitalized() }
-
-  /** Adds a [FunSpec] to convert the sealed interface surrogate class to as Sealed class */
-  private fun TypeSpec.Builder.addConverterToModelClass(
+  /** Adds a [FunSpec] to convert surrogate class to a sealed interface */
+  private fun TypeSpec.Builder.addSealedClassSurrogateConverterToModelClass(
     modelClassName: ClassName,
     surrogateClassName: ClassName,
     element: Element,
@@ -203,8 +197,10 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
     )
   }
 
-  /** Adds a companion object with a [FunSpec] to convert the model class to a surrogate class */
-  private fun TypeSpec.Builder.addConverterFromModelClass(
+  /**
+   * Adds a companion object with a [FunSpec] to convert sealed interface model to a surrogate class
+   */
+  private fun TypeSpec.Builder.addSealedClassSurrogateConverterFromModelClass(
     modelClassName: ClassName,
     surrogateClassName: ClassName,
     element: Element,
@@ -224,18 +220,13 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
               CodeBlock.builder()
                 .add("return with(model){\n")
                 .indent()
-                .add("%T().apply{\n", surrogateClassName)
+                .add("%T(\n", surrogateClassName)
                 .apply {
                   indent()
-                  addParamToModelClassConstructor(
-                    modelClassName = modelClassName,
-                    surrogateClassName = surrogateClassName,
-                    element = element,
-                    expandPolymorphicProperties = true,
-                  )
+                  addParamToSurrogateClassConstructor(modelClassName, element, true)
                   unindent()
                 }
-                .add("}\n")
+                .add(")\n")
                 .unindent()
                 .add("}\n")
                 .build()
@@ -252,9 +243,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
    */
   private fun TypeSpec.Builder.addConverterToModelClass(
     modelClassName: ClassName,
-    surrogateClassName: ClassName? = null,
     elements: List<Element>,
-    expandPolymorphicProperties: Boolean,
   ) {
     addFunction(
       FunSpec.builder("toModel")
@@ -268,9 +257,9 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 add("%N = ", element.getElementName())
                 addParamToModelClassConstructor(
                   modelClassName,
-                  surrogateClassName ?: modelClassName.toSurrogateClassName(),
+                  modelClassName.toSurrogateClassName(),
                   element,
-                  expandPolymorphicProperties = expandPolymorphicProperties,
+                  expandPolymorphicProperties = false,
                 )
                 add(",\n")
               }
@@ -289,29 +278,23 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
    */
   private fun TypeSpec.Builder.addConverterFromModelClass(
     modelClassName: ClassName,
-    surrogateClassName: ClassName? = null,
     elements: List<Element>,
-    expandPolymorphicProperties: Boolean,
   ) {
     addType(
       TypeSpec.companionObjectBuilder()
         .addFunction(
           FunSpec.builder("fromModel")
             .addParameter(ParameterSpec("model", modelClassName))
-            .returns(surrogateClassName ?: modelClassName.toSurrogateClassName())
+            .returns(modelClassName.toSurrogateClassName())
             .addCode(
               CodeBlock.builder()
                 .add("return with(model){\n")
                 .indent()
-                .add("%T(\n", surrogateClassName ?: modelClassName.toSurrogateClassName())
+                .add("%T(\n", modelClassName.toSurrogateClassName())
                 .apply {
                   indent()
                   elements.forEach { element ->
-                    addParamToSurrogateClassConstructor(
-                      modelClassName,
-                      element,
-                      expandPolymorphicProperties,
-                    )
+                    addParamToSurrogateClassConstructor(modelClassName, element, false)
                   }
                   unindent()
                 }
@@ -819,30 +802,26 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       val typeInDataClass = fhirPathType.getTypeInDataClass(packageName)
       if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
         add(
-          "%N = this@with.%N?.%N()?.value?.value,\n",
+          "%N = this@with.%N()?.value?.value,\n",
           "$propertyName${typeCode.capitalized()}",
-          propertyName,
           "as${typeCode.capitalized()}",
         )
       } else {
         add(
-          "%N = this@with.%N?.%N()?.value?.value?.toString(),\n",
+          "%N = this@with.%N()?.value?.value?.toString(),\n",
           "$propertyName${typeCode.capitalized()}",
-          propertyName,
           "as${typeCode.capitalized()}",
         )
       }
       add(
-        "%N = this@with.%N?.%N()?.value?.toElement(),\n",
+        "%N = this@with.%N()?.value?.toElement(),\n",
         "_$propertyName${typeCode.capitalized()}",
-        propertyName,
         "as${typeCode.capitalized()}",
       )
     } else {
       add(
-        "%N = this@with.%N?.%N()?.value,\n",
+        "%N = this@with.%N()?.value,\n",
         "$propertyName${typeCode.capitalized()}",
-        propertyName,
         "as${typeCode.capitalized()}",
       )
     }

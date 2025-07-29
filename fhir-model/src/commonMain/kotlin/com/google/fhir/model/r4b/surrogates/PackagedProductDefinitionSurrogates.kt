@@ -109,15 +109,11 @@ internal data class PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrog
       model: PackagedProductDefinition.Package.ShelfLifeStorage.Period
     ): PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate =
       with(model) {
-        PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate().apply {
-          PackagedProductDefinition.Package.ShelfLifeStorage.Period?.from(
-            this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodDuration,
-            R4bString.of(
-              this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodString,
-              this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate._periodString,
-            ),
-          )
-        }
+        PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate(
+          periodDuration = this@with.asDuration()?.value,
+          periodString = this@with.asString()?.value?.value,
+          _periodString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -194,23 +190,15 @@ internal data class PackagedProductDefinitionPackagePropertyValueSurrogate(
       model: PackagedProductDefinition.Package.Property.Value
     ): PackagedProductDefinitionPackagePropertyValueSurrogate =
       with(model) {
-        PackagedProductDefinitionPackagePropertyValueSurrogate().apply {
-          PackagedProductDefinition.Package.Property.Value?.from(
-            this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueCodeableConcept,
-            this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueQuantity,
-            Date.of(
-              FhirDate.fromString(
-                this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueDate
-              ),
-              this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueDate,
-            ),
-            R4bBoolean.of(
-              this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueBoolean,
-              this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueBoolean,
-            ),
-            this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueAttachment,
-          )
-        }
+        PackagedProductDefinitionPackagePropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

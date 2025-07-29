@@ -133,12 +133,10 @@ internal data class ConditionDefinitionPreconditionValueSurrogate(
       model: ConditionDefinition.Precondition.Value
     ): ConditionDefinitionPreconditionValueSurrogate =
       with(model) {
-        ConditionDefinitionPreconditionValueSurrogate().apply {
-          ConditionDefinition.Precondition.Value?.from(
-            this@ConditionDefinitionPreconditionValueSurrogate.valueCodeableConcept,
-            this@ConditionDefinitionPreconditionValueSurrogate.valueQuantity,
-          )
-        }
+        ConditionDefinitionPreconditionValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -282,15 +280,11 @@ internal data class ConditionDefinitionVersionAlgorithmSurrogate(
       model: ConditionDefinition.VersionAlgorithm
     ): ConditionDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        ConditionDefinitionVersionAlgorithmSurrogate().apply {
-          ConditionDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@ConditionDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        ConditionDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

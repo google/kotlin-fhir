@@ -237,15 +237,11 @@ internal data class RequirementsVersionAlgorithmSurrogate(
       model: Requirements.VersionAlgorithm
     ): RequirementsVersionAlgorithmSurrogate =
       with(model) {
-        RequirementsVersionAlgorithmSurrogate().apply {
-          Requirements.VersionAlgorithm?.from(
-            R5String.of(
-              this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@RequirementsVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        RequirementsVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

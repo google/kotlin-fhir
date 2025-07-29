@@ -54,12 +54,10 @@ internal data class MedicinalProductInteractionInteractantItemSurrogate(
       model: MedicinalProductInteraction.Interactant.Item
     ): MedicinalProductInteractionInteractantItemSurrogate =
       with(model) {
-        MedicinalProductInteractionInteractantItemSurrogate().apply {
-          MedicinalProductInteraction.Interactant.Item.from(
-            this@MedicinalProductInteractionInteractantItemSurrogate.itemReference,
-            this@MedicinalProductInteractionInteractantItemSurrogate.itemCodeableConcept,
-          )!!
-        }
+        MedicinalProductInteractionInteractantItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

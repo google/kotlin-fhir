@@ -73,17 +73,11 @@ internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
       model: BiologicallyDerivedProduct.Collection.Collected
     ): BiologicallyDerivedProductCollectionCollectedSurrogate =
       with(model) {
-        BiologicallyDerivedProductCollectionCollectedSurrogate().apply {
-          BiologicallyDerivedProduct.Collection.Collected?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedDateTime
-              ),
-              this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
-            ),
-            this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
-          )
-        }
+        BiologicallyDerivedProductCollectionCollectedSurrogate(
+          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -167,28 +161,20 @@ internal data class BiologicallyDerivedProductPropertyValueSurrogate(
       model: BiologicallyDerivedProduct.Property.Value
     ): BiologicallyDerivedProductPropertyValueSurrogate =
       with(model) {
-        BiologicallyDerivedProductPropertyValueSurrogate().apply {
-          BiologicallyDerivedProduct.Property.Value.from(
-            R5Boolean.of(
-              this@BiologicallyDerivedProductPropertyValueSurrogate.valueBoolean,
-              this@BiologicallyDerivedProductPropertyValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@BiologicallyDerivedProductPropertyValueSurrogate.valueInteger,
-              this@BiologicallyDerivedProductPropertyValueSurrogate._valueInteger,
-            ),
-            this@BiologicallyDerivedProductPropertyValueSurrogate.valueCodeableConcept,
-            this@BiologicallyDerivedProductPropertyValueSurrogate.valuePeriod,
-            this@BiologicallyDerivedProductPropertyValueSurrogate.valueQuantity,
-            this@BiologicallyDerivedProductPropertyValueSurrogate.valueRange,
-            this@BiologicallyDerivedProductPropertyValueSurrogate.valueRatio,
-            R5String.of(
-              this@BiologicallyDerivedProductPropertyValueSurrogate.valueString,
-              this@BiologicallyDerivedProductPropertyValueSurrogate._valueString,
-            ),
-            this@BiologicallyDerivedProductPropertyValueSurrogate.valueAttachment,
-          )!!
-        }
+        BiologicallyDerivedProductPropertyValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valuePeriod = this@with.asPeriod()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

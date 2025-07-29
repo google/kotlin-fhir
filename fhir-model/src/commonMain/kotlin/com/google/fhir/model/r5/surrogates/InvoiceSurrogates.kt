@@ -100,15 +100,11 @@ internal data class InvoiceLineItemServicedSurrogate(
   public companion object {
     public fun fromModel(model: Invoice.LineItem.Serviced): InvoiceLineItemServicedSurrogate =
       with(model) {
-        InvoiceLineItemServicedSurrogate().apply {
-          Invoice.LineItem.Serviced?.from(
-            Date.of(
-              FhirDate.fromString(this@InvoiceLineItemServicedSurrogate.servicedDate),
-              this@InvoiceLineItemServicedSurrogate._servicedDate,
-            ),
-            this@InvoiceLineItemServicedSurrogate.servicedPeriod,
-          )
-        }
+        InvoiceLineItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -127,12 +123,10 @@ internal data class InvoiceLineItemChargeItemSurrogate(
   public companion object {
     public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
       with(model) {
-        InvoiceLineItemChargeItemSurrogate().apply {
-          Invoice.LineItem.ChargeItem.from(
-            this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
-            this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
-          )!!
-        }
+        InvoiceLineItemChargeItemSurrogate(
+          chargeItemReference = this@with.asReference()?.value,
+          chargeItemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -198,15 +192,11 @@ internal data class InvoicePeriodSurrogate(
   public companion object {
     public fun fromModel(model: Invoice.Period): InvoicePeriodSurrogate =
       with(model) {
-        InvoicePeriodSurrogate().apply {
-          Invoice.Period?.from(
-            Date.of(
-              FhirDate.fromString(this@InvoicePeriodSurrogate.periodDate),
-              this@InvoicePeriodSurrogate._periodDate,
-            ),
-            this@InvoicePeriodSurrogate.periodPeriod,
-          )
-        }
+        InvoicePeriodSurrogate(
+          periodDate = this@with.asDate()?.value?.value?.toString(),
+          _periodDate = this@with.asDate()?.value?.toElement(),
+          periodPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

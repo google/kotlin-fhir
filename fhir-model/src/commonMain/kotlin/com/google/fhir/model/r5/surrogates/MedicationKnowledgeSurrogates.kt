@@ -141,12 +141,10 @@ internal data class MedicationKnowledgeCostCostSurrogate(
       model: MedicationKnowledge.Cost.Cost
     ): MedicationKnowledgeCostCostSurrogate =
       with(model) {
-        MedicationKnowledgeCostCostSurrogate().apply {
-          MedicationKnowledge.Cost.Cost.from(
-            this@MedicationKnowledgeCostCostSurrogate.costMoney,
-            this@MedicationKnowledgeCostCostSurrogate.costCodeableConcept,
-          )!!
-        }
+        MedicationKnowledgeCostCostSurrogate(
+          costMoney = this@with.asMoney()?.value,
+          costCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -296,18 +294,11 @@ internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatient
       model: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value
     ): MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate =
       with(model) {
-        MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate()
-          .apply {
-            MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value
-              ?.from(
-                this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-                  .valueCodeableConcept,
-                this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-                  .valueQuantity,
-                this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-                  .valueRange,
-              )
-          }
+        MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -472,18 +463,12 @@ internal data class MedicationKnowledgeMedicineClassificationSourceSurrogate(
       model: MedicationKnowledge.MedicineClassification.Source
     ): MedicationKnowledgeMedicineClassificationSourceSurrogate =
       with(model) {
-        MedicationKnowledgeMedicineClassificationSourceSurrogate().apply {
-          MedicationKnowledge.MedicineClassification.Source?.from(
-            R5String.of(
-              this@MedicationKnowledgeMedicineClassificationSourceSurrogate.sourceString,
-              this@MedicationKnowledgeMedicineClassificationSourceSurrogate._sourceString,
-            ),
-            Uri.of(
-              this@MedicationKnowledgeMedicineClassificationSourceSurrogate.sourceUri,
-              this@MedicationKnowledgeMedicineClassificationSourceSurrogate._sourceUri,
-            ),
-          )
-        }
+        MedicationKnowledgeMedicineClassificationSourceSurrogate(
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceUri = this@with.asUri()?.value?.value,
+          _sourceUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }
@@ -581,15 +566,11 @@ internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue
       model: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value
     ): MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate =
       with(model) {
-        MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate().apply {
-          MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value.from(
-            this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate
-              .valueQuantity,
-            this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.valueRange,
-            this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate
-              .valueCodeableConcept,
-          )!!
-        }
+        MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }
@@ -815,13 +796,11 @@ internal data class MedicationKnowledgeDefinitionalIngredientStrengthSurrogate(
       model: MedicationKnowledge.Definitional.Ingredient.Strength
     ): MedicationKnowledgeDefinitionalIngredientStrengthSurrogate =
       with(model) {
-        MedicationKnowledgeDefinitionalIngredientStrengthSurrogate().apply {
-          MedicationKnowledge.Definitional.Ingredient.Strength?.from(
-            this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthRatio,
-            this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthCodeableConcept,
-            this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthQuantity,
-          )
-        }
+        MedicationKnowledgeDefinitionalIngredientStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -895,24 +874,15 @@ internal data class MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrog
       model: MedicationKnowledge.Definitional.DrugCharacteristic.Value
     ): MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate =
       with(model) {
-        MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate().apply {
-          MedicationKnowledge.Definitional.DrugCharacteristic.Value?.from(
-            this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate
-              .valueCodeableConcept,
-            R5String.of(
-              this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueString,
-              this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate._valueString,
-            ),
-            this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueQuantity,
-            Base64Binary.of(
-              this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate
-                .valueBase64Binary,
-              this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate
-                ._valueBase64Binary,
-            ),
-            this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueAttachment,
-          )
-        }
+        MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

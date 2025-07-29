@@ -68,20 +68,14 @@ internal data class TriggerDefinitionTimingSurrogate(
   public companion object {
     public fun fromModel(model: TriggerDefinition.Timing): TriggerDefinitionTimingSurrogate =
       with(model) {
-        TriggerDefinitionTimingSurrogate().apply {
-          TriggerDefinition.Timing?.from(
-            this@TriggerDefinitionTimingSurrogate.timingTiming,
-            this@TriggerDefinitionTimingSurrogate.timingReference,
-            Date.of(
-              FhirDate.fromString(this@TriggerDefinitionTimingSurrogate.timingDate),
-              this@TriggerDefinitionTimingSurrogate._timingDate,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@TriggerDefinitionTimingSurrogate.timingDateTime),
-              this@TriggerDefinitionTimingSurrogate._timingDateTime,
-            ),
-          )
-        }
+        TriggerDefinitionTimingSurrogate(
+          timingTiming = this@with.asTiming()?.value,
+          timingReference = this@with.asReference()?.value,
+          timingDate = this@with.asDate()?.value?.value?.toString(),
+          _timingDate = this@with.asDate()?.value?.toElement(),
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }

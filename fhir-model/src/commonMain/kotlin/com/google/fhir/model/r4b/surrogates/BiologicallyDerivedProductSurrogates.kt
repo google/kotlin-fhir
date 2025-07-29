@@ -69,17 +69,11 @@ internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
       model: BiologicallyDerivedProduct.Collection.Collected
     ): BiologicallyDerivedProductCollectionCollectedSurrogate =
       with(model) {
-        BiologicallyDerivedProductCollectionCollectedSurrogate().apply {
-          BiologicallyDerivedProduct.Collection.Collected?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedDateTime
-              ),
-              this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
-            ),
-            this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
-          )
-        }
+        BiologicallyDerivedProductCollectionCollectedSurrogate(
+          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -143,17 +137,11 @@ internal data class BiologicallyDerivedProductProcessingTimeSurrogate(
       model: BiologicallyDerivedProduct.Processing.Time
     ): BiologicallyDerivedProductProcessingTimeSurrogate =
       with(model) {
-        BiologicallyDerivedProductProcessingTimeSurrogate().apply {
-          BiologicallyDerivedProduct.Processing.Time?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@BiologicallyDerivedProductProcessingTimeSurrogate.timeDateTime
-              ),
-              this@BiologicallyDerivedProductProcessingTimeSurrogate._timeDateTime,
-            ),
-            this@BiologicallyDerivedProductProcessingTimeSurrogate.timePeriod,
-          )
-        }
+        BiologicallyDerivedProductProcessingTimeSurrogate(
+          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -226,17 +214,11 @@ internal data class BiologicallyDerivedProductManipulationTimeSurrogate(
       model: BiologicallyDerivedProduct.Manipulation.Time
     ): BiologicallyDerivedProductManipulationTimeSurrogate =
       with(model) {
-        BiologicallyDerivedProductManipulationTimeSurrogate().apply {
-          BiologicallyDerivedProduct.Manipulation.Time?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@BiologicallyDerivedProductManipulationTimeSurrogate.timeDateTime
-              ),
-              this@BiologicallyDerivedProductManipulationTimeSurrogate._timeDateTime,
-            ),
-            this@BiologicallyDerivedProductManipulationTimeSurrogate.timePeriod,
-          )
-        }
+        BiologicallyDerivedProductManipulationTimeSurrogate(
+          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

@@ -274,41 +274,27 @@ internal data class InventoryItemCharacteristicValueSurrogate(
       model: InventoryItem.Characteristic.Value
     ): InventoryItemCharacteristicValueSurrogate =
       with(model) {
-        InventoryItemCharacteristicValueSurrogate().apply {
-          InventoryItem.Characteristic.Value.from(
-            R5String.of(
-              this@InventoryItemCharacteristicValueSurrogate.valueString,
-              this@InventoryItemCharacteristicValueSurrogate._valueString,
-            ),
-            Integer.of(
-              this@InventoryItemCharacteristicValueSurrogate.valueInteger,
-              this@InventoryItemCharacteristicValueSurrogate._valueInteger,
-            ),
-            Decimal.of(
-              this@InventoryItemCharacteristicValueSurrogate.valueDecimal,
-              this@InventoryItemCharacteristicValueSurrogate._valueDecimal,
-            ),
-            R5Boolean.of(
-              this@InventoryItemCharacteristicValueSurrogate.valueBoolean,
-              this@InventoryItemCharacteristicValueSurrogate._valueBoolean,
-            ),
-            Url.of(
-              this@InventoryItemCharacteristicValueSurrogate.valueUrl,
-              this@InventoryItemCharacteristicValueSurrogate._valueUrl,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@InventoryItemCharacteristicValueSurrogate.valueDateTime),
-              this@InventoryItemCharacteristicValueSurrogate._valueDateTime,
-            ),
-            this@InventoryItemCharacteristicValueSurrogate.valueQuantity,
-            this@InventoryItemCharacteristicValueSurrogate.valueRange,
-            this@InventoryItemCharacteristicValueSurrogate.valueRatio,
-            this@InventoryItemCharacteristicValueSurrogate.valueAnnotation,
-            this@InventoryItemCharacteristicValueSurrogate.valueAddress,
-            this@InventoryItemCharacteristicValueSurrogate.valueDuration,
-            this@InventoryItemCharacteristicValueSurrogate.valueCodeableConcept,
-          )!!
-        }
+        InventoryItemCharacteristicValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueUrl = this@with.asUrl()?.value?.value,
+          _valueUrl = this@with.asUrl()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueAnnotation = this@with.asAnnotation()?.value,
+          valueAddress = this@with.asAddress()?.value,
+          valueDuration = this@with.asDuration()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

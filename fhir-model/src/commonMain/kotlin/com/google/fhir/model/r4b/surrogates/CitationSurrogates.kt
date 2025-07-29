@@ -183,17 +183,13 @@ internal data class CitationRelatesToTargetSurrogate(
   public companion object {
     public fun fromModel(model: Citation.RelatesTo.Target): CitationRelatesToTargetSurrogate =
       with(model) {
-        CitationRelatesToTargetSurrogate().apply {
-          Citation.RelatesTo.Target.from(
-            Uri.of(
-              this@CitationRelatesToTargetSurrogate.targetUri,
-              this@CitationRelatesToTargetSurrogate._targetUri,
-            ),
-            this@CitationRelatesToTargetSurrogate.targetIdentifier,
-            this@CitationRelatesToTargetSurrogate.targetReference,
-            this@CitationRelatesToTargetSurrogate.targetAttachment,
-          )!!
-        }
+        CitationRelatesToTargetSurrogate(
+          targetUri = this@with.asUri()?.value?.value,
+          _targetUri = this@with.asUri()?.value?.toElement(),
+          targetIdentifier = this@with.asIdentifier()?.value,
+          targetReference = this@with.asReference()?.value,
+          targetAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }
@@ -473,17 +469,13 @@ internal data class CitationCitedArtifactRelatesToTargetSurrogate(
       model: Citation.CitedArtifact.RelatesTo.Target
     ): CitationCitedArtifactRelatesToTargetSurrogate =
       with(model) {
-        CitationCitedArtifactRelatesToTargetSurrogate().apply {
-          Citation.CitedArtifact.RelatesTo.Target.from(
-            Uri.of(
-              this@CitationCitedArtifactRelatesToTargetSurrogate.targetUri,
-              this@CitationCitedArtifactRelatesToTargetSurrogate._targetUri,
-            ),
-            this@CitationCitedArtifactRelatesToTargetSurrogate.targetIdentifier,
-            this@CitationCitedArtifactRelatesToTargetSurrogate.targetReference,
-            this@CitationCitedArtifactRelatesToTargetSurrogate.targetAttachment,
-          )!!
-        }
+        CitationCitedArtifactRelatesToTargetSurrogate(
+          targetUri = this@with.asUri()?.value?.value,
+          _targetUri = this@with.asUri()?.value?.toElement(),
+          targetIdentifier = this@with.asIdentifier()?.value,
+          targetReference = this@with.asReference()?.value,
+          targetAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

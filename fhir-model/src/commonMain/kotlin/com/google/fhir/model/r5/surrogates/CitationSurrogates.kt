@@ -1054,15 +1054,11 @@ internal data class CitationVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: Citation.VersionAlgorithm): CitationVersionAlgorithmSurrogate =
       with(model) {
-        CitationVersionAlgorithmSurrogate().apply {
-          Citation.VersionAlgorithm?.from(
-            R5String.of(
-              this@CitationVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@CitationVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@CitationVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        CitationVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

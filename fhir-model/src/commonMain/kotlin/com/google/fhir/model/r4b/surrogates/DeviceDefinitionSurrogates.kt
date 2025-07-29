@@ -328,15 +328,11 @@ internal data class DeviceDefinitionManufacturerSurrogate(
       model: DeviceDefinition.Manufacturer
     ): DeviceDefinitionManufacturerSurrogate =
       with(model) {
-        DeviceDefinitionManufacturerSurrogate().apply {
-          DeviceDefinition.Manufacturer?.from(
-            R4bString.of(
-              this@DeviceDefinitionManufacturerSurrogate.manufacturerString,
-              this@DeviceDefinitionManufacturerSurrogate._manufacturerString,
-            ),
-            this@DeviceDefinitionManufacturerSurrogate.manufacturerReference,
-          )
-        }
+        DeviceDefinitionManufacturerSurrogate(
+          manufacturerString = this@with.asString()?.value?.value,
+          _manufacturerString = this@with.asString()?.value?.toElement(),
+          manufacturerReference = this@with.asReference()?.value,
+        )
       }
   }
 }

@@ -146,15 +146,11 @@ internal data class NamingSystemVersionAlgorithmSurrogate(
       model: NamingSystem.VersionAlgorithm
     ): NamingSystemVersionAlgorithmSurrogate =
       with(model) {
-        NamingSystemVersionAlgorithmSurrogate().apply {
-          NamingSystem.VersionAlgorithm?.from(
-            R5String.of(
-              this@NamingSystemVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@NamingSystemVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@NamingSystemVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        NamingSystemVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

@@ -64,15 +64,11 @@ internal data class MessageHeaderDestinationEndpointSurrogate(
       model: MessageHeader.Destination.Endpoint
     ): MessageHeaderDestinationEndpointSurrogate =
       with(model) {
-        MessageHeaderDestinationEndpointSurrogate().apply {
-          MessageHeader.Destination.Endpoint?.from(
-            Url.of(
-              this@MessageHeaderDestinationEndpointSurrogate.endpointUrl,
-              this@MessageHeaderDestinationEndpointSurrogate._endpointUrl,
-            ),
-            this@MessageHeaderDestinationEndpointSurrogate.endpointReference,
-          )
-        }
+        MessageHeaderDestinationEndpointSurrogate(
+          endpointUrl = this@with.asUrl()?.value?.value,
+          _endpointUrl = this@with.asUrl()?.value?.toElement(),
+          endpointReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -141,15 +137,11 @@ internal data class MessageHeaderSourceEndpointSurrogate(
       model: MessageHeader.Source.Endpoint
     ): MessageHeaderSourceEndpointSurrogate =
       with(model) {
-        MessageHeaderSourceEndpointSurrogate().apply {
-          MessageHeader.Source.Endpoint?.from(
-            Url.of(
-              this@MessageHeaderSourceEndpointSurrogate.endpointUrl,
-              this@MessageHeaderSourceEndpointSurrogate._endpointUrl,
-            ),
-            this@MessageHeaderSourceEndpointSurrogate.endpointReference,
-          )
-        }
+        MessageHeaderSourceEndpointSurrogate(
+          endpointUrl = this@with.asUrl()?.value?.value,
+          _endpointUrl = this@with.asUrl()?.value?.toElement(),
+          endpointReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -272,15 +264,11 @@ internal data class MessageHeaderEventSurrogate(
   public companion object {
     public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =
       with(model) {
-        MessageHeaderEventSurrogate().apply {
-          MessageHeader.Event.from(
-            this@MessageHeaderEventSurrogate.eventCoding,
-            Canonical.of(
-              this@MessageHeaderEventSurrogate.eventCanonical,
-              this@MessageHeaderEventSurrogate._eventCanonical,
-            ),
-          )!!
-        }
+        MessageHeaderEventSurrogate(
+          eventCoding = this@with.asCoding()?.value,
+          eventCanonical = this@with.asCanonical()?.value?.value,
+          _eventCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
       }
   }
 }

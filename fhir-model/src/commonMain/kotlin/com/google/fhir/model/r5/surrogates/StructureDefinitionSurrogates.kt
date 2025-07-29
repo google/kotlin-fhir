@@ -240,15 +240,11 @@ internal data class StructureDefinitionVersionAlgorithmSurrogate(
       model: StructureDefinition.VersionAlgorithm
     ): StructureDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        StructureDefinitionVersionAlgorithmSurrogate().apply {
-          StructureDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@StructureDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        StructureDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

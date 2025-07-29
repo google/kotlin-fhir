@@ -105,12 +105,10 @@ internal data class CompositionRelatesToTargetSurrogate(
   public companion object {
     public fun fromModel(model: Composition.RelatesTo.Target): CompositionRelatesToTargetSurrogate =
       with(model) {
-        CompositionRelatesToTargetSurrogate().apply {
-          Composition.RelatesTo.Target.from(
-            this@CompositionRelatesToTargetSurrogate.targetIdentifier,
-            this@CompositionRelatesToTargetSurrogate.targetReference,
-          )!!
-        }
+        CompositionRelatesToTargetSurrogate(
+          targetIdentifier = this@with.asIdentifier()?.value,
+          targetReference = this@with.asReference()?.value,
+        )
       }
   }
 }

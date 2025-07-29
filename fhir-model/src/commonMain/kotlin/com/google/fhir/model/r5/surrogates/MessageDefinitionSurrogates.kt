@@ -179,15 +179,11 @@ internal data class MessageDefinitionVersionAlgorithmSurrogate(
       model: MessageDefinition.VersionAlgorithm
     ): MessageDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        MessageDefinitionVersionAlgorithmSurrogate().apply {
-          MessageDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@MessageDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        MessageDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -210,15 +206,11 @@ internal data class MessageDefinitionEventSurrogate(
   public companion object {
     public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =
       with(model) {
-        MessageDefinitionEventSurrogate().apply {
-          MessageDefinition.Event.from(
-            this@MessageDefinitionEventSurrogate.eventCoding,
-            Uri.of(
-              this@MessageDefinitionEventSurrogate.eventUri,
-              this@MessageDefinitionEventSurrogate._eventUri,
-            ),
-          )!!
-        }
+        MessageDefinitionEventSurrogate(
+          eventCoding = this@with.asCoding()?.value,
+          eventUri = this@with.asUri()?.value?.value,
+          _eventUri = this@with.asUri()?.value?.toElement(),
+        )
       }
   }
 }

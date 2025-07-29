@@ -104,15 +104,11 @@ internal data class SpecimenCollectionCollectedSurrogate(
       model: Specimen.Collection.Collected
     ): SpecimenCollectionCollectedSurrogate =
       with(model) {
-        SpecimenCollectionCollectedSurrogate().apply {
-          Specimen.Collection.Collected?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@SpecimenCollectionCollectedSurrogate.collectedDateTime),
-              this@SpecimenCollectionCollectedSurrogate._collectedDateTime,
-            ),
-            this@SpecimenCollectionCollectedSurrogate.collectedPeriod,
-          )
-        }
+        SpecimenCollectionCollectedSurrogate(
+          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -133,12 +129,10 @@ internal data class SpecimenCollectionFastingStatusSurrogate(
       model: Specimen.Collection.FastingStatus
     ): SpecimenCollectionFastingStatusSurrogate =
       with(model) {
-        SpecimenCollectionFastingStatusSurrogate().apply {
-          Specimen.Collection.FastingStatus?.from(
-            this@SpecimenCollectionFastingStatusSurrogate.fastingStatusCodeableConcept,
-            this@SpecimenCollectionFastingStatusSurrogate.fastingStatusDuration,
-          )
-        }
+        SpecimenCollectionFastingStatusSurrogate(
+          fastingStatusCodeableConcept = this@with.asCodeableConcept()?.value,
+          fastingStatusDuration = this@with.asDuration()?.value,
+        )
       }
   }
 }
@@ -213,15 +207,11 @@ internal data class SpecimenProcessingTimeSurrogate(
   public companion object {
     public fun fromModel(model: Specimen.Processing.Time): SpecimenProcessingTimeSurrogate =
       with(model) {
-        SpecimenProcessingTimeSurrogate().apply {
-          Specimen.Processing.Time?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@SpecimenProcessingTimeSurrogate.timeDateTime),
-              this@SpecimenProcessingTimeSurrogate._timeDateTime,
-            ),
-            this@SpecimenProcessingTimeSurrogate.timePeriod,
-          )
-        }
+        SpecimenProcessingTimeSurrogate(
+          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

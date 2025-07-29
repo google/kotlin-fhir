@@ -62,12 +62,10 @@ internal data class GenomicStudyAnalysisInputGeneratedBySurrogate(
       model: GenomicStudy.Analysis.Input.GeneratedBy
     ): GenomicStudyAnalysisInputGeneratedBySurrogate =
       with(model) {
-        GenomicStudyAnalysisInputGeneratedBySurrogate().apply {
-          GenomicStudy.Analysis.Input.GeneratedBy?.from(
-            this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByIdentifier,
-            this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByReference,
-          )
-        }
+        GenomicStudyAnalysisInputGeneratedBySurrogate(
+          generatedByIdentifier = this@with.asIdentifier()?.value,
+          generatedByReference = this@with.asReference()?.value,
+        )
       }
   }
 }

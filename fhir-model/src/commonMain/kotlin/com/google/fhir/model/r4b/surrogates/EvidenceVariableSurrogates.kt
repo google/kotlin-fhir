@@ -125,17 +125,13 @@ internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
       model: EvidenceVariable.Characteristic.Definition
     ): EvidenceVariableCharacteristicDefinitionSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicDefinitionSurrogate().apply {
-          EvidenceVariable.Characteristic.Definition.from(
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionReference,
-            Canonical.of(
-              this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCanonical,
-              this@EvidenceVariableCharacteristicDefinitionSurrogate._definitionCanonical,
-            ),
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
-          )!!
-        }
+        EvidenceVariableCharacteristicDefinitionSurrogate(
+          definitionReference = this@with.asReference()?.value,
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionCodeableConcept = this@with.asCodeableConcept()?.value,
+          definitionExpression = this@with.asExpression()?.value,
+        )
       }
   }
 }
@@ -227,13 +223,11 @@ internal data class EvidenceVariableCategoryValueSurrogate(
       model: EvidenceVariable.Category.Value
     ): EvidenceVariableCategoryValueSurrogate =
       with(model) {
-        EvidenceVariableCategoryValueSurrogate().apply {
-          EvidenceVariable.Category.Value?.from(
-            this@EvidenceVariableCategoryValueSurrogate.valueCodeableConcept,
-            this@EvidenceVariableCategoryValueSurrogate.valueQuantity,
-            this@EvidenceVariableCategoryValueSurrogate.valueRange,
-          )
-        }
+        EvidenceVariableCategoryValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+        )
       }
   }
 }

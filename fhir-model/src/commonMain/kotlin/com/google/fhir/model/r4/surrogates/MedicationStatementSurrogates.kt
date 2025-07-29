@@ -60,12 +60,10 @@ internal data class MedicationStatementMedicationSurrogate(
       model: MedicationStatement.Medication
     ): MedicationStatementMedicationSurrogate =
       with(model) {
-        MedicationStatementMedicationSurrogate().apply {
-          MedicationStatement.Medication.from(
-            this@MedicationStatementMedicationSurrogate.medicationCodeableConcept,
-            this@MedicationStatementMedicationSurrogate.medicationReference,
-          )!!
-        }
+        MedicationStatementMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -90,15 +88,11 @@ internal data class MedicationStatementEffectiveSurrogate(
       model: MedicationStatement.Effective
     ): MedicationStatementEffectiveSurrogate =
       with(model) {
-        MedicationStatementEffectiveSurrogate().apply {
-          MedicationStatement.Effective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@MedicationStatementEffectiveSurrogate.effectiveDateTime),
-              this@MedicationStatementEffectiveSurrogate._effectiveDateTime,
-            ),
-            this@MedicationStatementEffectiveSurrogate.effectivePeriod,
-          )
-        }
+        MedicationStatementEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

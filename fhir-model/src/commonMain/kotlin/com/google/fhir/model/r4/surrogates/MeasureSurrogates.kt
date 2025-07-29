@@ -280,12 +280,10 @@ internal data class MeasureSubjectSurrogate(
   public companion object {
     public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =
       with(model) {
-        MeasureSubjectSurrogate().apply {
-          Measure.Subject?.from(
-            this@MeasureSubjectSurrogate.subjectCodeableConcept,
-            this@MeasureSubjectSurrogate.subjectReference,
-          )
-        }
+        MeasureSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

@@ -96,12 +96,10 @@ internal data class MedicationAdministrationDosageRateSurrogate(
       model: MedicationAdministration.Dosage.Rate
     ): MedicationAdministrationDosageRateSurrogate =
       with(model) {
-        MedicationAdministrationDosageRateSurrogate().apply {
-          MedicationAdministration.Dosage.Rate?.from(
-            this@MedicationAdministrationDosageRateSurrogate.rateRatio,
-            this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
-          )
-        }
+        MedicationAdministrationDosageRateSurrogate(
+          rateRatio = this@with.asRatio()?.value,
+          rateQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }
@@ -174,12 +172,10 @@ internal data class MedicationAdministrationMedicationSurrogate(
       model: MedicationAdministration.Medication
     ): MedicationAdministrationMedicationSurrogate =
       with(model) {
-        MedicationAdministrationMedicationSurrogate().apply {
-          MedicationAdministration.Medication.from(
-            this@MedicationAdministrationMedicationSurrogate.medicationCodeableConcept,
-            this@MedicationAdministrationMedicationSurrogate.medicationReference,
-          )!!
-        }
+        MedicationAdministrationMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -204,17 +200,11 @@ internal data class MedicationAdministrationEffectiveSurrogate(
       model: MedicationAdministration.Effective
     ): MedicationAdministrationEffectiveSurrogate =
       with(model) {
-        MedicationAdministrationEffectiveSurrogate().apply {
-          MedicationAdministration.Effective.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@MedicationAdministrationEffectiveSurrogate.effectiveDateTime
-              ),
-              this@MedicationAdministrationEffectiveSurrogate._effectiveDateTime,
-            ),
-            this@MedicationAdministrationEffectiveSurrogate.effectivePeriod,
-          )!!
-        }
+        MedicationAdministrationEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

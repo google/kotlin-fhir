@@ -71,13 +71,10 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurroga
       model: SpecimenDefinition.TypeTested.Container.Additive.Additive
     ): SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate().apply {
-          SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
-            this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate
-              .additiveCodeableConcept,
-            this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
-          )!!
-        }
+        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
+          additiveCodeableConcept = this@with.asCodeableConcept()?.value,
+          additiveReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -135,15 +132,11 @@ internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
       model: SpecimenDefinition.TypeTested.Container.MinimumVolume
     ): SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate().apply {
-          SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
-            this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
-            R5String.of(
-              this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
-              this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
-            ),
-          )
-        }
+        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
+          minimumVolumeQuantity = this@with.asQuantity()?.value,
+          minimumVolumeString = this@with.asString()?.value?.value,
+          _minimumVolumeString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -365,15 +358,11 @@ internal data class SpecimenDefinitionVersionAlgorithmSurrogate(
       model: SpecimenDefinition.VersionAlgorithm
     ): SpecimenDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        SpecimenDefinitionVersionAlgorithmSurrogate().apply {
-          SpecimenDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@SpecimenDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@SpecimenDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@SpecimenDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        SpecimenDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -392,12 +381,10 @@ internal data class SpecimenDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: SpecimenDefinition.Subject): SpecimenDefinitionSubjectSurrogate =
       with(model) {
-        SpecimenDefinitionSubjectSurrogate().apply {
-          SpecimenDefinition.Subject?.from(
-            this@SpecimenDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@SpecimenDefinitionSubjectSurrogate.subjectReference,
-          )
-        }
+        SpecimenDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

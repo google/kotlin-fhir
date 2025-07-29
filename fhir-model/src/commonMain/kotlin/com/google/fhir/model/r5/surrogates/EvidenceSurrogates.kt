@@ -478,15 +478,11 @@ internal data class EvidenceVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: Evidence.VersionAlgorithm): EvidenceVersionAlgorithmSurrogate =
       with(model) {
-        EvidenceVersionAlgorithmSurrogate().apply {
-          Evidence.VersionAlgorithm?.from(
-            R5String.of(
-              this@EvidenceVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@EvidenceVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@EvidenceVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        EvidenceVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -509,15 +505,11 @@ internal data class EvidenceCiteAsSurrogate(
   public companion object {
     public fun fromModel(model: Evidence.CiteAs): EvidenceCiteAsSurrogate =
       with(model) {
-        EvidenceCiteAsSurrogate().apply {
-          Evidence.CiteAs?.from(
-            this@EvidenceCiteAsSurrogate.citeAsReference,
-            Markdown.of(
-              this@EvidenceCiteAsSurrogate.citeAsMarkdown,
-              this@EvidenceCiteAsSurrogate._citeAsMarkdown,
-            ),
-          )
-        }
+        EvidenceCiteAsSurrogate(
+          citeAsReference = this@with.asReference()?.value,
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value,
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
       }
   }
 }

@@ -84,16 +84,12 @@ internal data class SubstanceAmountAmountSurrogate(
   public companion object {
     public fun fromModel(model: SubstanceAmount.Amount): SubstanceAmountAmountSurrogate =
       with(model) {
-        SubstanceAmountAmountSurrogate().apply {
-          SubstanceAmount.Amount?.from(
-            this@SubstanceAmountAmountSurrogate.amountQuantity,
-            this@SubstanceAmountAmountSurrogate.amountRange,
-            R4String.of(
-              this@SubstanceAmountAmountSurrogate.amountString,
-              this@SubstanceAmountAmountSurrogate._amountString,
-            ),
-          )
-        }
+        SubstanceAmountAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRange = this@with.asRange()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

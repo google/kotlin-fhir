@@ -410,46 +410,24 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
       model: StructureMap.Group.Rule.Target.Parameter.Value
     ): StructureMapGroupRuleTargetParameterValueSurrogate =
       with(model) {
-        StructureMapGroupRuleTargetParameterValueSurrogate().apply {
-          StructureMap.Group.Rule.Target.Parameter.Value.from(
-            Id.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueId,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueId,
-            ),
-            R5String.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueString,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueString,
-            ),
-            R5Boolean.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueBoolean,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueInteger,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueInteger,
-            ),
-            Decimal.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDecimal,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDecimal,
-            ),
-            Date.of(
-              FhirDate.fromString(
-                this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDate
-              ),
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDate,
-            ),
-            Time.of(
-              this@StructureMapGroupRuleTargetParameterValueSurrogate.valueTime,
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueTime,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDateTime
-              ),
-              this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDateTime,
-            ),
-          )!!
-        }
+        StructureMapGroupRuleTargetParameterValueSurrogate(
+          valueId = this@with.asId()?.value?.value,
+          _valueId = this@with.asId()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
       }
   }
 }
@@ -773,15 +751,11 @@ internal data class StructureMapVersionAlgorithmSurrogate(
       model: StructureMap.VersionAlgorithm
     ): StructureMapVersionAlgorithmSurrogate =
       with(model) {
-        StructureMapVersionAlgorithmSurrogate().apply {
-          StructureMap.VersionAlgorithm?.from(
-            R5String.of(
-              this@StructureMapVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@StructureMapVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@StructureMapVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        StructureMapVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

@@ -73,15 +73,11 @@ internal data class EventDefinitionVersionAlgorithmSurrogate(
       model: EventDefinition.VersionAlgorithm
     ): EventDefinitionVersionAlgorithmSurrogate =
       with(model) {
-        EventDefinitionVersionAlgorithmSurrogate().apply {
-          EventDefinition.VersionAlgorithm?.from(
-            R5String.of(
-              this@EventDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@EventDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@EventDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        EventDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -100,12 +96,10 @@ internal data class EventDefinitionSubjectSurrogate(
   public companion object {
     public fun fromModel(model: EventDefinition.Subject): EventDefinitionSubjectSurrogate =
       with(model) {
-        EventDefinitionSubjectSurrogate().apply {
-          EventDefinition.Subject?.from(
-            this@EventDefinitionSubjectSurrogate.subjectCodeableConcept,
-            this@EventDefinitionSubjectSurrogate.subjectReference,
-          )
-        }
+        EventDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }

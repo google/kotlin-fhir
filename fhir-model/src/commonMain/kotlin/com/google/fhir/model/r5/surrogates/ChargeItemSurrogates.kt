@@ -99,16 +99,12 @@ internal data class ChargeItemOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: ChargeItem.Occurrence): ChargeItemOccurrenceSurrogate =
       with(model) {
-        ChargeItemOccurrenceSurrogate().apply {
-          ChargeItem.Occurrence?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ChargeItemOccurrenceSurrogate.occurrenceDateTime),
-              this@ChargeItemOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            this@ChargeItemOccurrenceSurrogate.occurrencePeriod,
-            this@ChargeItemOccurrenceSurrogate.occurrenceTiming,
-          )
-        }
+        ChargeItemOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

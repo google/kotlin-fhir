@@ -640,15 +640,11 @@ internal data class TerminologyCapabilitiesVersionAlgorithmSurrogate(
       model: TerminologyCapabilities.VersionAlgorithm
     ): TerminologyCapabilitiesVersionAlgorithmSurrogate =
       with(model) {
-        TerminologyCapabilitiesVersionAlgorithmSurrogate().apply {
-          TerminologyCapabilities.VersionAlgorithm?.from(
-            R5String.of(
-              this@TerminologyCapabilitiesVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@TerminologyCapabilitiesVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@TerminologyCapabilitiesVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        TerminologyCapabilitiesVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }

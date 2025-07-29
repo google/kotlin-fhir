@@ -60,13 +60,11 @@ internal data class TimingRepeatBoundsSurrogate(
   public companion object {
     public fun fromModel(model: Timing.Repeat.Bounds): TimingRepeatBoundsSurrogate =
       with(model) {
-        TimingRepeatBoundsSurrogate().apply {
-          Timing.Repeat.Bounds?.from(
-            this@TimingRepeatBoundsSurrogate.boundsDuration,
-            this@TimingRepeatBoundsSurrogate.boundsRange,
-            this@TimingRepeatBoundsSurrogate.boundsPeriod,
-          )
-        }
+        TimingRepeatBoundsSurrogate(
+          boundsDuration = this@with.asDuration()?.value,
+          boundsRange = this@with.asRange()?.value,
+          boundsPeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

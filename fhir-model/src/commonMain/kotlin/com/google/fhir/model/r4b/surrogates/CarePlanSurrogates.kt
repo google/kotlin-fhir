@@ -71,16 +71,12 @@ internal data class CarePlanActivityDetailScheduledSurrogate(
       model: CarePlan.Activity.Detail.Scheduled
     ): CarePlanActivityDetailScheduledSurrogate =
       with(model) {
-        CarePlanActivityDetailScheduledSurrogate().apply {
-          CarePlan.Activity.Detail.Scheduled?.from(
-            this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
-            this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
-            R4bString.of(
-              this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
-              this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
-            ),
-          )
-        }
+        CarePlanActivityDetailScheduledSurrogate(
+          scheduledTiming = this@with.asTiming()?.value,
+          scheduledPeriod = this@with.asPeriod()?.value,
+          scheduledString = this@with.asString()?.value?.value,
+          _scheduledString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -101,12 +97,10 @@ internal data class CarePlanActivityDetailProductSurrogate(
       model: CarePlan.Activity.Detail.Product
     ): CarePlanActivityDetailProductSurrogate =
       with(model) {
-        CarePlanActivityDetailProductSurrogate().apply {
-          CarePlan.Activity.Detail.Product?.from(
-            this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
-            this@CarePlanActivityDetailProductSurrogate.productReference,
-          )
-        }
+        CarePlanActivityDetailProductSurrogate(
+          productCodeableConcept = this@with.asCodeableConcept()?.value,
+          productReference = this@with.asReference()?.value,
+        )
       }
   }
 }

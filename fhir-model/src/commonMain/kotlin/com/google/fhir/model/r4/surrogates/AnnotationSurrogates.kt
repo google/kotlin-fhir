@@ -53,15 +53,11 @@ internal data class AnnotationAuthorSurrogate(
   public companion object {
     public fun fromModel(model: Annotation.Author): AnnotationAuthorSurrogate =
       with(model) {
-        AnnotationAuthorSurrogate().apply {
-          Annotation.Author?.from(
-            this@AnnotationAuthorSurrogate.authorReference,
-            R4String.of(
-              this@AnnotationAuthorSurrogate.authorString,
-              this@AnnotationAuthorSurrogate._authorString,
-            ),
-          )
-        }
+        AnnotationAuthorSurrogate(
+          authorReference = this@with.asReference()?.value,
+          authorString = this@with.asString()?.value?.value,
+          _authorString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

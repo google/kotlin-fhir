@@ -141,21 +141,15 @@ internal data class AllergyIntoleranceOnsetSurrogate(
   public companion object {
     public fun fromModel(model: AllergyIntolerance.Onset): AllergyIntoleranceOnsetSurrogate =
       with(model) {
-        AllergyIntoleranceOnsetSurrogate().apply {
-          AllergyIntolerance.Onset?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@AllergyIntoleranceOnsetSurrogate.onsetDateTime),
-              this@AllergyIntoleranceOnsetSurrogate._onsetDateTime,
-            ),
-            this@AllergyIntoleranceOnsetSurrogate.onsetAge,
-            this@AllergyIntoleranceOnsetSurrogate.onsetPeriod,
-            this@AllergyIntoleranceOnsetSurrogate.onsetRange,
-            R4String.of(
-              this@AllergyIntoleranceOnsetSurrogate.onsetString,
-              this@AllergyIntoleranceOnsetSurrogate._onsetString,
-            ),
-          )
-        }
+        AllergyIntoleranceOnsetSurrogate(
+          onsetDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _onsetDateTime = this@with.asDateTime()?.value?.toElement(),
+          onsetAge = this@with.asAge()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

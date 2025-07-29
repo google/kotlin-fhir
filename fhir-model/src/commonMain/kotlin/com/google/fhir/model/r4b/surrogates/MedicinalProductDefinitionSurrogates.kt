@@ -319,23 +319,15 @@ internal data class MedicinalProductDefinitionCharacteristicValueSurrogate(
       model: MedicinalProductDefinition.Characteristic.Value
     ): MedicinalProductDefinitionCharacteristicValueSurrogate =
       with(model) {
-        MedicinalProductDefinitionCharacteristicValueSurrogate().apply {
-          MedicinalProductDefinition.Characteristic.Value?.from(
-            this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueCodeableConcept,
-            this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueQuantity,
-            Date.of(
-              FhirDate.fromString(
-                this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueDate
-              ),
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueDate,
-            ),
-            R4bBoolean.of(
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueBoolean,
-              this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueBoolean,
-            ),
-            this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueAttachment,
-          )
-        }
+        MedicinalProductDefinitionCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
       }
   }
 }

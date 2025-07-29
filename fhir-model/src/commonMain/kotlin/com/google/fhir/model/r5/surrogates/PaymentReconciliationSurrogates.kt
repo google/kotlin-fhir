@@ -74,19 +74,13 @@ internal data class PaymentReconciliationAllocationTargetItemSurrogate(
       model: PaymentReconciliation.Allocation.TargetItem
     ): PaymentReconciliationAllocationTargetItemSurrogate =
       with(model) {
-        PaymentReconciliationAllocationTargetItemSurrogate().apply {
-          PaymentReconciliation.Allocation.TargetItem?.from(
-            R5String.of(
-              this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemString,
-              this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemString,
-            ),
-            this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemIdentifier,
-            PositiveInt.of(
-              this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemPositiveInt,
-              this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemPositiveInt,
-            ),
-          )
-        }
+        PaymentReconciliationAllocationTargetItemSurrogate(
+          targetItemString = this@with.asString()?.value?.value,
+          _targetItemString = this@with.asString()?.value?.toElement(),
+          targetItemIdentifier = this@with.asIdentifier()?.value,
+          targetItemPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _targetItemPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+        )
       }
   }
 }

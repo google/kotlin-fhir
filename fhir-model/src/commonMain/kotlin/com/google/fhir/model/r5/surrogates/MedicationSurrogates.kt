@@ -65,13 +65,11 @@ internal data class MedicationIngredientStrengthSurrogate(
       model: Medication.Ingredient.Strength
     ): MedicationIngredientStrengthSurrogate =
       with(model) {
-        MedicationIngredientStrengthSurrogate().apply {
-          Medication.Ingredient.Strength?.from(
-            this@MedicationIngredientStrengthSurrogate.strengthRatio,
-            this@MedicationIngredientStrengthSurrogate.strengthCodeableConcept,
-            this@MedicationIngredientStrengthSurrogate.strengthQuantity,
-          )
-        }
+        MedicationIngredientStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
+        )
       }
   }
 }

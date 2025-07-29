@@ -158,36 +158,24 @@ internal data class ObservationComponentValueSurrogate(
   public companion object {
     public fun fromModel(model: Observation.Component.Value): ObservationComponentValueSurrogate =
       with(model) {
-        ObservationComponentValueSurrogate().apply {
-          Observation.Component.Value?.from(
-            this@ObservationComponentValueSurrogate.valueQuantity,
-            this@ObservationComponentValueSurrogate.valueCodeableConcept,
-            R4bString.of(
-              this@ObservationComponentValueSurrogate.valueString,
-              this@ObservationComponentValueSurrogate._valueString,
-            ),
-            R4bBoolean.of(
-              this@ObservationComponentValueSurrogate.valueBoolean,
-              this@ObservationComponentValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@ObservationComponentValueSurrogate.valueInteger,
-              this@ObservationComponentValueSurrogate._valueInteger,
-            ),
-            this@ObservationComponentValueSurrogate.valueRange,
-            this@ObservationComponentValueSurrogate.valueRatio,
-            this@ObservationComponentValueSurrogate.valueSampledData,
-            Time.of(
-              this@ObservationComponentValueSurrogate.valueTime,
-              this@ObservationComponentValueSurrogate._valueTime,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@ObservationComponentValueSurrogate.valueDateTime),
-              this@ObservationComponentValueSurrogate._valueDateTime,
-            ),
-            this@ObservationComponentValueSurrogate.valuePeriod,
-          )
-        }
+        ObservationComponentValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueSampledData = this@with.asSampledData()?.value,
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }
@@ -258,20 +246,14 @@ internal data class ObservationEffectiveSurrogate(
   public companion object {
     public fun fromModel(model: Observation.Effective): ObservationEffectiveSurrogate =
       with(model) {
-        ObservationEffectiveSurrogate().apply {
-          Observation.Effective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveDateTime),
-              this@ObservationEffectiveSurrogate._effectiveDateTime,
-            ),
-            this@ObservationEffectiveSurrogate.effectivePeriod,
-            this@ObservationEffectiveSurrogate.effectiveTiming,
-            Instant.of(
-              FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveInstant),
-              this@ObservationEffectiveSurrogate._effectiveInstant,
-            ),
-          )
-        }
+        ObservationEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+          effectiveTiming = this@with.asTiming()?.value,
+          effectiveInstant = this@with.asInstant()?.value?.value?.toString(),
+          _effectiveInstant = this@with.asInstant()?.value?.toElement(),
+        )
       }
   }
 }
@@ -325,36 +307,24 @@ internal data class ObservationValueSurrogate(
   public companion object {
     public fun fromModel(model: Observation.Value): ObservationValueSurrogate =
       with(model) {
-        ObservationValueSurrogate().apply {
-          Observation.Value?.from(
-            this@ObservationValueSurrogate.valueQuantity,
-            this@ObservationValueSurrogate.valueCodeableConcept,
-            R4bString.of(
-              this@ObservationValueSurrogate.valueString,
-              this@ObservationValueSurrogate._valueString,
-            ),
-            R4bBoolean.of(
-              this@ObservationValueSurrogate.valueBoolean,
-              this@ObservationValueSurrogate._valueBoolean,
-            ),
-            Integer.of(
-              this@ObservationValueSurrogate.valueInteger,
-              this@ObservationValueSurrogate._valueInteger,
-            ),
-            this@ObservationValueSurrogate.valueRange,
-            this@ObservationValueSurrogate.valueRatio,
-            this@ObservationValueSurrogate.valueSampledData,
-            Time.of(
-              this@ObservationValueSurrogate.valueTime,
-              this@ObservationValueSurrogate._valueTime,
-            ),
-            DateTime.of(
-              FhirDateTime.fromString(this@ObservationValueSurrogate.valueDateTime),
-              this@ObservationValueSurrogate._valueDateTime,
-            ),
-            this@ObservationValueSurrogate.valuePeriod,
-          )
-        }
+        ObservationValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueSampledData = this@with.asSampledData()?.value,
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+        )
       }
   }
 }

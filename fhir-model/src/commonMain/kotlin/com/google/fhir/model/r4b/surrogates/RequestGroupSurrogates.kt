@@ -110,12 +110,10 @@ internal data class RequestGroupActionRelatedActionOffsetSurrogate(
       model: RequestGroup.Action.RelatedAction.Offset
     ): RequestGroupActionRelatedActionOffsetSurrogate =
       with(model) {
-        RequestGroupActionRelatedActionOffsetSurrogate().apply {
-          RequestGroup.Action.RelatedAction.Offset?.from(
-            this@RequestGroupActionRelatedActionOffsetSurrogate.offsetDuration,
-            this@RequestGroupActionRelatedActionOffsetSurrogate.offsetRange,
-          )
-        }
+        RequestGroupActionRelatedActionOffsetSurrogate(
+          offsetDuration = this@with.asDuration()?.value,
+          offsetRange = this@with.asRange()?.value,
+        )
       }
   }
 }
@@ -197,19 +195,15 @@ internal data class RequestGroupActionTimingSurrogate(
   public companion object {
     public fun fromModel(model: RequestGroup.Action.Timing): RequestGroupActionTimingSurrogate =
       with(model) {
-        RequestGroupActionTimingSurrogate().apply {
-          RequestGroup.Action.Timing?.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@RequestGroupActionTimingSurrogate.timingDateTime),
-              this@RequestGroupActionTimingSurrogate._timingDateTime,
-            ),
-            this@RequestGroupActionTimingSurrogate.timingAge,
-            this@RequestGroupActionTimingSurrogate.timingPeriod,
-            this@RequestGroupActionTimingSurrogate.timingDuration,
-            this@RequestGroupActionTimingSurrogate.timingRange,
-            this@RequestGroupActionTimingSurrogate.timingTiming,
-          )
-        }
+        RequestGroupActionTimingSurrogate(
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+          timingAge = this@with.asAge()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDuration = this@with.asDuration()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

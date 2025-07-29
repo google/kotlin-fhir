@@ -212,18 +212,12 @@ internal data class ImmunizationProtocolAppliedDoseNumberSurrogate(
       model: Immunization.ProtocolApplied.DoseNumber
     ): ImmunizationProtocolAppliedDoseNumberSurrogate =
       with(model) {
-        ImmunizationProtocolAppliedDoseNumberSurrogate().apply {
-          Immunization.ProtocolApplied.DoseNumber.from(
-            PositiveInt.of(
-              this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberPositiveInt,
-              this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberPositiveInt,
-            ),
-            R4bString.of(
-              this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
-              this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
-            ),
-          )!!
-        }
+        ImmunizationProtocolAppliedDoseNumberSurrogate(
+          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          doseNumberString = this@with.asString()?.value?.value,
+          _doseNumberString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -252,18 +246,12 @@ internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
       model: Immunization.ProtocolApplied.SeriesDoses
     ): ImmunizationProtocolAppliedSeriesDosesSurrogate =
       with(model) {
-        ImmunizationProtocolAppliedSeriesDosesSurrogate().apply {
-          Immunization.ProtocolApplied.SeriesDoses?.from(
-            PositiveInt.of(
-              this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
-              this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesPositiveInt,
-            ),
-            R4bString.of(
-              this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
-              this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
-            ),
-          )
-        }
+        ImmunizationProtocolAppliedSeriesDosesSurrogate(
+          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          seriesDosesString = this@with.asString()?.value?.value,
+          _seriesDosesString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }
@@ -339,18 +327,12 @@ internal data class ImmunizationOccurrenceSurrogate(
   public companion object {
     public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =
       with(model) {
-        ImmunizationOccurrenceSurrogate().apply {
-          Immunization.Occurrence.from(
-            DateTime.of(
-              FhirDateTime.fromString(this@ImmunizationOccurrenceSurrogate.occurrenceDateTime),
-              this@ImmunizationOccurrenceSurrogate._occurrenceDateTime,
-            ),
-            R4bString.of(
-              this@ImmunizationOccurrenceSurrogate.occurrenceString,
-              this@ImmunizationOccurrenceSurrogate._occurrenceString,
-            ),
-          )!!
-        }
+        ImmunizationOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrenceString = this@with.asString()?.value?.value,
+          _occurrenceString = this@with.asString()?.value?.toElement(),
+        )
       }
   }
 }

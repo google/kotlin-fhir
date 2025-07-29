@@ -65,20 +65,14 @@ internal data class VirtualServiceDetailAddressSurrogate(
       model: VirtualServiceDetail.Address
     ): VirtualServiceDetailAddressSurrogate =
       with(model) {
-        VirtualServiceDetailAddressSurrogate().apply {
-          VirtualServiceDetail.Address?.from(
-            Url.of(
-              this@VirtualServiceDetailAddressSurrogate.addressUrl,
-              this@VirtualServiceDetailAddressSurrogate._addressUrl,
-            ),
-            R5String.of(
-              this@VirtualServiceDetailAddressSurrogate.addressString,
-              this@VirtualServiceDetailAddressSurrogate._addressString,
-            ),
-            this@VirtualServiceDetailAddressSurrogate.addressContactPoint,
-            this@VirtualServiceDetailAddressSurrogate.addressExtendedContactDetail,
-          )
-        }
+        VirtualServiceDetailAddressSurrogate(
+          addressUrl = this@with.asUrl()?.value?.value,
+          _addressUrl = this@with.asUrl()?.value?.toElement(),
+          addressString = this@with.asString()?.value?.value,
+          _addressString = this@with.asString()?.value?.toElement(),
+          addressContactPoint = this@with.asContactPoint()?.value,
+          addressExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
+        )
       }
   }
 }

@@ -150,25 +150,17 @@ internal data class NutritionProductCharacteristicValueSurrogate(
       model: NutritionProduct.Characteristic.Value
     ): NutritionProductCharacteristicValueSurrogate =
       with(model) {
-        NutritionProductCharacteristicValueSurrogate().apply {
-          NutritionProduct.Characteristic.Value.from(
-            this@NutritionProductCharacteristicValueSurrogate.valueCodeableConcept,
-            R5String.of(
-              this@NutritionProductCharacteristicValueSurrogate.valueString,
-              this@NutritionProductCharacteristicValueSurrogate._valueString,
-            ),
-            this@NutritionProductCharacteristicValueSurrogate.valueQuantity,
-            Base64Binary.of(
-              this@NutritionProductCharacteristicValueSurrogate.valueBase64Binary,
-              this@NutritionProductCharacteristicValueSurrogate._valueBase64Binary,
-            ),
-            this@NutritionProductCharacteristicValueSurrogate.valueAttachment,
-            R5Boolean.of(
-              this@NutritionProductCharacteristicValueSurrogate.valueBoolean,
-              this@NutritionProductCharacteristicValueSurrogate._valueBoolean,
-            ),
-          )!!
-        }
+        NutritionProductCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
       }
   }
 }

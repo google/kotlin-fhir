@@ -59,12 +59,10 @@ internal data class MedicationIngredientItemSurrogate(
   public companion object {
     public fun fromModel(model: Medication.Ingredient.Item): MedicationIngredientItemSurrogate =
       with(model) {
-        MedicationIngredientItemSurrogate().apply {
-          Medication.Ingredient.Item.from(
-            this@MedicationIngredientItemSurrogate.itemCodeableConcept,
-            this@MedicationIngredientItemSurrogate.itemReference,
-          )!!
-        }
+        MedicationIngredientItemSurrogate(
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+          itemReference = this@with.asReference()?.value,
+        )
       }
   }
 }

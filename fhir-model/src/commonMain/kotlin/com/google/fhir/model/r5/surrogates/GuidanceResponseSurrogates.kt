@@ -69,19 +69,13 @@ internal data class GuidanceResponseModuleSurrogate(
   public companion object {
     public fun fromModel(model: GuidanceResponse.Module): GuidanceResponseModuleSurrogate =
       with(model) {
-        GuidanceResponseModuleSurrogate().apply {
-          GuidanceResponse.Module.from(
-            Uri.of(
-              this@GuidanceResponseModuleSurrogate.moduleUri,
-              this@GuidanceResponseModuleSurrogate._moduleUri,
-            ),
-            Canonical.of(
-              this@GuidanceResponseModuleSurrogate.moduleCanonical,
-              this@GuidanceResponseModuleSurrogate._moduleCanonical,
-            ),
-            this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
-          )!!
-        }
+        GuidanceResponseModuleSurrogate(
+          moduleUri = this@with.asUri()?.value?.value,
+          _moduleUri = this@with.asUri()?.value?.toElement(),
+          moduleCanonical = this@with.asCanonical()?.value?.value,
+          _moduleCanonical = this@with.asCanonical()?.value?.toElement(),
+          moduleCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
       }
   }
 }

@@ -86,19 +86,15 @@ internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
       model: EvidenceVariable.Characteristic.Definition
     ): EvidenceVariableCharacteristicDefinitionSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicDefinitionSurrogate().apply {
-          EvidenceVariable.Characteristic.Definition.from(
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionReference,
-            Canonical.of(
-              this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCanonical,
-              this@EvidenceVariableCharacteristicDefinitionSurrogate._definitionCanonical,
-            ),
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionDataRequirement,
-            this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionTriggerDefinition,
-          )!!
-        }
+        EvidenceVariableCharacteristicDefinitionSurrogate(
+          definitionReference = this@with.asReference()?.value,
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionCodeableConcept = this@with.asCodeableConcept()?.value,
+          definitionExpression = this@with.asExpression()?.value,
+          definitionDataRequirement = this@with.asDataRequirement()?.value,
+          definitionTriggerDefinition = this@with.asTriggerDefinition()?.value,
+        )
       }
   }
 }
@@ -131,24 +127,13 @@ internal data class EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
       model: EvidenceVariable.Characteristic.ParticipantEffective
     ): EvidenceVariableCharacteristicParticipantEffectiveSurrogate =
       with(model) {
-        EvidenceVariableCharacteristicParticipantEffectiveSurrogate().apply {
-          EvidenceVariable.Characteristic.ParticipantEffective?.from(
-            DateTime.of(
-              FhirDateTime.fromString(
-                this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-                  .participantEffectiveDateTime
-              ),
-              this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-                ._participantEffectiveDateTime,
-            ),
-            this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-              .participantEffectivePeriod,
-            this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-              .participantEffectiveDuration,
-            this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-              .participantEffectiveTiming,
-          )
-        }
+        EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
+          participantEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _participantEffectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          participantEffectivePeriod = this@with.asPeriod()?.value,
+          participantEffectiveDuration = this@with.asDuration()?.value,
+          participantEffectiveTiming = this@with.asTiming()?.value,
+        )
       }
   }
 }

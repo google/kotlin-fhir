@@ -276,12 +276,10 @@ internal data class MeasureGroupSubjectSurrogate(
   public companion object {
     public fun fromModel(model: Measure.Group.Subject): MeasureGroupSubjectSurrogate =
       with(model) {
-        MeasureGroupSubjectSurrogate().apply {
-          Measure.Group.Subject?.from(
-            this@MeasureGroupSubjectSurrogate.subjectCodeableConcept,
-            this@MeasureGroupSubjectSurrogate.subjectReference,
-          )
-        }
+        MeasureGroupSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }
@@ -465,15 +463,11 @@ internal data class MeasureVersionAlgorithmSurrogate(
   public companion object {
     public fun fromModel(model: Measure.VersionAlgorithm): MeasureVersionAlgorithmSurrogate =
       with(model) {
-        MeasureVersionAlgorithmSurrogate().apply {
-          Measure.VersionAlgorithm?.from(
-            R5String.of(
-              this@MeasureVersionAlgorithmSurrogate.versionAlgorithmString,
-              this@MeasureVersionAlgorithmSurrogate._versionAlgorithmString,
-            ),
-            this@MeasureVersionAlgorithmSurrogate.versionAlgorithmCoding,
-          )
-        }
+        MeasureVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
       }
   }
 }
@@ -492,12 +486,10 @@ internal data class MeasureSubjectSurrogate(
   public companion object {
     public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =
       with(model) {
-        MeasureSubjectSurrogate().apply {
-          Measure.Subject?.from(
-            this@MeasureSubjectSurrogate.subjectCodeableConcept,
-            this@MeasureSubjectSurrogate.subjectReference,
-          )
-        }
+        MeasureSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
       }
   }
 }
