@@ -97,36 +97,6 @@ val exclusionListR5 =
     "ArtifactAssessment-example-certainty-rating.json",
     "Citation-citation-example-research-doi.json",
 
-    // Number instead of string for size
-    "Communication-fm-solicited.json",
-    "Communication-fm-attachment.json",
-    "DocumentReference-example-comprehensive.json",
-    "Location-wash-dc-metro.json",
-    "DocumentReference-example.json",
-
-    // Number instead of string eventsSinceSubscriptionStart
-    "Bundle-54f808cf-d159-4c9b-accb-c33eb20f0ecc.json",
-    "Bundle-3945182f-d315-4dbf-9259-09d863c7e7da.json",
-    "SubscriptionStatus-example.json",
-
-    // Number instead of string eventNumber
-    "Bundle-00b99077-2bda-436e-98cc-a4f65d6c2fe0.json",
-    "Bundle-920a46b7-045a-4773-82bd-8e90c3e15653.json",
-    "Bundle-e2c9dc20-615e-4603-9005-74deb209cbb0.json",
-
-    // eventsSinceSubscriptionStart
-    "Bundle-fdd78223-f79f-43b4-8979-ad49d4ac248c.json",
-    "Bundle-40464b74-fad0-4f45-ab60-e67f949c5e92.json",
-    "Bundle-0f322dbe-4f8d-4cbd-9ecb-bc8dc6f65f6a.json",
-    "Bundle-787e69f6-81a8-44e4-b404-257013dec332.json",
-    "Bundle-3d20ea4b-90dc-4d0d-b15a-c7a893389401.json",
-    "Bundle-9601c07a-e34f-4945-93ca-6efb5394c995.json",
-
-    // minValueInteger64
-    "Bundle-dataelements.json",
-    "Bundle-types.json",
-    "StructureDefinition-integer64.json",
-
     // Pattern
     "StructureDefinition-search-set-bundle.json",
     "StructureDefinition-fhirpathlibrary.json",

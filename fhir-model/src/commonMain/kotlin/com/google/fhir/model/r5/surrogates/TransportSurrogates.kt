@@ -159,7 +159,7 @@ internal data class TransportInputSurrogate(
   public var _valueInstant: Element? = null,
   public var valueInteger: Int? = null,
   public var _valueInteger: Element? = null,
-  public var valueInteger64: Int? = null,
+  public var valueInteger64: KotlinString? = null,
   public var _valueInteger64: Element? = null,
   public var valueMarkdown: KotlinString? = null,
   public var _valueMarkdown: Element? = null,
@@ -257,7 +257,7 @@ internal data class TransportInputSurrogate(
             this@TransportInputSurrogate._valueInteger,
           ),
           Integer64.of(
-            this@TransportInputSurrogate.valueInteger64,
+            this@TransportInputSurrogate.valueInteger64?.toLong(),
             this@TransportInputSurrogate._valueInteger64,
           ),
           Markdown.of(
@@ -346,7 +346,7 @@ internal data class TransportInputSurrogate(
           _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
           valueInteger = this@with.`value`?.asInteger()?.value?.value,
           _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value?.toString(),
           _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
           valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
           _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
@@ -431,7 +431,7 @@ internal data class TransportOutputSurrogate(
   public var _valueInstant: Element? = null,
   public var valueInteger: Int? = null,
   public var _valueInteger: Element? = null,
-  public var valueInteger64: Int? = null,
+  public var valueInteger64: KotlinString? = null,
   public var _valueInteger64: Element? = null,
   public var valueMarkdown: KotlinString? = null,
   public var _valueMarkdown: Element? = null,
@@ -532,7 +532,7 @@ internal data class TransportOutputSurrogate(
             this@TransportOutputSurrogate._valueInteger,
           ),
           Integer64.of(
-            this@TransportOutputSurrogate.valueInteger64,
+            this@TransportOutputSurrogate.valueInteger64?.toLong(),
             this@TransportOutputSurrogate._valueInteger64,
           ),
           Markdown.of(
@@ -627,7 +627,7 @@ internal data class TransportOutputSurrogate(
           _valueInstant = this@with.`value`?.asInstant()?.value?.toElement(),
           valueInteger = this@with.`value`?.asInteger()?.value?.value,
           _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value,
+          valueInteger64 = this@with.`value`?.asInteger64()?.value?.value?.toString(),
           _valueInteger64 = this@with.`value`?.asInteger64()?.value?.toElement(),
           valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
           _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),

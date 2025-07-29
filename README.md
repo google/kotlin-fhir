@@ -127,6 +127,7 @@ follows:
 | System.Boolean                                                              | kotlin.Boolean                                                              |
 | System.String                                                               | kotlin.String                                                               |
 | System.Integer                                                              | kotlin.Int                                                                  |
+| System.Long                                                                 | kotlin.Long                                                                 |
 | System.Decimal                                                              | kotlin.Double                                                               |
 | System.Date                                                                 | FhirDate                                                                    |
 | System.Time                                                                 | kotlinx.datetime.LocalTime                                                  |

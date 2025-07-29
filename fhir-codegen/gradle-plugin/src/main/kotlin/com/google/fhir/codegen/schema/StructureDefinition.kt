@@ -77,4 +77,4 @@ data class Binding(
 
 @Serializable data class Base(val path: String, val min: Int, val max: String)
 
-@Serializable data class Type(val code: String)
+@Serializable data class Type(val code: String, val extension: List<Extension>? = null)
