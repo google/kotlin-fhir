@@ -401,7 +401,7 @@ fun Element.getDefaultValueInSurrogate(): String? {
 }
 
 /**
- * Return the name of the surrogate class for properties that can be provided with multiple types.
+ * Returns the name of the surrogate class for properties that can be provided with multiple types.
  *
  * Example: The 'Patient.deceased' [Element.path] will produce "PatientDeceasedSurrogate"
  */
