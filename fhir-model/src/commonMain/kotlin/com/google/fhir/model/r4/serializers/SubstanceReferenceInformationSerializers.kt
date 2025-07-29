@@ -51,7 +51,7 @@ public object SubstanceReferenceInformationGeneSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceReferenceInformation.Gene =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation.Gene) {
     surrogateSerializer.serialize(
@@ -73,7 +73,7 @@ public object SubstanceReferenceInformationGeneElementSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceReferenceInformation.GeneElement =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation.GeneElement) {
     surrogateSerializer.serialize(
@@ -95,7 +95,7 @@ public object SubstanceReferenceInformationClassificationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceReferenceInformation.Classification =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation.Classification) {
     surrogateSerializer.serialize(
@@ -117,7 +117,7 @@ public object SubstanceReferenceInformationTargetAmountSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceReferenceInformation.Target.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation.Target.Amount) {
     surrogateSerializer.serialize(
@@ -186,7 +186,7 @@ public object SubstanceReferenceInformationSerializer : KSerializer<SubstanceRef
   }
 
   override fun deserialize(decoder: Decoder): SubstanceReferenceInformation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation) {
     surrogateSerializer.serialize(encoder, SubstanceReferenceInformationSurrogate.fromModel(value))

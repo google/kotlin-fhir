@@ -45,7 +45,7 @@ public object MediaCreatedSerializer : KSerializer<Media.Created> {
   }
 
   override fun deserialize(decoder: Decoder): Media.Created =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Media.Created) {
     surrogateSerializer.serialize(encoder, MediaCreatedSurrogate.fromModel(value))

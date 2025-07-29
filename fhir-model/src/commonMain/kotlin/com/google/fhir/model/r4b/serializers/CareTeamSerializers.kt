@@ -37,7 +37,7 @@ public object CareTeamParticipantSerializer : KSerializer<CareTeam.Participant> 
   }
 
   override fun deserialize(decoder: Decoder): CareTeam.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CareTeam.Participant) {
     surrogateSerializer.serialize(encoder, CareTeamParticipantSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object CareTeamSerializer : KSerializer<CareTeam> {
   }
 
   override fun deserialize(decoder: Decoder): CareTeam =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CareTeam) {
     surrogateSerializer.serialize(encoder, CareTeamSurrogate.fromModel(value))

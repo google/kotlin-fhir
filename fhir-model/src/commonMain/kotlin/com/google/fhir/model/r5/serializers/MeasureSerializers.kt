@@ -53,7 +53,7 @@ public object MeasureTermSerializer : KSerializer<Measure.Term> {
   }
 
   override fun deserialize(decoder: Decoder): Measure.Term =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.Term) {
     surrogateSerializer.serialize(encoder, MeasureTermSurrogate.fromModel(value))
@@ -70,7 +70,7 @@ public object MeasureGroupPopulationSerializer : KSerializer<Measure.Group.Popul
   }
 
   override fun deserialize(decoder: Decoder): Measure.Group.Population =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.Group.Population) {
     surrogateSerializer.serialize(encoder, MeasureGroupPopulationSurrogate.fromModel(value))
@@ -88,7 +88,7 @@ public object MeasureGroupStratifierComponentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Measure.Group.Stratifier.Component =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.Group.Stratifier.Component) {
     surrogateSerializer.serialize(
@@ -108,7 +108,7 @@ public object MeasureGroupStratifierSerializer : KSerializer<Measure.Group.Strat
   }
 
   override fun deserialize(decoder: Decoder): Measure.Group.Stratifier =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.Group.Stratifier) {
     surrogateSerializer.serialize(encoder, MeasureGroupStratifierSurrogate.fromModel(value))
@@ -125,7 +125,7 @@ public object MeasureGroupSubjectSerializer : KSerializer<Measure.Group.Subject>
   }
 
   override fun deserialize(decoder: Decoder): Measure.Group.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.Group.Subject) {
     surrogateSerializer.serialize(encoder, MeasureGroupSubjectSurrogate.fromModel(value))
@@ -189,7 +189,7 @@ public object MeasureSupplementalDataSerializer : KSerializer<Measure.Supplement
   }
 
   override fun deserialize(decoder: Decoder): Measure.SupplementalData =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.SupplementalData) {
     surrogateSerializer.serialize(encoder, MeasureSupplementalDataSurrogate.fromModel(value))
@@ -206,7 +206,7 @@ public object MeasureVersionAlgorithmSerializer : KSerializer<Measure.VersionAlg
   }
 
   override fun deserialize(decoder: Decoder): Measure.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, MeasureVersionAlgorithmSurrogate.fromModel(value))
@@ -223,7 +223,7 @@ public object MeasureSubjectSerializer : KSerializer<Measure.Subject> {
   }
 
   override fun deserialize(decoder: Decoder): Measure.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Measure.Subject) {
     surrogateSerializer.serialize(encoder, MeasureSubjectSurrogate.fromModel(value))

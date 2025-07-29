@@ -58,7 +58,7 @@ public object CapabilityStatementSoftwareSerializer : KSerializer<CapabilityStat
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Software =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Software) {
     surrogateSerializer.serialize(encoder, CapabilityStatementSoftwareSurrogate.fromModel(value))
@@ -77,7 +77,7 @@ public object CapabilityStatementImplementationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Implementation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Implementation) {
     surrogateSerializer.serialize(
@@ -98,7 +98,7 @@ public object CapabilityStatementRestSecuritySerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Security =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Security) {
     surrogateSerializer.serialize(
@@ -120,7 +120,7 @@ public object CapabilityStatementRestResourceInteractionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Resource.Interaction =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Resource.Interaction) {
     surrogateSerializer.serialize(
@@ -142,7 +142,7 @@ public object CapabilityStatementRestResourceSearchParamSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Resource.SearchParam =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Resource.SearchParam) {
     surrogateSerializer.serialize(
@@ -164,7 +164,7 @@ public object CapabilityStatementRestResourceOperationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Resource.Operation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Resource.Operation) {
     surrogateSerializer.serialize(
@@ -185,7 +185,7 @@ public object CapabilityStatementRestResourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Resource) {
     surrogateSerializer.serialize(
@@ -207,7 +207,7 @@ public object CapabilityStatementRestInteractionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Interaction =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Interaction) {
     surrogateSerializer.serialize(
@@ -227,7 +227,7 @@ public object CapabilityStatementRestSerializer : KSerializer<CapabilityStatemen
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Rest =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest) {
     surrogateSerializer.serialize(encoder, CapabilityStatementRestSurrogate.fromModel(value))
@@ -246,7 +246,7 @@ public object CapabilityStatementMessagingEndpointSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Messaging.Endpoint =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Messaging.Endpoint) {
     surrogateSerializer.serialize(
@@ -268,7 +268,7 @@ public object CapabilityStatementMessagingSupportedMessageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Messaging.SupportedMessage =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -291,7 +291,7 @@ public object CapabilityStatementMessagingSerializer : KSerializer<CapabilitySta
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Messaging =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Messaging) {
     surrogateSerializer.serialize(encoder, CapabilityStatementMessagingSurrogate.fromModel(value))
@@ -308,7 +308,7 @@ public object CapabilityStatementDocumentSerializer : KSerializer<CapabilityStat
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.Document =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Document) {
     surrogateSerializer.serialize(encoder, CapabilityStatementDocumentSurrogate.fromModel(value))
@@ -327,7 +327,7 @@ public object CapabilityStatementVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CapabilityStatement.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CapabilityStatement.VersionAlgorithm) {
     surrogateSerializer.serialize(

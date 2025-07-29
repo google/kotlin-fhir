@@ -46,7 +46,7 @@ public object ClinicalImpressionFindingSerializer : KSerializer<ClinicalImpressi
   }
 
   override fun deserialize(decoder: Decoder): ClinicalImpression.Finding =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClinicalImpression.Finding) {
     surrogateSerializer.serialize(encoder, ClinicalImpressionFindingSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object ClinicalImpressionEffectiveSerializer : KSerializer<ClinicalImpres
   }
 
   override fun deserialize(decoder: Decoder): ClinicalImpression.Effective =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClinicalImpression.Effective) {
     surrogateSerializer.serialize(encoder, ClinicalImpressionEffectiveSurrogate.fromModel(value))

@@ -36,7 +36,7 @@ public object PaymentNoticeSerializer : KSerializer<PaymentNotice> {
   }
 
   override fun deserialize(decoder: Decoder): PaymentNotice =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: PaymentNotice) {
     surrogateSerializer.serialize(encoder, PaymentNoticeSurrogate.fromModel(value))

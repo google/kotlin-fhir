@@ -47,7 +47,7 @@ public object DetectedIssueEvidenceSerializer : KSerializer<DetectedIssue.Eviden
   }
 
   override fun deserialize(decoder: Decoder): DetectedIssue.Evidence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DetectedIssue.Evidence) {
     surrogateSerializer.serialize(encoder, DetectedIssueEvidenceSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object DetectedIssueMitigationSerializer : KSerializer<DetectedIssue.Miti
   }
 
   override fun deserialize(decoder: Decoder): DetectedIssue.Mitigation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DetectedIssue.Mitigation) {
     surrogateSerializer.serialize(encoder, DetectedIssueMitigationSurrogate.fromModel(value))
@@ -81,7 +81,7 @@ public object DetectedIssueIdentifiedSerializer : KSerializer<DetectedIssue.Iden
   }
 
   override fun deserialize(decoder: Decoder): DetectedIssue.Identified =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DetectedIssue.Identified) {
     surrogateSerializer.serialize(encoder, DetectedIssueIdentifiedSurrogate.fromModel(value))

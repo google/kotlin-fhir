@@ -57,7 +57,7 @@ public object ImplementationGuideDependsOnSerializer : KSerializer<Implementatio
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.DependsOn =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.DependsOn) {
     surrogateSerializer.serialize(encoder, ImplementationGuideDependsOnSurrogate.fromModel(value))
@@ -74,7 +74,7 @@ public object ImplementationGuideGlobalSerializer : KSerializer<ImplementationGu
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Global =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Global) {
     surrogateSerializer.serialize(encoder, ImplementationGuideGlobalSurrogate.fromModel(value))
@@ -93,7 +93,7 @@ public object ImplementationGuideDefinitionGroupingSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Grouping =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Grouping) {
     surrogateSerializer.serialize(
@@ -115,7 +115,7 @@ public object ImplementationGuideDefinitionResourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Resource) {
     surrogateSerializer.serialize(
@@ -137,7 +137,7 @@ public object ImplementationGuideDefinitionPageSourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Page.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Page.Source) {
     surrogateSerializer.serialize(
@@ -208,7 +208,7 @@ public object ImplementationGuideDefinitionParameterSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Parameter =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Parameter) {
     surrogateSerializer.serialize(
@@ -230,7 +230,7 @@ public object ImplementationGuideDefinitionTemplateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Template =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Template) {
     surrogateSerializer.serialize(
@@ -251,7 +251,7 @@ public object ImplementationGuideDefinitionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Definition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition) {
     surrogateSerializer.serialize(encoder, ImplementationGuideDefinitionSurrogate.fromModel(value))
@@ -270,7 +270,7 @@ public object ImplementationGuideManifestResourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest.Resource) {
     surrogateSerializer.serialize(
@@ -291,7 +291,7 @@ public object ImplementationGuideManifestPageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Page =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest.Page) {
     surrogateSerializer.serialize(
@@ -311,7 +311,7 @@ public object ImplementationGuideManifestSerializer : KSerializer<Implementation
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest) {
     surrogateSerializer.serialize(encoder, ImplementationGuideManifestSurrogate.fromModel(value))
@@ -330,7 +330,7 @@ public object ImplementationGuideVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImplementationGuide.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.VersionAlgorithm) {
     surrogateSerializer.serialize(

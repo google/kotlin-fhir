@@ -51,7 +51,7 @@ public object SpecimenFeatureSerializer : KSerializer<Specimen.Feature> {
   }
 
   override fun deserialize(decoder: Decoder): Specimen.Feature =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Specimen.Feature) {
     surrogateSerializer.serialize(encoder, SpecimenFeatureSurrogate.fromModel(value))
@@ -68,7 +68,7 @@ public object SpecimenCollectionCollectedSerializer : KSerializer<Specimen.Colle
   }
 
   override fun deserialize(decoder: Decoder): Specimen.Collection.Collected =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Specimen.Collection.Collected) {
     surrogateSerializer.serialize(encoder, SpecimenCollectionCollectedSurrogate.fromModel(value))
@@ -86,7 +86,7 @@ public object SpecimenCollectionFastingStatusSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Specimen.Collection.FastingStatus =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Specimen.Collection.FastingStatus) {
     surrogateSerializer.serialize(
@@ -153,7 +153,7 @@ public object SpecimenProcessingTimeSerializer : KSerializer<Specimen.Processing
   }
 
   override fun deserialize(decoder: Decoder): Specimen.Processing.Time =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Specimen.Processing.Time) {
     surrogateSerializer.serialize(encoder, SpecimenProcessingTimeSurrogate.fromModel(value))
@@ -217,7 +217,7 @@ public object SpecimenContainerSerializer : KSerializer<Specimen.Container> {
   }
 
   override fun deserialize(decoder: Decoder): Specimen.Container =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Specimen.Container) {
     surrogateSerializer.serialize(encoder, SpecimenContainerSurrogate.fromModel(value))
@@ -234,7 +234,7 @@ public object SpecimenSerializer : KSerializer<Specimen> {
   }
 
   override fun deserialize(decoder: Decoder): Specimen =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Specimen) {
     surrogateSerializer.serialize(encoder, SpecimenSurrogate.fromModel(value))

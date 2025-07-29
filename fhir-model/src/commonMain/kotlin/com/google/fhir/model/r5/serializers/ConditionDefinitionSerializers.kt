@@ -52,7 +52,7 @@ public object ConditionDefinitionObservationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConditionDefinition.Observation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Observation) {
     surrogateSerializer.serialize(encoder, ConditionDefinitionObservationSurrogate.fromModel(value))
@@ -70,7 +70,7 @@ public object ConditionDefinitionMedicationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConditionDefinition.Medication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Medication) {
     surrogateSerializer.serialize(encoder, ConditionDefinitionMedicationSurrogate.fromModel(value))
@@ -89,7 +89,7 @@ public object ConditionDefinitionPreconditionValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConditionDefinition.Precondition.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Precondition.Value) {
     surrogateSerializer.serialize(
@@ -158,7 +158,7 @@ public object ConditionDefinitionQuestionnaireSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConditionDefinition.Questionnaire =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Questionnaire) {
     surrogateSerializer.serialize(
@@ -178,7 +178,7 @@ public object ConditionDefinitionPlanSerializer : KSerializer<ConditionDefinitio
   }
 
   override fun deserialize(decoder: Decoder): ConditionDefinition.Plan =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Plan) {
     surrogateSerializer.serialize(encoder, ConditionDefinitionPlanSurrogate.fromModel(value))
@@ -197,7 +197,7 @@ public object ConditionDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConditionDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(

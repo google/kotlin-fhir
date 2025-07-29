@@ -54,7 +54,7 @@ public object MedicinalProductDefinitionContactSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Contact =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Contact) {
     surrogateSerializer.serialize(
@@ -76,7 +76,7 @@ public object MedicinalProductDefinitionNamePartSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Name.Part =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Name.Part) {
     surrogateSerializer.serialize(
@@ -98,7 +98,7 @@ public object MedicinalProductDefinitionNameUsageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Name.Usage =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Name.Usage) {
     surrogateSerializer.serialize(
@@ -119,7 +119,7 @@ public object MedicinalProductDefinitionNameSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Name =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Name) {
     surrogateSerializer.serialize(encoder, MedicinalProductDefinitionNameSurrogate.fromModel(value))
@@ -138,7 +138,7 @@ public object MedicinalProductDefinitionCrossReferenceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.CrossReference =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.CrossReference) {
     surrogateSerializer.serialize(
@@ -160,7 +160,7 @@ public object MedicinalProductDefinitionOperationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Operation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Operation) {
     surrogateSerializer.serialize(
@@ -182,7 +182,7 @@ public object MedicinalProductDefinitionCharacteristicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -254,7 +254,7 @@ public object MedicinalProductDefinitionSerializer : KSerializer<MedicinalProduc
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition) {
     surrogateSerializer.serialize(encoder, MedicinalProductDefinitionSurrogate.fromModel(value))

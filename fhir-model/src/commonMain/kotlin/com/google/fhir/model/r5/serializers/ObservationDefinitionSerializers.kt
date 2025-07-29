@@ -49,7 +49,7 @@ public object ObservationDefinitionQualifiedValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ObservationDefinition.QualifiedValue =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ObservationDefinition.QualifiedValue) {
     surrogateSerializer.serialize(
@@ -70,7 +70,7 @@ public object ObservationDefinitionComponentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ObservationDefinition.Component =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ObservationDefinition.Component) {
     surrogateSerializer.serialize(encoder, ObservationDefinitionComponentSurrogate.fromModel(value))
@@ -89,7 +89,7 @@ public object ObservationDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ObservationDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ObservationDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(

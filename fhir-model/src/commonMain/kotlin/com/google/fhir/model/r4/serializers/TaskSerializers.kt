@@ -49,7 +49,7 @@ public object TaskRestrictionSerializer : KSerializer<Task.Restriction> {
   }
 
   override fun deserialize(decoder: Decoder): Task.Restriction =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Task.Restriction) {
     surrogateSerializer.serialize(encoder, TaskRestrictionSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object TaskInputValueSerializer : KSerializer<Task.Input.Value> {
   }
 
   override fun deserialize(decoder: Decoder): Task.Input.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Task.Input.Value) {
     surrogateSerializer.serialize(encoder, TaskInputValueSurrogate.fromModel(value))
@@ -130,7 +130,7 @@ public object TaskOutputValueSerializer : KSerializer<Task.Output.Value> {
   }
 
   override fun deserialize(decoder: Decoder): Task.Output.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Task.Output.Value) {
     surrogateSerializer.serialize(encoder, TaskOutputValueSurrogate.fromModel(value))
@@ -194,7 +194,7 @@ public object TaskSerializer : KSerializer<Task> {
   }
 
   override fun deserialize(decoder: Decoder): Task =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Task) {
     surrogateSerializer.serialize(encoder, TaskSurrogate.fromModel(value))

@@ -45,7 +45,7 @@ public object TriggerDefinitionTimingSerializer : KSerializer<TriggerDefinition.
   }
 
   override fun deserialize(decoder: Decoder): TriggerDefinition.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TriggerDefinition.Timing) {
     surrogateSerializer.serialize(encoder, TriggerDefinitionTimingSurrogate.fromModel(value))

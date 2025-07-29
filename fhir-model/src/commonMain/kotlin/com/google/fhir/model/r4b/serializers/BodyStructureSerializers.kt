@@ -36,7 +36,7 @@ public object BodyStructureSerializer : KSerializer<BodyStructure> {
   }
 
   override fun deserialize(decoder: Decoder): BodyStructure =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BodyStructure) {
     surrogateSerializer.serialize(encoder, BodyStructureSurrogate.fromModel(value))

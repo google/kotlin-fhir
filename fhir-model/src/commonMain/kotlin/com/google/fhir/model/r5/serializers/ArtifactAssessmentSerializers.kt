@@ -47,7 +47,7 @@ public object ArtifactAssessmentContentSerializer : KSerializer<ArtifactAssessme
   }
 
   override fun deserialize(decoder: Decoder): ArtifactAssessment.Content =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ArtifactAssessment.Content) {
     surrogateSerializer.serialize(encoder, ArtifactAssessmentContentSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object ArtifactAssessmentCiteAsSerializer : KSerializer<ArtifactAssessmen
   }
 
   override fun deserialize(decoder: Decoder): ArtifactAssessment.CiteAs =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ArtifactAssessment.CiteAs) {
     surrogateSerializer.serialize(encoder, ArtifactAssessmentCiteAsSurrogate.fromModel(value))
@@ -81,7 +81,7 @@ public object ArtifactAssessmentArtifactSerializer : KSerializer<ArtifactAssessm
   }
 
   override fun deserialize(decoder: Decoder): ArtifactAssessment.Artifact =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ArtifactAssessment.Artifact) {
     surrogateSerializer.serialize(encoder, ArtifactAssessmentArtifactSurrogate.fromModel(value))

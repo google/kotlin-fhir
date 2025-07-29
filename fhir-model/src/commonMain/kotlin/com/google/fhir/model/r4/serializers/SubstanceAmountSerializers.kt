@@ -47,7 +47,7 @@ public object SubstanceAmountReferenceRangeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceAmount.ReferenceRange =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceAmount.ReferenceRange) {
     surrogateSerializer.serialize(encoder, SubstanceAmountReferenceRangeSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object SubstanceAmountAmountSerializer : KSerializer<SubstanceAmount.Amou
   }
 
   override fun deserialize(decoder: Decoder): SubstanceAmount.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceAmount.Amount) {
     surrogateSerializer.serialize(encoder, SubstanceAmountAmountSurrogate.fromModel(value))

@@ -48,7 +48,7 @@ public object GoalTargetDetailSerializer : KSerializer<Goal.Target.Detail> {
   }
 
   override fun deserialize(decoder: Decoder): Goal.Target.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Goal.Target.Detail) {
     surrogateSerializer.serialize(encoder, GoalTargetDetailSurrogate.fromModel(value))
@@ -65,7 +65,7 @@ public object GoalTargetDueSerializer : KSerializer<Goal.Target.Due> {
   }
 
   override fun deserialize(decoder: Decoder): Goal.Target.Due =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Goal.Target.Due) {
     surrogateSerializer.serialize(encoder, GoalTargetDueSurrogate.fromModel(value))
@@ -129,7 +129,7 @@ public object GoalStartSerializer : KSerializer<Goal.Start> {
   }
 
   override fun deserialize(decoder: Decoder): Goal.Start =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Goal.Start) {
     surrogateSerializer.serialize(encoder, GoalStartSurrogate.fromModel(value))

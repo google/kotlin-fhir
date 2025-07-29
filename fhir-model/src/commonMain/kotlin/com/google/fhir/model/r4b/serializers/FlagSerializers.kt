@@ -36,7 +36,7 @@ public object FlagSerializer : KSerializer<Flag> {
   }
 
   override fun deserialize(decoder: Decoder): Flag =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Flag) {
     surrogateSerializer.serialize(encoder, FlagSurrogate.fromModel(value))

@@ -62,7 +62,7 @@ public object ValueSetComposeIncludeConceptDesignationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Compose.Include.Concept.Designation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include.Concept.Designation) {
     surrogateSerializer.serialize(
@@ -83,7 +83,7 @@ public object ValueSetComposeIncludeConceptSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Compose.Include.Concept =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include.Concept) {
     surrogateSerializer.serialize(encoder, ValueSetComposeIncludeConceptSurrogate.fromModel(value))
@@ -101,7 +101,7 @@ public object ValueSetComposeIncludeFilterSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Compose.Include.Filter =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include.Filter) {
     surrogateSerializer.serialize(encoder, ValueSetComposeIncludeFilterSurrogate.fromModel(value))
@@ -118,7 +118,7 @@ public object ValueSetComposeIncludeSerializer : KSerializer<ValueSet.Compose.In
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Compose.Include =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include) {
     surrogateSerializer.serialize(encoder, ValueSetComposeIncludeSurrogate.fromModel(value))
@@ -135,7 +135,7 @@ public object ValueSetComposeSerializer : KSerializer<ValueSet.Compose> {
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Compose =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Compose) {
     surrogateSerializer.serialize(encoder, ValueSetComposeSurrogate.fromModel(value))
@@ -153,7 +153,7 @@ public object ValueSetExpansionParameterValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Expansion.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Parameter.Value) {
     surrogateSerializer.serialize(
@@ -220,7 +220,7 @@ public object ValueSetExpansionPropertySerializer : KSerializer<ValueSet.Expansi
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Expansion.Property =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Property) {
     surrogateSerializer.serialize(encoder, ValueSetExpansionPropertySurrogate.fromModel(value))
@@ -241,7 +241,7 @@ public object ValueSetExpansionContainsPropertySubPropertyValueSerializer :
   override fun deserialize(
     decoder: Decoder
   ): ValueSet.Expansion.Contains.Property.SubProperty.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -318,7 +318,7 @@ public object ValueSetExpansionContainsPropertyValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains.Property.Value) {
     surrogateSerializer.serialize(
@@ -387,7 +387,7 @@ public object ValueSetExpansionContainsSerializer : KSerializer<ValueSet.Expansi
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains) {
     surrogateSerializer.serialize(encoder, ValueSetExpansionContainsSurrogate.fromModel(value))
@@ -404,7 +404,7 @@ public object ValueSetExpansionSerializer : KSerializer<ValueSet.Expansion> {
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Expansion =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion) {
     surrogateSerializer.serialize(encoder, ValueSetExpansionSurrogate.fromModel(value))
@@ -421,7 +421,7 @@ public object ValueSetScopeSerializer : KSerializer<ValueSet.Scope> {
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.Scope =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.Scope) {
     surrogateSerializer.serialize(encoder, ValueSetScopeSurrogate.fromModel(value))
@@ -438,7 +438,7 @@ public object ValueSetVersionAlgorithmSerializer : KSerializer<ValueSet.VersionA
   }
 
   override fun deserialize(decoder: Decoder): ValueSet.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, ValueSetVersionAlgorithmSurrogate.fromModel(value))

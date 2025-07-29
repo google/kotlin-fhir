@@ -63,7 +63,7 @@ public object CitationSummarySerializer : KSerializer<Citation.Summary> {
   }
 
   override fun deserialize(decoder: Decoder): Citation.Summary =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.Summary) {
     surrogateSerializer.serialize(encoder, CitationSummarySurrogate.fromModel(value))
@@ -80,7 +80,7 @@ public object CitationClassificationSerializer : KSerializer<Citation.Classifica
   }
 
   override fun deserialize(decoder: Decoder): Citation.Classification =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.Classification) {
     surrogateSerializer.serialize(encoder, CitationClassificationSurrogate.fromModel(value))
@@ -97,7 +97,7 @@ public object CitationStatusDateSerializer : KSerializer<Citation.StatusDate> {
   }
 
   override fun deserialize(decoder: Decoder): Citation.StatusDate =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.StatusDate) {
     surrogateSerializer.serialize(encoder, CitationStatusDateSurrogate.fromModel(value))
@@ -114,7 +114,7 @@ public object CitationCitedArtifactVersionSerializer : KSerializer<Citation.Cite
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Version =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Version) {
     surrogateSerializer.serialize(encoder, CitationCitedArtifactVersionSurrogate.fromModel(value))
@@ -132,7 +132,7 @@ public object CitationCitedArtifactStatusDateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.StatusDate =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.StatusDate) {
     surrogateSerializer.serialize(
@@ -152,7 +152,7 @@ public object CitationCitedArtifactTitleSerializer : KSerializer<Citation.CitedA
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Title =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Title) {
     surrogateSerializer.serialize(encoder, CitationCitedArtifactTitleSurrogate.fromModel(value))
@@ -170,7 +170,7 @@ public object CitationCitedArtifactAbstractSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Abstract =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Abstract) {
     surrogateSerializer.serialize(encoder, CitationCitedArtifactAbstractSurrogate.fromModel(value))
@@ -187,7 +187,7 @@ public object CitationCitedArtifactPartSerializer : KSerializer<Citation.CitedAr
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Part =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Part) {
     surrogateSerializer.serialize(encoder, CitationCitedArtifactPartSurrogate.fromModel(value))
@@ -205,7 +205,7 @@ public object CitationCitedArtifactRelatesToSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.RelatesTo =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.RelatesTo) {
     surrogateSerializer.serialize(encoder, CitationCitedArtifactRelatesToSurrogate.fromModel(value))
@@ -224,7 +224,7 @@ public object CitationCitedArtifactPublicationFormPublishedInSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.PublicationForm.PublishedIn =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -249,7 +249,7 @@ public object CitationCitedArtifactPublicationFormSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.PublicationForm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.PublicationForm) {
     surrogateSerializer.serialize(
@@ -270,7 +270,7 @@ public object CitationCitedArtifactWebLocationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.WebLocation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.WebLocation) {
     surrogateSerializer.serialize(
@@ -292,7 +292,7 @@ public object CitationCitedArtifactClassificationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Classification =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Classification) {
     surrogateSerializer.serialize(
@@ -316,7 +316,7 @@ public object CitationCitedArtifactContributorshipEntryContributionInstanceSeria
   override fun deserialize(
     decoder: Decoder
   ): Citation.CitedArtifact.Contributorship.Entry.ContributionInstance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -341,7 +341,7 @@ public object CitationCitedArtifactContributorshipEntrySerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship.Entry =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Contributorship.Entry) {
     surrogateSerializer.serialize(
@@ -363,7 +363,7 @@ public object CitationCitedArtifactContributorshipSummarySerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship.Summary =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -388,7 +388,7 @@ public object CitationCitedArtifactContributorshipSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Contributorship) {
     surrogateSerializer.serialize(
@@ -408,7 +408,7 @@ public object CitationCitedArtifactSerializer : KSerializer<Citation.CitedArtifa
   }
 
   override fun deserialize(decoder: Decoder): Citation.CitedArtifact =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact) {
     surrogateSerializer.serialize(encoder, CitationCitedArtifactSurrogate.fromModel(value))
@@ -425,7 +425,7 @@ public object CitationVersionAlgorithmSerializer : KSerializer<Citation.VersionA
   }
 
   override fun deserialize(decoder: Decoder): Citation.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Citation.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, CitationVersionAlgorithmSurrogate.fromModel(value))

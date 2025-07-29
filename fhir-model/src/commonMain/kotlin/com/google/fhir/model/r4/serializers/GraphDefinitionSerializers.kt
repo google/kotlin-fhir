@@ -41,7 +41,7 @@ public object GraphDefinitionLinkTargetCompartmentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): GraphDefinition.Link.Target.Compartment =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link.Target.Compartment) {
     surrogateSerializer.serialize(
@@ -61,7 +61,7 @@ public object GraphDefinitionLinkTargetSerializer : KSerializer<GraphDefinition.
   }
 
   override fun deserialize(decoder: Decoder): GraphDefinition.Link.Target =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link.Target) {
     surrogateSerializer.serialize(encoder, GraphDefinitionLinkTargetSurrogate.fromModel(value))
@@ -78,7 +78,7 @@ public object GraphDefinitionLinkSerializer : KSerializer<GraphDefinition.Link> 
   }
 
   override fun deserialize(decoder: Decoder): GraphDefinition.Link =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link) {
     surrogateSerializer.serialize(encoder, GraphDefinitionLinkSurrogate.fromModel(value))
@@ -95,7 +95,7 @@ public object GraphDefinitionSerializer : KSerializer<GraphDefinition> {
   }
 
   override fun deserialize(decoder: Decoder): GraphDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GraphDefinition) {
     surrogateSerializer.serialize(encoder, GraphDefinitionSurrogate.fromModel(value))

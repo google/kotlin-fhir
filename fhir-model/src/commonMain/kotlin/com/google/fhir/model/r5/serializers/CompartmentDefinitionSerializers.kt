@@ -47,7 +47,7 @@ public object CompartmentDefinitionResourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CompartmentDefinition.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CompartmentDefinition.Resource) {
     surrogateSerializer.serialize(encoder, CompartmentDefinitionResourceSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object CompartmentDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CompartmentDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CompartmentDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(

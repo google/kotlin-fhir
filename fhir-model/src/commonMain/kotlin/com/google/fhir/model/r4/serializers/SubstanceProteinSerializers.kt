@@ -37,7 +37,7 @@ public object SubstanceProteinSubunitSerializer : KSerializer<SubstanceProtein.S
   }
 
   override fun deserialize(decoder: Decoder): SubstanceProtein.Subunit =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceProtein.Subunit) {
     surrogateSerializer.serialize(encoder, SubstanceProteinSubunitSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object SubstanceProteinSerializer : KSerializer<SubstanceProtein> {
   }
 
   override fun deserialize(decoder: Decoder): SubstanceProtein =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceProtein) {
     surrogateSerializer.serialize(encoder, SubstanceProteinSurrogate.fromModel(value))

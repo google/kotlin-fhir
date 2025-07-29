@@ -39,7 +39,7 @@ public object ImagingStudySeriesPerformerSerializer : KSerializer<ImagingStudy.S
   }
 
   override fun deserialize(decoder: Decoder): ImagingStudy.Series.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImagingStudy.Series.Performer) {
     surrogateSerializer.serialize(encoder, ImagingStudySeriesPerformerSurrogate.fromModel(value))
@@ -56,7 +56,7 @@ public object ImagingStudySeriesInstanceSerializer : KSerializer<ImagingStudy.Se
   }
 
   override fun deserialize(decoder: Decoder): ImagingStudy.Series.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImagingStudy.Series.Instance) {
     surrogateSerializer.serialize(encoder, ImagingStudySeriesInstanceSurrogate.fromModel(value))
@@ -73,7 +73,7 @@ public object ImagingStudySeriesSerializer : KSerializer<ImagingStudy.Series> {
   }
 
   override fun deserialize(decoder: Decoder): ImagingStudy.Series =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImagingStudy.Series) {
     surrogateSerializer.serialize(encoder, ImagingStudySeriesSurrogate.fromModel(value))
@@ -90,7 +90,7 @@ public object ImagingStudySerializer : KSerializer<ImagingStudy> {
   }
 
   override fun deserialize(decoder: Decoder): ImagingStudy =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImagingStudy) {
     surrogateSerializer.serialize(encoder, ImagingStudySurrogate.fromModel(value))

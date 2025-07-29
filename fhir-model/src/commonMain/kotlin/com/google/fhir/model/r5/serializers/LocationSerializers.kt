@@ -37,7 +37,7 @@ public object LocationPositionSerializer : KSerializer<Location.Position> {
   }
 
   override fun deserialize(decoder: Decoder): Location.Position =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Location.Position) {
     surrogateSerializer.serialize(encoder, LocationPositionSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object LocationSerializer : KSerializer<Location> {
   }
 
   override fun deserialize(decoder: Decoder): Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Location) {
     surrogateSerializer.serialize(encoder, LocationSurrogate.fromModel(value))

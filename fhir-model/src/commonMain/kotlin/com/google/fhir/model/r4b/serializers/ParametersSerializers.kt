@@ -46,7 +46,7 @@ public object ParametersParameterValueSerializer : KSerializer<Parameters.Parame
   }
 
   override fun deserialize(decoder: Decoder): Parameters.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Parameters.Parameter.Value) {
     surrogateSerializer.serialize(encoder, ParametersParameterValueSurrogate.fromModel(value))
@@ -110,7 +110,7 @@ public object ParametersSerializer : KSerializer<Parameters> {
   }
 
   override fun deserialize(decoder: Decoder): Parameters =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Parameters) {
     surrogateSerializer.serialize(encoder, ParametersSurrogate.fromModel(value))

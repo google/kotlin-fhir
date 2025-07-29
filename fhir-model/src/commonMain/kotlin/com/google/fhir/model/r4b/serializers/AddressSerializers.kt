@@ -36,7 +36,7 @@ public object AddressSerializer : KSerializer<Address> {
   }
 
   override fun deserialize(decoder: Decoder): Address =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Address) {
     surrogateSerializer.serialize(encoder, AddressSurrogate.fromModel(value))

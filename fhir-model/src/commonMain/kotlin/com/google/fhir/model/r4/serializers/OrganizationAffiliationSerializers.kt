@@ -36,7 +36,7 @@ public object OrganizationAffiliationSerializer : KSerializer<OrganizationAffili
   }
 
   override fun deserialize(decoder: Decoder): OrganizationAffiliation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: OrganizationAffiliation) {
     surrogateSerializer.serialize(encoder, OrganizationAffiliationSurrogate.fromModel(value))

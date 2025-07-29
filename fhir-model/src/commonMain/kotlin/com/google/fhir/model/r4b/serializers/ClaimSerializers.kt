@@ -62,7 +62,7 @@ public object ClaimRelatedSerializer : KSerializer<Claim.Related> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.Related =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Related) {
     surrogateSerializer.serialize(encoder, ClaimRelatedSurrogate.fromModel(value))
@@ -79,7 +79,7 @@ public object ClaimPayeeSerializer : KSerializer<Claim.Payee> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.Payee =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Payee) {
     surrogateSerializer.serialize(encoder, ClaimPayeeSurrogate.fromModel(value))
@@ -96,7 +96,7 @@ public object ClaimCareTeamSerializer : KSerializer<Claim.CareTeam> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.CareTeam =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.CareTeam) {
     surrogateSerializer.serialize(encoder, ClaimCareTeamSurrogate.fromModel(value))
@@ -113,7 +113,7 @@ public object ClaimSupportingInfoTimingSerializer : KSerializer<Claim.Supporting
   }
 
   override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Timing) {
     surrogateSerializer.serialize(encoder, ClaimSupportingInfoTimingSurrogate.fromModel(value))
@@ -130,7 +130,7 @@ public object ClaimSupportingInfoValueSerializer : KSerializer<Claim.SupportingI
   }
 
   override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Value) {
     surrogateSerializer.serialize(encoder, ClaimSupportingInfoValueSurrogate.fromModel(value))
@@ -194,7 +194,7 @@ public object ClaimDiagnosisDiagnosisSerializer : KSerializer<Claim.Diagnosis.Di
   }
 
   override fun deserialize(decoder: Decoder): Claim.Diagnosis.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Diagnosis.Diagnosis) {
     surrogateSerializer.serialize(encoder, ClaimDiagnosisDiagnosisSurrogate.fromModel(value))
@@ -258,7 +258,7 @@ public object ClaimProcedureProcedureSerializer : KSerializer<Claim.Procedure.Pr
   }
 
   override fun deserialize(decoder: Decoder): Claim.Procedure.Procedure =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Procedure.Procedure) {
     surrogateSerializer.serialize(encoder, ClaimProcedureProcedureSurrogate.fromModel(value))
@@ -322,7 +322,7 @@ public object ClaimInsuranceSerializer : KSerializer<Claim.Insurance> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.Insurance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Insurance) {
     surrogateSerializer.serialize(encoder, ClaimInsuranceSurrogate.fromModel(value))
@@ -339,7 +339,7 @@ public object ClaimAccidentLocationSerializer : KSerializer<Claim.Accident.Locat
   }
 
   override fun deserialize(decoder: Decoder): Claim.Accident.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Accident.Location) {
     surrogateSerializer.serialize(encoder, ClaimAccidentLocationSurrogate.fromModel(value))
@@ -403,7 +403,7 @@ public object ClaimItemDetailSubDetailSerializer : KSerializer<Claim.Item.Detail
   }
 
   override fun deserialize(decoder: Decoder): Claim.Item.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Item.Detail.SubDetail) {
     surrogateSerializer.serialize(encoder, ClaimItemDetailSubDetailSurrogate.fromModel(value))
@@ -420,7 +420,7 @@ public object ClaimItemDetailSerializer : KSerializer<Claim.Item.Detail> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.Item.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Item.Detail) {
     surrogateSerializer.serialize(encoder, ClaimItemDetailSurrogate.fromModel(value))
@@ -437,7 +437,7 @@ public object ClaimItemServicedSerializer : KSerializer<Claim.Item.Serviced> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.Item.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Item.Serviced) {
     surrogateSerializer.serialize(encoder, ClaimItemServicedSurrogate.fromModel(value))
@@ -454,7 +454,7 @@ public object ClaimItemLocationSerializer : KSerializer<Claim.Item.Location> {
   }
 
   override fun deserialize(decoder: Decoder): Claim.Item.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim.Item.Location) {
     surrogateSerializer.serialize(encoder, ClaimItemLocationSurrogate.fromModel(value))
@@ -518,7 +518,7 @@ public object ClaimSerializer : KSerializer<Claim> {
   }
 
   override fun deserialize(decoder: Decoder): Claim =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Claim) {
     surrogateSerializer.serialize(encoder, ClaimSurrogate.fromModel(value))

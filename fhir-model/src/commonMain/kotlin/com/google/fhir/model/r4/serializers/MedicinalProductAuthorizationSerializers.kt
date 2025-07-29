@@ -51,7 +51,7 @@ public object MedicinalProductAuthorizationJurisdictionalAuthorizationSerializer
   override fun deserialize(
     decoder: Decoder
   ): MedicinalProductAuthorization.JurisdictionalAuthorization =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -76,7 +76,7 @@ public object MedicinalProductAuthorizationProcedureDateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductAuthorization.Procedure.Date =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductAuthorization.Procedure.Date) {
     surrogateSerializer.serialize(
@@ -145,7 +145,7 @@ public object MedicinalProductAuthorizationSerializer : KSerializer<MedicinalPro
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductAuthorization =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductAuthorization) {
     surrogateSerializer.serialize(encoder, MedicinalProductAuthorizationSurrogate.fromModel(value))

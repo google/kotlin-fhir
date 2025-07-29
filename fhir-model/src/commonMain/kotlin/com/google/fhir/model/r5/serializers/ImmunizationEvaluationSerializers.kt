@@ -36,7 +36,7 @@ public object ImmunizationEvaluationSerializer : KSerializer<ImmunizationEvaluat
   }
 
   override fun deserialize(decoder: Decoder): ImmunizationEvaluation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ImmunizationEvaluation) {
     surrogateSerializer.serialize(encoder, ImmunizationEvaluationSurrogate.fromModel(value))

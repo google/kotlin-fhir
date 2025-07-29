@@ -36,7 +36,7 @@ public object SlotSerializer : KSerializer<Slot> {
   }
 
   override fun deserialize(decoder: Decoder): Slot =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Slot) {
     surrogateSerializer.serialize(encoder, SlotSurrogate.fromModel(value))

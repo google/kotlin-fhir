@@ -51,7 +51,7 @@ public object AdministrableProductDefinitionPropertyValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): AdministrableProductDefinition.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AdministrableProductDefinition.Property.Value) {
     surrogateSerializer.serialize(
@@ -127,7 +127,7 @@ public object AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWi
   override fun deserialize(
     decoder: Decoder
   ): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -155,7 +155,7 @@ public object AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSe
   override fun deserialize(
     decoder: Decoder
   ): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -180,7 +180,7 @@ public object AdministrableProductDefinitionRouteOfAdministrationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): AdministrableProductDefinition.RouteOfAdministration =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -204,7 +204,7 @@ public object AdministrableProductDefinitionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): AdministrableProductDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AdministrableProductDefinition) {
     surrogateSerializer.serialize(encoder, AdministrableProductDefinitionSurrogate.fromModel(value))

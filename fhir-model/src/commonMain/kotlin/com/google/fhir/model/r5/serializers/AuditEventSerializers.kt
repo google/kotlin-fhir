@@ -52,7 +52,7 @@ public object AuditEventOutcomeSerializer : KSerializer<AuditEvent.Outcome> {
   }
 
   override fun deserialize(decoder: Decoder): AuditEvent.Outcome =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Outcome) {
     surrogateSerializer.serialize(encoder, AuditEventOutcomeSurrogate.fromModel(value))
@@ -69,7 +69,7 @@ public object AuditEventAgentNetworkSerializer : KSerializer<AuditEvent.Agent.Ne
   }
 
   override fun deserialize(decoder: Decoder): AuditEvent.Agent.Network =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Agent.Network) {
     surrogateSerializer.serialize(encoder, AuditEventAgentNetworkSurrogate.fromModel(value))
@@ -133,7 +133,7 @@ public object AuditEventSourceSerializer : KSerializer<AuditEvent.Source> {
   }
 
   override fun deserialize(decoder: Decoder): AuditEvent.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Source) {
     surrogateSerializer.serialize(encoder, AuditEventSourceSurrogate.fromModel(value))
@@ -150,7 +150,7 @@ public object AuditEventEntityDetailValueSerializer : KSerializer<AuditEvent.Ent
   }
 
   override fun deserialize(decoder: Decoder): AuditEvent.Entity.Detail.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity.Detail.Value) {
     surrogateSerializer.serialize(encoder, AuditEventEntityDetailValueSurrogate.fromModel(value))
@@ -214,7 +214,7 @@ public object AuditEventEntitySerializer : KSerializer<AuditEvent.Entity> {
   }
 
   override fun deserialize(decoder: Decoder): AuditEvent.Entity =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity) {
     surrogateSerializer.serialize(encoder, AuditEventEntitySurrogate.fromModel(value))
@@ -231,7 +231,7 @@ public object AuditEventOccurredSerializer : KSerializer<AuditEvent.Occurred> {
   }
 
   override fun deserialize(decoder: Decoder): AuditEvent.Occurred =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Occurred) {
     surrogateSerializer.serialize(encoder, AuditEventOccurredSurrogate.fromModel(value))

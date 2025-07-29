@@ -54,7 +54,7 @@ public object CoverageEligibilityRequestEventWhenSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Event.When =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Event.When) {
     surrogateSerializer.serialize(
@@ -124,7 +124,7 @@ public object CoverageEligibilityRequestSupportingInfoSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.SupportingInfo =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.SupportingInfo) {
     surrogateSerializer.serialize(
@@ -146,7 +146,7 @@ public object CoverageEligibilityRequestInsuranceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Insurance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Insurance) {
     surrogateSerializer.serialize(
@@ -168,7 +168,7 @@ public object CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Item.Diagnosis.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -241,7 +241,7 @@ public object CoverageEligibilityRequestItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Item) {
     surrogateSerializer.serialize(encoder, CoverageEligibilityRequestItemSurrogate.fromModel(value))
@@ -260,7 +260,7 @@ public object CoverageEligibilityRequestServicedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Serviced) {
     surrogateSerializer.serialize(

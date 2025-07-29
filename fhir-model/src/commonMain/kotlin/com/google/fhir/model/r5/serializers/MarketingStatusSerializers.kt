@@ -36,7 +36,7 @@ public object MarketingStatusSerializer : KSerializer<MarketingStatus> {
   }
 
   override fun deserialize(decoder: Decoder): MarketingStatus =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MarketingStatus) {
     surrogateSerializer.serialize(encoder, MarketingStatusSurrogate.fromModel(value))

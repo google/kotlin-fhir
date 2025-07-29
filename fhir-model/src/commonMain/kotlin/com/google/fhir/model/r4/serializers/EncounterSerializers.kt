@@ -42,7 +42,7 @@ public object EncounterStatusHistorySerializer : KSerializer<Encounter.StatusHis
   }
 
   override fun deserialize(decoder: Decoder): Encounter.StatusHistory =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter.StatusHistory) {
     surrogateSerializer.serialize(encoder, EncounterStatusHistorySurrogate.fromModel(value))
@@ -59,7 +59,7 @@ public object EncounterClassHistorySerializer : KSerializer<Encounter.ClassHisto
   }
 
   override fun deserialize(decoder: Decoder): Encounter.ClassHistory =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter.ClassHistory) {
     surrogateSerializer.serialize(encoder, EncounterClassHistorySurrogate.fromModel(value))
@@ -76,7 +76,7 @@ public object EncounterParticipantSerializer : KSerializer<Encounter.Participant
   }
 
   override fun deserialize(decoder: Decoder): Encounter.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter.Participant) {
     surrogateSerializer.serialize(encoder, EncounterParticipantSurrogate.fromModel(value))
@@ -93,7 +93,7 @@ public object EncounterDiagnosisSerializer : KSerializer<Encounter.Diagnosis> {
   }
 
   override fun deserialize(decoder: Decoder): Encounter.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter.Diagnosis) {
     surrogateSerializer.serialize(encoder, EncounterDiagnosisSurrogate.fromModel(value))
@@ -110,7 +110,7 @@ public object EncounterHospitalizationSerializer : KSerializer<Encounter.Hospita
   }
 
   override fun deserialize(decoder: Decoder): Encounter.Hospitalization =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter.Hospitalization) {
     surrogateSerializer.serialize(encoder, EncounterHospitalizationSurrogate.fromModel(value))
@@ -127,7 +127,7 @@ public object EncounterLocationSerializer : KSerializer<Encounter.Location> {
   }
 
   override fun deserialize(decoder: Decoder): Encounter.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter.Location) {
     surrogateSerializer.serialize(encoder, EncounterLocationSurrogate.fromModel(value))
@@ -144,7 +144,7 @@ public object EncounterSerializer : KSerializer<Encounter> {
   }
 
   override fun deserialize(decoder: Decoder): Encounter =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Encounter) {
     surrogateSerializer.serialize(encoder, EncounterSurrogate.fromModel(value))

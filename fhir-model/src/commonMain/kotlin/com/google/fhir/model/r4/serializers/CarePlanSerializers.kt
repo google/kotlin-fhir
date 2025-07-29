@@ -49,7 +49,7 @@ public object CarePlanActivityDetailScheduledSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CarePlan.Activity.Detail.Scheduled =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CarePlan.Activity.Detail.Scheduled) {
     surrogateSerializer.serialize(
@@ -70,7 +70,7 @@ public object CarePlanActivityDetailProductSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CarePlan.Activity.Detail.Product =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CarePlan.Activity.Detail.Product) {
     surrogateSerializer.serialize(encoder, CarePlanActivityDetailProductSurrogate.fromModel(value))
@@ -134,7 +134,7 @@ public object CarePlanActivitySerializer : KSerializer<CarePlan.Activity> {
   }
 
   override fun deserialize(decoder: Decoder): CarePlan.Activity =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CarePlan.Activity) {
     surrogateSerializer.serialize(encoder, CarePlanActivitySurrogate.fromModel(value))
@@ -151,7 +151,7 @@ public object CarePlanSerializer : KSerializer<CarePlan> {
   }
 
   override fun deserialize(decoder: Decoder): CarePlan =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CarePlan) {
     surrogateSerializer.serialize(encoder, CarePlanSurrogate.fromModel(value))

@@ -49,7 +49,7 @@ public object ObservationReferenceRangeSerializer : KSerializer<Observation.Refe
   }
 
   override fun deserialize(decoder: Decoder): Observation.ReferenceRange =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Observation.ReferenceRange) {
     surrogateSerializer.serialize(encoder, ObservationReferenceRangeSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object ObservationComponentValueSerializer : KSerializer<Observation.Comp
   }
 
   override fun deserialize(decoder: Decoder): Observation.Component.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Observation.Component.Value) {
     surrogateSerializer.serialize(encoder, ObservationComponentValueSurrogate.fromModel(value))
@@ -130,7 +130,7 @@ public object ObservationEffectiveSerializer : KSerializer<Observation.Effective
   }
 
   override fun deserialize(decoder: Decoder): Observation.Effective =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Observation.Effective) {
     surrogateSerializer.serialize(encoder, ObservationEffectiveSurrogate.fromModel(value))
@@ -147,7 +147,7 @@ public object ObservationValueSerializer : KSerializer<Observation.Value> {
   }
 
   override fun deserialize(decoder: Decoder): Observation.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Observation.Value) {
     surrogateSerializer.serialize(encoder, ObservationValueSurrogate.fromModel(value))

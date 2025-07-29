@@ -48,7 +48,7 @@ public object SupplyDeliverySuppliedItemItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SupplyDelivery.SuppliedItem.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SupplyDelivery.SuppliedItem.Item) {
     surrogateSerializer.serialize(encoder, SupplyDeliverySuppliedItemItemSurrogate.fromModel(value))
@@ -112,7 +112,7 @@ public object SupplyDeliveryOccurrenceSerializer : KSerializer<SupplyDelivery.Oc
   }
 
   override fun deserialize(decoder: Decoder): SupplyDelivery.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SupplyDelivery.Occurrence) {
     surrogateSerializer.serialize(encoder, SupplyDeliveryOccurrenceSurrogate.fromModel(value))

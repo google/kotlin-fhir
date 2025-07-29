@@ -39,7 +39,7 @@ public object BiologicallyDerivedProductDispensePerformerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProductDispense.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProductDispense.Performer) {
     surrogateSerializer.serialize(
@@ -61,7 +61,7 @@ public object BiologicallyDerivedProductDispenseSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProductDispense =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProductDispense) {
     surrogateSerializer.serialize(

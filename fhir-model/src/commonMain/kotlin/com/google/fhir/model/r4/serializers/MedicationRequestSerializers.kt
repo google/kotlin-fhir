@@ -52,7 +52,7 @@ public object MedicationRequestDispenseRequestInitialFillSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.DispenseRequest.InitialFill =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.DispenseRequest.InitialFill) {
     surrogateSerializer.serialize(
@@ -73,7 +73,7 @@ public object MedicationRequestDispenseRequestSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.DispenseRequest =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.DispenseRequest) {
     surrogateSerializer.serialize(
@@ -95,7 +95,7 @@ public object MedicationRequestSubstitutionAllowedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.Substitution.Allowed =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.Substitution.Allowed) {
     surrogateSerializer.serialize(
@@ -163,7 +163,7 @@ public object MedicationRequestReportedSerializer : KSerializer<MedicationReques
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.Reported =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.Reported) {
     surrogateSerializer.serialize(encoder, MedicationRequestReportedSurrogate.fromModel(value))
@@ -180,7 +180,7 @@ public object MedicationRequestMedicationSerializer : KSerializer<MedicationRequ
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.Medication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.Medication) {
     surrogateSerializer.serialize(encoder, MedicationRequestMedicationSurrogate.fromModel(value))

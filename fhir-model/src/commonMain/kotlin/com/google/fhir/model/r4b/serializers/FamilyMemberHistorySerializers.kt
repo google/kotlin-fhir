@@ -51,7 +51,7 @@ public object FamilyMemberHistoryConditionOnsetSerializer :
   }
 
   override fun deserialize(decoder: Decoder): FamilyMemberHistory.Condition.Onset =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Condition.Onset) {
     surrogateSerializer.serialize(
@@ -118,7 +118,7 @@ public object FamilyMemberHistoryBornSerializer : KSerializer<FamilyMemberHistor
   }
 
   override fun deserialize(decoder: Decoder): FamilyMemberHistory.Born =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Born) {
     surrogateSerializer.serialize(encoder, FamilyMemberHistoryBornSurrogate.fromModel(value))
@@ -135,7 +135,7 @@ public object FamilyMemberHistoryAgeSerializer : KSerializer<FamilyMemberHistory
   }
 
   override fun deserialize(decoder: Decoder): FamilyMemberHistory.Age =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Age) {
     surrogateSerializer.serialize(encoder, FamilyMemberHistoryAgeSurrogate.fromModel(value))
@@ -152,7 +152,7 @@ public object FamilyMemberHistoryDeceasedSerializer : KSerializer<FamilyMemberHi
   }
 
   override fun deserialize(decoder: Decoder): FamilyMemberHistory.Deceased =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Deceased) {
     surrogateSerializer.serialize(encoder, FamilyMemberHistoryDeceasedSurrogate.fromModel(value))

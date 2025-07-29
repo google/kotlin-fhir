@@ -37,7 +37,7 @@ public object ResearchSubjectProgressSerializer : KSerializer<ResearchSubject.Pr
   }
 
   override fun deserialize(decoder: Decoder): ResearchSubject.Progress =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ResearchSubject.Progress) {
     surrogateSerializer.serialize(encoder, ResearchSubjectProgressSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object ResearchSubjectSerializer : KSerializer<ResearchSubject> {
   }
 
   override fun deserialize(decoder: Decoder): ResearchSubject =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ResearchSubject) {
     surrogateSerializer.serialize(encoder, ResearchSubjectSurrogate.fromModel(value))

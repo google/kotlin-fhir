@@ -47,7 +47,7 @@ public object ProcedurePerformerSerializer : KSerializer<Procedure.Performer> {
   }
 
   override fun deserialize(decoder: Decoder): Procedure.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Procedure.Performer) {
     surrogateSerializer.serialize(encoder, ProcedurePerformerSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object ProcedureFocalDeviceSerializer : KSerializer<Procedure.FocalDevice
   }
 
   override fun deserialize(decoder: Decoder): Procedure.FocalDevice =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Procedure.FocalDevice) {
     surrogateSerializer.serialize(encoder, ProcedureFocalDeviceSurrogate.fromModel(value))
@@ -81,7 +81,7 @@ public object ProcedurePerformedSerializer : KSerializer<Procedure.Performed> {
   }
 
   override fun deserialize(decoder: Decoder): Procedure.Performed =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Procedure.Performed) {
     surrogateSerializer.serialize(encoder, ProcedurePerformedSurrogate.fromModel(value))

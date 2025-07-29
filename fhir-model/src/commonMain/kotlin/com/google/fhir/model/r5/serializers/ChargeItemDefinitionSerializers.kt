@@ -49,7 +49,7 @@ public object ChargeItemDefinitionApplicabilitySerializer :
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition.Applicability =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.Applicability) {
     surrogateSerializer.serialize(
@@ -71,7 +71,7 @@ public object ChargeItemDefinitionPropertyGroupSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition.PropertyGroup =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.PropertyGroup) {
     surrogateSerializer.serialize(
@@ -93,7 +93,7 @@ public object ChargeItemDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(

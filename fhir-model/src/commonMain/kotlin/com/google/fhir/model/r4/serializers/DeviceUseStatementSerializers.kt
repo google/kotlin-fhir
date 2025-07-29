@@ -45,7 +45,7 @@ public object DeviceUseStatementTimingSerializer : KSerializer<DeviceUseStatemen
   }
 
   override fun deserialize(decoder: Decoder): DeviceUseStatement.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DeviceUseStatement.Timing) {
     surrogateSerializer.serialize(encoder, DeviceUseStatementTimingSurrogate.fromModel(value))

@@ -36,7 +36,7 @@ public object RatioSerializer : KSerializer<Ratio> {
   }
 
   override fun deserialize(decoder: Decoder): Ratio =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Ratio) {
     surrogateSerializer.serialize(encoder, RatioSurrogate.fromModel(value))

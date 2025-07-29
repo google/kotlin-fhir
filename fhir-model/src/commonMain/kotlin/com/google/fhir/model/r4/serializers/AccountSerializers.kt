@@ -38,7 +38,7 @@ public object AccountCoverageSerializer : KSerializer<Account.Coverage> {
   }
 
   override fun deserialize(decoder: Decoder): Account.Coverage =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Account.Coverage) {
     surrogateSerializer.serialize(encoder, AccountCoverageSurrogate.fromModel(value))
@@ -55,7 +55,7 @@ public object AccountGuarantorSerializer : KSerializer<Account.Guarantor> {
   }
 
   override fun deserialize(decoder: Decoder): Account.Guarantor =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Account.Guarantor) {
     surrogateSerializer.serialize(encoder, AccountGuarantorSurrogate.fromModel(value))
@@ -72,7 +72,7 @@ public object AccountSerializer : KSerializer<Account> {
   }
 
   override fun deserialize(decoder: Decoder): Account =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Account) {
     surrogateSerializer.serialize(encoder, AccountSurrogate.fromModel(value))

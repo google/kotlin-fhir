@@ -49,7 +49,7 @@ public object QuestionnaireResponseItemAnswerValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): QuestionnaireResponse.Item.Answer.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: QuestionnaireResponse.Item.Answer.Value) {
     surrogateSerializer.serialize(
@@ -117,7 +117,7 @@ public object QuestionnaireResponseItemSerializer : KSerializer<QuestionnaireRes
   }
 
   override fun deserialize(decoder: Decoder): QuestionnaireResponse.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: QuestionnaireResponse.Item) {
     surrogateSerializer.serialize(encoder, QuestionnaireResponseItemSurrogate.fromModel(value))
@@ -134,7 +134,7 @@ public object QuestionnaireResponseSerializer : KSerializer<QuestionnaireRespons
   }
 
   override fun deserialize(decoder: Decoder): QuestionnaireResponse =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: QuestionnaireResponse) {
     surrogateSerializer.serialize(encoder, QuestionnaireResponseSurrogate.fromModel(value))

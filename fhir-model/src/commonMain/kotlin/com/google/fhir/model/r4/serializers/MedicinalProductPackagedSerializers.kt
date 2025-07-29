@@ -40,7 +40,7 @@ public object MedicinalProductPackagedBatchIdentifierSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductPackaged.BatchIdentifier =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductPackaged.BatchIdentifier) {
     surrogateSerializer.serialize(
@@ -62,7 +62,7 @@ public object MedicinalProductPackagedPackageItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductPackaged.PackageItem =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductPackaged.PackageItem) {
     surrogateSerializer.serialize(
@@ -82,7 +82,7 @@ public object MedicinalProductPackagedSerializer : KSerializer<MedicinalProductP
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductPackaged =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductPackaged) {
     surrogateSerializer.serialize(encoder, MedicinalProductPackagedSurrogate.fromModel(value))

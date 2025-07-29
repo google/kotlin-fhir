@@ -54,7 +54,7 @@ public object SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer :
   override fun deserialize(
     decoder: Decoder
   ): SpecimenDefinition.TypeTested.Container.Additive.Additive =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -133,7 +133,7 @@ public object SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer :
   override fun deserialize(
     decoder: Decoder
   ): SpecimenDefinition.TypeTested.Container.MinimumVolume =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -207,7 +207,7 @@ public object SpecimenDefinitionTypeTestedHandlingSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SpecimenDefinition.TypeTested.Handling =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SpecimenDefinition.TypeTested.Handling) {
     surrogateSerializer.serialize(
@@ -227,7 +227,7 @@ public object SpecimenDefinitionTypeTestedSerializer : KSerializer<SpecimenDefin
   }
 
   override fun deserialize(decoder: Decoder): SpecimenDefinition.TypeTested =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SpecimenDefinition.TypeTested) {
     surrogateSerializer.serialize(encoder, SpecimenDefinitionTypeTestedSurrogate.fromModel(value))
@@ -244,7 +244,7 @@ public object SpecimenDefinitionSerializer : KSerializer<SpecimenDefinition> {
   }
 
   override fun deserialize(decoder: Decoder): SpecimenDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SpecimenDefinition) {
     surrogateSerializer.serialize(encoder, SpecimenDefinitionSurrogate.fromModel(value))

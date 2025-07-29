@@ -45,7 +45,7 @@ public object MolecularSequenceReferenceSeqSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.ReferenceSeq =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.ReferenceSeq) {
     surrogateSerializer.serialize(encoder, MolecularSequenceReferenceSeqSurrogate.fromModel(value))
@@ -62,7 +62,7 @@ public object MolecularSequenceVariantSerializer : KSerializer<MolecularSequence
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Variant =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Variant) {
     surrogateSerializer.serialize(encoder, MolecularSequenceVariantSurrogate.fromModel(value))
@@ -79,7 +79,7 @@ public object MolecularSequenceQualityRocSerializer : KSerializer<MolecularSeque
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Quality.Roc =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Quality.Roc) {
     surrogateSerializer.serialize(encoder, MolecularSequenceQualityRocSurrogate.fromModel(value))
@@ -96,7 +96,7 @@ public object MolecularSequenceQualitySerializer : KSerializer<MolecularSequence
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Quality =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Quality) {
     surrogateSerializer.serialize(encoder, MolecularSequenceQualitySurrogate.fromModel(value))
@@ -113,7 +113,7 @@ public object MolecularSequenceRepositorySerializer : KSerializer<MolecularSeque
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Repository =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Repository) {
     surrogateSerializer.serialize(encoder, MolecularSequenceRepositorySurrogate.fromModel(value))
@@ -132,7 +132,7 @@ public object MolecularSequenceStructureVariantOuterSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.StructureVariant.Outer =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.StructureVariant.Outer) {
     surrogateSerializer.serialize(
@@ -154,7 +154,7 @@ public object MolecularSequenceStructureVariantInnerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.StructureVariant.Inner =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.StructureVariant.Inner) {
     surrogateSerializer.serialize(
@@ -176,7 +176,7 @@ public object MolecularSequenceStructureVariantSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.StructureVariant =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.StructureVariant) {
     surrogateSerializer.serialize(
@@ -196,7 +196,7 @@ public object MolecularSequenceSerializer : KSerializer<MolecularSequence> {
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence) {
     surrogateSerializer.serialize(encoder, MolecularSequenceSurrogate.fromModel(value))

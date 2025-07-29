@@ -57,7 +57,7 @@ public object RequestOrchestrationActionConditionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Condition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Condition) {
     surrogateSerializer.serialize(
@@ -78,7 +78,7 @@ public object RequestOrchestrationActionInputSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Input =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Input) {
     surrogateSerializer.serialize(
@@ -99,7 +99,7 @@ public object RequestOrchestrationActionOutputSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Output =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Output) {
     surrogateSerializer.serialize(
@@ -121,7 +121,7 @@ public object RequestOrchestrationActionRelatedActionOffsetSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.RelatedAction.Offset =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -195,7 +195,7 @@ public object RequestOrchestrationActionParticipantActorSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Participant.Actor =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Participant.Actor) {
     surrogateSerializer.serialize(
@@ -266,7 +266,7 @@ public object RequestOrchestrationActionDynamicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.DynamicValue =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.DynamicValue) {
     surrogateSerializer.serialize(
@@ -287,7 +287,7 @@ public object RequestOrchestrationActionTimingSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Timing) {
     surrogateSerializer.serialize(
@@ -309,7 +309,7 @@ public object RequestOrchestrationActionDefinitionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Definition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Definition) {
     surrogateSerializer.serialize(
@@ -376,7 +376,7 @@ public object RequestOrchestrationSerializer : KSerializer<RequestOrchestration>
   }
 
   override fun deserialize(decoder: Decoder): RequestOrchestration =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestOrchestration) {
     surrogateSerializer.serialize(encoder, RequestOrchestrationSurrogate.fromModel(value))

@@ -52,7 +52,7 @@ public object GenomicStudyAnalysisInputGeneratedBySerializer :
   }
 
   override fun deserialize(decoder: Decoder): GenomicStudy.Analysis.Input.GeneratedBy =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis.Input.GeneratedBy) {
     surrogateSerializer.serialize(
@@ -119,7 +119,7 @@ public object GenomicStudyAnalysisOutputSerializer : KSerializer<GenomicStudy.An
   }
 
   override fun deserialize(decoder: Decoder): GenomicStudy.Analysis.Output =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis.Output) {
     surrogateSerializer.serialize(encoder, GenomicStudyAnalysisOutputSurrogate.fromModel(value))
@@ -137,7 +137,7 @@ public object GenomicStudyAnalysisPerformerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): GenomicStudy.Analysis.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis.Performer) {
     surrogateSerializer.serialize(encoder, GenomicStudyAnalysisPerformerSurrogate.fromModel(value))
@@ -154,7 +154,7 @@ public object GenomicStudyAnalysisDeviceSerializer : KSerializer<GenomicStudy.An
   }
 
   override fun deserialize(decoder: Decoder): GenomicStudy.Analysis.Device =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis.Device) {
     surrogateSerializer.serialize(encoder, GenomicStudyAnalysisDeviceSurrogate.fromModel(value))
@@ -171,7 +171,7 @@ public object GenomicStudyAnalysisSerializer : KSerializer<GenomicStudy.Analysis
   }
 
   override fun deserialize(decoder: Decoder): GenomicStudy.Analysis =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis) {
     surrogateSerializer.serialize(encoder, GenomicStudyAnalysisSurrogate.fromModel(value))
@@ -188,7 +188,7 @@ public object GenomicStudySerializer : KSerializer<GenomicStudy> {
   }
 
   override fun deserialize(decoder: Decoder): GenomicStudy =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: GenomicStudy) {
     surrogateSerializer.serialize(encoder, GenomicStudySurrogate.fromModel(value))

@@ -37,7 +37,7 @@ public object CatalogEntryRelatedEntrySerializer : KSerializer<CatalogEntry.Rela
   }
 
   override fun deserialize(decoder: Decoder): CatalogEntry.RelatedEntry =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CatalogEntry.RelatedEntry) {
     surrogateSerializer.serialize(encoder, CatalogEntryRelatedEntrySurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object CatalogEntrySerializer : KSerializer<CatalogEntry> {
   }
 
   override fun deserialize(decoder: Decoder): CatalogEntry =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CatalogEntry) {
     surrogateSerializer.serialize(encoder, CatalogEntrySurrogate.fromModel(value))

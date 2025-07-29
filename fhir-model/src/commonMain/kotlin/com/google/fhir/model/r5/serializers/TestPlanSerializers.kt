@@ -54,7 +54,7 @@ public object TestPlanDependencySerializer : KSerializer<TestPlan.Dependency> {
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.Dependency =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.Dependency) {
     surrogateSerializer.serialize(encoder, TestPlanDependencySurrogate.fromModel(value))
@@ -71,7 +71,7 @@ public object TestPlanTestCaseDependencySerializer : KSerializer<TestPlan.TestCa
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.TestCase.Dependency =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.Dependency) {
     surrogateSerializer.serialize(encoder, TestPlanTestCaseDependencySurrogate.fromModel(value))
@@ -90,7 +90,7 @@ public object TestPlanTestCaseTestRunScriptSourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestRun.Script.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestRun.Script.Source) {
     surrogateSerializer.serialize(
@@ -158,7 +158,7 @@ public object TestPlanTestCaseTestRunSerializer : KSerializer<TestPlan.TestCase.
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestRun =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestRun) {
     surrogateSerializer.serialize(encoder, TestPlanTestCaseTestRunSurrogate.fromModel(value))
@@ -176,7 +176,7 @@ public object TestPlanTestCaseTestDataSourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestData.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestData.Source) {
     surrogateSerializer.serialize(encoder, TestPlanTestCaseTestDataSourceSurrogate.fromModel(value))
@@ -240,7 +240,7 @@ public object TestPlanTestCaseAssertionSerializer : KSerializer<TestPlan.TestCas
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.TestCase.Assertion =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.Assertion) {
     surrogateSerializer.serialize(encoder, TestPlanTestCaseAssertionSurrogate.fromModel(value))
@@ -257,7 +257,7 @@ public object TestPlanTestCaseSerializer : KSerializer<TestPlan.TestCase> {
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.TestCase =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase) {
     surrogateSerializer.serialize(encoder, TestPlanTestCaseSurrogate.fromModel(value))
@@ -274,7 +274,7 @@ public object TestPlanVersionAlgorithmSerializer : KSerializer<TestPlan.VersionA
   }
 
   override fun deserialize(decoder: Decoder): TestPlan.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, TestPlanVersionAlgorithmSurrogate.fromModel(value))

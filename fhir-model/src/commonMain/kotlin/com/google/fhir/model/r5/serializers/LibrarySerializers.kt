@@ -46,7 +46,7 @@ public object LibraryVersionAlgorithmSerializer : KSerializer<Library.VersionAlg
   }
 
   override fun deserialize(decoder: Decoder): Library.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Library.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, LibraryVersionAlgorithmSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object LibrarySubjectSerializer : KSerializer<Library.Subject> {
   }
 
   override fun deserialize(decoder: Decoder): Library.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Library.Subject) {
     surrogateSerializer.serialize(encoder, LibrarySubjectSurrogate.fromModel(value))

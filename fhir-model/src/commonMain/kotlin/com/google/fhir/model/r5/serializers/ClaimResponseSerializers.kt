@@ -62,7 +62,7 @@ public object ClaimResponseEventWhenSerializer : KSerializer<ClaimResponse.Event
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Event.When =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Event.When) {
     surrogateSerializer.serialize(encoder, ClaimResponseEventWhenSurrogate.fromModel(value))
@@ -127,7 +127,7 @@ public object ClaimResponseItemReviewOutcomeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Item.ReviewOutcome =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Item.ReviewOutcome) {
     surrogateSerializer.serialize(encoder, ClaimResponseItemReviewOutcomeSurrogate.fromModel(value))
@@ -145,7 +145,7 @@ public object ClaimResponseItemAdjudicationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Item.Adjudication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Item.Adjudication) {
     surrogateSerializer.serialize(encoder, ClaimResponseItemAdjudicationSurrogate.fromModel(value))
@@ -163,7 +163,7 @@ public object ClaimResponseItemDetailSubDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Item.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Item.Detail.SubDetail) {
     surrogateSerializer.serialize(
@@ -183,7 +183,7 @@ public object ClaimResponseItemDetailSerializer : KSerializer<ClaimResponse.Item
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Item.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Item.Detail) {
     surrogateSerializer.serialize(encoder, ClaimResponseItemDetailSurrogate.fromModel(value))
@@ -200,7 +200,7 @@ public object ClaimResponseItemSerializer : KSerializer<ClaimResponse.Item> {
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Item) {
     surrogateSerializer.serialize(encoder, ClaimResponseItemSurrogate.fromModel(value))
@@ -217,7 +217,7 @@ public object ClaimResponseAddItemBodySiteSerializer : KSerializer<ClaimResponse
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.AddItem.BodySite =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.AddItem.BodySite) {
     surrogateSerializer.serialize(encoder, ClaimResponseAddItemBodySiteSurrogate.fromModel(value))
@@ -236,7 +236,7 @@ public object ClaimResponseAddItemDetailSubDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.AddItem.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.AddItem.Detail.SubDetail) {
     surrogateSerializer.serialize(
@@ -256,7 +256,7 @@ public object ClaimResponseAddItemDetailSerializer : KSerializer<ClaimResponse.A
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.AddItem.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.AddItem.Detail) {
     surrogateSerializer.serialize(encoder, ClaimResponseAddItemDetailSurrogate.fromModel(value))
@@ -273,7 +273,7 @@ public object ClaimResponseAddItemServicedSerializer : KSerializer<ClaimResponse
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.AddItem.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.AddItem.Serviced) {
     surrogateSerializer.serialize(encoder, ClaimResponseAddItemServicedSurrogate.fromModel(value))
@@ -290,7 +290,7 @@ public object ClaimResponseAddItemLocationSerializer : KSerializer<ClaimResponse
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.AddItem.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.AddItem.Location) {
     surrogateSerializer.serialize(encoder, ClaimResponseAddItemLocationSurrogate.fromModel(value))
@@ -354,7 +354,7 @@ public object ClaimResponseTotalSerializer : KSerializer<ClaimResponse.Total> {
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Total =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Total) {
     surrogateSerializer.serialize(encoder, ClaimResponseTotalSurrogate.fromModel(value))
@@ -371,7 +371,7 @@ public object ClaimResponsePaymentSerializer : KSerializer<ClaimResponse.Payment
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Payment =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Payment) {
     surrogateSerializer.serialize(encoder, ClaimResponsePaymentSurrogate.fromModel(value))
@@ -388,7 +388,7 @@ public object ClaimResponseProcessNoteSerializer : KSerializer<ClaimResponse.Pro
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.ProcessNote =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.ProcessNote) {
     surrogateSerializer.serialize(encoder, ClaimResponseProcessNoteSurrogate.fromModel(value))
@@ -405,7 +405,7 @@ public object ClaimResponseInsuranceSerializer : KSerializer<ClaimResponse.Insur
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Insurance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Insurance) {
     surrogateSerializer.serialize(encoder, ClaimResponseInsuranceSurrogate.fromModel(value))
@@ -422,7 +422,7 @@ public object ClaimResponseErrorSerializer : KSerializer<ClaimResponse.Error> {
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse.Error =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse.Error) {
     surrogateSerializer.serialize(encoder, ClaimResponseErrorSurrogate.fromModel(value))
@@ -439,7 +439,7 @@ public object ClaimResponseSerializer : KSerializer<ClaimResponse> {
   }
 
   override fun deserialize(decoder: Decoder): ClaimResponse =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ClaimResponse) {
     surrogateSerializer.serialize(encoder, ClaimResponseSurrogate.fromModel(value))

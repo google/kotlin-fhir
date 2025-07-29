@@ -45,7 +45,7 @@ public object BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromL
   override fun deserialize(
     decoder: Decoder
   ): BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -74,7 +74,7 @@ public object BodyStructureIncludedStructureBodyLandmarkOrientationSerializer :
   override fun deserialize(
     decoder: Decoder
   ): BodyStructure.IncludedStructure.BodyLandmarkOrientation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -98,7 +98,7 @@ public object BodyStructureIncludedStructureSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BodyStructure.IncludedStructure =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BodyStructure.IncludedStructure) {
     surrogateSerializer.serialize(encoder, BodyStructureIncludedStructureSurrogate.fromModel(value))
@@ -115,7 +115,7 @@ public object BodyStructureSerializer : KSerializer<BodyStructure> {
   }
 
   override fun deserialize(decoder: Decoder): BodyStructure =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BodyStructure) {
     surrogateSerializer.serialize(encoder, BodyStructureSurrogate.fromModel(value))

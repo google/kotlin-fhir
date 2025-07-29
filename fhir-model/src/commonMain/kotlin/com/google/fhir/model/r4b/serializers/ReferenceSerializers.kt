@@ -36,7 +36,7 @@ public object ReferenceSerializer : KSerializer<Reference> {
   }
 
   override fun deserialize(decoder: Decoder): Reference =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Reference) {
     surrogateSerializer.serialize(encoder, ReferenceSurrogate.fromModel(value))

@@ -41,7 +41,7 @@ public object BundleLinkSerializer : KSerializer<Bundle.Link> {
   }
 
   override fun deserialize(decoder: Decoder): Bundle.Link =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Bundle.Link) {
     surrogateSerializer.serialize(encoder, BundleLinkSurrogate.fromModel(value))
@@ -58,7 +58,7 @@ public object BundleEntrySearchSerializer : KSerializer<Bundle.Entry.Search> {
   }
 
   override fun deserialize(decoder: Decoder): Bundle.Entry.Search =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Bundle.Entry.Search) {
     surrogateSerializer.serialize(encoder, BundleEntrySearchSurrogate.fromModel(value))
@@ -75,7 +75,7 @@ public object BundleEntryRequestSerializer : KSerializer<Bundle.Entry.Request> {
   }
 
   override fun deserialize(decoder: Decoder): Bundle.Entry.Request =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Bundle.Entry.Request) {
     surrogateSerializer.serialize(encoder, BundleEntryRequestSurrogate.fromModel(value))
@@ -92,7 +92,7 @@ public object BundleEntryResponseSerializer : KSerializer<Bundle.Entry.Response>
   }
 
   override fun deserialize(decoder: Decoder): Bundle.Entry.Response =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Bundle.Entry.Response) {
     surrogateSerializer.serialize(encoder, BundleEntryResponseSurrogate.fromModel(value))
@@ -109,7 +109,7 @@ public object BundleEntrySerializer : KSerializer<Bundle.Entry> {
   }
 
   override fun deserialize(decoder: Decoder): Bundle.Entry =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Bundle.Entry) {
     surrogateSerializer.serialize(encoder, BundleEntrySurrogate.fromModel(value))
@@ -126,7 +126,7 @@ public object BundleSerializer : KSerializer<Bundle> {
   }
 
   override fun deserialize(decoder: Decoder): Bundle =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Bundle) {
     surrogateSerializer.serialize(encoder, BundleSurrogate.fromModel(value))

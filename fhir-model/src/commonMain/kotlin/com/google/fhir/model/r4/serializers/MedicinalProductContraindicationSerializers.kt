@@ -50,7 +50,7 @@ public object MedicinalProductContraindicationOtherTherapyMedicationSerializer :
   override fun deserialize(
     decoder: Decoder
   ): MedicinalProductContraindication.OtherTherapy.Medication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -123,7 +123,7 @@ public object MedicinalProductContraindicationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductContraindication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductContraindication) {
     surrogateSerializer.serialize(

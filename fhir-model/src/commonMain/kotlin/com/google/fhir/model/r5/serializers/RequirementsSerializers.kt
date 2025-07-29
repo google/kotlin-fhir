@@ -46,7 +46,7 @@ public object RequirementsStatementSerializer : KSerializer<Requirements.Stateme
   }
 
   override fun deserialize(decoder: Decoder): Requirements.Statement =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Requirements.Statement) {
     surrogateSerializer.serialize(encoder, RequirementsStatementSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object RequirementsVersionAlgorithmSerializer : KSerializer<Requirements.
   }
 
   override fun deserialize(decoder: Decoder): Requirements.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Requirements.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, RequirementsVersionAlgorithmSurrogate.fromModel(value))

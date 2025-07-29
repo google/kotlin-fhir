@@ -47,7 +47,7 @@ public object ServiceRequestQuantitySerializer : KSerializer<ServiceRequest.Quan
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.Quantity =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.Quantity) {
     surrogateSerializer.serialize(encoder, ServiceRequestQuantitySurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object ServiceRequestOccurrenceSerializer : KSerializer<ServiceRequest.Oc
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.Occurrence) {
     surrogateSerializer.serialize(encoder, ServiceRequestOccurrenceSurrogate.fromModel(value))
@@ -81,7 +81,7 @@ public object ServiceRequestAsNeededSerializer : KSerializer<ServiceRequest.AsNe
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.AsNeeded =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.AsNeeded) {
     surrogateSerializer.serialize(encoder, ServiceRequestAsNeededSurrogate.fromModel(value))

@@ -66,7 +66,7 @@ public object MedicationKnowledgeRelatedMedicationKnowledgeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.RelatedMedicationKnowledge =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -89,7 +89,7 @@ public object MedicationKnowledgeMonographSerializer : KSerializer<MedicationKno
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Monograph =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Monograph) {
     surrogateSerializer.serialize(encoder, MedicationKnowledgeMonographSurrogate.fromModel(value))
@@ -108,7 +108,7 @@ public object MedicationKnowledgeIngredientItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Ingredient.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Ingredient.Item) {
     surrogateSerializer.serialize(
@@ -176,7 +176,7 @@ public object MedicationKnowledgeCostSerializer : KSerializer<MedicationKnowledg
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Cost =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Cost) {
     surrogateSerializer.serialize(encoder, MedicationKnowledgeCostSurrogate.fromModel(value))
@@ -195,7 +195,7 @@ public object MedicationKnowledgeMonitoringProgramSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.MonitoringProgram =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.MonitoringProgram) {
     surrogateSerializer.serialize(
@@ -217,7 +217,7 @@ public object MedicationKnowledgeAdministrationGuidelinesDosageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.AdministrationGuidelines.Dosage =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -247,7 +247,7 @@ public object MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsC
   override fun deserialize(
     decoder: Decoder
   ): MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -332,7 +332,7 @@ public object MedicationKnowledgeAdministrationGuidelinesIndicationSerializer :
   override fun deserialize(
     decoder: Decoder
   ): MedicationKnowledge.AdministrationGuidelines.Indication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -406,7 +406,7 @@ public object MedicationKnowledgeMedicineClassificationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.MedicineClassification =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.MedicineClassification) {
     surrogateSerializer.serialize(
@@ -426,7 +426,7 @@ public object MedicationKnowledgePackagingSerializer : KSerializer<MedicationKno
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Packaging =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Packaging) {
     surrogateSerializer.serialize(encoder, MedicationKnowledgePackagingSurrogate.fromModel(value))
@@ -445,7 +445,7 @@ public object MedicationKnowledgeDrugCharacteristicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.DrugCharacteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.DrugCharacteristic.Value) {
     surrogateSerializer.serialize(
@@ -516,7 +516,7 @@ public object MedicationKnowledgeRegulatorySubstitutionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Regulatory.Substitution =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Regulatory.Substitution) {
     surrogateSerializer.serialize(
@@ -538,7 +538,7 @@ public object MedicationKnowledgeRegulatoryScheduleSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Regulatory.Schedule =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Regulatory.Schedule) {
     surrogateSerializer.serialize(
@@ -560,7 +560,7 @@ public object MedicationKnowledgeRegulatoryMaxDispenseSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Regulatory.MaxDispense =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Regulatory.MaxDispense) {
     surrogateSerializer.serialize(
@@ -581,7 +581,7 @@ public object MedicationKnowledgeRegulatorySerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Regulatory =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Regulatory) {
     surrogateSerializer.serialize(encoder, MedicationKnowledgeRegulatorySurrogate.fromModel(value))
@@ -598,7 +598,7 @@ public object MedicationKnowledgeKineticsSerializer : KSerializer<MedicationKnow
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge.Kinetics =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Kinetics) {
     surrogateSerializer.serialize(encoder, MedicationKnowledgeKineticsSurrogate.fromModel(value))
@@ -615,7 +615,7 @@ public object MedicationKnowledgeSerializer : KSerializer<MedicationKnowledge> {
   }
 
   override fun deserialize(decoder: Decoder): MedicationKnowledge =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationKnowledge) {
     surrogateSerializer.serialize(encoder, MedicationKnowledgeSurrogate.fromModel(value))

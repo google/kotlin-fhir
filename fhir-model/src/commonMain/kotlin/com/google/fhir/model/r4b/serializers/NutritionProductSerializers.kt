@@ -49,7 +49,7 @@ public object NutritionProductNutrientSerializer : KSerializer<NutritionProduct.
   }
 
   override fun deserialize(decoder: Decoder): NutritionProduct.Nutrient =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct.Nutrient) {
     surrogateSerializer.serialize(encoder, NutritionProductNutrientSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object NutritionProductIngredientSerializer : KSerializer<NutritionProduc
   }
 
   override fun deserialize(decoder: Decoder): NutritionProduct.Ingredient =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct.Ingredient) {
     surrogateSerializer.serialize(encoder, NutritionProductIngredientSurrogate.fromModel(value))
@@ -85,7 +85,7 @@ public object NutritionProductProductCharacteristicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): NutritionProduct.ProductCharacteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct.ProductCharacteristic.Value) {
     surrogateSerializer.serialize(
@@ -154,7 +154,7 @@ public object NutritionProductInstanceSerializer : KSerializer<NutritionProduct.
   }
 
   override fun deserialize(decoder: Decoder): NutritionProduct.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct.Instance) {
     surrogateSerializer.serialize(encoder, NutritionProductInstanceSurrogate.fromModel(value))
@@ -171,7 +171,7 @@ public object NutritionProductSerializer : KSerializer<NutritionProduct> {
   }
 
   override fun deserialize(decoder: Decoder): NutritionProduct =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct) {
     surrogateSerializer.serialize(encoder, NutritionProductSurrogate.fromModel(value))

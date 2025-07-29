@@ -45,7 +45,7 @@ public object UsageContextValueSerializer : KSerializer<UsageContext.Value> {
   }
 
   override fun deserialize(decoder: Decoder): UsageContext.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: UsageContext.Value) {
     surrogateSerializer.serialize(encoder, UsageContextValueSurrogate.fromModel(value))

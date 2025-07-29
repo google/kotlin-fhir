@@ -38,7 +38,7 @@ public object CompartmentDefinitionResourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CompartmentDefinition.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CompartmentDefinition.Resource) {
     surrogateSerializer.serialize(encoder, CompartmentDefinitionResourceSurrogate.fromModel(value))
@@ -55,7 +55,7 @@ public object CompartmentDefinitionSerializer : KSerializer<CompartmentDefinitio
   }
 
   override fun deserialize(decoder: Decoder): CompartmentDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CompartmentDefinition) {
     surrogateSerializer.serialize(encoder, CompartmentDefinitionSurrogate.fromModel(value))

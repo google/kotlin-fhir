@@ -44,7 +44,7 @@ public object ExampleScenarioActorSerializer : KSerializer<ExampleScenario.Actor
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Actor =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Actor) {
     surrogateSerializer.serialize(encoder, ExampleScenarioActorSurrogate.fromModel(value))
@@ -62,7 +62,7 @@ public object ExampleScenarioInstanceVersionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Instance.Version =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.Version) {
     surrogateSerializer.serialize(encoder, ExampleScenarioInstanceVersionSurrogate.fromModel(value))
@@ -81,7 +81,7 @@ public object ExampleScenarioInstanceContainedInstanceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Instance.ContainedInstance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.ContainedInstance) {
     surrogateSerializer.serialize(
@@ -101,7 +101,7 @@ public object ExampleScenarioInstanceSerializer : KSerializer<ExampleScenario.In
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance) {
     surrogateSerializer.serialize(encoder, ExampleScenarioInstanceSurrogate.fromModel(value))
@@ -120,7 +120,7 @@ public object ExampleScenarioProcessStepOperationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Process.Step.Operation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process.Step.Operation) {
     surrogateSerializer.serialize(
@@ -142,7 +142,7 @@ public object ExampleScenarioProcessStepAlternativeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Process.Step.Alternative =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process.Step.Alternative) {
     surrogateSerializer.serialize(
@@ -162,7 +162,7 @@ public object ExampleScenarioProcessStepSerializer : KSerializer<ExampleScenario
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Process.Step =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process.Step) {
     surrogateSerializer.serialize(encoder, ExampleScenarioProcessStepSurrogate.fromModel(value))
@@ -179,7 +179,7 @@ public object ExampleScenarioProcessSerializer : KSerializer<ExampleScenario.Pro
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario.Process =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process) {
     surrogateSerializer.serialize(encoder, ExampleScenarioProcessSurrogate.fromModel(value))
@@ -196,7 +196,7 @@ public object ExampleScenarioSerializer : KSerializer<ExampleScenario> {
   }
 
   override fun deserialize(decoder: Decoder): ExampleScenario =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExampleScenario) {
     surrogateSerializer.serialize(encoder, ExampleScenarioSurrogate.fromModel(value))

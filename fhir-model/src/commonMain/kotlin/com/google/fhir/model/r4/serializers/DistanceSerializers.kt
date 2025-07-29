@@ -36,7 +36,7 @@ public object DistanceSerializer : KSerializer<Distance> {
   }
 
   override fun deserialize(decoder: Decoder): Distance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Distance) {
     surrogateSerializer.serialize(encoder, DistanceSurrogate.fromModel(value))

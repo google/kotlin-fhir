@@ -42,7 +42,7 @@ public object OperationDefinitionParameterBindingSerializer :
   }
 
   override fun deserialize(decoder: Decoder): OperationDefinition.Parameter.Binding =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: OperationDefinition.Parameter.Binding) {
     surrogateSerializer.serialize(
@@ -64,7 +64,7 @@ public object OperationDefinitionParameterReferencedFromSerializer :
   }
 
   override fun deserialize(decoder: Decoder): OperationDefinition.Parameter.ReferencedFrom =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: OperationDefinition.Parameter.ReferencedFrom) {
     surrogateSerializer.serialize(
@@ -84,7 +84,7 @@ public object OperationDefinitionParameterSerializer : KSerializer<OperationDefi
   }
 
   override fun deserialize(decoder: Decoder): OperationDefinition.Parameter =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: OperationDefinition.Parameter) {
     surrogateSerializer.serialize(encoder, OperationDefinitionParameterSurrogate.fromModel(value))
@@ -101,7 +101,7 @@ public object OperationDefinitionOverloadSerializer : KSerializer<OperationDefin
   }
 
   override fun deserialize(decoder: Decoder): OperationDefinition.Overload =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: OperationDefinition.Overload) {
     surrogateSerializer.serialize(encoder, OperationDefinitionOverloadSurrogate.fromModel(value))
@@ -118,7 +118,7 @@ public object OperationDefinitionSerializer : KSerializer<OperationDefinition> {
   }
 
   override fun deserialize(decoder: Decoder): OperationDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: OperationDefinition) {
     surrogateSerializer.serialize(encoder, OperationDefinitionSurrogate.fromModel(value))

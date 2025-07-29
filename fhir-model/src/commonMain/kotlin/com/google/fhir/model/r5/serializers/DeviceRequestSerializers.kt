@@ -47,7 +47,7 @@ public object DeviceRequestParameterValueSerializer : KSerializer<DeviceRequest.
   }
 
   override fun deserialize(decoder: Decoder): DeviceRequest.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DeviceRequest.Parameter.Value) {
     surrogateSerializer.serialize(encoder, DeviceRequestParameterValueSurrogate.fromModel(value))
@@ -111,7 +111,7 @@ public object DeviceRequestOccurrenceSerializer : KSerializer<DeviceRequest.Occu
   }
 
   override fun deserialize(decoder: Decoder): DeviceRequest.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DeviceRequest.Occurrence) {
     surrogateSerializer.serialize(encoder, DeviceRequestOccurrenceSurrogate.fromModel(value))

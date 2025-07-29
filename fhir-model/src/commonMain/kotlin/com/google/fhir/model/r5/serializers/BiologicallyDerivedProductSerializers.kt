@@ -50,7 +50,7 @@ public object BiologicallyDerivedProductCollectionCollectedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Collection.Collected =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -124,7 +124,7 @@ public object BiologicallyDerivedProductPropertyValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Property.Value) {
     surrogateSerializer.serialize(
@@ -193,7 +193,7 @@ public object BiologicallyDerivedProductSerializer : KSerializer<BiologicallyDer
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct) {
     surrogateSerializer.serialize(encoder, BiologicallyDerivedProductSurrogate.fromModel(value))

@@ -50,7 +50,7 @@ public object MedicationAdministrationPerformerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationAdministration.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationAdministration.Performer) {
     surrogateSerializer.serialize(
@@ -72,7 +72,7 @@ public object MedicationAdministrationDosageRateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationAdministration.Dosage.Rate =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationAdministration.Dosage.Rate) {
     surrogateSerializer.serialize(
@@ -142,7 +142,7 @@ public object MedicationAdministrationOccurenceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationAdministration.Occurence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MedicationAdministration.Occurence) {
     surrogateSerializer.serialize(

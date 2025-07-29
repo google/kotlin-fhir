@@ -37,7 +37,7 @@ public object DeviceMetricCalibrationSerializer : KSerializer<DeviceMetric.Calib
   }
 
   override fun deserialize(decoder: Decoder): DeviceMetric.Calibration =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DeviceMetric.Calibration) {
     surrogateSerializer.serialize(encoder, DeviceMetricCalibrationSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object DeviceMetricSerializer : KSerializer<DeviceMetric> {
   }
 
   override fun deserialize(decoder: Decoder): DeviceMetric =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: DeviceMetric) {
     surrogateSerializer.serialize(encoder, DeviceMetricSurrogate.fromModel(value))

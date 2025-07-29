@@ -49,7 +49,7 @@ public object StructureDefinitionMappingSerializer : KSerializer<StructureDefini
   }
 
   override fun deserialize(decoder: Decoder): StructureDefinition.Mapping =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureDefinition.Mapping) {
     surrogateSerializer.serialize(encoder, StructureDefinitionMappingSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object StructureDefinitionContextSerializer : KSerializer<StructureDefini
   }
 
   override fun deserialize(decoder: Decoder): StructureDefinition.Context =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureDefinition.Context) {
     surrogateSerializer.serialize(encoder, StructureDefinitionContextSurrogate.fromModel(value))
@@ -83,7 +83,7 @@ public object StructureDefinitionSnapshotSerializer : KSerializer<StructureDefin
   }
 
   override fun deserialize(decoder: Decoder): StructureDefinition.Snapshot =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureDefinition.Snapshot) {
     surrogateSerializer.serialize(encoder, StructureDefinitionSnapshotSurrogate.fromModel(value))
@@ -101,7 +101,7 @@ public object StructureDefinitionDifferentialSerializer :
   }
 
   override fun deserialize(decoder: Decoder): StructureDefinition.Differential =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureDefinition.Differential) {
     surrogateSerializer.serialize(
@@ -123,7 +123,7 @@ public object StructureDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): StructureDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(

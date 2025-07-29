@@ -44,7 +44,7 @@ public object SubstanceSourceMaterialFractionDescriptionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.FractionDescription =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.FractionDescription) {
     surrogateSerializer.serialize(
@@ -66,7 +66,7 @@ public object SubstanceSourceMaterialOrganismAuthorSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.Organism.Author =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.Organism.Author) {
     surrogateSerializer.serialize(
@@ -88,7 +88,7 @@ public object SubstanceSourceMaterialOrganismHybridSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.Organism.Hybrid =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.Organism.Hybrid) {
     surrogateSerializer.serialize(
@@ -110,7 +110,7 @@ public object SubstanceSourceMaterialOrganismOrganismGeneralSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.Organism.OrganismGeneral =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -134,7 +134,7 @@ public object SubstanceSourceMaterialOrganismSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.Organism =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.Organism) {
     surrogateSerializer.serialize(
@@ -156,7 +156,7 @@ public object SubstanceSourceMaterialPartDescriptionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.PartDescription =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.PartDescription) {
     surrogateSerializer.serialize(
@@ -176,7 +176,7 @@ public object SubstanceSourceMaterialSerializer : KSerializer<SubstanceSourceMat
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSourceMaterial =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial) {
     surrogateSerializer.serialize(encoder, SubstanceSourceMaterialSurrogate.fromModel(value))

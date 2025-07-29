@@ -80,7 +80,7 @@ public object ExplanationOfBenefitRelatedSerializer : KSerializer<ExplanationOfB
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Related =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Related) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitRelatedSurrogate.fromModel(value))
@@ -98,7 +98,7 @@ public object ExplanationOfBenefitEventWhenSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Event.When =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Event.When) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitEventWhenSurrogate.fromModel(value))
@@ -162,7 +162,7 @@ public object ExplanationOfBenefitPayeeSerializer : KSerializer<ExplanationOfBen
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Payee =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Payee) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitPayeeSurrogate.fromModel(value))
@@ -179,7 +179,7 @@ public object ExplanationOfBenefitCareTeamSerializer : KSerializer<ExplanationOf
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.CareTeam =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.CareTeam) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitCareTeamSurrogate.fromModel(value))
@@ -198,7 +198,7 @@ public object ExplanationOfBenefitSupportingInfoTimingSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.SupportingInfo.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.SupportingInfo.Timing) {
     surrogateSerializer.serialize(
@@ -220,7 +220,7 @@ public object ExplanationOfBenefitSupportingInfoValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.SupportingInfo.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.SupportingInfo.Value) {
     surrogateSerializer.serialize(
@@ -291,7 +291,7 @@ public object ExplanationOfBenefitDiagnosisDiagnosisSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Diagnosis.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Diagnosis.Diagnosis) {
     surrogateSerializer.serialize(
@@ -361,7 +361,7 @@ public object ExplanationOfBenefitProcedureProcedureSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Procedure.Procedure =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Procedure.Procedure) {
     surrogateSerializer.serialize(
@@ -430,7 +430,7 @@ public object ExplanationOfBenefitInsuranceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Insurance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Insurance) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitInsuranceSurrogate.fromModel(value))
@@ -449,7 +449,7 @@ public object ExplanationOfBenefitAccidentLocationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Accident.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Accident.Location) {
     surrogateSerializer.serialize(
@@ -517,7 +517,7 @@ public object ExplanationOfBenefitItemBodySiteSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.BodySite =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.BodySite) {
     surrogateSerializer.serialize(
@@ -539,7 +539,7 @@ public object ExplanationOfBenefitItemReviewOutcomeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.ReviewOutcome =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.ReviewOutcome) {
     surrogateSerializer.serialize(
@@ -561,7 +561,7 @@ public object ExplanationOfBenefitItemAdjudicationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Adjudication =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Adjudication) {
     surrogateSerializer.serialize(
@@ -583,7 +583,7 @@ public object ExplanationOfBenefitItemDetailSubDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Detail.SubDetail) {
     surrogateSerializer.serialize(
@@ -604,7 +604,7 @@ public object ExplanationOfBenefitItemDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Detail) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitItemDetailSurrogate.fromModel(value))
@@ -622,7 +622,7 @@ public object ExplanationOfBenefitItemServicedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Serviced) {
     surrogateSerializer.serialize(
@@ -643,7 +643,7 @@ public object ExplanationOfBenefitItemLocationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Location) {
     surrogateSerializer.serialize(
@@ -712,7 +712,7 @@ public object ExplanationOfBenefitAddItemBodySiteSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.BodySite =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.BodySite) {
     surrogateSerializer.serialize(
@@ -734,7 +734,7 @@ public object ExplanationOfBenefitAddItemDetailSubDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Detail.SubDetail) {
     surrogateSerializer.serialize(
@@ -756,7 +756,7 @@ public object ExplanationOfBenefitAddItemDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Detail) {
     surrogateSerializer.serialize(
@@ -778,7 +778,7 @@ public object ExplanationOfBenefitAddItemServicedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Serviced) {
     surrogateSerializer.serialize(
@@ -800,7 +800,7 @@ public object ExplanationOfBenefitAddItemLocationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Location) {
     surrogateSerializer.serialize(
@@ -867,7 +867,7 @@ public object ExplanationOfBenefitTotalSerializer : KSerializer<ExplanationOfBen
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Total =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Total) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitTotalSurrogate.fromModel(value))
@@ -884,7 +884,7 @@ public object ExplanationOfBenefitPaymentSerializer : KSerializer<ExplanationOfB
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Payment =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Payment) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitPaymentSurrogate.fromModel(value))
@@ -902,7 +902,7 @@ public object ExplanationOfBenefitProcessNoteSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.ProcessNote =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.ProcessNote) {
     surrogateSerializer.serialize(
@@ -926,7 +926,7 @@ public object ExplanationOfBenefitBenefitBalanceFinancialAllowedSerializer :
   override fun deserialize(
     decoder: Decoder
   ): ExplanationOfBenefit.BenefitBalance.Financial.Allowed =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -951,7 +951,7 @@ public object ExplanationOfBenefitBenefitBalanceFinancialUsedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.BenefitBalance.Financial.Used =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -1025,7 +1025,7 @@ public object ExplanationOfBenefitBenefitBalanceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit.BenefitBalance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.BenefitBalance) {
     surrogateSerializer.serialize(
@@ -1045,7 +1045,7 @@ public object ExplanationOfBenefitSerializer : KSerializer<ExplanationOfBenefit>
   }
 
   override fun deserialize(decoder: Decoder): ExplanationOfBenefit =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit) {
     surrogateSerializer.serialize(encoder, ExplanationOfBenefitSurrogate.fromModel(value))

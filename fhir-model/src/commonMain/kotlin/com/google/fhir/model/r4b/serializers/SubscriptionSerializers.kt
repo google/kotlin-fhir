@@ -37,7 +37,7 @@ public object SubscriptionChannelSerializer : KSerializer<Subscription.Channel> 
   }
 
   override fun deserialize(decoder: Decoder): Subscription.Channel =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Subscription.Channel) {
     surrogateSerializer.serialize(encoder, SubscriptionChannelSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object SubscriptionSerializer : KSerializer<Subscription> {
   }
 
   override fun deserialize(decoder: Decoder): Subscription =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Subscription) {
     surrogateSerializer.serialize(encoder, SubscriptionSurrogate.fromModel(value))

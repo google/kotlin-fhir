@@ -47,7 +47,7 @@ public object RegulatedAuthorizationCaseDateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RegulatedAuthorization.Case.Date =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RegulatedAuthorization.Case.Date) {
     surrogateSerializer.serialize(encoder, RegulatedAuthorizationCaseDateSurrogate.fromModel(value))
@@ -111,7 +111,7 @@ public object RegulatedAuthorizationSerializer : KSerializer<RegulatedAuthorizat
   }
 
   override fun deserialize(decoder: Decoder): RegulatedAuthorization =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RegulatedAuthorization) {
     surrogateSerializer.serialize(encoder, RegulatedAuthorizationSurrogate.fromModel(value))

@@ -36,7 +36,7 @@ public object EvidenceSerializer : KSerializer<Evidence> {
   }
 
   override fun deserialize(decoder: Decoder): Evidence =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Evidence) {
     surrogateSerializer.serialize(encoder, EvidenceSurrogate.fromModel(value))

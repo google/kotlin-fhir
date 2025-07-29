@@ -40,7 +40,7 @@ public object VisionPrescriptionLensSpecificationPrismSerializer :
   }
 
   override fun deserialize(decoder: Decoder): VisionPrescription.LensSpecification.Prism =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VisionPrescription.LensSpecification.Prism) {
     surrogateSerializer.serialize(
@@ -62,7 +62,7 @@ public object VisionPrescriptionLensSpecificationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): VisionPrescription.LensSpecification =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VisionPrescription.LensSpecification) {
     surrogateSerializer.serialize(
@@ -82,7 +82,7 @@ public object VisionPrescriptionSerializer : KSerializer<VisionPrescription> {
   }
 
   override fun deserialize(decoder: Decoder): VisionPrescription =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VisionPrescription) {
     surrogateSerializer.serialize(encoder, VisionPrescriptionSurrogate.fromModel(value))

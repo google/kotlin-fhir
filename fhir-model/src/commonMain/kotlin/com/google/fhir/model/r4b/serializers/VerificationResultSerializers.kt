@@ -40,7 +40,7 @@ public object VerificationResultPrimarySourceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): VerificationResult.PrimarySource =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VerificationResult.PrimarySource) {
     surrogateSerializer.serialize(
@@ -61,7 +61,7 @@ public object VerificationResultAttestationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): VerificationResult.Attestation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VerificationResult.Attestation) {
     surrogateSerializer.serialize(encoder, VerificationResultAttestationSurrogate.fromModel(value))
@@ -78,7 +78,7 @@ public object VerificationResultValidatorSerializer : KSerializer<VerificationRe
   }
 
   override fun deserialize(decoder: Decoder): VerificationResult.Validator =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VerificationResult.Validator) {
     surrogateSerializer.serialize(encoder, VerificationResultValidatorSurrogate.fromModel(value))
@@ -95,7 +95,7 @@ public object VerificationResultSerializer : KSerializer<VerificationResult> {
   }
 
   override fun deserialize(decoder: Decoder): VerificationResult =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VerificationResult) {
     surrogateSerializer.serialize(encoder, VerificationResultSurrogate.fromModel(value))

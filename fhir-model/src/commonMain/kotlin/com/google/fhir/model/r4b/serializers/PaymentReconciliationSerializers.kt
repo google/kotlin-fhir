@@ -38,7 +38,7 @@ public object PaymentReconciliationDetailSerializer : KSerializer<PaymentReconci
   }
 
   override fun deserialize(decoder: Decoder): PaymentReconciliation.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: PaymentReconciliation.Detail) {
     surrogateSerializer.serialize(encoder, PaymentReconciliationDetailSurrogate.fromModel(value))
@@ -56,7 +56,7 @@ public object PaymentReconciliationProcessNoteSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PaymentReconciliation.ProcessNote =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: PaymentReconciliation.ProcessNote) {
     surrogateSerializer.serialize(
@@ -76,7 +76,7 @@ public object PaymentReconciliationSerializer : KSerializer<PaymentReconciliatio
   }
 
   override fun deserialize(decoder: Decoder): PaymentReconciliation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: PaymentReconciliation) {
     surrogateSerializer.serialize(encoder, PaymentReconciliationSurrogate.fromModel(value))

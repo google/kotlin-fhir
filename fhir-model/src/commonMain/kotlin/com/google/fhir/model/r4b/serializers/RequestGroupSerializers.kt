@@ -49,7 +49,7 @@ public object RequestGroupActionConditionSerializer : KSerializer<RequestGroup.A
   }
 
   override fun deserialize(decoder: Decoder): RequestGroup.Action.Condition =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestGroup.Action.Condition) {
     surrogateSerializer.serialize(encoder, RequestGroupActionConditionSurrogate.fromModel(value))
@@ -68,7 +68,7 @@ public object RequestGroupActionRelatedActionOffsetSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RequestGroup.Action.RelatedAction.Offset =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestGroup.Action.RelatedAction.Offset) {
     surrogateSerializer.serialize(
@@ -136,7 +136,7 @@ public object RequestGroupActionTimingSerializer : KSerializer<RequestGroup.Acti
   }
 
   override fun deserialize(decoder: Decoder): RequestGroup.Action.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestGroup.Action.Timing) {
     surrogateSerializer.serialize(encoder, RequestGroupActionTimingSurrogate.fromModel(value))
@@ -200,7 +200,7 @@ public object RequestGroupSerializer : KSerializer<RequestGroup> {
   }
 
   override fun deserialize(decoder: Decoder): RequestGroup =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: RequestGroup) {
     surrogateSerializer.serialize(encoder, RequestGroupSurrogate.fromModel(value))

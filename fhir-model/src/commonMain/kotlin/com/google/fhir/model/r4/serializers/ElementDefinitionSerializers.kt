@@ -60,7 +60,7 @@ public object ElementDefinitionSlicingDiscriminatorSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Slicing.Discriminator =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Slicing.Discriminator) {
     surrogateSerializer.serialize(
@@ -80,7 +80,7 @@ public object ElementDefinitionSlicingSerializer : KSerializer<ElementDefinition
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Slicing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Slicing) {
     surrogateSerializer.serialize(encoder, ElementDefinitionSlicingSurrogate.fromModel(value))
@@ -97,7 +97,7 @@ public object ElementDefinitionBaseSerializer : KSerializer<ElementDefinition.Ba
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Base =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Base) {
     surrogateSerializer.serialize(encoder, ElementDefinitionBaseSurrogate.fromModel(value))
@@ -114,7 +114,7 @@ public object ElementDefinitionTypeSerializer : KSerializer<ElementDefinition.Ty
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Type =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Type) {
     surrogateSerializer.serialize(encoder, ElementDefinitionTypeSurrogate.fromModel(value))
@@ -132,7 +132,7 @@ public object ElementDefinitionExampleValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Example.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Example.Value) {
     surrogateSerializer.serialize(encoder, ElementDefinitionExampleValueSurrogate.fromModel(value))
@@ -196,7 +196,7 @@ public object ElementDefinitionConstraintSerializer : KSerializer<ElementDefinit
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Constraint =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Constraint) {
     surrogateSerializer.serialize(encoder, ElementDefinitionConstraintSurrogate.fromModel(value))
@@ -213,7 +213,7 @@ public object ElementDefinitionBindingSerializer : KSerializer<ElementDefinition
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Binding =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Binding) {
     surrogateSerializer.serialize(encoder, ElementDefinitionBindingSurrogate.fromModel(value))
@@ -230,7 +230,7 @@ public object ElementDefinitionMappingSerializer : KSerializer<ElementDefinition
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Mapping =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Mapping) {
     surrogateSerializer.serialize(encoder, ElementDefinitionMappingSurrogate.fromModel(value))
@@ -248,7 +248,7 @@ public object ElementDefinitionDefaultValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.DefaultValue =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.DefaultValue) {
     surrogateSerializer.serialize(encoder, ElementDefinitionDefaultValueSurrogate.fromModel(value))
@@ -265,7 +265,7 @@ public object ElementDefinitionFixedSerializer : KSerializer<ElementDefinition.F
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Fixed =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Fixed) {
     surrogateSerializer.serialize(encoder, ElementDefinitionFixedSurrogate.fromModel(value))
@@ -282,7 +282,7 @@ public object ElementDefinitionPatternSerializer : KSerializer<ElementDefinition
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.Pattern =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Pattern) {
     surrogateSerializer.serialize(encoder, ElementDefinitionPatternSurrogate.fromModel(value))
@@ -299,7 +299,7 @@ public object ElementDefinitionMinValueSerializer : KSerializer<ElementDefinitio
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.MinValue =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.MinValue) {
     surrogateSerializer.serialize(encoder, ElementDefinitionMinValueSurrogate.fromModel(value))
@@ -316,7 +316,7 @@ public object ElementDefinitionMaxValueSerializer : KSerializer<ElementDefinitio
   }
 
   override fun deserialize(decoder: Decoder): ElementDefinition.MaxValue =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.MaxValue) {
     surrogateSerializer.serialize(encoder, ElementDefinitionMaxValueSurrogate.fromModel(value))

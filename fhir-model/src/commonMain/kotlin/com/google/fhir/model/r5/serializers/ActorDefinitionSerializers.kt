@@ -46,7 +46,7 @@ public object ActorDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ActorDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: ActorDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(

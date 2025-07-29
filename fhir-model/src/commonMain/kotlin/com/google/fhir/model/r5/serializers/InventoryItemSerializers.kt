@@ -51,7 +51,7 @@ public object InventoryItemNameSerializer : KSerializer<InventoryItem.Name> {
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem.Name =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.Name) {
     surrogateSerializer.serialize(encoder, InventoryItemNameSurrogate.fromModel(value))
@@ -70,7 +70,7 @@ public object InventoryItemResponsibleOrganizationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem.ResponsibleOrganization =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.ResponsibleOrganization) {
     surrogateSerializer.serialize(
@@ -90,7 +90,7 @@ public object InventoryItemDescriptionSerializer : KSerializer<InventoryItem.Des
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem.Description =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.Description) {
     surrogateSerializer.serialize(encoder, InventoryItemDescriptionSurrogate.fromModel(value))
@@ -107,7 +107,7 @@ public object InventoryItemAssociationSerializer : KSerializer<InventoryItem.Ass
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem.Association =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.Association) {
     surrogateSerializer.serialize(encoder, InventoryItemAssociationSurrogate.fromModel(value))
@@ -125,7 +125,7 @@ public object InventoryItemCharacteristicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.Characteristic.Value) {
     surrogateSerializer.serialize(
@@ -192,7 +192,7 @@ public object InventoryItemInstanceSerializer : KSerializer<InventoryItem.Instan
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.Instance) {
     surrogateSerializer.serialize(encoder, InventoryItemInstanceSurrogate.fromModel(value))
@@ -209,7 +209,7 @@ public object InventoryItemSerializer : KSerializer<InventoryItem> {
   }
 
   override fun deserialize(decoder: Decoder): InventoryItem =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem) {
     surrogateSerializer.serialize(encoder, InventoryItemSurrogate.fromModel(value))

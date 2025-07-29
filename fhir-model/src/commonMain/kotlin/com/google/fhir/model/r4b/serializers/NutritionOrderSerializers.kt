@@ -52,7 +52,7 @@ public object NutritionOrderOralDietNutrientSerializer :
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder.OralDiet.Nutrient =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder.OralDiet.Nutrient) {
     surrogateSerializer.serialize(encoder, NutritionOrderOralDietNutrientSurrogate.fromModel(value))
@@ -70,7 +70,7 @@ public object NutritionOrderOralDietTextureSerializer :
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder.OralDiet.Texture =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder.OralDiet.Texture) {
     surrogateSerializer.serialize(encoder, NutritionOrderOralDietTextureSurrogate.fromModel(value))
@@ -87,7 +87,7 @@ public object NutritionOrderOralDietSerializer : KSerializer<NutritionOrder.Oral
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder.OralDiet =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder.OralDiet) {
     surrogateSerializer.serialize(encoder, NutritionOrderOralDietSurrogate.fromModel(value))
@@ -104,7 +104,7 @@ public object NutritionOrderSupplementSerializer : KSerializer<NutritionOrder.Su
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder.Supplement =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder.Supplement) {
     surrogateSerializer.serialize(encoder, NutritionOrderSupplementSurrogate.fromModel(value))
@@ -123,7 +123,7 @@ public object NutritionOrderEnteralFormulaAdministrationRateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula.Administration.Rate =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -195,7 +195,7 @@ public object NutritionOrderEnteralFormulaSerializer : KSerializer<NutritionOrde
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder.EnteralFormula) {
     surrogateSerializer.serialize(encoder, NutritionOrderEnteralFormulaSurrogate.fromModel(value))
@@ -212,7 +212,7 @@ public object NutritionOrderSerializer : KSerializer<NutritionOrder> {
   }
 
   override fun deserialize(decoder: Decoder): NutritionOrder =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder) {
     surrogateSerializer.serialize(encoder, NutritionOrderSurrogate.fromModel(value))

@@ -45,7 +45,7 @@ public object VirtualServiceDetailAddressSerializer : KSerializer<VirtualService
   }
 
   override fun deserialize(decoder: Decoder): VirtualServiceDetail.Address =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: VirtualServiceDetail.Address) {
     surrogateSerializer.serialize(encoder, VirtualServiceDetailAddressSurrogate.fromModel(value))

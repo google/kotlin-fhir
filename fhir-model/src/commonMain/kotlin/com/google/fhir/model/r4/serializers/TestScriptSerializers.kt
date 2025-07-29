@@ -52,7 +52,7 @@ public object TestScriptOriginSerializer : KSerializer<TestScript.Origin> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Origin =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Origin) {
     surrogateSerializer.serialize(encoder, TestScriptOriginSurrogate.fromModel(value))
@@ -69,7 +69,7 @@ public object TestScriptDestinationSerializer : KSerializer<TestScript.Destinati
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Destination =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Destination) {
     surrogateSerializer.serialize(encoder, TestScriptDestinationSurrogate.fromModel(value))
@@ -86,7 +86,7 @@ public object TestScriptMetadataLinkSerializer : KSerializer<TestScript.Metadata
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Metadata.Link =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Metadata.Link) {
     surrogateSerializer.serialize(encoder, TestScriptMetadataLinkSurrogate.fromModel(value))
@@ -103,7 +103,7 @@ public object TestScriptMetadataCapabilitySerializer : KSerializer<TestScript.Me
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Metadata.Capability =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Metadata.Capability) {
     surrogateSerializer.serialize(encoder, TestScriptMetadataCapabilitySurrogate.fromModel(value))
@@ -120,7 +120,7 @@ public object TestScriptMetadataSerializer : KSerializer<TestScript.Metadata> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Metadata =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Metadata) {
     surrogateSerializer.serialize(encoder, TestScriptMetadataSurrogate.fromModel(value))
@@ -137,7 +137,7 @@ public object TestScriptFixtureSerializer : KSerializer<TestScript.Fixture> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Fixture =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Fixture) {
     surrogateSerializer.serialize(encoder, TestScriptFixtureSurrogate.fromModel(value))
@@ -154,7 +154,7 @@ public object TestScriptVariableSerializer : KSerializer<TestScript.Variable> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Variable =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Variable) {
     surrogateSerializer.serialize(encoder, TestScriptVariableSurrogate.fromModel(value))
@@ -173,7 +173,7 @@ public object TestScriptSetupActionOperationRequestHeaderSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Setup.Action.Operation.RequestHeader =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -197,7 +197,7 @@ public object TestScriptSetupActionOperationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Setup.Action.Operation =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Setup.Action.Operation) {
     surrogateSerializer.serialize(encoder, TestScriptSetupActionOperationSurrogate.fromModel(value))
@@ -214,7 +214,7 @@ public object TestScriptSetupActionAssertSerializer : KSerializer<TestScript.Set
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Setup.Action.Assert =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Setup.Action.Assert) {
     surrogateSerializer.serialize(encoder, TestScriptSetupActionAssertSurrogate.fromModel(value))
@@ -231,7 +231,7 @@ public object TestScriptSetupActionSerializer : KSerializer<TestScript.Setup.Act
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Setup.Action =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Setup.Action) {
     surrogateSerializer.serialize(encoder, TestScriptSetupActionSurrogate.fromModel(value))
@@ -248,7 +248,7 @@ public object TestScriptSetupSerializer : KSerializer<TestScript.Setup> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Setup =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Setup) {
     surrogateSerializer.serialize(encoder, TestScriptSetupSurrogate.fromModel(value))
@@ -265,7 +265,7 @@ public object TestScriptTestActionSerializer : KSerializer<TestScript.Test.Actio
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Test.Action =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Test.Action) {
     surrogateSerializer.serialize(encoder, TestScriptTestActionSurrogate.fromModel(value))
@@ -282,7 +282,7 @@ public object TestScriptTestSerializer : KSerializer<TestScript.Test> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Test =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Test) {
     surrogateSerializer.serialize(encoder, TestScriptTestSurrogate.fromModel(value))
@@ -299,7 +299,7 @@ public object TestScriptTeardownActionSerializer : KSerializer<TestScript.Teardo
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Teardown.Action =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Teardown.Action) {
     surrogateSerializer.serialize(encoder, TestScriptTeardownActionSurrogate.fromModel(value))
@@ -316,7 +316,7 @@ public object TestScriptTeardownSerializer : KSerializer<TestScript.Teardown> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript.Teardown =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Teardown) {
     surrogateSerializer.serialize(encoder, TestScriptTeardownSurrogate.fromModel(value))
@@ -333,7 +333,7 @@ public object TestScriptSerializer : KSerializer<TestScript> {
   }
 
   override fun deserialize(decoder: Decoder): TestScript =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: TestScript) {
     surrogateSerializer.serialize(encoder, TestScriptSurrogate.fromModel(value))

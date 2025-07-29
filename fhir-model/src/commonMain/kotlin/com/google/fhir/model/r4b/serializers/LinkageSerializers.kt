@@ -37,7 +37,7 @@ public object LinkageItemSerializer : KSerializer<Linkage.Item> {
   }
 
   override fun deserialize(decoder: Decoder): Linkage.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Linkage.Item) {
     surrogateSerializer.serialize(encoder, LinkageItemSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object LinkageSerializer : KSerializer<Linkage> {
   }
 
   override fun deserialize(decoder: Decoder): Linkage =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Linkage) {
     surrogateSerializer.serialize(encoder, LinkageSurrogate.fromModel(value))

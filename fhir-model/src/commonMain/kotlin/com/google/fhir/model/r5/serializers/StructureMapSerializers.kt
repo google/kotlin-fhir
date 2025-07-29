@@ -55,7 +55,7 @@ public object StructureMapStructureSerializer : KSerializer<StructureMap.Structu
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Structure =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Structure) {
     surrogateSerializer.serialize(encoder, StructureMapStructureSurrogate.fromModel(value))
@@ -72,7 +72,7 @@ public object StructureMapConstSerializer : KSerializer<StructureMap.Const> {
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Const =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Const) {
     surrogateSerializer.serialize(encoder, StructureMapConstSurrogate.fromModel(value))
@@ -89,7 +89,7 @@ public object StructureMapGroupInputSerializer : KSerializer<StructureMap.Group.
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group.Input =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Input) {
     surrogateSerializer.serialize(encoder, StructureMapGroupInputSurrogate.fromModel(value))
@@ -106,7 +106,7 @@ public object StructureMapGroupRuleSourceSerializer : KSerializer<StructureMap.G
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Source) {
     surrogateSerializer.serialize(encoder, StructureMapGroupRuleSourceSurrogate.fromModel(value))
@@ -125,7 +125,7 @@ public object StructureMapGroupRuleTargetParameterValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(
     encoder: Encoder,
@@ -197,7 +197,7 @@ public object StructureMapGroupRuleTargetSerializer : KSerializer<StructureMap.G
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Target) {
     surrogateSerializer.serialize(encoder, StructureMapGroupRuleTargetSurrogate.fromModel(value))
@@ -215,7 +215,7 @@ public object StructureMapGroupRuleDependentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Dependent =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Dependent) {
     surrogateSerializer.serialize(encoder, StructureMapGroupRuleDependentSurrogate.fromModel(value))
@@ -232,7 +232,7 @@ public object StructureMapGroupRuleSerializer : KSerializer<StructureMap.Group.R
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group.Rule =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule) {
     surrogateSerializer.serialize(encoder, StructureMapGroupRuleSurrogate.fromModel(value))
@@ -249,7 +249,7 @@ public object StructureMapGroupSerializer : KSerializer<StructureMap.Group> {
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.Group =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group) {
     surrogateSerializer.serialize(encoder, StructureMapGroupSurrogate.fromModel(value))
@@ -266,7 +266,7 @@ public object StructureMapVersionAlgorithmSerializer : KSerializer<StructureMap.
   }
 
   override fun deserialize(decoder: Decoder): StructureMap.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, StructureMapVersionAlgorithmSurrogate.fromModel(value))

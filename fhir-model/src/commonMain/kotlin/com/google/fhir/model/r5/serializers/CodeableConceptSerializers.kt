@@ -36,7 +36,7 @@ public object CodeableConceptSerializer : KSerializer<CodeableConcept> {
   }
 
   override fun deserialize(decoder: Decoder): CodeableConcept =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: CodeableConcept) {
     surrogateSerializer.serialize(encoder, CodeableConceptSurrogate.fromModel(value))

@@ -48,7 +48,7 @@ public object InvoiceParticipantSerializer : KSerializer<Invoice.Participant> {
   }
 
   override fun deserialize(decoder: Decoder): Invoice.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Invoice.Participant) {
     surrogateSerializer.serialize(encoder, InvoiceParticipantSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object InvoiceLineItemPriceComponentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Invoice.LineItem.PriceComponent =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.PriceComponent) {
     surrogateSerializer.serialize(encoder, InvoiceLineItemPriceComponentSurrogate.fromModel(value))
@@ -83,7 +83,7 @@ public object InvoiceLineItemChargeItemSerializer : KSerializer<Invoice.LineItem
   }
 
   override fun deserialize(decoder: Decoder): Invoice.LineItem.ChargeItem =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.ChargeItem) {
     surrogateSerializer.serialize(encoder, InvoiceLineItemChargeItemSurrogate.fromModel(value))
@@ -147,7 +147,7 @@ public object InvoiceSerializer : KSerializer<Invoice> {
   }
 
   override fun deserialize(decoder: Decoder): Invoice =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Invoice) {
     surrogateSerializer.serialize(encoder, InvoiceSurrogate.fromModel(value))

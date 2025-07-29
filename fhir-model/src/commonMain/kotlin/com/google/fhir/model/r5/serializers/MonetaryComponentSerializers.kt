@@ -36,7 +36,7 @@ public object MonetaryComponentSerializer : KSerializer<MonetaryComponent> {
   }
 
   override fun deserialize(decoder: Decoder): MonetaryComponent =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: MonetaryComponent) {
     surrogateSerializer.serialize(encoder, MonetaryComponentSurrogate.fromModel(value))

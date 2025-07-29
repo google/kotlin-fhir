@@ -36,7 +36,7 @@ public object BinarySerializer : KSerializer<Binary> {
   }
 
   override fun deserialize(decoder: Decoder): Binary =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: Binary) {
     surrogateSerializer.serialize(encoder, BinarySurrogate.fromModel(value))

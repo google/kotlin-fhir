@@ -40,7 +40,7 @@ public object InventoryReportInventoryListingItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InventoryReport.InventoryListing.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryReport.InventoryListing.Item) {
     surrogateSerializer.serialize(
@@ -61,7 +61,7 @@ public object InventoryReportInventoryListingSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InventoryReport.InventoryListing =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryReport.InventoryListing) {
     surrogateSerializer.serialize(
@@ -81,7 +81,7 @@ public object InventoryReportSerializer : KSerializer<InventoryReport> {
   }
 
   override fun deserialize(decoder: Decoder): InventoryReport =
-    surrogateSerializer.deserialize(decoder).toModel()
+    surrogateSerializer.deserialize(decoder).toModel()!!
 
   override fun serialize(encoder: Encoder, `value`: InventoryReport) {
     surrogateSerializer.serialize(encoder, InventoryReportSurrogate.fromModel(value))
