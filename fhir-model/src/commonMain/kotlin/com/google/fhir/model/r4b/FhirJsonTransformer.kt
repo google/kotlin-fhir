@@ -22,7 +22,7 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 /** Utility for transforming JSON structures by flattening or nesting multi-choice properties. */
-public object FhirJsonTransformer {
+internal object FhirJsonTransformer {
   /**
    * Flattens a JSON object by expanding specified multi-choice properties.
    *

@@ -56,7 +56,7 @@ object FhirJsonTransformerFileSpecGenerator {
         .addKdoc(
           "Utility for transforming JSON structures by flattening or nesting multi-choice properties.\n"
         )
-        .addModifiers(KModifier.PUBLIC)
+        .addModifiers(KModifier.INTERNAL)
         .addFunction(createFlattenFunction())
         .addFunction(createNestFunction())
         .build()
@@ -69,7 +69,6 @@ object FhirJsonTransformerFileSpecGenerator {
 
   private fun createFlattenFunction(): FunSpec {
     return FunSpec.builder("flatten")
-      .addModifiers(KModifier.PUBLIC)
       .addKdoc("Flattens a JSON object by expanding specified multi-choice properties.\n")
       .addKdoc("@param inputJson The original JSON object to transform\n")
       .addKdoc("@param multiChoiceProperties List of property names that should be flattened\n")
@@ -100,7 +99,6 @@ object FhirJsonTransformerFileSpecGenerator {
 
   private fun createNestFunction(): FunSpec {
     return FunSpec.builder("unflatten")
-      .addModifiers(KModifier.PUBLIC)
       .addKdoc("Nests fields into specified multi-choice property objects.\n")
       .addKdoc("@param inputJson The original JSON object to transform\n")
       .addKdoc(
