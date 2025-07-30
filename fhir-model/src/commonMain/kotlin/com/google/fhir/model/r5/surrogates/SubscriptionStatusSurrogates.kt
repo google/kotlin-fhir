@@ -36,7 +36,6 @@ import com.google.fhir.model.r5.SubscriptionStatus
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
-import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -48,7 +47,7 @@ internal data class SubscriptionStatusNotificationEventSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var eventNumber: Int? = null,
+  public var eventNumber: String? = null,
   public var _eventNumber: Element? = null,
   public var timestamp: String? = null,
   public var _timestamp: Element? = null,
@@ -63,7 +62,7 @@ internal data class SubscriptionStatusNotificationEventSurrogate(
         this@SubscriptionStatusNotificationEventSurrogate.modifierExtension ?: mutableListOf(),
       eventNumber =
         Integer64.of(
-          this@SubscriptionStatusNotificationEventSurrogate.eventNumber,
+          this@SubscriptionStatusNotificationEventSurrogate.eventNumber?.toLong(),
           this@SubscriptionStatusNotificationEventSurrogate._eventNumber,
         )!!,
       timestamp =
@@ -85,7 +84,7 @@ internal data class SubscriptionStatusNotificationEventSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          eventNumber = this@with.eventNumber.value,
+          eventNumber = this@with.eventNumber.value?.toString(),
           _eventNumber = this@with.eventNumber.toElement(),
           timestamp = this@with.timestamp?.value?.toString(),
           _timestamp = this@with.timestamp?.toElement(),
@@ -112,7 +111,7 @@ internal data class SubscriptionStatusSurrogate(
   public var _status: Element? = null,
   public var type: String? = null,
   public var _type: Element? = null,
-  public var eventsSinceSubscriptionStart: Int? = null,
+  public var eventsSinceSubscriptionStart: String? = null,
   public var _eventsSinceSubscriptionStart: Element? = null,
   public var notificationEvent: MutableList<SubscriptionStatus.NotificationEvent>? = null,
   public var subscription: Reference,
@@ -154,7 +153,7 @@ internal data class SubscriptionStatusSurrogate(
         ),
       eventsSinceSubscriptionStart =
         Integer64.of(
-          this@SubscriptionStatusSurrogate.eventsSinceSubscriptionStart,
+          this@SubscriptionStatusSurrogate.eventsSinceSubscriptionStart?.toLong(),
           this@SubscriptionStatusSurrogate._eventsSinceSubscriptionStart,
         ),
       notificationEvent = this@SubscriptionStatusSurrogate.notificationEvent ?: mutableListOf(),
@@ -185,7 +184,7 @@ internal data class SubscriptionStatusSurrogate(
           _status = this@with.status?.toElement(),
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
-          eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.value,
+          eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.value?.toString(),
           _eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.toElement(),
           notificationEvent = this@with.notificationEvent.takeUnless { it.all { it == null } },
           subscription = this@with.subscription,

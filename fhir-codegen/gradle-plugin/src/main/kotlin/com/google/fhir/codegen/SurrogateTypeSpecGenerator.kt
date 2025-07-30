@@ -224,7 +224,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 .add("%T(\n", surrogateClassName)
                 .apply {
                   indent()
-                  addParamToSurrogateClassConstructor(modelClassName, element, true)
+                  addParamToSurrogateClassConstructor(element, true)
                   unindent()
                 }
                 .add(")\n")
@@ -295,7 +295,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 .apply {
                   indent()
                   elements.forEach { element ->
-                    addParamToSurrogateClassConstructor(modelClassName, element, false)
+                    addParamToSurrogateClassConstructor(element, false)
                   }
                   unindent()
                 }
@@ -375,7 +375,6 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       if (FhirPathType.containsFhirTypeCode(element.type?.singleOrNull()?.code ?: "")) {
         // A list of primitive type
         val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
-        val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
         if (element.typeIsEnumeratedCode(valueSetMap)) {
           val enumClass = element.getEnumClass(modelClassName)
           add(
@@ -395,27 +394,9 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
             ClassName(modelClassName.packageName, "Enumeration"),
             enumClass,
           )
-        } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-          add(
-            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value, element)!! }.toMutableList() }",
-            surrogateClassName,
-            propertyName,
-            surrogateClassName,
-            "_$propertyName",
-            surrogateClassName,
-            propertyName,
-            surrogateClassName,
-            "_$propertyName",
-            surrogateClassName,
-            "_$propertyName",
-            surrogateClassName,
-            propertyName,
-            ClassName(modelClassName.packageName, element.type.single().code.capitalized()),
-          )
         } else {
-          // Call FhirDateTime.fromString
           add(
-            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(%T.fromString(value), element)!! }.toMutableList() }",
+            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(",
             surrogateClassName,
             propertyName,
             surrogateClassName,
@@ -429,8 +410,13 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
             surrogateClassName,
             propertyName,
             ClassName(modelClassName.packageName, element.type.single().code.capitalized()),
-            typeInDataClass,
           )
+          fhirPathType.addCodeToConvertTypeInSurrogateToTypeInModel(
+            this,
+            modelClassName.packageName,
+            "value",
+          )
+          add(", element)!! }.toMutableList() }")
         }
       } else {
         // A list of complex type
@@ -508,43 +494,32 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       }
     } else if (type != null && FhirPathType.containsFhirTypeCode(type.code)) {
       val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
-      val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
       val notNullAssertion =
         if (element.min == 1) {
           "!!"
         } else {
           ""
         }
-
-      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-        // Xhtml element in the data model can never be null but the field in the surrogate class is
-        // nullable. See the NarrativeSurrogate class for example.
-        val notNullAssertionXhtml =
-          if (type.code == "xhtml") {
-            "!!"
-          } else {
-            ""
-          }
-        add(
-          "%T.of(this@%T.%N${notNullAssertionXhtml}, this@%T.%N)${notNullAssertion}",
-          ClassName(modelClassName.packageName, type.code.capitalized()),
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-        )
-      } else {
-        // Call FhirDateTime.fromString
-        add(
-          "%T.of(%T.fromString(this@%T.%N), this@%T.%N)${notNullAssertion}",
-          ClassName(modelClassName.packageName, type.code.capitalized()),
-          fhirPathType.getTypeInDataClass(modelClassName.packageName),
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-        )
-      }
+      // Xhtml element in the data model can never be null but the field in the surrogate class is
+      // nullable. See the NarrativeSurrogate class for example.
+      val notNullAssertionXhtml =
+        if (type.code == "xhtml") {
+          "!!"
+        } else {
+          ""
+        }
+      add("%T.of(", ClassName(modelClassName.packageName, type.code.capitalized()))
+      fhirPathType.addCodeToConvertPropertyInSurrogateToPropertyInModel(
+        this,
+        modelClassName.packageName,
+        surrogateClassName,
+        propertyName,
+      )
+      add(
+        "${notNullAssertionXhtml}, this@%T.%N)${notNullAssertion}",
+        surrogateClassName,
+        "_$propertyName",
+      )
     } else {
       add("this@%T.%N", surrogateClassName, propertyName)
     }
@@ -599,28 +574,14 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
     val propertyName = "${element.getElementName()}${type.code.capitalized()}"
     if (FhirPathType.containsFhirTypeCode(type.code)) {
       val fhirPathType = FhirPathType.getFromFhirTypeCode(type.code)!!
-      val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-        add(
-          "%T.of(this@%T.%N, this@%T.%N)",
-          ClassName(modelClassName.packageName, type.code.capitalized()),
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-        )
-      } else {
-        // Call FhirDateTime.fromString
-        add(
-          "%T.of(%T.fromString(this@%T.%N), this@%T.%N)",
-          ClassName(modelClassName.packageName, type.code.capitalized()),
-          fhirPathType.getTypeInDataClass(modelClassName.packageName),
-          surrogateClassName,
-          propertyName,
-          surrogateClassName,
-          "_$propertyName",
-        )
-      }
+      add("%T.of(", ClassName(modelClassName.packageName, type.code.capitalized()))
+      fhirPathType.addCodeToConvertPropertyInSurrogateToPropertyInModel(
+        this,
+        modelClassName.packageName,
+        surrogateClassName,
+        propertyName,
+      )
+      add(", this@%T.%N)", surrogateClassName, "_$propertyName")
     } else {
       add("this@%T.%N", surrogateClassName, propertyName)
     }
@@ -632,7 +593,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
    * - **Choice of types:** A choice of types is represented in the data class by a sealed interface
    *   with subtypes for each possible data type. This is deconstructed in the surrogate class by
    *   type, making use of the convenience function generated in each sealed interface `asDataType`.
-   *   Additionally, primitiv types are further deconstructed into two fields, each representing a
+   *   Additionally, primitive types are further deconstructed into two fields, each representing a
    *   JSON property in the JSON representation. For example, for the `Annotation.author[x]`
    *   element, the following code is generated:
    * ```
@@ -662,7 +623,6 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
    *   name.
    */
   private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
-    modelClassName: ClassName,
     element: Element,
     expandPolymorphicProperties: Boolean,
   ) {
@@ -671,7 +631,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       if (expandPolymorphicProperties) {
         for (type in element.type) {
           // Build properties in the surrogate class for each type in a choice of types
-          addParamToSurrogateClassConstructor(modelClassName.packageName, propertyName, type.code)
+          addParamToSurrogateClassConstructor(propertyName, type.code)
         }
       } else {
         add("%N = this@with.%N,", propertyName, propertyName)
@@ -680,26 +640,16 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
         // A list of primitive type is deconstructed into two lists
         val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
-        val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
         if (element.typeIsEnumeratedCode(valueSetMap)) {
           add(
             "%N = this@with.%N.map{ it.value?.getCode() }.toMutableList().takeUnless { it.all { it == null } },\n",
             propertyName,
             propertyName,
           )
-        } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-          add(
-            "%N = this@with.%N.map{ it.value }.toMutableList().takeUnless { it.all { it == null } },\n",
-            propertyName,
-            propertyName,
-          )
         } else {
-          // Call FhirDateTime.toString
-          add(
-            "%N = this@with.%N.map{ it.value?.toString() }.toMutableList().takeUnless { it.all { it == null } },\n",
-            propertyName,
-            propertyName,
-          )
+          add("%N = this@with.%N.map{ it", propertyName, propertyName)
+          fhirPathType.addCodeToConvertTypeInModelToTypeInSurrogate(this)
+          add(" }.toMutableList().takeUnless { it.all { it == null } },\n")
         }
         add(
           "%N = this@with.%N.map{ it.toElement() }.takeUnless { it.all { it == null } }?.map{ it ?: Element() }?.toMutableList(),\n",
@@ -714,8 +664,6 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {
         // A single primitive value is deconstructed into two properties
         val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
-        val typeInDataClass = fhirPathType.getTypeInDataClass(modelClassName.packageName)
-
         val isRequired = element.min == 1 && element.max == "1"
         if (element.typeIsEnumeratedCode(valueSetMap)) {
           // Call getCode() if the type of the property is an enum type
@@ -730,20 +678,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
             propertyName,
             propertyName,
           )
-        } else if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-          add(
-            "%N = this@with.%N${
-              if (isRequired) {
-                ""
-              } else {
-                "?"
-              }
-            }.value,\n",
-            propertyName,
-            propertyName,
-          )
         } else {
-          // Call FhirDateTime.toString
           add(
             "%N = this@with.%N${
               if (isRequired) {
@@ -751,10 +686,12 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
               } else {
                 "?"
               }
-            }.value?.toString(),\n",
+            }",
             propertyName,
             propertyName,
           )
+          fhirPathType.addCodeToConvertTypeInModelToTypeInSurrogate(this)
+          add(",\n")
         }
         add(
           "%N = this@with.%N${
@@ -794,26 +731,18 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
    * ```
    */
   private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
-    packageName: String,
     propertyName: String,
     typeCode: String,
   ) {
     if (FhirPathType.containsFhirTypeCode(typeCode)) {
       val fhirPathType = FhirPathType.getFromFhirTypeCode(typeCode)!!
-      val typeInDataClass = fhirPathType.getTypeInDataClass(packageName)
-      if (typeInDataClass == fhirPathType.typeInSurrogateClass) {
-        add(
-          "%N = this@with.%N()?.value?.value,\n",
-          "$propertyName${typeCode.capitalized()}",
-          "as${typeCode.capitalized()}",
-        )
-      } else {
-        add(
-          "%N = this@with.%N()?.value?.value?.toString(),\n",
-          "$propertyName${typeCode.capitalized()}",
-          "as${typeCode.capitalized()}",
-        )
-      }
+      add(
+        "%N = this@with.%N()?.value?",
+        "$propertyName${typeCode.capitalized()}",
+        "as${typeCode.capitalized()}",
+      )
+      fhirPathType.addCodeToConvertTypeInModelToTypeInSurrogate(this)
+      add(",\n")
       add(
         "%N = this@with.%N()?.value?.toElement(),\n",
         "_$propertyName${typeCode.capitalized()}",

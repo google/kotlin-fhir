@@ -113,7 +113,7 @@ internal data class ParametersParameterValueSurrogate(
   public var _valueInstant: Element? = null,
   public var valueInteger: Int? = null,
   public var _valueInteger: Element? = null,
-  public var valueInteger64: Int? = null,
+  public var valueInteger64: KotlinString? = null,
   public var _valueInteger64: Element? = null,
   public var valueMarkdown: KotlinString? = null,
   public var _valueMarkdown: Element? = null,
@@ -211,7 +211,7 @@ internal data class ParametersParameterValueSurrogate(
         this@ParametersParameterValueSurrogate._valueInteger,
       ),
       Integer64.of(
-        this@ParametersParameterValueSurrogate.valueInteger64,
+        this@ParametersParameterValueSurrogate.valueInteger64?.toLong(),
         this@ParametersParameterValueSurrogate._valueInteger64,
       ),
       Markdown.of(
@@ -310,7 +310,7 @@ internal data class ParametersParameterValueSurrogate(
           _valueInstant = this@with.asInstant()?.value?.toElement(),
           valueInteger = this@with.asInteger()?.value?.value,
           _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueInteger64 = this@with.asInteger64()?.value?.value,
+          valueInteger64 = this@with.asInteger64()?.value?.value?.toString(),
           _valueInteger64 = this@with.asInteger64()?.value?.toElement(),
           valueMarkdown = this@with.asMarkdown()?.value?.value,
           _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),

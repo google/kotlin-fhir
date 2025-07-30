@@ -600,7 +600,7 @@ private fun TypeSpec.Builder.addOfFunctionForXhtml(
  * ```
  */
 private fun TypeSpec.Builder.addFromFunction(
-  type: List<Type>,
+  typeList: List<Type>,
   enclosingModelClassName: ClassName,
   sealedInterfaceClassName: ClassName,
 ): TypeSpec.Builder =
@@ -608,7 +608,7 @@ private fun TypeSpec.Builder.addFromFunction(
     FunSpec.builder("from")
       .addModifiers(KModifier.INTERNAL)
       .apply {
-        for (type in type) {
+        for (type in typeList) {
           addParameter(
             ParameterSpec(
               "${type.code.replaceFirstChar { it.lowercase() }}Value",
@@ -651,7 +651,8 @@ private fun TypeSpec.Builder.addDataTypeFunction(type: Type, sealedInterfaceClas
  */
 fun ParameterSpec.Builder.setDefaultValue(element: Element) = apply {
   if (element.id == "xhtml.extension") {
-    // The cardinality of this element in the base class is 0..*, but it is overriden in xhtml to be
+    // The cardinality of this element in the base class is 0..*, but it is overridden in xhtml to
+    // be
     // 0..0. Therefore, using the cardinality defined here would result in an compilation error.
     // TODO: Deprecate this element in the generated Xhtml class, possibly with @Deprecated
     // annotation.

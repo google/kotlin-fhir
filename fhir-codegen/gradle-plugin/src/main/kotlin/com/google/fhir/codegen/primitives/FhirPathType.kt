@@ -17,6 +17,7 @@
 package com.google.fhir.codegen.primitives
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.asClassName
 import kotlinx.datetime.LocalTime
 
@@ -26,15 +27,17 @@ import kotlinx.datetime.LocalTime
  * - **URI:** The unique identifier for the FHIRPath type (e.g.,
  *   "http://hl7.org/fhirpath/System.Boolean").
  * - **FHIR Type Codes:** A list of FHIR primitive type codes associated with this type (e.g.
- *   "integer", "integer64", "positiveInt", "unsignedInt" are all associated with the FHIRPath
- *   Integer type, and should be handled in the generated data class and surrogate class
- *   accordingly).
+ *   "integer", "positiveInt", "unsignedInt" are all associated with the FHIRPath Integer type, and
+ *   should be handled in the generated data class and surrogate class accordingly).
  * - **Kotlin Type in Data Class:** The Kotlin class used for representing the value in the data
  *   class (e.g. FHIRPath DateTime is represented in the data class as FHIRDateTime, an interface
  *   generated to handle the DateTime type in FHIR specifically).
  * - **Kotlin Type in Surrogate Class:** The Kotlin class used for representing the value in the
  *   surrogate classes (e.g., FHIRPath DateTime is mapped to a Kotlin String in the surrogate
  *   class).
+ *
+ * N.B. The Kotlin type in data class is retrieved by calling [getTypeInModelClass] with the package
+ * name.
  */
 enum class FhirPathType(
   val uri: String,
@@ -42,60 +45,303 @@ enum class FhirPathType(
   val typeInSurrogateClass: ClassName,
 ) {
   BOOLEAN(
-    "http://hl7.org/fhirpath/System.Boolean",
-    listOf("boolean"),
-    Boolean::class.asClassName(),
+    uri = "http://hl7.org/fhirpath/System.Boolean",
+    fhirTypeCodes = listOf("boolean"),
+    typeInSurrogateClass = Boolean::class.asClassName(),
   ) {
-    override fun getTypeInDataClass(packageName: String) = Boolean::class.asClassName()
+    override fun getTypeInModelClass(packageName: String) = Boolean::class.asClassName()
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add("this@%T.%N", surrogateClassName, propertyName)
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%L", varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value")
+    }
   },
   INTEGER(
-    "http://hl7.org/fhirpath/System.Integer",
-    listOf("integer", "integer64", "positiveInt", "unsignedInt"),
-    Int::class.asClassName(),
+    uri = "http://hl7.org/fhirpath/System.Integer",
+    fhirTypeCodes = listOf("integer", "positiveInt", "unsignedInt"),
+    typeInSurrogateClass = Int::class.asClassName(),
   ) {
-    override fun getTypeInDataClass(packageName: String) = Int::class.asClassName()
+    override fun getTypeInModelClass(packageName: String) = Int::class.asClassName()
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add("this@%T.%N", surrogateClassName, propertyName)
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%L", varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value")
+    }
+  },
+  LONG(
+    uri = "http://hl7.org/fhirpath/System.Long",
+    fhirTypeCodes = listOf("integer64"),
+    typeInSurrogateClass = String::class.asClassName(),
+  ) {
+    override fun getTypeInModelClass(packageName: String) = Long::class.asClassName()
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add("this@%T.%N?.toLong()", surrogateClassName, propertyName)
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%N?.toLong()", varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value?.toString()")
+    }
   },
   DECIMAL(
-    "http://hl7.org/fhirpath/System.Decimal",
-    listOf("decimal"),
-    Double::class.asClassName(),
+    uri = "http://hl7.org/fhirpath/System.Decimal",
+    fhirTypeCodes = listOf("decimal"),
+    typeInSurrogateClass = Double::class.asClassName(),
   ) {
-    override fun getTypeInDataClass(packageName: String) = Double::class.asClassName()
+    override fun getTypeInModelClass(packageName: String) = Double::class.asClassName()
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add("this@%T.%N", surrogateClassName, propertyName)
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%L", varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value")
+    }
   },
   STRING(
-    "http://hl7.org/fhirpath/System.String",
-    listOf(
-      "string",
-      "code",
-      "canonical",
-      "uri",
-      "oid",
-      "url",
-      "id",
-      "uuid",
-      "markdown",
-      "xhtml",
-      "base64Binary",
-    ),
-    String::class.asClassName(),
+    uri = "http://hl7.org/fhirpath/System.String",
+    fhirTypeCodes =
+      listOf(
+        "base64Binary",
+        "canonical",
+        "code",
+        "id",
+        "markdown",
+        "oid",
+        "string",
+        "uri",
+        "url",
+        "uuid",
+        "xhtml",
+      ),
+    typeInSurrogateClass = String::class.asClassName(),
   ) {
-    override fun getTypeInDataClass(packageName: String) = String::class.asClassName()
+    override fun getTypeInModelClass(packageName: String) = String::class.asClassName()
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add("this@%T.%N", surrogateClassName, propertyName)
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%L", varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value")
+    }
   },
-  DATE("http://hl7.org/fhirpath/System.Date", listOf("date"), String::class.asClassName()) {
-    override fun getTypeInDataClass(packageName: String) = ClassName(packageName, "FhirDate")
+  DATE(
+    uri = "http://hl7.org/fhirpath/System.Date",
+    fhirTypeCodes = listOf("date"),
+    typeInSurrogateClass = String::class.asClassName(),
+  ) {
+    override fun getTypeInModelClass(packageName: String) = ClassName(packageName, "FhirDate")
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add(
+        "%T.fromString(this@%T.%N)",
+        getTypeInModelClass(packageName),
+        surrogateClassName,
+        propertyName,
+      )
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%T.fromString(%L)", getTypeInModelClass(packageName), varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value?.toString()")
+    }
   },
-  TIME("http://hl7.org/fhirpath/System.Time", listOf("time"), LocalTime::class.asClassName()) {
-    override fun getTypeInDataClass(packageName: String) = LocalTime::class.asClassName()
+  TIME(
+    uri = "http://hl7.org/fhirpath/System.Time",
+    fhirTypeCodes = listOf("time"),
+    typeInSurrogateClass = LocalTime::class.asClassName(),
+  ) {
+    override fun getTypeInModelClass(packageName: String) = LocalTime::class.asClassName()
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add("this@%T.%N", surrogateClassName, propertyName)
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%L", varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value")
+    }
   },
   DATETIME(
-    "http://hl7.org/fhirpath/System.DateTime",
-    listOf("dateTime", "instant"),
-    String::class.asClassName(),
+    uri = "http://hl7.org/fhirpath/System.DateTime",
+    fhirTypeCodes = listOf("dateTime", "instant"),
+    typeInSurrogateClass = String::class.asClassName(),
   ) {
-    override fun getTypeInDataClass(packageName: String) = ClassName(packageName, "FhirDateTime")
+    override fun getTypeInModelClass(packageName: String) = ClassName(packageName, "FhirDateTime")
+
+    override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      surrogateClassName: ClassName,
+      propertyName: String,
+    ) {
+      codeBlock.add(
+        "%T.fromString(this@%T.%N)",
+        getTypeInModelClass(packageName),
+        surrogateClassName,
+        propertyName,
+      )
+    }
+
+    override fun addCodeToConvertTypeInSurrogateToTypeInModel(
+      codeBlock: CodeBlock.Builder,
+      packageName: String,
+      varName: String,
+    ) {
+      codeBlock.add("%T.fromString(%L)", getTypeInModelClass(packageName), varName)
+    }
+
+    override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
+      codeBlock.add(".value?.toString()")
+    }
   };
 
-  abstract fun getTypeInDataClass(packageName: String): ClassName
+  /**
+   * Returns the corresponding type in the model class.
+   *
+   * Used to construct the properties for primitive FHIR types in the model class, e.g. [Boolean]
+   * for FHIR's Boolean type or the custom `FhirDateTime` class for FHIR's DateTime type.
+   *
+   * Also used by [addCodeToConvertPropertyInSurrogateToPropertyInModel] and
+   * [addCodeToConvertTypeInSurrogateToTypeInModel] to generate code to convert a property in the
+   * surrogate class to a property in the model class.
+   */
+  abstract fun getTypeInModelClass(packageName: String): ClassName
+
+  /**
+   * Adds code to the `codeBlock` to convert a property of this [FhirPathType] in the surrogate
+   * class to a property in the model class.
+   *
+   * For example, for boolean this generates `this@surrogateClass.elementName`; and for integer64,
+   * this generates `this@surrogateClass.elementName?.toLong()` since integer64 is represented in
+   * the surrogate class as a string and needs to be converted to a [Long] in the model class.
+   */
+  abstract fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
+    codeBlock: CodeBlock.Builder,
+    packageName: String,
+    surrogateClassName: ClassName,
+    propertyName: String,
+  )
+
+  /**
+   * Adds code to the `codeBlock` to convert a variable of this [FhirPathType] in the model class to
+   * a variable in the surrogate class.
+   *
+   * For example, for boolean variable `value` this simply generates `value`; and for integer64,
+   * this generates `value?.toLong()` since integer64 is represented in the surrogate class as a
+   * [String] and needs to be converted to a [Long] in the model class.
+   */
+  abstract fun addCodeToConvertTypeInSurrogateToTypeInModel(
+    codeBlock: CodeBlock.Builder,
+    packageName: String,
+    varName: String,
+  )
+
+  /**
+   * Adds code to the `codeBlock` to convert a variable of this [FhirPathType] in the surrogate
+   * class to a variable in the model class.
+   *
+   * For example, for a boolean variable this will generate the code `.value` for the underlying
+   * property in the surrogate class; and for integer64, this generates `.value?.toString()` to get
+   * the underlying [Long] in the model class and convert it to a [String] in the surrogate class.
+   */
+  abstract fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder)
 
   companion object {
     /**

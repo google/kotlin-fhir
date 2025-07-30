@@ -18,7 +18,7 @@
 
 package com.google.fhir.model.r5
 
-import kotlin.Int
+import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -41,7 +41,7 @@ public data class Integer64(
    */
   override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
-  public var `value`: Int? = null,
+  public var `value`: Long? = null,
 ) : PrimitiveType() {
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {
@@ -51,7 +51,7 @@ public data class Integer64(
   }
 
   public companion object {
-    public fun of(`value`: Int?, element: Element?): Integer64? =
+    public fun of(`value`: Long?, element: Element?): Integer64? =
       if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
         Integer64(element?.id, element?.extension ?: mutableListOf(), value)
       } else {
