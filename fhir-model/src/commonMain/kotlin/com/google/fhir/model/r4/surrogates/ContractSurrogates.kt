@@ -279,7 +279,7 @@ internal data class ContractTermOfferAnswerValueSurrogate(
       this@ContractTermOfferAnswerValueSurrogate.valueCoding,
       this@ContractTermOfferAnswerValueSurrogate.valueQuantity,
       this@ContractTermOfferAnswerValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -494,11 +494,11 @@ internal data class ContractTermAssetValuedItemEntitySurrogate(
   public var entityCodeableConcept: CodeableConcept? = null,
   public var entityReference: Reference? = null,
 ) {
-  public fun toModel(): Contract.Term.Asset.ValuedItem.Entity? =
+  public fun toModel(): Contract.Term.Asset.ValuedItem.Entity =
     Contract.Term.Asset.ValuedItem.Entity?.from(
       this@ContractTermAssetValuedItemEntitySurrogate.entityCodeableConcept,
       this@ContractTermAssetValuedItemEntitySurrogate.entityReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -833,7 +833,7 @@ internal data class ContractTermActionOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): Contract.Term.Action.Occurrence? =
+  public fun toModel(): Contract.Term.Action.Occurrence =
     Contract.Term.Action.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ContractTermActionOccurrenceSurrogate.occurrenceDateTime),
@@ -841,7 +841,7 @@ internal data class ContractTermActionOccurrenceSurrogate(
       ),
       this@ContractTermActionOccurrenceSurrogate.occurrencePeriod,
       this@ContractTermActionOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1133,11 +1133,11 @@ internal data class ContractTermTopicSurrogate(
   public var topicCodeableConcept: CodeableConcept? = null,
   public var topicReference: Reference? = null,
 ) {
-  public fun toModel(): Contract.Term.Topic? =
+  public fun toModel(): Contract.Term.Topic =
     Contract.Term.Topic?.from(
       this@ContractTermTopicSurrogate.topicCodeableConcept,
       this@ContractTermTopicSurrogate.topicReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Contract.Term.Topic): ContractTermTopicSurrogate =
@@ -1262,7 +1262,7 @@ internal data class ContractFriendlyContentSurrogate(
     Contract.Friendly.Content.from(
       this@ContractFriendlyContentSurrogate.contentAttachment,
       this@ContractFriendlyContentSurrogate.contentReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Contract.Friendly.Content): ContractFriendlyContentSurrogate =
@@ -1312,7 +1312,7 @@ internal data class ContractLegalContentSurrogate(
     Contract.Legal.Content.from(
       this@ContractLegalContentSurrogate.contentAttachment,
       this@ContractLegalContentSurrogate.contentReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Contract.Legal.Content): ContractLegalContentSurrogate =
@@ -1362,7 +1362,7 @@ internal data class ContractRuleContentSurrogate(
     Contract.Rule.Content.from(
       this@ContractRuleContentSurrogate.contentAttachment,
       this@ContractRuleContentSurrogate.contentReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Contract.Rule.Content): ContractRuleContentSurrogate =
@@ -1408,11 +1408,11 @@ internal data class ContractTopicSurrogate(
   public var topicCodeableConcept: CodeableConcept? = null,
   public var topicReference: Reference? = null,
 ) {
-  public fun toModel(): Contract.Topic? =
+  public fun toModel(): Contract.Topic =
     Contract.Topic?.from(
       this@ContractTopicSurrogate.topicCodeableConcept,
       this@ContractTopicSurrogate.topicReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Contract.Topic): ContractTopicSurrogate =
@@ -1430,11 +1430,11 @@ internal data class ContractLegallyBindingSurrogate(
   public var legallyBindingAttachment: Attachment? = null,
   public var legallyBindingReference: Reference? = null,
 ) {
-  public fun toModel(): Contract.LegallyBinding? =
+  public fun toModel(): Contract.LegallyBinding =
     Contract.LegallyBinding?.from(
       this@ContractLegallyBindingSurrogate.legallyBindingAttachment,
       this@ContractLegallyBindingSurrogate.legallyBindingReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Contract.LegallyBinding): ContractLegallyBindingSurrogate =

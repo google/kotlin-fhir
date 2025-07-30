@@ -67,12 +67,12 @@ internal data class PlanDefinitionGoalTargetDetailSurrogate(
   public var detailRange: Range? = null,
   public var detailCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): PlanDefinition.Goal.Target.Detail? =
+  public fun toModel(): PlanDefinition.Goal.Target.Detail =
     PlanDefinition.Goal.Target.Detail?.from(
       this@PlanDefinitionGoalTargetDetailSurrogate.detailQuantity,
       this@PlanDefinitionGoalTargetDetailSurrogate.detailRange,
       this@PlanDefinitionGoalTargetDetailSurrogate.detailCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -216,11 +216,11 @@ internal data class PlanDefinitionActionRelatedActionOffsetSurrogate(
   public var offsetDuration: Duration? = null,
   public var offsetRange: Range? = null,
 ) {
-  public fun toModel(): PlanDefinition.Action.RelatedAction.Offset? =
+  public fun toModel(): PlanDefinition.Action.RelatedAction.Offset =
     PlanDefinition.Action.RelatedAction.Offset?.from(
       this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetDuration,
       this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -375,7 +375,7 @@ internal data class PlanDefinitionActionSubjectSurrogate(
   public var subjectCanonical: KotlinString? = null,
   public var _subjectCanonical: Element? = null,
 ) {
-  public fun toModel(): PlanDefinition.Action.Subject? =
+  public fun toModel(): PlanDefinition.Action.Subject =
     PlanDefinition.Action.Subject?.from(
       this@PlanDefinitionActionSubjectSurrogate.subjectCodeableConcept,
       this@PlanDefinitionActionSubjectSurrogate.subjectReference,
@@ -383,7 +383,7 @@ internal data class PlanDefinitionActionSubjectSurrogate(
         this@PlanDefinitionActionSubjectSurrogate.subjectCanonical,
         this@PlanDefinitionActionSubjectSurrogate._subjectCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -410,7 +410,7 @@ internal data class PlanDefinitionActionTimingSurrogate(
   public var timingRange: Range? = null,
   public var timingTiming: Timing? = null,
 ) {
-  public fun toModel(): PlanDefinition.Action.Timing? =
+  public fun toModel(): PlanDefinition.Action.Timing =
     PlanDefinition.Action.Timing?.from(
       DateTime.of(
         FhirDateTime.fromString(this@PlanDefinitionActionTimingSurrogate.timingDateTime),
@@ -421,7 +421,7 @@ internal data class PlanDefinitionActionTimingSurrogate(
       this@PlanDefinitionActionTimingSurrogate.timingDuration,
       this@PlanDefinitionActionTimingSurrogate.timingRange,
       this@PlanDefinitionActionTimingSurrogate.timingTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: PlanDefinition.Action.Timing): PlanDefinitionActionTimingSurrogate =
@@ -446,7 +446,7 @@ internal data class PlanDefinitionActionDefinitionSurrogate(
   public var definitionUri: KotlinString? = null,
   public var _definitionUri: Element? = null,
 ) {
-  public fun toModel(): PlanDefinition.Action.Definition? =
+  public fun toModel(): PlanDefinition.Action.Definition =
     PlanDefinition.Action.Definition?.from(
       Canonical.of(
         this@PlanDefinitionActionDefinitionSurrogate.definitionCanonical,
@@ -456,7 +456,7 @@ internal data class PlanDefinitionActionDefinitionSurrogate(
         this@PlanDefinitionActionDefinitionSurrogate.definitionUri,
         this@PlanDefinitionActionDefinitionSurrogate._definitionUri,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -687,7 +687,7 @@ internal data class PlanDefinitionSubjectSurrogate(
   public var subjectCanonical: KotlinString? = null,
   public var _subjectCanonical: Element? = null,
 ) {
-  public fun toModel(): PlanDefinition.Subject? =
+  public fun toModel(): PlanDefinition.Subject =
     PlanDefinition.Subject?.from(
       this@PlanDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@PlanDefinitionSubjectSurrogate.subjectReference,
@@ -695,7 +695,7 @@ internal data class PlanDefinitionSubjectSurrogate(
         this@PlanDefinitionSubjectSurrogate.subjectCanonical,
         this@PlanDefinitionSubjectSurrogate._subjectCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: PlanDefinition.Subject): PlanDefinitionSubjectSurrogate =

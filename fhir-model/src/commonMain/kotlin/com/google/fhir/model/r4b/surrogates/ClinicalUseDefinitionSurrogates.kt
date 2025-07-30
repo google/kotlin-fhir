@@ -134,14 +134,14 @@ internal data class ClinicalUseDefinitionIndicationDurationSurrogate(
   public var durationString: KotlinString? = null,
   public var _durationString: Element? = null,
 ) {
-  public fun toModel(): ClinicalUseDefinition.Indication.Duration? =
+  public fun toModel(): ClinicalUseDefinition.Indication.Duration =
     ClinicalUseDefinition.Indication.Duration?.from(
       this@ClinicalUseDefinitionIndicationDurationSurrogate.durationRange,
       R4bString.of(
         this@ClinicalUseDefinitionIndicationDurationSurrogate.durationString,
         this@ClinicalUseDefinitionIndicationDurationSurrogate._durationString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -217,7 +217,7 @@ internal data class ClinicalUseDefinitionInteractionInteractantItemSurrogate(
     ClinicalUseDefinition.Interaction.Interactant.Item.from(
       this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemReference,
       this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

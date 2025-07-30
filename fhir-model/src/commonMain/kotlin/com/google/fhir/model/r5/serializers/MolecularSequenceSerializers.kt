@@ -50,7 +50,7 @@ public object MolecularSequenceRelativeStartingSequenceSequenceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Relative.StartingSequence.Sequence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -123,7 +123,7 @@ public object MolecularSequenceRelativeEditSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Relative.Edit =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Relative.Edit) {
     surrogateSerializer.serialize(encoder, MolecularSequenceRelativeEditSurrogate.fromModel(value))
@@ -140,7 +140,7 @@ public object MolecularSequenceRelativeSerializer : KSerializer<MolecularSequenc
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence.Relative =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Relative) {
     surrogateSerializer.serialize(encoder, MolecularSequenceRelativeSurrogate.fromModel(value))
@@ -157,7 +157,7 @@ public object MolecularSequenceSerializer : KSerializer<MolecularSequence> {
   }
 
   override fun deserialize(decoder: Decoder): MolecularSequence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence) {
     surrogateSerializer.serialize(encoder, MolecularSequenceSurrogate.fromModel(value))

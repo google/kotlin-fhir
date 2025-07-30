@@ -398,7 +398,7 @@ internal data class ValueSetExpansionParameterValueSurrogate(
   public var valueDateTime: KotlinString? = null,
   public var _valueDateTime: Element? = null,
 ) {
-  public fun toModel(): ValueSet.Expansion.Parameter.Value? =
+  public fun toModel(): ValueSet.Expansion.Parameter.Value =
     ValueSet.Expansion.Parameter.Value?.from(
       R5String.of(
         this@ValueSetExpansionParameterValueSurrogate.valueString,
@@ -428,7 +428,7 @@ internal data class ValueSetExpansionParameterValueSurrogate(
         FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
         this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -582,7 +582,7 @@ internal data class ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
         this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDecimal,
         this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDecimal,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -693,7 +693,7 @@ internal data class ValueSetExpansionContainsPropertyValueSurrogate(
         this@ValueSetExpansionContainsPropertyValueSurrogate.valueDecimal,
         this@ValueSetExpansionContainsPropertyValueSurrogate._valueDecimal,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -969,14 +969,14 @@ internal data class ValueSetVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ValueSet.VersionAlgorithm? =
+  public fun toModel(): ValueSet.VersionAlgorithm =
     ValueSet.VersionAlgorithm?.from(
       R5String.of(
         this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ValueSetVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ValueSet.VersionAlgorithm): ValueSetVersionAlgorithmSurrogate =

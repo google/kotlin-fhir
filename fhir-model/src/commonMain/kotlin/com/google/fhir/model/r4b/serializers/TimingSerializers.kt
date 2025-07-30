@@ -46,7 +46,7 @@ public object TimingRepeatBoundsSerializer : KSerializer<Timing.Repeat.Bounds> {
   }
 
   override fun deserialize(decoder: Decoder): Timing.Repeat.Bounds =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Timing.Repeat.Bounds) {
     surrogateSerializer.serialize(encoder, TimingRepeatBoundsSurrogate.fromModel(value))
@@ -110,7 +110,7 @@ public object TimingSerializer : KSerializer<Timing> {
   }
 
   override fun deserialize(decoder: Decoder): Timing =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Timing) {
     surrogateSerializer.serialize(encoder, TimingSurrogate.fromModel(value))

@@ -50,11 +50,11 @@ internal data class CareTeamParticipantCoverageSurrogate(
   public var coveragePeriod: Period? = null,
   public var coverageTiming: Timing? = null,
 ) {
-  public fun toModel(): CareTeam.Participant.Coverage? =
+  public fun toModel(): CareTeam.Participant.Coverage =
     CareTeam.Participant.Coverage?.from(
       this@CareTeamParticipantCoverageSurrogate.coveragePeriod,
       this@CareTeamParticipantCoverageSurrogate.coverageTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

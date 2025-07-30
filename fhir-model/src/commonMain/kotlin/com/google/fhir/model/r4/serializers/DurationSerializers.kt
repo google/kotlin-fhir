@@ -36,7 +36,7 @@ public object DurationSerializer : KSerializer<Duration> {
   }
 
   override fun deserialize(decoder: Decoder): Duration =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Duration) {
     surrogateSerializer.serialize(encoder, DurationSurrogate.fromModel(value))

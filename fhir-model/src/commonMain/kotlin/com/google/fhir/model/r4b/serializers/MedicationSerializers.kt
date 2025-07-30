@@ -47,7 +47,7 @@ public object MedicationIngredientItemSerializer : KSerializer<Medication.Ingred
   }
 
   override fun deserialize(decoder: Decoder): Medication.Ingredient.Item =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Medication.Ingredient.Item) {
     surrogateSerializer.serialize(encoder, MedicationIngredientItemSurrogate.fromModel(value))
@@ -111,7 +111,7 @@ public object MedicationBatchSerializer : KSerializer<Medication.Batch> {
   }
 
   override fun deserialize(decoder: Decoder): Medication.Batch =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Medication.Batch) {
     surrogateSerializer.serialize(encoder, MedicationBatchSurrogate.fromModel(value))
@@ -128,7 +128,7 @@ public object MedicationSerializer : KSerializer<Medication> {
   }
 
   override fun deserialize(decoder: Decoder): Medication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Medication) {
     surrogateSerializer.serialize(encoder, MedicationSurrogate.fromModel(value))

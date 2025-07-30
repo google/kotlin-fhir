@@ -54,7 +54,7 @@ public object ServiceRequestOrderDetailParameterValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.OrderDetail.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.OrderDetail.Parameter.Value) {
     surrogateSerializer.serialize(
@@ -123,7 +123,7 @@ public object ServiceRequestOrderDetailSerializer : KSerializer<ServiceRequest.O
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.OrderDetail =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.OrderDetail) {
     surrogateSerializer.serialize(encoder, ServiceRequestOrderDetailSurrogate.fromModel(value))
@@ -142,7 +142,7 @@ public object ServiceRequestPatientInstructionInstructionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.PatientInstruction.Instruction =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.PatientInstruction.Instruction) {
     surrogateSerializer.serialize(
@@ -210,7 +210,7 @@ public object ServiceRequestQuantitySerializer : KSerializer<ServiceRequest.Quan
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.Quantity =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.Quantity) {
     surrogateSerializer.serialize(encoder, ServiceRequestQuantitySurrogate.fromModel(value))
@@ -227,7 +227,7 @@ public object ServiceRequestOccurrenceSerializer : KSerializer<ServiceRequest.Oc
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.Occurrence) {
     surrogateSerializer.serialize(encoder, ServiceRequestOccurrenceSurrogate.fromModel(value))
@@ -244,7 +244,7 @@ public object ServiceRequestAsNeededSerializer : KSerializer<ServiceRequest.AsNe
   }
 
   override fun deserialize(decoder: Decoder): ServiceRequest.AsNeeded =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.AsNeeded) {
     surrogateSerializer.serialize(encoder, ServiceRequestAsNeededSurrogate.fromModel(value))

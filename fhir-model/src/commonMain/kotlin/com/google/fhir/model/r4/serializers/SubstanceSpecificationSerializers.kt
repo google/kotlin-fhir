@@ -61,7 +61,7 @@ public object SubstanceSpecificationMoietyAmountSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Moiety.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Moiety.Amount) {
     surrogateSerializer.serialize(
@@ -130,7 +130,7 @@ public object SubstanceSpecificationPropertyDefiningSubstanceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Property.DefiningSubstance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -155,7 +155,7 @@ public object SubstanceSpecificationPropertyAmountSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Property.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Property.Amount) {
     surrogateSerializer.serialize(
@@ -227,7 +227,7 @@ public object SubstanceSpecificationStructureIsotopeMolecularWeightSerializer :
   override fun deserialize(
     decoder: Decoder
   ): SubstanceSpecification.Structure.Isotope.MolecularWeight =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -252,7 +252,7 @@ public object SubstanceSpecificationStructureIsotopeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Structure.Isotope =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Structure.Isotope) {
     surrogateSerializer.serialize(
@@ -274,7 +274,7 @@ public object SubstanceSpecificationStructureRepresentationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Structure.Representation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -298,7 +298,7 @@ public object SubstanceSpecificationStructureSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Structure =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Structure) {
     surrogateSerializer.serialize(
@@ -318,7 +318,7 @@ public object SubstanceSpecificationCodeSerializer : KSerializer<SubstanceSpecif
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Code =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Code) {
     surrogateSerializer.serialize(encoder, SubstanceSpecificationCodeSurrogate.fromModel(value))
@@ -337,7 +337,7 @@ public object SubstanceSpecificationNameOfficialSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Name.Official =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Name.Official) {
     surrogateSerializer.serialize(
@@ -357,7 +357,7 @@ public object SubstanceSpecificationNameSerializer : KSerializer<SubstanceSpecif
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Name =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Name) {
     surrogateSerializer.serialize(encoder, SubstanceSpecificationNameSurrogate.fromModel(value))
@@ -376,7 +376,7 @@ public object SubstanceSpecificationRelationshipSubstanceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Relationship.Substance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Relationship.Substance) {
     surrogateSerializer.serialize(
@@ -398,7 +398,7 @@ public object SubstanceSpecificationRelationshipAmountSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification.Relationship.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification.Relationship.Amount) {
     surrogateSerializer.serialize(
@@ -467,7 +467,7 @@ public object SubstanceSpecificationSerializer : KSerializer<SubstanceSpecificat
   }
 
   override fun deserialize(decoder: Decoder): SubstanceSpecification =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceSpecification) {
     surrogateSerializer.serialize(encoder, SubstanceSpecificationSurrogate.fromModel(value))

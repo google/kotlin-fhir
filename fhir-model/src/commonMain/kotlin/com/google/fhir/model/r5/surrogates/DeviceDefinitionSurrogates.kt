@@ -571,7 +571,7 @@ internal data class DeviceDefinitionPropertyValueSurrogate(
       ),
       this@DeviceDefinitionPropertyValueSurrogate.valueRange,
       this@DeviceDefinitionPropertyValueSurrogate.valueAttachment,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

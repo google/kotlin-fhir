@@ -73,7 +73,7 @@ internal data class ResearchElementDefinitionCharacteristicDefinitionSurrogate(
       ),
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionExpression,
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionDataRequirement,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -99,7 +99,7 @@ internal data class ResearchElementDefinitionCharacteristicStudyEffectiveSurroga
   public var studyEffectiveDuration: Duration? = null,
   public var studyEffectiveTiming: Timing? = null,
 ) {
-  public fun toModel(): ResearchElementDefinition.Characteristic.StudyEffective? =
+  public fun toModel(): ResearchElementDefinition.Characteristic.StudyEffective =
     ResearchElementDefinition.Characteristic.StudyEffective?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -110,7 +110,7 @@ internal data class ResearchElementDefinitionCharacteristicStudyEffectiveSurroga
       this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectivePeriod,
       this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectiveDuration,
       this@ResearchElementDefinitionCharacteristicStudyEffectiveSurrogate.studyEffectiveTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -136,7 +136,7 @@ internal data class ResearchElementDefinitionCharacteristicParticipantEffectiveS
   public var participantEffectiveDuration: Duration? = null,
   public var participantEffectiveTiming: Timing? = null,
 ) {
-  public fun toModel(): ResearchElementDefinition.Characteristic.ParticipantEffective? =
+  public fun toModel(): ResearchElementDefinition.Characteristic.ParticipantEffective =
     ResearchElementDefinition.Characteristic.ParticipantEffective?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -152,7 +152,7 @@ internal data class ResearchElementDefinitionCharacteristicParticipantEffectiveS
         .participantEffectiveDuration,
       this@ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate
         .participantEffectiveTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -283,11 +283,11 @@ internal data class ResearchElementDefinitionSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): ResearchElementDefinition.Subject? =
+  public fun toModel(): ResearchElementDefinition.Subject =
     ResearchElementDefinition.Subject?.from(
       this@ResearchElementDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@ResearchElementDefinitionSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

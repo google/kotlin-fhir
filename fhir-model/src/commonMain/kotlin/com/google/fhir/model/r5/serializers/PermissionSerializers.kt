@@ -41,7 +41,7 @@ public object PermissionJustificationSerializer : KSerializer<Permission.Justifi
   }
 
   override fun deserialize(decoder: Decoder): Permission.Justification =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Permission.Justification) {
     surrogateSerializer.serialize(encoder, PermissionJustificationSurrogate.fromModel(value))
@@ -58,7 +58,7 @@ public object PermissionRuleDataResourceSerializer : KSerializer<Permission.Rule
   }
 
   override fun deserialize(decoder: Decoder): Permission.Rule.Data.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Permission.Rule.Data.Resource) {
     surrogateSerializer.serialize(encoder, PermissionRuleDataResourceSurrogate.fromModel(value))
@@ -75,7 +75,7 @@ public object PermissionRuleDataSerializer : KSerializer<Permission.Rule.Data> {
   }
 
   override fun deserialize(decoder: Decoder): Permission.Rule.Data =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Permission.Rule.Data) {
     surrogateSerializer.serialize(encoder, PermissionRuleDataSurrogate.fromModel(value))
@@ -92,7 +92,7 @@ public object PermissionRuleActivitySerializer : KSerializer<Permission.Rule.Act
   }
 
   override fun deserialize(decoder: Decoder): Permission.Rule.Activity =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Permission.Rule.Activity) {
     surrogateSerializer.serialize(encoder, PermissionRuleActivitySurrogate.fromModel(value))
@@ -109,7 +109,7 @@ public object PermissionRuleSerializer : KSerializer<Permission.Rule> {
   }
 
   override fun deserialize(decoder: Decoder): Permission.Rule =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Permission.Rule) {
     surrogateSerializer.serialize(encoder, PermissionRuleSurrogate.fromModel(value))
@@ -126,7 +126,7 @@ public object PermissionSerializer : KSerializer<Permission> {
   }
 
   override fun deserialize(decoder: Decoder): Permission =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Permission) {
     surrogateSerializer.serialize(encoder, PermissionSurrogate.fromModel(value))

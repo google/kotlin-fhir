@@ -88,14 +88,14 @@ internal data class InvoiceLineItemServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): Invoice.LineItem.Serviced? =
+  public fun toModel(): Invoice.LineItem.Serviced =
     Invoice.LineItem.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@InvoiceLineItemServicedSurrogate.servicedDate),
         this@InvoiceLineItemServicedSurrogate._servicedDate,
       ),
       this@InvoiceLineItemServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Invoice.LineItem.Serviced): InvoiceLineItemServicedSurrogate =
@@ -118,7 +118,7 @@ internal data class InvoiceLineItemChargeItemSurrogate(
     Invoice.LineItem.ChargeItem.from(
       this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
       this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
@@ -180,14 +180,14 @@ internal data class InvoicePeriodSurrogate(
   public var _periodDate: Element? = null,
   public var periodPeriod: Period? = null,
 ) {
-  public fun toModel(): Invoice.Period? =
+  public fun toModel(): Invoice.Period =
     Invoice.Period?.from(
       Date.of(
         FhirDate.fromString(this@InvoicePeriodSurrogate.periodDate),
         this@InvoicePeriodSurrogate._periodDate,
       ),
       this@InvoicePeriodSurrogate.periodPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Invoice.Period): InvoicePeriodSurrogate =

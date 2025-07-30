@@ -734,7 +734,7 @@ internal data class TestScriptSetupActionAssertRequirementLinkSurrogate(
   public var linkCanonical: KotlinString? = null,
   public var _linkCanonical: Element? = null,
 ) {
-  public fun toModel(): TestScript.Setup.Action.Assert.Requirement.Link? =
+  public fun toModel(): TestScript.Setup.Action.Assert.Requirement.Link =
     TestScript.Setup.Action.Assert.Requirement.Link?.from(
       Uri.of(
         this@TestScriptSetupActionAssertRequirementLinkSurrogate.linkUri,
@@ -744,7 +744,7 @@ internal data class TestScriptSetupActionAssertRequirementLinkSurrogate(
         this@TestScriptSetupActionAssertRequirementLinkSurrogate.linkCanonical,
         this@TestScriptSetupActionAssertRequirementLinkSurrogate._linkCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1244,14 +1244,14 @@ internal data class TestScriptVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): TestScript.VersionAlgorithm? =
+  public fun toModel(): TestScript.VersionAlgorithm =
     TestScript.VersionAlgorithm?.from(
       R5String.of(
         this@TestScriptVersionAlgorithmSurrogate.versionAlgorithmString,
         this@TestScriptVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@TestScriptVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: TestScript.VersionAlgorithm): TestScriptVersionAlgorithmSurrogate =

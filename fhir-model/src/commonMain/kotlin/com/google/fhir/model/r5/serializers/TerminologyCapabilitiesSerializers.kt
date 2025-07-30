@@ -56,7 +56,7 @@ public object TerminologyCapabilitiesSoftwareSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.Software =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Software) {
     surrogateSerializer.serialize(
@@ -78,7 +78,7 @@ public object TerminologyCapabilitiesImplementationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.Implementation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Implementation) {
     surrogateSerializer.serialize(
@@ -100,7 +100,7 @@ public object TerminologyCapabilitiesCodeSystemVersionFilterSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem.Version.Filter =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -125,7 +125,7 @@ public object TerminologyCapabilitiesCodeSystemVersionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem.Version =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.CodeSystem.Version) {
     surrogateSerializer.serialize(
@@ -147,7 +147,7 @@ public object TerminologyCapabilitiesCodeSystemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.CodeSystem) {
     surrogateSerializer.serialize(
@@ -169,7 +169,7 @@ public object TerminologyCapabilitiesExpansionParameterSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.Expansion.Parameter =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Expansion.Parameter) {
     surrogateSerializer.serialize(
@@ -190,7 +190,7 @@ public object TerminologyCapabilitiesExpansionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.Expansion =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Expansion) {
     surrogateSerializer.serialize(
@@ -212,7 +212,7 @@ public object TerminologyCapabilitiesValidateCodeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.ValidateCode =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.ValidateCode) {
     surrogateSerializer.serialize(
@@ -234,7 +234,7 @@ public object TerminologyCapabilitiesTranslationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.Translation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Translation) {
     surrogateSerializer.serialize(
@@ -255,7 +255,7 @@ public object TerminologyCapabilitiesClosureSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.Closure =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Closure) {
     surrogateSerializer.serialize(encoder, TerminologyCapabilitiesClosureSurrogate.fromModel(value))
@@ -274,7 +274,7 @@ public object TerminologyCapabilitiesVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TerminologyCapabilities.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.VersionAlgorithm) {
     surrogateSerializer.serialize(

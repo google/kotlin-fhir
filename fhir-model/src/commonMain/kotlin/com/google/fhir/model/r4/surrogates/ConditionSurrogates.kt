@@ -120,7 +120,7 @@ internal data class ConditionOnsetSurrogate(
   public var onsetString: KotlinString? = null,
   public var _onsetString: Element? = null,
 ) {
-  public fun toModel(): Condition.Onset? =
+  public fun toModel(): Condition.Onset =
     Condition.Onset?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ConditionOnsetSurrogate.onsetDateTime),
@@ -133,7 +133,7 @@ internal data class ConditionOnsetSurrogate(
         this@ConditionOnsetSurrogate.onsetString,
         this@ConditionOnsetSurrogate._onsetString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Condition.Onset): ConditionOnsetSurrogate =
@@ -161,7 +161,7 @@ internal data class ConditionAbatementSurrogate(
   public var abatementString: KotlinString? = null,
   public var _abatementString: Element? = null,
 ) {
-  public fun toModel(): Condition.Abatement? =
+  public fun toModel(): Condition.Abatement =
     Condition.Abatement?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ConditionAbatementSurrogate.abatementDateTime),
@@ -174,7 +174,7 @@ internal data class ConditionAbatementSurrogate(
         this@ConditionAbatementSurrogate.abatementString,
         this@ConditionAbatementSurrogate._abatementString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Condition.Abatement): ConditionAbatementSurrogate =

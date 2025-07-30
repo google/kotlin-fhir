@@ -45,7 +45,7 @@ public object GuidanceResponseModuleSerializer : KSerializer<GuidanceResponse.Mo
   }
 
   override fun deserialize(decoder: Decoder): GuidanceResponse.Module =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: GuidanceResponse.Module) {
     surrogateSerializer.serialize(encoder, GuidanceResponseModuleSurrogate.fromModel(value))

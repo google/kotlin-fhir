@@ -113,7 +113,7 @@ internal data class QuestionnaireItemEnableWhenAnswerSurrogate(
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerCoding,
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerQuantity,
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -227,7 +227,7 @@ internal data class QuestionnaireItemAnswerOptionValueSurrogate(
       ),
       this@QuestionnaireItemAnswerOptionValueSurrogate.valueCoding,
       this@QuestionnaireItemAnswerOptionValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -351,7 +351,7 @@ internal data class QuestionnaireItemInitialValueSurrogate(
       this@QuestionnaireItemInitialValueSurrogate.valueCoding,
       this@QuestionnaireItemInitialValueSurrogate.valueQuantity,
       this@QuestionnaireItemInitialValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

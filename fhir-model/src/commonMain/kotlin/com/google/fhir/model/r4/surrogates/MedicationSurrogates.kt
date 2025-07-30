@@ -54,7 +54,7 @@ internal data class MedicationIngredientItemSurrogate(
     Medication.Ingredient.Item.from(
       this@MedicationIngredientItemSurrogate.itemCodeableConcept,
       this@MedicationIngredientItemSurrogate.itemReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Medication.Ingredient.Item): MedicationIngredientItemSurrogate =

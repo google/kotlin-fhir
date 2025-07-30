@@ -122,11 +122,11 @@ internal data class ConditionDefinitionPreconditionValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
 ) {
-  public fun toModel(): ConditionDefinition.Precondition.Value? =
+  public fun toModel(): ConditionDefinition.Precondition.Value =
     ConditionDefinition.Precondition.Value?.from(
       this@ConditionDefinitionPreconditionValueSurrogate.valueCodeableConcept,
       this@ConditionDefinitionPreconditionValueSurrogate.valueQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -266,14 +266,14 @@ internal data class ConditionDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ConditionDefinition.VersionAlgorithm? =
+  public fun toModel(): ConditionDefinition.VersionAlgorithm =
     ConditionDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ConditionDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

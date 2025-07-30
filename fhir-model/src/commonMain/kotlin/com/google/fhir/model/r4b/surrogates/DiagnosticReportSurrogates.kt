@@ -88,14 +88,14 @@ internal data class DiagnosticReportEffectiveSurrogate(
   public var _effectiveDateTime: Element? = null,
   public var effectivePeriod: Period? = null,
 ) {
-  public fun toModel(): DiagnosticReport.Effective? =
+  public fun toModel(): DiagnosticReport.Effective =
     DiagnosticReport.Effective?.from(
       DateTime.of(
         FhirDateTime.fromString(this@DiagnosticReportEffectiveSurrogate.effectiveDateTime),
         this@DiagnosticReportEffectiveSurrogate._effectiveDateTime,
       ),
       this@DiagnosticReportEffectiveSurrogate.effectivePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: DiagnosticReport.Effective): DiagnosticReportEffectiveSurrogate =

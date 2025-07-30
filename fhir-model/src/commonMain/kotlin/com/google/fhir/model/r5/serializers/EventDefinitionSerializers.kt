@@ -47,7 +47,7 @@ public object EventDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EventDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EventDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(
@@ -67,7 +67,7 @@ public object EventDefinitionSubjectSerializer : KSerializer<EventDefinition.Sub
   }
 
   override fun deserialize(decoder: Decoder): EventDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EventDefinition.Subject) {
     surrogateSerializer.serialize(encoder, EventDefinitionSubjectSurrogate.fromModel(value))

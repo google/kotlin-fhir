@@ -172,7 +172,7 @@ internal data class MessageDefinitionEventSurrogate(
         this@MessageDefinitionEventSurrogate.eventUri,
         this@MessageDefinitionEventSurrogate._eventUri,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =

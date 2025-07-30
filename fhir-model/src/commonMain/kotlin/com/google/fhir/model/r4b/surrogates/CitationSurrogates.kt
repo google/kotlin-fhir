@@ -178,7 +178,7 @@ internal data class CitationRelatesToTargetSurrogate(
       this@CitationRelatesToTargetSurrogate.targetIdentifier,
       this@CitationRelatesToTargetSurrogate.targetReference,
       this@CitationRelatesToTargetSurrogate.targetAttachment,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Citation.RelatesTo.Target): CitationRelatesToTargetSurrogate =
@@ -462,7 +462,7 @@ internal data class CitationCitedArtifactRelatesToTargetSurrogate(
       this@CitationCitedArtifactRelatesToTargetSurrogate.targetIdentifier,
       this@CitationCitedArtifactRelatesToTargetSurrogate.targetReference,
       this@CitationCitedArtifactRelatesToTargetSurrogate.targetAttachment,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

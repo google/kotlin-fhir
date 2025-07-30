@@ -67,7 +67,7 @@ internal data class GroupCharacteristicValueSurrogate(
       this@GroupCharacteristicValueSurrogate.valueQuantity,
       this@GroupCharacteristicValueSurrogate.valueRange,
       this@GroupCharacteristicValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Group.Characteristic.Value): GroupCharacteristicValueSurrogate =

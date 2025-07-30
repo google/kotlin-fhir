@@ -146,11 +146,11 @@ internal data class ActivityDefinitionSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): ActivityDefinition.Subject? =
+  public fun toModel(): ActivityDefinition.Subject =
     ActivityDefinition.Subject?.from(
       this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@ActivityDefinitionSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ActivityDefinition.Subject): ActivityDefinitionSubjectSurrogate =
@@ -173,7 +173,7 @@ internal data class ActivityDefinitionTimingSurrogate(
   public var timingRange: Range? = null,
   public var timingDuration: Duration? = null,
 ) {
-  public fun toModel(): ActivityDefinition.Timing? =
+  public fun toModel(): ActivityDefinition.Timing =
     ActivityDefinition.Timing?.from(
       this@ActivityDefinitionTimingSurrogate.timingTiming,
       DateTime.of(
@@ -184,7 +184,7 @@ internal data class ActivityDefinitionTimingSurrogate(
       this@ActivityDefinitionTimingSurrogate.timingPeriod,
       this@ActivityDefinitionTimingSurrogate.timingRange,
       this@ActivityDefinitionTimingSurrogate.timingDuration,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ActivityDefinition.Timing): ActivityDefinitionTimingSurrogate =
@@ -207,11 +207,11 @@ internal data class ActivityDefinitionProductSurrogate(
   public var productReference: Reference? = null,
   public var productCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): ActivityDefinition.Product? =
+  public fun toModel(): ActivityDefinition.Product =
     ActivityDefinition.Product?.from(
       this@ActivityDefinitionProductSurrogate.productReference,
       this@ActivityDefinitionProductSurrogate.productCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ActivityDefinition.Product): ActivityDefinitionProductSurrogate =

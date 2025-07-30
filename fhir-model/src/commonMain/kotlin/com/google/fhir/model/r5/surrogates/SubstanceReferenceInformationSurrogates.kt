@@ -123,7 +123,7 @@ internal data class SubstanceReferenceInformationTargetAmountSurrogate(
   public var amountString: KotlinString? = null,
   public var _amountString: Element? = null,
 ) {
-  public fun toModel(): SubstanceReferenceInformation.Target.Amount? =
+  public fun toModel(): SubstanceReferenceInformation.Target.Amount =
     SubstanceReferenceInformation.Target.Amount?.from(
       this@SubstanceReferenceInformationTargetAmountSurrogate.amountQuantity,
       this@SubstanceReferenceInformationTargetAmountSurrogate.amountRange,
@@ -131,7 +131,7 @@ internal data class SubstanceReferenceInformationTargetAmountSurrogate(
         this@SubstanceReferenceInformationTargetAmountSurrogate.amountString,
         this@SubstanceReferenceInformationTargetAmountSurrogate._amountString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

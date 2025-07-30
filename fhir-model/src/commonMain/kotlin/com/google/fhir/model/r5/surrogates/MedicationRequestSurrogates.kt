@@ -165,7 +165,7 @@ internal data class MedicationRequestSubstitutionAllowedSurrogate(
         this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
       ),
       this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

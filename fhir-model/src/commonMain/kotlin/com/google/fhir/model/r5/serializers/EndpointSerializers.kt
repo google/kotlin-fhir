@@ -37,7 +37,7 @@ public object EndpointPayloadSerializer : KSerializer<Endpoint.Payload> {
   }
 
   override fun deserialize(decoder: Decoder): Endpoint.Payload =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Endpoint.Payload) {
     surrogateSerializer.serialize(encoder, EndpointPayloadSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object EndpointSerializer : KSerializer<Endpoint> {
   }
 
   override fun deserialize(decoder: Decoder): Endpoint =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Endpoint) {
     surrogateSerializer.serialize(encoder, EndpointSurrogate.fromModel(value))

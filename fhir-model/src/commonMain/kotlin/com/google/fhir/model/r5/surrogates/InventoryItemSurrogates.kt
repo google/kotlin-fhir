@@ -267,7 +267,7 @@ internal data class InventoryItemCharacteristicValueSurrogate(
       this@InventoryItemCharacteristicValueSurrogate.valueAddress,
       this@InventoryItemCharacteristicValueSurrogate.valueDuration,
       this@InventoryItemCharacteristicValueSurrogate.valueCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

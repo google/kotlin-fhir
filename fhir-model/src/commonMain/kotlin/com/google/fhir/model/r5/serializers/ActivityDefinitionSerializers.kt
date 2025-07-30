@@ -52,7 +52,7 @@ public object ActivityDefinitionParticipantSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.Participant) {
     surrogateSerializer.serialize(encoder, ActivityDefinitionParticipantSurrogate.fromModel(value))
@@ -70,7 +70,7 @@ public object ActivityDefinitionDynamicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.DynamicValue =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.DynamicValue) {
     surrogateSerializer.serialize(encoder, ActivityDefinitionDynamicValueSurrogate.fromModel(value))
@@ -89,7 +89,7 @@ public object ActivityDefinitionVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.VersionAlgorithm) {
     surrogateSerializer.serialize(
@@ -109,7 +109,7 @@ public object ActivityDefinitionSubjectSerializer : KSerializer<ActivityDefiniti
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.Subject) {
     surrogateSerializer.serialize(encoder, ActivityDefinitionSubjectSurrogate.fromModel(value))
@@ -126,7 +126,7 @@ public object ActivityDefinitionTimingSerializer : KSerializer<ActivityDefinitio
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.Timing) {
     surrogateSerializer.serialize(encoder, ActivityDefinitionTimingSurrogate.fromModel(value))
@@ -143,7 +143,7 @@ public object ActivityDefinitionAsNeededSerializer : KSerializer<ActivityDefinit
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.AsNeeded =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.AsNeeded) {
     surrogateSerializer.serialize(encoder, ActivityDefinitionAsNeededSurrogate.fromModel(value))
@@ -160,7 +160,7 @@ public object ActivityDefinitionProductSerializer : KSerializer<ActivityDefiniti
   }
 
   override fun deserialize(decoder: Decoder): ActivityDefinition.Product =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ActivityDefinition.Product) {
     surrogateSerializer.serialize(encoder, ActivityDefinitionProductSurrogate.fromModel(value))

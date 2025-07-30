@@ -53,12 +53,12 @@ internal data class MedicationIngredientStrengthSurrogate(
   public var strengthCodeableConcept: CodeableConcept? = null,
   public var strengthQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Medication.Ingredient.Strength? =
+  public fun toModel(): Medication.Ingredient.Strength =
     Medication.Ingredient.Strength?.from(
       this@MedicationIngredientStrengthSurrogate.strengthRatio,
       this@MedicationIngredientStrengthSurrogate.strengthCodeableConcept,
       this@MedicationIngredientStrengthSurrogate.strengthQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

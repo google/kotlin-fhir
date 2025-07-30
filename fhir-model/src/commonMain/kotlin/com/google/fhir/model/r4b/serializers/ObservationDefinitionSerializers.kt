@@ -40,7 +40,7 @@ public object ObservationDefinitionQuantitativeDetailsSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ObservationDefinition.QuantitativeDetails =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ObservationDefinition.QuantitativeDetails) {
     surrogateSerializer.serialize(
@@ -62,7 +62,7 @@ public object ObservationDefinitionQualifiedIntervalSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ObservationDefinition.QualifiedInterval =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ObservationDefinition.QualifiedInterval) {
     surrogateSerializer.serialize(
@@ -82,7 +82,7 @@ public object ObservationDefinitionSerializer : KSerializer<ObservationDefinitio
   }
 
   override fun deserialize(decoder: Decoder): ObservationDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ObservationDefinition) {
     surrogateSerializer.serialize(encoder, ObservationDefinitionSurrogate.fromModel(value))

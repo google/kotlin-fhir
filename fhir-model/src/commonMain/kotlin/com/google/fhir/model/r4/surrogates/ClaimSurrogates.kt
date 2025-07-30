@@ -178,14 +178,14 @@ internal data class ClaimSupportingInfoTimingSurrogate(
   public var _timingDate: Element? = null,
   public var timingPeriod: Period? = null,
 ) {
-  public fun toModel(): Claim.SupportingInfo.Timing? =
+  public fun toModel(): Claim.SupportingInfo.Timing =
     Claim.SupportingInfo.Timing?.from(
       Date.of(
         FhirDate.fromString(this@ClaimSupportingInfoTimingSurrogate.timingDate),
         this@ClaimSupportingInfoTimingSurrogate._timingDate,
       ),
       this@ClaimSupportingInfoTimingSurrogate.timingPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Claim.SupportingInfo.Timing): ClaimSupportingInfoTimingSurrogate =
@@ -209,7 +209,7 @@ internal data class ClaimSupportingInfoValueSurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): Claim.SupportingInfo.Value? =
+  public fun toModel(): Claim.SupportingInfo.Value =
     Claim.SupportingInfo.Value?.from(
       R4Boolean.of(
         this@ClaimSupportingInfoValueSurrogate.valueBoolean,
@@ -222,7 +222,7 @@ internal data class ClaimSupportingInfoValueSurrogate(
       this@ClaimSupportingInfoValueSurrogate.valueQuantity,
       this@ClaimSupportingInfoValueSurrogate.valueAttachment,
       this@ClaimSupportingInfoValueSurrogate.valueReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Claim.SupportingInfo.Value): ClaimSupportingInfoValueSurrogate =
@@ -298,7 +298,7 @@ internal data class ClaimDiagnosisDiagnosisSurrogate(
     Claim.Diagnosis.Diagnosis.from(
       this@ClaimDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
       this@ClaimDiagnosisDiagnosisSurrogate.diagnosisReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Claim.Diagnosis.Diagnosis): ClaimDiagnosisDiagnosisSurrogate =
@@ -366,7 +366,7 @@ internal data class ClaimProcedureProcedureSurrogate(
     Claim.Procedure.Procedure.from(
       this@ClaimProcedureProcedureSurrogate.procedureCodeableConcept,
       this@ClaimProcedureProcedureSurrogate.procedureReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Claim.Procedure.Procedure): ClaimProcedureProcedureSurrogate =
@@ -523,11 +523,11 @@ internal data class ClaimAccidentLocationSurrogate(
   public var locationAddress: Address? = null,
   public var locationReference: Reference? = null,
 ) {
-  public fun toModel(): Claim.Accident.Location? =
+  public fun toModel(): Claim.Accident.Location =
     Claim.Accident.Location?.from(
       this@ClaimAccidentLocationSurrogate.locationAddress,
       this@ClaimAccidentLocationSurrogate.locationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Claim.Accident.Location): ClaimAccidentLocationSurrogate =
@@ -727,14 +727,14 @@ internal data class ClaimItemServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): Claim.Item.Serviced? =
+  public fun toModel(): Claim.Item.Serviced =
     Claim.Item.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@ClaimItemServicedSurrogate.servicedDate),
         this@ClaimItemServicedSurrogate._servicedDate,
       ),
       this@ClaimItemServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Claim.Item.Serviced): ClaimItemServicedSurrogate =
@@ -754,12 +754,12 @@ internal data class ClaimItemLocationSurrogate(
   public var locationAddress: Address? = null,
   public var locationReference: Reference? = null,
 ) {
-  public fun toModel(): Claim.Item.Location? =
+  public fun toModel(): Claim.Item.Location =
     Claim.Item.Location?.from(
       this@ClaimItemLocationSurrogate.locationCodeableConcept,
       this@ClaimItemLocationSurrogate.locationAddress,
       this@ClaimItemLocationSurrogate.locationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Claim.Item.Location): ClaimItemLocationSurrogate =

@@ -59,7 +59,7 @@ internal data class FamilyMemberHistoryConditionOnsetSurrogate(
   public var onsetString: KotlinString? = null,
   public var _onsetString: Element? = null,
 ) {
-  public fun toModel(): FamilyMemberHistory.Condition.Onset? =
+  public fun toModel(): FamilyMemberHistory.Condition.Onset =
     FamilyMemberHistory.Condition.Onset?.from(
       this@FamilyMemberHistoryConditionOnsetSurrogate.onsetAge,
       this@FamilyMemberHistoryConditionOnsetSurrogate.onsetRange,
@@ -68,7 +68,7 @@ internal data class FamilyMemberHistoryConditionOnsetSurrogate(
         this@FamilyMemberHistoryConditionOnsetSurrogate.onsetString,
         this@FamilyMemberHistoryConditionOnsetSurrogate._onsetString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -143,7 +143,7 @@ internal data class FamilyMemberHistoryBornSurrogate(
   public var bornString: KotlinString? = null,
   public var _bornString: Element? = null,
 ) {
-  public fun toModel(): FamilyMemberHistory.Born? =
+  public fun toModel(): FamilyMemberHistory.Born =
     FamilyMemberHistory.Born?.from(
       this@FamilyMemberHistoryBornSurrogate.bornPeriod,
       Date.of(
@@ -154,7 +154,7 @@ internal data class FamilyMemberHistoryBornSurrogate(
         this@FamilyMemberHistoryBornSurrogate.bornString,
         this@FamilyMemberHistoryBornSurrogate._bornString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: FamilyMemberHistory.Born): FamilyMemberHistoryBornSurrogate =
@@ -177,7 +177,7 @@ internal data class FamilyMemberHistoryAgeSurrogate(
   public var ageString: KotlinString? = null,
   public var _ageString: Element? = null,
 ) {
-  public fun toModel(): FamilyMemberHistory.Age? =
+  public fun toModel(): FamilyMemberHistory.Age =
     FamilyMemberHistory.Age?.from(
       this@FamilyMemberHistoryAgeSurrogate.ageAge,
       this@FamilyMemberHistoryAgeSurrogate.ageRange,
@@ -185,7 +185,7 @@ internal data class FamilyMemberHistoryAgeSurrogate(
         this@FamilyMemberHistoryAgeSurrogate.ageString,
         this@FamilyMemberHistoryAgeSurrogate._ageString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: FamilyMemberHistory.Age): FamilyMemberHistoryAgeSurrogate =
@@ -211,7 +211,7 @@ internal data class FamilyMemberHistoryDeceasedSurrogate(
   public var deceasedString: KotlinString? = null,
   public var _deceasedString: Element? = null,
 ) {
-  public fun toModel(): FamilyMemberHistory.Deceased? =
+  public fun toModel(): FamilyMemberHistory.Deceased =
     FamilyMemberHistory.Deceased?.from(
       R4bBoolean.of(
         this@FamilyMemberHistoryDeceasedSurrogate.deceasedBoolean,
@@ -227,7 +227,7 @@ internal data class FamilyMemberHistoryDeceasedSurrogate(
         this@FamilyMemberHistoryDeceasedSurrogate.deceasedString,
         this@FamilyMemberHistoryDeceasedSurrogate._deceasedString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

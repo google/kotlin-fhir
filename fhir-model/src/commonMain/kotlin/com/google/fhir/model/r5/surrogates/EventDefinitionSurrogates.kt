@@ -59,14 +59,14 @@ internal data class EventDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): EventDefinition.VersionAlgorithm? =
+  public fun toModel(): EventDefinition.VersionAlgorithm =
     EventDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@EventDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@EventDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@EventDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -87,11 +87,11 @@ internal data class EventDefinitionSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): EventDefinition.Subject? =
+  public fun toModel(): EventDefinition.Subject =
     EventDefinition.Subject?.from(
       this@EventDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@EventDefinitionSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: EventDefinition.Subject): EventDefinitionSubjectSurrogate =

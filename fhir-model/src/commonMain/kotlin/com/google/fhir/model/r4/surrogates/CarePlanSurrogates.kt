@@ -56,7 +56,7 @@ internal data class CarePlanActivityDetailScheduledSurrogate(
   public var scheduledString: KotlinString? = null,
   public var _scheduledString: Element? = null,
 ) {
-  public fun toModel(): CarePlan.Activity.Detail.Scheduled? =
+  public fun toModel(): CarePlan.Activity.Detail.Scheduled =
     CarePlan.Activity.Detail.Scheduled?.from(
       this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
       this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
@@ -64,7 +64,7 @@ internal data class CarePlanActivityDetailScheduledSurrogate(
         this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
         this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -86,11 +86,11 @@ internal data class CarePlanActivityDetailProductSurrogate(
   public var productCodeableConcept: CodeableConcept? = null,
   public var productReference: Reference? = null,
 ) {
-  public fun toModel(): CarePlan.Activity.Detail.Product? =
+  public fun toModel(): CarePlan.Activity.Detail.Product =
     CarePlan.Activity.Detail.Product?.from(
       this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
       this@CarePlanActivityDetailProductSurrogate.productReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

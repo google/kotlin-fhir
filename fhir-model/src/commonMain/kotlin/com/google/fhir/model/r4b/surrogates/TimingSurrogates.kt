@@ -50,12 +50,12 @@ internal data class TimingRepeatBoundsSurrogate(
   public var boundsRange: Range? = null,
   public var boundsPeriod: Period? = null,
 ) {
-  public fun toModel(): Timing.Repeat.Bounds? =
+  public fun toModel(): Timing.Repeat.Bounds =
     Timing.Repeat.Bounds?.from(
       this@TimingRepeatBoundsSurrogate.boundsDuration,
       this@TimingRepeatBoundsSurrogate.boundsRange,
       this@TimingRepeatBoundsSurrogate.boundsPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Timing.Repeat.Bounds): TimingRepeatBoundsSurrogate =

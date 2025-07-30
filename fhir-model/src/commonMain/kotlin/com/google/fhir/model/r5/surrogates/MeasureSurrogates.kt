@@ -267,11 +267,11 @@ internal data class MeasureGroupSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): Measure.Group.Subject? =
+  public fun toModel(): Measure.Group.Subject =
     Measure.Group.Subject?.from(
       this@MeasureGroupSubjectSurrogate.subjectCodeableConcept,
       this@MeasureGroupSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Measure.Group.Subject): MeasureGroupSubjectSurrogate =
@@ -451,14 +451,14 @@ internal data class MeasureVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): Measure.VersionAlgorithm? =
+  public fun toModel(): Measure.VersionAlgorithm =
     Measure.VersionAlgorithm?.from(
       R5String.of(
         this@MeasureVersionAlgorithmSurrogate.versionAlgorithmString,
         this@MeasureVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@MeasureVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Measure.VersionAlgorithm): MeasureVersionAlgorithmSurrogate =
@@ -477,11 +477,11 @@ internal data class MeasureSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): Measure.Subject? =
+  public fun toModel(): Measure.Subject =
     Measure.Subject?.from(
       this@MeasureSubjectSurrogate.subjectCodeableConcept,
       this@MeasureSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =

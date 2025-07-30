@@ -40,7 +40,7 @@ public object AdverseEventSuspectEntityCausalitySerializer :
   }
 
   override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity.Causality =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity.Causality) {
     surrogateSerializer.serialize(
@@ -60,7 +60,7 @@ public object AdverseEventSuspectEntitySerializer : KSerializer<AdverseEvent.Sus
   }
 
   override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity) {
     surrogateSerializer.serialize(encoder, AdverseEventSuspectEntitySurrogate.fromModel(value))
@@ -77,7 +77,7 @@ public object AdverseEventSerializer : KSerializer<AdverseEvent> {
   }
 
   override fun deserialize(decoder: Decoder): AdverseEvent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent) {
     surrogateSerializer.serialize(encoder, AdverseEventSurrogate.fromModel(value))

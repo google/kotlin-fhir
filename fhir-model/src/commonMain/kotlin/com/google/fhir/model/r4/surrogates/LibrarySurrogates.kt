@@ -59,11 +59,11 @@ internal data class LibrarySubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): Library.Subject? =
+  public fun toModel(): Library.Subject =
     Library.Subject?.from(
       this@LibrarySubjectSurrogate.subjectCodeableConcept,
       this@LibrarySubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =

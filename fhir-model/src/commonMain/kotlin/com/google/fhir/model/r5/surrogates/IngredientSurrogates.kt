@@ -97,7 +97,7 @@ internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogat
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthQuantity,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -169,13 +169,13 @@ internal data class IngredientSubstanceStrengthPresentationSurrogate(
   public var presentationCodeableConcept: CodeableConcept? = null,
   public var presentationQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Ingredient.Substance.Strength.Presentation? =
+  public fun toModel(): Ingredient.Substance.Strength.Presentation =
     Ingredient.Substance.Strength.Presentation?.from(
       this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
       this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
       this@IngredientSubstanceStrengthPresentationSurrogate.presentationCodeableConcept,
       this@IngredientSubstanceStrengthPresentationSurrogate.presentationQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -199,13 +199,13 @@ internal data class IngredientSubstanceStrengthConcentrationSurrogate(
   public var concentrationCodeableConcept: CodeableConcept? = null,
   public var concentrationQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Ingredient.Substance.Strength.Concentration? =
+  public fun toModel(): Ingredient.Substance.Strength.Concentration =
     Ingredient.Substance.Strength.Concentration?.from(
       this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
       this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
       this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationCodeableConcept,
       this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

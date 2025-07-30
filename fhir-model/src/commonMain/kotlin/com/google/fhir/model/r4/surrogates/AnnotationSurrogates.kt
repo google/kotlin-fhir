@@ -41,14 +41,14 @@ internal data class AnnotationAuthorSurrogate(
   public var authorString: KotlinString? = null,
   public var _authorString: Element? = null,
 ) {
-  public fun toModel(): Annotation.Author? =
+  public fun toModel(): Annotation.Author =
     Annotation.Author?.from(
       this@AnnotationAuthorSurrogate.authorReference,
       R4String.of(
         this@AnnotationAuthorSurrogate.authorString,
         this@AnnotationAuthorSurrogate._authorString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Annotation.Author): AnnotationAuthorSurrogate =

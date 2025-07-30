@@ -116,7 +116,7 @@ internal data class QuestionnaireResponseItemAnswerValueSurrogate(
       this@QuestionnaireResponseItemAnswerValueSurrogate.valueCoding,
       this@QuestionnaireResponseItemAnswerValueSurrogate.valueQuantity,
       this@QuestionnaireResponseItemAnswerValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

@@ -425,14 +425,14 @@ internal data class OperationDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): OperationDefinition.VersionAlgorithm? =
+  public fun toModel(): OperationDefinition.VersionAlgorithm =
     OperationDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@OperationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

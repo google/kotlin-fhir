@@ -41,7 +41,7 @@ public object ConsentPolicyBasisSerializer : KSerializer<Consent.PolicyBasis> {
   }
 
   override fun deserialize(decoder: Decoder): Consent.PolicyBasis =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Consent.PolicyBasis) {
     surrogateSerializer.serialize(encoder, ConsentPolicyBasisSurrogate.fromModel(value))
@@ -58,7 +58,7 @@ public object ConsentVerificationSerializer : KSerializer<Consent.Verification> 
   }
 
   override fun deserialize(decoder: Decoder): Consent.Verification =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Consent.Verification) {
     surrogateSerializer.serialize(encoder, ConsentVerificationSurrogate.fromModel(value))
@@ -75,7 +75,7 @@ public object ConsentProvisionActorSerializer : KSerializer<Consent.Provision.Ac
   }
 
   override fun deserialize(decoder: Decoder): Consent.Provision.Actor =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Consent.Provision.Actor) {
     surrogateSerializer.serialize(encoder, ConsentProvisionActorSurrogate.fromModel(value))
@@ -92,7 +92,7 @@ public object ConsentProvisionDataSerializer : KSerializer<Consent.Provision.Dat
   }
 
   override fun deserialize(decoder: Decoder): Consent.Provision.Data =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Consent.Provision.Data) {
     surrogateSerializer.serialize(encoder, ConsentProvisionDataSurrogate.fromModel(value))
@@ -109,7 +109,7 @@ public object ConsentProvisionSerializer : KSerializer<Consent.Provision> {
   }
 
   override fun deserialize(decoder: Decoder): Consent.Provision =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Consent.Provision) {
     surrogateSerializer.serialize(encoder, ConsentProvisionSurrogate.fromModel(value))
@@ -126,7 +126,7 @@ public object ConsentSerializer : KSerializer<Consent> {
   }
 
   override fun deserialize(decoder: Decoder): Consent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Consent) {
     surrogateSerializer.serialize(encoder, ConsentSurrogate.fromModel(value))

@@ -128,7 +128,7 @@ internal data class MeasureReportGroupStratifierStratumComponentValueSurrogate(
       this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueQuantity,
       this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueRange,
       this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -263,7 +263,7 @@ internal data class MeasureReportGroupStratifierStratumValueSurrogate(
   public var valueRange: Range? = null,
   public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Value? =
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Value =
     MeasureReport.Group.Stratifier.Stratum.Value?.from(
       this@MeasureReportGroupStratifierStratumValueSurrogate.valueCodeableConcept,
       R5Boolean.of(
@@ -273,7 +273,7 @@ internal data class MeasureReportGroupStratifierStratumValueSurrogate(
       this@MeasureReportGroupStratifierStratumValueSurrogate.valueQuantity,
       this@MeasureReportGroupStratifierStratumValueSurrogate.valueRange,
       this@MeasureReportGroupStratifierStratumValueSurrogate.valueReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -302,7 +302,7 @@ internal data class MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
   public var measureScoreRange: Range? = null,
   public var measureScoreDuration: Duration? = null,
 ) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.MeasureScore? =
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.MeasureScore =
     MeasureReport.Group.Stratifier.Stratum.MeasureScore?.from(
       this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreQuantity,
       DateTime.of(
@@ -315,7 +315,7 @@ internal data class MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
       this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScorePeriod,
       this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreRange,
       this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDuration,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -428,7 +428,7 @@ internal data class MeasureReportGroupMeasureScoreSurrogate(
   public var measureScoreRange: Range? = null,
   public var measureScoreDuration: Duration? = null,
 ) {
-  public fun toModel(): MeasureReport.Group.MeasureScore? =
+  public fun toModel(): MeasureReport.Group.MeasureScore =
     MeasureReport.Group.MeasureScore?.from(
       this@MeasureReportGroupMeasureScoreSurrogate.measureScoreQuantity,
       DateTime.of(
@@ -439,7 +439,7 @@ internal data class MeasureReportGroupMeasureScoreSurrogate(
       this@MeasureReportGroupMeasureScoreSurrogate.measureScorePeriod,
       this@MeasureReportGroupMeasureScoreSurrogate.measureScoreRange,
       this@MeasureReportGroupMeasureScoreSurrogate.measureScoreDuration,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

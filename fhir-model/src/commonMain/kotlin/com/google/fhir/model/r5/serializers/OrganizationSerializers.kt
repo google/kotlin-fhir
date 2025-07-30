@@ -37,7 +37,7 @@ public object OrganizationQualificationSerializer : KSerializer<Organization.Qua
   }
 
   override fun deserialize(decoder: Decoder): Organization.Qualification =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Organization.Qualification) {
     surrogateSerializer.serialize(encoder, OrganizationQualificationSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object OrganizationSerializer : KSerializer<Organization> {
   }
 
   override fun deserialize(decoder: Decoder): Organization =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Organization) {
     surrogateSerializer.serialize(encoder, OrganizationSurrogate.fromModel(value))

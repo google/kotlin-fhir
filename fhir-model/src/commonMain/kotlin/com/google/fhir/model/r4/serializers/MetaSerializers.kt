@@ -36,7 +36,7 @@ public object MetaSerializer : KSerializer<Meta> {
   }
 
   override fun deserialize(decoder: Decoder): Meta =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Meta) {
     surrogateSerializer.serialize(encoder, MetaSurrogate.fromModel(value))

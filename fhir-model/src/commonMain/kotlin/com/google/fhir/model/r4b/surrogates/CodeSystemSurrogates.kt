@@ -283,7 +283,7 @@ internal data class CodeSystemConceptPropertyValueSurrogate(
         this@CodeSystemConceptPropertyValueSurrogate.valueDecimal,
         this@CodeSystemConceptPropertyValueSurrogate._valueDecimal,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

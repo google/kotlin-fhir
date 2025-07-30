@@ -49,14 +49,14 @@ internal data class RegulatedAuthorizationCaseDateSurrogate(
   public var dateDateTime: String? = null,
   public var _dateDateTime: Element? = null,
 ) {
-  public fun toModel(): RegulatedAuthorization.Case.Date? =
+  public fun toModel(): RegulatedAuthorization.Case.Date =
     RegulatedAuthorization.Case.Date?.from(
       this@RegulatedAuthorizationCaseDateSurrogate.datePeriod,
       DateTime.of(
         FhirDateTime.fromString(this@RegulatedAuthorizationCaseDateSurrogate.dateDateTime),
         this@RegulatedAuthorizationCaseDateSurrogate._dateDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

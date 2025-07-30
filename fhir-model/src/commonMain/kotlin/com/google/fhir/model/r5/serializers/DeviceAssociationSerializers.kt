@@ -37,7 +37,7 @@ public object DeviceAssociationOperationSerializer : KSerializer<DeviceAssociati
   }
 
   override fun deserialize(decoder: Decoder): DeviceAssociation.Operation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DeviceAssociation.Operation) {
     surrogateSerializer.serialize(encoder, DeviceAssociationOperationSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object DeviceAssociationSerializer : KSerializer<DeviceAssociation> {
   }
 
   override fun deserialize(decoder: Decoder): DeviceAssociation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DeviceAssociation) {
     surrogateSerializer.serialize(encoder, DeviceAssociationSurrogate.fromModel(value))

@@ -69,7 +69,7 @@ internal data class EvidenceReportSubjectCharacteristicValueSurrogate(
       ),
       this@EvidenceReportSubjectCharacteristicValueSurrogate.valueQuantity,
       this@EvidenceReportSubjectCharacteristicValueSurrogate.valueRange,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -174,7 +174,7 @@ internal data class EvidenceReportRelatesToTargetSurrogate(
     EvidenceReport.RelatesTo.Target.from(
       this@EvidenceReportRelatesToTargetSurrogate.targetIdentifier,
       this@EvidenceReportRelatesToTargetSurrogate.targetReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -310,14 +310,14 @@ internal data class EvidenceReportCiteAsSurrogate(
   public var citeAsMarkdown: KotlinString? = null,
   public var _citeAsMarkdown: Element? = null,
 ) {
-  public fun toModel(): EvidenceReport.CiteAs? =
+  public fun toModel(): EvidenceReport.CiteAs =
     EvidenceReport.CiteAs?.from(
       this@EvidenceReportCiteAsSurrogate.citeAsReference,
       Markdown.of(
         this@EvidenceReportCiteAsSurrogate.citeAsMarkdown,
         this@EvidenceReportCiteAsSurrogate._citeAsMarkdown,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: EvidenceReport.CiteAs): EvidenceReportCiteAsSurrogate =

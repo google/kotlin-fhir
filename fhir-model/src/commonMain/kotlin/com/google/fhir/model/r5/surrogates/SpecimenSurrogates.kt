@@ -90,14 +90,14 @@ internal data class SpecimenCollectionCollectedSurrogate(
   public var _collectedDateTime: Element? = null,
   public var collectedPeriod: Period? = null,
 ) {
-  public fun toModel(): Specimen.Collection.Collected? =
+  public fun toModel(): Specimen.Collection.Collected =
     Specimen.Collection.Collected?.from(
       DateTime.of(
         FhirDateTime.fromString(this@SpecimenCollectionCollectedSurrogate.collectedDateTime),
         this@SpecimenCollectionCollectedSurrogate._collectedDateTime,
       ),
       this@SpecimenCollectionCollectedSurrogate.collectedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -118,11 +118,11 @@ internal data class SpecimenCollectionFastingStatusSurrogate(
   public var fastingStatusCodeableConcept: CodeableConcept? = null,
   public var fastingStatusDuration: Duration? = null,
 ) {
-  public fun toModel(): Specimen.Collection.FastingStatus? =
+  public fun toModel(): Specimen.Collection.FastingStatus =
     Specimen.Collection.FastingStatus?.from(
       this@SpecimenCollectionFastingStatusSurrogate.fastingStatusCodeableConcept,
       this@SpecimenCollectionFastingStatusSurrogate.fastingStatusDuration,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -195,14 +195,14 @@ internal data class SpecimenProcessingTimeSurrogate(
   public var _timeDateTime: Element? = null,
   public var timePeriod: Period? = null,
 ) {
-  public fun toModel(): Specimen.Processing.Time? =
+  public fun toModel(): Specimen.Processing.Time =
     Specimen.Processing.Time?.from(
       DateTime.of(
         FhirDateTime.fromString(this@SpecimenProcessingTimeSurrogate.timeDateTime),
         this@SpecimenProcessingTimeSurrogate._timeDateTime,
       ),
       this@SpecimenProcessingTimeSurrogate.timePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Specimen.Processing.Time): SpecimenProcessingTimeSurrogate =

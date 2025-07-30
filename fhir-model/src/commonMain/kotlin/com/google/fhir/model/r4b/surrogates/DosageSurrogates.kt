@@ -45,11 +45,11 @@ internal data class DosageDoseAndRateDoseSurrogate(
   public var doseRange: Range? = null,
   public var doseQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Dosage.DoseAndRate.Dose? =
+  public fun toModel(): Dosage.DoseAndRate.Dose =
     Dosage.DoseAndRate.Dose?.from(
       this@DosageDoseAndRateDoseSurrogate.doseRange,
       this@DosageDoseAndRateDoseSurrogate.doseQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Dosage.DoseAndRate.Dose): DosageDoseAndRateDoseSurrogate =
@@ -68,12 +68,12 @@ internal data class DosageDoseAndRateRateSurrogate(
   public var rateRange: Range? = null,
   public var rateQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Dosage.DoseAndRate.Rate? =
+  public fun toModel(): Dosage.DoseAndRate.Rate =
     Dosage.DoseAndRate.Rate?.from(
       this@DosageDoseAndRateRateSurrogate.rateRatio,
       this@DosageDoseAndRateRateSurrogate.rateRange,
       this@DosageDoseAndRateRateSurrogate.rateQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Dosage.DoseAndRate.Rate): DosageDoseAndRateRateSurrogate =
@@ -124,14 +124,14 @@ internal data class DosageAsNeededSurrogate(
   public var _asNeededBoolean: Element? = null,
   public var asNeededCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): Dosage.AsNeeded? =
+  public fun toModel(): Dosage.AsNeeded =
     Dosage.AsNeeded?.from(
       R4bBoolean.of(
         this@DosageAsNeededSurrogate.asNeededBoolean,
         this@DosageAsNeededSurrogate._asNeededBoolean,
       ),
       this@DosageAsNeededSurrogate.asNeededCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Dosage.AsNeeded): DosageAsNeededSurrogate =

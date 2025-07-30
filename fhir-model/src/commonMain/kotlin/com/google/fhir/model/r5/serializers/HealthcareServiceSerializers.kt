@@ -37,7 +37,7 @@ public object HealthcareServiceEligibilitySerializer : KSerializer<HealthcareSer
   }
 
   override fun deserialize(decoder: Decoder): HealthcareService.Eligibility =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: HealthcareService.Eligibility) {
     surrogateSerializer.serialize(encoder, HealthcareServiceEligibilitySurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object HealthcareServiceSerializer : KSerializer<HealthcareService> {
   }
 
   override fun deserialize(decoder: Decoder): HealthcareService =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: HealthcareService) {
     surrogateSerializer.serialize(encoder, HealthcareServiceSurrogate.fromModel(value))

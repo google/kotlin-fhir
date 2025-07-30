@@ -36,7 +36,7 @@ public object RangeSerializer : KSerializer<Range> {
   }
 
   override fun deserialize(decoder: Decoder): Range =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Range) {
     surrogateSerializer.serialize(encoder, RangeSurrogate.fromModel(value))

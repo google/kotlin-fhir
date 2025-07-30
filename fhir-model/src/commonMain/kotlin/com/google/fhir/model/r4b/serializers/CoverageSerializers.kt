@@ -48,7 +48,7 @@ public object CoverageClassSerializer : KSerializer<Coverage.Class> {
   }
 
   override fun deserialize(decoder: Decoder): Coverage.Class =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Coverage.Class) {
     surrogateSerializer.serialize(encoder, CoverageClassSurrogate.fromModel(value))
@@ -67,7 +67,7 @@ public object CoverageCostToBeneficiaryExceptionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Coverage.CostToBeneficiary.Exception =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Coverage.CostToBeneficiary.Exception) {
     surrogateSerializer.serialize(
@@ -88,7 +88,7 @@ public object CoverageCostToBeneficiaryValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Coverage.CostToBeneficiary.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Coverage.CostToBeneficiary.Value) {
     surrogateSerializer.serialize(encoder, CoverageCostToBeneficiaryValueSurrogate.fromModel(value))
@@ -152,7 +152,7 @@ public object CoverageSerializer : KSerializer<Coverage> {
   }
 
   override fun deserialize(decoder: Decoder): Coverage =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Coverage) {
     surrogateSerializer.serialize(encoder, CoverageSurrogate.fromModel(value))

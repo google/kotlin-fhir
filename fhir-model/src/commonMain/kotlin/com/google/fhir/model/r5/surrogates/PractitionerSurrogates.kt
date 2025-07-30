@@ -133,7 +133,7 @@ internal data class PractitionerDeceasedSurrogate(
   public var deceasedDateTime: String? = null,
   public var _deceasedDateTime: Element? = null,
 ) {
-  public fun toModel(): Practitioner.Deceased? =
+  public fun toModel(): Practitioner.Deceased =
     Practitioner.Deceased?.from(
       R5Boolean.of(
         this@PractitionerDeceasedSurrogate.deceasedBoolean,
@@ -143,7 +143,7 @@ internal data class PractitionerDeceasedSurrogate(
         FhirDateTime.fromString(this@PractitionerDeceasedSurrogate.deceasedDateTime),
         this@PractitionerDeceasedSurrogate._deceasedDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Practitioner.Deceased): PractitionerDeceasedSurrogate =

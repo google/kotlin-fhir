@@ -36,7 +36,7 @@ public object CountSerializer : KSerializer<Count> {
   }
 
   override fun deserialize(decoder: Decoder): Count =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Count) {
     surrogateSerializer.serialize(encoder, CountSurrogate.fromModel(value))

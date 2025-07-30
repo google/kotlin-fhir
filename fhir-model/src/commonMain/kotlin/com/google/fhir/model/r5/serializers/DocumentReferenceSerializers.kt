@@ -49,7 +49,7 @@ public object DocumentReferenceAttesterSerializer : KSerializer<DocumentReferenc
   }
 
   override fun deserialize(decoder: Decoder): DocumentReference.Attester =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentReference.Attester) {
     surrogateSerializer.serialize(encoder, DocumentReferenceAttesterSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object DocumentReferenceRelatesToSerializer : KSerializer<DocumentReferen
   }
 
   override fun deserialize(decoder: Decoder): DocumentReference.RelatesTo =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentReference.RelatesTo) {
     surrogateSerializer.serialize(encoder, DocumentReferenceRelatesToSurrogate.fromModel(value))
@@ -85,7 +85,7 @@ public object DocumentReferenceContentProfileValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): DocumentReference.Content.Profile.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentReference.Content.Profile.Value) {
     surrogateSerializer.serialize(
@@ -153,7 +153,7 @@ public object DocumentReferenceContentSerializer : KSerializer<DocumentReference
   }
 
   override fun deserialize(decoder: Decoder): DocumentReference.Content =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentReference.Content) {
     surrogateSerializer.serialize(encoder, DocumentReferenceContentSurrogate.fromModel(value))
@@ -170,7 +170,7 @@ public object DocumentReferenceSerializer : KSerializer<DocumentReference> {
   }
 
   override fun deserialize(decoder: Decoder): DocumentReference =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentReference) {
     surrogateSerializer.serialize(encoder, DocumentReferenceSurrogate.fromModel(value))

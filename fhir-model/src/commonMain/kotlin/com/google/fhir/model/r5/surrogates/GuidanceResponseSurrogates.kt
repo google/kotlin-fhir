@@ -64,7 +64,7 @@ internal data class GuidanceResponseModuleSurrogate(
         this@GuidanceResponseModuleSurrogate._moduleCanonical,
       ),
       this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: GuidanceResponse.Module): GuidanceResponseModuleSurrogate =

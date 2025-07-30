@@ -45,7 +45,7 @@ public object InsurancePlanContactSerializer : KSerializer<InsurancePlan.Contact
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Contact =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Contact) {
     surrogateSerializer.serialize(encoder, InsurancePlanContactSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object InsurancePlanCoverageBenefitLimitSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Coverage.Benefit.Limit =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage.Benefit.Limit) {
     surrogateSerializer.serialize(
@@ -84,7 +84,7 @@ public object InsurancePlanCoverageBenefitSerializer : KSerializer<InsurancePlan
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Coverage.Benefit =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage.Benefit) {
     surrogateSerializer.serialize(encoder, InsurancePlanCoverageBenefitSurrogate.fromModel(value))
@@ -101,7 +101,7 @@ public object InsurancePlanCoverageSerializer : KSerializer<InsurancePlan.Covera
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Coverage =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage) {
     surrogateSerializer.serialize(encoder, InsurancePlanCoverageSurrogate.fromModel(value))
@@ -118,7 +118,7 @@ public object InsurancePlanPlanGeneralCostSerializer : KSerializer<InsurancePlan
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Plan.GeneralCost =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.GeneralCost) {
     surrogateSerializer.serialize(encoder, InsurancePlanPlanGeneralCostSurrogate.fromModel(value))
@@ -137,7 +137,7 @@ public object InsurancePlanPlanSpecificCostBenefitCostSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost.Benefit.Cost =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost.Benefit.Cost) {
     surrogateSerializer.serialize(
@@ -159,7 +159,7 @@ public object InsurancePlanPlanSpecificCostBenefitSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost.Benefit =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost.Benefit) {
     surrogateSerializer.serialize(
@@ -180,7 +180,7 @@ public object InsurancePlanPlanSpecificCostSerializer :
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost) {
     surrogateSerializer.serialize(encoder, InsurancePlanPlanSpecificCostSurrogate.fromModel(value))
@@ -197,7 +197,7 @@ public object InsurancePlanPlanSerializer : KSerializer<InsurancePlan.Plan> {
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan.Plan =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan) {
     surrogateSerializer.serialize(encoder, InsurancePlanPlanSurrogate.fromModel(value))
@@ -214,7 +214,7 @@ public object InsurancePlanSerializer : KSerializer<InsurancePlan> {
   }
 
   override fun deserialize(decoder: Decoder): InsurancePlan =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: InsurancePlan) {
     surrogateSerializer.serialize(encoder, InsurancePlanSurrogate.fromModel(value))

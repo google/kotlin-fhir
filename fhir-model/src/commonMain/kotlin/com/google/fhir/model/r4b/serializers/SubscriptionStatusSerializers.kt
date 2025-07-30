@@ -39,7 +39,7 @@ public object SubscriptionStatusNotificationEventSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionStatus.NotificationEvent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionStatus.NotificationEvent) {
     surrogateSerializer.serialize(
@@ -59,7 +59,7 @@ public object SubscriptionStatusSerializer : KSerializer<SubscriptionStatus> {
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionStatus =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionStatus) {
     surrogateSerializer.serialize(encoder, SubscriptionStatusSurrogate.fromModel(value))

@@ -45,7 +45,7 @@ public object PopulationAgeSerializer : KSerializer<Population.Age> {
   }
 
   override fun deserialize(decoder: Decoder): Population.Age =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Population.Age) {
     surrogateSerializer.serialize(encoder, PopulationAgeSurrogate.fromModel(value))

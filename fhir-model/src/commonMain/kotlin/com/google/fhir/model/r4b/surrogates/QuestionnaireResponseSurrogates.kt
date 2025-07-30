@@ -78,7 +78,7 @@ internal data class QuestionnaireResponseItemAnswerValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): QuestionnaireResponse.Item.Answer.Value? =
+  public fun toModel(): QuestionnaireResponse.Item.Answer.Value =
     QuestionnaireResponse.Item.Answer.Value?.from(
       R4bBoolean.of(
         this@QuestionnaireResponseItemAnswerValueSurrogate.valueBoolean,
@@ -116,7 +116,7 @@ internal data class QuestionnaireResponseItemAnswerValueSurrogate(
       this@QuestionnaireResponseItemAnswerValueSurrogate.valueCoding,
       this@QuestionnaireResponseItemAnswerValueSurrogate.valueQuantity,
       this@QuestionnaireResponseItemAnswerValueSurrogate.valueReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

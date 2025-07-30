@@ -41,7 +41,7 @@ public object SubstanceNucleicAcidSubunitLinkageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceNucleicAcid.Subunit.Linkage =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceNucleicAcid.Subunit.Linkage) {
     surrogateSerializer.serialize(
@@ -62,7 +62,7 @@ public object SubstanceNucleicAcidSubunitSugarSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstanceNucleicAcid.Subunit.Sugar =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceNucleicAcid.Subunit.Sugar) {
     surrogateSerializer.serialize(
@@ -82,7 +82,7 @@ public object SubstanceNucleicAcidSubunitSerializer : KSerializer<SubstanceNucle
   }
 
   override fun deserialize(decoder: Decoder): SubstanceNucleicAcid.Subunit =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceNucleicAcid.Subunit) {
     surrogateSerializer.serialize(encoder, SubstanceNucleicAcidSubunitSurrogate.fromModel(value))
@@ -99,7 +99,7 @@ public object SubstanceNucleicAcidSerializer : KSerializer<SubstanceNucleicAcid>
   }
 
   override fun deserialize(decoder: Decoder): SubstanceNucleicAcid =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstanceNucleicAcid) {
     surrogateSerializer.serialize(encoder, SubstanceNucleicAcidSurrogate.fromModel(value))

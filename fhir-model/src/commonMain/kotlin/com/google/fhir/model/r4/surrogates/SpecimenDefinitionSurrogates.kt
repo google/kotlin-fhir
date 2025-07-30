@@ -54,7 +54,7 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurroga
     SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
       this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
       this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -108,14 +108,14 @@ internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
   public var minimumVolumeString: KotlinString? = null,
   public var _minimumVolumeString: Element? = null,
 ) {
-  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume? =
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume =
     SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
       this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
       R4String.of(
         this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
         this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

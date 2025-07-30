@@ -113,7 +113,7 @@ internal data class QuestionnaireItemEnableWhenAnswerSurrogate(
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerCoding,
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerQuantity,
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -227,7 +227,7 @@ internal data class QuestionnaireItemAnswerOptionValueSurrogate(
       ),
       this@QuestionnaireItemAnswerOptionValueSurrogate.valueCoding,
       this@QuestionnaireItemAnswerOptionValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -351,7 +351,7 @@ internal data class QuestionnaireItemInitialValueSurrogate(
       this@QuestionnaireItemInitialValueSurrogate.valueCoding,
       this@QuestionnaireItemInitialValueSurrogate.valueQuantity,
       this@QuestionnaireItemInitialValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -581,14 +581,14 @@ internal data class QuestionnaireVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): Questionnaire.VersionAlgorithm? =
+  public fun toModel(): Questionnaire.VersionAlgorithm =
     Questionnaire.VersionAlgorithm?.from(
       R5String.of(
         this@QuestionnaireVersionAlgorithmSurrogate.versionAlgorithmString,
         this@QuestionnaireVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@QuestionnaireVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

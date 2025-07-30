@@ -56,7 +56,7 @@ internal data class CommunicationPayloadContentSurrogate(
       this@CommunicationPayloadContentSurrogate.contentAttachment,
       this@CommunicationPayloadContentSurrogate.contentReference,
       this@CommunicationPayloadContentSurrogate.contentCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

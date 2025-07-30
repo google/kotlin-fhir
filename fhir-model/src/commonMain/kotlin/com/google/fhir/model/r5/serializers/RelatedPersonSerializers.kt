@@ -37,7 +37,7 @@ public object RelatedPersonCommunicationSerializer : KSerializer<RelatedPerson.C
   }
 
   override fun deserialize(decoder: Decoder): RelatedPerson.Communication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RelatedPerson.Communication) {
     surrogateSerializer.serialize(encoder, RelatedPersonCommunicationSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object RelatedPersonSerializer : KSerializer<RelatedPerson> {
   }
 
   override fun deserialize(decoder: Decoder): RelatedPerson =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RelatedPerson) {
     surrogateSerializer.serialize(encoder, RelatedPersonSurrogate.fromModel(value))

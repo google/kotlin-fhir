@@ -226,14 +226,14 @@ internal data class StructureDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): StructureDefinition.VersionAlgorithm? =
+  public fun toModel(): StructureDefinition.VersionAlgorithm =
     StructureDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@StructureDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

@@ -49,7 +49,7 @@ internal data class TriggerDefinitionTimingSurrogate(
   public var timingDateTime: KotlinString? = null,
   public var _timingDateTime: Element? = null,
 ) {
-  public fun toModel(): TriggerDefinition.Timing? =
+  public fun toModel(): TriggerDefinition.Timing =
     TriggerDefinition.Timing?.from(
       this@TriggerDefinitionTimingSurrogate.timingTiming,
       this@TriggerDefinitionTimingSurrogate.timingReference,
@@ -61,7 +61,7 @@ internal data class TriggerDefinitionTimingSurrogate(
         FhirDateTime.fromString(this@TriggerDefinitionTimingSurrogate.timingDateTime),
         this@TriggerDefinitionTimingSurrogate._timingDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: TriggerDefinition.Timing): TriggerDefinitionTimingSurrogate =

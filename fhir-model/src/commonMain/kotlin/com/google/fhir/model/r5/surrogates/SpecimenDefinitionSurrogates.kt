@@ -64,7 +64,7 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurroga
     SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
       this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
       this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -118,14 +118,14 @@ internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
   public var minimumVolumeString: KotlinString? = null,
   public var _minimumVolumeString: Element? = null,
 ) {
-  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume? =
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume =
     SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
       this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
       R5String.of(
         this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
         this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -344,14 +344,14 @@ internal data class SpecimenDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): SpecimenDefinition.VersionAlgorithm? =
+  public fun toModel(): SpecimenDefinition.VersionAlgorithm =
     SpecimenDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@SpecimenDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@SpecimenDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@SpecimenDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -372,11 +372,11 @@ internal data class SpecimenDefinitionSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): SpecimenDefinition.Subject? =
+  public fun toModel(): SpecimenDefinition.Subject =
     SpecimenDefinition.Subject?.from(
       this@SpecimenDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@SpecimenDefinitionSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: SpecimenDefinition.Subject): SpecimenDefinitionSubjectSurrogate =

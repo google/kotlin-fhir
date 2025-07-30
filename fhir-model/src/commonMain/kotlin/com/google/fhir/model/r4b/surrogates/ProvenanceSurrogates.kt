@@ -128,14 +128,14 @@ internal data class ProvenanceOccurredSurrogate(
   public var occurredDateTime: String? = null,
   public var _occurredDateTime: Element? = null,
 ) {
-  public fun toModel(): Provenance.Occurred? =
+  public fun toModel(): Provenance.Occurred =
     Provenance.Occurred?.from(
       this@ProvenanceOccurredSurrogate.occurredPeriod,
       DateTime.of(
         FhirDateTime.fromString(this@ProvenanceOccurredSurrogate.occurredDateTime),
         this@ProvenanceOccurredSurrogate._occurredDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Provenance.Occurred): ProvenanceOccurredSurrogate =

@@ -198,7 +198,7 @@ private fun TypeSpec.Builder.addDeserializeFunction(
             ClassName(className.packageName, "FhirJsonTransformer"),
           )
         } else {
-          addStatement("return surrogateSerializer.deserialize(decoder).toModel()!!")
+          addStatement("return surrogateSerializer.deserialize(decoder).toModel()")
         }
       }
       .build()

@@ -36,7 +36,7 @@ public object RelatedArtifactSerializer : KSerializer<RelatedArtifact> {
   }
 
   override fun deserialize(decoder: Decoder): RelatedArtifact =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RelatedArtifact) {
     surrogateSerializer.serialize(encoder, RelatedArtifactSurrogate.fromModel(value))

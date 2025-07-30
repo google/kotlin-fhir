@@ -98,14 +98,14 @@ internal data class SearchParameterVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): SearchParameter.VersionAlgorithm? =
+  public fun toModel(): SearchParameter.VersionAlgorithm =
     SearchParameter.VersionAlgorithm?.from(
       R5String.of(
         this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmString,
         this@SearchParameterVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

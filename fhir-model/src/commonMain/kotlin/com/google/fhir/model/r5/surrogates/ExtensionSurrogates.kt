@@ -166,7 +166,7 @@ internal data class ExtensionValueSurrogate(
   public var valueDosage: Dosage? = null,
   public var valueMeta: Meta? = null,
 ) {
-  public fun toModel(): Extension.Value? =
+  public fun toModel(): Extension.Value =
     Extension.Value?.from(
       Base64Binary.of(
         this@ExtensionValueSurrogate.valueBase64Binary,
@@ -261,7 +261,7 @@ internal data class ExtensionValueSurrogate(
       this@ExtensionValueSurrogate.valueExtendedContactDetail,
       this@ExtensionValueSurrogate.valueDosage,
       this@ExtensionValueSurrogate.valueMeta,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Extension.Value): ExtensionValueSurrogate =

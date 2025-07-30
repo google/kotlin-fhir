@@ -513,14 +513,14 @@ internal data class SubscriptionTopicVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): SubscriptionTopic.VersionAlgorithm? =
+  public fun toModel(): SubscriptionTopic.VersionAlgorithm =
     SubscriptionTopic.VersionAlgorithm?.from(
       R5String.of(
         this@SubscriptionTopicVersionAlgorithmSurrogate.versionAlgorithmString,
         this@SubscriptionTopicVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@SubscriptionTopicVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

@@ -403,7 +403,7 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
         ),
         this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDateTime,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -737,14 +737,14 @@ internal data class StructureMapVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): StructureMap.VersionAlgorithm? =
+  public fun toModel(): StructureMap.VersionAlgorithm =
     StructureMap.VersionAlgorithm?.from(
       R5String.of(
         this@StructureMapVersionAlgorithmSurrogate.versionAlgorithmString,
         this@StructureMapVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@StructureMapVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

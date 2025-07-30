@@ -354,7 +354,7 @@ internal data class ValueSetExpansionParameterValueSurrogate(
   public var valueDateTime: KotlinString? = null,
   public var _valueDateTime: Element? = null,
 ) {
-  public fun toModel(): ValueSet.Expansion.Parameter.Value? =
+  public fun toModel(): ValueSet.Expansion.Parameter.Value =
     ValueSet.Expansion.Parameter.Value?.from(
       R4String.of(
         this@ValueSetExpansionParameterValueSurrogate.valueString,
@@ -384,7 +384,7 @@ internal data class ValueSetExpansionParameterValueSurrogate(
         FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
         this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

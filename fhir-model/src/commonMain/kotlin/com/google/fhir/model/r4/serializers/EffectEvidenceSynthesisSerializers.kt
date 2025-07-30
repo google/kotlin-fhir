@@ -44,7 +44,7 @@ public object EffectEvidenceSynthesisSampleSizeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.SampleSize =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.SampleSize) {
     surrogateSerializer.serialize(
@@ -66,7 +66,7 @@ public object EffectEvidenceSynthesisResultsByExposureSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.ResultsByExposure =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.ResultsByExposure) {
     surrogateSerializer.serialize(
@@ -90,7 +90,7 @@ public object EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSerializer :
   override fun deserialize(
     decoder: Decoder
   ): EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -115,7 +115,7 @@ public object EffectEvidenceSynthesisEffectEstimateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.EffectEstimate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.EffectEstimate) {
     surrogateSerializer.serialize(
@@ -139,7 +139,7 @@ public object EffectEvidenceSynthesisCertaintyCertaintySubcomponentSerializer :
   override fun deserialize(
     decoder: Decoder
   ): EffectEvidenceSynthesis.Certainty.CertaintySubcomponent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -163,7 +163,7 @@ public object EffectEvidenceSynthesisCertaintySerializer :
   }
 
   override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.Certainty =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.Certainty) {
     surrogateSerializer.serialize(
@@ -183,7 +183,7 @@ public object EffectEvidenceSynthesisSerializer : KSerializer<EffectEvidenceSynt
   }
 
   override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis) {
     surrogateSerializer.serialize(encoder, EffectEvidenceSynthesisSurrogate.fromModel(value))

@@ -55,14 +55,14 @@ internal data class ActorDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ActorDefinition.VersionAlgorithm? =
+  public fun toModel(): ActorDefinition.VersionAlgorithm =
     ActorDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ActorDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

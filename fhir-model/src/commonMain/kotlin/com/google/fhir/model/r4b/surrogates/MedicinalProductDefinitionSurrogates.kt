@@ -299,7 +299,7 @@ internal data class MedicinalProductDefinitionCharacteristicValueSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
 ) {
-  public fun toModel(): MedicinalProductDefinition.Characteristic.Value? =
+  public fun toModel(): MedicinalProductDefinition.Characteristic.Value =
     MedicinalProductDefinition.Characteristic.Value?.from(
       this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueCodeableConcept,
       this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueQuantity,
@@ -312,7 +312,7 @@ internal data class MedicinalProductDefinitionCharacteristicValueSurrogate(
         this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueBoolean,
       ),
       this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueAttachment,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

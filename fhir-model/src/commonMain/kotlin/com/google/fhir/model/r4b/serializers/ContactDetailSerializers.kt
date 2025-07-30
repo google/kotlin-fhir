@@ -36,7 +36,7 @@ public object ContactDetailSerializer : KSerializer<ContactDetail> {
   }
 
   override fun deserialize(decoder: Decoder): ContactDetail =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ContactDetail) {
     surrogateSerializer.serialize(encoder, ContactDetailSurrogate.fromModel(value))

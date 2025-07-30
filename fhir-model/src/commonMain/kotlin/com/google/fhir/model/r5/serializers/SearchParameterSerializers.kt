@@ -46,7 +46,7 @@ public object SearchParameterComponentSerializer : KSerializer<SearchParameter.C
   }
 
   override fun deserialize(decoder: Decoder): SearchParameter.Component =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SearchParameter.Component) {
     surrogateSerializer.serialize(encoder, SearchParameterComponentSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object SearchParameterVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SearchParameter.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SearchParameter.VersionAlgorithm) {
     surrogateSerializer.serialize(

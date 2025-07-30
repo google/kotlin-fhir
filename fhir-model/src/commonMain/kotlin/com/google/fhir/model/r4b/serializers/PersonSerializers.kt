@@ -37,7 +37,7 @@ public object PersonLinkSerializer : KSerializer<Person.Link> {
   }
 
   override fun deserialize(decoder: Decoder): Person.Link =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Person.Link) {
     surrogateSerializer.serialize(encoder, PersonLinkSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object PersonSerializer : KSerializer<Person> {
   }
 
   override fun deserialize(decoder: Decoder): Person =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Person) {
     surrogateSerializer.serialize(encoder, PersonSurrogate.fromModel(value))

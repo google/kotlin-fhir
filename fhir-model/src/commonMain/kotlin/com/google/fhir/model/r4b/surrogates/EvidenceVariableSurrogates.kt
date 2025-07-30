@@ -118,7 +118,7 @@ internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
       ),
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -211,12 +211,12 @@ internal data class EvidenceVariableCategoryValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueRange: Range? = null,
 ) {
-  public fun toModel(): EvidenceVariable.Category.Value? =
+  public fun toModel(): EvidenceVariable.Category.Value =
     EvidenceVariable.Category.Value?.from(
       this@EvidenceVariableCategoryValueSurrogate.valueCodeableConcept,
       this@EvidenceVariableCategoryValueSurrogate.valueQuantity,
       this@EvidenceVariableCategoryValueSurrogate.valueRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

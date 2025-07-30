@@ -36,7 +36,7 @@ public object PeriodSerializer : KSerializer<Period> {
   }
 
   override fun deserialize(decoder: Decoder): Period =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Period) {
     surrogateSerializer.serialize(encoder, PeriodSurrogate.fromModel(value))

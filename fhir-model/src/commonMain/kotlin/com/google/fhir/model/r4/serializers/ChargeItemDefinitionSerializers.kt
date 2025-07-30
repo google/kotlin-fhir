@@ -41,7 +41,7 @@ public object ChargeItemDefinitionApplicabilitySerializer :
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition.Applicability =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.Applicability) {
     surrogateSerializer.serialize(
@@ -63,7 +63,7 @@ public object ChargeItemDefinitionPropertyGroupPriceComponentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition.PropertyGroup.PriceComponent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -88,7 +88,7 @@ public object ChargeItemDefinitionPropertyGroupSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition.PropertyGroup =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.PropertyGroup) {
     surrogateSerializer.serialize(
@@ -108,7 +108,7 @@ public object ChargeItemDefinitionSerializer : KSerializer<ChargeItemDefinition>
   }
 
   override fun deserialize(decoder: Decoder): ChargeItemDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition) {
     surrogateSerializer.serialize(encoder, ChargeItemDefinitionSurrogate.fromModel(value))

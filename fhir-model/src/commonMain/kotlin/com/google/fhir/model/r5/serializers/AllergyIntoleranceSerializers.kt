@@ -48,7 +48,7 @@ public object AllergyIntoleranceParticipantSerializer :
   }
 
   override fun deserialize(decoder: Decoder): AllergyIntolerance.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: AllergyIntolerance.Participant) {
     surrogateSerializer.serialize(encoder, AllergyIntoleranceParticipantSurrogate.fromModel(value))
@@ -65,7 +65,7 @@ public object AllergyIntoleranceReactionSerializer : KSerializer<AllergyIntolera
   }
 
   override fun deserialize(decoder: Decoder): AllergyIntolerance.Reaction =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: AllergyIntolerance.Reaction) {
     surrogateSerializer.serialize(encoder, AllergyIntoleranceReactionSurrogate.fromModel(value))
@@ -82,7 +82,7 @@ public object AllergyIntoleranceOnsetSerializer : KSerializer<AllergyIntolerance
   }
 
   override fun deserialize(decoder: Decoder): AllergyIntolerance.Onset =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: AllergyIntolerance.Onset) {
     surrogateSerializer.serialize(encoder, AllergyIntoleranceOnsetSurrogate.fromModel(value))

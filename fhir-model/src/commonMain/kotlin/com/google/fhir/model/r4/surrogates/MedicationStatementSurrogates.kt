@@ -53,7 +53,7 @@ internal data class MedicationStatementMedicationSurrogate(
     MedicationStatement.Medication.from(
       this@MedicationStatementMedicationSurrogate.medicationCodeableConcept,
       this@MedicationStatementMedicationSurrogate.medicationReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -74,14 +74,14 @@ internal data class MedicationStatementEffectiveSurrogate(
   public var _effectiveDateTime: Element? = null,
   public var effectivePeriod: Period? = null,
 ) {
-  public fun toModel(): MedicationStatement.Effective? =
+  public fun toModel(): MedicationStatement.Effective =
     MedicationStatement.Effective?.from(
       DateTime.of(
         FhirDateTime.fromString(this@MedicationStatementEffectiveSurrogate.effectiveDateTime),
         this@MedicationStatementEffectiveSurrogate._effectiveDateTime,
       ),
       this@MedicationStatementEffectiveSurrogate.effectivePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

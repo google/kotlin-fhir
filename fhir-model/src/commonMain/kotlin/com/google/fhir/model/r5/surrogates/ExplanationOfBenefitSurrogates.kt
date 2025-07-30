@@ -108,7 +108,7 @@ internal data class ExplanationOfBenefitEventWhenSurrogate(
         this@ExplanationOfBenefitEventWhenSurrogate._whenDateTime,
       ),
       this@ExplanationOfBenefitEventWhenSurrogate.whenPeriod,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -249,14 +249,14 @@ internal data class ExplanationOfBenefitSupportingInfoTimingSurrogate(
   public var _timingDate: Element? = null,
   public var timingPeriod: Period? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Timing? =
+  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Timing =
     ExplanationOfBenefit.SupportingInfo.Timing?.from(
       Date.of(
         FhirDate.fromString(this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingDate),
         this@ExplanationOfBenefitSupportingInfoTimingSurrogate._timingDate,
       ),
       this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -283,7 +283,7 @@ internal data class ExplanationOfBenefitSupportingInfoValueSurrogate(
   public var valueReference: Reference? = null,
   public var valueIdentifier: Identifier? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Value? =
+  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Value =
     ExplanationOfBenefit.SupportingInfo.Value?.from(
       R5Boolean.of(
         this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueBoolean,
@@ -297,7 +297,7 @@ internal data class ExplanationOfBenefitSupportingInfoValueSurrogate(
       this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueAttachment,
       this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueReference,
       this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueIdentifier,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -379,7 +379,7 @@ internal data class ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
     ExplanationOfBenefit.Diagnosis.Diagnosis.from(
       this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
       this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -449,7 +449,7 @@ internal data class ExplanationOfBenefitProcedureProcedureSurrogate(
     ExplanationOfBenefit.Procedure.Procedure.from(
       this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureCodeableConcept,
       this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -593,11 +593,11 @@ internal data class ExplanationOfBenefitAccidentLocationSurrogate(
   public var locationAddress: Address? = null,
   public var locationReference: Reference? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.Accident.Location? =
+  public fun toModel(): ExplanationOfBenefit.Accident.Location =
     ExplanationOfBenefit.Accident.Location?.from(
       this@ExplanationOfBenefitAccidentLocationSurrogate.locationAddress,
       this@ExplanationOfBenefitAccidentLocationSurrogate.locationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1033,14 +1033,14 @@ internal data class ExplanationOfBenefitItemServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.Item.Serviced? =
+  public fun toModel(): ExplanationOfBenefit.Item.Serviced =
     ExplanationOfBenefit.Item.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@ExplanationOfBenefitItemServicedSurrogate.servicedDate),
         this@ExplanationOfBenefitItemServicedSurrogate._servicedDate,
       ),
       this@ExplanationOfBenefitItemServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1062,12 +1062,12 @@ internal data class ExplanationOfBenefitItemLocationSurrogate(
   public var locationAddress: Address? = null,
   public var locationReference: Reference? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.Item.Location? =
+  public fun toModel(): ExplanationOfBenefit.Item.Location =
     ExplanationOfBenefit.Item.Location?.from(
       this@ExplanationOfBenefitItemLocationSurrogate.locationCodeableConcept,
       this@ExplanationOfBenefitItemLocationSurrogate.locationAddress,
       this@ExplanationOfBenefitItemLocationSurrogate.locationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1595,14 +1595,14 @@ internal data class ExplanationOfBenefitAddItemServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.AddItem.Serviced? =
+  public fun toModel(): ExplanationOfBenefit.AddItem.Serviced =
     ExplanationOfBenefit.AddItem.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@ExplanationOfBenefitAddItemServicedSurrogate.servicedDate),
         this@ExplanationOfBenefitAddItemServicedSurrogate._servicedDate,
       ),
       this@ExplanationOfBenefitAddItemServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1624,12 +1624,12 @@ internal data class ExplanationOfBenefitAddItemLocationSurrogate(
   public var locationAddress: Address? = null,
   public var locationReference: Reference? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.AddItem.Location? =
+  public fun toModel(): ExplanationOfBenefit.AddItem.Location =
     ExplanationOfBenefit.AddItem.Location?.from(
       this@ExplanationOfBenefitAddItemLocationSurrogate.locationCodeableConcept,
       this@ExplanationOfBenefitAddItemLocationSurrogate.locationAddress,
       this@ExplanationOfBenefitAddItemLocationSurrogate.locationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1999,7 +1999,7 @@ internal data class ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
   public var _allowedString: Element? = null,
   public var allowedMoney: Money? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Allowed? =
+  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Allowed =
     ExplanationOfBenefit.BenefitBalance.Financial.Allowed?.from(
       UnsignedInt.of(
         this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedUnsignedInt,
@@ -2010,7 +2010,7 @@ internal data class ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
         this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedString,
       ),
       this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedMoney,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -2034,14 +2034,14 @@ internal data class ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
   public var _usedUnsignedInt: Element? = null,
   public var usedMoney: Money? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Used? =
+  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Used =
     ExplanationOfBenefit.BenefitBalance.Financial.Used?.from(
       UnsignedInt.of(
         this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedUnsignedInt,
         this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate._usedUnsignedInt,
       ),
       this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedMoney,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

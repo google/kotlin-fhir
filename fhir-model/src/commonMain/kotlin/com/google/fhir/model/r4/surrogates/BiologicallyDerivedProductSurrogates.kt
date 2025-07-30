@@ -53,7 +53,7 @@ internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
   public var _collectedDateTime: Element? = null,
   public var collectedPeriod: Period? = null,
 ) {
-  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected? =
+  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected =
     BiologicallyDerivedProduct.Collection.Collected?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -62,7 +62,7 @@ internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
         this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
       ),
       this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -121,7 +121,7 @@ internal data class BiologicallyDerivedProductProcessingTimeSurrogate(
   public var _timeDateTime: Element? = null,
   public var timePeriod: Period? = null,
 ) {
-  public fun toModel(): BiologicallyDerivedProduct.Processing.Time? =
+  public fun toModel(): BiologicallyDerivedProduct.Processing.Time =
     BiologicallyDerivedProduct.Processing.Time?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -130,7 +130,7 @@ internal data class BiologicallyDerivedProductProcessingTimeSurrogate(
         this@BiologicallyDerivedProductProcessingTimeSurrogate._timeDateTime,
       ),
       this@BiologicallyDerivedProductProcessingTimeSurrogate.timePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -198,7 +198,7 @@ internal data class BiologicallyDerivedProductManipulationTimeSurrogate(
   public var _timeDateTime: Element? = null,
   public var timePeriod: Period? = null,
 ) {
-  public fun toModel(): BiologicallyDerivedProduct.Manipulation.Time? =
+  public fun toModel(): BiologicallyDerivedProduct.Manipulation.Time =
     BiologicallyDerivedProduct.Manipulation.Time?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -207,7 +207,7 @@ internal data class BiologicallyDerivedProductManipulationTimeSurrogate(
         this@BiologicallyDerivedProductManipulationTimeSurrogate._timeDateTime,
       ),
       this@BiologicallyDerivedProductManipulationTimeSurrogate.timePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

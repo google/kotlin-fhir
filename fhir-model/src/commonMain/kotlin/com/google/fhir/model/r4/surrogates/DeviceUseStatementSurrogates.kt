@@ -51,7 +51,7 @@ internal data class DeviceUseStatementTimingSurrogate(
   public var timingDateTime: String? = null,
   public var _timingDateTime: Element? = null,
 ) {
-  public fun toModel(): DeviceUseStatement.Timing? =
+  public fun toModel(): DeviceUseStatement.Timing =
     DeviceUseStatement.Timing?.from(
       this@DeviceUseStatementTimingSurrogate.timingTiming,
       this@DeviceUseStatementTimingSurrogate.timingPeriod,
@@ -59,7 +59,7 @@ internal data class DeviceUseStatementTimingSurrogate(
         FhirDateTime.fromString(this@DeviceUseStatementTimingSurrogate.timingDateTime),
         this@DeviceUseStatementTimingSurrogate._timingDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: DeviceUseStatement.Timing): DeviceUseStatementTimingSurrogate =

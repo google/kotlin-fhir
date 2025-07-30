@@ -53,7 +53,7 @@ public object PackagedProductDefinitionLegalStatusOfSupplySerializer :
   }
 
   override fun deserialize(decoder: Decoder): PackagedProductDefinition.LegalStatusOfSupply =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.LegalStatusOfSupply) {
     surrogateSerializer.serialize(
@@ -77,7 +77,7 @@ public object PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer :
   override fun deserialize(
     decoder: Decoder
   ): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -154,7 +154,7 @@ public object PackagedProductDefinitionPackagePropertyValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -228,7 +228,7 @@ public object PackagedProductDefinitionPackageContainedItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.ContainedItem =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -252,7 +252,7 @@ public object PackagedProductDefinitionPackageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.Package) {
     surrogateSerializer.serialize(
@@ -272,7 +272,7 @@ public object PackagedProductDefinitionSerializer : KSerializer<PackagedProductD
   }
 
   override fun deserialize(decoder: Decoder): PackagedProductDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition) {
     surrogateSerializer.serialize(encoder, PackagedProductDefinitionSurrogate.fromModel(value))

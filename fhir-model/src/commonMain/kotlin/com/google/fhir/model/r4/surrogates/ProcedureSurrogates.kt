@@ -122,7 +122,7 @@ internal data class ProcedurePerformedSurrogate(
   public var performedAge: Age? = null,
   public var performedRange: Range? = null,
 ) {
-  public fun toModel(): Procedure.Performed? =
+  public fun toModel(): Procedure.Performed =
     Procedure.Performed?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ProcedurePerformedSurrogate.performedDateTime),
@@ -135,7 +135,7 @@ internal data class ProcedurePerformedSurrogate(
       ),
       this@ProcedurePerformedSurrogate.performedAge,
       this@ProcedurePerformedSurrogate.performedRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Procedure.Performed): ProcedurePerformedSurrogate =

@@ -47,7 +47,7 @@ public object ImmunizationEvaluationDoseNumberSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImmunizationEvaluation.DoseNumber =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImmunizationEvaluation.DoseNumber) {
     surrogateSerializer.serialize(
@@ -69,7 +69,7 @@ public object ImmunizationEvaluationSeriesDosesSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImmunizationEvaluation.SeriesDoses =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImmunizationEvaluation.SeriesDoses) {
     surrogateSerializer.serialize(

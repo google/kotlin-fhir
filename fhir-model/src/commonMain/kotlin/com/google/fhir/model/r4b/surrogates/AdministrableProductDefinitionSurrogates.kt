@@ -58,7 +58,7 @@ internal data class AdministrableProductDefinitionPropertyValueSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
 ) {
-  public fun toModel(): AdministrableProductDefinition.Property.Value? =
+  public fun toModel(): AdministrableProductDefinition.Property.Value =
     AdministrableProductDefinition.Property.Value?.from(
       this@AdministrableProductDefinitionPropertyValueSurrogate.valueCodeableConcept,
       this@AdministrableProductDefinitionPropertyValueSurrogate.valueQuantity,
@@ -71,7 +71,7 @@ internal data class AdministrableProductDefinitionPropertyValueSurrogate(
         this@AdministrableProductDefinitionPropertyValueSurrogate._valueBoolean,
       ),
       this@AdministrableProductDefinitionPropertyValueSurrogate.valueAttachment,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

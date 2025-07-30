@@ -271,11 +271,11 @@ internal data class MeasureSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): Measure.Subject? =
+  public fun toModel(): Measure.Subject =
     Measure.Subject?.from(
       this@MeasureSubjectSurrogate.subjectCodeableConcept,
       this@MeasureSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =

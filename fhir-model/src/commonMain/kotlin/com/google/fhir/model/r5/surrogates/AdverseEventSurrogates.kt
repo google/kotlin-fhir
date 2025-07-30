@@ -124,7 +124,7 @@ internal data class AdverseEventSuspectEntityInstanceSurrogate(
     AdverseEvent.SuspectEntity.Instance.from(
       this@AdverseEventSuspectEntityInstanceSurrogate.instanceCodeableConcept,
       this@AdverseEventSuspectEntityInstanceSurrogate.instanceReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -180,7 +180,7 @@ internal data class AdverseEventContributingFactorItemSurrogate(
     AdverseEvent.ContributingFactor.Item.from(
       this@AdverseEventContributingFactorItemSurrogate.itemReference,
       this@AdverseEventContributingFactorItemSurrogate.itemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -235,7 +235,7 @@ internal data class AdverseEventPreventiveActionItemSurrogate(
     AdverseEvent.PreventiveAction.Item.from(
       this@AdverseEventPreventiveActionItemSurrogate.itemReference,
       this@AdverseEventPreventiveActionItemSurrogate.itemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -290,7 +290,7 @@ internal data class AdverseEventMitigatingActionItemSurrogate(
     AdverseEvent.MitigatingAction.Item.from(
       this@AdverseEventMitigatingActionItemSurrogate.itemReference,
       this@AdverseEventMitigatingActionItemSurrogate.itemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -345,7 +345,7 @@ internal data class AdverseEventSupportingInfoItemSurrogate(
     AdverseEvent.SupportingInfo.Item.from(
       this@AdverseEventSupportingInfoItemSurrogate.itemReference,
       this@AdverseEventSupportingInfoItemSurrogate.itemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -396,7 +396,7 @@ internal data class AdverseEventOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): AdverseEvent.Occurrence? =
+  public fun toModel(): AdverseEvent.Occurrence =
     AdverseEvent.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@AdverseEventOccurrenceSurrogate.occurrenceDateTime),
@@ -404,7 +404,7 @@ internal data class AdverseEventOccurrenceSurrogate(
       ),
       this@AdverseEventOccurrenceSurrogate.occurrencePeriod,
       this@AdverseEventOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: AdverseEvent.Occurrence): AdverseEventOccurrenceSurrogate =

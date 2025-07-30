@@ -132,14 +132,14 @@ internal data class TestPlanTestCaseTestRunScriptSourceSurrogate(
   public var _sourceString: Element? = null,
   public var sourceReference: Reference? = null,
 ) {
-  public fun toModel(): TestPlan.TestCase.TestRun.Script.Source? =
+  public fun toModel(): TestPlan.TestCase.TestRun.Script.Source =
     TestPlan.TestCase.TestRun.Script.Source?.from(
       R5String.of(
         this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceString,
         this@TestPlanTestCaseTestRunScriptSourceSurrogate._sourceString,
       ),
       this@TestPlanTestCaseTestRunScriptSourceSurrogate.sourceReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -233,14 +233,14 @@ internal data class TestPlanTestCaseTestDataSourceSurrogate(
   public var _sourceString: Element? = null,
   public var sourceReference: Reference? = null,
 ) {
-  public fun toModel(): TestPlan.TestCase.TestData.Source? =
+  public fun toModel(): TestPlan.TestCase.TestData.Source =
     TestPlan.TestCase.TestData.Source?.from(
       R5String.of(
         this@TestPlanTestCaseTestDataSourceSurrogate.sourceString,
         this@TestPlanTestCaseTestDataSourceSurrogate._sourceString,
       ),
       this@TestPlanTestCaseTestDataSourceSurrogate.sourceReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -381,14 +381,14 @@ internal data class TestPlanVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): TestPlan.VersionAlgorithm? =
+  public fun toModel(): TestPlan.VersionAlgorithm =
     TestPlan.VersionAlgorithm?.from(
       R5String.of(
         this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmString,
         this@TestPlanVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@TestPlanVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: TestPlan.VersionAlgorithm): TestPlanVersionAlgorithmSurrogate =

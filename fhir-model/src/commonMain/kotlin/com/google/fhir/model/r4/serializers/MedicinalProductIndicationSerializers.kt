@@ -48,7 +48,7 @@ public object MedicinalProductIndicationOtherTherapyMedicationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductIndication.OtherTherapy.Medication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -120,7 +120,7 @@ public object MedicinalProductIndicationSerializer : KSerializer<MedicinalProduc
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductIndication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductIndication) {
     surrogateSerializer.serialize(encoder, MedicinalProductIndicationSurrogate.fromModel(value))

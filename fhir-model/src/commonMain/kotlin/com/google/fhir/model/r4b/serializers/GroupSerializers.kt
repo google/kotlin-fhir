@@ -47,7 +47,7 @@ public object GroupCharacteristicValueSerializer : KSerializer<Group.Characteris
   }
 
   override fun deserialize(decoder: Decoder): Group.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Group.Characteristic.Value) {
     surrogateSerializer.serialize(encoder, GroupCharacteristicValueSurrogate.fromModel(value))
@@ -111,7 +111,7 @@ public object GroupMemberSerializer : KSerializer<Group.Member> {
   }
 
   override fun deserialize(decoder: Decoder): Group.Member =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Group.Member) {
     surrogateSerializer.serialize(encoder, GroupMemberSurrogate.fromModel(value))
@@ -128,7 +128,7 @@ public object GroupSerializer : KSerializer<Group> {
   }
 
   override fun deserialize(decoder: Decoder): Group =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Group) {
     surrogateSerializer.serialize(encoder, GroupSurrogate.fromModel(value))

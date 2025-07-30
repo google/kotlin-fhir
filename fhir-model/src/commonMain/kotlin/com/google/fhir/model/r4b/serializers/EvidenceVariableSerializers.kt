@@ -51,7 +51,7 @@ public object EvidenceVariableCharacteristicTimeFromStartSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.TimeFromStart =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Characteristic.TimeFromStart) {
     surrogateSerializer.serialize(
@@ -73,7 +73,7 @@ public object EvidenceVariableCharacteristicDefinitionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.Definition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Characteristic.Definition) {
     surrogateSerializer.serialize(
@@ -142,7 +142,7 @@ public object EvidenceVariableCategoryValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Category.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Category.Value) {
     surrogateSerializer.serialize(encoder, EvidenceVariableCategoryValueSurrogate.fromModel(value))
@@ -206,7 +206,7 @@ public object EvidenceVariableSerializer : KSerializer<EvidenceVariable> {
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable) {
     surrogateSerializer.serialize(encoder, EvidenceVariableSurrogate.fromModel(value))

@@ -46,7 +46,7 @@ internal data class VirtualServiceDetailAddressSurrogate(
   public var addressContactPoint: ContactPoint? = null,
   public var addressExtendedContactDetail: ExtendedContactDetail? = null,
 ) {
-  public fun toModel(): VirtualServiceDetail.Address? =
+  public fun toModel(): VirtualServiceDetail.Address =
     VirtualServiceDetail.Address?.from(
       Url.of(
         this@VirtualServiceDetailAddressSurrogate.addressUrl,
@@ -58,7 +58,7 @@ internal data class VirtualServiceDetailAddressSurrogate(
       ),
       this@VirtualServiceDetailAddressSurrogate.addressContactPoint,
       this@VirtualServiceDetailAddressSurrogate.addressExtendedContactDetail,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

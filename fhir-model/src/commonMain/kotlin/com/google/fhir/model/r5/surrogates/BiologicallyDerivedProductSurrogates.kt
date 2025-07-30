@@ -57,7 +57,7 @@ internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
   public var _collectedDateTime: Element? = null,
   public var collectedPeriod: Period? = null,
 ) {
-  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected? =
+  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected =
     BiologicallyDerivedProduct.Collection.Collected?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -66,7 +66,7 @@ internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
         this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
       ),
       this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -154,7 +154,7 @@ internal data class BiologicallyDerivedProductPropertyValueSurrogate(
         this@BiologicallyDerivedProductPropertyValueSurrogate._valueString,
       ),
       this@BiologicallyDerivedProductPropertyValueSurrogate.valueAttachment,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

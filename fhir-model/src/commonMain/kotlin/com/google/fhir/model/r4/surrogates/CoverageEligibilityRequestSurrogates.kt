@@ -155,11 +155,11 @@ internal data class CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate(
   public var diagnosisCodeableConcept: CodeableConcept? = null,
   public var diagnosisReference: Reference? = null,
 ) {
-  public fun toModel(): CoverageEligibilityRequest.Item.Diagnosis.Diagnosis? =
+  public fun toModel(): CoverageEligibilityRequest.Item.Diagnosis.Diagnosis =
     CoverageEligibilityRequest.Item.Diagnosis.Diagnosis?.from(
       this@CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
       this@CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.diagnosisReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -302,14 +302,14 @@ internal data class CoverageEligibilityRequestServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): CoverageEligibilityRequest.Serviced? =
+  public fun toModel(): CoverageEligibilityRequest.Serviced =
     CoverageEligibilityRequest.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@CoverageEligibilityRequestServicedSurrogate.servicedDate),
         this@CoverageEligibilityRequestServicedSurrogate._servicedDate,
       ),
       this@CoverageEligibilityRequestServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

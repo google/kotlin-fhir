@@ -45,11 +45,11 @@ internal data class DosageDoseAndRateDoseSurrogate(
   public var doseRange: Range? = null,
   public var doseQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Dosage.DoseAndRate.Dose? =
+  public fun toModel(): Dosage.DoseAndRate.Dose =
     Dosage.DoseAndRate.Dose?.from(
       this@DosageDoseAndRateDoseSurrogate.doseRange,
       this@DosageDoseAndRateDoseSurrogate.doseQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Dosage.DoseAndRate.Dose): DosageDoseAndRateDoseSurrogate =
@@ -68,12 +68,12 @@ internal data class DosageDoseAndRateRateSurrogate(
   public var rateRange: Range? = null,
   public var rateQuantity: Quantity? = null,
 ) {
-  public fun toModel(): Dosage.DoseAndRate.Rate? =
+  public fun toModel(): Dosage.DoseAndRate.Rate =
     Dosage.DoseAndRate.Rate?.from(
       this@DosageDoseAndRateRateSurrogate.rateRatio,
       this@DosageDoseAndRateRateSurrogate.rateRange,
       this@DosageDoseAndRateRateSurrogate.rateQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Dosage.DoseAndRate.Rate): DosageDoseAndRateRateSurrogate =

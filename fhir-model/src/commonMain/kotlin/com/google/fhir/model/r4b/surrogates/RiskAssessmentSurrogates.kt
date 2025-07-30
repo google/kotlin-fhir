@@ -53,14 +53,14 @@ internal data class RiskAssessmentPredictionProbabilitySurrogate(
   public var _probabilityDecimal: Element? = null,
   public var probabilityRange: Range? = null,
 ) {
-  public fun toModel(): RiskAssessment.Prediction.Probability? =
+  public fun toModel(): RiskAssessment.Prediction.Probability =
     RiskAssessment.Prediction.Probability?.from(
       Decimal.of(
         this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
         this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
       ),
       this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -81,11 +81,11 @@ internal data class RiskAssessmentPredictionWhenSurrogate(
   public var whenPeriod: Period? = null,
   public var whenRange: Range? = null,
 ) {
-  public fun toModel(): RiskAssessment.Prediction.When? =
+  public fun toModel(): RiskAssessment.Prediction.When =
     RiskAssessment.Prediction.When?.from(
       this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
       this@RiskAssessmentPredictionWhenSurrogate.whenRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -162,14 +162,14 @@ internal data class RiskAssessmentOccurrenceSurrogate(
   public var _occurrenceDateTime: Element? = null,
   public var occurrencePeriod: Period? = null,
 ) {
-  public fun toModel(): RiskAssessment.Occurrence? =
+  public fun toModel(): RiskAssessment.Occurrence =
     RiskAssessment.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@RiskAssessmentOccurrenceSurrogate.occurrenceDateTime),
         this@RiskAssessmentOccurrenceSurrogate._occurrenceDateTime,
       ),
       this@RiskAssessmentOccurrenceSurrogate.occurrencePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: RiskAssessment.Occurrence): RiskAssessmentOccurrenceSurrogate =

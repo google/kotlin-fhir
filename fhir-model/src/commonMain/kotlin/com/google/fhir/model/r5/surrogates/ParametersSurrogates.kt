@@ -168,7 +168,7 @@ internal data class ParametersParameterValueSurrogate(
   public var valueDosage: Dosage? = null,
   public var valueMeta: Meta? = null,
 ) {
-  public fun toModel(): Parameters.Parameter.Value? =
+  public fun toModel(): Parameters.Parameter.Value =
     Parameters.Parameter.Value?.from(
       Base64Binary.of(
         this@ParametersParameterValueSurrogate.valueBase64Binary,
@@ -284,7 +284,7 @@ internal data class ParametersParameterValueSurrogate(
       this@ParametersParameterValueSurrogate.valueExtendedContactDetail,
       this@ParametersParameterValueSurrogate.valueDosage,
       this@ParametersParameterValueSurrogate.valueMeta,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Parameters.Parameter.Value): ParametersParameterValueSurrogate =

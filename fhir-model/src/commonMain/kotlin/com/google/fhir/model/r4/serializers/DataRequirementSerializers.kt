@@ -49,7 +49,7 @@ public object DataRequirementCodeFilterSerializer : KSerializer<DataRequirement.
   }
 
   override fun deserialize(decoder: Decoder): DataRequirement.CodeFilter =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DataRequirement.CodeFilter) {
     surrogateSerializer.serialize(encoder, DataRequirementCodeFilterSurrogate.fromModel(value))
@@ -67,7 +67,7 @@ public object DataRequirementDateFilterValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): DataRequirement.DateFilter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DataRequirement.DateFilter.Value) {
     surrogateSerializer.serialize(encoder, DataRequirementDateFilterValueSurrogate.fromModel(value))
@@ -131,7 +131,7 @@ public object DataRequirementSortSerializer : KSerializer<DataRequirement.Sort> 
   }
 
   override fun deserialize(decoder: Decoder): DataRequirement.Sort =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DataRequirement.Sort) {
     surrogateSerializer.serialize(encoder, DataRequirementSortSurrogate.fromModel(value))
@@ -148,7 +148,7 @@ public object DataRequirementSubjectSerializer : KSerializer<DataRequirement.Sub
   }
 
   override fun deserialize(decoder: Decoder): DataRequirement.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DataRequirement.Subject) {
     surrogateSerializer.serialize(encoder, DataRequirementSubjectSurrogate.fromModel(value))

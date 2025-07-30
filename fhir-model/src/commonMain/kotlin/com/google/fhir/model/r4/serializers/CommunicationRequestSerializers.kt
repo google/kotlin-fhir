@@ -49,7 +49,7 @@ public object CommunicationRequestPayloadContentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CommunicationRequest.Payload.Content =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CommunicationRequest.Payload.Content) {
     surrogateSerializer.serialize(
@@ -117,7 +117,7 @@ public object CommunicationRequestOccurrenceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CommunicationRequest.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CommunicationRequest.Occurrence) {
     surrogateSerializer.serialize(encoder, CommunicationRequestOccurrenceSurrogate.fromModel(value))

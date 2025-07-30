@@ -463,14 +463,14 @@ internal data class EvidenceCiteAsSurrogate(
   public var citeAsMarkdown: KotlinString? = null,
   public var _citeAsMarkdown: Element? = null,
 ) {
-  public fun toModel(): Evidence.CiteAs? =
+  public fun toModel(): Evidence.CiteAs =
     Evidence.CiteAs?.from(
       this@EvidenceCiteAsSurrogate.citeAsReference,
       Markdown.of(
         this@EvidenceCiteAsSurrogate.citeAsMarkdown,
         this@EvidenceCiteAsSurrogate._citeAsMarkdown,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Evidence.CiteAs): EvidenceCiteAsSurrogate =

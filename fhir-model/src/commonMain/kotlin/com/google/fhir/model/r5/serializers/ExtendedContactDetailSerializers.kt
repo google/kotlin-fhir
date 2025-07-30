@@ -36,7 +36,7 @@ public object ExtendedContactDetailSerializer : KSerializer<ExtendedContactDetai
   }
 
   override fun deserialize(decoder: Decoder): ExtendedContactDetail =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ExtendedContactDetail) {
     surrogateSerializer.serialize(encoder, ExtendedContactDetailSurrogate.fromModel(value))

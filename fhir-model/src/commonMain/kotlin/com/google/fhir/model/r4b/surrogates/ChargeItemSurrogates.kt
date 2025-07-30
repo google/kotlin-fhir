@@ -88,7 +88,7 @@ internal data class ChargeItemOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): ChargeItem.Occurrence? =
+  public fun toModel(): ChargeItem.Occurrence =
     ChargeItem.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ChargeItemOccurrenceSurrogate.occurrenceDateTime),
@@ -96,7 +96,7 @@ internal data class ChargeItemOccurrenceSurrogate(
       ),
       this@ChargeItemOccurrenceSurrogate.occurrencePeriod,
       this@ChargeItemOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ChargeItem.Occurrence): ChargeItemOccurrenceSurrogate =
@@ -116,11 +116,11 @@ internal data class ChargeItemProductSurrogate(
   public var productReference: Reference? = null,
   public var productCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): ChargeItem.Product? =
+  public fun toModel(): ChargeItem.Product =
     ChargeItem.Product?.from(
       this@ChargeItemProductSurrogate.productReference,
       this@ChargeItemProductSurrogate.productCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ChargeItem.Product): ChargeItemProductSurrogate =

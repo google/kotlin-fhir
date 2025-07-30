@@ -200,11 +200,11 @@ internal data class RequestOrchestrationActionRelatedActionOffsetSurrogate(
   public var offsetDuration: Duration? = null,
   public var offsetRange: Range? = null,
 ) {
-  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset? =
+  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset =
     RequestOrchestration.Action.RelatedAction.Offset?.from(
       this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
       this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -288,14 +288,14 @@ internal data class RequestOrchestrationActionParticipantActorSurrogate(
   public var _actorCanonical: Element? = null,
   public var actorReference: Reference? = null,
 ) {
-  public fun toModel(): RequestOrchestration.Action.Participant.Actor? =
+  public fun toModel(): RequestOrchestration.Action.Participant.Actor =
     RequestOrchestration.Action.Participant.Actor?.from(
       Canonical.of(
         this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
         this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
       ),
       this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -421,7 +421,7 @@ internal data class RequestOrchestrationActionTimingSurrogate(
   public var timingRange: Range? = null,
   public var timingTiming: Timing? = null,
 ) {
-  public fun toModel(): RequestOrchestration.Action.Timing? =
+  public fun toModel(): RequestOrchestration.Action.Timing =
     RequestOrchestration.Action.Timing?.from(
       DateTime.of(
         FhirDateTime.fromString(this@RequestOrchestrationActionTimingSurrogate.timingDateTime),
@@ -432,7 +432,7 @@ internal data class RequestOrchestrationActionTimingSurrogate(
       this@RequestOrchestrationActionTimingSurrogate.timingDuration,
       this@RequestOrchestrationActionTimingSurrogate.timingRange,
       this@RequestOrchestrationActionTimingSurrogate.timingTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -459,7 +459,7 @@ internal data class RequestOrchestrationActionDefinitionSurrogate(
   public var definitionUri: KotlinString? = null,
   public var _definitionUri: Element? = null,
 ) {
-  public fun toModel(): RequestOrchestration.Action.Definition? =
+  public fun toModel(): RequestOrchestration.Action.Definition =
     RequestOrchestration.Action.Definition?.from(
       Canonical.of(
         this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
@@ -469,7 +469,7 @@ internal data class RequestOrchestrationActionDefinitionSurrogate(
         this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
         this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

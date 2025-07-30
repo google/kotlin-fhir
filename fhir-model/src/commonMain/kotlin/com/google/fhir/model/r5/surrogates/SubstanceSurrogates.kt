@@ -56,7 +56,7 @@ internal data class SubstanceIngredientSubstanceSurrogate(
     Substance.Ingredient.Substance.from(
       this@SubstanceIngredientSubstanceSurrogate.substanceCodeableConcept,
       this@SubstanceIngredientSubstanceSurrogate.substanceReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

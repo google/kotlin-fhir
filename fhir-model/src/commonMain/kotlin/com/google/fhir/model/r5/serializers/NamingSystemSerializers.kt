@@ -46,7 +46,7 @@ public object NamingSystemUniqueIdSerializer : KSerializer<NamingSystem.UniqueId
   }
 
   override fun deserialize(decoder: Decoder): NamingSystem.UniqueId =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: NamingSystem.UniqueId) {
     surrogateSerializer.serialize(encoder, NamingSystemUniqueIdSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object NamingSystemVersionAlgorithmSerializer : KSerializer<NamingSystem.
   }
 
   override fun deserialize(decoder: Decoder): NamingSystem.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: NamingSystem.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, NamingSystemVersionAlgorithmSurrogate.fromModel(value))

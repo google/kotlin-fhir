@@ -225,11 +225,11 @@ internal data class MedicinalProductSpecialDesignationIndicationSurrogate(
   public var indicationCodeableConcept: CodeableConcept? = null,
   public var indicationReference: Reference? = null,
 ) {
-  public fun toModel(): MedicinalProduct.SpecialDesignation.Indication? =
+  public fun toModel(): MedicinalProduct.SpecialDesignation.Indication =
     MedicinalProduct.SpecialDesignation.Indication?.from(
       this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationCodeableConcept,
       this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

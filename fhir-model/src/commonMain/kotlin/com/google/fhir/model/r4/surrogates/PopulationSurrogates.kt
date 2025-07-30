@@ -36,11 +36,11 @@ internal data class PopulationAgeSurrogate(
   public var ageRange: Range? = null,
   public var ageCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): Population.Age? =
+  public fun toModel(): Population.Age =
     Population.Age?.from(
       this@PopulationAgeSurrogate.ageRange,
       this@PopulationAgeSurrogate.ageCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Population.Age): PopulationAgeSurrogate =

@@ -51,7 +51,7 @@ public object MessageHeaderDestinationEndpointSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MessageHeader.Destination.Endpoint =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageHeader.Destination.Endpoint) {
     surrogateSerializer.serialize(
@@ -118,7 +118,7 @@ public object MessageHeaderSourceEndpointSerializer : KSerializer<MessageHeader.
   }
 
   override fun deserialize(decoder: Decoder): MessageHeader.Source.Endpoint =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageHeader.Source.Endpoint) {
     surrogateSerializer.serialize(encoder, MessageHeaderSourceEndpointSurrogate.fromModel(value))
@@ -182,7 +182,7 @@ public object MessageHeaderResponseSerializer : KSerializer<MessageHeader.Respon
   }
 
   override fun deserialize(decoder: Decoder): MessageHeader.Response =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageHeader.Response) {
     surrogateSerializer.serialize(encoder, MessageHeaderResponseSurrogate.fromModel(value))
@@ -199,7 +199,7 @@ public object MessageHeaderEventSerializer : KSerializer<MessageHeader.Event> {
   }
 
   override fun deserialize(decoder: Decoder): MessageHeader.Event =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageHeader.Event) {
     surrogateSerializer.serialize(encoder, MessageHeaderEventSurrogate.fromModel(value))

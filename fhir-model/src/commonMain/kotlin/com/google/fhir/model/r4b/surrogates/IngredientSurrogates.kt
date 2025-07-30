@@ -93,7 +93,7 @@ internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogat
     Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -162,11 +162,11 @@ internal data class IngredientSubstanceStrengthPresentationSurrogate(
   public var presentationRatio: Ratio? = null,
   public var presentationRatioRange: RatioRange? = null,
 ) {
-  public fun toModel(): Ingredient.Substance.Strength.Presentation? =
+  public fun toModel(): Ingredient.Substance.Strength.Presentation =
     Ingredient.Substance.Strength.Presentation?.from(
       this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
       this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -186,11 +186,11 @@ internal data class IngredientSubstanceStrengthConcentrationSurrogate(
   public var concentrationRatio: Ratio? = null,
   public var concentrationRatioRange: RatioRange? = null,
 ) {
-  public fun toModel(): Ingredient.Substance.Strength.Concentration? =
+  public fun toModel(): Ingredient.Substance.Strength.Concentration =
     Ingredient.Substance.Strength.Concentration?.from(
       this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
       this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

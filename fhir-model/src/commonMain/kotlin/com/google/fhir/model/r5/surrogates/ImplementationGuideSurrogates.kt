@@ -347,7 +347,7 @@ internal data class ImplementationGuideDefinitionPageSourceSurrogate(
   public var sourceMarkdown: KotlinString? = null,
   public var _sourceMarkdown: Element? = null,
 ) {
-  public fun toModel(): ImplementationGuide.Definition.Page.Source? =
+  public fun toModel(): ImplementationGuide.Definition.Page.Source =
     ImplementationGuide.Definition.Page.Source?.from(
       Url.of(
         this@ImplementationGuideDefinitionPageSourceSurrogate.sourceUrl,
@@ -361,7 +361,7 @@ internal data class ImplementationGuideDefinitionPageSourceSurrogate(
         this@ImplementationGuideDefinitionPageSourceSurrogate.sourceMarkdown,
         this@ImplementationGuideDefinitionPageSourceSurrogate._sourceMarkdown,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -829,14 +829,14 @@ internal data class ImplementationGuideVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ImplementationGuide.VersionAlgorithm? =
+  public fun toModel(): ImplementationGuide.VersionAlgorithm =
     ImplementationGuide.VersionAlgorithm?.from(
       R5String.of(
         this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ImplementationGuideVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

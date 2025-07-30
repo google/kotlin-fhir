@@ -41,7 +41,7 @@ public object DeviceUdiCarrierSerializer : KSerializer<Device.UdiCarrier> {
   }
 
   override fun deserialize(decoder: Decoder): Device.UdiCarrier =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Device.UdiCarrier) {
     surrogateSerializer.serialize(encoder, DeviceUdiCarrierSurrogate.fromModel(value))
@@ -58,7 +58,7 @@ public object DeviceDeviceNameSerializer : KSerializer<Device.DeviceName> {
   }
 
   override fun deserialize(decoder: Decoder): Device.DeviceName =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Device.DeviceName) {
     surrogateSerializer.serialize(encoder, DeviceDeviceNameSurrogate.fromModel(value))
@@ -75,7 +75,7 @@ public object DeviceSpecializationSerializer : KSerializer<Device.Specialization
   }
 
   override fun deserialize(decoder: Decoder): Device.Specialization =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Device.Specialization) {
     surrogateSerializer.serialize(encoder, DeviceSpecializationSurrogate.fromModel(value))
@@ -92,7 +92,7 @@ public object DeviceVersionSerializer : KSerializer<Device.Version> {
   }
 
   override fun deserialize(decoder: Decoder): Device.Version =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Device.Version) {
     surrogateSerializer.serialize(encoder, DeviceVersionSurrogate.fromModel(value))
@@ -109,7 +109,7 @@ public object DevicePropertySerializer : KSerializer<Device.Property> {
   }
 
   override fun deserialize(decoder: Decoder): Device.Property =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Device.Property) {
     surrogateSerializer.serialize(encoder, DevicePropertySurrogate.fromModel(value))
@@ -126,7 +126,7 @@ public object DeviceSerializer : KSerializer<Device> {
   }
 
   override fun deserialize(decoder: Decoder): Device =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Device) {
     surrogateSerializer.serialize(encoder, DeviceSurrogate.fromModel(value))

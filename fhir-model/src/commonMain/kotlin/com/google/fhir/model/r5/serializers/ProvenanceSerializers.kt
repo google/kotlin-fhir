@@ -47,7 +47,7 @@ public object ProvenanceAgentSerializer : KSerializer<Provenance.Agent> {
   }
 
   override fun deserialize(decoder: Decoder): Provenance.Agent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Provenance.Agent) {
     surrogateSerializer.serialize(encoder, ProvenanceAgentSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object ProvenanceEntitySerializer : KSerializer<Provenance.Entity> {
   }
 
   override fun deserialize(decoder: Decoder): Provenance.Entity =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Provenance.Entity) {
     surrogateSerializer.serialize(encoder, ProvenanceEntitySurrogate.fromModel(value))
@@ -81,7 +81,7 @@ public object ProvenanceOccurredSerializer : KSerializer<Provenance.Occurred> {
   }
 
   override fun deserialize(decoder: Decoder): Provenance.Occurred =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Provenance.Occurred) {
     surrogateSerializer.serialize(encoder, ProvenanceOccurredSurrogate.fromModel(value))

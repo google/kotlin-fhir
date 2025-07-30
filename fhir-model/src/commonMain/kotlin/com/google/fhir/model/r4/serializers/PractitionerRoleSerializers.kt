@@ -39,7 +39,7 @@ public object PractitionerRoleAvailableTimeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PractitionerRole.AvailableTime =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PractitionerRole.AvailableTime) {
     surrogateSerializer.serialize(encoder, PractitionerRoleAvailableTimeSurrogate.fromModel(value))
@@ -56,7 +56,7 @@ public object PractitionerRoleNotAvailableSerializer : KSerializer<PractitionerR
   }
 
   override fun deserialize(decoder: Decoder): PractitionerRole.NotAvailable =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PractitionerRole.NotAvailable) {
     surrogateSerializer.serialize(encoder, PractitionerRoleNotAvailableSurrogate.fromModel(value))
@@ -73,7 +73,7 @@ public object PractitionerRoleSerializer : KSerializer<PractitionerRole> {
   }
 
   override fun deserialize(decoder: Decoder): PractitionerRole =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PractitionerRole) {
     surrogateSerializer.serialize(encoder, PractitionerRoleSurrogate.fromModel(value))

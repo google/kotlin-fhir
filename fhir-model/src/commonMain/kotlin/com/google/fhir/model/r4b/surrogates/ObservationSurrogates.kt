@@ -125,7 +125,7 @@ internal data class ObservationComponentValueSurrogate(
   public var _valueDateTime: Element? = null,
   public var valuePeriod: Period? = null,
 ) {
-  public fun toModel(): Observation.Component.Value? =
+  public fun toModel(): Observation.Component.Value =
     Observation.Component.Value?.from(
       this@ObservationComponentValueSurrogate.valueQuantity,
       this@ObservationComponentValueSurrogate.valueCodeableConcept,
@@ -153,7 +153,7 @@ internal data class ObservationComponentValueSurrogate(
         this@ObservationComponentValueSurrogate._valueDateTime,
       ),
       this@ObservationComponentValueSurrogate.valuePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Component.Value): ObservationComponentValueSurrogate =
@@ -229,7 +229,7 @@ internal data class ObservationEffectiveSurrogate(
   public var effectiveInstant: KotlinString? = null,
   public var _effectiveInstant: Element? = null,
 ) {
-  public fun toModel(): Observation.Effective? =
+  public fun toModel(): Observation.Effective =
     Observation.Effective?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveDateTime),
@@ -241,7 +241,7 @@ internal data class ObservationEffectiveSurrogate(
         FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveInstant),
         this@ObservationEffectiveSurrogate._effectiveInstant,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Effective): ObservationEffectiveSurrogate =
@@ -277,7 +277,7 @@ internal data class ObservationValueSurrogate(
   public var _valueDateTime: Element? = null,
   public var valuePeriod: Period? = null,
 ) {
-  public fun toModel(): Observation.Value? =
+  public fun toModel(): Observation.Value =
     Observation.Value?.from(
       this@ObservationValueSurrogate.valueQuantity,
       this@ObservationValueSurrogate.valueCodeableConcept,
@@ -302,7 +302,7 @@ internal data class ObservationValueSurrogate(
         this@ObservationValueSurrogate._valueDateTime,
       ),
       this@ObservationValueSurrogate.valuePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Value): ObservationValueSurrogate =

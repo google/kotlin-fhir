@@ -38,7 +38,7 @@ public object ResearchStudyArmSerializer : KSerializer<ResearchStudy.Arm> {
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.Arm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.Arm) {
     surrogateSerializer.serialize(encoder, ResearchStudyArmSurrogate.fromModel(value))
@@ -55,7 +55,7 @@ public object ResearchStudyObjectiveSerializer : KSerializer<ResearchStudy.Objec
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.Objective =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.Objective) {
     surrogateSerializer.serialize(encoder, ResearchStudyObjectiveSurrogate.fromModel(value))
@@ -72,7 +72,7 @@ public object ResearchStudySerializer : KSerializer<ResearchStudy> {
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy) {
     surrogateSerializer.serialize(encoder, ResearchStudySurrogate.fromModel(value))

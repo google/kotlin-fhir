@@ -143,7 +143,7 @@ internal data class NutritionProductCharacteristicValueSurrogate(
         this@NutritionProductCharacteristicValueSurrogate.valueBoolean,
         this@NutritionProductCharacteristicValueSurrogate._valueBoolean,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

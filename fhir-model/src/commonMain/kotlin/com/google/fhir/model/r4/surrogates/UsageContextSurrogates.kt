@@ -47,7 +47,7 @@ internal data class UsageContextValueSurrogate(
       this@UsageContextValueSurrogate.valueQuantity,
       this@UsageContextValueSurrogate.valueRange,
       this@UsageContextValueSurrogate.valueReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: UsageContext.Value): UsageContextValueSurrogate =

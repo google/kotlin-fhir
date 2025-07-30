@@ -36,7 +36,7 @@ public object AttachmentSerializer : KSerializer<Attachment> {
   }
 
   override fun deserialize(decoder: Decoder): Attachment =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Attachment) {
     surrogateSerializer.serialize(encoder, AttachmentSurrogate.fromModel(value))

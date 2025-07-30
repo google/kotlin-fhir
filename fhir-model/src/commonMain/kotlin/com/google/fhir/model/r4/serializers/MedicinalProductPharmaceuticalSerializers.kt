@@ -42,7 +42,7 @@ public object MedicinalProductPharmaceuticalCharacteristicsSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductPharmaceutical.Characteristics =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -72,7 +72,7 @@ public object MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWi
   override fun deserialize(
     decoder: Decoder
   ): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -100,7 +100,7 @@ public object MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSe
   override fun deserialize(
     decoder: Decoder
   ): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -125,7 +125,7 @@ public object MedicinalProductPharmaceuticalRouteOfAdministrationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductPharmaceutical.RouteOfAdministration =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -149,7 +149,7 @@ public object MedicinalProductPharmaceuticalSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductPharmaceutical =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductPharmaceutical) {
     surrogateSerializer.serialize(encoder, MedicinalProductPharmaceuticalSurrogate.fromModel(value))

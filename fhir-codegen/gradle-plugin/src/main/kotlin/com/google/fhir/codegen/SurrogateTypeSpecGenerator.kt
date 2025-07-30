@@ -175,7 +175,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
 
     addFunction(
       FunSpec.builder("toModel")
-        .returns(sealedClassSimpleName.copy(element.min < 1))
+        .returns(sealedClassSimpleName.copy(false))
         .addCode(
           CodeBlock.builder()
             .add("return ")
@@ -191,6 +191,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 }
                 .build()
             )
+            .add("!!")
             .build()
         )
         .build()

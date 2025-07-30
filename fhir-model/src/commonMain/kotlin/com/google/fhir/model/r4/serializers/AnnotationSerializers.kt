@@ -45,7 +45,7 @@ public object AnnotationAuthorSerializer : KSerializer<Annotation.Author> {
   }
 
   override fun deserialize(decoder: Decoder): Annotation.Author =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Annotation.Author) {
     surrogateSerializer.serialize(encoder, AnnotationAuthorSurrogate.fromModel(value))

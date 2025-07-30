@@ -43,7 +43,7 @@ public object ResearchStudyLabelSerializer : KSerializer<ResearchStudy.Label> {
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.Label =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.Label) {
     surrogateSerializer.serialize(encoder, ResearchStudyLabelSurrogate.fromModel(value))
@@ -60,7 +60,7 @@ public object ResearchStudyAssociatedPartySerializer : KSerializer<ResearchStudy
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.AssociatedParty =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.AssociatedParty) {
     surrogateSerializer.serialize(encoder, ResearchStudyAssociatedPartySurrogate.fromModel(value))
@@ -77,7 +77,7 @@ public object ResearchStudyProgressStatusSerializer : KSerializer<ResearchStudy.
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.ProgressStatus =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.ProgressStatus) {
     surrogateSerializer.serialize(encoder, ResearchStudyProgressStatusSurrogate.fromModel(value))
@@ -94,7 +94,7 @@ public object ResearchStudyRecruitmentSerializer : KSerializer<ResearchStudy.Rec
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.Recruitment =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.Recruitment) {
     surrogateSerializer.serialize(encoder, ResearchStudyRecruitmentSurrogate.fromModel(value))
@@ -111,7 +111,7 @@ public object ResearchStudyComparisonGroupSerializer : KSerializer<ResearchStudy
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.ComparisonGroup =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.ComparisonGroup) {
     surrogateSerializer.serialize(encoder, ResearchStudyComparisonGroupSurrogate.fromModel(value))
@@ -128,7 +128,7 @@ public object ResearchStudyObjectiveSerializer : KSerializer<ResearchStudy.Objec
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.Objective =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.Objective) {
     surrogateSerializer.serialize(encoder, ResearchStudyObjectiveSurrogate.fromModel(value))
@@ -145,7 +145,7 @@ public object ResearchStudyOutcomeMeasureSerializer : KSerializer<ResearchStudy.
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy.OutcomeMeasure =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy.OutcomeMeasure) {
     surrogateSerializer.serialize(encoder, ResearchStudyOutcomeMeasureSurrogate.fromModel(value))
@@ -162,7 +162,7 @@ public object ResearchStudySerializer : KSerializer<ResearchStudy> {
   }
 
   override fun deserialize(decoder: Decoder): ResearchStudy =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchStudy) {
     surrogateSerializer.serialize(encoder, ResearchStudySurrogate.fromModel(value))

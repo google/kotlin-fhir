@@ -159,7 +159,7 @@ internal data class TestReportSetupActionAssertRequirementLinkSurrogate(
   public var linkCanonical: KotlinString? = null,
   public var _linkCanonical: Element? = null,
 ) {
-  public fun toModel(): TestReport.Setup.Action.Assert.Requirement.Link? =
+  public fun toModel(): TestReport.Setup.Action.Assert.Requirement.Link =
     TestReport.Setup.Action.Assert.Requirement.Link?.from(
       Uri.of(
         this@TestReportSetupActionAssertRequirementLinkSurrogate.linkUri,
@@ -169,7 +169,7 @@ internal data class TestReportSetupActionAssertRequirementLinkSurrogate(
         this@TestReportSetupActionAssertRequirementLinkSurrogate.linkCanonical,
         this@TestReportSetupActionAssertRequirementLinkSurrogate._linkCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

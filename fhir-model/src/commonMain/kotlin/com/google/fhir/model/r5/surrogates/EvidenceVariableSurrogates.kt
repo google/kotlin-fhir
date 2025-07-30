@@ -86,7 +86,7 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueValueS
         this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueId,
         this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate._valueId,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -220,7 +220,7 @@ internal data class EvidenceVariableCharacteristicTimeFromEventEventSurrogate(
   public var eventId: KotlinString? = null,
   public var _eventId: Element? = null,
 ) {
-  public fun toModel(): EvidenceVariable.Characteristic.TimeFromEvent.Event? =
+  public fun toModel(): EvidenceVariable.Characteristic.TimeFromEvent.Event =
     EvidenceVariable.Characteristic.TimeFromEvent.Event?.from(
       this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventCodeableConcept,
       this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventReference,
@@ -234,7 +234,7 @@ internal data class EvidenceVariableCharacteristicTimeFromEventEventSurrogate(
         this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventId,
         this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate._eventId,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -309,11 +309,11 @@ internal data class EvidenceVariableCharacteristicInstancesSurrogate(
   public var instancesQuantity: Quantity? = null,
   public var instancesRange: Range? = null,
 ) {
-  public fun toModel(): EvidenceVariable.Characteristic.Instances? =
+  public fun toModel(): EvidenceVariable.Characteristic.Instances =
     EvidenceVariable.Characteristic.Instances?.from(
       this@EvidenceVariableCharacteristicInstancesSurrogate.instancesQuantity,
       this@EvidenceVariableCharacteristicInstancesSurrogate.instancesRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -333,11 +333,11 @@ internal data class EvidenceVariableCharacteristicDurationSurrogate(
   public var durationQuantity: Quantity? = null,
   public var durationRange: Range? = null,
 ) {
-  public fun toModel(): EvidenceVariable.Characteristic.Duration? =
+  public fun toModel(): EvidenceVariable.Characteristic.Duration =
     EvidenceVariable.Characteristic.Duration?.from(
       this@EvidenceVariableCharacteristicDurationSurrogate.durationQuantity,
       this@EvidenceVariableCharacteristicDurationSurrogate.durationRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -463,12 +463,12 @@ internal data class EvidenceVariableCategoryValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueRange: Range? = null,
 ) {
-  public fun toModel(): EvidenceVariable.Category.Value? =
+  public fun toModel(): EvidenceVariable.Category.Value =
     EvidenceVariable.Category.Value?.from(
       this@EvidenceVariableCategoryValueSurrogate.valueCodeableConcept,
       this@EvidenceVariableCategoryValueSurrogate.valueQuantity,
       this@EvidenceVariableCategoryValueSurrogate.valueRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -528,14 +528,14 @@ internal data class EvidenceVariableVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): EvidenceVariable.VersionAlgorithm? =
+  public fun toModel(): EvidenceVariable.VersionAlgorithm =
     EvidenceVariable.VersionAlgorithm?.from(
       R5String.of(
         this@EvidenceVariableVersionAlgorithmSurrogate.versionAlgorithmString,
         this@EvidenceVariableVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@EvidenceVariableVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

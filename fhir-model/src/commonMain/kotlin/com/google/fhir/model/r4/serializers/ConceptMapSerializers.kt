@@ -53,7 +53,7 @@ public object ConceptMapGroupElementTargetDependsOnSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target.DependsOn =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element.Target.DependsOn) {
     surrogateSerializer.serialize(
@@ -74,7 +74,7 @@ public object ConceptMapGroupElementTargetSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element.Target) {
     surrogateSerializer.serialize(encoder, ConceptMapGroupElementTargetSurrogate.fromModel(value))
@@ -91,7 +91,7 @@ public object ConceptMapGroupElementSerializer : KSerializer<ConceptMap.Group.El
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Group.Element =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element) {
     surrogateSerializer.serialize(encoder, ConceptMapGroupElementSurrogate.fromModel(value))
@@ -108,7 +108,7 @@ public object ConceptMapGroupUnmappedSerializer : KSerializer<ConceptMap.Group.U
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Group.Unmapped =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Unmapped) {
     surrogateSerializer.serialize(encoder, ConceptMapGroupUnmappedSurrogate.fromModel(value))
@@ -125,7 +125,7 @@ public object ConceptMapGroupSerializer : KSerializer<ConceptMap.Group> {
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Group =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Group) {
     surrogateSerializer.serialize(encoder, ConceptMapGroupSurrogate.fromModel(value))
@@ -142,7 +142,7 @@ public object ConceptMapSourceSerializer : KSerializer<ConceptMap.Source> {
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Source =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Source) {
     surrogateSerializer.serialize(encoder, ConceptMapSourceSurrogate.fromModel(value))
@@ -159,7 +159,7 @@ public object ConceptMapTargetSerializer : KSerializer<ConceptMap.Target> {
   }
 
   override fun deserialize(decoder: Decoder): ConceptMap.Target =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Target) {
     surrogateSerializer.serialize(encoder, ConceptMapTargetSurrogate.fromModel(value))

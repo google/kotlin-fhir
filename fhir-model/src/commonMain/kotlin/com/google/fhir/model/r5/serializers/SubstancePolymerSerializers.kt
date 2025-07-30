@@ -44,7 +44,7 @@ public object SubstancePolymerMonomerSetStartingMaterialSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstancePolymer.MonomerSet.StartingMaterial =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstancePolymer.MonomerSet.StartingMaterial) {
     surrogateSerializer.serialize(
@@ -64,7 +64,7 @@ public object SubstancePolymerMonomerSetSerializer : KSerializer<SubstancePolyme
   }
 
   override fun deserialize(decoder: Decoder): SubstancePolymer.MonomerSet =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstancePolymer.MonomerSet) {
     surrogateSerializer.serialize(encoder, SubstancePolymerMonomerSetSurrogate.fromModel(value))
@@ -85,7 +85,7 @@ public object SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSerializer :
   override fun deserialize(
     decoder: Decoder
   ): SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -112,7 +112,7 @@ public object SubstancePolymerRepeatRepeatUnitStructuralRepresentationSerializer
   override fun deserialize(
     decoder: Decoder
   ): SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -136,7 +136,7 @@ public object SubstancePolymerRepeatRepeatUnitSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubstancePolymer.Repeat.RepeatUnit =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstancePolymer.Repeat.RepeatUnit) {
     surrogateSerializer.serialize(
@@ -156,7 +156,7 @@ public object SubstancePolymerRepeatSerializer : KSerializer<SubstancePolymer.Re
   }
 
   override fun deserialize(decoder: Decoder): SubstancePolymer.Repeat =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstancePolymer.Repeat) {
     surrogateSerializer.serialize(encoder, SubstancePolymerRepeatSurrogate.fromModel(value))
@@ -173,7 +173,7 @@ public object SubstancePolymerSerializer : KSerializer<SubstancePolymer> {
   }
 
   override fun deserialize(decoder: Decoder): SubstancePolymer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubstancePolymer) {
     surrogateSerializer.serialize(encoder, SubstancePolymerSurrogate.fromModel(value))

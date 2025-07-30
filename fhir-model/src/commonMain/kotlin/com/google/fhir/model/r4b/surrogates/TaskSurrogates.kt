@@ -289,7 +289,7 @@ internal data class TaskInputValueSurrogate(
       this@TaskInputValueSurrogate.valueUsageContext,
       this@TaskInputValueSurrogate.valueDosage,
       this@TaskInputValueSurrogate.valueMeta,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Task.Input.Value): TaskInputValueSurrogate =
@@ -560,7 +560,7 @@ internal data class TaskOutputValueSurrogate(
       this@TaskOutputValueSurrogate.valueUsageContext,
       this@TaskOutputValueSurrogate.valueDosage,
       this@TaskOutputValueSurrogate.valueMeta,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Task.Output.Value): TaskOutputValueSurrogate =

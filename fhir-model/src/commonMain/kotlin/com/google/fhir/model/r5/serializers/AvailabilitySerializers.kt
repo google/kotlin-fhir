@@ -38,7 +38,7 @@ public object AvailabilityAvailableTimeSerializer : KSerializer<Availability.Ava
   }
 
   override fun deserialize(decoder: Decoder): Availability.AvailableTime =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Availability.AvailableTime) {
     surrogateSerializer.serialize(encoder, AvailabilityAvailableTimeSurrogate.fromModel(value))
@@ -55,7 +55,7 @@ public object AvailabilityNotAvailableTimeSerializer : KSerializer<Availability.
   }
 
   override fun deserialize(decoder: Decoder): Availability.NotAvailableTime =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Availability.NotAvailableTime) {
     surrogateSerializer.serialize(encoder, AvailabilityNotAvailableTimeSurrogate.fromModel(value))
@@ -72,7 +72,7 @@ public object AvailabilitySerializer : KSerializer<Availability> {
   }
 
   override fun deserialize(decoder: Decoder): Availability =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Availability) {
     surrogateSerializer.serialize(encoder, AvailabilitySurrogate.fromModel(value))

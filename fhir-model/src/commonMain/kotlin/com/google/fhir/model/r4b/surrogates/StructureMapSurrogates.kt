@@ -287,7 +287,7 @@ internal data class StructureMapGroupRuleSourceDefaultValueSurrogate(
   public var defaultValueDosage: Dosage? = null,
   public var defaultValueMeta: Meta? = null,
 ) {
-  public fun toModel(): StructureMap.Group.Rule.Source.DefaultValue? =
+  public fun toModel(): StructureMap.Group.Rule.Source.DefaultValue =
     StructureMap.Group.Rule.Source.DefaultValue?.from(
       Base64Binary.of(
         this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueBase64Binary,
@@ -400,7 +400,7 @@ internal data class StructureMapGroupRuleSourceDefaultValueSurrogate(
       this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueUsageContext,
       this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueDosage,
       this@StructureMapGroupRuleSourceDefaultValueSurrogate.defaultValueMeta,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -640,7 +640,7 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
         this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDecimal,
         this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDecimal,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

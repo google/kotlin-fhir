@@ -47,7 +47,7 @@ public object MessageDefinitionFocusSerializer : KSerializer<MessageDefinition.F
   }
 
   override fun deserialize(decoder: Decoder): MessageDefinition.Focus =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageDefinition.Focus) {
     surrogateSerializer.serialize(encoder, MessageDefinitionFocusSurrogate.fromModel(value))
@@ -65,7 +65,7 @@ public object MessageDefinitionAllowedResponseSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MessageDefinition.AllowedResponse =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageDefinition.AllowedResponse) {
     surrogateSerializer.serialize(
@@ -85,7 +85,7 @@ public object MessageDefinitionEventSerializer : KSerializer<MessageDefinition.E
   }
 
   override fun deserialize(decoder: Decoder): MessageDefinition.Event =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MessageDefinition.Event) {
     surrogateSerializer.serialize(encoder, MessageDefinitionEventSurrogate.fromModel(value))

@@ -49,7 +49,7 @@ public object TransportRestrictionSerializer : KSerializer<Transport.Restriction
   }
 
   override fun deserialize(decoder: Decoder): Transport.Restriction =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Transport.Restriction) {
     surrogateSerializer.serialize(encoder, TransportRestrictionSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object TransportInputValueSerializer : KSerializer<Transport.Input.Value>
   }
 
   override fun deserialize(decoder: Decoder): Transport.Input.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Transport.Input.Value) {
     surrogateSerializer.serialize(encoder, TransportInputValueSurrogate.fromModel(value))
@@ -130,7 +130,7 @@ public object TransportOutputValueSerializer : KSerializer<Transport.Output.Valu
   }
 
   override fun deserialize(decoder: Decoder): Transport.Output.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Transport.Output.Value) {
     surrogateSerializer.serialize(encoder, TransportOutputValueSurrogate.fromModel(value))
@@ -194,7 +194,7 @@ public object TransportSerializer : KSerializer<Transport> {
   }
 
   override fun deserialize(decoder: Decoder): Transport =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Transport) {
     surrogateSerializer.serialize(encoder, TransportSurrogate.fromModel(value))

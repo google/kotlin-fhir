@@ -38,7 +38,7 @@ public object MedicinalProductUndesirableEffectSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductUndesirableEffect =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductUndesirableEffect) {
     surrogateSerializer.serialize(

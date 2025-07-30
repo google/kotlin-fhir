@@ -293,14 +293,14 @@ internal data class GraphDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): GraphDefinition.VersionAlgorithm? =
+  public fun toModel(): GraphDefinition.VersionAlgorithm =
     GraphDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@GraphDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

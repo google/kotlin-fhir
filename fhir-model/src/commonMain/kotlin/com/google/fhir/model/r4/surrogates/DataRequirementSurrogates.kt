@@ -101,7 +101,7 @@ internal data class DataRequirementDateFilterValueSurrogate(
   public var valuePeriod: Period? = null,
   public var valueDuration: Duration? = null,
 ) {
-  public fun toModel(): DataRequirement.DateFilter.Value? =
+  public fun toModel(): DataRequirement.DateFilter.Value =
     DataRequirement.DateFilter.Value?.from(
       DateTime.of(
         FhirDateTime.fromString(this@DataRequirementDateFilterValueSurrogate.valueDateTime),
@@ -109,7 +109,7 @@ internal data class DataRequirementDateFilterValueSurrogate(
       ),
       this@DataRequirementDateFilterValueSurrogate.valuePeriod,
       this@DataRequirementDateFilterValueSurrogate.valueDuration,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -216,11 +216,11 @@ internal data class DataRequirementSubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): DataRequirement.Subject? =
+  public fun toModel(): DataRequirement.Subject =
     DataRequirement.Subject?.from(
       this@DataRequirementSubjectSurrogate.subjectCodeableConcept,
       this@DataRequirementSubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: DataRequirement.Subject): DataRequirementSubjectSurrogate =

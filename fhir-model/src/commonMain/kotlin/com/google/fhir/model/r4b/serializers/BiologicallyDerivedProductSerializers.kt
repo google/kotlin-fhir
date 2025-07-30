@@ -53,7 +53,7 @@ public object BiologicallyDerivedProductCollectionCollectedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Collection.Collected =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -127,7 +127,7 @@ public object BiologicallyDerivedProductProcessingTimeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Processing.Time =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Processing.Time) {
     surrogateSerializer.serialize(
@@ -198,7 +198,7 @@ public object BiologicallyDerivedProductManipulationTimeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Manipulation.Time =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Manipulation.Time) {
     surrogateSerializer.serialize(
@@ -269,7 +269,7 @@ public object BiologicallyDerivedProductStorageSerializer :
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Storage =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Storage) {
     surrogateSerializer.serialize(
@@ -289,7 +289,7 @@ public object BiologicallyDerivedProductSerializer : KSerializer<BiologicallyDer
   }
 
   override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct) {
     surrogateSerializer.serialize(encoder, BiologicallyDerivedProductSurrogate.fromModel(value))

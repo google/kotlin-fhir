@@ -159,11 +159,11 @@ internal data class CoverageCostToBeneficiaryValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueMoney: Money? = null,
 ) {
-  public fun toModel(): Coverage.CostToBeneficiary.Value? =
+  public fun toModel(): Coverage.CostToBeneficiary.Value =
     Coverage.CostToBeneficiary.Value?.from(
       this@CoverageCostToBeneficiaryValueSurrogate.valueQuantity,
       this@CoverageCostToBeneficiaryValueSurrogate.valueMoney,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

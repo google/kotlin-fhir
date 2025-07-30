@@ -52,7 +52,7 @@ public object ImmunizationRecommendationRecommendationDateCriterionSerializer :
   override fun deserialize(
     decoder: Decoder
   ): ImmunizationRecommendation.Recommendation.DateCriterion =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -77,7 +77,7 @@ public object ImmunizationRecommendationRecommendationDoseNumberSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImmunizationRecommendation.Recommendation.DoseNumber =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -104,7 +104,7 @@ public object ImmunizationRecommendationRecommendationSeriesDosesSerializer :
   override fun deserialize(
     decoder: Decoder
   ): ImmunizationRecommendation.Recommendation.SeriesDoses =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -176,7 +176,7 @@ public object ImmunizationRecommendationSerializer : KSerializer<ImmunizationRec
   }
 
   override fun deserialize(decoder: Decoder): ImmunizationRecommendation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImmunizationRecommendation) {
     surrogateSerializer.serialize(encoder, ImmunizationRecommendationSurrogate.fromModel(value))

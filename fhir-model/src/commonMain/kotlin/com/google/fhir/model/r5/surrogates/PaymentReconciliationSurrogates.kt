@@ -56,7 +56,7 @@ internal data class PaymentReconciliationAllocationTargetItemSurrogate(
   public var targetItemPositiveInt: Int? = null,
   public var _targetItemPositiveInt: Element? = null,
 ) {
-  public fun toModel(): PaymentReconciliation.Allocation.TargetItem? =
+  public fun toModel(): PaymentReconciliation.Allocation.TargetItem =
     PaymentReconciliation.Allocation.TargetItem?.from(
       R5String.of(
         this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemString,
@@ -67,7 +67,7 @@ internal data class PaymentReconciliationAllocationTargetItemSurrogate(
         this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemPositiveInt,
         this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemPositiveInt,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

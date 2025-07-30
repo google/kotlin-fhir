@@ -79,7 +79,7 @@ internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionDataRequirement,
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionTriggerDefinition,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -107,7 +107,7 @@ internal data class EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
   public var participantEffectiveDuration: Duration? = null,
   public var participantEffectiveTiming: Timing? = null,
 ) {
-  public fun toModel(): EvidenceVariable.Characteristic.ParticipantEffective? =
+  public fun toModel(): EvidenceVariable.Characteristic.ParticipantEffective =
     EvidenceVariable.Characteristic.ParticipantEffective?.from(
       DateTime.of(
         FhirDateTime.fromString(
@@ -120,7 +120,7 @@ internal data class EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
       this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectivePeriod,
       this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveDuration,
       this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

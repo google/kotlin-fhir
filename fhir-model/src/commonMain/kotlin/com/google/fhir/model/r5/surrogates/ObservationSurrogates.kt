@@ -181,7 +181,7 @@ internal data class ObservationComponentValueSurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): Observation.Component.Value? =
+  public fun toModel(): Observation.Component.Value =
     Observation.Component.Value?.from(
       this@ObservationComponentValueSurrogate.valueQuantity,
       this@ObservationComponentValueSurrogate.valueCodeableConcept,
@@ -211,7 +211,7 @@ internal data class ObservationComponentValueSurrogate(
       this@ObservationComponentValueSurrogate.valuePeriod,
       this@ObservationComponentValueSurrogate.valueAttachment,
       this@ObservationComponentValueSurrogate.valueReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Component.Value): ObservationComponentValueSurrogate =
@@ -286,14 +286,14 @@ internal data class ObservationInstantiatesSurrogate(
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesReference: Reference? = null,
 ) {
-  public fun toModel(): Observation.Instantiates? =
+  public fun toModel(): Observation.Instantiates =
     Observation.Instantiates?.from(
       Canonical.of(
         this@ObservationInstantiatesSurrogate.instantiatesCanonical,
         this@ObservationInstantiatesSurrogate._instantiatesCanonical,
       ),
       this@ObservationInstantiatesSurrogate.instantiatesReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Instantiates): ObservationInstantiatesSurrogate =
@@ -316,7 +316,7 @@ internal data class ObservationEffectiveSurrogate(
   public var effectiveInstant: KotlinString? = null,
   public var _effectiveInstant: Element? = null,
 ) {
-  public fun toModel(): Observation.Effective? =
+  public fun toModel(): Observation.Effective =
     Observation.Effective?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveDateTime),
@@ -328,7 +328,7 @@ internal data class ObservationEffectiveSurrogate(
         FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveInstant),
         this@ObservationEffectiveSurrogate._effectiveInstant,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Effective): ObservationEffectiveSurrogate =
@@ -366,7 +366,7 @@ internal data class ObservationValueSurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): Observation.Value? =
+  public fun toModel(): Observation.Value =
     Observation.Value?.from(
       this@ObservationValueSurrogate.valueQuantity,
       this@ObservationValueSurrogate.valueCodeableConcept,
@@ -393,7 +393,7 @@ internal data class ObservationValueSurrogate(
       this@ObservationValueSurrogate.valuePeriod,
       this@ObservationValueSurrogate.valueAttachment,
       this@ObservationValueSurrogate.valueReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Observation.Value): ObservationValueSurrogate =

@@ -62,7 +62,7 @@ internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): ManufacturedItemDefinition.Property.Value? =
+  public fun toModel(): ManufacturedItemDefinition.Property.Value =
     ManufacturedItemDefinition.Property.Value?.from(
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
@@ -80,7 +80,7 @@ internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
       ),
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
       this@ManufacturedItemDefinitionPropertyValueSurrogate.valueReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

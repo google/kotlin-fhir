@@ -89,14 +89,14 @@ internal data class ClinicalImpressionEffectiveSurrogate(
   public var _effectiveDateTime: Element? = null,
   public var effectivePeriod: Period? = null,
 ) {
-  public fun toModel(): ClinicalImpression.Effective? =
+  public fun toModel(): ClinicalImpression.Effective =
     ClinicalImpression.Effective?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ClinicalImpressionEffectiveSurrogate.effectiveDateTime),
         this@ClinicalImpressionEffectiveSurrogate._effectiveDateTime,
       ),
       this@ClinicalImpressionEffectiveSurrogate.effectivePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

@@ -56,14 +56,14 @@ internal data class SubstanceDefinitionMoietyAmountSurrogate(
   public var amountString: KotlinString? = null,
   public var _amountString: Element? = null,
 ) {
-  public fun toModel(): SubstanceDefinition.Moiety.Amount? =
+  public fun toModel(): SubstanceDefinition.Moiety.Amount =
     SubstanceDefinition.Moiety.Amount?.from(
       this@SubstanceDefinitionMoietyAmountSurrogate.amountQuantity,
       R4bString.of(
         this@SubstanceDefinitionMoietyAmountSurrogate.amountString,
         this@SubstanceDefinitionMoietyAmountSurrogate._amountString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -151,7 +151,7 @@ internal data class SubstanceDefinitionPropertyValueSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
 ) {
-  public fun toModel(): SubstanceDefinition.Property.Value? =
+  public fun toModel(): SubstanceDefinition.Property.Value =
     SubstanceDefinition.Property.Value?.from(
       this@SubstanceDefinitionPropertyValueSurrogate.valueCodeableConcept,
       this@SubstanceDefinitionPropertyValueSurrogate.valueQuantity,
@@ -164,7 +164,7 @@ internal data class SubstanceDefinitionPropertyValueSurrogate(
         this@SubstanceDefinitionPropertyValueSurrogate._valueBoolean,
       ),
       this@SubstanceDefinitionPropertyValueSurrogate.valueAttachment,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -533,12 +533,12 @@ internal data class SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate(
   public var substanceDefinitionReference: Reference? = null,
   public var substanceDefinitionCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): SubstanceDefinition.Relationship.SubstanceDefinition? =
+  public fun toModel(): SubstanceDefinition.Relationship.SubstanceDefinition =
     SubstanceDefinition.Relationship.SubstanceDefinition?.from(
       this@SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate.substanceDefinitionReference,
       this@SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate
         .substanceDefinitionCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -560,7 +560,7 @@ internal data class SubstanceDefinitionRelationshipAmountSurrogate(
   public var amountString: KotlinString? = null,
   public var _amountString: Element? = null,
 ) {
-  public fun toModel(): SubstanceDefinition.Relationship.Amount? =
+  public fun toModel(): SubstanceDefinition.Relationship.Amount =
     SubstanceDefinition.Relationship.Amount?.from(
       this@SubstanceDefinitionRelationshipAmountSurrogate.amountQuantity,
       this@SubstanceDefinitionRelationshipAmountSurrogate.amountRatio,
@@ -568,7 +568,7 @@ internal data class SubstanceDefinitionRelationshipAmountSurrogate(
         this@SubstanceDefinitionRelationshipAmountSurrogate.amountString,
         this@SubstanceDefinitionRelationshipAmountSurrogate._amountString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

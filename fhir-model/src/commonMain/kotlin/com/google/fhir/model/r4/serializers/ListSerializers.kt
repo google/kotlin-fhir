@@ -37,7 +37,7 @@ public object ListEntrySerializer : KSerializer<List.Entry> {
   }
 
   override fun deserialize(decoder: Decoder): List.Entry =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: List.Entry) {
     surrogateSerializer.serialize(encoder, ListEntrySurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object ListSerializer : KSerializer<List> {
   }
 
   override fun deserialize(decoder: Decoder): List =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: List) {
     surrogateSerializer.serialize(encoder, ListSurrogate.fromModel(value))

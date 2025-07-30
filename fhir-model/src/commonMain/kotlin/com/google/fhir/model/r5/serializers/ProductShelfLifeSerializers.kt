@@ -45,7 +45,7 @@ public object ProductShelfLifePeriodSerializer : KSerializer<ProductShelfLife.Pe
   }
 
   override fun deserialize(decoder: Decoder): ProductShelfLife.Period =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ProductShelfLife.Period) {
     surrogateSerializer.serialize(encoder, ProductShelfLifePeriodSurrogate.fromModel(value))

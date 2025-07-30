@@ -223,14 +223,14 @@ internal data class RequirementsVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): Requirements.VersionAlgorithm? =
+  public fun toModel(): Requirements.VersionAlgorithm =
     Requirements.VersionAlgorithm?.from(
       R5String.of(
         this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmString,
         this@RequirementsVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

@@ -69,7 +69,7 @@ internal data class ClaimResponseEventWhenSurrogate(
         this@ClaimResponseEventWhenSurrogate._whenDateTime,
       ),
       this@ClaimResponseEventWhenSurrogate.whenPeriod,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: ClaimResponse.Event.When): ClaimResponseEventWhenSurrogate =
@@ -671,14 +671,14 @@ internal data class ClaimResponseAddItemServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): ClaimResponse.AddItem.Serviced? =
+  public fun toModel(): ClaimResponse.AddItem.Serviced =
     ClaimResponse.AddItem.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@ClaimResponseAddItemServicedSurrogate.servicedDate),
         this@ClaimResponseAddItemServicedSurrogate._servicedDate,
       ),
       this@ClaimResponseAddItemServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -700,12 +700,12 @@ internal data class ClaimResponseAddItemLocationSurrogate(
   public var locationAddress: Address? = null,
   public var locationReference: Reference? = null,
 ) {
-  public fun toModel(): ClaimResponse.AddItem.Location? =
+  public fun toModel(): ClaimResponse.AddItem.Location =
     ClaimResponse.AddItem.Location?.from(
       this@ClaimResponseAddItemLocationSurrogate.locationCodeableConcept,
       this@ClaimResponseAddItemLocationSurrogate.locationAddress,
       this@ClaimResponseAddItemLocationSurrogate.locationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

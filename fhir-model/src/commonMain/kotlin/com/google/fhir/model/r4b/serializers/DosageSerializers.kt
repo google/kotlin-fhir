@@ -48,7 +48,7 @@ public object DosageDoseAndRateDoseSerializer : KSerializer<Dosage.DoseAndRate.D
   }
 
   override fun deserialize(decoder: Decoder): Dosage.DoseAndRate.Dose =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Dosage.DoseAndRate.Dose) {
     surrogateSerializer.serialize(encoder, DosageDoseAndRateDoseSurrogate.fromModel(value))
@@ -65,7 +65,7 @@ public object DosageDoseAndRateRateSerializer : KSerializer<Dosage.DoseAndRate.R
   }
 
   override fun deserialize(decoder: Decoder): Dosage.DoseAndRate.Rate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Dosage.DoseAndRate.Rate) {
     surrogateSerializer.serialize(encoder, DosageDoseAndRateRateSurrogate.fromModel(value))
@@ -129,7 +129,7 @@ public object DosageAsNeededSerializer : KSerializer<Dosage.AsNeeded> {
   }
 
   override fun deserialize(decoder: Decoder): Dosage.AsNeeded =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Dosage.AsNeeded) {
     surrogateSerializer.serialize(encoder, DosageAsNeededSurrogate.fromModel(value))

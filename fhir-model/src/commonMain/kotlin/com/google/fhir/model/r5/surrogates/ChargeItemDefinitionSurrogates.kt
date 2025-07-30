@@ -134,14 +134,14 @@ internal data class ChargeItemDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ChargeItemDefinition.VersionAlgorithm? =
+  public fun toModel(): ChargeItemDefinition.VersionAlgorithm =
     ChargeItemDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ChargeItemDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

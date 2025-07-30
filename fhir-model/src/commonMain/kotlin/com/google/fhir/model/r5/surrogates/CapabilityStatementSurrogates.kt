@@ -1004,14 +1004,14 @@ internal data class CapabilityStatementVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): CapabilityStatement.VersionAlgorithm? =
+  public fun toModel(): CapabilityStatement.VersionAlgorithm =
     CapabilityStatement.VersionAlgorithm?.from(
       R5String.of(
         this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmString,
         this@CapabilityStatementVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

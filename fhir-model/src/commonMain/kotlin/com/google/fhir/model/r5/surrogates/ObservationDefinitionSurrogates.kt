@@ -249,14 +249,14 @@ internal data class ObservationDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ObservationDefinition.VersionAlgorithm? =
+  public fun toModel(): ObservationDefinition.VersionAlgorithm =
     ObservationDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ObservationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ObservationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

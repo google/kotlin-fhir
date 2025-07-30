@@ -50,7 +50,7 @@ public object MedicationRequestDispenseRequestInitialFillSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.DispenseRequest.InitialFill =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.DispenseRequest.InitialFill) {
     surrogateSerializer.serialize(
@@ -71,7 +71,7 @@ public object MedicationRequestDispenseRequestSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.DispenseRequest =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.DispenseRequest) {
     surrogateSerializer.serialize(
@@ -93,7 +93,7 @@ public object MedicationRequestSubstitutionAllowedSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest.Substitution.Allowed =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest.Substitution.Allowed) {
     surrogateSerializer.serialize(
@@ -161,7 +161,7 @@ public object MedicationRequestSerializer : KSerializer<MedicationRequest> {
   }
 
   override fun deserialize(decoder: Decoder): MedicationRequest =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationRequest) {
     surrogateSerializer.serialize(encoder, MedicationRequestSurrogate.fromModel(value))

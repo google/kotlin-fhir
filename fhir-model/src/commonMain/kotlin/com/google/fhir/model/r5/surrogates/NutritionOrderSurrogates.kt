@@ -404,11 +404,11 @@ internal data class NutritionOrderEnteralFormulaAdministrationRateSurrogate(
   public var rateQuantity: Quantity? = null,
   public var rateRatio: Ratio? = null,
 ) {
-  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate? =
+  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate =
     NutritionOrder.EnteralFormula.Administration.Rate?.from(
       this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
       this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

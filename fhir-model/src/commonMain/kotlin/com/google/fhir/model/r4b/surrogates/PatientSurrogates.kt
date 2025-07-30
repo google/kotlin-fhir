@@ -187,7 +187,7 @@ internal data class PatientDeceasedSurrogate(
   public var deceasedDateTime: String? = null,
   public var _deceasedDateTime: Element? = null,
 ) {
-  public fun toModel(): Patient.Deceased? =
+  public fun toModel(): Patient.Deceased =
     Patient.Deceased?.from(
       R4bBoolean.of(
         this@PatientDeceasedSurrogate.deceasedBoolean,
@@ -197,7 +197,7 @@ internal data class PatientDeceasedSurrogate(
         FhirDateTime.fromString(this@PatientDeceasedSurrogate.deceasedDateTime),
         this@PatientDeceasedSurrogate._deceasedDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Patient.Deceased): PatientDeceasedSurrogate =
@@ -219,7 +219,7 @@ internal data class PatientMultipleBirthSurrogate(
   public var multipleBirthInteger: Int? = null,
   public var _multipleBirthInteger: Element? = null,
 ) {
-  public fun toModel(): Patient.MultipleBirth? =
+  public fun toModel(): Patient.MultipleBirth =
     Patient.MultipleBirth?.from(
       R4bBoolean.of(
         this@PatientMultipleBirthSurrogate.multipleBirthBoolean,
@@ -229,7 +229,7 @@ internal data class PatientMultipleBirthSurrogate(
         this@PatientMultipleBirthSurrogate.multipleBirthInteger,
         this@PatientMultipleBirthSurrogate._multipleBirthInteger,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Patient.MultipleBirth): PatientMultipleBirthSurrogate =

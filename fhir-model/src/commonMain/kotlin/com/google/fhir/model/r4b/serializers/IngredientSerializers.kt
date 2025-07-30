@@ -51,7 +51,7 @@ public object IngredientManufacturerSerializer : KSerializer<Ingredient.Manufact
   }
 
   override fun deserialize(decoder: Decoder): Ingredient.Manufacturer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Ingredient.Manufacturer) {
     surrogateSerializer.serialize(encoder, IngredientManufacturerSurrogate.fromModel(value))
@@ -72,7 +72,7 @@ public object IngredientSubstanceStrengthReferenceStrengthStrengthSerializer :
   override fun deserialize(
     decoder: Decoder
   ): Ingredient.Substance.Strength.ReferenceStrength.Strength =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -149,7 +149,7 @@ public object IngredientSubstanceStrengthPresentationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Ingredient.Substance.Strength.Presentation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Ingredient.Substance.Strength.Presentation) {
     surrogateSerializer.serialize(
@@ -171,7 +171,7 @@ public object IngredientSubstanceStrengthConcentrationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Ingredient.Substance.Strength.Concentration =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Ingredient.Substance.Strength.Concentration) {
     surrogateSerializer.serialize(
@@ -238,7 +238,7 @@ public object IngredientSubstanceSerializer : KSerializer<Ingredient.Substance> 
   }
 
   override fun deserialize(decoder: Decoder): Ingredient.Substance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Ingredient.Substance) {
     surrogateSerializer.serialize(encoder, IngredientSubstanceSurrogate.fromModel(value))
@@ -255,7 +255,7 @@ public object IngredientSerializer : KSerializer<Ingredient> {
   }
 
   override fun deserialize(decoder: Decoder): Ingredient =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Ingredient) {
     surrogateSerializer.serialize(encoder, IngredientSurrogate.fromModel(value))

@@ -46,7 +46,7 @@ public object DeviceUsageAdherenceSerializer : KSerializer<DeviceUsage.Adherence
   }
 
   override fun deserialize(decoder: Decoder): DeviceUsage.Adherence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DeviceUsage.Adherence) {
     surrogateSerializer.serialize(encoder, DeviceUsageAdherenceSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object DeviceUsageTimingSerializer : KSerializer<DeviceUsage.Timing> {
   }
 
   override fun deserialize(decoder: Decoder): DeviceUsage.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DeviceUsage.Timing) {
     surrogateSerializer.serialize(encoder, DeviceUsageTimingSurrogate.fromModel(value))

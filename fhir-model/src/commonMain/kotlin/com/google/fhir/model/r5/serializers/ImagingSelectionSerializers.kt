@@ -40,7 +40,7 @@ public object ImagingSelectionPerformerSerializer : KSerializer<ImagingSelection
   }
 
   override fun deserialize(decoder: Decoder): ImagingSelection.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImagingSelection.Performer) {
     surrogateSerializer.serialize(encoder, ImagingSelectionPerformerSurrogate.fromModel(value))
@@ -59,7 +59,7 @@ public object ImagingSelectionInstanceImageRegion2DSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImagingSelection.Instance.ImageRegion2D =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImagingSelection.Instance.ImageRegion2D) {
     surrogateSerializer.serialize(
@@ -81,7 +81,7 @@ public object ImagingSelectionInstanceImageRegion3DSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ImagingSelection.Instance.ImageRegion3D =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImagingSelection.Instance.ImageRegion3D) {
     surrogateSerializer.serialize(
@@ -101,7 +101,7 @@ public object ImagingSelectionInstanceSerializer : KSerializer<ImagingSelection.
   }
 
   override fun deserialize(decoder: Decoder): ImagingSelection.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImagingSelection.Instance) {
     surrogateSerializer.serialize(encoder, ImagingSelectionInstanceSurrogate.fromModel(value))
@@ -118,7 +118,7 @@ public object ImagingSelectionSerializer : KSerializer<ImagingSelection> {
   }
 
   override fun deserialize(decoder: Decoder): ImagingSelection =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ImagingSelection) {
     surrogateSerializer.serialize(encoder, ImagingSelectionSurrogate.fromModel(value))

@@ -165,14 +165,14 @@ internal data class MessageDefinitionVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): MessageDefinition.VersionAlgorithm? =
+  public fun toModel(): MessageDefinition.VersionAlgorithm =
     MessageDefinition.VersionAlgorithm?.from(
       R5String.of(
         this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@MessageDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -201,7 +201,7 @@ internal data class MessageDefinitionEventSurrogate(
         this@MessageDefinitionEventSurrogate.eventUri,
         this@MessageDefinitionEventSurrogate._eventUri,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =

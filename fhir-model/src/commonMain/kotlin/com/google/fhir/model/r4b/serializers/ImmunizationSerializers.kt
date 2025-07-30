@@ -51,7 +51,7 @@ public object ImmunizationPerformerSerializer : KSerializer<Immunization.Perform
   }
 
   override fun deserialize(decoder: Decoder): Immunization.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Immunization.Performer) {
     surrogateSerializer.serialize(encoder, ImmunizationPerformerSurrogate.fromModel(value))
@@ -68,7 +68,7 @@ public object ImmunizationEducationSerializer : KSerializer<Immunization.Educati
   }
 
   override fun deserialize(decoder: Decoder): Immunization.Education =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Immunization.Education) {
     surrogateSerializer.serialize(encoder, ImmunizationEducationSurrogate.fromModel(value))
@@ -85,7 +85,7 @@ public object ImmunizationReactionSerializer : KSerializer<Immunization.Reaction
   }
 
   override fun deserialize(decoder: Decoder): Immunization.Reaction =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Immunization.Reaction) {
     surrogateSerializer.serialize(encoder, ImmunizationReactionSurrogate.fromModel(value))
@@ -104,7 +104,7 @@ public object ImmunizationProtocolAppliedDoseNumberSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.DoseNumber =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.DoseNumber) {
     surrogateSerializer.serialize(
@@ -126,7 +126,7 @@ public object ImmunizationProtocolAppliedSeriesDosesSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.SeriesDoses =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.SeriesDoses) {
     surrogateSerializer.serialize(
@@ -193,7 +193,7 @@ public object ImmunizationOccurrenceSerializer : KSerializer<Immunization.Occurr
   }
 
   override fun deserialize(decoder: Decoder): Immunization.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Immunization.Occurrence) {
     surrogateSerializer.serialize(encoder, ImmunizationOccurrenceSurrogate.fromModel(value))

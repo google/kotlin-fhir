@@ -155,14 +155,14 @@ internal data class ArtifactAssessmentCiteAsSurrogate(
   public var citeAsMarkdown: KotlinString? = null,
   public var _citeAsMarkdown: Element? = null,
 ) {
-  public fun toModel(): ArtifactAssessment.CiteAs? =
+  public fun toModel(): ArtifactAssessment.CiteAs =
     ArtifactAssessment.CiteAs?.from(
       this@ArtifactAssessmentCiteAsSurrogate.citeAsReference,
       Markdown.of(
         this@ArtifactAssessmentCiteAsSurrogate.citeAsMarkdown,
         this@ArtifactAssessmentCiteAsSurrogate._citeAsMarkdown,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ArtifactAssessment.CiteAs): ArtifactAssessmentCiteAsSurrogate =
@@ -195,7 +195,7 @@ internal data class ArtifactAssessmentArtifactSurrogate(
         this@ArtifactAssessmentArtifactSurrogate.artifactUri,
         this@ArtifactAssessmentArtifactSurrogate._artifactUri,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: ArtifactAssessment.Artifact): ArtifactAssessmentArtifactSurrogate =

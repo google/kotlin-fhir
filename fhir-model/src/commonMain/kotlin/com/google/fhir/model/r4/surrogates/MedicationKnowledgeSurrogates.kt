@@ -128,7 +128,7 @@ internal data class MedicationKnowledgeIngredientItemSurrogate(
     MedicationKnowledge.Ingredient.Item.from(
       this@MedicationKnowledgeIngredientItemSurrogate.itemCodeableConcept,
       this@MedicationKnowledgeIngredientItemSurrogate.itemReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -317,7 +317,7 @@ internal data class MedicationKnowledgeAdministrationGuidelinesPatientCharacteri
         .characteristicCodeableConcept,
       this@MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSurrogate
         .characteristicQuantity,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -414,11 +414,11 @@ internal data class MedicationKnowledgeAdministrationGuidelinesIndicationSurroga
   public var indicationCodeableConcept: CodeableConcept? = null,
   public var indicationReference: Reference? = null,
 ) {
-  public fun toModel(): MedicationKnowledge.AdministrationGuidelines.Indication? =
+  public fun toModel(): MedicationKnowledge.AdministrationGuidelines.Indication =
     MedicationKnowledge.AdministrationGuidelines.Indication?.from(
       this@MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate.indicationCodeableConcept,
       this@MedicationKnowledgeAdministrationGuidelinesIndicationSurrogate.indicationReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -557,7 +557,7 @@ internal data class MedicationKnowledgeDrugCharacteristicValueSurrogate(
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
 ) {
-  public fun toModel(): MedicationKnowledge.DrugCharacteristic.Value? =
+  public fun toModel(): MedicationKnowledge.DrugCharacteristic.Value =
     MedicationKnowledge.DrugCharacteristic.Value?.from(
       this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueCodeableConcept,
       R4String.of(
@@ -569,7 +569,7 @@ internal data class MedicationKnowledgeDrugCharacteristicValueSurrogate(
         this@MedicationKnowledgeDrugCharacteristicValueSurrogate.valueBase64Binary,
         this@MedicationKnowledgeDrugCharacteristicValueSurrogate._valueBase64Binary,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

@@ -36,7 +36,7 @@ public object QuantitySerializer : KSerializer<Quantity> {
   }
 
   override fun deserialize(decoder: Decoder): Quantity =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Quantity) {
     surrogateSerializer.serialize(encoder, QuantitySurrogate.fromModel(value))

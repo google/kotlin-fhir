@@ -58,7 +58,7 @@ internal data class CommunicationRequestPayloadContentSurrogate(
       this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
       this@CommunicationRequestPayloadContentSurrogate.contentReference,
       this@CommunicationRequestPayloadContentSurrogate.contentCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -111,14 +111,14 @@ internal data class CommunicationRequestOccurrenceSurrogate(
   public var _occurrenceDateTime: Element? = null,
   public var occurrencePeriod: Period? = null,
 ) {
-  public fun toModel(): CommunicationRequest.Occurrence? =
+  public fun toModel(): CommunicationRequest.Occurrence =
     CommunicationRequest.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@CommunicationRequestOccurrenceSurrogate.occurrenceDateTime),
         this@CommunicationRequestOccurrenceSurrogate._occurrenceDateTime,
       ),
       this@CommunicationRequestOccurrenceSurrogate.occurrencePeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

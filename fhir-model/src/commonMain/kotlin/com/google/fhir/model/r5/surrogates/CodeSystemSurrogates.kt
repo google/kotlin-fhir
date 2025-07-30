@@ -287,7 +287,7 @@ internal data class CodeSystemConceptPropertyValueSurrogate(
         this@CodeSystemConceptPropertyValueSurrogate.valueDecimal,
         this@CodeSystemConceptPropertyValueSurrogate._valueDecimal,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -414,14 +414,14 @@ internal data class CodeSystemVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): CodeSystem.VersionAlgorithm? =
+  public fun toModel(): CodeSystem.VersionAlgorithm =
     CodeSystem.VersionAlgorithm?.from(
       R5String.of(
         this@CodeSystemVersionAlgorithmSurrogate.versionAlgorithmString,
         this@CodeSystemVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@CodeSystemVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: CodeSystem.VersionAlgorithm): CodeSystemVersionAlgorithmSurrogate =

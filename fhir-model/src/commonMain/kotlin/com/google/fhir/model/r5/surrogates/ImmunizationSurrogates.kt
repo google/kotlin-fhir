@@ -238,7 +238,7 @@ internal data class ImmunizationOccurrenceSurrogate(
         this@ImmunizationOccurrenceSurrogate.occurrenceString,
         this@ImmunizationOccurrenceSurrogate._occurrenceString,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =

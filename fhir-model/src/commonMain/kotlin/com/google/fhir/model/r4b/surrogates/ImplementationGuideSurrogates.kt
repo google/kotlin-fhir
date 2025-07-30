@@ -203,7 +203,7 @@ internal data class ImplementationGuideDefinitionResourceExampleSurrogate(
   public var exampleCanonical: KotlinString? = null,
   public var _exampleCanonical: Element? = null,
 ) {
-  public fun toModel(): ImplementationGuide.Definition.Resource.Example? =
+  public fun toModel(): ImplementationGuide.Definition.Resource.Example =
     ImplementationGuide.Definition.Resource.Example?.from(
       R4bBoolean.of(
         this@ImplementationGuideDefinitionResourceExampleSurrogate.exampleBoolean,
@@ -213,7 +213,7 @@ internal data class ImplementationGuideDefinitionResourceExampleSurrogate(
         this@ImplementationGuideDefinitionResourceExampleSurrogate.exampleCanonical,
         this@ImplementationGuideDefinitionResourceExampleSurrogate._exampleCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -342,7 +342,7 @@ internal data class ImplementationGuideDefinitionPageNameSurrogate(
         this@ImplementationGuideDefinitionPageNameSurrogate._nameUrl,
       ),
       this@ImplementationGuideDefinitionPageNameSurrogate.nameReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -565,7 +565,7 @@ internal data class ImplementationGuideManifestResourceExampleSurrogate(
   public var exampleCanonical: KotlinString? = null,
   public var _exampleCanonical: Element? = null,
 ) {
-  public fun toModel(): ImplementationGuide.Manifest.Resource.Example? =
+  public fun toModel(): ImplementationGuide.Manifest.Resource.Example =
     ImplementationGuide.Manifest.Resource.Example?.from(
       R4bBoolean.of(
         this@ImplementationGuideManifestResourceExampleSurrogate.exampleBoolean,
@@ -575,7 +575,7 @@ internal data class ImplementationGuideManifestResourceExampleSurrogate(
         this@ImplementationGuideManifestResourceExampleSurrogate.exampleCanonical,
         this@ImplementationGuideManifestResourceExampleSurrogate._exampleCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

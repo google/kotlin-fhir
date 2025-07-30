@@ -323,7 +323,7 @@ internal data class TransportInputValueSurrogate(
       this@TransportInputValueSurrogate.valueExtendedContactDetail,
       this@TransportInputValueSurrogate.valueDosage,
       this@TransportInputValueSurrogate.valueMeta,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Transport.Input.Value): TransportInputValueSurrogate =
@@ -632,7 +632,7 @@ internal data class TransportOutputValueSurrogate(
       this@TransportOutputValueSurrogate.valueExtendedContactDetail,
       this@TransportOutputValueSurrogate.valueDosage,
       this@TransportOutputValueSurrogate.valueMeta,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Transport.Output.Value): TransportOutputValueSurrogate =

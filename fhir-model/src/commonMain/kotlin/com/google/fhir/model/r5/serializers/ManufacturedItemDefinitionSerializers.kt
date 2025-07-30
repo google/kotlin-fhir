@@ -50,7 +50,7 @@ public object ManufacturedItemDefinitionPropertyValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ManufacturedItemDefinition.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ManufacturedItemDefinition.Property.Value) {
     surrogateSerializer.serialize(
@@ -121,7 +121,7 @@ public object ManufacturedItemDefinitionComponentConstituentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ManufacturedItemDefinition.Component.Constituent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -146,7 +146,7 @@ public object ManufacturedItemDefinitionComponentSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ManufacturedItemDefinition.Component =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ManufacturedItemDefinition.Component) {
     surrogateSerializer.serialize(
@@ -166,7 +166,7 @@ public object ManufacturedItemDefinitionSerializer : KSerializer<ManufacturedIte
   }
 
   override fun deserialize(decoder: Decoder): ManufacturedItemDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ManufacturedItemDefinition) {
     surrogateSerializer.serialize(encoder, ManufacturedItemDefinitionSurrogate.fromModel(value))

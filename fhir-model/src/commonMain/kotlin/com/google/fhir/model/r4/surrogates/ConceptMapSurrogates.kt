@@ -359,14 +359,14 @@ internal data class ConceptMapSourceSurrogate(
   public var sourceCanonical: KotlinString? = null,
   public var _sourceCanonical: Element? = null,
 ) {
-  public fun toModel(): ConceptMap.Source? =
+  public fun toModel(): ConceptMap.Source =
     ConceptMap.Source?.from(
       Uri.of(this@ConceptMapSourceSurrogate.sourceUri, this@ConceptMapSourceSurrogate._sourceUri),
       Canonical.of(
         this@ConceptMapSourceSurrogate.sourceCanonical,
         this@ConceptMapSourceSurrogate._sourceCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ConceptMap.Source): ConceptMapSourceSurrogate =
@@ -388,14 +388,14 @@ internal data class ConceptMapTargetSurrogate(
   public var targetCanonical: KotlinString? = null,
   public var _targetCanonical: Element? = null,
 ) {
-  public fun toModel(): ConceptMap.Target? =
+  public fun toModel(): ConceptMap.Target =
     ConceptMap.Target?.from(
       Uri.of(this@ConceptMapTargetSurrogate.targetUri, this@ConceptMapTargetSurrogate._targetUri),
       Canonical.of(
         this@ConceptMapTargetSurrogate.targetCanonical,
         this@ConceptMapTargetSurrogate._targetCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ConceptMap.Target): ConceptMapTargetSurrogate =

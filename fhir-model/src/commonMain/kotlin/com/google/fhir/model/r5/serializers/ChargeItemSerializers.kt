@@ -46,7 +46,7 @@ public object ChargeItemPerformerSerializer : KSerializer<ChargeItem.Performer> 
   }
 
   override fun deserialize(decoder: Decoder): ChargeItem.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ChargeItem.Performer) {
     surrogateSerializer.serialize(encoder, ChargeItemPerformerSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object ChargeItemOccurrenceSerializer : KSerializer<ChargeItem.Occurrence
   }
 
   override fun deserialize(decoder: Decoder): ChargeItem.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ChargeItem.Occurrence) {
     surrogateSerializer.serialize(encoder, ChargeItemOccurrenceSurrogate.fromModel(value))

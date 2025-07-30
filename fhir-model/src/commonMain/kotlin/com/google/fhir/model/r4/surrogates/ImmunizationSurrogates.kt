@@ -205,7 +205,7 @@ internal data class ImmunizationProtocolAppliedDoseNumberSurrogate(
         this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
         this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -229,7 +229,7 @@ internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
   public var seriesDosesString: KotlinString? = null,
   public var _seriesDosesString: Element? = null,
 ) {
-  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses? =
+  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses =
     Immunization.ProtocolApplied.SeriesDoses?.from(
       PositiveInt.of(
         this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
@@ -239,7 +239,7 @@ internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
         this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
         this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -322,7 +322,7 @@ internal data class ImmunizationOccurrenceSurrogate(
         this@ImmunizationOccurrenceSurrogate.occurrenceString,
         this@ImmunizationOccurrenceSurrogate._occurrenceString,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =

@@ -95,7 +95,7 @@ internal data class ImmunizationRecommendationRecommendationDoseNumberSurrogate(
   public var doseNumberString: KotlinString? = null,
   public var _doseNumberString: Element? = null,
 ) {
-  public fun toModel(): ImmunizationRecommendation.Recommendation.DoseNumber? =
+  public fun toModel(): ImmunizationRecommendation.Recommendation.DoseNumber =
     ImmunizationRecommendation.Recommendation.DoseNumber?.from(
       PositiveInt.of(
         this@ImmunizationRecommendationRecommendationDoseNumberSurrogate.doseNumberPositiveInt,
@@ -105,7 +105,7 @@ internal data class ImmunizationRecommendationRecommendationDoseNumberSurrogate(
         this@ImmunizationRecommendationRecommendationDoseNumberSurrogate.doseNumberString,
         this@ImmunizationRecommendationRecommendationDoseNumberSurrogate._doseNumberString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -129,7 +129,7 @@ internal data class ImmunizationRecommendationRecommendationSeriesDosesSurrogate
   public var seriesDosesString: KotlinString? = null,
   public var _seriesDosesString: Element? = null,
 ) {
-  public fun toModel(): ImmunizationRecommendation.Recommendation.SeriesDoses? =
+  public fun toModel(): ImmunizationRecommendation.Recommendation.SeriesDoses =
     ImmunizationRecommendation.Recommendation.SeriesDoses?.from(
       PositiveInt.of(
         this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate.seriesDosesPositiveInt,
@@ -139,7 +139,7 @@ internal data class ImmunizationRecommendationRecommendationSeriesDosesSurrogate
         this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate.seriesDosesString,
         this@ImmunizationRecommendationRecommendationSeriesDosesSurrogate._seriesDosesString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

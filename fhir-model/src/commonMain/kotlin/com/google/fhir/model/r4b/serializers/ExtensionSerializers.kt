@@ -47,7 +47,7 @@ public object ExtensionValueSerializer : KSerializer<Extension.Value> {
   }
 
   override fun deserialize(decoder: Decoder): Extension.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Extension.Value) {
     surrogateSerializer.serialize(encoder, ExtensionValueSurrogate.fromModel(value))

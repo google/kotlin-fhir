@@ -51,7 +51,7 @@ internal data class MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
   public var _sequenceString: Element? = null,
   public var sequenceReference: Reference? = null,
 ) {
-  public fun toModel(): MolecularSequence.Relative.StartingSequence.Sequence? =
+  public fun toModel(): MolecularSequence.Relative.StartingSequence.Sequence =
     MolecularSequence.Relative.StartingSequence.Sequence?.from(
       this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceCodeableConcept,
       R5String.of(
@@ -59,7 +59,7 @@ internal data class MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
         this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate._sequenceString,
       ),
       this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

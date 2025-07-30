@@ -39,7 +39,7 @@ public object EpisodeOfCareStatusHistorySerializer : KSerializer<EpisodeOfCare.S
   }
 
   override fun deserialize(decoder: Decoder): EpisodeOfCare.StatusHistory =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EpisodeOfCare.StatusHistory) {
     surrogateSerializer.serialize(encoder, EpisodeOfCareStatusHistorySurrogate.fromModel(value))
@@ -56,7 +56,7 @@ public object EpisodeOfCareReasonSerializer : KSerializer<EpisodeOfCare.Reason> 
   }
 
   override fun deserialize(decoder: Decoder): EpisodeOfCare.Reason =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EpisodeOfCare.Reason) {
     surrogateSerializer.serialize(encoder, EpisodeOfCareReasonSurrogate.fromModel(value))
@@ -73,7 +73,7 @@ public object EpisodeOfCareDiagnosisSerializer : KSerializer<EpisodeOfCare.Diagn
   }
 
   override fun deserialize(decoder: Decoder): EpisodeOfCare.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EpisodeOfCare.Diagnosis) {
     surrogateSerializer.serialize(encoder, EpisodeOfCareDiagnosisSurrogate.fromModel(value))
@@ -90,7 +90,7 @@ public object EpisodeOfCareSerializer : KSerializer<EpisodeOfCare> {
   }
 
   override fun deserialize(decoder: Decoder): EpisodeOfCare =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EpisodeOfCare) {
     surrogateSerializer.serialize(encoder, EpisodeOfCareSurrogate.fromModel(value))

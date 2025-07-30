@@ -233,7 +233,7 @@ internal data class ConceptMapGroupElementTargetPropertyValueSurrogate(
         this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCode,
         this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueCode,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -310,7 +310,7 @@ internal data class ConceptMapGroupElementTargetDependsOnValueSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueQuantity: Quantity? = null,
 ) {
-  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn.Value? =
+  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn.Value =
     ConceptMap.Group.Element.Target.DependsOn.Value?.from(
       Code.of(
         this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCode,
@@ -326,7 +326,7 @@ internal data class ConceptMapGroupElementTargetDependsOnValueSurrogate(
         this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueBoolean,
       ),
       this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -677,14 +677,14 @@ internal data class ConceptMapVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ConceptMap.VersionAlgorithm? =
+  public fun toModel(): ConceptMap.VersionAlgorithm =
     ConceptMap.VersionAlgorithm?.from(
       R5String.of(
         this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ConceptMapVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ConceptMap.VersionAlgorithm): ConceptMapVersionAlgorithmSurrogate =
@@ -705,7 +705,7 @@ internal data class ConceptMapSourceScopeSurrogate(
   public var sourceScopeCanonical: KotlinString? = null,
   public var _sourceScopeCanonical: Element? = null,
 ) {
-  public fun toModel(): ConceptMap.SourceScope? =
+  public fun toModel(): ConceptMap.SourceScope =
     ConceptMap.SourceScope?.from(
       Uri.of(
         this@ConceptMapSourceScopeSurrogate.sourceScopeUri,
@@ -715,7 +715,7 @@ internal data class ConceptMapSourceScopeSurrogate(
         this@ConceptMapSourceScopeSurrogate.sourceScopeCanonical,
         this@ConceptMapSourceScopeSurrogate._sourceScopeCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ConceptMap.SourceScope): ConceptMapSourceScopeSurrogate =
@@ -737,7 +737,7 @@ internal data class ConceptMapTargetScopeSurrogate(
   public var targetScopeCanonical: KotlinString? = null,
   public var _targetScopeCanonical: Element? = null,
 ) {
-  public fun toModel(): ConceptMap.TargetScope? =
+  public fun toModel(): ConceptMap.TargetScope =
     ConceptMap.TargetScope?.from(
       Uri.of(
         this@ConceptMapTargetScopeSurrogate.targetScopeUri,
@@ -747,7 +747,7 @@ internal data class ConceptMapTargetScopeSurrogate(
         this@ConceptMapTargetScopeSurrogate.targetScopeCanonical,
         this@ConceptMapTargetScopeSurrogate._targetScopeCanonical,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ConceptMap.TargetScope): ConceptMapTargetScopeSurrogate =

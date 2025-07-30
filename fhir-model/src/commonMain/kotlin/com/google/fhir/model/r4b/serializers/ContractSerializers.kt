@@ -68,7 +68,7 @@ public object ContractContentDefinitionSerializer : KSerializer<Contract.Content
   }
 
   override fun deserialize(decoder: Decoder): Contract.ContentDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.ContentDefinition) {
     surrogateSerializer.serialize(encoder, ContractContentDefinitionSurrogate.fromModel(value))
@@ -85,7 +85,7 @@ public object ContractTermSecurityLabelSerializer : KSerializer<Contract.Term.Se
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.SecurityLabel =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.SecurityLabel) {
     surrogateSerializer.serialize(encoder, ContractTermSecurityLabelSurrogate.fromModel(value))
@@ -102,7 +102,7 @@ public object ContractTermOfferPartySerializer : KSerializer<Contract.Term.Offer
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Offer.Party =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Party) {
     surrogateSerializer.serialize(encoder, ContractTermOfferPartySurrogate.fromModel(value))
@@ -120,7 +120,7 @@ public object ContractTermOfferAnswerValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Offer.Answer.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Answer.Value) {
     surrogateSerializer.serialize(encoder, ContractTermOfferAnswerValueSurrogate.fromModel(value))
@@ -184,7 +184,7 @@ public object ContractTermOfferSerializer : KSerializer<Contract.Term.Offer> {
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Offer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer) {
     surrogateSerializer.serialize(encoder, ContractTermOfferSurrogate.fromModel(value))
@@ -201,7 +201,7 @@ public object ContractTermAssetContextSerializer : KSerializer<Contract.Term.Ass
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Asset.Context =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.Context) {
     surrogateSerializer.serialize(encoder, ContractTermAssetContextSurrogate.fromModel(value))
@@ -220,7 +220,7 @@ public object ContractTermAssetValuedItemEntitySerializer :
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Asset.ValuedItem.Entity =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.ValuedItem.Entity) {
     surrogateSerializer.serialize(
@@ -287,7 +287,7 @@ public object ContractTermAssetSerializer : KSerializer<Contract.Term.Asset> {
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Asset =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset) {
     surrogateSerializer.serialize(encoder, ContractTermAssetSurrogate.fromModel(value))
@@ -304,7 +304,7 @@ public object ContractTermActionSubjectSerializer : KSerializer<Contract.Term.Ac
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Action.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Subject) {
     surrogateSerializer.serialize(encoder, ContractTermActionSubjectSurrogate.fromModel(value))
@@ -322,7 +322,7 @@ public object ContractTermActionOccurrenceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Action.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Occurrence) {
     surrogateSerializer.serialize(encoder, ContractTermActionOccurrenceSurrogate.fromModel(value))
@@ -386,7 +386,7 @@ public object ContractTermTopicSerializer : KSerializer<Contract.Term.Topic> {
   }
 
   override fun deserialize(decoder: Decoder): Contract.Term.Topic =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Topic) {
     surrogateSerializer.serialize(encoder, ContractTermTopicSurrogate.fromModel(value))
@@ -450,7 +450,7 @@ public object ContractSignerSerializer : KSerializer<Contract.Signer> {
   }
 
   override fun deserialize(decoder: Decoder): Contract.Signer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Signer) {
     surrogateSerializer.serialize(encoder, ContractSignerSurrogate.fromModel(value))
@@ -467,7 +467,7 @@ public object ContractFriendlyContentSerializer : KSerializer<Contract.Friendly.
   }
 
   override fun deserialize(decoder: Decoder): Contract.Friendly.Content =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Friendly.Content) {
     surrogateSerializer.serialize(encoder, ContractFriendlyContentSurrogate.fromModel(value))
@@ -531,7 +531,7 @@ public object ContractLegalContentSerializer : KSerializer<Contract.Legal.Conten
   }
 
   override fun deserialize(decoder: Decoder): Contract.Legal.Content =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Legal.Content) {
     surrogateSerializer.serialize(encoder, ContractLegalContentSurrogate.fromModel(value))
@@ -595,7 +595,7 @@ public object ContractRuleContentSerializer : KSerializer<Contract.Rule.Content>
   }
 
   override fun deserialize(decoder: Decoder): Contract.Rule.Content =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Rule.Content) {
     surrogateSerializer.serialize(encoder, ContractRuleContentSurrogate.fromModel(value))
@@ -659,7 +659,7 @@ public object ContractTopicSerializer : KSerializer<Contract.Topic> {
   }
 
   override fun deserialize(decoder: Decoder): Contract.Topic =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.Topic) {
     surrogateSerializer.serialize(encoder, ContractTopicSurrogate.fromModel(value))
@@ -676,7 +676,7 @@ public object ContractLegallyBindingSerializer : KSerializer<Contract.LegallyBin
   }
 
   override fun deserialize(decoder: Decoder): Contract.LegallyBinding =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Contract.LegallyBinding) {
     surrogateSerializer.serialize(encoder, ContractLegallyBindingSurrogate.fromModel(value))

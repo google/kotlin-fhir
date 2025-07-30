@@ -45,7 +45,7 @@ public object LibrarySubjectSerializer : KSerializer<Library.Subject> {
   }
 
   override fun deserialize(decoder: Decoder): Library.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Library.Subject) {
     surrogateSerializer.serialize(encoder, LibrarySubjectSurrogate.fromModel(value))

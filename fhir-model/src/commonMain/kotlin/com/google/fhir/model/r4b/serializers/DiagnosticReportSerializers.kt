@@ -46,7 +46,7 @@ public object DiagnosticReportMediaSerializer : KSerializer<DiagnosticReport.Med
   }
 
   override fun deserialize(decoder: Decoder): DiagnosticReport.Media =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DiagnosticReport.Media) {
     surrogateSerializer.serialize(encoder, DiagnosticReportMediaSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object DiagnosticReportEffectiveSerializer : KSerializer<DiagnosticReport
   }
 
   override fun deserialize(decoder: Decoder): DiagnosticReport.Effective =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DiagnosticReport.Effective) {
     surrogateSerializer.serialize(encoder, DiagnosticReportEffectiveSurrogate.fromModel(value))

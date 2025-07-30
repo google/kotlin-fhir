@@ -52,7 +52,7 @@ public object SubscriptionTopicResourceTriggerQueryCriteriaSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionTopic.ResourceTrigger.QueryCriteria =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -76,7 +76,7 @@ public object SubscriptionTopicResourceTriggerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionTopic.ResourceTrigger =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.ResourceTrigger) {
     surrogateSerializer.serialize(
@@ -97,7 +97,7 @@ public object SubscriptionTopicEventTriggerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionTopic.EventTrigger =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.EventTrigger) {
     surrogateSerializer.serialize(encoder, SubscriptionTopicEventTriggerSurrogate.fromModel(value))
@@ -114,7 +114,7 @@ public object SubscriptionTopicCanFilterBySerializer : KSerializer<SubscriptionT
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionTopic.CanFilterBy =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.CanFilterBy) {
     surrogateSerializer.serialize(encoder, SubscriptionTopicCanFilterBySurrogate.fromModel(value))
@@ -133,7 +133,7 @@ public object SubscriptionTopicNotificationShapeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionTopic.NotificationShape =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.NotificationShape) {
     surrogateSerializer.serialize(
@@ -155,7 +155,7 @@ public object SubscriptionTopicVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): SubscriptionTopic.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.VersionAlgorithm) {
     surrogateSerializer.serialize(

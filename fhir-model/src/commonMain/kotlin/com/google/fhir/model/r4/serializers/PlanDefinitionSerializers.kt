@@ -58,7 +58,7 @@ public object PlanDefinitionGoalTargetDetailSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Goal.Target.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Goal.Target.Detail) {
     surrogateSerializer.serialize(encoder, PlanDefinitionGoalTargetDetailSurrogate.fromModel(value))
@@ -122,7 +122,7 @@ public object PlanDefinitionGoalSerializer : KSerializer<PlanDefinition.Goal> {
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Goal =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Goal) {
     surrogateSerializer.serialize(encoder, PlanDefinitionGoalSurrogate.fromModel(value))
@@ -140,7 +140,7 @@ public object PlanDefinitionActionConditionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.Condition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Condition) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionConditionSurrogate.fromModel(value))
@@ -159,7 +159,7 @@ public object PlanDefinitionActionRelatedActionOffsetSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.RelatedAction.Offset =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.RelatedAction.Offset) {
     surrogateSerializer.serialize(
@@ -229,7 +229,7 @@ public object PlanDefinitionActionParticipantSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Participant) {
     surrogateSerializer.serialize(
@@ -250,7 +250,7 @@ public object PlanDefinitionActionDynamicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.DynamicValue =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.DynamicValue) {
     surrogateSerializer.serialize(
@@ -270,7 +270,7 @@ public object PlanDefinitionActionSubjectSerializer : KSerializer<PlanDefinition
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Subject) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionSubjectSurrogate.fromModel(value))
@@ -287,7 +287,7 @@ public object PlanDefinitionActionTimingSerializer : KSerializer<PlanDefinition.
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Timing) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionTimingSurrogate.fromModel(value))
@@ -305,7 +305,7 @@ public object PlanDefinitionActionDefinitionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Action.Definition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Definition) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionDefinitionSurrogate.fromModel(value))
@@ -369,7 +369,7 @@ public object PlanDefinitionSubjectSerializer : KSerializer<PlanDefinition.Subje
   }
 
   override fun deserialize(decoder: Decoder): PlanDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Subject) {
     surrogateSerializer.serialize(encoder, PlanDefinitionSubjectSurrogate.fromModel(value))

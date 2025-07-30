@@ -37,7 +37,7 @@ public object DocumentManifestRelatedSerializer : KSerializer<DocumentManifest.R
   }
 
   override fun deserialize(decoder: Decoder): DocumentManifest.Related =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentManifest.Related) {
     surrogateSerializer.serialize(encoder, DocumentManifestRelatedSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object DocumentManifestSerializer : KSerializer<DocumentManifest> {
   }
 
   override fun deserialize(decoder: Decoder): DocumentManifest =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: DocumentManifest) {
     surrogateSerializer.serialize(encoder, DocumentManifestSurrogate.fromModel(value))

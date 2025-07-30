@@ -224,7 +224,7 @@ internal data class ExampleScenarioInstanceStructureProfileSurrogate(
   public var structureProfileUri: KotlinString? = null,
   public var _structureProfileUri: Element? = null,
 ) {
-  public fun toModel(): ExampleScenario.Instance.StructureProfile? =
+  public fun toModel(): ExampleScenario.Instance.StructureProfile =
     ExampleScenario.Instance.StructureProfile?.from(
       Canonical.of(
         this@ExampleScenarioInstanceStructureProfileSurrogate.structureProfileCanonical,
@@ -234,7 +234,7 @@ internal data class ExampleScenarioInstanceStructureProfileSurrogate(
         this@ExampleScenarioInstanceStructureProfileSurrogate.structureProfileUri,
         this@ExampleScenarioInstanceStructureProfileSurrogate._structureProfileUri,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -600,14 +600,14 @@ internal data class ExampleScenarioVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): ExampleScenario.VersionAlgorithm? =
+  public fun toModel(): ExampleScenario.VersionAlgorithm =
     ExampleScenario.VersionAlgorithm?.from(
       R5String.of(
         this@ExampleScenarioVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ExampleScenarioVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@ExampleScenarioVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

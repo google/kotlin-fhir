@@ -49,7 +49,7 @@ public object PatientContactSerializer : KSerializer<Patient.Contact> {
   }
 
   override fun deserialize(decoder: Decoder): Patient.Contact =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Patient.Contact) {
     surrogateSerializer.serialize(encoder, PatientContactSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object PatientCommunicationSerializer : KSerializer<Patient.Communication
   }
 
   override fun deserialize(decoder: Decoder): Patient.Communication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Patient.Communication) {
     surrogateSerializer.serialize(encoder, PatientCommunicationSurrogate.fromModel(value))
@@ -83,7 +83,7 @@ public object PatientLinkSerializer : KSerializer<Patient.Link> {
   }
 
   override fun deserialize(decoder: Decoder): Patient.Link =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Patient.Link) {
     surrogateSerializer.serialize(encoder, PatientLinkSurrogate.fromModel(value))
@@ -100,7 +100,7 @@ public object PatientDeceasedSerializer : KSerializer<Patient.Deceased> {
   }
 
   override fun deserialize(decoder: Decoder): Patient.Deceased =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Patient.Deceased) {
     surrogateSerializer.serialize(encoder, PatientDeceasedSurrogate.fromModel(value))
@@ -117,7 +117,7 @@ public object PatientMultipleBirthSerializer : KSerializer<Patient.MultipleBirth
   }
 
   override fun deserialize(decoder: Decoder): Patient.MultipleBirth =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Patient.MultipleBirth) {
     surrogateSerializer.serialize(encoder, PatientMultipleBirthSurrogate.fromModel(value))

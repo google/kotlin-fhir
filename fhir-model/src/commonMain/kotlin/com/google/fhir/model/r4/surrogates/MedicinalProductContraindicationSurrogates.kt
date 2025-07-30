@@ -48,7 +48,7 @@ internal data class MedicinalProductContraindicationOtherTherapyMedicationSurrog
       this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate
         .medicationCodeableConcept,
       this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate.medicationReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

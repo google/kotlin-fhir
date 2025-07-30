@@ -53,7 +53,7 @@ public object EvidenceReportSubjectCharacteristicValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceReport.Subject.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.Subject.Characteristic.Value) {
     surrogateSerializer.serialize(
@@ -122,7 +122,7 @@ public object EvidenceReportSubjectSerializer : KSerializer<EvidenceReport.Subje
   }
 
   override fun deserialize(decoder: Decoder): EvidenceReport.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.Subject) {
     surrogateSerializer.serialize(encoder, EvidenceReportSubjectSurrogate.fromModel(value))
@@ -140,7 +140,7 @@ public object EvidenceReportRelatesToTargetSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceReport.RelatesTo.Target =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.RelatesTo.Target) {
     surrogateSerializer.serialize(encoder, EvidenceReportRelatesToTargetSurrogate.fromModel(value))
@@ -157,7 +157,7 @@ public object EvidenceReportRelatesToSerializer : KSerializer<EvidenceReport.Rel
   }
 
   override fun deserialize(decoder: Decoder): EvidenceReport.RelatesTo =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.RelatesTo) {
     surrogateSerializer.serialize(encoder, EvidenceReportRelatesToSurrogate.fromModel(value))
@@ -174,7 +174,7 @@ public object EvidenceReportSectionSerializer : KSerializer<EvidenceReport.Secti
   }
 
   override fun deserialize(decoder: Decoder): EvidenceReport.Section =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.Section) {
     surrogateSerializer.serialize(encoder, EvidenceReportSectionSurrogate.fromModel(value))
@@ -191,7 +191,7 @@ public object EvidenceReportCiteAsSerializer : KSerializer<EvidenceReport.CiteAs
   }
 
   override fun deserialize(decoder: Decoder): EvidenceReport.CiteAs =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.CiteAs) {
     surrogateSerializer.serialize(encoder, EvidenceReportCiteAsSurrogate.fromModel(value))

@@ -48,7 +48,7 @@ public object ConditionStageSerializer : KSerializer<Condition.Stage> {
   }
 
   override fun deserialize(decoder: Decoder): Condition.Stage =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Condition.Stage) {
     surrogateSerializer.serialize(encoder, ConditionStageSurrogate.fromModel(value))
@@ -65,7 +65,7 @@ public object ConditionEvidenceSerializer : KSerializer<Condition.Evidence> {
   }
 
   override fun deserialize(decoder: Decoder): Condition.Evidence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Condition.Evidence) {
     surrogateSerializer.serialize(encoder, ConditionEvidenceSurrogate.fromModel(value))
@@ -82,7 +82,7 @@ public object ConditionOnsetSerializer : KSerializer<Condition.Onset> {
   }
 
   override fun deserialize(decoder: Decoder): Condition.Onset =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Condition.Onset) {
     surrogateSerializer.serialize(encoder, ConditionOnsetSurrogate.fromModel(value))
@@ -99,7 +99,7 @@ public object ConditionAbatementSerializer : KSerializer<Condition.Abatement> {
   }
 
   override fun deserialize(decoder: Decoder): Condition.Abatement =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Condition.Abatement) {
     surrogateSerializer.serialize(encoder, ConditionAbatementSurrogate.fromModel(value))

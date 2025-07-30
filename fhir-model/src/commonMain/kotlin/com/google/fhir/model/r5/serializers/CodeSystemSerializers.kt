@@ -51,7 +51,7 @@ public object CodeSystemFilterSerializer : KSerializer<CodeSystem.Filter> {
   }
 
   override fun deserialize(decoder: Decoder): CodeSystem.Filter =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Filter) {
     surrogateSerializer.serialize(encoder, CodeSystemFilterSurrogate.fromModel(value))
@@ -68,7 +68,7 @@ public object CodeSystemPropertySerializer : KSerializer<CodeSystem.Property> {
   }
 
   override fun deserialize(decoder: Decoder): CodeSystem.Property =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Property) {
     surrogateSerializer.serialize(encoder, CodeSystemPropertySurrogate.fromModel(value))
@@ -85,7 +85,7 @@ public object CodeSystemConceptDesignationSerializer : KSerializer<CodeSystem.Co
   }
 
   override fun deserialize(decoder: Decoder): CodeSystem.Concept.Designation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Designation) {
     surrogateSerializer.serialize(encoder, CodeSystemConceptDesignationSurrogate.fromModel(value))
@@ -103,7 +103,7 @@ public object CodeSystemConceptPropertyValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): CodeSystem.Concept.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Property.Value) {
     surrogateSerializer.serialize(encoder, CodeSystemConceptPropertyValueSurrogate.fromModel(value))
@@ -167,7 +167,7 @@ public object CodeSystemConceptSerializer : KSerializer<CodeSystem.Concept> {
   }
 
   override fun deserialize(decoder: Decoder): CodeSystem.Concept =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept) {
     surrogateSerializer.serialize(encoder, CodeSystemConceptSurrogate.fromModel(value))
@@ -184,7 +184,7 @@ public object CodeSystemVersionAlgorithmSerializer : KSerializer<CodeSystem.Vers
   }
 
   override fun deserialize(decoder: Decoder): CodeSystem.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, CodeSystemVersionAlgorithmSurrogate.fromModel(value))

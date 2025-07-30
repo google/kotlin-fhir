@@ -626,14 +626,14 @@ internal data class TerminologyCapabilitiesVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): TerminologyCapabilities.VersionAlgorithm? =
+  public fun toModel(): TerminologyCapabilities.VersionAlgorithm =
     TerminologyCapabilities.VersionAlgorithm?.from(
       R5String.of(
         this@TerminologyCapabilitiesVersionAlgorithmSurrogate.versionAlgorithmString,
         this@TerminologyCapabilitiesVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@TerminologyCapabilitiesVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

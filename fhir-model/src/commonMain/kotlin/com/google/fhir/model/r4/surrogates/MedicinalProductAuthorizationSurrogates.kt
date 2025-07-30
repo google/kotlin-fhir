@@ -99,7 +99,7 @@ internal data class MedicinalProductAuthorizationProcedureDateSurrogate(
   public var dateDateTime: String? = null,
   public var _dateDateTime: Element? = null,
 ) {
-  public fun toModel(): MedicinalProductAuthorization.Procedure.Date? =
+  public fun toModel(): MedicinalProductAuthorization.Procedure.Date =
     MedicinalProductAuthorization.Procedure.Date?.from(
       this@MedicinalProductAuthorizationProcedureDateSurrogate.datePeriod,
       DateTime.of(
@@ -108,7 +108,7 @@ internal data class MedicinalProductAuthorizationProcedureDateSurrogate(
         ),
         this@MedicinalProductAuthorizationProcedureDateSurrogate._dateDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

@@ -42,7 +42,7 @@ public object RiskEvidenceSynthesisSampleSizeSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.SampleSize =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.SampleSize) {
     surrogateSerializer.serialize(
@@ -64,7 +64,7 @@ public object RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -89,7 +89,7 @@ public object RiskEvidenceSynthesisRiskEstimateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.RiskEstimate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.RiskEstimate) {
     surrogateSerializer.serialize(
@@ -113,7 +113,7 @@ public object RiskEvidenceSynthesisCertaintyCertaintySubcomponentSerializer :
   override fun deserialize(
     decoder: Decoder
   ): RiskEvidenceSynthesis.Certainty.CertaintySubcomponent =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -137,7 +137,7 @@ public object RiskEvidenceSynthesisCertaintySerializer :
   }
 
   override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.Certainty =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.Certainty) {
     surrogateSerializer.serialize(encoder, RiskEvidenceSynthesisCertaintySurrogate.fromModel(value))
@@ -154,7 +154,7 @@ public object RiskEvidenceSynthesisSerializer : KSerializer<RiskEvidenceSynthesi
   }
 
   override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis) {
     surrogateSerializer.serialize(encoder, RiskEvidenceSynthesisSurrogate.fromModel(value))

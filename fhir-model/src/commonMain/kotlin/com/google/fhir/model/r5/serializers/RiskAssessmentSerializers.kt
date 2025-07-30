@@ -50,7 +50,7 @@ public object RiskAssessmentPredictionProbabilitySerializer :
   }
 
   override fun deserialize(decoder: Decoder): RiskAssessment.Prediction.Probability =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskAssessment.Prediction.Probability) {
     surrogateSerializer.serialize(
@@ -70,7 +70,7 @@ public object RiskAssessmentPredictionWhenSerializer : KSerializer<RiskAssessmen
   }
 
   override fun deserialize(decoder: Decoder): RiskAssessment.Prediction.When =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskAssessment.Prediction.When) {
     surrogateSerializer.serialize(encoder, RiskAssessmentPredictionWhenSurrogate.fromModel(value))
@@ -134,7 +134,7 @@ public object RiskAssessmentOccurrenceSerializer : KSerializer<RiskAssessment.Oc
   }
 
   override fun deserialize(decoder: Decoder): RiskAssessment.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: RiskAssessment.Occurrence) {
     surrogateSerializer.serialize(encoder, RiskAssessmentOccurrenceSurrogate.fromModel(value))

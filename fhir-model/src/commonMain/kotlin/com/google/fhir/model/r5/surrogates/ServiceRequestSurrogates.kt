@@ -80,7 +80,7 @@ internal data class ServiceRequestOrderDetailParameterValueSurrogate(
         this@ServiceRequestOrderDetailParameterValueSurrogate._valueString,
       ),
       this@ServiceRequestOrderDetailParameterValueSurrogate.valuePeriod,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -174,14 +174,14 @@ internal data class ServiceRequestPatientInstructionInstructionSurrogate(
   public var _instructionMarkdown: Element? = null,
   public var instructionReference: Reference? = null,
 ) {
-  public fun toModel(): ServiceRequest.PatientInstruction.Instruction? =
+  public fun toModel(): ServiceRequest.PatientInstruction.Instruction =
     ServiceRequest.PatientInstruction.Instruction?.from(
       Markdown.of(
         this@ServiceRequestPatientInstructionInstructionSurrogate.instructionMarkdown,
         this@ServiceRequestPatientInstructionInstructionSurrogate._instructionMarkdown,
       ),
       this@ServiceRequestPatientInstructionInstructionSurrogate.instructionReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -234,12 +234,12 @@ internal data class ServiceRequestQuantitySurrogate(
   public var quantityRatio: Ratio? = null,
   public var quantityRange: Range? = null,
 ) {
-  public fun toModel(): ServiceRequest.Quantity? =
+  public fun toModel(): ServiceRequest.Quantity =
     ServiceRequest.Quantity?.from(
       this@ServiceRequestQuantitySurrogate.quantityQuantity,
       this@ServiceRequestQuantitySurrogate.quantityRatio,
       this@ServiceRequestQuantitySurrogate.quantityRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ServiceRequest.Quantity): ServiceRequestQuantitySurrogate =
@@ -260,7 +260,7 @@ internal data class ServiceRequestOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): ServiceRequest.Occurrence? =
+  public fun toModel(): ServiceRequest.Occurrence =
     ServiceRequest.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
@@ -268,7 +268,7 @@ internal data class ServiceRequestOccurrenceSurrogate(
       ),
       this@ServiceRequestOccurrenceSurrogate.occurrencePeriod,
       this@ServiceRequestOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ServiceRequest.Occurrence): ServiceRequestOccurrenceSurrogate =
@@ -289,14 +289,14 @@ internal data class ServiceRequestAsNeededSurrogate(
   public var _asNeededBoolean: Element? = null,
   public var asNeededCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): ServiceRequest.AsNeeded? =
+  public fun toModel(): ServiceRequest.AsNeeded =
     ServiceRequest.AsNeeded?.from(
       R5Boolean.of(
         this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
         this@ServiceRequestAsNeededSurrogate._asNeededBoolean,
       ),
       this@ServiceRequestAsNeededSurrogate.asNeededCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ServiceRequest.AsNeeded): ServiceRequestAsNeededSurrogate =

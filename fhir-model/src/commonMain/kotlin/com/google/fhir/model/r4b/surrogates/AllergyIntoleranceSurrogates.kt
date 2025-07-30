@@ -123,7 +123,7 @@ internal data class AllergyIntoleranceOnsetSurrogate(
   public var onsetString: KotlinString? = null,
   public var _onsetString: Element? = null,
 ) {
-  public fun toModel(): AllergyIntolerance.Onset? =
+  public fun toModel(): AllergyIntolerance.Onset =
     AllergyIntolerance.Onset?.from(
       DateTime.of(
         FhirDateTime.fromString(this@AllergyIntoleranceOnsetSurrogate.onsetDateTime),
@@ -136,7 +136,7 @@ internal data class AllergyIntoleranceOnsetSurrogate(
         this@AllergyIntoleranceOnsetSurrogate.onsetString,
         this@AllergyIntoleranceOnsetSurrogate._onsetString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: AllergyIntolerance.Onset): AllergyIntoleranceOnsetSurrogate =

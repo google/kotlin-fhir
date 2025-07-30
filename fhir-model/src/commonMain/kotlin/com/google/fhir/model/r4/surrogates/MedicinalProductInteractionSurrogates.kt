@@ -47,7 +47,7 @@ internal data class MedicinalProductInteractionInteractantItemSurrogate(
     MedicinalProductInteraction.Interactant.Item.from(
       this@MedicinalProductInteractionInteractantItemSurrogate.itemReference,
       this@MedicinalProductInteractionInteractantItemSurrogate.itemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

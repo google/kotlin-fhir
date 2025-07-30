@@ -49,11 +49,11 @@ internal data class SupplyDeliverySuppliedItemItemSurrogate(
   public var itemCodeableConcept: CodeableConcept? = null,
   public var itemReference: Reference? = null,
 ) {
-  public fun toModel(): SupplyDelivery.SuppliedItem.Item? =
+  public fun toModel(): SupplyDelivery.SuppliedItem.Item =
     SupplyDelivery.SuppliedItem.Item?.from(
       this@SupplyDeliverySuppliedItemItemSurrogate.itemCodeableConcept,
       this@SupplyDeliverySuppliedItemItemSurrogate.itemReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -107,7 +107,7 @@ internal data class SupplyDeliveryOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): SupplyDelivery.Occurrence? =
+  public fun toModel(): SupplyDelivery.Occurrence =
     SupplyDelivery.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@SupplyDeliveryOccurrenceSurrogate.occurrenceDateTime),
@@ -115,7 +115,7 @@ internal data class SupplyDeliveryOccurrenceSurrogate(
       ),
       this@SupplyDeliveryOccurrenceSurrogate.occurrencePeriod,
       this@SupplyDeliveryOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: SupplyDelivery.Occurrence): SupplyDeliveryOccurrenceSurrogate =

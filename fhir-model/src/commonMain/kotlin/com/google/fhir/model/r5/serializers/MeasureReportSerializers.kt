@@ -54,7 +54,7 @@ public object MeasureReportGroupPopulationSerializer : KSerializer<MeasureReport
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport.Group.Population =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.Population) {
     surrogateSerializer.serialize(encoder, MeasureReportGroupPopulationSurrogate.fromModel(value))
@@ -75,7 +75,7 @@ public object MeasureReportGroupStratifierStratumComponentValueSerializer :
   override fun deserialize(
     decoder: Decoder
   ): MeasureReport.Group.Stratifier.Stratum.Component.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -152,7 +152,7 @@ public object MeasureReportGroupStratifierStratumPopulationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.Population =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -177,7 +177,7 @@ public object MeasureReportGroupStratifierStratumValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.Stratifier.Stratum.Value) {
     surrogateSerializer.serialize(
@@ -199,7 +199,7 @@ public object MeasureReportGroupStratifierStratumMeasureScoreSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.MeasureScore =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -271,7 +271,7 @@ public object MeasureReportGroupStratifierSerializer : KSerializer<MeasureReport
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.Stratifier) {
     surrogateSerializer.serialize(encoder, MeasureReportGroupStratifierSurrogate.fromModel(value))
@@ -289,7 +289,7 @@ public object MeasureReportGroupMeasureScoreSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport.Group.MeasureScore =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.MeasureScore) {
     surrogateSerializer.serialize(encoder, MeasureReportGroupMeasureScoreSurrogate.fromModel(value))
@@ -353,7 +353,7 @@ public object MeasureReportSerializer : KSerializer<MeasureReport> {
   }
 
   override fun deserialize(decoder: Decoder): MeasureReport =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport) {
     surrogateSerializer.serialize(encoder, MeasureReportSurrogate.fromModel(value))

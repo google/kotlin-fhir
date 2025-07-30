@@ -93,7 +93,7 @@ internal data class AuditEventAgentNetworkSurrogate(
   public var networkString: KotlinString? = null,
   public var _networkString: Element? = null,
 ) {
-  public fun toModel(): AuditEvent.Agent.Network? =
+  public fun toModel(): AuditEvent.Agent.Network =
     AuditEvent.Agent.Network?.from(
       this@AuditEventAgentNetworkSurrogate.networkReference,
       Uri.of(
@@ -104,7 +104,7 @@ internal data class AuditEventAgentNetworkSurrogate(
         this@AuditEventAgentNetworkSurrogate.networkString,
         this@AuditEventAgentNetworkSurrogate._networkString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: AuditEvent.Agent.Network): AuditEventAgentNetworkSurrogate =
@@ -283,7 +283,7 @@ internal data class AuditEventEntityDetailValueSurrogate(
         this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
         this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -399,14 +399,14 @@ internal data class AuditEventOccurredSurrogate(
   public var occurredDateTime: KotlinString? = null,
   public var _occurredDateTime: Element? = null,
 ) {
-  public fun toModel(): AuditEvent.Occurred? =
+  public fun toModel(): AuditEvent.Occurred =
     AuditEvent.Occurred?.from(
       this@AuditEventOccurredSurrogate.occurredPeriod,
       DateTime.of(
         FhirDateTime.fromString(this@AuditEventOccurredSurrogate.occurredDateTime),
         this@AuditEventOccurredSurrogate._occurredDateTime,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: AuditEvent.Occurred): AuditEventOccurredSurrogate =

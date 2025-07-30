@@ -46,7 +46,7 @@ public object CommunicationPayloadContentSerializer : KSerializer<Communication.
   }
 
   override fun deserialize(decoder: Decoder): Communication.Payload.Content =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Communication.Payload.Content) {
     surrogateSerializer.serialize(encoder, CommunicationPayloadContentSurrogate.fromModel(value))
@@ -110,7 +110,7 @@ public object CommunicationSerializer : KSerializer<Communication> {
   }
 
   override fun deserialize(decoder: Decoder): Communication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Communication) {
     surrogateSerializer.serialize(encoder, CommunicationSurrogate.fromModel(value))

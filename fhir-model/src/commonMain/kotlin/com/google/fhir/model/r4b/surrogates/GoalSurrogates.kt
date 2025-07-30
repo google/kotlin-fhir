@@ -64,7 +64,7 @@ internal data class GoalTargetDetailSurrogate(
   public var _detailInteger: Element? = null,
   public var detailRatio: Ratio? = null,
 ) {
-  public fun toModel(): Goal.Target.Detail? =
+  public fun toModel(): Goal.Target.Detail =
     Goal.Target.Detail?.from(
       this@GoalTargetDetailSurrogate.detailQuantity,
       this@GoalTargetDetailSurrogate.detailRange,
@@ -82,7 +82,7 @@ internal data class GoalTargetDetailSurrogate(
         this@GoalTargetDetailSurrogate._detailInteger,
       ),
       this@GoalTargetDetailSurrogate.detailRatio,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Goal.Target.Detail): GoalTargetDetailSurrogate =
@@ -109,14 +109,14 @@ internal data class GoalTargetDueSurrogate(
   public var _dueDate: Element? = null,
   public var dueDuration: Duration? = null,
 ) {
-  public fun toModel(): Goal.Target.Due? =
+  public fun toModel(): Goal.Target.Due =
     Goal.Target.Due?.from(
       Date.of(
         FhirDate.fromString(this@GoalTargetDueSurrogate.dueDate),
         this@GoalTargetDueSurrogate._dueDate,
       ),
       this@GoalTargetDueSurrogate.dueDuration,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Goal.Target.Due): GoalTargetDueSurrogate =
@@ -170,14 +170,14 @@ internal data class GoalStartSurrogate(
   public var _startDate: Element? = null,
   public var startCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): Goal.Start? =
+  public fun toModel(): Goal.Start =
     Goal.Start?.from(
       Date.of(
         FhirDate.fromString(this@GoalStartSurrogate.startDate),
         this@GoalStartSurrogate._startDate,
       ),
       this@GoalStartSurrogate.startCodeableConcept,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Goal.Start): GoalStartSurrogate =

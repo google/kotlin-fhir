@@ -61,14 +61,14 @@ internal data class LibraryVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): Library.VersionAlgorithm? =
+  public fun toModel(): Library.VersionAlgorithm =
     Library.VersionAlgorithm?.from(
       R5String.of(
         this@LibraryVersionAlgorithmSurrogate.versionAlgorithmString,
         this@LibraryVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@LibraryVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Library.VersionAlgorithm): LibraryVersionAlgorithmSurrogate =
@@ -87,11 +87,11 @@ internal data class LibrarySubjectSurrogate(
   public var subjectCodeableConcept: CodeableConcept? = null,
   public var subjectReference: Reference? = null,
 ) {
-  public fun toModel(): Library.Subject? =
+  public fun toModel(): Library.Subject =
     Library.Subject?.from(
       this@LibrarySubjectSurrogate.subjectCodeableConcept,
       this@LibrarySubjectSurrogate.subjectReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =

@@ -216,7 +216,7 @@ internal data class MessageHeaderEventSurrogate(
     MessageHeader.Event.from(
       this@MessageHeaderEventSurrogate.eventCoding,
       Uri.of(this@MessageHeaderEventSurrogate.eventUri, this@MessageHeaderEventSurrogate._eventUri),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =

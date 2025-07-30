@@ -551,7 +551,7 @@ internal data class ElementDefinitionExampleValueSurrogate(
       this@ElementDefinitionExampleValueSurrogate.valueTriggerDefinition,
       this@ElementDefinitionExampleValueSurrogate.valueUsageContext,
       this@ElementDefinitionExampleValueSurrogate.valueDosage,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -939,7 +939,7 @@ internal data class ElementDefinitionDefaultValueSurrogate(
   public var defaultValueUsageContext: UsageContext? = null,
   public var defaultValueDosage: Dosage? = null,
 ) {
-  public fun toModel(): ElementDefinition.DefaultValue? =
+  public fun toModel(): ElementDefinition.DefaultValue =
     ElementDefinition.DefaultValue?.from(
       Base64Binary.of(
         this@ElementDefinitionDefaultValueSurrogate.defaultValueBase64Binary,
@@ -1049,7 +1049,7 @@ internal data class ElementDefinitionDefaultValueSurrogate(
       this@ElementDefinitionDefaultValueSurrogate.defaultValueTriggerDefinition,
       this@ElementDefinitionDefaultValueSurrogate.defaultValueUsageContext,
       this@ElementDefinitionDefaultValueSurrogate.defaultValueDosage,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1205,7 +1205,7 @@ internal data class ElementDefinitionFixedSurrogate(
   public var fixedUsageContext: UsageContext? = null,
   public var fixedDosage: Dosage? = null,
 ) {
-  public fun toModel(): ElementDefinition.Fixed? =
+  public fun toModel(): ElementDefinition.Fixed =
     ElementDefinition.Fixed?.from(
       Base64Binary.of(
         this@ElementDefinitionFixedSurrogate.fixedBase64Binary,
@@ -1315,7 +1315,7 @@ internal data class ElementDefinitionFixedSurrogate(
       this@ElementDefinitionFixedSurrogate.fixedTriggerDefinition,
       this@ElementDefinitionFixedSurrogate.fixedUsageContext,
       this@ElementDefinitionFixedSurrogate.fixedDosage,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Fixed): ElementDefinitionFixedSurrogate =
@@ -1469,7 +1469,7 @@ internal data class ElementDefinitionPatternSurrogate(
   public var patternUsageContext: UsageContext? = null,
   public var patternDosage: Dosage? = null,
 ) {
-  public fun toModel(): ElementDefinition.Pattern? =
+  public fun toModel(): ElementDefinition.Pattern =
     ElementDefinition.Pattern?.from(
       Base64Binary.of(
         this@ElementDefinitionPatternSurrogate.patternBase64Binary,
@@ -1579,7 +1579,7 @@ internal data class ElementDefinitionPatternSurrogate(
       this@ElementDefinitionPatternSurrogate.patternTriggerDefinition,
       this@ElementDefinitionPatternSurrogate.patternUsageContext,
       this@ElementDefinitionPatternSurrogate.patternDosage,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ElementDefinition.Pattern): ElementDefinitionPatternSurrogate =
@@ -1680,7 +1680,7 @@ internal data class ElementDefinitionMinValueSurrogate(
   public var _minValueUnsignedInt: Element? = null,
   public var minValueQuantity: Quantity? = null,
 ) {
-  public fun toModel(): ElementDefinition.MinValue? =
+  public fun toModel(): ElementDefinition.MinValue =
     ElementDefinition.MinValue?.from(
       Date.of(
         FhirDate.fromString(this@ElementDefinitionMinValueSurrogate.minValueDate),
@@ -1715,7 +1715,7 @@ internal data class ElementDefinitionMinValueSurrogate(
         this@ElementDefinitionMinValueSurrogate._minValueUnsignedInt,
       ),
       this@ElementDefinitionMinValueSurrogate.minValueQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ElementDefinition.MinValue): ElementDefinitionMinValueSurrogate =
@@ -1763,7 +1763,7 @@ internal data class ElementDefinitionMaxValueSurrogate(
   public var _maxValueUnsignedInt: Element? = null,
   public var maxValueQuantity: Quantity? = null,
 ) {
-  public fun toModel(): ElementDefinition.MaxValue? =
+  public fun toModel(): ElementDefinition.MaxValue =
     ElementDefinition.MaxValue?.from(
       Date.of(
         FhirDate.fromString(this@ElementDefinitionMaxValueSurrogate.maxValueDate),
@@ -1798,7 +1798,7 @@ internal data class ElementDefinitionMaxValueSurrogate(
         this@ElementDefinitionMaxValueSurrogate._maxValueUnsignedInt,
       ),
       this@ElementDefinitionMaxValueSurrogate.maxValueQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ElementDefinition.MaxValue): ElementDefinitionMaxValueSurrogate =

@@ -95,14 +95,14 @@ internal data class PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrog
   public var periodString: KotlinString? = null,
   public var _periodString: Element? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Package.ShelfLifeStorage.Period? =
+  public fun toModel(): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
     PackagedProductDefinition.Package.ShelfLifeStorage.Period?.from(
       this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodDuration,
       R4bString.of(
         this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodString,
         this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate._periodString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -170,7 +170,7 @@ internal data class PackagedProductDefinitionPackagePropertyValueSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Package.Property.Value? =
+  public fun toModel(): PackagedProductDefinition.Package.Property.Value =
     PackagedProductDefinition.Package.Property.Value?.from(
       this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueCodeableConcept,
       this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueQuantity,
@@ -183,7 +183,7 @@ internal data class PackagedProductDefinitionPackagePropertyValueSurrogate(
         this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueBoolean,
       ),
       this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueAttachment,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

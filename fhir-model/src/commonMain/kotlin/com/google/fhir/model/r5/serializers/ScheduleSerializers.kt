@@ -36,7 +36,7 @@ public object ScheduleSerializer : KSerializer<Schedule> {
   }
 
   override fun deserialize(decoder: Decoder): Schedule =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Schedule) {
     surrogateSerializer.serialize(encoder, ScheduleSurrogate.fromModel(value))

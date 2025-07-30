@@ -49,7 +49,7 @@ public object CompositionAttesterSerializer : KSerializer<Composition.Attester> 
   }
 
   override fun deserialize(decoder: Decoder): Composition.Attester =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Composition.Attester) {
     surrogateSerializer.serialize(encoder, CompositionAttesterSurrogate.fromModel(value))
@@ -66,7 +66,7 @@ public object CompositionRelatesToTargetSerializer : KSerializer<Composition.Rel
   }
 
   override fun deserialize(decoder: Decoder): Composition.RelatesTo.Target =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Composition.RelatesTo.Target) {
     surrogateSerializer.serialize(encoder, CompositionRelatesToTargetSurrogate.fromModel(value))
@@ -130,7 +130,7 @@ public object CompositionEventSerializer : KSerializer<Composition.Event> {
   }
 
   override fun deserialize(decoder: Decoder): Composition.Event =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Composition.Event) {
     surrogateSerializer.serialize(encoder, CompositionEventSurrogate.fromModel(value))
@@ -147,7 +147,7 @@ public object CompositionSectionSerializer : KSerializer<Composition.Section> {
   }
 
   override fun deserialize(decoder: Decoder): Composition.Section =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Composition.Section) {
     surrogateSerializer.serialize(encoder, CompositionSectionSurrogate.fromModel(value))
@@ -164,7 +164,7 @@ public object CompositionSerializer : KSerializer<Composition> {
   }
 
   override fun deserialize(decoder: Decoder): Composition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Composition) {
     surrogateSerializer.serialize(encoder, CompositionSurrogate.fromModel(value))

@@ -132,11 +132,11 @@ internal data class MedicationDispenseStatusReasonSurrogate(
   public var statusReasonCodeableConcept: CodeableConcept? = null,
   public var statusReasonReference: Reference? = null,
 ) {
-  public fun toModel(): MedicationDispense.StatusReason? =
+  public fun toModel(): MedicationDispense.StatusReason =
     MedicationDispense.StatusReason?.from(
       this@MedicationDispenseStatusReasonSurrogate.statusReasonCodeableConcept,
       this@MedicationDispenseStatusReasonSurrogate.statusReasonReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -160,7 +160,7 @@ internal data class MedicationDispenseMedicationSurrogate(
     MedicationDispense.Medication.from(
       this@MedicationDispenseMedicationSurrogate.medicationCodeableConcept,
       this@MedicationDispenseMedicationSurrogate.medicationReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

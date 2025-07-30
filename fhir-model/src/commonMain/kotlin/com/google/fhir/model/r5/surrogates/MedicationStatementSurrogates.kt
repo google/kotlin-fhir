@@ -88,7 +88,7 @@ internal data class MedicationStatementEffectiveSurrogate(
   public var effectivePeriod: Period? = null,
   public var effectiveTiming: Timing? = null,
 ) {
-  public fun toModel(): MedicationStatement.Effective? =
+  public fun toModel(): MedicationStatement.Effective =
     MedicationStatement.Effective?.from(
       DateTime.of(
         FhirDateTime.fromString(this@MedicationStatementEffectiveSurrogate.effectiveDateTime),
@@ -96,7 +96,7 @@ internal data class MedicationStatementEffectiveSurrogate(
       ),
       this@MedicationStatementEffectiveSurrogate.effectivePeriod,
       this@MedicationStatementEffectiveSurrogate.effectiveTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

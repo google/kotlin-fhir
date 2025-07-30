@@ -51,11 +51,11 @@ internal data class GenomicStudyAnalysisInputGeneratedBySurrogate(
   public var generatedByIdentifier: Identifier? = null,
   public var generatedByReference: Reference? = null,
 ) {
-  public fun toModel(): GenomicStudy.Analysis.Input.GeneratedBy? =
+  public fun toModel(): GenomicStudy.Analysis.Input.GeneratedBy =
     GenomicStudy.Analysis.Input.GeneratedBy?.from(
       this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByIdentifier,
       this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

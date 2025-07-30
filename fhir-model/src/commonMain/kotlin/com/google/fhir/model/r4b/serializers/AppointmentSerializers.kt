@@ -37,7 +37,7 @@ public object AppointmentParticipantSerializer : KSerializer<Appointment.Partici
   }
 
   override fun deserialize(decoder: Decoder): Appointment.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment.Participant) {
     surrogateSerializer.serialize(encoder, AppointmentParticipantSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object AppointmentSerializer : KSerializer<Appointment> {
   }
 
   override fun deserialize(decoder: Decoder): Appointment =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment) {
     surrogateSerializer.serialize(encoder, AppointmentSurrogate.fromModel(value))

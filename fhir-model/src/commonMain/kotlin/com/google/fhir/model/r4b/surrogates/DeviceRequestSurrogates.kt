@@ -57,7 +57,7 @@ internal data class DeviceRequestParameterValueSurrogate(
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
 ) {
-  public fun toModel(): DeviceRequest.Parameter.Value? =
+  public fun toModel(): DeviceRequest.Parameter.Value =
     DeviceRequest.Parameter.Value?.from(
       this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
       this@DeviceRequestParameterValueSurrogate.valueQuantity,
@@ -66,7 +66,7 @@ internal data class DeviceRequestParameterValueSurrogate(
         this@DeviceRequestParameterValueSurrogate.valueBoolean,
         this@DeviceRequestParameterValueSurrogate._valueBoolean,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -124,7 +124,7 @@ internal data class DeviceRequestCodeSurrogate(
     DeviceRequest.Code.from(
       this@DeviceRequestCodeSurrogate.codeReference,
       this@DeviceRequestCodeSurrogate.codeCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: DeviceRequest.Code): DeviceRequestCodeSurrogate =
@@ -144,7 +144,7 @@ internal data class DeviceRequestOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): DeviceRequest.Occurrence? =
+  public fun toModel(): DeviceRequest.Occurrence =
     DeviceRequest.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@DeviceRequestOccurrenceSurrogate.occurrenceDateTime),
@@ -152,7 +152,7 @@ internal data class DeviceRequestOccurrenceSurrogate(
       ),
       this@DeviceRequestOccurrenceSurrogate.occurrencePeriod,
       this@DeviceRequestOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: DeviceRequest.Occurrence): DeviceRequestOccurrenceSurrogate =

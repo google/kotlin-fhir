@@ -143,7 +143,7 @@ internal data class InvoiceLineItemChargeItemSurrogate(
     Invoice.LineItem.ChargeItem.from(
       this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
       this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =

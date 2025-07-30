@@ -130,7 +130,7 @@ internal data class ProcedureOccurrenceSurrogate(
   public var occurrenceRange: Range? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): Procedure.Occurrence? =
+  public fun toModel(): Procedure.Occurrence =
     Procedure.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@ProcedureOccurrenceSurrogate.occurrenceDateTime),
@@ -144,7 +144,7 @@ internal data class ProcedureOccurrenceSurrogate(
       this@ProcedureOccurrenceSurrogate.occurrenceAge,
       this@ProcedureOccurrenceSurrogate.occurrenceRange,
       this@ProcedureOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Procedure.Occurrence): ProcedureOccurrenceSurrogate =
@@ -169,14 +169,14 @@ internal data class ProcedureReportedSurrogate(
   public var _reportedBoolean: Element? = null,
   public var reportedReference: Reference? = null,
 ) {
-  public fun toModel(): Procedure.Reported? =
+  public fun toModel(): Procedure.Reported =
     Procedure.Reported?.from(
       R5Boolean.of(
         this@ProcedureReportedSurrogate.reportedBoolean,
         this@ProcedureReportedSurrogate._reportedBoolean,
       ),
       this@ProcedureReportedSurrogate.reportedReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Procedure.Reported): ProcedureReportedSurrogate =

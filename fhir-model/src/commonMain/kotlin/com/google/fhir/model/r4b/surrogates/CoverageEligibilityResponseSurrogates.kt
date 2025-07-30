@@ -58,7 +58,7 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrog
   public var _allowedString: Element? = null,
   public var allowedMoney: Money? = null,
 ) {
-  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed? =
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed =
     CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed?.from(
       UnsignedInt.of(
         this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedUnsignedInt,
@@ -69,7 +69,7 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrog
         this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedString,
       ),
       this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedMoney,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -95,7 +95,7 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate
   public var _usedString: Element? = null,
   public var usedMoney: Money? = null,
 ) {
-  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Used? =
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Used =
     CoverageEligibilityResponse.Insurance.Item.Benefit.Used?.from(
       UnsignedInt.of(
         this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedUnsignedInt,
@@ -106,7 +106,7 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate
         this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedString,
       ),
       this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedMoney,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -350,14 +350,14 @@ internal data class CoverageEligibilityResponseServicedSurrogate(
   public var _servicedDate: Element? = null,
   public var servicedPeriod: Period? = null,
 ) {
-  public fun toModel(): CoverageEligibilityResponse.Serviced? =
+  public fun toModel(): CoverageEligibilityResponse.Serviced =
     CoverageEligibilityResponse.Serviced?.from(
       Date.of(
         FhirDate.fromString(this@CoverageEligibilityResponseServicedSurrogate.servicedDate),
         this@CoverageEligibilityResponseServicedSurrogate._servicedDate,
       ),
       this@CoverageEligibilityResponseServicedSurrogate.servicedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

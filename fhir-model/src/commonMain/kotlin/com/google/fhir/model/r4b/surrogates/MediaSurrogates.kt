@@ -56,14 +56,14 @@ internal data class MediaCreatedSurrogate(
   public var _createdDateTime: Element? = null,
   public var createdPeriod: Period? = null,
 ) {
-  public fun toModel(): Media.Created? =
+  public fun toModel(): Media.Created =
     Media.Created?.from(
       DateTime.of(
         FhirDateTime.fromString(this@MediaCreatedSurrogate.createdDateTime),
         this@MediaCreatedSurrogate._createdDateTime,
       ),
       this@MediaCreatedSurrogate.createdPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Media.Created): MediaCreatedSurrogate =

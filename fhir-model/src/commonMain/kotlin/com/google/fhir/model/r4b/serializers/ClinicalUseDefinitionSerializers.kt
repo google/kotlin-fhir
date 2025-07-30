@@ -55,7 +55,7 @@ public object ClinicalUseDefinitionContraindicationOtherTherapySerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Contraindication.OtherTherapy =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -80,7 +80,7 @@ public object ClinicalUseDefinitionContraindicationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Contraindication =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Contraindication) {
     surrogateSerializer.serialize(
@@ -102,7 +102,7 @@ public object ClinicalUseDefinitionIndicationDurationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Indication.Duration =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Indication.Duration) {
     surrogateSerializer.serialize(
@@ -172,7 +172,7 @@ public object ClinicalUseDefinitionInteractionInteractantItemSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction.Interactant.Item =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -245,7 +245,7 @@ public object ClinicalUseDefinitionInteractionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Interaction) {
     surrogateSerializer.serialize(
@@ -267,7 +267,7 @@ public object ClinicalUseDefinitionUndesirableEffectSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.UndesirableEffect =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.UndesirableEffect) {
     surrogateSerializer.serialize(
@@ -287,7 +287,7 @@ public object ClinicalUseDefinitionWarningSerializer : KSerializer<ClinicalUseDe
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Warning =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Warning) {
     surrogateSerializer.serialize(encoder, ClinicalUseDefinitionWarningSurrogate.fromModel(value))
@@ -304,7 +304,7 @@ public object ClinicalUseDefinitionSerializer : KSerializer<ClinicalUseDefinitio
   }
 
   override fun deserialize(decoder: Decoder): ClinicalUseDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition) {
     surrogateSerializer.serialize(encoder, ClinicalUseDefinitionSurrogate.fromModel(value))

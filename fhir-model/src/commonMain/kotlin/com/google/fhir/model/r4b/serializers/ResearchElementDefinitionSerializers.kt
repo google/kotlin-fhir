@@ -51,7 +51,7 @@ public object ResearchElementDefinitionCharacteristicDefinitionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ResearchElementDefinition.Characteristic.Definition =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -78,7 +78,7 @@ public object ResearchElementDefinitionCharacteristicStudyEffectiveSerializer :
   override fun deserialize(
     decoder: Decoder
   ): ResearchElementDefinition.Characteristic.StudyEffective =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -105,7 +105,7 @@ public object ResearchElementDefinitionCharacteristicParticipantEffectiveSeriali
   override fun deserialize(
     decoder: Decoder
   ): ResearchElementDefinition.Characteristic.ParticipantEffective =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -179,7 +179,7 @@ public object ResearchElementDefinitionSubjectSerializer :
   }
 
   override fun deserialize(decoder: Decoder): ResearchElementDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchElementDefinition.Subject) {
     surrogateSerializer.serialize(

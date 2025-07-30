@@ -36,7 +36,7 @@ public object SignatureSerializer : KSerializer<Signature> {
   }
 
   override fun deserialize(decoder: Decoder): Signature =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Signature) {
     surrogateSerializer.serialize(encoder, SignatureSurrogate.fromModel(value))

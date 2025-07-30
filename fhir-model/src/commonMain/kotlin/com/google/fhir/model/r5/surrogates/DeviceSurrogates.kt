@@ -291,7 +291,7 @@ internal data class DevicePropertyValueSurrogate(
       ),
       this@DevicePropertyValueSurrogate.valueRange,
       this@DevicePropertyValueSurrogate.valueAttachment,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Device.Property.Value): DevicePropertyValueSurrogate =

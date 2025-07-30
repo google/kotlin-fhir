@@ -47,7 +47,7 @@ public object SupplyRequestParameterValueSerializer : KSerializer<SupplyRequest.
   }
 
   override fun deserialize(decoder: Decoder): SupplyRequest.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SupplyRequest.Parameter.Value) {
     surrogateSerializer.serialize(encoder, SupplyRequestParameterValueSurrogate.fromModel(value))
@@ -111,7 +111,7 @@ public object SupplyRequestOccurrenceSerializer : KSerializer<SupplyRequest.Occu
   }
 
   override fun deserialize(decoder: Decoder): SupplyRequest.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: SupplyRequest.Occurrence) {
     surrogateSerializer.serialize(encoder, SupplyRequestOccurrenceSurrogate.fromModel(value))

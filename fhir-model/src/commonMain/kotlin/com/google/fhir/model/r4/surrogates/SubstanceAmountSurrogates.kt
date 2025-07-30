@@ -71,7 +71,7 @@ internal data class SubstanceAmountAmountSurrogate(
   public var amountString: KotlinString? = null,
   public var _amountString: Element? = null,
 ) {
-  public fun toModel(): SubstanceAmount.Amount? =
+  public fun toModel(): SubstanceAmount.Amount =
     SubstanceAmount.Amount?.from(
       this@SubstanceAmountAmountSurrogate.amountQuantity,
       this@SubstanceAmountAmountSurrogate.amountRange,
@@ -79,7 +79,7 @@ internal data class SubstanceAmountAmountSurrogate(
         this@SubstanceAmountAmountSurrogate.amountString,
         this@SubstanceAmountAmountSurrogate._amountString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: SubstanceAmount.Amount): SubstanceAmountAmountSurrogate =

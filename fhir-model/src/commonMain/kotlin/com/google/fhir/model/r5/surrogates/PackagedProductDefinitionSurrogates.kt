@@ -99,7 +99,7 @@ internal data class PackagedProductDefinitionPackagingPropertyValueSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Packaging.Property.Value? =
+  public fun toModel(): PackagedProductDefinition.Packaging.Property.Value =
     PackagedProductDefinition.Packaging.Property.Value?.from(
       this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueCodeableConcept,
       this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueQuantity,
@@ -114,7 +114,7 @@ internal data class PackagedProductDefinitionPackagingPropertyValueSurrogate(
         this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueBoolean,
       ),
       this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueAttachment,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(

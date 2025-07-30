@@ -45,7 +45,7 @@ public object TestReportParticipantSerializer : KSerializer<TestReport.Participa
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Participant) {
     surrogateSerializer.serialize(encoder, TestReportParticipantSurrogate.fromModel(value))
@@ -63,7 +63,7 @@ public object TestReportSetupActionOperationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Setup.Action.Operation =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Setup.Action.Operation) {
     surrogateSerializer.serialize(encoder, TestReportSetupActionOperationSurrogate.fromModel(value))
@@ -80,7 +80,7 @@ public object TestReportSetupActionAssertSerializer : KSerializer<TestReport.Set
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Setup.Action.Assert =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Setup.Action.Assert) {
     surrogateSerializer.serialize(encoder, TestReportSetupActionAssertSurrogate.fromModel(value))
@@ -97,7 +97,7 @@ public object TestReportSetupActionSerializer : KSerializer<TestReport.Setup.Act
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Setup.Action =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Setup.Action) {
     surrogateSerializer.serialize(encoder, TestReportSetupActionSurrogate.fromModel(value))
@@ -114,7 +114,7 @@ public object TestReportSetupSerializer : KSerializer<TestReport.Setup> {
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Setup =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Setup) {
     surrogateSerializer.serialize(encoder, TestReportSetupSurrogate.fromModel(value))
@@ -131,7 +131,7 @@ public object TestReportTestActionSerializer : KSerializer<TestReport.Test.Actio
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Test.Action =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Test.Action) {
     surrogateSerializer.serialize(encoder, TestReportTestActionSurrogate.fromModel(value))
@@ -148,7 +148,7 @@ public object TestReportTestSerializer : KSerializer<TestReport.Test> {
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Test =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Test) {
     surrogateSerializer.serialize(encoder, TestReportTestSurrogate.fromModel(value))
@@ -165,7 +165,7 @@ public object TestReportTeardownActionSerializer : KSerializer<TestReport.Teardo
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Teardown.Action =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Teardown.Action) {
     surrogateSerializer.serialize(encoder, TestReportTeardownActionSurrogate.fromModel(value))
@@ -182,7 +182,7 @@ public object TestReportTeardownSerializer : KSerializer<TestReport.Teardown> {
   }
 
   override fun deserialize(decoder: Decoder): TestReport.Teardown =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Teardown) {
     surrogateSerializer.serialize(encoder, TestReportTeardownSurrogate.fromModel(value))
@@ -199,7 +199,7 @@ public object TestReportSerializer : KSerializer<TestReport> {
   }
 
   override fun deserialize(decoder: Decoder): TestReport =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: TestReport) {
     surrogateSerializer.serialize(encoder, TestReportSurrogate.fromModel(value))

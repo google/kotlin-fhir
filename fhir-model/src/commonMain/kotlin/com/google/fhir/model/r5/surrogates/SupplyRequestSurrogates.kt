@@ -56,7 +56,7 @@ internal data class SupplyRequestParameterValueSurrogate(
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
 ) {
-  public fun toModel(): SupplyRequest.Parameter.Value? =
+  public fun toModel(): SupplyRequest.Parameter.Value =
     SupplyRequest.Parameter.Value?.from(
       this@SupplyRequestParameterValueSurrogate.valueCodeableConcept,
       this@SupplyRequestParameterValueSurrogate.valueQuantity,
@@ -65,7 +65,7 @@ internal data class SupplyRequestParameterValueSurrogate(
         this@SupplyRequestParameterValueSurrogate.valueBoolean,
         this@SupplyRequestParameterValueSurrogate._valueBoolean,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -121,7 +121,7 @@ internal data class SupplyRequestOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
   public var occurrenceTiming: Timing? = null,
 ) {
-  public fun toModel(): SupplyRequest.Occurrence? =
+  public fun toModel(): SupplyRequest.Occurrence =
     SupplyRequest.Occurrence?.from(
       DateTime.of(
         FhirDateTime.fromString(this@SupplyRequestOccurrenceSurrogate.occurrenceDateTime),
@@ -129,7 +129,7 @@ internal data class SupplyRequestOccurrenceSurrogate(
       ),
       this@SupplyRequestOccurrenceSurrogate.occurrencePeriod,
       this@SupplyRequestOccurrenceSurrogate.occurrenceTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: SupplyRequest.Occurrence): SupplyRequestOccurrenceSurrogate =

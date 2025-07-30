@@ -141,7 +141,7 @@ internal data class DocumentReferenceContentProfileValueSurrogate(
         this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
         this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

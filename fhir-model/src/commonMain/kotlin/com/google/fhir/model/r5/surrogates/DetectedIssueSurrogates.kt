@@ -125,14 +125,14 @@ internal data class DetectedIssueIdentifiedSurrogate(
   public var _identifiedDateTime: Element? = null,
   public var identifiedPeriod: Period? = null,
 ) {
-  public fun toModel(): DetectedIssue.Identified? =
+  public fun toModel(): DetectedIssue.Identified =
     DetectedIssue.Identified?.from(
       DateTime.of(
         FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
         this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,
       ),
       this@DetectedIssueIdentifiedSurrogate.identifiedPeriod,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: DetectedIssue.Identified): DetectedIssueIdentifiedSurrogate =

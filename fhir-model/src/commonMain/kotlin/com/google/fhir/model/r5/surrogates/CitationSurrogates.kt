@@ -1042,14 +1042,14 @@ internal data class CitationVersionAlgorithmSurrogate(
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
-  public fun toModel(): Citation.VersionAlgorithm? =
+  public fun toModel(): Citation.VersionAlgorithm =
     Citation.VersionAlgorithm?.from(
       R5String.of(
         this@CitationVersionAlgorithmSurrogate.versionAlgorithmString,
         this@CitationVersionAlgorithmSurrogate._versionAlgorithmString,
       ),
       this@CitationVersionAlgorithmSurrogate.versionAlgorithmCoding,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: Citation.VersionAlgorithm): CitationVersionAlgorithmSurrogate =

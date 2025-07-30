@@ -59,7 +59,7 @@ public object EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSeriali
   override fun deserialize(
     decoder: Decoder
   ): EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -140,7 +140,7 @@ public object EvidenceVariableCharacteristicDefinitionByCombinationSerializer :
   override fun deserialize(
     decoder: Decoder
   ): EvidenceVariable.Characteristic.DefinitionByCombination =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -165,7 +165,7 @@ public object EvidenceVariableCharacteristicTimeFromEventEventSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.TimeFromEvent.Event =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -239,7 +239,7 @@ public object EvidenceVariableCharacteristicInstancesSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.Instances =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Characteristic.Instances) {
     surrogateSerializer.serialize(
@@ -261,7 +261,7 @@ public object EvidenceVariableCharacteristicDurationSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.Duration =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Characteristic.Duration) {
     surrogateSerializer.serialize(
@@ -330,7 +330,7 @@ public object EvidenceVariableCategoryValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.Category.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Category.Value) {
     surrogateSerializer.serialize(encoder, EvidenceVariableCategoryValueSurrogate.fromModel(value))
@@ -395,7 +395,7 @@ public object EvidenceVariableVersionAlgorithmSerializer :
   }
 
   override fun deserialize(decoder: Decoder): EvidenceVariable.VersionAlgorithm =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: EvidenceVariable.VersionAlgorithm) {
     surrogateSerializer.serialize(

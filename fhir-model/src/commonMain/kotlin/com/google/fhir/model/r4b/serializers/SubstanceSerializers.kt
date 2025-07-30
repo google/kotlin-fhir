@@ -47,7 +47,7 @@ public object SubstanceInstanceSerializer : KSerializer<Substance.Instance> {
   }
 
   override fun deserialize(decoder: Decoder): Substance.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Substance.Instance) {
     surrogateSerializer.serialize(encoder, SubstanceInstanceSurrogate.fromModel(value))
@@ -64,7 +64,7 @@ public object SubstanceIngredientSubstanceSerializer : KSerializer<Substance.Ing
   }
 
   override fun deserialize(decoder: Decoder): Substance.Ingredient.Substance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Substance.Ingredient.Substance) {
     surrogateSerializer.serialize(encoder, SubstanceIngredientSubstanceSurrogate.fromModel(value))
@@ -128,7 +128,7 @@ public object SubstanceSerializer : KSerializer<Substance> {
   }
 
   override fun deserialize(decoder: Decoder): Substance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Substance) {
     surrogateSerializer.serialize(encoder, SubstanceSurrogate.fromModel(value))

@@ -50,14 +50,14 @@ internal data class MessageHeaderDestinationEndpointSurrogate(
   public var _endpointUrl: Element? = null,
   public var endpointReference: Reference? = null,
 ) {
-  public fun toModel(): MessageHeader.Destination.Endpoint? =
+  public fun toModel(): MessageHeader.Destination.Endpoint =
     MessageHeader.Destination.Endpoint?.from(
       Url.of(
         this@MessageHeaderDestinationEndpointSurrogate.endpointUrl,
         this@MessageHeaderDestinationEndpointSurrogate._endpointUrl,
       ),
       this@MessageHeaderDestinationEndpointSurrogate.endpointReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -123,14 +123,14 @@ internal data class MessageHeaderSourceEndpointSurrogate(
   public var _endpointUrl: Element? = null,
   public var endpointReference: Reference? = null,
 ) {
-  public fun toModel(): MessageHeader.Source.Endpoint? =
+  public fun toModel(): MessageHeader.Source.Endpoint =
     MessageHeader.Source.Endpoint?.from(
       Url.of(
         this@MessageHeaderSourceEndpointSurrogate.endpointUrl,
         this@MessageHeaderSourceEndpointSurrogate._endpointUrl,
       ),
       this@MessageHeaderSourceEndpointSurrogate.endpointReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -259,7 +259,7 @@ internal data class MessageHeaderEventSurrogate(
         this@MessageHeaderEventSurrogate.eventCanonical,
         this@MessageHeaderEventSurrogate._eventCanonical,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =

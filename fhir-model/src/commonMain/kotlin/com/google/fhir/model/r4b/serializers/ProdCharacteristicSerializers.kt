@@ -36,7 +36,7 @@ public object ProdCharacteristicSerializer : KSerializer<ProdCharacteristic> {
   }
 
   override fun deserialize(decoder: Decoder): ProdCharacteristic =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ProdCharacteristic) {
     surrogateSerializer.serialize(encoder, ProdCharacteristicSurrogate.fromModel(value))

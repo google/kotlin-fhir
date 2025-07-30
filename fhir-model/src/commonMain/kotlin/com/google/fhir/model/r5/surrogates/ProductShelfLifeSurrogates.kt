@@ -39,14 +39,14 @@ internal data class ProductShelfLifePeriodSurrogate(
   public var periodString: KotlinString? = null,
   public var _periodString: Element? = null,
 ) {
-  public fun toModel(): ProductShelfLife.Period? =
+  public fun toModel(): ProductShelfLife.Period =
     ProductShelfLife.Period?.from(
       this@ProductShelfLifePeriodSurrogate.periodDuration,
       R5String.of(
         this@ProductShelfLifePeriodSurrogate.periodString,
         this@ProductShelfLifePeriodSurrogate._periodString,
       ),
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: ProductShelfLife.Period): ProductShelfLifePeriodSurrogate =

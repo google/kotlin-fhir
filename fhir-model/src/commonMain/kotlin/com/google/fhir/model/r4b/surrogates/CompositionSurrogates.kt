@@ -100,7 +100,7 @@ internal data class CompositionRelatesToTargetSurrogate(
     Composition.RelatesTo.Target.from(
       this@CompositionRelatesToTargetSurrogate.targetIdentifier,
       this@CompositionRelatesToTargetSurrogate.targetReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(model: Composition.RelatesTo.Target): CompositionRelatesToTargetSurrogate =

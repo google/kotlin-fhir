@@ -156,7 +156,7 @@ internal data class MedicationRequestSubstitutionAllowedSurrogate(
         this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
       ),
       this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(
@@ -212,14 +212,14 @@ internal data class MedicationRequestReportedSurrogate(
   public var _reportedBoolean: Element? = null,
   public var reportedReference: Reference? = null,
 ) {
-  public fun toModel(): MedicationRequest.Reported? =
+  public fun toModel(): MedicationRequest.Reported =
     MedicationRequest.Reported?.from(
       R4bBoolean.of(
         this@MedicationRequestReportedSurrogate.reportedBoolean,
         this@MedicationRequestReportedSurrogate._reportedBoolean,
       ),
       this@MedicationRequestReportedSurrogate.reportedReference,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: MedicationRequest.Reported): MedicationRequestReportedSurrogate =
@@ -242,7 +242,7 @@ internal data class MedicationRequestMedicationSurrogate(
     MedicationRequest.Medication.from(
       this@MedicationRequestMedicationSurrogate.medicationCodeableConcept,
       this@MedicationRequestMedicationSurrogate.medicationReference,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

@@ -45,7 +45,7 @@ public object ResearchDefinitionSubjectSerializer : KSerializer<ResearchDefiniti
   }
 
   override fun deserialize(decoder: Decoder): ResearchDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: ResearchDefinition.Subject) {
     surrogateSerializer.serialize(encoder, ResearchDefinitionSubjectSurrogate.fromModel(value))

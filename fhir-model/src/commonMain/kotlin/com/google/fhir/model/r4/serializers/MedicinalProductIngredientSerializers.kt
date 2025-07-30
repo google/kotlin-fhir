@@ -46,7 +46,7 @@ public object MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStren
   override fun deserialize(
     decoder: Decoder
   ): MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -75,7 +75,7 @@ public object MedicinalProductIngredientSpecifiedSubstanceStrengthSerializer :
   override fun deserialize(
     decoder: Decoder
   ): MedicinalProductIngredient.SpecifiedSubstance.Strength =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -100,7 +100,7 @@ public object MedicinalProductIngredientSpecifiedSubstanceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductIngredient.SpecifiedSubstance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductIngredient.SpecifiedSubstance) {
     surrogateSerializer.serialize(
@@ -122,7 +122,7 @@ public object MedicinalProductIngredientSubstanceSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductIngredient.Substance =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductIngredient.Substance) {
     surrogateSerializer.serialize(
@@ -142,7 +142,7 @@ public object MedicinalProductIngredientSerializer : KSerializer<MedicinalProduc
   }
 
   override fun deserialize(decoder: Decoder): MedicinalProductIngredient =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicinalProductIngredient) {
     surrogateSerializer.serialize(encoder, MedicinalProductIngredientSurrogate.fromModel(value))

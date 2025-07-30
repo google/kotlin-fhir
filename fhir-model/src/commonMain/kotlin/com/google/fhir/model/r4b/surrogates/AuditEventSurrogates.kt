@@ -237,7 +237,7 @@ internal data class AuditEventEntityDetailValueSurrogate(
         this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
         this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
       ),
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

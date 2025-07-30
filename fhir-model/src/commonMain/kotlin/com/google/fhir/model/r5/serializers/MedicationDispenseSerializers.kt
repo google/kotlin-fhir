@@ -38,7 +38,7 @@ public object MedicationDispensePerformerSerializer : KSerializer<MedicationDisp
   }
 
   override fun deserialize(decoder: Decoder): MedicationDispense.Performer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationDispense.Performer) {
     surrogateSerializer.serialize(encoder, MedicationDispensePerformerSurrogate.fromModel(value))
@@ -56,7 +56,7 @@ public object MedicationDispenseSubstitutionSerializer :
   }
 
   override fun deserialize(decoder: Decoder): MedicationDispense.Substitution =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationDispense.Substitution) {
     surrogateSerializer.serialize(encoder, MedicationDispenseSubstitutionSurrogate.fromModel(value))
@@ -73,7 +73,7 @@ public object MedicationDispenseSerializer : KSerializer<MedicationDispense> {
   }
 
   override fun deserialize(decoder: Decoder): MedicationDispense =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: MedicationDispense) {
     surrogateSerializer.serialize(encoder, MedicationDispenseSurrogate.fromModel(value))

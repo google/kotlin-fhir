@@ -37,7 +37,7 @@ public object OperationOutcomeIssueSerializer : KSerializer<OperationOutcome.Iss
   }
 
   override fun deserialize(decoder: Decoder): OperationOutcome.Issue =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: OperationOutcome.Issue) {
     surrogateSerializer.serialize(encoder, OperationOutcomeIssueSurrogate.fromModel(value))
@@ -54,7 +54,7 @@ public object OperationOutcomeSerializer : KSerializer<OperationOutcome> {
   }
 
   override fun deserialize(decoder: Decoder): OperationOutcome =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: OperationOutcome) {
     surrogateSerializer.serialize(encoder, OperationOutcomeSurrogate.fromModel(value))

@@ -89,11 +89,11 @@ internal data class MedicationAdministrationDosageRateSurrogate(
   public var rateRatio: Ratio? = null,
   public var rateQuantity: Quantity? = null,
 ) {
-  public fun toModel(): MedicationAdministration.Dosage.Rate? =
+  public fun toModel(): MedicationAdministration.Dosage.Rate =
     MedicationAdministration.Dosage.Rate?.from(
       this@MedicationAdministrationDosageRateSurrogate.rateRatio,
       this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -175,7 +175,7 @@ internal data class MedicationAdministrationOccurenceSurrogate(
       ),
       this@MedicationAdministrationOccurenceSurrogate.occurencePeriod,
       this@MedicationAdministrationOccurenceSurrogate.occurenceTiming,
-    )!!
+    )!! !!
 
   public companion object {
     public fun fromModel(

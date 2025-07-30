@@ -53,7 +53,7 @@ public object QuestionnaireItemEnableWhenAnswerSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Questionnaire.Item.EnableWhen.Answer =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.EnableWhen.Answer) {
     surrogateSerializer.serialize(
@@ -122,7 +122,7 @@ public object QuestionnaireItemAnswerOptionValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Questionnaire.Item.AnswerOption.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.AnswerOption.Value) {
     surrogateSerializer.serialize(
@@ -191,7 +191,7 @@ public object QuestionnaireItemInitialValueSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Questionnaire.Item.Initial.Value =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.Initial.Value) {
     surrogateSerializer.serialize(encoder, QuestionnaireItemInitialValueSurrogate.fromModel(value))
@@ -255,7 +255,7 @@ public object QuestionnaireItemSerializer : KSerializer<Questionnaire.Item> {
   }
 
   override fun deserialize(decoder: Decoder): Questionnaire.Item =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Questionnaire.Item) {
     surrogateSerializer.serialize(encoder, QuestionnaireItemSurrogate.fromModel(value))
@@ -272,7 +272,7 @@ public object QuestionnaireSerializer : KSerializer<Questionnaire> {
   }
 
   override fun deserialize(decoder: Decoder): Questionnaire =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Questionnaire) {
     surrogateSerializer.serialize(encoder, QuestionnaireSurrogate.fromModel(value))

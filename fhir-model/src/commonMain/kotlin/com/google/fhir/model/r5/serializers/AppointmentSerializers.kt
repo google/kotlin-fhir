@@ -41,7 +41,7 @@ public object AppointmentParticipantSerializer : KSerializer<Appointment.Partici
   }
 
   override fun deserialize(decoder: Decoder): Appointment.Participant =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment.Participant) {
     surrogateSerializer.serialize(encoder, AppointmentParticipantSurrogate.fromModel(value))
@@ -60,7 +60,7 @@ public object AppointmentRecurrenceTemplateWeeklyTemplateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Appointment.RecurrenceTemplate.WeeklyTemplate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment.RecurrenceTemplate.WeeklyTemplate) {
     surrogateSerializer.serialize(
@@ -82,7 +82,7 @@ public object AppointmentRecurrenceTemplateMonthlyTemplateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Appointment.RecurrenceTemplate.MonthlyTemplate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
@@ -107,7 +107,7 @@ public object AppointmentRecurrenceTemplateYearlyTemplateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Appointment.RecurrenceTemplate.YearlyTemplate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment.RecurrenceTemplate.YearlyTemplate) {
     surrogateSerializer.serialize(
@@ -128,7 +128,7 @@ public object AppointmentRecurrenceTemplateSerializer :
   }
 
   override fun deserialize(decoder: Decoder): Appointment.RecurrenceTemplate =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment.RecurrenceTemplate) {
     surrogateSerializer.serialize(encoder, AppointmentRecurrenceTemplateSurrogate.fromModel(value))
@@ -145,7 +145,7 @@ public object AppointmentSerializer : KSerializer<Appointment> {
   }
 
   override fun deserialize(decoder: Decoder): Appointment =
-    surrogateSerializer.deserialize(decoder).toModel()!!
+    surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(encoder: Encoder, `value`: Appointment) {
     surrogateSerializer.serialize(encoder, AppointmentSurrogate.fromModel(value))

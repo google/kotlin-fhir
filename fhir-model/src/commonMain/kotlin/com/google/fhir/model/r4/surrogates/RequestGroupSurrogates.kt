@@ -99,11 +99,11 @@ internal data class RequestGroupActionRelatedActionOffsetSurrogate(
   public var offsetDuration: Duration? = null,
   public var offsetRange: Range? = null,
 ) {
-  public fun toModel(): RequestGroup.Action.RelatedAction.Offset? =
+  public fun toModel(): RequestGroup.Action.RelatedAction.Offset =
     RequestGroup.Action.RelatedAction.Offset?.from(
       this@RequestGroupActionRelatedActionOffsetSurrogate.offsetDuration,
       this@RequestGroupActionRelatedActionOffsetSurrogate.offsetRange,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -179,7 +179,7 @@ internal data class RequestGroupActionTimingSurrogate(
   public var timingRange: Range? = null,
   public var timingTiming: Timing? = null,
 ) {
-  public fun toModel(): RequestGroup.Action.Timing? =
+  public fun toModel(): RequestGroup.Action.Timing =
     RequestGroup.Action.Timing?.from(
       DateTime.of(
         FhirDateTime.fromString(this@RequestGroupActionTimingSurrogate.timingDateTime),
@@ -190,7 +190,7 @@ internal data class RequestGroupActionTimingSurrogate(
       this@RequestGroupActionTimingSurrogate.timingDuration,
       this@RequestGroupActionTimingSurrogate.timingRange,
       this@RequestGroupActionTimingSurrogate.timingTiming,
-    )
+    )!!
 
   public companion object {
     public fun fromModel(model: RequestGroup.Action.Timing): RequestGroupActionTimingSurrogate =
