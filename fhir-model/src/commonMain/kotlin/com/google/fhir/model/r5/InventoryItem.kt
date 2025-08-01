@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.InventoryItemAssociationSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.InventoryItemCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemDescriptionSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemInstanceSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemNameSerializer
@@ -417,6 +418,7 @@ public data class InventoryItem(
      */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = InventoryItemCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asString(): String? = this as? String
 

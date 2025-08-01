@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.QuestionnaireResponseItemAnswerSerializer
+import com.google.fhir.model.r4.serializers.QuestionnaireResponseItemAnswerValueSerializer
 import com.google.fhir.model.r4.serializers.QuestionnaireResponseItemSerializer
 import com.google.fhir.model.r4.serializers.QuestionnaireResponseSerializer
 import kotlin.Suppress
@@ -343,6 +344,7 @@ public data class QuestionnaireResponse(
       /** Nested groups and/or questions found within this particular answer. */
       public var item: MutableList<Item> = mutableListOf(),
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireResponseItemAnswerValueSerializer::class)
       public sealed interface Value {
         public fun asBoolean(): Boolean? = this as? Boolean
 

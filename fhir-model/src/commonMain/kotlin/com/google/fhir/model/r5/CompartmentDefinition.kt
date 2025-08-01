@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CompartmentDefinitionResourceSerializer
 import com.google.fhir.model.r5.serializers.CompartmentDefinitionSerializer
+import com.google.fhir.model.r5.serializers.CompartmentDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -350,6 +351,7 @@ public data class CompartmentDefinition(
     public var endParam: Uri? = null,
   ) : BackboneElement()
 
+  @Serializable(with = CompartmentDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

@@ -19,8 +19,11 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ImmunizationEducationSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationOccurrenceSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationPerformerSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedDoseNumberSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationProtocolAppliedSeriesDosesSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationReactionSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationSerializer
 import kotlin.Suppress
@@ -473,6 +476,7 @@ public data class Immunization(
      */
     public var seriesDoses: SeriesDoses? = null,
   ) : BackboneElement() {
+    @Serializable(with = ImmunizationProtocolAppliedDoseNumberSerializer::class)
     public sealed interface DoseNumber {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -495,6 +499,7 @@ public data class Immunization(
       }
     }
 
+    @Serializable(with = ImmunizationProtocolAppliedSeriesDosesSerializer::class)
     public sealed interface SeriesDoses {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -518,6 +523,7 @@ public data class Immunization(
     }
   }
 
+  @Serializable(with = ImmunizationOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

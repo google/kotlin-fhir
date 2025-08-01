@@ -35,27 +35,46 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class UsageContextSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var code: Coding,
+internal data class UsageContextValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
   public var valueRange: Range? = null,
   public var valueReference: Reference? = null,
+) {
+  public fun toModel(): UsageContext.Value =
+    UsageContext.Value.from(
+      this@UsageContextValueSurrogate.valueCodeableConcept,
+      this@UsageContextValueSurrogate.valueQuantity,
+      this@UsageContextValueSurrogate.valueRange,
+      this@UsageContextValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: UsageContext.Value): UsageContextValueSurrogate =
+      with(model) {
+        UsageContextValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class UsageContextSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var code: Coding,
+  public var `value`: UsageContext.Value,
 ) {
   public fun toModel(): UsageContext =
     UsageContext(
       id = this@UsageContextSurrogate.id,
       extension = this@UsageContextSurrogate.extension ?: mutableListOf(),
       code = this@UsageContextSurrogate.code,
-      `value` =
-        UsageContext.Value.from(
-          this@UsageContextSurrogate.valueCodeableConcept,
-          this@UsageContextSurrogate.valueQuantity,
-          this@UsageContextSurrogate.valueRange,
-          this@UsageContextSurrogate.valueReference,
-        )!!,
+      `value` = this@UsageContextSurrogate.`value`,
     )
 
   public companion object {
@@ -65,10 +84,7 @@ internal data class UsageContextSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           code = this@with.code,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueReference = this@with.`value`?.asReference()?.value,
+          `value` = this@with.`value`,
         )
       }
   }

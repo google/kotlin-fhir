@@ -25,12 +25,16 @@ import com.google.fhir.model.r5.serializers.ValueSetComposeIncludeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetComposeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertySerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertySubPropertySerializer
+import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertySubPropertyValueSerializer
+import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionContainsSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionParameterSerializer
+import com.google.fhir.model.r5.serializers.ValueSetExpansionParameterValueSerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionPropertySerializer
 import com.google.fhir.model.r5.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r5.serializers.ValueSetScopeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetSerializer
+import com.google.fhir.model.r5.serializers.ValueSetVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -996,6 +1000,7 @@ public data class ValueSet(
       /** The value of the parameter. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = ValueSetExpansionParameterValueSerializer::class)
       public sealed interface Value {
         public fun asString(): String? = this as? String
 
@@ -1296,6 +1301,7 @@ public data class ValueSet(
           /** The value of this subproperty. */
           public var `value`: Value,
         ) : BackboneElement() {
+          @Serializable(with = ValueSetExpansionContainsPropertySubPropertyValueSerializer::class)
           public sealed interface Value {
             public fun asCode(): Code? = this as? Code
 
@@ -1349,6 +1355,7 @@ public data class ValueSet(
           }
         }
 
+        @Serializable(with = ValueSetExpansionContainsPropertyValueSerializer::class)
         public sealed interface Value {
           public fun asCode(): Code? = this as? Code
 
@@ -1452,6 +1459,7 @@ public data class ValueSet(
     public var exclusionCriteria: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ValueSetVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

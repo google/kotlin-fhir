@@ -263,6 +263,28 @@ internal data class MeasureGroupStratifierSurrogate(
 }
 
 @Serializable
+internal data class MeasureGroupSubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): Measure.Group.Subject =
+    Measure.Group.Subject?.from(
+      this@MeasureGroupSubjectSurrogate.subjectCodeableConcept,
+      this@MeasureGroupSubjectSurrogate.subjectReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Measure.Group.Subject): MeasureGroupSubjectSurrogate =
+      with(model) {
+        MeasureGroupSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MeasureGroupSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -273,8 +295,7 @@ internal data class MeasureGroupSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var type: MutableList<CodeableConcept>? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
+  public var subject: Measure.Group.Subject? = null,
   public var basis: KotlinString? = null,
   public var _basis: Element? = null,
   public var scoring: CodeableConcept? = null,
@@ -300,11 +321,7 @@ internal data class MeasureGroupSurrogate(
           this@MeasureGroupSurrogate._description,
         ),
       type = this@MeasureGroupSurrogate.type ?: mutableListOf(),
-      subject =
-        Measure.Group.Subject?.from(
-          this@MeasureGroupSurrogate.subjectCodeableConcept,
-          this@MeasureGroupSurrogate.subjectReference,
-        ),
+      subject = this@MeasureGroupSurrogate.subject,
       basis =
         this@MeasureGroupSurrogate.basis?.let {
           Enumeration.of(
@@ -352,8 +369,7 @@ internal data class MeasureGroupSurrogate(
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           type = this@with.type.takeUnless { it.all { it == null } },
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value,
-          subjectReference = this@with.subject?.asReference()?.value,
+          subject = this@with.subject,
           basis = this@with.basis?.value?.getCode(),
           _basis = this@with.basis?.toElement(),
           scoring = this@with.scoring,
@@ -430,6 +446,55 @@ internal data class MeasureSupplementalDataSurrogate(
 }
 
 @Serializable
+internal data class MeasureVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): Measure.VersionAlgorithm =
+    Measure.VersionAlgorithm?.from(
+      R5String.of(
+        this@MeasureVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@MeasureVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@MeasureVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Measure.VersionAlgorithm): MeasureVersionAlgorithmSurrogate =
+      with(model) {
+        MeasureVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureSubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): Measure.Subject =
+    Measure.Subject?.from(
+      this@MeasureSubjectSurrogate.subjectCodeableConcept,
+      this@MeasureSubjectSurrogate.subjectReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =
+      with(model) {
+        MeasureSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MeasureSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -446,9 +511,7 @@ internal data class MeasureSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: Measure.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -459,8 +522,7 @@ internal data class MeasureSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
+  public var subject: Measure.Subject? = null,
   public var basis: KotlinString? = null,
   public var _basis: Element? = null,
   public var date: KotlinString? = null,
@@ -528,14 +590,7 @@ internal data class MeasureSurrogate(
       url = Uri.of(this@MeasureSurrogate.url, this@MeasureSurrogate._url),
       identifier = this@MeasureSurrogate.identifier ?: mutableListOf(),
       version = R5String.of(this@MeasureSurrogate.version, this@MeasureSurrogate._version),
-      versionAlgorithm =
-        Measure.VersionAlgorithm?.from(
-          R5String.of(
-            this@MeasureSurrogate.versionAlgorithmString,
-            this@MeasureSurrogate._versionAlgorithmString,
-          ),
-          this@MeasureSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@MeasureSurrogate.versionAlgorithm,
       name = R5String.of(this@MeasureSurrogate.name, this@MeasureSurrogate._name),
       title = R5String.of(this@MeasureSurrogate.title, this@MeasureSurrogate._title),
       subtitle = R5String.of(this@MeasureSurrogate.subtitle, this@MeasureSurrogate._subtitle),
@@ -546,11 +601,7 @@ internal data class MeasureSurrogate(
         ),
       experimental =
         R5Boolean.of(this@MeasureSurrogate.experimental, this@MeasureSurrogate._experimental),
-      subject =
-        Measure.Subject?.from(
-          this@MeasureSurrogate.subjectCodeableConcept,
-          this@MeasureSurrogate.subjectReference,
-        ),
+      subject = this@MeasureSurrogate.subject,
       basis =
         this@MeasureSurrogate.basis?.let {
           Enumeration.of(
@@ -643,9 +694,7 @@ internal data class MeasureSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
@@ -656,8 +705,7 @@ internal data class MeasureSurrogate(
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,
           _experimental = this@with.experimental?.toElement(),
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value,
-          subjectReference = this@with.subject?.asReference()?.value,
+          subject = this@with.subject,
           basis = this@with.basis?.value?.getCode(),
           _basis = this@with.basis?.toElement(),
           date = this@with.date?.value?.toString(),

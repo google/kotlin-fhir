@@ -160,6 +160,62 @@ internal data class MessageDefinitionAllowedResponseSurrogate(
 }
 
 @Serializable
+internal data class MessageDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): MessageDefinition.VersionAlgorithm =
+    MessageDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@MessageDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MessageDefinition.VersionAlgorithm
+    ): MessageDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        MessageDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MessageDefinitionEventSurrogate(
+  public var eventCoding: Coding? = null,
+  public var eventUri: KotlinString? = null,
+  public var _eventUri: Element? = null,
+) {
+  public fun toModel(): MessageDefinition.Event =
+    MessageDefinition.Event.from(
+      this@MessageDefinitionEventSurrogate.eventCoding,
+      Uri.of(
+        this@MessageDefinitionEventSurrogate.eventUri,
+        this@MessageDefinitionEventSurrogate._eventUri,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =
+      with(model) {
+        MessageDefinitionEventSurrogate(
+          eventCoding = this@with.asCoding()?.value,
+          eventUri = this@with.asUri()?.value?.value,
+          _eventUri = this@with.asUri()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MessageDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -176,9 +232,7 @@ internal data class MessageDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: MessageDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -208,9 +262,7 @@ internal data class MessageDefinitionSurrogate(
   public var _base: Element? = null,
   public var parent: MutableList<KotlinString?>? = null,
   public var _parent: MutableList<Element?>? = null,
-  public var eventCoding: Coding? = null,
-  public var eventUri: KotlinString? = null,
-  public var _eventUri: Element? = null,
+  public var event: MessageDefinition.Event,
   public var category: KotlinString? = null,
   public var _category: Element? = null,
   public var focus: MutableList<MessageDefinition.Focus>? = null,
@@ -245,14 +297,7 @@ internal data class MessageDefinitionSurrogate(
           this@MessageDefinitionSurrogate.version,
           this@MessageDefinitionSurrogate._version,
         ),
-      versionAlgorithm =
-        MessageDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@MessageDefinitionSurrogate.versionAlgorithmString,
-            this@MessageDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@MessageDefinitionSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@MessageDefinitionSurrogate.versionAlgorithm,
       name =
         R5String.of(this@MessageDefinitionSurrogate.name, this@MessageDefinitionSurrogate._name),
       title =
@@ -336,14 +381,7 @@ internal data class MessageDefinitionSurrogate(
             .map { (value, element) -> Canonical.of(value, element)!! }
             .toMutableList()
         },
-      event =
-        MessageDefinition.Event.from(
-          this@MessageDefinitionSurrogate.eventCoding,
-          Uri.of(
-            this@MessageDefinitionSurrogate.eventUri,
-            this@MessageDefinitionSurrogate._eventUri,
-          ),
-        )!!,
+      event = this@MessageDefinitionSurrogate.event,
       category =
         this@MessageDefinitionSurrogate.category?.let {
           Enumeration.of(
@@ -383,9 +421,7 @@ internal data class MessageDefinitionSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
@@ -430,9 +466,7 @@ internal data class MessageDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          eventCoding = this@with.event?.asCoding()?.value,
-          eventUri = this@with.event?.asUri()?.value?.value,
-          _eventUri = this@with.event?.asUri()?.value?.toElement(),
+          event = this@with.event,
           category = this@with.category?.value?.getCode(),
           _category = this@with.category?.toElement(),
           focus = this@with.focus.takeUnless { it.all { it == null } },

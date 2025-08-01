@@ -19,10 +19,13 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseErrorSerializer
+import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemBenefitSerializer
+import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceItemSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseInsuranceSerializer
 import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseSerializer
+import com.google.fhir.model.r4b.serializers.CoverageEligibilityResponseServicedSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -426,6 +429,9 @@ public data class CoverageEligibilityResponse(
         /** The quantity of the benefit which have been consumed to date. */
         public var used: Used? = null,
       ) : BackboneElement() {
+        @Serializable(
+          with = CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer::class
+        )
         public sealed interface Allowed {
           public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -454,6 +460,7 @@ public data class CoverageEligibilityResponse(
           }
         }
 
+        @Serializable(with = CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer::class)
         public sealed interface Used {
           public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -532,6 +539,7 @@ public data class CoverageEligibilityResponse(
     public var code: CodeableConcept,
   ) : BackboneElement()
 
+  @Serializable(with = CoverageEligibilityResponseServicedSerializer::class)
   public sealed interface Serviced {
     public fun asDate(): Date? = this as? Date
 

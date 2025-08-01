@@ -19,17 +19,25 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionConditionSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionActionDefinitionSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionDynamicValueSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionInputSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionOutputSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionParticipantSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionActionRelatedActionOffsetSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionRelatedActionSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActionSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionActionSubjectSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionActionTimingSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActorOptionSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionActorSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionAsNeededSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionGoalSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionGoalTargetDetailSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionGoalTargetSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionSubjectSerializer
+import com.google.fhir.model.r5.serializers.PlanDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -585,6 +593,7 @@ public data class PlanDefinition(
       /** Indicates the timeframe after the start of the goal in which the goal should be met. */
       public var due: Duration? = null,
     ) : BackboneElement() {
+      @Serializable(with = PlanDefinitionGoalTargetDetailSerializer::class)
       public sealed interface Detail {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -1186,6 +1195,7 @@ public data class PlanDefinition(
        */
       public var offset: Offset? = null,
     ) : BackboneElement() {
+      @Serializable(with = PlanDefinitionActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -1339,6 +1349,7 @@ public data class PlanDefinition(
       public var expression: Expression? = null,
     ) : BackboneElement()
 
+    @Serializable(with = PlanDefinitionActionSubjectSerializer::class)
     public sealed interface Subject {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1368,6 +1379,7 @@ public data class PlanDefinition(
       }
     }
 
+    @Serializable(with = PlanDefinitionActionTimingSerializer::class)
     public sealed interface Timing {
       public fun asAge(): Age? = this as? Age
 
@@ -1402,6 +1414,7 @@ public data class PlanDefinition(
       }
     }
 
+    @Serializable(with = PlanDefinitionActionDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asCanonical(): Canonical? = this as? Canonical
 
@@ -1425,6 +1438,7 @@ public data class PlanDefinition(
     }
   }
 
+  @Serializable(with = PlanDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1448,6 +1462,7 @@ public data class PlanDefinition(
     }
   }
 
+  @Serializable(with = PlanDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1477,6 +1492,7 @@ public data class PlanDefinition(
     }
   }
 
+  @Serializable(with = PlanDefinitionAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 

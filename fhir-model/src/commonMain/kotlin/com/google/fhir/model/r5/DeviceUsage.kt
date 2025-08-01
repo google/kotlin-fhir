@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.DeviceUsageAdherenceSerializer
 import com.google.fhir.model.r5.serializers.DeviceUsageSerializer
+import com.google.fhir.model.r5.serializers.DeviceUsageTimingSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -250,6 +251,7 @@ public data class DeviceUsage(
     public var reason: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = DeviceUsageTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 

@@ -18,15 +18,20 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeCostCostSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeCostSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalDrugCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalDrugCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalIngredientSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalIngredientStrengthSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeDefinitionalSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineDosingGuidelineSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeIndicationGuidelineSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeMedicineClassificationSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeMedicineClassificationSourceSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeMonitoringProgramSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeMonographSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgePackagingSerializer
@@ -36,6 +41,7 @@ import com.google.fhir.model.r5.serializers.MedicationKnowledgeRegulatorySubstit
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeRelatedMedicationKnowledgeSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineEnvironmentalSettingSerializer
+import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSerializer
 import com.google.fhir.model.r5.serializers.MedicationKnowledgeStorageGuidelineSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -396,6 +402,7 @@ public data class MedicationKnowledge(
      */
     public var cost: Cost,
   ) : BackboneElement() {
+    @Serializable(with = MedicationKnowledgeCostCostSerializer::class)
     public sealed interface Cost {
       public fun asMoney(): Money? = this as? Money
 
@@ -680,6 +687,10 @@ public data class MedicationKnowledge(
         /** The specific characteristic (e.g. height, weight, gender, etc.). */
         public var `value`: Value? = null,
       ) : BackboneElement() {
+        @Serializable(
+          with =
+            MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSerializer::class
+        )
         public sealed interface Value {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -765,6 +776,7 @@ public data class MedicationKnowledge(
      */
     public var classification: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = MedicationKnowledgeMedicineClassificationSourceSerializer::class)
     public sealed interface Source {
       public fun asString(): String? = this as? String
 
@@ -943,6 +955,9 @@ public data class MedicationKnowledge(
       /** Value associated to the setting. E.g., 40° – 50°F for temperature. */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(
+        with = MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSerializer::class
+      )
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -1233,6 +1248,7 @@ public data class MedicationKnowledge(
        */
       public var strength: Strength? = null,
     ) : BackboneElement() {
+      @Serializable(with = MedicationKnowledgeDefinitionalIngredientStrengthSerializer::class)
       public sealed interface Strength {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -1317,6 +1333,7 @@ public data class MedicationKnowledge(
        */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = MedicationKnowledgeDefinitionalDrugCharacteristicValueSerializer::class)
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

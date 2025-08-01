@@ -45,12 +45,35 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class TimingRepeatSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+internal data class TimingRepeatBoundsSurrogate(
   public var boundsDuration: Duration? = null,
   public var boundsRange: Range? = null,
   public var boundsPeriod: Period? = null,
+) {
+  public fun toModel(): Timing.Repeat.Bounds =
+    Timing.Repeat.Bounds?.from(
+      this@TimingRepeatBoundsSurrogate.boundsDuration,
+      this@TimingRepeatBoundsSurrogate.boundsRange,
+      this@TimingRepeatBoundsSurrogate.boundsPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Timing.Repeat.Bounds): TimingRepeatBoundsSurrogate =
+      with(model) {
+        TimingRepeatBoundsSurrogate(
+          boundsDuration = this@with.asDuration()?.value,
+          boundsRange = this@with.asRange()?.value,
+          boundsPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TimingRepeatSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var bounds: Timing.Repeat.Bounds? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
   public var countMax: Int? = null,
@@ -84,12 +107,7 @@ internal data class TimingRepeatSurrogate(
     Timing.Repeat(
       id = this@TimingRepeatSurrogate.id,
       extension = this@TimingRepeatSurrogate.extension ?: mutableListOf(),
-      bounds =
-        Timing.Repeat.Bounds?.from(
-          this@TimingRepeatSurrogate.boundsDuration,
-          this@TimingRepeatSurrogate.boundsRange,
-          this@TimingRepeatSurrogate.boundsPeriod,
-        ),
+      bounds = this@TimingRepeatSurrogate.bounds,
       count = PositiveInt.of(this@TimingRepeatSurrogate.count, this@TimingRepeatSurrogate._count),
       countMax =
         PositiveInt.of(this@TimingRepeatSurrogate.countMax, this@TimingRepeatSurrogate._countMax),
@@ -185,9 +203,7 @@ internal data class TimingRepeatSurrogate(
         TimingRepeatSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
-          boundsDuration = this@with.bounds?.asDuration()?.value,
-          boundsRange = this@with.bounds?.asRange()?.value,
-          boundsPeriod = this@with.bounds?.asPeriod()?.value,
+          bounds = this@with.bounds,
           count = this@with.count?.value,
           _count = this@with.count?.toElement(),
           countMax = this@with.countMax?.value,

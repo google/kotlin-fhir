@@ -18,16 +18,26 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.Patient
 import com.google.fhir.model.r4b.surrogates.PatientCommunicationSurrogate
 import com.google.fhir.model.r4b.surrogates.PatientContactSurrogate
+import com.google.fhir.model.r4b.surrogates.PatientDeceasedSurrogate
 import com.google.fhir.model.r4b.surrogates.PatientLinkSurrogate
+import com.google.fhir.model.r4b.surrogates.PatientMultipleBirthSurrogate
 import com.google.fhir.model.r4b.surrogates.PatientSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object PatientContactSerializer : KSerializer<Patient.Contact> {
   internal val surrogateSerializer: KSerializer<PatientContactSurrogate> by lazy {
@@ -80,19 +90,83 @@ public object PatientLinkSerializer : KSerializer<Patient.Link> {
   }
 }
 
+public object PatientDeceasedSerializer : KSerializer<Patient.Deceased> {
+  internal val surrogateSerializer: KSerializer<PatientDeceasedSurrogate> by lazy {
+    PatientDeceasedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Deceased", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Patient.Deceased =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Patient.Deceased) {
+    surrogateSerializer.serialize(encoder, PatientDeceasedSurrogate.fromModel(value))
+  }
+}
+
+public object PatientMultipleBirthSerializer : KSerializer<Patient.MultipleBirth> {
+  internal val surrogateSerializer: KSerializer<PatientMultipleBirthSurrogate> by lazy {
+    PatientMultipleBirthSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("MultipleBirth", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Patient.MultipleBirth =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Patient.MultipleBirth) {
+    surrogateSerializer.serialize(encoder, PatientMultipleBirthSurrogate.fromModel(value))
+  }
+}
+
 public object PatientSerializer : KSerializer<Patient> {
   internal val surrogateSerializer: KSerializer<PatientSurrogate> by lazy {
     PatientSurrogate.serializer()
   }
 
+  private val resourceType: String? = "Patient"
+
+  private val multiChoiceProperties: List<String> = listOf("deceased", "multipleBirth")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Patient", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Patient =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Patient {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Patient) {
-    surrogateSerializer.serialize(encoder, PatientSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = PatientSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

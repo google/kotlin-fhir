@@ -20,7 +20,10 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ActivityDefinitionDynamicValueSerializer
 import com.google.fhir.model.r4.serializers.ActivityDefinitionParticipantSerializer
+import com.google.fhir.model.r4.serializers.ActivityDefinitionProductSerializer
 import com.google.fhir.model.r4.serializers.ActivityDefinitionSerializer
+import com.google.fhir.model.r4.serializers.ActivityDefinitionSubjectSerializer
+import com.google.fhir.model.r4.serializers.ActivityDefinitionTimingSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -548,6 +551,7 @@ public data class ActivityDefinition(
     public var expression: Expression,
   ) : BackboneElement()
 
+  @Serializable(with = ActivityDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -571,6 +575,7 @@ public data class ActivityDefinition(
     }
   }
 
+  @Serializable(with = ActivityDefinitionTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 
@@ -622,6 +627,7 @@ public data class ActivityDefinition(
     }
   }
 
+  @Serializable(with = ActivityDefinitionProductSerializer::class)
   public sealed interface Product {
     public fun asReference(): Reference? = this as? Reference
 

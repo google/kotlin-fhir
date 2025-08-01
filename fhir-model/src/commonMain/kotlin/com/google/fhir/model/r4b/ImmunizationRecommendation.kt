@@ -19,7 +19,9 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ImmunizationRecommendationRecommendationDateCriterionSerializer
+import com.google.fhir.model.r4b.serializers.ImmunizationRecommendationRecommendationDoseNumberSerializer
 import com.google.fhir.model.r4b.serializers.ImmunizationRecommendationRecommendationSerializer
+import com.google.fhir.model.r4b.serializers.ImmunizationRecommendationRecommendationSeriesDosesSerializer
 import com.google.fhir.model.r4b.serializers.ImmunizationRecommendationSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -277,6 +279,7 @@ public data class ImmunizationRecommendation(
       public var `value`: DateTime,
     ) : BackboneElement()
 
+    @Serializable(with = ImmunizationRecommendationRecommendationDoseNumberSerializer::class)
     public sealed interface DoseNumber {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -299,6 +302,7 @@ public data class ImmunizationRecommendation(
       }
     }
 
+    @Serializable(with = ImmunizationRecommendationRecommendationSeriesDosesSerializer::class)
     public sealed interface SeriesDoses {
       public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 

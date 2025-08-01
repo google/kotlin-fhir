@@ -54,6 +54,57 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class EventDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): EventDefinition.VersionAlgorithm =
+    EventDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@EventDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@EventDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@EventDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EventDefinition.VersionAlgorithm
+    ): EventDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        EventDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EventDefinitionSubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): EventDefinition.Subject =
+    EventDefinition.Subject?.from(
+      this@EventDefinitionSubjectSurrogate.subjectCodeableConcept,
+      this@EventDefinitionSubjectSurrogate.subjectReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: EventDefinition.Subject): EventDefinitionSubjectSurrogate =
+      with(model) {
+        EventDefinitionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class EventDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -70,9 +121,7 @@ internal data class EventDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: EventDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -83,8 +132,7 @@ internal data class EventDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
+  public var subject: EventDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -134,14 +182,7 @@ internal data class EventDefinitionSurrogate(
       identifier = this@EventDefinitionSurrogate.identifier ?: mutableListOf(),
       version =
         R5String.of(this@EventDefinitionSurrogate.version, this@EventDefinitionSurrogate._version),
-      versionAlgorithm =
-        EventDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@EventDefinitionSurrogate.versionAlgorithmString,
-            this@EventDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@EventDefinitionSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@EventDefinitionSurrogate.versionAlgorithm,
       name = R5String.of(this@EventDefinitionSurrogate.name, this@EventDefinitionSurrogate._name),
       title =
         R5String.of(this@EventDefinitionSurrogate.title, this@EventDefinitionSurrogate._title),
@@ -162,11 +203,7 @@ internal data class EventDefinitionSurrogate(
           this@EventDefinitionSurrogate.experimental,
           this@EventDefinitionSurrogate._experimental,
         ),
-      subject =
-        EventDefinition.Subject?.from(
-          this@EventDefinitionSurrogate.subjectCodeableConcept,
-          this@EventDefinitionSurrogate.subjectReference,
-        ),
+      subject = this@EventDefinitionSurrogate.subject,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@EventDefinitionSurrogate.date),
@@ -238,9 +275,7 @@ internal data class EventDefinitionSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
@@ -251,8 +286,7 @@ internal data class EventDefinitionSurrogate(
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,
           _experimental = this@with.experimental?.toElement(),
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value,
-          subjectReference = this@with.subject?.asReference()?.value,
+          subject = this@with.subject,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,

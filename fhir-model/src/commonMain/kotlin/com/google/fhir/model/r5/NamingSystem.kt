@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NamingSystemSerializer
 import com.google.fhir.model.r5.serializers.NamingSystemUniqueIdSerializer
+import com.google.fhir.model.r5.serializers.NamingSystemVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -499,6 +500,7 @@ public data class NamingSystem(
     public var authoritative: Boolean? = null,
   ) : BackboneElement()
 
+  @Serializable(with = NamingSystemVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

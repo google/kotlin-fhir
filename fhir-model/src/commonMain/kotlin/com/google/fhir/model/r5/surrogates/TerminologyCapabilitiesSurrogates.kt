@@ -621,6 +621,35 @@ internal data class TerminologyCapabilitiesClosureSurrogate(
 }
 
 @Serializable
+internal data class TerminologyCapabilitiesVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): TerminologyCapabilities.VersionAlgorithm =
+    TerminologyCapabilities.VersionAlgorithm?.from(
+      R5String.of(
+        this@TerminologyCapabilitiesVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@TerminologyCapabilitiesVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@TerminologyCapabilitiesVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: TerminologyCapabilities.VersionAlgorithm
+    ): TerminologyCapabilitiesVersionAlgorithmSurrogate =
+      with(model) {
+        TerminologyCapabilitiesVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TerminologyCapabilitiesSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -637,9 +666,7 @@ internal data class TerminologyCapabilitiesSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: TerminologyCapabilities.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -707,14 +734,7 @@ internal data class TerminologyCapabilitiesSurrogate(
           this@TerminologyCapabilitiesSurrogate.version,
           this@TerminologyCapabilitiesSurrogate._version,
         ),
-      versionAlgorithm =
-        TerminologyCapabilities.VersionAlgorithm?.from(
-          R5String.of(
-            this@TerminologyCapabilitiesSurrogate.versionAlgorithmString,
-            this@TerminologyCapabilitiesSurrogate._versionAlgorithmString,
-          ),
-          this@TerminologyCapabilitiesSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@TerminologyCapabilitiesSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@TerminologyCapabilitiesSurrogate.name,
@@ -817,9 +837,7 @@ internal data class TerminologyCapabilitiesSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,

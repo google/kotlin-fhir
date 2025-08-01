@@ -728,14 +728,45 @@ internal data class TestScriptSetupActionOperationSurrogate(
 }
 
 @Serializable
-internal data class TestScriptSetupActionAssertRequirementSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class TestScriptSetupActionAssertRequirementLinkSurrogate(
   public var linkUri: KotlinString? = null,
   public var _linkUri: Element? = null,
   public var linkCanonical: KotlinString? = null,
   public var _linkCanonical: Element? = null,
+) {
+  public fun toModel(): TestScript.Setup.Action.Assert.Requirement.Link =
+    TestScript.Setup.Action.Assert.Requirement.Link?.from(
+      Uri.of(
+        this@TestScriptSetupActionAssertRequirementLinkSurrogate.linkUri,
+        this@TestScriptSetupActionAssertRequirementLinkSurrogate._linkUri,
+      ),
+      Canonical.of(
+        this@TestScriptSetupActionAssertRequirementLinkSurrogate.linkCanonical,
+        this@TestScriptSetupActionAssertRequirementLinkSurrogate._linkCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: TestScript.Setup.Action.Assert.Requirement.Link
+    ): TestScriptSetupActionAssertRequirementLinkSurrogate =
+      with(model) {
+        TestScriptSetupActionAssertRequirementLinkSurrogate(
+          linkUri = this@with.asUri()?.value?.value,
+          _linkUri = this@with.asUri()?.value?.toElement(),
+          linkCanonical = this@with.asCanonical()?.value?.value,
+          _linkCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestScriptSetupActionAssertRequirementSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var link: TestScript.Setup.Action.Assert.Requirement.Link? = null,
 ) {
   public fun toModel(): TestScript.Setup.Action.Assert.Requirement =
     TestScript.Setup.Action.Assert.Requirement(
@@ -743,17 +774,7 @@ internal data class TestScriptSetupActionAssertRequirementSurrogate(
       extension = this@TestScriptSetupActionAssertRequirementSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@TestScriptSetupActionAssertRequirementSurrogate.modifierExtension ?: mutableListOf(),
-      link =
-        TestScript.Setup.Action.Assert.Requirement.Link?.from(
-          Uri.of(
-            this@TestScriptSetupActionAssertRequirementSurrogate.linkUri,
-            this@TestScriptSetupActionAssertRequirementSurrogate._linkUri,
-          ),
-          Canonical.of(
-            this@TestScriptSetupActionAssertRequirementSurrogate.linkCanonical,
-            this@TestScriptSetupActionAssertRequirementSurrogate._linkCanonical,
-          ),
-        ),
+      link = this@TestScriptSetupActionAssertRequirementSurrogate.link,
     )
 
   public companion object {
@@ -765,10 +786,7 @@ internal data class TestScriptSetupActionAssertRequirementSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkUri = this@with.link?.asUri()?.value?.value,
-          _linkUri = this@with.link?.asUri()?.value?.toElement(),
-          linkCanonical = this@with.link?.asCanonical()?.value?.value,
-          _linkCanonical = this@with.link?.asCanonical()?.value?.toElement(),
+          link = this@with.link,
         )
       }
   }
@@ -1221,6 +1239,33 @@ internal data class TestScriptTeardownSurrogate(
 }
 
 @Serializable
+internal data class TestScriptVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): TestScript.VersionAlgorithm =
+    TestScript.VersionAlgorithm?.from(
+      R5String.of(
+        this@TestScriptVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@TestScriptVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@TestScriptVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: TestScript.VersionAlgorithm): TestScriptVersionAlgorithmSurrogate =
+      with(model) {
+        TestScriptVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TestScriptSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -1237,9 +1282,7 @@ internal data class TestScriptSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: TestScript.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1289,14 +1332,7 @@ internal data class TestScriptSurrogate(
       url = Uri.of(this@TestScriptSurrogate.url, this@TestScriptSurrogate._url),
       identifier = this@TestScriptSurrogate.identifier ?: mutableListOf(),
       version = R5String.of(this@TestScriptSurrogate.version, this@TestScriptSurrogate._version),
-      versionAlgorithm =
-        TestScript.VersionAlgorithm?.from(
-          R5String.of(
-            this@TestScriptSurrogate.versionAlgorithmString,
-            this@TestScriptSurrogate._versionAlgorithmString,
-          ),
-          this@TestScriptSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@TestScriptSurrogate.versionAlgorithm,
       name = R5String.of(this@TestScriptSurrogate.name, this@TestScriptSurrogate._name)!!,
       title = R5String.of(this@TestScriptSurrogate.title, this@TestScriptSurrogate._title),
       status =
@@ -1369,9 +1405,7 @@ internal data class TestScriptSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,

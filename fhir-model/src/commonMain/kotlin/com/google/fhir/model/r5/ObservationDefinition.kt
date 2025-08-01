@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ObservationDefinitionComponentSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionQualifiedValueSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ObservationDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -577,6 +578,7 @@ public data class ObservationDefinition(
     public var qualifiedValue: MutableList<QualifiedValue> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = ObservationDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

@@ -20,6 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ProvenanceAgentSerializer
 import com.google.fhir.model.r4b.serializers.ProvenanceEntitySerializer
+import com.google.fhir.model.r4b.serializers.ProvenanceOccurredSerializer
 import com.google.fhir.model.r4b.serializers.ProvenanceSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -333,6 +334,7 @@ public data class Provenance(
     public var agent: MutableList<Agent> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = ProvenanceOccurredSerializer::class)
   public sealed interface Occurred {
     public fun asPeriod(): Period? = this as? Period
 

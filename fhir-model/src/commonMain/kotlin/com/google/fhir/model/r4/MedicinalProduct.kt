@@ -23,6 +23,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductNameCountryLanguageS
 import com.google.fhir.model.r4.serializers.MedicinalProductNameNamePartSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductNameSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductSerializer
+import com.google.fhir.model.r4.serializers.MedicinalProductSpecialDesignationIndicationSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductSpecialDesignationSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -431,6 +432,7 @@ public data class MedicinalProduct(
     /** Animal species for which this applies. */
     public var species: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductSpecialDesignationIndicationSerializer::class)
     public sealed interface Indication {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

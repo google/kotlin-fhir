@@ -48,15 +48,44 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
+  public var collectedDateTime: KotlinString? = null,
+  public var _collectedDateTime: Element? = null,
+  public var collectedPeriod: Period? = null,
+) {
+  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected =
+    BiologicallyDerivedProduct.Collection.Collected?.from(
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedDateTime
+        ),
+        this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
+      ),
+      this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: BiologicallyDerivedProduct.Collection.Collected
+    ): BiologicallyDerivedProductCollectionCollectedSurrogate =
+      with(model) {
+        BiologicallyDerivedProductCollectionCollectedSurrogate(
+          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class BiologicallyDerivedProductCollectionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var collector: Reference? = null,
   public var source: Reference? = null,
-  public var collectedDateTime: KotlinString? = null,
-  public var _collectedDateTime: Element? = null,
-  public var collectedPeriod: Period? = null,
+  public var collected: BiologicallyDerivedProduct.Collection.Collected? = null,
 ) {
   public fun toModel(): BiologicallyDerivedProduct.Collection =
     BiologicallyDerivedProduct.Collection(
@@ -66,16 +95,7 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
         this@BiologicallyDerivedProductCollectionSurrogate.modifierExtension ?: mutableListOf(),
       collector = this@BiologicallyDerivedProductCollectionSurrogate.collector,
       source = this@BiologicallyDerivedProductCollectionSurrogate.source,
-      collected =
-        BiologicallyDerivedProduct.Collection.Collected?.from(
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@BiologicallyDerivedProductCollectionSurrogate.collectedDateTime
-            ),
-            this@BiologicallyDerivedProductCollectionSurrogate._collectedDateTime,
-          ),
-          this@BiologicallyDerivedProductCollectionSurrogate.collectedPeriod,
-        ),
+      collected = this@BiologicallyDerivedProductCollectionSurrogate.collected,
     )
 
   public companion object {
@@ -89,9 +109,38 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           collector = this@with.collector,
           source = this@with.source,
-          collectedDateTime = this@with.collected?.asDateTime()?.value?.value?.toString(),
-          _collectedDateTime = this@with.collected?.asDateTime()?.value?.toElement(),
-          collectedPeriod = this@with.collected?.asPeriod()?.value,
+          collected = this@with.collected,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class BiologicallyDerivedProductProcessingTimeSurrogate(
+  public var timeDateTime: KotlinString? = null,
+  public var _timeDateTime: Element? = null,
+  public var timePeriod: Period? = null,
+) {
+  public fun toModel(): BiologicallyDerivedProduct.Processing.Time =
+    BiologicallyDerivedProduct.Processing.Time?.from(
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@BiologicallyDerivedProductProcessingTimeSurrogate.timeDateTime
+        ),
+        this@BiologicallyDerivedProductProcessingTimeSurrogate._timeDateTime,
+      ),
+      this@BiologicallyDerivedProductProcessingTimeSurrogate.timePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: BiologicallyDerivedProduct.Processing.Time
+    ): BiologicallyDerivedProductProcessingTimeSurrogate =
+      with(model) {
+        BiologicallyDerivedProductProcessingTimeSurrogate(
+          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.asPeriod()?.value,
         )
       }
   }
@@ -106,9 +155,7 @@ internal data class BiologicallyDerivedProductProcessingSurrogate(
   public var _description: Element? = null,
   public var procedure: CodeableConcept? = null,
   public var additive: Reference? = null,
-  public var timeDateTime: KotlinString? = null,
-  public var _timeDateTime: Element? = null,
-  public var timePeriod: Period? = null,
+  public var time: BiologicallyDerivedProduct.Processing.Time? = null,
 ) {
   public fun toModel(): BiologicallyDerivedProduct.Processing =
     BiologicallyDerivedProduct.Processing(
@@ -123,16 +170,7 @@ internal data class BiologicallyDerivedProductProcessingSurrogate(
         ),
       procedure = this@BiologicallyDerivedProductProcessingSurrogate.procedure,
       additive = this@BiologicallyDerivedProductProcessingSurrogate.additive,
-      time =
-        BiologicallyDerivedProduct.Processing.Time?.from(
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@BiologicallyDerivedProductProcessingSurrogate.timeDateTime
-            ),
-            this@BiologicallyDerivedProductProcessingSurrogate._timeDateTime,
-          ),
-          this@BiologicallyDerivedProductProcessingSurrogate.timePeriod,
-        ),
+      time = this@BiologicallyDerivedProductProcessingSurrogate.time,
     )
 
   public companion object {
@@ -148,9 +186,38 @@ internal data class BiologicallyDerivedProductProcessingSurrogate(
           _description = this@with.description?.toElement(),
           procedure = this@with.procedure,
           additive = this@with.additive,
-          timeDateTime = this@with.time?.asDateTime()?.value?.value?.toString(),
-          _timeDateTime = this@with.time?.asDateTime()?.value?.toElement(),
-          timePeriod = this@with.time?.asPeriod()?.value,
+          time = this@with.time,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class BiologicallyDerivedProductManipulationTimeSurrogate(
+  public var timeDateTime: KotlinString? = null,
+  public var _timeDateTime: Element? = null,
+  public var timePeriod: Period? = null,
+) {
+  public fun toModel(): BiologicallyDerivedProduct.Manipulation.Time =
+    BiologicallyDerivedProduct.Manipulation.Time?.from(
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@BiologicallyDerivedProductManipulationTimeSurrogate.timeDateTime
+        ),
+        this@BiologicallyDerivedProductManipulationTimeSurrogate._timeDateTime,
+      ),
+      this@BiologicallyDerivedProductManipulationTimeSurrogate.timePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: BiologicallyDerivedProduct.Manipulation.Time
+    ): BiologicallyDerivedProductManipulationTimeSurrogate =
+      with(model) {
+        BiologicallyDerivedProductManipulationTimeSurrogate(
+          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.asPeriod()?.value,
         )
       }
   }
@@ -163,9 +230,7 @@ internal data class BiologicallyDerivedProductManipulationSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var timeDateTime: KotlinString? = null,
-  public var _timeDateTime: Element? = null,
-  public var timePeriod: Period? = null,
+  public var time: BiologicallyDerivedProduct.Manipulation.Time? = null,
 ) {
   public fun toModel(): BiologicallyDerivedProduct.Manipulation =
     BiologicallyDerivedProduct.Manipulation(
@@ -178,16 +243,7 @@ internal data class BiologicallyDerivedProductManipulationSurrogate(
           this@BiologicallyDerivedProductManipulationSurrogate.description,
           this@BiologicallyDerivedProductManipulationSurrogate._description,
         ),
-      time =
-        BiologicallyDerivedProduct.Manipulation.Time?.from(
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@BiologicallyDerivedProductManipulationSurrogate.timeDateTime
-            ),
-            this@BiologicallyDerivedProductManipulationSurrogate._timeDateTime,
-          ),
-          this@BiologicallyDerivedProductManipulationSurrogate.timePeriod,
-        ),
+      time = this@BiologicallyDerivedProductManipulationSurrogate.time,
     )
 
   public companion object {
@@ -201,9 +257,7 @@ internal data class BiologicallyDerivedProductManipulationSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          timeDateTime = this@with.time?.asDateTime()?.value?.value?.toString(),
-          _timeDateTime = this@with.time?.asDateTime()?.value?.toElement(),
-          timePeriod = this@with.time?.asPeriod()?.value,
+          time = this@with.time,
         )
       }
   }

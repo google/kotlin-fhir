@@ -128,6 +128,54 @@ internal data class MedicationDispenseSubstitutionSurrogate(
 }
 
 @Serializable
+internal data class MedicationDispenseStatusReasonSurrogate(
+  public var statusReasonCodeableConcept: CodeableConcept? = null,
+  public var statusReasonReference: Reference? = null,
+) {
+  public fun toModel(): MedicationDispense.StatusReason =
+    MedicationDispense.StatusReason?.from(
+      this@MedicationDispenseStatusReasonSurrogate.statusReasonCodeableConcept,
+      this@MedicationDispenseStatusReasonSurrogate.statusReasonReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationDispense.StatusReason
+    ): MedicationDispenseStatusReasonSurrogate =
+      with(model) {
+        MedicationDispenseStatusReasonSurrogate(
+          statusReasonCodeableConcept = this@with.asCodeableConcept()?.value,
+          statusReasonReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationDispenseMedicationSurrogate(
+  public var medicationCodeableConcept: CodeableConcept? = null,
+  public var medicationReference: Reference? = null,
+) {
+  public fun toModel(): MedicationDispense.Medication =
+    MedicationDispense.Medication.from(
+      this@MedicationDispenseMedicationSurrogate.medicationCodeableConcept,
+      this@MedicationDispenseMedicationSurrogate.medicationReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationDispense.Medication
+    ): MedicationDispenseMedicationSurrogate =
+      with(model) {
+        MedicationDispenseMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationDispenseSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -143,11 +191,9 @@ internal data class MedicationDispenseSurrogate(
   public var partOf: MutableList<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var statusReasonCodeableConcept: CodeableConcept? = null,
-  public var statusReasonReference: Reference? = null,
+  public var statusReason: MedicationDispense.StatusReason? = null,
   public var category: CodeableConcept? = null,
-  public var medicationCodeableConcept: CodeableConcept? = null,
-  public var medicationReference: Reference? = null,
+  public var medication: MedicationDispense.Medication,
   public var subject: Reference? = null,
   public var context: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
@@ -196,17 +242,9 @@ internal data class MedicationDispenseSurrogate(
           ),
           this@MedicationDispenseSurrogate._status,
         ),
-      statusReason =
-        MedicationDispense.StatusReason?.from(
-          this@MedicationDispenseSurrogate.statusReasonCodeableConcept,
-          this@MedicationDispenseSurrogate.statusReasonReference,
-        ),
+      statusReason = this@MedicationDispenseSurrogate.statusReason,
       category = this@MedicationDispenseSurrogate.category,
-      medication =
-        MedicationDispense.Medication.from(
-          this@MedicationDispenseSurrogate.medicationCodeableConcept,
-          this@MedicationDispenseSurrogate.medicationReference,
-        )!!,
+      medication = this@MedicationDispenseSurrogate.medication,
       subject = this@MedicationDispenseSurrogate.subject,
       context = this@MedicationDispenseSurrogate.context,
       supportingInformation =
@@ -255,11 +293,9 @@ internal data class MedicationDispenseSurrogate(
           partOf = this@with.partOf.takeUnless { it.all { it == null } },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          statusReasonCodeableConcept = this@with.statusReason?.asCodeableConcept()?.value,
-          statusReasonReference = this@with.statusReason?.asReference()?.value,
+          statusReason = this@with.statusReason,
           category = this@with.category,
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value,
-          medicationReference = this@with.medication?.asReference()?.value,
+          medication = this@with.medication,
           subject = this@with.subject,
           context = this@with.context,
           supportingInformation =

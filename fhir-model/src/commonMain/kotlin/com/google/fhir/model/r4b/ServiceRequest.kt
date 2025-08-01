@@ -18,6 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ServiceRequestAsNeededSerializer
+import com.google.fhir.model.r4b.serializers.ServiceRequestOccurrenceSerializer
+import com.google.fhir.model.r4b.serializers.ServiceRequestQuantitySerializer
 import com.google.fhir.model.r4b.serializers.ServiceRequestSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -370,6 +373,7 @@ public data class ServiceRequest(
    */
   public var relevantHistory: MutableList<Reference> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = ServiceRequestQuantitySerializer::class)
   public sealed interface Quantity {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -400,6 +404,7 @@ public data class ServiceRequest(
     }
   }
 
+  @Serializable(with = ServiceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -427,6 +432,7 @@ public data class ServiceRequest(
     }
   }
 
+  @Serializable(with = ServiceRequestAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 

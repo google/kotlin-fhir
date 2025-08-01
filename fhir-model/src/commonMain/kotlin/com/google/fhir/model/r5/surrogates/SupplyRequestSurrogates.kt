@@ -49,16 +49,47 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class SupplyRequestParameterSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept? = null,
+internal data class SupplyRequestParameterValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
   public var valueRange: Range? = null,
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
+) {
+  public fun toModel(): SupplyRequest.Parameter.Value =
+    SupplyRequest.Parameter.Value?.from(
+      this@SupplyRequestParameterValueSurrogate.valueCodeableConcept,
+      this@SupplyRequestParameterValueSurrogate.valueQuantity,
+      this@SupplyRequestParameterValueSurrogate.valueRange,
+      R5Boolean.of(
+        this@SupplyRequestParameterValueSurrogate.valueBoolean,
+        this@SupplyRequestParameterValueSurrogate._valueBoolean,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SupplyRequest.Parameter.Value
+    ): SupplyRequestParameterValueSurrogate =
+      with(model) {
+        SupplyRequestParameterValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SupplyRequestParameterSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept? = null,
+  public var `value`: SupplyRequest.Parameter.Value? = null,
 ) {
   public fun toModel(): SupplyRequest.Parameter =
     SupplyRequest.Parameter(
@@ -66,16 +97,7 @@ internal data class SupplyRequestParameterSurrogate(
       extension = this@SupplyRequestParameterSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@SupplyRequestParameterSurrogate.modifierExtension ?: mutableListOf(),
       code = this@SupplyRequestParameterSurrogate.code,
-      `value` =
-        SupplyRequest.Parameter.Value?.from(
-          this@SupplyRequestParameterSurrogate.valueCodeableConcept,
-          this@SupplyRequestParameterSurrogate.valueQuantity,
-          this@SupplyRequestParameterSurrogate.valueRange,
-          R5Boolean.of(
-            this@SupplyRequestParameterSurrogate.valueBoolean,
-            this@SupplyRequestParameterSurrogate._valueBoolean,
-          ),
-        ),
+      `value` = this@SupplyRequestParameterSurrogate.`value`,
     )
 
   public companion object {
@@ -86,11 +108,37 @@ internal data class SupplyRequestParameterSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           code = this@with.code,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SupplyRequestOccurrenceSurrogate(
+  public var occurrenceDateTime: String? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): SupplyRequest.Occurrence =
+    SupplyRequest.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@SupplyRequestOccurrenceSurrogate.occurrenceDateTime),
+        this@SupplyRequestOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@SupplyRequestOccurrenceSurrogate.occurrencePeriod,
+      this@SupplyRequestOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: SupplyRequest.Occurrence): SupplyRequestOccurrenceSurrogate =
+      with(model) {
+        SupplyRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
         )
       }
   }
@@ -119,10 +167,7 @@ internal data class SupplyRequestSurrogate(
   public var item: CodeableReference,
   public var quantity: Quantity,
   public var parameter: MutableList<SupplyRequest.Parameter>? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
+  public var occurrence: SupplyRequest.Occurrence? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -167,15 +212,7 @@ internal data class SupplyRequestSurrogate(
       item = this@SupplyRequestSurrogate.item,
       quantity = this@SupplyRequestSurrogate.quantity,
       parameter = this@SupplyRequestSurrogate.parameter ?: mutableListOf(),
-      occurrence =
-        SupplyRequest.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@SupplyRequestSurrogate.occurrenceDateTime),
-            this@SupplyRequestSurrogate._occurrenceDateTime,
-          ),
-          this@SupplyRequestSurrogate.occurrencePeriod,
-          this@SupplyRequestSurrogate.occurrenceTiming,
-        ),
+      occurrence = this@SupplyRequestSurrogate.occurrence,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@SupplyRequestSurrogate.authoredOn),
@@ -213,10 +250,7 @@ internal data class SupplyRequestSurrogate(
           item = this@with.item,
           quantity = this@with.quantity,
           parameter = this@with.parameter.takeUnless { it.all { it == null } },
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          occurrence = this@with.occurrence,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,

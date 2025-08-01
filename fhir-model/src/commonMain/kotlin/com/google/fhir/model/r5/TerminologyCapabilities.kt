@@ -29,6 +29,7 @@ import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesSerializer
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesSoftwareSerializer
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesTranslationSerializer
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesValidateCodeSerializer
+import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -882,6 +883,7 @@ public data class TerminologyCapabilities(
     public var translation: Boolean? = null,
   ) : BackboneElement()
 
+  @Serializable(with = TerminologyCapabilitiesVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

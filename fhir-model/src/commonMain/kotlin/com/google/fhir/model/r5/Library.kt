@@ -19,6 +19,8 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.LibrarySerializer
+import com.google.fhir.model.r5.serializers.LibrarySubjectSerializer
+import com.google.fhir.model.r5.serializers.LibraryVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -411,6 +413,7 @@ public data class Library(
    */
   public var content: MutableList<Attachment> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = LibraryVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -434,6 +437,7 @@ public data class Library(
     }
   }
 
+  @Serializable(with = LibrarySubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

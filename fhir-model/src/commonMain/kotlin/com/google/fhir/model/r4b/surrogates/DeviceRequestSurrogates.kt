@@ -50,16 +50,47 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class DeviceRequestParameterSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept? = null,
+internal data class DeviceRequestParameterValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
   public var valueRange: Range? = null,
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
+) {
+  public fun toModel(): DeviceRequest.Parameter.Value =
+    DeviceRequest.Parameter.Value?.from(
+      this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
+      this@DeviceRequestParameterValueSurrogate.valueQuantity,
+      this@DeviceRequestParameterValueSurrogate.valueRange,
+      R4bBoolean.of(
+        this@DeviceRequestParameterValueSurrogate.valueBoolean,
+        this@DeviceRequestParameterValueSurrogate._valueBoolean,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceRequest.Parameter.Value
+    ): DeviceRequestParameterValueSurrogate =
+      with(model) {
+        DeviceRequestParameterValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DeviceRequestParameterSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept? = null,
+  public var `value`: DeviceRequest.Parameter.Value? = null,
 ) {
   public fun toModel(): DeviceRequest.Parameter =
     DeviceRequest.Parameter(
@@ -67,16 +98,7 @@ internal data class DeviceRequestParameterSurrogate(
       extension = this@DeviceRequestParameterSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@DeviceRequestParameterSurrogate.modifierExtension ?: mutableListOf(),
       code = this@DeviceRequestParameterSurrogate.code,
-      `value` =
-        DeviceRequest.Parameter.Value?.from(
-          this@DeviceRequestParameterSurrogate.valueCodeableConcept,
-          this@DeviceRequestParameterSurrogate.valueQuantity,
-          this@DeviceRequestParameterSurrogate.valueRange,
-          R4bBoolean.of(
-            this@DeviceRequestParameterSurrogate.valueBoolean,
-            this@DeviceRequestParameterSurrogate._valueBoolean,
-          ),
-        ),
+      `value` = this@DeviceRequestParameterSurrogate.`value`,
     )
 
   public companion object {
@@ -87,11 +109,59 @@ internal data class DeviceRequestParameterSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           code = this@with.code,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DeviceRequestCodeSurrogate(
+  public var codeReference: Reference? = null,
+  public var codeCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): DeviceRequest.Code =
+    DeviceRequest.Code.from(
+      this@DeviceRequestCodeSurrogate.codeReference,
+      this@DeviceRequestCodeSurrogate.codeCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: DeviceRequest.Code): DeviceRequestCodeSurrogate =
+      with(model) {
+        DeviceRequestCodeSurrogate(
+          codeReference = this@with.asReference()?.value,
+          codeCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DeviceRequestOccurrenceSurrogate(
+  public var occurrenceDateTime: String? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): DeviceRequest.Occurrence =
+    DeviceRequest.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@DeviceRequestOccurrenceSurrogate.occurrenceDateTime),
+        this@DeviceRequestOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@DeviceRequestOccurrenceSurrogate.occurrencePeriod,
+      this@DeviceRequestOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: DeviceRequest.Occurrence): DeviceRequestOccurrenceSurrogate =
+      with(model) {
+        DeviceRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
         )
       }
   }
@@ -123,15 +193,11 @@ internal data class DeviceRequestSurrogate(
   public var _intent: Element? = null,
   public var priority: String? = null,
   public var _priority: Element? = null,
-  public var codeReference: Reference? = null,
-  public var codeCodeableConcept: CodeableConcept? = null,
+  public var code: DeviceRequest.Code,
   public var parameter: MutableList<DeviceRequest.Parameter>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
+  public var occurrence: DeviceRequest.Occurrence? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -216,23 +282,11 @@ internal data class DeviceRequestSurrogate(
             this@DeviceRequestSurrogate._priority,
           )
         },
-      code =
-        DeviceRequest.Code.from(
-          this@DeviceRequestSurrogate.codeReference,
-          this@DeviceRequestSurrogate.codeCodeableConcept,
-        )!!,
+      code = this@DeviceRequestSurrogate.code,
       parameter = this@DeviceRequestSurrogate.parameter ?: mutableListOf(),
       subject = this@DeviceRequestSurrogate.subject,
       encounter = this@DeviceRequestSurrogate.encounter,
-      occurrence =
-        DeviceRequest.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@DeviceRequestSurrogate.occurrenceDateTime),
-            this@DeviceRequestSurrogate._occurrenceDateTime,
-          ),
-          this@DeviceRequestSurrogate.occurrencePeriod,
-          this@DeviceRequestSurrogate.occurrenceTiming,
-        ),
+      occurrence = this@DeviceRequestSurrogate.occurrence,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@DeviceRequestSurrogate.authoredOn),
@@ -295,15 +349,11 @@ internal data class DeviceRequestSurrogate(
           _intent = this@with.intent.toElement(),
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
-          codeReference = this@with.code?.asReference()?.value,
-          codeCodeableConcept = this@with.code?.asCodeableConcept()?.value,
+          code = this@with.code,
           parameter = this@with.parameter.takeUnless { it.all { it == null } },
           subject = this@with.subject,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          occurrence = this@with.occurrence,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,

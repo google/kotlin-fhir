@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.TriggerDefinitionSerializer
+import com.google.fhir.model.r5.serializers.TriggerDefinitionTimingSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
@@ -92,6 +93,7 @@ public data class TriggerDefinition(
    */
   public var condition: Expression? = null,
 ) : DataType() {
+  @Serializable(with = TriggerDefinitionTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 

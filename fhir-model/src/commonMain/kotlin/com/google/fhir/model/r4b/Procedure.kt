@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ProcedureFocalDeviceSerializer
+import com.google.fhir.model.r4b.serializers.ProcedurePerformedSerializer
 import com.google.fhir.model.r4b.serializers.ProcedurePerformerSerializer
 import com.google.fhir.model.r4b.serializers.ProcedureSerializer
 import kotlin.String
@@ -423,6 +424,7 @@ public data class Procedure(
     public var manipulated: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = ProcedurePerformedSerializer::class)
   public sealed interface Performed {
     public fun asDateTime(): DateTime? = this as? DateTime
 

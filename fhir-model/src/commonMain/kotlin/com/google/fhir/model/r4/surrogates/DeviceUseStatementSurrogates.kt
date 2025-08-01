@@ -45,6 +45,36 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class DeviceUseStatementTimingSurrogate(
+  public var timingTiming: Timing? = null,
+  public var timingPeriod: Period? = null,
+  public var timingDateTime: String? = null,
+  public var _timingDateTime: Element? = null,
+) {
+  public fun toModel(): DeviceUseStatement.Timing =
+    DeviceUseStatement.Timing?.from(
+      this@DeviceUseStatementTimingSurrogate.timingTiming,
+      this@DeviceUseStatementTimingSurrogate.timingPeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@DeviceUseStatementTimingSurrogate.timingDateTime),
+        this@DeviceUseStatementTimingSurrogate._timingDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: DeviceUseStatement.Timing): DeviceUseStatementTimingSurrogate =
+      with(model) {
+        DeviceUseStatementTimingSurrogate(
+          timingTiming = this@with.asTiming()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceUseStatementSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -62,10 +92,7 @@ internal data class DeviceUseStatementSurrogate(
   public var _status: Element? = null,
   public var subject: Reference,
   public var derivedFrom: MutableList<Reference>? = null,
-  public var timingTiming: Timing? = null,
-  public var timingPeriod: Period? = null,
-  public var timingDateTime: String? = null,
-  public var _timingDateTime: Element? = null,
+  public var timing: DeviceUseStatement.Timing? = null,
   public var recordedOn: String? = null,
   public var _recordedOn: Element? = null,
   public var source: Reference? = null,
@@ -104,15 +131,7 @@ internal data class DeviceUseStatementSurrogate(
         ),
       subject = this@DeviceUseStatementSurrogate.subject,
       derivedFrom = this@DeviceUseStatementSurrogate.derivedFrom ?: mutableListOf(),
-      timing =
-        DeviceUseStatement.Timing?.from(
-          this@DeviceUseStatementSurrogate.timingTiming,
-          this@DeviceUseStatementSurrogate.timingPeriod,
-          DateTime.of(
-            FhirDateTime.fromString(this@DeviceUseStatementSurrogate.timingDateTime),
-            this@DeviceUseStatementSurrogate._timingDateTime,
-          ),
-        ),
+      timing = this@DeviceUseStatementSurrogate.timing,
       recordedOn =
         DateTime.of(
           FhirDateTime.fromString(this@DeviceUseStatementSurrogate.recordedOn),
@@ -146,10 +165,7 @@ internal data class DeviceUseStatementSurrogate(
           _status = this@with.status.toElement(),
           subject = this@with.subject,
           derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
-          timingTiming = this@with.timing?.asTiming()?.value,
-          timingPeriod = this@with.timing?.asPeriod()?.value,
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString(),
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement(),
+          timing = this@with.timing,
           recordedOn = this@with.recordedOn?.value?.toString(),
           _recordedOn = this@with.recordedOn?.toElement(),
           source = this@with.source,

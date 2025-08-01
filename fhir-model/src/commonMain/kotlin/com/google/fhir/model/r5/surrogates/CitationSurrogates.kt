@@ -1037,6 +1037,33 @@ internal data class CitationCitedArtifactSurrogate(
 }
 
 @Serializable
+internal data class CitationVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): Citation.VersionAlgorithm =
+    Citation.VersionAlgorithm?.from(
+      R5String.of(
+        this@CitationVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@CitationVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@CitationVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Citation.VersionAlgorithm): CitationVersionAlgorithmSurrogate =
+      with(model) {
+        CitationVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CitationSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -1053,9 +1080,7 @@ internal data class CitationSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: Citation.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1110,14 +1135,7 @@ internal data class CitationSurrogate(
       url = Uri.of(this@CitationSurrogate.url, this@CitationSurrogate._url),
       identifier = this@CitationSurrogate.identifier ?: mutableListOf(),
       version = R5String.of(this@CitationSurrogate.version, this@CitationSurrogate._version),
-      versionAlgorithm =
-        Citation.VersionAlgorithm?.from(
-          R5String.of(
-            this@CitationSurrogate.versionAlgorithmString,
-            this@CitationSurrogate._versionAlgorithmString,
-          ),
-          this@CitationSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@CitationSurrogate.versionAlgorithm,
       name = R5String.of(this@CitationSurrogate.name, this@CitationSurrogate._name),
       title = R5String.of(this@CitationSurrogate.title, this@CitationSurrogate._title),
       status =
@@ -1185,9 +1203,7 @@ internal data class CitationSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,

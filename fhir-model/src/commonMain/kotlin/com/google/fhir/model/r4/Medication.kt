@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MedicationBatchSerializer
+import com.google.fhir.model.r4.serializers.MedicationIngredientItemSerializer
 import com.google.fhir.model.r4.serializers.MedicationIngredientSerializer
 import com.google.fhir.model.r4.serializers.MedicationSerializer
 import kotlin.Suppress
@@ -249,6 +250,7 @@ public data class Medication(
      */
     public var strength: Ratio? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationIngredientItemSerializer::class)
     public sealed interface Item {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

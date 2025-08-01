@@ -19,8 +19,10 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.RequestGroupActionConditionSerializer
+import com.google.fhir.model.r4.serializers.RequestGroupActionRelatedActionOffsetSerializer
 import com.google.fhir.model.r4.serializers.RequestGroupActionRelatedActionSerializer
 import com.google.fhir.model.r4.serializers.RequestGroupActionSerializer
+import com.google.fhir.model.r4.serializers.RequestGroupActionTimingSerializer
 import com.google.fhir.model.r4.serializers.RequestGroupSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -409,6 +411,7 @@ public data class RequestGroup(
        */
       public var offset: Offset? = null,
     ) : BackboneElement() {
+      @Serializable(with = RequestGroupActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -431,6 +434,7 @@ public data class RequestGroup(
       }
     }
 
+    @Serializable(with = RequestGroupActionTimingSerializer::class)
     public sealed interface Timing {
       public fun asDateTime(): DateTime? = this as? DateTime
 

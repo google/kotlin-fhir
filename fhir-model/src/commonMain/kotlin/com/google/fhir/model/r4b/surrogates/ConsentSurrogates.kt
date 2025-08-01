@@ -265,6 +265,28 @@ internal data class ConsentProvisionSurrogate(
 }
 
 @Serializable
+internal data class ConsentSourceSurrogate(
+  public var sourceAttachment: Attachment? = null,
+  public var sourceReference: Reference? = null,
+) {
+  public fun toModel(): Consent.Source =
+    Consent.Source?.from(
+      this@ConsentSourceSurrogate.sourceAttachment,
+      this@ConsentSourceSurrogate.sourceReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Consent.Source): ConsentSourceSurrogate =
+      with(model) {
+        ConsentSourceSurrogate(
+          sourceAttachment = this@with.asAttachment()?.value,
+          sourceReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ConsentSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -286,8 +308,7 @@ internal data class ConsentSurrogate(
   public var _dateTime: Element? = null,
   public var performer: MutableList<Reference>? = null,
   public var organization: MutableList<Reference>? = null,
-  public var sourceAttachment: Attachment? = null,
-  public var sourceReference: Reference? = null,
+  public var source: Consent.Source? = null,
   public var policy: MutableList<Consent.Policy>? = null,
   public var policyRule: CodeableConcept? = null,
   public var verification: MutableList<Consent.Verification>? = null,
@@ -320,11 +341,7 @@ internal data class ConsentSurrogate(
         ),
       performer = this@ConsentSurrogate.performer ?: mutableListOf(),
       organization = this@ConsentSurrogate.organization ?: mutableListOf(),
-      source =
-        Consent.Source?.from(
-          this@ConsentSurrogate.sourceAttachment,
-          this@ConsentSurrogate.sourceReference,
-        ),
+      source = this@ConsentSurrogate.source,
       policy = this@ConsentSurrogate.policy ?: mutableListOf(),
       policyRule = this@ConsentSurrogate.policyRule,
       verification = this@ConsentSurrogate.verification ?: mutableListOf(),
@@ -355,8 +372,7 @@ internal data class ConsentSurrogate(
           _dateTime = this@with.dateTime?.toElement(),
           performer = this@with.performer.takeUnless { it.all { it == null } },
           organization = this@with.organization.takeUnless { it.all { it == null } },
-          sourceAttachment = this@with.source?.asAttachment()?.value,
-          sourceReference = this@with.source?.asReference()?.value,
+          source = this@with.source,
           policy = this@with.policy.takeUnless { it.all { it == null } },
           policyRule = this@with.policyRule,
           verification = this@with.verification.takeUnless { it.all { it == null } },

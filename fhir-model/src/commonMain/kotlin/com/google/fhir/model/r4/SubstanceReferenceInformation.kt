@@ -22,6 +22,7 @@ import com.google.fhir.model.r4.serializers.SubstanceReferenceInformationClassif
 import com.google.fhir.model.r4.serializers.SubstanceReferenceInformationGeneElementSerializer
 import com.google.fhir.model.r4.serializers.SubstanceReferenceInformationGeneSerializer
 import com.google.fhir.model.r4.serializers.SubstanceReferenceInformationSerializer
+import com.google.fhir.model.r4.serializers.SubstanceReferenceInformationTargetAmountSerializer
 import com.google.fhir.model.r4.serializers.SubstanceReferenceInformationTargetSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -342,6 +343,7 @@ public data class SubstanceReferenceInformation(
     /** Todo. */
     public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = SubstanceReferenceInformationTargetAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 

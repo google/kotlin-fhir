@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.SubstanceIngredientSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceIngredientSubstanceSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceInstanceSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceSerializer
 import kotlin.Suppress
@@ -262,6 +263,7 @@ public data class Substance(
     /** Another substance that is a component of this substance. */
     public var substance: Substance,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceIngredientSubstanceSerializer::class)
     public sealed interface Substance {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

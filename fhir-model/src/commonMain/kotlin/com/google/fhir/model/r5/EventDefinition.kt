@@ -19,6 +19,8 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.EventDefinitionSerializer
+import com.google.fhir.model.r5.serializers.EventDefinitionSubjectSerializer
+import com.google.fhir.model.r5.serializers.EventDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -394,6 +396,7 @@ public data class EventDefinition(
    */
   public var trigger: MutableList<TriggerDefinition> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = EventDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -417,6 +420,7 @@ public data class EventDefinition(
     }
   }
 
+  @Serializable(with = EventDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

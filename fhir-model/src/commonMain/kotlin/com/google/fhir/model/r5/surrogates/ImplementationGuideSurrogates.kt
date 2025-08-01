@@ -339,16 +339,53 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
 }
 
 @Serializable
-internal data class ImplementationGuideDefinitionPageSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class ImplementationGuideDefinitionPageSourceSurrogate(
   public var sourceUrl: KotlinString? = null,
   public var _sourceUrl: Element? = null,
   public var sourceString: KotlinString? = null,
   public var _sourceString: Element? = null,
   public var sourceMarkdown: KotlinString? = null,
   public var _sourceMarkdown: Element? = null,
+) {
+  public fun toModel(): ImplementationGuide.Definition.Page.Source =
+    ImplementationGuide.Definition.Page.Source?.from(
+      Url.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceUrl,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceUrl,
+      ),
+      R5String.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceString,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceString,
+      ),
+      Markdown.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceMarkdown,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceMarkdown,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Definition.Page.Source
+    ): ImplementationGuideDefinitionPageSourceSurrogate =
+      with(model) {
+        ImplementationGuideDefinitionPageSourceSurrogate(
+          sourceUrl = this@with.asUrl()?.value?.value,
+          _sourceUrl = this@with.asUrl()?.value?.toElement(),
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceMarkdown = this@with.asMarkdown()?.value?.value,
+          _sourceMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImplementationGuideDefinitionPageSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var source: ImplementationGuide.Definition.Page.Source? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -363,21 +400,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
       extension = this@ImplementationGuideDefinitionPageSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@ImplementationGuideDefinitionPageSurrogate.modifierExtension ?: mutableListOf(),
-      source =
-        ImplementationGuide.Definition.Page.Source?.from(
-          Url.of(
-            this@ImplementationGuideDefinitionPageSurrogate.sourceUrl,
-            this@ImplementationGuideDefinitionPageSurrogate._sourceUrl,
-          ),
-          R5String.of(
-            this@ImplementationGuideDefinitionPageSurrogate.sourceString,
-            this@ImplementationGuideDefinitionPageSurrogate._sourceString,
-          ),
-          Markdown.of(
-            this@ImplementationGuideDefinitionPageSurrogate.sourceMarkdown,
-            this@ImplementationGuideDefinitionPageSurrogate._sourceMarkdown,
-          ),
-        ),
+      source = this@ImplementationGuideDefinitionPageSurrogate.source,
       name =
         Url.of(
           this@ImplementationGuideDefinitionPageSurrogate.name,
@@ -407,12 +430,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          sourceUrl = this@with.source?.asUrl()?.value?.value,
-          _sourceUrl = this@with.source?.asUrl()?.value?.toElement(),
-          sourceString = this@with.source?.asString()?.value?.value,
-          _sourceString = this@with.source?.asString()?.value?.toElement(),
-          sourceMarkdown = this@with.source?.asMarkdown()?.value?.value,
-          _sourceMarkdown = this@with.source?.asMarkdown()?.value?.toElement(),
+          source = this@with.source,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title.value,
@@ -806,6 +824,35 @@ internal data class ImplementationGuideManifestSurrogate(
 }
 
 @Serializable
+internal data class ImplementationGuideVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): ImplementationGuide.VersionAlgorithm =
+    ImplementationGuide.VersionAlgorithm?.from(
+      R5String.of(
+        this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ImplementationGuideVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.VersionAlgorithm
+    ): ImplementationGuideVersionAlgorithmSurrogate =
+      with(model) {
+        ImplementationGuideVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImplementationGuideSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -822,9 +869,7 @@ internal data class ImplementationGuideSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: ImplementationGuide.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -884,14 +929,7 @@ internal data class ImplementationGuideSurrogate(
           this@ImplementationGuideSurrogate.version,
           this@ImplementationGuideSurrogate._version,
         ),
-      versionAlgorithm =
-        ImplementationGuide.VersionAlgorithm?.from(
-          R5String.of(
-            this@ImplementationGuideSurrogate.versionAlgorithmString,
-            this@ImplementationGuideSurrogate._versionAlgorithmString,
-          ),
-          this@ImplementationGuideSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@ImplementationGuideSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@ImplementationGuideSurrogate.name,
@@ -1005,9 +1043,7 @@ internal data class ImplementationGuideSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,

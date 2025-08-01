@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.PractitionerCommunicationSerializer
+import com.google.fhir.model.r5.serializers.PractitionerDeceasedSerializer
 import com.google.fhir.model.r5.serializers.PractitionerQualificationSerializer
 import com.google.fhir.model.r5.serializers.PractitionerSerializer
 import kotlin.String
@@ -340,6 +341,7 @@ public data class Practitioner(
     public var preferred: Boolean? = null,
   ) : BackboneElement()
 
+  @Serializable(with = PractitionerDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 

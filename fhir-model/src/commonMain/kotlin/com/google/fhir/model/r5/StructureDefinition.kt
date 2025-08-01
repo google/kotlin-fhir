@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.StructureDefinitionDifferentialSeria
 import com.google.fhir.model.r5.serializers.StructureDefinitionMappingSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionSnapshotSerializer
+import com.google.fhir.model.r5.serializers.StructureDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -639,6 +640,7 @@ public data class StructureDefinition(
     public var element: MutableList<ElementDefinition> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = StructureDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

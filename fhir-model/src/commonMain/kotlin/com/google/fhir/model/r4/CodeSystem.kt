@@ -20,6 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.CodeSystemConceptDesignationSerializer
 import com.google.fhir.model.r4.serializers.CodeSystemConceptPropertySerializer
+import com.google.fhir.model.r4.serializers.CodeSystemConceptPropertyValueSerializer
 import com.google.fhir.model.r4.serializers.CodeSystemConceptSerializer
 import com.google.fhir.model.r4.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r4.serializers.CodeSystemPropertySerializer
@@ -658,6 +659,7 @@ public data class CodeSystem(
       /** The value of this property. */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = CodeSystemConceptPropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCode(): Code? = this as? Code
 

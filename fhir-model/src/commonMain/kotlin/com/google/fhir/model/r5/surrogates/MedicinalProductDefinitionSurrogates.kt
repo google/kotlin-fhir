@@ -289,11 +289,7 @@ internal data class MedicinalProductDefinitionOperationSurrogate(
 }
 
 @Serializable
-internal data class MedicinalProductDefinitionCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
+internal data class MedicinalProductDefinitionCharacteristicValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueMarkdown: KotlinString? = null,
   public var _valueMarkdown: Element? = null,
@@ -306,6 +302,59 @@ internal data class MedicinalProductDefinitionCharacteristicSurrogate(
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
 ) {
+  public fun toModel(): MedicinalProductDefinition.Characteristic.Value =
+    MedicinalProductDefinition.Characteristic.Value?.from(
+      this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueCodeableConcept,
+      Markdown.of(
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueMarkdown,
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueMarkdown,
+      ),
+      this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueQuantity,
+      Integer.of(
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueInteger,
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueInteger,
+      ),
+      Date.of(
+        FhirDate.fromString(this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueDate),
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueBoolean,
+        this@MedicinalProductDefinitionCharacteristicValueSurrogate._valueBoolean,
+      ),
+      this@MedicinalProductDefinitionCharacteristicValueSurrogate.valueAttachment,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductDefinition.Characteristic.Value
+    ): MedicinalProductDefinitionCharacteristicValueSurrogate =
+      with(model) {
+        MedicinalProductDefinitionCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicinalProductDefinitionCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: MedicinalProductDefinition.Characteristic.Value? = null,
+) {
   public fun toModel(): MedicinalProductDefinition.Characteristic =
     MedicinalProductDefinition.Characteristic(
       id = this@MedicinalProductDefinitionCharacteristicSurrogate.id,
@@ -314,28 +363,7 @@ internal data class MedicinalProductDefinitionCharacteristicSurrogate(
       modifierExtension =
         this@MedicinalProductDefinitionCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
       type = this@MedicinalProductDefinitionCharacteristicSurrogate.type,
-      `value` =
-        MedicinalProductDefinition.Characteristic.Value?.from(
-          this@MedicinalProductDefinitionCharacteristicSurrogate.valueCodeableConcept,
-          Markdown.of(
-            this@MedicinalProductDefinitionCharacteristicSurrogate.valueMarkdown,
-            this@MedicinalProductDefinitionCharacteristicSurrogate._valueMarkdown,
-          ),
-          this@MedicinalProductDefinitionCharacteristicSurrogate.valueQuantity,
-          Integer.of(
-            this@MedicinalProductDefinitionCharacteristicSurrogate.valueInteger,
-            this@MedicinalProductDefinitionCharacteristicSurrogate._valueInteger,
-          ),
-          Date.of(
-            FhirDate.fromString(this@MedicinalProductDefinitionCharacteristicSurrogate.valueDate),
-            this@MedicinalProductDefinitionCharacteristicSurrogate._valueDate,
-          ),
-          R5Boolean.of(
-            this@MedicinalProductDefinitionCharacteristicSurrogate.valueBoolean,
-            this@MedicinalProductDefinitionCharacteristicSurrogate._valueBoolean,
-          ),
-          this@MedicinalProductDefinitionCharacteristicSurrogate.valueAttachment,
-        ),
+      `value` = this@MedicinalProductDefinitionCharacteristicSurrogate.`value`,
     )
 
   public companion object {
@@ -348,17 +376,7 @@ internal data class MedicinalProductDefinitionCharacteristicSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          `value` = this@with.`value`,
         )
       }
   }

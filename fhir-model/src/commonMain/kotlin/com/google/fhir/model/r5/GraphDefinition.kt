@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.serializers.GraphDefinitionLinkCompartmentSerial
 import com.google.fhir.model.r5.serializers.GraphDefinitionLinkSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionNodeSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionSerializer
+import com.google.fhir.model.r5.serializers.GraphDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -493,6 +494,7 @@ public data class GraphDefinition(
     ) : BackboneElement()
   }
 
+  @Serializable(with = GraphDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

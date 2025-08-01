@@ -18,9 +18,12 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.AuditEventAgentNetworkSerializer
 import com.google.fhir.model.r5.serializers.AuditEventAgentSerializer
 import com.google.fhir.model.r5.serializers.AuditEventEntityDetailSerializer
+import com.google.fhir.model.r5.serializers.AuditEventEntityDetailValueSerializer
 import com.google.fhir.model.r5.serializers.AuditEventEntitySerializer
+import com.google.fhir.model.r5.serializers.AuditEventOccurredSerializer
 import com.google.fhir.model.r5.serializers.AuditEventOutcomeSerializer
 import com.google.fhir.model.r5.serializers.AuditEventSerializer
 import com.google.fhir.model.r5.serializers.AuditEventSourceSerializer
@@ -385,6 +388,7 @@ public data class AuditEvent(
      */
     public var authorization: MutableList<CodeableConcept> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = AuditEventAgentNetworkSerializer::class)
     public sealed interface Network {
       public fun asReference(): Reference? = this as? Reference
 
@@ -597,6 +601,7 @@ public data class AuditEvent(
       /** The value of the extra detail. */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = AuditEventEntityDetailValueSerializer::class)
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -677,6 +682,7 @@ public data class AuditEvent(
     }
   }
 
+  @Serializable(with = AuditEventOccurredSerializer::class)
   public sealed interface Occurred {
     public fun asPeriod(): Period? = this as? Period
 

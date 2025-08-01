@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ChargeItemDefinitionApplicabilitySerializer
 import com.google.fhir.model.r5.serializers.ChargeItemDefinitionPropertyGroupSerializer
 import com.google.fhir.model.r5.serializers.ChargeItemDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ChargeItemDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -499,6 +500,7 @@ public data class ChargeItemDefinition(
     public var priceComponent: MutableList<MonetaryComponent> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = ChargeItemDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

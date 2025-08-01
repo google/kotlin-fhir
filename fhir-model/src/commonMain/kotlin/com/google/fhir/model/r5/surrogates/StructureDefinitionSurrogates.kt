@@ -221,6 +221,35 @@ internal data class StructureDefinitionDifferentialSurrogate(
 }
 
 @Serializable
+internal data class StructureDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): StructureDefinition.VersionAlgorithm =
+    StructureDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@StructureDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: StructureDefinition.VersionAlgorithm
+    ): StructureDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        StructureDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class StructureDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -237,9 +266,7 @@ internal data class StructureDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: StructureDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -308,14 +335,7 @@ internal data class StructureDefinitionSurrogate(
           this@StructureDefinitionSurrogate.version,
           this@StructureDefinitionSurrogate._version,
         ),
-      versionAlgorithm =
-        StructureDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@StructureDefinitionSurrogate.versionAlgorithmString,
-            this@StructureDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@StructureDefinitionSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@StructureDefinitionSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@StructureDefinitionSurrogate.name,
@@ -446,9 +466,7 @@ internal data class StructureDefinitionSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,

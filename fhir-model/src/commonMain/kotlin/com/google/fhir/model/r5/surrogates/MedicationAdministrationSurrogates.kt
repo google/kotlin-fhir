@@ -85,6 +85,30 @@ internal data class MedicationAdministrationPerformerSurrogate(
 }
 
 @Serializable
+internal data class MedicationAdministrationDosageRateSurrogate(
+  public var rateRatio: Ratio? = null,
+  public var rateQuantity: Quantity? = null,
+) {
+  public fun toModel(): MedicationAdministration.Dosage.Rate =
+    MedicationAdministration.Dosage.Rate?.from(
+      this@MedicationAdministrationDosageRateSurrogate.rateRatio,
+      this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Dosage.Rate
+    ): MedicationAdministrationDosageRateSurrogate =
+      with(model) {
+        MedicationAdministrationDosageRateSurrogate(
+          rateRatio = this@with.asRatio()?.value,
+          rateQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationAdministrationDosageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -95,8 +119,7 @@ internal data class MedicationAdministrationDosageSurrogate(
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
   public var dose: Quantity? = null,
-  public var rateRatio: Ratio? = null,
-  public var rateQuantity: Quantity? = null,
+  public var rate: MedicationAdministration.Dosage.Rate? = null,
 ) {
   public fun toModel(): MedicationAdministration.Dosage =
     MedicationAdministration.Dosage(
@@ -113,11 +136,7 @@ internal data class MedicationAdministrationDosageSurrogate(
       route = this@MedicationAdministrationDosageSurrogate.route,
       method = this@MedicationAdministrationDosageSurrogate.method,
       dose = this@MedicationAdministrationDosageSurrogate.dose,
-      rate =
-        MedicationAdministration.Dosage.Rate?.from(
-          this@MedicationAdministrationDosageSurrogate.rateRatio,
-          this@MedicationAdministrationDosageSurrogate.rateQuantity,
-        ),
+      rate = this@MedicationAdministrationDosageSurrogate.rate,
     )
 
   public companion object {
@@ -135,8 +154,39 @@ internal data class MedicationAdministrationDosageSurrogate(
           route = this@with.route,
           method = this@with.method,
           dose = this@with.dose,
-          rateRatio = this@with.rate?.asRatio()?.value,
-          rateQuantity = this@with.rate?.asQuantity()?.value,
+          rate = this@with.rate,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationAdministrationOccurenceSurrogate(
+  public var occurenceDateTime: KotlinString? = null,
+  public var _occurenceDateTime: Element? = null,
+  public var occurencePeriod: Period? = null,
+  public var occurenceTiming: Timing? = null,
+) {
+  public fun toModel(): MedicationAdministration.Occurence =
+    MedicationAdministration.Occurence.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@MedicationAdministrationOccurenceSurrogate.occurenceDateTime),
+        this@MedicationAdministrationOccurenceSurrogate._occurenceDateTime,
+      ),
+      this@MedicationAdministrationOccurenceSurrogate.occurencePeriod,
+      this@MedicationAdministrationOccurenceSurrogate.occurenceTiming,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Occurence
+    ): MedicationAdministrationOccurenceSurrogate =
+      with(model) {
+        MedicationAdministrationOccurenceSurrogate(
+          occurenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurencePeriod = this@with.asPeriod()?.value,
+          occurenceTiming = this@with.asTiming()?.value,
         )
       }
   }
@@ -165,10 +215,7 @@ internal data class MedicationAdministrationSurrogate(
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
-  public var occurenceDateTime: KotlinString? = null,
-  public var _occurenceDateTime: Element? = null,
-  public var occurencePeriod: Period? = null,
-  public var occurenceTiming: Timing? = null,
+  public var occurence: MedicationAdministration.Occurence,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var isSubPotent: KotlinBoolean? = null,
@@ -218,15 +265,7 @@ internal data class MedicationAdministrationSurrogate(
       encounter = this@MedicationAdministrationSurrogate.encounter,
       supportingInformation =
         this@MedicationAdministrationSurrogate.supportingInformation ?: mutableListOf(),
-      occurence =
-        MedicationAdministration.Occurence.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@MedicationAdministrationSurrogate.occurenceDateTime),
-            this@MedicationAdministrationSurrogate._occurenceDateTime,
-          ),
-          this@MedicationAdministrationSurrogate.occurencePeriod,
-          this@MedicationAdministrationSurrogate.occurenceTiming,
-        )!!,
+      occurence = this@MedicationAdministrationSurrogate.occurence,
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationAdministrationSurrogate.recorded),
@@ -273,10 +312,7 @@ internal data class MedicationAdministrationSurrogate(
           encounter = this@with.encounter,
           supportingInformation =
             this@with.supportingInformation.takeUnless { it.all { it == null } },
-          occurenceDateTime = this@with.occurence?.asDateTime()?.value?.value?.toString(),
-          _occurenceDateTime = this@with.occurence?.asDateTime()?.value?.toElement(),
-          occurencePeriod = this@with.occurence?.asPeriod()?.value,
-          occurenceTiming = this@with.occurence?.asTiming()?.value,
+          occurence = this@with.occurence,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
           isSubPotent = this@with.isSubPotent?.value,

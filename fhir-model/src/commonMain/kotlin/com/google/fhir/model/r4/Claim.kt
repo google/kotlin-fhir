@@ -18,18 +18,25 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.ClaimAccidentLocationSerializer
 import com.google.fhir.model.r4.serializers.ClaimAccidentSerializer
 import com.google.fhir.model.r4.serializers.ClaimCareTeamSerializer
+import com.google.fhir.model.r4.serializers.ClaimDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r4.serializers.ClaimDiagnosisSerializer
 import com.google.fhir.model.r4.serializers.ClaimInsuranceSerializer
 import com.google.fhir.model.r4.serializers.ClaimItemDetailSerializer
 import com.google.fhir.model.r4.serializers.ClaimItemDetailSubDetailSerializer
+import com.google.fhir.model.r4.serializers.ClaimItemLocationSerializer
 import com.google.fhir.model.r4.serializers.ClaimItemSerializer
+import com.google.fhir.model.r4.serializers.ClaimItemServicedSerializer
 import com.google.fhir.model.r4.serializers.ClaimPayeeSerializer
+import com.google.fhir.model.r4.serializers.ClaimProcedureProcedureSerializer
 import com.google.fhir.model.r4.serializers.ClaimProcedureSerializer
 import com.google.fhir.model.r4.serializers.ClaimRelatedSerializer
 import com.google.fhir.model.r4.serializers.ClaimSerializer
 import com.google.fhir.model.r4.serializers.ClaimSupportingInfoSerializer
+import com.google.fhir.model.r4.serializers.ClaimSupportingInfoTimingSerializer
+import com.google.fhir.model.r4.serializers.ClaimSupportingInfoValueSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -542,6 +549,7 @@ public data class Claim(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimSupportingInfoTimingSerializer::class)
     public sealed interface Timing {
       public fun asDate(): Date? = this as? Date
 
@@ -563,6 +571,7 @@ public data class Claim(
       }
     }
 
+    @Serializable(with = ClaimSupportingInfoValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -674,6 +683,7 @@ public data class Claim(
      */
     public var packageCode: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimDiagnosisDiagnosisSerializer::class)
     public sealed interface Diagnosis {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -757,6 +767,7 @@ public data class Claim(
     /** Unique Device Identifiers associated with this line item. */
     public var udi: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = ClaimProcedureProcedureSerializer::class)
     public sealed interface Procedure {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -937,6 +948,7 @@ public data class Claim(
     /** The physical location of the accident event. */
     public var location: Location? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimAccidentLocationSerializer::class)
     public sealed interface Location {
       public fun asAddress(): Address? = this as? Address
 
@@ -1312,6 +1324,7 @@ public data class Claim(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1333,6 +1346,7 @@ public data class Claim(
       }
     }
 
+    @Serializable(with = ClaimItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

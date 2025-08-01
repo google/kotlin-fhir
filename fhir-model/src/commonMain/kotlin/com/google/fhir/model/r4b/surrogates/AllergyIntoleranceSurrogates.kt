@@ -114,6 +114,47 @@ internal data class AllergyIntoleranceReactionSurrogate(
 }
 
 @Serializable
+internal data class AllergyIntoleranceOnsetSurrogate(
+  public var onsetDateTime: KotlinString? = null,
+  public var _onsetDateTime: Element? = null,
+  public var onsetAge: Age? = null,
+  public var onsetPeriod: Period? = null,
+  public var onsetRange: Range? = null,
+  public var onsetString: KotlinString? = null,
+  public var _onsetString: Element? = null,
+) {
+  public fun toModel(): AllergyIntolerance.Onset =
+    AllergyIntolerance.Onset?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@AllergyIntoleranceOnsetSurrogate.onsetDateTime),
+        this@AllergyIntoleranceOnsetSurrogate._onsetDateTime,
+      ),
+      this@AllergyIntoleranceOnsetSurrogate.onsetAge,
+      this@AllergyIntoleranceOnsetSurrogate.onsetPeriod,
+      this@AllergyIntoleranceOnsetSurrogate.onsetRange,
+      R4bString.of(
+        this@AllergyIntoleranceOnsetSurrogate.onsetString,
+        this@AllergyIntoleranceOnsetSurrogate._onsetString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: AllergyIntolerance.Onset): AllergyIntoleranceOnsetSurrogate =
+      with(model) {
+        AllergyIntoleranceOnsetSurrogate(
+          onsetDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _onsetDateTime = this@with.asDateTime()?.value?.toElement(),
+          onsetAge = this@with.asAge()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class AllergyIntoleranceSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -137,13 +178,7 @@ internal data class AllergyIntoleranceSurrogate(
   public var code: CodeableConcept? = null,
   public var patient: Reference,
   public var encounter: Reference? = null,
-  public var onsetDateTime: KotlinString? = null,
-  public var _onsetDateTime: Element? = null,
-  public var onsetAge: Age? = null,
-  public var onsetPeriod: Period? = null,
-  public var onsetRange: Range? = null,
-  public var onsetString: KotlinString? = null,
-  public var _onsetString: Element? = null,
+  public var onset: AllergyIntolerance.Onset? = null,
   public var recordedDate: KotlinString? = null,
   public var _recordedDate: Element? = null,
   public var recorder: Reference? = null,
@@ -218,20 +253,7 @@ internal data class AllergyIntoleranceSurrogate(
       code = this@AllergyIntoleranceSurrogate.code,
       patient = this@AllergyIntoleranceSurrogate.patient,
       encounter = this@AllergyIntoleranceSurrogate.encounter,
-      onset =
-        AllergyIntolerance.Onset?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@AllergyIntoleranceSurrogate.onsetDateTime),
-            this@AllergyIntoleranceSurrogate._onsetDateTime,
-          ),
-          this@AllergyIntoleranceSurrogate.onsetAge,
-          this@AllergyIntoleranceSurrogate.onsetPeriod,
-          this@AllergyIntoleranceSurrogate.onsetRange,
-          R4bString.of(
-            this@AllergyIntoleranceSurrogate.onsetString,
-            this@AllergyIntoleranceSurrogate._onsetString,
-          ),
-        ),
+      onset = this@AllergyIntoleranceSurrogate.onset,
       recordedDate =
         DateTime.of(
           FhirDateTime.fromString(this@AllergyIntoleranceSurrogate.recordedDate),
@@ -283,13 +305,7 @@ internal data class AllergyIntoleranceSurrogate(
           code = this@with.code,
           patient = this@with.patient,
           encounter = this@with.encounter,
-          onsetDateTime = this@with.onset?.asDateTime()?.value?.value?.toString(),
-          _onsetDateTime = this@with.onset?.asDateTime()?.value?.toElement(),
-          onsetAge = this@with.onset?.asAge()?.value,
-          onsetPeriod = this@with.onset?.asPeriod()?.value,
-          onsetRange = this@with.onset?.asRange()?.value,
-          onsetString = this@with.onset?.asString()?.value?.value,
-          _onsetString = this@with.onset?.asString()?.value?.toElement(),
+          onset = this@with.onset,
           recordedDate = this@with.recordedDate?.value?.toString(),
           _recordedDate = this@with.recordedDate?.toElement(),
           recorder = this@with.recorder,

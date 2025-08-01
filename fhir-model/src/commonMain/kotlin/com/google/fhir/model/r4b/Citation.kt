@@ -32,6 +32,7 @@ import com.google.fhir.model.r4b.serializers.CitationCitedArtifactPublicationFor
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactPublicationFormPublishedInSerializer
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactPublicationFormSerializer
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactRelatesToSerializer
+import com.google.fhir.model.r4b.serializers.CitationCitedArtifactRelatesToTargetSerializer
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactSerializer
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactStatusDateSerializer
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactTitleSerializer
@@ -39,6 +40,7 @@ import com.google.fhir.model.r4b.serializers.CitationCitedArtifactVersionSeriali
 import com.google.fhir.model.r4b.serializers.CitationCitedArtifactWebLocationSerializer
 import com.google.fhir.model.r4b.serializers.CitationClassificationSerializer
 import com.google.fhir.model.r4b.serializers.CitationRelatesToSerializer
+import com.google.fhir.model.r4b.serializers.CitationRelatesToTargetSerializer
 import com.google.fhir.model.r4b.serializers.CitationSerializer
 import com.google.fhir.model.r4b.serializers.CitationStatusDateSerializer
 import com.google.fhir.model.r4b.serializers.CitationSummarySerializer
@@ -513,6 +515,7 @@ public data class Citation(
     /** The article or artifact that the Citation Resource is related to. */
     public var target: Target,
   ) : BackboneElement() {
+    @Serializable(with = CitationRelatesToTargetSerializer::class)
     public sealed interface Target {
       public fun asUri(): Uri? = this as? Uri
 
@@ -931,6 +934,7 @@ public data class Citation(
       /** The article or artifact that the cited artifact is related to. */
       public var target: Target,
     ) : BackboneElement() {
+      @Serializable(with = CitationCitedArtifactRelatesToTargetSerializer::class)
       public sealed interface Target {
         public fun asUri(): Uri? = this as? Uri
 

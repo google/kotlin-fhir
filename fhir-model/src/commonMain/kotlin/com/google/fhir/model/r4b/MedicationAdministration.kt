@@ -18,7 +18,10 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.MedicationAdministrationDosageRateSerializer
 import com.google.fhir.model.r4b.serializers.MedicationAdministrationDosageSerializer
+import com.google.fhir.model.r4b.serializers.MedicationAdministrationEffectiveSerializer
+import com.google.fhir.model.r4b.serializers.MedicationAdministrationMedicationSerializer
 import com.google.fhir.model.r4b.serializers.MedicationAdministrationPerformerSerializer
 import com.google.fhir.model.r4b.serializers.MedicationAdministrationSerializer
 import kotlin.Suppress
@@ -376,6 +379,7 @@ public data class MedicationAdministration(
      */
     public var rate: Rate? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationAdministrationDosageRateSerializer::class)
     public sealed interface Rate {
       public fun asRatio(): Ratio? = this as? Ratio
 
@@ -398,6 +402,7 @@ public data class MedicationAdministration(
     }
   }
 
+  @Serializable(with = MedicationAdministrationMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -422,6 +427,7 @@ public data class MedicationAdministration(
     }
   }
 
+  @Serializable(with = MedicationAdministrationEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 

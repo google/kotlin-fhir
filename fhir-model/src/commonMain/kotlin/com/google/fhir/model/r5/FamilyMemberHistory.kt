@@ -18,8 +18,13 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryAgeSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryBornSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryConditionOnsetSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryConditionSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryDeceasedSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryParticipantSerializer
+import com.google.fhir.model.r5.serializers.FamilyMemberHistoryProcedurePerformedSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistoryProcedureSerializer
 import com.google.fhir.model.r5.serializers.FamilyMemberHistorySerializer
 import kotlin.Suppress
@@ -368,6 +373,7 @@ public data class FamilyMemberHistory(
     /** An area where general notes can be placed about this specific condition. */
     public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = FamilyMemberHistoryConditionOnsetSerializer::class)
     public sealed interface Onset {
       public fun asAge(): Age? = this as? Age
 
@@ -471,6 +477,7 @@ public data class FamilyMemberHistory(
     /** An area where general notes can be placed about this specific procedure. */
     public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = FamilyMemberHistoryProcedurePerformedSerializer::class)
     public sealed interface Performed {
       public fun asAge(): Age? = this as? Age
 
@@ -511,6 +518,7 @@ public data class FamilyMemberHistory(
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryBornSerializer::class)
   public sealed interface Born {
     public fun asPeriod(): Period? = this as? Period
 
@@ -538,6 +546,7 @@ public data class FamilyMemberHistory(
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryAgeSerializer::class)
   public sealed interface Age {
     public fun asAge(): Age? = this as? Age
 
@@ -568,6 +577,7 @@ public data class FamilyMemberHistory(
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 
