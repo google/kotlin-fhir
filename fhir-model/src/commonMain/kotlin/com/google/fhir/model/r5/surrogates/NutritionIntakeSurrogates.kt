@@ -249,8 +249,10 @@ internal data class NutritionIntakeSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var occurrence: NutritionIntake.Occurrence? = null,
   public var recorded: String? = null,
   public var _recorded: Element? = null,
+  public var reported: NutritionIntake.Reported? = null,
   public var consumedItem: MutableList<NutritionIntake.ConsumedItem>? = null,
   public var ingredientLabel: MutableList<NutritionIntake.IngredientLabel>? = null,
   public var performer: MutableList<NutritionIntake.Performer>? = null,
@@ -258,8 +260,6 @@ internal data class NutritionIntakeSurrogate(
   public var derivedFrom: MutableList<Reference>? = null,
   public var reason: MutableList<CodeableReference>? = null,
   public var note: MutableList<Annotation>? = null,
-  public var occurrence: NutritionIntake.Occurrence? = null,
-  public var reported: NutritionIntake.Reported? = null,
 ) {
   public fun toModel(): NutritionIntake =
     NutritionIntake(

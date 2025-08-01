@@ -167,6 +167,7 @@ internal data class DetectedIssueSurrogate(
   public var _severity: Element? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
+  public var identified: DetectedIssue.Identified? = null,
   public var author: Reference? = null,
   public var implicated: MutableList<Reference>? = null,
   public var evidence: MutableList<DetectedIssue.Evidence>? = null,
@@ -175,7 +176,6 @@ internal data class DetectedIssueSurrogate(
   public var reference: String? = null,
   public var _reference: Element? = null,
   public var mitigation: MutableList<DetectedIssue.Mitigation>? = null,
-  public var identified: DetectedIssue.Identified? = null,
 ) {
   public fun toModel(): DetectedIssue =
     DetectedIssue(

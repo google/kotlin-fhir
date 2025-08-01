@@ -217,9 +217,11 @@ internal data class ProcedureSurrogate(
   public var subject: Reference,
   public var focus: Reference? = null,
   public var encounter: Reference? = null,
+  public var occurrence: Procedure.Occurrence? = null,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var recorder: Reference? = null,
+  public var reported: Procedure.Reported? = null,
   public var performer: MutableList<Procedure.Performer>? = null,
   public var location: Reference? = null,
   public var reason: MutableList<CodeableReference>? = null,
@@ -232,8 +234,6 @@ internal data class ProcedureSurrogate(
   public var focalDevice: MutableList<Procedure.FocalDevice>? = null,
   public var used: MutableList<CodeableReference>? = null,
   public var supportingInfo: MutableList<Reference>? = null,
-  public var occurrence: Procedure.Occurrence? = null,
-  public var reported: Procedure.Reported? = null,
 ) {
   public fun toModel(): Procedure =
     Procedure(

@@ -191,7 +191,9 @@ internal data class MedicationDispenseSurrogate(
   public var partOf: MutableList<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
+  public var statusReason: MedicationDispense.StatusReason? = null,
   public var category: CodeableConcept? = null,
+  public var medication: MedicationDispense.Medication,
   public var subject: Reference? = null,
   public var context: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
@@ -212,8 +214,6 @@ internal data class MedicationDispenseSurrogate(
   public var substitution: MedicationDispense.Substitution? = null,
   public var detectedIssue: MutableList<Reference>? = null,
   public var eventHistory: MutableList<Reference>? = null,
-  public var statusReason: MedicationDispense.StatusReason? = null,
-  public var medication: MedicationDispense.Medication,
 ) {
   public fun toModel(): MedicationDispense =
     MedicationDispense(

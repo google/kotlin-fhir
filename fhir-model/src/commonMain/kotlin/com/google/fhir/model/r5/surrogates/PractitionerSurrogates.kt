@@ -179,11 +179,11 @@ internal data class PractitionerSurrogate(
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
+  public var deceased: Practitioner.Deceased? = null,
   public var address: MutableList<Address>? = null,
   public var photo: MutableList<Attachment>? = null,
   public var qualification: MutableList<Practitioner.Qualification>? = null,
   public var communication: MutableList<Practitioner.Communication>? = null,
-  public var deceased: Practitioner.Deceased? = null,
 ) {
   public fun toModel(): Practitioner =
     Practitioner(

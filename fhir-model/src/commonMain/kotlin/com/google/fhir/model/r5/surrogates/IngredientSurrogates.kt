@@ -119,10 +119,10 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var substance: CodeableReference,
+  public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
   public var country: MutableList<CodeableConcept>? = null,
-  public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength,
 ) {
   public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength =
     Ingredient.Substance.Strength.ReferenceStrength(
@@ -227,18 +227,17 @@ internal data class IngredientSubstanceStrengthSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var presentation: Ingredient.Substance.Strength.Presentation? = null,
   public var textPresentation: KotlinString? = null,
   public var _textPresentation: Element? = null,
+  public var concentration: Ingredient.Substance.Strength.Concentration? = null,
   public var textConcentration: KotlinString? = null,
   public var _textConcentration: Element? = null,
   public var basis: CodeableConcept? = null,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
   public var country: MutableList<CodeableConcept>? = null,
-  public var referenceStrength: MutableList<Ingredient.Substance.Strength.ReferenceStrength>? =
-    null,
-  public var presentation: Ingredient.Substance.Strength.Presentation? = null,
-  public var concentration: Ingredient.Substance.Strength.Concentration? = null,
+  public var referenceStrength: MutableList<Ingredient.Substance.Strength.ReferenceStrength>? = null,
 ) {
   public fun toModel(): Ingredient.Substance.Strength =
     Ingredient.Substance.Strength(

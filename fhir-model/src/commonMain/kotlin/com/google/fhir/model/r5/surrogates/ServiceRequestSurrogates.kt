@@ -341,9 +341,12 @@ internal data class ServiceRequestSurrogate(
   public var _doNotPerform: Element? = null,
   public var code: CodeableReference? = null,
   public var orderDetail: MutableList<ServiceRequest.OrderDetail>? = null,
+  public var quantity: ServiceRequest.Quantity? = null,
   public var subject: Reference,
   public var focus: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
+  public var occurrence: ServiceRequest.Occurrence? = null,
+  public var asNeeded: ServiceRequest.AsNeeded? = null,
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -359,9 +362,6 @@ internal data class ServiceRequestSurrogate(
   public var note: MutableList<Annotation>? = null,
   public var patientInstruction: MutableList<ServiceRequest.PatientInstruction>? = null,
   public var relevantHistory: MutableList<Reference>? = null,
-  public var quantity: ServiceRequest.Quantity? = null,
-  public var occurrence: ServiceRequest.Occurrence? = null,
-  public var asNeeded: ServiceRequest.AsNeeded? = null,
 ) {
   public fun toModel(): ServiceRequest =
     ServiceRequest(

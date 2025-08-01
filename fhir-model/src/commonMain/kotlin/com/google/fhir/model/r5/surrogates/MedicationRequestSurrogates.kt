@@ -186,8 +186,8 @@ internal data class MedicationRequestSubstitutionSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var reason: CodeableConcept? = null,
   public var allowed: MedicationRequest.Substitution.Allowed,
+  public var reason: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicationRequest.Substitution =
     MedicationRequest.Substitution(

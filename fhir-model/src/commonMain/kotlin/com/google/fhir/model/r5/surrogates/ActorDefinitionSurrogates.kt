@@ -95,6 +95,7 @@ internal data class ActorDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ActorDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -128,7 +129,6 @@ internal data class ActorDefinitionSurrogate(
   public var _capabilities: Element? = null,
   public var derivedFrom: MutableList<KotlinString?>? = null,
   public var _derivedFrom: MutableList<Element?>? = null,
-  public var versionAlgorithm: ActorDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ActorDefinition =
     ActorDefinition(

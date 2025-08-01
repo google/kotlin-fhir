@@ -308,11 +308,11 @@ internal data class ConsentSurrogate(
   public var _dateTime: Element? = null,
   public var performer: MutableList<Reference>? = null,
   public var organization: MutableList<Reference>? = null,
+  public var source: Consent.Source? = null,
   public var policy: MutableList<Consent.Policy>? = null,
   public var policyRule: CodeableConcept? = null,
   public var verification: MutableList<Consent.Verification>? = null,
   public var provision: Consent.Provision? = null,
-  public var source: Consent.Source? = null,
 ) {
   public fun toModel(): Consent =
     Consent(

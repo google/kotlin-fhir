@@ -227,6 +227,7 @@ internal data class RequestGroupActionSurrogate(
   public var documentation: MutableList<RelatedArtifact>? = null,
   public var condition: MutableList<RequestGroup.Action.Condition>? = null,
   public var relatedAction: MutableList<RequestGroup.Action.RelatedAction>? = null,
+  public var timing: RequestGroup.Action.Timing? = null,
   public var participant: MutableList<Reference>? = null,
   public var type: CodeableConcept? = null,
   public var groupingBehavior: KotlinString? = null,
@@ -241,7 +242,6 @@ internal data class RequestGroupActionSurrogate(
   public var _cardinalityBehavior: Element? = null,
   public var resource: Reference? = null,
   public var action: MutableList<RequestGroup.Action>? = null,
-  public var timing: RequestGroup.Action.Timing? = null,
 ) {
   public fun toModel(): RequestGroup.Action =
     RequestGroup.Action(

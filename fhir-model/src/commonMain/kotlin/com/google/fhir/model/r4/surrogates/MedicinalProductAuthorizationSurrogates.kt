@@ -131,8 +131,8 @@ internal data class MedicinalProductAuthorizationProcedureSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept,
-  public var application: MutableList<MedicinalProductAuthorization.Procedure>? = null,
   public var date: MedicinalProductAuthorization.Procedure.Date? = null,
+  public var application: MutableList<MedicinalProductAuthorization.Procedure>? = null,
 ) {
   public fun toModel(): MedicinalProductAuthorization.Procedure =
     MedicinalProductAuthorization.Procedure(

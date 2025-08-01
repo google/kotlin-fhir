@@ -182,6 +182,7 @@ internal data class CompartmentDefinitionSurrogate(
   public var _url: Element? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: CompartmentDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -205,7 +206,6 @@ internal data class CompartmentDefinitionSurrogate(
   public var search: KotlinBoolean? = null,
   public var _search: Element? = null,
   public var resource: MutableList<CompartmentDefinition.Resource>? = null,
-  public var versionAlgorithm: CompartmentDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): CompartmentDefinition =
     CompartmentDefinition(

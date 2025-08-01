@@ -129,6 +129,7 @@ internal data class DiagnosticReportSurrogate(
   public var code: CodeableConcept,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
+  public var effective: DiagnosticReport.Effective? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var performer: MutableList<Reference>? = null,
@@ -141,7 +142,6 @@ internal data class DiagnosticReportSurrogate(
   public var _conclusion: Element? = null,
   public var conclusionCode: MutableList<CodeableConcept>? = null,
   public var presentedForm: MutableList<Attachment>? = null,
-  public var effective: DiagnosticReport.Effective? = null,
 ) {
   public fun toModel(): DiagnosticReport =
     DiagnosticReport(

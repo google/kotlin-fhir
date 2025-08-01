@@ -148,10 +148,10 @@ internal data class MedicationKnowledgeIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var item: MedicationKnowledge.Ingredient.Item,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
   public var strength: Ratio? = null,
-  public var item: MedicationKnowledge.Ingredient.Item,
 ) {
   public fun toModel(): MedicationKnowledge.Ingredient =
     MedicationKnowledge.Ingredient(
@@ -337,10 +337,10 @@ internal data class MedicationKnowledgeAdministrationGuidelinesPatientCharacteri
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var `value`: MutableList<KotlinString?>? = null,
-  public var _value: MutableList<Element?>? = null,
   public var characteristic:
     MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics.Characteristic,
+  public var `value`: MutableList<KotlinString?>? = null,
+  public var _value: MutableList<Element?>? = null,
 ) {
   public fun toModel(): MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics =
     MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics(
@@ -439,10 +439,10 @@ internal data class MedicationKnowledgeAdministrationGuidelinesSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var dosage: MutableList<MedicationKnowledge.AdministrationGuidelines.Dosage>? = null,
+  public var indication: MedicationKnowledge.AdministrationGuidelines.Indication? = null,
   public var patientCharacteristics:
     MutableList<MedicationKnowledge.AdministrationGuidelines.PatientCharacteristics>? =
     null,
-  public var indication: MedicationKnowledge.AdministrationGuidelines.Indication? = null,
 ) {
   public fun toModel(): MedicationKnowledge.AdministrationGuidelines =
     MedicationKnowledge.AdministrationGuidelines(

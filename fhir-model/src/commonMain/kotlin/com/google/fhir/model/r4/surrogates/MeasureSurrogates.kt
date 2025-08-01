@@ -315,6 +315,7 @@ internal data class MeasureSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: Measure.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -363,7 +364,6 @@ internal data class MeasureSurrogate(
   public var _guidance: Element? = null,
   public var group: MutableList<Measure.Group>? = null,
   public var supplementalData: MutableList<Measure.SupplementalData>? = null,
-  public var subject: Measure.Subject? = null,
 ) {
   public fun toModel(): Measure =
     Measure(

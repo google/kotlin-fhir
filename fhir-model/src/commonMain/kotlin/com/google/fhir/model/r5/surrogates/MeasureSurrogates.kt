@@ -295,6 +295,7 @@ internal data class MeasureGroupSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var type: MutableList<CodeableConcept>? = null,
+  public var subject: Measure.Group.Subject? = null,
   public var basis: KotlinString? = null,
   public var _basis: Element? = null,
   public var scoring: CodeableConcept? = null,
@@ -306,7 +307,6 @@ internal data class MeasureGroupSurrogate(
   public var _library: MutableList<Element?>? = null,
   public var population: MutableList<Measure.Group.Population>? = null,
   public var stratifier: MutableList<Measure.Group.Stratifier>? = null,
-  public var subject: Measure.Group.Subject? = null,
 ) {
   public fun toModel(): Measure.Group =
     Measure.Group(
@@ -511,6 +511,7 @@ internal data class MeasureSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: Measure.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -521,6 +522,7 @@ internal data class MeasureSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: Measure.Subject? = null,
   public var basis: KotlinString? = null,
   public var _basis: Element? = null,
   public var date: KotlinString? = null,
@@ -573,8 +575,6 @@ internal data class MeasureSurrogate(
   public var _guidance: Element? = null,
   public var group: MutableList<Measure.Group>? = null,
   public var supplementalData: MutableList<Measure.SupplementalData>? = null,
-  public var versionAlgorithm: Measure.VersionAlgorithm? = null,
-  public var subject: Measure.Subject? = null,
 ) {
   public fun toModel(): Measure =
     Measure(

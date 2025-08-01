@@ -152,10 +152,10 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var capacity: Quantity? = null,
+  public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
   public var additive: MutableList<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
-  public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container =
     SpecimenDefinition.TypeTested.Container(
@@ -406,6 +406,7 @@ internal data class SpecimenDefinitionSurrogate(
   public var identifier: Identifier? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: SpecimenDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -418,6 +419,7 @@ internal data class SpecimenDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: SpecimenDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -444,8 +446,6 @@ internal data class SpecimenDefinitionSurrogate(
   public var _timeAspect: Element? = null,
   public var collection: MutableList<CodeableConcept>? = null,
   public var typeTested: MutableList<SpecimenDefinition.TypeTested>? = null,
-  public var versionAlgorithm: SpecimenDefinition.VersionAlgorithm? = null,
-  public var subject: SpecimenDefinition.Subject? = null,
 ) {
   public fun toModel(): SpecimenDefinition =
     SpecimenDefinition(

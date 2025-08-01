@@ -126,8 +126,8 @@ internal data class PlanDefinitionGoalTargetSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var measure: CodeableConcept? = null,
-  public var due: Duration? = null,
   public var detail: PlanDefinition.Goal.Target.Detail? = null,
+  public var due: Duration? = null,
 ) {
   public fun toModel(): PlanDefinition.Goal.Target =
     PlanDefinition.Goal.Target(
@@ -743,11 +743,13 @@ internal data class PlanDefinitionActionSurrogate(
   public var documentation: MutableList<RelatedArtifact>? = null,
   public var goalId: MutableList<KotlinString?>? = null,
   public var _goalId: MutableList<Element?>? = null,
+  public var subject: PlanDefinition.Action.Subject? = null,
   public var trigger: MutableList<TriggerDefinition>? = null,
   public var condition: MutableList<PlanDefinition.Action.Condition>? = null,
   public var input: MutableList<PlanDefinition.Action.Input>? = null,
   public var output: MutableList<PlanDefinition.Action.Output>? = null,
   public var relatedAction: MutableList<PlanDefinition.Action.RelatedAction>? = null,
+  public var timing: PlanDefinition.Action.Timing? = null,
   public var location: CodeableReference? = null,
   public var participant: MutableList<PlanDefinition.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
@@ -761,13 +763,11 @@ internal data class PlanDefinitionActionSurrogate(
   public var _precheckBehavior: Element? = null,
   public var cardinalityBehavior: KotlinString? = null,
   public var _cardinalityBehavior: Element? = null,
+  public var definition: PlanDefinition.Action.Definition? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: MutableList<PlanDefinition.Action.DynamicValue>? = null,
   public var action: MutableList<PlanDefinition.Action>? = null,
-  public var subject: PlanDefinition.Action.Subject? = null,
-  public var timing: PlanDefinition.Action.Timing? = null,
-  public var definition: PlanDefinition.Action.Definition? = null,
 ) {
   public fun toModel(): PlanDefinition.Action =
     PlanDefinition.Action(
@@ -1043,6 +1043,7 @@ internal data class PlanDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: PlanDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1054,6 +1055,7 @@ internal data class PlanDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: PlanDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -1087,8 +1089,6 @@ internal data class PlanDefinitionSurrogate(
   public var goal: MutableList<PlanDefinition.Goal>? = null,
   public var actor: MutableList<PlanDefinition.Actor>? = null,
   public var action: MutableList<PlanDefinition.Action>? = null,
-  public var versionAlgorithm: PlanDefinition.VersionAlgorithm? = null,
-  public var subject: PlanDefinition.Subject? = null,
   public var asNeeded: PlanDefinition.AsNeeded? = null,
 ) {
   public fun toModel(): PlanDefinition =

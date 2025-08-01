@@ -163,8 +163,8 @@ internal data class InvoiceLineItemSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var priceComponent: MutableList<Invoice.LineItem.PriceComponent>? = null,
   public var chargeItem: Invoice.LineItem.ChargeItem,
+  public var priceComponent: MutableList<Invoice.LineItem.PriceComponent>? = null,
 ) {
   public fun toModel(): Invoice.LineItem =
     Invoice.LineItem(

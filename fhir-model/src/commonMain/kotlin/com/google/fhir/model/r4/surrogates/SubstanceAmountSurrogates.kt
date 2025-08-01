@@ -99,11 +99,11 @@ internal data class SubstanceAmountSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var amount: SubstanceAmount.Amount? = null,
   public var amountType: CodeableConcept? = null,
   public var amountText: KotlinString? = null,
   public var _amountText: Element? = null,
   public var referenceRange: SubstanceAmount.ReferenceRange? = null,
-  public var amount: SubstanceAmount.Amount? = null,
 ) {
   public fun toModel(): SubstanceAmount =
     SubstanceAmount(

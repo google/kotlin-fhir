@@ -82,13 +82,13 @@ internal data class VirtualServiceDetailSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var channelType: Coding? = null,
+  public var address: VirtualServiceDetail.Address? = null,
   public var additionalInfo: MutableList<KotlinString?>? = null,
   public var _additionalInfo: MutableList<Element?>? = null,
   public var maxParticipants: Int? = null,
   public var _maxParticipants: Element? = null,
   public var sessionKey: KotlinString? = null,
   public var _sessionKey: Element? = null,
-  public var address: VirtualServiceDetail.Address? = null,
 ) {
   public fun toModel(): VirtualServiceDetail =
     VirtualServiceDetail(

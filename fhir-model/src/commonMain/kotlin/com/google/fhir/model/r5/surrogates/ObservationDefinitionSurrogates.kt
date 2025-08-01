@@ -289,6 +289,7 @@ internal data class ObservationDefinitionSurrogate(
   public var identifier: Identifier? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ObservationDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -339,7 +340,6 @@ internal data class ObservationDefinitionSurrogate(
   public var qualifiedValue: MutableList<ObservationDefinition.QualifiedValue>? = null,
   public var hasMember: MutableList<Reference>? = null,
   public var component: MutableList<ObservationDefinition.Component>? = null,
-  public var versionAlgorithm: ObservationDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ObservationDefinition =
     ObservationDefinition(

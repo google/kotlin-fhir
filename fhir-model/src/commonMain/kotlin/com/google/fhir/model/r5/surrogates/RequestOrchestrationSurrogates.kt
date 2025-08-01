@@ -510,6 +510,7 @@ internal data class RequestOrchestrationActionSurrogate(
   public var input: MutableList<RequestOrchestration.Action.Input>? = null,
   public var output: MutableList<RequestOrchestration.Action.Output>? = null,
   public var relatedAction: MutableList<RequestOrchestration.Action.RelatedAction>? = null,
+  public var timing: RequestOrchestration.Action.Timing? = null,
   public var location: CodeableReference? = null,
   public var participant: MutableList<RequestOrchestration.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
@@ -524,12 +525,11 @@ internal data class RequestOrchestrationActionSurrogate(
   public var cardinalityBehavior: KotlinString? = null,
   public var _cardinalityBehavior: Element? = null,
   public var resource: Reference? = null,
+  public var definition: RequestOrchestration.Action.Definition? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: MutableList<RequestOrchestration.Action.DynamicValue>? = null,
   public var action: MutableList<RequestOrchestration.Action>? = null,
-  public var timing: RequestOrchestration.Action.Timing? = null,
-  public var definition: RequestOrchestration.Action.Definition? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action =
     RequestOrchestration.Action(

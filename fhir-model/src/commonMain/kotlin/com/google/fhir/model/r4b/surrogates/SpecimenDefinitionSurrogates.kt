@@ -142,10 +142,10 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var capacity: Quantity? = null,
+  public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
   public var additive: MutableList<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
-  public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container =
     SpecimenDefinition.TypeTested.Container(

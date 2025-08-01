@@ -246,10 +246,10 @@ internal data class ObservationComponentSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var code: CodeableConcept,
+  public var `value`: Observation.Component.Value? = null,
   public var dataAbsentReason: CodeableConcept? = null,
   public var interpretation: MutableList<CodeableConcept>? = null,
   public var referenceRange: MutableList<Observation.ReferenceRange>? = null,
-  public var `value`: Observation.Component.Value? = null,
 ) {
   public fun toModel(): Observation.Component =
     Observation.Component(
@@ -435,6 +435,7 @@ internal data class ObservationSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: MutableList<Identifier>? = null,
+  public var instantiates: Observation.Instantiates? = null,
   public var basedOn: MutableList<Reference>? = null,
   public var triggeredBy: MutableList<Observation.TriggeredBy>? = null,
   public var partOf: MutableList<Reference>? = null,
@@ -445,9 +446,11 @@ internal data class ObservationSurrogate(
   public var subject: Reference? = null,
   public var focus: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
+  public var effective: Observation.Effective? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var performer: MutableList<Reference>? = null,
+  public var `value`: Observation.Value? = null,
   public var dataAbsentReason: CodeableConcept? = null,
   public var interpretation: MutableList<CodeableConcept>? = null,
   public var note: MutableList<Annotation>? = null,
@@ -460,9 +463,6 @@ internal data class ObservationSurrogate(
   public var hasMember: MutableList<Reference>? = null,
   public var derivedFrom: MutableList<Reference>? = null,
   public var component: MutableList<Observation.Component>? = null,
-  public var instantiates: Observation.Instantiates? = null,
-  public var effective: Observation.Effective? = null,
-  public var `value`: Observation.Value? = null,
 ) {
   public fun toModel(): Observation =
     Observation(

@@ -214,14 +214,14 @@ internal data class ConditionSurrogate(
   public var bodySite: MutableList<CodeableConcept>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var onset: Condition.Onset? = null,
+  public var abatement: Condition.Abatement? = null,
   public var recordedDate: KotlinString? = null,
   public var _recordedDate: Element? = null,
   public var participant: MutableList<Condition.Participant>? = null,
   public var stage: MutableList<Condition.Stage>? = null,
   public var evidence: MutableList<CodeableReference>? = null,
   public var note: MutableList<Annotation>? = null,
-  public var onset: Condition.Onset? = null,
-  public var abatement: Condition.Abatement? = null,
 ) {
   public fun toModel(): Condition =
     Condition(

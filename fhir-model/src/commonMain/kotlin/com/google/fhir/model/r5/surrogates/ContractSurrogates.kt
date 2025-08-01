@@ -519,6 +519,7 @@ internal data class ContractTermAssetValuedItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var entity: Contract.Term.Asset.ValuedItem.Entity? = null,
   public var identifier: Identifier? = null,
   public var effectiveTime: KotlinString? = null,
   public var _effectiveTime: Element? = null,
@@ -539,7 +540,6 @@ internal data class ContractTermAssetValuedItemSurrogate(
   public var _linkId: MutableList<Element?>? = null,
   public var securityLabelNumber: MutableList<Int?>? = null,
   public var _securityLabelNumber: MutableList<Element?>? = null,
-  public var entity: Contract.Term.Asset.ValuedItem.Entity? = null,
 ) {
   public fun toModel(): Contract.Term.Asset.ValuedItem =
     Contract.Term.Asset.ValuedItem(
@@ -875,6 +875,7 @@ internal data class ContractTermActionSurrogate(
   public var context: Reference? = null,
   public var contextLinkId: MutableList<KotlinString?>? = null,
   public var _contextLinkId: MutableList<Element?>? = null,
+  public var occurrence: Contract.Term.Action.Occurrence? = null,
   public var requester: MutableList<Reference>? = null,
   public var requesterLinkId: MutableList<KotlinString?>? = null,
   public var _requesterLinkId: MutableList<Element?>? = null,
@@ -889,7 +890,6 @@ internal data class ContractTermActionSurrogate(
   public var note: MutableList<Annotation>? = null,
   public var securityLabelNumber: MutableList<Int?>? = null,
   public var _securityLabelNumber: MutableList<Element?>? = null,
-  public var occurrence: Contract.Term.Action.Occurrence? = null,
 ) {
   public fun toModel(): Contract.Term.Action =
     Contract.Term.Action(
@@ -1131,6 +1131,7 @@ internal data class ContractTermSurrogate(
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var applies: Period? = null,
+  public var topic: Contract.Term.Topic? = null,
   public var type: CodeableConcept? = null,
   public var subType: CodeableConcept? = null,
   public var text: KotlinString? = null,
@@ -1140,7 +1141,6 @@ internal data class ContractTermSurrogate(
   public var asset: MutableList<Contract.Term.Asset>? = null,
   public var action: MutableList<Contract.Term.Action>? = null,
   public var group: MutableList<Contract.Term>? = null,
-  public var topic: Contract.Term.Topic? = null,
 ) {
   public fun toModel(): Contract.Term =
     Contract.Term(
@@ -1461,6 +1461,7 @@ internal data class ContractSurrogate(
   public var _alias: MutableList<Element?>? = null,
   public var author: Reference? = null,
   public var scope: CodeableConcept? = null,
+  public var topic: Contract.Topic? = null,
   public var type: CodeableConcept? = null,
   public var subType: MutableList<CodeableConcept>? = null,
   public var contentDefinition: Contract.ContentDefinition? = null,
@@ -1471,7 +1472,6 @@ internal data class ContractSurrogate(
   public var friendly: MutableList<Contract.Friendly>? = null,
   public var legal: MutableList<Contract.Legal>? = null,
   public var rule: MutableList<Contract.Rule>? = null,
-  public var topic: Contract.Topic? = null,
   public var legallyBinding: Contract.LegallyBinding? = null,
 ) {
   public fun toModel(): Contract =

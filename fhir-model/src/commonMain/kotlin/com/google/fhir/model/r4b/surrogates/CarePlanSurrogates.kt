@@ -125,14 +125,14 @@ internal data class CarePlanActivityDetailSurrogate(
   public var statusReason: CodeableConcept? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
+  public var scheduled: CarePlan.Activity.Detail.Scheduled? = null,
   public var location: Reference? = null,
   public var performer: MutableList<Reference>? = null,
+  public var product: CarePlan.Activity.Detail.Product? = null,
   public var dailyAmount: Quantity? = null,
   public var quantity: Quantity? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var scheduled: CarePlan.Activity.Detail.Scheduled? = null,
-  public var product: CarePlan.Activity.Detail.Product? = null,
 ) {
   public fun toModel(): CarePlan.Activity.Detail =
     CarePlan.Activity.Detail(

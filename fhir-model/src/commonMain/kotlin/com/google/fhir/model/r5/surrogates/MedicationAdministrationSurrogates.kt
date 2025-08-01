@@ -215,6 +215,7 @@ internal data class MedicationAdministrationSurrogate(
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
+  public var occurence: MedicationAdministration.Occurence,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var isSubPotent: KotlinBoolean? = null,
@@ -227,7 +228,6 @@ internal data class MedicationAdministrationSurrogate(
   public var note: MutableList<Annotation>? = null,
   public var dosage: MedicationAdministration.Dosage? = null,
   public var eventHistory: MutableList<Reference>? = null,
-  public var occurence: MedicationAdministration.Occurence,
 ) {
   public fun toModel(): MedicationAdministration =
     MedicationAdministration(

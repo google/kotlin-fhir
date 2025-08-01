@@ -161,6 +161,7 @@ internal data class DetectedIssueSurrogate(
   public var severity: KotlinString? = null,
   public var _severity: Element? = null,
   public var patient: Reference? = null,
+  public var identified: DetectedIssue.Identified? = null,
   public var author: Reference? = null,
   public var implicated: MutableList<Reference>? = null,
   public var evidence: MutableList<DetectedIssue.Evidence>? = null,
@@ -169,7 +170,6 @@ internal data class DetectedIssueSurrogate(
   public var reference: KotlinString? = null,
   public var _reference: Element? = null,
   public var mitigation: MutableList<DetectedIssue.Mitigation>? = null,
-  public var identified: DetectedIssue.Identified? = null,
 ) {
   public fun toModel(): DetectedIssue =
     DetectedIssue(

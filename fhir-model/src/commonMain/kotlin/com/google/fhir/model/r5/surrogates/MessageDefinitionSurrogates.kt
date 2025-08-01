@@ -232,6 +232,7 @@ internal data class MessageDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: MessageDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -261,6 +262,7 @@ internal data class MessageDefinitionSurrogate(
   public var _base: Element? = null,
   public var parent: MutableList<KotlinString?>? = null,
   public var _parent: MutableList<Element?>? = null,
+  public var event: MessageDefinition.Event,
   public var category: KotlinString? = null,
   public var _category: Element? = null,
   public var focus: MutableList<MessageDefinition.Focus>? = null,
@@ -269,8 +271,6 @@ internal data class MessageDefinitionSurrogate(
   public var allowedResponse: MutableList<MessageDefinition.AllowedResponse>? = null,
   public var graph: KotlinString? = null,
   public var _graph: Element? = null,
-  public var versionAlgorithm: MessageDefinition.VersionAlgorithm? = null,
-  public var event: MessageDefinition.Event,
 ) {
   public fun toModel(): MessageDefinition =
     MessageDefinition(

@@ -306,6 +306,7 @@ internal data class ConditionDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ConditionDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -343,7 +344,6 @@ internal data class ConditionDefinitionSurrogate(
   public var team: MutableList<Reference>? = null,
   public var questionnaire: MutableList<ConditionDefinition.Questionnaire>? = null,
   public var plan: MutableList<ConditionDefinition.Plan>? = null,
-  public var versionAlgorithm: ConditionDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ConditionDefinition =
     ConditionDefinition(

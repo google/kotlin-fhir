@@ -138,9 +138,9 @@ internal data class InvoiceLineItemSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var priceComponent: MutableList<MonetaryComponent>? = null,
   public var serviced: Invoice.LineItem.Serviced? = null,
   public var chargeItem: Invoice.LineItem.ChargeItem,
+  public var priceComponent: MutableList<MonetaryComponent>? = null,
 ) {
   public fun toModel(): Invoice.LineItem =
     Invoice.LineItem(
@@ -225,6 +225,7 @@ internal data class InvoiceSurrogate(
   public var _date: Element? = null,
   public var creation: KotlinString? = null,
   public var _creation: Element? = null,
+  public var period: Invoice.Period? = null,
   public var participant: MutableList<Invoice.Participant>? = null,
   public var issuer: Reference? = null,
   public var account: Reference? = null,
@@ -235,7 +236,6 @@ internal data class InvoiceSurrogate(
   public var paymentTerms: KotlinString? = null,
   public var _paymentTerms: Element? = null,
   public var note: MutableList<Annotation>? = null,
-  public var period: Invoice.Period? = null,
 ) {
   public fun toModel(): Invoice =
     Invoice(

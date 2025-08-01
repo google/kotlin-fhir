@@ -666,6 +666,7 @@ internal data class TerminologyCapabilitiesSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: TerminologyCapabilities.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -702,7 +703,6 @@ internal data class TerminologyCapabilitiesSurrogate(
   public var validateCode: TerminologyCapabilities.ValidateCode? = null,
   public var translation: TerminologyCapabilities.Translation? = null,
   public var closure: TerminologyCapabilities.Closure? = null,
-  public var versionAlgorithm: TerminologyCapabilities.VersionAlgorithm? = null,
 ) {
   public fun toModel(): TerminologyCapabilities =
     TerminologyCapabilities(

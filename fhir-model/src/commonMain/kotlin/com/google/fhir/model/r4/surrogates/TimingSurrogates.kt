@@ -73,6 +73,7 @@ internal data class TimingRepeatBoundsSurrogate(
 internal data class TimingRepeatSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
+  public var bounds: Timing.Repeat.Bounds? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
   public var countMax: Int? = null,
@@ -101,7 +102,6 @@ internal data class TimingRepeatSurrogate(
   public var _when: MutableList<Element?>? = null,
   public var offset: Int? = null,
   public var _offset: Element? = null,
-  public var bounds: Timing.Repeat.Bounds? = null,
 ) {
   public fun toModel(): Timing.Repeat =
     Timing.Repeat(

@@ -211,6 +211,7 @@ internal data class GoalSurrogate(
   public var priority: CodeableConcept? = null,
   public var description: CodeableConcept,
   public var subject: Reference,
+  public var start: Goal.Start? = null,
   public var target: MutableList<Goal.Target>? = null,
   public var statusDate: KotlinString? = null,
   public var _statusDate: Element? = null,
@@ -221,7 +222,6 @@ internal data class GoalSurrogate(
   public var note: MutableList<Annotation>? = null,
   public var outcomeCode: MutableList<CodeableConcept>? = null,
   public var outcomeReference: MutableList<Reference>? = null,
-  public var start: Goal.Start? = null,
 ) {
   public fun toModel(): Goal =
     Goal(

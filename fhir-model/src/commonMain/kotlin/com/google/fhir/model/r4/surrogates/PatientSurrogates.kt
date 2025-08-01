@@ -265,16 +265,16 @@ internal data class PatientSurrogate(
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
+  public var deceased: Patient.Deceased? = null,
   public var address: MutableList<Address>? = null,
   public var maritalStatus: CodeableConcept? = null,
+  public var multipleBirth: Patient.MultipleBirth? = null,
   public var photo: MutableList<Attachment>? = null,
   public var contact: MutableList<Patient.Contact>? = null,
   public var communication: MutableList<Patient.Communication>? = null,
   public var generalPractitioner: MutableList<Reference>? = null,
   public var managingOrganization: Reference? = null,
   public var link: MutableList<Patient.Link>? = null,
-  public var deceased: Patient.Deceased? = null,
-  public var multipleBirth: Patient.MultipleBirth? = null,
 ) {
   public fun toModel(): Patient =
     Patient(

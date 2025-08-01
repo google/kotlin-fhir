@@ -351,6 +351,7 @@ internal data class DeviceDefinitionSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: MutableList<Identifier>? = null,
   public var udiDeviceIdentifier: MutableList<DeviceDefinition.UdiDeviceIdentifier>? = null,
+  public var manufacturer: DeviceDefinition.Manufacturer? = null,
   public var deviceName: MutableList<DeviceDefinition.DeviceName>? = null,
   public var modelNumber: KotlinString? = null,
   public var _modelNumber: Element? = null,
@@ -374,7 +375,6 @@ internal data class DeviceDefinitionSurrogate(
   public var quantity: Quantity? = null,
   public var parentDevice: Reference? = null,
   public var material: MutableList<DeviceDefinition.Material>? = null,
-  public var manufacturer: DeviceDefinition.Manufacturer? = null,
 ) {
   public fun toModel(): DeviceDefinition =
     DeviceDefinition(

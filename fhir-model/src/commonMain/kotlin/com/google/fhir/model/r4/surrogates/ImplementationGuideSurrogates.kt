@@ -242,9 +242,9 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
+  public var example: ImplementationGuide.Definition.Resource.Example? = null,
   public var groupingId: KotlinString? = null,
   public var _groupingId: Element? = null,
-  public var example: ImplementationGuide.Definition.Resource.Example? = null,
 ) {
   public fun toModel(): ImplementationGuide.Definition.Resource =
     ImplementationGuide.Definition.Resource(
@@ -363,12 +363,12 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var name: ImplementationGuide.Definition.Page.Name,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var generation: KotlinString? = null,
   public var _generation: Element? = null,
   public var page: MutableList<ImplementationGuide.Definition.Page>? = null,
-  public var name: ImplementationGuide.Definition.Page.Name,
 ) {
   public fun toModel(): ImplementationGuide.Definition.Page =
     ImplementationGuide.Definition.Page(
@@ -598,9 +598,9 @@ internal data class ImplementationGuideManifestResourceSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var reference: Reference,
+  public var example: ImplementationGuide.Manifest.Resource.Example? = null,
   public var relativePath: KotlinString? = null,
   public var _relativePath: Element? = null,
-  public var example: ImplementationGuide.Manifest.Resource.Example? = null,
 ) {
   public fun toModel(): ImplementationGuide.Manifest.Resource =
     ImplementationGuide.Manifest.Resource(

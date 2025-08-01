@@ -255,9 +255,9 @@ internal data class QuestionnaireItemAnswerOptionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: Questionnaire.Item.AnswerOption.Value,
   public var initialSelected: KotlinBoolean? = null,
   public var _initialSelected: Element? = null,
-  public var `value`: Questionnaire.Item.AnswerOption.Value,
 ) {
   public fun toModel(): Questionnaire.Item.AnswerOption =
     Questionnaire.Item.AnswerOption(
@@ -621,6 +621,7 @@ internal data class QuestionnaireSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: Questionnaire.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -655,7 +656,6 @@ internal data class QuestionnaireSurrogate(
   public var effectivePeriod: Period? = null,
   public var code: MutableList<Coding>? = null,
   public var item: MutableList<Questionnaire.Item>? = null,
-  public var versionAlgorithm: Questionnaire.VersionAlgorithm? = null,
 ) {
   public fun toModel(): Questionnaire =
     Questionnaire(

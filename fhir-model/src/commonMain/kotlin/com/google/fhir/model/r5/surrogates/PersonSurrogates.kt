@@ -178,13 +178,13 @@ internal data class PersonSurrogate(
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
+  public var deceased: Person.Deceased? = null,
   public var address: MutableList<Address>? = null,
   public var maritalStatus: CodeableConcept? = null,
   public var photo: MutableList<Attachment>? = null,
   public var communication: MutableList<Person.Communication>? = null,
   public var managingOrganization: Reference? = null,
   public var link: MutableList<Person.Link>? = null,
-  public var deceased: Person.Deceased? = null,
 ) {
   public fun toModel(): Person =
     Person(

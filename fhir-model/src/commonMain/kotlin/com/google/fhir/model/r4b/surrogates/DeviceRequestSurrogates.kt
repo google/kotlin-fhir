@@ -193,9 +193,11 @@ internal data class DeviceRequestSurrogate(
   public var _intent: Element? = null,
   public var priority: String? = null,
   public var _priority: Element? = null,
+  public var code: DeviceRequest.Code,
   public var parameter: MutableList<DeviceRequest.Parameter>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var occurrence: DeviceRequest.Occurrence? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -207,8 +209,6 @@ internal data class DeviceRequestSurrogate(
   public var supportingInfo: MutableList<Reference>? = null,
   public var note: MutableList<Annotation>? = null,
   public var relevantHistory: MutableList<Reference>? = null,
-  public var code: DeviceRequest.Code,
-  public var occurrence: DeviceRequest.Occurrence? = null,
 ) {
   public fun toModel(): DeviceRequest =
     DeviceRequest(

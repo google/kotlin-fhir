@@ -259,6 +259,7 @@ internal data class ActivityDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: ActivityDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -298,8 +299,10 @@ internal data class ActivityDefinitionSurrogate(
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
+  public var timing: ActivityDefinition.Timing? = null,
   public var location: Reference? = null,
   public var participant: MutableList<ActivityDefinition.Participant>? = null,
+  public var product: ActivityDefinition.Product? = null,
   public var quantity: Quantity? = null,
   public var dosage: MutableList<Dosage>? = null,
   public var bodySite: MutableList<CodeableConcept>? = null,
@@ -309,9 +312,6 @@ internal data class ActivityDefinitionSurrogate(
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
   public var dynamicValue: MutableList<ActivityDefinition.DynamicValue>? = null,
-  public var subject: ActivityDefinition.Subject? = null,
-  public var timing: ActivityDefinition.Timing? = null,
-  public var product: ActivityDefinition.Product? = null,
 ) {
   public fun toModel(): ActivityDefinition =
     ActivityDefinition(

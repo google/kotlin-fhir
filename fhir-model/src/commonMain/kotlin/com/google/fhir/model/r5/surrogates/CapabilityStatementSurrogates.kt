@@ -1044,6 +1044,7 @@ internal data class CapabilityStatementSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: CapabilityStatement.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1088,7 +1089,6 @@ internal data class CapabilityStatementSurrogate(
   public var rest: MutableList<CapabilityStatement.Rest>? = null,
   public var messaging: MutableList<CapabilityStatement.Messaging>? = null,
   public var document: MutableList<CapabilityStatement.Document>? = null,
-  public var versionAlgorithm: CapabilityStatement.VersionAlgorithm? = null,
 ) {
   public fun toModel(): CapabilityStatement =
     CapabilityStatement(

@@ -121,6 +121,7 @@ internal data class LibrarySurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: Library.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -132,6 +133,7 @@ internal data class LibrarySurrogate(
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
   public var type: CodeableConcept,
+  public var subject: Library.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -163,8 +165,6 @@ internal data class LibrarySurrogate(
   public var parameter: MutableList<ParameterDefinition>? = null,
   public var dataRequirement: MutableList<DataRequirement>? = null,
   public var content: MutableList<Attachment>? = null,
-  public var versionAlgorithm: Library.VersionAlgorithm? = null,
-  public var subject: Library.Subject? = null,
 ) {
   public fun toModel(): Library =
     Library(

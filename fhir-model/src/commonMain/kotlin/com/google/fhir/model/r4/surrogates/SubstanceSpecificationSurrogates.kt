@@ -663,14 +663,14 @@ internal data class SubstanceSpecificationRelationshipSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var substance: SubstanceSpecification.Relationship.Substance? = null,
   public var relationship: CodeableConcept? = null,
   public var isDefining: KotlinBoolean? = null,
   public var _isDefining: Element? = null,
+  public var amount: SubstanceSpecification.Relationship.Amount? = null,
   public var amountRatioLowLimit: Ratio? = null,
   public var amountType: CodeableConcept? = null,
   public var source: MutableList<Reference>? = null,
-  public var substance: SubstanceSpecification.Relationship.Substance? = null,
-  public var amount: SubstanceSpecification.Relationship.Amount? = null,
 ) {
   public fun toModel(): SubstanceSpecification.Relationship =
     SubstanceSpecification.Relationship(

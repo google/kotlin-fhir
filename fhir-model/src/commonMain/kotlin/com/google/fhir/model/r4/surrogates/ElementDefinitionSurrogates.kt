@@ -1848,11 +1848,16 @@ internal data class ElementDefinitionSurrogate(
   public var contentReference: KotlinString? = null,
   public var _contentReference: Element? = null,
   public var type: MutableList<ElementDefinition.Type>? = null,
+  public var defaultValue: ElementDefinition.DefaultValue? = null,
   public var meaningWhenMissing: KotlinString? = null,
   public var _meaningWhenMissing: Element? = null,
   public var orderMeaning: KotlinString? = null,
   public var _orderMeaning: Element? = null,
+  public var fixed: ElementDefinition.Fixed? = null,
+  public var pattern: ElementDefinition.Pattern? = null,
   public var example: MutableList<ElementDefinition.Example>? = null,
+  public var minValue: ElementDefinition.MinValue? = null,
+  public var maxValue: ElementDefinition.MaxValue? = null,
   public var maxLength: Int? = null,
   public var _maxLength: Element? = null,
   public var condition: MutableList<KotlinString?>? = null,
@@ -1868,11 +1873,6 @@ internal data class ElementDefinitionSurrogate(
   public var _isSummary: Element? = null,
   public var binding: ElementDefinition.Binding? = null,
   public var mapping: MutableList<ElementDefinition.Mapping>? = null,
-  public var defaultValue: ElementDefinition.DefaultValue? = null,
-  public var fixed: ElementDefinition.Fixed? = null,
-  public var pattern: ElementDefinition.Pattern? = null,
-  public var minValue: ElementDefinition.MinValue? = null,
-  public var maxValue: ElementDefinition.MaxValue? = null,
 ) {
   public fun toModel(): ElementDefinition =
     ElementDefinition(

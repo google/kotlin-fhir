@@ -452,6 +452,7 @@ internal data class CodeSystemSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: CodeSystem.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -505,7 +506,6 @@ internal data class CodeSystemSurrogate(
   public var filter: MutableList<CodeSystem.Filter>? = null,
   public var `property`: MutableList<CodeSystem.Property>? = null,
   public var concept: MutableList<CodeSystem.Concept>? = null,
-  public var versionAlgorithm: CodeSystem.VersionAlgorithm? = null,
 ) {
   public fun toModel(): CodeSystem =
     CodeSystem(

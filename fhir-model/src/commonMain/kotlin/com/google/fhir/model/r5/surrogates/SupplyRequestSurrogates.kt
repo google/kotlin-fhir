@@ -167,6 +167,7 @@ internal data class SupplyRequestSurrogate(
   public var item: CodeableReference,
   public var quantity: Quantity,
   public var parameter: MutableList<SupplyRequest.Parameter>? = null,
+  public var occurrence: SupplyRequest.Occurrence? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -174,7 +175,6 @@ internal data class SupplyRequestSurrogate(
   public var reason: MutableList<CodeableReference>? = null,
   public var deliverFrom: Reference? = null,
   public var deliverTo: Reference? = null,
-  public var occurrence: SupplyRequest.Occurrence? = null,
 ) {
   public fun toModel(): SupplyRequest =
     SupplyRequest(

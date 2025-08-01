@@ -178,6 +178,7 @@ internal data class AllergyIntoleranceSurrogate(
   public var code: CodeableConcept? = null,
   public var patient: Reference,
   public var encounter: Reference? = null,
+  public var onset: AllergyIntolerance.Onset? = null,
   public var recordedDate: KotlinString? = null,
   public var _recordedDate: Element? = null,
   public var recorder: Reference? = null,
@@ -186,7 +187,6 @@ internal data class AllergyIntoleranceSurrogate(
   public var _lastOccurrence: Element? = null,
   public var note: MutableList<Annotation>? = null,
   public var reaction: MutableList<AllergyIntolerance.Reaction>? = null,
-  public var onset: AllergyIntolerance.Onset? = null,
 ) {
   public fun toModel(): AllergyIntolerance =
     AllergyIntolerance(

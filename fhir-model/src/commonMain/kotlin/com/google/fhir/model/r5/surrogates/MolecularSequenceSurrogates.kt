@@ -83,6 +83,7 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var genomeAssembly: CodeableConcept? = null,
   public var chromosome: CodeableConcept? = null,
+  public var sequence: MolecularSequence.Relative.StartingSequence.Sequence? = null,
   public var windowStart: Int? = null,
   public var _windowStart: Element? = null,
   public var windowEnd: Int? = null,
@@ -91,7 +92,6 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var _orientation: Element? = null,
   public var strand: KotlinString? = null,
   public var _strand: Element? = null,
-  public var sequence: MolecularSequence.Relative.StartingSequence.Sequence? = null,
 ) {
   public fun toModel(): MolecularSequence.Relative.StartingSequence =
     MolecularSequence.Relative.StartingSequence(

@@ -94,10 +94,10 @@ internal data class EvidenceReportSubjectCharacteristicSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var code: CodeableConcept,
+  public var `value`: EvidenceReport.Subject.Characteristic.Value,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var period: Period? = null,
-  public var `value`: EvidenceReport.Subject.Characteristic.Value,
 ) {
   public fun toModel(): EvidenceReport.Subject.Characteristic =
     EvidenceReport.Subject.Characteristic(
@@ -350,6 +350,7 @@ internal data class EvidenceReportSurrogate(
   public var useContext: MutableList<UsageContext>? = null,
   public var identifier: MutableList<Identifier>? = null,
   public var relatedIdentifier: MutableList<Identifier>? = null,
+  public var citeAs: EvidenceReport.CiteAs? = null,
   public var type: CodeableConcept? = null,
   public var note: MutableList<Annotation>? = null,
   public var relatedArtifact: MutableList<RelatedArtifact>? = null,
@@ -363,7 +364,6 @@ internal data class EvidenceReportSurrogate(
   public var endorser: MutableList<ContactDetail>? = null,
   public var relatesTo: MutableList<EvidenceReport.RelatesTo>? = null,
   public var section: MutableList<EvidenceReport.Section>? = null,
-  public var citeAs: EvidenceReport.CiteAs? = null,
 ) {
   public fun toModel(): EvidenceReport =
     EvidenceReport(

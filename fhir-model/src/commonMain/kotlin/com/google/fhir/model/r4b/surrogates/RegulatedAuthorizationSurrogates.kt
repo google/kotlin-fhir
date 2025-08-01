@@ -80,8 +80,8 @@ internal data class RegulatedAuthorizationCaseSurrogate(
   public var identifier: Identifier? = null,
   public var type: CodeableConcept? = null,
   public var status: CodeableConcept? = null,
-  public var application: MutableList<RegulatedAuthorization.Case>? = null,
   public var date: RegulatedAuthorization.Case.Date? = null,
+  public var application: MutableList<RegulatedAuthorization.Case>? = null,
 ) {
   public fun toModel(): RegulatedAuthorization.Case =
     RegulatedAuthorization.Case(

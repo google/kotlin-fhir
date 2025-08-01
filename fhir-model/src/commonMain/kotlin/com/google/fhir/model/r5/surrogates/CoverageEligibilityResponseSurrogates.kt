@@ -484,6 +484,7 @@ internal data class CoverageEligibilityResponseSurrogate(
   public var _purpose: MutableList<Element?>? = null,
   public var patient: Reference,
   public var event: MutableList<CoverageEligibilityResponse.Event>? = null,
+  public var serviced: CoverageEligibilityResponse.Serviced? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var requestor: Reference? = null,
@@ -498,7 +499,6 @@ internal data class CoverageEligibilityResponseSurrogate(
   public var _preAuthRef: Element? = null,
   public var form: CodeableConcept? = null,
   public var error: MutableList<CoverageEligibilityResponse.Error>? = null,
-  public var serviced: CoverageEligibilityResponse.Serviced? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse =
     CoverageEligibilityResponse(

@@ -99,6 +99,7 @@ internal data class MediaSurrogate(
   public var view: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
+  public var created: Media.Created? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var `operator`: Reference? = null,
@@ -117,7 +118,6 @@ internal data class MediaSurrogate(
   public var _duration: Element? = null,
   public var content: Attachment,
   public var note: MutableList<Annotation>? = null,
-  public var created: Media.Created? = null,
 ) {
   public fun toModel(): Media =
     Media(

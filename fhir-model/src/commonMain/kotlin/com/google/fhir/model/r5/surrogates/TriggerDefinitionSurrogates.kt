@@ -91,9 +91,9 @@ internal data class TriggerDefinitionSurrogate(
   public var code: CodeableConcept? = null,
   public var subscriptionTopic: KotlinString? = null,
   public var _subscriptionTopic: Element? = null,
+  public var timing: TriggerDefinition.Timing? = null,
   public var `data`: MutableList<DataRequirement>? = null,
   public var condition: Expression? = null,
-  public var timing: TriggerDefinition.Timing? = null,
 ) {
   public fun toModel(): TriggerDefinition =
     TriggerDefinition(

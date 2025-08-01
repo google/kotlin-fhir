@@ -465,6 +465,7 @@ internal data class OperationDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: OperationDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -512,7 +513,6 @@ internal data class OperationDefinitionSurrogate(
   public var _outputProfile: Element? = null,
   public var parameter: MutableList<OperationDefinition.Parameter>? = null,
   public var overload: MutableList<OperationDefinition.Overload>? = null,
-  public var versionAlgorithm: OperationDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): OperationDefinition =
     OperationDefinition(

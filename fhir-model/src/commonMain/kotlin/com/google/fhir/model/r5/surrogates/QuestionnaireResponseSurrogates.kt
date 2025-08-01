@@ -154,8 +154,8 @@ internal data class QuestionnaireResponseItemAnswerSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var item: MutableList<QuestionnaireResponse.Item>? = null,
   public var `value`: QuestionnaireResponse.Item.Answer.Value,
+  public var item: MutableList<QuestionnaireResponse.Item>? = null,
 ) {
   public fun toModel(): QuestionnaireResponse.Item.Answer =
     QuestionnaireResponse.Item.Answer(

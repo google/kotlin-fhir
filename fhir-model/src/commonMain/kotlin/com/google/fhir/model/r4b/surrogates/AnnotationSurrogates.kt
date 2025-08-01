@@ -66,11 +66,11 @@ internal data class AnnotationAuthorSurrogate(
 internal data class AnnotationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
+  public var author: Annotation.Author? = null,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var author: Annotation.Author? = null,
 ) {
   public fun toModel(): Annotation =
     Annotation(

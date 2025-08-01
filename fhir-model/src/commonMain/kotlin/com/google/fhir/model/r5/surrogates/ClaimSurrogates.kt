@@ -311,9 +311,9 @@ internal data class ClaimSupportingInfoSurrogate(
   public var _sequence: Element? = null,
   public var category: CodeableConcept,
   public var code: CodeableConcept? = null,
-  public var reason: CodeableConcept? = null,
   public var timing: Claim.SupportingInfo.Timing? = null,
   public var `value`: Claim.SupportingInfo.Value? = null,
+  public var reason: CodeableConcept? = null,
 ) {
   public fun toModel(): Claim.SupportingInfo =
     Claim.SupportingInfo(
@@ -380,9 +380,9 @@ internal data class ClaimDiagnosisSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
+  public var diagnosis: Claim.Diagnosis.Diagnosis,
   public var type: MutableList<CodeableConcept>? = null,
   public var onAdmission: CodeableConcept? = null,
-  public var diagnosis: Claim.Diagnosis.Diagnosis,
 ) {
   public fun toModel(): Claim.Diagnosis =
     Claim.Diagnosis(
@@ -448,8 +448,8 @@ internal data class ClaimProcedureSurrogate(
   public var type: MutableList<CodeableConcept>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var udi: MutableList<Reference>? = null,
   public var procedure: Claim.Procedure.Procedure,
+  public var udi: MutableList<Reference>? = null,
 ) {
   public fun toModel(): Claim.Procedure =
     Claim.Procedure(
@@ -910,6 +910,8 @@ internal data class ClaimItemSurrogate(
   public var request: MutableList<Reference>? = null,
   public var modifier: MutableList<CodeableConcept>? = null,
   public var programCode: MutableList<CodeableConcept>? = null,
+  public var serviced: Claim.Item.Serviced? = null,
+  public var location: Claim.Item.Location? = null,
   public var patientPaid: Money? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
@@ -921,8 +923,6 @@ internal data class ClaimItemSurrogate(
   public var bodySite: MutableList<Claim.Item.BodySite>? = null,
   public var encounter: MutableList<Reference>? = null,
   public var detail: MutableList<Claim.Item.Detail>? = null,
-  public var serviced: Claim.Item.Serviced? = null,
-  public var location: Claim.Item.Location? = null,
 ) {
   public fun toModel(): Claim.Item =
     Claim.Item(

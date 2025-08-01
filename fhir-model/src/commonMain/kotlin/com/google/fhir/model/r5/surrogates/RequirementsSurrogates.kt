@@ -263,6 +263,7 @@ internal data class RequirementsSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: Requirements.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -293,7 +294,6 @@ internal data class RequirementsSurrogate(
   public var actor: MutableList<KotlinString?>? = null,
   public var _actor: MutableList<Element?>? = null,
   public var statement: MutableList<Requirements.Statement>? = null,
-  public var versionAlgorithm: Requirements.VersionAlgorithm? = null,
 ) {
   public fun toModel(): Requirements =
     Requirements(

@@ -132,6 +132,7 @@ internal data class ChargeItemSurrogate(
   public var code: CodeableConcept,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var occurrence: ChargeItem.Occurrence? = null,
   public var performer: MutableList<ChargeItem.Performer>? = null,
   public var performingOrganization: Reference? = null,
   public var requestingOrganization: Reference? = null,
@@ -150,7 +151,6 @@ internal data class ChargeItemSurrogate(
   public var account: MutableList<Reference>? = null,
   public var note: MutableList<Annotation>? = null,
   public var supportingInformation: MutableList<Reference>? = null,
-  public var occurrence: ChargeItem.Occurrence? = null,
 ) {
   public fun toModel(): ChargeItem =
     ChargeItem(

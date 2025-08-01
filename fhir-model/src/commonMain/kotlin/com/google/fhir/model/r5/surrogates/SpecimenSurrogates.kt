@@ -143,13 +143,13 @@ internal data class SpecimenCollectionSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var collector: Reference? = null,
+  public var collected: Specimen.Collection.Collected? = null,
   public var duration: Duration? = null,
   public var quantity: Quantity? = null,
   public var method: CodeableConcept? = null,
   public var device: CodeableReference? = null,
   public var procedure: Reference? = null,
   public var bodySite: CodeableReference? = null,
-  public var collected: Specimen.Collection.Collected? = null,
   public var fastingStatus: Specimen.Collection.FastingStatus? = null,
 ) {
   public fun toModel(): Specimen.Collection =

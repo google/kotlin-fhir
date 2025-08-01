@@ -1080,6 +1080,7 @@ internal data class CitationSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: Citation.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1119,7 +1120,6 @@ internal data class CitationSurrogate(
   public var statusDate: MutableList<Citation.StatusDate>? = null,
   public var relatedArtifact: MutableList<RelatedArtifact>? = null,
   public var citedArtifact: Citation.CitedArtifact? = null,
-  public var versionAlgorithm: Citation.VersionAlgorithm? = null,
 ) {
   public fun toModel(): Citation =
     Citation(

@@ -52,87 +52,88 @@ import kotlinx.serialization.Serializable
 class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
   fun generate(modelClassName: ClassName, elements: List<Element>): List<TypeSpec> {
     val surrogateClassName = modelClassName.toSurrogateClassName()
-    val (polymorphicElements, nonPolymorphicElements) =
-      elements.partition { it.path.endsWith("[x]") }
-    // Polymorphic properties are modeled using sealed interfaces, allowing multiple possible types.
-    // For example, Patient.deceased can be either a Boolean or a DateTime.
-    val polymorphicPropertyParamPairs =
-      polymorphicElements.map { element: Element ->
-        val propertyName = element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
-        val nullable = element.min < 1
-        val property =
-          PropertySpec.builder(
-              propertyName,
-              ClassName(modelClassName.packageName, element.getPathSimpleNames())
-                .copy(nullable = nullable),
-            )
-            .initializer(propertyName)
-            .mutable()
-            .build()
-        val parameter =
-          ParameterSpec.builder(property.name, property.type)
-            .apply { if (nullable) defaultValue("null") }
-            .build()
-        Pair(property, parameter)
-      }
-
-    val nonPolymorphicPropertyParamPairs =
-      nonPolymorphicElements.flatMap { element ->
-        element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
+    val propertyParamPairs: List<Pair<PropertySpec, ParameterSpec>> =
+      elements.flatMap { element ->
+        // Example Patient.deceased[x] can be either a Boolean or a DateTime.
+        if (element.path.endsWith("[x]")) {
+          val propertyName = element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
+          val nullable = element.min < 1
           val property =
-            PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
-          val parameter =
-            ParameterSpec.builder(it.first, it.second)
-              .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+            PropertySpec.builder(
+                propertyName,
+                ClassName(modelClassName.packageName, element.getPathSimpleNames())
+                  .copy(nullable = nullable),
+              )
+              .initializer(propertyName)
+              .mutable()
               .build()
-          Pair(property, parameter)
+          val parameter =
+            ParameterSpec.builder(property.name, property.type)
+              .apply { if (nullable) defaultValue("null") }
+              .build()
+          listOf(Pair(property, parameter))
+        } else {
+          element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
+            val property =
+              PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
+            val parameter =
+              ParameterSpec.builder(it.first, it.second)
+                .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+                .build()
+            Pair(property, parameter)
+          }
         }
       }
 
     val sealedInterfaceSurrogateTypeSpecs =
-      polymorphicElements.map { element: Element ->
-        val sealedInterfaceSurrogateClassName =
-          ClassName(
-            surrogateClassName.packageName,
-            element.getPolymorphicTypeSurrogateClassSimpleName(),
-          )
-        TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
-          .addAnnotation(Serializable::class)
-          .addModifiers(KModifier.INTERNAL)
-          .addModifiers(KModifier.DATA)
-          .apply {
-            val sealedInterfaceSurrogatePropertyParamPair =
-              element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
-                val property =
-                  PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
-                val parameter =
-                  ParameterSpec.builder(it.first, it.second)
-                    .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
-                    .build()
-                Pair(property, parameter)
-              }
-
-            addProperties(sealedInterfaceSurrogatePropertyParamPair.map { it.first })
-            primaryConstructor(
-              FunSpec.constructorBuilder()
-                .apply {
-                  sealedInterfaceSurrogatePropertyParamPair.forEach { addParameter(it.second) }
+      elements
+        .filter { it.path.endsWith("[x]") }
+        .map { element: Element ->
+          val sealedInterfaceSurrogateClassName =
+            ClassName(
+              surrogateClassName.packageName,
+              element.getPolymorphicTypeSurrogateClassSimpleName(),
+            )
+          TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
+            .addAnnotation(Serializable::class)
+            .addModifiers(KModifier.INTERNAL)
+            .addModifiers(KModifier.DATA)
+            .apply {
+              val sealedInterfaceSurrogatePropertyParamPair =
+                element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
+                  val property =
+                    PropertySpec.builder(it.first, it.second)
+                      .initializer(it.first)
+                      .mutable()
+                      .build()
+                  val parameter =
+                    ParameterSpec.builder(it.first, it.second)
+                      .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+                      .build()
+                  Pair(property, parameter)
                 }
-                .build()
-            )
-            addSealedClassSurrogateConverterToModelClass(
-              modelClassName,
-              sealedInterfaceSurrogateClassName,
-              element,
-            )
-            addSealedClassSurrogateConverterFromModelClass(
-              modelClassName,
-              sealedInterfaceSurrogateClassName,
-              element,
-            )
-          }
-          .build()
-      }
+
+              addProperties(sealedInterfaceSurrogatePropertyParamPair.map { it.first })
+              primaryConstructor(
+                FunSpec.constructorBuilder()
+                  .apply {
+                    sealedInterfaceSurrogatePropertyParamPair.forEach { addParameter(it.second) }
+                  }
+                  .build()
+              )
+              addSealedClassSurrogateConverterToModelClass(
+                modelClassName,
+                sealedInterfaceSurrogateClassName,
+                element,
+              )
+              addSealedClassSurrogateConverterFromModelClass(
+                modelClassName,
+                sealedInterfaceSurrogateClassName,
+                element,
+              )
+            }
+            .build()
+        }
 
     val modelSurrogateTypeSpec =
       TypeSpec.classBuilder(surrogateClassName)
@@ -140,16 +141,10 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
           addAnnotation(Serializable::class)
           addModifiers(KModifier.INTERNAL)
           addModifiers(KModifier.DATA)
-          addProperties(
-            nonPolymorphicPropertyParamPairs.map { it.first } +
-              polymorphicPropertyParamPairs.map { it.first }
-          )
+          addProperties(propertyParamPairs.map { it.first })
           primaryConstructor(
             FunSpec.constructorBuilder()
-              .apply {
-                nonPolymorphicPropertyParamPairs.forEach { addParameter(it.second) }
-                polymorphicPropertyParamPairs.forEach { addParameter(it.second) }
-              }
+              .apply { propertyParamPairs.forEach { addParameter(it.second) } }
               .build()
           )
           addConverterToModelClass(modelClassName, elements)

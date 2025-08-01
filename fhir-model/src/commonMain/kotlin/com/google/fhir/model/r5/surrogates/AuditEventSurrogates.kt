@@ -133,8 +133,8 @@ internal data class AuditEventAgentSurrogate(
   public var location: Reference? = null,
   public var policy: MutableList<KotlinString?>? = null,
   public var _policy: MutableList<Element?>? = null,
-  public var authorization: MutableList<CodeableConcept>? = null,
   public var network: AuditEvent.Agent.Network? = null,
+  public var authorization: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): AuditEvent.Agent =
     AuditEvent.Agent(
@@ -438,6 +438,7 @@ internal data class AuditEventSurrogate(
   public var _action: Element? = null,
   public var severity: KotlinString? = null,
   public var _severity: Element? = null,
+  public var occurred: AuditEvent.Occurred? = null,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var outcome: AuditEvent.Outcome? = null,
@@ -448,7 +449,6 @@ internal data class AuditEventSurrogate(
   public var agent: MutableList<AuditEvent.Agent>? = null,
   public var source: AuditEvent.Source,
   public var entity: MutableList<AuditEvent.Entity>? = null,
-  public var occurred: AuditEvent.Occurred? = null,
 ) {
   public fun toModel(): AuditEvent =
     AuditEvent(

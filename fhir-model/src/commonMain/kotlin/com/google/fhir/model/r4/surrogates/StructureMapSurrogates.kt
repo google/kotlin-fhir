@@ -495,6 +495,7 @@ internal data class StructureMapGroupRuleSourceSurrogate(
   public var _max: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
+  public var defaultValue: StructureMap.Group.Rule.Source.DefaultValue? = null,
   public var element: KotlinString? = null,
   public var _element: Element? = null,
   public var listMode: KotlinString? = null,
@@ -507,7 +508,6 @@ internal data class StructureMapGroupRuleSourceSurrogate(
   public var _check: Element? = null,
   public var logMessage: KotlinString? = null,
   public var _logMessage: Element? = null,
-  public var defaultValue: StructureMap.Group.Rule.Source.DefaultValue? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Source =
     StructureMap.Group.Rule.Source(

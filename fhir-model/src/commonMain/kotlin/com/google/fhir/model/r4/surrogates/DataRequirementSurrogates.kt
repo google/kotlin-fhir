@@ -241,6 +241,7 @@ internal data class DataRequirementSurrogate(
   public var _type: Element? = null,
   public var profile: MutableList<KotlinString?>? = null,
   public var _profile: MutableList<Element?>? = null,
+  public var subject: DataRequirement.Subject? = null,
   public var mustSupport: MutableList<KotlinString?>? = null,
   public var _mustSupport: MutableList<Element?>? = null,
   public var codeFilter: MutableList<DataRequirement.CodeFilter>? = null,
@@ -248,7 +249,6 @@ internal data class DataRequirementSurrogate(
   public var limit: Int? = null,
   public var _limit: Element? = null,
   public var sort: MutableList<DataRequirement.Sort>? = null,
-  public var subject: DataRequirement.Subject? = null,
 ) {
   public fun toModel(): DataRequirement =
     DataRequirement(

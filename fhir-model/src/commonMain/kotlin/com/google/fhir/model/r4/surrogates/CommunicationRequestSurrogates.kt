@@ -168,6 +168,7 @@ internal data class CommunicationRequestSurrogate(
   public var about: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
   public var payload: MutableList<CommunicationRequest.Payload>? = null,
+  public var occurrence: CommunicationRequest.Occurrence? = null,
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -176,7 +177,6 @@ internal data class CommunicationRequestSurrogate(
   public var reasonCode: MutableList<CodeableConcept>? = null,
   public var reasonReference: MutableList<Reference>? = null,
   public var note: MutableList<Annotation>? = null,
-  public var occurrence: CommunicationRequest.Occurrence? = null,
 ) {
   public fun toModel(): CommunicationRequest =
     CommunicationRequest(

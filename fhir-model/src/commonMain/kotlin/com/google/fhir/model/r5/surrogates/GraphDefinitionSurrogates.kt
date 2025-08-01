@@ -333,6 +333,7 @@ internal data class GraphDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: GraphDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -360,7 +361,6 @@ internal data class GraphDefinitionSurrogate(
   public var _start: Element? = null,
   public var node: MutableList<GraphDefinition.Node>? = null,
   public var link: MutableList<GraphDefinition.Link>? = null,
-  public var versionAlgorithm: GraphDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): GraphDefinition =
     GraphDefinition(

@@ -252,11 +252,11 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var type: CodeableConcept? = null,
   public var intendedUse: CodeableConcept? = null,
+  public var indication: MedicinalProduct.SpecialDesignation.Indication? = null,
   public var status: CodeableConcept? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var species: CodeableConcept? = null,
-  public var indication: MedicinalProduct.SpecialDesignation.Indication? = null,
 ) {
   public fun toModel(): MedicinalProduct.SpecialDesignation =
     MedicinalProduct.SpecialDesignation(

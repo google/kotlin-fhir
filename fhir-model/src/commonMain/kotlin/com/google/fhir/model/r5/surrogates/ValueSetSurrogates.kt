@@ -726,8 +726,8 @@ internal data class ValueSetExpansionContainsPropertySurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var subProperty: MutableList<ValueSet.Expansion.Contains.Property.SubProperty>? = null,
   public var `value`: ValueSet.Expansion.Contains.Property.Value,
+  public var subProperty: MutableList<ValueSet.Expansion.Contains.Property.SubProperty>? = null,
 ) {
   public fun toModel(): ValueSet.Expansion.Contains.Property =
     ValueSet.Expansion.Contains.Property(
@@ -1007,6 +1007,7 @@ internal data class ValueSetSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ValueSet.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1046,7 +1047,6 @@ internal data class ValueSetSurrogate(
   public var compose: ValueSet.Compose? = null,
   public var expansion: ValueSet.Expansion? = null,
   public var scope: ValueSet.Scope? = null,
-  public var versionAlgorithm: ValueSet.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ValueSet =
     ValueSet(

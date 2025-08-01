@@ -150,10 +150,10 @@ internal data class SupplyDeliverySurrogate(
   public var patient: Reference? = null,
   public var type: CodeableConcept? = null,
   public var suppliedItem: MutableList<SupplyDelivery.SuppliedItem>? = null,
+  public var occurrence: SupplyDelivery.Occurrence? = null,
   public var supplier: Reference? = null,
   public var destination: Reference? = null,
   public var `receiver`: MutableList<Reference>? = null,
-  public var occurrence: SupplyDelivery.Occurrence? = null,
 ) {
   public fun toModel(): SupplyDelivery =
     SupplyDelivery(

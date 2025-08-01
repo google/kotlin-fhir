@@ -385,6 +385,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var source: ImplementationGuide.Definition.Page.Source? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -392,7 +393,6 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
   public var generation: KotlinString? = null,
   public var _generation: Element? = null,
   public var page: MutableList<ImplementationGuide.Definition.Page>? = null,
-  public var source: ImplementationGuide.Definition.Page.Source? = null,
 ) {
   public fun toModel(): ImplementationGuide.Definition.Page =
     ImplementationGuide.Definition.Page(
@@ -869,6 +869,7 @@ internal data class ImplementationGuideSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ImplementationGuide.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -902,7 +903,6 @@ internal data class ImplementationGuideSurrogate(
   public var global: MutableList<ImplementationGuide.Global>? = null,
   public var definition: ImplementationGuide.Definition? = null,
   public var manifest: ImplementationGuide.Manifest? = null,
-  public var versionAlgorithm: ImplementationGuide.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ImplementationGuide =
     ImplementationGuide(

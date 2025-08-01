@@ -255,9 +255,9 @@ internal data class QuestionnaireItemAnswerOptionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: Questionnaire.Item.AnswerOption.Value,
   public var initialSelected: KotlinBoolean? = null,
   public var _initialSelected: Element? = null,
-  public var `value`: Questionnaire.Item.AnswerOption.Value,
 ) {
   public fun toModel(): Questionnaire.Item.AnswerOption =
     Questionnaire.Item.AnswerOption(

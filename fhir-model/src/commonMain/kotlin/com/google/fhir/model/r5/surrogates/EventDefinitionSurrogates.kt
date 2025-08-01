@@ -121,6 +121,7 @@ internal data class EventDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: EventDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -131,6 +132,7 @@ internal data class EventDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: EventDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -160,8 +162,6 @@ internal data class EventDefinitionSurrogate(
   public var endorser: MutableList<ContactDetail>? = null,
   public var relatedArtifact: MutableList<RelatedArtifact>? = null,
   public var trigger: MutableList<TriggerDefinition>? = null,
-  public var versionAlgorithm: EventDefinition.VersionAlgorithm? = null,
-  public var subject: EventDefinition.Subject? = null,
 ) {
   public fun toModel(): EventDefinition =
     EventDefinition(

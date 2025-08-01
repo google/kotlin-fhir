@@ -503,6 +503,7 @@ internal data class EvidenceSurrogate(
   public var _version: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
+  public var citeAs: Evidence.CiteAs? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var date: KotlinString? = null,
@@ -530,7 +531,6 @@ internal data class EvidenceSurrogate(
   public var studyType: CodeableConcept? = null,
   public var statistic: MutableList<Evidence.Statistic>? = null,
   public var certainty: MutableList<Evidence.Certainty>? = null,
-  public var citeAs: Evidence.CiteAs? = null,
 ) {
   public fun toModel(): Evidence =
     Evidence(

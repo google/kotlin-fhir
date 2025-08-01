@@ -354,9 +354,9 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var attribute: KotlinString? = null,
   public var _attribute: Element? = null,
+  public var `value`: ConceptMap.Group.Element.Target.DependsOn.Value? = null,
   public var valueSet: KotlinString? = null,
   public var _valueSet: Element? = null,
-  public var `value`: ConceptMap.Group.Element.Target.DependsOn.Value? = null,
 ) {
   public fun toModel(): ConceptMap.Group.Element.Target.DependsOn =
     ConceptMap.Group.Element.Target.DependsOn(
@@ -779,6 +779,7 @@ internal data class ConceptMapSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ConceptMap.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -815,10 +816,9 @@ internal data class ConceptMapSurrogate(
   public var relatedArtifact: MutableList<RelatedArtifact>? = null,
   public var `property`: MutableList<ConceptMap.Property>? = null,
   public var additionalAttribute: MutableList<ConceptMap.AdditionalAttribute>? = null,
-  public var group: MutableList<ConceptMap.Group>? = null,
-  public var versionAlgorithm: ConceptMap.VersionAlgorithm? = null,
   public var sourceScope: ConceptMap.SourceScope? = null,
   public var targetScope: ConceptMap.TargetScope? = null,
+  public var group: MutableList<ConceptMap.Group>? = null,
 ) {
   public fun toModel(): ConceptMap =
     ConceptMap(

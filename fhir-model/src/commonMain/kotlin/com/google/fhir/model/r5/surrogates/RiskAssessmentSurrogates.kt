@@ -107,13 +107,13 @@ internal data class RiskAssessmentPredictionSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var outcome: CodeableConcept? = null,
+  public var probability: RiskAssessment.Prediction.Probability? = null,
   public var qualitativeRisk: CodeableConcept? = null,
   public var relativeRisk: Double? = null,
   public var _relativeRisk: Element? = null,
+  public var `when`: RiskAssessment.Prediction.When? = null,
   public var rationale: KotlinString? = null,
   public var _rationale: Element? = null,
-  public var probability: RiskAssessment.Prediction.Probability? = null,
-  public var `when`: RiskAssessment.Prediction.When? = null,
 ) {
   public fun toModel(): RiskAssessment.Prediction =
     RiskAssessment.Prediction(
@@ -205,6 +205,7 @@ internal data class RiskAssessmentSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var occurrence: RiskAssessment.Occurrence? = null,
   public var condition: Reference? = null,
   public var performer: Reference? = null,
   public var reason: MutableList<CodeableReference>? = null,
@@ -213,7 +214,6 @@ internal data class RiskAssessmentSurrogate(
   public var mitigation: KotlinString? = null,
   public var _mitigation: Element? = null,
   public var note: MutableList<Annotation>? = null,
-  public var occurrence: RiskAssessment.Occurrence? = null,
 ) {
   public fun toModel(): RiskAssessment =
     RiskAssessment(

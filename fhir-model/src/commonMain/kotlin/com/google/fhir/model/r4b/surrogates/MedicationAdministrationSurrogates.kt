@@ -229,9 +229,11 @@ internal data class MedicationAdministrationSurrogate(
   public var _status: Element? = null,
   public var statusReason: MutableList<CodeableConcept>? = null,
   public var category: CodeableConcept? = null,
+  public var medication: MedicationAdministration.Medication,
   public var subject: Reference,
   public var context: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
+  public var effective: MedicationAdministration.Effective,
   public var performer: MutableList<MedicationAdministration.Performer>? = null,
   public var reasonCode: MutableList<CodeableConcept>? = null,
   public var reasonReference: MutableList<Reference>? = null,
@@ -240,8 +242,6 @@ internal data class MedicationAdministrationSurrogate(
   public var note: MutableList<Annotation>? = null,
   public var dosage: MedicationAdministration.Dosage? = null,
   public var eventHistory: MutableList<Reference>? = null,
-  public var medication: MedicationAdministration.Medication,
-  public var effective: MedicationAdministration.Effective,
 ) {
   public fun toModel(): MedicationAdministration =
     MedicationAdministration(

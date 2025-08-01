@@ -777,6 +777,7 @@ internal data class StructureMapSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: StructureMap.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -805,7 +806,6 @@ internal data class StructureMapSurrogate(
   public var _import: MutableList<Element?>? = null,
   public var `const`: MutableList<StructureMap.Const>? = null,
   public var group: MutableList<StructureMap.Group>? = null,
-  public var versionAlgorithm: StructureMap.VersionAlgorithm? = null,
 ) {
   public fun toModel(): StructureMap =
     StructureMap(

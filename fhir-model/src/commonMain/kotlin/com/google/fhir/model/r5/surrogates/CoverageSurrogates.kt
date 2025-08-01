@@ -188,8 +188,8 @@ internal data class CoverageCostToBeneficiarySurrogate(
   public var network: CodeableConcept? = null,
   public var unit: CodeableConcept? = null,
   public var term: CodeableConcept? = null,
-  public var exception: MutableList<Coverage.CostToBeneficiary.Exception>? = null,
   public var `value`: Coverage.CostToBeneficiary.Value? = null,
+  public var exception: MutableList<Coverage.CostToBeneficiary.Exception>? = null,
 ) {
   public fun toModel(): Coverage.CostToBeneficiary =
     Coverage.CostToBeneficiary(

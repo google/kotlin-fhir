@@ -90,10 +90,10 @@ internal data class GroupCharacteristicSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var code: CodeableConcept,
+  public var `value`: Group.Characteristic.Value,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var period: Period? = null,
-  public var `value`: Group.Characteristic.Value,
 ) {
   public fun toModel(): Group.Characteristic =
     Group.Characteristic(

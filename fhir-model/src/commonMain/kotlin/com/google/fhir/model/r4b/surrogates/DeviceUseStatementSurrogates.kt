@@ -92,6 +92,7 @@ internal data class DeviceUseStatementSurrogate(
   public var _status: Element? = null,
   public var subject: Reference,
   public var derivedFrom: MutableList<Reference>? = null,
+  public var timing: DeviceUseStatement.Timing? = null,
   public var recordedOn: String? = null,
   public var _recordedOn: Element? = null,
   public var source: Reference? = null,
@@ -100,7 +101,6 @@ internal data class DeviceUseStatementSurrogate(
   public var reasonReference: MutableList<Reference>? = null,
   public var bodySite: CodeableConcept? = null,
   public var note: MutableList<Annotation>? = null,
-  public var timing: DeviceUseStatement.Timing? = null,
 ) {
   public fun toModel(): DeviceUseStatement =
     DeviceUseStatement(

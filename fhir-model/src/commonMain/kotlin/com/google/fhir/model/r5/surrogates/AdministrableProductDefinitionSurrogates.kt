@@ -109,8 +109,8 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept,
-  public var status: CodeableConcept? = null,
   public var `value`: AdministrableProductDefinition.Property.Value? = null,
+  public var status: CodeableConcept? = null,
 ) {
   public fun toModel(): AdministrableProductDefinition.Property =
     AdministrableProductDefinition.Property(

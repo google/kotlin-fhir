@@ -261,6 +261,7 @@ internal data class ExampleScenarioInstanceSurrogate(
   public var structureType: Coding,
   public var structureVersion: KotlinString? = null,
   public var _structureVersion: Element? = null,
+  public var structureProfile: ExampleScenario.Instance.StructureProfile? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
@@ -268,7 +269,6 @@ internal data class ExampleScenarioInstanceSurrogate(
   public var content: Reference? = null,
   public var version: MutableList<ExampleScenario.Instance.Version>? = null,
   public var containedInstance: MutableList<ExampleScenario.Instance.ContainedInstance>? = null,
-  public var structureProfile: ExampleScenario.Instance.StructureProfile? = null,
 ) {
   public fun toModel(): ExampleScenario.Instance =
     ExampleScenario.Instance(
@@ -640,6 +640,7 @@ internal data class ExampleScenarioSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ExampleScenario.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -666,7 +667,6 @@ internal data class ExampleScenarioSurrogate(
   public var actor: MutableList<ExampleScenario.Actor>? = null,
   public var instance: MutableList<ExampleScenario.Instance>? = null,
   public var process: MutableList<ExampleScenario.Process>? = null,
-  public var versionAlgorithm: ExampleScenario.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ExampleScenario =
     ExampleScenario(

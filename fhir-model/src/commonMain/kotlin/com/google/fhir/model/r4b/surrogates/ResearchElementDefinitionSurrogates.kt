@@ -175,24 +175,24 @@ internal data class ResearchElementDefinitionCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var definition: ResearchElementDefinition.Characteristic.Definition,
   public var usageContext: MutableList<UsageContext>? = null,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var unitOfMeasure: CodeableConcept? = null,
   public var studyEffectiveDescription: KotlinString? = null,
   public var _studyEffectiveDescription: Element? = null,
+  public var studyEffective: ResearchElementDefinition.Characteristic.StudyEffective? = null,
   public var studyEffectiveTimeFromStart: Duration? = null,
   public var studyEffectiveGroupMeasure: KotlinString? = null,
   public var _studyEffectiveGroupMeasure: Element? = null,
   public var participantEffectiveDescription: KotlinString? = null,
   public var _participantEffectiveDescription: Element? = null,
+  public var participantEffective: ResearchElementDefinition.Characteristic.ParticipantEffective? =
+    null,
   public var participantEffectiveTimeFromStart: Duration? = null,
   public var participantEffectiveGroupMeasure: KotlinString? = null,
   public var _participantEffectiveGroupMeasure: Element? = null,
-  public var definition: ResearchElementDefinition.Characteristic.Definition,
-  public var studyEffective: ResearchElementDefinition.Characteristic.StudyEffective? = null,
-  public var participantEffective: ResearchElementDefinition.Characteristic.ParticipantEffective? =
-    null,
 ) {
   public fun toModel(): ResearchElementDefinition.Characteristic =
     ResearchElementDefinition.Characteristic(
@@ -331,6 +331,7 @@ internal data class ResearchElementDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: ResearchElementDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -366,7 +367,6 @@ internal data class ResearchElementDefinitionSurrogate(
   public var variableType: KotlinString? = null,
   public var _variableType: Element? = null,
   public var characteristic: MutableList<ResearchElementDefinition.Characteristic>? = null,
-  public var subject: ResearchElementDefinition.Subject? = null,
 ) {
   public fun toModel(): ResearchElementDefinition =
     ResearchElementDefinition(

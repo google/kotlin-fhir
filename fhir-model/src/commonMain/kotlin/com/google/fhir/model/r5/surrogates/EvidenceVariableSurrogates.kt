@@ -115,8 +115,8 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrog
   public var type: CodeableConcept,
   public var method: MutableList<CodeableConcept>? = null,
   public var device: Reference? = null,
-  public var offset: CodeableConcept? = null,
   public var `value`: EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value,
+  public var offset: CodeableConcept? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic.DefinitionByTypeAndValue =
     EvidenceVariable.Characteristic.DefinitionByTypeAndValue(
@@ -261,9 +261,9 @@ internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var note: MutableList<Annotation>? = null,
+  public var event: EvidenceVariable.Characteristic.TimeFromEvent.Event? = null,
   public var quantity: Quantity? = null,
   public var range: Range? = null,
-  public var event: EvidenceVariable.Characteristic.TimeFromEvent.Event? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic.TimeFromEvent =
     EvidenceVariable.Characteristic.TimeFromEvent(
@@ -375,9 +375,9 @@ internal data class EvidenceVariableCharacteristicSurrogate(
     null,
   public var definitionByCombination: EvidenceVariable.Characteristic.DefinitionByCombination? =
     null,
-  public var timeFromEvent: MutableList<EvidenceVariable.Characteristic.TimeFromEvent>? = null,
   public var instances: EvidenceVariable.Characteristic.Instances? = null,
   public var duration: EvidenceVariable.Characteristic.Duration? = null,
+  public var timeFromEvent: MutableList<EvidenceVariable.Characteristic.TimeFromEvent>? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic =
     EvidenceVariable.Characteristic(
@@ -568,6 +568,7 @@ internal data class EvidenceVariableSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: EvidenceVariable.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -609,7 +610,6 @@ internal data class EvidenceVariableSurrogate(
   public var handling: KotlinString? = null,
   public var _handling: Element? = null,
   public var category: MutableList<EvidenceVariable.Category>? = null,
-  public var versionAlgorithm: EvidenceVariable.VersionAlgorithm? = null,
 ) {
   public fun toModel(): EvidenceVariable =
     EvidenceVariable(

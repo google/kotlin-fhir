@@ -58,10 +58,10 @@ internal data class PopulationSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var age: Population.Age? = null,
   public var gender: CodeableConcept? = null,
   public var race: CodeableConcept? = null,
   public var physiologicalCondition: CodeableConcept? = null,
-  public var age: Population.Age? = null,
 ) {
   public fun toModel(): Population =
     Population(

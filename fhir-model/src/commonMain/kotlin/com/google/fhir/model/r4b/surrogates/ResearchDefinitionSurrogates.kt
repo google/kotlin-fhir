@@ -103,6 +103,7 @@ internal data class ResearchDefinitionSurrogate(
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
+  public var subject: ResearchDefinition.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -137,7 +138,6 @@ internal data class ResearchDefinitionSurrogate(
   public var exposure: Reference? = null,
   public var exposureAlternative: Reference? = null,
   public var outcome: Reference? = null,
-  public var subject: ResearchDefinition.Subject? = null,
 ) {
   public fun toModel(): ResearchDefinition =
     ResearchDefinition(

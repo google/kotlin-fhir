@@ -280,6 +280,7 @@ internal data class ImmunizationSurrogate(
   public var patient: Reference,
   public var encounter: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
+  public var occurrence: Immunization.Occurrence,
   public var primarySource: KotlinBoolean? = null,
   public var _primarySource: Element? = null,
   public var informationSource: CodeableReference? = null,
@@ -297,7 +298,6 @@ internal data class ImmunizationSurrogate(
   public var fundingSource: CodeableConcept? = null,
   public var reaction: MutableList<Immunization.Reaction>? = null,
   public var protocolApplied: MutableList<Immunization.ProtocolApplied>? = null,
-  public var occurrence: Immunization.Occurrence,
 ) {
   public fun toModel(): Immunization =
     Immunization(

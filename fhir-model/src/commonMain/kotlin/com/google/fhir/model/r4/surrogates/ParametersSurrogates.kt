@@ -355,9 +355,9 @@ internal data class ParametersParameterSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
+  public var `value`: Parameters.Parameter.Value? = null,
   public var resource: Resource? = null,
   public var part: MutableList<Parameters.Parameter>? = null,
-  public var `value`: Parameters.Parameter.Value? = null,
 ) {
   public fun toModel(): Parameters.Parameter =
     Parameters.Parameter(

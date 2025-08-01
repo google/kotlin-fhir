@@ -132,6 +132,7 @@ internal data class ClinicalImpressionSurrogate(
   public var _description: Element? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var effective: ClinicalImpression.Effective? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var performer: Reference? = null,
@@ -147,7 +148,6 @@ internal data class ClinicalImpressionSurrogate(
   public var prognosisReference: MutableList<Reference>? = null,
   public var supportingInfo: MutableList<Reference>? = null,
   public var note: MutableList<Annotation>? = null,
-  public var effective: ClinicalImpression.Effective? = null,
 ) {
   public fun toModel(): ClinicalImpression =
     ClinicalImpression(

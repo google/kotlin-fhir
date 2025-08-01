@@ -93,6 +93,7 @@ internal data class GuidanceResponseSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var requestIdentifier: Identifier? = null,
   public var identifier: MutableList<Identifier>? = null,
+  public var module: GuidanceResponse.Module,
   public var status: String? = null,
   public var _status: Element? = null,
   public var subject: Reference? = null,
@@ -107,7 +108,6 @@ internal data class GuidanceResponseSurrogate(
   public var outputParameters: Reference? = null,
   public var result: Reference? = null,
   public var dataRequirement: MutableList<DataRequirement>? = null,
-  public var module: GuidanceResponse.Module,
 ) {
   public fun toModel(): GuidanceResponse =
     GuidanceResponse(

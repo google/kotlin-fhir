@@ -138,6 +138,7 @@ internal data class SearchParameterSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: SearchParameter.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -188,7 +189,6 @@ internal data class SearchParameterSurrogate(
   public var chain: MutableList<KotlinString?>? = null,
   public var _chain: MutableList<Element?>? = null,
   public var component: MutableList<SearchParameter.Component>? = null,
-  public var versionAlgorithm: SearchParameter.VersionAlgorithm? = null,
 ) {
   public fun toModel(): SearchParameter =
     SearchParameter(

@@ -344,6 +344,7 @@ internal data class CoverageEligibilityRequestSurrogate(
   public var purpose: MutableList<KotlinString?>? = null,
   public var _purpose: MutableList<Element?>? = null,
   public var patient: Reference,
+  public var serviced: CoverageEligibilityRequest.Serviced? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var enterer: Reference? = null,
@@ -353,7 +354,6 @@ internal data class CoverageEligibilityRequestSurrogate(
   public var supportingInfo: MutableList<CoverageEligibilityRequest.SupportingInfo>? = null,
   public var insurance: MutableList<CoverageEligibilityRequest.Insurance>? = null,
   public var item: MutableList<CoverageEligibilityRequest.Item>? = null,
-  public var serviced: CoverageEligibilityRequest.Serviced? = null,
 ) {
   public fun toModel(): CoverageEligibilityRequest =
     CoverageEligibilityRequest(

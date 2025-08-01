@@ -1282,6 +1282,7 @@ internal data class TestScriptSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: TestScript.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1316,7 +1317,6 @@ internal data class TestScriptSurrogate(
   public var setup: TestScript.Setup? = null,
   public var test: MutableList<TestScript.Test>? = null,
   public var teardown: TestScript.Teardown? = null,
-  public var versionAlgorithm: TestScript.VersionAlgorithm? = null,
 ) {
   public fun toModel(): TestScript =
     TestScript(

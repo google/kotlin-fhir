@@ -144,8 +144,8 @@ internal data class AdverseEventSuspectEntitySurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var causality: AdverseEvent.SuspectEntity.Causality? = null,
   public var instance: AdverseEvent.SuspectEntity.Instance,
+  public var causality: AdverseEvent.SuspectEntity.Causality? = null,
 ) {
   public fun toModel(): AdverseEvent.SuspectEntity =
     AdverseEvent.SuspectEntity(
@@ -440,6 +440,7 @@ internal data class AdverseEventSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var occurrence: AdverseEvent.Occurrence? = null,
   public var detected: String? = null,
   public var _detected: Element? = null,
   public var recordedDate: String? = null,
@@ -459,7 +460,6 @@ internal data class AdverseEventSurrogate(
   public var mitigatingAction: MutableList<AdverseEvent.MitigatingAction>? = null,
   public var supportingInfo: MutableList<AdverseEvent.SupportingInfo>? = null,
   public var note: MutableList<Annotation>? = null,
-  public var occurrence: AdverseEvent.Occurrence? = null,
 ) {
   public fun toModel(): AdverseEvent =
     AdverseEvent(

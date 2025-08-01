@@ -166,9 +166,9 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
   public var diseaseStatus: CodeableReference? = null,
   public var comorbidity: MutableList<CodeableReference>? = null,
   public var intendedEffect: CodeableReference? = null,
+  public var duration: ClinicalUseDefinition.Indication.Duration? = null,
   public var undesirableEffect: MutableList<Reference>? = null,
   public var otherTherapy: MutableList<ClinicalUseDefinition.Contraindication.OtherTherapy>? = null,
-  public var duration: ClinicalUseDefinition.Indication.Duration? = null,
 ) {
   public fun toModel(): ClinicalUseDefinition.Indication =
     ClinicalUseDefinition.Indication(

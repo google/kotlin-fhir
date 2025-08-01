@@ -130,8 +130,8 @@ internal data class FamilyMemberHistoryConditionSurrogate(
   public var outcome: CodeableConcept? = null,
   public var contributedToDeath: KotlinBoolean? = null,
   public var _contributedToDeath: Element? = null,
-  public var note: MutableList<Annotation>? = null,
   public var onset: FamilyMemberHistory.Condition.Onset? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Condition =
     FamilyMemberHistory.Condition(
@@ -224,8 +224,8 @@ internal data class FamilyMemberHistoryProcedureSurrogate(
   public var outcome: CodeableConcept? = null,
   public var contributedToDeath: KotlinBoolean? = null,
   public var _contributedToDeath: Element? = null,
-  public var note: MutableList<Annotation>? = null,
   public var performed: FamilyMemberHistory.Procedure.Performed? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Procedure =
     FamilyMemberHistory.Procedure(
@@ -405,15 +405,15 @@ internal data class FamilyMemberHistorySurrogate(
   public var _name: Element? = null,
   public var relationship: CodeableConcept,
   public var sex: CodeableConcept? = null,
+  public var born: FamilyMemberHistory.Born? = null,
+  public var age: FamilyMemberHistory.Age? = null,
   public var estimatedAge: KotlinBoolean? = null,
   public var _estimatedAge: Element? = null,
+  public var deceased: FamilyMemberHistory.Deceased? = null,
   public var reason: MutableList<CodeableReference>? = null,
   public var note: MutableList<Annotation>? = null,
   public var condition: MutableList<FamilyMemberHistory.Condition>? = null,
   public var procedure: MutableList<FamilyMemberHistory.Procedure>? = null,
-  public var born: FamilyMemberHistory.Born? = null,
-  public var age: FamilyMemberHistory.Age? = null,
-  public var deceased: FamilyMemberHistory.Deceased? = null,
 ) {
   public fun toModel(): FamilyMemberHistory =
     FamilyMemberHistory(

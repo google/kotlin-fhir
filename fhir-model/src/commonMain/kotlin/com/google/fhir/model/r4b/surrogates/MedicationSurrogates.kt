@@ -72,10 +72,10 @@ internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var item: Medication.Ingredient.Item,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
   public var strength: Ratio? = null,
-  public var item: Medication.Ingredient.Item,
 ) {
   public fun toModel(): Medication.Ingredient =
     Medication.Ingredient(

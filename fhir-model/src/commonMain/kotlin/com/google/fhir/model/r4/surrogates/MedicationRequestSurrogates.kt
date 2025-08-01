@@ -177,8 +177,8 @@ internal data class MedicationRequestSubstitutionSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var reason: CodeableConcept? = null,
   public var allowed: MedicationRequest.Substitution.Allowed,
+  public var reason: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicationRequest.Substitution =
     MedicationRequest.Substitution(
@@ -280,6 +280,8 @@ internal data class MedicationRequestSurrogate(
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
+  public var reported: MedicationRequest.Reported? = null,
+  public var medication: MedicationRequest.Medication,
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
@@ -306,8 +308,6 @@ internal data class MedicationRequestSurrogate(
   public var priorPrescription: Reference? = null,
   public var detectedIssue: MutableList<Reference>? = null,
   public var eventHistory: MutableList<Reference>? = null,
-  public var reported: MedicationRequest.Reported? = null,
-  public var medication: MedicationRequest.Medication,
 ) {
   public fun toModel(): MedicationRequest =
     MedicationRequest(

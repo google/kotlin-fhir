@@ -262,9 +262,9 @@ internal data class ExplanationOfBenefitSupportingInfoSurrogate(
   public var _sequence: Element? = null,
   public var category: CodeableConcept,
   public var code: CodeableConcept? = null,
-  public var reason: Coding? = null,
   public var timing: ExplanationOfBenefit.SupportingInfo.Timing? = null,
   public var `value`: ExplanationOfBenefit.SupportingInfo.Value? = null,
+  public var reason: Coding? = null,
 ) {
   public fun toModel(): ExplanationOfBenefit.SupportingInfo =
     ExplanationOfBenefit.SupportingInfo(
@@ -336,10 +336,10 @@ internal data class ExplanationOfBenefitDiagnosisSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
+  public var diagnosis: ExplanationOfBenefit.Diagnosis.Diagnosis,
   public var type: MutableList<CodeableConcept>? = null,
   public var onAdmission: CodeableConcept? = null,
   public var packageCode: CodeableConcept? = null,
-  public var diagnosis: ExplanationOfBenefit.Diagnosis.Diagnosis,
 ) {
   public fun toModel(): ExplanationOfBenefit.Diagnosis =
     ExplanationOfBenefit.Diagnosis(
@@ -412,8 +412,8 @@ internal data class ExplanationOfBenefitProcedureSurrogate(
   public var type: MutableList<CodeableConcept>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var udi: MutableList<Reference>? = null,
   public var procedure: ExplanationOfBenefit.Procedure.Procedure,
+  public var udi: MutableList<Reference>? = null,
 ) {
   public fun toModel(): ExplanationOfBenefit.Procedure =
     ExplanationOfBenefit.Procedure(
@@ -935,6 +935,8 @@ internal data class ExplanationOfBenefitItemSurrogate(
   public var productOrService: CodeableConcept,
   public var modifier: MutableList<CodeableConcept>? = null,
   public var programCode: MutableList<CodeableConcept>? = null,
+  public var serviced: ExplanationOfBenefit.Item.Serviced? = null,
+  public var location: ExplanationOfBenefit.Item.Location? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
@@ -948,8 +950,6 @@ internal data class ExplanationOfBenefitItemSurrogate(
   public var _noteNumber: MutableList<Element?>? = null,
   public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
   public var detail: MutableList<ExplanationOfBenefit.Item.Detail>? = null,
-  public var serviced: ExplanationOfBenefit.Item.Serviced? = null,
-  public var location: ExplanationOfBenefit.Item.Location? = null,
 ) {
   public fun toModel(): ExplanationOfBenefit.Item =
     ExplanationOfBenefit.Item(
@@ -1405,6 +1405,8 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
   public var productOrService: CodeableConcept,
   public var modifier: MutableList<CodeableConcept>? = null,
   public var programCode: MutableList<CodeableConcept>? = null,
+  public var serviced: ExplanationOfBenefit.AddItem.Serviced? = null,
+  public var location: ExplanationOfBenefit.AddItem.Location? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
@@ -1416,8 +1418,6 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
   public var _noteNumber: MutableList<Element?>? = null,
   public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
   public var detail: MutableList<ExplanationOfBenefit.AddItem.Detail>? = null,
-  public var serviced: ExplanationOfBenefit.AddItem.Serviced? = null,
-  public var location: ExplanationOfBenefit.AddItem.Location? = null,
 ) {
   public fun toModel(): ExplanationOfBenefit.AddItem =
     ExplanationOfBenefit.AddItem(

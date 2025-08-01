@@ -340,9 +340,9 @@ internal data class MeasureReportGroupStratifierStratumSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: MeasureReport.Group.Stratifier.Stratum.Value? = null,
   public var component: MutableList<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
   public var population: MutableList<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
-  public var `value`: MeasureReport.Group.Stratifier.Stratum.Value? = null,
   public var measureScore: MeasureReport.Group.Stratifier.Stratum.MeasureScore? = null,
 ) {
   public fun toModel(): MeasureReport.Group.Stratifier.Stratum =
@@ -469,8 +469,8 @@ internal data class MeasureReportGroupSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var population: MutableList<MeasureReport.Group.Population>? = null,
-  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
   public var measureScore: MeasureReport.Group.MeasureScore? = null,
+  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
 ) {
   public fun toModel(): MeasureReport.Group =
     MeasureReport.Group(

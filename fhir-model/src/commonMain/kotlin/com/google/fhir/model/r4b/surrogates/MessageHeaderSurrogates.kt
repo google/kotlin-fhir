@@ -242,6 +242,7 @@ internal data class MessageHeaderSurrogate(
   public var contained: MutableList<Resource>? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var event: MessageHeader.Event,
   public var destination: MutableList<MessageHeader.Destination>? = null,
   public var sender: Reference? = null,
   public var enterer: Reference? = null,
@@ -253,7 +254,6 @@ internal data class MessageHeaderSurrogate(
   public var focus: MutableList<Reference>? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
-  public var event: MessageHeader.Event,
 ) {
   public fun toModel(): MessageHeader =
     MessageHeader(

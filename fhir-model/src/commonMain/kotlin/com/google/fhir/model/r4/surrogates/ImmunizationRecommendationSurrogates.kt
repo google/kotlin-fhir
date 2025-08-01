@@ -172,10 +172,10 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
   public var _description: Element? = null,
   public var series: KotlinString? = null,
   public var _series: Element? = null,
-  public var supportingImmunization: MutableList<Reference>? = null,
-  public var supportingPatientInformation: MutableList<Reference>? = null,
   public var doseNumber: ImmunizationRecommendation.Recommendation.DoseNumber? = null,
   public var seriesDoses: ImmunizationRecommendation.Recommendation.SeriesDoses? = null,
+  public var supportingImmunization: MutableList<Reference>? = null,
+  public var supportingPatientInformation: MutableList<Reference>? = null,
 ) {
   public fun toModel(): ImmunizationRecommendation.Recommendation =
     ImmunizationRecommendation.Recommendation(

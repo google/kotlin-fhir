@@ -554,6 +554,8 @@ internal data class ClaimResponseAddItemSurrogate(
   public var productOrService: CodeableConcept,
   public var modifier: MutableList<CodeableConcept>? = null,
   public var programCode: MutableList<CodeableConcept>? = null,
+  public var serviced: ClaimResponse.AddItem.Serviced? = null,
+  public var location: ClaimResponse.AddItem.Location? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
@@ -565,8 +567,6 @@ internal data class ClaimResponseAddItemSurrogate(
   public var _noteNumber: MutableList<Element?>? = null,
   public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
   public var detail: MutableList<ClaimResponse.AddItem.Detail>? = null,
-  public var serviced: ClaimResponse.AddItem.Serviced? = null,
-  public var location: ClaimResponse.AddItem.Location? = null,
 ) {
   public fun toModel(): ClaimResponse.AddItem =
     ClaimResponse.AddItem(

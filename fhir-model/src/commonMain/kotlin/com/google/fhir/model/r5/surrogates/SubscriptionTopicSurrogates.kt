@@ -553,6 +553,7 @@ internal data class SubscriptionTopicSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: SubscriptionTopic.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -587,7 +588,6 @@ internal data class SubscriptionTopicSurrogate(
   public var eventTrigger: MutableList<SubscriptionTopic.EventTrigger>? = null,
   public var canFilterBy: MutableList<SubscriptionTopic.CanFilterBy>? = null,
   public var notificationShape: MutableList<SubscriptionTopic.NotificationShape>? = null,
-  public var versionAlgorithm: SubscriptionTopic.VersionAlgorithm? = null,
 ) {
   public fun toModel(): SubscriptionTopic =
     SubscriptionTopic(

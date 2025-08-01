@@ -172,6 +172,7 @@ internal data class NamingSystemSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: NamingSystem.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -214,7 +215,6 @@ internal data class NamingSystemSurrogate(
   public var usage: KotlinString? = null,
   public var _usage: Element? = null,
   public var uniqueId: MutableList<NamingSystem.UniqueId>? = null,
-  public var versionAlgorithm: NamingSystem.VersionAlgorithm? = null,
 ) {
   public fun toModel(): NamingSystem =
     NamingSystem(

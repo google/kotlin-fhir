@@ -133,6 +133,7 @@ internal data class MedicationStatementSurrogate(
   public var medication: CodeableReference,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var effective: MedicationStatement.Effective? = null,
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var informationSource: MutableList<Reference>? = null,
@@ -144,7 +145,6 @@ internal data class MedicationStatementSurrogate(
   public var _renderedDosageInstruction: Element? = null,
   public var dosage: MutableList<Dosage>? = null,
   public var adherence: MedicationStatement.Adherence? = null,
-  public var effective: MedicationStatement.Effective? = null,
 ) {
   public fun toModel(): MedicationStatement =
     MedicationStatement(

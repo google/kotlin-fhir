@@ -93,6 +93,7 @@ internal data class PaymentReconciliationAllocationSurrogate(
   public var identifier: Identifier? = null,
   public var predecessor: Identifier? = null,
   public var target: Reference? = null,
+  public var targetItem: PaymentReconciliation.Allocation.TargetItem? = null,
   public var encounter: Reference? = null,
   public var account: Reference? = null,
   public var type: CodeableConcept? = null,
@@ -103,7 +104,6 @@ internal data class PaymentReconciliationAllocationSurrogate(
   public var responsible: Reference? = null,
   public var payee: Reference? = null,
   public var amount: Money? = null,
-  public var targetItem: PaymentReconciliation.Allocation.TargetItem? = null,
 ) {
   public fun toModel(): PaymentReconciliation.Allocation =
     PaymentReconciliation.Allocation(

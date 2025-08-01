@@ -448,9 +448,9 @@ internal data class ConceptMapSurrogate(
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
-  public var group: MutableList<ConceptMap.Group>? = null,
   public var source: ConceptMap.Source? = null,
   public var target: ConceptMap.Target? = null,
+  public var group: MutableList<ConceptMap.Group>? = null,
 ) {
   public fun toModel(): ConceptMap =
     ConceptMap(

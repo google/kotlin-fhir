@@ -419,6 +419,7 @@ internal data class TestPlanSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: TestPlan.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -450,7 +451,6 @@ internal data class TestPlanSurrogate(
   public var exitCriteria: KotlinString? = null,
   public var _exitCriteria: Element? = null,
   public var testCase: MutableList<TestPlan.TestCase>? = null,
-  public var versionAlgorithm: TestPlan.VersionAlgorithm? = null,
 ) {
   public fun toModel(): TestPlan =
     TestPlan(

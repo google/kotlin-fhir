@@ -66,8 +66,8 @@ internal data class ProductShelfLifeSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
   public var period: ProductShelfLife.Period? = null,
+  public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): ProductShelfLife =
     ProductShelfLife(

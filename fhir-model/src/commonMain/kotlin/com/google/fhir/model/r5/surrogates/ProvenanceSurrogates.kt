@@ -163,6 +163,7 @@ internal data class ProvenanceSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var target: MutableList<Reference>? = null,
+  public var occurred: Provenance.Occurred? = null,
   public var recorded: String? = null,
   public var _recorded: Element? = null,
   public var policy: MutableList<String?>? = null,
@@ -176,7 +177,6 @@ internal data class ProvenanceSurrogate(
   public var agent: MutableList<Provenance.Agent>? = null,
   public var entity: MutableList<Provenance.Entity>? = null,
   public var signature: MutableList<Signature>? = null,
-  public var occurred: Provenance.Occurred? = null,
 ) {
   public fun toModel(): Provenance =
     Provenance(

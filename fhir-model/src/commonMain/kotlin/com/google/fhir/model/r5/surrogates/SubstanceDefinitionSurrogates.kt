@@ -92,8 +92,8 @@ internal data class SubstanceDefinitionMoietySurrogate(
   public var opticalActivity: CodeableConcept? = null,
   public var molecularFormula: KotlinString? = null,
   public var _molecularFormula: Element? = null,
-  public var measurementType: CodeableConcept? = null,
   public var amount: SubstanceDefinition.Moiety.Amount? = null,
+  public var measurementType: CodeableConcept? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Moiety =
     SubstanceDefinition.Moiety(
@@ -636,14 +636,14 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var substanceDefinition: SubstanceDefinition.Relationship.SubstanceDefinition? = null,
   public var type: CodeableConcept,
   public var isDefining: KotlinBoolean? = null,
   public var _isDefining: Element? = null,
+  public var amount: SubstanceDefinition.Relationship.Amount? = null,
   public var ratioHighLimitAmount: Ratio? = null,
   public var comparator: CodeableConcept? = null,
   public var source: MutableList<Reference>? = null,
-  public var substanceDefinition: SubstanceDefinition.Relationship.SubstanceDefinition? = null,
-  public var amount: SubstanceDefinition.Relationship.Amount? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Relationship =
     SubstanceDefinition.Relationship(

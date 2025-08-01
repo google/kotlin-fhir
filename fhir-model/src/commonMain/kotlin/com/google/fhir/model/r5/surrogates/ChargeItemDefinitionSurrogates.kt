@@ -174,6 +174,7 @@ internal data class ChargeItemDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: ChargeItemDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -211,7 +212,6 @@ internal data class ChargeItemDefinitionSurrogate(
   public var instance: MutableList<Reference>? = null,
   public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
   public var propertyGroup: MutableList<ChargeItemDefinition.PropertyGroup>? = null,
-  public var versionAlgorithm: ChargeItemDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): ChargeItemDefinition =
     ChargeItemDefinition(

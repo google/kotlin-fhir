@@ -143,6 +143,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
+  public var definition: EvidenceVariable.Characteristic.Definition,
   public var method: CodeableConcept? = null,
   public var device: Reference? = null,
   public var exclude: KotlinBoolean? = null,
@@ -150,7 +151,6 @@ internal data class EvidenceVariableCharacteristicSurrogate(
   public var timeFromStart: EvidenceVariable.Characteristic.TimeFromStart? = null,
   public var groupMeasure: KotlinString? = null,
   public var _groupMeasure: Element? = null,
-  public var definition: EvidenceVariable.Characteristic.Definition,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic =
     EvidenceVariable.Characteristic(

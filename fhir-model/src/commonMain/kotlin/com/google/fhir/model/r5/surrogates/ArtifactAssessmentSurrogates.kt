@@ -226,6 +226,7 @@ internal data class ArtifactAssessmentSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
+  public var citeAs: ArtifactAssessment.CiteAs? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var copyright: KotlinString? = null,
@@ -234,13 +235,12 @@ internal data class ArtifactAssessmentSurrogate(
   public var _approvalDate: Element? = null,
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
+  public var artifact: ArtifactAssessment.Artifact,
   public var content: MutableList<ArtifactAssessment.Content>? = null,
   public var workflowStatus: KotlinString? = null,
   public var _workflowStatus: Element? = null,
   public var disposition: KotlinString? = null,
   public var _disposition: Element? = null,
-  public var citeAs: ArtifactAssessment.CiteAs? = null,
-  public var artifact: ArtifactAssessment.Artifact,
 ) {
   public fun toModel(): ArtifactAssessment =
     ArtifactAssessment(

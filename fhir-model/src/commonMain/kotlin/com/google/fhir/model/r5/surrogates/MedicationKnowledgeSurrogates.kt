@@ -479,8 +479,8 @@ internal data class MedicationKnowledgeMedicineClassificationSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept,
-  public var classification: MutableList<CodeableConcept>? = null,
   public var source: MedicationKnowledge.MedicineClassification.Source? = null,
+  public var classification: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): MedicationKnowledge.MedicineClassification =
     MedicationKnowledge.MedicineClassification(

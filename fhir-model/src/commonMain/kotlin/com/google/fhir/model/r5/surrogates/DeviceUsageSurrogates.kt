@@ -126,6 +126,7 @@ internal data class DeviceUsageSurrogate(
   public var patient: Reference,
   public var derivedFrom: MutableList<Reference>? = null,
   public var context: Reference? = null,
+  public var timing: DeviceUsage.Timing? = null,
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var usageStatus: CodeableConcept? = null,
@@ -136,7 +137,6 @@ internal data class DeviceUsageSurrogate(
   public var reason: MutableList<CodeableReference>? = null,
   public var bodySite: CodeableReference? = null,
   public var note: MutableList<Annotation>? = null,
-  public var timing: DeviceUsage.Timing? = null,
 ) {
   public fun toModel(): DeviceUsage =
     DeviceUsage(

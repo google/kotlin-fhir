@@ -158,6 +158,7 @@ internal data class DosageSurrogate(
   public var patientInstruction: KotlinString? = null,
   public var _patientInstruction: Element? = null,
   public var timing: Timing? = null,
+  public var asNeeded: Dosage.AsNeeded? = null,
   public var site: CodeableConcept? = null,
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
@@ -165,7 +166,6 @@ internal data class DosageSurrogate(
   public var maxDosePerPeriod: Ratio? = null,
   public var maxDosePerAdministration: Quantity? = null,
   public var maxDosePerLifetime: Quantity? = null,
-  public var asNeeded: Dosage.AsNeeded? = null,
 ) {
   public fun toModel(): Dosage =
     Dosage(

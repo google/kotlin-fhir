@@ -179,6 +179,7 @@ internal data class ProcedureSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
+  public var performed: Procedure.Performed? = null,
   public var recorder: Reference? = null,
   public var asserter: Reference? = null,
   public var performer: MutableList<Procedure.Performer>? = null,
@@ -195,7 +196,6 @@ internal data class ProcedureSurrogate(
   public var focalDevice: MutableList<Procedure.FocalDevice>? = null,
   public var usedReference: MutableList<Reference>? = null,
   public var usedCode: MutableList<CodeableConcept>? = null,
-  public var performed: Procedure.Performed? = null,
 ) {
   public fun toModel(): Procedure =
     Procedure(

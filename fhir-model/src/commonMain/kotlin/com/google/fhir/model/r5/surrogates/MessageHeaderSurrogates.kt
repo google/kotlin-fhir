@@ -78,11 +78,11 @@ internal data class MessageHeaderDestinationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var endpoint: MessageHeader.Destination.Endpoint? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var target: Reference? = null,
   public var `receiver`: Reference? = null,
-  public var endpoint: MessageHeader.Destination.Endpoint? = null,
 ) {
   public fun toModel(): MessageHeader.Destination =
     MessageHeader.Destination(
@@ -151,6 +151,7 @@ internal data class MessageHeaderSourceSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var endpoint: MessageHeader.Source.Endpoint? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var software: KotlinString? = null,
@@ -158,7 +159,6 @@ internal data class MessageHeaderSourceSurrogate(
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var contact: ContactPoint? = null,
-  public var endpoint: MessageHeader.Source.Endpoint? = null,
 ) {
   public fun toModel(): MessageHeader.Source =
     MessageHeader.Source(
@@ -285,6 +285,7 @@ internal data class MessageHeaderSurrogate(
   public var contained: MutableList<Resource>? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var event: MessageHeader.Event,
   public var destination: MutableList<MessageHeader.Destination>? = null,
   public var sender: Reference? = null,
   public var author: Reference? = null,
@@ -295,7 +296,6 @@ internal data class MessageHeaderSurrogate(
   public var focus: MutableList<Reference>? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
-  public var event: MessageHeader.Event,
 ) {
   public fun toModel(): MessageHeader =
     MessageHeader(

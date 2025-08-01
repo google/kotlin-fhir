@@ -158,9 +158,9 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
   public var interaction: CodeableConcept? = null,
   public var organism: CodeableConcept? = null,
   public var organismType: CodeableConcept? = null,
+  public var amount: SubstanceReferenceInformation.Target.Amount? = null,
   public var amountType: CodeableConcept? = null,
   public var source: MutableList<Reference>? = null,
-  public var amount: SubstanceReferenceInformation.Target.Amount? = null,
 ) {
   public fun toModel(): SubstanceReferenceInformation.Target =
     SubstanceReferenceInformation.Target(

@@ -266,6 +266,7 @@ internal data class StructureDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
+  public var versionAlgorithm: StructureDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -308,7 +309,6 @@ internal data class StructureDefinitionSurrogate(
   public var _derivation: Element? = null,
   public var snapshot: StructureDefinition.Snapshot? = null,
   public var differential: StructureDefinition.Differential? = null,
-  public var versionAlgorithm: StructureDefinition.VersionAlgorithm? = null,
 ) {
   public fun toModel(): StructureDefinition =
     StructureDefinition(
