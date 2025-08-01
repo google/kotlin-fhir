@@ -32,13 +32,8 @@ package com.google.fhir.codegen
  * limitations under the License.
  */
 
-import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.TypeSpec
-import kotlin.String
 import kotlinx.serialization.json.JsonObject
 
 /** Generator for creating a FileSpec containing the FhirJsonTransformer object definition. */
@@ -54,7 +49,46 @@ object FhirJsonTransformerFileSpecGenerator {
     val fhirJsonTransformerObject =
       TypeSpec.objectBuilder("FhirJsonTransformer")
         .addKdoc(
-          "Utility for transforming JSON structures by flattening or nesting multi-choice properties.\n"
+          """Utility for transforming JSON structures by flattening or nesting multi-choice properties.
+
+          Example:
+          This input JSON:
+              {
+                "resourceType": "Patient",
+                "id": "1234",
+                "deceased": {
+                  "deceasedBoolean": false,
+                  "_deceasedBoolean": {
+                    "id": "123",
+                    "extension": [
+                      {
+                        "id": "129",
+                        "value": {
+                          "valuePositiveInt": 4
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+          
+          Will be transformed into this FHIR-compatible format:
+              {
+                "resourceType": "Patient",
+                "id": "1234",
+                "deceasedBoolean": false,
+                "_deceasedBoolean": {
+                  "id": "123",
+                  "extension": [
+                    {
+                      "id": "129",
+                      "valuePositiveInt": 4
+                    }
+                  ]
+                }
+              }
+          """
+            .trimMargin()
         )
         .addModifiers(KModifier.INTERNAL)
         .addFunction(createFlattenFunction())

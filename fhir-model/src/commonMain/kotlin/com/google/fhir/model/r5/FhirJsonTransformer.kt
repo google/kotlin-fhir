@@ -21,7 +21,45 @@ import kotlin.collections.List
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
-/** Utility for transforming JSON structures by flattening or nesting multi-choice properties. */
+/**
+ * Utility for transforming JSON structures by flattening or nesting multi-choice properties.
+ *
+ *           Example:
+ *           This input JSON:
+ *               {
+ *                 "resourceType": "Patient",
+ *                 "id": "1234",
+ *                 "deceased": {
+ *                   "deceasedBoolean": false,
+ *                   "_deceasedBoolean": {
+ *                     "id": "123",
+ *                     "extension": [
+ *                       {
+ *                         "id": "129",
+ *                         "value": {
+ *                           "valuePositiveInt": 4
+ *                         }
+ *                       }
+ *                     ]
+ *                   }
+ *                 }
+ *               }
+ *           Will be transformed into this FHIR-compatible format:
+ *               {
+ *                 "resourceType": "Patient",
+ *                 "id": "1234",
+ *                 "deceasedBoolean": false,
+ *                 "_deceasedBoolean": {
+ *                   "id": "123",
+ *                   "extension": [
+ *                     {
+ *                       "id": "129",
+ *                       "valuePositiveInt": 4
+ *                     }
+ *                   ]
+ *                 }
+ *               }
+ */
 internal object FhirJsonTransformer {
   /**
    * Flattens a JSON object by expanding specified multi-choice properties.

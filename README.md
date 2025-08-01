@@ -279,7 +279,6 @@ during deserialization. This approach avoids JVM constructor limits caused by FH
 (including extensions for primitive types) by delegating complex polymorphic fields to their
 custom serializers instead of fully expanding them in the resource's surrogate class.
 
-
 ### FHIR codegen
 
 ```mermaid
