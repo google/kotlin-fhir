@@ -269,6 +269,17 @@ primitive data type to two JSON properties . It also generates custom serializer
 `PatientSerializer`) that delegate the serialization/deserialization process to the corresponding
 surrogate classes and translate between the data classes and surrogate classes.
 
+Serialization and deserialization for **sealed interfaces** follow a similar surrogate-based approach,
+with an **additional step to flatten and unflatten JSON**. For polymorphic properties—for example,
+`Patient.Deceased`—the library generates a custom serializer (e.g., `PatientDeceasedSerializer`)
+used in the resource’s surrogate class (e.g., `PatientSurrogate`).
+
+This relies on the FhirJsonTransformer, which flattens JSON during serialization and unflattens
+during deserialization. This approach avoids JVM constructor limits caused by FHIR’s many properties
+(including extensions for primitive types) by delegating complex polymorphic fields to their
+custom serializers instead of fully expanding them in the resource's surrogate class.
+
+
 ### FHIR codegen
 
 ```mermaid
