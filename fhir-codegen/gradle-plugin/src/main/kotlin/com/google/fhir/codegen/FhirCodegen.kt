@@ -79,13 +79,13 @@ object FhirCodegen {
       //  custom serializer since it does not have any primitive fields.
       val serializersPackageName = "${modelClassName.packageName}.serializers"
       val rootElements = structureDefinition.rootElements
+
+      surrogateTypeSpecGenerator
+        .generate(ClassName(packageName, structureDefinition.name), rootElements)
+        .forEach(surrogateFileSpec::addType)
+
       fileSpecs +=
         surrogateFileSpec
-          .apply {
-            surrogateTypeSpecGenerator
-              .generate(ClassName(packageName, structureDefinition.name), rootElements)
-              .forEach(surrogateFileSpec::addType)
-          }
           .addAnnotation(
             AnnotationSpec.builder(UseSerializers::class)
               .addMember("%T::class", ClassName(serializersPackageName, "DoubleSerializer"))
