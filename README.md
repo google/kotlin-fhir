@@ -274,7 +274,7 @@ with an **additional step to flatten and unflatten JSON**. For polymorphic prope
 `Patient.Deceased`—the library generates a custom serializer (e.g., `PatientDeceasedSerializer`)
 used in the resource’s surrogate class (e.g., `PatientSurrogate`).
 
-This relies on the FhirJsonTransformer, which flattens JSON during serialization and unflattens
+This relies on the FhirJsonTransformer (in [R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt), [R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt), [R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)), which flattens JSON during serialization and unflattens
 during deserialization. This approach avoids JVM constructor limits caused by FHIR’s many properties
 (including extensions for primitive types) by delegating complex polymorphic fields to their
 custom serializers instead of fully expanding them in the resource's surrogate class.
