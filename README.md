@@ -283,23 +283,100 @@ custom serializers instead of fully expanding them in the resource's surrogate c
 
 ```mermaid
 graph LR
-    subgraph FHIR codegen
-        A[FhirCodegen]
-        B[ModelTypeSpecGenerator]
-        C[SurrogateTypeSpecGenerator]
-        D[SerializerTypeSpecGenerator]
+    A["**Patient JSON**
+    {
+    #nbsp;#nbsp;gender: ...
+    #nbsp;#nbsp;_gender: ...
+    #nbsp;#nbsp;multipleBirthBoolean: ...
+    #nbsp;#nbsp;_multipleBirthBoolean: ...
+    #nbsp;#nbsp;multipleBirthInteger: ...
+    #nbsp;#nbsp;_multipleBirthInteger: ...
+    #nbsp;#nbsp;contact: [
+    #nbsp;#nbsp;#nbsp;#nbsp;{
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;name: {
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;_family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;given: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;telecom: [...]
+    #nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;]
+    }
+    "]
+    B["**Patient JSON (transformed)**
+    {
+    #nbsp;#nbsp;gender: ...
+    #nbsp;#nbsp;_gender: ...
+    #nbsp;#nbsp;multipleBirth:{
+    #nbsp;#nbsp;#nbsp;#nbsp;multipleBirthBoolean: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;_multipleBirthBoolean: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;multipleBirthInteger: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;_multipleBirthInteger: ...
+    #nbsp;#nbsp;}
+     #nbsp;#nbsp;contact: [
+    #nbsp;#nbsp;#nbsp;#nbsp;{
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;name: {
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;_family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;given: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;telecom: [...]
+    #nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;]
+    }
+    "]
+    C["**PatientSurrogate object**
+    gender
+    _gender
+    multipleBirth (Sealed Interface)
+    contact (MutableList&lt;Patient.Contact&gt;)
+    "]
+    D["**PatientMultipleBirthSurrogate object**
+    multipleBirthBoolean: ...
+    _multipleBirthBoolean: ...
+    multipleBirthInteger: ...
+    _multipleBirthInteger: ...
+    "]
+    E["**Patient object**
+    gender
+    multipleBirth
+    contact
+    "]
+    F["**PatientMultipleBirth** sealed interface
+    "]
+    G["**PatientContactSurrogate object**
+    name: HumanName
+    telecom: MutableList&lt;ContactPoint&gt;
+    "]
+    H["**Patient.Contact** backbone element
+    "]
+
+    A-->Transformer[FhirJsonTransformer]@{ shape: pill }
+    subgraph S1[PatientSerializer]
+      Transformer --> B
+      B -- deserialize fields --> C
+      B -- deserialize sealed interfaces (via surrogate) --> D
+      subgraph S2[PatientMultipleBirthSerializer]
+        D -- convert to model --> F
+      end
+      F --> C
+      B -- deserialize backbone elements (via surrogate) --> G
+      subgraph S3[PatientContactSerializer]
+        G -- convert to model --> H
+      end
+      H --> C
     end
-    subgraph Generated code
-        E[Patient]
-        F[PatientSurrogate]
-        G[PatientSerializer]
-    end
-    A --> B
-    A --> C
-    A --> D
-    B --> E
-    C --> F
-    D --> G
+    C -- convert to model --> E
+
+    style A text-align:left
+    style B text-align:left
+    style C text-align:left
+    style D text-align:left
+    style E text-align:left
+    style G text-align:left
+    style S1 stroke-dasharray: 5 5
+    style S2 stroke-dasharray: 5 5
+    style S3 stroke-dasharray: 5 5
 ```
 
 To put all this together, the
