@@ -20,7 +20,9 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemDetailSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemDetailSubDetailSerializer
+import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemLocationSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemSerializer
+import com.google.fhir.model.r4b.serializers.ClaimResponseAddItemServicedSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseErrorSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseInsuranceSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseItemAdjudicationSerializer
@@ -807,6 +809,7 @@ public data class ClaimResponse(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimResponseAddItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -828,6 +831,7 @@ public data class ClaimResponse(
       }
     }
 
+    @Serializable(with = ClaimResponseAddItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

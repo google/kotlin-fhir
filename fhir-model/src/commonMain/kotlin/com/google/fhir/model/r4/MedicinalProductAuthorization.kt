@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationJurisdictionalAuthorizationSerializer
+import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationProcedureDateSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationProcedureSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductAuthorizationSerializer
 import kotlin.String
@@ -272,6 +273,7 @@ public data class MedicinalProductAuthorization(
     /** Applcations submitted to obtain a marketing authorization. */
     public var application: MutableList<Procedure> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductAuthorizationProcedureDateSerializer::class)
     public sealed interface Date {
       public fun asPeriod(): Period? = this as? Period
 

@@ -20,7 +20,9 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionContraindicationOtherTherapySerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionContraindicationSerializer
+import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionIndicationDurationSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionIndicationSerializer
+import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionInteractionInteractantItemSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionInteractionInteractantSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionInteractionSerializer
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionSerializer
@@ -369,6 +371,7 @@ public data class ClinicalUseDefinition(
      */
     public var otherTherapy: MutableList<Contraindication.OtherTherapy> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = ClinicalUseDefinitionIndicationDurationSerializer::class)
     public sealed interface Duration {
       public fun asRange(): Range? = this as? Range
 
@@ -493,6 +496,7 @@ public data class ClinicalUseDefinition(
        */
       public var item: Item,
     ) : BackboneElement() {
+      @Serializable(with = ClinicalUseDefinitionInteractionInteractantItemSerializer::class)
       public sealed interface Item {
         public fun asReference(): Reference? = this as? Reference
 

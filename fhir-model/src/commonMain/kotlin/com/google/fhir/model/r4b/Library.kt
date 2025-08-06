@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.LibrarySerializer
+import com.google.fhir.model.r4b.serializers.LibrarySubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -350,6 +351,7 @@ public data class Library(
    */
   public var content: MutableList<Attachment> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = LibrarySubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

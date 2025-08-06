@@ -18,16 +18,25 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.GraphDefinition
 import com.google.fhir.model.r5.surrogates.GraphDefinitionLinkCompartmentSurrogate
 import com.google.fhir.model.r5.surrogates.GraphDefinitionLinkSurrogate
 import com.google.fhir.model.r5.surrogates.GraphDefinitionNodeSurrogate
 import com.google.fhir.model.r5.surrogates.GraphDefinitionSurrogate
+import com.google.fhir.model.r5.surrogates.GraphDefinitionVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object GraphDefinitionNodeSerializer : KSerializer<GraphDefinition.Node> {
   internal val surrogateSerializer: KSerializer<GraphDefinitionNodeSurrogate> by lazy {
@@ -81,19 +90,70 @@ public object GraphDefinitionLinkSerializer : KSerializer<GraphDefinition.Link> 
   }
 }
 
+public object GraphDefinitionVersionAlgorithmSerializer :
+  KSerializer<GraphDefinition.VersionAlgorithm> {
+  internal val surrogateSerializer: KSerializer<GraphDefinitionVersionAlgorithmSurrogate> by lazy {
+    GraphDefinitionVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): GraphDefinition.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: GraphDefinition.VersionAlgorithm) {
+    surrogateSerializer.serialize(
+      encoder,
+      GraphDefinitionVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object GraphDefinitionSerializer : KSerializer<GraphDefinition> {
   internal val surrogateSerializer: KSerializer<GraphDefinitionSurrogate> by lazy {
     GraphDefinitionSurrogate.serializer()
   }
 
+  private val resourceType: String? = "GraphDefinition"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("GraphDefinition", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): GraphDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): GraphDefinition {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: GraphDefinition) {
-    surrogateSerializer.serialize(encoder, GraphDefinitionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = GraphDefinitionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

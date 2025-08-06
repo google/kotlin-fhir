@@ -19,12 +19,16 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionCodeSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionMoietyAmountSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionMoietySerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionMolecularWeightSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionNameOfficialSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionNameSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionPropertySerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionPropertyValueSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionRelationshipAmountSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionRelationshipSerializer
+import com.google.fhir.model.r4b.serializers.SubstanceDefinitionRelationshipSubstanceDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionSourceMaterialSerializer
 import com.google.fhir.model.r4b.serializers.SubstanceDefinitionStructureRepresentationSerializer
@@ -250,6 +254,7 @@ public data class SubstanceDefinition(
      */
     public var measurementType: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceDefinitionMoietyAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -317,6 +322,7 @@ public data class SubstanceDefinition(
     /** A value for the property. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -768,6 +774,7 @@ public data class SubstanceDefinition(
     /** Supporting literature. */
     public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = SubstanceDefinitionRelationshipSubstanceDefinitionSerializer::class)
     public sealed interface SubstanceDefinition {
       public fun asReference(): Reference? = this as? Reference
 
@@ -792,6 +799,7 @@ public data class SubstanceDefinition(
       }
     }
 
+    @Serializable(with = SubstanceDefinitionRelationshipAmountSerializer::class)
     public sealed interface Amount {
       public fun asQuantity(): Quantity? = this as? Quantity
 

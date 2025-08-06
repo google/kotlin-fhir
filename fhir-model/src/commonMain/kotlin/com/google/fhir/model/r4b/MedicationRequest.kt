@@ -20,7 +20,10 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.MedicationRequestDispenseRequestInitialFillSerializer
 import com.google.fhir.model.r4b.serializers.MedicationRequestDispenseRequestSerializer
+import com.google.fhir.model.r4b.serializers.MedicationRequestMedicationSerializer
+import com.google.fhir.model.r4b.serializers.MedicationRequestReportedSerializer
 import com.google.fhir.model.r4b.serializers.MedicationRequestSerializer
+import com.google.fhir.model.r4b.serializers.MedicationRequestSubstitutionAllowedSerializer
 import com.google.fhir.model.r4b.serializers.MedicationRequestSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -544,6 +547,7 @@ public data class MedicationRequest(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationRequestSubstitutionAllowedSerializer::class)
     public sealed interface Allowed {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -568,6 +572,7 @@ public data class MedicationRequest(
     }
   }
 
+  @Serializable(with = MedicationRequestReportedSerializer::class)
   public sealed interface Reported {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -589,6 +594,7 @@ public data class MedicationRequest(
     }
   }
 
+  @Serializable(with = MedicationRequestMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

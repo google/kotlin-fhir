@@ -18,15 +18,46 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.QuestionnaireResponse
 import com.google.fhir.model.r4b.surrogates.QuestionnaireResponseItemAnswerSurrogate
+import com.google.fhir.model.r4b.surrogates.QuestionnaireResponseItemAnswerValueSurrogate
 import com.google.fhir.model.r4b.surrogates.QuestionnaireResponseItemSurrogate
 import com.google.fhir.model.r4b.surrogates.QuestionnaireResponseSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+
+public object QuestionnaireResponseItemAnswerValueSerializer :
+  KSerializer<QuestionnaireResponse.Item.Answer.Value> {
+  internal val surrogateSerializer:
+    KSerializer<QuestionnaireResponseItemAnswerValueSurrogate> by lazy {
+    QuestionnaireResponseItemAnswerValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): QuestionnaireResponse.Item.Answer.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: QuestionnaireResponse.Item.Answer.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      QuestionnaireResponseItemAnswerValueSurrogate.fromModel(value),
+    )
+  }
+}
 
 public object QuestionnaireResponseItemAnswerSerializer :
   KSerializer<QuestionnaireResponse.Item.Answer> {
@@ -34,18 +65,45 @@ public object QuestionnaireResponseItemAnswerSerializer :
     QuestionnaireResponseItemAnswerSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Answer", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): QuestionnaireResponse.Item.Answer =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): QuestionnaireResponse.Item.Answer {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: QuestionnaireResponse.Item.Answer) {
-    surrogateSerializer.serialize(
-      encoder,
-      QuestionnaireResponseItemAnswerSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = QuestionnaireResponseItemAnswerSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

@@ -241,12 +241,7 @@ internal data class CodeSystemConceptDesignationSurrogate(
 }
 
 @Serializable
-internal data class CodeSystemConceptPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
+internal data class CodeSystemConceptPropertyValueSurrogate(
   public var valueCode: KotlinString? = null,
   public var _valueCode: Element? = null,
   public var valueCoding: Coding? = null,
@@ -261,6 +256,68 @@ internal data class CodeSystemConceptPropertySurrogate(
   public var valueDecimal: Double? = null,
   public var _valueDecimal: Element? = null,
 ) {
+  public fun toModel(): CodeSystem.Concept.Property.Value =
+    CodeSystem.Concept.Property.Value.from(
+      Code.of(
+        this@CodeSystemConceptPropertyValueSurrogate.valueCode,
+        this@CodeSystemConceptPropertyValueSurrogate._valueCode,
+      ),
+      this@CodeSystemConceptPropertyValueSurrogate.valueCoding,
+      R4bString.of(
+        this@CodeSystemConceptPropertyValueSurrogate.valueString,
+        this@CodeSystemConceptPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@CodeSystemConceptPropertyValueSurrogate.valueInteger,
+        this@CodeSystemConceptPropertyValueSurrogate._valueInteger,
+      ),
+      R4bBoolean.of(
+        this@CodeSystemConceptPropertyValueSurrogate.valueBoolean,
+        this@CodeSystemConceptPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@CodeSystemConceptPropertyValueSurrogate.valueDateTime),
+        this@CodeSystemConceptPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@CodeSystemConceptPropertyValueSurrogate.valueDecimal,
+        this@CodeSystemConceptPropertyValueSurrogate._valueDecimal,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: CodeSystem.Concept.Property.Value
+    ): CodeSystemConceptPropertyValueSurrogate =
+      with(model) {
+        CodeSystemConceptPropertyValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CodeSystemConceptPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var `value`: CodeSystem.Concept.Property.Value,
+) {
   public fun toModel(): CodeSystem.Concept.Property =
     CodeSystem.Concept.Property(
       id = this@CodeSystemConceptPropertySurrogate.id,
@@ -272,34 +329,7 @@ internal data class CodeSystemConceptPropertySurrogate(
           this@CodeSystemConceptPropertySurrogate.code,
           this@CodeSystemConceptPropertySurrogate._code,
         )!!,
-      `value` =
-        CodeSystem.Concept.Property.Value.from(
-          Code.of(
-            this@CodeSystemConceptPropertySurrogate.valueCode,
-            this@CodeSystemConceptPropertySurrogate._valueCode,
-          ),
-          this@CodeSystemConceptPropertySurrogate.valueCoding,
-          R4bString.of(
-            this@CodeSystemConceptPropertySurrogate.valueString,
-            this@CodeSystemConceptPropertySurrogate._valueString,
-          ),
-          Integer.of(
-            this@CodeSystemConceptPropertySurrogate.valueInteger,
-            this@CodeSystemConceptPropertySurrogate._valueInteger,
-          ),
-          R4bBoolean.of(
-            this@CodeSystemConceptPropertySurrogate.valueBoolean,
-            this@CodeSystemConceptPropertySurrogate._valueBoolean,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@CodeSystemConceptPropertySurrogate.valueDateTime),
-            this@CodeSystemConceptPropertySurrogate._valueDateTime,
-          ),
-          Decimal.of(
-            this@CodeSystemConceptPropertySurrogate.valueDecimal,
-            this@CodeSystemConceptPropertySurrogate._valueDecimal,
-          ),
-        )!!,
+      `value` = this@CodeSystemConceptPropertySurrogate.`value`,
     )
 
   public companion object {
@@ -311,19 +341,7 @@ internal data class CodeSystemConceptPropertySurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
-          valueCode = this@with.`value`?.asCode()?.value?.value,
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
-          valueCoding = this@with.`value`?.asCoding()?.value,
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }

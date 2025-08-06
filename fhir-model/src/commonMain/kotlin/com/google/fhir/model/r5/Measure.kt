@@ -22,9 +22,12 @@ import com.google.fhir.model.r5.serializers.MeasureGroupPopulationSerializer
 import com.google.fhir.model.r5.serializers.MeasureGroupSerializer
 import com.google.fhir.model.r5.serializers.MeasureGroupStratifierComponentSerializer
 import com.google.fhir.model.r5.serializers.MeasureGroupStratifierSerializer
+import com.google.fhir.model.r5.serializers.MeasureGroupSubjectSerializer
 import com.google.fhir.model.r5.serializers.MeasureSerializer
+import com.google.fhir.model.r5.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r5.serializers.MeasureSupplementalDataSerializer
 import com.google.fhir.model.r5.serializers.MeasureTermSerializer
+import com.google.fhir.model.r5.serializers.MeasureVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -967,6 +970,7 @@ public data class Measure(
       ) : BackboneElement()
     }
 
+    @Serializable(with = MeasureGroupSubjectSerializer::class)
     public sealed interface Subject {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1068,6 +1072,7 @@ public data class Measure(
     public var criteria: Expression,
   ) : BackboneElement()
 
+  @Serializable(with = MeasureVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1091,6 +1096,7 @@ public data class Measure(
     }
   }
 
+  @Serializable(with = MeasureSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

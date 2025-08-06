@@ -40,13 +40,36 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class MedicinalProductIndicationOtherTherapyMedicationSurrogate(
+  public var medicationCodeableConcept: CodeableConcept? = null,
+  public var medicationReference: Reference? = null,
+) {
+  public fun toModel(): MedicinalProductIndication.OtherTherapy.Medication =
+    MedicinalProductIndication.OtherTherapy.Medication.from(
+      this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationCodeableConcept,
+      this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductIndication.OtherTherapy.Medication
+    ): MedicinalProductIndicationOtherTherapyMedicationSurrogate =
+      with(model) {
+        MedicinalProductIndicationOtherTherapyMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicinalProductIndicationOtherTherapySurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var therapyRelationshipType: CodeableConcept,
-  public var medicationCodeableConcept: CodeableConcept? = null,
-  public var medicationReference: Reference? = null,
+  public var medication: MedicinalProductIndication.OtherTherapy.Medication,
 ) {
   public fun toModel(): MedicinalProductIndication.OtherTherapy =
     MedicinalProductIndication.OtherTherapy(
@@ -56,11 +79,7 @@ internal data class MedicinalProductIndicationOtherTherapySurrogate(
         this@MedicinalProductIndicationOtherTherapySurrogate.modifierExtension ?: mutableListOf(),
       therapyRelationshipType =
         this@MedicinalProductIndicationOtherTherapySurrogate.therapyRelationshipType,
-      medication =
-        MedicinalProductIndication.OtherTherapy.Medication.from(
-          this@MedicinalProductIndicationOtherTherapySurrogate.medicationCodeableConcept,
-          this@MedicinalProductIndicationOtherTherapySurrogate.medicationReference,
-        )!!,
+      medication = this@MedicinalProductIndicationOtherTherapySurrogate.medication,
     )
 
   public companion object {
@@ -73,8 +92,7 @@ internal data class MedicinalProductIndicationOtherTherapySurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           therapyRelationshipType = this@with.therapyRelationshipType,
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value,
-          medicationReference = this@with.medication?.asReference()?.value,
+          medication = this@with.medication,
         )
       }
   }

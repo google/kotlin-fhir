@@ -46,29 +46,50 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class CommunicationPayloadSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class CommunicationPayloadContentSurrogate(
   public var contentString: KotlinString? = null,
   public var _contentString: Element? = null,
   public var contentAttachment: Attachment? = null,
   public var contentReference: Reference? = null,
+) {
+  public fun toModel(): Communication.Payload.Content =
+    Communication.Payload.Content.from(
+      R4bString.of(
+        this@CommunicationPayloadContentSurrogate.contentString,
+        this@CommunicationPayloadContentSurrogate._contentString,
+      ),
+      this@CommunicationPayloadContentSurrogate.contentAttachment,
+      this@CommunicationPayloadContentSurrogate.contentReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Communication.Payload.Content
+    ): CommunicationPayloadContentSurrogate =
+      with(model) {
+        CommunicationPayloadContentSurrogate(
+          contentString = this@with.asString()?.value?.value,
+          _contentString = this@with.asString()?.value?.toElement(),
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CommunicationPayloadSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var content: Communication.Payload.Content,
 ) {
   public fun toModel(): Communication.Payload =
     Communication.Payload(
       id = this@CommunicationPayloadSurrogate.id,
       extension = this@CommunicationPayloadSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@CommunicationPayloadSurrogate.modifierExtension ?: mutableListOf(),
-      content =
-        Communication.Payload.Content.from(
-          R4bString.of(
-            this@CommunicationPayloadSurrogate.contentString,
-            this@CommunicationPayloadSurrogate._contentString,
-          ),
-          this@CommunicationPayloadSurrogate.contentAttachment,
-          this@CommunicationPayloadSurrogate.contentReference,
-        )!!,
+      content = this@CommunicationPayloadSurrogate.content,
     )
 
   public companion object {
@@ -78,10 +99,7 @@ internal data class CommunicationPayloadSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          contentString = this@with.content?.asString()?.value?.value,
-          _contentString = this@with.content?.asString()?.value?.toElement(),
-          contentAttachment = this@with.content?.asAttachment()?.value,
-          contentReference = this@with.content?.asReference()?.value,
+          content = this@with.content,
         )
       }
   }

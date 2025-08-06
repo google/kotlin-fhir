@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdditiveSerializer
+import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdministrationRateSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdministrationScheduleSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaAdministrationSerializer
 import com.google.fhir.model.r5.serializers.NutritionOrderEnteralFormulaSerializer
@@ -900,6 +901,7 @@ public data class NutritionOrder(
         public var asNeededFor: CodeableConcept? = null,
       ) : BackboneElement()
 
+      @Serializable(with = NutritionOrderEnteralFormulaAdministrationRateSerializer::class)
       public sealed interface Rate {
         public fun asQuantity(): Quantity? = this as? Quantity
 

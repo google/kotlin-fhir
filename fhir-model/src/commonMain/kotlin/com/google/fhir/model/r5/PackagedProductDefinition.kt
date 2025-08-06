@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionLegalStatusOfSupplySerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingContainedItemSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingPropertySerializer
+import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionSerializer
 import kotlin.Suppress
@@ -389,6 +390,7 @@ public data class PackagedProductDefinition(
       /** A value for the characteristic. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = PackagedProductDefinitionPackagingPropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

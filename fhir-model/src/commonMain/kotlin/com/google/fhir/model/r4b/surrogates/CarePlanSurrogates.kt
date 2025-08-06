@@ -50,6 +50,62 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class CarePlanActivityDetailScheduledSurrogate(
+  public var scheduledTiming: Timing? = null,
+  public var scheduledPeriod: Period? = null,
+  public var scheduledString: KotlinString? = null,
+  public var _scheduledString: Element? = null,
+) {
+  public fun toModel(): CarePlan.Activity.Detail.Scheduled =
+    CarePlan.Activity.Detail.Scheduled?.from(
+      this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
+      this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
+      R4bString.of(
+        this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
+        this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CarePlan.Activity.Detail.Scheduled
+    ): CarePlanActivityDetailScheduledSurrogate =
+      with(model) {
+        CarePlanActivityDetailScheduledSurrogate(
+          scheduledTiming = this@with.asTiming()?.value,
+          scheduledPeriod = this@with.asPeriod()?.value,
+          scheduledString = this@with.asString()?.value?.value,
+          _scheduledString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CarePlanActivityDetailProductSurrogate(
+  public var productCodeableConcept: CodeableConcept? = null,
+  public var productReference: Reference? = null,
+) {
+  public fun toModel(): CarePlan.Activity.Detail.Product =
+    CarePlan.Activity.Detail.Product?.from(
+      this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
+      this@CarePlanActivityDetailProductSurrogate.productReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CarePlan.Activity.Detail.Product
+    ): CarePlanActivityDetailProductSurrogate =
+      with(model) {
+        CarePlanActivityDetailProductSurrogate(
+          productCodeableConcept = this@with.asCodeableConcept()?.value,
+          productReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CarePlanActivityDetailSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -69,14 +125,10 @@ internal data class CarePlanActivityDetailSurrogate(
   public var statusReason: CodeableConcept? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
-  public var scheduledTiming: Timing? = null,
-  public var scheduledPeriod: Period? = null,
-  public var scheduledString: KotlinString? = null,
-  public var _scheduledString: Element? = null,
+  public var scheduled: CarePlan.Activity.Detail.Scheduled? = null,
   public var location: Reference? = null,
   public var performer: MutableList<Reference>? = null,
-  public var productCodeableConcept: CodeableConcept? = null,
-  public var productReference: Reference? = null,
+  public var product: CarePlan.Activity.Detail.Product? = null,
   public var dailyAmount: Quantity? = null,
   public var quantity: Quantity? = null,
   public var description: KotlinString? = null,
@@ -143,22 +195,10 @@ internal data class CarePlanActivityDetailSurrogate(
           this@CarePlanActivityDetailSurrogate.doNotPerform,
           this@CarePlanActivityDetailSurrogate._doNotPerform,
         ),
-      scheduled =
-        CarePlan.Activity.Detail.Scheduled?.from(
-          this@CarePlanActivityDetailSurrogate.scheduledTiming,
-          this@CarePlanActivityDetailSurrogate.scheduledPeriod,
-          R4bString.of(
-            this@CarePlanActivityDetailSurrogate.scheduledString,
-            this@CarePlanActivityDetailSurrogate._scheduledString,
-          ),
-        ),
+      scheduled = this@CarePlanActivityDetailSurrogate.scheduled,
       location = this@CarePlanActivityDetailSurrogate.location,
       performer = this@CarePlanActivityDetailSurrogate.performer ?: mutableListOf(),
-      product =
-        CarePlan.Activity.Detail.Product?.from(
-          this@CarePlanActivityDetailSurrogate.productCodeableConcept,
-          this@CarePlanActivityDetailSurrogate.productReference,
-        ),
+      product = this@CarePlanActivityDetailSurrogate.product,
       dailyAmount = this@CarePlanActivityDetailSurrogate.dailyAmount,
       quantity = this@CarePlanActivityDetailSurrogate.quantity,
       description =
@@ -208,14 +248,10 @@ internal data class CarePlanActivityDetailSurrogate(
           statusReason = this@with.statusReason,
           doNotPerform = this@with.doNotPerform?.value,
           _doNotPerform = this@with.doNotPerform?.toElement(),
-          scheduledTiming = this@with.scheduled?.asTiming()?.value,
-          scheduledPeriod = this@with.scheduled?.asPeriod()?.value,
-          scheduledString = this@with.scheduled?.asString()?.value?.value,
-          _scheduledString = this@with.scheduled?.asString()?.value?.toElement(),
+          scheduled = this@with.scheduled,
           location = this@with.location,
           performer = this@with.performer.takeUnless { it.all { it == null } },
-          productCodeableConcept = this@with.product?.asCodeableConcept()?.value,
-          productReference = this@with.product?.asReference()?.value,
+          product = this@with.product,
           dailyAmount = this@with.dailyAmount,
           quantity = this@with.quantity,
           description = this@with.description?.value,

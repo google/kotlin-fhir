@@ -120,6 +120,77 @@ internal data class ProcedureFocalDeviceSurrogate(
 }
 
 @Serializable
+internal data class ProcedureOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceString: KotlinString? = null,
+  public var _occurrenceString: Element? = null,
+  public var occurrenceAge: Age? = null,
+  public var occurrenceRange: Range? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): Procedure.Occurrence =
+    Procedure.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ProcedureOccurrenceSurrogate.occurrenceDateTime),
+        this@ProcedureOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@ProcedureOccurrenceSurrogate.occurrencePeriod,
+      R5String.of(
+        this@ProcedureOccurrenceSurrogate.occurrenceString,
+        this@ProcedureOccurrenceSurrogate._occurrenceString,
+      ),
+      this@ProcedureOccurrenceSurrogate.occurrenceAge,
+      this@ProcedureOccurrenceSurrogate.occurrenceRange,
+      this@ProcedureOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Procedure.Occurrence): ProcedureOccurrenceSurrogate =
+      with(model) {
+        ProcedureOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceString = this@with.asString()?.value?.value,
+          _occurrenceString = this@with.asString()?.value?.toElement(),
+          occurrenceAge = this@with.asAge()?.value,
+          occurrenceRange = this@with.asRange()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ProcedureReportedSurrogate(
+  public var reportedBoolean: KotlinBoolean? = null,
+  public var _reportedBoolean: Element? = null,
+  public var reportedReference: Reference? = null,
+) {
+  public fun toModel(): Procedure.Reported =
+    Procedure.Reported?.from(
+      R5Boolean.of(
+        this@ProcedureReportedSurrogate.reportedBoolean,
+        this@ProcedureReportedSurrogate._reportedBoolean,
+      ),
+      this@ProcedureReportedSurrogate.reportedReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Procedure.Reported): ProcedureReportedSurrogate =
+      with(model) {
+        ProcedureReportedSurrogate(
+          reportedBoolean = this@with.asBoolean()?.value?.value,
+          _reportedBoolean = this@with.asBoolean()?.value?.toElement(),
+          reportedReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ProcedureSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -146,20 +217,11 @@ internal data class ProcedureSurrogate(
   public var subject: Reference,
   public var focus: Reference? = null,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceString: KotlinString? = null,
-  public var _occurrenceString: Element? = null,
-  public var occurrenceAge: Age? = null,
-  public var occurrenceRange: Range? = null,
-  public var occurrenceTiming: Timing? = null,
+  public var occurrence: Procedure.Occurrence? = null,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var recorder: Reference? = null,
-  public var reportedBoolean: KotlinBoolean? = null,
-  public var _reportedBoolean: Element? = null,
-  public var reportedReference: Reference? = null,
+  public var reported: Procedure.Reported? = null,
   public var performer: MutableList<Procedure.Performer>? = null,
   public var location: Reference? = null,
   public var reason: MutableList<CodeableReference>? = null,
@@ -232,35 +294,14 @@ internal data class ProcedureSurrogate(
       subject = this@ProcedureSurrogate.subject,
       focus = this@ProcedureSurrogate.focus,
       encounter = this@ProcedureSurrogate.encounter,
-      occurrence =
-        Procedure.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ProcedureSurrogate.occurrenceDateTime),
-            this@ProcedureSurrogate._occurrenceDateTime,
-          ),
-          this@ProcedureSurrogate.occurrencePeriod,
-          R5String.of(
-            this@ProcedureSurrogate.occurrenceString,
-            this@ProcedureSurrogate._occurrenceString,
-          ),
-          this@ProcedureSurrogate.occurrenceAge,
-          this@ProcedureSurrogate.occurrenceRange,
-          this@ProcedureSurrogate.occurrenceTiming,
-        ),
+      occurrence = this@ProcedureSurrogate.occurrence,
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@ProcedureSurrogate.recorded),
           this@ProcedureSurrogate._recorded,
         ),
       recorder = this@ProcedureSurrogate.recorder,
-      reported =
-        Procedure.Reported?.from(
-          R5Boolean.of(
-            this@ProcedureSurrogate.reportedBoolean,
-            this@ProcedureSurrogate._reportedBoolean,
-          ),
-          this@ProcedureSurrogate.reportedReference,
-        ),
+      reported = this@ProcedureSurrogate.reported,
       performer = this@ProcedureSurrogate.performer ?: mutableListOf(),
       location = this@ProcedureSurrogate.location,
       reason = this@ProcedureSurrogate.reason ?: mutableListOf(),
@@ -322,20 +363,11 @@ internal data class ProcedureSurrogate(
           subject = this@with.subject,
           focus = this@with.focus,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceString = this@with.occurrence?.asString()?.value?.value,
-          _occurrenceString = this@with.occurrence?.asString()?.value?.toElement(),
-          occurrenceAge = this@with.occurrence?.asAge()?.value,
-          occurrenceRange = this@with.occurrence?.asRange()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          occurrence = this@with.occurrence,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
           recorder = this@with.recorder,
-          reportedBoolean = this@with.reported?.asBoolean()?.value?.value,
-          _reportedBoolean = this@with.reported?.asBoolean()?.value?.toElement(),
-          reportedReference = this@with.reported?.asReference()?.value,
+          reported = this@with.reported,
           performer = this@with.performer.takeUnless { it.all { it == null } },
           location = this@with.location,
           reason = this@with.reason.takeUnless { it.all { it == null } },

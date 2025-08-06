@@ -353,6 +353,64 @@ internal data class ConceptMapGroupSurrogate(
 }
 
 @Serializable
+internal data class ConceptMapSourceSurrogate(
+  public var sourceUri: KotlinString? = null,
+  public var _sourceUri: Element? = null,
+  public var sourceCanonical: KotlinString? = null,
+  public var _sourceCanonical: Element? = null,
+) {
+  public fun toModel(): ConceptMap.Source =
+    ConceptMap.Source?.from(
+      Uri.of(this@ConceptMapSourceSurrogate.sourceUri, this@ConceptMapSourceSurrogate._sourceUri),
+      Canonical.of(
+        this@ConceptMapSourceSurrogate.sourceCanonical,
+        this@ConceptMapSourceSurrogate._sourceCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ConceptMap.Source): ConceptMapSourceSurrogate =
+      with(model) {
+        ConceptMapSourceSurrogate(
+          sourceUri = this@with.asUri()?.value?.value,
+          _sourceUri = this@with.asUri()?.value?.toElement(),
+          sourceCanonical = this@with.asCanonical()?.value?.value,
+          _sourceCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ConceptMapTargetSurrogate(
+  public var targetUri: KotlinString? = null,
+  public var _targetUri: Element? = null,
+  public var targetCanonical: KotlinString? = null,
+  public var _targetCanonical: Element? = null,
+) {
+  public fun toModel(): ConceptMap.Target =
+    ConceptMap.Target?.from(
+      Uri.of(this@ConceptMapTargetSurrogate.targetUri, this@ConceptMapTargetSurrogate._targetUri),
+      Canonical.of(
+        this@ConceptMapTargetSurrogate.targetCanonical,
+        this@ConceptMapTargetSurrogate._targetCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ConceptMap.Target): ConceptMapTargetSurrogate =
+      with(model) {
+        ConceptMapTargetSurrogate(
+          targetUri = this@with.asUri()?.value?.value,
+          _targetUri = this@with.asUri()?.value?.toElement(),
+          targetCanonical = this@with.asCanonical()?.value?.value,
+          _targetCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ConceptMapSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -390,14 +448,8 @@ internal data class ConceptMapSurrogate(
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
-  public var sourceUri: KotlinString? = null,
-  public var _sourceUri: Element? = null,
-  public var sourceCanonical: KotlinString? = null,
-  public var _sourceCanonical: Element? = null,
-  public var targetUri: KotlinString? = null,
-  public var _targetUri: Element? = null,
-  public var targetCanonical: KotlinString? = null,
-  public var _targetCanonical: Element? = null,
+  public var source: ConceptMap.Source? = null,
+  public var target: ConceptMap.Target? = null,
   public var group: MutableList<ConceptMap.Group>? = null,
 ) {
   public fun toModel(): ConceptMap =
@@ -438,22 +490,8 @@ internal data class ConceptMapSurrogate(
       purpose = Markdown.of(this@ConceptMapSurrogate.purpose, this@ConceptMapSurrogate._purpose),
       copyright =
         Markdown.of(this@ConceptMapSurrogate.copyright, this@ConceptMapSurrogate._copyright),
-      source =
-        ConceptMap.Source?.from(
-          Uri.of(this@ConceptMapSurrogate.sourceUri, this@ConceptMapSurrogate._sourceUri),
-          Canonical.of(
-            this@ConceptMapSurrogate.sourceCanonical,
-            this@ConceptMapSurrogate._sourceCanonical,
-          ),
-        ),
-      target =
-        ConceptMap.Target?.from(
-          Uri.of(this@ConceptMapSurrogate.targetUri, this@ConceptMapSurrogate._targetUri),
-          Canonical.of(
-            this@ConceptMapSurrogate.targetCanonical,
-            this@ConceptMapSurrogate._targetCanonical,
-          ),
-        ),
+      source = this@ConceptMapSurrogate.source,
+      target = this@ConceptMapSurrogate.target,
       group = this@ConceptMapSurrogate.group ?: mutableListOf(),
     )
 
@@ -497,14 +535,8 @@ internal data class ConceptMapSurrogate(
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
-          sourceUri = this@with.source?.asUri()?.value?.value,
-          _sourceUri = this@with.source?.asUri()?.value?.toElement(),
-          sourceCanonical = this@with.source?.asCanonical()?.value?.value,
-          _sourceCanonical = this@with.source?.asCanonical()?.value?.toElement(),
-          targetUri = this@with.target?.asUri()?.value?.value,
-          _targetUri = this@with.target?.asUri()?.value?.toElement(),
-          targetCanonical = this@with.target?.asCanonical()?.value?.value,
-          _targetCanonical = this@with.target?.asCanonical()?.value?.toElement(),
+          source = this@with.source,
+          target = this@with.target,
           group = this@with.group.takeUnless { it.all { it == null } },
         )
       }

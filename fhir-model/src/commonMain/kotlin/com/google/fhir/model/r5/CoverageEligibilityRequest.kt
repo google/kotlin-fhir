@@ -19,10 +19,13 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestEventSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestEventWhenSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestInsuranceSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestItemDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestItemSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestServicedSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityRequestSupportingInfoSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -254,6 +257,7 @@ public data class CoverageEligibilityRequest(
      */
     public var `when`: When,
   ) : BackboneElement() {
+    @Serializable(with = CoverageEligibilityRequestEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -530,6 +534,7 @@ public data class CoverageEligibilityRequest(
        */
       public var diagnosis: Diagnosis? = null,
     ) : BackboneElement() {
+      @Serializable(with = CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer::class)
       public sealed interface Diagnosis {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -556,6 +561,7 @@ public data class CoverageEligibilityRequest(
     }
   }
 
+  @Serializable(with = CoverageEligibilityRequestServicedSerializer::class)
   public sealed interface Serviced {
     public fun asDate(): Date? = this as? Date
 

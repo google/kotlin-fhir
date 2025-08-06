@@ -32,6 +32,7 @@ import com.google.fhir.model.r5.serializers.CapabilityStatementRestSecuritySeria
 import com.google.fhir.model.r5.serializers.CapabilityStatementRestSerializer
 import com.google.fhir.model.r5.serializers.CapabilityStatementSerializer
 import com.google.fhir.model.r5.serializers.CapabilityStatementSoftwareSerializer
+import com.google.fhir.model.r5.serializers.CapabilityStatementVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -1381,6 +1382,7 @@ public data class CapabilityStatement(
     public var profile: Canonical,
   ) : BackboneElement()
 
+  @Serializable(with = CapabilityStatementVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

@@ -94,15 +94,44 @@ internal data class MedicinalProductAuthorizationJurisdictionalAuthorizationSurr
 }
 
 @Serializable
+internal data class MedicinalProductAuthorizationProcedureDateSurrogate(
+  public var datePeriod: Period? = null,
+  public var dateDateTime: String? = null,
+  public var _dateDateTime: Element? = null,
+) {
+  public fun toModel(): MedicinalProductAuthorization.Procedure.Date =
+    MedicinalProductAuthorization.Procedure.Date?.from(
+      this@MedicinalProductAuthorizationProcedureDateSurrogate.datePeriod,
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@MedicinalProductAuthorizationProcedureDateSurrogate.dateDateTime
+        ),
+        this@MedicinalProductAuthorizationProcedureDateSurrogate._dateDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductAuthorization.Procedure.Date
+    ): MedicinalProductAuthorizationProcedureDateSurrogate =
+      with(model) {
+        MedicinalProductAuthorizationProcedureDateSurrogate(
+          datePeriod = this@with.asPeriod()?.value,
+          dateDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _dateDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicinalProductAuthorizationProcedureSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept,
-  public var datePeriod: Period? = null,
-  public var dateDateTime: String? = null,
-  public var _dateDateTime: Element? = null,
+  public var date: MedicinalProductAuthorization.Procedure.Date? = null,
   public var application: MutableList<MedicinalProductAuthorization.Procedure>? = null,
 ) {
   public fun toModel(): MedicinalProductAuthorization.Procedure =
@@ -113,16 +142,7 @@ internal data class MedicinalProductAuthorizationProcedureSurrogate(
         this@MedicinalProductAuthorizationProcedureSurrogate.modifierExtension ?: mutableListOf(),
       identifier = this@MedicinalProductAuthorizationProcedureSurrogate.identifier,
       type = this@MedicinalProductAuthorizationProcedureSurrogate.type,
-      date =
-        MedicinalProductAuthorization.Procedure.Date?.from(
-          this@MedicinalProductAuthorizationProcedureSurrogate.datePeriod,
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@MedicinalProductAuthorizationProcedureSurrogate.dateDateTime
-            ),
-            this@MedicinalProductAuthorizationProcedureSurrogate._dateDateTime,
-          ),
-        ),
+      date = this@MedicinalProductAuthorizationProcedureSurrogate.date,
       application =
         this@MedicinalProductAuthorizationProcedureSurrogate.application ?: mutableListOf(),
     )
@@ -138,9 +158,7 @@ internal data class MedicinalProductAuthorizationProcedureSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           identifier = this@with.identifier,
           type = this@with.type,
-          datePeriod = this@with.date?.asPeriod()?.value,
-          dateDateTime = this@with.date?.asDateTime()?.value?.value?.toString(),
-          _dateDateTime = this@with.date?.asDateTime()?.value?.toElement(),
+          date = this@with.date,
           application = this@with.application.takeUnless { it.all { it == null } },
         )
       }

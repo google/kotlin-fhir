@@ -65,6 +65,7 @@ object FhirCodegen {
               modelClassName,
               structureDefinition,
               isBaseClass,
+              surrogateTypeSpecGenerator,
               surrogateFileSpec,
               serializerFileSpec,
             )
@@ -77,14 +78,14 @@ object FhirCodegen {
       // TODO: Handle cases where the class does not need the surrogate class and the
       //  custom serializer since it does not have any primitive fields.
       val serializersPackageName = "${modelClassName.packageName}.serializers"
+      val rootElements = structureDefinition.rootElements
+
+      surrogateTypeSpecGenerator
+        .generate(ClassName(packageName, structureDefinition.name), rootElements)
+        .forEach(surrogateFileSpec::addType)
+
       fileSpecs +=
         surrogateFileSpec
-          .addType(
-            surrogateTypeSpecGenerator.generate(
-              ClassName(packageName, structureDefinition.name),
-              structureDefinition.rootElements,
-            )
-          )
           .addAnnotation(
             AnnotationSpec.builder(UseSerializers::class)
               .addMember("%T::class", ClassName(serializersPackageName, "DoubleSerializer"))
@@ -97,7 +98,11 @@ object FhirCodegen {
       fileSpecs +=
         serializerFileSpec
           .addType(
-            SerializerTypeSpecGenerator.generate(ClassName(packageName, structureDefinition.name))
+            SerializerTypeSpecGenerator.generate(
+              ClassName(packageName, structureDefinition.name),
+              rootElements,
+              structureDefinition.kind to structureDefinition.name,
+            )
           )
           .addSuppressAnnotation()
           .build()

@@ -20,10 +20,12 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CodeSystemConceptDesignationSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemConceptPropertySerializer
+import com.google.fhir.model.r5.serializers.CodeSystemConceptPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemConceptSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemPropertySerializer
 import com.google.fhir.model.r5.serializers.CodeSystemSerializer
+import com.google.fhir.model.r5.serializers.CodeSystemVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -786,6 +788,7 @@ public data class CodeSystem(
       /** The value of this property. */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = CodeSystemConceptPropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCode(): Code? = this as? Code
 
@@ -839,6 +842,7 @@ public data class CodeSystem(
     }
   }
 
+  @Serializable(with = CodeSystemVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

@@ -49,17 +49,48 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class GroupCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
+internal data class GroupCharacteristicValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
   public var valueQuantity: Quantity? = null,
   public var valueRange: Range? = null,
   public var valueReference: Reference? = null,
+) {
+  public fun toModel(): Group.Characteristic.Value =
+    Group.Characteristic.Value.from(
+      this@GroupCharacteristicValueSurrogate.valueCodeableConcept,
+      R5Boolean.of(
+        this@GroupCharacteristicValueSurrogate.valueBoolean,
+        this@GroupCharacteristicValueSurrogate._valueBoolean,
+      ),
+      this@GroupCharacteristicValueSurrogate.valueQuantity,
+      this@GroupCharacteristicValueSurrogate.valueRange,
+      this@GroupCharacteristicValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Group.Characteristic.Value): GroupCharacteristicValueSurrogate =
+      with(model) {
+        GroupCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class GroupCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: Group.Characteristic.Value,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var period: Period? = null,
@@ -70,17 +101,7 @@ internal data class GroupCharacteristicSurrogate(
       extension = this@GroupCharacteristicSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@GroupCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
       code = this@GroupCharacteristicSurrogate.code,
-      `value` =
-        Group.Characteristic.Value.from(
-          this@GroupCharacteristicSurrogate.valueCodeableConcept,
-          R5Boolean.of(
-            this@GroupCharacteristicSurrogate.valueBoolean,
-            this@GroupCharacteristicSurrogate._valueBoolean,
-          ),
-          this@GroupCharacteristicSurrogate.valueQuantity,
-          this@GroupCharacteristicSurrogate.valueRange,
-          this@GroupCharacteristicSurrogate.valueReference,
-        )!!,
+      `value` = this@GroupCharacteristicSurrogate.`value`,
       exclude =
         R5Boolean.of(
           this@GroupCharacteristicSurrogate.exclude,
@@ -97,12 +118,7 @@ internal data class GroupCharacteristicSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           code = this@with.code,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueReference = this@with.`value`?.asReference()?.value,
+          `value` = this@with.`value`,
           exclude = this@with.exclude.value,
           _exclude = this@with.exclude.toElement(),
           period = this@with.period,

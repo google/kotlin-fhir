@@ -178,6 +178,8 @@ abstract class FhirCodegenTask : DefaultTask() {
     val serializersPackageName = "$packageName.serializers"
     DoubleSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
     LocalTimeSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
+
+    FhirJsonTransformerFileSpecGenerator.generate(packageName).writeTo(outputDir)
   }
 
   /**

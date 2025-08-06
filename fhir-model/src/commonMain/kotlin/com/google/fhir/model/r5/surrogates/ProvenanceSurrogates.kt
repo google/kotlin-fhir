@@ -124,6 +124,33 @@ internal data class ProvenanceEntitySurrogate(
 }
 
 @Serializable
+internal data class ProvenanceOccurredSurrogate(
+  public var occurredPeriod: Period? = null,
+  public var occurredDateTime: String? = null,
+  public var _occurredDateTime: Element? = null,
+) {
+  public fun toModel(): Provenance.Occurred =
+    Provenance.Occurred?.from(
+      this@ProvenanceOccurredSurrogate.occurredPeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@ProvenanceOccurredSurrogate.occurredDateTime),
+        this@ProvenanceOccurredSurrogate._occurredDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Provenance.Occurred): ProvenanceOccurredSurrogate =
+      with(model) {
+        ProvenanceOccurredSurrogate(
+          occurredPeriod = this@with.asPeriod()?.value,
+          occurredDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurredDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ProvenanceSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -136,9 +163,7 @@ internal data class ProvenanceSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var target: MutableList<Reference>? = null,
-  public var occurredPeriod: Period? = null,
-  public var occurredDateTime: String? = null,
-  public var _occurredDateTime: Element? = null,
+  public var occurred: Provenance.Occurred? = null,
   public var recorded: String? = null,
   public var _recorded: Element? = null,
   public var policy: MutableList<String?>? = null,
@@ -165,14 +190,7 @@ internal data class ProvenanceSurrogate(
       extension = this@ProvenanceSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@ProvenanceSurrogate.modifierExtension ?: mutableListOf(),
       target = this@ProvenanceSurrogate.target ?: mutableListOf(),
-      occurred =
-        Provenance.Occurred?.from(
-          this@ProvenanceSurrogate.occurredPeriod,
-          DateTime.of(
-            FhirDateTime.fromString(this@ProvenanceSurrogate.occurredDateTime),
-            this@ProvenanceSurrogate._occurredDateTime,
-          ),
-        ),
+      occurred = this@ProvenanceSurrogate.occurred,
       recorded =
         Instant.of(
           FhirDateTime.fromString(this@ProvenanceSurrogate.recorded),
@@ -217,9 +235,7 @@ internal data class ProvenanceSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           target = this@with.target.takeUnless { it.all { it == null } },
-          occurredPeriod = this@with.occurred?.asPeriod()?.value,
-          occurredDateTime = this@with.occurred?.asDateTime()?.value?.value?.toString(),
-          _occurredDateTime = this@with.occurred?.asDateTime()?.value?.toElement(),
+          occurred = this@with.occurred,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
           policy =

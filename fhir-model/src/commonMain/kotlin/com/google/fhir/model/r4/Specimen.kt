@@ -18,9 +18,13 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.SpecimenCollectionCollectedSerializer
+import com.google.fhir.model.r4.serializers.SpecimenCollectionFastingStatusSerializer
 import com.google.fhir.model.r4.serializers.SpecimenCollectionSerializer
+import com.google.fhir.model.r4.serializers.SpecimenContainerAdditiveSerializer
 import com.google.fhir.model.r4.serializers.SpecimenContainerSerializer
 import com.google.fhir.model.r4.serializers.SpecimenProcessingSerializer
+import com.google.fhir.model.r4.serializers.SpecimenProcessingTimeSerializer
 import com.google.fhir.model.r4.serializers.SpecimenSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -266,6 +270,7 @@ public data class Specimen(
      */
     public var fastingStatus: FastingStatus? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -287,6 +292,7 @@ public data class Specimen(
       }
     }
 
+    @Serializable(with = SpecimenCollectionFastingStatusSerializer::class)
     public sealed interface FastingStatus {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -364,6 +370,7 @@ public data class Specimen(
      */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenProcessingTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -451,6 +458,7 @@ public data class Specimen(
      */
     public var additive: Additive? = null,
   ) : BackboneElement() {
+    @Serializable(with = SpecimenContainerAdditiveSerializer::class)
     public sealed interface Additive {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

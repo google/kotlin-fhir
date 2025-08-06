@@ -171,6 +171,60 @@ internal data class NutritionIntakePerformerSurrogate(
 }
 
 @Serializable
+internal data class NutritionIntakeOccurrenceSurrogate(
+  public var occurrenceDateTime: String? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+) {
+  public fun toModel(): NutritionIntake.Occurrence =
+    NutritionIntake.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@NutritionIntakeOccurrenceSurrogate.occurrenceDateTime),
+        this@NutritionIntakeOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@NutritionIntakeOccurrenceSurrogate.occurrencePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: NutritionIntake.Occurrence): NutritionIntakeOccurrenceSurrogate =
+      with(model) {
+        NutritionIntakeOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class NutritionIntakeReportedSurrogate(
+  public var reportedBoolean: KotlinBoolean? = null,
+  public var _reportedBoolean: Element? = null,
+  public var reportedReference: Reference? = null,
+) {
+  public fun toModel(): NutritionIntake.Reported =
+    NutritionIntake.Reported?.from(
+      R5Boolean.of(
+        this@NutritionIntakeReportedSurrogate.reportedBoolean,
+        this@NutritionIntakeReportedSurrogate._reportedBoolean,
+      ),
+      this@NutritionIntakeReportedSurrogate.reportedReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: NutritionIntake.Reported): NutritionIntakeReportedSurrogate =
+      with(model) {
+        NutritionIntakeReportedSurrogate(
+          reportedBoolean = this@with.asBoolean()?.value?.value,
+          _reportedBoolean = this@with.asBoolean()?.value?.toElement(),
+          reportedReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class NutritionIntakeSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -195,14 +249,10 @@ internal data class NutritionIntakeSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
+  public var occurrence: NutritionIntake.Occurrence? = null,
   public var recorded: String? = null,
   public var _recorded: Element? = null,
-  public var reportedBoolean: KotlinBoolean? = null,
-  public var _reportedBoolean: Element? = null,
-  public var reportedReference: Reference? = null,
+  public var reported: NutritionIntake.Reported? = null,
   public var consumedItem: MutableList<NutritionIntake.ConsumedItem>? = null,
   public var ingredientLabel: MutableList<NutritionIntake.IngredientLabel>? = null,
   public var performer: MutableList<NutritionIntake.Performer>? = null,
@@ -272,27 +322,13 @@ internal data class NutritionIntakeSurrogate(
       code = this@NutritionIntakeSurrogate.code,
       subject = this@NutritionIntakeSurrogate.subject,
       encounter = this@NutritionIntakeSurrogate.encounter,
-      occurrence =
-        NutritionIntake.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@NutritionIntakeSurrogate.occurrenceDateTime),
-            this@NutritionIntakeSurrogate._occurrenceDateTime,
-          ),
-          this@NutritionIntakeSurrogate.occurrencePeriod,
-        ),
+      occurrence = this@NutritionIntakeSurrogate.occurrence,
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@NutritionIntakeSurrogate.recorded),
           this@NutritionIntakeSurrogate._recorded,
         ),
-      reported =
-        NutritionIntake.Reported?.from(
-          R5Boolean.of(
-            this@NutritionIntakeSurrogate.reportedBoolean,
-            this@NutritionIntakeSurrogate._reportedBoolean,
-          ),
-          this@NutritionIntakeSurrogate.reportedReference,
-        ),
+      reported = this@NutritionIntakeSurrogate.reported,
       consumedItem = this@NutritionIntakeSurrogate.consumedItem ?: mutableListOf(),
       ingredientLabel = this@NutritionIntakeSurrogate.ingredientLabel ?: mutableListOf(),
       performer = this@NutritionIntakeSurrogate.performer ?: mutableListOf(),
@@ -347,14 +383,10 @@ internal data class NutritionIntakeSurrogate(
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
+          occurrence = this@with.occurrence,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
-          reportedBoolean = this@with.reported?.asBoolean()?.value?.value,
-          _reportedBoolean = this@with.reported?.asBoolean()?.value?.toElement(),
-          reportedReference = this@with.reported?.asReference()?.value,
+          reported = this@with.reported,
           consumedItem = this@with.consumedItem.takeUnless { it.all { it == null } },
           ingredientLabel = this@with.ingredientLabel.takeUnless { it.all { it == null } },
           performer = this@with.performer.takeUnless { it.all { it == null } },

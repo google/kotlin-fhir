@@ -20,7 +20,9 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.PatientCommunicationSerializer
 import com.google.fhir.model.r4b.serializers.PatientContactSerializer
+import com.google.fhir.model.r4b.serializers.PatientDeceasedSerializer
 import com.google.fhir.model.r4b.serializers.PatientLinkSerializer
+import com.google.fhir.model.r4b.serializers.PatientMultipleBirthSerializer
 import com.google.fhir.model.r4b.serializers.PatientSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -452,6 +454,7 @@ public data class Patient(
     public var type: Enumeration<LinkType>,
   ) : BackboneElement()
 
+  @Serializable(with = PatientDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -473,6 +476,7 @@ public data class Patient(
     }
   }
 
+  @Serializable(with = PatientMultipleBirthSerializer::class)
   public sealed interface MultipleBirth {
     public fun asBoolean(): Boolean? = this as? Boolean
 

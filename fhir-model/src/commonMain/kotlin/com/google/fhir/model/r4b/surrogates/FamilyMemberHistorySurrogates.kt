@@ -52,6 +52,41 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class FamilyMemberHistoryConditionOnsetSurrogate(
+  public var onsetAge: Age? = null,
+  public var onsetRange: Range? = null,
+  public var onsetPeriod: Period? = null,
+  public var onsetString: KotlinString? = null,
+  public var _onsetString: Element? = null,
+) {
+  public fun toModel(): FamilyMemberHistory.Condition.Onset =
+    FamilyMemberHistory.Condition.Onset?.from(
+      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetAge,
+      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetRange,
+      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetPeriod,
+      R4bString.of(
+        this@FamilyMemberHistoryConditionOnsetSurrogate.onsetString,
+        this@FamilyMemberHistoryConditionOnsetSurrogate._onsetString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: FamilyMemberHistory.Condition.Onset
+    ): FamilyMemberHistoryConditionOnsetSurrogate =
+      with(model) {
+        FamilyMemberHistoryConditionOnsetSurrogate(
+          onsetAge = this@with.asAge()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class FamilyMemberHistoryConditionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -60,11 +95,7 @@ internal data class FamilyMemberHistoryConditionSurrogate(
   public var outcome: CodeableConcept? = null,
   public var contributedToDeath: KotlinBoolean? = null,
   public var _contributedToDeath: Element? = null,
-  public var onsetAge: Age? = null,
-  public var onsetRange: Range? = null,
-  public var onsetPeriod: Period? = null,
-  public var onsetString: KotlinString? = null,
-  public var _onsetString: Element? = null,
+  public var onset: FamilyMemberHistory.Condition.Onset? = null,
   public var note: MutableList<Annotation>? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Condition =
@@ -80,16 +111,7 @@ internal data class FamilyMemberHistoryConditionSurrogate(
           this@FamilyMemberHistoryConditionSurrogate.contributedToDeath,
           this@FamilyMemberHistoryConditionSurrogate._contributedToDeath,
         ),
-      onset =
-        FamilyMemberHistory.Condition.Onset?.from(
-          this@FamilyMemberHistoryConditionSurrogate.onsetAge,
-          this@FamilyMemberHistoryConditionSurrogate.onsetRange,
-          this@FamilyMemberHistoryConditionSurrogate.onsetPeriod,
-          R4bString.of(
-            this@FamilyMemberHistoryConditionSurrogate.onsetString,
-            this@FamilyMemberHistoryConditionSurrogate._onsetString,
-          ),
-        ),
+      onset = this@FamilyMemberHistoryConditionSurrogate.onset,
       note = this@FamilyMemberHistoryConditionSurrogate.note ?: mutableListOf(),
     )
 
@@ -106,12 +128,121 @@ internal data class FamilyMemberHistoryConditionSurrogate(
           outcome = this@with.outcome,
           contributedToDeath = this@with.contributedToDeath?.value,
           _contributedToDeath = this@with.contributedToDeath?.toElement(),
-          onsetAge = this@with.onset?.asAge()?.value,
-          onsetRange = this@with.onset?.asRange()?.value,
-          onsetPeriod = this@with.onset?.asPeriod()?.value,
-          onsetString = this@with.onset?.asString()?.value?.value,
-          _onsetString = this@with.onset?.asString()?.value?.toElement(),
+          onset = this@with.onset,
           note = this@with.note.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class FamilyMemberHistoryBornSurrogate(
+  public var bornPeriod: Period? = null,
+  public var bornDate: KotlinString? = null,
+  public var _bornDate: Element? = null,
+  public var bornString: KotlinString? = null,
+  public var _bornString: Element? = null,
+) {
+  public fun toModel(): FamilyMemberHistory.Born =
+    FamilyMemberHistory.Born?.from(
+      this@FamilyMemberHistoryBornSurrogate.bornPeriod,
+      Date.of(
+        FhirDate.fromString(this@FamilyMemberHistoryBornSurrogate.bornDate),
+        this@FamilyMemberHistoryBornSurrogate._bornDate,
+      ),
+      R4bString.of(
+        this@FamilyMemberHistoryBornSurrogate.bornString,
+        this@FamilyMemberHistoryBornSurrogate._bornString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: FamilyMemberHistory.Born): FamilyMemberHistoryBornSurrogate =
+      with(model) {
+        FamilyMemberHistoryBornSurrogate(
+          bornPeriod = this@with.asPeriod()?.value,
+          bornDate = this@with.asDate()?.value?.value?.toString(),
+          _bornDate = this@with.asDate()?.value?.toElement(),
+          bornString = this@with.asString()?.value?.value,
+          _bornString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class FamilyMemberHistoryAgeSurrogate(
+  public var ageAge: Age? = null,
+  public var ageRange: Range? = null,
+  public var ageString: KotlinString? = null,
+  public var _ageString: Element? = null,
+) {
+  public fun toModel(): FamilyMemberHistory.Age =
+    FamilyMemberHistory.Age?.from(
+      this@FamilyMemberHistoryAgeSurrogate.ageAge,
+      this@FamilyMemberHistoryAgeSurrogate.ageRange,
+      R4bString.of(
+        this@FamilyMemberHistoryAgeSurrogate.ageString,
+        this@FamilyMemberHistoryAgeSurrogate._ageString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: FamilyMemberHistory.Age): FamilyMemberHistoryAgeSurrogate =
+      with(model) {
+        FamilyMemberHistoryAgeSurrogate(
+          ageAge = this@with.asAge()?.value,
+          ageRange = this@with.asRange()?.value,
+          ageString = this@with.asString()?.value?.value,
+          _ageString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class FamilyMemberHistoryDeceasedSurrogate(
+  public var deceasedBoolean: KotlinBoolean? = null,
+  public var _deceasedBoolean: Element? = null,
+  public var deceasedAge: Age? = null,
+  public var deceasedRange: Range? = null,
+  public var deceasedDate: KotlinString? = null,
+  public var _deceasedDate: Element? = null,
+  public var deceasedString: KotlinString? = null,
+  public var _deceasedString: Element? = null,
+) {
+  public fun toModel(): FamilyMemberHistory.Deceased =
+    FamilyMemberHistory.Deceased?.from(
+      R4bBoolean.of(
+        this@FamilyMemberHistoryDeceasedSurrogate.deceasedBoolean,
+        this@FamilyMemberHistoryDeceasedSurrogate._deceasedBoolean,
+      ),
+      this@FamilyMemberHistoryDeceasedSurrogate.deceasedAge,
+      this@FamilyMemberHistoryDeceasedSurrogate.deceasedRange,
+      Date.of(
+        FhirDate.fromString(this@FamilyMemberHistoryDeceasedSurrogate.deceasedDate),
+        this@FamilyMemberHistoryDeceasedSurrogate._deceasedDate,
+      ),
+      R4bString.of(
+        this@FamilyMemberHistoryDeceasedSurrogate.deceasedString,
+        this@FamilyMemberHistoryDeceasedSurrogate._deceasedString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: FamilyMemberHistory.Deceased
+    ): FamilyMemberHistoryDeceasedSurrogate =
+      with(model) {
+        FamilyMemberHistoryDeceasedSurrogate(
+          deceasedBoolean = this@with.asBoolean()?.value?.value,
+          _deceasedBoolean = this@with.asBoolean()?.value?.toElement(),
+          deceasedAge = this@with.asAge()?.value,
+          deceasedRange = this@with.asRange()?.value,
+          deceasedDate = this@with.asDate()?.value?.value?.toString(),
+          _deceasedDate = this@with.asDate()?.value?.toElement(),
+          deceasedString = this@with.asString()?.value?.value,
+          _deceasedString = this@with.asString()?.value?.toElement(),
         )
       }
   }
@@ -144,25 +275,11 @@ internal data class FamilyMemberHistorySurrogate(
   public var _name: Element? = null,
   public var relationship: CodeableConcept,
   public var sex: CodeableConcept? = null,
-  public var bornPeriod: Period? = null,
-  public var bornDate: KotlinString? = null,
-  public var _bornDate: Element? = null,
-  public var bornString: KotlinString? = null,
-  public var _bornString: Element? = null,
-  public var ageAge: Age? = null,
-  public var ageRange: Range? = null,
-  public var ageString: KotlinString? = null,
-  public var _ageString: Element? = null,
+  public var born: FamilyMemberHistory.Born? = null,
+  public var age: FamilyMemberHistory.Age? = null,
   public var estimatedAge: KotlinBoolean? = null,
   public var _estimatedAge: Element? = null,
-  public var deceasedBoolean: KotlinBoolean? = null,
-  public var _deceasedBoolean: Element? = null,
-  public var deceasedAge: Age? = null,
-  public var deceasedRange: Range? = null,
-  public var deceasedDate: KotlinString? = null,
-  public var _deceasedDate: Element? = null,
-  public var deceasedString: KotlinString? = null,
-  public var _deceasedString: Element? = null,
+  public var deceased: FamilyMemberHistory.Deceased? = null,
   public var reasonCode: MutableList<CodeableConcept>? = null,
   public var reasonReference: MutableList<Reference>? = null,
   public var note: MutableList<Annotation>? = null,
@@ -240,49 +357,14 @@ internal data class FamilyMemberHistorySurrogate(
         ),
       relationship = this@FamilyMemberHistorySurrogate.relationship,
       sex = this@FamilyMemberHistorySurrogate.sex,
-      born =
-        FamilyMemberHistory.Born?.from(
-          this@FamilyMemberHistorySurrogate.bornPeriod,
-          Date.of(
-            FhirDate.fromString(this@FamilyMemberHistorySurrogate.bornDate),
-            this@FamilyMemberHistorySurrogate._bornDate,
-          ),
-          R4bString.of(
-            this@FamilyMemberHistorySurrogate.bornString,
-            this@FamilyMemberHistorySurrogate._bornString,
-          ),
-        ),
-      age =
-        FamilyMemberHistory.Age?.from(
-          this@FamilyMemberHistorySurrogate.ageAge,
-          this@FamilyMemberHistorySurrogate.ageRange,
-          R4bString.of(
-            this@FamilyMemberHistorySurrogate.ageString,
-            this@FamilyMemberHistorySurrogate._ageString,
-          ),
-        ),
+      born = this@FamilyMemberHistorySurrogate.born,
+      age = this@FamilyMemberHistorySurrogate.age,
       estimatedAge =
         R4bBoolean.of(
           this@FamilyMemberHistorySurrogate.estimatedAge,
           this@FamilyMemberHistorySurrogate._estimatedAge,
         ),
-      deceased =
-        FamilyMemberHistory.Deceased?.from(
-          R4bBoolean.of(
-            this@FamilyMemberHistorySurrogate.deceasedBoolean,
-            this@FamilyMemberHistorySurrogate._deceasedBoolean,
-          ),
-          this@FamilyMemberHistorySurrogate.deceasedAge,
-          this@FamilyMemberHistorySurrogate.deceasedRange,
-          Date.of(
-            FhirDate.fromString(this@FamilyMemberHistorySurrogate.deceasedDate),
-            this@FamilyMemberHistorySurrogate._deceasedDate,
-          ),
-          R4bString.of(
-            this@FamilyMemberHistorySurrogate.deceasedString,
-            this@FamilyMemberHistorySurrogate._deceasedString,
-          ),
-        ),
+      deceased = this@FamilyMemberHistorySurrogate.deceased,
       reasonCode = this@FamilyMemberHistorySurrogate.reasonCode ?: mutableListOf(),
       reasonReference = this@FamilyMemberHistorySurrogate.reasonReference ?: mutableListOf(),
       note = this@FamilyMemberHistorySurrogate.note ?: mutableListOf(),
@@ -336,25 +418,11 @@ internal data class FamilyMemberHistorySurrogate(
           _name = this@with.name?.toElement(),
           relationship = this@with.relationship,
           sex = this@with.sex,
-          bornPeriod = this@with.born?.asPeriod()?.value,
-          bornDate = this@with.born?.asDate()?.value?.value?.toString(),
-          _bornDate = this@with.born?.asDate()?.value?.toElement(),
-          bornString = this@with.born?.asString()?.value?.value,
-          _bornString = this@with.born?.asString()?.value?.toElement(),
-          ageAge = this@with.age?.asAge()?.value,
-          ageRange = this@with.age?.asRange()?.value,
-          ageString = this@with.age?.asString()?.value?.value,
-          _ageString = this@with.age?.asString()?.value?.toElement(),
+          born = this@with.born,
+          age = this@with.age,
           estimatedAge = this@with.estimatedAge?.value,
           _estimatedAge = this@with.estimatedAge?.toElement(),
-          deceasedBoolean = this@with.deceased?.asBoolean()?.value?.value,
-          _deceasedBoolean = this@with.deceased?.asBoolean()?.value?.toElement(),
-          deceasedAge = this@with.deceased?.asAge()?.value,
-          deceasedRange = this@with.deceased?.asRange()?.value,
-          deceasedDate = this@with.deceased?.asDate()?.value?.value?.toString(),
-          _deceasedDate = this@with.deceased?.asDate()?.value?.toElement(),
-          deceasedString = this@with.deceased?.asString()?.value?.value,
-          _deceasedString = this@with.deceased?.asString()?.value?.toElement(),
+          deceased = this@with.deceased,
           reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
           reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
           note = this@with.note.takeUnless { it.all { it == null } },

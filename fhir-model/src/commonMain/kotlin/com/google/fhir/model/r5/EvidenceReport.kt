@@ -18,11 +18,13 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.EvidenceReportCiteAsSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportRelatesToSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportRelatesToTargetSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSectionSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -375,6 +377,7 @@ public data class EvidenceReport(
       /** Timeframe for the characteristic. */
       public var period: Period? = null,
     ) : BackboneElement() {
+      @Serializable(with = EvidenceReportSubjectCharacteristicValueSerializer::class)
       public sealed interface Value {
         public fun asReference(): Reference? = this as? Reference
 
@@ -651,6 +654,7 @@ public data class EvidenceReport(
     public var section: MutableList<Section> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceReportCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 

@@ -46,12 +46,35 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
+  public var additiveCodeableConcept: CodeableConcept? = null,
+  public var additiveReference: Reference? = null,
+) {
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive.Additive =
+    SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
+      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
+      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.TypeTested.Container.Additive.Additive
+    ): SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate =
+      with(model) {
+        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
+          additiveCodeableConcept = this@with.asCodeableConcept()?.value,
+          additiveReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var additiveCodeableConcept: CodeableConcept? = null,
-  public var additiveReference: Reference? = null,
+  public var additive: SpecimenDefinition.TypeTested.Container.Additive.Additive,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
     SpecimenDefinition.TypeTested.Container.Additive(
@@ -61,11 +84,7 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
       modifierExtension =
         this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
           ?: mutableListOf(),
-      additive =
-        SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
-          this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additiveCodeableConcept,
-          this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additiveReference,
-        )!!,
+      additive = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additive,
     )
 
   public companion object {
@@ -77,8 +96,36 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          additiveCodeableConcept = this@with.additive?.asCodeableConcept()?.value,
-          additiveReference = this@with.additive?.asReference()?.value,
+          additive = this@with.additive,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
+  public var minimumVolumeQuantity: Quantity? = null,
+  public var minimumVolumeString: KotlinString? = null,
+  public var _minimumVolumeString: Element? = null,
+) {
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume =
+    SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
+      this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
+      R4bString.of(
+        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
+        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.TypeTested.Container.MinimumVolume
+    ): SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate =
+      with(model) {
+        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
+          minimumVolumeQuantity = this@with.asQuantity()?.value,
+          minimumVolumeString = this@with.asString()?.value?.value,
+          _minimumVolumeString = this@with.asString()?.value?.toElement(),
         )
       }
   }
@@ -95,9 +142,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var capacity: Quantity? = null,
-  public var minimumVolumeQuantity: Quantity? = null,
-  public var minimumVolumeString: KotlinString? = null,
-  public var _minimumVolumeString: Element? = null,
+  public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
   public var additive: MutableList<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
@@ -117,14 +162,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
           this@SpecimenDefinitionTypeTestedContainerSurrogate._description,
         ),
       capacity = this@SpecimenDefinitionTypeTestedContainerSurrogate.capacity,
-      minimumVolume =
-        SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
-          this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolumeQuantity,
-          R4bString.of(
-            this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolumeString,
-            this@SpecimenDefinitionTypeTestedContainerSurrogate._minimumVolumeString,
-          ),
-        ),
+      minimumVolume = this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolume,
       additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive ?: mutableListOf(),
       preparation =
         R4bString.of(
@@ -148,9 +186,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           capacity = this@with.capacity,
-          minimumVolumeQuantity = this@with.minimumVolume?.asQuantity()?.value,
-          minimumVolumeString = this@with.minimumVolume?.asString()?.value?.value,
-          _minimumVolumeString = this@with.minimumVolume?.asString()?.value?.toElement(),
+          minimumVolume = this@with.minimumVolume,
           additive = this@with.additive.takeUnless { it.all { it == null } },
           preparation = this@with.preparation?.value,
           _preparation = this@with.preparation?.toElement(),

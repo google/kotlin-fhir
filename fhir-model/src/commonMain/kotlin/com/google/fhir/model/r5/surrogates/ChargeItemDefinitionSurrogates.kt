@@ -129,6 +129,35 @@ internal data class ChargeItemDefinitionPropertyGroupSurrogate(
 }
 
 @Serializable
+internal data class ChargeItemDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): ChargeItemDefinition.VersionAlgorithm =
+    ChargeItemDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ChargeItemDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ChargeItemDefinition.VersionAlgorithm
+    ): ChargeItemDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        ChargeItemDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ChargeItemDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -145,9 +174,7 @@ internal data class ChargeItemDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: ChargeItemDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -211,14 +238,7 @@ internal data class ChargeItemDefinitionSurrogate(
           this@ChargeItemDefinitionSurrogate.version,
           this@ChargeItemDefinitionSurrogate._version,
         ),
-      versionAlgorithm =
-        ChargeItemDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@ChargeItemDefinitionSurrogate.versionAlgorithmString,
-            this@ChargeItemDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@ChargeItemDefinitionSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@ChargeItemDefinitionSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@ChargeItemDefinitionSurrogate.name,
@@ -357,9 +377,7 @@ internal data class ChargeItemDefinitionSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,

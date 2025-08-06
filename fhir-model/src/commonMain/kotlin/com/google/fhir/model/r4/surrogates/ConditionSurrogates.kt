@@ -111,6 +111,88 @@ internal data class ConditionEvidenceSurrogate(
 }
 
 @Serializable
+internal data class ConditionOnsetSurrogate(
+  public var onsetDateTime: KotlinString? = null,
+  public var _onsetDateTime: Element? = null,
+  public var onsetAge: Age? = null,
+  public var onsetPeriod: Period? = null,
+  public var onsetRange: Range? = null,
+  public var onsetString: KotlinString? = null,
+  public var _onsetString: Element? = null,
+) {
+  public fun toModel(): Condition.Onset =
+    Condition.Onset?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ConditionOnsetSurrogate.onsetDateTime),
+        this@ConditionOnsetSurrogate._onsetDateTime,
+      ),
+      this@ConditionOnsetSurrogate.onsetAge,
+      this@ConditionOnsetSurrogate.onsetPeriod,
+      this@ConditionOnsetSurrogate.onsetRange,
+      R4String.of(
+        this@ConditionOnsetSurrogate.onsetString,
+        this@ConditionOnsetSurrogate._onsetString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Condition.Onset): ConditionOnsetSurrogate =
+      with(model) {
+        ConditionOnsetSurrogate(
+          onsetDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _onsetDateTime = this@with.asDateTime()?.value?.toElement(),
+          onsetAge = this@with.asAge()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ConditionAbatementSurrogate(
+  public var abatementDateTime: KotlinString? = null,
+  public var _abatementDateTime: Element? = null,
+  public var abatementAge: Age? = null,
+  public var abatementPeriod: Period? = null,
+  public var abatementRange: Range? = null,
+  public var abatementString: KotlinString? = null,
+  public var _abatementString: Element? = null,
+) {
+  public fun toModel(): Condition.Abatement =
+    Condition.Abatement?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ConditionAbatementSurrogate.abatementDateTime),
+        this@ConditionAbatementSurrogate._abatementDateTime,
+      ),
+      this@ConditionAbatementSurrogate.abatementAge,
+      this@ConditionAbatementSurrogate.abatementPeriod,
+      this@ConditionAbatementSurrogate.abatementRange,
+      R4String.of(
+        this@ConditionAbatementSurrogate.abatementString,
+        this@ConditionAbatementSurrogate._abatementString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Condition.Abatement): ConditionAbatementSurrogate =
+      with(model) {
+        ConditionAbatementSurrogate(
+          abatementDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _abatementDateTime = this@with.asDateTime()?.value?.toElement(),
+          abatementAge = this@with.asAge()?.value,
+          abatementPeriod = this@with.asPeriod()?.value,
+          abatementRange = this@with.asRange()?.value,
+          abatementString = this@with.asString()?.value?.value,
+          _abatementString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ConditionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -131,20 +213,8 @@ internal data class ConditionSurrogate(
   public var bodySite: MutableList<CodeableConcept>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var onsetDateTime: KotlinString? = null,
-  public var _onsetDateTime: Element? = null,
-  public var onsetAge: Age? = null,
-  public var onsetPeriod: Period? = null,
-  public var onsetRange: Range? = null,
-  public var onsetString: KotlinString? = null,
-  public var _onsetString: Element? = null,
-  public var abatementDateTime: KotlinString? = null,
-  public var _abatementDateTime: Element? = null,
-  public var abatementAge: Age? = null,
-  public var abatementPeriod: Period? = null,
-  public var abatementRange: Range? = null,
-  public var abatementString: KotlinString? = null,
-  public var _abatementString: Element? = null,
+  public var onset: Condition.Onset? = null,
+  public var abatement: Condition.Abatement? = null,
   public var recordedDate: KotlinString? = null,
   public var _recordedDate: Element? = null,
   public var recorder: Reference? = null,
@@ -173,31 +243,8 @@ internal data class ConditionSurrogate(
       bodySite = this@ConditionSurrogate.bodySite ?: mutableListOf(),
       subject = this@ConditionSurrogate.subject,
       encounter = this@ConditionSurrogate.encounter,
-      onset =
-        Condition.Onset?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ConditionSurrogate.onsetDateTime),
-            this@ConditionSurrogate._onsetDateTime,
-          ),
-          this@ConditionSurrogate.onsetAge,
-          this@ConditionSurrogate.onsetPeriod,
-          this@ConditionSurrogate.onsetRange,
-          R4String.of(this@ConditionSurrogate.onsetString, this@ConditionSurrogate._onsetString),
-        ),
-      abatement =
-        Condition.Abatement?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ConditionSurrogate.abatementDateTime),
-            this@ConditionSurrogate._abatementDateTime,
-          ),
-          this@ConditionSurrogate.abatementAge,
-          this@ConditionSurrogate.abatementPeriod,
-          this@ConditionSurrogate.abatementRange,
-          R4String.of(
-            this@ConditionSurrogate.abatementString,
-            this@ConditionSurrogate._abatementString,
-          ),
-        ),
+      onset = this@ConditionSurrogate.onset,
+      abatement = this@ConditionSurrogate.abatement,
       recordedDate =
         DateTime.of(
           FhirDateTime.fromString(this@ConditionSurrogate.recordedDate),
@@ -233,20 +280,8 @@ internal data class ConditionSurrogate(
           bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
           subject = this@with.subject,
           encounter = this@with.encounter,
-          onsetDateTime = this@with.onset?.asDateTime()?.value?.value?.toString(),
-          _onsetDateTime = this@with.onset?.asDateTime()?.value?.toElement(),
-          onsetAge = this@with.onset?.asAge()?.value,
-          onsetPeriod = this@with.onset?.asPeriod()?.value,
-          onsetRange = this@with.onset?.asRange()?.value,
-          onsetString = this@with.onset?.asString()?.value?.value,
-          _onsetString = this@with.onset?.asString()?.value?.toElement(),
-          abatementDateTime = this@with.abatement?.asDateTime()?.value?.value?.toString(),
-          _abatementDateTime = this@with.abatement?.asDateTime()?.value?.toElement(),
-          abatementAge = this@with.abatement?.asAge()?.value,
-          abatementPeriod = this@with.abatement?.asPeriod()?.value,
-          abatementRange = this@with.abatement?.asRange()?.value,
-          abatementString = this@with.abatement?.asString()?.value?.value,
-          _abatementString = this@with.abatement?.asString()?.value?.toElement(),
+          onset = this@with.onset,
+          abatement = this@with.abatement,
           recordedDate = this@with.recordedDate?.value?.toString(),
           _recordedDate = this@with.recordedDate?.toElement(),
           recorder = this@with.recorder,

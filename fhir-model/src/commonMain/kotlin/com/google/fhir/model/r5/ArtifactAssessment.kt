@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ArtifactAssessmentArtifactSerializer
+import com.google.fhir.model.r5.serializers.ArtifactAssessmentCiteAsSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentContentSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentSerializer
 import kotlin.Suppress
@@ -261,6 +263,7 @@ public data class ArtifactAssessment(
     public var component: MutableList<Content> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = ArtifactAssessmentCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 
@@ -282,6 +285,7 @@ public data class ArtifactAssessment(
     }
   }
 
+  @Serializable(with = ArtifactAssessmentArtifactSerializer::class)
   public sealed interface Artifact {
     public fun asReference(): Reference? = this as? Reference
 

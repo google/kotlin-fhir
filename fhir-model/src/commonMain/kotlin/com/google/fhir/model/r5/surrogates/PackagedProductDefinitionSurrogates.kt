@@ -90,11 +90,7 @@ internal data class PackagedProductDefinitionLegalStatusOfSupplySurrogate(
 }
 
 @Serializable
-internal data class PackagedProductDefinitionPackagingPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
+internal data class PackagedProductDefinitionPackagingPropertyValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
   public var valueDate: KotlinString? = null,
@@ -102,6 +98,49 @@ internal data class PackagedProductDefinitionPackagingPropertySurrogate(
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
   public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): PackagedProductDefinition.Packaging.Property.Value =
+    PackagedProductDefinition.Packaging.Property.Value?.from(
+      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueCodeableConcept,
+      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(
+          this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueDate
+        ),
+        this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueBoolean,
+        this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueBoolean,
+      ),
+      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueAttachment,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PackagedProductDefinition.Packaging.Property.Value
+    ): PackagedProductDefinitionPackagingPropertyValueSurrogate =
+      with(model) {
+        PackagedProductDefinitionPackagingPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PackagedProductDefinitionPackagingPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: PackagedProductDefinition.Packaging.Property.Value? = null,
 ) {
   public fun toModel(): PackagedProductDefinition.Packaging.Property =
     PackagedProductDefinition.Packaging.Property(
@@ -112,20 +151,7 @@ internal data class PackagedProductDefinitionPackagingPropertySurrogate(
         this@PackagedProductDefinitionPackagingPropertySurrogate.modifierExtension
           ?: mutableListOf(),
       type = this@PackagedProductDefinitionPackagingPropertySurrogate.type,
-      `value` =
-        PackagedProductDefinition.Packaging.Property.Value?.from(
-          this@PackagedProductDefinitionPackagingPropertySurrogate.valueCodeableConcept,
-          this@PackagedProductDefinitionPackagingPropertySurrogate.valueQuantity,
-          Date.of(
-            FhirDate.fromString(this@PackagedProductDefinitionPackagingPropertySurrogate.valueDate),
-            this@PackagedProductDefinitionPackagingPropertySurrogate._valueDate,
-          ),
-          R5Boolean.of(
-            this@PackagedProductDefinitionPackagingPropertySurrogate.valueBoolean,
-            this@PackagedProductDefinitionPackagingPropertySurrogate._valueBoolean,
-          ),
-          this@PackagedProductDefinitionPackagingPropertySurrogate.valueAttachment,
-        ),
+      `value` = this@PackagedProductDefinitionPackagingPropertySurrogate.`value`,
     )
 
   public companion object {
@@ -138,13 +164,7 @@ internal data class PackagedProductDefinitionPackagingPropertySurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          `value` = this@with.`value`,
         )
       }
   }

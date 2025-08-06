@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.PersonCommunicationSerializer
+import com.google.fhir.model.r5.serializers.PersonDeceasedSerializer
 import com.google.fhir.model.r5.serializers.PersonLinkSerializer
 import com.google.fhir.model.r5.serializers.PersonSerializer
 import kotlin.String
@@ -315,6 +316,7 @@ public data class Person(
     public var assurance: Enumeration<IdentityAssuranceLevel>? = null,
   ) : BackboneElement()
 
+  @Serializable(with = PersonDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 

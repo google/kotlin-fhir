@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.SupplyDeliveryOccurrenceSerializer
 import com.google.fhir.model.r4b.serializers.SupplyDeliverySerializer
+import com.google.fhir.model.r4b.serializers.SupplyDeliverySuppliedItemItemSerializer
 import com.google.fhir.model.r4b.serializers.SupplyDeliverySuppliedItemSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -225,6 +227,7 @@ public data class SupplyDelivery(
      */
     public var item: Item? = null,
   ) : BackboneElement() {
+    @Serializable(with = SupplyDeliverySuppliedItemItemSerializer::class)
     public sealed interface Item {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -249,6 +252,7 @@ public data class SupplyDelivery(
     }
   }
 
+  @Serializable(with = SupplyDeliveryOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

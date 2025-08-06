@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ExtensionSerializer
+import com.google.fhir.model.r4.serializers.ExtensionValueSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -61,6 +62,7 @@ public data class Extension(
    */
   public var `value`: Value? = null,
 ) : Element() {
+  @Serializable(with = ExtensionValueSerializer::class)
   public sealed interface Value {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 

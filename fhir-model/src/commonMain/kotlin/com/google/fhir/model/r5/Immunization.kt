@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ImmunizationOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ImmunizationPerformerSerializer
 import com.google.fhir.model.r5.serializers.ImmunizationProgramEligibilitySerializer
 import com.google.fhir.model.r5.serializers.ImmunizationProtocolAppliedSerializer
@@ -489,6 +490,7 @@ public data class Immunization(
     public var seriesDoses: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ImmunizationOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

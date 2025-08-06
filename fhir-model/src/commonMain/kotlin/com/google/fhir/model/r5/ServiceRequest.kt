@@ -18,9 +18,14 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ServiceRequestAsNeededSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestOrderDetailParameterSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestOrderDetailParameterValueSerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestOrderDetailSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestPatientInstructionInstructionSerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestPatientInstructionSerializer
+import com.google.fhir.model.r5.serializers.ServiceRequestQuantitySerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -470,6 +475,7 @@ public data class ServiceRequest(
        */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = ServiceRequestOrderDetailParameterValueSerializer::class)
       public sealed interface Value {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -568,6 +574,7 @@ public data class ServiceRequest(
     /** Instructions in terms that are understood by the patient or consumer. */
     public var instruction: Instruction? = null,
   ) : BackboneElement() {
+    @Serializable(with = ServiceRequestPatientInstructionInstructionSerializer::class)
     public sealed interface Instruction {
       public fun asMarkdown(): Markdown? = this as? Markdown
 
@@ -592,6 +599,7 @@ public data class ServiceRequest(
     }
   }
 
+  @Serializable(with = ServiceRequestQuantitySerializer::class)
   public sealed interface Quantity {
     public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -622,6 +630,7 @@ public data class ServiceRequest(
     }
   }
 
+  @Serializable(with = ServiceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -649,6 +658,7 @@ public data class ServiceRequest(
     }
   }
 
+  @Serializable(with = ServiceRequestAsNeededSerializer::class)
   public sealed interface AsNeeded {
     public fun asBoolean(): Boolean? = this as? Boolean
 

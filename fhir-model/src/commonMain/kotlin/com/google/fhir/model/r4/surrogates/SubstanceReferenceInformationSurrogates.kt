@@ -160,6 +160,38 @@ internal data class SubstanceReferenceInformationClassificationSurrogate(
 }
 
 @Serializable
+internal data class SubstanceReferenceInformationTargetAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountRange: Range? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceReferenceInformation.Target.Amount =
+    SubstanceReferenceInformation.Target.Amount?.from(
+      this@SubstanceReferenceInformationTargetAmountSurrogate.amountQuantity,
+      this@SubstanceReferenceInformationTargetAmountSurrogate.amountRange,
+      R4String.of(
+        this@SubstanceReferenceInformationTargetAmountSurrogate.amountString,
+        this@SubstanceReferenceInformationTargetAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceReferenceInformation.Target.Amount
+    ): SubstanceReferenceInformationTargetAmountSurrogate =
+      with(model) {
+        SubstanceReferenceInformationTargetAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRange = this@with.asRange()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceReferenceInformationTargetSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -169,10 +201,7 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
   public var interaction: CodeableConcept? = null,
   public var organism: CodeableConcept? = null,
   public var organismType: CodeableConcept? = null,
-  public var amountQuantity: Quantity? = null,
-  public var amountRange: Range? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
+  public var amount: SubstanceReferenceInformation.Target.Amount? = null,
   public var amountType: CodeableConcept? = null,
   public var source: MutableList<Reference>? = null,
 ) {
@@ -187,15 +216,7 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
       interaction = this@SubstanceReferenceInformationTargetSurrogate.interaction,
       organism = this@SubstanceReferenceInformationTargetSurrogate.organism,
       organismType = this@SubstanceReferenceInformationTargetSurrogate.organismType,
-      amount =
-        SubstanceReferenceInformation.Target.Amount?.from(
-          this@SubstanceReferenceInformationTargetSurrogate.amountQuantity,
-          this@SubstanceReferenceInformationTargetSurrogate.amountRange,
-          R4String.of(
-            this@SubstanceReferenceInformationTargetSurrogate.amountString,
-            this@SubstanceReferenceInformationTargetSurrogate._amountString,
-          ),
-        ),
+      amount = this@SubstanceReferenceInformationTargetSurrogate.amount,
       amountType = this@SubstanceReferenceInformationTargetSurrogate.amountType,
       source = this@SubstanceReferenceInformationTargetSurrogate.source ?: mutableListOf(),
     )
@@ -214,10 +235,7 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
           interaction = this@with.interaction,
           organism = this@with.organism,
           organismType = this@with.organismType,
-          amountQuantity = this@with.amount?.asQuantity()?.value,
-          amountRange = this@with.amount?.asRange()?.value,
-          amountString = this@with.amount?.asString()?.value?.value,
-          _amountString = this@with.amount?.asString()?.value?.toElement(),
+          amount = this@with.amount,
           amountType = this@with.amountType,
           source = this@with.source.takeUnless { it.all { it == null } },
         )

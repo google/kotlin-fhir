@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.NutritionOrder
+import com.google.fhir.model.r4b.surrogates.NutritionOrderEnteralFormulaAdministrationRateSurrogate
 import com.google.fhir.model.r4b.surrogates.NutritionOrderEnteralFormulaAdministrationSurrogate
 import com.google.fhir.model.r4b.surrogates.NutritionOrderEnteralFormulaSurrogate
 import com.google.fhir.model.r4b.surrogates.NutritionOrderOralDietNutrientSurrogate
@@ -26,11 +28,18 @@ import com.google.fhir.model.r4b.surrogates.NutritionOrderOralDietSurrogate
 import com.google.fhir.model.r4b.surrogates.NutritionOrderOralDietTextureSurrogate
 import com.google.fhir.model.r4b.surrogates.NutritionOrderSupplementSurrogate
 import com.google.fhir.model.r4b.surrogates.NutritionOrderSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object NutritionOrderOralDietNutrientSerializer :
   KSerializer<NutritionOrder.OralDiet.Nutrient> {
@@ -102,6 +111,31 @@ public object NutritionOrderSupplementSerializer : KSerializer<NutritionOrder.Su
   }
 }
 
+public object NutritionOrderEnteralFormulaAdministrationRateSerializer :
+  KSerializer<NutritionOrder.EnteralFormula.Administration.Rate> {
+  internal val surrogateSerializer:
+    KSerializer<NutritionOrderEnteralFormulaAdministrationRateSurrogate> by lazy {
+    NutritionOrderEnteralFormulaAdministrationRateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Rate", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula.Administration.Rate =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: NutritionOrder.EnteralFormula.Administration.Rate,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      NutritionOrderEnteralFormulaAdministrationRateSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object NutritionOrderEnteralFormulaAdministrationSerializer :
   KSerializer<NutritionOrder.EnteralFormula.Administration> {
   internal val surrogateSerializer:
@@ -109,18 +143,45 @@ public object NutritionOrderEnteralFormulaAdministrationSerializer :
     NutritionOrderEnteralFormulaAdministrationSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("rate")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Administration", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula.Administration =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula.Administration {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: NutritionOrder.EnteralFormula.Administration) {
-    surrogateSerializer.serialize(
-      encoder,
-      NutritionOrderEnteralFormulaAdministrationSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = NutritionOrderEnteralFormulaAdministrationSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

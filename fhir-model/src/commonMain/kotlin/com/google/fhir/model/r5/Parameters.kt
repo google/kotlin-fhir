@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ParametersParameterSerializer
+import com.google.fhir.model.r5.serializers.ParametersParameterValueSerializer
 import com.google.fhir.model.r5.serializers.ParametersSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -131,6 +132,7 @@ public data class Parameters(
     /** A named part of a multi-part parameter. */
     public var part: MutableList<Parameter> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = ParametersParameterValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 

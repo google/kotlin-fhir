@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.InvoiceLineItemChargeItemSerializer
 import com.google.fhir.model.r4b.serializers.InvoiceLineItemPriceComponentSerializer
 import com.google.fhir.model.r4b.serializers.InvoiceLineItemSerializer
 import com.google.fhir.model.r4b.serializers.InvoiceParticipantSerializer
@@ -402,6 +403,7 @@ public data class Invoice(
       public var amount: Money? = null,
     ) : BackboneElement()
 
+    @Serializable(with = InvoiceLineItemChargeItemSerializer::class)
     public sealed interface ChargeItem {
       public fun asReference(): Reference? = this as? Reference
 

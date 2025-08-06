@@ -219,10 +219,7 @@ internal data class ContractTermOfferPartySurrogate(
 }
 
 @Serializable
-internal data class ContractTermOfferAnswerSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class ContractTermOfferAnswerValueSurrogate(
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
   public var valueDecimal: Double? = null,
@@ -244,51 +241,91 @@ internal data class ContractTermOfferAnswerSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueReference: Reference? = null,
 ) {
+  public fun toModel(): Contract.Term.Offer.Answer.Value =
+    Contract.Term.Offer.Answer.Value.from(
+      R4Boolean.of(
+        this@ContractTermOfferAnswerValueSurrogate.valueBoolean,
+        this@ContractTermOfferAnswerValueSurrogate._valueBoolean,
+      ),
+      Decimal.of(
+        this@ContractTermOfferAnswerValueSurrogate.valueDecimal,
+        this@ContractTermOfferAnswerValueSurrogate._valueDecimal,
+      ),
+      Integer.of(
+        this@ContractTermOfferAnswerValueSurrogate.valueInteger,
+        this@ContractTermOfferAnswerValueSurrogate._valueInteger,
+      ),
+      Date.of(
+        FhirDate.fromString(this@ContractTermOfferAnswerValueSurrogate.valueDate),
+        this@ContractTermOfferAnswerValueSurrogate._valueDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ContractTermOfferAnswerValueSurrogate.valueDateTime),
+        this@ContractTermOfferAnswerValueSurrogate._valueDateTime,
+      ),
+      Time.of(
+        this@ContractTermOfferAnswerValueSurrogate.valueTime,
+        this@ContractTermOfferAnswerValueSurrogate._valueTime,
+      ),
+      R4String.of(
+        this@ContractTermOfferAnswerValueSurrogate.valueString,
+        this@ContractTermOfferAnswerValueSurrogate._valueString,
+      ),
+      Uri.of(
+        this@ContractTermOfferAnswerValueSurrogate.valueUri,
+        this@ContractTermOfferAnswerValueSurrogate._valueUri,
+      ),
+      this@ContractTermOfferAnswerValueSurrogate.valueAttachment,
+      this@ContractTermOfferAnswerValueSurrogate.valueCoding,
+      this@ContractTermOfferAnswerValueSurrogate.valueQuantity,
+      this@ContractTermOfferAnswerValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Contract.Term.Offer.Answer.Value
+    ): ContractTermOfferAnswerValueSurrogate =
+      with(model) {
+        ContractTermOfferAnswerValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueCoding = this@with.asCoding()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ContractTermOfferAnswerSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: Contract.Term.Offer.Answer.Value,
+) {
   public fun toModel(): Contract.Term.Offer.Answer =
     Contract.Term.Offer.Answer(
       id = this@ContractTermOfferAnswerSurrogate.id,
       extension = this@ContractTermOfferAnswerSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@ContractTermOfferAnswerSurrogate.modifierExtension ?: mutableListOf(),
-      `value` =
-        Contract.Term.Offer.Answer.Value.from(
-          R4Boolean.of(
-            this@ContractTermOfferAnswerSurrogate.valueBoolean,
-            this@ContractTermOfferAnswerSurrogate._valueBoolean,
-          ),
-          Decimal.of(
-            this@ContractTermOfferAnswerSurrogate.valueDecimal,
-            this@ContractTermOfferAnswerSurrogate._valueDecimal,
-          ),
-          Integer.of(
-            this@ContractTermOfferAnswerSurrogate.valueInteger,
-            this@ContractTermOfferAnswerSurrogate._valueInteger,
-          ),
-          Date.of(
-            FhirDate.fromString(this@ContractTermOfferAnswerSurrogate.valueDate),
-            this@ContractTermOfferAnswerSurrogate._valueDate,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@ContractTermOfferAnswerSurrogate.valueDateTime),
-            this@ContractTermOfferAnswerSurrogate._valueDateTime,
-          ),
-          Time.of(
-            this@ContractTermOfferAnswerSurrogate.valueTime,
-            this@ContractTermOfferAnswerSurrogate._valueTime,
-          ),
-          R4String.of(
-            this@ContractTermOfferAnswerSurrogate.valueString,
-            this@ContractTermOfferAnswerSurrogate._valueString,
-          ),
-          Uri.of(
-            this@ContractTermOfferAnswerSurrogate.valueUri,
-            this@ContractTermOfferAnswerSurrogate._valueUri,
-          ),
-          this@ContractTermOfferAnswerSurrogate.valueAttachment,
-          this@ContractTermOfferAnswerSurrogate.valueCoding,
-          this@ContractTermOfferAnswerSurrogate.valueQuantity,
-          this@ContractTermOfferAnswerSurrogate.valueReference,
-        )!!,
+      `value` = this@ContractTermOfferAnswerSurrogate.`value`,
     )
 
   public companion object {
@@ -298,26 +335,7 @@ internal data class ContractTermOfferAnswerSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
-          valueTime = this@with.`value`?.asTime()?.value?.value,
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueUri = this@with.`value`?.asUri()?.value?.value,
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
-          valueCoding = this@with.`value`?.asCoding()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueReference = this@with.`value`?.asReference()?.value,
+          `value` = this@with.`value`,
         )
       }
   }
@@ -472,12 +490,35 @@ internal data class ContractTermAssetContextSurrogate(
 }
 
 @Serializable
+internal data class ContractTermAssetValuedItemEntitySurrogate(
+  public var entityCodeableConcept: CodeableConcept? = null,
+  public var entityReference: Reference? = null,
+) {
+  public fun toModel(): Contract.Term.Asset.ValuedItem.Entity =
+    Contract.Term.Asset.ValuedItem.Entity?.from(
+      this@ContractTermAssetValuedItemEntitySurrogate.entityCodeableConcept,
+      this@ContractTermAssetValuedItemEntitySurrogate.entityReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Contract.Term.Asset.ValuedItem.Entity
+    ): ContractTermAssetValuedItemEntitySurrogate =
+      with(model) {
+        ContractTermAssetValuedItemEntitySurrogate(
+          entityCodeableConcept = this@with.asCodeableConcept()?.value,
+          entityReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ContractTermAssetValuedItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var entityCodeableConcept: CodeableConcept? = null,
-  public var entityReference: Reference? = null,
+  public var entity: Contract.Term.Asset.ValuedItem.Entity? = null,
   public var identifier: Identifier? = null,
   public var effectiveTime: KotlinString? = null,
   public var _effectiveTime: Element? = null,
@@ -505,11 +546,7 @@ internal data class ContractTermAssetValuedItemSurrogate(
       extension = this@ContractTermAssetValuedItemSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@ContractTermAssetValuedItemSurrogate.modifierExtension ?: mutableListOf(),
-      entity =
-        Contract.Term.Asset.ValuedItem.Entity?.from(
-          this@ContractTermAssetValuedItemSurrogate.entityCodeableConcept,
-          this@ContractTermAssetValuedItemSurrogate.entityReference,
-        ),
+      entity = this@ContractTermAssetValuedItemSurrogate.entity,
       identifier = this@ContractTermAssetValuedItemSurrogate.identifier,
       effectiveTime =
         DateTime.of(
@@ -588,8 +625,7 @@ internal data class ContractTermAssetValuedItemSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          entityCodeableConcept = this@with.entity?.asCodeableConcept()?.value,
-          entityReference = this@with.entity?.asReference()?.value,
+          entity = this@with.entity,
           identifier = this@with.identifier,
           effectiveTime = this@with.effectiveTime?.value?.toString(),
           _effectiveTime = this@with.effectiveTime?.toElement(),
@@ -791,6 +827,38 @@ internal data class ContractTermActionSubjectSurrogate(
 }
 
 @Serializable
+internal data class ContractTermActionOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): Contract.Term.Action.Occurrence =
+    Contract.Term.Action.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ContractTermActionOccurrenceSurrogate.occurrenceDateTime),
+        this@ContractTermActionOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@ContractTermActionOccurrenceSurrogate.occurrencePeriod,
+      this@ContractTermActionOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Contract.Term.Action.Occurrence
+    ): ContractTermActionOccurrenceSurrogate =
+      with(model) {
+        ContractTermActionOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ContractTermActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -806,10 +874,7 @@ internal data class ContractTermActionSurrogate(
   public var context: Reference? = null,
   public var contextLinkId: MutableList<KotlinString?>? = null,
   public var _contextLinkId: MutableList<Element?>? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
+  public var occurrence: Contract.Term.Action.Occurrence? = null,
   public var requester: MutableList<Reference>? = null,
   public var requesterLinkId: MutableList<KotlinString?>? = null,
   public var _requesterLinkId: MutableList<Element?>? = null,
@@ -875,15 +940,7 @@ internal data class ContractTermActionSurrogate(
             .map { (value, element) -> R4String.of(value, element)!! }
             .toMutableList()
         },
-      occurrence =
-        Contract.Term.Action.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ContractTermActionSurrogate.occurrenceDateTime),
-            this@ContractTermActionSurrogate._occurrenceDateTime,
-          ),
-          this@ContractTermActionSurrogate.occurrencePeriod,
-          this@ContractTermActionSurrogate.occurrenceTiming,
-        ),
+      occurrence = this@ContractTermActionSurrogate.occurrence,
       requester = this@ContractTermActionSurrogate.requester ?: mutableListOf(),
       requesterLinkId =
         if (
@@ -1006,10 +1063,7 @@ internal data class ContractTermActionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          occurrence = this@with.occurrence,
           requester = this@with.requester.takeUnless { it.all { it == null } },
           requesterLinkId =
             this@with.requesterLinkId
@@ -1075,6 +1129,28 @@ internal data class ContractTermActionSurrogate(
 }
 
 @Serializable
+internal data class ContractTermTopicSurrogate(
+  public var topicCodeableConcept: CodeableConcept? = null,
+  public var topicReference: Reference? = null,
+) {
+  public fun toModel(): Contract.Term.Topic =
+    Contract.Term.Topic?.from(
+      this@ContractTermTopicSurrogate.topicCodeableConcept,
+      this@ContractTermTopicSurrogate.topicReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Contract.Term.Topic): ContractTermTopicSurrogate =
+      with(model) {
+        ContractTermTopicSurrogate(
+          topicCodeableConcept = this@with.asCodeableConcept()?.value,
+          topicReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ContractTermSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -1083,8 +1159,7 @@ internal data class ContractTermSurrogate(
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var applies: Period? = null,
-  public var topicCodeableConcept: CodeableConcept? = null,
-  public var topicReference: Reference? = null,
+  public var topic: Contract.Term.Topic? = null,
   public var type: CodeableConcept? = null,
   public var subType: CodeableConcept? = null,
   public var text: KotlinString? = null,
@@ -1107,11 +1182,7 @@ internal data class ContractTermSurrogate(
           this@ContractTermSurrogate._issued,
         ),
       applies = this@ContractTermSurrogate.applies,
-      topic =
-        Contract.Term.Topic?.from(
-          this@ContractTermSurrogate.topicCodeableConcept,
-          this@ContractTermSurrogate.topicReference,
-        ),
+      topic = this@ContractTermSurrogate.topic,
       type = this@ContractTermSurrogate.type,
       subType = this@ContractTermSurrogate.subType,
       text = R4String.of(this@ContractTermSurrogate.text, this@ContractTermSurrogate._text),
@@ -1133,8 +1204,7 @@ internal data class ContractTermSurrogate(
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
           applies = this@with.applies,
-          topicCodeableConcept = this@with.topic?.asCodeableConcept()?.value,
-          topicReference = this@with.topic?.asReference()?.value,
+          topic = this@with.topic,
           type = this@with.type,
           subType = this@with.subType,
           text = this@with.text?.value,
@@ -1184,23 +1254,40 @@ internal data class ContractSignerSurrogate(
 }
 
 @Serializable
+internal data class ContractFriendlyContentSurrogate(
+  public var contentAttachment: Attachment? = null,
+  public var contentReference: Reference? = null,
+) {
+  public fun toModel(): Contract.Friendly.Content =
+    Contract.Friendly.Content.from(
+      this@ContractFriendlyContentSurrogate.contentAttachment,
+      this@ContractFriendlyContentSurrogate.contentReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Contract.Friendly.Content): ContractFriendlyContentSurrogate =
+      with(model) {
+        ContractFriendlyContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ContractFriendlySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var contentAttachment: Attachment? = null,
-  public var contentReference: Reference? = null,
+  public var content: Contract.Friendly.Content,
 ) {
   public fun toModel(): Contract.Friendly =
     Contract.Friendly(
       id = this@ContractFriendlySurrogate.id,
       extension = this@ContractFriendlySurrogate.extension ?: mutableListOf(),
       modifierExtension = this@ContractFriendlySurrogate.modifierExtension ?: mutableListOf(),
-      content =
-        Contract.Friendly.Content.from(
-          this@ContractFriendlySurrogate.contentAttachment,
-          this@ContractFriendlySurrogate.contentReference,
-        )!!,
+      content = this@ContractFriendlySurrogate.content,
     )
 
   public companion object {
@@ -1210,8 +1297,29 @@ internal data class ContractFriendlySurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          contentAttachment = this@with.content?.asAttachment()?.value,
-          contentReference = this@with.content?.asReference()?.value,
+          content = this@with.content,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ContractLegalContentSurrogate(
+  public var contentAttachment: Attachment? = null,
+  public var contentReference: Reference? = null,
+) {
+  public fun toModel(): Contract.Legal.Content =
+    Contract.Legal.Content.from(
+      this@ContractLegalContentSurrogate.contentAttachment,
+      this@ContractLegalContentSurrogate.contentReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Contract.Legal.Content): ContractLegalContentSurrogate =
+      with(model) {
+        ContractLegalContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
         )
       }
   }
@@ -1222,19 +1330,14 @@ internal data class ContractLegalSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var contentAttachment: Attachment? = null,
-  public var contentReference: Reference? = null,
+  public var content: Contract.Legal.Content,
 ) {
   public fun toModel(): Contract.Legal =
     Contract.Legal(
       id = this@ContractLegalSurrogate.id,
       extension = this@ContractLegalSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@ContractLegalSurrogate.modifierExtension ?: mutableListOf(),
-      content =
-        Contract.Legal.Content.from(
-          this@ContractLegalSurrogate.contentAttachment,
-          this@ContractLegalSurrogate.contentReference,
-        )!!,
+      content = this@ContractLegalSurrogate.content,
     )
 
   public companion object {
@@ -1244,8 +1347,29 @@ internal data class ContractLegalSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          contentAttachment = this@with.content?.asAttachment()?.value,
-          contentReference = this@with.content?.asReference()?.value,
+          content = this@with.content,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ContractRuleContentSurrogate(
+  public var contentAttachment: Attachment? = null,
+  public var contentReference: Reference? = null,
+) {
+  public fun toModel(): Contract.Rule.Content =
+    Contract.Rule.Content.from(
+      this@ContractRuleContentSurrogate.contentAttachment,
+      this@ContractRuleContentSurrogate.contentReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Contract.Rule.Content): ContractRuleContentSurrogate =
+      with(model) {
+        ContractRuleContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
         )
       }
   }
@@ -1256,19 +1380,14 @@ internal data class ContractRuleSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var contentAttachment: Attachment? = null,
-  public var contentReference: Reference? = null,
+  public var content: Contract.Rule.Content,
 ) {
   public fun toModel(): Contract.Rule =
     Contract.Rule(
       id = this@ContractRuleSurrogate.id,
       extension = this@ContractRuleSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@ContractRuleSurrogate.modifierExtension ?: mutableListOf(),
-      content =
-        Contract.Rule.Content.from(
-          this@ContractRuleSurrogate.contentAttachment,
-          this@ContractRuleSurrogate.contentReference,
-        )!!,
+      content = this@ContractRuleSurrogate.content,
     )
 
   public companion object {
@@ -1278,8 +1397,51 @@ internal data class ContractRuleSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          contentAttachment = this@with.content?.asAttachment()?.value,
-          contentReference = this@with.content?.asReference()?.value,
+          content = this@with.content,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ContractTopicSurrogate(
+  public var topicCodeableConcept: CodeableConcept? = null,
+  public var topicReference: Reference? = null,
+) {
+  public fun toModel(): Contract.Topic =
+    Contract.Topic?.from(
+      this@ContractTopicSurrogate.topicCodeableConcept,
+      this@ContractTopicSurrogate.topicReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Contract.Topic): ContractTopicSurrogate =
+      with(model) {
+        ContractTopicSurrogate(
+          topicCodeableConcept = this@with.asCodeableConcept()?.value,
+          topicReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ContractLegallyBindingSurrogate(
+  public var legallyBindingAttachment: Attachment? = null,
+  public var legallyBindingReference: Reference? = null,
+) {
+  public fun toModel(): Contract.LegallyBinding =
+    Contract.LegallyBinding?.from(
+      this@ContractLegallyBindingSurrogate.legallyBindingAttachment,
+      this@ContractLegallyBindingSurrogate.legallyBindingReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Contract.LegallyBinding): ContractLegallyBindingSurrogate =
+      with(model) {
+        ContractLegallyBindingSurrogate(
+          legallyBindingAttachment = this@with.asAttachment()?.value,
+          legallyBindingReference = this@with.asReference()?.value,
         )
       }
   }
@@ -1327,8 +1489,7 @@ internal data class ContractSurrogate(
   public var _alias: MutableList<Element?>? = null,
   public var author: Reference? = null,
   public var scope: CodeableConcept? = null,
-  public var topicCodeableConcept: CodeableConcept? = null,
-  public var topicReference: Reference? = null,
+  public var topic: Contract.Topic? = null,
   public var type: CodeableConcept? = null,
   public var subType: MutableList<CodeableConcept>? = null,
   public var contentDefinition: Contract.ContentDefinition? = null,
@@ -1339,8 +1500,7 @@ internal data class ContractSurrogate(
   public var friendly: MutableList<Contract.Friendly>? = null,
   public var legal: MutableList<Contract.Legal>? = null,
   public var rule: MutableList<Contract.Rule>? = null,
-  public var legallyBindingAttachment: Attachment? = null,
-  public var legallyBindingReference: Reference? = null,
+  public var legallyBinding: Contract.LegallyBinding? = null,
 ) {
   public fun toModel(): Contract =
     Contract(
@@ -1395,11 +1555,7 @@ internal data class ContractSurrogate(
         },
       author = this@ContractSurrogate.author,
       scope = this@ContractSurrogate.scope,
-      topic =
-        Contract.Topic?.from(
-          this@ContractSurrogate.topicCodeableConcept,
-          this@ContractSurrogate.topicReference,
-        ),
+      topic = this@ContractSurrogate.topic,
       type = this@ContractSurrogate.type,
       subType = this@ContractSurrogate.subType ?: mutableListOf(),
       contentDefinition = this@ContractSurrogate.contentDefinition,
@@ -1410,11 +1566,7 @@ internal data class ContractSurrogate(
       friendly = this@ContractSurrogate.friendly ?: mutableListOf(),
       legal = this@ContractSurrogate.legal ?: mutableListOf(),
       rule = this@ContractSurrogate.rule ?: mutableListOf(),
-      legallyBinding =
-        Contract.LegallyBinding?.from(
-          this@ContractSurrogate.legallyBindingAttachment,
-          this@ContractSurrogate.legallyBindingReference,
-        ),
+      legallyBinding = this@ContractSurrogate.legallyBinding,
     )
 
   public companion object {
@@ -1467,8 +1619,7 @@ internal data class ContractSurrogate(
               ?.toMutableList(),
           author = this@with.author,
           scope = this@with.scope,
-          topicCodeableConcept = this@with.topic?.asCodeableConcept()?.value,
-          topicReference = this@with.topic?.asReference()?.value,
+          topic = this@with.topic,
           type = this@with.type,
           subType = this@with.subType.takeUnless { it.all { it == null } },
           contentDefinition = this@with.contentDefinition,
@@ -1479,8 +1630,7 @@ internal data class ContractSurrogate(
           friendly = this@with.friendly.takeUnless { it.all { it == null } },
           legal = this@with.legal.takeUnless { it.all { it == null } },
           rule = this@with.rule.takeUnless { it.all { it == null } },
-          legallyBindingAttachment = this@with.legallyBinding?.asAttachment()?.value,
-          legallyBindingReference = this@with.legallyBinding?.asReference()?.value,
+          legallyBinding = this@with.legallyBinding,
         )
       }
   }

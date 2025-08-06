@@ -19,6 +19,8 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCategorySerializer
+import com.google.fhir.model.r4b.serializers.EvidenceVariableCategoryValueSerializer
+import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicTimeFromStartSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableSerializer
@@ -430,6 +432,7 @@ public data class EvidenceVariable(
       public var note: MutableList<Annotation> = mutableListOf(),
     ) : BackboneElement()
 
+    @Serializable(with = EvidenceVariableCharacteristicDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asReference(): Reference? = this as? Reference
 
@@ -517,6 +520,7 @@ public data class EvidenceVariable(
     /** Value or set of values that define the grouping. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceVariableCategoryValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

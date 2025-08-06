@@ -39,12 +39,35 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class MedicinalProductInteractionInteractantItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): MedicinalProductInteraction.Interactant.Item =
+    MedicinalProductInteraction.Interactant.Item.from(
+      this@MedicinalProductInteractionInteractantItemSurrogate.itemReference,
+      this@MedicinalProductInteractionInteractantItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductInteraction.Interactant.Item
+    ): MedicinalProductInteractionInteractantItemSurrogate =
+      with(model) {
+        MedicinalProductInteractionInteractantItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicinalProductInteractionInteractantSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
+  public var item: MedicinalProductInteraction.Interactant.Item,
 ) {
   public fun toModel(): MedicinalProductInteraction.Interactant =
     MedicinalProductInteraction.Interactant(
@@ -52,11 +75,7 @@ internal data class MedicinalProductInteractionInteractantSurrogate(
       extension = this@MedicinalProductInteractionInteractantSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@MedicinalProductInteractionInteractantSurrogate.modifierExtension ?: mutableListOf(),
-      item =
-        MedicinalProductInteraction.Interactant.Item.from(
-          this@MedicinalProductInteractionInteractantSurrogate.itemReference,
-          this@MedicinalProductInteractionInteractantSurrogate.itemCodeableConcept,
-        )!!,
+      item = this@MedicinalProductInteractionInteractantSurrogate.item,
     )
 
   public companion object {
@@ -68,8 +87,7 @@ internal data class MedicinalProductInteractionInteractantSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          itemReference = this@with.item?.asReference()?.value,
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+          item = this@with.item,
         )
       }
   }

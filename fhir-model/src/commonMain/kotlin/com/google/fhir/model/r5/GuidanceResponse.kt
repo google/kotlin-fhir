@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.GuidanceResponseModuleSerializer
 import com.google.fhir.model.r5.serializers.GuidanceResponseSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -209,6 +210,7 @@ public data class GuidanceResponse(
    */
   public var dataRequirement: MutableList<DataRequirement> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = GuidanceResponseModuleSerializer::class)
   public sealed interface Module {
     public fun asUri(): Uri? = this as? Uri
 

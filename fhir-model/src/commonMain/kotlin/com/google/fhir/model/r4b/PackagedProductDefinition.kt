@@ -21,7 +21,9 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionLegalStatusOfSupplySerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageContainedItemSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackagePropertySerializer
+import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackagePropertyValueSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageSerializer
+import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionPackageShelfLifeStorageSerializer
 import com.google.fhir.model.r4b.serializers.PackagedProductDefinitionSerializer
 import kotlin.Suppress
@@ -387,6 +389,7 @@ public data class PackagedProductDefinition(
        */
       public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
     ) : BackboneElement() {
+      @Serializable(with = PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer::class)
       public sealed interface Period {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -454,6 +457,7 @@ public data class PackagedProductDefinition(
       /** A value for the characteristic. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = PackagedProductDefinitionPackagePropertyValueSerializer::class)
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

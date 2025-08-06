@@ -19,16 +19,25 @@
 package com.google.fhir.model.r4.serializers
 
 import com.google.fhir.model.r4.Composition
+import com.google.fhir.model.r4.FhirJsonTransformer
 import com.google.fhir.model.r4.surrogates.CompositionAttesterSurrogate
 import com.google.fhir.model.r4.surrogates.CompositionEventSurrogate
 import com.google.fhir.model.r4.surrogates.CompositionRelatesToSurrogate
+import com.google.fhir.model.r4.surrogates.CompositionRelatesToTargetSurrogate
 import com.google.fhir.model.r4.surrogates.CompositionSectionSurrogate
 import com.google.fhir.model.r4.surrogates.CompositionSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object CompositionAttesterSerializer : KSerializer<Composition.Attester> {
   internal val surrogateSerializer: KSerializer<CompositionAttesterSurrogate> by lazy {
@@ -47,20 +56,67 @@ public object CompositionAttesterSerializer : KSerializer<Composition.Attester> 
   }
 }
 
+public object CompositionRelatesToTargetSerializer : KSerializer<Composition.RelatesTo.Target> {
+  internal val surrogateSerializer: KSerializer<CompositionRelatesToTargetSurrogate> by lazy {
+    CompositionRelatesToTargetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Target", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Composition.RelatesTo.Target =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Composition.RelatesTo.Target) {
+    surrogateSerializer.serialize(encoder, CompositionRelatesToTargetSurrogate.fromModel(value))
+  }
+}
+
 public object CompositionRelatesToSerializer : KSerializer<Composition.RelatesTo> {
   internal val surrogateSerializer: KSerializer<CompositionRelatesToSurrogate> by lazy {
     CompositionRelatesToSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("target")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("RelatesTo", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Composition.RelatesTo =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Composition.RelatesTo {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Composition.RelatesTo) {
-    surrogateSerializer.serialize(encoder, CompositionRelatesToSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CompositionRelatesToSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

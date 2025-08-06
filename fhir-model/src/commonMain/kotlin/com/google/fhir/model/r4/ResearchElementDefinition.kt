@@ -18,8 +18,12 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.ResearchElementDefinitionCharacteristicDefinitionSerializer
+import com.google.fhir.model.r4.serializers.ResearchElementDefinitionCharacteristicParticipantEffectiveSerializer
 import com.google.fhir.model.r4.serializers.ResearchElementDefinitionCharacteristicSerializer
+import com.google.fhir.model.r4.serializers.ResearchElementDefinitionCharacteristicStudyEffectiveSerializer
 import com.google.fhir.model.r4.serializers.ResearchElementDefinitionSerializer
+import com.google.fhir.model.r4.serializers.ResearchElementDefinitionSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -452,6 +456,7 @@ public data class ResearchElementDefinition(
     /** Indicates how elements are aggregated within the study effective period. */
     public var participantEffectiveGroupMeasure: Enumeration<GroupMeasure>? = null,
   ) : BackboneElement() {
+    @Serializable(with = ResearchElementDefinitionCharacteristicDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -491,6 +496,7 @@ public data class ResearchElementDefinition(
       }
     }
 
+    @Serializable(with = ResearchElementDefinitionCharacteristicStudyEffectiveSerializer::class)
     public sealed interface StudyEffective {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -528,6 +534,9 @@ public data class ResearchElementDefinition(
       }
     }
 
+    @Serializable(
+      with = ResearchElementDefinitionCharacteristicParticipantEffectiveSerializer::class
+    )
     public sealed interface ParticipantEffective {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -566,6 +575,7 @@ public data class ResearchElementDefinition(
     }
   }
 
+  @Serializable(with = ResearchElementDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
