@@ -18,6 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import kotlin.Any
+import kotlin.Boolean
+import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -44,4 +47,19 @@ public open class Element(
    * simplicity for everyone.
    */
   public open var extension: MutableList<Extension> = mutableListOf(),
-)
+) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other !is Element) return false
+    if (id != other.id) return false
+    if (extension != other.extension) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    // Using 31 improves hash distribution and reduces collisions in hash-based collections
+    var result = id?.hashCode() ?: 0
+    result = 31 * result + (extension?.hashCode() ?: 0)
+    return result
+  }
+}
