@@ -84,6 +84,12 @@ class ModelTypeSpecGenerator(
             // with '_'.
             if (structureDefinition.name == "Element") {
               addModifiers(KModifier.OPEN)
+              // Override equals and hashcode methods for open classes to allow for properties
+              // comparison like in data classes.
+              addEqualsAndHashCodeFunctions(
+                structureDefinition.name,
+                structureDefinition.rootElements,
+              )
             } else {
               addModifiers(KModifier.SEALED)
             }
@@ -95,6 +101,10 @@ class ModelTypeSpecGenerator(
             // since they need to be subclassed. E.g. Uri can be extended by Url, and Quantity can
             // be extended by Duration.
             addModifiers(KModifier.OPEN)
+            addEqualsAndHashCodeFunctions(
+              structureDefinition.name,
+              structureDefinition.rootElements,
+            )
           } else {
             addModifiers(KModifier.DATA)
           }
@@ -196,6 +206,55 @@ class ModelTypeSpecGenerator(
         }
         .build()
     return typeSpec
+  }
+
+  private fun TypeSpec.Builder.addEqualsAndHashCodeFunctions(
+    name: String,
+    elements: List<Element>,
+  ) {
+    if (elements.isEmpty()) return
+    val equalsFunSpec =
+      FunSpec.builder("equals")
+        .addModifiers(KModifier.OVERRIDE)
+        .addParameter("other", Any::class.asTypeName().copy(nullable = true))
+        .returns(Boolean::class)
+        .addCode(
+          """
+            if (this === other) return true
+            if (other !is ${name.capitalized()}) return false
+        """
+            .trimIndent()
+        )
+        .addCode(
+          elements.joinToString(separator = "\n", prefix = "\n", postfix = "\n") {
+            "if( ${it.getElementName()} != other.${it.getElementName()}) return false"
+          }
+        )
+        .addCode("return true")
+        .build()
+
+    this.addFunction(equalsFunSpec)
+
+    val hashCodeFunSpec =
+      FunSpec.builder("hashCode")
+        .addModifiers(KModifier.OVERRIDE)
+        .returns(Int::class)
+        .addCode(
+          "// Using 31 improves hash distribution and reduces collisions in hash-based collections\n"
+        )
+        .addCode("var result = ${elements.first().getElementName()}?.hashCode() ?: 0")
+        .addCode(
+          elements.subList(1, elements.size).joinToString(
+            separator = "\n",
+            prefix = "\n",
+            postfix = "\n",
+          ) {
+            "result = 31 * result + (${it.getElementName()}?.hashCode() ?: 0)"
+          }
+        )
+        .addCode("return result")
+        .build()
+    this.addFunction(hashCodeFunSpec)
   }
 
   private fun createValueSetUrlToBindingEntry(valueSetUrl: String, bindingName: String) {
