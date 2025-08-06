@@ -378,6 +378,7 @@ graph LR
     style S2 stroke-dasharray: 5 5
     style S3 stroke-dasharray: 5 5
 ```
+> Note: The reverse process can be applied for serialization. 
 
 To put all this together, the
 [FHIR codegen](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen) in the Gradle
