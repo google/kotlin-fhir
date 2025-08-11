@@ -84,8 +84,7 @@ class ModelTypeSpecGenerator(
             // with '_'.
             if (structureDefinition.name == "Element") {
               addModifiers(KModifier.OPEN)
-              // Override equals and hashcode methods for open classes to allow for properties
-              // comparison like in data classes.
+              // Implement equals/hashCode for Element to compare properties (like data classes).
               addEqualsAndHashCodeFunctions(
                 structureDefinition.name,
                 structureDefinition.rootElements,
@@ -101,6 +100,8 @@ class ModelTypeSpecGenerator(
             // since they need to be subclassed. E.g. Uri can be extended by Url, and Quantity can
             // be extended by Duration.
             addModifiers(KModifier.OPEN)
+            // Implement equals/hashCode for open classes (to perform property-based comparison,
+            // like data classes).
             addEqualsAndHashCodeFunctions(
               structureDefinition.name,
               structureDefinition.rootElements,
