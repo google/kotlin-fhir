@@ -50,56 +50,34 @@ import kotlinx.serialization.Serializable
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
 class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
-  fun generate(modelClassName: ClassName, elements: List<Element>): List<TypeSpec> {
-    val surrogateClassName = modelClassName.toSurrogateClassName()
-    val propertyParamPairs: List<Pair<PropertySpec, ParameterSpec>> =
-      elements.flatMap { element ->
-        // Example Patient.deceased[x] can be either a Boolean or a DateTime.
-        if (element.path.endsWith("[x]")) {
-          val propertyName = element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
-          val nullable = element.min < 1
-          val property =
-            PropertySpec.builder(
-                propertyName,
-                ClassName(modelClassName.packageName, element.getPathSimpleNames())
-                  .copy(nullable = nullable),
-              )
-              .initializer(propertyName)
-              .mutable()
-              .build()
-          val parameter =
-            ParameterSpec.builder(property.name, property.type)
-              .apply { if (nullable) defaultValue("null") }
-              .build()
-          listOf(Pair(property, parameter))
-        } else {
-          element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
-            val property =
-              PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
-            val parameter =
-              ParameterSpec.builder(it.first, it.second)
-                .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
-                .build()
-            Pair(property, parameter)
-          }
-        }
-      }
-
-    val sealedInterfaceSurrogateTypeSpecs =
-      elements
-        .filter { it.path.endsWith("[x]") }
-        .map { element: Element ->
-          val sealedInterfaceSurrogateClassName =
-            ClassName(
-              surrogateClassName.packageName,
-              element.getPolymorphicTypeSurrogateClassSimpleName(),
-            )
-          TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
-            .addAnnotation(Serializable::class)
-            .addModifiers(KModifier.INTERNAL)
-            .addModifiers(KModifier.DATA)
-            .apply {
-              val sealedInterfaceSurrogatePropertyParamPair =
+  fun generateModelSurrogate(modelClassName: ClassName, elements: List<Element>): TypeSpec =
+    TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
+      .apply {
+        addAnnotation(Serializable::class)
+        addModifiers(KModifier.INTERNAL)
+        addModifiers(KModifier.DATA).apply {
+          val propertyParamPairs =
+            elements.flatMap { element ->
+              // Example Patient.deceased[x] can be either a Boolean or a DateTime.
+              if (element.path.endsWith("[x]")) {
+                val propertyName =
+                  element.getPathSimpleNames().last().replaceFirstChar { it.lowercase() }
+                val nullable = element.min < 1
+                val property =
+                  PropertySpec.builder(
+                      propertyName,
+                      ClassName(modelClassName.packageName, element.getPathSimpleNames())
+                        .copy(nullable = nullable),
+                    )
+                    .initializer(propertyName)
+                    .mutable()
+                    .build()
+                val parameter =
+                  ParameterSpec.builder(property.name, property.type)
+                    .apply { if (nullable) defaultValue("null") }
+                    .build()
+                listOf(Pair(property, parameter))
+              } else {
                 element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
                   val property =
                     PropertySpec.builder(it.first, it.second)
@@ -112,51 +90,69 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                       .build()
                   Pair(property, parameter)
                 }
-
-              addProperties(sealedInterfaceSurrogatePropertyParamPair.map { it.first })
-              primaryConstructor(
-                FunSpec.constructorBuilder()
-                  .apply {
-                    sealedInterfaceSurrogatePropertyParamPair.forEach { addParameter(it.second) }
-                  }
-                  .build()
-              )
-              addSealedClassSurrogateConverterToModelClass(
-                modelClassName,
-                sealedInterfaceSurrogateClassName,
-                element,
-              )
-              addSealedClassSurrogateConverterFromModelClass(
-                modelClassName,
-                sealedInterfaceSurrogateClassName,
-                element,
-              )
+              }
             }
-            .build()
-        }
-
-    val modelSurrogateTypeSpec =
-      TypeSpec.classBuilder(surrogateClassName)
-        .apply {
-          addAnnotation(Serializable::class)
-          addModifiers(KModifier.INTERNAL)
-          addModifiers(KModifier.DATA)
           addProperties(propertyParamPairs.map { it.first })
           primaryConstructor(
             FunSpec.constructorBuilder()
               .apply { propertyParamPairs.forEach { addParameter(it.second) } }
               .build()
           )
-          addConverterToModelClass(modelClassName, elements)
-          addConverterFromModelClass(modelClassName, elements)
         }
-        .build()
+        addConverterToModelClass(modelClassName, elements)
+        addConverterFromModelClass(modelClassName, elements)
+      }
+      .build()
 
-    return buildList {
-      addAll(sealedInterfaceSurrogateTypeSpecs)
-      add(modelSurrogateTypeSpec)
-    }
-  }
+  fun generateSealedInterfaceSurrogates(
+    className: ClassName,
+    elements: List<Element>,
+  ): List<TypeSpec> =
+    elements
+      .filter { it.path.endsWith("[x]") }
+      .map { element: Element ->
+        val sealedInterfaceSurrogateClassName =
+          ClassName(
+            className.toSurrogateClassName().packageName,
+            element.getPolymorphicTypeSurrogateClassSimpleName(),
+          )
+        TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
+          .addAnnotation(Serializable::class)
+          .addModifiers(KModifier.INTERNAL)
+          .addModifiers(KModifier.DATA)
+          .apply {
+            val sealedInterfaceSurrogatePropertyParamPair =
+              element.getSurrogatePropertyNameTypeDefaultValueList(className).map {
+                val property =
+                  PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
+                val parameter =
+                  ParameterSpec.builder(it.first, it.second)
+                    .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+                    .build()
+                Pair(property, parameter)
+              }
+
+            addProperties(sealedInterfaceSurrogatePropertyParamPair.map { it.first })
+            primaryConstructor(
+              FunSpec.constructorBuilder()
+                .apply {
+                  sealedInterfaceSurrogatePropertyParamPair.forEach { addParameter(it.second) }
+                }
+                .build()
+            )
+            addSealedClassSurrogateConverterToModelClass(
+              className,
+              sealedInterfaceSurrogateClassName,
+              element,
+            )
+            addSealedClassSurrogateConverterFromModelClass(
+              className,
+              sealedInterfaceSurrogateClassName,
+              element,
+            )
+          }
+          .build()
+      }
 
   /** Adds a [FunSpec] to convert surrogate class to a sealed interface */
   private fun TypeSpec.Builder.addSealedClassSurrogateConverterToModelClass(
