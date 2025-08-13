@@ -30,11 +30,11 @@ public sealed interface FhirDate {
     override fun toString(): String = value.toString()
   }
 
-  public class YearMonth(public val year: Int, public val month: Int) : FhirDate {
+  public data class YearMonth(public val year: Int, public val month: Int) : FhirDate {
     override fun toString(): String = "$year-${month.toString().padStart(2,'0')}"
   }
 
-  public class Date(public val date: LocalDate) : FhirDate {
+  public data class Date(public val date: LocalDate) : FhirDate {
     override fun toString(): String = date.toString()
   }
 

@@ -33,15 +33,15 @@ public sealed interface FhirDateTime {
     override fun toString(): String = value.toString()
   }
 
-  public class YearMonth(public val year: Int, public val month: Int) : FhirDateTime {
+  public data class YearMonth(public val year: Int, public val month: Int) : FhirDateTime {
     override fun toString(): String = "$year-${month.toString().padStart(2,'0')}"
   }
 
-  public class Date(public val date: LocalDate) : FhirDateTime {
+  public data class Date(public val date: LocalDate) : FhirDateTime {
     override fun toString(): String = date.toString()
   }
 
-  public class DateTime(public val dateTime: LocalDateTime, public val utcOffset: UtcOffset) :
+  public data class DateTime(public val dateTime: LocalDateTime, public val utcOffset: UtcOffset) :
     FhirDateTime {
     override fun toString(): String =
       dateTime.format(LocalDateTime.Formats.ISO) + utcOffset.toString()

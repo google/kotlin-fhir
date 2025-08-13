@@ -177,6 +177,23 @@ class SerializationRoundTripTest {
       }
   }
 
+  @Test
+  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4() {
+    loadR4Examples(
+        fileNameFilter = {
+          return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
+        }
+      )
+      .forEach {
+        val exampleJson = prettyPrintJson(it)
+        val firstResource: com.google.fhir.model.r4.Resource =
+          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val secondResource: com.google.fhir.model.r4.Resource =
+          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        assertEquals(firstResource, secondResource)
+      }
+  }
+
   companion object {
     private val jsonR4 = Json {
       prettyPrint = true
