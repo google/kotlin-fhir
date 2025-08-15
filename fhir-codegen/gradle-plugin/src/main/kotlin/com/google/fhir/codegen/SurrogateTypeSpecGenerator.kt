@@ -51,7 +51,7 @@ import kotlinx.serialization.Serializable
  */
 class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
   /**
-   * Generates a [TypeSpec] for the model's Surrogate.
+   * Generates a [TypeSpec] for the model's Surrogate (including backbone elements).
    *
    * Example: PatientSurrogate for the Patient resource.
    */
