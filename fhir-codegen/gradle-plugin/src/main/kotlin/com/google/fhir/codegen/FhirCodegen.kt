@@ -80,12 +80,13 @@ object FhirCodegen {
       val serializersPackageName = "${modelClassName.packageName}.serializers"
       val rootElements = structureDefinition.rootElements
 
-      surrogateFileSpec.apply {
-        surrogateTypeSpecGenerator
-          .generateSealedInterfaceSurrogates(modelClassName, rootElements)
-          .forEach(this::addType)
-        addType(surrogateTypeSpecGenerator.generateModelSurrogate(modelClassName, rootElements))
-      }
+      surrogateFileSpec.addType(surrogateTypeSpecGenerator.generateModelSurrogate(modelClassName, rootElements))
+      surrogateTypeSpecGenerator
+        .generateSealedInterfaceSurrogates(modelClassName, rootElements)
+        .forEach{
+          surrogateFileSpec.addType(it)
+        }
+      
 
       fileSpecs +=
         surrogateFileSpec
