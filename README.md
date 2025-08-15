@@ -61,50 +61,6 @@ The library does not support `macos` targets in the tier 1 list, or any
 reflects their limited usage currently rather than technical difficulty. Please contact the team if
 you require support for these platforms.
 
-## Implementation
-
-### Overview
-
-```mermaid
-graph LR
-    subgraph Gradle binary plugin
-        A(FHIR spec<br>in JSON) -- kotlinx.serialization --> B(instances of<br>StructureDefinition<br>Kotlin data class<br>)
-        B -- KotlinPoet --> C[generated FHIR Resource classes]
-    end
-    C -- compiler --> D[jvm target]
-    C -- compiler --> E[native target]
-    C -- compiler --> F[js target]
-```
-
-The Kotlin FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code
-directly
-from FHIR specification. This plugin uses [
-`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) library to parse and load
-FHIR resource `StructureDefinition`s into an in-memory representation, and then
-uses [KotlinPoet](https://square.github.io/kotlinpoet/) to generate corresponding class definitions
-for each FHIR resource type. Finally, these generated Kotlin classes are compiled into JVM,
-JavaScript and native targets, enabling their use across various platforms.
-
-### Definitions
-
-Kotlin code is generated for StructureDefinitions in the following FHIR packages:
-
-- [hl7.fhir.r4.core](https://simplifier.net/packages/hl7.fhir.r4.core)
-- [hl7.fhir.r4b.core](https://simplifier.net/packages/hl7.fhir.r4b.core)
-- [hl7.fhir.r5.core](https://simplifier.net/packages/hl7.fhir.r5.core)
-
-> **Note:** The following are **NOT** included in the generated code:
-> - [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
-> such as [Definition](https://hl7.org/fhir/R4/definition.html),
-> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
-> in R4
-> - Profiles StructureDefinitions
-> - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
-> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
-> StructureDefinitions are not represented in the generated code
-> - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
-> SearchParameters, and ValueSets
-
 ## Data model
 
 ### Mapping FHIR primitive data types to Kotlin
@@ -276,15 +232,14 @@ with an **additional step to flatten and unflatten JSON**. For polymorphic prope
 `Patient.MultipleBirth`—the library generates a custom serializer (e.g., `PatientMultipleBirthSerializer`)
 used in the resource’s surrogate class (e.g., `PatientSurrogate`).
 
-This relies on the FhirJsonTransformer (in [R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt), [R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt), [R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)), which flattens JSON during serialization and unflattens
-during deserialization. This approach avoids [JVM constructor arguments limit](https://docs.oracle.com/javase/specs/jvms/se19/html/jvms-4.html#jvms-4.3.3) caused by FHIR’s many properties
-(including extensions for primitive types) by delegating complex polymorphic fields to their
-custom serializers instead of fully expanding them in the resource's surrogate class.
+This uses the FhirJsonTransformer (in [R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt), [R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt), [R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)),
+to flatten JSON during serialization and restore it during deserialization. This avoids hitting the [JVM constructor argument limit](https://docs.oracle.com/javase/specs/jvms/se19/html/jvms-4.html#jvms-4.3.3) caused by
+FHIR fields with many possible types (e.g., [ElementDefinition.pattern](https://www.hl7.org/fhir/R4B/elementdefinition-definitions.html#ElementDefinition.pattern_x_)).
+Instead of expanding all types in the surrogate class—which would exceed the limit— polymorphic fields are handled by
+custom serializers.
 
 The `toModel` function in each surrogate class merges primitive type values with their extension fields into a single
 object, and consolidates related fields for sealed interfaces into their proper model representation.
-
-### FHIR codegen
 
 ```mermaid
 graph LR
@@ -387,6 +342,53 @@ graph LR
 ```
 
 > Note: The reverse process can be applied for serialization.
+
+## Implementation
+
+### Overview
+
+```mermaid
+graph LR
+    subgraph Gradle binary plugin
+        A(FHIR spec<br>in JSON) -- kotlinx.serialization --> B(instances of<br>StructureDefinition<br>Kotlin data class<br>)
+        B -- KotlinPoet --> C[generated FHIR Resource classes]
+    end
+    C -- compiler --> D[jvm target]
+    C -- compiler --> E[native target]
+    C -- compiler --> F[js target]
+```
+
+The Kotlin FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code
+directly
+from FHIR specification. This plugin uses [
+`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) library to parse and load
+FHIR resource `StructureDefinition`s into an in-memory representation, and then
+uses [KotlinPoet](https://square.github.io/kotlinpoet/) to generate corresponding class definitions
+for each FHIR resource type. Finally, these generated Kotlin classes are compiled into JVM,
+JavaScript and native targets, enabling their use across various platforms.
+
+### Definitions
+
+Kotlin code is generated for StructureDefinitions in the following FHIR packages:
+
+- [hl7.fhir.r4.core](https://simplifier.net/packages/hl7.fhir.r4.core)
+- [hl7.fhir.r4b.core](https://simplifier.net/packages/hl7.fhir.r4b.core)
+- [hl7.fhir.r5.core](https://simplifier.net/packages/hl7.fhir.r5.core)
+
+> **Note:** The following are **NOT** included in the generated code:
+> - [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
+>
+>> such as [Definition](https://hl7.org/fhir/R4/definition.html),
+>> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
+>> in R4
+>> - Profiles StructureDefinitions
+>> - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
+>> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
+>> StructureDefinitions are not represented in the generated code
+>> - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
+>> SearchParameters, and ValueSets
+
+### FHIR codegen
 
 To put all this together, the
 [FHIR codegen](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen) in the Gradle
