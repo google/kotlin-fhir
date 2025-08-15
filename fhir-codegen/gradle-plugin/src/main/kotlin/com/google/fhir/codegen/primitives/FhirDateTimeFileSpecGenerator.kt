@@ -69,6 +69,7 @@ object FhirDateTimeFileSpecGenerator {
             )
             addType(
               TypeSpec.classBuilder("YearMonth")
+                .addModifiers(KModifier.DATA)
                 .addSuperinterface(sealedInterfaceClassName)
                 .primaryConstructor(
                   FunSpec.constructorBuilder()
@@ -89,6 +90,7 @@ object FhirDateTimeFileSpecGenerator {
             )
             addType(
               TypeSpec.classBuilder("Date")
+                .addModifiers(KModifier.DATA)
                 .addSuperinterface(sealedInterfaceClassName)
                 .primaryConstructor(
                   FunSpec.constructorBuilder().addParameter("date", LocalDate::class).build()
@@ -107,6 +109,7 @@ object FhirDateTimeFileSpecGenerator {
             )
             addType(
               TypeSpec.classBuilder("DateTime")
+                .addModifiers(KModifier.DATA)
                 .addSuperinterface(sealedInterfaceClassName)
                 .primaryConstructor(
                   FunSpec.constructorBuilder()

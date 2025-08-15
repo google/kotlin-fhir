@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import kotlin.Any
+import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
@@ -43,6 +45,23 @@ public open class Integer(
   /** The actual value */
   public open var `value`: Int? = null,
 ) : Element(id, extension) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other !is Integer) return false
+    if (id != other.id) return false
+    if (extension != other.extension) return false
+    if (value != other.value) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    // Using 31 improves hash distribution and reduces collisions in hash-based collections
+    var result = id?.hashCode() ?: 0
+    result = 31 * result + (extension?.hashCode() ?: 0)
+    result = 31 * result + (value?.hashCode() ?: 0)
+    return result
+  }
+
   public open fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
