@@ -50,6 +50,11 @@ import kotlinx.serialization.Serializable
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
 class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
+  /**
+   * Generates a [TypeSpec] for the model's Surrogate.
+   *
+   * Example: PatientSurrogate for the Patient resource.
+   */
   fun generateModelSurrogate(modelClassName: ClassName, elements: List<Element>): TypeSpec =
     TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
       .apply {
@@ -104,6 +109,12 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       }
       .build()
 
+  /**
+   * Generates a list of [TypeSpec] for sealed interface Surrogate classes.
+   *
+   * Example: PatientDeceasedSurrogate and PatientMultipleBirthSurrogate for the Patient.Deceased
+   * and Patient.MultipleBirth sealed interfaces.
+   */
   fun generateSealedInterfaceSurrogates(
     className: ClassName,
     elements: List<Element>,
