@@ -238,7 +238,7 @@ class ModelTypeSpecGenerator(
             .buildProperties(backboneElementClassName, elements, null, false, valueSetMap)
             .addBackboneElement(
               backboneElement.path,
-              enclosingModelClassName.nestedClass(name),
+              backboneElementClassName,
               backboneElements,
               structureDefinition,
               surrogateTypeSpecGenerator,
@@ -256,16 +256,17 @@ class ModelTypeSpecGenerator(
 
         // TODO: Handle cases where the BackboneElement does not need the surrogate class and
         //  the custom serializer since it does not have any primitive fields.
-        val className = enclosingModelClassName.nestedClass(name.capitalized())
         surrogateFileSpec.apply {
           surrogateTypeSpecGenerator
-            .generateSealedInterfaceSurrogates(className, elements)
+            .generateSealedInterfaceSurrogates(backboneElementClassName, elements)
             .forEach(this::addType)
-          addType(surrogateTypeSpecGenerator.generateModelSurrogate(className, elements))
+          addType(
+            surrogateTypeSpecGenerator.generateModelSurrogate(backboneElementClassName, elements)
+          )
         }
 
         serializerFileSpec.addType(
-          SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name), elements)
+          SerializerTypeSpecGenerator.generate(backboneElementClassName, elements)
         )
       }
 
